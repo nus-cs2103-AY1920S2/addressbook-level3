@@ -93,6 +93,10 @@ public class MainApp extends Application {
         return new ModelManager(initialData, userPrefs);
     }
 
+    /**
+     * Starts logging information
+     * @param config configuration
+     */
     private void initLogging(Config config) {
         LogsCenter.init(config);
     }
