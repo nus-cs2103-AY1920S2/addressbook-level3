@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S2-CS2103T-W13-1/main[image:https://travis-ci.org/AY1920S2-CS2103T-W13-1/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/sheexiong/main[image:https://ci.appveyor.com/api/projects/status/dbj3b59a50xf8eem?svg=true[Build status]]
 https://coveralls.io/github/AY1920S2-CS2103T-W13-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-W13-1/main/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
+https://www.codacy.com/gh/AY1920S2-CS2103T-W13-1/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S2-CS2103T-W13-1/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/078f3f0857d640688e106b01ce8a9b71[Codacy Badge]]
 
 
 ifdef::env-github[]
