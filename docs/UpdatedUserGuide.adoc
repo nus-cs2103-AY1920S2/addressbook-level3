@@ -154,7 +154,7 @@ There is no need to save manually.
 === View Help : `help`
 
 Notably will display the list of features and commands available as well as their uses. +
-Format : `format`
+Format : `help`
 
 === Create a new note : `new`
 
