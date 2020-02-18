@@ -265,7 +265,7 @@ image::export.png[width="790"]
 
 *  User can search for the Note that contains the specific keyword by using `Search {keyword}`
 +
-image::Search.png[width="790"]
+image::Search1.png[width="790"]
 +
 *  
 
