@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Notably - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,11 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team Notably`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Notably is for those who prefer to use a desktop app for taking notes. More importantly, Notably is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Notably can get your notes taken down faster than traditional GUI apps.
 
 == Quick Start
 
@@ -27,13 +27,13 @@ AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for mana
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Flow5.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all the
+* *`list`* : Shows a list of contents of the current directory. 
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
@@ -69,9 +69,9 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+=== Listing the conetent of current directory : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of contents of the current directory. +
 Format: `list`
 
 === Editing a person : `edit`
@@ -151,11 +151,41 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== View Help : `help`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Notably will display the list of features and commands available as well as their uses. +
+Format : `help`
+
+=== Create a new note : `new`
+
+You can create a new note in your current working directory. +
+Format: `new -t {TITLE} -b {BODY} -o` +
+Examples: new -t Notably -b Lorem ipsum dolor sit amer
+
+=== Open an existing note: `open`
+
+You can open an existing note by specifying its title. +
+Format: `open -t {TITLE}` +
+Examples: open -t CS2103_notes
+
+=== Edit an existing note : `edit`
+
+Edits body paragraph of the current note. + 
+Format: `edit -b {New Title}` + 
+Example: edit -b This is the new body paragraph
+
+=== Find a note based on certain keywords : `search`
+
+Search the whole data structure for the keyword. +
+Format: `search {keyword}`
+Example: search cs2103
+
+=== Delete a note : `delete`
+If you no longer needs a note, or accidentally create a wrong one, don’t worry. You can always delete your note. +
+Format : `delete -n {note}`
+
+
+
 
 == FAQ
 
@@ -175,3 +205,70 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
+* *List* : `list`
+* *Help* : `help`
+* *Open* : `Opens the directory/node`
+* *New* : `new <Title>` (Constraint: same title cannot exist in the same directory)
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+
+== Demo/MarkUp 
+=== Note Creation
+
+*  The current directory is highlighted at the side bar named "root"
+
++
+image::Flow1.png[width="790"]
++
+
+
+*  Creates new note with the command -new -t {title} -b {body} -o
+*  -o command allow the user to change the directory to the note just created.
++
+image::Flow2.png[width="790"]
++
+
+
+*  Notably is now the current directory as highlighted in the sidebar
+*  User attempt to create another note titled "CS2103T"
++
+image::Flow3.png[width="790"]
++
+
+
+*  User can go back to the parent node with the command `open../`
++
+image::Flow4.png[width="790"]
++
+
+
+*  Current directory : Notably
++
+image::Flow5.png[width="790"]
++
+
+
+=== Navigation 
+
+*  `open {Note}` to navigate to that specific directory.
+*  User can use `tab` to autofill the command recommended by the command line.
++
+image::Navigation.png[width="790"]
++
+
+
+=== Export to pdf
+
+*  User can export note to pdf using `export pdf` command.
++
+image::export.png[width="790"]
++
+
+
+=== Search
+
+*  User can search for the Note that contains the specific keyword by using `Search {keyword}`
++
+image::Search1.png[width="790"]
++
+
