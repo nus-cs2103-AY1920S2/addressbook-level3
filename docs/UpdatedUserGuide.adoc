@@ -153,35 +153,35 @@ There is no need to save manually.
 
 === View Help : `help`
 
-Notably will display the list of features and commands available as well as their uses.
+Notably will display the list of features and commands available as well as their uses. +
 Format : `format`
 
 === Create a new note : `new`
 
-You can create a new note in your current working directory.
-Format: `new -t {TITLE} -b {BODY} -o`
+You can create a new note in your current working directory. +
+Format: `new -t {TITLE} -b {BODY} -o` +
 Examples: new -t Notably -b Lorem ipsum dolor sit amer
 
 === Open an existing note: `open`
 
-You can open an existing note by specifying its title.
-Format: `open -t {TITLE}`
+You can open an existing note by specifying its title. +
+Format: `open -t {TITLE}` +
 Examples: open -t CS2103_notes
 
 === Edit an existing note : `edit`
 
-Edits body paragraph of the current note.
-Format: `edit -b {New Title}`
+Edits body paragraph of the current note. + 
+Format: `edit -b {New Title}` + 
 Example: edit -b This is the new body paragraph
 
 === Find a note based on certain keywords : `search`
 
-Search the whole data structure for the keyword.
+Search the whole data structure for the keyword. +
 Format: `search {keyword}`
 Example: search cs2103
 
 === Delete a note : `delete`
-If you no longer needs a note, or accidentally create a wrong one, don’t worry. You can always delete your note.
+If you no longer needs a note, or accidentally create a wrong one, don’t worry. You can always delete your note. +
 Format : `delete -n {note}`
 
 
@@ -251,7 +251,6 @@ image::Flow5.png[width="790"]
 +
 image::Navigation.png[width="790"]
 +
-*  
 
 === Export to pdf
 
@@ -259,7 +258,7 @@ image::Navigation.png[width="790"]
 +
 image::export.png[width="790"]
 +
-*  
+
 
 === Search
 
@@ -267,5 +266,4 @@ image::export.png[width="790"]
 +
 image::Search1.png[width="790"]
 +
-*  
 
