@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * Represents a version with major, minor and patch number
  */
+
 public class Version implements Comparable<Version> {
 
     public static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";
