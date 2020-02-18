@@ -27,13 +27,13 @@ Notably is for those who prefer to use a desktop app for taking notes. More impo
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Flow5.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
+* *`list`* : Shows a list of contents of the current directory. 
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
@@ -188,7 +188,7 @@ Example: search cs2103
 
 === Delete a note : `delete`
 If you no longer needs a note, or accidentally create a wrong one, don’t worry. You can always delete your note.
-Format : `delete {note}`
+Format : `delete -n {note}`
 
 
 
@@ -218,3 +218,31 @@ e.g. `find James Jake`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 
+== Demo/MarkUp (Note Creation)
+
+The current directory is highlighted at the side bar named "root"
++
+image::Flow1.png[width="790"]
++
+
+Creates new note with the command -new -t {title} -b {body} -o
+-o command allow the user to change the directory to the note just created.
++
+image::Flow2.png[width="790"]
++
+
+Notably is now the currentl directory as highlighted in the sidebar
+User attempt to create another note titled "CS2103T"
++
+image::Flow3.png[width="790"]
++
+
+User can go back to the parent node with the command `open../`
++
+image::Flow4.png[width="790"]
++
+
+Current directory : Notably
++
+image::Flow5.png[width="790"]
++
