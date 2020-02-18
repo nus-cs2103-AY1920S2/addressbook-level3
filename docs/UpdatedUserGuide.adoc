@@ -221,11 +221,13 @@ e.g. `find James Jake`
 image::Flow1.png[width="790"]
 +
 
+
 *  Creates new note with the command -new -t {title} -b {body} -o
 *  -o command allow the user to change the directory to the note just created.
 +
 image::Flow2.png[width="790"]
 +
+
 
 *  Notably is now the current directory as highlighted in the sidebar
 *  User attempt to create another note titled "CS2103T"
@@ -233,10 +235,12 @@ image::Flow2.png[width="790"]
 image::Flow3.png[width="790"]
 +
 
+
 *  User can go back to the parent node with the command `open../`
 +
 image::Flow4.png[width="790"]
 +
+
 
 *  Current directory : Notably
 +
