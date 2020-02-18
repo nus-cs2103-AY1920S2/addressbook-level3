@@ -242,7 +242,7 @@ image::Flow4.png[width="790"]
 +
 image::Flow5.png[width="790"]
 +
-*  
+
 
 === Navigation 
 
@@ -251,6 +251,7 @@ image::Flow5.png[width="790"]
 +
 image::Navigation.png[width="790"]
 +
+
 
 === Export to pdf
 
