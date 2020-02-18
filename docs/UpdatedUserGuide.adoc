@@ -251,6 +251,7 @@ image::Flow5.png[width="790"]
 +
 image::Navigation.png[width="790"]
 +
+*  
 
 === Export to pdf
 
@@ -258,11 +259,13 @@ image::Navigation.png[width="790"]
 +
 image::export.png[width="790"]
 +
+*  
 
 === Search
 
 *  User can search for the Note that contains the specific keyword by using `Search {keyword}`
 +
-image::Search.png[width="790"]
+image::search.png[width="790"]
 +
+*  
 
