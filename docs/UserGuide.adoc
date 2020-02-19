@@ -147,6 +147,7 @@ image::Create4.png[width="790"]
 image::Create5.png[width="790"]
 +
 
+
 === Navigation
 
 . `open [-t] TITLE` to navigate to a specific directory.
@@ -155,12 +156,14 @@ image::Create5.png[width="790"]
 image::Navigation.png[width="790"]
 +
 
+
 === Export to other types
 
 . Users can export notes to other types using the `export [-t] TYPE` command.
 +
 image::Export.png[width="790"]
 +
+
 
 === Search
 
