@@ -1,9 +1,9 @@
 = Address Book (Level 3) [try Travis CI]
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/AY1920S2-CS2103-W9-4/main[image:https://travis-ci.org/AY1920S2-CS2103-W9-4/main.svg?branch=master[Build Status]]
+https://travis-ci.org/AY1920S2-CS2103-W9-4/main[image:https://travis-ci.org/AY1920S2-CS2103-T09-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/ZhangYiping126/main[image:https://ci.appveyor.com/api/projects/status/t43rgp2dr5qpgsfl?svg=true[Build status]]
-https://coveralls.io/github/AY1920S2-CS2103-W9-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103-W9-4/main/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/AY1920S2-CS2103-W9-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103-T09-4/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
 
