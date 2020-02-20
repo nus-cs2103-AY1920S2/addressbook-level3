@@ -1,4 +1,4 @@
-= Address Book (Level 3) 
+= Address Book (Level 3)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S2-CS2103-T09-4/main[image:https://travis-ci.org/AY1920S2-CS2103-T09-4/main.svg?branch=master[Build Status]]
