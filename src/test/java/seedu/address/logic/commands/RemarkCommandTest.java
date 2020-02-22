@@ -25,7 +25,7 @@ public class RemarkCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_addRemarkUnfilteredList_success() {
+    public void executeAddRemarkUnfilteredListSuccess() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
 
@@ -40,7 +40,7 @@ public class RemarkCommandTest {
     }
 
     @Test
-    public void execute_deleteRemarkUnfilteredList_success() {
+    public void executeDeleteRemarkUnfilteredListSuccess() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withRemark("").build();
 
@@ -56,7 +56,7 @@ public class RemarkCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void executeFilteredListSuccess() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
