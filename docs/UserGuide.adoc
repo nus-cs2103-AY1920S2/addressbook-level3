@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Feb 2020`
 
 == Introduction
 
@@ -52,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== List all canteens : `help`
 
 Format: `help`
 
@@ -66,10 +66,10 @@ Format: `list`
 
 Display a list of all canteens ordered by increasing distance from current location.
 
-Format: `find nearest [block name]`
+Format: `find nearest BLOCK_NAME`
 ****
-* The [block name] will be populated with suggestions as the user types.
-* The [block name] has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
+* The BLOCK_NAME will be populated with suggestions as the user types.
+* The BLOCK_NAME has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
 ****
 
 === Going to nearest canteen : `goto`
@@ -77,63 +77,45 @@ Format: `find nearest [block name]`
 Display a map with the route between start and destination location.
 Including the travel instructions and bus services that go to the canteen.
 
-Format: `goto [canteen name] [/f current location]`
+Format: `goto CANTEEN_NAME /f CURRENT LOCATION`
 ****
-* The [canteen name] and [current location] field will be populated with suggestions as the user types.
-* The [canteen name] and [current location field] has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
+* The CANTEEN_NAME and CURRENT LOCATION field will be populated with suggestions as the user types.
+* The CANTEEN_NAME and CURRENT LOCATION field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
 ****
 
 === Viewing all stores in canteen: `enter`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Display the stores available at the canteen based on user input. +
+Format: `enter CANTEEN_NAME`
 
+Format: `find nearest [block name]`
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Overall store rating will be displayed which is determined from ratings given by the user on food items which were previously selected.
 ****
 
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
 === Viewing menu of store : `menu`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+This function is only available after the user has selected a canteen and store. +
+Display the menu based on the user input. +
+User ratings will be displayed if they are available e.g. after the user has selected a food item previously. +
+Format: `menu KEYWORD`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Some of the KEYWORD include [all, by price/name, filter tag].
+* [all] returns a complete list of food sold at the store.
+* [by price/ name] sorts the menu accordingly.
+* [filter tag] displays only the food with the corresponding tag.
 ****
 
-Examples:
+=== Select food : `select`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Selecting food : `select`
-
-Clears all entries from the address book. +
-Format: `clear`
+Select the food. +
+Format: `select INDEX`
 
 === Randomise food selection : `randomize`
 
-Exits the program. +
-Format: `exit`
+Display a list of suggestions of stores/ food. +
+Format: `randomize`
 
 === Setting a budget : `budget set`
 
@@ -153,11 +135,13 @@ Sets your weekly budget to $9.50
 Sets your monthly budget to $100
 
 === Viewing budget: `budget view`
+
 You can use this command to view the current budget, along with any spendings made for the week as well as the remaining available budget to spend.
 Format: `budget view`
 
 
-=== Viewing expense report: `report
+=== Viewing expense report: `report`
+
 You can view a report of your spendings and food purchases for any period.
 Formats: `report`
          `report [/f START_DATE] [/t END_DATE]`
@@ -183,6 +167,7 @@ Generates a report for the month of January.
 Generates a report for the year 2020.
 
 === Viewing past transactions: `transactions`
+
 You can view your past transactions using this command.
 Formats: `transactions`
          `report [/f START_DATE] [/t END_DATE]`
@@ -207,10 +192,12 @@ Generates a report for the month of January.
 Generates a report for the year 2020.
 
 === Review food items: `review`
+
 You can review food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
 Format: `review [item no]`
 
 === Rate food items: `rate`
+
 You can rate food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
 Format: `rate [item no]`
 
