@@ -17,31 +17,10 @@ endif::[]
 
 FoodieBot is a campus food locator application which can help students look for food they want, by recommending the canteens nearest to them.
 
-Our user targets are students, staff and tourists,
+Our target users are students, staff and tourists. In general anyone who comes to or visits NUS.
 
-In general anyone who comes to or visits NUS. In particular, for the indecisive user, this application can give a random food suggestion tailored to each user based on their budget and/ or past food selections etcetera.
+In particular, for the indecisive user, this application can give a random food suggestion tailored to each user based on their budget and/ or past food selections etcetera.
 
-
-== Roles
-Team lead- Ignatius
-
-Testing- Ignatius
-
-Deliverables and deadlines - Shaun
-
-Integration - Leslie
-
-Scheduling and tracking - Xavier
-
-[Tool] expert - Leslie
-
-In charge of model - Leslie
-
-In charge of UI - Shaun
-
-In charge of storage - Xavier
-
-Documentation and code quality - Samantha
 
 == Site Map
 
