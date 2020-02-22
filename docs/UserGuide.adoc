@@ -56,45 +56,34 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Listing all canteens: `list`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Display a list of all available canteens on campus.
 
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Find nearest canteens : `find nearest`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Display a list of all canteens ordered by increasing distance from current location.
 
+Format: `find nearest [block name]`
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* The [block name] will be populated with suggestions as the user types.
+* The [block name] has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
 ****
 
-Examples:
+=== Going to nearest canteen : `goto`
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Display a map with the route between start and destination location.
+Including the travel instructions and bus services that go to the canteen.
 
-=== Locating persons by name: `find`
+Format: `goto [canteen name] [/f current location]`
+****
+* The [canteen name] and [current location] field will be populated with suggestions as the user types.
+* The [canteen name] and [current location field] has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
+****
+
+=== Viewing all stores in canteen: `enter`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -115,7 +104,7 @@ Returns `john` and `John Doe`
 Returns any person having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Viewing menu of store : `menu`
 
 Deletes the specified person from the address book. +
 Format: `delete INDEX`
@@ -136,26 +125,92 @@ Deletes the 2nd person in the address book.
 Deletes the 1st person in the results of the `find` command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
+=== Selecting food : `select`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Randomise food selection : `randomize`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Setting a budget : `budget set`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+You can set a daily, weekly or monthly budget using this function. This budget can also be changed later, however it will reset your budget overview for your current budget cycle.
+Format: `budget set [PERIOD] [AMOUNT]`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+****
+* `[PERIOD]` defines the length of the cycle for your budget. Possible inputs are `daily`, `weekly`, `monthly`, `/d`, `/w`, `/m`.
+* `[AMOUNT]` defines the limit of your budget. This has to be a positive numerical number (decimal places allowed).
+****
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Examples:
+* `budget set weekly 9.50`
+Sets your weekly budget to $9.50
+* `budget set /m 100`
+Sets your monthly budget to $100
+
+=== Viewing budget: `budget view`
+You can use this command to view the current budget, along with any spendings made for the week as well as the remaining available budget to spend.
+Format: `budget view`
+
+
+=== Viewing expense report: `report
+You can view a report of your spendings and food purchases for any period.
+Formats: `report`
+         `report [/f START_DATE] [/t END_DATE]`
+         `report [PERIOD]`
+
+****
+* `[START_DATE]` cannot be a future date.
+* `[END_DATE]` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
+* `[PERIOD]` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `[PERIOD]`, `[/f]` and `[/t]` fields are optional.
+* Both `[/f]` and `[t]` fields require the date format to be the following:
+****
+
+Examples:
+* `report /f 12-02-2020 /t 30-04-2020`
+Generates a report from 12/2/2020 to 30/4/2020.
+* `report /w 12-02-2020`
+Generates a report for the week of 12/2/2020.
+* `report month jan` / `report month january`
+Generates a report for the month of January.
+* `report /y 2020`
+Generates a report for the year 2020.
+
+=== Viewing past transactions: `transactions`
+You can view your past transactions using this command.
+Formats: `transactions`
+         `report [/f START_DATE] [/t END_DATE]`
+         `report [PERIOD]`
+****
+* `[START_DATE]` cannot be a future date.
+* `[END_DATE]` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
+* `[PERIOD]` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `[PERIOD]`, `[/f]` and `[/t]` fields are optional.
+* Both `[/f]` and `[t]` fields require the date format to be the following:
+****
+
+Examples:
+* `report /f 12-02-2020 /t 30-04-2020`
+Generates a report from 12/2/2020 to 30/4/2020.
+* `report /w 12-02-2020`
+Generates a report for the week of 12/2/2020.
+* `report month jan` / `report month january`
+Generates a report for the month of January.
+* `report /y 2020`
+Generates a report for the year 2020.
+
+=== Review food items: `review`
+You can review food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
+Format: `review [item no]`
+
+=== Rate food items: `rate`
+You can rate food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
+Format: `rate [item no]`
+
 
 == FAQ
 
