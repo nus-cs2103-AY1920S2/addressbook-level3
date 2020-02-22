@@ -24,7 +24,7 @@ image::wang-yuchen-alice.jpg[width="150", align="left"]
 {empty}[http://github.com/WANG-Yuchen-Alice[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: In charge of [Display][Data Analysis]
 
 '''
 
