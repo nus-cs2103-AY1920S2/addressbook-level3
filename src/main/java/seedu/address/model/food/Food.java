@@ -62,7 +62,7 @@ public class Food {
         final StringBuilder builder = new StringBuilder();
         builder.append(name)
                 .append(" Time: ")
-                .append(time.toString())
+                .append(time)
                 .append(" Location: ")
                 .append(location)
                 .append(" Weight: ")
