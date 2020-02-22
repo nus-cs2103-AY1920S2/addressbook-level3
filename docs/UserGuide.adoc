@@ -48,10 +48,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Listing all canteens: `list`
+=== List all canteens: `list`
 
 Display a list of all available canteens on campus.
 
@@ -63,7 +62,7 @@ Display a list of all canteens ordered by increasing distance from current locat
 
 Format: `find nearest BLOCK_NAME`
 ****
-* The `BLOCK_NAME will` be populated with suggestions as the user types.
+* The `BLOCK_NAME` will be populated with suggestions as the user types.
 * The `BLOCK_NAME` has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
 ****
 
@@ -72,10 +71,10 @@ Format: `find nearest BLOCK_NAME`
 Display a map with the route between start and destination location.
 Including the travel instructions and bus services that go to the canteen.
 
-Format: `goto CANTEEN_NAME /f CURRENT LOCATION`
+Format: `goto CANTEEN_NAME /f CURRENT_LOCATION`
 ****
-* The `CANTEEN_NAME` and `CURRENT LOCATION` field will be populated with suggestions as the user types.
-* The `CANTEEN_NAME` and `CURRENT LOCATION` field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
+* `CANTEEN_NAME` and `CURRENT_LOCATION` field will be populated with suggestions as the user types.
+* `CANTEEN_NAME` and `CURRENT_LOCATION` field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
 ****
 
 === Viewing all stores in canteen: `enter`
@@ -95,10 +94,10 @@ Format: `menu KEYWORD`
 ****
 * This function is only available after the user has selected a canteen and store.
 * User ratings will be displayed if they are available e.g. after the user has selected a food item previously.
-* KEYWORD include [all, by price/name, filter tag].
-* *[all] returns a complete list of food sold at the store.
-* *[by price/ name] sorts the menu accordingly.
-* *[filter tag] displays only the food with the corresponding tag.
+* `KEYWORD` include [all, by price/name, filter tag].
+** [all] returns a complete list of food sold at the store.
+** [by price/ name] sorts the menu accordingly.
+** [filter tag] displays only the food with the corresponding tag.
 ****
 
 === Select food : `select`
@@ -117,16 +116,16 @@ You can set a daily, weekly or monthly budget using this function. This budget c
 Format: `budget set [PERIOD] [AMOUNT]`
 
 ****
-* `PERIOD` defines the length of the cycle for your budget.
-* *Possible inputs are `daily`, `weekly`, `monthly`, `/d`, `/w`, `/m`.
+* `PERIOD` defines the length of the cycle for your budget. +
+_Possible inputs are `daily`, `weekly`, `monthly`, `/d`, `/w`, `/m`._
 * `AMOUNT` defines the limit of your budget.
-* *This has to be a *positive numerical number* (decimal places allowed).
+* This has to be a *positive numerical number* (decimal places allowed).
 ****
 
 Examples:
 
 * `budget set weekly 9.50` +
-Sets your weekly budget to $9.50
+::Sets your weekly budget to $9.50
 * `budget set /m 100` +
 Sets your monthly budget to $100
 
@@ -146,7 +145,8 @@ Formats: `report` +
 ****
 * `START_DATE` cannot be a future date.
 * `END_DATE` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
-* `PERIOD` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `PERIOD` defines the length of the cycle for the report. +
+_Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`._
 * `PERIOD`, `[/f]` and `[/t]` fields are optional.
 * Both `[/f]` and `[t]` fields require the date format to be the following:
 ****
@@ -165,13 +165,14 @@ Generates a report for the year 2020.
 === Viewing past transactions: `transaction`
 
 You can view your past transactions using this command. +
-Formats: `transaction` +
-         `transaction [/f START_DATE] [/t END_DATE]` +
+Formats: `transaction`::
+         `transaction [/f START_DATE] [/t END_DATE]`::
          `transaction [PERIOD]`
 ****
 * `START_DATE` cannot be a future date.
 * `END_DATE` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
-* `PERIOD` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `PERIOD` defines the length of the cycle for the report. +
+_Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`._
 * `PERIOD`, `[/f]` and `[/t]` fields are optional.
 * Both `[/f]` and `[t]` fields require the date format to be the following:
 ****
@@ -205,20 +206,22 @@ Format: `rate INDEX`
 
 == Command Summary
 
-* *budget view* :`buget view`
-* *enter* : `clear`
-* *find nearest* : `delete INDEX` +
-e.g. `delete 3`
-* *goto* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *list* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *menu* : `list`
-* *rate* : `help`
-* *randomize* :
-* *report* :
-* *review* :
-* *select* :
-* *set* :
-* *transaction* :
+* *budget set* : `budget set PERIOD AMOUNT`
+e.g. `budget set weekly 9.50`
+* *budget view* : `budget view`
+* *enter* : `enter CANTEEN_NAME`
+e.g. `enter deck`
+* *find nearest* : `find nearest BLOCK_NAME` +
+e.g. `find nearest COM1`
+* *goto* : `goto CANTEEN_NAME /f CURRENT_LOCATION` +
+e.g. `goto deck /f COM1`
+* *list* : `list`
+* *menu* : `menu KEYWORD`
+e.g. `menu chicken`
+* *rate* : `rate INDEX`
+* *randomize* : `randomize`
+* *report* : `report` [/f START_DATE] [/t END_DATE] [PERIOD]
+* *review* : `review INDEX`
+* *select* : `select INDEX`
+* *transaction* : `transaction` [/f START_DATE] [/t END_DATE] [PERIOD]
 
