@@ -21,7 +21,7 @@
 <li><a href="#viewing-menu-of-store-code-menu-code">3.6. Viewing menu of store : <code>menu</code></a></li>
 <li><a href="#select-food-code-select-code">3.7. Select food : <code>select</code></a></li>
 <li><a href="#randomise-food-selection-code-randomize-code">3.8. Randomise food selection : <code>randomize</code></a></li>
-<li><a href="#setting-a-budget-code-set-code">3.9. Setting a budget : <code>set</code></a></li>
+<li><a href="#setting-a-budget-code-budget-set-code">3.9. Setting a budget : <code>budget set</code></a></li>
 <li><a href="#viewing-budget-code-budget-view-code">3.10. Viewing budget: <code>budget view</code></a></li>
 <li><a href="#viewing-expense-report-code-report-code">3.11. Viewing expense report: <code>report</code></a></li>
 <li><a href="#viewing-past-transactions-code-transactions-code">3.12. Viewing past transactions: <code>transactions</code></a></li>
@@ -188,6 +188,9 @@ Including the travel instructions and bus services that go to the canteen.</p>
 <p>Display the stores available at the canteen based on user input.<br>
 Format: <code>enter CANTEEN_NAME</code></p>
 </div>
+<div class="paragraph">
+<p>Format: <code>find nearest [block name]</code></p>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -244,29 +247,20 @@ Format: <code>randomize</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-budget-code-set-code"><a class="link" href="#setting-a-budget-code-set-code">3.9. Setting a budget : <code>set</code></a></h3>
+<h3 id="setting-a-budget-code-budget-set-code"><a class="link" href="#setting-a-budget-code-budget-set-code">3.9. Setting a budget : <code>budget set</code></a></h3>
 <div class="paragraph">
-<p>Set a daily, weekly or monthly budget. This budget can be changed at a later date, but will reset any budget reporting for the current period.<br>
-Format: <code>budget set PERIOD AMOUNT</code></p>
+<p>You can set a daily, weekly or monthly budget using this function. This budget can also be changed later, however it will reset your budget overview for your current budget cycle.
+Format: <code>budget set [PERIOD] [AMOUNT]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The PERIOD field defines the length of each period that the budget is effective for.</p>
+<p><code>[PERIOD]</code> defines the length of the cycle for your budget. Possible inputs are <code>daily</code>, <code>weekly</code>, <code>monthly</code>, <code>/d</code>, <code>/w</code>, <code>/m</code>.</p>
 </li>
 <li>
-<p>List of PERIOD inputs includes [daily], [weekly], [monthly] or its shorthand equivalent, [/d], [/w], or [/m] respectively.</p>
-</li>
-<li>
-<p>The PERIOD field has to be one of the above suggestions; otherwise an error message will be displayed requesting a correct type to be provided.</p>
-</li>
-<li>
-<p>The AMOUNT field represents the amount to set the budget to.</p>
-</li>
-<li>
-<p>The AMOUNT field has to be numeric (with or without decimal places); otherwise an error message will be displayed requesting a correct type to be provided.</p>
+<p><code>[AMOUNT]</code> defines the limit of your budget. This has to be a positive numerical number (decimal places allowed).</p>
 </li>
 </ul>
 </div>
@@ -275,154 +269,148 @@ Format: <code>budget set PERIOD AMOUNT</code></p>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
-<div class="paragraph">
-<p><code>budget set weekly 9.50</code></p>
-</div>
-<div class="paragraph">
-<p><code>budget set /m 100</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>budget set weekly 9.50</code><br>
+Sets your weekly budget to $9.50</p>
+</li>
+<li>
+<p><code>budget set /m 100</code><br>
+Sets your monthly budget to $100</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="viewing-budget-code-budget-view-code"><a class="link" href="#viewing-budget-code-budget-view-code">3.10. Viewing budget: <code>budget view</code></a></h3>
 <div class="paragraph">
-<p>View the current budget, along with any spendings made for the week and the remaining available budget to spend.<br>
+<p>You can use this command to view the current budget, along with any spendings made for the week as well as the remaining available budget to spend.
 Format: <code>budget view</code></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="viewing-expense-report-code-report-code"><a class="link" href="#viewing-expense-report-code-report-code">3.11. Viewing expense report: <code>report</code></a></h3>
 <div class="paragraph">
-<p>Generate a report of the user spending and food purchase for the week, month or year.<br>
-Format: <code>report</code></p>
+<p>You can view a report of your spendings and food purchases for any period.
+Formats: <code>report</code>
+         <code>report [/f START_DATE] [/t END_DATE]</code>
+         <code>report [PERIOD]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The [/f] and [/t] fields are optional.</p>
+<p><code>[START_DATE]</code> cannot be a future date.</p>
 </li>
 <li>
-<p>The [/m], [/w], [/y] fields are optional.</p>
+<p><code>[END_DATE]</code> cannot be before the start date, or the earliest possible date if the [/f] field is empty.</p>
+</li>
+<li>
+<p><code>[PERIOD]</code> defines the length of the cycle for the report. Possible inputs are <code>weekly</code>, <code>monthly</code>, <code>yearly</code>, <code>/w</code>, <code>/m</code> and <code>/y</code>.</p>
+</li>
+<li>
+<p><code>[PERIOD]</code>, <code>[/f]</code> and <code>[/t]</code> fields are optional.</p>
+</li>
+<li>
+<p>Both <code>[/f]</code> and <code>[t]</code> fields require the date format to be the following:</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Available fields and example usages:</p>
+<p>Examples:</p>
 </div>
-<div class="paragraph">
-<p>[/f]: filter by start date</p>
-</div>
-<div class="paragraph">
-<p>Start date cannot be a future date</p>
-</div>
-<div class="paragraph">
-<p>[/t]: filter by end date</p>
-</div>
-<div class="paragraph">
-<p>End date cannot be before start date</p>
-</div>
-<div class="paragraph">
-<p>Example (using start and end dates): <code>report [/f 12-02-2020] [/t 30-04-2020]</code></p>
-</div>
-<div class="paragraph">
-<p>[/w]: filter by week</p>
-</div>
-<div class="paragraph">
-<p>Week with a certain date given by user</p>
-</div>
-<div class="paragraph">
-<p>Example: <code>report [/w 12-02-2020]</code></p>
-</div>
-<div class="paragraph">
-<p>[/m]: filter by month</p>
-</div>
-<div class="paragraph">
-<p>Example: <code>report [/m jan]</code></p>
-</div>
-<div class="paragraph">
-<p>[/y]: filter by year</p>
-</div>
-<div class="paragraph">
-<p>Example: <code>report [/y 2020]</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>report /f 12-02-2020 /t 30-04-2020</code><br>
+Generates a report from 12/2/2020 to 30/4/2020.</p>
+</li>
+<li>
+<p><code>report /w 12-02-2020</code><br>
+Generates a report for the week of 12/2/2020.</p>
+</li>
+<li>
+<p><code>report month jan</code> / <code>report month january</code><br>
+Generates a report for the month of January.</p>
+</li>
+<li>
+<p><code>report /y 2020</code><br>
+Generates a report for the year 2020.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="viewing-past-transactions-code-transactions-code"><a class="link" href="#viewing-past-transactions-code-transactions-code">3.12. Viewing past transactions: <code>transactions</code></a></h3>
 <div class="paragraph">
-<p>Users can view transactions for food items which were previously selected.<br>
-Format: <code>transactions</code></p>
+<p>You can view your past transactions using this command.
+Formats: <code>transactions</code>
+         <code>report [/f START_DATE] [/t END_DATE]</code>
+         <code>report [PERIOD]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The [/f] and [/t] fields are optional.</p>
+<p><code>[START_DATE]</code> cannot be a future date.</p>
 </li>
 <li>
-<p>The [/m], [/w], [/y] fields are optional.</p>
+<p><code>[END_DATE]</code> cannot be before the start date, or the earliest possible date if the [/f] field is empty.</p>
+</li>
+<li>
+<p><code>[PERIOD]</code> defines the length of the cycle for the report. Possible inputs are <code>weekly</code>, <code>monthly</code>, <code>yearly</code>, <code>/w</code>, <code>/m</code> and <code>/y</code>.</p>
+</li>
+<li>
+<p><code>[PERIOD]</code>, <code>[/f]</code> and <code>[/t]</code> fields are optional.</p>
+</li>
+<li>
+<p>Both <code>[/f]</code> and <code>[t]</code> fields require the date format to be the following:</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="paragraph">
-<p>Available fields and example usages:</p>
+<p>Examples:</p>
 </div>
-<div class="paragraph">
-<p>[/f]: filter by start date</p>
-</div>
-<div class="paragraph">
-<p>Start date cannot be a future date</p>
-</div>
-<div class="paragraph">
-<p>[/t]: filter by end date</p>
-</div>
-<div class="paragraph">
-<p>End date cannot be before start date</p>
-</div>
-<div class="paragraph">
-<p>Example (using start and end dates): <code>report [/f 12-02-2020] [/t 30-04-2020]</code></p>
-</div>
-<div class="paragraph">
-<p>[/w]: filter by week</p>
-</div>
-<div class="paragraph">
-<p>Week with a certain date given by user</p>
-</div>
-<div class="paragraph">
-<p>Example: <code>report [/w 12-02-2020]</code></p>
-</div>
-<div class="paragraph">
-<p>[/m]: filter by month</p>
-</div>
-<div class="paragraph">
-<p>Example: <code>report [/m jan]</code></p>
-</div>
-<div class="paragraph">
-<p>[/y]: filter by year</p>
-</div>
-<div class="paragraph">
-<p>Example: <code>report [/y 2020]</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>report /f 12-02-2020 /t 30-04-2020</code><br>
+Generates a report from 12/2/2020 to 30/4/2020.</p>
+</li>
+<li>
+<p><code>report /w 12-02-2020</code><br>
+Generates a report for the week of 12/2/2020.</p>
+</li>
+<li>
+<p><code>report month jan</code> / <code>report month january</code><br>
+Generates a report for the month of January.</p>
+</li>
+<li>
+<p><code>report /y 2020</code><br>
+Generates a report for the year 2020.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="review-food-items-code-review-code"><a class="link" href="#review-food-items-code-review-code">3.13. Review food items: <code>review</code></a></h3>
 <div class="paragraph">
-<p>Users can review food items by visiting transactions screen as shown in 3.10.<br>
-Format: <code>review INDEX</code>
-<em>Note: The user should be able to update existing reviews by typing ‘review INDEX’ on the same food item.</em></p>
+<p>You can review food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
+Format: <code>review [item no]</code></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="rate-food-items-code-rate-code"><a class="link" href="#rate-food-items-code-rate-code">3.14. Rate food items: <code>rate</code></a></h3>
 <div class="paragraph">
-<p>Users can review food items by visiting transactions screen as shown in 3.10.<br>
-Format: <code>rate INDEX</code>
-<em>Note: The user should be able to update existing ratings by typing ‘rate INDEX’ on the same food item.</em></p>
+<p>You can rate food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
+Format: <code>rate [item no]</code></p>
 </div>
 </div>
 </div>
@@ -469,4 +457,4 @@ e.g. <code>find James Jake</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-02-22 16:24:14 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-02-22 16:41:47 UTC</div></div></div></body></html>
