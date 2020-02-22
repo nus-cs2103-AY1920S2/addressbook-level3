@@ -48,13 +48,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
-
-=== List all canteens : `help`
-
-Format: `help`
 
 === Listing all canteens: `list`
 
@@ -68,8 +63,8 @@ Display a list of all canteens ordered by increasing distance from current locat
 
 Format: `find nearest BLOCK_NAME`
 ****
-* The BLOCK_NAME will be populated with suggestions as the user types.
-* The BLOCK_NAME has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
+* The `BLOCK_NAME will` be populated with suggestions as the user types.
+* The `BLOCK_NAME` has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
 ****
 
 === Going to nearest canteen : `goto`
@@ -79,8 +74,8 @@ Including the travel instructions and bus services that go to the canteen.
 
 Format: `goto CANTEEN_NAME /f CURRENT LOCATION`
 ****
-* The CANTEEN_NAME and CURRENT LOCATION field will be populated with suggestions as the user types.
-* The CANTEEN_NAME and CURRENT LOCATION field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
+* The `CANTEEN_NAME` and `CURRENT LOCATION` field will be populated with suggestions as the user types.
+* The `CANTEEN_NAME` and `CURRENT LOCATION` field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
 ****
 
 === Viewing all stores in canteen: `enter`
@@ -88,43 +83,44 @@ Format: `goto CANTEEN_NAME /f CURRENT LOCATION`
 Display the stores available at the canteen based on user input. +
 Format: `enter CANTEEN_NAME`
 
-Format: `find nearest [block name]`
 ****
-* Overall store rating will be displayed which is determined from ratings given by the user on food items which were previously selected.
+* Store rating will be displayed which is determined from ratings given by the user on food items which were previously selected.
 ****
 
 === Viewing menu of store : `menu`
 
-This function is only available after the user has selected a canteen and store. +
 Display the menu based on the user input. +
-User ratings will be displayed if they are available e.g. after the user has selected a food item previously. +
 Format: `menu KEYWORD`
 
 ****
-* Some of the KEYWORD include [all, by price/name, filter tag].
-* [all] returns a complete list of food sold at the store.
-* [by price/ name] sorts the menu accordingly.
-* [filter tag] displays only the food with the corresponding tag.
+* This function is only available after the user has selected a canteen and store.
+* User ratings will be displayed if they are available e.g. after the user has selected a food item previously.
+* KEYWORD include [all, by price/name, filter tag].
+* *[all] returns a complete list of food sold at the store.
+* *[by price/ name] sorts the menu accordingly.
+* *[filter tag] displays only the food with the corresponding tag.
 ****
 
 === Select food : `select`
 
-Select the food. +
+Select the food to be store in the database. +
 Format: `select INDEX`
 
 === Randomise food selection : `randomize`
 
-Display a list of suggestions of stores/ food. +
+Display a list of suggestions of food. +
 Format: `randomize`
 
-=== Setting a budget : `budget set`
+=== Set a budget : `budget set`
 
-You can set a daily, weekly or monthly budget using this function. This budget can also be changed later, however it will reset your budget overview for your current budget cycle.
+You can set a daily, weekly or monthly budget using this function. This budget can also be changed later, however it will reset your budget overview for your current budget cycle. +
 Format: `budget set [PERIOD] [AMOUNT]`
 
 ****
-* `[PERIOD]` defines the length of the cycle for your budget. Possible inputs are `daily`, `weekly`, `monthly`, `/d`, `/w`, `/m`.
-* `[AMOUNT]` defines the limit of your budget. This has to be a positive numerical number (decimal places allowed).
+* `PERIOD` defines the length of the cycle for your budget.
+* *Possible inputs are `daily`, `weekly`, `monthly`, `/d`, `/w`, `/m`.
+* `AMOUNT` defines the limit of your budget.
+* *This has to be a *positive numerical number* (decimal places allowed).
 ****
 
 Examples:
@@ -136,22 +132,22 @@ Sets your monthly budget to $100
 
 === Viewing budget: `budget view`
 
-You can use this command to view the current budget, along with any spendings made for the week as well as the remaining available budget to spend.
+You can use this command to view the current budget, along with any spendings made for the week as well as the remaining available budget to spend. +
 Format: `budget view`
 
 
 === Viewing expense report: `report`
 
-You can view a report of your spendings and food purchases for any period.
-Formats: `report`
-         `report [/f START_DATE] [/t END_DATE]`
+You can view a report of your spendings and food purchases for any period. +
+Formats: `report` +
+         `report [/f START_DATE] [/t END_DATE]` +
          `report [PERIOD]`
 
 ****
-* `[START_DATE]` cannot be a future date.
-* `[END_DATE]` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
-* `[PERIOD]` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
-* `[PERIOD]`, `[/f]` and `[/t]` fields are optional.
+* `START_DATE` cannot be a future date.
+* `END_DATE` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
+* `PERIOD` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `PERIOD`, `[/f]` and `[/t]` fields are optional.
 * Both `[/f]` and `[t]` fields require the date format to be the following:
 ****
 
@@ -166,17 +162,17 @@ Generates a report for the month of January.
 * `report /y 2020` +
 Generates a report for the year 2020.
 
-=== Viewing past transactions: `transactions`
+=== Viewing past transactions: `transaction`
 
-You can view your past transactions using this command.
-Formats: `transactions`
-         `report [/f START_DATE] [/t END_DATE]`
-         `report [PERIOD]`
+You can view your past transactions using this command. +
+Formats: `transaction` +
+         `transaction [/f START_DATE] [/t END_DATE]` +
+         `transaction [PERIOD]`
 ****
-* `[START_DATE]` cannot be a future date.
-* `[END_DATE]` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
-* `[PERIOD]` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
-* `[PERIOD]`, `[/f]` and `[/t]` fields are optional.
+* `START_DATE` cannot be a future date.
+* `END_DATE` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
+* `PERIOD` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `PERIOD`, `[/f]` and `[/t]` fields are optional.
 * Both `[/f]` and `[t]` fields require the date format to be the following:
 ****
 
@@ -193,13 +189,13 @@ Generates a report for the year 2020.
 
 === Review food items: `review`
 
-You can review food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
-Format: `review [item no]`
+You can review food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command. +
+Format: `review INDEX`
 
 === Rate food items: `rate`
 
-You can rate food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
-Format: `rate [item no]`
+You can rate food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command. +
+Format: `rate INDEX`
 
 
 == FAQ
@@ -209,14 +205,20 @@ Format: `rate [item no]`
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
+* *budget view* :`buget view`
+* *enter* : `clear`
+* *find nearest* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+* *goto* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *list* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *menu* : `list`
+* *rate* : `help`
+* *randomize* :
+* *report* :
+* *review* :
+* *select* :
+* *set* :
+* *transaction* :
+
