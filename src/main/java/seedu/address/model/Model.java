@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 
 /**
@@ -68,6 +69,12 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
+     */
+    void addFood(Food food);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
