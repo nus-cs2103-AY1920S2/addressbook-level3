@@ -20,8 +20,8 @@ Role: Project Advisor
 '''
 
 === Wang Yuchen
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+image::wang-yuchen-alice.jpg[width="150", align="left"]
+{empty}[http://github.com/WANG-Yuchen-Alice[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
