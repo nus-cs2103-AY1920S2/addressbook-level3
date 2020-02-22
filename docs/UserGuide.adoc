@@ -58,13 +58,13 @@ Format: `help`
 
 === Listing all canteens: `list`
 
-Display a list of all available canteens on campus. 
+Display a list of all available canteens on campus.
 
 Format: `list`
 
 === Find nearest canteens : `find nearest`
 
-Display a list of all canteens ordered by increasing distance from current location. 
+Display a list of all canteens ordered by increasing distance from current location.
 
 Format: `find nearest [block name]`
 ****
@@ -74,8 +74,8 @@ Format: `find nearest [block name]`
 
 === Going to nearest canteen : `goto`
 
-Display a map with the route between start and destination location. 
-Including the travel instructions and bus services that go to the canteen. 
+Display a map with the route between start and destination location.
+Including the travel instructions and bus services that go to the canteen.
 
 Format: `goto [canteen name] [/f current location]`
 ****
