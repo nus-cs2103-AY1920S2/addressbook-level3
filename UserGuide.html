@@ -13,7 +13,7 @@
 <li><a href="#quick-start">2. Quick Start</a></li>
 <li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
-<li><a href="#listing-all-canteens-code-list-code">3.1. Listing all canteens: <code>list</code></a></li>
+<li><a href="#list-all-canteens-code-list-code">3.1. List all canteens: <code>list</code></a></li>
 <li><a href="#find-nearest-canteens-code-find-nearest-code">3.2. Find nearest canteens : <code>find nearest</code></a></li>
 <li><a href="#going-to-nearest-canteen-code-goto-code">3.3. Going to nearest canteen : <code>goto</code></a></li>
 <li><a href="#viewing-all-stores-in-canteen-code-enter-code">3.4. Viewing all stores in canteen: <code>enter</code></a></li>
@@ -109,15 +109,12 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <li>
 <p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
 </li>
-<li>
-<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
-</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-canteens-code-list-code"><a class="link" href="#listing-all-canteens-code-list-code">3.1. Listing all canteens: <code>list</code></a></h3>
+<h3 id="list-all-canteens-code-list-code"><a class="link" href="#list-all-canteens-code-list-code">3.1. List all canteens: <code>list</code></a></h3>
 <div class="paragraph">
 <p>Display a list of all available canteens on campus.</p>
 </div>
@@ -138,7 +135,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>BLOCK_NAME will</code> be populated with suggestions as the user types.</p>
+<p>The <code>BLOCK_NAME</code> will be populated with suggestions as the user types.</p>
 </li>
 <li>
 <p>The <code>BLOCK_NAME</code> has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided</p>
@@ -155,17 +152,17 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 Including the travel instructions and bus services that go to the canteen.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>goto CANTEEN_NAME /f CURRENT LOCATION</code></p>
+<p>Format: <code>goto CANTEEN_NAME /f CURRENT_LOCATION</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>CANTEEN_NAME</code> and <code>CURRENT LOCATION</code> field will be populated with suggestions as the user types.</p>
+<p><code>CANTEEN_NAME</code> and <code>CURRENT_LOCATION</code> field will be populated with suggestions as the user types.</p>
 </li>
 <li>
-<p>The <code>CANTEEN_NAME</code> and <code>CURRENT LOCATION</code> field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.</p>
+<p><code>CANTEEN_NAME</code> and <code>CURRENT_LOCATION</code> field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.</p>
 </li>
 </ul>
 </div>
@@ -207,16 +204,20 @@ Format: <code>menu KEYWORD</code></p>
 <p>User ratings will be displayed if they are available e.g. after the user has selected a food item previously.</p>
 </li>
 <li>
-<p>KEYWORD include [all, by price/name, filter tag].</p>
+<p><code>KEYWORD</code> include [all, by price/name, filter tag].</p>
+<div class="ulist">
+<ul>
+<li>
+<p>[all] returns a complete list of food sold at the store.</p>
 </li>
 <li>
-<p>*[all] returns a complete list of food sold at the store.</p>
+<p>[by price/ name] sorts the menu accordingly.</p>
 </li>
 <li>
-<p>*[by price/ name] sorts the menu accordingly.</p>
+<p>[filter tag] displays only the food with the corresponding tag.</p>
 </li>
-<li>
-<p>*[filter tag] displays only the food with the corresponding tag.</p>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -248,16 +249,14 @@ Format: <code>budget set [PERIOD] [AMOUNT]</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>PERIOD</code> defines the length of the cycle for your budget.</p>
-</li>
-<li>
-<p>*Possible inputs are <code>daily</code>, <code>weekly</code>, <code>monthly</code>, <code>/d</code>, <code>/w</code>, <code>/m</code>.</p>
+<p><code>PERIOD</code> defines the length of the cycle for your budget.<br>
+<em>Possible inputs are <code>daily</code>, <code>weekly</code>, <code>monthly</code>, <code>/d</code>, <code>/w</code>, <code>/m</code>.</em></p>
 </li>
 <li>
 <p><code>AMOUNT</code> defines the limit of your budget.</p>
 </li>
 <li>
-<p><strong>This has to be a *positive numerical number</strong> (decimal places allowed).</p>
+<p>This has to be a <strong>positive numerical number</strong> (decimal places allowed).</p>
 </li>
 </ul>
 </div>
@@ -270,7 +269,7 @@ Format: <code>budget set [PERIOD] [AMOUNT]</code></p>
 <ul>
 <li>
 <p><code>budget set weekly 9.50</code><br>
-Sets your weekly budget to $9.50</p>
+::Sets your weekly budget to $9.50</p>
 </li>
 <li>
 <p><code>budget set /m 100</code><br>
@@ -305,7 +304,8 @@ Formats: <code>report</code><br>
 <p><code>END_DATE</code> cannot be before the start date, or the earliest possible date if the [/f] field is empty.</p>
 </li>
 <li>
-<p><code>PERIOD</code> defines the length of the cycle for the report. Possible inputs are <code>weekly</code>, <code>monthly</code>, <code>yearly</code>, <code>/w</code>, <code>/m</code> and <code>/y</code>.</p>
+<p><code>PERIOD</code> defines the length of the cycle for the report.<br>
+<em>Possible inputs are <code>weekly</code>, <code>monthly</code>, <code>yearly</code>, <code>/w</code>, <code>/m</code> and <code>/y</code>.</em></p>
 </li>
 <li>
 <p><code>PERIOD</code>, <code>[/f]</code> and <code>[/t]</code> fields are optional.</p>
@@ -345,8 +345,8 @@ Generates a report for the year 2020.</p>
 <h3 id="viewing-past-transactions-code-transaction-code"><a class="link" href="#viewing-past-transactions-code-transaction-code">3.11. Viewing past transactions: <code>transaction</code></a></h3>
 <div class="paragraph">
 <p>You can view your past transactions using this command.<br>
-Formats: <code>transaction</code><br>
-         <code>transaction [/f START_DATE] [/t END_DATE]</code><br>
+Formats: <code>transaction</code>::
+         <code>transaction [/f START_DATE] [/t END_DATE]</code>::
          <code>transaction [PERIOD]</code></p>
 </div>
 <div class="sidebarblock">
@@ -360,7 +360,8 @@ Formats: <code>transaction</code><br>
 <p><code>END_DATE</code> cannot be before the start date, or the earliest possible date if the [/f] field is empty.</p>
 </li>
 <li>
-<p><code>PERIOD</code> defines the length of the cycle for the report. Possible inputs are <code>weekly</code>, <code>monthly</code>, <code>yearly</code>, <code>/w</code>, <code>/m</code> and <code>/y</code>.</p>
+<p><code>PERIOD</code> defines the length of the cycle for the report.<br>
+<em>Possible inputs are <code>weekly</code>, <code>monthly</code>, <code>yearly</code>, <code>/w</code>, <code>/m</code> and <code>/y</code>.</em></p>
 </li>
 <li>
 <p><code>PERIOD</code>, <code>[/f]</code> and <code>[/t]</code> fields are optional.</p>
@@ -427,48 +428,50 @@ Format: <code>rate INDEX</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>budget view</strong> :`buget view`</p>
+<p><strong>budget set</strong> : <code>budget set PERIOD AMOUNT</code>
+e.g. <code>budget set weekly 9.50</code></p>
 </li>
 <li>
-<p><strong>enter</strong> : <code>clear</code></p>
+<p><strong>budget view</strong> : <code>budget view</code></p>
 </li>
 <li>
-<p><strong>find nearest</strong> : <code>delete INDEX</code><br>
-e.g. <code>delete 3</code></p>
+<p><strong>enter</strong> : <code>enter CANTEEN_NAME</code>
+e.g. <code>enter deck</code></p>
 </li>
 <li>
-<p><strong>goto</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
+<p><strong>find nearest</strong> : <code>find nearest BLOCK_NAME</code><br>
+e.g. <code>find nearest COM1</code></p>
 </li>
 <li>
-<p><strong>list</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
-e.g. <code>find James Jake</code></p>
+<p><strong>goto</strong> : <code>goto CANTEEN_NAME /f CURRENT_LOCATION</code><br>
+e.g. <code>goto deck /f COM1</code></p>
 </li>
 <li>
-<p><strong>menu</strong> : <code>list</code></p>
+<p><strong>list</strong> : <code>list</code></p>
 </li>
 <li>
-<p><strong>rate</strong> : <code>help</code></p>
+<p><strong>menu</strong> : <code>menu KEYWORD</code>
+e.g. <code>menu chicken</code></p>
 </li>
 <li>
-<p><strong>randomize</strong> :</p>
+<p><strong>rate</strong> : <code>rate INDEX</code></p>
 </li>
 <li>
-<p><strong>report</strong> :</p>
+<p><strong>randomize</strong> : <code>randomize</code></p>
 </li>
 <li>
-<p><strong>review</strong> :</p>
+<p><strong>report</strong> : <code>report</code> [/f START_DATE] [/t END_DATE] [PERIOD]</p>
 </li>
 <li>
-<p><strong>select</strong> :</p>
+<p><strong>review</strong> : <code>review INDEX</code></p>
 </li>
 <li>
-<p><strong>set</strong> :</p>
+<p><strong>select</strong> : <code>select INDEX</code></p>
 </li>
 <li>
-<p><strong>transaction</strong> :</p>
+<p><strong>transaction</strong> : <code>transaction</code> [/f START_DATE] [/t END_DATE] [PERIOD]</p>
 </li>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-02-22 16:54:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2020-02-22 17:19:18 UTC</div></div></div></body></html>
