@@ -88,6 +88,7 @@ Format: `goto CANTEEN_NAME /f CURRENT LOCATION`
 Display the stores available at the canteen based on user input. +
 Format: `enter CANTEEN_NAME`
 
+Format: `find nearest [block name]`
 ****
 * Overall store rating will be displayed which is determined from ratings given by the user on food items which were previously selected.
 ****
@@ -116,114 +117,89 @@ Format: `select INDEX`
 Display a list of suggestions of stores/ food. +
 Format: `randomize`
 
-=== Setting a budget : `set`
+=== Setting a budget : `budget set`
 
-Set a daily, weekly or monthly budget. This budget can be changed at a later date, but will reset any budget reporting for the current period. +
-Format: `budget set PERIOD AMOUNT`
+You can set a daily, weekly or monthly budget using this function. This budget can also be changed later, however it will reset your budget overview for your current budget cycle.
+Format: `budget set [PERIOD] [AMOUNT]`
 
 ****
-* The PERIOD field defines the length of each period that the budget is effective for.
-* List of PERIOD inputs includes [daily], [weekly], [monthly] or its shorthand equivalent, [/d], [/w], or [/m] respectively.
-* The PERIOD field has to be one of the above suggestions; otherwise an error message will be displayed requesting a correct type to be provided.
-* The AMOUNT field represents the amount to set the budget to.
-* The AMOUNT field has to be numeric (with or without decimal places); otherwise an error message will be displayed requesting a correct type to be provided.
+* `[PERIOD]` defines the length of the cycle for your budget. Possible inputs are `daily`, `weekly`, `monthly`, `/d`, `/w`, `/m`.
+* `[AMOUNT]` defines the limit of your budget. This has to be a positive numerical number (decimal places allowed).
 ****
 
 Examples:
 
-`budget set weekly 9.50`
-
-`budget set /m 100`
+* `budget set weekly 9.50` +
+Sets your weekly budget to $9.50
+* `budget set /m 100` +
+Sets your monthly budget to $100
 
 === Viewing budget: `budget view`
 
-View the current budget, along with any spendings made for the week and the remaining available budget to spend. +
+You can use this command to view the current budget, along with any spendings made for the week as well as the remaining available budget to spend.
 Format: `budget view`
+
 
 === Viewing expense report: `report`
 
-Generate a report of the user spending and food purchase for the week, month or year. +
-Format: `report`
+You can view a report of your spendings and food purchases for any period.
+Formats: `report`
+         `report [/f START_DATE] [/t END_DATE]`
+         `report [PERIOD]`
 
 ****
-* The [/f] and [/t] fields are optional.
-* The [/m], [/w], [/y] fields are optional.
+* `[START_DATE]` cannot be a future date.
+* `[END_DATE]` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
+* `[PERIOD]` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `[PERIOD]`, `[/f]` and `[/t]` fields are optional.
+* Both `[/f]` and `[t]` fields require the date format to be the following:
 ****
 
-Available fields and example usages:
+Examples:
 
-[/f]: filter by start date
-
-Start date cannot be a future date
-
-[/t]: filter by end date
-
-End date cannot be before start date
-
-Example (using start and end dates): `report [/f 12-02-2020] [/t 30-04-2020]`
-
-[/w]: filter by week
-
-Week with a certain date given by user
-
-Example: `report [/w 12-02-2020]`
-
-[/m]: filter by month
-
-Example: `report [/m jan]`
-
-[/y]: filter by year
-
-Example: `report [/y 2020]`
+* `report /f 12-02-2020 /t 30-04-2020` +
+Generates a report from 12/2/2020 to 30/4/2020.
+* `report /w 12-02-2020` +
+Generates a report for the week of 12/2/2020.
+* `report month jan` / `report month january` +
+Generates a report for the month of January.
+* `report /y 2020` +
+Generates a report for the year 2020.
 
 === Viewing past transactions: `transactions`
 
-Users can view transactions for food items which were previously selected. +
-Format: `transactions`
-
+You can view your past transactions using this command.
+Formats: `transactions`
+         `report [/f START_DATE] [/t END_DATE]`
+         `report [PERIOD]`
 ****
-* The [/f] and [/t] fields are optional.
-* The [/m], [/w], [/y] fields are optional.
+* `[START_DATE]` cannot be a future date.
+* `[END_DATE]` cannot be before the start date, or the earliest possible date if the [/f] field is empty.
+* `[PERIOD]` defines the length of the cycle for the report. Possible inputs are `weekly`, `monthly`, `yearly`, `/w`, `/m` and `/y`.
+* `[PERIOD]`, `[/f]` and `[/t]` fields are optional.
+* Both `[/f]` and `[t]` fields require the date format to be the following:
 ****
 
-Available fields and example usages:
+Examples:
 
-[/f]: filter by start date
-
-Start date cannot be a future date
-
-[/t]: filter by end date
-
-End date cannot be before start date
-
-Example (using start and end dates): `report [/f 12-02-2020] [/t 30-04-2020]`
-
-[/w]: filter by week
-
-Week with a certain date given by user
-
-Example: `report [/w 12-02-2020]`
-
-[/m]: filter by month
-
-Example: `report [/m jan]`
-
-[/y]: filter by year
-
-Example: `report [/y 2020]`
+* `report /f 12-02-2020 /t 30-04-2020` +
+Generates a report from 12/2/2020 to 30/4/2020.
+* `report /w 12-02-2020` +
+Generates a report for the week of 12/2/2020.
+* `report month jan` / `report month january` +
+Generates a report for the month of January.
+* `report /y 2020` +
+Generates a report for the year 2020.
 
 === Review food items: `review`
 
-Users can review food items by visiting transactions screen as shown in 3.10. +
-Format: `review INDEX`
-_Note: The user should be able to update existing reviews by typing ‘review INDEX’ on the same food item._
-
+You can review food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
+Format: `review [item no]`
 
 === Rate food items: `rate`
 
-Users can review food items by visiting transactions screen as shown in 3.10. +
-Format: `rate INDEX`
-_Note: The user should be able to update existing ratings by typing ‘rate INDEX’ on the same food item._
+You can rate food items from the transactions screen as shown in 3.12. You can also update existing reviews by using the same command.
+Format: `rate [item no]`
 
 
 == FAQ
