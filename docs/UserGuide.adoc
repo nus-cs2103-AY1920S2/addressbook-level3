@@ -146,9 +146,10 @@ Format: `budget set [PERIOD] [AMOUNT]`
 ****
 
 Examples:
-* `budget set weekly 9.50`
+
+* `budget set weekly 9.50` +
 Sets your weekly budget to $9.50
-* `budget set /m 100`
+* `budget set /m 100` +
 Sets your monthly budget to $100
 
 === Viewing budget: `budget view`
@@ -171,13 +172,14 @@ Formats: `report`
 ****
 
 Examples:
-* `report /f 12-02-2020 /t 30-04-2020`
+
+* `report /f 12-02-2020 /t 30-04-2020` +
 Generates a report from 12/2/2020 to 30/4/2020.
-* `report /w 12-02-2020`
+* `report /w 12-02-2020` +
 Generates a report for the week of 12/2/2020.
-* `report month jan` / `report month january`
+* `report month jan` / `report month january` +
 Generates a report for the month of January.
-* `report /y 2020`
+* `report /y 2020` +
 Generates a report for the year 2020.
 
 === Viewing past transactions: `transactions`
@@ -194,13 +196,14 @@ Formats: `transactions`
 ****
 
 Examples:
-* `report /f 12-02-2020 /t 30-04-2020`
+
+* `report /f 12-02-2020 /t 30-04-2020` +
 Generates a report from 12/2/2020 to 30/4/2020.
-* `report /w 12-02-2020`
+* `report /w 12-02-2020` +
 Generates a report for the week of 12/2/2020.
-* `report month jan` / `report month january`
+* `report month jan` / `report month january` +
 Generates a report for the month of January.
-* `report /y 2020`
+* `report /y 2020` +
 Generates a report for the year 2020.
 
 === Review food items: `review`
