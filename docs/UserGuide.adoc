@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Feb 2020`
 
 == Introduction
 
@@ -52,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== List all canteens : `help`
 
 Format: `help`
 
@@ -66,10 +66,10 @@ Format: `list`
 
 Display a list of all canteens ordered by increasing distance from current location.
 
-Format: `find nearest [block name]`
+Format: `find nearest BLOCK_NAME`
 ****
-* The [block name] will be populated with suggestions as the user types.
-* The [block name] has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
+* The BLOCK_NAME will be populated with suggestions as the user types.
+* The BLOCK_NAME has to be one of the suggestions; otherwise an error message will be displayed that requires correct location to be provided
 ****
 
 === Going to nearest canteen : `goto`
@@ -77,82 +77,154 @@ Format: `find nearest [block name]`
 Display a map with the route between start and destination location.
 Including the travel instructions and bus services that go to the canteen.
 
-Format: `goto [canteen name] [/f current location]`
+Format: `goto CANTEEN_NAME /f CURRENT LOCATION`
 ****
-* The [canteen name] and [current location] field will be populated with suggestions as the user types.
-* The [canteen name] and [current location field] has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
+* The CANTEEN_NAME and CURRENT LOCATION field will be populated with suggestions as the user types.
+* The CANTEEN_NAME and CURRENT LOCATION field has to be one of the suggestions; otherwise an error message will be displayed that requires the correct location to be provided.
 ****
 
 === Viewing all stores in canteen: `enter`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Display the stores available at the canteen based on user input. +
+Format: `enter CANTEEN_NAME`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Overall store rating will be displayed which is determined from ratings given by the user on food items which were previously selected.
 ****
 
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
 === Viewing menu of store : `menu`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+This function is only available after the user has selected a canteen and store. +
+Display the menu based on the user input. +
+User ratings will be displayed if they are available e.g. after the user has selected a food item previously. +
+Format: `menu KEYWORD`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Some of the KEYWORD include [all, by price/name, filter tag].
+* [all] returns a complete list of food sold at the store.
+* [by price/ name] sorts the menu accordingly.
+* [filter tag] displays only the food with the corresponding tag.
 ****
 
-Examples:
+=== Select food : `select`
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Selecting food : `select`
-
-Clears all entries from the address book. +
-Format: `clear`
+Select the food. +
+Format: `select INDEX`
 
 === Randomise food selection : `randomize`
 
-Exits the program. +
-Format: `exit`
+Display a list of suggestions of stores/ food. +
+Format: `randomize`
 
 === Setting a budget : `set`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Set a daily, weekly or monthly budget. This budget can be changed at a later date, but will reset any budget reporting for the current period. +
+Format: `budget set PERIOD AMOUNT`
 
-// tag::dataencryption[]
+****
+* The PERIOD field defines the length of each period that the budget is effective for.
+* List of PERIOD inputs includes [daily], [weekly], [monthly] or its shorthand equivalent, [/d], [/w], or [/m] respectively.
+* The PERIOD field has to be one of the above suggestions; otherwise an error message will be displayed requesting a correct type to be provided.
+* The AMOUNT field represents the amount to set the budget to.
+* The AMOUNT field has to be numeric (with or without decimal places); otherwise an error message will be displayed requesting a correct type to be provided.
+****
+
+Examples:
+
+`budget set weekly 9.50`
+
+`budget set /m 100`
+
 === Viewing budget: `budget view`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+View the current budget, along with any spendings made for the week and the remaining available budget to spend. +
+Format: `budget view`
 
 === Viewing expense report: `report`
 
+Generate a report of the user spending and food purchase for the week, month or year. +
+Format: `report`
+
+****
+* The [/f] and [/t] fields are optional.
+* The [/m], [/w], [/y] fields are optional.
+****
+
+Available fields and example usages:
+
+[/f]: filter by start date
+
+Start date cannot be a future date
+
+[/t]: filter by end date
+
+End date cannot be before start date
+
+Example (using start and end dates): `report [/f 12-02-2020] [/t 30-04-2020]`
+
+[/w]: filter by week
+
+Week with a certain date given by user
+
+Example: `report [/w 12-02-2020]`
+
+[/m]: filter by month
+
+Example: `report [/m jan]`
+
+[/y]: filter by year
+
+Example: `report [/y 2020]`
+
 === Viewing past transactions: `transactions`
+
+Users can view transactions for food items which were previously selected. +
+Format: `transactions`
+
+****
+* The [/f] and [/t] fields are optional.
+* The [/m], [/w], [/y] fields are optional.
+****
+
+Available fields and example usages:
+
+[/f]: filter by start date
+
+Start date cannot be a future date
+
+[/t]: filter by end date
+
+End date cannot be before start date
+
+Example (using start and end dates): `report [/f 12-02-2020] [/t 30-04-2020]`
+
+[/w]: filter by week
+
+Week with a certain date given by user
+
+Example: `report [/w 12-02-2020]`
+
+[/m]: filter by month
+
+Example: `report [/m jan]`
+
+[/y]: filter by year
+
+Example: `report [/y 2020]`
 
 === Review food items: `review`
 
+Users can review food items by visiting transactions screen as shown in 3.10. +
+Format: `review INDEX`
+_Note: The user should be able to update existing reviews by typing ‘review INDEX’ on the same food item._
+
+
 === Rate food items: `rate`
+
+Users can review food items by visiting transactions screen as shown in 3.10. +
+Format: `rate INDEX`
+_Note: The user should be able to update existing ratings by typing ‘rate INDEX’ on the same food item._
+
 
 == FAQ
 
