@@ -7,37 +7,37 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Teacher;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of teachers.
  */
 public class TeacherListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "TeacherListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(TeacherListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Teacher> teacherListView;
 
-    public TeacherListPanel(ObservableList<Person> personList) {
+    public TeacherListPanel(ObservableList<Teacher> teacherList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        teacherListView.setItems(teacherList);
+        teacherListView.setCellFactory(listView -> new TeacherListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Teacher} using a {@code TeacherCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class TeacherListViewCell extends ListCell<Teacher> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Teacher teacher, boolean empty) {
+            super.updateItem(teacher, empty);
 
-            if (empty || person == null) {
+            if (empty || teacher == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new TeacherCard(teacher, getIndex() + 1).getRoot());
             }
         }
     }

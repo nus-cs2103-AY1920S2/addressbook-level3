@@ -6,14 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Teacher;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Teacher}.
  */
 public class TeacherCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TeacherListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -23,7 +23,7 @@ public class TeacherCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Teacher teacher;
 
     @FXML
     private HBox cardPane;
@@ -38,17 +38,20 @@ public class TeacherCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label salary;
+    @FXML
     private FlowPane tags;
 
-    public TeacherCard(Person person, int displayedIndex) {
+    public TeacherCard(Teacher teacher, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.teacher = teacher;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        name.setText(teacher.getName().fullName);
+        phone.setText(teacher.getPhone().value);
+        address.setText(teacher.getAddress().value);
+        email.setText(teacher.getEmail().value);
+        salary.setText(teacher.getSalary().value);
+        teacher.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -68,6 +71,6 @@ public class TeacherCard extends UiPart<Region> {
         // state check
         TeacherCard card = (TeacherCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && teacher.equals(card.teacher);
     }
 }

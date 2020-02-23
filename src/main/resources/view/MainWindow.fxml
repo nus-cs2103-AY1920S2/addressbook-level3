@@ -40,8 +40,8 @@
             <children>
               <Button onMouseClicked="#handleSwitchToPerson" prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Students" />
               <Button onMouseClicked="#handleSwitchToTeacher" prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Teachers" />
-              <Button prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Courses" />
-              <Button prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Finances" />
+              <Button onMouseClicked="#handleSwitchToCourse" prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Courses" />
+              <Button onMouseClicked="#handleSwitchToFinance" prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Finances" />
             </children>
           </VBox>
 
@@ -65,12 +65,6 @@
               </padding>
               <StackPane fx:id="dataListPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
-
-            <StackPane fx:id="detailPanelPlaceholder" prefWidth="340">
-              <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
-              </padding>
-            </StackPane>
 
             <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
 

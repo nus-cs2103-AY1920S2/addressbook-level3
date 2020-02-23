@@ -37,6 +37,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private TeacherListPanel teacherListPanel;
+    private CourseListPanel courseListPanel;
+    private FinanceListPanel financeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -53,13 +55,16 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane detailPanelPlaceholder;
-
-    @FXML
     private StackPane dataListPanelPlaceholder;
 
     @FXML
     private StackPane teacherListPanelPlaceholder;
+
+    @FXML
+    private StackPane courseListPanelPlaceholder;
+
+    @FXML
+    private StackPane financeListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -134,11 +139,13 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        teacherListPanel = new TeacherListPanel(logic.getFilteredPersonList());
+        teacherListPanel = new TeacherListPanel(logic.getFilteredTeacherList());
+        courseListPanel = new CourseListPanel(logic.getFilteredPersonList());
+        financeListPanel = new FinanceListPanel(logic.getFilteredPersonList());
+
         dataListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
-        ftStackPanel = getFadeTransition(Duration.millis(150), detailPanelPlaceholder);
     }
 
     /**
@@ -166,7 +173,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switch to the menu view.
+     * Switch to the Person view.
      */
     @FXML
     private void handleSwitchToPerson() {
@@ -175,11 +182,29 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switch to the account view.
+     * Switch to the Teacher view.
      */
     @FXML
     private void handleSwitchToTeacher() {
-        switchList(personListPanel.getRoot());
+        switchList(teacherListPanel.getRoot());
+        ftStackPanel.play();
+    }
+
+    /**
+     * Switch to the Course view.
+     */
+    @FXML
+    private void handleSwitchToCourse() {
+        switchList(courseListPanel.getRoot());
+        ftStackPanel.play();
+    }
+
+    /**
+     * Switch to the Finance view.
+     */
+    @FXML
+    private void handleSwitchToFinance() {
+        switchList(financeListPanel.getRoot());
         ftStackPanel.play();
     }
 
@@ -213,7 +238,6 @@ public class MainWindow extends UiPart<Stage> {
      * Switch the list panel to the given region
      */
     private void switchList(Region region) {
-        detailPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().add(region);
         ftListPanel.play();
