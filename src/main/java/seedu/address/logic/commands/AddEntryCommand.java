@@ -19,7 +19,7 @@ public class AddEntryCommand extends Command {
     public static final String COMMAND_WORD = "addEntry";
 
     public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
-    public static final String MESSAGE_DUPLICATE_Exercise = "This Entry already exists in the list";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "This Entry already exists in the list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an Entry to the list. "
             + "Parameters: "
             + PREFIX_ENTRYNAME + "NAME "

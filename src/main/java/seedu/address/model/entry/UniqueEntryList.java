@@ -85,8 +85,8 @@ public class UniqueEntryList implements Iterable<Entry> {
     }
 
     /**
-     * Replaces the contents of this list with {@code Entrys}.
-     * {@code Entrys} must not contain duplicate Entrys.
+     * Replaces the contents of this list with {@code entries}.
+     * {@code entries} must not contain duplicate entries.
      */
     public void setEntrys(List<Entry> entries) {
         requireAllNonNull(entries);
@@ -122,12 +122,12 @@ public class UniqueEntryList implements Iterable<Entry> {
     }
 
     /**
-     * Returns true if {@code Entrys} contains only unique Entrys.
+     * Returns true if {@code entries} contains only unique entries.
      */
-    private boolean entrysAreUnique(List<Entry> Entrys) {
-        for (int i = 0; i < Entrys.size() - 1; i++) {
-            for (int j = i + 1; j < Entrys.size(); j++) {
-                if (Entrys.get(i).isSameEntry(Entrys.get(j))) {
+    private boolean entrysAreUnique(List<Entry> entries) {
+        for (int i = 0; i < entries.size() - 1; i++) {
+            for (int j = i + 1; j < entries.size(); j++) {
+                if (entries.get(i).isSameEntry(entries.get(j))) {
                     return false;
                 }
             }
