@@ -20,8 +20,8 @@ Role: Project Advisor
 
 '''
 
-=== John Roe
-image::Edmond.jpg[width="150", align="left"]
+=== Edmond Ong
+image::edmond.jpg[width="150", align="left"]
 {empty}[http://github.com/EdmondOng[github]] [<<edmondong#, portfolio>>]
 
 Role: Team Lead +
@@ -29,7 +29,7 @@ Responsibilities: UI
 
 '''
 
-=== Edmond Ong
+=== John Roe
 image::yijinl.jpg[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
