@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYCALORIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYLOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYTIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYCALORIE;
 
 import java.util.stream.Stream;
 
@@ -27,8 +27,8 @@ public class AddEntryCommandParser implements Parser<AddEntryCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_ENTRYNAME, PREFIX_ENTRYTIME,
                         PREFIX_ENTRYLOCATION, PREFIX_ENTRYCALORIE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRYNAME, PREFIX_ENTRYTIME, PREFIX_ENTRYLOCATION, PREFIX_ENTRYCALORIE)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_ENTRYNAME, PREFIX_ENTRYTIME, PREFIX_ENTRYLOCATION,
+                PREFIX_ENTRYCALORIE) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEntryCommand.MESSAGE_USAGE));
         }
 
@@ -37,9 +37,9 @@ public class AddEntryCommandParser implements Parser<AddEntryCommand> {
         String location = ParserUtil.parseEntryLocation(argMultimap.getValue(PREFIX_ENTRYLOCATION).get());
         String calorie = ParserUtil.parseEntryCalorie(argMultimap.getValue(PREFIX_ENTRYCALORIE).get());
 
-        Entry Entry = new Entry(name, time, location, calorie);
+        Entry entry = new Entry(name, time, location, calorie);
 
-        return new AddEntryCommand(Entry);
+        return new AddEntryCommand(entry);
     }
 
     /**
