@@ -2,14 +2,18 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -32,8 +36,12 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private TeacherListPanel teacherListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private FadeTransition ftListPanel;
+    private FadeTransition ftStackPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -43,6 +51,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane detailPanelPlaceholder;
+
+    @FXML
+    private StackPane dataListPanelPlaceholder;
+
+    @FXML
+    private StackPane teacherListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -107,9 +124,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -118,6 +132,13 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        teacherListPanel = new TeacherListPanel(logic.getFilteredPersonList());
+        dataListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
+        ftStackPanel = getFadeTransition(Duration.millis(150), detailPanelPlaceholder);
     }
 
     /**
@@ -144,6 +165,24 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Switch to the menu view.
+     */
+    @FXML
+    private void handleSwitchToPerson() {
+        switchList(personListPanel.getRoot());
+        ftStackPanel.play();
+    }
+
+    /**
+     * Switch to the account view.
+     */
+    @FXML
+    private void handleSwitchToTeacher() {
+        switchList(personListPanel.getRoot());
+        ftStackPanel.play();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -159,6 +198,28 @@ public class MainWindow extends UiPart<Stage> {
         helpWindow.hide();
         primaryStage.hide();
     }
+
+    /**
+     * Create the fade transition for the StackPane and set value from 0 to 1.
+     */
+    private FadeTransition getFadeTransition(Duration duration, StackPane placeholder) {
+        FadeTransition ft = new FadeTransition(duration, placeholder);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        return ft;
+    }
+
+    /**
+     * Switch the list panel to the given region
+     */
+    private void switchList(Region region) {
+        detailPanelPlaceholder.getChildren().clear();
+        dataListPanelPlaceholder.getChildren().clear();
+        dataListPanelPlaceholder.getChildren().add(region);
+        ftListPanel.play();
+    }
+
+
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;

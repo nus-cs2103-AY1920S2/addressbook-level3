@@ -38,8 +38,8 @@
         <HBox>
           <VBox fx:id="buttonBar" spacing="5" prefHeight="500.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
             <children>
-              <Button prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Students" />
-              <Button prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Teachers" />
+              <Button onMouseClicked="#handleSwitchToPerson" prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Students" />
+              <Button onMouseClicked="#handleSwitchToTeacher" prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Teachers" />
               <Button prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Courses" />
               <Button prefHeight="80.0" prefWidth="80.0" mnemonicParsing="false" text="Finances" />
             </children>
@@ -59,12 +59,19 @@
               </padding>
             </StackPane>
 
-            <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+            <VBox fx:id="dataList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
               <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
+                <Insets bottom="10" left="10" right="10" top="10" />
               </padding>
-              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane fx:id="dataListPanelPlaceholder" VBox.vgrow="ALWAYS" />
             </VBox>
+
+            <StackPane fx:id="detailPanelPlaceholder" prefWidth="340">
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+              </padding>
+            </StackPane>
+
             <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
 
           </VBox>

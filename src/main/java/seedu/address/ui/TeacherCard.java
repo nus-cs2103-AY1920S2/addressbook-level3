@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -12,7 +11,7 @@ import seedu.address.model.person.Person;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class TeacherCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -41,7 +40,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public TeacherCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
@@ -62,12 +61,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof TeacherCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        TeacherCard card = (TeacherCard) other;
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
