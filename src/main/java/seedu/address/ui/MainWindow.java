@@ -43,7 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     private FadeTransition ftListPanel;
-    private FadeTransition ftStackPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -178,7 +177,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToPerson() {
         switchList(personListPanel.getRoot());
-        ftStackPanel.play();
     }
 
     /**
@@ -187,7 +185,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToTeacher() {
         switchList(teacherListPanel.getRoot());
-        ftStackPanel.play();
     }
 
     /**
@@ -196,7 +193,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToCourse() {
         switchList(courseListPanel.getRoot());
-        ftStackPanel.play();
     }
 
     /**
@@ -205,7 +201,6 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToFinance() {
         switchList(financeListPanel.getRoot());
-        ftStackPanel.play();
     }
 
     void show() {
