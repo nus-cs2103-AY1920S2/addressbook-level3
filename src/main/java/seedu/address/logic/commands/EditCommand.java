@@ -23,7 +23,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
@@ -95,13 +94,12 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Remark updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags);
+        return new Person(updatedName, updatedEmail, updatedAddress, updatedRemark, updatedTags);
     }
 
     @Override
@@ -128,7 +126,6 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
         private Email email;
         private Address address;
         private Remark remark;
@@ -142,7 +139,6 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setRemark(toCopy.remark);
@@ -153,7 +149,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, email, address, tags);
         }
 
         public void setName(Name name) {
@@ -162,14 +158,6 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
         }
 
         public void setEmail(Email email) {
@@ -229,7 +217,6 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
