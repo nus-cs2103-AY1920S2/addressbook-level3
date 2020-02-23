@@ -13,7 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.food.Food;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new Add FoodCommand object
  */
 public class AddFoodCommandParser implements Parser<AddFoodCommand> {
 
