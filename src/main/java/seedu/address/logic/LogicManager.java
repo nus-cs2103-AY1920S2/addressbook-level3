@@ -7,6 +7,10 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.commandClear.ClearCourseCommand;
+import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
+import seedu.address.logic.commands.commandClear.ClearStudentCommand;
+import seedu.address.logic.commands.commandClear.ClearTeacherCommand;
 import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
 import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
 import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
@@ -17,6 +21,10 @@ import seedu.address.logic.commands.commandAdd.AddStudentCommand;
 import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.commandEdit.EditCourseCommand;
+import seedu.address.logic.commands.commandEdit.EditFinanceCommand;
+import seedu.address.logic.commands.commandEdit.EditStudentCommand;
+import seedu.address.logic.commands.commandEdit.EditTeacherCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -57,25 +65,25 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
-        if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand) {
+        if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand || command instanceof ClearTeacherCommand  || command instanceof EditTeacherCommand) {
             try {
                 storage.saveTeacherAddressBook(model.getTeacherAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command instanceof AddStudentCommand || command instanceof DeleteStudentCommand) {
+        } else if (command instanceof AddStudentCommand || command instanceof DeleteStudentCommand || command instanceof ClearStudentCommand || command instanceof EditStudentCommand) {
             try {
                 storage.saveStudentAddressBook(model.getStudentAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand) {
+        } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand || command instanceof ClearCourseCommand || command instanceof EditCourseCommand) {
             try {
                 storage.saveCourseAddressBook(model.getCourseAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command instanceof AddFinanceCommand || command instanceof DeleteFinanceCommand) {
+        } else if (command instanceof AddFinanceCommand || command instanceof DeleteFinanceCommand || command instanceof ClearFinanceCommand || command instanceof EditFinanceCommand) {
             try {
                 storage.saveFinanceAddressBook(model.getFinanceAddressBook());
             } catch (IOException ioe) {
