@@ -61,19 +61,19 @@ public class LogicManager implements Logic {
             }
         } else if (command instanceof AddStudentCommand) {
             try {
-                storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+                storage.saveStudentAddressBook(model.getStudentAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         } else if (command instanceof AddCourseCommand) {
             try {
-                storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+                storage.saveCourseAddressBook(model.getCourseAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         } else if (command instanceof AddFinanceCommand) {
             try {
-                storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+                storage.saveFinanceAddressBook(model.getFinanceAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

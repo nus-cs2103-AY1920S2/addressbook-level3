@@ -10,7 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.AssignedCourse;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
@@ -49,6 +52,51 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String course} into a {@code AssignedCourse}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code course} is invalid.
+     */
+    public static AssignedCourse parseCourse(String course) throws ParseException {
+        requireNonNull(course);
+        String trimmedCourse = course.trim();
+        if (!AssignedCourse.isValidCourse(trimmedCourse)) {
+            throw new ParseException(AssignedCourse.MESSAGE_CONSTRAINTS);
+        }
+        return new AssignedCourse(trimmedCourse);
+    }
+
+    /**
+     * Parses a {@code String courseID} into a {@code ID}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code courseID} is invalid.
+     */
+    public static ID parseCourseID(String courseID) throws ParseException {
+        requireNonNull(courseID);
+        String trimmedCourseID = courseID.trim();
+        if (!ID.isValidId(trimmedCourseID)) {
+            throw new ParseException(ID.MESSAGE_CONSTRAINTS);
+        }
+        return new ID(trimmedCourseID);
+    }
+
+    /**
+     * Parses a {@code String amount} into a {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_CONSTRAINTS);
+        }
+        return new Amount(trimmedAmount);
     }
 
     /**
