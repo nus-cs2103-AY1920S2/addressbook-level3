@@ -21,7 +21,7 @@ Role: Project Advisor
 '''
 
 === Edmond Ong
-image::edmond.jpg[width="150", align="left"]
+image::edmondong.png[width="150", align="left"]
 {empty}[http://github.com/EdmondOng[github]] [<<edmondong#, portfolio>>]
 
 Role: Team Lead +
