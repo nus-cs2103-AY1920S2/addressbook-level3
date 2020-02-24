@@ -66,7 +66,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException { //indeed made changes to model
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
