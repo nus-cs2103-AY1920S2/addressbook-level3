@@ -27,7 +27,7 @@ Responsibilities: UI
 '''
 
 === Jeremy Loh
-image::jeremyloh.jpg[width="150", align="left"]
+image::jeremyloh.png[width="150", align="left"]
 {empty}[https://github.com/jeremyloh[github]] [<<jeremyloh#, portfolio>>]
 
 Role: Developer & Documentation
