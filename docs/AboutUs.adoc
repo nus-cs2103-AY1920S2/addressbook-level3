@@ -12,7 +12,7 @@ We are a CS2103 team based in the http://www.comp.nus.edu.sg[School of Computing
 == Project Team
 
 === Edmond Ong
-image::EdmondOng.png[width="150", align="left"]
+image::edmondong.png[width="150", align="left"]
 {empty}[http://github.com/EdmondOng[github]] [<<edmondong#, portfolio>>]
 
 Role: Team Lead +
