@@ -8,9 +8,16 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTeacherAddressBook;
+import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.storageCourse.CourseAddressBookStorage;
+import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
+import seedu.address.storage.storageStudent.StudentAddressBookStorage;
+import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -20,13 +27,21 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private TeacherAddressBookStorage teacherAddressBookStorage;
+    private StudentAddressBookStorage studentAddressBookStorage;
+    private FinanceAddressBookStorage financeAddressBookStorage;
+    private CourseAddressBookStorage courseAddressBookStorage;
+
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, TeacherAddressBookStorage teacherAddressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, TeacherAddressBookStorage teacherAddressBookStorage, StudentAddressBookStorage studentAddressBookStorage,
+        FinanceAddressBookStorage financeAddressBookStorage, CourseAddressBookStorage courseAddressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.teacherAddressBookStorage = teacherAddressBookStorage;
+        this.studentAddressBookStorage = studentAddressBookStorage;
+        this.financeAddressBookStorage = financeAddressBookStorage;
+        this.courseAddressBookStorage = courseAddressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -46,7 +61,6 @@ public class StorageManager implements Storage {
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
-
 
     // ================ AddressBook methods ==============================
 
@@ -77,6 +91,7 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+
     // ================ TeacherAddressBook methods ==============================
 
     @Override
@@ -106,4 +121,90 @@ public class StorageManager implements Storage {
         teacherAddressBookStorage.saveTeacherAddressBook(teacherAddressBook, filePath);
     }
 
+    // ================ StudentAddressBook methods ==============================
+
+    @Override
+    public Path getStudentAddressBookFilePath() {
+        return studentAddressBookStorage.getStudentAddressBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyStudentAddressBook> readStudentAddressBook() throws DataConversionException, IOException {
+        return readStudentAddressBook(studentAddressBookStorage.getStudentAddressBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyStudentAddressBook> readStudentAddressBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return studentAddressBookStorage.readStudentAddressBook(filePath);
+    }
+
+    @Override
+    public void saveStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook) throws IOException {
+        saveStudentAddressBook(studentAddressBook, studentAddressBookStorage.getStudentAddressBookFilePath());
+    }
+
+    @Override
+    public void saveStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        studentAddressBookStorage.saveStudentAddressBook(studentAddressBook, filePath);
+    }
+
+    // ================ FinanceAddressBook methods ==============================
+
+    @Override
+    public Path getFinanceAddressBookFilePath() {
+        return financeAddressBookStorage.getFinanceAddressBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook() throws DataConversionException, IOException {
+        return readFinanceAddressBook(financeAddressBookStorage.getFinanceAddressBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return financeAddressBookStorage.readFinanceAddressBook(filePath);
+    }
+
+    @Override
+    public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook) throws IOException {
+        saveFinanceAddressBook(financeAddressBook, financeAddressBookStorage.getFinanceAddressBookFilePath());
+    }
+
+    @Override
+    public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        financeAddressBookStorage.saveFinanceAddressBook(financeAddressBook, filePath);
+    }
+
+    // ================ CourseAddressBook methods ==============================
+
+    @Override
+    public Path getCourseAddressBookFilePath() {
+        return courseAddressBookStorage.getCourseAddressBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyCourseAddressBook> readCourseAddressBook() throws DataConversionException, IOException {
+        return readCourseAddressBook(courseAddressBookStorage.getCourseAddressBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyCourseAddressBook> readCourseAddressBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return courseAddressBookStorage.readCourseAddressBook(filePath);
+    }
+
+    @Override
+    public void saveCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook) throws IOException {
+        saveCourseAddressBook(courseAddressBook, courseAddressBookStorage.getCourseAddressBookFilePath());
+    }
+
+    @Override
+    public void saveCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        courseAddressBookStorage.saveCourseAddressBook(courseAddressBook, filePath);
+    }
 }

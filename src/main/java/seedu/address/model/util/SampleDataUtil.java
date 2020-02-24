@@ -6,15 +6,27 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTeacherAddressBook;
-import seedu.address.model.TeacherAddressBook;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelCourse.CourseAddressBook;
+import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelFinance.FinanceAddressBook;
+import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelStudent.StudentAddressBook;
+import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
+import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Amount;
+import seedu.address.model.person.AssignedCourse;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
-import seedu.address.model.person.Teacher;
+import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,6 +56,14 @@ public class SampleDataUtil {
         };
     }
 
+    public static ReadOnlyAddressBook getSampleAddressBook() {
+        AddressBook sampleAb = new AddressBook();
+        for (Person samplePerson : getSamplePersons()) {
+            sampleAb.addPerson(samplePerson);
+        }
+        return sampleAb;
+    }
+
     public static Teacher[] getSampleTeachers() {
         return new Teacher[] {
             new Teacher(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"), new Salary("1000"),
@@ -67,18 +87,85 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
-        }
-        return sampleAb;
-    }
-
     public static ReadOnlyTeacherAddressBook getSampleTeacherAddressBook() {
         TeacherAddressBook sampleAb = new TeacherAddressBook();
         for (Teacher sampleTeacher : getSampleTeachers()) {
             sampleAb.addTeacher(sampleTeacher);
+        }
+        return sampleAb;
+    }
+
+    public static Student[] getSampleStudents() {
+        return new Student[] {
+            new Student(new Name("Alex Yeoh"), new AssignedCourse("abc"),
+                getTagSet("friends")),
+            new Student(new Name("Bernice Yu"), new AssignedCourse("abc"),
+                getTagSet("colleagues", "friends")),
+            new Student(new Name("Charlotte Oliveiro"), new AssignedCourse("abc"),
+                getTagSet("neighbours")),
+            new Student(new Name("David Li"), new AssignedCourse("abc"),
+                getTagSet("family")),
+            new Student(new Name("Irfan Ibrahim"), new AssignedCourse("abc"),
+                getTagSet("classmates")),
+            new Student(new Name("Roy Balakrishnan"), new AssignedCourse("abc"),
+                getTagSet("colleagues"))
+        };
+    }
+
+    public static ReadOnlyStudentAddressBook getSampleStudentAddressBook() {
+        StudentAddressBook sampleAb = new StudentAddressBook();
+        for (Student sampleStudent : getSampleStudents()) {
+            sampleAb.addStudent(sampleStudent);
+        }
+        return sampleAb;
+    }
+
+    public static Finance[] getSampleFinances() {
+        return new Finance[] {
+            new Finance(new Name("Alex Yeoh"), new Amount("1000"),
+                getTagSet("friends")),
+            new Finance(new Name("Bernice Yu"), new Amount("1000"),
+                getTagSet("colleagues", "friends")),
+            new Finance(new Name("Charlotte Oliveiro"), new Amount("1000"),
+                getTagSet("neighbours")),
+            new Finance(new Name("David Li"), new Amount("1000"),
+                getTagSet("family")),
+            new Finance(new Name("Irfan Ibrahim"), new Amount("1000"),
+                getTagSet("classmates")),
+            new Finance(new Name("Roy Balakrishnan"), new Amount("1000"),
+                getTagSet("colleagues"))
+        };
+    }
+
+    public static ReadOnlyFinanceAddressBook getSampleFinanceAddressBook() {
+        FinanceAddressBook sampleAb = new FinanceAddressBook();
+        for (Finance sampleFinance : getSampleFinances()) {
+            sampleAb.addFinance(sampleFinance);
+        }
+        return sampleAb;
+    }
+
+    public static Course[] getSampleCourses() {
+        return new Course[] {
+            new Course(new Name("Alex Yeoh"), new ID("1000"),
+                getTagSet("friends")),
+            new Course(new Name("Bernice Yu"), new ID("1000"),
+                getTagSet("colleagues", "friends")),
+            new Course(new Name("Charlotte Oliveiro"), new ID("1000"),
+                getTagSet("neighbours")),
+            new Course(new Name("David Li"), new ID("1000"),
+                getTagSet("family")),
+            new Course(new Name("Irfan Ibrahim"), new ID("1000"),
+                getTagSet("classmates")),
+            new Course(new Name("Roy Balakrishnan"), new ID("1000"),
+                getTagSet("colleagues"))
+        };
+    }
+
+    public static ReadOnlyCourseAddressBook getSampleCourseAddressBook() {
+        CourseAddressBook sampleAb = new CourseAddressBook();
+        for (Course sampleCourse : getSampleCourses()) {
+            sampleAb.addCourse(sampleCourse);
         }
         return sampleAb;
     }

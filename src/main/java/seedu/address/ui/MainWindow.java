@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -20,6 +19,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.uiCourse.CourseListPanel;
+import seedu.address.ui.uiFinance.FinanceListPanel;
+import seedu.address.ui.uiStudent.StudentListPanel;
+import seedu.address.ui.uiTeacher.TeacherListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -35,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private StudentListPanel studentListPanel;
     private TeacherListPanel teacherListPanel;
     private CourseListPanel courseListPanel;
     private FinanceListPanel financeListPanel;
@@ -51,10 +54,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane dataListPanelPlaceholder;
 
     @FXML
-    private StackPane dataListPanelPlaceholder;
+    private StackPane studentListPanelPlaceholder;
 
     @FXML
     private StackPane teacherListPanelPlaceholder;
@@ -137,12 +140,12 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         teacherListPanel = new TeacherListPanel(logic.getFilteredTeacherList());
-        courseListPanel = new CourseListPanel(logic.getFilteredPersonList());
-        financeListPanel = new FinanceListPanel(logic.getFilteredPersonList());
+        courseListPanel = new CourseListPanel(logic.getFilteredCourseList());
+        financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
 
-        dataListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
 
         ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
     }
@@ -175,8 +178,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switch to the Person view.
      */
     @FXML
-    private void handleSwitchToPerson() {
-        switchList(personListPanel.getRoot());
+    private void handleSwitchToStudent() {
+        switchList(studentListPanel.getRoot());
     }
 
     /**
@@ -239,10 +242,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
 
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
-    }
 
     /**
      * Executes the command and returns the result.

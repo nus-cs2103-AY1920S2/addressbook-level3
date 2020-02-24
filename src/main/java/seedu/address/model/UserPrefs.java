@@ -16,6 +16,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path teacherAddressBookFilePath = Paths.get("data" , "teacherAddressbook.json");
+    private Path studentAddressBookFilePath = Paths.get("data" , "studentAddressbook.json");
+    private Path courseAddressBookFilePath = Paths.get("data" , "courseAddressbook.json");
+    private Path financeAddressBookFilePath = Paths.get("data" , "financeAddressbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -64,6 +67,33 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setTeacherAddressBookFilePath(Path teacherAddressBookFilePath) {
         requireNonNull(teacherAddressBookFilePath);
         this.teacherAddressBookFilePath = teacherAddressBookFilePath;
+    }
+
+    public Path getStudentAddressBookFilePath() {
+        return studentAddressBookFilePath;
+    }
+
+    public void setStudentAddressBookFilePath(Path studentAddressBookFilePath) {
+        requireNonNull(studentAddressBookFilePath);
+        this.studentAddressBookFilePath = studentAddressBookFilePath;
+    }
+
+    public Path getCourseAddressBookFilePath() {
+        return courseAddressBookFilePath;
+    }
+
+    public void setCourseAddressBookFilePath(Path courseAddressBookFilePath) {
+        requireNonNull(courseAddressBookFilePath);
+        this.courseAddressBookFilePath = courseAddressBookFilePath;
+    }
+
+    public Path getFinanceAddressBookFilePath() {
+        return financeAddressBookFilePath;
+    }
+
+    public void setFinanceAddressBookFilePath(Path financeAddressBookFilePath) {
+        requireNonNull(financeAddressBookFilePath);
+        this.financeAddressBookFilePath = financeAddressBookFilePath;
     }
 
     @Override

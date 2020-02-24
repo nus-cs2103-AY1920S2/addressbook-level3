@@ -19,18 +19,30 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTeacherAddressBook;
+import seedu.address.model.modelCourse.CourseAddressBook;
+import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelFinance.FinanceAddressBook;
+import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelStudent.StudentAddressBook;
+import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.TeacherAddressBook;
+import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
-import seedu.address.storage.JsonTeacherAddressBookStorage;
+import seedu.address.storage.storageCourse.CourseAddressBookStorage;
+import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
+import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
+import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
+import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
+import seedu.address.storage.storageStudent.StudentAddressBookStorage;
+import seedu.address.storage.storageTeacher.JsonTeacherAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
-import seedu.address.storage.TeacherAddressBookStorage;
+import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -62,8 +74,11 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         TeacherAddressBookStorage teacherAddressBookStorage = new JsonTeacherAddressBookStorage(userPrefs.getTeacherAddressBookFilePath());
+        StudentAddressBookStorage studentAddressBookStorage = new JsonStudentAddressBookStorage(userPrefs.getStudentAddressBookFilePath());
+        CourseAddressBookStorage courseAddressBookStorage = new JsonCourseAddressBookStorage(userPrefs.getCourseAddressBookFilePath());
+        FinanceAddressBookStorage financeAddressBookStorage = new JsonFinanceAddressBookStorage(userPrefs.getFinanceAddressBookFilePath());
 
-        storage = new StorageManager(addressBookStorage, teacherAddressBookStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, teacherAddressBookStorage, studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -112,7 +127,55 @@ public class MainApp extends Application {
             teacherInitialData = new TeacherAddressBook();
         }
 
-        return new ModelManager(initialData, teacherInitialData, userPrefs);
+        Optional<ReadOnlyStudentAddressBook> studentAddressBookOptional;
+        ReadOnlyStudentAddressBook studentInitialData;
+        try {
+            studentAddressBookOptional = storage.readStudentAddressBook();
+            if (!studentAddressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            studentInitialData = studentAddressBookOptional.orElseGet(SampleDataUtil::getSampleStudentAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            studentInitialData = new StudentAddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            studentInitialData = new StudentAddressBook();
+        }
+
+        Optional<ReadOnlyFinanceAddressBook> financeAddressBookOptional;
+        ReadOnlyFinanceAddressBook financeInitialData;
+        try {
+            financeAddressBookOptional = storage.readFinanceAddressBook();
+            if (!financeAddressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            financeInitialData = financeAddressBookOptional.orElseGet(SampleDataUtil::getSampleFinanceAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            financeInitialData = new FinanceAddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            financeInitialData = new FinanceAddressBook();
+        }
+
+        Optional<ReadOnlyCourseAddressBook> courseAddressBookOptional;
+        ReadOnlyCourseAddressBook courseInitialData;
+        try {
+            courseAddressBookOptional = storage.readCourseAddressBook();
+            if (!courseAddressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            courseInitialData = courseAddressBookOptional.orElseGet(SampleDataUtil::getSampleCourseAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            courseInitialData = new CourseAddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            courseInitialData = new CourseAddressBook();
+        }
+
+        return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData, courseInitialData, userPrefs);
     }
 
     private void initLogging(Config config) {
