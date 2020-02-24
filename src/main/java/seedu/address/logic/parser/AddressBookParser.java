@@ -6,11 +6,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddCourseCommand;
-import seedu.address.logic.commands.AddFinanceCommand;
-import seedu.address.logic.commands.AddStudentCommand;
-import seedu.address.logic.commands.AddTeacherCommand;
+import seedu.address.logic.commands.commandAdd.AddCommand;
+import seedu.address.logic.commands.commandAdd.AddCourseCommand;
+import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
+import seedu.address.logic.commands.commandAdd.AddStudentCommand;
+import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -20,6 +20,11 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.parserAdd.AddCommandParser;
+import seedu.address.logic.parser.parserAdd.AddCourseCommandParser;
+import seedu.address.logic.parser.parserAdd.AddFinanceCommandParser;
+import seedu.address.logic.parser.parserAdd.AddStudentCommandParser;
+import seedu.address.logic.parser.parserAdd.AddTeacherCommandParser;
 
 /**
  * Parses user input.

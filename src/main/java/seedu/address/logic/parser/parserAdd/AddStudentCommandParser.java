@@ -1,25 +1,28 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.parserAdd;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
-import seedu.address.logic.commands.AddCourseCommand;
+import seedu.address.logic.commands.commandAdd.AddStudentCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.AssignedCourse;
-import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCourseCommandParser implements Parser<AddCourseCommand> {
+public class AddStudentCommandParser implements Parser<AddStudentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -27,22 +30,22 @@ public class AddCourseCommandParser implements Parser<AddCourseCommand> {
      * @throws ParseException if the user input does not conform the expected format
      * @return
      */
-    public AddCourseCommand parse(String args) throws ParseException {
+    public AddStudentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSEID, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSEID)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCourseCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        ID courseID = ParserUtil.parseCourseID(argMultimap.getValue(PREFIX_COURSEID).get());
+        AssignedCourse course = ParserUtil.parseCourse(argMultimap.getValue(PREFIX_COURSE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Course course = new Course(name, courseID, tagList);
+        Student student = new Student(name, course, tagList);
 
-        return new AddCourseCommand(course);
+        return new AddStudentCommand(student);
     }
 
     /**
