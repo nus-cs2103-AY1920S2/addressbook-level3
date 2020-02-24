@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.storageTeacher;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyTeacherAddressBook;
-import seedu.address.model.TeacherAddressBook;
+import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
+import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.Teacher;
 
 /**

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.uiStudent;
 
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
@@ -8,18 +8,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.ui.PersonCard;
+import seedu.address.ui.UiPart;
 
 /**
  * Panel containing the list of persons.
  */
-public class FinanceListPanel extends UiPart<Region> {
-    private static final String FXML = "FinanceListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(FinanceListPanel.class);
+public class StudentListPanel extends UiPart<Region> {
+    private static final String FXML = "CourseListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(StudentListPanel.class);
 
     @FXML
     private ListView<Person> personListView;
 
-    public FinanceListPanel(ObservableList<Person> personList) {
+    public StudentListPanel(ObservableList<Person> personList) {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());

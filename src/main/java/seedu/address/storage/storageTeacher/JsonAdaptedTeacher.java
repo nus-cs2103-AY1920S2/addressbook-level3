@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.storageTeacher;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,6 +16,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.person.Teacher;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.storageTeacher.JsonTeacherAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -29,7 +30,7 @@ class JsonAdaptedTeacher {
     private final String email;
     private final String salary;
     private final String address;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonTeacherAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -37,7 +38,7 @@ class JsonAdaptedTeacher {
     @JsonCreator
     public JsonAdaptedTeacher(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("salary") String salary, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonTeacherAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -58,7 +59,7 @@ class JsonAdaptedTeacher {
         salary = source.getSalary().value;
         address = source.getAddress().value;
         tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+                .map(JsonTeacherAdaptedTag::new)
                 .collect(Collectors.toList()));
     }
 
@@ -69,7 +70,7 @@ class JsonAdaptedTeacher {
      */
     public Teacher toModelType() throws IllegalValueException {
         final List<Tag> teacherTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
+        for (JsonTeacherAdaptedTag tag : tagged) {
             teacherTags.add(tag.toModelType());
         }
 
