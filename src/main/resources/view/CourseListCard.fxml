@@ -28,7 +28,10 @@
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="courseID" styleClass="cell_small_label" text="\$courseID" />
+      <HBox>
+        <Label styleClass="cell_small_label" text="Course ID: " />
+        <Label fx:id="courseID" styleClass="cell_small_label" text="\$courseID" />
+      </HBox>
     </VBox>
   </GridPane>
 </HBox>
