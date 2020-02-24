@@ -22,11 +22,15 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.commandFind.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.commandList.ListCommand;
 import seedu.address.logic.commands.commandFind.FindCourseCommand;
 import seedu.address.logic.commands.commandFind.FindFinanceCommand;
 import seedu.address.logic.commands.commandFind.FindStudentCommand;
 import seedu.address.logic.commands.commandFind.FindTeacherCommand;
+import seedu.address.logic.commands.commandList.ListCourseCommand;
+import seedu.address.logic.commands.commandList.ListFinanceCommand;
+import seedu.address.logic.commands.commandList.ListStudentCommand;
+import seedu.address.logic.commands.commandList.ListTeacherCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.parserAdd.AddCommandParser;
 import seedu.address.logic.parser.parserAdd.AddCourseCommandParser;
@@ -106,6 +110,18 @@ public class AddressBookParser {
 
             case FindCourseCommand.COMMAND_WORD:
                 return new FindCourseCommandParser().parse(arguments);
+
+            case ListTeacherCommand.COMMAND_WORD:
+                return new ListTeacherCommand();
+
+            case ListStudentCommand.COMMAND_WORD:
+                return new ListStudentCommand();
+
+            case ListFinanceCommand.COMMAND_WORD:
+                return new ListFinanceCommand();
+
+            case ListCourseCommand.COMMAND_WORD:
+                return new ListCourseCommand();
 
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);
