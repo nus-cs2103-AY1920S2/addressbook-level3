@@ -7,39 +7,38 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.ui.PersonCard;
+import seedu.address.model.modelCourse.Course;
 import seedu.address.ui.UiPart;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of courses.
  */
 public class CourseListPanel extends UiPart<Region> {
     private static final String FXML = "CourseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CourseListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Course> courseListView;
 
-    public CourseListPanel(ObservableList<Person> personList) {
+    public CourseListPanel(ObservableList<Course> courseList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        courseListView.setItems(courseList);
+        courseListView.setCellFactory(listView -> new CourseListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Course} using a {@code CourseCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class CourseListViewCell extends ListCell<Course> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Course course, boolean empty) {
+            super.updateItem(course, empty);
 
-            if (empty || person == null) {
+            if (empty || course == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new CourseCard(course, getIndex() + 1).getRoot());
             }
         }
     }

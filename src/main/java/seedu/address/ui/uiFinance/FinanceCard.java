@@ -6,11 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Finance}.
  */
 public class FinanceCard extends UiPart<Region> {
 
@@ -24,7 +24,7 @@ public class FinanceCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Finance finance;
 
     @FXML
     private HBox cardPane;
@@ -33,23 +33,17 @@ public class FinanceCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
+    private Label amount;
     @FXML
     private FlowPane tags;
 
-    public FinanceCard(Person person, int displayedIndex) {
+    public FinanceCard(Finance finance, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.finance = finance;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        name.setText(finance.getName().fullName);
+        amount.setText(finance.getAmount().value);
+        finance.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
@@ -69,6 +63,6 @@ public class FinanceCard extends UiPart<Region> {
         // state check
         FinanceCard card = (FinanceCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && finance.equals(card.finance);
     }
 }

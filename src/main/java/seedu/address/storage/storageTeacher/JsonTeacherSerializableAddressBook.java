@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
-import seedu.address.model.person.Teacher;
+import seedu.address.model.modelTeacher.Teacher;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

@@ -7,39 +7,38 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
-import seedu.address.ui.PersonCard;
+import seedu.address.model.modelFinance.Finance;
 import seedu.address.ui.UiPart;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of finances.
  */
 public class FinanceListPanel extends UiPart<Region> {
-    private static final String FXML = "CourseListPanel.fxml";
+    private static final String FXML = "FinanceListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(FinanceListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Finance> financeListView;
 
-    public FinanceListPanel(ObservableList<Person> personList) {
+    public FinanceListPanel(ObservableList<Finance> financeList) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        financeListView.setItems(financeList);
+        financeListView.setCellFactory(listView -> new FinanceListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Finance} using a {@code FinanceCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class FinanceListViewCell extends ListCell<Finance> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Finance finance, boolean empty) {
+            super.updateItem(finance, empty);
 
-            if (empty || person == null) {
+            if (empty || finance == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new FinanceCard(finance, getIndex() + 1).getRoot());
             }
         }
     }

@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddCourseCommand;
+import seedu.address.logic.commands.AddFinanceCommand;
+import seedu.address.logic.commands.AddStudentCommand;
 import seedu.address.logic.commands.AddTeacherCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -15,9 +18,15 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Teacher;
+import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.storage.Storage;
 
 /**
@@ -50,10 +59,21 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        }
-        else{
+        } else if (command instanceof AddStudentCommand) {
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        } else if (command instanceof AddCourseCommand) {
+            try {
+                storage.saveTeacherAddressBook(model.getTeacherAddressBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        } else if (command instanceof AddFinanceCommand) {
+            try {
+                storage.saveTeacherAddressBook(model.getTeacherAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -63,6 +83,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    ///
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
@@ -78,6 +99,7 @@ public class LogicManager implements Logic {
         return model.getAddressBookFilePath();
     }
 
+    ///
     @Override
     public ReadOnlyTeacherAddressBook getTeacherAddressBook() {
         return model.getTeacherAddressBook();
@@ -91,6 +113,55 @@ public class LogicManager implements Logic {
     @Override
     public Path getTeacherAddressBookFilePath() {
         return model.getTeacherAddressBookFilePath();
+    }
+
+    ///
+    @Override
+    public ReadOnlyStudentAddressBook getStudentAddressBook() {
+        return model.getStudentAddressBook();
+    }
+
+    @Override
+    public ObservableList<Student> getFilteredStudentList() {
+        return model.getFilteredStudentList();
+    }
+
+    @Override
+    public Path getStudentAddressBookFilePath() {
+        return model.getStudentAddressBookFilePath();
+    }
+
+
+    ///
+    @Override
+    public ReadOnlyCourseAddressBook getCourseAddressBook() {
+        return model.getCourseAddressBook();
+    }
+
+    @Override
+    public ObservableList<Course> getFilteredCourseList() {
+        return model.getFilteredCourseList();
+    }
+
+    @Override
+    public Path getCourseAddressBookFilePath() {
+        return model.getCourseAddressBookFilePath();
+    }
+
+    ///
+    @Override
+    public ReadOnlyFinanceAddressBook getFinanceAddressBook() {
+        return model.getFinanceAddressBook();
+    }
+
+    @Override
+    public ObservableList<Finance> getFilteredFinanceList() {
+        return model.getFilteredFinanceList();
+    }
+
+    @Override
+    public Path getFinanceAddressBookFilePath() {
+        return model.getFinanceAddressBookFilePath();
     }
 
     @Override

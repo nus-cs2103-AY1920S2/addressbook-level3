@@ -8,9 +8,15 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Teacher;
+import seedu.address.model.modelTeacher.Teacher;
 
 /**
  * API of the Logic component
@@ -24,7 +30,7 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
-
+    ///
     /**
      * Returns the AddressBook.
      *
@@ -36,10 +42,15 @@ public interface Logic {
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns the user prefs' teacher address book file path.
+     * Returns the user prefs' address book file path.
      */
-    Path getTeacherAddressBookFilePath();
+    Path getAddressBookFilePath();
 
+    /**
+     * Returns the user prefs' GUI settings.
+     */
+
+    ///
     /**
      * Returns the TeacherAddressBook.
      *
@@ -51,10 +62,57 @@ public interface Logic {
     ObservableList<Teacher> getFilteredTeacherList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' teacher address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getTeacherAddressBookFilePath();
 
+    ///
+    /**
+     * Returns the StudentddressBook.
+     *
+     * @see seedu.address.model.Model#getStudentAddressBook()
+     */
+    ReadOnlyStudentAddressBook getStudentAddressBook();
+
+    /** Returns an unmodifiable view of the filtered list of students */
+    ObservableList<Student> getFilteredStudentList();
+
+    /**
+     * Returns the user prefs' teacher address book file path.
+     */
+    Path getStudentAddressBookFilePath();
+
+    ///
+    /**
+     * Returns the FinanceAddressBook.
+     *
+     * @see seedu.address.model.Model#getFinanceAddressBook()
+     */
+    ReadOnlyFinanceAddressBook getFinanceAddressBook();
+
+    /** Returns an unmodifiable view of the filtered list of finances */
+    ObservableList<Finance> getFilteredFinanceList();
+
+    /**
+     * Returns the user prefs' teacher address book file path.
+     */
+    Path getFinanceAddressBookFilePath();
+
+    ///
+    /**
+     * Returns the CourseAddressBook.
+     *
+     * @see seedu.address.model.Model#getCourseAddressBook()
+     */
+    ReadOnlyCourseAddressBook getCourseAddressBook();
+
+    /** Returns an unmodifiable view of the filtered list of courses */
+    ObservableList<Course> getFilteredCourseList();
+
+    /**
+     * Returns the user prefs' course address book file path.
+     */
+    Path getCourseAddressBookFilePath();
     /**
      * Returns the user prefs' GUI settings.
      */
