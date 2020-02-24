@@ -38,7 +38,7 @@ interacts with it using a CLI, and it has a GUI created with JavaFX. It is writt
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools:
-*** Integrated a third party library (Coveralls) to the project (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/248bb4db86666270ee5025f1d4f9276ef1d530ec)
+*** Integrated a third party library (Coveralls) to the project (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/248bb4db86666270ee5025f1d4f9276ef1d530ec[248bb4d])
 
 
 == Contributions to the User Guide
