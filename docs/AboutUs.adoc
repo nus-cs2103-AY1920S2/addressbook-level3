@@ -30,7 +30,7 @@ Responsibilities: UI
 image::jeremyloh.png[width="150", align="left"]
 {empty}[https://github.com/jeremyloh[github]] [<<jeremyloh#, portfolio>>]
 
-Role: Developer & Documentation
+Role: Developer & Documentation +
 Responsibilities: Testing and Code Quality
 
 '''
