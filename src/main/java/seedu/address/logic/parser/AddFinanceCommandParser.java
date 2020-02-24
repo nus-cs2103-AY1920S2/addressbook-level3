@@ -1,33 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
-import seedu.address.logic.commands.AddStudentCommand;
-import seedu.address.logic.commands.AddTeacherCommand;
+import seedu.address.logic.commands.AddFinanceCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelStudent.Student;
-import seedu.address.model.modelTeacher.Teacher;
-import seedu.address.model.person.Address;
+import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.person.Amount;
 import seedu.address.model.person.AssignedCourse;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddStudentCommandParser implements Parser<AddStudentCommand> {
+public class AddFinanceCommandParser implements Parser<AddFinanceCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -35,22 +27,22 @@ public class AddStudentCommandParser implements Parser<AddStudentCommand> {
      * @throws ParseException if the user input does not conform the expected format
      * @return
      */
-    public AddStudentCommand parse(String args) throws ParseException {
+    public AddFinanceCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStudentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        AssignedCourse course = ParserUtil.parseCourse(argMultimap.getValue(PREFIX_COURSE).get());
+        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Student student = new Student(name, course, tagList);
+        Finance finance = new Finance(name, amount, tagList);
 
-        return new AddStudentCommand(student);
+        return new AddFinanceCommand(finance);
     }
 
     /**
