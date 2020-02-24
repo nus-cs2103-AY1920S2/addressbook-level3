@@ -16,7 +16,7 @@ image::2103dp.jpg[width="150", align="left"]
 {empty}[https://github.com/Cherweijie[github]] [<<cherweijie#, portfolio>>]
 
 Role: Team Lead + Co-Integration
-Responsibilities: Team facilitation, code Integration & UI design
+Responsibilities: Team Facilitation, code integration & UI design
 
 '''
 
