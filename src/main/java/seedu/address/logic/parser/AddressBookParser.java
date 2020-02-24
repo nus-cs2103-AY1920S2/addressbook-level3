@@ -20,9 +20,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.commandDelete.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.commandFind.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.commandFind.FindCourseCommand;
+import seedu.address.logic.commands.commandFind.FindFinanceCommand;
+import seedu.address.logic.commands.commandFind.FindStudentCommand;
+import seedu.address.logic.commands.commandFind.FindTeacherCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.parserAdd.AddCommandParser;
 import seedu.address.logic.parser.parserAdd.AddCourseCommandParser;
@@ -34,6 +38,11 @@ import seedu.address.logic.parser.parserDelete.DeleteCourseCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteFinanceCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteStudentCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteTeacherCommandParser;
+import seedu.address.logic.parser.parserFind.FindCommandParser;
+import seedu.address.logic.parser.parserFind.FindCourseCommandParser;
+import seedu.address.logic.parser.parserFind.FindFinanceCommandParser;
+import seedu.address.logic.parser.parserFind.FindStudentCommandParser;
+import seedu.address.logic.parser.parserFind.FindTeacherCommandParser;
 
 /**
  * Parses user input.
@@ -85,6 +94,18 @@ public class AddressBookParser {
 
             case DeleteCourseCommand.COMMAND_WORD:
                 return new DeleteCourseCommandParser().parse(arguments);
+
+            case FindTeacherCommand.COMMAND_WORD:
+                return new FindTeacherCommandParser().parse(arguments);
+
+            case FindStudentCommand.COMMAND_WORD:
+                return new FindStudentCommandParser().parse(arguments);
+
+            case FindFinanceCommand.COMMAND_WORD:
+                return new FindFinanceCommandParser().parse(arguments);
+
+            case FindCourseCommand.COMMAND_WORD:
+                return new FindCourseCommandParser().parse(arguments);
 
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);

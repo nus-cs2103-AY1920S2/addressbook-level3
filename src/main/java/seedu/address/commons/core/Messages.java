@@ -15,8 +15,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_COURSE_DISPLAYED_INDEX = "The course index provided is invalid";
 
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_TEACHER_LISTED_OVERVIEW = "%1$d teachers listed!";
-    public static final String MESSAGE_STUDENT_LISTED_OVERVIEW = "%1$d students listed!";
-    public static final String MESSAGE_FINANCE_LISTED_OVERVIEW = "%1$d finances listed!";
-    public static final String MESSAGE_COURSE_LISTED_OVERVIEW = "%1$d courses listed!";
+    public static final String MESSAGE_TEACHERS_LISTED_OVERVIEW = "%1$d teachers listed!";
+    public static final String MESSAGE_STUDENTS_LISTED_OVERVIEW = "%1$d students listed!";
+    public static final String MESSAGE_FINANCES_LISTED_OVERVIEW = "%1$d finances listed!";
+    public static final String MESSAGE_COURSES_LISTED_OVERVIEW = "%1$d courses listed!";
 }
