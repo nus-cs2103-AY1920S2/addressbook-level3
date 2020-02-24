@@ -12,7 +12,7 @@ We are a CS2103 team based in the http://www.comp.nus.edu.sg[School of Computing
 == Project Team
 
 === Edmond Ong
-image::edmond.jpg[width="150", align="left"]
+image::EdmondOng.png[width="150", align="left"]
 {empty}[http://github.com/EdmondOng[github]] [<<edmondong#, portfolio>>]
 
 Role: Team Lead +
@@ -21,7 +21,7 @@ Responsibilities: UI
 '''
 
 === Ng Yi Long, Kester
-image::kester.jpg[width="150", align="left"]
+image::kester-ng.png[width="150", align="left"]
 {empty}[http://github.com/kester-ng[github]] [<<kester-ng#, portfolio>>]
 
 Role: Developer +
@@ -39,7 +39,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Don Tay
-image::don.jpg[width="150", align="left"]
+image::don-tay.png[width="150", align="left"]
 {empty}[http://github.com/don-tay[github]] [<<don-tay#, portfolio>>]
 
 Role: Developer
