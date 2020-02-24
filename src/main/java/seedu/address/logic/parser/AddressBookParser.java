@@ -6,6 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
+import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
+import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
+import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
 import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.commands.commandAdd.AddCourseCommand;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
@@ -13,7 +17,7 @@ import seedu.address.logic.commands.commandAdd.AddStudentCommand;
 import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.commandDelete.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -25,6 +29,11 @@ import seedu.address.logic.parser.parserAdd.AddCourseCommandParser;
 import seedu.address.logic.parser.parserAdd.AddFinanceCommandParser;
 import seedu.address.logic.parser.parserAdd.AddStudentCommandParser;
 import seedu.address.logic.parser.parserAdd.AddTeacherCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteCourseCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteFinanceCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteStudentCommandParser;
+import seedu.address.logic.parser.parserDelete.DeleteTeacherCommandParser;
 
 /**
  * Parses user input.
@@ -64,6 +73,18 @@ public class AddressBookParser {
 
             case AddCourseCommand.COMMAND_WORD:
                 return new AddCourseCommandParser().parse(arguments);
+
+            case DeleteTeacherCommand.COMMAND_WORD:
+                return new DeleteTeacherCommandParser().parse(arguments);
+
+            case DeleteStudentCommand.COMMAND_WORD:
+                return new DeleteStudentCommandParser().parse(arguments);
+
+            case DeleteFinanceCommand.COMMAND_WORD:
+                return new DeleteFinanceCommandParser().parse(arguments);
+
+            case DeleteCourseCommand.COMMAND_WORD:
+                return new DeleteCourseCommandParser().parse(arguments);
 
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);

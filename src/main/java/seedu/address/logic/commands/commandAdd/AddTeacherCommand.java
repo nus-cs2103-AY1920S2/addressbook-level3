@@ -33,7 +33,7 @@ public class AddTeacherCommand extends Command {
             + PREFIX_NAME + "Bob Ross "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "bob.ross@gmail.com "
-            + PREFIX_SALARY + "1000"
+            + PREFIX_SALARY + "1000 "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "LovesArt "
             + PREFIX_TAG + "Friendly";

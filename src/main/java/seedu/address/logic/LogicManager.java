@@ -7,6 +7,10 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.commandDelete.DeleteCourseCommand;
+import seedu.address.logic.commands.commandDelete.DeleteFinanceCommand;
+import seedu.address.logic.commands.commandDelete.DeleteStudentCommand;
+import seedu.address.logic.commands.commandDelete.DeleteTeacherCommand;
 import seedu.address.logic.commands.commandAdd.AddCourseCommand;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.commandAdd.AddStudentCommand;
@@ -53,25 +57,25 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
-        if (command instanceof AddTeacherCommand) {
+        if (command instanceof AddTeacherCommand || command instanceof DeleteTeacherCommand) {
             try {
                 storage.saveTeacherAddressBook(model.getTeacherAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command instanceof AddStudentCommand) {
+        } else if (command instanceof AddStudentCommand || command instanceof DeleteStudentCommand) {
             try {
                 storage.saveStudentAddressBook(model.getStudentAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command instanceof AddCourseCommand) {
+        } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand) {
             try {
                 storage.saveCourseAddressBook(model.getCourseAddressBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-        } else if (command instanceof AddFinanceCommand) {
+        } else if (command instanceof AddFinanceCommand || command instanceof DeleteFinanceCommand) {
             try {
                 storage.saveFinanceAddressBook(model.getFinanceAddressBook());
             } catch (IOException ioe) {
