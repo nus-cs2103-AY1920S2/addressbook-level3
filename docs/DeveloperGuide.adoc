@@ -401,18 +401,18 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch Delino 
+=== Launch Delino
 
 . Initial launch
 
 .. Ensure that you have Java 11 installed in your computer
 .. Download the latest Delino.jar
 .. Copy the jar file to the folder you would like to use as a home address for Delino application
-   Expected: Shows the GUI of the Delino App. The window size may not be optimum.
+   Expected: Shows the GUI of the Delino App. The window size may not be optimum
 
 === Adding an order
 
-. Add a minimum of 2 orders.
+. Add a minimum of 2 orders
 
 .. Test case: `add tid/<TRANSACTION_ID> n/<NAME> a/<ADDRESS> p/<PHONE_NUMBER> ts/<DELIVERY_DATE_&_TIME> w/<WAREHOUSE_LOCATION> pm/<PAYMENT_METHOD> c/<COMMENTS_BY_CUSTOMER> type/<TYPE_OF_ITEM>` +
    Expected: An order with the above details will be added to the list and displayed on the GUI where bolded fields are compulsory and normal text are optionals.
@@ -433,7 +433,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Edit orders
 
-. You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update.
+. You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update
 
 .. Test case: `edit 0123456789 name Xuan En` +
    Expected: Name of the customer of the order with transaction ID 0123456789 will be changed to Xuan En.
@@ -459,7 +459,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find <PREFIX> <KEYWORD>
 
 .. Find orders while orders are being listed
-.. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a ‘list done’ and then calls a find command, the orders from the output list is based on the list of completed orders.
+.. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a ‘list done’ and then calls a find command, the orders from the output list is based on the list of completed orders
 
 .. Test case: `list done` +
    `find -t A18512357Z` +
@@ -488,15 +488,15 @@ These instructions only provide a starting point for testers to work on; testers
 . Clear all orders while all orders are listed
 
 .. Test case: `clear` +
-   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted.
+   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted
 .. Test case: `clear -f` +
    Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
 .. Test case: Invalid syntax
-   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged.
-   
+   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+
 === List orders
 
-. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user.
+. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user
 
 .. Test case: `list` +
    Expected: List all the delivery orders, showing all completed and uncompleted orders.
@@ -518,9 +518,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Sort orders
 
-. Sort the orders based on the attributes input by the user. There are some things which we can sort by : Name of person, Transaction ID or Timestamp. The user will also input flags to indicate ascending order (-a) or descending order (-d).
+. Sort the orders based on the attributes input by the user. There are some things which we can sort by : Name of person, Transaction ID or Timestamp. The user will also input flags to indicate ascending order (-a) or descending order (-d)
 
-.. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list.
+.. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list
 .. Test case: `sort -a n/` +
    Expected: Sort all orders in ascending order based on the customer names.
 .. Test case: `sort -d tid/` +
@@ -532,7 +532,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Undo previous action
 
-. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order.
+. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
 
 .. Prerequisites : Execute any valid command that edits the list before calling the `undo` command.
 .. Test case: `undo` +
@@ -542,9 +542,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Saving data
 
-. Manual Saving is not required as data is already saved in the hard disk after any commands that change the data.
+. Manual Saving is not required as data is already saved in the hard disk after any commands that change the data
 
-=== Exit 
+=== Exit
 
 . Exits the Delino App using the `exit` command
 
