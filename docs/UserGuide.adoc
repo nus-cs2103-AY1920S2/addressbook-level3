@@ -74,25 +74,26 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing an order : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Description
+[none]
+* You can edit the details of the delivery order by providing the order transaction id, the field you want to change followed by the updated value.
+
+==== Format
+[none]
+* `edit *TRANSACTION_ID* *FIELD_TO_CHANGE* *VALUE*`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Edits the order at the specified `TRANSACTION_ID`. The transaction id is alphanumeric and is used to identify each order.
+* Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
 ****
 
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+==== Example(s)
+[none]
+* 1. `edit 0123456789 n/Xuan En`
+* 2. `edit 00k0i9ih34 p/9999 4444`
+* 3. `edit 000012348a a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
 
 === Locating persons by name: `find`
 
