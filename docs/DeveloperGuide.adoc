@@ -415,7 +415,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding an order
+
+. Add a minimum of 2 orders.
+
+.. Test case: `add tid/<TRANSACTION_ID> n/<NAME> a/<ADDRESS> p/<PHONE_NUMBER> ts/<DELIVERY_DATE_&_TIME> w/<WAREHOUSE_LOCATION> pm/<PAYMENT_METHOD> c/<COMMENTS_BY_CUSTOMER> type/<TYPE_OF_ITEM>` +
+   Expected: An order with the above details will be added to the list and displayed on the GUI where bolded fields are compulsory and normal text are optionals.
+.. Test case: Invalid syntax
+   Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged.
 
 === Deleting a person
 
@@ -429,12 +436,111 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Edit orders
 
-=== Saving data
+. You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update.
 
-. Dealing with missing/corrupted data files
+.. Test case: `edit 0123456789 name Xuan En` +
+   Expected: Name of the customer of the order with transaction ID 0123456789 will be changed to Xuan En.
+.. Test case: `edit 0123456789 phone 99521654` +
+   Expected: Phone number of the customer of the order will be changed to 9952 1654.
+.. Test case: `edit 1654789206 address Blk 123 Pasir Ris street 51 #12-23 S510123` +
+   Expected: The address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123
+.. Test case: `edit 9876543210 date 09/08/2020` +
+   Expected: The timestamp of the customer of the order will be rescheduled to 09/08/2020
+.. Test case: `edit 9874639183 date 02/02/2020` (Assuming this date has passed) +
+   Expected: The response box will display an error message as it is impossible to put a date that is already passed.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Clear orders
 
-_{ more test cases ... }_
+. Clear all orders while all orders are listed
+
+.. Test case: `clear` +
+   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted.
+.. Test case: `clear -f` +
+   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
+.. Test case: Invalid syntax
+   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged.
+
+=== Find an order
+
+. Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find <PREFIX> <KEYWORD>
+
+.. Find orders while orders are being listed
+.. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a ‘list done’ and then calls a find command, the orders from the output list is based on the list of completed orders.
+
+.. Test case: `list done` +
+   `find -t A18512357Z` +
+   Expected: Specifically find the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
+.. Test case: `list undone` +
+   `find -n Amos` +
+   Expected: Print all uncompleted delivery orders with any person that has the name ‘Amos’ in it. It will not print out completed delivery orders with a person named ‘Amos’ despite having the same keyword.
+.. Test case: `list` +
+   `find -n Amos` +
+   Expected: The program will look up all the delivery orders, regardless of completed or uncompleted orders and print out all orders in a list with the word ‘Amos’ in the name.
+.. Test case: `list` +
+   `find` +
+   Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
+
+=== Mark order as Done
+
+. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: done <TRANSACTION ID>
+
+.. Test case: `done 83z7ehaq` +
+   Expected: The specific order with transaction ID 83z7ehaq will be moved from the current “Today’s Order” list to the list of completed orders.
+.. Test case: Invalid syntax
+   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error.
+
+=== Import orders
+
+. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv.
+
+.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent.
+.. Test case: `import customers_20_02_2020.csv` +
+   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders.
+
+=== List orders
+
+. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user.
+
+.. Test case: `list` +
+   Expected: List all the delivery orders, showing all completed and uncompleted orders.
+.. Test case: `list done` +
+   Expected: List all completed delivery orders.
+.. Test case: `list undone` +
+   Expected: List all uncompleted delivery orders.
+.. Test case: `list <Some other word other than done and undone>` +`
+   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command.
+
+=== Help
+
+. Display a list of available commands to user
+
+.. Test case: `help` +
+   Expected: A list of commands will be displayed and the response box will indicate a successful command.
+.. Test case: Invalid syntax
+   Expected: An error will occur and the response box will show an error message.
+
+=== Sort orders
+
+. Sort the orders based on the attributes input by the user. There are some things which we can sort by : Name of person, Transaction ID or Timestamp. The user will also input flags to indicate ascending order (-a) or descending order (-d).
+
+.. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list.
+.. Test case: `sort -a n/` +
+   Expected: Sort all orders in ascending order based on the customer names.
+.. Test case: `sort -d tid/` +
+   Expected: Sort all orders in descending order based on transaction ID
+.. Test case: `sort -a ts/` +
+   Expected: Sort all orders in ascending order based on timestamp
+.. Test case: `sort n/` +
+   Expected: Error message will appear as this is an invalid command.
+
+=== Undo previous action
+
+. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order.
+
+.. Prerequisites : Execute any valid command that edits the list before calling the undo command.
+.. Test case: `undo` +
+   Expected: The original list will be replaced with the current new list. The previous state will be restored.
+.. Test case: `undo <Any other words as the second argument>` +
+   Expected: Error message displayed in the response box.
