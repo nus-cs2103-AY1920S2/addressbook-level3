@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Nice & Amazing Student Guide (NASA) User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-T10-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module assignments, lessons, exams and consultations etc*. More importantly, NASA is optimized for those who *prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)*. If you can type fast, NASA can keep track of your module tasks faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Time to take off!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `NASA.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all tasks of each module
+* **`Madd`**`m/CS2103T n/Software Engineering`: adds a module CS2103T `Software Engineering` to the list. Allows tasks to be added to that module.
+* **`Tadd`**`deadline m/CS2103T d/20-02-2020 23:59 t/IP Project p/2 n/Must get an executable JAR file` : adds a task called IP Project with the following details into CS2103T module task-list.
+* **`delete`**`m/CS2103T 1` : deletes the 1st task shown in the module task-list.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,99 +47,122 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `Madd m/MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `Madd m/CS1231`.
+* Items in square brackets are optional e.g `[n/Notes]`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MODULE_CODE]...` means m/CS2103T CS2101 .....
+* Parameters can be in any order.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a module task-list: `Madd`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Adds a module task-list into the NASA application +
+Format: `Madd m/MODULE_CODE n/MODULE_NAME`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `Madd m/CS2030 n/Programming Methodology II`
+* `Madd m/CS1231 n/Discrete Structures in Mathematics`
 
-=== Listing all persons : `list`
+=== Adding a task into a module task-list: `Tadd`
+Adds a task into the specified module task-list
+Format: `Tadd TYPE_OF_TASK m/MODULE_CODE d/DATE t/TASKNAME [p/PRIORITY] [n/NOTES]`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+** Type of tasks include `deadline`, `events` and `lessons`.
+** Deadline are meant for tasks that need to be done within a certain time.
+** Events means any related module activities that happen from a time and ends at another time.
+** Lessons are tutorials/classes for the modules and will auto reappear every week.
+** Date format varies! For deadlines: `DD-MM-YYYY HH:MM`, for lessons and events: `DD-MM-YYYY HH:MM - DD-MM-YYYY HH:MM`.
+** Default priority is 1 (priority value is from 1 to 5, where 1 is highest priority and 5 is lowest).
 
-=== Editing a person : `edit`
+Examples:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+** Tadd lesson m/CS1020 d/12-02-2020 12:00 - 12-02-2020 14:00 t/Tutorial
+** Tadd deadline m/CS1020 d/20-02-2020 23:59 t/Assignment 1 p/1 n/Watch lecture 3 and 4 before doing
+
+=== Listing all tasks : `list`
+
+Shows a list of tasks+
+Format: `list [m/MODULE_CODE....]`
+
+* If no module code is specified, all the module's task-list will be shown
+* It is possible to add multiple module_codes and display all their relevant task-lists.
+
+=== Editing a task : `edit`
+
+Edits an existing task in the module's task-list. +
+Format: `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/TASKNAME]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the task at the specified `INDEX` in the specified `MODULE_CODE` task-list. The index refers to the index number shown in the module task-list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit m/CS2103T 2 d/12-12-2020 23:59` +
+Edits the 2nd task in CS2013T task-list date to be `12-12-2020 23:59`.
+* `edit m/CS2030 3 n/Finish LAB level 3 with Generics p/2` +
+Edits the notes and priority of the 3rd task in CS2030 task-list to `Finish LAB level 3 with Generics` and `2` respectively.
 
-=== Locating persons by name: `find`
+=== Locating tasks by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Finds tasks whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive. e.g `tutorial` will match `TUTORIAL`
+* The order of the keywords does not matter. e.g. `Lab 3` will match `3 Lab`
+* Only the taskname is searched.
+* Only full words will be matched e.g. `tutorial` will not match `tutorials`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `tutorial lab` will return `tutorial 2`, `lab 3`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find tutorial` +
+Returns `tutorial 1` and `tutorial 2` and any other tasks with name tutorial.
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a task : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified task from module task-list. +
+Format: `delete m/MODULE_CODE INDEX...`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the task at the specified `INDEX` in the specified `MODULE_CODE`.
+* The index refers to the index number shown in the task-list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* User can input multiple indices to be deleted.
 ****
 
 Examples:
 
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`delete m/CS2030 2` +
+Deletes the 2nd task in the CS2030 module task-list.
+* `delete m/CS2030 2 3 4` +
+Deletes the the 2nd, 3rd and 4th task from the CS2030 module task-list.
+
+=== Export to calendar `export` `[coming in v1.2]`
+Exports all module task-lists onto a calendar (.ics format) for users.
+
+Format: `export`
+
+Examples:
+
+image::export_example.png[width="300", align="middle"]
+
+** Tasks are listed as calendar events as shown. Full design not confirmed, image courtesy of [https://www.knack.com/templates/event-calendar[knack]]
 
 // end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the NASA application (including module task-lists created). +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -164,14 +188,12 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *MAdd* `Madd m/MODULE_CODE n/MODULE_NAME`
+* *TAdd* `Tadd TYPE_OF_TASK m/MODULE_CODE d/DATE t/TASKNAME [p/PRIORITY] [n/NOTES]`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Delete* : `delete m/MODULE_CODE INDEX...`
+* *Edit* : `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/TASKNAME]`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]`
+* *List* : `list [m/MODULE_CODE...]`
 * *Help* : `help`
+* *Export* : `export`

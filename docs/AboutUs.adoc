@@ -4,24 +4,15 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Nice & Amazing Student Assistant (NASA) is an application developed by the
-https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+
+NASA is currently in development by the https://github.com/AY1920S2-CS2103T-T10-4[AY1920S2-CS2103T-T10-4] team. +
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a CS2103 team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
 === Edmond Ong
-image::edmond.jpg[width="150", align="left"]
+image::edmondong.png[width="150", align="left"]
 {empty}[http://github.com/EdmondOng[github]] [<<edmondong#, portfolio>>]
 
 Role: Team Lead +
@@ -29,12 +20,12 @@ Responsibilities: UI
 
 '''
 
-=== John Roe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Ng Yi Long, Kester
+image::kester-ng.png[width="150", align="left"]
+{empty}[http://github.com/kester-ng[github]] [<<kester-ng#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: UI + Backend
 
 '''
 
@@ -47,11 +38,11 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Don Tay
+image::don-tay.png[width="150", align="left"]
+{empty}[http://github.com/don-tay[github]] [<<don-tay#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer
+Responsibilities: UI + Backend
 
 '''
