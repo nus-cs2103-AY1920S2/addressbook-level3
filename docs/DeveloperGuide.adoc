@@ -544,3 +544,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The original list will be replaced with the current new list. The previous state will be restored.
 .. Test case: `undo <Any other words as the second argument>` +
    Expected: Error message displayed in the response box.
+
+=== Saving data
+
+. Manual Saving is not required as data is already saved in the hard disk after any commands that change the data.
