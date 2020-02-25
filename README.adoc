@@ -18,7 +18,7 @@ PROVIDES MANY OTHER FEATURES THAT ARE SUITABLE FOR BUSY UNIVERSITY STUDENTS. THE
 IS DEVELOPED FOR UNIVERSITY STUDENTS BY UNIVERSITY STUDENTS!`
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/nasa-mockup-1.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
