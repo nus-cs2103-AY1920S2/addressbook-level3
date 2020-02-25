@@ -1,5 +1,5 @@
 = Nice & Amazing Student Assistant (NASA)
-ifdef::env-github,env-browser[:relfileprefix: docs/
+ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S2-CS2103T-T10-4/main[image:https://travis-ci.com/AY1920S2-CS2103T-T10-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/kester-ng/main[image:https://ci.appveyor.com/api/projects/status/netvecrxd6gmixrb?svg=true[Build status]]
