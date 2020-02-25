@@ -328,7 +328,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Delino` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: UC01 - Add an order
@@ -399,7 +399,7 @@ Use case ends.
 Use case ends.
 
 [none]
-* 3b. Delino does not detect any order with the transaction id.
+* 3b. Delino unable to detect any order with the transaction id.
 [none]
 ** 3b1. Delino shows no order found message.
 +
@@ -426,7 +426,7 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. Delino does not detect any order with the transaction id.
+* 1b. Delino unable to detect any order with the transaction id.
 [none]
 ** 1b1. Delino shows no order found message.
 +
@@ -453,7 +453,7 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. Delino does not detect any order with the transaction id.
+* 1b. Delino unable to detect any order with the transaction id.
 [none]
 ** 1b1. Delino shows no order found message.
 +
@@ -469,6 +469,189 @@ Use case ends.
 1.  User request to exit the program.
 2.  Delino displays goodbye message.
 3.  Delino closes the application window.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Find an order
+
+*MSS*
+
+1.  User request to find specific order by transaction id
+2.  Delino display the requested order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino unable to find order with the transaction id.
+[none]
+** 1b1. Delino display order not found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - Request for help
+
+*MSS*
+
+1.  User request for help to navigate around application.
+2.  Delino shows help message.
++
+Use case ends.
+
+[discrete]
+
+=== Use case: UC09 -  Importing order details
+
+*MSS*
+
+1.  User requests to import orders from an external file.
+2.  Delino checks for file existence.
+3.  Delino imports all orders from the external file.
+4.  Delino displays all orders imported.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects invalid file path.
++
+[none]
+** 2a1. Delino shows the invalid file path error message
++
+Use case ends.
+
+[none]
+* 3a. Delino is unable to open the file.
++
+[none]
+** 3a1. Delino shows permission denied error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC10 - Listing all orders
+
+*MSS*
+
+1.  User requests to view the list of orders.
+2.  Delino display list of orders.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects no orders.
++
+[none]
+** 2a1. Delino shows empty order list message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC11 - Order returns
+
+*MSS*
+
+1.  User requests to add order return.
+2.  Delino add order return.
+3.  Delino display order return added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: UC12 - Sort orders
+
+*MSS*
+
+1.  User requests to sort the orders
+2.  Delino sort the orders
+3.  Delino display the sorted list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects no orders.
++
+[none]
+** 2a1. Delino shows empty order list message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC13 - Undo previous command
+
+*MSS*
+
+1.  User request to undo current command
+2.  Delino revert back to the previous state.
+3.  Delino displays undo message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects nothing to be undo.
++
+[none]
+** 2a1. Delino shows nothing to be undone message.
 +
 Use case ends.
 
