@@ -415,7 +415,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Add a minimum of 2 orders
 
 .. Test case: `add tid/<TRANSACTION_ID> n/<NAME> a/<ADDRESS> p/<PHONE_NUMBER> ts/<DELIVERY_DATE_&_TIME> w/<WAREHOUSE_LOCATION> pm/<PAYMENT_METHOD> c/<COMMENTS_BY_CUSTOMER> type/<TYPE_OF_ITEM>` +
-   Expected: An order with the above details will be added to the list and displayed on the GUI where bolded fields are compulsory and normal text are optionals.
+   Expected: An order with the above details will be added to the list and displayed on the GUI where bolded fields are compulsory and normal text are optionals
 .. Test case: Invalid syntax
    Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged.
 
@@ -444,16 +444,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edit 9876543210 date 09/08/2020` +
    Expected: The timestamp of the customer of the order will be rescheduled to 09/08/2020
 .. Test case: `edit 9874639183 date 02/02/2020` (Assuming this date has passed) +
-   Expected: The response box will display an error message as it is impossible to put a date that is already passed.
+   Expected: The response box will display an error message as it is impossible to put a date that is already passed
 
 === Import orders
 
-. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv.
+. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv
 
-.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent.
+.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
 .. Test case: `import customers_20_02_2020.csv` +
-   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders.
-   
+   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders
+
 === Find an order
 
 . Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find <PREFIX> <KEYWORD>
@@ -505,7 +505,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `list undone` +
    Expected: List all uncompleted delivery orders.
 .. Test case: `list <Some other word other than done and undone>` +`
-   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command.
+   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
 
 === Help
 
@@ -514,7 +514,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `help` +
    Expected: A list of commands will be displayed and the response box will indicate a successful command.
 .. Test case: Invalid syntax
-   Expected: An error will occur and the response box will show an error message.
+   Expected: An error will occur and the response box will show an error message
 
 === Sort orders
 
@@ -522,23 +522,23 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list
 .. Test case: `sort -a n/` +
-   Expected: Sort all orders in ascending order based on the customer names.
+   Expected: Sort all orders in ascending order based on the customer names
 .. Test case: `sort -d tid/` +
    Expected: Sort all orders in descending order based on transaction ID
 .. Test case: `sort -a ts/` +
    Expected: Sort all orders in ascending order based on timestamp
 .. Test case: `sort n/` +
-   Expected: Error message will appear as this is an invalid command.
+   Expected: Error message will appear as this is an invalid command
 
 === Undo previous action
 
 . Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
 
-.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command.
+.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command
 .. Test case: `undo` +
-   Expected: The original list will be replaced with the current new list. The previous state will be restored.
+   Expected: The original list will be replaced with the current new list. The previous state will be restored
 .. Test case: `undo <Any other words as the second argument>` +
-   Expected: Error message displayed in the response box.
+   Expected: Error message displayed in the response box
 
 === Saving data
 
@@ -550,5 +550,5 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `exit` +
    Expected: The GUI window will be closed.
-.. Test case: Adding any other words as the second argument of the `exit` command.
-   Expected: The response box will display an invalid command message.
+.. Test case: Adding any other words as the second argument of the `exit` command
+   Expected: The response box will display an invalid command message
