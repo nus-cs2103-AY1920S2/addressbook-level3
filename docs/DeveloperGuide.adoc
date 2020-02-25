@@ -350,7 +350,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |forgetful courier |have visual cues or notification if my order is an urgent delivery |prioritize on which order to deliver first
 
 |`* *` |curious and helpful courier |see how others are doing with their orders |help them if they have any difficulties delivering all of their parcels by the deadline
-
 |=======================================================================
 
 [appendix]
