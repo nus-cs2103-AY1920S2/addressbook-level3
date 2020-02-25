@@ -679,6 +679,72 @@ Any syntax used that does not correspond to the required format
 [[status-bar]] Status Bar::
 Refers to the display field showing the results of an executed command
 
+.Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|tid/
+|Transaction ID
+|Add
+
+|n/
+|Name
+|Add
+
+|a/
+|Address
+|Add
+
+|p/
+|Phone Number
+|Add
+
+|ts/
+|Delivery Date And Time
+|Add
+
+|w/
+|Warehouse Location
+|Add
+
+|pm/
+|Payment Method
+|Add
+
+|c/
+|Comments by Customer
+|Add
+
+|type/
+|Type of Item
+|Add
+|===
+
+.Possible Command Flags
+|===
+|Command |Flag |Meaning
+
+|Sort
+|-a
+|Sort in *ascending* order
+
+|Sort
+|-d
+|Sort in *descending* order
+
+|Clear
+|-f
+|Force clear, no user confirmation will be requested
+
+|Find
+|-n
+|Search using Name
+
+|Find
+|-t
+|Search using Transaction ID
+|===
+
 [appendix]
 == Product Survey
 
