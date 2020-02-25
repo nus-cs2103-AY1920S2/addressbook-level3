@@ -328,35 +328,332 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Delino` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Add an order
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User key in the order details.
+2.  Delino add the order details.
+3.  Delino displays order added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: UC02 - Clear all orders
+
+*MSS*
+
+1.  User requests to clear all orders.
+2.  Delino clear all existing orders.
+3.  Delino displays order cleared message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino detects no orders.
+[none]
+** 1b1. Delino shows no order to be cleared message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Delete an order
+
+*MSS*
+
+1.  User requests to list orders (UC10).
+2.  User requests to delete a specific order in the list.
+3.  Delino deletes the order.
+4.  Delino displays order deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Delino detects invalid syntax.
+[none]
+** 3a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 3b. Delino unable to detect any order with the transaction id.
+[none]
+** 3b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - Mark order as done
+
+*MSS*
+
+1.  User request to mark order as done.
+2.  Delino changes order status to done.
+3.  Delino display marked order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino unable to detect any order with the transaction id.
+[none]
+** 1b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - Editing order details
+
+*MSS*
+
+1.  User request to edit order details.
+2.  Delino edit the order details
+3.  Delino display changes made.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino unable to detect any order with the transaction id.
+[none]
+** 1b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - Exit the program
+
+*Precondition: User keys in correct exit command syntax.*
+
+*MSS*
+
+1.  User request to exit the program.
+2.  Delino displays goodbye message.
+3.  Delino closes the application window.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Find an order
+
+*MSS*
+
+1.  User request to find specific order by transaction id
+2.  Delino display the requested order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino unable to find order with the transaction id.
+[none]
+** 1b1. Delino display order not found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - Request for help
+
+*MSS*
+
+1.  User request for help to navigate around application.
+2.  Delino shows help message.
++
+Use case ends.
+
+[discrete]
+
+=== Use case: UC09 -  Importing order details
+
+*MSS*
+
+1.  User requests to import orders from an external file.
+2.  Delino checks for file existence.
+3.  Delino imports all orders from the external file.
+4.  Delino displays all orders imported.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Delino shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+[none]
+* 2a. Delino detects invalid file path.
++
+[none]
+** 2a1. Delino shows the invalid file path error message
++
+Use case ends.
+
+[none]
+* 3a. Delino is unable to open the file.
++
+[none]
+** 3a1. Delino shows permission denied error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC10 - Listing all orders
+
+*MSS*
+
+1.  User requests to view the list of orders.
+2.  Delino display list of orders.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects no orders.
++
+[none]
+** 2a1. Delino shows empty order list message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC11 - Order returns
+
+*MSS*
+
+1.  User requests to add order return.
+2.  Delino add order return.
+3.  Delino display order return added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: UC12 - Sort orders
+
+*MSS*
+
+1.  User requests to sort the orders
+2.  Delino sort the orders
+3.  Delino display the sorted list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects no orders.
++
+[none]
+** 2a1. Delino shows empty order list message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC13 - Undo previous command
+
+*MSS*
+
+1.  User request to undo current command
+2.  Delino revert back to the previous state.
+3.  Delino displays undo message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects nothing to be undo.
++
+[none]
+** 2a1. Delino shows nothing to be undone message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -401,154 +698,40 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch Delino
+=== Launch and Shutdown
 
 . Initial launch
 
-.. Ensure that you have Java 11 installed in your computer
-.. Download the latest Delino.jar
-.. Copy the jar file to the folder you would like to use as a home address for Delino application
-   Expected: Shows the GUI of the Delino App. The window size may not be optimum
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
-=== Adding an order
+. Saving window preferences
 
-. Add a minimum of 2 orders
+.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The most recent window size and location is retained.
 
-.. Test case: `add tid/<TRANSACTION_ID> n/<NAME> a/<ADDRESS> p/<PHONE_NUMBER> ts/<DELIVERY_DATE_&_TIME> w/<WAREHOUSE_LOCATION> pm/<PAYMENT_METHOD> c/<COMMENTS_BY_CUSTOMER> type/<TYPE_OF_ITEM>` +
-   Expected: An order with the above details will be added to the list and displayed on the GUI where bolded fields are compulsory and normal text are optionals
-.. Test case: Invalid syntax
-   Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged.
+_{ more test cases ... }_
 
-=== Deleting an order
+=== Deleting a person
 
-. Deleting an order while all orders are listed
+. Deleting a person while all persons are listed
 
-.. Prerequisites: List all orders using the `list` command. Multiple orders in the list.
-.. Test case: `delete G8473927a` +
-   Expected: The order with transaction ID G8473927a will be removed from the list. Details of the deleted order will be displayed in the response box.
-.. Test case: `delete` +
-   Expected: No order is deleted. Error details shown in the status message as there should be another argument other than delete.
-.. Test case: `delete <Any Transaction ID that doesn't exist in the list>` +
-   Expected: No order is deleted as the program cannot find the particular oder to delete in the list. An error message will be displayed in th response box.
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `delete 1` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
 
-=== Edit orders
-
-. You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update
-
-.. Test case: `edit 0123456789 name Xuan En` +
-   Expected: Name of the customer of the order with transaction ID 0123456789 will be changed to Xuan En.
-.. Test case: `edit 0123456789 phone 99521654` +
-   Expected: Phone number of the customer of the order will be changed to 9952 1654.
-.. Test case: `edit 1654789206 address Blk 123 Pasir Ris street 51 #12-23 S510123` +
-   Expected: The address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123
-.. Test case: `edit 9876543210 date 09/08/2020` +
-   Expected: The timestamp of the customer of the order will be rescheduled to 09/08/2020
-.. Test case: `edit 9874639183 date 02/02/2020` (Assuming this date has passed) +
-   Expected: The response box will display an error message as it is impossible to put a date that is already passed
-
-=== Import orders
-
-. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv
-
-.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
-.. Test case: `import customers_20_02_2020.csv` +
-   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders
-
-=== Find an order
-
-. Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find <PREFIX> <KEYWORD>
-
-.. Find orders while orders are being listed
-.. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a ‘list done’ and then calls a find command, the orders from the output list is based on the list of completed orders
-
-.. Test case: `list done` +
-   `find -t A18512357Z` +
-   Expected: Specifically find the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
-.. Test case: `list undone` +
-   `find -n Amos` +
-   Expected: Print all uncompleted delivery orders with any person that has the name ‘Amos’ in it. It will not print out completed delivery orders with a person named ‘Amos’ despite having the same keyword.
-.. Test case: `list` +
-   `find -n Amos` +
-   Expected: The program will look up all the delivery orders, regardless of completed or uncompleted orders and print out all orders in a list with the word ‘Amos’ in the name.
-.. Test case: `list` +
-   `find` +
-   Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
-
-=== Mark order as Done
-
-. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done <TRANSACTION ID>`
-
-.. Test case: `done 83z7ehaq` +
-   Expected: The specific order with transaction ID 83z7ehaq will be moved from the current “Today’s Order” list to the list of completed orders.
-.. Test case: Invalid syntax
-   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error.
-
-=== Clear orders
-
-. Clear all orders while all orders are listed
-
-.. Test case: `clear` +
-   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted
-.. Test case: `clear -f` +
-   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
-.. Test case: Invalid syntax
-   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
-
-=== List orders
-
-. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user
-
-.. Test case: `list` +
-   Expected: List all the delivery orders, showing all completed and uncompleted orders.
-.. Test case: `list done` +
-   Expected: List all completed delivery orders.
-.. Test case: `list undone` +
-   Expected: List all uncompleted delivery orders.
-.. Test case: `list <Some other word other than done and undone>` +`
-   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
-
-=== Help
-
-. Display a list of available commands to user
-
-.. Test case: `help` +
-   Expected: A list of commands will be displayed and the response box will indicate a successful command.
-.. Test case: Invalid syntax
-   Expected: An error will occur and the response box will show an error message
-
-=== Sort orders
-
-. Sort the orders based on the attributes input by the user. There are some things which we can sort by : Name of person, Transaction ID or Timestamp. The user will also input flags to indicate ascending order (-a) or descending order (-d)
-
-.. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list
-.. Test case: `sort -a n/` +
-   Expected: Sort all orders in ascending order based on the customer names
-.. Test case: `sort -d tid/` +
-   Expected: Sort all orders in descending order based on transaction ID
-.. Test case: `sort -a ts/` +
-   Expected: Sort all orders in ascending order based on timestamp
-.. Test case: `sort n/` +
-   Expected: Error message will appear as this is an invalid command
-
-=== Undo previous action
-
-. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
-
-.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command
-.. Test case: `undo` +
-   Expected: The original list will be replaced with the current new list. The previous state will be restored
-.. Test case: `undo <Any other words as the second argument>` +
-   Expected: Error message displayed in the response box
+_{ more test cases ... }_
 
 === Saving data
 
-. Manual Saving is not required as data is already saved in the hard disk after any commands that change the data
+. Dealing with missing/corrupted data files
 
-=== Exit
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-. Exits the Delino App using the `exit` command
-
-.. Test case: `exit` +
-   Expected: The GUI window will be closed.
-.. Test case: Adding any other words as the second argument of the `exit` command
-   Expected: The response box will display an invalid command message
+_{ more test cases ... }_
