@@ -670,8 +670,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[returns]] Returns::
+An order that is rejected and needs to be returned to the warehouse
+
+[[invalid-syntax]] Invalid syntax::
+Any syntax used that does not correspond to the required format
+
+[[status-bar]] Status Bar::
+Refers to the display field showing the results of an executed command
 
 [appendix]
 == Product Survey
