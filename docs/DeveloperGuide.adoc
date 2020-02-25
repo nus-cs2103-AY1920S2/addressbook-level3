@@ -346,9 +346,48 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+Accessibility
+
+1. App should be colourblind-friendly.
+2. Colourblind users should be able to discern all text and information on the GUI to the same extent as
+non-colourblind individuals.
+
+Extensibility
+
+1. App should be able to support feature increments without breaking existing features.
+
+Interoperability
+
+1. App should work on any mainstream OS as long as it has Java 11 or above installed.
+2. App should be able to read saved data files transferred between computers.
+
+Maintainability
+
+1. App’s codebase should be easily understandable to a Software Developer with one year experience in Java.
+2. App’s codebase should be accessible and available for contribution via feedback and suggestions from
+external developers.
+
+Performance
+
+1. App should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
+2. App should be able to process user input and return a response within 3 seconds.
+
+Reliability
+
+1. App should return an appropriate error or exception response and not crash when a user enters an invalid
+input command.
+2. App should return an appropriate error and not crash when it fails to process a user input command.
+3. App should inform the user in the event of an unexpected crash and potential loss of data.
+4. App should exhibit behaviour consistent with the User Guide’s specifications.
+
+Usability
+
+1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
+able to accomplish most of the tasks faster using commands than using the mouse.
+2. App first time startup process should have sufficient guidance for first time users to get started using the app
+with basic CRUD function.
+3. App should be useable without requiring internet connection (apart from downloading the file online).
+
 
 _{More to be added}_
 
