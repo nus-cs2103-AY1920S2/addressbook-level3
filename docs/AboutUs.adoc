@@ -18,7 +18,7 @@ Role: Project Advisor
 '''
 
 === Eng Xuan En
-image::engxuanen.png[width="150", align="left"]
+image::exeexe93.png[width="150", align="left"]
 {empty}[https://github.com/Exeexe93[github]] [<<engxuanen#, portfolio>>]
 
 Role: Co-Team Lead +
