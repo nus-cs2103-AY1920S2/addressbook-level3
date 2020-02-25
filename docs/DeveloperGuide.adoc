@@ -401,19 +401,14 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch Delino 
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Ensure that you have Java 11 installed in your computer
+.. Download the latest Delino.jar
+.. Copy the jar file to the folder you would like to use as a home address for Delino application
+   Expected: Shows the GUI of the Delino App. The window size may not be optimum.
 
 === Adding an order
 
@@ -424,17 +419,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: Invalid syntax
    Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged.
 
-=== Deleting a person
+=== Deleting an order
 
-. Deleting a person while all persons are listed
+. Deleting an order while all orders are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: List all orders using the `list` command. Multiple orders in the list.
+.. Test case: `delete G8473927a` +
+   Expected: The order with transaction ID G8473927a will be removed from the list. Details of the deleted order will be displayed in the response box.
+.. Test case: `delete` +
+   Expected: No order is deleted. Error details shown in the status message as there should be another argument other than delete.
+.. Test case: `delete <Any Transaction ID that doesn't exist in the list>` +
+   Expected: No order is deleted as the program cannot find the particular oder to delete in the list. An error message will be displayed in th response box.
 
 === Edit orders
 
@@ -451,17 +446,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `edit 9874639183 date 02/02/2020` (Assuming this date has passed) +
    Expected: The response box will display an error message as it is impossible to put a date that is already passed.
 
-=== Clear orders
+=== Import orders
 
-. Clear all orders while all orders are listed
+. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv.
 
-.. Test case: `clear` +
-   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted.
-.. Test case: `clear -f` +
-   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
-.. Test case: Invalid syntax
-   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged.
-
+.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent.
+.. Test case: `import customers_20_02_2020.csv` +
+   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders.
+   
 === Find an order
 
 . Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find <PREFIX> <KEYWORD>
@@ -484,21 +476,24 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Mark order as Done
 
-. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: done <TRANSACTION ID>
+. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done <TRANSACTION ID>`
 
 .. Test case: `done 83z7ehaq` +
    Expected: The specific order with transaction ID 83z7ehaq will be moved from the current “Today’s Order” list to the list of completed orders.
 .. Test case: Invalid syntax
    Expected: No order is marked as done. The error message will be displayed on the error response box describing the error.
 
-=== Import orders
+=== Clear orders
 
-. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv.
+. Clear all orders while all orders are listed
 
-.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent.
-.. Test case: `import customers_20_02_2020.csv` +
-   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders.
-
+.. Test case: `clear` +
+   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted.
+.. Test case: `clear -f` +
+   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
+.. Test case: Invalid syntax
+   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged.
+   
 === List orders
 
 . List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user.
@@ -539,7 +534,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order.
 
-.. Prerequisites : Execute any valid command that edits the list before calling the undo command.
+.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command.
 .. Test case: `undo` +
    Expected: The original list will be replaced with the current new list. The previous state will be restored.
 .. Test case: `undo <Any other words as the second argument>` +
@@ -548,3 +543,12 @@ These instructions only provide a starting point for testers to work on; testers
 === Saving data
 
 . Manual Saving is not required as data is already saved in the hard disk after any commands that change the data.
+
+=== Exit 
+
+. Exits the Delino App using the `exit` command
+
+.. Test case: `exit` +
+   Expected: The GUI window will be closed.
+.. Test case: Adding any other words as the second argument of the `exit` command.
+   Expected: The response box will display an invalid command message.
