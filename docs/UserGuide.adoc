@@ -148,7 +148,7 @@ Deletes the 2nd task in the CS2030 module task-list.
 * `delete m/CS2030 2 3 4` +
 Deletes the the 2nd, 3rd and 4th task from the CS2030 module task-list.
 
-=== Export to calendar `export`
+=== Export to calendar `export` `[coming in v1.2]`
 Exports all module task-lists onto a calendar (.ics format) for users.
 
 Format: `export`
