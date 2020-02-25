@@ -35,12 +35,12 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Kenny Ho
+image::khsc96.png[width="150", align="left"]
+{empty}[https://github.com/khsc96[github]] [<<khsc96#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer & Integration +
+Responsibilities: Code integration and Testing
 
 '''
 

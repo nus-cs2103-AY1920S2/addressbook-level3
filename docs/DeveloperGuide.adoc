@@ -331,32 +331,146 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Add an order
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User key in the order details.
+2.  Delino add the order details.
+3.  Delino displays order added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+[discrete]
+=== Use case: UC02 - Clear all orders
 
-_{More to be added}_
+*MSS*
+
+1.  User requests to clear all orders.
+2.  Delino clear all existing orders.
+3.  Delino displays order cleared message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino detects no orders.
+[none]
+** 1b1. Delino shows no order to be cleared message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Delete an order
+
+*MSS*
+
+1.  User requests to list orders (UC10).
+2.  User requests to delete a specific order in the list.
+3.  Delino deletes the order.
+4.  Delino displays order deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Delino detects invalid syntax.
+[none]
+** 3a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 3b. Delino does not detect any order with the transaction id.
+[none]
+** 3b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - Mark order as done
+
+*MSS*
+
+1.  User request to mark order as done.
+2.  Delino changes order status to done.
+3.  Delino display marked order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino does not detect any order with the transaction id.
+[none]
+** 1b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - Editing order details
+
+*MSS*
+
+1.  User request to edit order details.
+2.  Delino edit the order details
+3.  Delino display changes made.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino does not detect any order with the transaction id.
+[none]
+** 1b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - Exit the program
+
+*Precondition: User keys in correct exit command syntax.*
+
+*MSS*
+
+1.  User request to exit the program.
+2.  Delino displays goodbye message.
+3.  Delino closes the application window.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
