@@ -1,4 +1,4 @@
-= Nice & Amazing Student Guide (NASA) User Guide
+= Nice & Amazing Student Guide (NASA) - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -51,6 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `[n/Notes]`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MODULE_CODE]...` means m/CS2103T CS2101 .....
 * Parameters can be in any order.
+* Commands are **non case-sensitive**, unless stated otherwise.
 ====
 
 === Viewing help : `help`
@@ -68,7 +69,7 @@ Examples:
 * `Madd m/CS1231 n/Discrete Structures in Mathematics`
 
 === Adding a task into a module task-list: `Tadd`
-Adds a task into the specified module task-list
+Adds a task into the specified module task-list +
 Format: `Tadd TYPE_OF_TASK m/MODULE_CODE d/DATE t/TASKNAME [p/PRIORITY] [n/NOTES]`
 
 ** Type of tasks include `deadline`, `events` and `lessons`.
@@ -85,7 +86,7 @@ Examples:
 
 === Listing all tasks : `list`
 
-Shows a list of tasks+
+Shows a list of tasks +
 Format: `list [m/MODULE_CODE....]`
 
 * If no module code is specified, all the module's task-list will be shown
@@ -172,7 +173,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+NASA data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -181,10 +182,39 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+=== Adding checklist item to task: `chadd`
+Adds a checklist item into the specified module task +
+Format: `chadd TASK_ID c/CHECKLIST_ITEM`
+
+** Adds checklist item `CHECKLIST_ITEM` to the task identified by `TASK_ID`.
+** Can only add `CHECKLIST_ITEM` to an existing task (ie. `TASK_ID` must exist in the module task list).
+** A `CHECKLIST_ID` will be generated that is unique WITHIN each task.
+
+Examples:
+
+** `chadd 12 c/Prepare script`
+** Adds checklist item "Prepare script" to task with taskID 12. The checklist item default status is undone.
+
+=== Delete checklist item from task: `chdel`
+Deletes a checklist item from an existing task. +
+Format: `chdel TASK_ID CHECKLIST_ID`
+
+** Deletes the checklist item identified by `CHECKLIST_ID` from the task identified by `TASK_ID`.
+** Can only delete an existing checklist item from an existing task (ie. `TASK_ID` and its respective `CHECKLIST_ID` must exist in the module task list).
+
+Examples:
+
+** `chdel 12 1`
+** Deletes checklist item with checklist ID 1 from task with task ID 12.
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
+the data of your previous NASA folder.
+
+=== Edit checklist item of task
+To edit checklist item, add the new checklist item with `chadd` before deleting the old checklist item with `chdel`.
 
 == Command Summary
 
@@ -197,3 +227,5 @@ _{explain how the user can enable/disable data encryption}_
 * *List* : `list [m/MODULE_CODE...]`
 * *Help* : `help`
 * *Export* : `export`
+* *chadd* : `chadd TASK_ID CHECKLIST_ITEM`
+* *chdel* : `chdel TASK_ID CHECKLIST_ID`
