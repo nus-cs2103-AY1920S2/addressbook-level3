@@ -18,6 +18,10 @@ endif::[]
 * It is also able to provide an analysis of the entire business to help the owner manage the shop. 
 * This is a desktop Java Application. It has a GUI (Graphic User interface).
 
+== Target Users
+* Grocery shop owners
+* Family shop owners
+
 == Site Map
 
 * <<UserGuide#, User Guide>>
@@ -28,6 +32,7 @@ endif::[]
 
 == Acknowledgements
 
+* The application is based on the https://github.com/nus-cs2103-AY1920S2/addressbook-level3[AddressBook-Level3] project created by https://se-education.org[SE-EDU initiative].
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
