@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant amount of information on modules
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage modules faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,17 +295,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |busy student doing a lot of modules | be able to edit my tasks |have updated information from the professors
+of that module.
 
-|`* * *` |user |add a new person |
+|`* * *` |hardworking and busy student |mark my tasks as done |know what else to do
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |busy and clumsy student |delete tasks that were wrongly inputted |remove erroneous tasks
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |lazy student |have a user interface that is intuitive |spend less time navigating
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |know that deadline of homework, projects and assignments |finish them by a certain date
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy student |undo and redo actions |save time
+
+|`* * *` |forgetful student |have reminders and alerts sent to me |act on my pre-set reminders at the desired time
+
+|`* * *` |busy student |search for relevant tasks |see if I have done them or not
+
+|`* * *` |busy student |see my group meetings |know when they are
+
+|`* * *` |busy student |filter my tasks based on certain criteria |view them easily
+
+|`* * *` |new user |have quick access to information on how to use the product |learn to use the product
+
+|`* * *` |student |check on the tasks due by a certain date |plan my time accordingly
+
+|`* * *` |extremely anxious student |advance notification on deadlines and upcoming examinations |prepare in advance
+
+|`* * *` |student |view all my tasks |gauge how much work I have left.
+
+|`* *` |busy and hardworking student with limited time |have suggestions on the next deadline assignment homework to do
+ |save time on checking what task to complete
+
+|`* *` |lazy student |automate my homework schedule |avoid keying in recurring tasks
+
+|`* *` |anxious and stressed student |provide daily motivational quotes or jokes or coding challenges  |lighten up my
+mood for the day
+
+|`* *` |student who values privacy |add password protection  |prevent others from viewing my tasks
+
+|`* *` |busy student |export all my tasks  |view them easily
+
+|`* *` |student |add in my personal timetable  |detect clashes between my personal and school timetable
+
+|`* *` |busy student |jot down notes during lecture  |refer to them in the future
+
+|`* *` |university student |add my timetable  |know the time and venue of my classes
+
+|`* *` |objective student |view my academic results  |keep track on the percentage of points that I need in order to
+achieve a result
+
+|`* *` |student |allocate a specific time for each task  |manage my time more efficiently
+
+|`* *` |student |keep track on the amount of tasks finished |analyse whether I am staying on track
+
+|`* *` |student |share information with my friends |allow them to have the same schedule and asks to do
+
+|`* *` |busy student |customise my own shortcuts  |save time when typing in commands
+
+|`*` |stressed-out student |play a chill game |relax my mind
+
+|`*` |student with ex-co positions |find the next free timing for other meetings and responsibilities |can save time
 |=======================================================================
 
 _{More to be added}_
