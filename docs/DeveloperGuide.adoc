@@ -298,11 +298,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |busy student doing a lot of modules | be able to edit my tasks |have updated information from the professors
 of that module.
 
-|`* * *` |user |add a new person |
+|`* * *` |hardworking and busy student |mark my tasks as done |know what else to do
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |busy and clumsy student |delete tasks that were wrongly inputted |remove erroneous tasks
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |lazy student |have a user interface that is intuitive |spend less time navigating
+
+|`* * *` |student |know that deadline of homework, projects and assignments |finish them by a certain date
+
+|`* * *` |busy student |undo and redo actions |save time
+
+|`* * *` |forgetful student |have reminders and alerts sent to me |act on my pre-set reminders at the desired time
+
+|`* * *` |busy student |search for relevant tasks |see if I have done them or not
+
+|`* * *` |busy student |see my group meetings |know when they are
+
+|`* * *` |busy student |filter my tasks based on certain criteria |view them easily
+
+|`* * *` |new user |have quick access to information on how to use the product |learn to use the product
+
+|`* * *` |student |check on the tasks due by a certain date |plan my time accordingly
+
+|`* * *` |extremely anxious student |advance notification on deadlines and upcoming examinations |prepare in advance
+
+|`* * *` |student |view all my tasks |gauge how much work I have left.
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
