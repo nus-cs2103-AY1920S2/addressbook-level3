@@ -208,7 +208,7 @@ Format: `EPassword p/PASSWORD sq/SECURITY_QUESTION a/ANSWER`
 
 ** Creates a `PASSWORD` to enable access into the programme.
 ** Must add a `SECURITY_QUESTION` for verification should user forget password.
-** 'ANSWER' should be the answer to 'SECURITY_QUESTION'.
+** `ANSWER` should be the answer to `SECURITY_QUESTION`.
 
 Examples:
 
@@ -220,7 +220,7 @@ be used to verify.
 Changes existing password to new password. +
 Format: `CPassword cp/CURRENTPASSWORD np/NEWPASSWORD`
 
-** Changes existing password from `CURRENT PASSWORD` to 'NEW PASSWORD'.
+** Changes existing password from `CURRENT PASSWORD` to `NEW PASSWORD`.
 
 Examples:
 
@@ -231,7 +231,7 @@ Examples:
 Changes existing security question to new security question. +
 Format: `CSecurityQ cq/CURRENT_SECURITY_QUESTION ca/CURRENT_ANSWER nq/NEW_SECURITY_QUESTION na/NEW_ANSWER`
 
-** Changes existing security question from `CURRENT SECURITY QUESTION` to 'NEW SECURITY QUESTION'.
+** Changes existing security question from `CURRENT_SECURITY_QUESTION` to `NEW_SECURITY_QUESTION`.
 
 Examples:
 
@@ -242,14 +242,14 @@ Examples:
 Creates a shortcut for specified task. +
 Format: `shortcut s/SHORTCUT c/COMMAND`
 
-** Creates a `SHORTCUT` to the specified 'COMMAND'.
-** Can only add `SHORTCUT` to an existing 'COMMAND'.
-** Can add multiple 'SHORTCUT' for a specific 'COMMAND'.
-** A `SHORTCUT` will be generated that is unique for a 'COMMAND'.
+** Creates a `SHORTCUT` to the specified `COMMAND`.
+** Can only add `SHORTCUT` to an existing `COMMAND`.
+** Can add multiple `SHORTCUT` for a specific `COMMAND`.
+** A `SHORTCUT` will be generated that is unique for a `COMMAND`.
 
 Examples:
 
-** `shortcut s/l 12 c/list`
+** `shortcut s/l c/list`
 ** Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
 === Export to calendar `export` `[coming in v1.2]`
@@ -301,11 +301,11 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 * *MAdd* `Madd m/MODULE_CODE n/MODULE_NAME`
 * *TAdd* `Tadd TYPE_OF_TASK m/MODULE_CODE d/DATE t/TASKNAME [p/PRIORITY] [n/NOTES]`
 * *Clear* : `clear`
-* *CPassword : `CPassword cp/CURRENTPASSWORD np/NEWPASSWORD`
-* *CSecurityQ  : `cq/CURRENT_SECURITY_QUESTION ca/CURRENT_ANSWER nq/NEW_SECURITY_QUESTION na/NEW_ANSWER`
+* *CPassword* : `CPassword cp/CURRENTPASSWORD np/NEWPASSWORD`
+* *CSecurityQ*  : `CSecurityQ cq/CURRENT_SECURITY_QUESTION ca/CURRENT_ANSWER nq/NEW_SECURITY_QUESTION na/NEW_ANSWER`
 * *Delete* : `delete m/MODULE_CODE INDEX...`
 * *Edit* : `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/TASKNAME]`
-* *EPassword : `EPassword p/PASSWORD sq/SECURITY_QUESTION a/ANSWER`
+* *EPassword* : `EPassword p/PASSWORD sq/SECURITY_QUESTION a/ANSWER`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]`
 * *List* : `list [m/MODULE_CODE...]`
 * *Help* : `help`
