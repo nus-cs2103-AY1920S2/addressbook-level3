@@ -252,6 +252,19 @@ Examples:
 ** `shortcut s/l c/list`
 ** Adds a shortcut "l" to command list. "l" can now be used in place of list.
 
+=== Generating statistics: `statistics` `[coming in v1.2]`
+Displays statistics of tasks completed. +
+Format: `statistics [tp/TIME_PERIOD]`
+
+** Displays statistics on tasks completed.
+** By default, displays progression of all completed tasks.
+** Can add `TIME_PERIOD` of week, month and year to see tasks specific to that time period.
+
+Examples:
+
+** `statistics tp/WEEK`
+** Displays tasks completed over this week.
+
 === Export to calendar `export` `[coming in v1.2]`
 Exports all module task-lists onto a calendar (.ics format) for users.
 Format: `export`
@@ -311,5 +324,6 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 * *Help* : `help`
 * *Export* : `export`
 * *Shortcut* : `shortcut s/SHORTCUT c/COMMAND`
+* *Statistics* : `statistics [tp/TIME_PERIOD]`
 * *chadd* : `chadd TASK_ID CHECKLIST_ITEM`
 * *chdel* : `chdel TASK_ID CHECKLIST_ID`
