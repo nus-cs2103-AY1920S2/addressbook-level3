@@ -9,11 +9,12 @@ Delino was developed by the following team members:
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Cher Wei Jie
+image::cherweijie.png[width="150", align="left"]
+{empty}[https://github.com/Cherweijie[github]] [<<cherweijie#, portfolio>>]
 
-Role: Project Advisor
+Role: Team Lead & Co-Integration +
+Responsibilities: Team Facilitation, code integration & UI design
 
 '''
 
