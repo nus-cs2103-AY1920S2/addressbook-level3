@@ -19,7 +19,7 @@ Role: Project Advisor
 '''
 
 === Tan Jun Hao
-image::lejolly.jpg[width="150", align="left"]
+image::junhaotan.png.jpeg[width="150", align="left"]
 {empty}[http://github.com/junhaotan[github]]
 
 Role: Team Lead +
@@ -28,28 +28,10 @@ Responsibilities: UI
 '''
 
 === He Yingxu
-image::yijinl.jpg[width="150", align="left"]
+image::YingxuH.png.jpeg[width="150", align="left"]
 {empty}[http://github.com/YingxuH[github]]
 
 Role: Developer +
 Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
 
 '''
