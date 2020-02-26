@@ -19,7 +19,7 @@ Role: Project Advisor
 '''
 
 === Tan Jun Hao
-image::junhaotan.png.jpeg[width="150", align="left"]
+image::junhaotan.png[width="150", align="left"]
 {empty}[http://github.com/junhaotan[github]]
 
 Role: Team Lead +
@@ -28,7 +28,7 @@ Responsibilities: UI
 '''
 
 === He Yingxu
-image::YingxuH.png.jpeg[width="150", align="left"]
+image::YingxuH.png[width="150", align="left"]
 {empty}[http://github.com/YingxuH[github]]
 
 Role: Developer +
