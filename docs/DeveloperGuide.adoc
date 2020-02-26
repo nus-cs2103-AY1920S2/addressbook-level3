@@ -324,9 +324,38 @@ of that module.
 
 |`* * *` |student |view all my tasks |gauge how much work I have left.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |busy and hardworking student with limited time |have suggestions on the next deadline assignment homework to do
+ |save time on checking what task to complete
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |lazy student |automate my homework schedule |avoid keying in recurring tasks
+
+|`* *` |anxious and stressed student |provide daily motivational quotes or jokes or coding challenges  |lighten up my
+mood for the day
+
+|`* *` |student who values privacy |add password protection  |prevent others from viewing my tasks
+
+|`* *` |busy student |export all my tasks  |view them easily
+
+|`* *` |student |add in my personal timetable  |detect clashes between my personal and school timetable
+
+|`* *` |busy student |jot down notes during lecture  |refer to them in the future
+
+|`* *` |university student |add my timetable  |know the time and venue of my classes
+
+|`* *` |objective student |view my academic results  |keep track on the percentage of points that I need in order to
+achieve a result
+
+|`* *` |student |allocate a specific time for each task  |manage my time more efficiently
+
+|`* *` |student |keep track on the amount of tasks finished |analyse whether I am staying on track
+
+|`* *` |student |share information with my friends |allow them to have the same schedule and asks to do
+
+|`* *` |busy student |customise my own shortcuts  |save time when typing in commands
+
+|`*` |stressed-out student |play a chill game |relax my mind
+
+|`*` |student with ex-co positions |find the next free timing for other meetings and responsibilities |can save time
 |=======================================================================
 
 _{More to be added}_
