@@ -114,6 +114,29 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+// tag::return[]
+=== Returning an order : `return`
+
+Converts the particular order into a return parcel +
+Format: `return tid/TRANSACTION ID`
+
+****
+* Converts the order with the specified `TRANSACTION ID`.
+* The transaction id refers to the transaction id shown in the specified customer order.
+* The transaction id *must be in valid format; can be numeric or alphanumeric*
+****
+
+Examples:
+
+* `list` +
+`return ac17s2a` +
+Converts the order in the list with transaction id 'ac17s2a' into a return parcel.
+* `find be3002s` +
+`return be3002s` +
+Converts the order with the specified transaction id into a return parcel obtained from the results of the `find` command.
+
+// end::return[]
+
 // tag::delete[]
 === Deleting a person : `delete`
 
