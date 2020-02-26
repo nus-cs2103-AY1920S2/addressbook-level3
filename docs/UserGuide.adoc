@@ -129,8 +129,7 @@ pm/PAYMENT METHOD c/COMMENTS BY CUSTOMER type/TYPE OF ITEM`
 
 Examples:
 
-* `list` +
-`return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass`
+* `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass` +
 Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
 
 // end::return[]
