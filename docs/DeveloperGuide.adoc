@@ -295,20 +295,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to it when I forgot how to use the app
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add items to the system |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete my items from the system |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user | edit my item details in the system |keep the list updated
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |view all items in my shop |keep track of my items
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |find items by keyword and attributes |search items more efficiently
+
+|`* *` |user |receive notifications when the product quantity is running low, with the product name and balance left |stock up for the particular product
+
+|`* *` |user |set the inventory quantity low limit |get notified when my stock is running low
+
+|`* *` |user |view the top-selling products and worst-selling products at one glance (e.g. dashboard that displays name of products) |
+
+|`* *` |user |view the statistics of each individual product, such as revenue made and sales volume |
+
+|`* *` |user |see predicted sales for the future months based on past sales |know which products to stock up on
+
+|`* *` |user |view a list of products sorted by the amount of sales in a selected period (e.g. last week/last month) |
+
+|`* *` |user |view the revenue on a daily/monthly/yearly basis or in a customised period |
+
+|`*` |user |generate a demographic report on customers |know who to target for marketing strategies
+
+|`*` |lazy user |keep track of previous inputs |enter/edit previous commands easily
+
+|`*` |lazy user |access products that are running low easily |restock and update the system much faster
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
