@@ -117,11 +117,12 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 // tag::return[]
 === Returning an order : `return`
 
-Converts the particular order into a return parcel +
-Format: `return tid/TRANSACTION ID`
+Adds a particular order as a return parcel into a new list +
+Format: `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/DELIVERY DATE & TIME w/WAREHOUSE LOCATION +
+pm/PAYMENT METHOD c/COMMENTS BY CUSTOMER type/TYPE OF ITEM`
 
 ****
-* Converts the order with the specified `TRANSACTION ID`.
+* Adds the specified order with the transaction id as a return parcel into a new list of returns.
 * The transaction id refers to the transaction id shown in the specified customer order.
 * The transaction id *must be in valid format; can be numeric or alphanumeric*
 ****
@@ -129,11 +130,8 @@ Format: `return tid/TRANSACTION ID`
 Examples:
 
 * `list` +
-`return ac17s2a` +
-Converts the order in the list with transaction id 'ac17s2a' into a return parcel.
-* `find be3002s` +
-`return be3002s` +
-Converts the order with the specified transaction id into a return parcel obtained from the results of the `find` command.
+`return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass`
+Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
 
 // end::return[]
 
