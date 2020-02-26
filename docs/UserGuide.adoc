@@ -202,9 +202,60 @@ Examples:
 ** `chundone m/CS2030 10 1`
 ** Sets the checklist item with checklist ID 1 from task with INDEX 10 in CS2030 task-list to not done.
 
+=== Enabling passwords: `EPassword` `[coming in v1.2]`
+Creates a password that will be requested when the programme is restarted. +
+Format: `EPassword p/PASSWORD sq/SECURITY_QUESTION a/ANSWER`
+
+** Creates a `PASSWORD` to enable access into the programme.
+** Must add a `SECURITY_QUESTION` for verification should user forget password.
+** 'ANSWER' should be the answer to 'SECURITY_QUESTION'.
+
+Examples:
+
+** `EPassword p/password s/favourite module? a/cs2103t`
+** Creates a password which must be correctly input to start programme. If user forgets password, security question will
+be used to verify.
+
+=== Changing passwords: `CPassword` `[coming in v1.2]`
+Changes existing password to new password. +
+Format: `CPassword cp/CURRENTPASSWORD np/NEWPASSWORD`
+
+** Changes existing password from `CURRENT PASSWORD` to 'NEW PASSWORD'.
+
+Examples:
+
+** `CPassword cp/currentpassword np/newpassword`
+** Changes password from "currentpassword" to "newpassword".
+
+=== Changing security questions: `CSecurityQ` `[coming in v1.2]`
+Changes existing security question to new security question. +
+Format: `CSecurityQ cq/CURRENT_SECURITY_QUESTION ca/CURRENT_ANSWER nq/NEW_SECURITY_QUESTION na/NEW_ANSWER`
+
+** Changes existing security question from `CURRENT SECURITY QUESTION` to 'NEW SECURITY QUESTION'.
+
+Examples:
+
+** `CSecurityQ cq/current question ca/current answer nq/new question na/new password`
+** Changes security question to new security question.
+
+=== Creating shortcuts: `shortcut` `[coming in v1.2]`
+Creates a shortcut for specified task. +
+Format: `shortcut s/SHORTCUT c/COMMAND`
+
+** Creates a `SHORTCUT` to the specified 'COMMAND'.
+** Can only add `SHORTCUT` to an existing 'COMMAND'.
+** Can add multiple 'SHORTCUT' for a specific 'COMMAND'.
+** A `SHORTCUT` will be generated that is unique for a 'COMMAND'.
+
+Examples:
+
+** `shortcut s/l 12 c/list`
+** Adds a shortcut "l" to command list. "l" can now be used in place of list.
+
 === Export to calendar `export` `[coming in v1.2]`
 Exports all module task-lists onto a calendar (.ics format) for users.
 Format: `export`
+
 
 Examples:
 
@@ -250,11 +301,15 @@ To edit checklist item, add the new checklist item with `chadd` before deleting 
 * *MAdd* `Madd m/MODULE_CODE n/MODULE_NAME`
 * *TAdd* `Tadd TYPE_OF_TASK m/MODULE_CODE d/DATE t/TASKNAME [p/PRIORITY] [n/NOTES]`
 * *Clear* : `clear`
+* *CPassword : `CPassword cp/CURRENTPASSWORD np/NEWPASSWORD`
+* *CSecurityQ  : `cq/CURRENT_SECURITY_QUESTION ca/CURRENT_ANSWER nq/NEW_SECURITY_QUESTION na/NEW_ANSWER`
 * *Delete* : `delete m/MODULE_CODE INDEX...`
 * *Edit* : `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/TASKNAME]`
+* *EPassword : `EPassword p/PASSWORD sq/SECURITY_QUESTION a/ANSWER`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]`
 * *List* : `list [m/MODULE_CODE...]`
 * *Help* : `help`
 * *Export* : `export`
+* *Shortcut* : `shortcut s/SHORTCUT c/COMMAND`
 * *chadd* : `chadd TASK_ID CHECKLIST_ITEM`
 * *chdel* : `chdel TASK_ID CHECKLIST_ID`
