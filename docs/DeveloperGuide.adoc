@@ -366,30 +366,364 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use case: Initialisation
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  NASA prompt user to key in modules taken during the semester on start-up.
+2.  User enters modules taken eg. `add modules /m CS2103T CS2106 CS2101`.
+3.  NASA confirms and display the modules entered.
+4.  User can start to use the command line.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Add nothing.
+* 1b. Add activities
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: Add Deadlines
+
+*MSS*
+
+1.  User requests to add a deadline for a particular module.
+`deadline CS2103T /d 01-03-2019 23:59 /t Homework [/n This are the notes.]`
+2.  NASA will provide a acknowledgement messages.
+3.  NASA will displays a list of all the items inside the modules
 +
+Use case ends.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. No such modules.
+* 1b. Prompt user to add the modules not listed.
 +
-Use case resumes at step 2.
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add Event
+
+*MSS*
+
+1.  User requests to add an event for a particular module. +
+`event CS2103T /d 01-03-2019 23:59 /t Project Work [/n This are the notes.]`
+2.  NASA will provide a acknowledgement messages.
+3.  NASA will displays a list of all the items inside the modules
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such modules.
+* 1b. Prompt user to add the modules not listed.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add Lesson
+
+*MSS*
+
+1.  User requests to add an event for a particular module. +
+`lesson CS2103T /d 01-03-2019 23:59 /t Tutorial [/n This are the notes.]`
+2.  NASA will provide a acknowledgement messages.
+3.  NASA will displays a list of all the items inside the modules
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such modules.
+* 1b. Prompt user to add the modules not listed.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: List
+
+*MSS*
+
+1.  User requests to list everything in a module by dates. +
+`list CS2103T /s date /ASC`
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display the module and it's items.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such moduleID.
+* 1b. Prompt user to re-enter the correct moduleID.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit
+
+*MSS*
+
+1.  User requests to change the date to 01-04-2019 and set priority to the lowest 5 for a tasksID=12 under the module CS2103T. +
+`edit CS2103T 12 /d 01-04-2019 23:59 /p 5`
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display the module and it's items.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such moduleID.
+* 1b. Prompt user to re-enter the correct moduleID.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete
+
+*MSS*
+
+1.  User requests to delete module CS2103T and CS2106. +
+`delete CS2103T CS2106`
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display remaining module.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such moduleID.
+* 1b. Prompt user to re-enter the correct moduleID.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: find
+
+*MSS*
+
+1.  User requests to find all task that contains KEYWORD "homework". +
+`find /t homework`
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display all modules that has the tasks "homework".
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such KEYWORD in modules.
+* 1b. Prompt user to re-enter the correct KEYWORD.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: repeat
+
+*MSS*
+
+1.  User requests to repeat all task under CS2103T every tuesday. +
+`repeat CS2103t /d 2`
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display all modules that has the tasks "homework".
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Nothing to repeat.
+* 1b. Prompt user to add tasks to modules.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: export
+
+*MSS*
+
+1.  User requests to export all task to calendar. +
+`export`
+2.  NASA will provide a acknowledgement messages
+3.  Calendar xml file will be opened to view.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No modules added.
+* 1b. Prompt user to add modules and tasks.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add Checklist
+
+*MSS*
+
+1.  User requests to add a checklist for a particular tasks. +
+`chadd 12 /n Prepare script`
+2.  NASA will provide a acknowledgement messages
+3.  A checklist consisting of old and current added item will be displayed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such tasksID.
+* 1b. Prompt user to add the tasks not listed.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Delete Checklist
+
+*MSS*
+
+1.  User requests to delete a tasksID=12 under checklistID=2. +
+`chdel 12 2`
+2.  NASA will provide a acknowledgement messages
+3.  A checklist consisting of old and current added item will be displayed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such tasksID or checklistID.
+* 1b. Prompt user to add the tasks or checklist.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Checklist
+
+*MSS*
+
+1.  User requests to edit a tasksID=12 under checklistID=2. +
+`chedit 12 2 /n new notes messages here`
+2.  User requests to complete a tasksID=4 under checklistID=2. +
+`chedit 4 2 done`
+3.  NASA will provide a acknowledgement messages.
+4.  A checklist consisting of old and current added item will be displayed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No such tasksID or checklistID.
+* 1b. Prompt user to add the tasks or checklist.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Clear
+
+*MSS*
+
+1.  User requests to clear all tasks and checklist. +
+`clear`
+2.  NASA will provide a acknowledgement messages
+3.  All modules will be emptied unless specified.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User request to clear only specified modules. +
+`clear CS2103T CS2106`
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Quote
+
+*MSS*
+
+1.  User requests to get a motivation quotes +
+`qoute`
+2.  NASA will provide a pop-up quote.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Alias
+
+*MSS*
+
+1.  User requests to change command "clear" to "c" +
+`alias c clear`
+2.  NASA will provide acknowledgment message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Conflicting command keys. Prompt user to re-enter a new command key
+
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Password
+
+*MSS*
+
+1.  User requests to change to a new password +
+`changepassword oldpassword newpassword`
+2.  NASA will provide acknowledgment message.
++
+Use case ends.
+
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Exit
+
+*MSS*
+
+1.  User requests to exit the program. +
+`exit`
+2.  NASA will provide a acknowledgement messages.
+3.  User-interface will close.
++
+Use case ends.
 
 _{More to be added}_
 
