@@ -34,7 +34,7 @@ import seedu.address.ui.UiManager;
 /**
  * Runs the application.
  */
-public class MainApp extends Application {
+public class MainApp extends Application { 
 
     public static final Version VERSION = new Version(0, 6, 0, true);
 
