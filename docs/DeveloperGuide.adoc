@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Nice & Amazing Student Guide (NASA) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Setting up
 
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant amount of information on modules
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage modules faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,17 +295,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |busy student doing a lot of modules | be able to edit my tasks |have updated information from the professors
+of that module.
 
-|`* * *` |user |add a new person |
+|`* * *` |hardworking and busy student |mark my tasks as done |know what else to do
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |busy and clumsy student |delete tasks that were wrongly inputted |remove erroneous tasks
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |lazy student |have a user interface that is intuitive |spend less time navigating
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |student |know that deadline of homework, projects and assignments |finish them by a certain date
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy student |undo and redo actions |save time
+
+|`* * *` |forgetful student |have reminders and alerts sent to me |act on my pre-set reminders at the desired time
+
+|`* * *` |busy student |search for relevant tasks |see if I have done them or not
+
+|`* * *` |busy student |see my group meetings |know when they are
+
+|`* * *` |busy student |filter my tasks based on certain criteria |view them easily
+
+|`* * *` |new user |have quick access to information on how to use the product |learn to use the product
+
+|`* * *` |student |check on the tasks due by a certain date |plan my time accordingly
+
+|`* * *` |extremely anxious student |advance notification on deadlines and upcoming examinations |prepare in advance
+
+|`* * *` |student |view all my tasks |gauge how much work I have left.
+
+|`* *` |busy and hardworking student with limited time |have suggestions on the next deadline assignment homework to do
+ |save time on checking what task to complete
+
+|`* *` |lazy student |automate my homework schedule |avoid keying in recurring tasks
+
+|`* *` |anxious and stressed student |provide daily motivational quotes or jokes or coding challenges  |lighten up my
+mood for the day
+
+|`* *` |student who values privacy |add password protection  |prevent others from viewing my tasks
+
+|`* *` |busy student |export all my tasks  |view them easily
+
+|`* *` |student |add in my personal timetable  |detect clashes between my personal and school timetable
+
+|`* *` |busy student |jot down notes during lecture  |refer to them in the future
+
+|`* *` |university student |add my timetable  |know the time and venue of my classes
+
+|`* *` |objective student |view my academic results  |keep track on the percentage of points that I need in order to
+achieve a result
+
+|`* *` |student |allocate a specific time for each task  |manage my time more efficiently
+
+|`* *` |student |keep track on the amount of tasks finished |analyse whether I am staying on track
+
+|`* *` |student |share information with my friends |allow them to have the same schedule and asks to do
+
+|`* *` |busy student |customise my own shortcuts  |save time when typing in commands
+
+|`*` |stressed-out student |play a chill game |relax my mind
+
+|`*` |student with ex-co positions |find the next free timing for other meetings and responsibilities |can save time
 |=======================================================================
 
 _{More to be added}_
@@ -346,9 +396,48 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+Accessibility
+
+1. App should be colourblind-friendly.
+2. Colourblind users should be able to discern all text and information on the GUI to the same extent as
+non-colourblind individuals.
+
+Extensibility
+
+1. App should be able to support feature increments without breaking existing features.
+
+Interoperability
+
+1. App should work on any mainstream OS as long as it has Java 11 or above installed.
+2. App should be able to read saved data files transferred between computers.
+
+Maintainability
+
+1. App’s codebase should be easily understandable to a Software Developer with one year experience in Java.
+2. App’s codebase should be accessible and available for contribution via feedback and suggestions from
+external developers.
+
+Performance
+
+1. App should be able to hold up to 1000 tasks without a noticeable sluggishness in performance for typical usage.
+2. App should be able to process user input and return a response within 3 seconds.
+
+Reliability
+
+1. App should return an appropriate error or exception response and not crash when a user enters an invalid
+input command.
+2. App should return an appropriate error and not crash when it fails to process a user input command.
+3. App should inform the user in the event of an unexpected crash and potential loss of data.
+4. App should exhibit behaviour consistent with the User Guide’s specifications.
+
+Usability
+
+1. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
+able to accomplish most of the tasks faster using commands than using the mouse.
+2. App first time startup process should have sufficient guidance for first time users to get started using the app
+with basic CRUD function.
+3. App should be useable without requiring internet connection (apart from downloading the file online).
+
 
 _{More to be added}_
 

@@ -29,12 +29,12 @@ Responsibilities: UI + Backend
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Charmaine Koh
+image::charmainekoh.png[width="150", align="left"]
+{empty}[http://github.com/CharmaineKoh[github]] [<<CharmaineKoh#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Backend
 
 '''
 
