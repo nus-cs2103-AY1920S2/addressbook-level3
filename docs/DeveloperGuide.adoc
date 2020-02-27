@@ -1,4 +1,4 @@
-= iTrackPro - Developer Guide
+= iTrack Pro - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -362,7 +362,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== UC02 - Add an item (product/ customer/ transaction)
+=== Use case:  UC02 - Add an item (product/ customer/ transaction)
 
 *MSS*
 

@@ -14,16 +14,16 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-T09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103-T09-2`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+iTrack Pro is for the grocery shop owners to keep track of the products, customers, and transactions of the shop and have a better understanding of the business by viewing the performance of products and behaviors of customers. It is also able to provide an analysis of the entire business to help the owner manage the shop.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `iTrackPro.jar.` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`listc`* : lists all customers
+* **`addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a customer to the application
+* **`deletec`**`3` : deletes the 3rd customer shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -56,89 +56,103 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a product: `addp`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a product to the product list. +
+Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]`
 
 [TIP]
-A person can have any number of tags (including 0)
+A product created without providing values for sales (in SGD) or quantity will be created with 0 sales and quantity as 0.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `addp d/iphone x pr/1000 q/10`
+* `addp d/camera pr/2000 q/90 s/100`
 
-=== Listing all persons : `list`
+=== Listing all products : `listp`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Shows a list of all products in the product list. It could be sorted by the amount of sales, inventory left, etc. +
+Format: `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* The order field shows up only if the sort field is provided.
+* The sorting order by default will be descending.
+****
+
+Examples:
+
+* `listp`
+Returns all products in the list unsorted.
+* `listp s/sales`
+Returns all products sorted by the number of sales in descending order.
+* `listp s/quantity o/ASC`
+Returns all products sorted by quantity in ascending order.
+
+=== Editing a product : `editp`
+
+Edits an existing product in the product list. +
+Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]`
+
+****
+* Edits the product at the specified INDEX. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `editp 1 pr/1150 q/80` +
+Edits the price and quantity of the 1st product to be 90 and 10 respectively.
+* `editp 2 s/1000` +
+Edits the sales of the 2nd product to be 1000.
 
-=== Locating persons by name: `find`
+=== Find products: `findp`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds products whose description contains a certain keyword or price/ sales/ quantity falls into a certain range. +
+Format: `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive. e.g blue will match Blue
+* At least one of the option fields must be provided.
+* Only full words will be matched for keywords e.g. blu will not match blue
+* The keyword will be searched only in the product’s description.
+* The order of the keywords does not matter. e.g. blue shoes will match shoes blue
+* Products matching at least one keyword will be returned (i.e. OR search). e.g. blue shoes will return blue slippers, red shoes
+* Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `findp pr/1000-2000` +
+Returns iphone x and camera.
+* `findp q/20-100` +
+Returns camera.
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a product : `deletep`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified product from the system. +
+Format: `deletep INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the product at the specified `INDEX`.
+* The index refers to the index number shown in the displayed product list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+* `listp` +
+`deletep 2` +
+Deletes the 2nd product in the product list.
+* `findp camera` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st product in the results of the find command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
+=== Clearing all entries : `clearp`
 
-Clears all entries from the address book. +
+Clears all entries from the product list. +
 Format: `clear`
 
 === Exiting the program : `exit`
