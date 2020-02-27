@@ -390,7 +390,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to add a deadline for a particular module.
-`deadline CS2103T /d 01-03-2019 23:59 /t Homework [/n This are the notes.]`
+`Tadd deadline m/CS2103T /d01-03-2019 23:59 /tHomework [/nThis are the notes.]`
 2.  NASA will provide a acknowledgement messages.
 3.  NASA will displays a list of all the items inside the modules
 +
@@ -412,7 +412,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to add an event for a particular module. +
-`event CS2103T /d 01-03-2019 23:59 /t Project Work [/n This are the notes.]`
+`Tadd event m/CS2103T /d01-03-2019 23:59 /tProject Work [/nThis are the notes.]`
 2.  NASA will provide a acknowledgement messages.
 3.  NASA will displays a list of all the items inside the modules
 +
@@ -434,7 +434,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to add an event for a particular module. +
-`lesson CS2103T /d 01-03-2019 23:59 /t Tutorial [/n This are the notes.]`
+`Madd lesson m/CS2103T /d01-03-2019 23:59 /tTutorial [/nThis are the notes.]`
 2.  NASA will provide a acknowledgement messages.
 3.  NASA will displays a list of all the items inside the modules
 +
@@ -456,7 +456,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to list everything in a module by dates. +
-`list CS2103T /s date /ASC`
+`list CS2103T s/date ASC`
 2.  NASA will provide a acknowledgement messages
 3.  NASA will display the module and it's items.
 +
@@ -476,7 +476,7 @@ Use case ends.
 *MSS*
 
 1.  User requests to change the date to 01-04-2019 and set priority to the lowest 5 for a tasksID=12 under the module CS2103T. +
-`edit CS2103T 12 /d 01-04-2019 23:59 /p 5`
+`edit m/CS2103T 12 /d01-04-2019 23:59 /p5`
 2.  NASA will provide a acknowledgement messages
 3.  NASA will display the module and it's items.
 +
@@ -584,7 +584,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to add a checklist for a particular tasks. +
-`chadd 12 /n Prepare script`
+`chadd m/CS2030 12  c/Prepare script`
 2.  NASA will provide a acknowledgement messages
 3.  A checklist consisting of old and current added item will be displayed.
 +
@@ -606,7 +606,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to delete a tasksID=12 under checklistID=2. +
-`chdel 12 2`
+`chdel m/CS2030 12 2`
 2.  NASA will provide a acknowledgement messages
 3.  A checklist consisting of old and current added item will be displayed.
 +
@@ -628,9 +628,9 @@ Use case resumes at step 1.
 *MSS*
 
 1.  User requests to edit a tasksID=12 under checklistID=2. +
-`chedit 12 2 /n new notes messages here`
+`chedit m/CS2030 12 2 c/new notes messages here`
 2.  User requests to complete a tasksID=4 under checklistID=2. +
-`chedit 4 2 done`
+`chedit m/CS2030 4 2 done`
 3.  NASA will provide a acknowledgement messages.
 4.  A checklist consisting of old and current added item will be displayed.
 +
@@ -781,8 +781,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[task]] Tasks::
+** Tasks consist of deadlines, lessons and events
+** Deadlines are essentially assignments, homework or whatever that needs to be done by a specific date
+** Lessons are tutorials and classes and will be auto-generated
+** Events are other academic activities such as competitions, remedial and exams
 
 [appendix]
 == Product Survey
