@@ -194,6 +194,6 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
-* *Return* : `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/TIMESTAMP w/WAREHOUSE ADDRESS pm/PAYMENT METHOD [c/COMMENTS] [type/ITEM TYPE]`
+* *Return* : `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/TIMESTAMP w/WAREHOUSE ADDRESS pm/PAYMENT METHOD [c/COMMENTS] [type/ITEM TYPE]` +
 e.g. `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass`
 * *Help* : `help`
