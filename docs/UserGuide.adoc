@@ -74,6 +74,26 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+// tag::return[]
+=== Returning an order : `return`
+
+Adds a particular order as a return parcel into a new list +
+Format: `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/DELIVERY DATE & TIME w/WAREHOUSE LOCATION +
+pm/PAYMENT METHOD c/COMMENTS BY CUSTOMER type/TYPE OF ITEM`
+
+****
+* Adds the specified order with the transaction id as a return parcel into a new list of returns.
+* The transaction id refers to the transaction id shown in the specified customer order.
+* The transaction id *must be in valid format; can be numeric or alphanumeric*
+****
+
+Examples:
+
+* `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass` +
+Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
+
+// end::return[]
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -113,26 +133,6 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::return[]
-=== Returning an order : `return`
-
-Adds a particular order as a return parcel into a new list +
-Format: `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/DELIVERY DATE & TIME w/WAREHOUSE LOCATION +
-pm/PAYMENT METHOD c/COMMENTS BY CUSTOMER type/TYPE OF ITEM`
-
-****
-* Adds the specified order with the transaction id as a return parcel into a new list of returns.
-* The transaction id refers to the transaction id shown in the specified customer order.
-* The transaction id *must be in valid format; can be numeric or alphanumeric*
-****
-
-Examples:
-
-* `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass` +
-Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
-
-// end::return[]
 
 // tag::delete[]
 === Deleting a person : `delete`
@@ -194,4 +194,6 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
+* *Return* : `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/TIMESTAMP w/WAREHOUSE ADDRESS pm/PAYMENT METHOD [c/COMMENTS] [type/ITEM TYPE]`
+e.g. `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass`
 * *Help* : `help`
