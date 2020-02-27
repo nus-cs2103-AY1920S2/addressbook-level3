@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`listc`* : lists all customers
-* **`addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`** : adds a customer to the application
+* **`addc`** `n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a customer to the application
 * **`deletec`**`3` : deletes the 3rd customer shown in the current list
 * *`exit`* : exits the app
 
