@@ -321,9 +321,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |know customers' payment methods |be prepared to collect any payment upon delivery
 
-|=======================================================================
+|`* *` |courier |know the nearest popstation/pick-up location for returned parcels |plan my route to pick up parcels to be returned
 
-_{More to be added}_
+|`* *` |advanced courier |use shorter versions of a command |type a command faster
+
+|`* *` |courier |keep track of the amount I have received for the day’s orders and the change I should give back |know whether the cash balance is correct at the end of the day
+
+|`* *` |caring courier |generate CSV based on what order I select |send the list of orders to my colleagues
+
+|`* *` |courier |report areas of traffic congestion to my colleagues |help my colleagues reduce their delivery times. (Requires Internet Connection)
+
+|`* *` |courier |keep track of areas with traffic congestion |speed up my delivery time
+
+|`* *` |courier |let the customer acknowledge when I have delivered the package |provide proof that the customer has received the package
+
+|`* *` |courier |know the nearest customer to me |reduce the time spent and distance travelled
+
+|`* *` |busy courier |let another courier handle one of my orders |request my colleagues to help me when I cannot complete the orders by today
+
+|`* *` |courier |contact my colleagues easily |ask for help if I am not able to deliver the packages
+
+|`* *` |courier |change the colour scheme of the application to better suit my eyes such as dark mode or a custom colour scheme |customize my user experience
+
+|`* *` |courier |filter all the deliveries to a particular region |arrange to deliver all packages in that region
+
+|`* *` |courier |be able to notify the customer when I am on my way |let the customer know when I am delivering the package to their location
+
+|`* *` |forgetful courier |have visual cues or notification if my order is an urgent delivery |prioritize on which order to deliver first
+
+|`* *` |curious and helpful courier |see how others are doing with their orders |help them if they have any difficulties delivering all of their parcels by the deadline
+|=======================================================================
 
 [appendix]
 == Use Cases
