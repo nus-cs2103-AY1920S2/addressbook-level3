@@ -58,6 +58,8 @@ Format: `help`
 
 === Adding a product: `addp`
 
+image::Products.png[width="790"]
+
 Adds a product to the product list. +
 Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]`
 
