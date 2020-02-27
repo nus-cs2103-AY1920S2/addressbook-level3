@@ -142,10 +142,33 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 Format: `help`
 
-=== Listing all persons : `list`
+=== Importing a list of orders : `import`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+You will be able to import orders via .csv files that are given to you by your company.
+The CSV file will include all relevant and important details of the parcels; such as the customers’ names,
+transaction id of the parcels and the address of the customers, etc. +
+
+Format: `import FILE NAME`
+
+****
+* Import the specific csv with the file name in data folder to the application
+* The FILE NAME should include the extension. For example: *orders.csv*.
+* The CSV file should store at data folder that is at the same directory as the JAR file.
+****
+
+Examples:
+
+* `import orders.csv` +
+Import the contents of the csv file `orders.csv` to Delino.
+
+=== Listing orders : `list`
+
+[None]
+==== Description
+[none]
+* You can request to list the delivery order to see.
+The done status of the delivery order will be used to list the delivery orders which have the same status.
+There are three types of list commands that are shown in the examples below.
 
 === Saving the data
 
@@ -157,14 +180,13 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+=== Remainder `[coming in v2.0]`
+
+_{explain how the user can set remainder specifically for orders that are rescheduled or urgent orders}_
 
 === Rescheduling orders `[coming in v2.0]`
 
 _{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
-
-=== Remainder `[coming in v2.0]`
-
-_{explain how the user can set remainder specifically for orders that are rescheduled or urgent orders}_
 
 == FAQ
 
@@ -182,5 +204,7 @@ e.g. `delete 3`
 e.g. `edit 0123456789 n/James Lee p/9999 8888`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Import* : `import FILE NAME` +
+e.g. `import orders.csv`
+* *List* : `list`
