@@ -659,10 +659,12 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 350 orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should be able to respond within three seconds.
+.  The system should be able to work without internet access.
+.  A user should be able to get all the information he/she needs within four commands.
+.  A user should be able to familiarise himself/herself within an hour of usage.
 
 [appendix]
 == Glossary
