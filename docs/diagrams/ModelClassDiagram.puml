@@ -5,52 +5,79 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class Session
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Interviewee {
+Class Interviewee
+Class Alias
+Class ID
 Class Name
-Class Phone
-Class UniquePersonList
+Class CV
+Class Transcript
+Class UniqueIntervieweeList
 }
 
-Package Tag {
-Class Tag
+Package Question {
+Class Question
+Class QuestionName
+Class Number
+Class Answer
+Class UniqueQuestionList
 }
+
+Package Attribute {
+Class Attribute
+Class AttributeName
+Class UniqueAttributeList
+}
+
+Package Metric {
+Class UniqueMetricList
+Class Metric
+}
+
+Package Transcript {
+Class Transcript
+Class RemarksMap
+Class Audio
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Session
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Session *--> "1" UniqueIntervieweeList
+UniqueIntervieweeList o--> "*" Interviewee
+Interviewee *--> Name
+Interviewee *--> Alias
+Interviewee *--> ID
+Interviewee *--> CV
+Interviewee *--> "*" Transcript
+Transcript *--> RemarksMap
+Transcript *--> Audio
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Session *--> "1" UniqueAttributeList
+UniqueAttributeList o--> "*" Attribute
+Attribute *--> AttributeName
 
-ModelManager -->"1" Person : filtered list
+Session *--> "1" UniqueQuestionList
+UniqueQuestionList o--> "*" Question
+Question *--> QuestionName
+Question *--> Number
+Question *--> Answer
+
+Session *--> "1" UniqueMetricList
+UniqueMetricList o--> "*" Metric
+
 @enduml
