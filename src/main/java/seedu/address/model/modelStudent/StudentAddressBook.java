@@ -3,8 +3,12 @@ package seedu.address.model.modelStudent;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.util.Constant;
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
@@ -12,6 +16,7 @@ import javafx.collections.ObservableList;
 public class StudentAddressBook implements ReadOnlyStudentAddressBook {
 
     private final UniqueStudentList students;
+    private ArrayList<PropertyChangeListener> listeners = new ArrayList<PropertyChangeListener>();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -88,6 +93,7 @@ public class StudentAddressBook implements ReadOnlyStudentAddressBook {
      */
     public void removeStudent(Student key) {
         students.remove(key);
+        notifyListeners(this, Constant.STUDENT_REMOVE_SIGNAL.toString(), key);
     }
 
     //// util methods
@@ -114,5 +120,15 @@ public class StudentAddressBook implements ReadOnlyStudentAddressBook {
     @Override
     public int hashCode() {
         return students.hashCode();
+    }
+
+    private void notifyListeners(Object object, String property, Object data) {
+        for (PropertyChangeListener name : listeners) {
+            name.propertyChange(new PropertyChangeEvent(this, property, null, data));
+        }
+    }
+
+    public void addChangeListener(PropertyChangeListener newListener) {
+        listeners.add(newListener);
     }
 }

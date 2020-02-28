@@ -2,8 +2,13 @@ package seedu.address.model.modelCourse;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javafx.collections.ObservableList;
+
+import seedu.address.model.util.Constant;
 
 /**
  * Wraps all data at the address-book level
@@ -12,6 +17,7 @@ import javafx.collections.ObservableList;
 public class CourseAddressBook implements ReadOnlyCourseAddressBook {
 
     private final UniqueCourseList courses;
+    private ArrayList<PropertyChangeListener> listeners = new ArrayList<PropertyChangeListener>();
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -78,8 +84,6 @@ public class CourseAddressBook implements ReadOnlyCourseAddressBook {
      */
     public void setCourse(Course target, Course editedCourse) {
         requireNonNull(editedCourse);
-
-        courses.setCourse(target, editedCourse);
     }
 
     /**
@@ -88,6 +92,7 @@ public class CourseAddressBook implements ReadOnlyCourseAddressBook {
      */
     public void removeCourse(Course key) {
         courses.remove(key);
+        notifyListeners(this, Constant.COURSE_REMOVE_SIGNAL.toString(), key);
     }
 
     //// util methods
@@ -114,5 +119,15 @@ public class CourseAddressBook implements ReadOnlyCourseAddressBook {
     @Override
     public int hashCode() {
         return courses.hashCode();
+    }
+
+    private void notifyListeners(Object object, String property, Object data) {
+        for (PropertyChangeListener name : listeners) {
+            name.propertyChange(new PropertyChangeEvent(this, property, null, data));
+        }
+    }
+
+    public void addChangeListener(PropertyChangeListener newListener) {
+        listeners.add(newListener);
     }
 }

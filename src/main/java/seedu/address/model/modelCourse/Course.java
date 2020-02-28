@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.ArrayList;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.modelStudent.Student;
 
 /**
  * Represents a Course in the address book.
@@ -20,6 +22,7 @@ public class Course {
     private final Name name;
     private final ID id;
     private final Set<Tag> tags = new HashSet<>();
+    private final ArrayList<Student> students = new ArrayList<Student>();
 
     /**
      * Every field must be present and not null.

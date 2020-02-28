@@ -24,6 +24,7 @@ import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.observer.CourseParticipantObserver;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -43,6 +44,8 @@ public class ModelManager implements Model {
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Finance> filteredFinances;
     private final FilteredList<Course> filteredCourses;
+    private final CourseParticipantObserver courseParticipantObserver;
+
 
 
     /**
@@ -69,6 +72,7 @@ public class ModelManager implements Model {
         filteredFinances = new FilteredList<>(this.financeAddressBook.getFinanceList());
         filteredCourses = new FilteredList<>(this.courseAddressBook.getCourseList());
 
+        this.courseParticipantObserver = new CourseParticipantObserver(this.studentAddressBook, this.courseAddressBook);
     }
 
     public ModelManager() {
