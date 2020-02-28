@@ -823,24 +823,28 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting an order
 
-. Deleting an order while all orders are listed
+. Deleting an order with respect to the current list displayed
 
-.. Prerequisites: List all orders using the `list` command. Multiple orders in the list.
-.. Test case: `delete G8473927a` +
-   Expected: The order with transaction ID G8473927a will be removed from the list. Details of the deleted order will be displayed in the response box.
-.. Test case: `delete` +
-   Expected: No order is deleted. Error details shown in the status message as there should be another argument other than delete.
-.. Test case: `delete <Any Transaction ID that doesn't exist in the list>` +
-   Expected: No order is deleted as the program cannot find the particular oder to delete in the list. An error message will be displayed in th response box.
+.. Delete command syntax: `delete *INDEX*`
+
+.. Prerequisites: List all orders using the `list` command. Multiple orders in the list
+.. Test case: `delete 1` +
+   Expected: The first order item in the current list will be removed. Details of the deleted order will be displayed in the response box
+.. Test case: `delete 2` +
+   Expected: The second item in the current list will be removed. Details of the deleted order will be displayed in the response box
+.. Test case: Invalid Syntax +
+   Expected: No order is deleted. An error message will be displayed in the response box
+.. Test case: `delete *ANY INDEX NOT FOUND IN LIST*` +
+   Expected: No order is deleted. An error message will be displayed in the response box, indicating that the index cannot be found in the list
 
 === Edit orders
 
 . You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update
 
 .. Test case: `edit 0123456789 name Xuan En` +
-   Expected: Name of the customer of the order with transaction ID 0123456789 will be changed to Xuan En.
+   Expected: Name of the customer of the order with transaction ID 0123456789 will be changed to Xuan En
 .. Test case: `edit 0123456789 phone 99521654` +
-   Expected: Phone number of the customer of the order will be changed to 9952 1654.
+   Expected: Phone number of the customer of the order will be changed to 9952 1654
 .. Test case: `edit 1654789206 address Blk 123 Pasir Ris street 51 #12-23 S510123` +
    Expected: The address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123
 .. Test case: `edit 9876543210 date 09/08/2020` +
@@ -866,7 +870,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: List all completed delivery orders.
 .. Test case: `list undone` +
    Expected: List all uncompleted delivery orders.
-.. Test case: `list <Some other word other than done and undone>` +`
+.. Test case: `list *ANY WORD OTHER THAN UNDONE AND DONE*` +
    Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
 
 === Find an order
@@ -891,24 +895,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Mark order as Done
 
-. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done *TRANSACTION ID*`
+. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done *INDEX*`
 
-.. Test case: `done 83z7ehaq` +
-   Expected: The specific order with transaction ID 83z7ehaq will be moved from the current “Today’s Order” list to the list of completed orders.
+.. Prerequisite: Ensure that your list has more than or equals to two orders
+.. Test case: `done 1` +
+   Expected: The first order in the currently displayed list will be marked as done
+.. Test case: `done 2` +
+   Expected: The second order in the currently displayed list will be marked as done
 .. Test case: Invalid syntax
-   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error.
-
-=== Return order
-
-. Use the return command to mark an order as return. This will happen in the case where the customer rejects the parcel and would like an exchange/refund
-
-.. The return command syntax is return *TRANSACTION ID* *REASON*
-.. Prerequisite: The orders to be mark as return must originally be marked as done
-
-.. Test Case: `return 83z7ehaq r/Item is spoiled` +
-   Expected: The order is now marked as return
-.. Test Case: Invalid syntax
-   Expected: An error will occur and its details will be displayed at the response box
+   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error
 
 === Clear orders
 
