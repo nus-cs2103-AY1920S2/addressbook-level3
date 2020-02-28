@@ -106,9 +106,10 @@ Deletes the 1st person in the results of the `find` command.
 
 ==== Example(s)
 [none]
-* 1. `edit 0123456789 n/Xuan En`
-* 2. `edit 00k0i9ih34 p/9999 4444`
-* 3. `edit 000012348a a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
+* 1. `edit` `0123456789` `n/Xuan En`
+* 2. `edit` `00k0i9ih34` `p/9999 4444`
+* 3. `edit` `000012348a` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
+* 4. `edit` `01234okook` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
 
 === Exiting the program : `exit`
 
