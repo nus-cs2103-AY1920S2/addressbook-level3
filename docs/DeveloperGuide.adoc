@@ -799,40 +799,166 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch Delino
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Ensure that you have Java 11 installed in your computer
+.. Download the latest Delino.jar
+.. Copy the jar file to the folder you would like to use as a home address for Delino application
+   Expected: Shows the GUI of the Delino App. The window size may not be optimum
 
-. Saving window preferences
+=== Adding an order
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Add a minimum of 2 orders
 
-_{ more test cases ... }_
+.. Test case: `add tid/<TRANSACTION_ID> n/<NAME> a/<ADDRESS> p/<PHONE_NUMBER> ts/<DELIVERY_DATE_&_TIME> w/<WAREHOUSE_LOCATION> pm/<PAYMENT_METHOD> c/<COMMENTS_BY_CUSTOMER> type/<TYPE_OF_ITEM>` +
+   Expected: An order with the above details will be added to the list and displayed on the GUI where bolded fields are compulsory and normal text are optionals
+.. Test case: Invalid syntax
+   Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged.
 
-=== Deleting a person
+=== Deleting an order
 
-. Deleting a person while all persons are listed
+. Deleting an order while all orders are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: List all orders using the `list` command. Multiple orders in the list.
+.. Test case: `delete G8473927a` +
+   Expected: The order with transaction ID G8473927a will be removed from the list. Details of the deleted order will be displayed in the response box.
+.. Test case: `delete` +
+   Expected: No order is deleted. Error details shown in the status message as there should be another argument other than delete.
+.. Test case: `delete <Any Transaction ID that doesn't exist in the list>` +
+   Expected: No order is deleted as the program cannot find the particular oder to delete in the list. An error message will be displayed in th response box.
 
-_{ more test cases ... }_
+=== Edit orders
+
+. You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update
+
+.. Test case: `edit 0123456789 name Xuan En` +
+   Expected: Name of the customer of the order with transaction ID 0123456789 will be changed to Xuan En.
+.. Test case: `edit 0123456789 phone 99521654` +
+   Expected: Phone number of the customer of the order will be changed to 9952 1654.
+.. Test case: `edit 1654789206 address Blk 123 Pasir Ris street 51 #12-23 S510123` +
+   Expected: The address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123
+.. Test case: `edit 9876543210 date 09/08/2020` +
+   Expected: The timestamp of the customer of the order will be rescheduled to 09/08/2020
+.. Test case: `edit 9874639183 date 02/02/2020` (Assuming this date has passed) +
+   Expected: The response box will display an error message as it is impossible to put a date that is already passed
+
+=== Import orders
+
+. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv
+
+.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
+.. Test case: `import customers_20_02_2020.csv` +
+   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders
+
+=== Find an order
+
+. Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find <PREFIX> <KEYWORD>
+
+.. Find orders while orders are being listed
+.. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a ‘list done’ and then calls a find command, the orders from the output list is based on the list of completed orders
+
+.. Test case: `list done` +
+   `find -t A18512357Z` +
+   Expected: Specifically find the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
+.. Test case: `list undone` +
+   `find -n Amos` +
+   Expected: Print all uncompleted delivery orders with any person that has the name ‘Amos’ in it. It will not print out completed delivery orders with a person named ‘Amos’ despite having the same keyword.
+.. Test case: `list` +
+   `find -n Amos` +
+   Expected: The program will look up all the delivery orders, regardless of completed or uncompleted orders and print out all orders in a list with the word ‘Amos’ in the name.
+.. Test case: `list` +
+   `find` +
+   Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself.
+
+=== Mark order as Done
+
+. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done <TRANSACTION ID>`
+
+.. Test case: `done 83z7ehaq` +
+   Expected: The specific order with transaction ID 83z7ehaq will be moved from the current “Today’s Order” list to the list of completed orders.
+.. Test case: Invalid syntax
+   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error.
+
+=== Return order
+
+. Use the return command to mark an order as return. This will happen in the case where the customer rejects the parcel and would like an exchange/refund
+
+.. The return command syntax is return <TRANSACTION ID><REASON>
+.. Prerequisite: The orders to be mark as return must originally be marked as done
+
+.. Test Case: `return 83z7ehaq r/ Item is spoiled` +
+   Expected: The order is now marked as return
+.. Test Case: Invalid syntax
+   Expected: An error will occur and its details will be displayed at the response box
+
+=== Clear orders
+
+. Clear all orders while all orders are listed
+
+.. Test case: `clear` +
+   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted
+.. Test case: `clear -f` +
+   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
+.. Test case: Invalid syntax
+   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+
+=== List orders
+
+. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user
+
+.. Test case: `list` +
+   Expected: List all the delivery orders, showing all completed and uncompleted orders.
+.. Test case: `list done` +
+   Expected: List all completed delivery orders.
+.. Test case: `list undone` +
+   Expected: List all uncompleted delivery orders.
+.. Test case: `list <Some other word other than done and undone>` +`
+   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
+
+=== Help
+
+. Display a list of available commands to user
+
+.. Test case: `help` +
+   Expected: A list of commands will be displayed and the response box will indicate a successful command.
+.. Test case: Invalid syntax
+   Expected: An error will occur and the response box will show an error message
+
+=== Sort orders
+
+. Sort the orders based on the attributes input by the user. There are some things which we can sort by : Name of person, Transaction ID or Timestamp. The user will also input flags to indicate ascending order (-a) or descending order (-d)
+
+.. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list
+.. Test case: `sort -a n/` +
+   Expected: Sort all orders in ascending order based on the customer names
+.. Test case: `sort -d tid/` +
+   Expected: Sort all orders in descending order based on transaction ID
+.. Test case: `sort -a ts/` +
+   Expected: Sort all orders in ascending order based on timestamp
+.. Test case: `sort n/` +
+   Expected: Error message will appear as this is an invalid command
+
+=== Undo previous action
+
+. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
+
+.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command
+.. Test case: `undo` +
+   Expected: The original list will be replaced with the current new list. The previous state will be restored
+.. Test case: `undo <Any other words as the second argument>` +
+   Expected: Error message displayed in the response box
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Manual Saving is not required as data is already saved in the hard disk after any commands that change the data
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Exit
 
-_{ more test cases ... }_
+. Exits the Delino App using the `exit` command
+
+.. Test case: `exit` +
+   Expected: The GUI window will be closed.
+.. Test case: Adding any other words as the second argument of the `exit` command
+   Expected: The response box will display an invalid command message
