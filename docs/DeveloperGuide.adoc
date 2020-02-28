@@ -321,9 +321,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |know customers' payment methods |be prepared to collect any payment upon delivery
 
-|=======================================================================
+|`* *` |courier |know the nearest popstation/pick-up location for returned parcels |plan my route to pick up parcels to be returned
 
-_{More to be added}_
+|`* *` |advanced courier |use shorter versions of a command |type a command faster
+
+|`* *` |courier |keep track of the amount I have received for the day’s orders and the change I should give back |know whether the cash balance is correct at the end of the day
+
+|`* *` |caring courier |generate CSV based on what order I select |send the list of orders to my colleagues
+
+|`* *` |courier |report areas of traffic congestion to my colleagues |help my colleagues reduce their delivery times. (Requires Internet Connection)
+
+|`* *` |courier |keep track of areas with traffic congestion |speed up my delivery time
+
+|`* *` |courier |let the customer acknowledge when I have delivered the package |provide proof that the customer has received the package
+
+|`* *` |courier |know the nearest customer to me |reduce the time spent and distance travelled
+
+|`* *` |busy courier |let another courier handle one of my orders |request my colleagues to help me when I cannot complete the orders by today
+
+|`* *` |courier |contact my colleagues easily |ask for help if I am not able to deliver the packages
+
+|`* *` |courier |change the colour scheme of the application to better suit my eyes such as dark mode or a custom colour scheme |customize my user experience
+
+|`* *` |courier |filter all the deliveries to a particular region |arrange to deliver all packages in that region
+
+|`* *` |courier |be able to notify the customer when I am on my way |let the customer know when I am delivering the package to their location
+
+|`* *` |forgetful courier |have visual cues or notification if my order is an urgent delivery |prioritize on which order to deliver first
+
+|`* *` |curious and helpful courier |see how others are doing with their orders |help them if they have any difficulties delivering all of their parcels by the deadline
+|=======================================================================
 
 [appendix]
 == Use Cases
@@ -659,10 +686,12 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 350 orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should be able to respond within three seconds.
+.  The system should be able to work without internet access.
+.  A user should be able to get all the information he/she needs within four commands.
+.  A user should be able to familiarise himself/herself within an hour of usage.
 
 [appendix]
 == Glossary
@@ -670,8 +699,80 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[returns]] Returns::
+An order that is rejected and needs to be returned to the warehouse
+
+[[invalid-syntax]] Invalid syntax::
+Any syntax used that does not correspond to the required format
+
+[[status-bar]] Status Bar::
+Refers to the display field showing the results of an executed command
+
+.Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|tid/
+|Transaction ID
+|Add, Return
+
+|n/
+|Name
+|Add
+
+|a/
+|Address
+|Add
+
+|p/
+|Phone Number
+|Add
+
+|ts/
+|Delivery Date And Time
+|Add
+
+|w/
+|Warehouse Location
+|Add
+
+|pm/
+|Payment Method
+|Add
+
+|c/
+|Comments by Customer
+|Add, Return
+
+|type/
+|Type of Item
+|Add
+|===
+
+.Possible Command Flags
+|===
+|Command |Flag |Meaning
+
+|Sort
+|-a
+|Sort in *ascending* order
+
+|Sort
+|-d
+|Sort in *descending* order
+
+|Clear
+|-f
+|Force clear, no user confirmation will be requested
+
+|Find
+|-n
+|Search using Name
+
+|Find
+|-t
+|Search using Transaction ID
+|===
 
 [appendix]
 == Product Survey

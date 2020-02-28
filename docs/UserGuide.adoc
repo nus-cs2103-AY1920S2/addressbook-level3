@@ -52,10 +52,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
-
-Format: `help`
-
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -69,50 +65,10 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+=== Clearing all entries : `clear`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Clears all entries from the address book. +
+Format: `clear`
 
 // tag::delete[]
 === Deleting a person : `delete`
@@ -136,26 +92,55 @@ Deletes the 2nd person in the address book.
 Deletes the 1st person in the results of the `find` command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
+=== Editing an order : `edit`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Description
+[none]
+* You can edit the details of the delivery order by providing the order transaction id, the field you want to change followed by the updated value.
+
+==== Format
+[none]
+* `edit *TRANSACTION_ID* *FIELD_TO_CHANGE* *VALUE*`
+
+****
+* Edits the order at the specified `TRANSACTION_ID`. The transaction id is alphanumeric and is used to identify each order.
+* Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
+****
+
+==== Example(s)
+[none]
+* 1. `edit 0123456789 n/Xuan En`
+* 2. `edit 00k0i9ih34 p/9999 4444`
+* 3. `edit 000012348a a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+=== Locating persons by name: `find`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+=== Viewing help : `help`
+
+Format: `help`
 
 === Importing a list of orders : `import`
 ==== Description
@@ -187,6 +172,24 @@ Import the contents of the csv file `orders.csv` to Delino.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
 
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+// tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
+=== Remainder `[coming in v2.0]`
+
+_{explain how the user can set remainder specifically for orders that are rescheduled or urgent orders}_
+
+=== Rescheduling orders `[coming in v2.0]`
+
+_{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
 
 == FAQ
 
@@ -200,11 +203,11 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Edit* : `edit TRANSACTION_ID FIELD_TO_CHANGE CHANGES` +
+e.g. `edit 0123456789 n/James Lee p/9999 8888`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
+* *Help* : `help`
 * *Import* : `import FILE NAME` +
 e.g. `import orders.csv`
 * *List* : `list`
-* *Help* : `help`
