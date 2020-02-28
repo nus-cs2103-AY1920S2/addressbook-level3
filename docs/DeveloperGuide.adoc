@@ -812,7 +812,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Add a minimum of 2 orders
 
-.. Add Command Syntax: `add *TRANSACTION_ID* *NAME* *ADDRESS* *PHONE_NUMBER* *DELIVERY_DATE_&_TIME* *WAREHOUSE_LOCATION* *PAYMENT_METHOD* *COMMENTS_BY_CUSTOMER* *TYPE_OF_ITEM*`
+.. Add Command Syntax: `add` `*TRANSACTION_ID*` `*NAME*` `*ADDRESS*` `*PHONE_NUMBER*` `*DELIVERY_DATE_&_TIME*` `*WAREHOUSE_LOCATION*` `*PAYMENT_METHOD*` `*COMMENTS_BY_CUSTOMER*` `*TYPE_OF_ITEM*`
 
 .. Test case: `add tid/9876543210 n/John Doe a/Blk 572 Hougang st 51 #10-33 S530572 p/98766789 ts/2020-02-20 1300 w/Yishun pm/Cash` +
    Expected: An order with the above details will be added to the list and displayed on the GUI
@@ -825,7 +825,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting an order with respect to the current list displayed
 
-.. Delete command syntax: `delete *INDEX*`
+.. Delete command syntax: `delete` `*INDEX*`
 
 .. Prerequisites: List all orders using the `list` command. Multiple orders in the list
 .. Test case: `delete 1` +
@@ -841,6 +841,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 . You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update
 
+.. Edit Command Syntax: `edit` `*TRANSACTION ID*` `*FIELD*` `*NEW VALUE*`
+
 .. Test case: `edit 0123456789 name Xuan En` +
    Expected: Name of the customer of the order with transaction ID 0123456789 will be changed to Xuan En
 .. Test case: `edit 0123456789 phone 99521654` +
@@ -854,7 +856,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Import orders
 
-. Import a new list of orders from a .csv file given by the company. The command to do so is : `import *NAME_OF_FILE*.csv`
+. Import a new list of orders from a .csv file given by the company. The command to do so is : `import` `*NAME_OF_FILE*.csv`
 
 .. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
 .. Test case: `import customers_20_02_2020.csv` +
@@ -875,10 +877,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Find an order
 
-. Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find *PREFIX* *KEYWORD*
+. Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : `find` `*PREFIX*` `*KEYWORD*`
 
 .. Find orders while orders are being listed
-.. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a ‘list done’ and then calls a find command, the orders from the output list is based on the list of completed orders
+.. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a find command, the orders from the output list is based on the list of completed orders
 
 .. Test case: `list done` +
    `find -t A18512357Z` +
@@ -895,7 +897,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Mark order as Done
 
-. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done *INDEX*`
+. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done` `*INDEX*`
 
 .. Prerequisite: Ensure that your list has more than or equals to two orders
 .. Test case: `done 1` +
@@ -908,6 +910,8 @@ These instructions only provide a starting point for testers to work on; testers
 === Clear orders
 
 . Clear all orders while all orders are listed
+
+.. Clear command syntax: `clear` `[FLAG]`
 
 .. Test case: `clear` +
    Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted
