@@ -158,20 +158,22 @@ _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
 === Importing a list of orders : `import`
-
-You will be able to import orders via .csv files that are given to you by your company.
+==== Description
+You will be able to import orders via csv file that are given to you by your company.
 The CSV file will include all relevant and important details of the parcels; such as the customers’ names,
 transaction id of the parcels and the address of the customers, etc. +
 
-Format: `import FILE NAME`
+==== Format
+* `import FILE NAME`
 
 ****
-* Import the specific csv with the file name in data folder to the application
+* Import the specific csv with the file name in data folder to the application.
+* Only *one* csv file can be import at one time.
 * The FILE NAME should include the extension. For example: *orders.csv*.
 * The CSV file should store at data folder that is at the same directory as the JAR file.
 ****
 
-Examples:
+==== Examples
 
 * `import orders.csv` +
 Import the contents of the csv file `orders.csv` to Delino.
