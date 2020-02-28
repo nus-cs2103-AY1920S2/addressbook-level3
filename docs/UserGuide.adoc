@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
+* *`list`* : lists all delivery orders
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`delete`**`3` : deletes the 3rd delivery order shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -71,25 +71,27 @@ Clears all entries from the address book. +
 Format: `clear`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting an order : `delete`
+==== Description
+You can use this command to delete a particular order from the current list of orders based on its index. +
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Format:
+`delete` `INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed order list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+==== Examples:
 
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`delete` `2` +
+Deletes the 2nd order.
+* `find` `-n` `Betsy` +
+`delete` `1` +
+Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
 
 // end::delete[]
 === Editing an order : `edit`
@@ -169,6 +171,22 @@ Import the contents of the csv file `orders.csv` to Delino.
 * You can request to list the delivery order to see.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
+
+=== Undo the previous action: undo
+==== Description
+You can use the undo command to revert the most recent action that was previously executed.
+For example, if you accidentally deleted an order, you can use the undo command to add the deleted order
+back to the list of orders.
+
+==== Format
+`undo`
+
+==== Example
+* `list` +
+`delete` `1` +
+`delete` `2` +
+`undo` +
+The list will be reverted back to the state after the second command `delete` `1`.
 
 === Saving the data
 
