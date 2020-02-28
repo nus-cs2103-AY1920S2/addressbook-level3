@@ -172,6 +172,29 @@ Import the contents of the csv file `orders.csv` to Delino.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
 
+=== Sorting orders: sort
+==== Description
+You can sort the orders based on their attributes *(given in prefix form)*.
+An additional flag can be provided (-a or -d) can be used to sort the delivery
+orders in ascending/descending order.
+
+==== Format
+`sort` `[ORDER FLAG]` `ORDER ATTRIBUTE PREFIX` +
+
+****
+*ORDER FLAG*  can be either +
+*-d* (descending order) or +
+*-a* (ascending order).
+****
+
+==== Examples
+* `sort` `-a` `n/` +
+You will sort the orders in ascending order based on the names of the customers.
+* `sort` `-d` `ts/` +
+You will sort the orders in descending order based on the timestamps of the orders.
+* `sort` `-d` `tid/` +
+You will sort the orders in descending order based on the transaction id of the orders.
+
 === Undo the previous action: undo
 ==== Description
 You can use the undo command to revert the most recent action that was previously executed.
