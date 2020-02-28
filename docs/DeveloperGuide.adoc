@@ -812,10 +812,14 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Add a minimum of 2 orders
 
-.. Test case: `add tid/<TRANSACTION_ID> n/<NAME> a/<ADDRESS> p/<PHONE_NUMBER> ts/<DELIVERY_DATE_&_TIME> w/<WAREHOUSE_LOCATION> pm/<PAYMENT_METHOD> c/<COMMENTS_BY_CUSTOMER> type/<TYPE_OF_ITEM>` +
-   Expected: An order with the above details will be added to the list and displayed on the GUI where bolded fields are compulsory and normal text are optionals
+.. Add Command Syntax: `add *TRANSACTION_ID* *NAME* *ADDRESS* *PHONE_NUMBER* *DELIVERY_DATE_&_TIME* *WAREHOUSE_LOCATION* *PAYMENT_METHOD* *COMMENTS_BY_CUSTOMER* *TYPE_OF_ITEM*`
+
+.. Test case: `add tid/9876543210 n/John Doe a/Blk 572 Hougang st 51 #10-33 S530572 p/98766789 ts/2020-02-20 1300 w/Yishun pm/Cash` +
+   Expected: An order with the above details will be added to the list and displayed on the GUI
+.. Test case: `add tid/1023456789 n/Amos Cheong a/Blk 572 Hougang st 51 #11-37 S530572 p/9001 0019 ts/2020-03-10 1650 w/Marsiling pm/Nets c/Leave it at the riser type/glass`
+   Expected: The order is added to the list, including the item type and the order comment
 .. Test case: Invalid syntax
-   Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged.
+   Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged
 
 === Deleting an order
 
@@ -846,15 +850,28 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Import orders
 
-. Import a new list of orders from a .csv file given by the company. The command to do so is : import <NAME_OF_FILE>.csv
+. Import a new list of orders from a .csv file given by the company. The command to do so is : `import *NAME_OF_FILE*.csv`
 
 .. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
 .. Test case: `import customers_20_02_2020.csv` +
    Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders
 
+=== List orders
+
+. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user
+
+.. Test case: `list` +
+   Expected: List all the delivery orders, showing all completed and uncompleted orders.
+.. Test case: `list done` +
+   Expected: List all completed delivery orders.
+.. Test case: `list undone` +
+   Expected: List all uncompleted delivery orders.
+.. Test case: `list <Some other word other than done and undone>` +`
+   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
+
 === Find an order
 
-. Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find <PREFIX> <KEYWORD>
+. Find an order based on either the person’s Name or by the Transaction ID. The correct syntax is : find *PREFIX* *KEYWORD*
 
 .. Find orders while orders are being listed
 .. Prerequisite: Input the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a ‘list done’ and then calls a find command, the orders from the output list is based on the list of completed orders
@@ -874,7 +891,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Mark order as Done
 
-. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done <TRANSACTION ID>`
+. Mark order as done whenever an order transaction is completed. The correct syntax should be as follows: `done *TRANSACTION ID*`
 
 .. Test case: `done 83z7ehaq` +
    Expected: The specific order with transaction ID 83z7ehaq will be moved from the current “Today’s Order” list to the list of completed orders.
@@ -885,10 +902,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Use the return command to mark an order as return. This will happen in the case where the customer rejects the parcel and would like an exchange/refund
 
-.. The return command syntax is return <TRANSACTION ID><REASON>
+.. The return command syntax is return *TRANSACTION ID* *REASON*
 .. Prerequisite: The orders to be mark as return must originally be marked as done
 
-.. Test Case: `return 83z7ehaq r/ Item is spoiled` +
+.. Test Case: `return 83z7ehaq r/Item is spoiled` +
    Expected: The order is now marked as return
 .. Test Case: Invalid syntax
    Expected: An error will occur and its details will be displayed at the response box
@@ -903,19 +920,6 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
 .. Test case: Invalid syntax
    Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
-
-=== List orders
-
-. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user
-
-.. Test case: `list` +
-   Expected: List all the delivery orders, showing all completed and uncompleted orders.
-.. Test case: `list done` +
-   Expected: List all completed delivery orders.
-.. Test case: `list undone` +
-   Expected: List all uncompleted delivery orders.
-.. Test case: `list <Some other word other than done and undone>` +`
-   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
 
 === Help
 
