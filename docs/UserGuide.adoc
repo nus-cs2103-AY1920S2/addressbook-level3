@@ -100,12 +100,9 @@ Deletes the 1st person in the results of the `find` command.
 
 ==== Format
 [none]
-* `edit *TRANSACTION_ID* *FIELD_TO_CHANGE* *VALUE*`
-
-****
+* `edit` `*TRANSACTION_ID*` `*FIELD_TO_CHANGE*` `*VALUE*`
 * Edits the order at the specified `TRANSACTION_ID`. The transaction id is alphanumeric and is used to identify each order.
 * Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
-****
 
 ==== Example(s)
 [none]
