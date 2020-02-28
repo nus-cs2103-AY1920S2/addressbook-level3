@@ -17,8 +17,14 @@ endif::[]
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
+This user guide provides in-depth documentation on the Delino desktop application:
+quick start guide, features, FAQ, command summary, and glossary.
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Delino is for couriers who *prefer to use a desktop app for managing their delivery tasks*.
+It is *optimised for those who have a strong preference towards Command Line Interface* (CLI)
+while still enjoying the benefits of a Graphical User Interface (GUI).
+Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
+Have a delightful journey using Delino!
 
 == Quick Start
 
