@@ -115,8 +115,11 @@ Deletes the 1st person in the results of the `find` command.
 
 === Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+==== Description
+* You can exit the application using exit command.
+
+==== Format:
+* `exit`
 
 === Locating persons by name: `find`
 
