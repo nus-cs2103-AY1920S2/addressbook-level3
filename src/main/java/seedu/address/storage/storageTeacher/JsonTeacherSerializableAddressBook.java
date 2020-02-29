@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
-import seedu.address.model.modelTeacher.TeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
+import seedu.address.model.modelTeacher.TeacherAddressBook;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -17,42 +17,45 @@ import seedu.address.model.modelTeacher.Teacher;
 @JsonRootName(value = "teacheraddressbook")
 class JsonTeacherSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_TEACHER = "Teachers list contains duplicate teacher(s).";
+  public static final String MESSAGE_DUPLICATE_TEACHER = "Teachers list contains duplicate teacher(s).";
 
-    private final List<JsonAdaptedTeacher> teachers = new ArrayList<>();
+  private final List<JsonAdaptedTeacher> teachers = new ArrayList<>();
 
-    /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given teachers.
-     */
-    @JsonCreator
-    public JsonTeacherSerializableAddressBook(@JsonProperty("teachers") List<JsonAdaptedTeacher> teachers) {
-        this.teachers.addAll(teachers);
+  /**
+   * Constructs a {@code JsonSerializableAddressBook} with the given teachers.
+   */
+  @JsonCreator
+  public JsonTeacherSerializableAddressBook(
+      @JsonProperty("teachers") List<JsonAdaptedTeacher> teachers) {
+    this.teachers.addAll(teachers);
+  }
+
+  /**
+   * Converts a given {@code ReadOnlyTeacherAddressBook} into this class for Jackson use.
+   *
+   * @param source future changes to this will not affect the created {@code
+   *               JsonTeacherSerializableAddressBook}.
+   */
+  public JsonTeacherSerializableAddressBook(ReadOnlyTeacherAddressBook source) {
+    teachers.addAll(
+        source.getTeacherList().stream().map(JsonAdaptedTeacher::new).collect(Collectors.toList()));
+  }
+
+  /**
+   * Converts this address book into the model's {@code AddressBook} object.
+   *
+   * @throws IllegalValueException if there were any data constraints violated.
+   */
+  public TeacherAddressBook toModelType() throws IllegalValueException {
+    TeacherAddressBook teacherAddressBook = new TeacherAddressBook();
+    for (JsonAdaptedTeacher jsonAdaptedTeacher : teachers) {
+      Teacher teacher = jsonAdaptedTeacher.toModelType();
+      if (teacherAddressBook.hasTeachers(teacher)) {
+        throw new IllegalValueException(MESSAGE_DUPLICATE_TEACHER);
+      }
+      teacherAddressBook.addTeacher(teacher);
     }
-
-    /**
-     * Converts a given {@code ReadOnlyTeacherAddressBook} into this class for Jackson use.
-     *
-     * @param source future changes to this will not affect the created {@code JsonTeacherSerializableAddressBook}.
-     */
-    public JsonTeacherSerializableAddressBook(ReadOnlyTeacherAddressBook source) {
-        teachers.addAll(source.getTeacherList().stream().map(JsonAdaptedTeacher::new).collect(Collectors.toList()));
-    }
-
-    /**
-     * Converts this address book into the model's {@code AddressBook} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated.
-     */
-    public TeacherAddressBook toModelType() throws IllegalValueException {
-        TeacherAddressBook teacherAddressBook = new TeacherAddressBook();
-        for (JsonAdaptedTeacher jsonAdaptedTeacher : teachers) {
-            Teacher teacher = jsonAdaptedTeacher.toModelType();
-            if (teacherAddressBook.hasTeachers(teacher)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_TEACHER);
-            }
-            teacherAddressBook.addTeacher(teacher);
-        }
-        return teacherAddressBook;
-    }
+    return teacherAddressBook;
+  }
 
 }

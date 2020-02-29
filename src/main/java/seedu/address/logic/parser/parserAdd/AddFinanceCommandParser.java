@@ -24,36 +24,38 @@ import seedu.address.model.tag.Tag;
  */
 public class AddFinanceCommandParser implements Parser<AddFinanceCommand> {
 
-    /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     * @return
-     */
-    public AddFinanceCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_TAG);
+  /**
+   * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
+   * ArgumentMultimap}.
+   */
+  private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+    return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+  }
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
-        }
+  /**
+   * Parses the given {@code String} of arguments in the context of the AddCommand and returns an
+   * AddCommand object for execution.
+   *
+   * @return
+   * @throws ParseException if the user input does not conform the expected format
+   */
+  public AddFinanceCommand parse(String args) throws ParseException {
+    ArgumentMultimap argMultimap =
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_TAG);
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Finance finance = new Finance(name, amount, tagList);
-
-        return new AddFinanceCommand(finance);
+    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT)
+        || !argMultimap.getPreamble().isEmpty()) {
+      throw new ParseException(
+          String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFinanceCommand.MESSAGE_USAGE));
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
+    Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+    Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+    Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+    Finance finance = new Finance(name, amount, tagList);
+
+    return new AddFinanceCommand(finance);
+  }
 
 }

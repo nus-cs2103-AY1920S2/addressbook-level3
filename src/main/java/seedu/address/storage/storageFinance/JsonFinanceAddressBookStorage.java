@@ -18,64 +18,68 @@ import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
  */
 public class JsonFinanceAddressBookStorage implements FinanceAddressBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(
-        JsonFinanceAddressBookStorage.class);
+  private static final Logger logger = LogsCenter.getLogger(
+      JsonFinanceAddressBookStorage.class);
 
-    private Path filePath;
+  private Path filePath;
 
-    public JsonFinanceAddressBookStorage(Path filePath) {
-        this.filePath = filePath;
+  public JsonFinanceAddressBookStorage(Path filePath) {
+    this.filePath = filePath;
+  }
+
+  public Path getFinanceAddressBookFilePath() {
+    return filePath;
+  }
+
+  @Override
+  public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook()
+      throws DataConversionException {
+    return readFinanceAddressBook(filePath);
+  }
+
+  /**
+   * Similar to {@link #readFinanceAddressBook()}.
+   *
+   * @param filePath location of the data. Cannot be null.
+   * @throws DataConversionException if the file is not in the correct format.
+   */
+  public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook(Path filePath)
+      throws DataConversionException {
+    requireNonNull(filePath);
+
+    Optional<JsonFinanceSerializableAddressBook> jsonFinanceAddressBook = JsonUtil.readJsonFile(
+        filePath, JsonFinanceSerializableAddressBook.class);
+    if (!jsonFinanceAddressBook.isPresent()) {
+      return Optional.empty();
     }
 
-    public Path getFinanceAddressBookFilePath() {
-        return filePath;
+    try {
+      return Optional.of(jsonFinanceAddressBook.get().toModelType());
+    } catch (IllegalValueException ive) {
+      logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+      throw new DataConversionException(ive);
     }
+  }
 
-    @Override
-    public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook() throws DataConversionException {
-        return readFinanceAddressBook(filePath);
-    }
+  @Override
+  public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook)
+      throws IOException {
+    saveFinanceAddressBook(financeAddressBook, filePath);
+  }
 
-    /**
-     * Similar to {@link #readFinanceAddressBook()}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
-    public Optional<ReadOnlyFinanceAddressBook> readFinanceAddressBook(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
+  /**
+   * Similar to {@link #saveFinanceAddressBook(ReadOnlyFinanceAddressBook)}.
+   *
+   * @param filePath location of the data. Cannot be null.
+   */
+  public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook, Path filePath)
+      throws IOException {
+    System.out.println("h");
+    requireNonNull(financeAddressBook);
+    requireNonNull(filePath);
 
-        Optional<JsonFinanceSerializableAddressBook> jsonFinanceAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonFinanceSerializableAddressBook.class);
-        if (!jsonFinanceAddressBook.isPresent()) {
-            return Optional.empty();
-        }
-
-        try {
-            return Optional.of(jsonFinanceAddressBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }
-    }
-
-    @Override
-    public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook) throws IOException {
-        saveFinanceAddressBook(financeAddressBook, filePath);
-    }
-
-    /**
-     * Similar to {@link #saveFinanceAddressBook(ReadOnlyFinanceAddressBook)}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     */
-    public void saveFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook, Path filePath) throws IOException {
-        System.out.println("h");
-        requireNonNull(financeAddressBook);
-        requireNonNull(filePath);
-
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonFinanceSerializableAddressBook(financeAddressBook), filePath);
-    }
+    FileUtil.createIfMissing(filePath);
+    JsonUtil.saveJsonFile(new JsonFinanceSerializableAddressBook(financeAddressBook), filePath);
+  }
 
 }

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.commandList;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_COURSES;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_FINANCES;
 
 import seedu.address.logic.commands.Command;
@@ -13,15 +12,15 @@ import seedu.address.model.Model;
  */
 public class ListFinanceCommand extends Command {
 
-    public static final String COMMAND_WORD = "list-finance";
+  public static final String COMMAND_WORD = "list-finance";
 
-    public static final String MESSAGE_SUCCESS = "Listed all finances";
+  public static final String MESSAGE_SUCCESS = "Listed all finances";
 
 
-    @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
+  @Override
+  public CommandResult execute(Model model) {
+    requireNonNull(model);
+    model.updateFilteredFinanceList(PREDICATE_SHOW_ALL_FINANCES);
+    return new CommandResult(MESSAGE_SUCCESS);
+  }
 }

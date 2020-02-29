@@ -14,55 +14,56 @@ import seedu.address.ui.UiPart;
  */
 public class FinanceCard extends UiPart<Region> {
 
-    private static final String FXML = "FinanceListCard.fxml";
+  private static final String FXML = "FinanceListCard.fxml";
 
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
+  /**
+   * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
+   * consequence, UI elements' variable names cannot be set to such keywords or an exception will be
+   * thrown by JavaFX during runtime.
+   *
+   * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook
+   * level 4</a>
+   */
 
-    public final Finance finance;
+  public final Finance finance;
 
-    @FXML
-    private HBox cardPane;
-    @FXML
-    private Label name;
-    @FXML
-    private Label id;
-    @FXML
-    private Label amount;
-    @FXML
-    private FlowPane tags;
+  @FXML
+  private HBox cardPane;
+  @FXML
+  private Label name;
+  @FXML
+  private Label id;
+  @FXML
+  private Label amount;
+  @FXML
+  private FlowPane tags;
 
-    public FinanceCard(Finance finance, int displayedIndex) {
-        super(FXML);
-        this.finance = finance;
-        id.setText(displayedIndex + ". ");
-        name.setText(finance.getName().fullName);
-        amount.setText(finance.getAmount().value);
-        finance.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+  public FinanceCard(Finance finance, int displayedIndex) {
+    super(FXML);
+    this.finance = finance;
+    id.setText(displayedIndex + ". ");
+    name.setText(finance.getName().fullName);
+    amount.setText(finance.getAmount().value);
+    finance.getTags().stream()
+        .sorted(Comparator.comparing(tag -> tag.tagName))
+        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    // short circuit if same object
+    if (other == this) {
+      return true;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof FinanceCard)) {
-            return false;
-        }
-
-        // state check
-        FinanceCard card = (FinanceCard) other;
-        return id.getText().equals(card.id.getText())
-                && finance.equals(card.finance);
+    // instanceof handles nulls
+    if (!(other instanceof FinanceCard)) {
+      return false;
     }
+
+    // state check
+    FinanceCard card = (FinanceCard) other;
+    return id.getText().equals(card.id.getText())
+        && finance.equals(card.finance);
+  }
 }
