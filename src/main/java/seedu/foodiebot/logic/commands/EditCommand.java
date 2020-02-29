@@ -3,7 +3,7 @@ package seedu.foodiebot.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.foodiebot.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.foodiebot.model.Model.PREDICATE_SHOW_ALL_CANTEENS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -67,7 +67,7 @@ public class EditCommand extends Command {
         List<Canteen> lastShownList = model.getFilteredCanteenList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
         Canteen canteenToEdit = lastShownList.get(index.getZeroBased());
@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         }
 
         model.setCanteen(canteenToEdit, editedCanteen);
-        model.updateFilteredCanteenList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredCanteenList(PREDICATE_SHOW_ALL_CANTEENS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCanteen));
     }
 

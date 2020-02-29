@@ -45,20 +45,20 @@ public class NameContainsKeywordsPredicateTest {
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
         NameContainsKeywordsPredicate predicate =
-            new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new CanteenBuilder().withName("Alice Bob").build()));
+            new NameContainsKeywordsPredicate(Collections.singletonList("Deck"));
+        assertTrue(predicate.test(new CanteenBuilder().withNearestBlock("Deck NusFlavors").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new CanteenBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Frontier", "CentralSquare"));
+        assertTrue(predicate.test(new CanteenBuilder().withNearestBlock("Frontier CentralSquare").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new CanteenBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("PGPRaircon", "Platypus"));
+        assertTrue(predicate.test(new CanteenBuilder().withNearestBlock("PGPRaircon TheDeck").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new CanteenBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("fInEFood", "FlAvors"));
+        assertTrue(predicate.test(new CanteenBuilder().withNearestBlock("FineFood Flavors").build()));
     }
 
     @Test

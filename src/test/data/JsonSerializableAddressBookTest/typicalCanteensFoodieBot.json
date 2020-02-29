@@ -1,0 +1,16 @@
+{
+  "_comment": "FoodieBot save file which contains the same canteen values as in TypicalPersons#getTypicalAddressBook()",
+  "canteens" : [ {
+    "name" : "The Deck",
+    "distance" : 800,
+    "numberOfStalls" : 2,
+    "nearestBlockName" : "COM1",
+    "tagged" : [ "asian" ]
+  }, {
+    "name" : "Nus Flavors",
+    "distance" : 3200,
+    "numberOfStalls" : 2,
+    "nearestBlockName" : "COM1",
+    "tagged" : [ "muslim", "asian", "western" ]
+  } ]
+}

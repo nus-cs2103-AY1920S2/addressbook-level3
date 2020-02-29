@@ -6,19 +6,25 @@ import static seedu.foodiebot.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.foodiebot.logic.commands.AddCommand;
+import seedu.foodiebot.logic.commands.BudgetCommand;
 import seedu.foodiebot.logic.commands.ClearCommand;
 import seedu.foodiebot.logic.commands.Command;
-import seedu.foodiebot.logic.commands.DeleteCommand;
-import seedu.foodiebot.logic.commands.EditCommand;
+import seedu.foodiebot.logic.commands.EnterCanteenCommand;
 import seedu.foodiebot.logic.commands.ExitCommand;
+import seedu.foodiebot.logic.commands.FavoritesCommand;
 import seedu.foodiebot.logic.commands.FindCommand;
+import seedu.foodiebot.logic.commands.FoodMenuCommand;
+import seedu.foodiebot.logic.commands.GoToCanteenCommand;
 import seedu.foodiebot.logic.commands.HelpCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
+import seedu.foodiebot.logic.commands.RandomizeCommand;
+import seedu.foodiebot.logic.commands.ReportCommand;
+import seedu.foodiebot.logic.commands.SelectItemCommand;
+import seedu.foodiebot.logic.commands.TransactionsCommand;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 
 /** Parses user input. */
-public class AddressBookParser {
+public class FoodieBotParser {
 
     /** Used for initial separation of command word and args. */
     private static final Pattern BASIC_COMMAND_FORMAT =
@@ -41,14 +47,41 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
+        /*case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments);*/
+
+        case GoToCanteenCommand.COMMAND_WORD:
+            return new GoToCanteenCommandParser().parse(arguments);
+
+        case EnterCanteenCommand.COMMAND_WORD:
+            return new EnterCanteenCommandParser().parse(arguments);
+
+        case FoodMenuCommand.COMMAND_WORD:
+            return new FoodMenuCommandParser().parse(arguments);
+
+        case SelectItemCommand.COMMAND_WORD:
+            return new SelectItemCommand();
+
+        case BudgetCommand.COMMAND_WORD:
+            return new BudgetCommandParser().parse(arguments);
+
+        case ReportCommand.COMMAND_WORD:
+            return new ReportCommandParser().parse(arguments);
+
+        case RandomizeCommand.COMMAND_WORD:
+            return new RandomizeCommand();
+
+        case FavoritesCommand.COMMAND_WORD:
+            return new FavoritesCommand();
+
+        case TransactionsCommand.COMMAND_WORD:
+            return new TransactionsCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();

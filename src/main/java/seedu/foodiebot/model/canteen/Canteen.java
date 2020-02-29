@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.foodiebot.model.tag.Tag;
 
 /**
- * Represents a Person in the address book. Guarantees: details are present and not null, field
+ * Represents a Canteen in FoodieBot. Guarantees: details are present and not null, field
  * values are validated, immutable.
  */
 public class Canteen {
@@ -78,8 +78,8 @@ public class Canteen {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields. This defines a stronger
-     * notion of equality between two persons.
+     * Returns true if both canteens have the same identity and data fields. This defines a stronger
+     * notion of equality between two canteens.
      */
     @Override
     public boolean equals(Object other) {
@@ -95,6 +95,8 @@ public class Canteen {
         return otherCanteen.getName().equals(getName())
                 && otherCanteen.getDistance() == (getDistance())
                 && otherCanteen.getNumberOfStalls() == (getNumberOfStalls())
+                && otherCanteen.getDistance() == (getDistance())
+                && otherCanteen.getBlockName().equals(getBlockName())
                 && otherCanteen.getTags().equals(getTags());
     }
 
@@ -112,6 +114,10 @@ public class Canteen {
                 .append(getName())
                 .append(" NumberOfStalls: ")
                 .append(getNumberOfStalls())
+                .append(" Distance: ")
+                .append(getDistance())
+                .append(" NearestBlockName: ")
+                .append(getBlockName())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

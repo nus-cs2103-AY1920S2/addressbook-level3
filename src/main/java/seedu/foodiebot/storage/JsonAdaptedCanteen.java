@@ -11,11 +11,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.foodiebot.commons.exceptions.IllegalValueException;
 import seedu.foodiebot.model.canteen.Canteen;
-import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.tag.Tag;
-
-
 
 /** Jackson-friendly version of {@link Canteen}. */
 class JsonAdaptedCanteen {
@@ -24,6 +21,9 @@ class JsonAdaptedCanteen {
 
     private final String name;
     private final int numberOfStalls;
+    private final String nearestBlockName;
+    private final int distance;
+
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /** Constructs a {@code JsonAdaptedCanteen} with the given person details. */
@@ -36,6 +36,9 @@ class JsonAdaptedCanteen {
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.numberOfStalls = Integer.parseInt(numberOfStalls);
+        this.nearestBlockName = nearestBlockName;
+        this.distance = Integer.parseInt(distance);
+
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -45,6 +48,8 @@ class JsonAdaptedCanteen {
     public JsonAdaptedCanteen(Canteen source) {
         name = source.getName().fullName;
         numberOfStalls = source.getNumberOfStalls();
+        nearestBlockName = source.getBlockName();
+        distance = source.getDistance();
         tagged.addAll(
                 source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
@@ -55,7 +60,7 @@ class JsonAdaptedCanteen {
      * @throws IllegalValueException if there were any data constraints violated in the adapted
      *     person.
      */
-    public CanteenStub toModelType() throws IllegalValueException {
+    public Canteen toModelType() throws IllegalValueException {
         final List<Tag> canteenTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             canteenTags.add(tag.toModelType());
@@ -72,7 +77,14 @@ class JsonAdaptedCanteen {
 
         final int modelNumberOfStalls = numberOfStalls;
 
+        final String modelBlockName = nearestBlockName;
+
+        if (modelBlockName == null) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "Block"));
+        }
+
         final Set<Tag> modelTags = new HashSet<>(canteenTags);
-        return new CanteenStub(modelName, modelNumberOfStalls, modelTags);
+        return new Canteen(modelName, modelNumberOfStalls, distance, modelBlockName, modelTags);
     }
 }

@@ -5,12 +5,13 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.logic.commands.Command;
 import seedu.foodiebot.logic.commands.CommandResult;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
-import seedu.foodiebot.logic.parser.AddressBookParser;
+import seedu.foodiebot.logic.parser.FoodieBotParser;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
@@ -24,12 +25,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final FoodieBotParser foodieBotParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        foodieBotParser = new FoodieBotParser();
     }
 
     @Override
@@ -37,7 +38,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = foodieBotParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {

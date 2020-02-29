@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         List<Canteen> lastShownList = model.getFilteredCanteenList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
         Canteen canteenToDelete = lastShownList.get(targetIndex.getZeroBased());

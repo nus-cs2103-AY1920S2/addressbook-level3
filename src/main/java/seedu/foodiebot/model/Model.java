@@ -10,7 +10,7 @@ import seedu.foodiebot.model.canteen.Canteen;
 /** The API of the Model component. */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Canteen> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Canteen> PREDICATE_SHOW_ALL_CANTEENS = unused -> true;
 
     /** Replaces user prefs data with the data in {@code userPrefs}. */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);

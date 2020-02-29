@@ -11,13 +11,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.foodiebot.commons.exceptions.IllegalValueException;
 import seedu.foodiebot.model.FoodieBot;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
-import seedu.foodiebot.model.canteen.CanteenStub;
+import seedu.foodiebot.model.canteen.Canteen;
 
 /** An Immutable AddressBook that is serializable to JSON format. */
 @JsonRootName(value = "canteens")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON =
+    public static final String MESSAGE_DUPLICATE_CANTEEN =
             "Canteens list contains duplicate canteen(s).";
 
     private final List<JsonAdaptedCanteen> canteens = new ArrayList<>();
@@ -49,10 +49,11 @@ class JsonSerializableAddressBook {
     public FoodieBot toModelType() throws IllegalValueException {
         FoodieBot foodieBot = new FoodieBot();
         for (JsonAdaptedCanteen jsonAdaptedCanteen : canteens) {
-            CanteenStub canteen = jsonAdaptedCanteen.toModelType();
-            //            if (foodieBot.hasCanteen(canteen)) {
-            //                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            //            }
+            Canteen canteen = jsonAdaptedCanteen.toModelType();
+            if (foodieBot.hasCanteen(canteen)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CANTEEN);
+            }
+
             foodieBot.addCanteen(canteen);
         }
         return foodieBot;

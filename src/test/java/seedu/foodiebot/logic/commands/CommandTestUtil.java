@@ -1,21 +1,17 @@
 package seedu.foodiebot.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.foodiebot.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.model.FoodieBot;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.canteen.Canteen;
-import seedu.foodiebot.model.canteen.NameContainsKeywordsPredicate;
 import seedu.foodiebot.testutil.EditCanteenDescriptorBuilder;
 
 /**
@@ -110,7 +106,8 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the canteen at the given {@code
      * targetIndex} in the {@code model}'s address book.
      */
-    public static void showCanteenAtIndex(Model model, Index targetIndex) {
+    /* public static void showCanteenAtIndex(Model model, Index targetIndex) {
+
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCanteenList().size());
 
         Canteen canteen = model.getFilteredCanteenList().get(targetIndex.getZeroBased());
@@ -120,4 +117,7 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredCanteenList().size());
     }
+
+     */
+
 }

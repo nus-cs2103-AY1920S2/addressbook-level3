@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.foodiebot.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.foodiebot.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.foodiebot.testutil.Assert.assertThrows;
-import static seedu.foodiebot.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.foodiebot.logic.commands.ClearCommand;
-import seedu.foodiebot.logic.commands.DeleteCommand;
 import seedu.foodiebot.logic.commands.ExitCommand;
 import seedu.foodiebot.logic.commands.FindCommand;
 import seedu.foodiebot.logic.commands.HelpCommand;
@@ -24,7 +22,7 @@ import seedu.foodiebot.model.canteen.NameContainsKeywordsPredicate;
 
 public class FoodieBotParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final FoodieBotParser parser = new FoodieBotParser();
 
     /*
     @Test
@@ -42,6 +40,7 @@ public class FoodieBotParserTest {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
+    /*@Test
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command =
@@ -53,6 +52,7 @@ public class FoodieBotParserTest {
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
 
+    @Test
     /* @Test
     public void parseCommand_edit() throws Exception {
         Canteen canteen = new CanteenBuilder().build();

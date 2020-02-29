@@ -14,9 +14,14 @@ public class TypicalCanteens {
 
     // Manually added
     public static final Canteen DECK =
-        new CanteenBuilder().withName("The Deck").withNumberOfStalls(0).build();
+        new CanteenBuilder().withName("The Deck").withNumberOfStalls(2)
+            .withDistance(800).withNearestBlock("COM1")
+            .withTags("asian").build();
     public static final Canteen NUSFLAVORS =
-        new CanteenBuilder().withName("Nus Flavors").withNumberOfStalls(0).build();
+        new CanteenBuilder().withName("Nus Flavors").withNumberOfStalls(2)
+            .withDistance(3200).withNearestBlock("COM1")
+            .withTags("muslim", "asian", "western").build();
+
 
     public static final String KEYWORD_MATCHING_DECK = "Deck"; // A keyword that matches DECK
 

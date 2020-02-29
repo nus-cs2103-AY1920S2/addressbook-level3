@@ -1,7 +1,7 @@
 package seedu.foodiebot.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.foodiebot.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.foodiebot.model.Model.PREDICATE_SHOW_ALL_CANTEENS;
 
 import seedu.foodiebot.model.Model;
 
@@ -10,12 +10,12 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all persons";
+    public static final String MESSAGE_SUCCESS = "Listed all canteens";
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredCanteenList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredCanteenList(PREDICATE_SHOW_ALL_CANTEENS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
