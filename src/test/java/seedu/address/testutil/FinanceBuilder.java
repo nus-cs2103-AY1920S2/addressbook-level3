@@ -14,7 +14,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class FinanceBuilder {
 
-    public static final String DEFAULT_NAME = "Ad-Hoc";
+    public static final String DEFAULT_NAME = "AdHoc";
     public static final String DEFAULT_AMOUNT = "102";
 
     private Name name;

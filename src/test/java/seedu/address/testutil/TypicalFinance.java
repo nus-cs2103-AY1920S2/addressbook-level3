@@ -1,17 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -27,25 +21,21 @@ import seedu.address.model.modelFinance.FinanceAddressBook;
 public class TypicalFinance {
 
     public static final Finance FINANCE_ALICE = new FinanceBuilder().withName("Alice Pauline")
-            .withAmount("1000")
+            .withAmount("999")
             .withTags("friends").build();
     public static final Finance FINANCE_BENSON = new FinanceBuilder().withName("Benson Meier")
-            .withAmount("1000")
+            .withAmount("999")
             .withTags("owesMoney", "friends").build();
-    public static final Finance CARL = new FinanceBuilder().withName("Carl Kurz")
-            .withAmount("1000").build();
-    public static final Finance DANIEL = new FinanceBuilder().withName("Daniel Meier")
-            .withAmount("1000").withTags("friends").build();
-    public static final Finance ELLE = new FinanceBuilder().withName("Elle Meyer")
-            .withAmount("1000").build();
-    public static final Finance FIONA = new FinanceBuilder().withName("Fiona Kunz")
-            .withAmount("1000").build();
-    public static final Finance GEORGE = new FinanceBuilder().withName("George Best")
-            .withAmount("1000").build();
+    public static final Finance CARL = new FinanceBuilder().withName("Carl Kurz").withAmount("999").build();
+    public static final Finance DANIEL = new FinanceBuilder().withName("Daniel Meier").withAmount("999")
+            .withTags("friends").build();
+    public static final Finance ELLE = new FinanceBuilder().withName("Elle Meyer").withAmount("999").build();
+    public static final Finance FIONA = new FinanceBuilder().withName("Fiona Kunz").withAmount("999").build();
+    public static final Finance GEORGE = new FinanceBuilder().withName("George Best").withAmount("999").build();
 
     // Manually added
-    public static final Finance HOON = new FinanceBuilder().withName("Hoon Meier").withAmount("1000").build();
-    public static final Finance IDA = new FinanceBuilder().withName("Ida Mueller").withAmount("1000").build();
+    public static final Finance HOON = new FinanceBuilder().withName("Hoon Meier").withAmount("999").build();
+    public static final Finance IDA = new FinanceBuilder().withName("Ida Mueller").withAmount("999").build();
 
     // Manually added - Finance's details found in {@code CommandTestUtil}
     public static final Finance AMY = new FinanceBuilder().withName(VALID_NAME_AMY).withAmount(VALID_AMOUNT_AMY).withTags(VALID_TAG_FRIEND).build();
