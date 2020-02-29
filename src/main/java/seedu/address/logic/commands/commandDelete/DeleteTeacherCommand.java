@@ -16,39 +16,39 @@ import seedu.address.model.modelTeacher.Teacher;
  */
 public class DeleteTeacherCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete-teacher";
+  public static final String COMMAND_WORD = "delete-teacher";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the teacher identified by the index number used in the displayed teacher list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+  public static final String MESSAGE_USAGE = COMMAND_WORD
+      + ": Deletes the teacher identified by the index number used in the displayed teacher list.\n"
+      + "Parameters: INDEX (must be a positive integer)\n"
+      + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TEACHER_SUCCESS = "Deleted Teacher: %1$s";
+  public static final String MESSAGE_DELETE_TEACHER_SUCCESS = "Deleted Teacher: %1$s";
 
-    private final Index targetIndex;
+  private final Index targetIndex;
 
-    public DeleteTeacherCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+  public DeleteTeacherCommand(Index targetIndex) {
+    this.targetIndex = targetIndex;
+  }
+
+  @Override
+  public CommandResult execute(Model model) throws CommandException {
+    requireNonNull(model);
+    List<Teacher> lastShownList = model.getFilteredTeacherList();
+
+    if (targetIndex.getZeroBased() >= lastShownList.size()) {
+      throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Teacher> lastShownList = model.getFilteredTeacherList();
+    Teacher teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
+    model.deleteTeacher(teacherToDelete);
+    return new CommandResult(String.format(MESSAGE_DELETE_TEACHER_SUCCESS, teacherToDelete));
+  }
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_TEACHER_DISPLAYED_INDEX);
-        }
-
-        Teacher teacherToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteTeacher(teacherToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_TEACHER_SUCCESS, teacherToDelete));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteTeacherCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTeacherCommand) other).targetIndex)); // state check
-    }
+  @Override
+  public boolean equals(Object other) {
+    return other == this // short circuit if same object
+        || (other instanceof DeleteTeacherCommand // instanceof handles nulls
+        && targetIndex.equals(((DeleteTeacherCommand) other).targetIndex)); // state check
+  }
 }

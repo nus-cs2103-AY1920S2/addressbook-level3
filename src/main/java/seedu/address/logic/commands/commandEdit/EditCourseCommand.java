@@ -28,171 +28,172 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCourseCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit-course";
+  public static final String COMMAND_WORD = "edit-course";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the course identified "
-            + "by the index number used in the displayed course list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_COURSEID + "COURSEID] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_NAME + "Java 101 "
-            + PREFIX_COURSEID + "464 ";
+  public static final String MESSAGE_USAGE =
+      COMMAND_WORD + ": Edits the details of the course identified "
+          + "by the index number used in the displayed course list. "
+          + "Existing values will be overwritten by the input values.\n"
+          + "Parameters: INDEX (must be a positive integer) "
+          + "[" + PREFIX_NAME + "NAME] "
+          + "[" + PREFIX_COURSEID + "COURSEID] "
+          + "[" + PREFIX_TAG + "TAG]...\n"
+          + "Example: " + COMMAND_WORD + " 1 "
+          + PREFIX_NAME + "Java 101 "
+          + PREFIX_COURSEID + "464 ";
 
-    public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Course: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_COURSE = "This course already exists in the address book.";
+  public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Course: %1$s";
+  public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+  public static final String MESSAGE_DUPLICATE_COURSE = "This course already exists in the address book.";
 
-    private final Index index;
-    private final EditCourseDescriptor editCourseDescriptor;
+  private final Index index;
+  private final EditCourseDescriptor editCourseDescriptor;
 
-    /**
-     * @param index of the course in the filtered course list to edit
-     * @param editCourseDescriptor details to edit the course with
-     */
-    public EditCourseCommand(Index index, EditCourseDescriptor editCourseDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editCourseDescriptor);
+  /**
+   * @param index                of the course in the filtered course list to edit
+   * @param editCourseDescriptor details to edit the course with
+   */
+  public EditCourseCommand(Index index, EditCourseDescriptor editCourseDescriptor) {
+    requireNonNull(index);
+    requireNonNull(editCourseDescriptor);
 
-        this.index = index;
-        this.editCourseDescriptor = new EditCourseDescriptor(editCourseDescriptor);
+    this.index = index;
+    this.editCourseDescriptor = new EditCourseDescriptor(editCourseDescriptor);
+  }
+
+  /**
+   * Creates and returns a {@code Course} with the details of {@code courseToEdit} edited with
+   * {@code editCourseDescriptor}.
+   */
+  private static Course createEditedCourse(Course courseToEdit,
+      EditCourseDescriptor editCourseDescriptor) {
+    assert courseToEdit != null;
+
+    Name updatedName = editCourseDescriptor.getName().orElse(courseToEdit.getName());
+    ID updatedCourseID = editCourseDescriptor.getID().orElse(courseToEdit.getId());
+    Set<Tag> updatedTags = editCourseDescriptor.getTags().orElse(courseToEdit.getTags());
+
+    return new Course(updatedName, updatedCourseID, updatedTags);
+  }
+
+  @Override
+  public CommandResult execute(Model model) throws CommandException {
+    requireNonNull(model);
+    List<Course> lastShownList = model.getFilteredCourseList();
+
+    if (index.getZeroBased() >= lastShownList.size()) {
+      throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_INDEX);
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Course> lastShownList = model.getFilteredCourseList();
+    Course courseToEdit = lastShownList.get(index.getZeroBased());
+    Course editedCourse = createEditedCourse(courseToEdit, editCourseDescriptor);
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COURSE_DISPLAYED_INDEX);
-        }
+    if (!courseToEdit.isSameCourse(editedCourse) && model.hasCourse(editedCourse)) {
+      throw new CommandException(MESSAGE_DUPLICATE_COURSE);
+    }
 
-        Course courseToEdit = lastShownList.get(index.getZeroBased());
-        Course editedCourse = createEditedCourse(courseToEdit, editCourseDescriptor);
+    model.setCourse(courseToEdit, editedCourse);
+    model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
+    return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
+  }
 
-        if (!courseToEdit.isSameCourse(editedCourse) && model.hasCourse(editedCourse)) {
-            throw new CommandException(MESSAGE_DUPLICATE_COURSE);
-        }
+  @Override
+  public boolean equals(Object other) {
+    // short circuit if same object
+    if (other == this) {
+      return true;
+    }
 
-        model.setCourse(courseToEdit, editedCourse);
-        model.updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
-        return new CommandResult(String.format(MESSAGE_EDIT_COURSE_SUCCESS, editedCourse));
+    // instanceof handles nulls
+    if (!(other instanceof EditCourseCommand)) {
+      return false;
+    }
+
+    // state check
+    EditCourseCommand e = (EditCourseCommand) other;
+    return index.equals(e.index)
+        && editCourseDescriptor.equals(e.editCourseDescriptor);
+  }
+
+  /**
+   * Stores the details to edit the course with. Each non-empty field value will replace the
+   * corresponding field value of the course.
+   */
+  public static class EditCourseDescriptor {
+
+    private Name name;
+    private ID courseID;
+    private Set<Tag> tags;
+
+    public EditCourseDescriptor() {
     }
 
     /**
-     * Creates and returns a {@code Course} with the details of {@code courseToEdit}
-     * edited with {@code editCourseDescriptor}.
+     * Copy constructor. A defensive copy of {@code tags} is used internally.
      */
-    private static Course createEditedCourse(Course courseToEdit, EditCourseDescriptor editCourseDescriptor) {
-        assert courseToEdit != null;
+    public EditCourseDescriptor(EditCourseDescriptor toCopy) {
+      setName(toCopy.name);
+      setID(toCopy.courseID);
+      setTags(toCopy.tags);
+    }
 
-        Name updatedName = editCourseDescriptor.getName().orElse(courseToEdit.getName());
-        ID updatedCourseID = editCourseDescriptor.getID().orElse(courseToEdit.getId());
-        Set<Tag> updatedTags = editCourseDescriptor.getTags().orElse(courseToEdit.getTags());
+    /**
+     * Returns true if at least one field is edited.
+     */
+    public boolean isAnyFieldEdited() {
+      return CollectionUtil.isAnyNonNull(name, courseID, tags);
+    }
 
-        return new Course(updatedName, updatedCourseID, updatedTags);
+    public Optional<Name> getName() {
+      return Optional.ofNullable(name);
+    }
+
+    public void setName(Name name) {
+      this.name = name;
+    }
+
+    public Optional<ID> getID() {
+      return Optional.ofNullable(courseID);
+    }
+
+    public void setID(ID courseID) {
+      this.courseID = courseID;
+    }
+
+    /**
+     * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException} if
+     * modification is attempted. Returns {@code Optional#empty()} if {@code tags} is null.
+     */
+    public Optional<Set<Tag>> getTags() {
+      return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+    }
+
+    /**
+     * Sets {@code tags} to this object's {@code tags}. A defensive copy of {@code tags} is used
+     * internally.
+     */
+    public void setTags(Set<Tag> tags) {
+      this.tags = (tags != null) ? new HashSet<>(tags) : null;
     }
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
+      // short circuit if same object
+      if (other == this) {
+        return true;
+      }
 
-        // instanceof handles nulls
-        if (!(other instanceof EditCourseCommand)) {
-            return false;
-        }
+      // instanceof handles nulls
+      if (!(other instanceof EditCourseDescriptor)) {
+        return false;
+      }
 
-        // state check
-        EditCourseCommand e = (EditCourseCommand) other;
-        return index.equals(e.index)
-                && editCourseDescriptor.equals(e.editCourseDescriptor);
+      // state check
+      EditCourseDescriptor e = (EditCourseDescriptor) other;
+
+      return getName().equals(e.getName())
+          && getID().equals(e.getID())
+          && getTags().equals(e.getTags());
     }
-
-    /**
-     * Stores the details to edit the course with. Each non-empty field value will replace the
-     * corresponding field value of the course.
-     */
-    public static class EditCourseDescriptor {
-        private Name name;
-        private ID courseID;
-        private Set<Tag> tags;
-
-        public EditCourseDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditCourseDescriptor(EditCourseDescriptor toCopy) {
-            setName(toCopy.name);
-            setID(toCopy.courseID);
-            setTags(toCopy.tags);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, courseID, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setID(ID courseID) {
-            this.courseID = courseID;
-        }
-
-        public Optional<ID> getID() {
-            return Optional.ofNullable(courseID);
-        }
-
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditCourseDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditCourseDescriptor e = (EditCourseDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getID().equals(e.getID())
-                    && getTags().equals(e.getTags());
-        }
-    }
+  }
 }

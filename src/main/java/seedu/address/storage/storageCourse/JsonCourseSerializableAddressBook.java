@@ -17,43 +17,45 @@ import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 @JsonRootName(value = "courseaddressbook")
 class JsonCourseSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_COURSE = "Courses list contains duplicate course(s).";
+  public static final String MESSAGE_DUPLICATE_COURSE = "Courses list contains duplicate course(s).";
 
-    private final List<JsonAdaptedCourse> courses = new ArrayList<>();
+  private final List<JsonAdaptedCourse> courses = new ArrayList<>();
 
-    /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given courses.
-     */
-    @JsonCreator
-    public JsonCourseSerializableAddressBook(@JsonProperty("courses") List<JsonAdaptedCourse> courses) {
-        this.courses.addAll(courses);
+  /**
+   * Constructs a {@code JsonSerializableAddressBook} with the given courses.
+   */
+  @JsonCreator
+  public JsonCourseSerializableAddressBook(
+      @JsonProperty("courses") List<JsonAdaptedCourse> courses) {
+    this.courses.addAll(courses);
+  }
+
+  /**
+   * Converts a given {@code ReadOnlyCourseAddressBook} into this class for Jackson use.
+   *
+   * @param source future changes to this will not affect the created {@code
+   *               JsonCourseSerializableAddressBook}.
+   */
+  public JsonCourseSerializableAddressBook(ReadOnlyCourseAddressBook source) {
+    courses.addAll(source.getCourseList().stream().map(
+        JsonAdaptedCourse::new).collect(Collectors.toList()));
+  }
+
+  /**
+   * Converts this address book into the model's {@code AddressBook} object.
+   *
+   * @throws IllegalValueException if there were any data constraints violated.
+   */
+  public CourseAddressBook toModelType() throws IllegalValueException {
+    CourseAddressBook courseAddressBook = new CourseAddressBook();
+    for (JsonAdaptedCourse jsonAdaptedCourse : courses) {
+      Course course = jsonAdaptedCourse.toModelType();
+      if (courseAddressBook.hasCourses(course)) {
+        throw new IllegalValueException(MESSAGE_DUPLICATE_COURSE);
+      }
+      courseAddressBook.addCourse(course);
     }
-
-    /**
-     * Converts a given {@code ReadOnlyCourseAddressBook} into this class for Jackson use.
-     *
-     * @param source future changes to this will not affect the created {@code JsonCourseSerializableAddressBook}.
-     */
-    public JsonCourseSerializableAddressBook(ReadOnlyCourseAddressBook source) {
-        courses.addAll(source.getCourseList().stream().map(
-            JsonAdaptedCourse::new).collect(Collectors.toList()));
-    }
-
-    /**
-     * Converts this address book into the model's {@code AddressBook} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated.
-     */
-    public CourseAddressBook toModelType() throws IllegalValueException {
-        CourseAddressBook courseAddressBook = new CourseAddressBook();
-        for (JsonAdaptedCourse jsonAdaptedCourse : courses) {
-            Course course = jsonAdaptedCourse.toModelType();
-            if (courseAddressBook.hasCourses(course)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_COURSE);
-            }
-            courseAddressBook.addCourse(course);
-        }
-        return courseAddressBook;
-    }
+    return courseAddressBook;
+  }
 
 }

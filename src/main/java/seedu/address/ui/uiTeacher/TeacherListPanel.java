@@ -14,33 +14,36 @@ import seedu.address.ui.UiPart;
  * Panel containing the list of teachers.
  */
 public class TeacherListPanel extends UiPart<Region> {
-    private static final String FXML = "TeacherListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(TeacherListPanel.class);
 
-    @FXML
-    private ListView<Teacher> teacherListView;
+  private static final String FXML = "TeacherListPanel.fxml";
+  private final Logger logger = LogsCenter.getLogger(TeacherListPanel.class);
 
-    public TeacherListPanel(ObservableList<Teacher> teacherList) {
-        super(FXML);
-        teacherListView.setItems(teacherList);
-        teacherListView.setCellFactory(listView -> new TeacherListViewCell());
+  @FXML
+  private ListView<Teacher> teacherListView;
+
+  public TeacherListPanel(ObservableList<Teacher> teacherList) {
+    super(FXML);
+    teacherListView.setItems(teacherList);
+    teacherListView.setCellFactory(listView -> new TeacherListViewCell());
+  }
+
+  /**
+   * Custom {@code ListCell} that displays the graphics of a {@code Teacher} using a {@code
+   * TeacherCard}.
+   */
+  class TeacherListViewCell extends ListCell<Teacher> {
+
+    @Override
+    protected void updateItem(Teacher teacher, boolean empty) {
+      super.updateItem(teacher, empty);
+
+      if (empty || teacher == null) {
+        setGraphic(null);
+        setText(null);
+      } else {
+        setGraphic(new TeacherCard(teacher, getIndex() + 1).getRoot());
+      }
     }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Teacher} using a {@code TeacherCard}.
-     */
-    class TeacherListViewCell extends ListCell<Teacher> {
-        @Override
-        protected void updateItem(Teacher teacher, boolean empty) {
-            super.updateItem(teacher, empty);
-
-            if (empty || teacher == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new TeacherCard(teacher, getIndex() + 1).getRoot());
-            }
-        }
-    }
+  }
 
 }

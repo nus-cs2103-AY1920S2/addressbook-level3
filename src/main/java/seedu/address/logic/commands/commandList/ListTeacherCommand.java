@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.commandList;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TEACHERS;
 
 import seedu.address.logic.commands.Command;
@@ -13,15 +12,15 @@ import seedu.address.model.Model;
  */
 public class ListTeacherCommand extends Command {
 
-    public static final String COMMAND_WORD = "list-teacher";
+  public static final String COMMAND_WORD = "list-teacher";
 
-    public static final String MESSAGE_SUCCESS = "Listed all teachers";
+  public static final String MESSAGE_SUCCESS = "Listed all teachers";
 
 
-    @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
-        return new CommandResult(MESSAGE_SUCCESS);
-    }
+  @Override
+  public CommandResult execute(Model model) {
+    requireNonNull(model);
+    model.updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
+    return new CommandResult(MESSAGE_SUCCESS);
+  }
 }

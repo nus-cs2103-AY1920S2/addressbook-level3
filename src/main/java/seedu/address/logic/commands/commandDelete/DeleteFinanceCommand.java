@@ -16,39 +16,39 @@ import seedu.address.model.modelFinance.Finance;
  */
 public class DeleteFinanceCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete-finance";
+  public static final String COMMAND_WORD = "delete-finance";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the finance identified by the index number used in the displayed finance list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+  public static final String MESSAGE_USAGE = COMMAND_WORD
+      + ": Deletes the finance identified by the index number used in the displayed finance list.\n"
+      + "Parameters: INDEX (must be a positive integer)\n"
+      + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_FINANCE_SUCCESS = "Deleted Finance: %1$s";
+  public static final String MESSAGE_DELETE_FINANCE_SUCCESS = "Deleted Finance: %1$s";
 
-    private final Index targetIndex;
+  private final Index targetIndex;
 
-    public DeleteFinanceCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+  public DeleteFinanceCommand(Index targetIndex) {
+    this.targetIndex = targetIndex;
+  }
+
+  @Override
+  public CommandResult execute(Model model) throws CommandException {
+    requireNonNull(model);
+    List<Finance> lastShownList = model.getFilteredFinanceList();
+
+    if (targetIndex.getZeroBased() >= lastShownList.size()) {
+      throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX);
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Finance> lastShownList = model.getFilteredFinanceList();
+    Finance financeToDelete = lastShownList.get(targetIndex.getZeroBased());
+    model.deleteFinance(financeToDelete);
+    return new CommandResult(String.format(MESSAGE_DELETE_FINANCE_SUCCESS, financeToDelete));
+  }
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FINANCE_DISPLAYED_INDEX);
-        }
-
-        Finance financeToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteFinance(financeToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_FINANCE_SUCCESS, financeToDelete));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteFinanceCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteFinanceCommand) other).targetIndex)); // state check
-    }
+  @Override
+  public boolean equals(Object other) {
+    return other == this // short circuit if same object
+        || (other instanceof DeleteFinanceCommand // instanceof handles nulls
+        && targetIndex.equals(((DeleteFinanceCommand) other).targetIndex)); // state check
+  }
 }
