@@ -342,17 +342,16 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `InventoryManager` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+:numbered!:
+=== Use case: UC1 - listing all suppliers
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list suppliers.
+2.  InventoryManager shows a list of suppliers.
 +
 Use case ends.
 
@@ -361,16 +360,461 @@ Use case ends.
 [none]
 * 2a. The list is empty.
 +
+[none]
+** 2a1. InventoryManager shows a message to inform that there are no suppliers.
++
 Use case ends.
 
-* 3a. The given index is invalid.
+=== Use case: UC2 - listing all goods
+
+*MSS*
+
+1.  User requests to list goods.
+2.  InventoryManager shows a list of goods.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. InventoryManager shows a message to inform that there are no goods.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+=== Use case: UC3 - adding a supplier
+
+*MSS*
+
+1.  User requests to add a supplier with given details.
+2.  InventoryManager creates a supplier with the given details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given details of the supplier is incomplete.
++
+[none]
+** 1a1. Inventory Manager shows an error message to indicate the incomplete details.
++
+Use case ends.
+
+[none]
+* 1b. The given details of the supplier is invalid.
++
+[none]
+** 1b1. Inventory Manager shows an error message to indicate the invalid details.
++
+Use case ends.
+
+[none]
+* 1c. The given details contains a non-supported parameter e.g. age.
++
+[none]
+** 1c1. Inventory Manager shows an error message to indicate the non-supported parameter.
++
+Use case ends.
+
+[none]
+* 1d. The specified supplier already exists.
++
+[none]
+** 1d1. Inventory Manager shows an error message to indicate that the supplier already exists.
++
+Use case ends.
+
+=== Use case: UC4 - deleting a supplier
+
+*MSS*
+
+1.  User [.underline]#lists all suppliers (UC1).#
+2.  User selects a supplier from the list and requests to delete the supplier by the index shown on the list.
+3.  InventoryManager deletes the supplier.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** Use case ends.
+
+[none]
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. InventoryManager shows an error message to indicate the invalid index.
++
+Use case ends.
+
+=== Use case: UC5 - deleting all suppliers
+
+*MSS*
+
+1.  User requests to delete all suppliers.
+2.  InventoryManager requests for a confirmation to delete all suppliers.
+3.  User confirms the deletion.
+4.  InventoryManager deletes the supplier list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no suppliers.
++
+[none]
+** 1a1. InventoryManager informs the user that there are no suppliers
++
+Use case ends.
+
+[none]
+* 3a. The user cancels the deletion.
++
+[none]
+** Use case ends.
+
+=== Use case: UC6 - editing a supplier
+
+*MSS*
+
+1.  User [.underline]#lists all suppliers (UC1).#
+2.  User requests to edit a supplier specified by the index and gives the new parameters.
+3.  InventoryManager updates the details of the supplier.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** Use case ends.
+
+[none]
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. InventoryManager shows an error message to indicate the invalid index.
++
+Use case ends.
+
+[none]
+* 2b. The given details of the supplier is incomplete.
++
+[none]
+** 2b1. Inventory Manager shows an error message to indicate the incomplete details.
++
+Use case ends.
+
+[none]
+* 2c. The given details of the supplier is invalid.
++
+[none]
+** 2c1. Inventory Manager shows an error message to indicate the invalid details.
++
+Use case ends.
+
+[none]
+* 2d. The given details contains a non-supported parameter e.g. age.
++
+[none]
+** 2d1. Inventory Manager shows an error message to indicate the non-supported parameter.
++
+Use case ends.
+
+[none]
+* 2e. The new details are the same as another existing supplier.
++
+[none]
+** 2e1. Inventory Manager shows an error message to indicate that the supplier already exists.
++
+Use case ends.
+
+=== Use case: UC7 - finding a supplier for a particular goods
+
+*MSS*
+
+1.  User [.underline]#lists all goods (UC2).#
+2.  User requests to list the suppliers supplying the goods with a specified name.
+3.  InventoryManager shows a list of suppliers providing this goods.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** Use case ends.
+
+[none]
+* 2a. The goods with the given name does not exist.
++
+[none]
+** 2a1. InventoryManager shows an error message to indicate the goods does not exist.
++
+Use case ends.
+
+[none]
+* 3a. The list is empty.
++
+[none]
+** 3a1. InventoryManager informs the user that there are no suppliers providing this goods.
++
+Use case ends.
+
+=== Use case: UC8 - buying a particular goods
+
+*MSS*
+
+1.  User [.underline]#lists all the suppliers for a particular good (UC7).#
+2.  User requests to make a buy order for a quantity of the particular goods from a supplier.
+3.  InventoryManager adds the order and adds the quantity to the total number of that particular goods.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** Use case ends.
+
+[none]
+* 2a. The goods with the given name does not exist.
++
+[none]
+** 2a1. InventoryManager shows an error message to indicate the goods does not exist.
++
+Use case ends.
+
+[none]
+* 2b. The supplier with the given name does not exist.
++
+[none]
+** 2b1. InventoryManager shows an error message to indicate the supplier does not exist.
++
+Use case ends.
+
+[none]
+* 2c. The quantity given is invalid.
++
+[none]
+** 2c1. InventoryManager shows an error message to indicate the quantity is invalid.
++
+Use case ends.
+
+[none]
+* 2d. One or more parameters are missing.
++
+[none]
+** 2d1. InventoryManager shows an error message to indicate the missing parameters.
++
+Use case ends.
+
+=== Use case: UC9 - selling a particular goods
+
+*MSS*
+
+1.  User [.underline]#lists all goods (UC2).#
+2.  User requests to make a selling order of a quantity of a particular goods.
+3.  InventoryManager adds the sell order and deducts the quantity in the selling order to the total number of the particular goods.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** Use case ends.
+
+[none]
+* 2a. The goods with the given name does not exist.
++
+[none]
+** 2a1. InventoryManager shows an error message to indicate the goods does not exist.
++
+Use case ends.
+
+[none]
+* 2b. The quantity given is invalid.
++
+[none]
+** 2b1. InventoryManager shows an error message to indicate the quantity is invalid.
++
+Use case ends.
+
+[none]
+* 2c. The quantity given exceeds current amount in inventory.
++
+[none]
+** 2c1. InventoryManager shows an error message to indicate insufficient quantity.
++
+Use case ends.
+
+[none]
+* 2d. One or more parameters are missing.
++
+[none]
+** 2d1. InventoryManager shows an error message to indicate the missing parameters.
++
+Use case ends.
+
+=== Use case: UC10 - finding goods low in quantity
+
+*MSS*
+
+1.  User requests to display all goods that are below their respective minimum warning quantity.
+2.  InventoryManager lists all the goods that satisfy that condition.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** 1a1. InventoryManager informs the user that there are no goods that are low in quantity.
++
+Use case ends.
+
+=== Use case: UC11 - set lower threshold quantity of goods
+
+*MSS*
+
+1.  User [.underline]#lists all goods (UC2).#
+2.  User sets a lower quantity threshold for a particular goods.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** Use case ends.
+
+[none]
+* 2a. The quantity is invalid.
+[none]
+** 2a1. InventoryManager shows an error message to indicate the quantity is invalid.
++
+Use case ends.
+
+[none]
+* 2b. The quantity is above the upper threshold, if it exists.
+[none]
+** 2b1. InventoryManager shows an error message to indicate the quantity is above the upper threshold.
++
+Use case ends.
+
+[none]
+* 2c. The goods with the given name does not exist.
+[none]
+** 2c1. InventoryManager shows an error message to indicate the goods does not exist.
++
+Use case ends.
+
+=== Use case: UC12 - set upper threshold quantity of goods
+
+*MSS*
+
+1.  User [.underline]#lists all goods (UC2).#
+2.  User sets an upper quantity threshold for a particular goods.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+** Use case ends.
+
+[none]
+* 2a. The quantity is invalid.
+[none]
+** 2a1. InventoryManager shows an error message to indicate the quantity is invalid.
++
+Use case ends.
+
+[none]
+* 2b. The quantity is below the lower threshold, if it exists.
+[none]
+** 2b1. InventoryManager shows an error message to indicate the quantity is below the lower threshold.
++
+Use case ends.
+
+[none]
+* 2c. The goods with the given name does not exist.
+[none]
+** 2c1. InventoryManager shows an error message to indicate the goods does not exist.
++
+Use case ends.
+
+=== Use case: UC13 - listing all past transactions
+
+*MSS*
+
+1.  User requests to list all past transactions.
+2.  InventoryManager lists all past transactions.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+[none]
+** 2a1. InventoryManager informs the user that there are no past transactions.
++
+Use case ends.
+
+=== Use case: UC14 - deleting all transaction history
+
+*MSS*
+
+1.  User requests to delete transaction history.
+2.  InventoryManager requests for a confirmation to delete the transaction history.
+3.  User confirms the deletion.
+4.  InventoryManager deletes the transaction history.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There are no past transactions.
++
+[none]
+** 1a1. InventoryManager informs the user that there are no past transactions.
++
+Use case ends.
+
+[none]
+* 3a. The user cancels the deletion.
++
+[none]
+** Use case ends.
+
+
+:numbered:
 
 [appendix]
 == Non Functional Requirements
@@ -385,10 +829,10 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
 [[transaction-record]] Transaction record::
-A record of an event that results in change in the quantity of goods i.e. buying/selling
+A record of an event that results in change in the quantity of goods i.e. buying/selling.
 
 [appendix]
 == Product Survey
