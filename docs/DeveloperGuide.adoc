@@ -279,7 +279,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a large number of fast-moving consumer goods (FMCG) which arrives in batches
+* has a need to manage a large number of <<fast-moving-consumer-goods, fast-moving consumer goods (FMCG)>> which arrives in batches
 * has a need to manage a large number of suppliers
 * has a need to draw insights from analysing transactions with suppliers and customers
 * prefer desktop apps over other types
@@ -823,16 +823,16 @@ Use case ends.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X.
+[[fast-moving-consumer-goods]] Fast-moving consumer goods::
+Goods that are characterised by large inventory quantities, high turnover rate, numerous suppliers and short shelf-life.
 
 [[transaction-record]] Transaction record::
 A record of an event that results in change in the quantity of goods i.e. buying/selling.
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X.
 
 [appendix]
 == Product Survey
