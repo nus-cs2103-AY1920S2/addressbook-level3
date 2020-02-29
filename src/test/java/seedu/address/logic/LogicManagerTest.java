@@ -29,6 +29,10 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
+import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
+import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
+import seedu.address.storage.storageTeacher.JsonTeacherAddressBookStorage;
 import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
@@ -44,8 +48,18 @@ public class LogicManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonTeacherAddressBookStorage teacherAddressBookStorage =
+            new JsonTeacherAddressBookStorage(temporaryFolder.resolve("teacherAddressBook.json"));
+        JsonStudentAddressBookStorage studentAddressBookStorage =
+            new JsonStudentAddressBookStorage(temporaryFolder.resolve("studentAddressBook.json"));
+        JsonFinanceAddressBookStorage financeAddressBookStorage =
+            new JsonFinanceAddressBookStorage(temporaryFolder.resolve("FinanceAddressBook.json"));
+        JsonCourseAddressBookStorage courseAddressBookStorage =
+            new JsonCourseAddressBookStorage(temporaryFolder.resolve("courseAddressBook.json"));
+
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
+            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -66,9 +80,19 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonTeacherAddressBookStorage teacherAddressBookStorage =
+            new JsonTeacherAddressBookStorage(temporaryFolder.resolve("ioExceptionTeacherAddressBook.json"));
+        JsonStudentAddressBookStorage studentAddressBookStorage =
+            new JsonStudentAddressBookStorage(temporaryFolder.resolve("ioExceptionStudentAddressBook.json"));
+        JsonFinanceAddressBookStorage financeAddressBookStorage =
+            new JsonFinanceAddressBookStorage(temporaryFolder.resolve("ioExceptionFinanceAddressBook.json"));
+        JsonCourseAddressBookStorage courseAddressBookStorage =
+            new JsonCourseAddressBookStorage(temporaryFolder.resolve("ioExceptionCourseAddressBook.json"));
+
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
+            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -122,7 +146,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
+            model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
