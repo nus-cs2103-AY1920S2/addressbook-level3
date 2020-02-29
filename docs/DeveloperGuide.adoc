@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Delino - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 

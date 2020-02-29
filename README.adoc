@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Delino
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S2-CS2103T-W12-1/main[image:https://travis-ci.com/AY1920S2-CS2103T-W12-1/main.svg?branch=master[Build Status]]
