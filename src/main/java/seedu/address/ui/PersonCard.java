@@ -63,6 +63,7 @@ public class PersonCard extends UiPart<Region> {
 
         // instanceof handles nulls
         if (!(other instanceof PersonCard)) {
+            System.out.print("");
             return false;
         }
 
@@ -71,5 +72,4 @@ public class PersonCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
-    
 }
