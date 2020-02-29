@@ -297,20 +297,47 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use InventoryManager
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new supplier |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add a new goods |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |delete a supplier |remove entries that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a supplier by goods sold |locate the relevant suppliers without having to go through the entire list
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |find a goods by name |locate the relevant goods without having to go through the entire list
+
+|`* * *` |user |see goods that are low in stock |know what to buy
+
+|`* * *` |user |see goods that are low in stock |buy more before running out
+
+|`* * *` |user |update inventory with the <<transaction-record, transaction records>> |avoid keeping track of the inventory personally
+
+|`* * *` |user |update prices of goods offered by suppliers |account for changes in supply agreement or prices
+
+|`* * *` |user |create a set purchase order automatically on a regular basis |simulate supply contracts
+
+|`* * *` |clumsy user |undo previous actions |fix mistakes in inputs or spelling
+
+|`* * *` |user |be notified of goods falling below a set quantity threshold |buy expected goods in advance
+
+|`* * *` |user |be notified of goods that are above a set quantity threshold |avoid expiration of large number of goods
+
+|`* *` |user |hide transaction details by default |minimize chance of someone else seeing them by accident
+
+|`* *` |user |set expiry event for a batch of goods |account for expiration of goods
+
+|`* *` |user |change names of goods |avoid confusion when producers change the name of their products
+
+|`* *` |user |have a summary of the transactions throughout the day |determine performance of the day
+
+|`* *` |expanding user |see a performance tracker |find points of improvement in business activity
+
+|`*` |clumsy user |receive suggestion for the next words |avoid misspelling and be reminded of syntax
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -360,8 +387,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[transaction-record]] Transaction record::
+A record of an event that results in change in the quantity of goods i.e. buying/selling
 
 [appendix]
 == Product Survey
