@@ -409,7 +409,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to list orders (UC10).
+1.  User requests to [.underline]#list orders (UC10).#
 2.  User requests to delete a specific order in the list.
 3.  Delino deletes the order.
 4.  Delino displays order deleted.
