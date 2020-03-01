@@ -46,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -118,7 +118,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         canteenListPanel = new CanteenListPanel(logic.getFilteredCanteenList());
-        personListPanelPlaceholder.getChildren().add(canteenListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(canteenListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,8 +160,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleGoToCanteen() {
         directionsToCanteenPanel = new DirectionsToCanteenPanel();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(directionsToCanteenPanel.getRoot());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(directionsToCanteenPanel.getRoot());
     }
 
     /**
@@ -169,8 +169,17 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleListCanteens() {
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(new CanteenListPanel(logic.getFilteredCanteenList()).getRoot());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(new CanteenListPanel(logic.getFilteredCanteenList()).getRoot());
+    }
+
+    /**
+     * Fills the stallListPanel region.
+     */
+    @FXML
+    public void handleListStalls() {
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(new StallsListPanel(logic.getFilteredStallList()).getRoot());
     }
 
 

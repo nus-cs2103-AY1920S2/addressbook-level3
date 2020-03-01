@@ -10,17 +10,17 @@ import javafx.scene.layout.Region;
 import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.model.canteen.Canteen;
 
-/** Panel containing the list of persons. */
+/** Panel containing the list of canteens. */
 public class CanteenListPanel extends UiPart<Region> {
-    private static final String FXML = "CanteenListPanel.fxml";
+    private static final String FXML = "SimpleListViewPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CanteenListPanel.class);
 
-    @FXML private ListView<Canteen> canteenListView;
+    @FXML private ListView<Canteen> simpleListView;
 
     public CanteenListPanel(ObservableList<Canteen> canteenList) {
         super(FXML);
-        canteenListView.setItems(canteenList);
-        canteenListView.setCellFactory(listView -> new CanteenListViewCell());
+        simpleListView.setItems(canteenList);
+        simpleListView.setCellFactory(listView -> new CanteenListViewCell());
     }
 
     /**

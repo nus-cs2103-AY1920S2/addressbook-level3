@@ -5,7 +5,7 @@ import static seedu.foodiebot.model.Model.PREDICATE_SHOW_ALL_CANTEENS;
 
 import seedu.foodiebot.model.Model;
 
-/** Lists all persons in the address book to the user. */
+/** Lists all canteens in FoodieBot to the user. */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
