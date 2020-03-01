@@ -12,7 +12,9 @@ import seedu.foodiebot.model.ReadOnlyFoodieBot;
 public interface FoodieBotStorage {
 
     /** Returns the file path of the data file. */
-    Path getAddressBookFilePath();
+    Path getCanteensFilePath();
+
+    Path getStallsFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyFoodieBot}. Returns {@code Optional.empty()} if
@@ -21,20 +23,24 @@ public interface FoodieBotStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyFoodieBot> readFoodieBot() throws DataConversionException, IOException;
+    Optional<ReadOnlyFoodieBot> readFoodieBot(String modelType) throws DataConversionException, IOException;
 
-    /** @see #getAddressBookFilePath() */
-    Optional<ReadOnlyFoodieBot> readFoodieBot(Path filePath)
+    /** @see #getCanteensFilePath() */
+    Optional<ReadOnlyFoodieBot> readFoodieBot(Path filePath, String modelType)
             throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyFoodieBot} to the storage.
      *
-     * @param addressBook cannot be null.
+     * @param foodieBot cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyFoodieBot addressBook) throws IOException;
+    void saveFoodieBot(ReadOnlyFoodieBot foodieBot) throws IOException;
 
-    /** @see #saveAddressBook(ReadOnlyFoodieBot) */
-    void saveAddressBook(ReadOnlyFoodieBot addressBook, Path filePath) throws IOException;
+    void saveFoodieBot(ReadOnlyFoodieBot foodieBot, String modelType) throws IOException;
+
+    ///** @see #saveFoodieBot(ReadOnlyFoodieBot) */
+    void saveFoodieBot(ReadOnlyFoodieBot foodieBot, Path filePath, String modelType)
+            throws IOException;
+
 }

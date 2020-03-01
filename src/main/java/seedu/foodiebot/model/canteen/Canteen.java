@@ -2,6 +2,7 @@ package seedu.foodiebot.model.canteen;
 
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,9 +19,11 @@ import seedu.foodiebot.model.tag.Tag;
  * values are validated, immutable.
  */
 public class Canteen {
-
+    public static final String[] CANTEENS = new String[]{"The Deck", "Fine Food", "NUS Flavors"};
     public static final String IMAGE_FOLDER = "/images/canteen/";
+    public static final String MESSAGE_CONSTRAINTS = "Canteen name should be from " + Arrays.toString(CANTEENS);
     private static final Logger logger = LogsCenter.getLogger(Canteen.class);
+
     // Identity fields
     private final Name name;
     private final int numberOfStalls;
@@ -46,6 +49,12 @@ public class Canteen {
         this.canteenImageName = canteenImageName;
         this.directionText = directionText;
         this.cuisines.addAll(tags);
+    }
+
+    /** checks if the canteen matches one of the listed names */
+    public static boolean isValidCanteen(String trimmedCanteenName) {
+        return Arrays.stream(CANTEENS)
+            .anyMatch(trimmedCanteenName::equalsIgnoreCase);
     }
 
     public Name getName() {

@@ -6,7 +6,6 @@ import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_FROM;
 import java.util.stream.Stream;
 
 import seedu.foodiebot.commons.core.index.Index;
-import seedu.foodiebot.logic.commands.EditCommand;
 import seedu.foodiebot.logic.commands.GoToCanteenCommand;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 
@@ -32,23 +31,21 @@ public class GoToCanteenCommandParser implements Parser<GoToCanteenCommand> {
      */
     public GoToCanteenCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FROM);
-
+        String enteredText = argMultimap.getPreamble();
         if (!arePrefixesPresent(argMultimap, PREFIX_FROM)) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoToCanteenCommand.MESSAGE_USAGE));
         }
 
         Index index;
+        String nearestBlockName = ParserUtil.parseBlockName(argMultimap.getValue(PREFIX_FROM).get());
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(enteredText);
+            return new GoToCanteenCommand(index, nearestBlockName);
         } catch (ParseException pe) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+            String canteenName = ParserUtil.parseCanteenName(enteredText);
+            return new GoToCanteenCommand(canteenName, nearestBlockName);
         }
-
-
-        String nearestBlockName = ParserUtil.parseBlockName(argMultimap.getValue(PREFIX_FROM).get());
-        return new GoToCanteenCommand(index, nearestBlockName);
     }
 }

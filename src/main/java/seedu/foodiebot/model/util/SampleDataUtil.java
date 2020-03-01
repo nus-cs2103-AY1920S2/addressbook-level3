@@ -8,6 +8,7 @@ import seedu.foodiebot.model.FoodieBot;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Name;
+import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.tag.Tag;
 
 /**
@@ -38,10 +39,25 @@ public class SampleDataUtil {
         };
     }
 
+    public static Stall[] getSampleStalls() {
+        return new Stall[]{
+            new Stall(new Name("Taiwanese"), "The Deck", 3, "muslim.png",
+                "asian",
+                "$", 0),
+            new Stall(new Name("Yong Tau Foo"), "Nus Flavors", 5, "yongtaufoo.png",
+                "asian",
+                "$", 0),
+        };
+    }
+
     public static ReadOnlyFoodieBot getSampleFoodieBot() {
         FoodieBot sampleAb = new FoodieBot();
         for (Canteen sampleCanteen : getSampleCanteens()) {
             sampleAb.addCanteen(sampleCanteen);
+        }
+
+        for (Stall sampleStall : getSampleStalls()) {
+            sampleAb.addStall(sampleStall);
         }
         return sampleAb;
     }

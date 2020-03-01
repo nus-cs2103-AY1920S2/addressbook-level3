@@ -3,7 +3,9 @@ package seedu.foodiebot.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,17 +14,28 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.commons.core.LogsCenter;
+import seedu.foodiebot.commons.exceptions.DataConversionException;
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.storage.FoodieBotStorage;
+import seedu.foodiebot.storage.JsonFoodieBotStorage;
+import seedu.foodiebot.storage.Storage;
+import seedu.foodiebot.storage.StorageManager;
 
-/** Represents the in-memory model of the address book data. */
+/**
+ * Represents the in-memory model of the address book data.
+ */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final FoodieBot foodieBot;
     private final UserPrefs userPrefs;
     private final FilteredList<Canteen> filteredCanteens;
+    private final FilteredList<Stall> filteredStalls;
 
-    /** Initializes a ModelManager with the given addressBook and userPrefs. */
+    /**
+     * Initializes a ModelManager with the given addressBook and userPrefs.
+     */
     public ModelManager(ReadOnlyFoodieBot foodieBot, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(foodieBot, userPrefs);
@@ -33,6 +46,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCanteens = new FilteredList<>(this.foodieBot.getCanteenList());
+        filteredStalls = new FilteredList<>(this.foodieBot.getStallList());
     }
 
     public ModelManager() {
@@ -43,14 +57,14 @@ public class ModelManager implements Model {
     // ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -79,13 +93,13 @@ public class ModelManager implements Model {
     // ================================================================================
 
     @Override
-    public void setFoodieBot(ReadOnlyFoodieBot foodieBot) {
-        this.foodieBot.resetData(foodieBot);
+    public ReadOnlyFoodieBot getFoodieBot() {
+        return foodieBot;
     }
 
     @Override
-    public ReadOnlyFoodieBot getFoodieBot() {
-        return foodieBot;
+    public void setFoodieBot(ReadOnlyFoodieBot foodieBot) {
+        this.foodieBot.resetData(foodieBot);
     }
 
     @Override
@@ -102,7 +116,7 @@ public class ModelManager implements Model {
     @Override
     public void addCanteen(Canteen canteen) {
         foodieBot.addCanteen(canteen);
-        updateFilteredCanteenList(PREDICATE_SHOW_ALL_CANTEENS);
+        updateFilteredCanteenList(PREDICATE_SHOW_ALL_CANTEEN);
     }
 
     @Override
@@ -130,6 +144,48 @@ public class ModelManager implements Model {
         filteredCanteens.setPredicate(predicate);
     }
 
+    public ObservableList<Stall> getFilteredStallList(boolean isInitialised) {
+        if (!isInitialised) {
+            updateModelManagerStalls();
+        }
+
+        return filteredStalls;
+    }
+
+    public ObservableList<Stall> getFilteredStallList() {
+        return filteredStalls;
+    }
+
+
+    /**
+     * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredStallList(Predicate<Stall> predicate) {
+        requireNonNull(predicate);
+        filteredStalls.setPredicate(predicate);
+    }
+
+    /**
+     * .
+     */
+    public void updateModelManagerStalls() {
+        try {
+            FoodieBotStorage foodieBotStorage =
+                new JsonFoodieBotStorage(userPrefs.getStallsFilePath());
+            Storage storage = new StorageManager(foodieBotStorage);
+            Optional<ReadOnlyFoodieBot> newBot = storage.readFoodieBot(Stall.class.getSimpleName());
+            foodieBot.setStalls(newBot.get().getStallList());
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -145,7 +201,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return foodieBot.equals(other.foodieBot)
-                && userPrefs.equals(other.userPrefs)
-                && filteredCanteens.equals(other.filteredCanteens);
+            && userPrefs.equals(other.userPrefs)
+            && filteredCanteens.equals(other.filteredCanteens);
     }
 }

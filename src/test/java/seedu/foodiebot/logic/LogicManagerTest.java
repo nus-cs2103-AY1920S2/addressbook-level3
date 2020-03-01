@@ -162,7 +162,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyFoodieBot addressBook, Path filePath)
+        public void saveFoodieBot(ReadOnlyFoodieBot addressBook, Path filePath, String modelType)
                 throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }

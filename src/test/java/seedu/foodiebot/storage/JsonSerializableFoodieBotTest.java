@@ -15,7 +15,7 @@ public class JsonSerializableFoodieBotTest {
 
 
     private static final Path TEST_DATA_FOLDER =
-        Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
+        Paths.get("src", "test", "data", "JsonSerializableFoodieBotTest");
     private static final Path TYPICAL_CANTEENS_FILE =
         TEST_DATA_FOLDER.resolve("typicalCanteensFoodieBot.json");
     private static final Path INVALID_PERSON_FILE =
@@ -25,12 +25,12 @@ public class JsonSerializableFoodieBotTest {
 
     @Test
     public void toModelType_typicalCanteensFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile =
-            JsonUtil.readJsonFile(TYPICAL_CANTEENS_FILE, JsonSerializableAddressBook.class)
+        JsonSerializableFoodieBot dataFromFile =
+            JsonUtil.readJsonFile(TYPICAL_CANTEENS_FILE, JsonSerializableFoodieBot.class)
                 .get();
         FoodieBot foodieBotFromFile = dataFromFile.toModelType();
-        FoodieBot typicalPersonsFoodieBot = TypicalCanteens.getTypicalFoodieBot();
-        assertEquals(foodieBotFromFile, typicalPersonsFoodieBot);
+        FoodieBot typicalCanteensFoodieBot = TypicalCanteens.getTypicalFoodieBot();
+        assertEquals(foodieBotFromFile, typicalCanteensFoodieBot);
     }
 
     /*

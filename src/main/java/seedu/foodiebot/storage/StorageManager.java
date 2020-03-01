@@ -24,6 +24,11 @@ public class StorageManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
     }
 
+    public StorageManager(FoodieBotStorage foodieBotStorage) {
+        super();
+        this.foodieBotStorage = foodieBotStorage;
+    }
+
     // ================ UserPrefs methods ==============================
 
     @Override
@@ -41,34 +46,52 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
+    @Override
+    public Path getFoodieBotFilePath() {
+        //TODO Not Implemented
+        return null;
+    }
+
     // ================ AddressBook methods ==============================
-
+    /**
+     * Returns the file path of the data file.
+     */
     @Override
-    public Path getAddressBookFilePath() {
-        return foodieBotStorage.getAddressBookFilePath();
+    public Path getCanteensFilePath() {
+        return foodieBotStorage.getCanteensFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyFoodieBot> readFoodieBot() throws DataConversionException, IOException {
-        logger.fine("test");
-        return readFoodieBot(foodieBotStorage.getAddressBookFilePath());
+    public Path getStallsFilePath() {
+        return foodieBotStorage.getStallsFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyFoodieBot> readFoodieBot(Path filePath)
+    public Optional<ReadOnlyFoodieBot> readFoodieBot(String modelType) throws DataConversionException, IOException {
+        return readFoodieBot(foodieBotStorage.getCanteensFilePath(), modelType);
+    }
+
+    @Override
+    public Optional<ReadOnlyFoodieBot> readFoodieBot(Path filePath, String modelType)
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return foodieBotStorage.readFoodieBot(filePath);
+        return foodieBotStorage.readFoodieBot(modelType);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyFoodieBot addressBook) throws IOException {
-        saveAddressBook(addressBook, foodieBotStorage.getAddressBookFilePath());
+    public void saveFoodieBot(ReadOnlyFoodieBot foodieBot) throws IOException {
+        foodieBotStorage.saveFoodieBot(foodieBot, foodieBotStorage.getCanteensFilePath(), "Canteen");
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyFoodieBot addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        foodieBotStorage.saveAddressBook(addressBook, filePath);
+    public void saveFoodieBot(ReadOnlyFoodieBot foodieBot, String modelType) throws IOException {
+        foodieBotStorage.saveFoodieBot(foodieBot, modelType);
     }
+
+    @Override
+    public void saveFoodieBot(ReadOnlyFoodieBot foodieBot, Path filePath, String modelType) throws IOException {
+        foodieBotStorage.saveFoodieBot(foodieBot, filePath, modelType);
+    }
+
+
 }

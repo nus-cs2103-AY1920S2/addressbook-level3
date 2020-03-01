@@ -24,27 +24,29 @@ public class Stall {
     private final String stallImageName;
     private final String cuisine;
     private final String overallPriceRating;
+    private final int favorite;
 
     /**
      * Every field must be present and not null.
      */
     public Stall(
         Name name, String canteenName, int stallNumber, String stallImageName,
-        String cuisine, String overallPriceRating) {
-        requireAllNonNull(name, canteenName, stallNumber, stallImageName, cuisine, overallPriceRating);
+        String cuisine, String overallPriceRating, int favorite) {
+        requireAllNonNull(name, canteenName, stallNumber, stallImageName, cuisine, overallPriceRating, favorite);
         this.name = name;
         this.canteenName = canteenName;
         this.stallNumber = stallNumber;
         this.stallImageName = stallImageName;
         this.cuisine = cuisine;
         this.overallPriceRating = overallPriceRating;
+        this.favorite = favorite;
     }
 
     public Name getName() {
         return name;
     }
 
-    public String getStallName() {
+    public String getCanteenName() {
         return canteenName;
     }
 
@@ -64,10 +66,17 @@ public class Stall {
         return overallPriceRating;
     }
 
+    /** Retrieves the images within the folder with the canteen name.
+     *  e.g. Stall in The Deck with appear in The Deck folder
+     **/
     public Image getStallImage() {
         String mImageUrl = IMAGE_FOLDER + canteenName + "/" + stallImageName;
         Image image = new Image(Stall.class.getResourceAsStream((mImageUrl)));
         return image;
+    }
+
+    public int getFavorite() {
+        return favorite;
     }
 
     /**
@@ -81,7 +90,7 @@ public class Stall {
 
         return otherStall != null
             && otherStall.getName().equals(getName())
-            && (otherStall.getStallName().equals(getStallName())
+            && (otherStall.getCanteenName().equals(getCanteenName())
             || otherStall.getStallNumber() == (getStallNumber()));
     }
 
@@ -101,7 +110,7 @@ public class Stall {
 
         Stall otherStall = (Stall) other;
         return otherStall.getName().equals(getName())
-            && otherStall.getStallName().equals(getStallName())
+            && otherStall.getCanteenName().equals(getCanteenName())
             && otherStall.getStallNumber() == (getStallNumber())
             && otherStall.getCuisine().equals(getCuisine())
             && otherStall.getOverallPriceRating().equals(getOverallPriceRating());
@@ -118,8 +127,8 @@ public class Stall {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Name: ")
             .append(getName())
-            .append(" StallName: ")
-            .append(getStallName())
+            .append(" CanteenName: ")
+            .append(getCanteenName())
             .append(" StallNumber: ")
             .append(getStallNumber())
             .append(" StallImageName: ")
@@ -127,8 +136,9 @@ public class Stall {
             .append(" Cuisine: ")
             .append(getCuisine())
             .append(" OverallPriceRating: ")
-            .append(getOverallPriceRating());
-        ;
+            .append(getOverallPriceRating())
+            .append(" Favorite: ")
+            .append(getFavorite());
         return builder.toString();
     }
 }
