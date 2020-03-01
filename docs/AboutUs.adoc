@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Willy Seah
-image::WillySeahh.png[width="150", align="left"]
+image::willyseahh.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/WillySeahh[homepage]] [https://github.com/WillySeahh[github]] [<<WillySeahh#, portfolio>>]
 
 Role: Project Advisor
@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Ng Jun Guang, Jarrod
-image::Jarrod-Bob.png[width="150", align="left"]
+image::jarrod-bob.png[width="150", align="left"]
 {empty}[http://github.com/Jarrod-Bob[github]] [<<Jarrod-Bob#, portfolio>>]
 
 Role: Developer +
