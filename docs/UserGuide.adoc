@@ -152,10 +152,11 @@ transaction id of the parcels and the address of the customers, etc. +
 * `import FILE NAME`
 
 ****
-* Import the specific csv with the file name in data folder to the application.
+* Only csv file could be import.
 * Only *one* csv file can be import at one time.
 * The FILE NAME should include the extension. For example: *orders.csv*.
-* The CSV file should store at data folder that is at the same directory as the JAR file.
+* Import the specific csv with the file name in data folder to the application.
+* The csv file should store at data folder that is at the same directory as the JAR file.
 ****
 
 ==== Examples
