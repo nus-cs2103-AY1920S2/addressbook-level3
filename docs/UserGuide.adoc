@@ -148,7 +148,12 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Viewing help : `help`
 
-Format: `help`
+==== Description
+* You can use the help command to display all commands that are available to be used
+so that you can navigate the application easily.
+
+==== Format:
+* `help`
 
 === Importing a list of orders : `import`
 
