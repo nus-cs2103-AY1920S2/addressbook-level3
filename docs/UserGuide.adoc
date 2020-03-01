@@ -103,46 +103,55 @@ Deletes the 1st person in the results of the `find` command.
 === Editing an order : `edit`
 
 ==== Description
-[none]
+
 * You can edit the details of the delivery order by providing the order transaction id, the field you want to change followed by the updated value.
 
 ==== Format
-[none]
+
 * `edit` `*TRANSACTION_ID*` `*FIELD_TO_CHANGE*` `*VALUE*`
+
+****
 * Edits the order at the specified `TRANSACTION_ID`. The transaction id is alphanumeric and is used to identify each order.
 * Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
+****
 
-==== Example(s)
-[none]
-* 1. `edit` `0123456789` `n/Xuan En`
-* 2. `edit` `00k0i9ih34` `p/9999 4444`
-* 3. `edit` `000012348a` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
-* 4. `edit` `01234okook` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+==== Examples
+
+* `edit` `0123456789` `n/Xuan En`
+* `edit` `00k0i9ih34` `p/9999 4444`
+* `edit` `000012348a` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
+* `edit` `01234okook` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Locating persons by name: `find`
+=== Locating orders by name or transaction ID: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Description
+
+* You can find all orders that contain a given keyword. The orders will be searched by a given flag. If the flag is `-n`, the orders will be searched by *name*. If the flag is `-t`, the orders will be searched by their *transaction ID*. The list of orders returned will not be sorted by default.
+
+==== Format
+* `find` `FLAG` `KEYWORD` `[MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The delivery orders can only be searched by either name of receiver or transaction ID of the order.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
-Examples:
+==== Examples
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find -n Jeremy Loh` +
+Possibly return `jeremy` or `Jeremy Loh` or `loh` or any of the above as long as keyword appears in name.
+* `find -t asj2od3943` +
+Return delivery order with transaction ID of `asj2od3943`
+* find -t 920392844 +
+Return delivery order with transaction ID of `920392844`
 
 === Viewing help : `help`
 
