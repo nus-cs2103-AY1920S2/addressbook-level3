@@ -20,10 +20,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 
 public class Attribute {
-    private String name;
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     public static final String MESSAGE_CONSTRAINTS =
             "A name of attribute should only contain alphabet characters and spaces, and it should not be blank";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+
+    private String name;
 
     /**
      * Constructs an Attribute instance.
