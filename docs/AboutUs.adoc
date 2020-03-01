@@ -46,9 +46,9 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Ng Jun Guang, Jarrod
+image::Jarrod-Bob.png[width="150", align="left"]
+{empty}[http://github.com/Jarrod-Bob[github]] [<<Jarrod-Bob#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
