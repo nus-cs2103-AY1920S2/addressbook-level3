@@ -37,9 +37,9 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Akhil Vuputuri
+image::akhilvuputuri.png[width="150", align="left"]
+{empty}[http://github.com/akhilvuputuri[github]] [<<akhilvuputuri#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
