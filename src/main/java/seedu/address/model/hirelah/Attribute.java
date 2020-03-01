@@ -1,5 +1,7 @@
 package seedu.address.model.hirelah;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /*
  * Attribute
  *
@@ -12,13 +14,16 @@ package seedu.address.model.hirelah;
  */
 
 /**
- * Attribute class represents the parameters that are
- * taken into account to assess the interviewee.
+ * <p>Attribute class represents the parameters that are
+ * taken into account to assess the interviewee.</p>
  * @author AY1920S2-W15-2
  */
 
 public class Attribute {
     private String name;
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String MESSAGE_CONSTRAINTS =
+            "A name of attribute should only contain alphabet characters and spaces, and it should not be blank";
 
     /**
      * Constructs an Attribute instance.
@@ -26,17 +31,32 @@ public class Attribute {
      */
 
     public Attribute(String name) {
+        checkArgument(isValidAttributeName(name), MESSAGE_CONSTRAINTS);
         this.name = name;
     }
 
     /**
-     * Overrides the Object's toString method so that
-     * it displays the name of the attribute.
-     * @return The name of the attribute.
+     * Returns true if a given string is a valid name.
      */
+
+    public static boolean isValidAttributeName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
 
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Attribute // instanceof handles nulls
+                && name.equals(((Attribute) other).name)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }
