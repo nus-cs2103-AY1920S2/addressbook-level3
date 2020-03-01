@@ -67,8 +67,16 @@ Examples:
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Description
+* You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
+If an additional flag is given -f, no user confirmation will be requested.
+
+==== Format:
+* `clear` `[FLAG]`
+
+==== Example(s)
+* `clear`
+* `clear` `-f`
 
 // tag::delete[]
 === Deleting a person : `delete`
