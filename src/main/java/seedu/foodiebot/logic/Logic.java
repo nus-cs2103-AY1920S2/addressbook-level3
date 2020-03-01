@@ -29,7 +29,7 @@ public interface Logic {
      */
     ReadOnlyFoodieBot getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of canteens */
     ObservableList<Canteen> getFilteredCanteenList();
 
     /** Returns the user prefs' address book file path. */

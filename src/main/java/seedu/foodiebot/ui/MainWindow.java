@@ -10,10 +10,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.logic.Logic;
 import seedu.foodiebot.logic.commands.CommandResult;
+import seedu.foodiebot.logic.commands.DirectionsCommandResult;
+import seedu.foodiebot.logic.commands.ListCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 
@@ -34,16 +37,22 @@ public class MainWindow extends UiPart<Stage> {
     private CanteenListPanel canteenListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private DirectionsToCanteenPanel directionsToCanteenPanel;
 
-    @FXML private StackPane commandBoxPlaceholder;
+    @FXML
+    private StackPane commandBoxPlaceholder;
 
-    @FXML private MenuItem helpMenuItem;
+    @FXML
+    private MenuItem helpMenuItem;
 
-    @FXML private StackPane personListPanelPlaceholder;
+    @FXML
+    private StackPane personListPanelPlaceholder;
 
-    @FXML private StackPane resultDisplayPlaceholder;
+    @FXML
+    private StackPane resultDisplayPlaceholder;
 
-    @FXML private StackPane statusbarPlaceholder;
+    @FXML
+    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -58,6 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
     }
 
     public Stage getPrimaryStage() {
@@ -92,18 +102,20 @@ public class MainWindow extends UiPart<Stage> {
          * in CommandBox or ResultDisplay.
          */
         getRoot()
-                .addEventFilter(
-                    KeyEvent.KEY_PRESSED,
-                    event -> {
-                        if (event.getTarget() instanceof TextInputControl
-                                && keyCombination.match(event)) {
-                            menuItem.getOnAction().handle(new ActionEvent());
-                            event.consume();
-                        }
-                    });
+            .addEventFilter(
+                KeyEvent.KEY_PRESSED,
+                event -> {
+                    if (event.getTarget() instanceof TextInputControl
+                        && keyCombination.match(event)) {
+                        menuItem.getOnAction().handle(new ActionEvent());
+                        event.consume();
+                    }
+                });
     }
 
-    /** Fills up all the placeholders of this window. */
+    /**
+     * Fills up all the placeholders of this window.
+     */
     void fillInnerParts() {
         canteenListPanel = new CanteenListPanel(logic.getFilteredCanteenList());
         personListPanelPlaceholder.getChildren().add(canteenListPanel.getRoot());
@@ -118,7 +130,9 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    /** Sets the default size based on {@code guiSettings}. */
+    /**
+     * Sets the default size based on {@code guiSettings}.
+     */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
@@ -128,7 +142,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /** Opens the help window or focuses on it if it's already opened. */
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
     @FXML
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
@@ -138,19 +154,41 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Fills the directionsToCanteen region.
+     */
+    @FXML
+    public void handleGoToCanteen() {
+        directionsToCanteenPanel = new DirectionsToCanteenPanel();
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(directionsToCanteenPanel.getRoot());
+    }
+
+    /**
+     * Fills the canteenListPanel region.
+     */
+    @FXML
+    public void handleListCanteens() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(new CanteenListPanel(logic.getFilteredCanteenList()).getRoot());
+    }
+
+
     void show() {
         primaryStage.show();
     }
 
-    /** Closes the application. */
+    /**
+     * Closes the application.
+     */
     @FXML
     private void handleExit() {
         GuiSettings guiSettings =
-                new GuiSettings(
-                        primaryStage.getWidth(),
-                        primaryStage.getHeight(),
-                        (int) primaryStage.getX(),
-                        (int) primaryStage.getY());
+            new GuiSettings(
+                primaryStage.getWidth(),
+                primaryStage.getHeight(),
+                (int) primaryStage.getX(),
+                (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -166,12 +204,24 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.foodiebot.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText)
-            throws CommandException, ParseException {
+        throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (commandResult instanceof DirectionsCommandResult) {
+                handleGoToCanteen();
+                directionsToCanteenPanel.fillView(((DirectionsCommandResult) commandResult).canteen);
+            }
+
+            switch (commandResult.commandName) {
+            case ListCommand.COMMAND_WORD:
+                handleListCanteens();
+                break;
+            default:
+                break;
+            }
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

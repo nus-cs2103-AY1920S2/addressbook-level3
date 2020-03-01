@@ -53,7 +53,7 @@ public class AddCommand extends Command {
         //        }
         //
         //        model.addCanteen(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

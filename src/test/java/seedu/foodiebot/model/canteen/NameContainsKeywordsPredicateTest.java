@@ -46,7 +46,8 @@ public class NameContainsKeywordsPredicateTest {
         // One keyword
         NameContainsKeywordsPredicate predicate =
             new NameContainsKeywordsPredicate(Collections.singletonList("Deck"));
-        assertTrue(predicate.test(new CanteenBuilder().withNearestBlock("Deck NusFlavors").build()));
+        Canteen canteen = new CanteenBuilder().withNearestBlock("Deck NusFlavors").build();
+        assertTrue(predicate.test(canteen));
 
         // Multiple keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Frontier", "CentralSquare"));

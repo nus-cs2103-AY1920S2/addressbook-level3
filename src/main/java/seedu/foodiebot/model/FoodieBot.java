@@ -74,7 +74,8 @@ public class FoodieBot implements ReadOnlyFoodieBot {
      * Adds a canteen to the address book. The canteen must not already exist in the address book.
      */
     public void addCanteen(CanteenStub p) {
-        canteens.add(new Canteen(p.getName(), 0, 0, "name", p.getTags()));
+        canteens.add(new Canteen(p.getName(), 0, 0,
+            "name", "", "", p.getTags(), ""));
     }
 
     /**

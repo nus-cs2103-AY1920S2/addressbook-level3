@@ -6,7 +6,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import javafx.scene.image.Image;
+
+import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.model.tag.Tag;
 
 /**
@@ -15,22 +19,32 @@ import seedu.foodiebot.model.tag.Tag;
  */
 public class Canteen {
 
+    public static final String IMAGE_FOLDER = "/images/canteen/";
+    private static final Logger logger = LogsCenter.getLogger(Canteen.class);
     // Identity fields
     private final Name name;
     private final int numberOfStalls;
     private final int distance;
     private final String blockName;
+    private final String canteenImageName;
+    private final String directionImageName;
+    private final String directionText;
 
     // Data fields
     private final Set<Tag> cuisines = new HashSet<>();
 
     /** Every field must be present and not null. */
-    public Canteen(Name name, int numberOfStalls, int distance, String blockName, Set<Tag> tags) {
+    public Canteen(
+        Name name, int numberOfStalls, int distance, String blockName, String directionImageName,
+        String directionText, Set<Tag> tags, String canteenImageName) {
         requireAllNonNull(name, numberOfStalls, tags);
         this.name = name;
         this.numberOfStalls = numberOfStalls;
         this.distance = distance;
         this.blockName = blockName;
+        this.directionImageName = directionImageName;
+        this.canteenImageName = canteenImageName;
+        this.directionText = directionText;
         this.cuisines.addAll(tags);
     }
 
@@ -50,8 +64,30 @@ public class Canteen {
         return blockName;
     }
 
-    public Set<Tag> getCuisines() {
-        return cuisines;
+    public String getDirectionImageName() {
+        return directionImageName;
+    }
+
+    public Image getDirectionImage() {
+        String mImageUrl = IMAGE_FOLDER + directionImageName;
+        Image image = new Image(Canteen.class.getResourceAsStream((mImageUrl)));
+        return image;
+    }
+
+
+    public String getDirectionsText() {
+        return directionText;
+    }
+
+    public Image getCanteenImage() {
+        String mImageUrl = IMAGE_FOLDER + canteenImageName;
+        Image image = new Image(Canteen.class.getResourceAsStream((mImageUrl)));
+        return image;
+    }
+
+
+    public String getCanteenImageName() {
+        return canteenImageName;
     }
 
     /**
@@ -95,7 +131,6 @@ public class Canteen {
         return otherCanteen.getName().equals(getName())
                 && otherCanteen.getDistance() == (getDistance())
                 && otherCanteen.getNumberOfStalls() == (getNumberOfStalls())
-                && otherCanteen.getDistance() == (getDistance())
                 && otherCanteen.getBlockName().equals(getBlockName())
                 && otherCanteen.getTags().equals(getTags());
     }
@@ -103,14 +138,13 @@ public class Canteen {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, distance, numberOfStalls, cuisines);
+        return Objects.hash(name, distance, numberOfStalls, blockName, cuisines);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Name: ")
+        builder.append(" Name: ")
                 .append(getName())
                 .append(" NumberOfStalls: ")
                 .append(getNumberOfStalls())
@@ -118,6 +152,12 @@ public class Canteen {
                 .append(getDistance())
                 .append(" NearestBlockName: ")
                 .append(getBlockName())
+                .append(" DirectionsImageUrl: ")
+                .append(getDirectionImageName())
+                .append(" CanteenImageUrl: ")
+                .append(getCanteenImageName())
+                .append(" DirectionsText: ")
+                .append(getDirectionsText())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

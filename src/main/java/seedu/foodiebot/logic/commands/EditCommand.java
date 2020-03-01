@@ -3,7 +3,6 @@ package seedu.foodiebot.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.foodiebot.model.Model.PREDICATE_SHOW_ALL_CANTEENS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,6 +16,7 @@ import seedu.foodiebot.commons.util.CollectionUtil;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.tag.Tag;
 
@@ -71,22 +71,23 @@ public class EditCommand extends Command {
         }
 
         Canteen canteenToEdit = lastShownList.get(index.getZeroBased());
-        Canteen editedCanteen = createEditedPerson(canteenToEdit, editCanteenDescriptor);
+        CanteenStub editedCanteen = createEditedPerson(canteenToEdit, editCanteenDescriptor);
 
-        if (!canteenToEdit.isSameCanteen(editedCanteen) && model.hasCanteen(editedCanteen)) {
+        /*if (!canteenToEdit.isSameCanteen(editedCanteen) && model.hasCanteen(editedCanteen)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
         model.setCanteen(canteenToEdit, editedCanteen);
         model.updateFilteredCanteenList(PREDICATE_SHOW_ALL_CANTEENS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCanteen));
+         */
+        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCanteen));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit} edited with
      * {@code editPersonDescriptor}.
      */
-    private static Canteen createEditedPerson(
+    private static CanteenStub createEditedPerson(
             Canteen canteenToEdit, EditCanteenDescriptor editCanteenDescriptor) {
         assert canteenToEdit != null;
 
@@ -96,8 +97,8 @@ public class EditCommand extends Command {
         String updatedBlockName = editCanteenDescriptor.getNearestBlockName();
         Set<Tag> updatedTags = editCanteenDescriptor.getTags().orElse(canteenToEdit.getTags());
 
-        return new Canteen(
-                updatedName, updatedNumberOfStalls, updatedDistance, updatedBlockName, updatedTags);
+        return new CanteenStub(
+                updatedName, updatedNumberOfStalls, updatedTags);
     }
 
     @Override

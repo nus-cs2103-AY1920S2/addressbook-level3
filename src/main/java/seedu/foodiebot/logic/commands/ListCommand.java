@@ -16,6 +16,6 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCanteenList(PREDICATE_SHOW_ALL_CANTEENS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
     }
 }

@@ -60,6 +60,7 @@ public class LogicManager implements Logic {
         return model.getFilteredCanteenList();
     }
 
+
     @Override
     public Path getFoodieBotFilePath() {
         return model.getAddressBookFilePath();
