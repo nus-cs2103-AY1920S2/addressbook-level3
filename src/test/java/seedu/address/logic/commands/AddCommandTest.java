@@ -163,7 +163,7 @@ public class AddCommandTest {
          */
         @Override
         public void deleteEntry(Entry target) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -181,7 +181,7 @@ public class AddCommandTest {
          */
         @Override
         public void setEntry(Entry target, Entry editedEntry) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -210,7 +210,7 @@ public class AddCommandTest {
          */
         @Override
         public void updateFilteredEntryList(Predicate<Entry> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
     }
 
