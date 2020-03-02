@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === GABRIEL BENEDICT TEO JIAN CHENG
-image::gabriel.jpg[role=fa-rotate-270, width="150", align="left"]
+image::gabriel.png[flip = "90", width = "150", align = "left"]
 {empty} [https://github.com/PotatoCombat[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Lead +
@@ -20,7 +20,7 @@ Responsibilities: Scheduling and tracking
 '''
 
 === AAKANKSHA RAI
-image::rai.jpg[width="150", align="left"]
+image::rai.png[width="150", align="left"]
 {empty}[https://github.com/aakanksha-rai[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: PlantUML Expert, Deliverables and deadlines
 '''
 
 === CHUA YI JING
-image::yijinl.jpg[width="150", align="left"]
+image::yijing.png[width="150", align="left"]
 {empty}[https://github.com/chuayijing[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Testing
 '''
 
 === FATIN NABILAH BTE SUHAIMI
-image::fatin.jpg[width="150", align="left]
+image::fatin.png[width="150", align="left]
 {empty}[https://github.com/fatin99[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
