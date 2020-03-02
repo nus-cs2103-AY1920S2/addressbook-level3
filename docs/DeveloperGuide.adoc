@@ -350,9 +350,22 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+. The final product is a result of evolving/enhancing/morphing the given code base.
+. The final product targets users who can type fast and prefer typing over other means of input. 
+. The final product should be for a single user. 
+. The product is developed incrementally over the project duration.
+. The data should be stored locally and should be in a human editable text file. 
+. The data cannot be stored in a DBMS
+. The software should follow the Object-Oriented paradigm primarily.
+. The software should work on any <<mainstream-os,mainstream OS>> such as Windows, Linux, and OS-X platforms and should avoid having OS-dependent libraries and OS-specific features.
+. The software should work on a computer that has version 11 of Java installed. 
+. The software should work without requiring an installer. 
+. The software should not depend on a remote server. 
+. The use of third-party frameworks is subject to approval by the module administrators
+. The file size of deliverables should not exceed 100MB for the JAR file and 15MB/file for the PDF files
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+
 
 _{More to be added}_
 
@@ -360,10 +373,7 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+Windows, Linux, OS-X
 
 [appendix]
 == Product Survey
