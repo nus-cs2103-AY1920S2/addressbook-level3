@@ -277,15 +277,19 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: Busy university students who want to balance their hectic work schedule as well as their social life. 
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has the need to manage a significant number of contacts and project/assignment deadlines
+* Has the need to manage a significant number of friends' birthdays and their miscellaneous information (such as their likes and dislikes)
+* Can type fast and prefers typing over mouse input
+* Is reasonably comfortable using CLI applications
+* Prefers desktop applications instead of other applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: A one-stop application for managing your social life, allowing you to manage contacts faster than a typical mouse/GUI driven app.
+
+* Afraid that you will forget your best friend's birthday? Naggy Joel will remind you!
+* Not sure where you want to hang out? Naggy Joel can suggest places for you!
+* Want to hang out with your friends but not sure when you can because of your hectic university schedule and many deadlines? Naggy Joel will help you find the time!
 
 [appendix]
 == User Stories
@@ -295,17 +299,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |busy university student |be reminded of my friends' birthdays as and when they are approaching | have no need to memorize all my friends' birthdays
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |busy university student with many groupmates and friends | find and sort contacts by certain criteria (eg. find by name, find by tags, find by organization) |locate my friends and groupmates easily
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |busy university student with many assignments and project deadlines scattered throughout the semester |be provided timely reminders of my work deadlines |not have to remember the specific timing, date and deliverables of each assignment.
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |busy university student with a hectic work schedule |be able to find pockets of free time within my schedule where I can go meet my friends |schedule my social events efficiently
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |busy university student with a hectic work schedule |be able to be suggested places to eat with my friends based on "KIV" notes for certain restaurants |choose a gathering place without much hassle
+
 |=======================================================================
 
 _{More to be added}_
