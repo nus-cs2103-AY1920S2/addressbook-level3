@@ -40,7 +40,6 @@
             </children>
          </HBox>
       <FlowPane fx:id="tags" />
-
     </VBox>
       <rowConstraints>
          <RowConstraints />

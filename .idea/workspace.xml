@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="71e98e02-c0ff-4842-8d68-c0e22eaa40e2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AboutUs.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-663" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UserGuide.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.adoc">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docs/UserGuide.adoc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2244" />
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>address</find>
+    </findStrings>
+    <dirStrings>
+      <dir>D:\NUS\CS2103T\TeamProject\src\main\resources</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/logic/parser/ParserUtilTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/EditCommandParser.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/model/person/AddressTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/testutil/EditPersonDescriptorBuilder.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/testutil/PersonUtil.java" />
+        <option value="$PROJECT_DIR$/src/test/data/JsonAddressBookStorageTest/invalidPersonAddressBook.json" />
+        <option value="$PROJECT_DIR$/src/test/data/JsonAddressBookStorageTest/invalidAndValidPersonAddressBook.json" />
+        <option value="$PROJECT_DIR$/src/test/data/JsonSerializableAddressBookTest/duplicatePersonAddressBook.json" />
+        <option value="$PROJECT_DIR$/src/test/data/JsonSerializableAddressBookTest/invalidPersonAddressBook.json" />
+        <option value="$PROJECT_DIR$/src/test/data/JsonSerializableAddressBookTest/typicalPersonsAddressBook.json" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/CliSyntax.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/AddressBookParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/model/person/Remark.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/RemarkCommandParser.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/view/PersonListCard.fxml" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/model/person/Person.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/EditCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/AddCommandParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/ParserUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/model/util/SampleDataUtil.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/testutil/PersonBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/ui/PersonCard.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/storage/JsonAdaptedPerson.java" />
+        <option value="$PROJECT_DIR$/data/addressbook.json" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/RemarkCommand.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/RemarkCommandTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/CommandTestUtil.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/logic/LogicManagerTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/testutil/TypicalPersons.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/logic/parser/EditCommandParserTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/logic/parser/AddCommandParserTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/EditPersonDescriptorTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/seedu/address/storage/JsonAdaptedPersonTest.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="950" />
+    <option name="width" value="980" />
+    <option name="height" value="1090" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="TeamProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TeamProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="TeamProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TeamProject" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="docs" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1582304191328" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="seedu.address.logic.commands" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.seedu.address.logic.commands in TeamProject.test">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="seedu.address.Main" />
+      <module name="TeamProject.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="seedu.address.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AddCommandIntegrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="seedu.address.logic.commands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="seedu.address.logic.commands" />
+      <option name="MAIN_CLASS_NAME" value="seedu.address.logic.commands.AddCommandIntegrationTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EditPersonDescriptorTest.equals" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="seedu.address.logic.commands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="seedu.address.logic.commands" />
+      <option name="MAIN_CLASS_NAME" value="seedu.address.logic.commands.EditPersonDescriptorTest" />
+      <option name="METHOD_NAME" value="equals" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="seedu.address.logic.commands in TeamProject.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TeamProject.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="seedu.address.logic.commands.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="seedu.address.logic.commands" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.seedu.address.logic.commands in TeamProject.test" />
+        <item itemvalue="JUnit.EditPersonDescriptorTest.equals" />
+        <item itemvalue="JUnit.AddCommandIntegrationTest" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="71e98e02-c0ff-4842-8d68-c0e22eaa40e2" name="Default Changelist" comment="" />
+      <created>1581864179020</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1581864179020</updated>
+    </task>
+    <task id="LOCAL-00001" summary="fully functioning remark function added (JSONUtilTest not working yet)">
+      <created>1582033161573</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1582033161573</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fixed tests">
+      <created>1582297847613</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1582297847613</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="AddCommandIntegrationTest - 2020.02.21 at 23h 08m 27s.xml">
+      <configuration name="AddCommandIntegrationTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="seedu_address_logic_commands_in_TeamProject_test - 2020.02.21 at 23h 09m 02s.xml">
+      <configuration name="seedu.address.logic.commands in TeamProject.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="seedu_address_logic_commands_in_TeamProject_test - 2020.02.21 at 23h 09m 32s.xml">
+      <configuration name="seedu.address.logic.commands in TeamProject.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="seedu_address_logic_commands_in_TeamProject_test - 2020.02.22 at 00h 49m 55s.xml">
+      <configuration name="seedu.address.logic.commands in TeamProject.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="seedu_address_logic_commands_in_TeamProject_test - 2020.02.22 at 00h 56m 08s.xml">
+      <configuration name="seedu.address.logic.commands in TeamProject.test" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2671141" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.3297587" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3297587" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994638" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3286119" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Build" order="10" weight="0.3297587" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3297587" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Gradle" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fully functioning remark function added" />
+    <MESSAGE value="fully functioning remark function added (JSONUtilTest not working yet)" />
+    <MESSAGE value="fixed tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed tests" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/view/MainWindow.fxml" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonAddressBookStorageTest/invalidPersonAddressBook.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonAddressBookStorageTest/notJsonFormatAddressBook.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/ConfigUtilTest/EmptyConfig.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonSerializableAddressBookTest/duplicatePersonAddressBook.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonSerializableAddressBookTest/invalidPersonAddressBook.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonSerializableAddressBookTest/typicalPersonsAddressBook.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonUserPrefsStorageTest/EmptyUserPrefs.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonUserPrefsStorageTest/ExtraValuesUserPref.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonUserPrefsStorageTest/NotJsonFormatUserPrefs.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonUserPrefsStorageTest/TypicalUserPref.json" />
+    <entry file="file://$PROJECT_DIR$/src/test/data/JsonAddressBookStorageTest/invalidAndValidPersonAddressBook.json" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/ListCommand.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/FindCommand.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/ArgumentTokenizer.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/Prefix.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/AddressBookParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/Parser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/person/Name.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/HelpCommand.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/CliSyntax.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/RemarkCommandParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/view/PersonListCard.fxml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/person/Remark.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/person/Email.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/ParserUtil.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/testutil/PersonBuilder.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/ui/PersonCard.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/person/Person.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/AddCommandParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/util/SampleDataUtil.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/EditCommandTest.java" />
+    <entry file="file://$PROJECT_DIR$/data/addressbook.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="36" column="21" selection-start-line="36" selection-start-column="21" selection-end-line="36" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/EditCommand.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/RemarkCommand.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/CommandTestUtil.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/LogicManagerTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/parser/AddCommandParserTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/parser/EditCommandParserTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/AddCommand.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/commands/Command.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/testutil/TypicalPersons.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/testutil/EditPersonDescriptorBuilder.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/EditPersonDescriptorTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/storage/JsonAdaptedPersonTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/storage/JsonAdaptedPerson.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/AddCommandTest.java" />
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/RemarkCommandTest.java" />
+    <entry file="file://$PROJECT_DIR$/UserGuide.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.adoc">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/UserGuide.adoc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2244" />
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
