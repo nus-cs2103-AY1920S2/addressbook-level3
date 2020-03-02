@@ -172,14 +172,28 @@ Import the contents of the csv file `orders.csv` to Delino.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
 
-=== Sorting orders: sort
+=== Sorting orders: `sort`
 ==== Description
 You can sort the orders based on their attributes *(given in prefix form)*.
-An additional flag can be provided (-a or -d) can be used to sort the delivery
-orders in ascending/descending order.
+An additional flag can be provided *(-a or -d)* can be used to sort the delivery
+orders in ascending/descending order. +
+If no additional flag is provided, the orders will be sorted in *ascending order*.
 
 ==== Format
-`sort` `[ORDER FLAG]` `ORDER ATTRIBUTE PREFIX` +
+`sort` `[ORDER FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
+
+[NOTE]
+====
+`ORDER_ATTRIBUTE_PREFIX` *must* be one of the following:
+
+* `a/` - Address
+* `n/` - Name
+* `p/` - Phone Number
+* `pm/` - Payment Method
+* `tid/` - Transaction ID
+* `ts/` - Timestamp
+* `w/` - Warehouse Location
+====
 
 ****
 *ORDER FLAG*  can be either +
@@ -188,17 +202,19 @@ orders in ascending/descending order.
 ****
 
 ==== Examples
+* `sort` `ts/` +
+You will sort the orders in ascending order based on the timestamp of the orders.
 * `sort` `-a` `n/` +
 You will sort the orders in ascending order based on the names of the customers.
 * `sort` `-d` `ts/` +
-You will sort the orders in descending order based on the timestamps of the orders.
+You will sort the orders in descending order based on the timestamp of the orders.
 * `sort` `-d` `tid/` +
 You will sort the orders in descending order based on the transaction id of the orders.
 
-=== Undo the previous action: undo
+=== Undo the previous action: `undo`
 ==== Description
-You can use the undo command to revert the most recent action that was previously executed.
-For example, if you accidentally deleted an order, you can use the undo command to add the deleted order
+You can use the `undo` command to revert the most recent action that was previously executed.
+For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
 back to the list of orders.
 
 ==== Format
@@ -229,6 +245,9 @@ _{explain how the user can set remainder specifically for orders that are resche
 === Rescheduling orders `[coming in v2.0]`
 
 _{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
+
+=== Keeping track of work schedule `[coming in v2.0]`
+_{explain how the user can keep track of their work schedule}_
 
 == FAQ
 
