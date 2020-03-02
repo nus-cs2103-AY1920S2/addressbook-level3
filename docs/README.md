@@ -1,2 +1,0 @@
-# Naggy Joel
-
