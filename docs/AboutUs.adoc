@@ -14,7 +14,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::tharshita.png[width="150", align="left"]
 {empty}[https://github.com/tharshita[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: +
+Responsibilities:
 
 '''
 
@@ -22,8 +23,8 @@ Role: Project Advisor
 image::placeholder.png[width="150", align="left"]
 {empty}[https://github.com/YuuTon9[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: +
+Responsibilities:
 
 '''
 
@@ -31,8 +32,8 @@ Responsibilities: UI
 image::placeholder.png[width="150", align="left"]
 {empty}[https://github.com/beatricetay[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: +
+Responsibilities:
 
 '''
 
@@ -40,7 +41,7 @@ Responsibilities: Data
 image::pekchinsiongbrian.png[width="150", align="left"]
 {empty}[https://github.com/pekchinsiongbrian[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: +
+Responsibilities: 
 
 '''
