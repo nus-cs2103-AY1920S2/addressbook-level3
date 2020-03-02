@@ -104,23 +104,30 @@ Deletes the 1st person in the results of the `find` command.
 
 ==== Description
 
-* You can edit the details of the delivery order by providing the order transaction id, the field you want to change followed by the updated value.
+* You can edit the details of the delivery order by providing the index of it shown on the status bar, followed by the field you want to change and lastly the updated value.
 
 ==== Format
 
-* `edit` `*TRANSACTION_ID*` `*FIELD_TO_CHANGE*` `*VALUE*`
+[TIP]
+Use the <<List, `list`>> command to see which delivery order you want to edit.
+
+* `edit` `INDEX` `PREFIX/VALUE`
 
 ****
-* Edits the order at the specified `TRANSACTION_ID`. The transaction id is alphanumeric and is used to identify each order.
-* Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
+* Edits the order at the specified `INDEX`.
+* Existing values corresponds to the `PREFIX` will be updated to the input `VALUE`.
 ****
 
 ==== Examples
 
-* `edit` `0123456789` `n/Xuan En`
-* `edit` `00k0i9ih34` `p/9999 4444`
-* `edit` `000012348a` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
-* `edit` `01234okook` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141`
+* `edit` `1` `n/Xuan En` +
+The index `1` customer's name is changed to `Xuan En`.
+* `edit` `2` `p/9999 4444` +
+The index `2` customer's phone number is changed to `9999 4444`.
+* `edit` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+The index `1` customer's address is changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
+* `edit` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141` +
+The index `3` customer's name, phone and address are changed accordingly to the prefix.
 
 === Exiting the program : `exit`
 
@@ -134,7 +141,7 @@ Format: `exit`
 * You can find all orders that contain a given keyword. The orders will be searched by a given flag. If the flag is `-n`, the orders will be searched by *name*. If the flag is `-t`, the orders will be searched by their *transaction ID*. The list of orders returned will not be sorted by default.
 
 ==== Format
-* `find` `FLAG` `KEYWORD` `[MORE_KEYWORDS]`
+* `find` `FLAG` `KEYWORD` `[MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -176,6 +183,7 @@ Examples:
 * `import orders.csv` +
 Import the contents of the csv file `orders.csv` to Delino.
 
+[[List]]
 === Listing orders : `list`
 
 [None]
