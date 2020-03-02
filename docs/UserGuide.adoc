@@ -115,7 +115,7 @@ Use the <<List, `list`>> command to see which delivery order you want to edit.
 
 ****
 * Edits the order at the specified `INDEX`.
-* Existing values corresponds to the `PREFIX` will be updated to the input `VALUE`.
+* Existing value that corresponds to the `PREFIX` will be updated to the input `VALUE`.
 ****
 
 ==== Examples
