@@ -11,12 +11,22 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Joel Lim
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+
+=== Sarah Chua
+image::nidorinas.png[width="150", align="left"]
+{empty}[http://github.com/nidorinas[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Documentation
+
+'''
+
+=== Joel Lim
+image::hhjoel.png[width="150", align="left"]
+{empty}[http://github.com/hhjoel[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI, Intellij expert, Sourcetree expert
 
 '''
 
@@ -25,24 +35,15 @@ image::elysiatanzy.png[width="150", align="left"]
 {empty}[http://github.com/ElysiaTanZY[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Deliverables & deadlines, testing
 
 '''
 
 === Kwan Xin Jie
-image::xinjie.png[width="150", align="left"]
+image::vanessa1098.png[width="150", align="left"]
 {empty}[http://github.com/Vanessa1098[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
-=== Sarah Chua
-image::sarah.png[width="150", align="left"]
-{empty}[http://github.com/nidorinas[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
+Responsibilities: Code quality, scheduling & tracking
 
 '''
