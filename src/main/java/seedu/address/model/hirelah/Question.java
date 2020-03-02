@@ -40,4 +40,9 @@ public class Question {
                 || (other instanceof Attribute // instanceof handles nulls
                 && description.equals(((Question) other).description)); // state check
     }
+
+    @Override
+    public int hashCode() {
+        return description.hashCode();
+    }
 }
