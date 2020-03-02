@@ -3,7 +3,7 @@ package seedu.address.model.activity;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Activity's TaskName in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTask(String)}
  */
 public class TaskName {
