@@ -214,5 +214,7 @@ e.g. `find` `-t` `ac1e345x7s`
 e.g. `import` `orders.csv`
 * *List* : `list` `[DONE_STATUS]` +
 e.g. `list` `done`
+* *Return* : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `ts/12-12-2020` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass`
 * *Sort* : `sort` `FLAG` `NAME/TIMESTAMP/TRANSACTION_ID` +
 e.g. `sort` `-d` `ts/`
