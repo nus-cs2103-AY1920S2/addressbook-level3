@@ -25,7 +25,6 @@ public class TaskName {
      */
     public TaskName(String codeID) {
         requireNonNull(codeID);
-        //checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
         this.codeID = codeID;
     }
 
