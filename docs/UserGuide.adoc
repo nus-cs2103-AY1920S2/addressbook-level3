@@ -113,6 +113,9 @@ Use the <<List, `list`>> command to see which delivery order you want to edit.
 
 * `edit` `INDEX` `PREFIX/VALUE`
 
+[WARNING]
+The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
+
 ****
 * Edits the order at the specified `INDEX`.
 * Existing value that corresponds to the `PREFIX` will be updated to the input `VALUE`.
