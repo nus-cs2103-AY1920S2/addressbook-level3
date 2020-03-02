@@ -1,8 +1,11 @@
 package seedu.address.model.activity;
 
 import static java.util.Objects.requireNonNull;
-//import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Person's address in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidTask(String)}
+ */
 public class TaskName {
 
     public static final String MESSAGE_CONSTRAINTS = "Task can take any values, and it should not be blank";
