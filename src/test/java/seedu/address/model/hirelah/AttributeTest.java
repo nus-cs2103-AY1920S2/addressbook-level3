@@ -37,12 +37,13 @@ public class AttributeTest {
         assertFalse(Attribute.isValidAttributeName(" ")); // spaces only
         assertFalse(Attribute.isValidAttributeName("^")); // only non-alphanumeric characters
         assertFalse(Attribute.isValidAttributeName("curiosity*")); // contains non-alphanumeric characters
+        assertFalse(Attribute.isValidAttributeName("12345")); // numbers only
+        assertFalse(Attribute.isValidAttributeName("toughness 2")); // alphanumeric characters
+        assertFalse(Attribute.isValidAttributeName("Mario Lorenzo Jr the 2nd")); // long names
 
         // valid name
         assertTrue(Attribute.isValidAttributeName("toughness")); // alphabets only
-        assertTrue(Attribute.isValidAttributeName("12345")); // numbers only
-        assertTrue(Attribute.isValidAttributeName("toughness 2")); // alphanumeric characters
         assertTrue(Attribute.isValidAttributeName("Mario Lorenzo")); // with capital letters
-        assertTrue(Attribute.isValidAttributeName("Mario Lorenzo Jr the 2nd")); // long names
+
     }
 }

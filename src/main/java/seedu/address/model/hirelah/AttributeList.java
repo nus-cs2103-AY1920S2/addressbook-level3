@@ -1,7 +1,6 @@
 package seedu.address.model.hirelah;
 
-import seedu.address.commons.exceptions.AttributeNotFoundException;
-import seedu.address.commons.exceptions.DuplicatePrefixException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.ArrayList;
 
@@ -58,10 +57,17 @@ public class AttributeList {
         }
     }
 
-    public Attribute findAttribute(String attributePrefix) throws AttributeNotFoundException, DuplicatePrefixException {
+    /**
+     * Find the attribute based on its prefix.
+     * @param attributePrefix The prefix of the attribute.
+     * @return The corresponding Attribute instance.
+     * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
+     */
+
+    public Attribute findAttribute(String attributePrefix) throws IllegalValueException {
         try {
             checkPrefix(attributePrefix);
-        } catch (AttributeNotFoundException | DuplicatePrefixException e) {
+        } catch (IllegalValueException e) {
             throw e;
         }
         return attributes.stream().filter(attribute -> attribute.toString().startsWith(attributePrefix))
@@ -69,21 +75,33 @@ public class AttributeList {
                                   .get();
     }
 
-    private String deleteAttribute(String attributePrefix) throws AttributeNotFoundException, DuplicatePrefixException {
+    /**
+     * Deletes the attribute by its prefix.
+     * @param attributePrefix The prefix of the attribute.
+     * @return The outcome message.
+     * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
+     */
+
+    private String deleteAttribute(String attributePrefix) throws IllegalValueException {
         Attribute attribute = findAttribute(attributePrefix);
         attributes.remove(attribute);
         return String.format("Successfully removed %s", attribute);
     }
 
-    private void checkPrefix(String attributePrefix) throws AttributeNotFoundException, DuplicatePrefixException {
+    /**
+     * Checks the number of attributes that starts with the prefix.
+     * @param attributePrefix The prefix of the attribute.
+     * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
+     */
+    private void checkPrefix(String attributePrefix) throws IllegalValueException {
         long startWithPrefix = attributes.stream()
                 .filter(attribute -> attribute.toString().startsWith(attributePrefix))
                 .count();
 
         if (startWithPrefix > 1) {
-            throw new DuplicatePrefixException(DUPLICATE_MESSAGE);
+            throw new IllegalValueException(DUPLICATE_MESSAGE);
         } else if (startWithPrefix == 0) {
-            throw new AttributeNotFoundException(NOT_FOUND_MESSAGE);
+            throw new IllegalValueException(NOT_FOUND_MESSAGE);
         }
     }
     private boolean isDuplicate(Attribute attribute) {
