@@ -74,7 +74,7 @@ If an additional flag is given -f, no user confirmation will be requested.
 ==== Format:
 * `clear` `[FLAG]`
 
-==== Example(s)
+==== Examples
 * `clear`
 * `clear` `-f`
 
@@ -117,7 +117,7 @@ Deletes the 1st order in the results of the `find` command (find all orders with
 * Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
 ****
 
-==== Example(s)
+==== Examples
 [none]
 * 1. `edit 0123456789 n/Xuan En`
 * 2. `edit 00k0i9ih34 p/9999 4444`
