@@ -70,6 +70,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given entry {@code target} in the list with {@code editedEntry}.
+     * {@code target} must exist in the log book.
+     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
+     */
+    public void setEntry(Entry target, Entry editedEntry) {
+        requireNonNull(editedEntry);
+
+        entries.setEntry(target, editedEntry);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -130,17 +141,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Replaces the given entry {@code target} in the list with {@code editedEntry}.
-     * {@code target} must exist in the log book.
-     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
-     */
-    public void setEntry(Entry target, Entry editedEntry) {
-        requireNonNull(editedEntry);
-
-        entries.setEntry(target, editedEntry);
     }
 
     /**

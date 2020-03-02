@@ -2,10 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYCALORIE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYLOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYTIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYLOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRYCALORIE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditEntryCommand;
@@ -25,7 +25,8 @@ public class EditEntryCommandParser implements Parser<EditEntryCommand> {
     public EditEntryCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ENTRYNAME, PREFIX_ENTRYTIME, PREFIX_ENTRYLOCATION, PREFIX_ENTRYCALORIE);
+                ArgumentTokenizer.tokenize(args, PREFIX_ENTRYNAME, PREFIX_ENTRYTIME, PREFIX_ENTRYLOCATION,
+                        PREFIX_ENTRYCALORIE);
 
         Index index;
 

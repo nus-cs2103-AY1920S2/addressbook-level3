@@ -69,6 +69,19 @@ public class UniqueEntryList implements Iterable<Entry> {
     }
 
     /**
+     * Replaces the contents of this list with {@code entries}.
+     * {@code entries} must not contain duplicate entries.
+     */
+    public void setEntry(List<Entry> entries) {
+        requireAllNonNull(entries);
+        if (!entriesAreUnique(entries)) {
+            throw new DuplicateEntryException();
+        }
+
+        internalList.setAll(entries);
+    }
+    
+    /**
      * Removes the equivalent entry from the list.
      * The entry must exist in the list.
      */
@@ -82,19 +95,6 @@ public class UniqueEntryList implements Iterable<Entry> {
     public void setEntries(UniqueEntryList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-    }
-
-    /**
-     * Replaces the contents of this list with {@code entries}.
-     * {@code entries} must not contain duplicate entries.
-     */
-    public void setEntry(List<Entry> entries) {
-        requireAllNonNull(entries);
-        if (!entriesAreUnique(entries)) {
-            throw new DuplicateEntryException();
-        }
-
-        internalList.setAll(entries);
     }
 
     /**
