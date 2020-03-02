@@ -54,13 +54,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Adding a person: `add`
 
-Adds a new order to the list of orders +
-Format: `add` `tid/*TRANSACTION_ID*` `n/*NAME*` `a/*ADDRESS*` `p/*PHONE_NUMBER*` `*ts/DELIVERY_DATE_&_TIME*` `w/*WAREHOUSE_LOCATION*` `pm/*PAYMENT_METHOD*` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+==== Description
+* Adds a new order to the list of orders
+
+==== Format
+* `add` `tid/*TRANSACTION_ID*` `n/*NAME*` `a/*ADDRESS*` `p/*PHONE_NUMBER*` `*ts/DELIVERY_DATE_&_TIME*` `w/*WAREHOUSE_LOCATION*` `pm/*PAYMENT_METHOD*` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 [TIP]
 All the fields (in bold) are compulsory except for the fields [c/COMMENTS_BY_CUSTOMER] and [type/TYPE_OF_ITEM]
 
-Examples:
+==== Examples
 
 * `add` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `pm/Cash`
 * `add` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser` `type/glass`
