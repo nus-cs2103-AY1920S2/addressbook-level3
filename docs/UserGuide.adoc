@@ -236,6 +236,7 @@ Format: `rt search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
 
 
 Examples:
+
 * `rt search k/no signboard p/$$` +
 Searches for restaurants with the keyword no signboard which is at a medium price point.
 * `rt search l/bedok p/$` +
@@ -253,6 +254,7 @@ Format: `st add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 
 Examples:
+
 * `st add t/CS2103 post lecture quiz d/20200211 2359 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
 
