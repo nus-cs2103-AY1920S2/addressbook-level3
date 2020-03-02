@@ -10,9 +10,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Harshita Tiyari
+=== Tiyari Harshita
 image::tharshita.png[width="150", align="left"]
-{empty}[https://github.com/tharshita[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/tharshita[github]] [<<tharshita#, portfolio>>]
 
 Role: +
 Responsibilities:
@@ -21,7 +21,7 @@ Responsibilities:
 
 === Lee Yue Tong
 image::yuuton9.png[width="150", align="left"]
-{empty}[https://github.com/YuuTon9[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/YuuTon9[github]] [<<yuuton9#, portfolio>>]
 
 Role: +
 Responsibilities:
@@ -30,7 +30,7 @@ Responsibilities:
 
 === Beatrice Tay
 image::beatricetay.png[width="150", align="left"]
-{empty}[https://github.com/beatricetay[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/beatricetay[github]] [<<beatricetay#, portfolio>>]
 
 Role: +
 Responsibilities:
@@ -39,7 +39,7 @@ Responsibilities:
 
 === Brian Pek
 image::pekchinsiongbrian.png[width="150", align="left"]
-{empty}[https://github.com/pekchinsiongbrian[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/pekchinsiongbrian[github]] [<<pekchinsiongbrian#, portfolio>>]
 
 Role: +
 Responsibilities:
