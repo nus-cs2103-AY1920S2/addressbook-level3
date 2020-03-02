@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class TaskList
+
+TaskList .d.> Task
+package Task {
+Class Task
+Class Description
+Class Date
+Class Time
+
+Task *-d-> Description
+Task *-d-> Date
+Task *-d-> Time
+}
+
+@enduml

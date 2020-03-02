@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class ProfileList
+
+ProfileList .d.> Profile
+package Profile {
+Class Profile
+Class Course
+Class Name
+Class Year
+Class Deadlines
+Class TaskList
+Class ReadOnlyDeadlines
+
+Profile *-l> Course
+Profile *--> Name
+Profile *--> Year
+Profile *-r-> Deadlines
+
+Deadlines o--> TaskList
+Deadlines .r.> ReadOnlyDeadlines
+}
+
+@enduml

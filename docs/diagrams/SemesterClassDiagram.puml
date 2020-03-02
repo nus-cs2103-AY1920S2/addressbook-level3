@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Class SemesterList
+
+SemesterList .d.> Semester
+package Semester {
+Class Semester
+Class SemNumber
+Class ModuleSet
+
+Semester *-d-> SemNumber
+Semester *-d-> ModuleSet
+}
+
+@enduml
