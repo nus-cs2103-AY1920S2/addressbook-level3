@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Delino - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -67,8 +67,16 @@ Examples:
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Description
+* You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
+If an additional flag is given -f, no user confirmation will be requested.
+
+==== Format:
+* `clear` `[FLAG]`
+
+==== Example(s)
+* `clear`
+* `clear` `-f`
 
 // tag::delete[]
 === Deleting an order : `delete`
