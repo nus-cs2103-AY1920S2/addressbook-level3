@@ -16,16 +16,16 @@ public class TaskName {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final String codeID;
+    public final String code;
 
     /**
      * Constructs an {@code TaskName}.
      *
-     * @param codeID A valid code name.
+     * @param code A valid code name.
      */
-    public TaskName(String codeID) {
-        requireNonNull(codeID);
-        this.codeID = codeID;
+    public TaskName(String code) {
+        requireNonNull(code);
+        this.code = code;
     }
 
     /**
@@ -37,19 +37,19 @@ public class TaskName {
 
     @Override
     public String toString() {
-        return codeID;
+        return code;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskName // instanceof handles nulls
-                && codeID.equals(((TaskName) other).codeID)); // state check
+                && code.equals(((TaskName) other).code)); // state check
     }
 
     @Override
     public int hashCode() {
-        return codeID.hashCode();
+        return code.hashCode();
     }
 
 }
