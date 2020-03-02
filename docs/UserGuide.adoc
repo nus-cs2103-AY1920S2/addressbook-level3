@@ -204,8 +204,8 @@ e.g. `clear` `-f`
 e.g. `delete` `2`
 * *Done* : `done` `TRANSACTION_ID` +
 e.g. `done` `0123456789`
-* *Edit* : `edit` `TRANSACTION_ID` `FIELD_TO_CHANGE` `CHANGES` +
-e.g. `edit` `0123456789` `name` `Eng Xuan En`
+* *Edit* : `edit` `INDEX` `FIELD_TO_CHANGE` `CHANGES` +
+e.g. `edit` `2` `name` `Eng Xuan En`
 * *Exit* : `exit`
 * *Find* : `find` `flag` `KEYWORD` +
 e.g. `find` `-t` `ac1e345x7s`
