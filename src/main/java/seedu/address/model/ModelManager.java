@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Entry> filteredEntries;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +38,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
     }
 
     public ModelManager() {
@@ -110,12 +112,11 @@ public class ModelManager implements Model {
     /**
      * Deletes the given entry.
      * The entry must exist in the log book.
-     *
      * @param target
      */
     @Override
     public void deleteEntry(Entry target) {
-
+        addressBook.removeEntry(target);
     }
 
     @Override
@@ -137,7 +138,6 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         addressBook.setPerson(target, editedPerson);
     }
 
@@ -151,7 +151,8 @@ public class ModelManager implements Model {
      */
     @Override
     public void setEntry(Entry target, Entry editedEntry) {
-
+        requireAllNonNull(target, editedEntry);
+        addressBook.setEntry(target, editedEntry);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -187,7 +188,8 @@ public class ModelManager implements Model {
      */
     @Override
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
-
+        requireNonNull(predicate);
+        filteredEntries.setPredicate(predicate);
     }
 
     @Override

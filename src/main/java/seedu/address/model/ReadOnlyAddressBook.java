@@ -4,8 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.entry.Entry;
 import seedu.address.model.person.Person;
 
-import java.util.List;
-
 /**
  * Unmodifiable view of a log book
  */
