@@ -8,15 +8,15 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.entry.exceptions.DuplicateEntryException;
+import seedu.address.model.entry.exceptions.EntryNotFoundException;
 
 /**
- * A list of Entrys that enforces uniqueness between its elements and does not allow nulls.
- * A Entry is considered unique by comparing using {@code Entry#isSameEntry(Entry)}. As such, adding and updating of
- * Entrys uses Entry#isSameEntry(Entry) for equality so as to ensure that the Entry being added or updated is
- * unique in terms of identity in the UniqueEntryList. However, the removal of a Entry uses Entry#equals(Object) so
- * as to ensure that the Entry with exactly the same fields will be removed.
+ * A list of entries that enforces uniqueness between its elements and does not allow nulls.
+ * An entry is considered unique by comparing using {@code Entry#isSameEntry(Entry)}. As such, adding and updating of
+ * entries uses Entry#isSameEntry(Entry) for equality so as to ensure that the entry being added or updated is
+ * unique in terms of identity in the UniqueEntryList. However, the removal of an entry uses Entry#equals(Object) so
+ * as to ensure that the entry with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -24,77 +24,76 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class UniqueEntryList implements Iterable<Entry> {
 
-    private final ObservableList<Entry> internalEntryList = FXCollections.observableArrayList();
+    private final ObservableList<Entry> internalList = FXCollections.observableArrayList();
     private final ObservableList<Entry> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalEntryList);
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent Entry as the given argument.
+     * Returns true if the list contains an equivalent entry as the given argument.
      */
     public boolean contains(Entry toCheck) {
         requireNonNull(toCheck);
-        return internalEntryList.stream().anyMatch(toCheck::isSameEntry);
+        return internalList.stream().anyMatch(toCheck::isSameEntry);
     }
 
     /**
-     * Adds a Entry to the list.
-     * The Entry must not already exist in the list.
+     * Adds an entry to the list.
+     * The entry must not already exist in the list.
      */
     public void add(Entry toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntryException();
         }
-        internalEntryList.add(toAdd);
+        internalList.add(toAdd);
     }
 
     /**
-     * Replaces the Entry {@code target} in the list with {@code editedEntry}.
+     * Replaces the entry {@code target} in the list with {@code editedEntry}.
      * {@code target} must exist in the list.
-     * The Entry identity of {@code editedEntry} must not be the same as another existing Entry in the list.
+     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the list.
      */
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
 
-        int index = internalEntryList.indexOf(target);
+        int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new EntryNotFoundException();
         }
 
         if (!target.isSameEntry(editedEntry) && contains(editedEntry)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateEntryException();
         }
 
-        internalEntryList.set(index, editedEntry);
-    }
-
-    /**
-     * Removes the equivalent Entry from the list.
-     * The Entry must exist in the list.
-     */
-    public void remove(Entry toRemove) {
-        requireNonNull(toRemove);
-        if (!internalEntryList.remove(toRemove)) {
-            throw new PersonNotFoundException();
-        }
-    }
-
-    public void setEntrys(UniqueEntryList replacement) {
-        requireNonNull(replacement);
-        internalEntryList.setAll(replacement.internalEntryList);
+        internalList.set(index, editedEntry);
     }
 
     /**
      * Replaces the contents of this list with {@code entries}.
      * {@code entries} must not contain duplicate entries.
      */
-    public void setEntrys(List<Entry> entries) {
+    public void setEntry(List<Entry> entries) {
         requireAllNonNull(entries);
-        if (!entrysAreUnique(entries)) {
-            throw new DuplicatePersonException();
+        if (!entriesAreUnique(entries)) {
+            throw new DuplicateEntryException();
         }
+        internalList.setAll(entries);
+    }
 
-        internalEntryList.setAll(entries);
+    /**
+     * Removes the equivalent entry from the list.
+     * The entry must exist in the list.
+     */
+    public void remove(Entry toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new EntryNotFoundException();
+        }
+    }
+
+    public void setEntries(UniqueEntryList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
     }
 
     /**
@@ -106,25 +105,25 @@ public class UniqueEntryList implements Iterable<Entry> {
 
     @Override
     public Iterator<Entry> iterator() {
-        return internalEntryList.iterator();
+        return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueEntryList // instanceof handles nulls
-                && internalEntryList.equals(((UniqueEntryList) other).internalEntryList));
+                && internalList.equals(((UniqueEntryList) other).internalList));
     }
 
     @Override
     public int hashCode() {
-        return internalEntryList.hashCode();
+        return internalList.hashCode();
     }
 
     /**
      * Returns true if {@code entries} contains only unique entries.
      */
-    private boolean entrysAreUnique(List<Entry> entries) {
+    private boolean entriesAreUnique(List<Entry> entries) {
         for (int i = 0; i < entries.size() - 1; i++) {
             for (int j = i + 1; j < entries.size(); j++) {
                 if (entries.get(i).isSameEntry(entries.get(j))) {

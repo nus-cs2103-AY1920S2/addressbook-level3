@@ -140,8 +140,29 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Returns true if an Entry with the same identity as {@code entry} exists in the address book.
+         *
+         * @param entry
+         */
+        @Override
+        public boolean hasEntry(Entry entry) {
+            return false;
+        }
+
         @Override
         public void deletePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Deletes the given entry.
+         * The entry must exist in the log book.
+         *
+         * @param target
+         */
+        @Override
+        public void deleteEntry(Entry target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,13 +171,45 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Replaces the given entry {@code target} with {@code editedEntry}.
+         * {@code target} must exist in the log book.
+         * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
+         *
+         * @param target
+         * @param editedEntry
+         */
+        @Override
+        public void setEntry(Entry target, Entry editedEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Returns an unmodifiable view of the filtered entry list
+         */
+        @Override
+        public ObservableList<Entry> getFilteredEntryList() {
+            return null;
+        }
+
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+         *
+         * @param predicate
+         * @throws NullPointerException if {@code predicate} is null.
+         */
+        @Override
+        public void updateFilteredEntryList(Predicate<Entry> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

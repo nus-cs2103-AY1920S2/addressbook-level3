@@ -24,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Entry> filteredEntries;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +38,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
     }
 
     public ModelManager() {
@@ -97,8 +99,24 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasEntry(Entry entry) {
+        requireNonNull(entry);
+        return addressBook.hasEntry(entry);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         addressBook.removePerson(target);
+    }
+
+    /**
+     * Deletes the given entry.
+     * The entry must exist in the log book.
+     * @param target
+     */
+    @Override
+    public void deleteEntry(Entry target) {
+        addressBook.removeEntry(target);
     }
 
     @Override
@@ -120,8 +138,21 @@ public class ModelManager implements Model {
     @Override
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
-
         addressBook.setPerson(target, editedPerson);
+    }
+
+    /**
+     * Replaces the given entry {@code target} with {@code editedEntry}.
+     * {@code target} must exist in the log book.
+     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
+     *
+     * @param target
+     * @param editedEntry
+     */
+    @Override
+    public void setEntry(Entry target, Entry editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        addressBook.setEntry(target, editedEntry);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -135,10 +166,30 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    /**
+     * Returns an unmodifiable view of the filtered entry list
+     */
+    @Override
+    public ObservableList<Entry> getFilteredEntryList() {
+        return null;
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    /**
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredEntryList(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
+        filteredEntries.setPredicate(predicate);
     }
 
     @Override
