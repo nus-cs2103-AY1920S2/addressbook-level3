@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * @author AY1920S2-W15-2
  */
 
-public class AttributeList {
+public class AttributeList implements IList<Attribute> {
     private ArrayList<Attribute> attributes;
     private static final String DUPLICATE_MESSAGE = "There are multiple attributes with the same prefix.";
     private static final String NOT_FOUND_MESSAGE = "No attributes with the entered prefix.";
@@ -41,13 +41,13 @@ public class AttributeList {
      * @return The message outcome.
      */
 
-    public String addAttribute(String attributeName) {
+    public String add(String attributeName) throws IllegalValueException {
         try {
             Attribute attribute = new Attribute(attributeName);
             boolean isDuplicate = isDuplicate(attribute);
 
             if (isDuplicate) {
-                return "This attribute is already exists!";
+                throw new IllegalValueException("This attribute is already exists!");
             }
 
             attributes.add(attribute);
@@ -64,12 +64,8 @@ public class AttributeList {
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
 
-    public Attribute findAttribute(String attributePrefix) throws IllegalValueException {
-        try {
-            checkPrefix(attributePrefix);
-        } catch (IllegalValueException e) {
-            throw e;
-        }
+    public Attribute find(String attributePrefix) throws IllegalValueException {
+        checkPrefix(attributePrefix);
         return attributes.stream().filter(attribute -> attribute.toString().startsWith(attributePrefix))
                                   .findFirst()
                                   .get();
@@ -82,8 +78,8 @@ public class AttributeList {
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
 
-    private String deleteAttribute(String attributePrefix) throws IllegalValueException {
-        Attribute attribute = findAttribute(attributePrefix);
+    public String delete(String attributePrefix) throws IllegalValueException {
+        Attribute attribute = find(attributePrefix);
         attributes.remove(attribute);
         return String.format("Successfully removed %s", attribute);
     }
@@ -105,6 +101,6 @@ public class AttributeList {
         }
     }
     private boolean isDuplicate(Attribute attribute) {
-        return attributes.stream().noneMatch(attribute::equals);
+        return attributes.stream().anyMatch(attribute::equals);
     }
 }

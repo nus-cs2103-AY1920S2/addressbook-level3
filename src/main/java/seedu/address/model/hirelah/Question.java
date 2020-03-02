@@ -33,4 +33,11 @@ public class Question {
     public String toString() {
         return this.description;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Attribute // instanceof handles nulls
+                && description.equals(((Question) other).description)); // state check
+    }
 }

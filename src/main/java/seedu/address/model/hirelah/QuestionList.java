@@ -1,5 +1,7 @@
 package seedu.address.model.hirelah;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 import java.util.ArrayList;
 
 /*
@@ -20,7 +22,7 @@ import java.util.ArrayList;
  * @author AY1920S2-W15-2
  */
 
-public class QuestionList {
+public class QuestionList implements IList<Question> {
     private ArrayList<Question> questions;
 
     public QuestionList() {
@@ -31,7 +33,7 @@ public class QuestionList {
      * Lists all the questions that have been added.
      * @return The String represented the list.
      */
-    
+
     public String listQuestions() {
         String message = "";
 
@@ -43,5 +45,74 @@ public class QuestionList {
         }
 
         return message;
+    }
+
+    /**
+     * Adds the question to the list, if the input is valid.
+     * @param questionDescription The question.
+     * @return The outcome message.
+     * @throws IllegalValueException If the question already exists.
+     */
+    public String add(String questionDescription) throws IllegalValueException {
+        try {
+            Question question = new Question(questionDescription);
+            boolean isDuplicate = isDuplicate(question);
+
+            if (isDuplicate) {
+                return "This question is already exists!";
+            }
+
+            questions.add(question);
+            return String.format("Successfully added question: %s", question);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Finds the question based on its index, if the index
+     * string entered is a valid integer string.
+     * @param questionIndex The string index.
+     * @return The corresponding Question instance.
+     * @throws IllegalValueException If the questionIndex is not a number or the index is out of bound.
+     */
+    public Question find(String questionIndex) throws IllegalValueException {
+        try {
+            int index = Integer.parseInt(questionIndex);
+
+            if (index > questions.size() || index <= 0) {
+                throw new IllegalValueException("The index is out of bound");
+            }
+            return questions.get(index - 1);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("The input is not a number.");
+        }
+    }
+
+    /**
+     * Deletes the question based on its index, if the index
+     * string entered is a valid integer string.
+     * @param questionIndex The string index.
+     * @return The outcome message.
+     * @throws IllegalValueException If the questionIndex is not a number or the index is out of bound.
+     */
+    public String delete(String questionIndex) throws IllegalValueException {
+        try {
+            int index = Integer.parseInt(questionIndex);
+
+            if (index > questions.size() || index <= 0) {
+                throw new IllegalValueException("The index is out of bound");
+            }
+
+            Question question = questions.get(index - 1);
+            questions.remove(question);
+            return String.format("Successfully deleted question: %s", question);
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("The input is not a number.");
+        }
+    }
+
+    private boolean isDuplicate(Question question) {
+        return questions.stream().anyMatch(question::equals);
     }
 }
