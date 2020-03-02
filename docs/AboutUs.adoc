@@ -33,7 +33,7 @@ image::yechenchen.jpg[width="150", align="left"]
 {empty}[https://github.com/IYVVVVV[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: 
+Responsibilities:
 
 '''
 
