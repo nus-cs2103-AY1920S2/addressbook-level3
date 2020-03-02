@@ -12,10 +12,12 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
+
     public static final Prefix PREFIX_FOODNAME = new Prefix("fn/");
     public static final Prefix PREFIX_FOODTIME = new Prefix("ft/");
     public static final Prefix PREFIX_FOODLOCATION = new Prefix("fl/");
     public static final Prefix PREFIX_FOODWEIGHT = new Prefix("fw/");
+
     public static final Prefix PREFIX_ENTRYNAME = new Prefix("en/");
     public static final Prefix PREFIX_ENTRYTIME = new Prefix("et/");
     public static final Prefix PREFIX_ENTRYLOCATION = new Prefix("el/");

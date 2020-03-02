@@ -62,12 +62,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setEntry(List<Entry> entries) {
+        this.entries.setEntry(entries);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setEntry(newData.getEntryList());
     }
 
     //// person-level operations
@@ -78,6 +87,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return persons.contains(person);
+    }
+
+    /**
+     * Returns true if an entry with the same identity as {@code entry} exists in the log book.
+     */
+    public boolean hasEntry(Entry entry) {
+        requireNonNull(entry);
+        return entries.contains(entry);
     }
 
     /**
@@ -116,11 +133,30 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the given entry {@code target} in the list with {@code editedEntry}.
+     * {@code target} must exist in the log book.
+     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
+     */
+    public void setEntry(Entry target, Entry editedEntry) {
+        requireNonNull(editedEntry);
+
+        entries.setEntry(target, editedEntry);
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEntry(Entry key) {
+        entries.remove(key);
     }
 
     //// util methods
@@ -134,6 +170,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the entry list.
+     * This list will not contain any duplicate entries.
+     */
+    @Override
+    public ObservableList<Entry> getEntryList() {
+        return entries.asUnmodifiableObservableList();
     }
 
     @Override

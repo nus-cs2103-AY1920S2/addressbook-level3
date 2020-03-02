@@ -30,6 +30,18 @@ public class Entry {
         this.calorie = calorie;
     }
 
+    /**
+     * Every field must be present and not null.
+     */
+    public Entry(String name, String time, String location, String calorie, Remark remark) {
+        requireAllNonNull(name, location, time, calorie);
+        this.name = name;
+        this.location = location;
+        this.time = time;
+        this.calorie = calorie;
+        this.remark = remark;
+    }
+
     public String getName() {
         return name;
     }
