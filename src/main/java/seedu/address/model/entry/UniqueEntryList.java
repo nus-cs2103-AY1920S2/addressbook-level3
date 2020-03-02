@@ -77,10 +77,9 @@ public class UniqueEntryList implements Iterable<Entry> {
         if (!entriesAreUnique(entries)) {
             throw new DuplicateEntryException();
         }
-
         internalList.setAll(entries);
     }
-    
+
     /**
      * Removes the equivalent entry from the list.
      * The entry must exist in the list.
