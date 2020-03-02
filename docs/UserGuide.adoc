@@ -202,8 +202,8 @@ e.g. `add` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #0
 e.g. `clear` `-f`
 * *Delete* : `delete` `INDEX` +
 e.g. `delete` `2`
-* *Done* : `done` `TRANSACTION_ID` +
-e.g. `done` `0123456789`
+* *Done* : `done` `INDEX` +
+e.g. `done` `2`
 * *Edit* : `edit` `INDEX` `FIELD_TO_CHANGE` `CHANGES` +
 e.g. `edit` `2` `name` `Eng Xuan En`
 * *Exit* : `exit`
