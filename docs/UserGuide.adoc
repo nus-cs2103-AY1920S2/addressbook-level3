@@ -1,4 +1,5 @@
-= EYLAH - User Guide
+= EYELAH - User Guide
+
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,11 +15,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Mar 2020`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Ease Your Life At Halls (EYLAH) is for those who *prefer to use a desktop app to solve issues related to Halls of Residences in National University of Singapore (NUS)*. More importantly, EYLAH is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs and splitting the cost after each outing or late-night party session. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 
