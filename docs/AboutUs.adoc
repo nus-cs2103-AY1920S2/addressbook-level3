@@ -20,7 +20,7 @@ Responsibilities:
 '''
 
 === Lee Yue Tong
-image::YuuTon9.png[width="150", align="left"]
+image::yuuton9.png[width="150", align="left"]
 {empty}[https://github.com/YuuTon9[github]] [<<johndoe#, portfolio>>]
 
 Role: +
