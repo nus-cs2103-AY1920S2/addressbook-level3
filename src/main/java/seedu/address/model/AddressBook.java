@@ -5,6 +5,10 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.entry.Entry;
+import seedu.address.model.entry.UniqueEntryList;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +19,16 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueFoodList foods;
+    private final UniqueEntryList entries;
+
+    {
+        foods = new UniqueFoodList();
+    }
+
+    {
+        entries = new UniqueEntryList();
+    }
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -48,12 +62,32 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setEntry(List<Entry> entries) {
+        this.entries.setEntry(entries);
+    }
+
+    /**
+     * Replaces the given entry {@code target} in the list with {@code editedEntry}.
+     * {@code target} must exist in the log book.
+     * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
+     */
+    public void setEntry(Entry target, Entry editedEntry) {
+        requireNonNull(editedEntry);
+
+        entries.setEntry(target, editedEntry);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setEntry(newData.getEntryList());
     }
 
     //// person-level operations
@@ -67,11 +101,35 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if an entry with the same identity as {@code entry} exists in the log book.
+     */
+    public boolean hasEntry(Entry entry) {
+        requireNonNull(entry);
+        return entries.contains(entry);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds a food to the list.
+     * The food must not already exist in the list.
+     */
+    public void addFood(Food food) {
+        foods.add(food);
+    }
+
+    /**
+     * Adds an entry to the list.
+     * The entry must not already exist in the list.
+     */
+    public void addEntry(Entry entry) {
+        entries.add(entry);
     }
 
     /**
@@ -93,6 +151,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEntry(Entry key) {
+        entries.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -104,6 +170,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the entry list.
+     * This list will not contain any duplicate entries.
+     */
+    @Override
+    public ObservableList<Entry> getEntryList() {
+        return entries.asUnmodifiableObservableList();
     }
 
     @Override
