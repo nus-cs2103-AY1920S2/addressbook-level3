@@ -9,6 +9,7 @@ import static seedu.foodiebot.testutil.Assert.assertThrows;
 import static seedu.foodiebot.testutil.TypicalCanteens.DECK;
 import static seedu.foodiebot.testutil.TypicalCanteens.getTypicalFoodieBot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +21,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.exceptions.DuplicateCanteenException;
 import seedu.foodiebot.testutil.CanteenBuilder;
 
@@ -53,7 +55,7 @@ public class FoodieBotTest {
                 .withTags(VALID_TAG_ASIAN)
                 .build();
         List<Canteen> newCanteens = Arrays.asList(DECK, editedAlice);
-        FoodieBotStub newData = new FoodieBotStub(newCanteens);
+        FoodieBotStub newData = new FoodieBotStub(newCanteens, new ArrayList<>());
 
         assertThrows(DuplicateCanteenException.class, () -> foodieBot.resetData(newData));
     }
@@ -95,15 +97,22 @@ public class FoodieBotTest {
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
     private static class FoodieBotStub implements ReadOnlyFoodieBot {
-        private final ObservableList<Canteen> persons = FXCollections.observableArrayList();
+        private final ObservableList<Canteen> canteens = FXCollections.observableArrayList();
+        private final ObservableList<Stall> stalls = FXCollections.observableArrayList();
 
-        FoodieBotStub(Collection<Canteen> persons) {
-            this.persons.setAll(persons);
+        FoodieBotStub(Collection<Canteen> canteens, Collection<Stall> stalls) {
+            this.canteens.setAll(canteens);
+            this.stalls.setAll(stalls);
         }
 
         @Override
         public ObservableList<Canteen> getCanteenList() {
-            return persons;
+            return canteens;
+        }
+
+        @Override
+        public ObservableList<Stall> getStallList() {
+            return stalls;
         }
     }
 }

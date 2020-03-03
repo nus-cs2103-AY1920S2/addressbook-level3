@@ -14,6 +14,7 @@ import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
 
 public class AddCommandTest {
 
@@ -145,6 +146,27 @@ public class AddCommandTest {
         @Override
         public void updateFilteredCanteenList(Predicate<Canteen> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Stall> getFilteredStallList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Stall> getFilteredStallList(boolean isInitialised) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
+         *
+         * @param predicate
+         * @throws NullPointerException if {@code predicate} is null.
+         */
+        @Override
+        public void updateFilteredStallList(Predicate<Stall> predicate) {
+
         }
     }
 

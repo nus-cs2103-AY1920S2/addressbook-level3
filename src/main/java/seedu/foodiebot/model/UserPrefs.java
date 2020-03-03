@@ -12,7 +12,9 @@ import seedu.foodiebot.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data", "foodiebot.json");
+    private Path foodieBotFilePath = Paths.get("foodiebot.json");
+    private Path stallsFilePath = Paths.get("foodiebot-stalls.json");
+
 
     /** Creates a {@code UserPrefs} with default values. */
     public UserPrefs() {}
@@ -40,12 +42,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getFoodieBotFilePath() {
-        return addressBookFilePath;
+        return foodieBotFilePath;
     }
 
-    public void setFoodieBotFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public Path getStallsFilePath() {
+        return stallsFilePath;
+    }
+
+    public void setFoodieBotFilePath(Path foodieBotFilePath) {
+        requireNonNull(foodieBotFilePath);
+        this.foodieBotFilePath = foodieBotFilePath;
     }
 
     @Override
@@ -60,19 +66,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && foodieBotFilePath.equals(o.foodieBotFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, foodieBotFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + foodieBotFilePath);
         return sb.toString();
     }
 }

@@ -15,17 +15,18 @@ import seedu.foodiebot.model.canteen.Canteen;
 
 /** An Immutable AddressBook that is serializable to JSON format. */
 @JsonRootName(value = "canteens")
-class JsonSerializableAddressBook {
+class JsonSerializableFoodieBot {
 
     public static final String MESSAGE_DUPLICATE_CANTEEN =
             "Canteens list contains duplicate canteen(s).";
 
     private final List<JsonAdaptedCanteen> canteens = new ArrayList<>();
+    private final List<JsonAdaptedCanteen> stalls = new ArrayList<>();
 
-    /** Constructs a {@code JsonSerializableAddressBook} with the given persons. */
+    /** Constructs a {@code JsonSerializableAddressBook} with the given canteens. */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("canteens") List<JsonAdaptedCanteen> persons) {
-        this.canteens.addAll(persons);
+    public JsonSerializableFoodieBot(@JsonProperty("canteens") List<JsonAdaptedCanteen> canteens) {
+        this.canteens.addAll(canteens);
     }
 
     /**
@@ -34,7 +35,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code
      *     JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyFoodieBot source) {
+    public JsonSerializableFoodieBot(ReadOnlyFoodieBot source) {
         canteens.addAll(
                 source.getCanteenList().stream()
                         .map(JsonAdaptedCanteen::new)

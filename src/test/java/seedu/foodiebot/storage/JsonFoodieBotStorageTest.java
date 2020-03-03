@@ -32,7 +32,7 @@ public class JsonFoodieBotStorageTest {
     private java.util.Optional<ReadOnlyFoodieBot> readAddressBook(String filePath)
         throws Exception {
         return new JsonFoodieBotStorage(Paths.get(filePath))
-            .readFoodieBot(addToTestDataPathIfNotNull(filePath));
+            .readFoodieBot(addToTestDataPathIfNotNull(filePath), "Canteen");
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -74,21 +74,21 @@ public class JsonFoodieBotStorageTest {
         JsonFoodieBotStorage jsonAddressBookStorage = new JsonFoodieBotStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyFoodieBot readBack = jsonAddressBookStorage.readFoodieBot(filePath).get();
+        jsonAddressBookStorage.saveFoodieBot(original, "Canteen");
+        ReadOnlyFoodieBot readBack = jsonAddressBookStorage.readFoodieBot("Canteen").get();
         assertEquals(original, new FoodieBot(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.removeCanteen(NUSFLAVORS);
         original.addCanteen(NUSFLAVORS);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readFoodieBot(filePath).get();
+        jsonAddressBookStorage.saveFoodieBot(original, "Canteen");
+        readBack = jsonAddressBookStorage.readFoodieBot("Canteen").get();
         assertEquals(original, new FoodieBot(readBack));
 
         // Save and read without specifying file path
         //original.addCanteen(DECK);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readFoodieBot().get(); // file path not specified
+        jsonAddressBookStorage.saveFoodieBot(original); // file path not specified
+        readBack = jsonAddressBookStorage.readFoodieBot("Canteen").get(); // file path not specified
         assertEquals(original, new FoodieBot(readBack));
     }
 
@@ -103,7 +103,7 @@ public class JsonFoodieBotStorageTest {
     private void saveAddressBook(ReadOnlyFoodieBot addressBook, String filePath) {
         try {
             new JsonFoodieBotStorage(Paths.get(filePath))
-                .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                .saveFoodieBot(addressBook, addToTestDataPathIfNotNull(filePath), "Canteen");
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

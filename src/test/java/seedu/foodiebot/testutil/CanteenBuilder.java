@@ -87,6 +87,16 @@ public class CanteenBuilder {
         return this;
     }
 
+
+    /**
+     * Sets the {@code imageName} of the {@code Canteen} that we are building.
+     */
+    public CanteenBuilder withDirectionsImage(String directionsImageName) {
+        this.directionsImageName = directionsImageName;
+        return this;
+    }
+
+
     /**
      * Sets the {@code directions} of the {@code Canteen} that we are building.
      */

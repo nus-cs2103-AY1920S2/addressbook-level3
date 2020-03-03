@@ -8,17 +8,34 @@ import javafx.collections.ObservableList;
 
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.commons.core.LogsCenter;
+import seedu.foodiebot.logic.commands.BudgetCommand;
+import seedu.foodiebot.logic.commands.ClearCommand;
 import seedu.foodiebot.logic.commands.Command;
 import seedu.foodiebot.logic.commands.CommandResult;
+import seedu.foodiebot.logic.commands.EnterCanteenCommand;
+import seedu.foodiebot.logic.commands.ExitCommand;
+import seedu.foodiebot.logic.commands.FavoritesCommand;
+import seedu.foodiebot.logic.commands.FindCommand;
+import seedu.foodiebot.logic.commands.FoodMenuCommand;
+import seedu.foodiebot.logic.commands.GoToCanteenCommand;
+import seedu.foodiebot.logic.commands.HelpCommand;
+import seedu.foodiebot.logic.commands.ListCommand;
+import seedu.foodiebot.logic.commands.RandomizeCommand;
+import seedu.foodiebot.logic.commands.ReportCommand;
+import seedu.foodiebot.logic.commands.TransactionsCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.logic.parser.FoodieBotParser;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.storage.Storage;
 
-/** The main LogicManager of the app. */
+/**
+ * The main LogicManager of the app.
+ */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -42,7 +59,8 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getFoodieBot());
+            storage.saveFoodieBot(model.getFoodieBot(),
+                mapCommandToModelName(commandResult.commandName));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -50,8 +68,59 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    /**
+     * Maps the command to the relevant model for storage
+     */
+    public String mapCommandToModelName(String commandName) {
+        switch (commandName) {
+        case GoToCanteenCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD:
+            return Canteen.class.getSimpleName();
+
+        case EnterCanteenCommand.COMMAND_WORD:
+            return Stall.class.getSimpleName();
+
+        case FoodMenuCommand.COMMAND_WORD:
+            return Food.class.getSimpleName();
+
+        case BudgetCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case ReportCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case RandomizeCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case FavoritesCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case TransactionsCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case ClearCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case FindCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case ExitCommand.COMMAND_WORD:
+            //TODO Not Implemented
+
+        case HelpCommand.COMMAND_WORD:
+            //TODO Not Implemented
+        default:
+            return "";
+        }
+    }
+
+    /**
+     * Returns the FoodieBot.
+     *
+     * @see Model#getFoodieBot()
+     */
     @Override
-    public ReadOnlyFoodieBot getAddressBook() {
+    public ReadOnlyFoodieBot getFoodieBot() {
         return model.getFoodieBot();
     }
 
@@ -74,5 +143,14 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<Stall> getFilteredStallList(boolean isInitialised) {
+        return model.getFilteredStallList(isInitialised);
+    }
+
+    public ObservableList<Stall> getFilteredStallList() {
+        return model.getFilteredStallList();
     }
 }

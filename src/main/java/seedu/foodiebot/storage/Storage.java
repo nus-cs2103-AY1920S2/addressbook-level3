@@ -18,12 +18,10 @@ public interface Storage extends FoodieBotStorage, UserPrefsStorage {
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Override
-    Path getAddressBookFilePath();
+    Path getFoodieBotFilePath();
+
+
 
     @Override
-    Optional<ReadOnlyFoodieBot> readFoodieBot() throws DataConversionException, IOException;
-
-    @Override
-    void saveAddressBook(ReadOnlyFoodieBot addressBook) throws IOException;
+    void saveFoodieBot(ReadOnlyFoodieBot addressBook) throws IOException;
 }

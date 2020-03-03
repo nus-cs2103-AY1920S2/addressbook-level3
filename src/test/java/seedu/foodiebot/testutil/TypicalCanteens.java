@@ -21,15 +21,17 @@ public class TypicalCanteens {
             + "3. Walk straight and the canteen appears to your right";
     // Manually added
     public static final Canteen DECK =
-        new CanteenBuilder().withName("The Deck").withNumberOfStalls(2)
-            .withDistance(800).withNearestBlock("COM1")
+        new CanteenBuilder().withName("The Deck")
+            .withDistance(800).withNumberOfStalls(2).withNearestBlock("COM1")
             .withImage("deck.jpg")
+            .withDirectionsImage("com1_deck.png")
             .withDirections(COM1_TO_DECK_DIRECTIONS)
             .withTags("asian").build();
     public static final Canteen NUSFLAVORS =
         new CanteenBuilder().withName("Nus Flavors").withNumberOfStalls(2)
             .withDistance(3200).withNearestBlock("COM1")
             .withImage("utown.jpg")
+            .withDirectionsImage("utown_flavors.png")
             .withDirections(COM1_TO_NUSFLAVORS_DIRECTIONS)
             .withTags("muslim", "asian", "western").build();
 

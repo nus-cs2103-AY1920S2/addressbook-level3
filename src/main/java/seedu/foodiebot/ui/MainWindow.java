@@ -16,6 +16,7 @@ import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.logic.Logic;
 import seedu.foodiebot.logic.commands.CommandResult;
 import seedu.foodiebot.logic.commands.DirectionsCommandResult;
+import seedu.foodiebot.logic.commands.EnterCanteenCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private DirectionsToCanteenPanel directionsToCanteenPanel;
+    private boolean isStallInitialised;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -46,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane listPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -67,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        isStallInitialised = false;
 
     }
 
@@ -118,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         canteenListPanel = new CanteenListPanel(logic.getFilteredCanteenList());
-        personListPanelPlaceholder.getChildren().add(canteenListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(canteenListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -160,8 +164,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     public void handleGoToCanteen() {
         directionsToCanteenPanel = new DirectionsToCanteenPanel();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(directionsToCanteenPanel.getRoot());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(directionsToCanteenPanel.getRoot());
     }
 
     /**
@@ -169,8 +173,19 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleListCanteens() {
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(new CanteenListPanel(logic.getFilteredCanteenList()).getRoot());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(new CanteenListPanel(logic.getFilteredCanteenList()).getRoot());
+    }
+
+    /**
+     * Fills the stallListPanel region.
+     */
+    @FXML
+    public void handleListStalls() {
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(new StallsListPanel(logic.getFilteredStallList(isStallInitialised))
+                .getRoot());
+        isStallInitialised = true;
     }
 
 
@@ -218,6 +233,9 @@ public class MainWindow extends UiPart<Stage> {
             switch (commandResult.commandName) {
             case ListCommand.COMMAND_WORD:
                 handleListCanteens();
+                break;
+            case EnterCanteenCommand.COMMAND_WORD:
+                handleListStalls();
                 break;
             default:
                 break;
