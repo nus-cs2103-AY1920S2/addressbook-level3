@@ -44,8 +44,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Reminders
 
-Adds a reminder task that will take a date and time. + 
-When the time has arrived, a pop up will appear reminding the user to complete the task. + 
+Adds a reminder task that will take a date and time. +
+When the time has arrived, a pop up will appear reminding the user to complete the task. +
 
 Format: `reminder <description> /at yyyy-mm-ddThh-mm-ss`
 
