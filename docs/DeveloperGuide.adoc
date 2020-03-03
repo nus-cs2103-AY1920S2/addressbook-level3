@@ -297,26 +297,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Temasek Hall resident |want to keep track of my expenses accurately |calculate the exact amount I should collect from my friends after each time we split a meal
 
 |`* * *` |healthy hall resident who is trying to lose weight |check how many calories I took today |keep track of my calories intake and weight
 
 |`* * *` |Temasek hall resident who frequents supper food spots |split the bill easily with fellow mates| ensure that the amount is correctly accounted for
 
 |`* * *` |Temasek Hall resident who wants to stay healthy |keep track of my calories |more accurately watch my weight
+
+|`*` |Temasek Hall leader |keep track of my committee events |know if things are going according to schedule
+
+|`*` |Temasek Hall exchange student |to have a translation for Singaporean lingo |better understand the language my friends speak in hall
+
+|`*` |Temasek Hall sports captain |to keep track of the various attendances for my training |know who usually attends training and who does not
+
+|`*` |Temasek Hall leader |to keep track of my committee events |ensure things run smoothly
+
+|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date.
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
