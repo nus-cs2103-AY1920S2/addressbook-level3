@@ -1,5 +1,4 @@
 = EYELAH - User Guide
-
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -47,9 +46,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addperson -n NAME`, `NAME` is a parameter which can be used as `addperson -n John Doe`.
+* Items in square brackets are optional e.g `-n NAME [-r ROOM]` can be used as `-n John Doe -r D411` or as `-n John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[-n NAME]...` can be used as `{nbsp}` (i.e. 0 times), `-n John Doe`, `-n John Doe -n Daniel` etc.
 ====
 
 === Viewing help : `help`
@@ -88,7 +87,7 @@ NOTE: Weight in kilograms (kg), rounded to nearest kilogram
 
 
 ==== Add food `add`
-Adds food to the list
+Adds food to the list.
 
 Format: `add food CALORIES` +
 Example: `add Fishball Noodles 383`
@@ -107,7 +106,26 @@ Example: `list -t 3`
 
 
 === Expense Splitter : `split`
+Splitting the food cost with friends. Add person and item, then calculate.
 
+==== Add person `person`
+Add new person to the list of people involved in the splitting.
+
+Format: +
+`addperson -n NAME [-r ROOM] [-t TELEGRAM] [-p PHONE]` +
+Example: +
+`addperson -n john -r D411 -t @john -p 91234567`  +
+`addperson -daniel`
+
+==== Add food `addfood`
+Add food and the person involved in the splitting.
+
+Format: +
+`addfood -f FOOD -c COST -n ALL` +
+`addfood -f FOOD -c COST -n NAME [-n NAME]...` +
+Example: +
+`addfood -f pizza -c 30 -n all` +
+`addfood -f pasta -c 6 -n john -n bob -n daniel`
 
 === Clearing all entries : `clear`
 
