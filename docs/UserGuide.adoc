@@ -165,6 +165,31 @@ Example:
 * `sell g/apple q/4 d/2030-01-05` +
 Sells 4 apples at the above date.
 
+=== Listing all goods: `list-i`
+
+Lists all goods in the inventory. +
+Format: `list-i`
+
+=== Listing all expiring goods: `list-e`
+
+Lists all expiring goods batches in the inventory. +
+Format: `list-e`
+
+=== Listing all transaction-history: `list-t`
+
+Displays all the transactions (buy and sell orders) in the past, in reverse chronological order. +
+Format: `list-t`
+
+=== Sourcing suppliers for a particular goods: `source`
+
+Displays all the suppliers selling the specified goods, sorted in increasing price. +
+Format: `source g/GOOD_NAME`
+
+=== List goods in low in quantity: `list-l`
+
+Displays all items that have fallen below their respective minimum quantity thresholds in the inventory. +
+Format: `list-l`
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -202,4 +227,9 @@ e.g. `find James Jake`
 e.g. `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03`
 * *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
 e.g. `sell g/apple q/4 d/2030-01-05`
+* *List goods*: `list-i`
+* *List goods low in quantity*: `list-l`
+* *List expiring goods*: `list-e`
+* *List supplier for a goods*: `source`
+* *List transaction history*: `list-t`
 * *Help* : `help`
