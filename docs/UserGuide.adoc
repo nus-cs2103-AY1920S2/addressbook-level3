@@ -57,7 +57,7 @@ Format: `help`
 
 === Diet Tracker : `diet`
 
-Tracks our daily calories intake. Add food, then calculate.
+Tracks our daily calories intake. Add food, then calculate
 
 ==== Dieting Mode `mode`
 Allows users to decide which dieting mode they want, based on the following modes: +
