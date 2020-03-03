@@ -327,30 +327,184 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Diet Tracker Use Cases
 
 [discrete]
-=== Use case: Add Person
+=== Use case: UC01 Update User Profile
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User chooses dieting mode (i.e. Weight Loss, Weight Gain, Maintain)
+2.  EYLAH updates users' dieting mode
+3.  User updates height
+4.  EYLAH updates height of user
+5.  User updates weight
+6.  EYLAH updates weight of user
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The flag field for dieting mode is empty or flag is invalid.
+** 1a1. EYLAH requests user to re-enter command with flag
+** 1a2. User enters command with flag +
+Steps 1a1-1a2 are repeated until the correct entered is correct. +
+Use case resumes from step 3.
+
+* 3a. Height field is empty or in invalid format.
+** 3a1. EYLAH requests user to re-enter height in correct format
+** 3a2. User enters command with height in correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use case resumes from step 5.
+
+* 5a. Weight field is empty or in invalid format.
+** 5a1. EYLAH requests user to re-enter weight in correct format
+** 5a2. User enters command with weight in correct format +
+Steps 5a1-5a2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+[discrete]
+=== Use case: UC02 Add Food Item
+
+*MSS*
+
+1.  User adds food item
+2.  EYLAH adds food item to user's log
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1a. The food item is added in an invalid format or certain fields are missing.
+** 1a1. EYLAH requests user to re-enter food item in valid format.
+** 1a2. User enters command in the correct format as requested by EYLAH +
+Steps 1a1-1a2 are repeated until the correct entered is correct. +
+Use case ends.
+
+[discrete]
+=== Use case: UC03 Delete Food Item
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
+3.  User deletes item by index
+4.  EYLAH deletes item tagged to specified index
 +
-Use case resumes at step 2.
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
+
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+[discrete]
+=== Use case: UC04 Edit Food Item
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
+3.  User edits item by index
+4.  EYLAH edits the data of the item stored at the index.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
+
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+* 3b. No additional tags and data keyed in as flags to replace existing data.
+** 3b1. EYLAH requests user to re-enter command with at least one flag
+** 3a2. User enters command with flag and data +
+Steps 3b1-3b2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+[discrete]
+=== Use case: UC05 List Food Items
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
+3.  User deletes item by index
+4.  EYLAH deletes item tagged to specified index
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
+
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use ends.
+
+[discrete]
+=== Use case: UC06 Calories count
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
+3.  User deletes item by index
+4.  EYLAH deletes item tagged to specified index
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
+
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use case ends.
+
+[discrete]
+=== Use case: UC07 Calculate BMI
+
+*MSS*
+
+1.  User lists out existing items
+2.  EYLAH shows the list based on flags entered
+3.  User deletes item by index
+4.  EYLAH deletes item tagged to specified index
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. List command contains invalid flag.
+** 1a1. EYLAH prints out default list which contains food logged for the day
+
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
+Use case ends.
 
 [discrete]
 === Expense Splitter Use Cases
