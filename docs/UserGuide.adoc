@@ -264,25 +264,26 @@ _{explain how the user can keep track of their work schedule}_
 
 == Command Summary
 
-* *Add* : `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+* <<add, *Add*>> : `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
 e.g. `add` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `ts/2020-02-20 1300` `w/Yishun industry` `pm/cash` `c/please knock the door three times :D` `type/heavy`
-* *Clear* : `clear` `[FLAG]` +
+* <<clear, *Clear*>> : `clear` `[FLAG]` +
 e.g. `clear` `-f`
-* *Delete* : `delete` `INDEX` +
+* <<delete, *Delete*>> : `delete` `INDEX` +
 e.g. `delete` `2`
-* *Done* : `done` `INDEX` +
+* <<done, *Done*>> : `done` `INDEX` +
 e.g. `done` `2`
-* *Edit* : `edit` `INDEX` `PREFIX/VALUE` +
+* <<edit, *Edit*>> : `edit` `INDEX` `PREFIX/VALUE` +
 e.g. `edit` `2` `n/Xuan En`
-* *Exit* : `exit`
-* *Find* : `find` `flag` `KEYWORD` +
+* <<exit, *Exit*>> : `exit`
+* <<find, *Find*>> : `find` `flag` `KEYWORD` +
 e.g. `find` `-t` `ac1e345x7s`
-* *Help* : `help`
-* *Import* : `import` `FILE_NAME` +
+* <<help, *Help*>> : `help`
+* <<import, *Import*>> : `import` `FILE_NAME` +
 e.g. `import` `orders.csv`
-* *List* : `list` `[DONE_STATUS]` +
+* <<list, *List*>> : `list` `[DONE_STATUS]` +
 e.g. `list` `done`
-* *Return* : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
 e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `ts/12-12-2020` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass`
-* *Sort* : `sort` `FLAG` `NAME/TIMESTAMP/TRANSACTION_ID` +
+* <<sort, *Sort*>> : `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
 e.g. `sort` `-d` `ts/`
+* <<undo, *Undo*>> : `undo`
