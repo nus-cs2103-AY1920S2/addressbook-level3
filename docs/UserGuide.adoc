@@ -192,9 +192,9 @@ For security concerns, all data will be encrypted by default.
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
 * *Clear suppliers* : `clear-s`
 * *Delete supplier* : `delete-s INDEX` +
-e.g. `delete 3`
-* *Edit supplier* : `edit-s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
+e.g. `delete-s 3`
+* *Edit supplier* : `edit-s INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [gp/GOOD PRICE]...` +
+e.g. `edit-s 2 n/James Lee e/jameslee@example.com`
 * *Find supplier* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List supplier* : `list-s`
