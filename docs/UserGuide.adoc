@@ -42,6 +42,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+=== Reminders
+
+Adds a reminder task that will take a date and time. +
+When the time has arrived, a pop up will appear reminding the user to complete the task. +
+
+Format: `reminder <description> /at yyyy-mm-ddThh-mm-ss`
+
+A reminder can also be added to an existing task, just specify the task index instead of the description.
+
+Format: `reminder <index> /at yyyy-mm-ddThh-mm-ss`
+
 ====
 *Command Format*
 
