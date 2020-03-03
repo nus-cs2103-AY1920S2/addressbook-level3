@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Delino - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,17 +14,23 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
+This user guide provides in-depth documentation on the Delino desktop application:
+quick start guide, features, FAQ, command summary, and glossary.
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Delino is for couriers who *prefer to use a desktop app for managing their delivery tasks*.
+It is *optimised for those who have a strong preference towards Command Line Interface* (CLI)
+while still enjoying the benefits of a Graphical User Interface (GUI).
+Sounds interesting? Have a quick look at our tutorial <<Quick Start>> to get started.
+Have a delightful journey using Delino!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `Delino.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Delino.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,12 +39,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* <<list, `list`>> : lists all orders to be delivered.
+* <<add, `add`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
+* <<delete, `delete`>> `3` : deletes the 3rd delivery order shown in the current list
+* <<exit, `exit`>> : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for a more detailed explanation of each command.
 
 [[Features]]
 == Features
@@ -52,10 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
-
-Format: `help`
-
+[[add]]
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -69,115 +72,250 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+[[clear]]
+=== Clearing all entries : `clear`
 
-Shows a list of all persons in the address book. +
-Format: `list`
-
-// tag::return[]
-=== Returning an order : `return`
-
-Adds a particular order as a return parcel into a new list +
+==== Description
+* You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
+If an additional flag is given -f, no user confirmation will be requested.
 
 ==== Format:
-`return` `TRANSACTION_ID` `NAME` `ADDRESS` `PHONE NUMBER` `TIMESTAMP` `WAREHOUSE LOCATION` +
-`PAYMENT METHOD` `[COMMENTS_BY_CUSTOMER]` `[TYPE_OF_ITEM]`
+* `clear` `[FLAG]`
+
+==== Examples
+* `clear`
+* `clear` `-f`
+
+// tag::delete[]
+[[delete]]
+=== Deleting an order : `delete`
+==== Description
+You can use this command to delete a particular order from the current list of orders based on its index. +
+
+==== Format:
+`delete` `INDEX`
 
 ****
-* Adds the specified order with the transaction id as a return parcel into a new list of returns.
-* The transaction id refers to the transaction id shown in the specified customer order.
-* The transaction id *must be in valid format; can be numeric or alphanumeric*
+* Deletes the order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed order list.
+* The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 ==== Examples:
 
-* `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass` +
-Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
+* `list` +
+`delete` `2` +
+Deletes the 2nd order.
+* `find` `-n` `Betsy` +
+`delete` `1` +
+Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
 
-// end::return[]
+// end::delete[]
+[[done]]
+=== Mark order as done: `done`
+==== Description
+Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
+The order that is marked as done will be moved to another list that contains all the orders that are completed.
+The completed list can be seen by calling the list command:`list` `done`.
 
-=== Editing a person : `edit`
+==== Format
+`done` `INDEX`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Examples
+* `done` `1` +
+The order at the first index of the list is marked as done.
+* `done` `2` +
+The order at the second index of the list is marked as done.
+
+[[edit]]
+=== Editing an order : `edit`
+
+==== Description
+
+* You can edit the details of the delivery order by providing the index of it shown on the status bar, followed by the field you want to change and lastly the updated value.
+
+==== Format
+
+[TIP]
+Use the <<list, `list`>> command to see which delivery order you want to edit.
+
+* `edit` `INDEX` `<<sort, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE`
+
+[WARNING]
+The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Edits the order at the specified `INDEX`.
+* Existing value that corresponds to the `PREFIX` will be updated to the input `NEW_VALUE`.
 ****
 
-Examples:
+==== Examples
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit` `1` `n/Xuan En` +
+The index `1` customer's name is changed to `Xuan En`.
+* `edit` `2` `p/9999 4444` +
+The index `2` customer's phone number is changed to `9999 4444`.
+* `edit` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+The index `1` customer's address is changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
+* `edit` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141` +
+The index `3` customer's name, phone and address are changed accordingly to the prefix.
 
-=== Locating persons by name: `find`
+[[exit]]
+=== Exiting the program : `exit`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Description
+* You can exit the application using exit command.
+
+==== Format:
+* `exit`
+
+[[find]]
+=== Locating orders by name or transaction ID: `find`
+
+==== Description
+
+* You can find all orders that contain a given keyword. The orders will be searched by a given flag. If the flag is `-n`, the orders will be searched by *name*. If the flag is `-t`, the orders will be searched by their *transaction ID*. The list of orders returned will not be sorted by default.
+
+==== Format
+* `find` `FLAG` `KEYWORD` `[MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The delivery orders can only be searched by either name of receiver or transaction ID of the order.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
-Examples:
+==== Examples
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find -n Jeremy Loh` +
+Possibly return `jeremy` or `Jeremy Loh` or `loh` or any of the above as long as keyword appears in name.
+* `find -t asj2od3943` +
+Return delivery order with transaction ID of `asj2od3943`
+* find -t 920392844 +
+Return delivery order with transaction ID of `920392844`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+[[help]]
+=== Viewing help : `help`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `help`
+
+[[import]]
+=== Importing a list of orders : `import`
+==== Description
+You will be able to import orders via csv file that are given to you by your company.
+The CSV file will include all relevant and important details of the parcels; such as the customers’ names,
+transaction id of the parcels and the address of the customers, etc. +
+
+==== Format
+* `import` `FILE_NAME`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Only csv file could be imported.
+* Only *one* csv file can be imported at one time.
+* The FILE_NAME should include the extension. For example: *orders.csv*.
+* The folder, *data*, which the csv files are stored should be at the same directory as the JAR file.
+* Import the specific csv with the FILE_NAME in *data* folder to the application.
 ****
 
-Examples:
+==== Examples
 
+* `import` `orders.csv` +
+Import the contents of the csv file, `orders.csv`, to Delino.
+
+[[list]]
+=== Listing orders : `list`
+
+==== Description
+* You can request to list the delivery order to see.
+The done status of the delivery order will be used to list the delivery orders which have the same status.
+There are three types of list commands that are shown in the examples below.
+
+==== Format
+`list` `[DONE/UNDONE]` +
+
+=== Examples
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+List down all the orders, regardless of whether its completed or uncompleted.
+* `list` `done` +
+List down all the orders that are completed.
+* `list` `undone` +
+List down all the orders that are uncompleted.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+[[sort]]
+=== Sorting orders: `sort`
+==== Description
+You can sort the orders based on their attributes *(given in prefix form)*.
+An additional flag can be provided *(-a or -d)* can be used to sort the delivery
+orders in ascending/descending order. +
+If no additional flag is provided, the orders will be sorted in *ascending order*.
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Format
+`sort` `[ORDER FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
 
-=== Exiting the program : `exit`
+[IMPORTANT]
+====
+`ORDER_ATTRIBUTE_PREFIX` *must* be one of the following:
 
-Exits the program. +
-Format: `exit`
+* `a/` - Address
+* `n/` - Name
+* `p/` - Phone Number
+* `pm/` - Payment Method
+* `tid/` - Transaction ID
+* `ts/` - Timestamp
+* `w/` - Warehouse Location
+====
+
+****
+*ORDER FLAG*  can be either +
+*-d* (descending order) or +
+*-a* (ascending order).
+****
+
+==== Examples
+* `sort` `ts/` +
+You will sort the orders in ascending order based on the timestamp of the orders.
+* `sort` `-a` `n/` +
+You will sort the orders in ascending order based on the names of the customers.
+* `sort` `-d` `ts/` +
+You will sort the orders in descending order based on the timestamp of the orders.
+* `sort` `-d` `tid/` +
+You will sort the orders in descending order based on the transaction id of the orders.
+
+[[undo]]
+=== Undo the previous action: `undo`
+==== Description
+You can use the `undo` command to revert the most recent action that was previously executed.
+For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
+back to the list of orders.
+
+==== Format
+`undo`
+
+==== Example
+* `list` +
+`delete` `1` +
+`delete` `2` +
+`undo` +
+The list will be reverted back to the state after the second command `delete` `1`.
 
 === Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+==== Description
+* Data is saved in the hard disk automatically after any command that changes data that is present. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Export order list `[coming in v2.0]`
+_{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Reminder `[coming in v2.0]`
+_{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
+
+=== Rescheduling orders `[coming in v2.0]`
+_{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
+
+=== Keeping track of work schedule `[coming in v2.0]`
+_{explain how the user can keep track of their work schedule}_
 
 == FAQ
 
@@ -186,16 +324,26 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Return* : `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/TIMESTAMP w/WAREHOUSE ADDRESS pm/PAYMENT METHOD [c/COMMENTS] [type/ITEM TYPE]` +
-e.g. `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass`
-* *Help* : `help`
+* <<add, *Add*>> : `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+e.g. `add` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `ts/2020-02-20 1300` `w/Yishun industry` `pm/cash` `c/please knock the door three times :D` `type/heavy`
+* <<clear, *Clear*>> : `clear` `[FLAG]` +
+e.g. `clear` `-f`
+* <<delete, *Delete*>> : `delete` `INDEX` +
+e.g. `delete` `2`
+* <<done, *Done*>> : `done` `INDEX` +
+e.g. `done` `2`
+* <<edit, *Edit*>> : `edit` `INDEX` `PREFIX/VALUE` +
+e.g. `edit` `2` `n/Xuan En`
+* <<exit, *Exit*>> : `exit`
+* <<find, *Find*>> : `find` `flag` `KEYWORD` +
+e.g. `find` `-t` `ac1e345x7s`
+* <<help, *Help*>> : `help`
+* <<import, *Import*>> : `import` `FILE_NAME` +
+e.g. `import` `orders.csv`
+* <<list, *List*>> : `list` `[DONE_STATUS]` +
+e.g. `list` `done`
+* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `ts/12-12-2020` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass`
+* <<sort, *Sort*>> : `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
+e.g. `sort` `-d` `ts/`
+* <<undo, *Undo*>> : `undo`
