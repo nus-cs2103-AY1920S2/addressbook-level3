@@ -35,6 +35,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.remark = remark;
+
         this.tags.addAll(tags);
     }
 
