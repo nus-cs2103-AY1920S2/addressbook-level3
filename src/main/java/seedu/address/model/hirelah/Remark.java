@@ -58,4 +58,23 @@ public class Remark {
     public Question getQuestion() {
         return question;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof Remark) {
+            Remark otherRemark = ((Remark) other);
+            if (question == null || otherRemark.getQuestion() == null) {
+                return question == otherRemark.getQuestion();
+            }
+            else {
+                return time.equals(otherRemark.time)
+                        && message.equals(otherRemark.message)
+                        && question.equals(otherRemark.question);
+            }
+        } else {
+            return false;
+        }
+    }
 }

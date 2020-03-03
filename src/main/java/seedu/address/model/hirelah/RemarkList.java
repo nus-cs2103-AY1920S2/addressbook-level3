@@ -13,6 +13,7 @@ import static java.util.Objects.requireNonNull;
  * Some remarks are associated with a question, as it is part of the answer to a question, and some remarks do not.
  * Both are able to be inserted to this remark list. Once a remark has been added, it cannot be removed from the list.
  * An interview session always have a start remark and an end remark, thus it minimally has 2 {@code Remark} objects.
+ * It is assumed that there are no 2 Remarks at any particular time.
  *
  * Supports a minimal set of list operations.
  *
@@ -36,8 +37,10 @@ public class RemarkList {
      */
     public void add(Remark toAdd) {
         requireNonNull(toAdd);
-        if (!questionToRemarkMap.containsKey(toAdd.getQuestion())) {
-            questionToRemarkMap.put(toAdd.getQuestion(), toAdd.getTime());
+        if (toAdd.getQuestion()!=null) {
+            if (!questionToRemarkMap.containsKey(toAdd.getQuestion())) {
+                questionToRemarkMap.put(toAdd.getQuestion(), toAdd.getTime());
+            }
         }
         remarks.add(toAdd);
     }
@@ -79,7 +82,7 @@ public class RemarkList {
      * @return The duration of the interview session in milliseconds.
      */
     public long getInterviewDurationInMs() {
-        long interviewDuration = Duration.between(getLastRemarkTime(), getStartRemarkTime()).getSeconds() * 1000;
+        long interviewDuration = Duration.between(getStartRemarkTime(), getLastRemarkTime()).getSeconds() * 1000;
         return interviewDuration;
     }
 
@@ -127,11 +130,13 @@ public class RemarkList {
      * was first given association to a {@code Remark} as its answer.
      *
      * @param question Question that are queried.
-     * @return The {@code Instant} when this question
-     * was first associated with a {@code Remark}.
+     * @return The {@code Remark} that was
+     * was first associated with this {@code Question}.
      */
-    public Instant getTimeOfQuestionInMs (Question question) {
-        return questionToRemarkMap.get(question);
+    public Remark getRemarkOfQuestion(Question question) {
+        Instant startOfQuestion = questionToRemarkMap.get(question);
+        System.out.println(Duration.between(getStartRemarkTime(), startOfQuestion));
+        return getRemarkAtTime(Duration.between(getStartRemarkTime(), startOfQuestion).toMillis());
     }
 
 }

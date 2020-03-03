@@ -36,7 +36,7 @@ class RemarkListTest {
         RemarkList actualRemarks = new RemarkList();
         actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
         actualRemarks.add(RemarkTest.remarkAtLaterInstant);
-        assertEquals(RemarkTest.defaultLaterInstant, actualRemarks.getStartRemarkTime());
+        assertEquals(RemarkTest.defaultLaterInstant, actualRemarks.getLastRemarkTime());
     }
 
     @Test
@@ -76,10 +76,6 @@ class RemarkListTest {
         RemarkList actualRemarks = new RemarkList();
         actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
         actualRemarks.add(RemarkTest.remarkAtLaterInstant);
-        assertFalse(actualRemarks.isQuestionAnswered(new Question()));
-    }
-
-    @Test
-    void getTimeOfQuestionInMs() {
+        assertFalse(actualRemarks.isQuestionAnswered(RemarkTest.defaultQuestion));
     }
 }

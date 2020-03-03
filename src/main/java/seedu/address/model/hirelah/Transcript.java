@@ -28,6 +28,15 @@ public class Transcript {
     }
 
     /**
+     * Retrieves the {@code RemarkList} that are associated with this {@code Transcript}.
+     *
+     * @return The {@code RemarkList} that are associated with this {@code Transcript}.
+     */
+    public RemarkList getRemarkList() {
+        return remarkList;
+    }
+
+    /**
      * Sets the {@code Transcript} to contain a file as its audio file.
      *
      * @param audioFile The File of the audio recording to be stored in this {@code Transcript}.
@@ -85,10 +94,10 @@ public class Transcript {
      * @param question {@code Question} that are to be queried.
      * @return Instant of the {@code Remark} that are first associated with this {@code Question}.
      */
-    public Instant getTranscriptAtQuestion(Question question) throws IllegalActionException{
+    public Remark getTranscriptAtQuestion(Question question) throws IllegalActionException{
         if (!remarkList.isQuestionAnswered(question)) {
             throw new IllegalActionException("There is no answer for this question");
         }
-        return remarkList.getTimeOfQuestionInMs(question);
+        return remarkList.getRemarkOfQuestion(question);
     }
 }
