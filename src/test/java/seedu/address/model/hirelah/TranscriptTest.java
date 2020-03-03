@@ -1,43 +1,47 @@
 package seedu.address.model.hirelah;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.hirelah.exceptions.IllegalActionException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.Assert.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 class TranscriptTest {
 
     @Test
     void getTranscriptAtTime_invalidTimeRange_failure() {
         Transcript actualTranscript = new Transcript();
-        actualTranscript.getRemarkList().add(RemarkTest.remarkStartWithoutQuestion);
-        actualTranscript.getRemarkList().add(RemarkTest.remarkStartWithoutQuestion);
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_START_WITHOUT_QUESTION);
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_START_WITHOUT_QUESTION);
         assertThrows(IllegalActionException.class, () -> actualTranscript.getTranscriptAtTime(1));
     }
 
     @Test
     void getTranscriptAtTime_validTimeRange_success() throws IllegalActionException {
         Transcript actualTranscript = new Transcript();
-        actualTranscript.getRemarkList().add(RemarkTest.remarkStartWithoutQuestion);
-        actualTranscript.getRemarkList().add(RemarkTest.remarkMiddleWithQuestion);
-        actualTranscript.getRemarkList().add(RemarkTest.remarkStopWithoutQuestion);
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_START_WITHOUT_QUESTION);
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_MIDDLE_WITH_QUESTION);
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_STOP_WITHOUT_QUESTION);
 
-        assertEquals(RemarkTest.remarkMiddleWithQuestion, actualTranscript.getTranscriptAtTime(500));
+        assertEquals(RemarkTest.REMARK_MIDDLE_WITH_QUESTION, actualTranscript.getTranscriptAtTime(500));
     }
 
     @Test
     void getTranscriptAtQuestion_unansweredQuestion_failure() {
         Transcript actualTranscript = new Transcript();
-        assertThrows(IllegalActionException.class, () -> actualTranscript.getTranscriptAtQuestion(RemarkTest.defaultQuestion1));
+        assertThrows(IllegalActionException.class, () ->
+                actualTranscript.getTranscriptAtQuestion(RemarkTest.DEFAULT_QUESTION_1));
     }
 
     @Test
     void getTranscriptAtQuestion_answeredQuestion_success() throws IllegalActionException {
         Transcript actualTranscript = new Transcript();
-        actualTranscript.getRemarkList().add(RemarkTest.remarkStartWithoutQuestion);
-        actualTranscript.getRemarkList().add(RemarkTest.remarkQuarterWithQuestion);
-        actualTranscript.getRemarkList().add(RemarkTest.remarkStopWithoutQuestion);
-        assertEquals(RemarkTest.remarkQuarterWithQuestion, actualTranscript.getTranscriptAtQuestion(RemarkTest.defaultQuestion1));
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_START_WITHOUT_QUESTION);
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_QUARTER_WITH_QUESTION);
+        actualTranscript.getRemarkList().add(RemarkTest.REMARK_STOP_WITHOUT_QUESTION);
+        assertEquals(RemarkTest.REMARK_QUARTER_WITH_QUESTION,
+                actualTranscript.getTranscriptAtQuestion(RemarkTest.DEFAULT_QUESTION_1));
     }
 
 }
