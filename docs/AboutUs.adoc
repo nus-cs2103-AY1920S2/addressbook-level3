@@ -19,7 +19,7 @@ Role: Member
 '''
 
 === Wang Yuchen
-image::iyvvvvv.png[width="150", align="left"]
+image::wang-yuchen-alice.png[width="150", align="left"]
 {empty}[http://github.com/WANG-Yuchen-Alice[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
