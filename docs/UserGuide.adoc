@@ -133,7 +133,7 @@ The order at the second index of the list is marked as done.
 [TIP]
 Use the <<list, `list`>> command to see which delivery order you want to edit.
 
-* `edit` `INDEX` `PREFIX/NEW_VALUE`
+* `edit` `INDEX` `<<sort, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE`
 
 [WARNING]
 The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
