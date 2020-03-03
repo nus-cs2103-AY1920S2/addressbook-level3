@@ -234,7 +234,7 @@ There are three types of list commands that are shown in the examples below.
 ==== Format
 `list` `[DONE/UNDONE]` +
 
-=== Examples
+==== Examples
 * `list` +
 List down all the orders, regardless of whether its completed or uncompleted.
 * `list` `done` +
