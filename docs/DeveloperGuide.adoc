@@ -279,15 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* hall residents
-* Want to keep track of diet
-* Usually make payment first when eating together with friends
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* <<temasek-hall,Temasek Hall>> residents
+* Diet-conscious residents
+* Residents who frequently pays on behalf of a group
+* Residents who prefer desktop applications
+* Residents who can type fast
+* Residents who prefer typing over using the mouse
+* Residents who are reasonably comfortable using <<cli,CLI>> applications
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage diet and expenses faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -377,7 +377,7 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. EYLAH detects invalid syntax in a Person's details. For instance, a Person's name cannot begin with numbers.
+* 1b. Eylah detects invalid <<syntax,syntax>> in person's details.
 +
 [none]
 ** 1b1. EYLAH shows an error message informing the user about the incorrect name format.
@@ -406,7 +406,8 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. EYLAH detects invalid syntax.
+* 1b. Eylah detects invalid <<syntax,syntax>>.
+
 +
 [none]
 ** 1b1. EYLAH shows an error message and displays an example of a correct `addfood` function.
@@ -424,18 +425,154 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: UC04 - Listing food items
+
+*MSS*
+
+1.  User requests to list the food items.
+2.  EYLAH displays the list of food items.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects an empty list.
++
+[none]
+** 1a1. EYLAH displays an error message.
++
+Use case ends.
+
+[none]
+* 1b. EYLAH detects invalid <<syntax,syntax>>.
++
+[none]
+** 1b1. EYLAH displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - Listing the persons
+
+*MSS*
+
+1.  User requests to list the persons.
+2.  EYLAH displays the list of persons.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects an empty list.
++
+[none]
+** 1a1. EYLAH displays an error message.
++
+Use case ends.
+
+[none]
+* 1b. EYLAH detects invalid <<syntax,syntax>>.
++
+[none]
+** 1b1. EYLAH displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - Removing food
+
+*MSS*
+
+1.  User requests to remove food from the list.
+2.  EYLAH removes the food from the list.
+3.  EYLAH displays the list of food.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects an empty list.
++
+[none]
+** 1a1. EYLAH displays an error message.
+
+[none]
+* 1b. EYLAH detects invalid <<syntax,syntax>>.
++
+[none]
+** 1b1. EYLAH displays an error message.
++
+
+[none]
+* 1c. EYLAH detects that the food does not exist in the list.
++
+[none]
+** 1c1. EYLAH displays an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Removing person
+
+*MSS*
+
+1.  User requests to remove a person from the list.
+2.  EYLAH removes the person from the list.
+3.  EYLAH displays the list of persons.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. EYLAH detects an empty list.
++
+[none]
+** 1a1. EYLAH displays an error message.
+
+[none]
+* 1b. EYLAH detects invalid <<syntax,syntax>>.
++
+[none]
+** 1b1. EYLAH displays an error message.
++
+
+[none]
+* 1c. EYLAH detects that the person does not exist in the list.
++
+[none]
+** 1c1. EYLAH displays an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 food items without a noticeable sluggishness in performance for typical usage.
+.  Should have a pre-loaded list of commonly consumed food items in database.
+.  Should be able to work without internet access.
+.  A user should be able to use EYLAH easily and intuitively.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
 [appendix]
 == Glossary
+
+[[temasek-hall]] Temasek Hall::
+A Hall of Residences in National University of Singapore
+
+[[cli]] CLI::
+Command Line Interface
+
+[[syntax]] Syntax::
+The structure of statements in the command
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
