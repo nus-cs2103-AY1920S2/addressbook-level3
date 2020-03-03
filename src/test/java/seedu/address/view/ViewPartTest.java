@@ -83,7 +83,7 @@ public class ViewPartTest {
     }
 
     /**
-     * UiPart used for testing.
+     * ViewPart used for testing.
      * It should only be used with invalid FXML files or the valid file located at {@link VALID_FILE_PATH}.
      */
     private static class TestViewPart<T> extends ViewPart<T> {
