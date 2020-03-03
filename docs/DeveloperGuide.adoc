@@ -297,20 +297,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |Temasek Hall resident |want to keep track of my expenses accurately |calculate the exact amount I should collect from my friends after each time we split a meal
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |healthy hall resident who is trying to lose weight |check how many calories I took today |keep track of my calories intake and weight
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Temasek hall resident who frequents supper food spots |split the bill easily with fellow mates| ensure that the amount is correctly accounted for
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Temasek Hall resident who wants to stay healthy |keep track of my calories |more accurately watch my weight
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |Temasek Hall leader |keep track of my committee events |know if things are going according to schedule
+
+|`*` |Temasek Hall exchange student |to have a translation for Singaporean lingo |better understand the language my friends speak in hall
+
+|`*` |Temasek Hall sports captain |to keep track of the various attendances for my training |know who usually attends training and who does not
+
+|`*` |Temasek Hall leader |to keep track of my committee events |ensure things run smoothly
+
+|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date.
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -318,7 +324,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `EYLAH` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Diet Tracker
+=== Diet Tracker Use Cases
 
 [discrete]
 === Use case: Add Person
@@ -347,26 +353,26 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Expense Splitter
+=== Expense Splitter Use Cases
 
 [discrete]
 === Use case: UC01 - Add person
 
 *MSS*
 
-1.  User key in the person name and optional details.
-2.  Eylah add the person details.
-3.  Eylah display the added person.
+1.  User keys in the Person(s) name followed by some additional details, such as Telegram username and room number.
+2.  EYLAH adds Person(s) to the PersonList.
+3.  EYLAH displays the added person.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Eylah detects empty name.
+* 1a. EYLAH detects empty string in place of name.
 +
 [none]
-** 1a1. Eylah shows an error message.
+** 1a1. EYLAH shows an error message informing user that a Person's name cannot be empty.
 +
 Use case ends.
 
@@ -374,7 +380,7 @@ Use case ends.
 * 1b. Eylah detects invalid <<syntax,syntax>> in person's details.
 +
 [none]
-** 1b1. Eylah shows an error message.
+** 1b1. EYLAH shows an error message informing the user about the incorrect name format.
 +
 Use case ends.
 
@@ -383,27 +389,28 @@ Use case ends.
 
 *MSS*
 
-1.  User key in the food name, price and involved person.
-2.  Eylah adds the food details.
-3.  Eylah display the foods and respective involved person.
+1.  User keys in Food name, its price and Person(s) involved in the splitting of that food.
+2.  EYLAH adds the Food object.
+3.  EYLAH displays the Food and the Person(s) involved with splitting of that food.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Eylah detects empty food name, price or involved person.
+* 1a. EYLAH detects empty Food name, Food price or Person(s)
 +
 [none]
-** 1a1. Eylah shows an error message.
+** 1a1. EYLAH shows an error message and displays an example of a correct `addfood` function.
 +
 Use case ends.
 
 [none]
 * 1b. Eylah detects invalid <<syntax,syntax>>.
+
 +
 [none]
-** 1b1. Eylah shows an error message.
+** 1b1. EYLAH shows an error message and displays an example of a correct `addfood` function.
 +
 Use case ends.
 
@@ -412,27 +419,9 @@ Use case ends.
 
 *MSS*
 
-1.  User key request to calculate the cost.
-2.  Eylah get the cost details.
-3.  Eylah display cost .
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Eylah detects empty food name, price or involved person.
-+
-[none]
-** 1a1. Eylah shows an error message.
-+
-Use case ends.
-
-[none]
-* 1b. Eylah detects invalid <<syntax,syntax>>.
-+
-[none]
-** 1b1. Eylah shows an error message.
+1.  User keys in request to calculate the cost.
+2.  EYLAH calculates each Person(s)'s cost.
+3.  EYLAH display cost.
 +
 Use case ends.
 
@@ -559,8 +548,6 @@ Use case ends.
 ** 1c1. EYLAH displays an error message.
 +
 Use case ends.
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements

@@ -27,7 +27,7 @@ Ease Your Life At Halls (EYLAH) is for those who *prefer to use a desktop app to
 .  Copy the file to the folder you want to use as the home folder for your EYLAH application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::EyLah_mockup.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -55,7 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 To provide help for users +
 Format: `help`
 
-=== Diet Tracker: `diet`
+=== Diet Tracker : `diet`
 
 Tracks our daily calories intake. Add food, then calculate.
 
@@ -104,6 +104,80 @@ NOTE: Default value of list is food consumed for the day. Default number of days
 Format: `list [-f] [-d] [-t [numDays]]` +
 Example: `list -t 3`
 
+==== Delete Food Item `delete`
+
+Deletes a Food item from the list of foods stored. +
+Format: `delete INDEX`
+
+****
+* Deletes the food item at the specified `INDEX`.
+* The index refers to the index number shown in the displayed food list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[TIP]
+Use list to view your item indices before deletion.
+
+Example:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd row of food data from the past 7 days of food.
+
+==== Editing a Food Item `edit`
+
+Allows you to edit either the Food name, or the calories.  +
+Format: `edit INDEX [-n NAME] [-c CALORIES]`
+
+****
+* Edits the Food Item at the specified `INDEX`.
+The index refers to the index number shown in the displayed Food list.
+The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Example:
+
+* `edit 2 -n Chicken Rice -c 585` +
+Edits the name of the food item at index 2 to be 'Chicken Rice' and the calories to be '585'.
+
+==== Calculate Daily Calories `calc`
+
+Calculates and lists the following: +
+
+* Total Calorie Intake for the day.
+* Calories left based on your preferred dieting mode.
+
+Format: `calc`
+
+==== Calculate Body Mass Index (BMI) `bmi`
+
+Allows the user to calculate their BMI based on the height and weight stored in the program. +
+It will display the following data: +
+
+* Height
+* Weight
+* BMI value
+* BMI category
+
+Format: `bmi [-w WEIGHT] [-h HEIGHT]`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `height 172` +
+`weight 65` +
+`bmi` +
+Change your height and your weight to your current measurements before calculating your BMI.
+BMI is calculated based off the stored height and weight in this instance.
+* `bmi 65 172` +
+Calculate BMI based on the input height and weight values.
 
 === Expense Splitter : `split`
 Splitting the food cost with friends. Add person and item, then calculate.
@@ -135,17 +209,17 @@ Format: +
 
 Example: +
 `calculate` +
-`calculate -n john`
+`calculate -n john` +
 `calculate -n john -alice`
 
-==== List food(s) items  `list food`
+==== List food(s) items  `listfood`
 Display the food(s) in a list:
 
 Format: +
-`list food` +
+`listfood` +
 
 Example: +
-`list food`
+`listfood`
 
 ==== List person(s) `listperson`
 
