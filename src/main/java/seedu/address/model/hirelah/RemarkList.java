@@ -1,12 +1,12 @@
 package seedu.address.model.hirelah;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * A list of remarks that are associated  with a particular interview session of an {@code Interviewee}.
@@ -37,7 +37,7 @@ public class RemarkList {
      */
     public void add(Remark toAdd) {
         requireNonNull(toAdd);
-        if (toAdd.getQuestion()!=null) {
+        if (toAdd.getQuestion() != null) {
             if (!questionToRemarkMap.containsKey(toAdd.getQuestion())) {
                 questionToRemarkMap.put(toAdd.getQuestion(), toAdd.getTime());
             }
@@ -53,6 +53,7 @@ public class RemarkList {
      */
     public Instant getStartRemarkTime() {
         assert (remarks.size() > 0);
+        System.out.println(remarks.get(0).getTime().toString());
         return remarks.get(0).getTime();
     }
 
@@ -73,7 +74,8 @@ public class RemarkList {
      */
     public Instant getLastRemarkTime() {
         assert (remarks.size() > 1);
-        return remarks.get(getRemarkListSize()-1).getTime();
+        System.out.println(remarks.get(getRemarkListSize() - 1).getTime().toString());
+        return remarks.get(getRemarkListSize() - 1).getTime();
     }
 
     /**
@@ -82,7 +84,7 @@ public class RemarkList {
      * @return The duration of the interview session in milliseconds.
      */
     public long getInterviewDurationInMs() {
-        long interviewDuration = Duration.between(getStartRemarkTime(), getLastRemarkTime()).getSeconds() * 1000;
+        long interviewDuration = Math.abs((Duration.between(getStartRemarkTime(), getLastRemarkTime()).toMillis()));
         return interviewDuration;
     }
 
@@ -103,10 +105,15 @@ public class RemarkList {
      */
     public Remark getRemarkAtTime(long timeMs) {
         Remark nearestRemark = remarks.get(0);
-        Duration fromStart = Duration.between(nearestRemark.getTime(), getStartRemarkTime());
-        long timeDeviation = timeMs - fromStart.getSeconds();
+        long minDeviation = Math.abs(timeMs
+                - Math.abs(Duration.between(nearestRemark.getTime(), getStartRemarkTime()).toMillis()));
+
         for (Remark remark : remarks) {
-            if (remark != remarks.get(0) && (timeMs - Duration.between(remark.getTime(), getStartRemarkTime()).toSeconds()) < timeDeviation) {
+            long currentDeviation = Math.abs((
+                    timeMs - Math.abs((Duration.between(getStartRemarkTime(), remark.getTime()).toMillis())))
+            );
+            if (remark != remarks.get(0) && (currentDeviation < minDeviation)) {
+                minDeviation = currentDeviation;
                 nearestRemark = remark;
             }
         }
@@ -122,7 +129,7 @@ public class RemarkList {
      * associated with it as an answer.
      */
     public boolean isQuestionAnswered(Question question) {
-       return questionToRemarkMap.containsKey(question);
+        return questionToRemarkMap.containsKey(question);
     }
 
     /**
@@ -135,8 +142,6 @@ public class RemarkList {
      */
     public Remark getRemarkOfQuestion(Question question) {
         Instant startOfQuestion = questionToRemarkMap.get(question);
-        System.out.println(Duration.between(getStartRemarkTime(), startOfQuestion));
-        return getRemarkAtTime(Duration.between(getStartRemarkTime(), startOfQuestion).toMillis());
+        return getRemarkAtTime(Math.abs(Duration.between(getStartRemarkTime(), startOfQuestion).toMillis()));
     }
-
 }

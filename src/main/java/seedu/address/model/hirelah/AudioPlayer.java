@@ -1,8 +1,13 @@
 package seedu.address.model.hirelah;
 
-import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * Stores the audio file recorded during the interview session of an {@code Interviewee}.
@@ -61,7 +66,8 @@ public class AudioPlayer {
      *
      * @param timeInMs The time to be set as the starting time of the audio file.
      */
-    public AudioPlayer playAtMs(long timeInMs) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public AudioPlayer playAtMs(long timeInMs)
+            throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         frame = timeInMs;
         AudioPlayer audioAtTime = new AudioPlayer(this.audioFile);
         audioAtTime.clip.setMicrosecondPosition(timeInMs);
