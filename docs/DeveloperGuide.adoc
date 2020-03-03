@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= ZeroToOne - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S2 W16-2`      Since: `Feb 2020`      
 
 == Setting up
 
