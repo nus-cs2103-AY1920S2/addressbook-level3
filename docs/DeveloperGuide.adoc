@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Delino - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -409,7 +409,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to list orders (UC10).
+1.  User requests to [.underline]#list orders (UC10).#
 2.  User requests to delete a specific order in the list.
 3.  Delino deletes the order.
 4.  Delino displays order deleted.

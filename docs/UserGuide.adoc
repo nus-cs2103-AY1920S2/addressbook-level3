@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Delino - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 This user guide provides in-depth documentation on the Delino desktop application:
@@ -39,9 +39,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
+* *`list`* : lists all delivery orders
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* **`delete`**`3` : deletes the 3rd delivery order shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -73,29 +73,40 @@ Examples:
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Description
+* You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
+If an additional flag is given -f, no user confirmation will be requested.
+
+==== Format:
+* `clear` `[FLAG]`
+
+==== Examples
+* `clear`
+* `clear` `-f`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+[[delete]]
+=== Deleting an order : `delete`
+==== Description
+You can use this command to delete a particular order from the current list of orders based on its index. +
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Format:
+`delete` `INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed order list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+==== Examples:
 
 * `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+`delete` `2` +
+Deletes the 2nd order.
+* `find` `-n` `Betsy` +
+`delete` `1` +
+Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
 
 // end::delete[]
 === Editing an order : `edit`
@@ -113,7 +124,7 @@ Deletes the 1st person in the results of the `find` command.
 * Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
 ****
 
-==== Example(s)
+==== Examples
 [none]
 * 1. `edit 0123456789 n/Xuan En`
 * 2. `edit 00k0i9ih34 p/9999 4444`
@@ -121,8 +132,11 @@ Deletes the 1st person in the results of the `find` command.
 
 === Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+==== Description
+* You can exit the application using exit command.
+
+==== Format:
+* `exit`
 
 === Locating persons by name: `find`
 
@@ -176,24 +190,78 @@ Import the contents of the csv file `orders.csv` to Delino.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
 
-=== Saving the data
+[[sort]]
+=== Sorting orders: `sort`
+==== Description
+You can sort the orders based on their attributes *(given in prefix form)*.
+An additional flag can be provided *(-a or -d)* can be used to sort the delivery
+orders in ascending/descending order. +
+If no additional flag is provided, the orders will be sorted in *ascending order*.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+==== Format
+`sort` `[ORDER FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
+
+[IMPORTANT]
+====
+`ORDER_ATTRIBUTE_PREFIX` *must* be one of the following:
+
+* `a/` - Address
+* `n/` - Name
+* `p/` - Phone Number
+* `pm/` - Payment Method
+* `tid/` - Transaction ID
+* `ts/` - Timestamp
+* `w/` - Warehouse Location
+====
+
+****
+*ORDER FLAG*  can be either +
+*-d* (descending order) or +
+*-a* (ascending order).
+****
+
+==== Examples
+* `sort` `ts/` +
+You will sort the orders in ascending order based on the timestamp of the orders.
+* `sort` `-a` `n/` +
+You will sort the orders in ascending order based on the names of the customers.
+* `sort` `-d` `ts/` +
+You will sort the orders in descending order based on the timestamp of the orders.
+* `sort` `-d` `tid/` +
+You will sort the orders in descending order based on the transaction id of the orders.
+
+[[undo]]
+=== Undo the previous action: `undo`
+==== Description
+You can use the `undo` command to revert the most recent action that was previously executed.
+For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
+back to the list of orders.
+
+==== Format
+`undo`
+
+==== Example
+* `list` +
+`delete` `1` +
+`delete` `2` +
+`undo` +
+The list will be reverted back to the state after the second command `delete` `1`.
+
+=== Saving the data
+==== Description
+* Data is saved in the hard disk automatically after any command that changes data that is present. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Reminder `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-=== Remainder `[coming in v2.0]`
-
-_{explain how the user can set remainder specifically for orders that are rescheduled or urgent orders}_
+_{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
 
 === Rescheduling orders `[coming in v2.0]`
 
 _{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
+
+=== Keeping track of work schedule `[coming in v2.0]`
+_{explain how the user can keep track of their work schedule}_
 
 == FAQ
 
@@ -202,16 +270,26 @@ _{explain how the user can reschedule their orders when customers notify them th
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit TRANSACTION_ID FIELD_TO_CHANGE CHANGES` +
-e.g. `edit 0123456789 n/James Lee p/9999 8888`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *Help* : `help`
-* *Import* : `import FILE NAME` +
-e.g. `import orders.csv`
-* *List* : `list`
+* <<add, *Add*>> : `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+e.g. `add` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `ts/2020-02-20 1300` `w/Yishun industry` `pm/cash` `c/please knock the door three times :D` `type/heavy`
+* <<clear, *Clear*>> : `clear` `[FLAG]` +
+e.g. `clear` `-f`
+* <<delete, *Delete*>> : `delete` `INDEX` +
+e.g. `delete` `2`
+* <<done, *Done*>> : `done` `INDEX` +
+e.g. `done` `2`
+* <<edit, *Edit*>> : `edit` `INDEX` `PREFIX/VALUE` +
+e.g. `edit` `2` `n/Xuan En`
+* <<exit, *Exit*>> : `exit`
+* <<find, *Find*>> : `find` `flag` `KEYWORD` +
+e.g. `find` `-t` `ac1e345x7s`
+* <<help, *Help*>> : `help`
+* <<import, *Import*>> : `import` `FILE_NAME` +
+e.g. `import` `orders.csv`
+* <<list, *List*>> : `list` `[DONE_STATUS]` +
+e.g. `list` `done`
+* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `ts/12-12-2020` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass`
+* <<sort, *Sort*>> : `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
+e.g. `sort` `-d` `ts/`
+* <<undo, *Undo*>> : `undo`
