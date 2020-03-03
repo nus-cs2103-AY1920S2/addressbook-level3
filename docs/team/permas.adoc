@@ -1,0 +1,8 @@
+= Hardy Shein - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+image::hardoh.png[width="150", align="left"]
+
+== PROJECT: BB Productive - Level 3
