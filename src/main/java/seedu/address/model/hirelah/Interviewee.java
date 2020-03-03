@@ -15,4 +15,12 @@ public class Interviewee {
      Transcript (contains audio recording, and a collection of remarks with some methods to query by time/qn number)
 
      */
+    private String name;
+    public Interviewee(String name) {
+        this.name = name;
+    }
+
+    public double getScore(Attribute attribute) {
+        return 1.0;
+    }
 }
