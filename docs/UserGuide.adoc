@@ -138,6 +138,13 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+=== Statistics : 'stats'
+
+Views statistics generated through the app usage. 
+stats SPEED/DONE 
+SPEED : Displays average time taken to complete tasks over past week/month/year. 
+DONE : Displays average number of tasks done over past week/month/year.
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
@@ -162,3 +169,4 @@ e.g. `edit 2 n/Add Buy Feature ld/2020-03-04`
 e.g. `find Quiz Essay`
 * *List* : `list`
 * *Help* : `help`
+* *Statistics* : stats SPEED/DONE
