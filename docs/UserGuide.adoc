@@ -174,11 +174,12 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+[[help]]
 === Viewing help : `help`
 
 ==== Description
-* You can use the help command to display all commands that are available to be used
-so that you can navigate the application easily.
+You can use the help command to display all commands that are available to be used
+so that you can navigate the application easily. +
 
 ==== Format:
 * `help`
