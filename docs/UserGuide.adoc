@@ -50,6 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [gp/GOOD PRICE]` can be used as `n/John Doe gp/apple 4.50` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[gp/GOOD PRICE]...` can be used as `{nbsp}` (i.e. 0 times), `gp/apple 4.50`, `gp/orange 2.00 gp/pear 5.00` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* All dates follow the format `yyyy-MM-dd`
 ====
 
 === Viewing help : `help`
@@ -141,6 +142,29 @@ Deletes the 1st supplier in the results of the `find` command.
 Clears all supplier entries from the address book. +
 Format: `clear-s`
 
+=== Buy goods from supplier: `buy`
+
+Buy a particular goods from the supplier. +
+Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE`
+
+[TIP]
+If the goods does not exist in the inventory, this will also create an entry for the goods.
+
+Example:
+
+* `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03` +
+Buys 4 apples from a certain supplier named Dave with the above transaction and expiry dates.
+
+=== Sell goods: `sell`
+
+Sell a particular goods from the inventory.. +
+Format: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE`
+
+Example:
+
+* `sell g/apple q/4 d/2030-01-05` +
+Sells 4 apples at the above date.
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -174,4 +198,8 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find supplier* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List supplier* : `list-s`
+* *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
+e.g. `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03`
+* *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
+e.g. `sell g/apple q/4 d/2030-01-05`
 * *Help* : `help`
