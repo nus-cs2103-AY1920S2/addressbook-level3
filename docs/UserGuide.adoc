@@ -24,7 +24,7 @@ AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for mana
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `Delino.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for youDelino.
+.  Copy the file to the folder you want to use as the home folder for your Delino.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all orders to be delivered.
-* **`add`** `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* <<list, `list`>> : lists all orders to be delivered.
+* <<add, `add`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
+* <<delete, `delete`>> `3` : deletes the 3rd contact shown in the current list
+* <<exit, `exit`>> : exits the app
 
 .  Refer to <<Features>> for a more detailed explanation of each command.
 
@@ -52,6 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+[[add]]
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -100,6 +101,8 @@ Deletes the 2nd person in the address book.
 Deletes the 1st person in the results of the `find` command.
 
 // end::delete[]
+
+[[edit]]
 === Editing an order : `edit`
 
 ==== Description
@@ -109,16 +112,16 @@ Deletes the 1st person in the results of the `find` command.
 ==== Format
 
 [TIP]
-Use the <<List, `list`>> command to see which delivery order you want to edit.
+Use the <<list, `list`>> command to see which delivery order you want to edit.
 
-* `edit` `INDEX` `PREFIX/VALUE`
+* `edit` `INDEX` `PREFIX/NEW_VALUE`
 
 [WARNING]
 The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
 
 ****
 * Edits the order at the specified `INDEX`.
-* Existing value that corresponds to the `PREFIX` will be updated to the input `VALUE`.
+* Existing value that corresponds to the `PREFIX` will be updated to the input `NEW_VALUE`.
 ****
 
 ==== Examples
@@ -137,6 +140,7 @@ The index `3` customer's name, phone and address are changed accordingly to the 
 Exits the program. +
 Format: `exit`
 
+[[find]]
 === Locating orders by name or transaction ID: `find`
 
 ==== Description
@@ -186,7 +190,7 @@ Examples:
 * `import orders.csv` +
 Import the contents of the csv file `orders.csv` to Delino.
 
-[[List]]
+[[list]]
 === Listing orders : `list`
 
 [None]
