@@ -15,6 +15,7 @@ image::tharshita.png[width="150", align="left"]
 {empty}[https://github.com/tharshita[github]] [<<tharshita#, portfolio>>]
 
 Roles: In charge of testing, scheduling and tracking, and the `Goals` component +
+
 Responsibilities: Responsible for ensuring the proper and timely testing of the project, and defining, assigning, and tracking project tasks.
 
 '''
@@ -24,6 +25,7 @@ image::yuuton9.png[width="150", align="left"]
 {empty}[https://github.com/YuuTon9[github]] [<<yuuton9#, portfolio>>]
 
 Roles: In charge of testing, code quality, and the `Achievements` component +
+
 Responsibilities: Responsible for ensuring the proper and timely testing of the project, and looking after code quality (ie. adherence to coding standards, etc.)
 
 '''
@@ -32,7 +34,8 @@ Responsibilities: Responsible for ensuring the proper and timely testing of the 
 image::beatricetay.png[width="150", align="left"]
 {empty}[https://github.com/beatricetay[github]] [<<beatricetay#, portfolio>>]
 
-Role: Team Lead, and in charge of integration, and the `Planning` component +
+Roles: Team Lead, and in charge of integration, and the `Planning` component +
+
 Responsibilities: Responsible for overall project coordination, versioning of the code, maintaining the code repository, and integrating various parts of the software to create a whole.
 
 '''
@@ -41,7 +44,8 @@ Responsibilities: Responsible for overall project coordination, versioning of th
 image::pekchinsiongbrian.png[width="150", align="left"]
 {empty}[https://github.com/pekchinsiongbrian[github]] [<<pekchinsiongbrian#, portfolio>>]
 
-Role: In charge of documentation, deliverables and deadlines, and the `Advanced Filter` component +
+Roles: In charge of documentation, deliverables and deadlines, and the `Advanced Filter` component +
+
 Responsibilities: Responsible for the quality of the various project documents, and ensuring that project deliverables are done on time and in the right format.
 
 '''
