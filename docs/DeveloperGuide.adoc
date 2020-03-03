@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-2/main/
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to take notes
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Take and manage notes faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,15 +297,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new note | Take note of details that I may use later
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a note | Remove note that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |edit existing note| Correct any typo or add more details
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |search by keyword | Locate details of notes without having to go through the entire directory
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |command suggestion | Minimize the chance of mistyping a command
+
+|`* *` |user |quick fill| Save time typing out the full command
+
+|`*` |user |export to pdf | Print the notes to bring it into an examination hall
+
 |=======================================================================
 
 _{More to be added}_
