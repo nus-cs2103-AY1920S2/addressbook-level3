@@ -305,6 +305,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |Temasek hall resident who frequents supper food spots |split the bill easily with fellow mates| ensure that the amount is correctly accounted for
 
 |`* * *` |Temasek Hall resident who wants to stay healthy |keep track of my calories |more accurately watch my weight
+
+|`*` |Temasek Hall leader |keep track of my committee events |know if things are going according to schedule
+
+|`*` |Temasek Hall exchange student |to have a translation for Singaporean lingo |better understand the language my friends speak in hall
 |=======================================================================
 
 _{More to be added}_
