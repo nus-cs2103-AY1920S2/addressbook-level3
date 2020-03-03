@@ -66,6 +66,7 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+[[clear]]
 === Clearing all entries : `clear`
 
 ==== Description
@@ -104,6 +105,21 @@ Deletes the 2nd order.
 Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
 
 // end::delete[]
+[[done]]
+=== Mark order as done: `done`
+==== Description
+Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
+The order that is marked as done will be moved to another list that contains all the orders that are completed.
+The completed list can be seen by calling the list command:`list` `done`.
+
+==== Format
+`done` `INDEX`
+
+==== Examples
+* `done` `1` +
+The order at the first index of the list is marked as done.
+* `done` `2` +
+The order at the second index of the list is marked as done.
 
 [[edit]]
 === Editing an order : `edit`
@@ -138,22 +154,7 @@ The index `1` customer's address is changed to `Blk 123 Pasir Ris Street 51 #12-
 * `edit` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141` +
 The index `3` customer's name, phone and address are changed accordingly to the prefix.
 
-[[done]]
-=== Mark order as done: `done`
-==== Description
-Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
-The order that is marked as done will be moved to another list that contains all the orders that are completed.
-The completed list can be seen by calling the list command:`list` `done`.
-
-==== Format
-`done` `INDEX`
-
-==== Examples
-* `done` `1` +
-The order at the first index of the list is marked as done.
-* `done` `2` +
-The order at the second index of the list is marked as done.
-
+[[exit]]
 === Exiting the program : `exit`
 
 ==== Description
@@ -189,10 +190,12 @@ Return delivery order with transaction ID of `asj2od3943`
 * find -t 920392844 +
 Return delivery order with transaction ID of `920392844`
 
+[[help]]
 === Viewing help : `help`
 
 Format: `help`
 
+[[import]]
 === Importing a list of orders : `import`
 
 You will be able to import orders via .csv files that are given to you by your company.
