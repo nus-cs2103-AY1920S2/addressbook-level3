@@ -185,7 +185,7 @@ Format: `list-t`
 Displays all the suppliers selling the specified goods, sorted in increasing price. +
 Format: `source g/GOOD_NAME`
 
-=== List goods in low in quantity: `list-l`
+=== Listing goods in low in quantity: `list-l`
 
 Displays all items that have fallen below their respective minimum quantity thresholds in the inventory. +
 Format: `list-l`
