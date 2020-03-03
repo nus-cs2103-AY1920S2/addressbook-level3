@@ -18,63 +18,67 @@ import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
  */
 public class JsonTeacherAddressBookStorage implements TeacherAddressBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonTeacherAddressBookStorage.class);
+  private static final Logger logger = LogsCenter.getLogger(JsonTeacherAddressBookStorage.class);
 
-    private Path filePath;
+  private Path filePath;
 
-    public JsonTeacherAddressBookStorage(Path filePath) {
-        this.filePath = filePath;
+  public JsonTeacherAddressBookStorage(Path filePath) {
+    this.filePath = filePath;
+  }
+
+  public Path getTeacherAddressBookFilePath() {
+    return filePath;
+  }
+
+  @Override
+  public Optional<ReadOnlyTeacherAddressBook> readTeacherAddressBook()
+      throws DataConversionException {
+    return readTeacherAddressBook(filePath);
+  }
+
+  /**
+   * Similar to {@link #readTeacherAddressBook()}.
+   *
+   * @param filePath location of the data. Cannot be null.
+   * @throws DataConversionException if the file is not in the correct format.
+   */
+  public Optional<ReadOnlyTeacherAddressBook> readTeacherAddressBook(Path filePath)
+      throws DataConversionException {
+    requireNonNull(filePath);
+
+    Optional<JsonTeacherSerializableAddressBook> jsonTeacherAddressBook = JsonUtil.readJsonFile(
+        filePath, JsonTeacherSerializableAddressBook.class);
+    if (!jsonTeacherAddressBook.isPresent()) {
+      return Optional.empty();
     }
 
-    public Path getTeacherAddressBookFilePath() {
-        return filePath;
+    try {
+      return Optional.of(jsonTeacherAddressBook.get().toModelType());
+    } catch (IllegalValueException ive) {
+      logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+      throw new DataConversionException(ive);
     }
+  }
 
-    @Override
-    public Optional<ReadOnlyTeacherAddressBook> readTeacherAddressBook() throws DataConversionException {
-        return readTeacherAddressBook(filePath);
-    }
+  @Override
+  public void saveTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook)
+      throws IOException {
+    saveTeacherAddressBook(teacherAddressBook, filePath);
+  }
 
-    /**
-     * Similar to {@link #readTeacherAddressBook()}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
-     */
-    public Optional<ReadOnlyTeacherAddressBook> readTeacherAddressBook(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
+  /**
+   * Similar to {@link #saveTeacherAddressBook(ReadOnlyTeacherAddressBook)}.
+   *
+   * @param filePath location of the data. Cannot be null.
+   */
+  public void saveTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook, Path filePath)
+      throws IOException {
+    System.out.println("h");
+    requireNonNull(teacherAddressBook);
+    requireNonNull(filePath);
 
-        Optional<JsonTeacherSerializableAddressBook> jsonTeacherAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonTeacherSerializableAddressBook.class);
-        if (!jsonTeacherAddressBook.isPresent()) {
-            return Optional.empty();
-        }
-
-        try {
-            return Optional.of(jsonTeacherAddressBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
-        }
-    }
-
-    @Override
-    public void saveTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook) throws IOException {
-        saveTeacherAddressBook(teacherAddressBook, filePath);
-    }
-
-    /**
-     * Similar to {@link #saveTeacherAddressBook(ReadOnlyTeacherAddressBook)}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     */
-    public void saveTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook, Path filePath) throws IOException {
-        System.out.println("h");
-        requireNonNull(teacherAddressBook);
-        requireNonNull(filePath);
-
-        FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonTeacherSerializableAddressBook(teacherAddressBook), filePath);
-    }
+    FileUtil.createIfMissing(filePath);
+    JsonUtil.saveJsonFile(new JsonTeacherSerializableAddressBook(teacherAddressBook), filePath);
+  }
 
 }

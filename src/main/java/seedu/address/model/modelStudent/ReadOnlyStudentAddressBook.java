@@ -8,8 +8,8 @@ import javafx.collections.ObservableList;
 public interface ReadOnlyStudentAddressBook {
 
   /**
-   * Returns an unmodifiable view of the teachers list.
-   * This list will not contain any duplicate teachers.
+   * Returns an unmodifiable view of the teachers list. This list will not contain any duplicate
+   * teachers.
    */
   ObservableList<Student> getStudentList();
 
