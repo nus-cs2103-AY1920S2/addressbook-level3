@@ -110,7 +110,6 @@ Deletes the 2nd order.
 `delete` `1` +
 Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
 
-// end::delete[]
 [[done]]
 === Mark order as done: `done`
 ==== Description
@@ -242,6 +241,22 @@ List down all the orders, regardless of whether its completed or uncompleted.
 List down all the orders that are completed.
 * `list` `undone` +
 List down all the orders that are uncompleted.
+
+[[return]]
+=== Returning an order: `return`
+==== Description
+Adds a particular order as a return parcel into a new list.
+
+==== Format
+`return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE NUMBER` `ts/DELIVER_DATE_&_TIME` `w/WAREHOUSE_LOCATION`
+ `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+==== Examples:
+* `return `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` +
+`p/91230456` `ts/12-12-2020` `w/Jurong Warehouse pm/visa c/NIL type/glass` +
+* `return `tid/a1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` +
+`p/91230456` `ts/12-12-2020` `w/Jurong Warehouse pm/visa c/Leave it at the lobby type/metal`
+Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
 
 [[sort]]
 === Sorting orders: `sort`
