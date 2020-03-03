@@ -1,8 +1,8 @@
 package seedu.address.model.hirelah;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import java.util.ArrayList;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /*
  * AttributeList
@@ -23,9 +23,10 @@ import java.util.ArrayList;
  */
 
 public class AttributeList implements IList<Attribute> {
-    private ArrayList<Attribute> attributes;
     private static final String DUPLICATE_MESSAGE = "There are multiple attributes with the same prefix.";
     private static final String NOT_FOUND_MESSAGE = "No attributes with the entered prefix.";
+
+    private ArrayList<Attribute> attributes;
 
     /**
      * Constructs an AttributeList instance.

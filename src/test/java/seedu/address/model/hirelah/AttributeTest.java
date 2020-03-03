@@ -27,14 +27,12 @@ public class AttributeTest {
     @Test
     public void constructor_invalidAttributeName_throwsIllegalArgumentException() {
         String invalidName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Attribute(invalidName));
+        assertThrows(IllegalArgumentException.class, () -> new Attribute("1234"));
     }
 
     @Test
     public void isValidAttributeName() {
         // invalid name
-        assertFalse(Attribute.isValidAttributeName("")); // empty string
-        assertFalse(Attribute.isValidAttributeName(" ")); // spaces only
         assertFalse(Attribute.isValidAttributeName("^")); // only non-alphanumeric characters
         assertFalse(Attribute.isValidAttributeName("curiosity*")); // contains non-alphanumeric characters
         assertFalse(Attribute.isValidAttributeName("12345")); // numbers only

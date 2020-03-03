@@ -1,8 +1,8 @@
 package seedu.address.model.hirelah;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import java.util.ArrayList;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /*
  * QuestionList
