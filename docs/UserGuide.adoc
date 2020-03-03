@@ -18,7 +18,7 @@ By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-NusProductivity is an application for better management of your school work. The app will allow you to keep track of the modules you have taken, allow you to map your module out to plan for future modules. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+NusProductivity is an application for better management of your school work. The app will allow you to keep track of the modules you have taken, allow you to map your module out to plan for future modules. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 == Quick Start
 
@@ -70,19 +70,16 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 
-
-
- 
 === Listing all persons : contactList
- 
+
 Shows a list of all persons in the address book.
- 
+
 Format: contactList
- 
-=== Editing a person : contactEdit 
- 
+
+=== Editing a person : contactEdit
+
 Edits an existing person in the address book.
- 
+
 Format: contactEdit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…
 •	Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …
 •	At least one of the optional fields must be provided.
@@ -95,33 +92,33 @@ Examples:
  Edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
 •	edit 2 n/Betsy Crower t/
  Edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
- 
+
 === Locating persons by name: contactFind
- 
+
 Finds persons whose names contain any of the given keywords.
- 
+
 Format: contactFind KEYWORD [MORE_KEYWORDS]
 •	The search is case insensitive. e.g hans will match Hans
 •	The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
 •	Only the name is searched.
 •	Only full words will be matched e.g. Han will not match Hans
 •	Persons matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
- 
+
 Examples:
 •	find John
  Returns john and John Doe
 •	find Betsy Tim John
  Returns any person having names Betsy, Tim, or John
- 
+
 === Deleting a person : contactDelete
- 
+
 Deletes the specified person from the address book.
- 
+
 Format: contactDelete INDEX
 •	Deletes the person at the specified INDEX.
 •	The index refers to the index number shown in the displayed person list.
 •	The index must be a positive integer 1, 2, 3, …
- 
+
 Examples:
 •	list
  delete 2
@@ -131,69 +128,69 @@ Examples:
  Deletes the 1st person in the results of the find command.
 
 === Clearing all entries : contactClear
- 
+
 Clears all entries from the address book.
- 
+
 Format: clear
- 
+
 === Exiting the program : exit
- 
+
 Exits the program.
- 
+
 Format: exit
 
 === View CAP summary : cap
- 
-Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP. 
- 
+
+Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
+
 Format: cap {breakdown}
-If cap breakdown is inputted, it will show a breakdown of all the modules and grades that is tagged to the module. 
- 
+If cap breakdown is inputted, it will show a breakdown of all the modules and grades that is tagged to the module.
+
 === View module requirement: modreq
- 
+
 Shows the modules requirement for the major specified.
- 
-Format: modreq {/MAJOR} 
+
+Format: modreq {/MAJOR}
 Example: modreq computer science
- 
- 
+
+
 === Module information: module
- 
-Shows basic information about the module, such as time of lecture, tutorial, exam venues and professor’s contact associated with the module. 
- 
+
+Shows basic information about the module, such as time of lecture, tutorial, exam venues and professor’s contact associated with the module.
+
 Format: module {/MODULE CODE}
 Example: module CS2103T
- 
+
 === Diary: diary
- 
-Format: 
+
+Format:
 a.	diary log {Limit} : shows the most recent few amount of diary specified in limit, if no limit is specified, it will be limited to the most recent 10.
-b.	diary {DD-MM-YYYY} : shows the diary entry at the specified date if there is any 
-c.	diary add {ENTRY} : Adds the specific entry to the diary log, date and time will be logged automatically 
-d.	diary delete {ENTRY ID} : Deletes the specified diary ID’s entry. 
- 
- 
+b.	diary {DD-MM-YYYY} : shows the diary entry at the specified date if there is any
+c.	diary add {ENTRY} : Adds the specific entry to the diary log, date and time will be logged automatically
+d.	diary delete {ENTRY ID} : Deletes the specified diary ID’s entry.
+
+
 === Todo list: todo
- 
-Shows the list of tasks that are scheduled for the week with the deadline. 
- 
+
+Shows the list of tasks that are scheduled for the week with the deadline.
+
 Format: todo
- 
+
 === Deadline: deadline
- 
-Adds a new task to the todo list. The deadline will be shown alongside the task description. 
- 
-Format: deadline {/Description} /by {DD-MM-YYYY} {HHMM} 
- 
+
+Adds a new task to the todo list. The deadline will be shown alongside the task description.
+
+Format: deadline {/Description} /by {DD-MM-YYYY} {HHMM}
+
 === Module planning: mymodplan
- 
+
 Shows list of modules taken/to be taken to fulfill major requirements.
- 
-Format:  
+
+Format:
 a.	mymodplan: shows module planning list
 b.	mymodplan add {/MODULE CODE}: adds a module to the module plan
 c.	mymodplan done {/MODULE CODE}: marks a module as taken/done
- 
+
 === Command Summary
 •	contactAdd contactAdd n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…
  e.g. contactAdd n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague
@@ -204,21 +201,20 @@ c.	mymodplan done {/MODULE CODE}: marks a module as taken/done
  e.g. edit 2 n/James Lee e/jameslee@example.com
 •	contactFind : contactFind KEYWORD [MORE_KEYWORDS]
  e.g. find James Jake
-•	addressbooklist: list 
+•	addressbooklist: list
 •	cap : cap {breakdown}
 •	modreq : modreq {\MAJOR}
 e.g. modreq computer science
 •	todo: todo
 •	help : help
-•	diary : 
-•	diary log {Limit} 
-•	diary {DD-MM-YYYY} 
-•	diary add {ENTRY} 
-•	diary delete {ENTRY ID} 
+•	diary :
+•	diary log {Limit}
+•	diary {DD-MM-YYYY}
+•	diary add {ENTRY}
+•	diary delete {ENTRY ID}
 •	reminders : reminders
-•	deadline : deadline {/Description} /by {DD-MM-YYYY} {HHMM} 
-•	mymodplan: 
+•	deadline : deadline {/Description} /by {DD-MM-YYYY} {HHMM}
+•	mymodplan:
 •	mymodplan
 •	mymodplan add {/MODULE CODE}
 •	mymodplan done {/MODULE CODE}
- 

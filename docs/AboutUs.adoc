@@ -27,7 +27,7 @@ Role: # To be updated
 
 '''
 
-=== Max Pang 
+=== Max Pang
 image::mpang45456.jpg[width="150", align="left"]
 {empty}[http://github.com/mpang45456[github]] [<<mpang45456#, portfolio>>]
 
@@ -35,7 +35,7 @@ Role: # To be updated
 
 '''
 
-=== Kang Wang Kai 
+=== Kang Wang Kai
 image::kangwkk.jpg[width="150", align="left"]
 {empty}[http://github.com/kangwkk[github]] [<<kangwkk#, portfolio>>]
 
