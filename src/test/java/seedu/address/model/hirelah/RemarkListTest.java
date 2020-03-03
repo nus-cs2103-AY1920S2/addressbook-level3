@@ -17,9 +17,9 @@ class RemarkListTest {
     @Test
     void add_addRemarks_success() {
         RemarkList actualRemarks = new RemarkList();
-        actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
         ArrayList<Remark> expectedArray = new ArrayList<>();
-        expectedArray.add(RemarkTest.remarkAtEarlierInstant);
+        expectedArray.add(RemarkTest.remarkAtMiddleInstant);
         assertEquals(expectedArray, actualRemarks.getRemarks());
     }
 
@@ -27,55 +27,64 @@ class RemarkListTest {
     void getStartRemarkTime_getStartTime_success() {
         RemarkList actualRemarks = new RemarkList();
         actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
-        actualRemarks.add(RemarkTest.remarkAtLaterInstant);
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
         assertEquals(RemarkTest.defaultEarlierInstant, actualRemarks.getStartRemarkTime());
     }
 
     @Test
     void getLastRemarkTime_getLastTime_success() {
         RemarkList actualRemarks = new RemarkList();
-        actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
-        actualRemarks.add(RemarkTest.remarkAtLaterInstant);
+        actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
+        actualRemarks.add(RemarkTest.remark);
         assertEquals(RemarkTest.defaultLaterInstant, actualRemarks.getLastRemarkTime());
     }
 
     @Test
     void getInterviewDurationInMs_getInterviewTime_success() {
         RemarkList actualRemarks = new RemarkList();
-        actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
-        actualRemarks.add(RemarkTest.remarkAtLaterInstant);
+        actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
         assertEquals(1000, actualRemarks.getInterviewDurationInMs());
     }
 
     @Test
     void isTimeInValidRange_validTime_success() {
         RemarkList actualRemarks = new RemarkList();
-        actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
-        actualRemarks.add(RemarkTest.remarkAtLaterInstant);
+        actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
         assertTrue(actualRemarks.isTimeInValidRange(1000));
     }
 
     @Test
     void isTimeInValidRange_invalidTime_success() {
         RemarkList actualRemarks = new RemarkList();
-        actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
-        actualRemarks.add(RemarkTest.remarkAtLaterInstant);
+        actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
         assertFalse(actualRemarks.isTimeInValidRange(1001));
     }
 
     @Test
-    void getRemarkAtTime_getLastRemark_success() {
+    void getRemarkAtTime_getMiddleRemark_success() {
         RemarkList actualRemarks = new RemarkList();
-        actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
-        actualRemarks.add(RemarkTest.remarkAtLaterInstant);
-        assertEquals(RemarkTest.remarkAtEarlierInstant, actualRemarks.getRemarkAtTime(0));
+        actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
+        assertEquals(RemarkTest.remarkMiddleWithQuestion, actualRemarks.getRemarkAtTime(500));
     }
 
     @Test
     void isQuestionAnswered_noAnswer_success() {
         RemarkList actualRemarks = new RemarkList();
-        actualRemarks.add(RemarkTest.remarkAtEarlierInstant);
-        actualRemarks.add(RemarkTest.remarkAtLaterInstant);
-        assertFalse(actualRemarks.isQuestionAnswered(RemarkTest.defaultQuestion));
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
+        actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
+        assertFalse(actualRemarks.isQuestionAnswered(RemarkTest.defaultQuestion2));
+    }
+
+    @Test
+    void getInstantOfQuestion_firstQuestion_success() {
+        RemarkList actualRemarks = new RemarkList();
+        actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
+        actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
+        assertEquals(RemarkTest.remarkAtMiddleInstant, actualRemarks.getRemarkOfQuestion(RemarkTest.defaultQuestion2));
     }
 }

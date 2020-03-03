@@ -18,7 +18,7 @@ class TranscriptTest {
     @Test
     void getTranscriptAtTime_validTimeRange_success() throws IllegalActionException {
         Transcript actualTranscript = new Transcript();
-        actualTranscript.getRemarkList().add(RemarkTest.remarkAtEarlierInstant);
+        actualTranscript.getRemarkList().add(RemarkTest.remark);
         actualTranscript.getRemarkList().add(RemarkTest.remarkAtLaterInstant);
         assertEquals(RemarkTest.remarkAtEarlierInstant, actualTranscript.getTranscriptAtTime(0));
     }
@@ -26,6 +26,6 @@ class TranscriptTest {
     @Test
     void getTranscriptAtQuestion_unansweredQuestion_failure() {
         Transcript actualTranscript = new Transcript();
-        assertThrows(IllegalActionException.class, () -> actualTranscript.getTranscriptAtQuestion(RemarkTest.defaultQuestion));
+        assertThrows(IllegalActionException.class, () -> actualTranscript.getTranscriptAtQuestion(RemarkTest.defaultQuestion1));
     }
 }
