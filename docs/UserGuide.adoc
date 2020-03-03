@@ -159,7 +159,8 @@ Example: +
 ==== Remove person(s) `removeperson`
 
 Remove person(s) from the list of persons. +
-Format: `removeperson -n NAME [-n NAME]...` +
+Format: +
+`removeperson -n NAME [-n NAME]...` +
 
 Example: +
 `removeperson -n john` +
@@ -175,16 +176,16 @@ Example: +
 `removefood -f fries` +
 `removefood -f pizza -f pasta`
 
-=== Saving the data
+==== Exiting the program `exit`
+
+Exits the program. +
+Format: +
+`exit`
+
+==== Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
