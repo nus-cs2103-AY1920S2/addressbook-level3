@@ -279,7 +279,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* hall residents
+* Want to keep track of diet
+* Usually make payment first when eating together with friends
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -313,10 +315,13 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `EYLAH` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Diet Tracker
+
+[discrete]
+=== Use case: Add Person
 
 *MSS*
 
@@ -341,7 +346,97 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Expense Splitter
+
+[discrete]
+=== Use case: UC01 - Add person
+
+*MSS*
+
+1.  User key in the person name and optional details.
+2.  Eylah add the person details.
+3.  Eylah display the added person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Eylah detects empty name.
++
+[none]
+** 1a1. Eylah shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Eylah detects invalid syntax in person's details.
++
+[none]
+** 1b1. Eylah shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC02 - Add food
+
+*MSS*
+
+1.  User key in the food name, price and involved person.
+2.  Eylah adds the food details.
+3.  Eylah display the foods and respective involved person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Eylah detects empty food name, price or involved person.
++
+[none]
+** 1a1. Eylah shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Eylah detects invalid syntax.
++
+[none]
+** 1b1. Eylah shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Calculate cost
+
+*MSS*
+
+1.  User key request to calculate the cost.
+2.  Eylah get the cost details.
+3.  Eylah display cost .
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Eylah detects empty food name, price or involved person.
++
+[none]
+** 1a1. Eylah shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Eylah detects invalid syntax.
++
+[none]
+** 1b1. Eylah shows an error message.
++
+Use case ends.
+
+
 
 [appendix]
 == Non Functional Requirements
