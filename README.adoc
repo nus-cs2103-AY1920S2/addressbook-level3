@@ -14,9 +14,21 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application intended for
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+.Code Camp X
+****
+Code Camp X is the best management tool for you to use if you have issues managing your coding bootcamp!
+This will help you save countless of hours by making it simple for you to track the profitability of each of your courses,
+track the progress of your students and even effectively manage the teachers that you've hired!
+****
+
+.Who is it for?
+****
+- Those who find it difficult to managing a coding bootcamp
+- Those who have issues tracking manpower efficiently
+- Those who care about their students and their progress
+- Those who want to effectively tell the profitability of their bootcamp
+- Those who want to immediately see all the students that they have
+****
 
 == Site Map
 
