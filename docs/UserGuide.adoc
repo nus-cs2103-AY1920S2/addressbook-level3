@@ -138,7 +138,7 @@ Example: +
 `calculate -n john`
 `calculate -n john -alice`
 
-==== List items  `list food`
+==== List food(s) items  `list food`
 Display the food(s) in a list:
 
 Format: +
