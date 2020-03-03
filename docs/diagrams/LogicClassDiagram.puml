@@ -8,7 +8,9 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class InitializationPhaseParser
+Class InterviewPhaseParser
+Class DecisionPhaseParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -35,8 +37,12 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager -->"1" InitializationPhaseParser
+LogicManager -->"1" InterviewPhaseParser
+LogicManager -->"1" DecisionPhaseParser
+InitializationPhaseParser .left.> XYZCommandParser: creates >
+InterviewPhaseParser .down.> XYZCommandParser: creates >
+DecisionPhaseParser .down.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -52,8 +58,8 @@ XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+Command .left.> Model
+note left of XYZCommand: XYZCommand = OpenCommand, \nStartCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
