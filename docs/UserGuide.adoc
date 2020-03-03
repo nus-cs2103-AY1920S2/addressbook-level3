@@ -124,6 +124,22 @@ Deletes the 1st order in the results of the `find` command (find all orders with
 * 2. `edit 00k0i9ih34 p/9999 4444`
 * 3. `edit 000012348a a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
 
+[[done]]
+=== Mark order as done: `done`
+==== Description
+Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
+The order that is marked as done will be moved to another list that contains all the orders that are completed.
+The completed list can be seen by calling the list command:`list` `done`.
+
+==== Format
+`done` `INDEX`
+
+==== Examples
+* `done` `1` +
+The order at the first index of the list is marked as done.
+* `done` `2` +
+The order at the second index of the list is marked as done.
+
 === Exiting the program : `exit`
 
 ==== Description
@@ -175,14 +191,24 @@ Examples:
 * `import orders.csv` +
 Import the contents of the csv file `orders.csv` to Delino.
 
+[[list]]
 === Listing orders : `list`
 
-[None]
 ==== Description
-[none]
 * You can request to list the delivery order to see.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
+
+==== Format
+`list` `[DONE/UNDONE]` +
+
+=== Examples
+* `list` +
+List down all the orders, regardless of whether its completed or uncompleted.
+* `list` `done` +
+List down all the orders that are completed.
+* `list` `undone` +
+List down all the orders that are uncompleted.
 
 [[sort]]
 === Sorting orders: `sort`
