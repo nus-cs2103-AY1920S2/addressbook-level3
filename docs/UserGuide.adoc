@@ -126,8 +126,11 @@ Deletes the 1st order in the results of the `find` command (find all orders with
 
 === Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+==== Description
+* You can exit the application using exit command.
+
+==== Format:
+* `exit`
 
 === Locating persons by name: `find`
 
@@ -239,19 +242,13 @@ back to the list of orders.
 The list will be reverted back to the state after the second command `delete` `1`.
 
 === Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+==== Description
+* Data is saved in the hard disk automatically after any command that changes data that is present. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Reminder `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-=== Remainder `[coming in v2.0]`
-
-_{explain how the user can set remainder specifically for orders that are rescheduled or urgent orders}_
+_{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
 
 === Rescheduling orders `[coming in v2.0]`
 
