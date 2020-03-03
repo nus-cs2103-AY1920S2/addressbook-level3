@@ -142,9 +142,9 @@ Deletes the 1st supplier in the results of the `find` command.
 Clears all supplier entries from the address book. +
 Format: `clear-s`
 
-=== Buy goods from supplier: `buy`
+=== Buying goods from supplier: `buy`
 
-Buy a particular goods from the supplier. +
+Buys a particular goods from the supplier. +
 Format: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE`
 
 [TIP]
@@ -155,9 +155,9 @@ Example:
 * `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03` +
 Buys 4 apples from a certain supplier named Dave with the above transaction and expiry dates.
 
-=== Sell goods: `sell`
+=== Selling goods: `sell`
 
-Sell a particular goods from the inventory.. +
+Sells a particular goods from the inventory.. +
 Format: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE`
 
 Example:
