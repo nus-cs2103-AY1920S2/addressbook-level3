@@ -36,7 +36,6 @@ class RemarkListTest {
         RemarkList actualRemarks = new RemarkList();
         actualRemarks.add(RemarkTest.remarkQuarterWithQuestion);
         actualRemarks.add(RemarkTest.remarkMiddleWithQuestion);
-        actualRemarks.add(RemarkTest.remark);
         assertEquals(RemarkTest.defaultLaterInstant, actualRemarks.getLastRemarkTime());
     }
 
