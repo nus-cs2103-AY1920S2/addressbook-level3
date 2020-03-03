@@ -29,8 +29,8 @@ Have a delightful journey using Delino!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `Delino.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Delino.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -39,12 +39,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all delivery orders
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd delivery order shown in the current list
-* *`exit`* : exits the app
+* <<list, `list`>> : lists all orders to be delivered.
+* <<add, `add`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
+* <<delete, `delete`>> `3` : deletes the 3rd delivery order shown in the current list
+* <<exit, `exit`>> : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for a more detailed explanation of each command.
 
 [[Features]]
 == Features
@@ -58,6 +58,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+[[add]]
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -71,6 +72,7 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
+[[clear]]
 === Clearing all entries : `clear`
 
 ==== Description
@@ -109,27 +111,6 @@ Deletes the 2nd order.
 Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
 
 // end::delete[]
-=== Editing an order : `edit`
-
-==== Description
-[none]
-* You can edit the details of the delivery order by providing the order transaction id, the field you want to change followed by the updated value.
-
-==== Format
-[none]
-* `edit *TRANSACTION_ID* *FIELD_TO_CHANGE* *VALUE*`
-
-****
-* Edits the order at the specified `TRANSACTION_ID`. The transaction id is alphanumeric and is used to identify each order.
-* Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
-****
-
-==== Examples
-[none]
-* 1. `edit 0123456789 n/Xuan En`
-* 2. `edit 00k0i9ih34 p/9999 4444`
-* 3. `edit 000012348a a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
-
 [[done]]
 === Mark order as done: `done`
 ==== Description
@@ -146,6 +127,40 @@ The order at the first index of the list is marked as done.
 * `done` `2` +
 The order at the second index of the list is marked as done.
 
+[[edit]]
+=== Editing an order : `edit`
+
+==== Description
+
+* You can edit the details of the delivery order by providing the index of it shown on the status bar, followed by the field you want to change and lastly the updated value.
+
+==== Format
+
+[TIP]
+Use the <<list, `list`>> command to see which delivery order you want to edit.
+
+* `edit` `INDEX` `<<sort, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE`
+
+[WARNING]
+The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
+
+****
+* Edits the order at the specified `INDEX`.
+* Existing value that corresponds to the `PREFIX` will be updated to the input `NEW_VALUE`.
+****
+
+==== Examples
+
+* `edit` `1` `n/Xuan En` +
+The index `1` customer's name is changed to `Xuan En`.
+* `edit` `2` `p/9999 4444` +
+The index `2` customer's phone number is changed to `9999 4444`.
+* `edit` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+The index `1` customer's address is changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
+* `edit` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141` +
+The index `3` customer's name, phone and address are changed accordingly to the prefix.
+
+[[exit]]
 === Exiting the program : `exit`
 
 ==== Description
@@ -154,26 +169,34 @@ The order at the second index of the list is marked as done.
 ==== Format:
 * `exit`
 
-=== Locating persons by name: `find`
+[[find]]
+=== Locating orders by name or transaction ID: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Description
+
+* You can find all orders that contain a given keyword. The orders will be searched by a given flag. If the flag is `-n`, the orders will be searched by *name*. If the flag is `-t`, the orders will be searched by their *transaction ID*. The list of orders returned will not be sorted by default.
+
+==== Format
+* `find` `FLAG` `KEYWORD` `[MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The delivery orders can only be searched by either name of receiver or transaction ID of the order.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
-Examples:
+==== Examples
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find -n Jeremy Loh` +
+Possibly return `jeremy` or `Jeremy Loh` or `loh` or any of the above as long as keyword appears in name.
+* `find -t asj2od3943` +
+Return delivery order with transaction ID of `asj2od3943`
+* find -t 920392844 +
+Return delivery order with transaction ID of `920392844`
 
+[[help]]
 === Viewing help : `help`
 
 Format: `help`
