@@ -15,17 +15,17 @@ import seedu.address.logic.Logic;
 /**
  * The manager of the VIEW component.
  */
-public class UiManager implements View {
+public class ViewManager implements View {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
-    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ViewManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic) {
+    public ViewManager(Logic logic) {
         super();
         this.logic = logic;
     }

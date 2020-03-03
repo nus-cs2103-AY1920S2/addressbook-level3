@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The VIEW component that is responsible for receiving user command inputs.
  */
-public class CommandBox extends UiPart<Region> {
+public class CommandBox extends ViewPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";

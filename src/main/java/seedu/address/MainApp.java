@@ -29,7 +29,7 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.view.View;
-import seedu.address.view.UiManager;
+import seedu.address.view.ViewManager;
 
 /**
  * Runs the application.
@@ -65,7 +65,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        view = new UiManager(logic);
+        view = new ViewManager(logic);
     }
 
     /**
