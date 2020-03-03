@@ -137,16 +137,22 @@ The order at the second index of the list is marked as done.
 ==== Format
 
 [TIP]
-Use the <<list, `list`>> command to see which delivery order you want to edit.
+Use the <<list, `list`>> command to see which delivery order you want to edit. +
+You can edit more than one field by providing the corresponding <<command_prefix, order attribute prefix>>.
 
-* `edit` `INDEX` `<<sort, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE`
+* `edit` `INDEX` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE`
 
 [WARNING]
-The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
+The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ... +
+The `INDEX` *must be in range* of the number of displayed orders +
+Only can be used when there is at least an order displayed.
+
+
 
 ****
 * Edits the order at the specified `INDEX`.
 * Existing value that corresponds to the `PREFIX` will be updated to the input `NEW_VALUE`.
+* List of order attribute prefix can be found <<command_prefix, here>>.
 ****
 
 ==== Examples
@@ -347,3 +353,73 @@ e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 1
 * <<sort, *Sort*>> : `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
 e.g. `sort` `-d` `ts/`
 * <<undo, *Undo*>> : `undo`
+
+== Appendix A: Glossary
+
+[[command_prefix]]
+.Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|tid/
+|Transaction ID
+|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|n/
+|Name
+|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|a/
+|Address
+|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|p/
+|Phone Number
+|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|ts/
+|Delivery Date And Time
+|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|w/
+|Warehouse Location
+|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|pm/
+|Payment Method
+|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|c/
+|Comments by Customer
+|<<add, Add>>, <<edit, Edit>>, <<return, Return>>
+
+|type/
+|Type of Item
+|<<add, Add>>, <<edit, Edit>>, <<return, Return>>
+|===
+
+[[command_flags]]
+.Possible Command Flags
+|===
+|Flag |Meaning |Used in the following Command(s)
+
+|-a
+|Sort in *ascending* order
+|<<sort, Sort>>
+
+|-d
+|Sort in *descending* order
+|<<sort, Sort>>
+
+|-f
+|Force clear, no user confirmation will be requested
+|<<clear, Clear>>
+
+|-n
+|Search using Name
+|<<find, Find>>
+
+|-t
+|Search using Transaction ID
+|<<find, Find>>
+|===
