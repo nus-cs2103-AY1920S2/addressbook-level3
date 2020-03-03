@@ -952,7 +952,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: By default, if there is no flag, it will sort all orders in ascending order based the on customer names
 .. Test case: `sort` +
    Expected: Error will occur as it is an invalid syntax
-   
+
 === Undo previous action
 
 . Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
@@ -972,6 +972,6 @@ These instructions only provide a starting point for testers to work on; testers
 . Exits the Delino App using the `exit` command
 
 .. Test case: `exit` +
-   Expected: The GUI window will be closed.
+   Expected: The GUI window will be closed
 .. Test case: Adding any other words as the second argument of the `exit` command
    Expected: The response box will display an invalid command message
