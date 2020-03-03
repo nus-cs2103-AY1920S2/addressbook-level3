@@ -15,6 +15,6 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setFoodieBot(new FoodieBot());
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
     }
 }

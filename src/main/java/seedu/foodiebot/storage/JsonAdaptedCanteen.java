@@ -14,6 +14,8 @@ import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.tag.Tag;
 
+
+
 /** Jackson-friendly version of {@link Canteen}. */
 class JsonAdaptedCanteen {
 
@@ -23,6 +25,9 @@ class JsonAdaptedCanteen {
     private final int numberOfStalls;
     private final String nearestBlockName;
     private final int distance;
+    private final String directionsImageName;
+    private final String canteenImageName;
+    private final String directionsText;
 
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -33,6 +38,9 @@ class JsonAdaptedCanteen {
             @JsonProperty("distance") String distance,
             @JsonProperty("numberOfStalls") String numberOfStalls,
             @JsonProperty("nearestBlockName") String nearestBlockName,
+            @JsonProperty("directionsImageName") String directionsImageName,
+            @JsonProperty("canteenImageName") String canteenImageName,
+            @JsonProperty("directionsText") String directionsText,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.numberOfStalls = Integer.parseInt(numberOfStalls);
@@ -42,6 +50,9 @@ class JsonAdaptedCanteen {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.directionsImageName = directionsImageName;
+        this.canteenImageName = canteenImageName;
+        this.directionsText = directionsText;
     }
 
     /** Converts a given {@code Canteen} into this class for Jackson use. */
@@ -52,6 +63,9 @@ class JsonAdaptedCanteen {
         distance = source.getDistance();
         tagged.addAll(
                 source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
+        directionsImageName = source.getDirectionImageName();
+        canteenImageName = source.getCanteenImageName();
+        directionsText = source.getDirectionsText();
     }
 
     /**
@@ -85,6 +99,7 @@ class JsonAdaptedCanteen {
         }
 
         final Set<Tag> modelTags = new HashSet<>(canteenTags);
-        return new Canteen(modelName, modelNumberOfStalls, distance, modelBlockName, modelTags);
+        return new Canteen(modelName, modelNumberOfStalls, distance, modelBlockName, directionsImageName,
+                directionsText, modelTags, canteenImageName);
     }
 }

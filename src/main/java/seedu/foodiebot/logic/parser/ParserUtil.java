@@ -11,6 +11,7 @@ import seedu.foodiebot.commons.util.StringUtil;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.canteen.Address;
 import seedu.foodiebot.model.canteen.Block;
+import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.tag.Tag;
 
@@ -75,11 +76,10 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD:src/main/java/seedu/foodiebot/logic/parser/ParserUtil.java
      * Parses a {@code String blockName} into an {@code blockName}. Leading and trailing whitespaces
      * will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code blockName} is invalid.
      */
     public static String parseBlockName(String blockName) throws ParseException {
         requireNonNull(blockName);
@@ -88,6 +88,21 @@ public class ParserUtil {
             throw new ParseException(Block.MESSAGE_CONSTRAINTS);
         }
         return trimmedBlockName;
+    }
+
+    /**
+     * Parses a {@code String canteenName} into an {@code canteenName}. Leading and trailing whitespaces
+     * will be trimmed.
+     *
+     * @throws ParseException if the given {@code canteenName} is invalid.
+     */
+    public static String parseCanteenName(String canteenName) throws ParseException {
+        requireNonNull(canteenName);
+        String trimmedCanteenName = canteenName.trim();
+        if (!Canteen.isValidCanteen(trimmedCanteenName)) {
+            throw new ParseException(Canteen.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedCanteenName;
     }
 
 

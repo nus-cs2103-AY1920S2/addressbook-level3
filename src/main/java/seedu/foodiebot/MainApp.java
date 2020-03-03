@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.foodiebot.commons.core.Config;
 import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.commons.core.Version;
@@ -21,6 +22,7 @@ import seedu.foodiebot.model.ModelManager;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.UserPrefs;
+import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.util.SampleDataUtil;
 import seedu.foodiebot.storage.FoodieBotStorage;
 import seedu.foodiebot.storage.JsonFoodieBotStorage;
@@ -31,7 +33,9 @@ import seedu.foodiebot.storage.UserPrefsStorage;
 import seedu.foodiebot.ui.Ui;
 import seedu.foodiebot.ui.UiManager;
 
-/** Runs the application. */
+/**
+ * Runs the application.
+ */
 public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
@@ -47,7 +51,7 @@ public class MainApp extends Application {
     @Override
     public void init() throws Exception {
         logger.info(
-                "=============================[ Initializing FoodieBot ]===========================");
+            "=============================[ Initializing FoodieBot ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,7 +60,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         FoodieBotStorage foodieBotStorage =
-                new JsonFoodieBotStorage(userPrefs.getFoodieBotFilePath());
+            new JsonFoodieBotStorage(userPrefs.getFoodieBotFilePath());
         storage = new StorageManager(foodieBotStorage, userPrefsStorage);
 
         initLogging(config);
@@ -79,23 +83,25 @@ public class MainApp extends Application {
         Optional<ReadOnlyFoodieBot> addressBookOptional;
         ReadOnlyFoodieBot initialData;
         try {
-            addressBookOptional = storage.readFoodieBot();
+            storage.readFoodieBot(Canteen.class.getSimpleName());
+            addressBookOptional = Optional.empty();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample FoodieBot");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleFoodieBot);
         } catch (DataConversionException e) {
             logger.warning(
-                    "Data file not in the correct format. Will be starting with an empty FoodieBot");
+                "Data file not in the correct format. Will be starting with an empty FoodieBot");
             initialData = new FoodieBot();
         } catch (IOException e) {
             logger.warning(
-                    "Problem while reading from the file. Will be starting with an empty FoodieBot");
+                "Problem while reading from the file. Will be starting with an empty FoodieBot");
             initialData = new FoodieBot();
         }
 
         return new ModelManager(initialData, userPrefs);
     }
+
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
@@ -124,10 +130,10 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning(
-                    "Config file at "
-                            + configFilePathUsed
-                            + " is not in the correct format. "
-                            + "Using default config properties");
+                "Config file at "
+                    + configFilePathUsed
+                    + " is not in the correct format. "
+                    + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -154,14 +160,14 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning(
-                    "UserPrefs file at "
-                            + prefsFilePath
-                            + " is not in the correct format. "
-                            + "Using default user prefs");
+                "UserPrefs file at "
+                    + prefsFilePath
+                    + " is not in the correct format. "
+                    + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning(
-                    "Problem while reading from the file. Will be starting with an empty FoodieBot");
+                "Problem while reading from the file. Will be starting with an empty FoodieBot");
             initializedPrefs = new UserPrefs();
         }
 
@@ -184,7 +190,7 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info(
-                "============================ [ Stopping Address Book ] =============================");
+            "============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

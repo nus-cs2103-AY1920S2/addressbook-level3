@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /** Represents the result of a command execution. */
 public class CommandResult {
+    public final String commandName;
 
     private final String feedbackToUser;
 
@@ -16,18 +17,19 @@ public class CommandResult {
     private final boolean exit;
 
     /** Constructs a {@code CommandResult} with the specified fields. */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String commandName, String feedbackToUser, boolean showHelp, boolean exit) {
+        this.commandName = commandName;
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
     }
-
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, and other
      * fields set to their default value.
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String commandName, String feedbackToUser) {
+        this(commandName, feedbackToUser,
+            false, false);
     }
 
     public String getFeedbackToUser() {
@@ -54,7 +56,8 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
+        return commandName.equals(otherCommandResult.commandName)
+                && feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }

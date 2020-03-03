@@ -4,14 +4,14 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.foodiebot.model.canteen.Canteen;
 
-/** An UI component that displays information of a {@code Person}. */
+/** An UI component that displays information of a {@code Canteen}. */
 public class CanteenCard extends UiPart<Region> {
-
     private static final String FXML = "CanteenListCard.fxml";
 
     /**
@@ -26,6 +26,7 @@ public class CanteenCard extends UiPart<Region> {
 
     @FXML private HBox cardPane;
     @FXML private Label name;
+    @FXML private ImageView iv;
     @FXML private Label id;
     @FXML private Label numberOfStalls;
     @FXML private Label distance;
@@ -36,6 +37,7 @@ public class CanteenCard extends UiPart<Region> {
         super(FXML);
         this.canteen = canteen;
         id.setText(displayedIndex + ". ");
+        iv.setImage(canteen.getCanteenImage());
         name.setText(canteen.getName().fullName);
         nearestBlockName.setText(canteen.getBlockName());
         numberOfStalls.setText(String.valueOf(canteen.getNumberOfStalls()));

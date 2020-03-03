@@ -17,8 +17,9 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
+        ClearCommand command = new ClearCommand();
         assertCommandSuccess(
-            new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+             command , ClearCommand.COMMAND_WORD, model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -27,7 +28,8 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager(getTypicalFoodieBot(), new UserPrefs());
         expectedModel.setFoodieBot(new FoodieBot());
 
+        ClearCommand command = new ClearCommand();
         assertCommandSuccess(
-            new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+            command , ClearCommand.COMMAND_WORD, model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

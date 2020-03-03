@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
 
         Canteen canteenToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteCanteen(canteenToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, canteenToDelete));
+        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DELETE_PERSON_SUCCESS, canteenToDelete));
     }
 
     @Override

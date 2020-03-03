@@ -12,4 +12,5 @@ public class Messages {
     public static final String MESSAGE_FOOD_REVIEW = "Leave a review for the food item";
     public static final String MESSAGE_BUDGET_VIEW = "Your current budget has been set to $ $d. "
         + "Here are your spendings this week\n You have $ $d available to spend this week.";
+    public static final String MESSAGE_NOTAVAILABLE = "No information available";
 }

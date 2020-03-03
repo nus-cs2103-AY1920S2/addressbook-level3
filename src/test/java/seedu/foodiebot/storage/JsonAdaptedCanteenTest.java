@@ -32,14 +32,16 @@ public class JsonAdaptedCanteenTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedCanteen canteen =
-            new JsonAdaptedCanteen(INVALID_NAME, "0", "0", "The Deck", VALID_TAGS);
+            new JsonAdaptedCanteen(INVALID_NAME, "0", "0", "deck.jpg",
+                "", "deck.jpg", "", VALID_TAGS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, canteen::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedCanteen canteen = new JsonAdaptedCanteen(null, "0", "0", "The Deck", VALID_TAGS);
+        JsonAdaptedCanteen canteen = new JsonAdaptedCanteen(null, "0", "0",
+            "", "", "deck.jpg", "", VALID_TAGS);
         String expectedMessage =
             String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, canteen::toModelType);
@@ -48,7 +50,8 @@ public class JsonAdaptedCanteenTest {
     @Test
     public void toModelType_invalidDistance_throwsIllegalValueException() {
         JsonAdaptedCanteen canteen =
-            new JsonAdaptedCanteen(VALID_NAME, INVALID_DISTANCE, "0", "The Deck", VALID_TAGS);
+            new JsonAdaptedCanteen(VALID_NAME, INVALID_DISTANCE, "0", "The Deck",
+                "", "deck.jpg", "", VALID_TAGS);
         // String expectedMessage = Distance.MESSAGE_CONSTRAINTS;
         // assertThrows(IllegalValueException.class, expectedMessage, canteen::toModelType);
     }

@@ -6,11 +6,16 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
 
 /** The API of the Model component. */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Canteen> PREDICATE_SHOW_ALL_CANTEENS = unused -> true;
+    Predicate<Canteen> PREDICATE_SHOW_ALL_CANTEEN = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Stall> PREDICATE_SHOW_ALL_STALLS = unused -> true;
+
 
     /** Replaces user prefs data with the data in {@code userPrefs}. */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -64,4 +69,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCanteenList(Predicate<Canteen> predicate);
+
+    ObservableList<Stall> getFilteredStallList();
+
+    ObservableList<Stall> getFilteredStallList(boolean isInitialised);
+
+    /**
+     * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredStallList(Predicate<Stall> predicate);
 }

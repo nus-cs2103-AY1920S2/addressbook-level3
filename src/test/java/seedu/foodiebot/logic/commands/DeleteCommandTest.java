@@ -35,7 +35,8 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getFoodieBot(), new UserPrefs());
         expectedModel.deleteCanteen(personToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, DeleteCommand.COMMAND_WORD, model, expectedMessage,
+                expectedModel);
     }
 
     @Test
@@ -43,7 +44,8 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCanteenList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model,
+                Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
 
     /*@Test
