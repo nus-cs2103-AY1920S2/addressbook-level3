@@ -1,4 +1,4 @@
-= Address Book (Level 3)
+= Notably
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.com/AY1920S2-CS2103T-W17-2/main.svg?branch=master["Build Status", link="https://travis-ci.com/AY1920S2-CS2103T-W17-2/main"]
@@ -23,7 +23,6 @@ endif::[]
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
