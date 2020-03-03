@@ -205,6 +205,11 @@ Format: `edit-bo INDEX [n/SUPPLIER_NAME] [g/GOOD_NAME] [q/QUANTITY] [d/TRANSACTI
 Edits an existing sell order in the transaction history. +
 Format: `edit-so INDEX [g/GOOD_NAME][q/QUANTITY][d/TRANSACTION_DATE]`
 
+=== Setting minimum quantity for goods: `set`
+
+Sets the minimum quantity threshold for a certain goods. All goods with quantity below this threshold will appear in the list of goods in shortage. +
+Format: `set g/GOOD_NAME q/MIN_QUANTITY`
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -250,4 +255,5 @@ e.g. `sell g/apple q/4 d/2030-01-05`
 * *Clear transaction history*: `clear-t`
 * *Edit buy order*: `edit-bo INDEX [n/SUPPLIER_NAME] [g/GOOD_NAME] [q/QUANTITY] [d/TRANSACTION_DATE] [x/EXPIRY_DATE]`
 * *Edit sell order*: `edit-so INDEX [g/GOOD_NAME][q/QUANTITY][d/TRANSACTION_DATE]`
+* *Set minimum quantity for goods*: `set g/GOOD_NAME q/MIN_QUANTITY`
 * *Help* : `help`
