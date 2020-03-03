@@ -101,6 +101,28 @@ Edits the name of the 1st task to be `Do Spanish Quiz`.
 * `edit 2 n/Add Buy Feature ld/2020-03-04` +
 Edits the name and date of the 2nd task to be `Add Buy Feature` and `4th Mar 2020`, respectively.
 
+=== Using Pomodoro: `pom`
+
+Starts the Pomodoro timer, with a task in focus +
+Format: `pom INDEX`
+
+****
+* Focus is on the task at the specified `INDEX`. The index refers to the index number shown in the displayed task list. The index *must be a positive integer* 1, 2, 3, ...
+* Runs Pomodoro for one cycle (Default 25 minutes of work, 5 minutes of rest)
+****
+
+Pomodoro Flow: +
+
+. `pom 10` starts a timer of 25 minutes, focusing on task at index 10.
+.. If task is completed before time is up: +
+... `done 10` to complete the task. +
+... The app will prompt you with `continue?(Y #) or end(N)` +
+... `Y INDEX`: Pomodoro continues remaining time with new task at `INDEX` in focus. +
+... `N` : The Pomodoro timer is stopped and the app is in the `neutral` state.
+.. If Pomodoro timer is up: +
+... Pomodoro prompts to check to go into 5 minute break, and prompts to check again then continues 25-minute work
+
+
 === Locating tasks by a keyword: `find`
 
 Finds tasks whose names contain any of the given keywords. +
