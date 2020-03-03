@@ -67,8 +67,7 @@ public class Remark {
             Remark otherRemark = ((Remark) other);
             if (question == null || otherRemark.getQuestion() == null) {
                 return question == otherRemark.getQuestion();
-            }
-            else {
+            } else {
                 return time.equals(otherRemark.time)
                         && message.equals(otherRemark.message)
                         && question.equals(otherRemark.question);

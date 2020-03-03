@@ -1,16 +1,16 @@
 package seedu.address.model.hirelah;
 
-import seedu.address.model.hirelah.exceptions.IllegalActionException;
-
 import java.io.File;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
+
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
 /**
  * Encapsulates all the details that are put by the interviewer during the interview session
  * for a particular {@code Interviewee}. It stores the {@code RemarkList} which contains all {@code Remark}s
- * of this interview, the {@code File} of the audio recorded for this interview and the attribute scores inside a HashMap.
+ * of this interview, the {@code File} of the audio recorded for this interview
+ * and the attribute scores inside a HashMap.
  */
 public class Transcript {
     private final RemarkList remarkList;
@@ -81,8 +81,12 @@ public class Transcript {
      * @return The {@code Remark} that are created nearest to the time.
      */
     public Remark getTranscriptAtTime(long timeMs) throws IllegalActionException {
+        System.out.println("APAAH SIH");
+        System.out.println(timeMs <= remarkList.getInterviewDurationInMs());
         if (!remarkList.isTimeInValidRange(timeMs)) {
-            throw new IllegalActionException("The duration of the interview is only " + remarkList.getInterviewDurationInMs());
+            throw new IllegalActionException(
+                    "The duration of the interview is only " + remarkList.getInterviewDurationInMs()
+            );
         }
         Remark currentRemark = this.remarkList.getRemarkAtTime(timeMs);
         return currentRemark;
@@ -94,7 +98,7 @@ public class Transcript {
      * @param question {@code Question} that are to be queried.
      * @return Instant of the {@code Remark} that are first associated with this {@code Question}.
      */
-    public Remark getTranscriptAtQuestion(Question question) throws IllegalActionException{
+    public Remark getTranscriptAtQuestion(Question question) throws IllegalActionException {
         if (!remarkList.isQuestionAnswered(question)) {
             throw new IllegalActionException("There is no answer for this question");
         }
