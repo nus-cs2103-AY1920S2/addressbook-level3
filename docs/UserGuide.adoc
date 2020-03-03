@@ -23,8 +23,8 @@ InventoryManager is for those who *prefer to use a desktop app for managing thei
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `inventorymanager.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your InventoryManager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list-s`* : lists all suppliers
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 gp/apple 4.50` : adds a supplier named `John Doe` selling apples at 4.50 each to the InventoryManager.
+* **`delete-s`**`3` : deletes the 3rd supplier shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
