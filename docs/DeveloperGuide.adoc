@@ -308,6 +308,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`* * *` |healthy hall resident who is trying to lose weight |check how many calories I took today |keep track of my calories intake and weight
+
+|`* * *` |Temasek hall resident who frequents supper food spots |split the bill easily with fellow mates| ensure that the amount is correctly accounted for
+
+|`* * *` |Temasek Hall resident who wants to stay healthy |keep track of my calories |more accurately watch my weight
 |=======================================================================
 
 _{More to be added}_
