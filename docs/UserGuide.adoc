@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Delino - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -142,6 +142,7 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 Format: `help`
 
+[[import]]
 === Importing a list of orders : `import`
 ==== Description
 You will be able to import orders via csv file that are given to you by your company.
@@ -155,8 +156,8 @@ transaction id of the parcels and the address of the customers, etc. +
 * Only csv file could be imported.
 * Only *one* csv file can be imported at one time.
 * The FILE_NAME should include the extension. For example: *orders.csv*.
-* Import the specific csv with the FILE_NAME in data folder to the application.
 * The folder, *data*, which the csv files are stored should be at the same directory as the JAR file.
+* Import the specific csv with the FILE_NAME in *data* folder to the application.
 ****
 
 ==== Examples
