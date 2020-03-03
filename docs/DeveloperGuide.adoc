@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Fitness Helper - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -15,7 +15,7 @@ endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-T09-4/main/tree/master
 
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103-T09-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
