@@ -279,7 +279,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* hall residents
+* Want to keep track of diet
+* Usually make payment first when eating together with friends
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -384,6 +386,35 @@ Use case ends.
 1.  User key in the food name, price and involved person.
 2.  Eylah adds the food details.
 3.  Eylah display the foods and respective involved person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Eylah detects empty food name, price or involved person.
++
+[none]
+** 1a1. Eylah shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Eylah detects invalid syntax.
++
+[none]
+** 1b1. Eylah shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Calculate cost
+
+*MSS*
+
+1.  User key request to calculate the cost.
+2.  Eylah get the cost details.
+3.  Eylah display cost .
 +
 Use case ends.
 
