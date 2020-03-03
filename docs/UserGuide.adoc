@@ -67,8 +67,16 @@ Examples:
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Description
+* You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
+If an additional flag is given -f, no user confirmation will be requested.
+
+==== Format:
+* `clear` `[FLAG]`
+
+==== Example(s)
+* `clear`
+* `clear` `-f`
 
 // tag::delete[]
 === Deleting a person : `delete`
@@ -115,8 +123,11 @@ Deletes the 1st person in the results of the `find` command.
 
 === Exiting the program : `exit`
 
-Exits the program. +
-Format: `exit`
+==== Description
+* You can exit the application using exit command.
+
+==== Format:
+* `exit`
 
 === Locating persons by name: `find`
 
@@ -174,11 +185,6 @@ Import the contents of the csv file, `orders.csv`, to Delino.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
 
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
 === Remainder `[coming in v2.0]`
 
 _{explain how the user can set remainder specifically for orders that are rescheduled or urgent orders}_
@@ -186,6 +192,11 @@ _{explain how the user can set remainder specifically for orders that are resche
 === Rescheduling orders `[coming in v2.0]`
 
 _{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
+
+=== Saving the data
+==== Description
+* Data is saved in the hard disk automatically after any command that changes data that is present. +
+There is no need to save manually.
 
 === Export order list `[coming in v2.0]`
 _{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
