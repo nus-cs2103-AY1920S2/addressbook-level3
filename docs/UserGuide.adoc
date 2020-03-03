@@ -52,13 +52,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+[[add]]
 === Adding a person: `add`
 
 ==== Description
 * Adds a new order to the list of orders
 
 ==== Format
-* `add` `tid/*TRANSACTION_ID*` `n/*NAME*` `a/*ADDRESS*` `p/*PHONE_NUMBER*` `*ts/DELIVERY_DATE_&_TIME*` `w/*WAREHOUSE_LOCATION*` `pm/*PAYMENT_METHOD*` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+* `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 [TIP]
 All the fields (in bold) are compulsory except for the fields [c/COMMENTS_BY_CUSTOMER] and [type/TYPE_OF_ITEM]
