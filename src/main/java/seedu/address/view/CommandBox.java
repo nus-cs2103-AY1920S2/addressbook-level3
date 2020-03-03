@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.view;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The UI component that is responsible for receiving user command inputs.
+ * The VIEW component that is responsible for receiving user command inputs.
  */
 public class CommandBox extends UiPart<Region> {
 

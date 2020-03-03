@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.view;
 
 import java.util.logging.Logger;
 
@@ -30,7 +30,7 @@ public class MainWindow extends UiPart<Stage> {
     private Stage primaryStage;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
+    // Independent View parts residing in this View container
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -57,7 +57,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        // Configure the UI
+        // Configure the VIEW
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();

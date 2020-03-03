@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.view;
 
 import java.util.logging.Logger;
 
@@ -13,9 +13,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 
 /**
- * The manager of the UI component.
+ * The manager of the VIEW component.
  */
-public class UiManager implements Ui {
+public class UiManager implements View {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -32,14 +32,14 @@ public class UiManager implements Ui {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting UI...");
+        logger.info("Starting VIEW...");
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.show(); //This should be called before creating other VIEW parts
             mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
