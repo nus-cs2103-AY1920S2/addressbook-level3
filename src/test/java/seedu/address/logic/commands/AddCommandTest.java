@@ -15,11 +15,20 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelFinance.Finance;
+import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
+import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
+import seedu.address.model.modelStudent.Student;
+import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
+import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -146,6 +155,206 @@ public class AddCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getTeacherAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setTeacherAddressBookFilePath(Path teacherAddressBookFilePath) {
+
+        }
+
+        @Override
+        public ReadOnlyTeacherAddressBook getTeacherAddressBook() {
+            return null;
+        }
+
+        @Override
+        public void setTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook) {
+
+        }
+
+        @Override
+        public boolean hasTeacher(Teacher teacher) {
+            return false;
+        }
+
+        @Override
+        public void deleteTeacher(Teacher target) {
+
+        }
+
+        @Override
+        public void addTeacher(Teacher teacher) {
+
+        }
+
+        @Override
+        public void setTeacher(Teacher target, Teacher editedTeacher) {
+
+        }
+
+        @Override
+        public ObservableList<Teacher> getFilteredTeacherList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTeacherList(Predicate<Teacher> predicate) {
+
+        }
+
+        @Override
+        public Path getStudentAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setStudentAddressBookFilePath(Path studentAddressBookFilePath) {
+
+        }
+
+        @Override
+        public ReadOnlyStudentAddressBook getStudentAddressBook() {
+            return null;
+        }
+
+        @Override
+        public void setStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook) {
+
+        }
+
+        @Override
+        public boolean hasStudent(Student student) {
+            return false;
+        }
+
+        @Override
+        public void deleteStudent(Student target) {
+
+        }
+
+        @Override
+        public void addStudent(Student student) {
+
+        }
+
+        @Override
+        public void setStudent(Student target, Student editedStudent) {
+
+        }
+
+        @Override
+        public ObservableList<Student> getFilteredStudentList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredStudentList(Predicate<Student> predicate) {
+
+        }
+
+        @Override
+        public Path getCourseAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setCourseAddressBookFilePath(Path courseAddressBookFilePath) {
+
+        }
+
+        @Override
+        public ReadOnlyCourseAddressBook getCourseAddressBook() {
+            return null;
+        }
+
+        @Override
+        public void setCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook) {
+
+        }
+
+        @Override
+        public boolean hasCourse(Course course) {
+            return false;
+        }
+
+        @Override
+        public void deleteCourse(Course target) {
+
+        }
+
+        @Override
+        public void addCourse(Course course) {
+
+        }
+
+        @Override
+        public void setCourse(Course target, Course editedCourse) {
+
+        }
+
+        @Override
+        public ObservableList<Course> getFilteredCourseList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredCourseList(Predicate<Course> predicate) {
+
+        }
+
+        @Override
+        public Path getFinanceAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setFinanceAddressBookFilePath(Path financeAddressBookFilePath) {
+
+        }
+
+        @Override
+        public ReadOnlyFinanceAddressBook getFinanceAddressBook() {
+            return null;
+        }
+
+        @Override
+        public void setFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook) {
+
+        }
+
+        @Override
+        public boolean hasFinance(Finance finance) {
+            return false;
+        }
+
+        @Override
+        public void deleteFinance(Finance target) {
+
+        }
+
+        @Override
+        public void addFinance(Finance finance) {
+
+        }
+
+        @Override
+        public void setFinance(Finance target, Finance editedFinance) {
+
+        }
+
+        @Override
+        public ObservableList<Finance> getFilteredFinanceList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredFinanceList(Predicate<Finance> predicate) {
+
         }
     }
 
