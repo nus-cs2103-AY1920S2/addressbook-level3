@@ -18,8 +18,9 @@ endif::[]
 
 == Introduction
 
-* Delino is a simple desktop application that serves to help type-fast delivery couriers to manage their parcels and deliveries on a daily basis.
-* Delino has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* Delino is for couriers who prefer to use a desktop app for managing their delivery tasks.
+* Delino is optimised for those who have a strong preference towards Command Line Interface (CLI)
+while still enjoying the benefits of a Graphical User Interface (GUI)
 
 == Site Map
 
