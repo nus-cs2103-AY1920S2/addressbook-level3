@@ -312,7 +312,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Temasek Hall sports captain |to keep track of the various attendances for my training |know who usually attends training and who does not
 
-|`*` |Temasek Hall hall leader |to keep track of my committee events |ensure things run smoothly.
+|`*` |Temasek Hall leader |to keep track of my committee events |ensure things run smoothly
+
+|`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date.
 |=======================================================================
 
 _{More to be added}_
