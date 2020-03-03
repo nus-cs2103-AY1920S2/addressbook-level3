@@ -309,6 +309,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |Temasek Hall leader |keep track of my committee events |know if things are going according to schedule
 
 |`*` |Temasek Hall exchange student |to have a translation for Singaporean lingo |better understand the language my friends speak in hall
+
+|`*` |Temasek Hall sports captain |to keep track of the various attendances for my training |know who usually attends training and who does not
+
+|`*` |Temasek Hall hall leader |to keep track of my committee events |ensure things run smoothly.
 |=======================================================================
 
 _{More to be added}_
