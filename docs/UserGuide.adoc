@@ -235,6 +235,7 @@ For security concerns, all data will be encrypted by default.
 
 * *Add supplier* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [gp/GOOD PRICE]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 gp/pen 1.00`
+* *List supplier* : `list-s`
 * *Clear suppliers* : `clear-s`
 * *Delete supplier* : `delete-s INDEX` +
 e.g. `delete-s 3`
@@ -242,18 +243,17 @@ e.g. `delete-s 3`
 e.g. `edit-s 2 n/James Lee e/jameslee@example.com`
 * *Find supplier* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List supplier* : `list-s`
+* *List goods*: `list-i`
+* *List supplier for a goods*: `source`
 * *Buy goods*: `buy n/SUPPLIER_NAME g/GOOD_NAME q/QUANTITY x/EXPIRY_DATE d/TRANSACTION_DATE` +
 e.g. `buy n/Dave g/apple q/4 x/2003-08-01 d/2002-07-03`
 * *Sell goods*: `sell g/GOOD_NAME q/QUANTITY d/TRANSACTION_DATE` +
 e.g. `sell g/apple q/4 d/2030-01-05`
-* *List goods*: `list-i`
 * *List goods low in quantity*: `list-l`
+* *Set minimum quantity for goods*: `set g/GOOD_NAME q/MIN_QUANTITY`
 * *List expiring goods*: `list-e`
-* *List supplier for a goods*: `source`
 * *List transaction history*: `list-t`
 * *Clear transaction history*: `clear-t`
 * *Edit buy order*: `edit-bo INDEX [n/SUPPLIER_NAME] [g/GOOD_NAME] [q/QUANTITY] [d/TRANSACTION_DATE] [x/EXPIRY_DATE]`
 * *Edit sell order*: `edit-so INDEX [g/GOOD_NAME][q/QUANTITY][d/TRANSACTION_DATE]`
-* *Set minimum quantity for goods*: `set g/GOOD_NAME q/MIN_QUANTITY`
 * *Help* : `help`
