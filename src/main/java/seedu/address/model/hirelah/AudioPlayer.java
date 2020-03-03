@@ -1,87 +1,70 @@
 package seedu.address.model.hirelah;
 
-
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Person;
-
-import javax.management.InvalidAttributeValueException;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
 /**
  * Stores the audio file recorded during the interview session of an {@code Interviewee}.
- * Supports a minimal set of list operations.
- *
+ * Provides functionality to play, pause, resume and jump to a particular time for the audio file.
  */
 public class AudioPlayer {
-    private Long currentFrame;
+    //Solution below adapted from https://www.geeksforgeeks.org/play-audio-file-using-java/
+
+    private Long frame;
     private final Clip clip;
-    private String status;
     private AudioInputStream audioInputStream;
     private final File audioFile;
 
-    // constructor to initialize streams and clip
+    /**
+     * Constructs an {@code AudioPlayer} object with the specified audio file.
+     *
+     * @param audioFile The audio file to be encapsulated by the {@code AudioPlayer}.
+     * @throws UnsupportedAudioFileException
+     * @throws IOException
+     * @throws LineUnavailableException
+     */
     public AudioPlayer(File audioFile) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        // create AudioInputStream object
         this.audioFile = audioFile;
         audioInputStream = AudioSystem.getAudioInputStream(audioFile.getAbsoluteFile());
-
-        // create clip reference
         clip = AudioSystem.getClip();
-
-        // open audioInputStream to the clip
         clip.open(audioInputStream);
-
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    // Method to play the audio
+    /**
+     * Plays the audio file at the current frame that it is in.
+     */
     public void play() {
-        //start the clip
         clip.start();
-        status = "play";
     }
 
+    /**
+     * Pauses the audio from playing.
+     */
     public void pause() {
-        if (status.equals("paused")) {
-            System.out.println("audio is already paused");
-            return;
-        }
-        this.currentFrame = this.clip.getMicrosecondPosition();
+        this.frame = this.clip.getMicrosecondPosition();
         clip.stop();
-        status = "paused";
     }
 
-    // Method to resume the audio
-    public void resumeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        if (status.equals("play")) {
-            System.out.println("Audio is already "+ "being played");
-            return;
-        }
+    /**
+     * Resumes the audio from pausing at the frame when it last was paused.
+     */
+    public void resume() {
         clip.close();
-        resetAudioStream();
-        clip.setMicrosecondPosition(currentFrame);
+        clip.setMicrosecondPosition(frame);
         this.play();
     }
 
-    // Method to jump over a specific part
-    public AudioPlayer playAtTime(long c) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        //if (c > 0 && c < clip.getMicrosecondLength()) {
-            resetAudioStream();
-            currentFrame = c;
-            AudioPlayer audioAtTime = new AudioPlayer(this.audioFile);
-            audioAtTime.clip.setMicrosecondPosition(c);
-            return audioAtTime;
-        /*} else {
-
-        }*/
-    }
-
-    // Method to reset audio stream
-    public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(audioFile.getAbsoluteFile());
-        clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    /**
+     * Generates a new {@code AudioPlayer} that are set to start a particular time.
+     *
+     * @param timeInMs The time to be set as the starting time of the audio file.
+     */
+    public AudioPlayer playAtMs(long timeInMs) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        frame = timeInMs;
+        AudioPlayer audioAtTime = new AudioPlayer(this.audioFile);
+        audioAtTime.clip.setMicrosecondPosition(timeInMs);
+        return audioAtTime;
     }
 }

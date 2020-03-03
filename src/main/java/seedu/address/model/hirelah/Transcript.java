@@ -1,61 +1,94 @@
 package seedu.address.model.hirelah;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.hirelah.exceptions.IllegalActionException;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
-import java.io.IOException;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * TODO: Javadoc
+ * Encapsulates all the details that are put by the interviewer during the interview session
+ * for a particular {@code Interviewee}. It stores the {@code RemarkList} which contains all {@code Remark}s
+ * of this interview, the {@code File} of the audio recorded for this interview and the attribute scores inside a HashMap.
  */
 public class Transcript {
     private final RemarkList remarkList;
     private File audioFile;
-    /*make it mutable, to set and get the audio file
-    file; when play,  refer to this file
-   // private final AudioPlayer audioPlayer;
-    private final Map<Attribute, Integer>the starting remark;
-            Map from q number
-            Have a FileObject, the path to the audio recording
-            //just store the file, no need to care about the file path*/
+    private final Map<Attribute, Double> attributeToScoreMap;
 
+    /**
+     * Constructs a {@code Transcript} object
+     * that are associated with a particular interviewee.
+     */
     Transcript() {
         this.remarkList = new RemarkList();
         this.audioFile = null;
+        this.attributeToScoreMap = new HashMap<>();
     }
 
+    /**
+     * Sets the {@code Transcript} to contain a file as its audio file.
+     *
+     * @param audioFile The File of the audio recording to be stored in this {@code Transcript}.
+     */
     public void setAudioFile(File audioFile) {
         this.audioFile = audioFile;
     }
 
-    private long getInterviewDuration() {
-        return remarkList.getLastRemarkTime();
+    /**
+     * Retrieves the {@code File} that are associated with this {@code Transcript}.
+     *
+     * @return The {@code File} that are associated with this {@code Transcript}.
+     */
+    public File getAudioFile() {
+        return audioFile;
     }
 
-    public Remark getTranscriptAtTime(long timeMs) throws IllegalValueException {
-        if (timeMs > this.getInterviewDuration()) {
-            throw new IllegalValueException("The duration of the interview is only " + this.getInterviewDuration());
+    /**
+     * Sets an {@code Attribute} of this {@code Interviewee} to have a certain score.
+     *
+     * @param attribute The attribute that is to be updated.
+     * @param score The score of this {@code Attribute}.
+     */
+    public void setAttributeScore (Attribute attribute, Double score) {
+        this.attributeToScoreMap.put(attribute, score);
+    }
+
+    /**
+     * Retrieves the score of this {@code Attribute} of this {@code Interviewee}.
+     *
+     * @param attribute The attribute whose score is to be retrieved.
+     */
+    public void getAttributeScore (Attribute attribute) {
+        this.attributeToScoreMap.get(attribute);
+    }
+
+    /**
+     * Retrieves {@code Remark} that are created nearest to a tim
+     * if the time is within the duration of the interview.
+     *
+     * @param timeMs The time that are used to query the {@code Remark}.
+     * @return The {@code Remark} that are created nearest to the time.
+     */
+    public Remark getTranscriptAtTime(long timeMs) throws IllegalActionException {
+        if (!remarkList.isTimeInValidRange(timeMs)) {
+            throw new IllegalActionException("The duration of the interview is only " + remarkList.getInterviewDurationInMs());
         }
         Remark currentRemark = this.remarkList.getRemarkAtTime(timeMs);
         return currentRemark;
     }
 
-    public Remark getTranscriptAtQuestion(Question question)
-            throws UnsupportedAudioFileException, IOException, LineUnavailableException, IllegalValueException {
-        Remark currentRemark = this.remarkList.getRemarkAtQuestion(question);
-        long timeMs = this.remarkList.getTimeOfQuestion(question);
-        return currentRemark;
-    }
-    /*
-    TODO: need to create audioString method in Interviewee class, and the format of the audio file name has to be a certain format
-     some way to
-     After finish interview, we rename the file as the intended name e.g. "marioaudio.wav"
-     1. store remark objects
-     2. query by time
-     3. query by question number
-     4. contains the audio file object as well
+    /**
+     * Retrieves {@code Remark} that are first associated with this {@code Question}.
+     *
+     * @param question {@code Question} that are to be queried.
+     * @return Instant of the {@code Remark} that are first associated with this {@code Question}.
      */
+    public Instant getTranscriptAtQuestion(Question question) throws IllegalActionException{
+        if (!remarkList.isQuestionAnswered(question)) {
+            throw new IllegalActionException("There is no answer for this question");
+        }
+        return remarkList.getTimeOfQuestionInMs(question);
+    }
 }

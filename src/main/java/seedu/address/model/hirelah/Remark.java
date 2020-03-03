@@ -39,10 +39,22 @@ public class Remark {
         this.question = null;
     }
 
+    /**
+     * Retrieves the Instant where this {@code Remark}
+     * was created.
+     *
+     * @return  The Instant when this {@code Remark} was created.
+     */
     public Instant getTime() {
         return time;
     }
 
+    /**
+     * Retrieves the Question associated with this {@code Remark}
+     * if there is any.
+     *
+     * @return The Question associated with this {@code Remark} if there is any.
+     */
     public Question getQuestion() {
         return question;
     }
