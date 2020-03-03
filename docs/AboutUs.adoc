@@ -12,7 +12,7 @@ Fitness Helper was developed by the following team members:
 
 === Liao Meng
 image::liaomeng.png[width="150", align="left"]
-{empty}[https://github.com/lm5lm5[github]] 
+{empty}[https://github.com/lm5lm5[github]]
 
 Role: Member
 
@@ -29,7 +29,7 @@ Responsibilities: In charge of [Display][Data Analysis]
 
 === Ye Chenchen
 image::iyvvvvv.png[width="150", align="left"]
-{empty}[https://github.com/IYVVVVV[github]] 
+{empty}[https://github.com/IYVVVVV[github]]
 
 Role: Developer +
 Responsibilities:
@@ -38,7 +38,7 @@ Responsibilities:
 
 === Zhang Yiping
 image::yiping.jpeg[width="150", align="left"]
-{empty}[http://github.com/zhangyiping126[github]] 
+{empty}[http://github.com/zhangyiping126[github]]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
