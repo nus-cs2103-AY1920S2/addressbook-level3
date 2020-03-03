@@ -317,7 +317,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |Temasek Hall resident who actively participates in hall events |check the upcoming events |keep myself up-to-date.
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
