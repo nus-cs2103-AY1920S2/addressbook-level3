@@ -15,7 +15,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Chan Choon Kong
-image::ben.png[width="150", align="left"]
+image::chanckben.png[width="150", align="left"]
 {empty}[https://github.com/chanckben[github]] [<<chanchoonkong#, portfolio>>]
 
 Role: Team Lead
@@ -23,7 +23,7 @@ Role: Team Lead
 '''
 
 === Ong Wan Xuan
-image::wanxuan.png[width="150", align="left"]
+image::wanxuanong.png[width="150", align="left"]
 {empty}[https://github.com/wanxuanong[github]] [<<wanxuan#, portfolio>>]
 
 Role: Developer
@@ -31,7 +31,7 @@ Role: Developer
 '''
 
 === Tang Guang Yan
-image::guangyan.png[width="150", align="left"]
+image::gyant6.png[width="150", align="left"]
 {empty}[https://github.com/gyant6[github]] [<<guangyan#, portfolio>>]
 
 Role: Developer
@@ -39,7 +39,7 @@ Role: Developer
 '''
 
 === Jade Tay
-image::jade.png[width="150", align="left"]
+image::jadetayy.png[width="150", align="left"]
 {empty}[https://github.com/jadetayy[github]] [<<jade#, portfolio>>]
 
 Role: Developer
@@ -47,7 +47,7 @@ Role: Developer
 '''
 
 === Joycelyn Teo
-image::joycelyn.png[width="150", align="left"]
+image::joycelynteo.png[width="150", align="left"]
 {empty}[https://github.com/joycelynteo[github]] [<<joycelyn#, portfolio>>]
 
 Role: Developer
