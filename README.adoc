@@ -14,6 +14,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
+
 *Code Camp X*
 ****
 Code Camp X is the best management tool for you to use if you have issues managing your coding bootcamp!
@@ -31,10 +32,12 @@ track the progress of your students and even effectively manage the teachers tha
 ****
 
 *Features*
+****
 - Student Progress Tracker
 - Student Fee Payment Tracker
 - Manpower Management
 - Financial Analysis of Courses
+****
 
 == Site Map
 
