@@ -59,7 +59,7 @@ public class QuestionList implements IList<Question> {
             boolean isDuplicate = isDuplicate(question);
 
             if (isDuplicate) {
-                return "This question is already exists!";
+                throw new IllegalValueException("This question is already exists!");
             }
 
             questions.add(question);

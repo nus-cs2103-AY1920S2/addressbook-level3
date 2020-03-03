@@ -37,7 +37,7 @@ public class Question {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Attribute // instanceof handles nulls
+                || (other instanceof Question // instanceof handles nulls
                 && description.equals(((Question) other).description)); // state check
     }
 
