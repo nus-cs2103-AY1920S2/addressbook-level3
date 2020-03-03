@@ -232,6 +232,7 @@ _{More to be added}_
 +
 Use case ends.
 
+[discrete]
 === Use case: Search notes
 
 *MSS*
@@ -240,6 +241,16 @@ Use case ends.
 2.  Notably lists out the relevant search results
 3.  User chooses one of the suggested notes
 4.  Notably opens the chosen note
++
+Use case ends.
+
+[discrete]
+=== Use case: Note alias
+
+*MSS*
+
+1.  User types in a command to open a note by an alias name
+2.  Notably opens the aliased note
 +
 Use case ends.
 
