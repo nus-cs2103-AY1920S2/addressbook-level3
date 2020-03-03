@@ -79,6 +79,7 @@ If an additional flag is given -f, no user confirmation will be requested.
 * `clear` `-f`
 
 // tag::delete[]
+[[delete]]
 === Deleting an order : `delete`
 ==== Description
 You can use this command to delete a particular order from the current list of orders based on its index. +
@@ -87,7 +88,7 @@ You can use this command to delete a particular order from the current list of o
 `delete` `INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the order at the specified `INDEX`.
 * The index refers to the index number shown in the displayed order list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -180,6 +181,7 @@ Import the contents of the csv file `orders.csv` to Delino.
 The done status of the delivery order will be used to list the delivery orders which have the same status.
 There are three types of list commands that are shown in the examples below.
 
+[[sort]]
 === Sorting orders: `sort`
 ==== Description
 You can sort the orders based on their attributes *(given in prefix form)*.
@@ -190,7 +192,7 @@ If no additional flag is provided, the orders will be sorted in *ascending order
 ==== Format
 `sort` `[ORDER FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
 
-[NOTE]
+[IMPORTANT]
 ====
 `ORDER_ATTRIBUTE_PREFIX` *must* be one of the following:
 
@@ -219,6 +221,7 @@ You will sort the orders in descending order based on the timestamp of the order
 * `sort` `-d` `tid/` +
 You will sort the orders in descending order based on the transaction id of the orders.
 
+[[undo]]
 === Undo the previous action: `undo`
 ==== Description
 You can use the `undo` command to revert the most recent action that was previously executed.
