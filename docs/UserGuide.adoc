@@ -190,6 +190,21 @@ Format: `source g/GOOD_NAME`
 Displays all items that have fallen below their respective minimum quantity thresholds in the inventory. +
 Format: `list-l`
 
+=== Clearing all transaction history: `clear-t`
+
+Clears all the transaction entries from the inventory manager. +
+Format: `clear-t`
+
+=== Editing a buy order: `edit-bo`
+
+Edits an existing buy order in the transaction history. +
+Format: `edit-bo INDEX [n/SUPPLIER_NAME] [g/GOOD_NAME] [q/QUANTITY] [d/TRANSACTION_DATE] [x/EXPIRY_DATE]`
+
+=== Editing a sell order: `edit-so`
+
+Edits an existing sell order in the transaction history. +
+Format: `edit-so INDEX [g/GOOD_NAME][q/QUANTITY][d/TRANSACTION_DATE]`
+
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -232,4 +247,7 @@ e.g. `sell g/apple q/4 d/2030-01-05`
 * *List expiring goods*: `list-e`
 * *List supplier for a goods*: `source`
 * *List transaction history*: `list-t`
+* *Clear transaction history*: `clear-t`
+* *Edit buy order*: `edit-bo INDEX [n/SUPPLIER_NAME] [g/GOOD_NAME] [q/QUANTITY] [d/TRANSACTION_DATE] [x/EXPIRY_DATE]`
+* *Edit sell order*: `edit-so INDEX [g/GOOD_NAME][q/QUANTITY][d/TRANSACTION_DATE]`
 * *Help* : `help`
