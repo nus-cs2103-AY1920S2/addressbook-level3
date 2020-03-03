@@ -70,4 +70,5 @@ public class GuiSettings implements Serializable {
         sb.append("Position : " + windowCoordinates);
         return sb.toString();
     }
+
 }
