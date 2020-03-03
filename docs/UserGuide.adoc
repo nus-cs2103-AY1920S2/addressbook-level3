@@ -78,8 +78,10 @@ Format: `list`
 === Returning an order : `return`
 
 Adds a particular order as a return parcel into a new list +
-Format: `return tid/TRANSACTION ID n/NAME a/ADDRESS p/PHONE NUMBER ts/DELIVERY DATE & TIME w/WAREHOUSE LOCATION +
-pm/PAYMENT METHOD c/COMMENTS BY CUSTOMER type/TYPE OF ITEM`
+
+==== Format:
+`return` `TRANSACTION_ID` `NAME` `ADDRESS` `PHONE NUMBER` `TIMESTAMP` `WAREHOUSE LOCATION` +
+`PAYMENT METHOD` `[COMMENTS_BY_CUSTOMER]` `[TYPE_OF_ITEM]`
 
 ****
 * Adds the specified order with the transaction id as a return parcel into a new list of returns.
@@ -87,7 +89,7 @@ pm/PAYMENT METHOD c/COMMENTS BY CUSTOMER type/TYPE OF ITEM`
 * The transaction id *must be in valid format; can be numeric or alphanumeric*
 ****
 
-Examples:
+==== Examples:
 
 * `return tid/ac17s2a n/BOBBY TAN a/123 Delta Road #03-333, Singapore 123456 p/91230456 ts/12-12-2020 w/Jurong Warehouse pm/visa c/NIL type/glass` +
 Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
