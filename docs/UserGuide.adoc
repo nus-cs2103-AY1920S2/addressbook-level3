@@ -53,14 +53,6 @@ A reminder can also be added to an existing task, just specify the task index in
 
 Format: `reminder <index> /at yyyy-mm-ddThh-mm-ss`
 
-====
-*Pet*
-
-* The Pet gives a sense of responsibility to the user.
-* The Pet acts as a motivation to encourage the user to be productive.
-* The Pet gives a sense of satisfaction to the user when it is being fed.
-====
-
 === Viewing help : `help`
 
 Format: `help`
@@ -181,6 +173,12 @@ DONE : Displays average number of tasks done over past week/month/year.
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Pet*\
+
+ The Pet gives a sense of responsibility to the user.
+ The Pet acts as a motivation to encourage the user to be productive.
+ The Pet gives a sense of satisfaction to the user when it is being fed.
 
 
 == FAQ
