@@ -20,6 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
+@SuppressWarnings("Checkstyle")
 public class AddressBookParser {
 
     /**
@@ -34,6 +35,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
+    @SuppressWarnings({"checkstyle:Regexp", "checkstyle:Indentation"})
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
