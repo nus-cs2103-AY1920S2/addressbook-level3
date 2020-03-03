@@ -13,6 +13,7 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
  * alias or full name.
  */
 public class IntervieweeList implements Iterable<Interviewee> {
+
     /* The unique ID assigned to an interviewee for the entire session. */
     private int uniqueIntervieweeId;
     /* The actual collection of interviewees. */
@@ -146,6 +147,14 @@ public class IntervieweeList implements Iterable<Interviewee> {
         return interviewees.values().iterator();
     }
 
+    /**
+     * Creates an Interviewee with the given name, assigning it the next uniqueIntervieweeId.
+     * Only increments the id if the interviewee was created successfully.
+     *
+     * @param name The name of the interviewee.
+     * @return A new Interviewee object.
+     * @throws IllegalValueException If the name given is an invalid name.
+     */
     private Interviewee createInterviewee(String name) throws IllegalValueException {
         Interviewee interviewee = new Interviewee(name, uniqueIntervieweeId);
 

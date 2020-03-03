@@ -1,7 +1,5 @@
 package seedu.address.model.hirelah;
 
-import static java.util.Objects.requireNonNull;
-
 import java.io.File;
 import java.util.Map;
 import java.util.Optional;
@@ -82,8 +80,7 @@ public class Interviewee {
     }
 
     public void setResume(File resume) {
-        requireNonNull(resume);
-        this.resume = Optional.of(resume);
+        this.resume = Optional.ofNullable(resume);
     }
 
     public Optional<InterviewSession> getInterview() {
@@ -124,33 +121,5 @@ public class Interviewee {
                 throw new IllegalValueException(MESSAGE_CONSTRAINTS);
             }
         }
-    }
-}
-
-/**
- * A simple record class that contains all interview information for a Interviewee - the scores, the transcript
- * and the audio recording.
- */
-class InterviewSession {
-    private Transcript transcript;
-    private Map<Attribute, Integer> scores;
-    private File audioRecording;
-
-    public InterviewSession(Transcript transcript, Map<Attribute, Integer> scores, File audioRecording) {
-        this.transcript = transcript;
-        this.scores = scores;
-        this.audioRecording = audioRecording;
-    }
-
-    public Transcript getTranscript() {
-        return transcript;
-    }
-
-    public Map<Attribute, Integer> getScores() {
-        return scores;
-    }
-
-    public File getAudioRecording() {
-        return audioRecording;
     }
 }
