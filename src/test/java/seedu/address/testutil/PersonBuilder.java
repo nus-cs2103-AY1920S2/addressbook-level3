@@ -21,6 +21,7 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
 
+
     private Name name;
     private Phone phone;
     private Email email;
@@ -85,6 +86,7 @@ public class PersonBuilder {
         this.email = new Email(email);
         return this;
     }
+
 
     public Person build() {
         return new Person(name, phone, email, address, tags);
