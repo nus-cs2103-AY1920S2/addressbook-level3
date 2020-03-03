@@ -135,17 +135,17 @@ Format: +
 
 Example: +
 `calculate` +
-`calculate -n john`
+`calculate -n john` +
 `calculate -n john -alice`
 
-==== List food(s) items  `list food`
+==== List food(s) items  `listfood`
 Display the food(s) in a list:
 
 Format: +
-`list food` +
+`listfood` +
 
 Example: +
-`list food`
+`listfood`
 
 === Clearing all entries : `clear`
 

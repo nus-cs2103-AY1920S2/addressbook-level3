@@ -318,7 +318,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `EYLAH` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Diet Tracker
+=== Diet Tracker Use Cases
 
 [discrete]
 === Use case: Add Person
@@ -347,34 +347,34 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Expense Splitter
+=== Expense Splitter Use Cases
 
 [discrete]
 === Use case: UC01 - Add person
 
 *MSS*
 
-1.  User key in the person name and optional details.
-2.  Eylah add the person details.
-3.  Eylah display the added person.
+1.  User keys in the Person(s) name followed by some additional details, such as Telegram username and room number.
+2.  EYLAH adds Person(s) to the PersonList.
+3.  EYLAH displays the added person.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Eylah detects empty name.
+* 1a. EYLAH detects empty string in place of name.
 +
 [none]
-** 1a1. Eylah shows an error message.
+** 1a1. EYLAH shows an error message informing user that a Person's name cannot be empty.
 +
 Use case ends.
 
 [none]
-* 1b. Eylah detects invalid syntax in person's details.
+* 1b. EYLAH detects invalid syntax in a Person's details. For instance, a Person's name cannot begin with numbers.
 +
 [none]
-** 1b1. Eylah shows an error message.
+** 1b1. EYLAH shows an error message informing the user about the incorrect name format.
 +
 Use case ends.
 
@@ -383,27 +383,27 @@ Use case ends.
 
 *MSS*
 
-1.  User key in the food name, price and involved person.
-2.  Eylah adds the food details.
-3.  Eylah display the foods and respective involved person.
+1.  User keys in Food name, its price and Person(s) involved in the splitting of that food.
+2.  EYLAH adds the Food object.
+3.  EYLAH displays the Food and the Person(s) involved with splitting of that food.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. Eylah detects empty food name, price or involved person.
+* 1a. EYLAH detects empty Food name, Food price or Person(s)
 +
 [none]
-** 1a1. Eylah shows an error message.
+** 1a1. EYLAH shows an error message and displays an example of a correct `addfood` function.
 +
 Use case ends.
 
 [none]
-* 1b. Eylah detects invalid syntax.
+* 1b. EYLAH detects invalid syntax.
 +
 [none]
-** 1b1. Eylah shows an error message.
+** 1b1. EYLAH shows an error message and displays an example of a correct `addfood` function.
 +
 Use case ends.
 
@@ -412,30 +412,11 @@ Use case ends.
 
 *MSS*
 
-1.  User key request to calculate the cost.
-2.  Eylah get the cost details.
-3.  Eylah display cost .
+1.  User keys in request to calculate the cost.
+2.  EYLAH calculates each Person(s)'s cost.
+3.  EYLAH display cost.
 +
 Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Eylah detects empty food name, price or involved person.
-+
-[none]
-** 1a1. Eylah shows an error message.
-+
-Use case ends.
-
-[none]
-* 1b. Eylah detects invalid syntax.
-+
-[none]
-** 1b1. Eylah shows an error message.
-+
-Use case ends.
-
 
 
 [appendix]
