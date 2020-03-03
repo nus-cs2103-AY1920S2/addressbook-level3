@@ -9,10 +9,10 @@ import java.util.Map;
  */
 public class InterviewSession {
     private Transcript transcript;
-    private Map<Attribute, Integer> scores;
+    private Map<Attribute, Double> scores;
     private File audioRecording;
 
-    public InterviewSession(Transcript transcript, Map<Attribute, Integer> scores, File audioRecording) {
+    public InterviewSession(Transcript transcript, Map<Attribute, Double> scores, File audioRecording) {
         this.transcript = transcript;
         this.scores = scores;
         this.audioRecording = audioRecording;
@@ -22,7 +22,7 @@ public class InterviewSession {
         return transcript;
     }
 
-    public Map<Attribute, Integer> getScores() {
+    public Map<Attribute, Double> getScores() {
         return scores;
     }
 
