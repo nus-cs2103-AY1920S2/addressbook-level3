@@ -61,9 +61,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ==== Format
 * `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
-[TIP]
-All the fields (in bold) are compulsory except for the fields [c/COMMENTS_BY_CUSTOMER] and [type/TYPE_OF_ITEM]
-
 ==== Examples
 
 * `add` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `pm/Cash`
