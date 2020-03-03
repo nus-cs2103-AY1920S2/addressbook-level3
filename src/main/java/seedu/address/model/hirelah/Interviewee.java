@@ -88,6 +88,20 @@ public class Interviewee {
     }
 
     /**
+     * Gets the score of an interviewee that has already been interviewed.
+     * It is guaranteed that this method is only called on Interviewees that have been interviewed.
+     *
+     * @param attribute the Attribute to retrieve the score for.
+     * @return the score of the given Attribute.
+     * @throws java.util.NoSuchElementException if Interviewee has not been interviewed.
+     *                                          However, it is guaranteed not to occur at runtime
+     *                                          as the IntervieweeList is filtered before sorting by score.
+     */
+    public double getScore(Attribute attribute) {
+        return interview.get().getScores().get(attribute);
+    }
+
+    /**
      * Saves the interview session data, only if there is no previous interview session data, to prevent
      * overwriting the session data accidentally.
      *
@@ -95,7 +109,7 @@ public class Interviewee {
      * @param scores the final attribute scores of the candidate.
      * @param audioRecording the .wav file with the audio recording of the interview.
      */
-    public void recordInterview(Transcript transcript, Map<Attribute, Integer> scores, File audioRecording) {
+    public void recordInterview(Transcript transcript, Map<Attribute, Double> scores, File audioRecording) {
         assert this.interview.isEmpty(); // this method should only be called once
         this.interview = Optional.of(new InterviewSession(transcript, scores, audioRecording));
     }
