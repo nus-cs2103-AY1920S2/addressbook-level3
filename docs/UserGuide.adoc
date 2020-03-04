@@ -380,9 +380,15 @@ Examples:
 
 === Sort food consumption or exercise record
 
+Sorts the records of food consumption or exercise workout based on time of record or calorie,
+in either ascending or descending order.
 
-format: `sort -c -a OR sort -c -d`
+format: `sortX -c/-t -a/-d`
 
+Examples:
+
+* `sortf -t -a` (sort records of food consumption in ascending order of recording time, i.e. the oldest record comes first)
+* `sorts -c -d` (sort records of exercise workout in descending order of calorie burned during the workout)
 
 == FAQ
 
