@@ -1,4 +1,4 @@
-= Fitness Helper - User Guide
+= FitHelper - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -20,7 +20,7 @@ By: `Team AY1920S2-CS2103-T09-4`      Since: `Feb 2020`      Licence: `MIT`
 
 Fitness Helper (FH) is for those who *prefer to use a desktop app for managing contacts*. More importantly, FH is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-Fitness Helper mainly serves as a fitness log book where users can *mark down their diet and exercises entries* and *be reminded about their plans*. They can also *visualize their performance* to be encouraged.
+FitHelper mainly serves as a fitness log book where users can *mark down their diet and exercises entries* and *be reminded about their plans*. They can also *visualize their performance* to be encouraged.
 
 == Quick Start
 
