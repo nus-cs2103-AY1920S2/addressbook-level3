@@ -99,7 +99,7 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 
 === Locating customers by name: `findc`
 
-Find customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
+Finds customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
 Format: `findc [k/KEYWORD] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -196,7 +196,7 @@ Edits the price and quantity of the 1st product to be 90 and 10 respectively.
 * `editp 2 s/1000` +
 Edits the sales of the 2nd product to be 1000.
 
-=== Find products : `findp`
+=== Finding products : `findp`
 
 Finds products whose description contains a certain keyword or price/ sales/ quantity falls into a certain range. +
 Format: `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]`
@@ -253,16 +253,16 @@ Format: `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPT
 Examples:
 
 * `addt p/1 c/10 dt/2020-02-19 19:00 m/20` +
-Add a transaction with product 1 and customer 10 of 20 dollars at 2020-02-19 19:00.
+Adds a transaction with product 1 and customer 10 of 20 dollars at 2020-02-19 19:00.
 * `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount` +
-Add a transaction with product 20 and customer 2 of 30 dollars at 2020-02-20 10:00.
+Adds a transaction with product 20 and customer 2 of 30 dollars at 2020-02-20 10:00.
 
 
 === Listing all transaction : `listt`
 
 image::Transactions.png[]
 
-List all the transactions. +
+Lists all the transactions. +
 Format: `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]`
 
 ****
@@ -296,7 +296,7 @@ Edits the product id and customer id of the 1st transaction to be 101 and 123 re
 
 === Locating transaction : `findt`
 
-Find transactions whose attributes match the given attributes. +
+Finds transactions whose attributes match the given attributes. +
 Format: `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY_LOW-MONEY_HIGH]`
 
 ****
@@ -347,17 +347,20 @@ Deletes the 1st transaction in the results of the find command.
 Clears all transactions from the list of transactions. +
 Format: `cleart`
 
-=== View the top-selling and worst-selling product.
+=== Viewing the top-selling and worst-selling product.
 
-Dashboard that will display and updates the top-selling and worst-selling product as transactions are made. +
-Example of dashboard that will display and update top selling products with the revenue it brings in. +
+Displays and updates the top-selling and worst-selling product as transactions are made. +
+
+[NOTE]
+This is a passive feature, which automatically updates on Ui.
 
 Example:
 
 image::TopSellingProduct.png[]
 
-=== View the revenue trend in a certain period : `revenue`
+=== Viewing the revenue trend in a certain period : `revenue`
 
+Displays the revenue trend in a selected period.
 Format: `revenue [dt/START_DATE-END_DATE]`
 
 ****
@@ -370,8 +373,9 @@ Example:
 * `revenue` +
 Returns the revenue in line graph for the last month.
 
-=== Set the low-inventory threshold : `lowinv`
+=== Setting the low-inventory threshold : `lowinv`
 
+Sets the notification threshold.
 Format: `lowinv [p/PRODUCT_ID] t/THRESHOLD`
 
 ****
@@ -382,26 +386,32 @@ Format: `lowinv [p/PRODUCT_ID] t/THRESHOLD`
 Examples:
 
 * `lowinv p/001 t/20` +
-Set the low inventory threshold for product 001 as 20.
+Sets the low inventory threshold for product 001 as 20.
 
-=== Receive notification while a certain product is running low.
+=== Receiving notification while a certain product is running low.
 
-This is a passive feature. If any product’s stock is running low, the user will receive a warning message after opening the application.
+Pops up notification upon launching the application if any product’s stock is running low. +
 
-=== Predict the sales for the next month : `predict`.
+[NOTE]
+This is a passive feature.
 
-Plot a line graph representing the predicted sales for each day in the next month. +
+=== Predicting the sales for the next month : `predict`.
+
+Displays a line graph representing the predicted sales for each day in the next month. +
 Format: `predict`
 
-=== Exiting the program : `exit`
+=== Exiting from the program : `exit`
 
-Exits the program. +
+Exit from the program. +
 Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+The application data is saved in the hard disk automatically after any command that changes the data. +
+
+****
+* There is no need to save manually.
+****
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -416,24 +426,24 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add customer* : `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` +
+* *Adding customer* : `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` +
 e.g. `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* *List all customers* : `listc`
-* *Edit customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
+* *Listing all customers* : `listc`
+* *Editing customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
 e.g. `editc 1 p/91234567 e/johndoe@example.com`
 * *Locating customers* : `findc [k/KEYWORD] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `findc n/John`
-* *Delete a customer* : `deletec INDEX` +
+* *Deleting a customer* : `deletec INDEX` +
 e.g. `findc n/Betsy` +
 `deletec 1`
-* *Clear all customers* : `clearc`
+* *Clearing all customers* : `clearc`
 * *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]` +
 e.g. `addp d/iphone x pr/1000 q/10`
 * *Listing all products* : `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]` +
 e.g. `listp s/quantity o/ASC`
 * *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
-* *Find products* : `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]` +
+* *Finding products* : `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]` +
 e.g. `findp pr/1000-2000`
 * *Deleting a product* : `deletep INDEX` +
 e.g. `listp` +
@@ -451,9 +461,9 @@ e.g. `findt c/bob dt/2020-02-07`
 e.g. `findt 2020-01-03` +
 `deletet 1`
 * *Clearing all transactions* : `cleart`
-* *View the revenue trend in a certain period* : `revenue`
-* *Set the low-inventory threshold* : `lowinv [p/PRODUCT_ID] t/THRESHOLD` +
+* *Viewing the revenue trend in a certain period* : `revenue`
+* *Setting the low-inventory threshold* : `lowinv [p/PRODUCT_ID] t/THRESHOLD` +
 e.g. `lowinv p/001 t/20`
-* *Predict the sales for the next month* : `predict`
-* *Exiting the program* : `exit`
+* *Predicting the sales for the next month* : `predict`
+* *Exiting from the program* : `exit`
 * *help* : `help`
