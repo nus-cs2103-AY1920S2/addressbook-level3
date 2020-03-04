@@ -584,8 +584,140 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: UC13 - Keep a Diary
 
+*MSS*
 
+1.  User adds comments as today's diary
+2.  FitHelper adds the diary log to `today` file.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User input is incomplete.
++
+[none]
+** 1a1. FitHelper shows an error message.
++
+Use case ends.
+
+* 1b. User specifies a `DATE` after the `diary` keyword.
++
+[none]
+** 1b1. FitHelper will take the `date` as part of the comments as `diary` is only for `today` .
++
+Use case ends.
+
+[discrete]
+=== Use case: UC14 - View the Reward
+
+*MSS*
+
+1.  User requests to view the rewarding points and current fitness level
+2.  FitHelper displays the users rewarding points together with the current fitness level.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC15 - View Today Page
+
+*MSS*
+
+1.  User requests to view `Today Page` with an optional `DATE` input
+2.  FitHelper displays `Today Page` for `today` if the `DATE` field is null and the `Today Page` for the specified date if there is a valid date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid date.
++
+[none]
+** 1a1. FitHelper shows shows an error message indicating the date is invalid.
+** 1a2. FitHelper displays `Today Page` for `today`.
++
+Use case ends.
+
+* 1b. User specifies a date in the future.
++
+[none]
+** 1b1. FitHelper shows an error message indicating the date should be at least today or prior to today.
+** 1b2. FitHelper shows the `Today Page` for `today`.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC16 - View Weekly Report
+
+*MSS*
+
+1.  User requests to view `Weekly Report` with an optional `DATE` input
+2.  FitHelper displays `Weekly Report` for the current week if the `DATE` field is null and the `Weekly Report` for the week containing the specified date if there is a valid date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid date.
++
+[none]
+** 1a1. FitHelper shows shows an error message indicating the date is invalid.
+** 1a2. FitHelper displays `Weekly Report` for the current week.
++
+Use case ends.
+
+* 1b. User specifies a date in the future.
++
+[none]
+** 1b1. FitHelper shows an error message indicating the date should be at least today or prior to today.
+** 1b2. FitHelper shows the `Weekly Report` for the current week.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC17 - Get Reminders
+
+*MSS*
+
+1.  User requests to be reminded about undone tasks.
+2.  FitHelper displays all the undone tasks for the coming 7 days if the `DATE` field is null and for the specified date if there is a valid date.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid date.
++
+[none]
+** 1a1. FitHelper shows shows an error message indicating the date is invalid.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC18 - Find Entries Containing the Keyword
+
+*MSS*
+
+1.  User requests to find entries containing a specific keyword.
+2.  FitHelper displays all the entries containing the keyword.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User inputs a keyword that does not show in any entries.
++
+[none]
+** 1a1. FitHelper shows shows an error message indicating no entry matches the keyword.
++
+Use case ends.
 _{More to be added}_
 
 [appendix]
