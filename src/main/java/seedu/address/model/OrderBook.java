@@ -16,18 +16,9 @@ public class OrderBook implements ReadOnlyOrderBook {
 
     private final UniqueOrderList orders;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
+    public OrderBook() {
         orders = new UniqueOrderList();
     }
-
-    public OrderBook() {}
 
     /**
      * Creates an OrderBook using the Orders in the {@code toBeCopied}
