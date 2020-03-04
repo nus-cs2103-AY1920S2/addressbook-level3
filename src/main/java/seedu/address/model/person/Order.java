@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Order in the order book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Order {
 
     // Identity fields
     private final Name name;
@@ -27,7 +27,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Order(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -61,22 +61,22 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both orders of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two orders.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameOrder(Order otherOrder) {
+        if (otherOrder == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherOrder != null
+                && otherOrder.getName().equals(getName())
+                && (otherOrder.getPhone().equals(getPhone()) || otherOrder.getEmail().equals(getEmail()));
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both orders have the same identity and data fields.
+     * This defines a stronger notion of equality between two orders.
      */
     @Override
     public boolean equals(Object other) {
@@ -84,16 +84,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Order)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Order otherOrder = (Order) other;
+        return otherOrder.getName().equals(getName())
+                && otherOrder.getPhone().equals(getPhone())
+                && otherOrder.getEmail().equals(getEmail())
+                && otherOrder.getAddress().equals(getAddress())
+                && otherOrder.getTags().equals(getTags());
     }
 
     @Override
