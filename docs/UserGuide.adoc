@@ -18,12 +18,12 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ExpenseLA is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. ExpenseLA maintains a record of your daily incoming and outgoing transactions to constantly keep track of your finances! ExpenseLA is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills expense tracker, look no further than ExpenseLA!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `expensela.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +33,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`budget 1000`* : set a budget of $1000 for the current month
+* **`spend 100`**`/n Wagyu Steak /d 2020-02-28 /c food` : adds an expense named `Wagyu Steak` spent on `2020-02-28` in category `food` to the expense tracker
+* **`delete`**`999999999` : deletes the expense with id `999999999` in the current list
+* *`filter /m 2020-02` : filters out all transactions made on `2020-02`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,9 +47,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `filter /c OBJECT`, `OBJECT` is a parameter which can be used as `filter /c Food`.
+* Items in square brackets are optional e.g `spend 1000 /n Truffle Pizza [/d DATE] [/c CAT]` can be used as `spend 1000 /n Truffle Pizza /d TOADY'S DATE /c Others`.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -56,90 +56,107 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Set a monthly budget: `budget`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Sets a budget +
+Format: `budget AMOUNT` to set budget $AMOUNT for the current month +
+        `budget /repeat AMOUNT` to set repeating budget of $AMOUNT for the coming months
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `budget 1000`
+* `budget /repeat 1500`
 
-=== Listing all persons : `list`
+=== Key in expense : `spend`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Adds an expense to expense tracker. +
+Format: `spend /n NAME /d DATE /c CATEGORY`
 
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+[Tip] Leaving the DATE option blank will auto fill with today's date
+[Tip] Leaving the CATEGORY option blank will auto fill with 'Others' category
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `spend /n Grab Share /d 2020-02-19 /c Transport`
+* `spend /n Valentines Flowers`
 
-=== Locating persons by name: `find`
+=== Key in income : `income`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Adds an income to expense tracker. +
+Format: `income /n NAME /d DATE`
+
+[Tip] Leaving the DATE option blank will auto fill with today's date
+
+Examples:
+
+* `income /n Sell used iPhone /d 2020-02-19`
+* `income /n Pocket Money from mommy`
+
+=== Filter transactions : `filter`
+
+Filters transactions for user to see by filter type. +
+Format: `filter /m YYYY-MM` to view a certain month's transactions
+        `filter /y YYYY` to view a certain year's transactions
+        `filter /f YYYY-MM /t YYYY-MM` to view transactions from a range of months `[coming in v2.0]`
+        `filter /c CATEGORY` to view transactions of a certain category
+        `filter reset` to reset view to latest
+
+Examples:
+
+* `filter /m 2020-02`
+* `filter /y 2020`
+* `filter /f 2020-02 /t 2019-07`
+* `filter /c Transport`
+* `filter reset`
+
+=== Search transactions : `search`
+
+Search for transactions with certain keywords. +
+Format: `search KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Transactions matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `search pizza` +
+Returns `pizza` and `Domino's Pizza`
+* `search hawaiian wood fired pizza` +
+Returns any transaction having names `hawaiian`, `wood`, `fired` or `pizza`
 
 // tag::delete[]
-=== Deleting a person : `delete`
+=== Deleting a transaction : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified transaction from the expense tracker. +
+Format: `delete TRANSACTION_ID`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Every transaction is given a unique `TRANSACTION_ID` when added to the expense tracker.
+* The transaction ID of a particular transaction can be found either by searching to the transaction with the search function.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `search pizza` +
+`delete 1904850` +
+Deletes the transaction with ID 1904850 in the expense tracker.
 
 // end::delete[]
-=== Clearing all entries : `clear`
+=== Analysis of transactions : `show analytics`
 
-Clears all entries from the address book. +
-Format: `clear`
+Shows the analysis of transactions made in the filtered month/year. +
+Analysis will be shown in the form of a pie chart and bar graph. +
+Format: `show analytics`
+
+=== List of transactions : `show list`
+
+Shows the list of transaction made in the filtered month/year. +
+To switch between analytics and list view of transactions.
+Format: `show list`
 
 === Exiting the program : `exit`
 
@@ -160,18 +177,37 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Expense Tracker folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
+* *Budget* : `budget AMOUNT` +
+           `budget /repeat AMOUNT` +
+e.g. `budget 1000` +
+     `budget /repeat 1500`
+* *Spend* : `spend /n NAME /d DATE /c CATEGORY` +
+e.g. `spend /n Grab Share /d 2020-02-19 /c Transport` +
+     `spend /n Valentines Flowers` +
+     `spend /n Flowers /d 2020-02-19` +
+     `spend /n Pizza /c Food`
+* *Income* : `income /n NAME /d DATE` +
+e.g. `income /n Sell used iPhone /d 2020-02-19` +
+     `income /n Pocket Money from mommy`
+* *Filter* : `filter /m YYYY-MM` +
+             `filter /y YYYY` +
+             `filter /f YYYY-MM /t YYYY-MM` `[coming in v2.0]` +
+             `filter /c CATEGORY` +
+             `filter reset` +
+e.g. `filter /m 2020-02` +
+     `filter /y 2020` +
+     `filter /f 2020-02 /t 2019-07` +
+     `filter /c Transport` +
+     `filter reset`
+* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
+e.g. `search pizza` +
+     `search hawaiian wood fired pizza`
+* *Delete* : `delete TRANSACTION_ID` +
+e.g. `delete 902947392183`
+* *Analytics* : `show analytics`
+* *List* : `show list`
 * *Help* : `help`
