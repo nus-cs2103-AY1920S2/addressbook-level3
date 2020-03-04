@@ -14,11 +14,12 @@ public class Priority {
      * Valid integers cannot start with the digit '0'
      */
     public static final String VALID_INTEGER_REGEX = "-?(0|[1-9]\\d*)";
-    /*
+
+    /**
      * Priority level set to 1 as default value if not specified.
      * Variable is not set as final to allow user to set default priority level (TBD)
      */
-    public static int DEFAULT_PRIORITY_LEVEL = 1;
+    private static int defaultPriorityLevel = 1;
 
     private final int priorityLevel;
 
@@ -26,7 +27,7 @@ public class Priority {
      * Constructs a {@code Priority} with default priority level, when no argument is passed.
      */
     public Priority() {
-        this.priorityLevel = DEFAULT_PRIORITY_LEVEL;
+        this.priorityLevel = defaultPriorityLevel;
     }
 
     /**
@@ -37,6 +38,10 @@ public class Priority {
     public Priority(String priorityLevel) {
         checkArgument(isValidPriorityValue(priorityLevel), PRIORITY_RANGE_CONSTRAINTS);
         this.priorityLevel = Integer.parseInt(priorityLevel);
+    }
+
+    public static int getDefaultPriorityLevel() {
+        return defaultPriorityLevel;
     }
 
     /**
