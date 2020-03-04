@@ -11,16 +11,16 @@ Fitness Helper was developed by the following team members:
 == Project Team
 
 === Liao Meng
-image::liaomeng.jpg[width="150", align="left"]
-{empty}[https://github.com/lm5lm5[github]] [<<johndoe#, portfolio>>]
+image::lm5lm5.png[width="150", align="left"]
+{empty}[https://github.com/lm5lm5[github]]
 
 Role: Member
 
 '''
 
 === Wang Yuchen
-image::wang-yuchen-alice.jpg[width="150", align="left"]
-{empty}[http://github.com/WANG-Yuchen-Alice[github]] [<<johndoe#, portfolio>>]
+image::wang-yuchen-alice.png[width="150", align="left"]
+{empty}[http://github.com/WANG-Yuchen-Alice[github]]
 
 Role: Team Lead +
 Responsibilities: In charge of [Display][Data Analysis]
@@ -29,7 +29,7 @@ Responsibilities: In charge of [Display][Data Analysis]
 
 === Ye Chenchen
 image::iyvvvvv.png[width="150", align="left"]
-{empty}[https://github.com/IYVVVVV[github]] [<<iyvvvvv#, portfolio>>]
+{empty}[https://github.com/IYVVVVV[github]][<<iyvvvvv#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
@@ -37,8 +37,8 @@ Responsibilities:
 '''
 
 === Zhang Yiping
-image::yiping.jpeg[width="150", align="left"]
-{empty}[http://github.com/zhangyiping126[github]] [<<johndoe#, portfolio>>]
+image::zhangyiping126.png[width="150", align="left"]
+{empty}[http://github.com/zhangyiping126[github]] [<<zhangyiping126#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
