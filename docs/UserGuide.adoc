@@ -245,6 +245,151 @@ Deletes the 1st product in the results of the find command.
 Clears all entries from the product list. +
 Format: `clear`
 
+=== Adding a transaction: `addt`
+
+Adds a specified transaction to the system. +
+Format: `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPTION]` +
+
+Examples:
+
+* `addt p/1 c/10 dt/2020-02-19 19:00 m/20` +
+Add a transaction between product 1 and customer 10 of 20 dollars at 2020-02-19 19:00.
+* `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount` +
+
+
+=== Listing all transaction : `listt`
+
+List all the transactions. +
+Format: `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]`
+
+****
+* The order field shows up only if the sort field is provided.
+* The transactions can only be sorted by the amount of money.
+* The sorting order by default will be descending.
+****
+
+Examples:
+
+* `listt` +
+Returns transactions in an unsorted manner.
+* `listt s/money_amount` +
+Returns transactions sorted by the amount of money by descending order.
+
+=== Editing a transaction : editt
+
+Edits a transaction in the system. +
+Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]`
+
+****
+* Edits the transaction at the specified INDEX. The index refers to the index number shown in the displayed transaction list. The index must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editt 1 p/101 c/123` +
+Edits the product id and customer id of the 1st transaction to be 101 and 123 respectively.
+
+=== Locating transaction: `findt`
+
+Find transactions whose attributes match the given attributes. +
+Format: `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY_LOW-MONEY_HIGH]`
+
+****
+* Ideally, the user would keep a receipt and find the transaction by id printed on the receipt.
+* The search is case insensitive. e.g blue will match Blue
+* At least one of the option fields must be provided.
+* MONEY_LOW must be smaller than MONEY_HIGH
+* Transactions matching all attributes will be returned (i.e. AND search).
+****
+
+Examples:
+
+* `findt id/001` +
+Returns the transaction with id 001.
+* `findt p/iphone` +
+Returns all transactions that involve the product iphone.
+* `findt c/bob` +
+Returns all transactions that involve a customer named Bob.
+* `findt dt/2020-02-07` +
+Returns all transactions made on 7th February 2020.
+* `findt m/100-400` +
+Returns all transactions that have a selling price ranging from 100-400 dollars.
+* `findt c/bob dt/2020-02-07` +
+Returns all transactions that Bob made on the 7th February 2020.
+
+=== Deleting a transaction: `deletet`
+
+Deletes the specified transaction from the system. +
+Format: `delete INDEX`
+
+****
+* Deletes the transaction at the specified INDEX.
+* The index refers to the index number shown in the displayed transaction list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+Examples:
+
+* `listt` +
+`deletet 2` +
+Deletes the 2nd transaction in the displayed list.
+* `findt 2020-01-03` +
+`deletet 1` +
+Deletes the 1st transaction in the results of the find command.
+
+=== Clearing all transactions: `cleart`
+
+Clears all transactions from the list of transactions. +
+Format: `cleart`
+
+=== View the top-selling and worst-selling product.
+
+Dashboard that will display and updates the top-selling and worst-selling product as transactions are made. +
+Example of dashboard that will display and update top selling products with the revenue it brings in. +
+
+Example:
+
+image::TopSellingProduct.png[]
+
+=== View the revenue trend in a certain period: `revenue`
+
+Format: `revenue [dt/START_DATE-END_DATE]`
+
+****
+* The start date and end date must follow a format of “yyyy-mm-dd”
+* The default period is the last month.
+****
+
+Example:
+
+* `revenue` +
+Returns the revenue in line graph for the last month.
+
+=== Set the low-inventory threshold: `lowinv`
+
+Format: `lowinv [p/PRODUCT_ID] t/THRESHOLD`
+
+****
+* THRESHOLD must be in numerical format.
+* If the product id is not specified, the threshold applies to all products.
+****
+
+Examples:
+
+* `lowinv p/001 t/20` +
+Set the low inventory threshold for product 001 as 20.
+
+=== Receive notification while a certain product is running low.
+
+This is a passive feature. If any product’s stock is running low, the user will receive a warning message after opening the application.
+
+=== Predict the sales for the next month.
+
+Plot a line graph representing the predicted sales for each day in the next month. +
+Format: `predict`
+
 === Exiting the program : `exit`
 
 Exits the program. +
