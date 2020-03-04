@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import seedu.foodiebot.model.FoodieBot;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.ReadOnlyUserPrefs;
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 
@@ -155,6 +157,16 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Stall> getFilteredStallList(boolean isInitialised) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setBudget(Budget budget) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<Budget> getBudget() {
             throw new AssertionError("This method should not be called.");
         }
 

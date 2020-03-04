@@ -68,7 +68,8 @@ public class StorageManager implements Storage {
 
     @Override
     public Optional<ReadOnlyFoodieBot> readFoodieBot(String modelType) throws DataConversionException, IOException {
-        return readFoodieBot(foodieBotStorage.getCanteensFilePath(), modelType);
+        // return readFoodieBot(foodieBotStorage.getCanteensFilePath(), modelType);
+        return readFoodieBot(foodieBotStorage.getModelFilePath(modelType), modelType);
     }
 
     @Override
@@ -76,6 +77,11 @@ public class StorageManager implements Storage {
             throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return foodieBotStorage.readFoodieBot(modelType);
+    }
+
+    @Override
+    public Path getModelFilePath(String modelType) {
+        return foodieBotStorage.getModelFilePath(modelType);
     }
 
     @Override

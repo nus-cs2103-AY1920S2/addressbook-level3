@@ -1,6 +1,7 @@
 package seedu.foodiebot.model;
 
 import javafx.collections.ObservableList;
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 
@@ -13,4 +14,5 @@ public interface ReadOnlyFoodieBot {
      */
     ObservableList<Canteen> getCanteenList();
     ObservableList<Stall> getStallList();
+    Budget getBudget();
 }
