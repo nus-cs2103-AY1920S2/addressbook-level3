@@ -37,17 +37,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all logs
-* **`adds`**`en/running et/Wednesday 6 pm el/utown gym ec/500kcal es/False` : adds an entry named `swimming` to the fitness log book.
+* **`adds`**`n/running t/Wednesday 6 pm l/utown gym c/500kcal es/False` : adds an entry named `swimming` to the fitness log book.
 * **`delete`**`3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 == Common Fields and Keywords
-* *en/* entry name
-* *et/* entry time
-* *el/* entry location
-* *ec/* entry calorie
+* *n/* entry name
+* *t/* entry time
+* *l/* entry location
+* *c/* entry calorie
 * *r/* remark
 * *[DATE]* a date in the fixed format of yyyy-mm-dd
 * *[TIME]* a time in the fixed format of yyyy-mm-dd-hh-mm
@@ -59,10 +59,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add en/NAME`, `NAME` is a parameter which can be used as `add en/running`.
-* Items in square brackets are optional e.g `en/NAME [r/REMARK]` can be used as `en/swimming r/energy consuming but fun` or as `en/running`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/running`.
+* Items in square brackets are optional e.g `n/NAME [r/REMARK]` can be used as `n/swimming r/energy consuming but fun` or as `n/running`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
-* Parameters can be in any order e.g. if the command specifies `en/NAME et/Wednesday 6 pm`, `et/Wednesday 6 pm en/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/NAME t/Wednesday 6 pm`, `t/Wednesday 6 pm n/NAME` is also acceptable.
 * `X` in this document refers to f/s, representing two types of entries: food and sports. e.g. `addX` represents either `addf` or `adds`; `add[X]` means the field `X` is optional.
 * The field `TIME` should be entered in the fixed format of `yyyy-mm-dd[-hh-mm]` where the `hours` and `minutes` can be omitted.
 * The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
@@ -75,15 +75,15 @@ Format: `help`
 === Adding an entry: `add`
 
 Adds an entry to the fitness log book +
-Format: `addX en/NAME et/DATETIME el/LOCATION ec/CALORIE es/False r/REMARK...`
+Format: `addX n/NAME t/DATETIME l/LOCATION c/CALORIE es/False r/REMARK...`
 
 [TIP]
 An entry in the log book can have any number of remarks (including 0)
 
 Examples:
 
-* `adds en/running et/Wednesday 6 pm el/utown gym ec/500kcal es/True r/relly fun`
-* `addf en/chicken rice et/Sunday 11 am el/Super Snacks ec/460kcal es/False r/cheap and yummy`
+* `adds n/running t/Wednesday 6 pm l/utown gym c/500kcal es/True r/relly fun`
+* `addf n/chicken rice t/Sunday 11 am l/Super Snacks c/460kcal es/False r/cheap and yummy`
 
 === Listing all entries : `list`
 
@@ -111,7 +111,7 @@ Examples:
 === Editing an entry : `edit`
 
 Edits an existing entry in the fitness log book. +
-Format: `edit DATE INDEX [en/NAME] [et/TIME] [el/LOCATION] [ec/CALORIE] [r/REMARK]...`
+Format: `edit DATE INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK]...`
 
 ****
 * Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding faily entry list. The index *must be a positive integer* 1, 2, 3, ...
@@ -123,9 +123,9 @@ Format: `edit DATE INDEX [en/NAME] [et/TIME] [el/LOCATION] [ec/CALORIE] [r/REMAR
 
 Examples:
 
-* `edit 2020-03-02 1 et/Friday 4pm el/PGP gym` +
+* `edit 2020-03-02 1 t/Friday 4pm l/PGP gym` +
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
-* `edit 2020-04-18 2 en/Fries r/` +
+* `edit 2020-04-18 2 n/Fries r/` +
 Edits the name of the 2nd entry to be `Fries` and clears all existing remarks.
 
 ==== Mark an entry as done
@@ -358,10 +358,10 @@ Examples:
 
 == Command Summary
 
-* *Add* `add en/NAME et/TIME el/LOCATION ec/CALORIE [r/remark]...` +
+* *Add* `add n/NAME t/TIME l/LOCATION c/CALORIE [r/remark]...` +
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
-* *Edit* : `edit INDEX [en/NAME] [et/TIME] [el/LOCATION] [ec/CALORIE] [r/remark]...` +
+* *Edit* : `edit INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/remark]...` +
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 * *List* : `list`
 * *Help* : `help`
