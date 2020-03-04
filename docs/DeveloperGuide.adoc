@@ -298,7 +298,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|---------|---------|--------------|----------------
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
 |`* * *` |user |add a new person |
@@ -319,15 +318,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |delete diary entry |
 
+|`* *` |user |show diary entry list |
+
 |`* *` |user |delete module from module plan |know which modules I have taken
 
 |`* *` |user |fetch module information |
 
-|`* *` |user |know my current CAP |
+|`* *` |user |know current CAP |
 
 |`* *` |user |sort deadlines |prioritize which tasks to finish first
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |create group chats |communicate with peers in the same module
 |=======================================================================
 
 _{More to be added}_
