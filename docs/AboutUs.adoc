@@ -38,7 +38,7 @@ Responsibilities:
 
 === Zhang Yiping
 image::yiping.jpeg[width="150", align="left"]
-{empty}[http://github.com/zhangyiping126[github]]
+{empty}[http://github.com/zhangyiping126[github]] [<<zhangyiping126#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
