@@ -16,7 +16,7 @@ endif::[]
 
 * This is a desktop Social Life Management application that has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It aims to help you manage all aspects of your social life, ranging from your contacts to your tasks at hand and where is a good hangout spot.
-* It helps you be the best friend that you can ever be! 
+* It helps you be the best friend that you can ever be!
 
 == Site Map
 
