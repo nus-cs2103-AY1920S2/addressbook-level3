@@ -1,10 +1,12 @@
 package seedu.foodiebot.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.foodiebot.commons.core.GuiSettings;
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 
@@ -59,6 +61,12 @@ public interface Model {
      * as another existing canteen in the address book.
      */
     void setCanteen(Canteen target, Canteen editedCanteen);
+
+
+
+    void setBudget(Budget budget);
+
+    Optional<Budget> getBudget();
 
     /** Returns an unmodifiable view of the filtered canteen list */
     ObservableList<Canteen> getFilteredCanteenList();

@@ -5,6 +5,7 @@ public class CliSyntax {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
+    public static final Prefix PREFIX_DATE_BY_DAY = new Prefix("d/");
     public static final Prefix PREFIX_DATE_BY_MONTH = new Prefix("m/");
     public static final Prefix PREFIX_DATE_BY_YEAR = new Prefix("y/");
     public static final Prefix PREFIX_DATE_BY_WEEK = new Prefix("w/");
