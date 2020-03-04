@@ -311,7 +311,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user|view pending tasks and status of daily calories goals in a calendar |have cleaner display of data
 
-|`* *` |user|view records of food consumption or exercise workout in the order of calorie |know which days I took in more calorie and which days I burned more calorie
+|`* *` |user|view records of food consumption or exercise workout in ascending/descending order of calorie |know which days I took in more/less calorie and which days I burned more/less calorie
 
 |=======================================================================
 
