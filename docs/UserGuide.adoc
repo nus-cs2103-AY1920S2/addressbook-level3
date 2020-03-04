@@ -71,14 +71,33 @@ a|
 Coupon Stash is for SoC students and staff who rightfully *prefer to use a desktop app for managing coupons*. More importantly, CS is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CS can get your coupon management tasks done faster than traditional GUI apps. Interested? You should be!!!! Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
-// to be added (Chester)
+
+.  Ensure you have Java (recommended: version 11 or above) installed in your Computer.
+.  Download the latest CouponStash.jar.
+.  Copy the file to the folder you want to use as the home folder for your Coupon Stash.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Type the command in the command box and press Enter to execute it. +
+e.g. typing *help* and pressing Enter will open the help window.
+.  Some example commands you can try:
+* *list* : lists all coupons
+* *add:* add n/Techno Western d/20% off s/2/3/2020: adds a coupon named Techno Western to the Coupon Stash.
+* *delete*: delete 3 : deletes the 3rd coupon shown in the current list
+* *exit* : exits the app (your data will be saved automatically)
+.  Refer to Section 3, “Features” for details of each command.
+
 
 [[Features]]
 == Features
 
 ====
 *Command Format*
-// to be added (Chester)
+
+* Words in UPPER_CASE are the parameters to be supplied by the user e.g. in add n/NAME, NAME is a parameter which can be used as add n/The Deck Chicken Rice.
+* Items in square brackets are optional e.g n/NAME [t/TAG] can be used as n/The Deck Chicken Rice t/value or as n/The Deck Chicken Rice.
+* Items with …​ after them can be used multiple times including zero times e.g. [t/TAG]…​ can be used as (i.e. 0 times), t/value, t/friend t/value etc.
+* Parameters can be in any order e.g. if the command specifies n/NAME, d/DETAILS, d/DETAILS n/NAME is also acceptable.
+* Dates are all in the DD/MM/YYYY format. (CouponStash-Date format)
+** D((Optional<Character>) D)-M((Optional<Character>) M)-YYYY
 ====
 
 === Viewing help: `help`
