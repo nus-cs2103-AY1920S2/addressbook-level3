@@ -24,7 +24,7 @@ public class OrderTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameOrder() {
         // same object -> returns true
         assertTrue(ALICE.isSameOrder(ALICE));
 

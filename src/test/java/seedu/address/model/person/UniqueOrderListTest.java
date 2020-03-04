@@ -24,23 +24,23 @@ public class UniqueOrderListTest {
     private final UniqueOrderList uniqueOrderList = new UniqueOrderList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.contains(null));
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
+    public void contains_orderNotInList_returnsFalse() {
         assertFalse(uniqueOrderList.contains(ALICE));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_orderInList_returnsTrue() {
         uniqueOrderList.add(ALICE);
         assertTrue(uniqueOrderList.contains(ALICE));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_orderWithSameIdentityFieldsInList_returnsTrue() {
         uniqueOrderList.add(ALICE);
         Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -48,33 +48,33 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
+    public void add_duplicateOrder_throwsDuplicateOrderException() {
         uniqueOrderList.add(ALICE);
         assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.add(ALICE));
     }
 
     @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
+    public void setOrder_nullTargetOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.setOrder(null, ALICE));
     }
 
     @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
+    public void setOrder_nullEditedOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.setOrder(ALICE, null));
     }
 
     @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
+    public void setOrder_targetOrderNotInList_throwsOrderNotFoundException() {
         assertThrows(PersonNotFoundException.class, () -> uniqueOrderList.setOrder(ALICE, ALICE));
     }
 
     @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
+    public void setOrder_editedOrderIsSameOrder_success() {
         uniqueOrderList.add(ALICE);
         uniqueOrderList.setOrder(ALICE, ALICE);
         UniqueOrderList expectedUniqueOrderList = new UniqueOrderList();
@@ -83,7 +83,7 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
+    public void setOrder_editedOrderHasSameIdentity_success() {
         uniqueOrderList.add(ALICE);
         Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -94,7 +94,7 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
+    public void setOrder_editedOrderHasDifferentIdentity_success() {
         uniqueOrderList.add(ALICE);
         uniqueOrderList.setOrder(ALICE, BOB);
         UniqueOrderList expectedUniqueOrderList = new UniqueOrderList();
@@ -103,24 +103,24 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
+    public void setOrder_editedOrderHasNonUniqueIdentity_throwsDuplicateOrderException() {
         uniqueOrderList.add(ALICE);
         uniqueOrderList.add(BOB);
         assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.setOrder(ALICE, BOB));
     }
 
     @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
+    public void remove_orderDoesNotExist_throwsOrderNotFoundException() {
         assertThrows(PersonNotFoundException.class, () -> uniqueOrderList.remove(ALICE));
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
+    public void remove_existingOrder_removesOrder() {
         uniqueOrderList.add(ALICE);
         uniqueOrderList.remove(ALICE);
         UniqueOrderList expectedUniqueOrderList = new UniqueOrderList();
@@ -128,12 +128,12 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
+    public void setOrders_nullUniqueOrderList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.setOrders((UniqueOrderList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
+    public void setOrders_uniqueOrderList_replacesOwnListWithProvidedUniqueOrderList() {
         uniqueOrderList.add(ALICE);
         UniqueOrderList expectedUniqueOrderList = new UniqueOrderList();
         expectedUniqueOrderList.add(BOB);
@@ -142,12 +142,12 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
+    public void setOrders_nullList_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOrderList.setOrders((List<Order>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
+    public void setOrders_list_replacesOwnListWithProvidedList() {
         uniqueOrderList.add(ALICE);
         List<Order> orderList = Collections.singletonList(BOB);
         uniqueOrderList.setOrders(orderList);
@@ -157,7 +157,7 @@ public class UniqueOrderListTest {
     }
 
     @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
+    public void setOrders_listWithDuplicateOrders_throwsDuplicateOrderException() {
         List<Order> listWithDuplicateOrders = Arrays.asList(ALICE, ALICE);
         assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.setOrders(listWithDuplicateOrders));
     }
