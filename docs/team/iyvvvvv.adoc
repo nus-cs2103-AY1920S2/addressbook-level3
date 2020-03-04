@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Fitness Helper
+== PROJECT: FitHelper
 
 ---
 
