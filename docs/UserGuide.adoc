@@ -18,9 +18,10 @@ By: `Team AY1920S2-CS2103-T09-4`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-Fitness Helper (FH) is for those who *prefer to use a desktop app for managing contacts*. More importantly, FH is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FitHelper (FH) is for those who *prefer to use a desktop app for managing contacts*. More importantly, FH is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 FitHelper mainly serves as a fitness log book where users can *mark down their diet and exercises entries* and *be reminded about their plans*. They can also *visualize their performance* to be encouraged.
+
 
 == Quick Start
 
@@ -36,11 +37,21 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all logs
-* **`add`**`en/running et/Wednesday 6 pm el/utown gym ec/500kcal` : adds an entry named `swimming` to the fitness log book.
+* **`adds`**`en/running et/Wednesday 6 pm el/utown gym ec/500kcal es/False` : adds an entry named `swimming` to the fitness log book.
 * **`delete`**`3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+== Common Fields and Keywords
+* *en/*
+* *et/*
+* *el/*
+* *ec/*
+* *r/*
+* *[DATE]*
+* *[TIME]*
+* *[INDEX]*
 
 [[Features]]
 == Features
@@ -52,6 +63,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `en/NAME [r/REMARK]` can be used as `en/swimming r/energy consuming but fun` or as `en/running`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
 * Parameters can be in any order e.g. if the command specifies `en/NAME et/Wednesday 6 pm`, `et/Wednesday 6 pm en/NAME` is also acceptable.
+* `X` in this document refers to f/s, representing two types of entries: food and sports. e.g. `addX` represents either `addf` or `adds`; `add[X]` means the field `X` is optional.
+* The field `TIME` should be entered in the fixed format of `yyyy-mm-dd[-hh-mm]` where the `hours` and `minutes` can be omitted.
+* The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
 ====
 
 === Viewing help : `help`
@@ -61,28 +75,34 @@ Format: `help`
 === Adding an entry: `add`
 
 Adds an entry to the fitness log book +
-Format: `add en/NAME et/TIME el/LOCATION ec/CALORIE [r/REMARK]...`
+Format: `addX en/NAME et/DATETIME el/LOCATION ec/CALORIE es/False r/REMARK...`
 
 [TIP]
 An entry in the log book can have any number of remarks (including 0)
 
 Examples:
 
-* `add en/running et/Wednesday 6 pm el/utown gym ec/500kcal r/relly fun`
-* `add en/chicken rice et/Sunday 11 am el/Super Snacks ec/460kcal r/cheap and yummy`
+* `adds en/running et/Wednesday 6 pm el/utown gym ec/500kcal es/True r/relly fun`
+* `addf en/chicken rice et/Sunday 11 am el/Super Snacks ec/460kcal es/False r/cheap and yummy`
 
 === Listing all entries : `list`
 
 Shows a list of all entries in the fitness log book. +
-Format: `list`
+Format: `list[X]`
+
+If `X` is omitted, a list of mixed entries will be displayed.
+
+Examples:
+
+* `lists`
 
 === Editing an entry : `edit`
 
 Edits an existing entry in the fitness log book. +
-Format: `edit INDEX [en/NAME] [et/TIME] [el/LOCATION] [ec/CALORIE] [r/REMARK]...`
+Format: `edit DATE INDEX [en/NAME] [et/TIME] [el/LOCATION] [ec/CALORIE] [r/REMARK]...`
 
 ****
-* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed entry list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding faily entry list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing remarks, the existing remarks of the entry will be removed i.e adding of remarks is not cumulative.
@@ -91,10 +111,20 @@ Format: `edit INDEX [en/NAME] [et/TIME] [el/LOCATION] [ec/CALORIE] [r/REMARK]...
 
 Examples:
 
-* `edit 1 et/Friday 4pm el/PGP gym` +
+* `edit 2020-03-02 1 et/Friday 4pm el/PGP gym` +
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
-* `edit 2 en/Fries r/` +
+* `edit 2020-04-18 2 en/Fries r/` +
 Edits the name of the 2nd entry to be `Fries` and clears all existing remarks.
+
+==== Mark an entry as done
+
+Users can mark an entry as done, either a meal or sports, where the calories intake and consumption will be taken in to consideration.
+Format: `edit DATE INDEX es/TRUE`
+
+==== Mark an entry as undone
+
+Similar to the previous command, marking an entry as undone edits the `es/` field and modify it as `False`.
+Format: `edit DATE INDEX es/False`
 
 === Locating entries by name: `find`
 
@@ -120,7 +150,7 @@ Returns any entry having names `Juice`,  or `Apple`
 === Deleting an entry : `delete`
 
 Deletes the specified entry from the fitness log book. +
-Format: `delete INDEX`
+Format: `deleteX INDEX`
 
 ****
 * Deletes the entry at the specified `INDEX`.
@@ -130,12 +160,10 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd entry in the fitness log book.
-* `find jogging` +
-`delete 1` +
-Deletes the 1st entry in the results of the `find` command.
+* `deletes 2020-03-02 2`
+Deletes the 2nd sports entry in the `2020-03-02` daily file in the fitness log book.
+
+=== Sort the Entries
 
 // end::delete[]
 === Clearing all entries : `clear`
@@ -158,6 +186,22 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+=== Check Calorie Table
+
+=== Update Personal Data
+
+=== Weight Graph
+
+=== Profile Page
+
+=== Calendar View
+
+=== Today Page
+
+=== Weekly Report
+
+=== Help Page
 
 == FAQ
 
