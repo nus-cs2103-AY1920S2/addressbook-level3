@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Volant - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,32 +12,26 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-F09-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-2103T-F09-4`      Since: `Jan 2020`      Licence: `???`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Volant is a travel assistant application for solo travellers for who *prefer to use a desktop app for managing people they meet during their solo travels*. More importantly, Volant is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `volant.jar` link:{https://github.com/AY1920S2-CS2103T-F09-4/main}/releases[v1.1].
+.  Copy the file to the folder you want to use as the home folder for your Volant.
+.  Double-click the JAR file to start the app.
+.  The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
+e.g. Typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -47,115 +41,260 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Items in square brackets are optional e.g `n/NAME [a/AGE]` can be used as `n/John Doe a/26` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[a/AGE]...` can be used as `{nbsp}` (i.e. 0 times), `a/AGE`, `a/AGE p/PHONE_NUMBER` etc.
 ====
 
-=== Viewing help : `help`
+=== Homepage `[coming in v2.0]`
+
+==== Opening the help window: `help`
+Opens the Help Window.
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Opening the homepage: `home`
+Returns to the homepage. If already at the homepage, does nothing.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `home`
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Navigating to a trip page: `gotoTrip`
+Navigates to the context of a trip in the trip list.
 
-Examples:
+Format: `gotoTrip INDEX`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `INDEX` must be a positive integer within range of the list size.
 
-=== Listing all persons : `list`
+Example:
 
-Shows a list of all persons in the address book. +
-Format: `list`
+* `gotoTrip 12` +
+Navigates to the 12th trip on the list of trips.
 
-=== Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Trips `[coming in v2.0]`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+All trips are listed on the home page.
+
+==== Adding a trip: `add`
+Adds a trip to the trip list.
+
+Format: `add n/TRIP_NAME from/TRIP_START_DATE to/TRIP_END_DATE l/LOCATION`
+
+* Please write the date range in the format `from/DD-MM-YYYY` `to/DD-MM-YYYY`.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `add n/Graduation Trip from/01-02-2020 to/05-02-2020 l/Bangkok` +
+Adds a trip titled “Graduation Trip” to the list with the specified metadata.
+* `add n/Family Trip from/05-02-2020 to/08-02-2020 l/Bangkok` +
+Adds a trip titled “Family Trip” to the list with the specified metadata.
 
-=== Locating persons by name: `find`
+==== Deleting a trip: `delete`
+Deletes a trip from the trip list.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
 Format: `delete INDEX`
 
-****
+* INDEX must be a positive integer within range of the list size.
+
+Example:
+
+* `delete 12` +
+Deletes the 12th trip on the list of trips.
+
+==== Editing trip metadata: `edit`
+Edits item in the trip list at the specified index.
+
+Format: `edit INDEX [n/TRIP_NAME] [from/TRIP_START_DATE] [to/TRIP_END_DATE] [l/LOCATION]...`
+
+* `INDEX` must be a positive integer within range of the list size.
+* Please write the date range in the format `from/DD-MM-YYYY` `to/DD-MM-YYYY`.
+
+Example:
+
+* `edit 2 n/School Trip l/France` +
+Edits the second trip on the list with “School Trip” as name and “France” as location.
+* `edit 1 from/01-02-2020 to/ 01-03-2020` +
+Edits the first trip on the list with date range of 1 February to 1 March 2020.
+
+==== Navigating to a feature in the trip page: `goto`
+Navigates to a specific feature within each trip.
+
+Format: `goto FEATURE`
+
+* List of available features:
+** `ITINERARY`
+** `JOURNAL`
+** `EXPENSES`
+** `PACKINGLIST`
+** `CONTACTS`
+
+
+Example:
+
+* `goto ITINERARY` +
+Navigates to the itinerary feature of the current trip.
+
+=== Itinerary `[coming in v2.0]`
+
+==== Adding an activity to the itinerary: `add`
+Adds an activity to the itinerary.
+
+Format: `add a/ACTIVITY d/DATE t/TIME l/LOCATION`
+
+* Date must be specified in the following format: `DD-MM-YYYY`
+* Time must be specified in the following format: `HH:MM`
+
+Example:
+
+* `add a/Sightseeing d/12-10-2020 t/13:45 l/Mount Everest`
+Adds Sightseeing at Mount Everest at 12 OCT 2020 13:45 to the itinerary
+
+==== Deleting an activity in the itinerary: `delete`
+Deletes the specified activity in the itinerary.
+
+Format: `delete INDEX`
+
+* Deletes the activity at the specified `INDEX`.
+* The index refers to the index number shown in the displayed itinerary.
+* The index must be a positive integer 1, 2, 3, …
+
+Example:
+
+* `delete 5` +
+Deletes the 5th activity in the itinerary.
+
+==== Displaying next activity: `next`
+Displays the next activity in the itinerary.
+
+Format: `next`
+
+==== Editing the itinerary: `edit`
+Edits an existing itinerary.
+
+Format: `edit INDEX [a/ACTIVITY] [d/DATE] [t/TIME] [l/LOCATION]`
+
+* Edits the activity at the specified `INDEX`. The index refers to the index number shown in the displayed itinerary list. The index must * be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* Date must be specified in the following format: `DD-MM-YYYY`
+* Time must be specified in the following format: `HH:MM`
+
+==== Locating an activity by any field: `find`
+Searches the itinerary for any activity that matches the input field.
+
+Format: `find FIELD [a/ACTIVITY] [d/DATE] [t/TIME] [l/LOCATION]`
+
+Date must be specified in the following format: `DD-MM-YYYY`
+Time must be specified in the following format: `HH:MM`
+
+Example:
+
+* `find Itinerary a/Climbing` +
+Returns all activities related to climbing.
+
+=== Journal `[coming in v2.0]`
+
+==== Adding a journal entry: `add`
+Adds a journal entry to the entry list.
+
+Format: `add [c/CONTENT] [img/FILE_DIRECTORY] d/DATE t/TIME [l/LOCATION] [f/FEELING] [w/WEATHER]`
+
+* Date must be specified in the following format: `DD-MM-YYYY`
+* Time must be specified in the following format: `HH:MM`
+* CONTENT is limited to 280 characters
+* Available `FEELING` types:
+** happy
+** sad
+** excited
+** worried
+** scared
+** surprised
+** confused
+
+
+Example:
+
+* `add c/Lorem ipsum dolor sit amet, consectetur adipiscing elit d/12-09-2021 t/12:51 l/New York f/confused` +
+Adds a new journal entry to the entry list with the specified content, date, time, location and feeling fields.
+
+==== Sorting a list of current journal entries: `sort`
+Sorts the list of current journal entry lists in a specified order.
+
+Format: `sort [SORT_TYPE]`
+
+* Available `SORT_TYPE`:
+** Old to new - old (default if SORT_TYPE is left empty)
+** New to old - new
+** Location - location
+** Feeling - feeling
+* Default sorting of journal entries is in order of old to new
+
+
+Example:
+
+* `sort location` +
+Sorts the list of journal entries sorted by locations.
+
+==== Deleting a journal entry: `delete`
+Deletes an entire journal entry or a specific metadata within a journal entry based on the chosen index number.
+
+Format: `delete INDEX`
+
+==== Editing a journal entry: `edit`
+Edits specific metadata within a chosen journal entry using index number.
+
+Format: `edit INDEX [c/NEW_CONTENT] [img/NEW_FILE_DIRECTORY] [d/NEW_DATE] [t/NEW_TIME] [l/NEW_LOCATION] [f/NEW_FEELING] [w/NEW_WEATHER]`
+
+Example:
+
+* `edit 4 d/21-12-2012 f/Scared` +
+Changes date and feeling of fourth journal entry to “21-12-2012” and “scared” respectively
+
+=== Contact List `[coming in v2.0]`
+
+==== Adding a contact: `add`
+Adds a contact to the contact list.
+
+Format: `add n/NAME [p/PHONE_NUMBER] [a/AGE] l/:LOCATION [h/HOW_YOU_MET] [f/FAVOURITE]`
+
+Example:
+
+* `addContact n/John Doe p/987654321 a/23 m/In Berlin h/Asked him to take a picture of me at Brandenburg Gate p/Cheerful f/no`
+
+==== Deleting a contact: `delete`
+Deletes the specified contact in the contact list.
+
+Format: `delete INDEX`
+
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+* The index must be a positive integer 1, 2, 3, …
 
-Examples:
+Example:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete 2` +
+Deletes the 2nd person in the contact list.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Editing a contact: `edit`
+Edits an existing person in the contact list.
 
-Clears all entries from the address book. +
-Format: `clear`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [a/AGE] [l/LOCATION] [h/HOW_YOU_MET] [f/FAVOURITE]`
 
-=== Exiting the program : `exit`
+* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index must be a   positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
 
-Exits the program. +
-Format: `exit`
 
-=== Saving the data
+==== Locating a contact by any field: `find`
+Searches the contact list for any contact that matches the input field.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Format: `find FIELD [n/NAME] [p/PHONE_NUMBER] [a/AGE]/ [l/LOCATION] [h/HOW_YOU_MET] [f/FAVOURITE]`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+* The search is case insensitive. e.g hans will match Hans
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Example:
+
+* `findContact n/John` +
+Returns the contact information on John Doe and John Wick
 
 == FAQ
 
@@ -164,14 +303,11 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
+* *Add* `add n/NAME p/PHONE_NUMBER` +
+e.g. `add n/James Ho p/22224444`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] ` +
+e.g. `edit 2 n/James Lee`
+* *Find* : `find KEYWORD [n/NAME]` +
 e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`

@@ -4,53 +4,55 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
-{empty} +
+Volant was developed by us. +
+
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+Learn more about us below.
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
-
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Ranice Tan
+image::raniceyue.png[width="150", align="left"]
+{empty}[https://github.com/raniceyue[github]] [<<raniceyue#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities:
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Grant Lee
+image::grrrrnt.png[width="200", align="left"]
+{empty}[https://github.com/grrrrnt[github]] [<<grrrrnt#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities:
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Zeke Soh
+image::zsoh97.png[width="200", align="left"]
+{empty}[https://github.com/zsoh97[github]] [<<zsoh97#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities:
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Vu Hieu Nguyen
+image::vuhieunguyen.png[width="200", align="left"]
+{empty}[https://github.com/vuhieunguyen[github]] [<<vuhieunguyen#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities:
+
+'''
+
+=== Mikhail Faiz
+image::mikhailfaiz.png[width="200", align="left"]
+{empty}[https://github.com/mikhailfaiz[github]] [<<mikhailfaiz#, portfolio>>]
+
+Role: Developer +
+Responsibilities:
 
 '''

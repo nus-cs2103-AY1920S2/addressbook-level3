@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Volant - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-F09-4`      Since: `Jan 2020`      Licence: `???`
 
 == Setting up
 
@@ -279,78 +279,349 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a solo traveller
+* prefers desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: convenient travel assistant for solo travelers who are always on their feet
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+*Priorities*
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+* High (must have) - `* * *`
+* Medium (nice to have) - `* *`
+* Low (not useful) - `*`
+
+[width="80%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |So that I ca ...
+|`* * *` | frequent traveler | add a travel entry with weather, location and time metadata | document my past travels
 
-|`* * *` |user |add a new person |
+|`* * *` | traveler always on the go | record short text entries recording my travels, similar to that of a Tweet on Twitter | can keep track of my activities without excessive typing
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add an activity into an itinerary list |see my planned activities at a glance and better plan my trip
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |tag a location to each activity in the itinerary |view where each activity is taking place
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |edit the entries in my itinerary list |can amend any mistakes when entering data, or change my travel plans
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user | see a chronological timeline of the activities in the itinerary | can have a clear idea of my travel plans and schedule dur
+
+|`* * *` |frequent traveler |see a record of all my past itineraries |can review my past travels
+
+|`* * *` |traveler always meeting new people overseas |add a contact that I met during my trip with metadata including their name, age, phone number, location where I met them, and their country of origin |can keep in contact with them
+
+|`* * *` |user |delete contacts |can get rid of contacts that I have not been in touch with for some time
+
+|`* * *` |user |view my itineraries, contact lists and journals specific to the trip they are relevant to |can effectively plan for multiple trips simultaneously
+
+|`* * *` |user |customize trip names |can distinguish between different trips that happen in the same location within similar date ranges
+
+|`* *` |frequent traveler |to be able to see a timeline view of all my short journal entries and photos, including the location and time of the photos and entries, per trip| ??
+
+|`* *` |food lover |add a meal with description, photo, price and location |keep track of what I ate
+
+|`* *` |user |sort my travel entries by category depending on the ‘feeling’ tag of each travel entry |see my best moments
+
+|`* *` |busy user |list and record items in a packing list |easily reference what I need for a trip at a glance
+
+|`* *` |fickle-minded user |delete packing list entries |remove items I feel I no longer need for the trip from the packing list
+
 |=======================================================================
 
-_{More to be added}_
+_{All user stories can be viewed in our issue tracker.}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Volant (V)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== UC01 - Adding New Trip
+
+**Precondition: **Start from home page
+
+*Guarantee:* A new Trip will be created
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User enters details of trip to be added
+2. V writes added trip into data files and displays new trip in the trip list
 +
-Use case ends.
+Use case ends
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. V detects invalid characters in trip details
+* 1a1. V outputs error informing user of invalid characters
+* 1a2. V terminates the command
 +
-Use case ends.
+Use case ends
 
-* 3a. The given index is invalid.
-+
 [none]
-** 3a1. AddressBook shows an error message.
+* 1b. V detects missing fields in trip details
+* 1b1. V outputs error informing user of missing fields
+* 1b2. V terminates the command
 +
-Use case resumes at step 2.
+Use case ends
 
-_{More to be added}_
+[none]
+* 1c. V is unable to detect a valid keyword
+* 1c1. V outputs error informing user of invalid keyword
+* 1c2. V terminates the command
++
+Use case ends
+
+[discrete]
+=== UC02 - Editing Existing Trip
+
+**Precondition: **User is in the home page
+
+**Guarantee: **Information of existing trip will be changed
+
+*MSS*
+
+1. User requests to edit trip at specified index
+2. V requests for details to be overwritten/edited
+3. User enters new trip details
+4. V writes new details back into data files and displays edited trip in the trip list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 3a. V detects an invalid index i.e. index out of range or negative index
+* 3a1. V outputs error informing user of invalid index specified
+* 3a2. V terminates the command
++
+Use case ends
+
+[none]
+* 3b. V is unable to detect a valid keyword
+* 3b1. V outputs error informing user of invalid keyword
+* 3b2. V terminates the command
++
+Use case ends
+
+[discrete]
+=== UC03 - Accessing a Trip Folder
+
+*Precondition:* User is in the hope page and the trip to access exists
+
+*Guarantee:* User is now in Trip Folder
+
+*MSS*
+
+1. User changes directory to specific trip folder in trip list using index
+2. V loads data in trip folder and displays items in trip folder
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. V detects an invalid index i.e. index out of range or negative index
+* 1a1. V outputs error informing user of invalid index specified
+* 1a2. V terminates the command
++
+Use case ends
+
+[none]
+* 1b. V is unable to detect a valid keyword
+* 1b1. V outputs error informing user of invalid keyword
+* 1b2. V terminates the command
++
+Use case ends
+
+[discrete]
+=== UC04 - Accessing Pages (Contact List / Trip Itinerary / Journal)
+
+*Precondition:* User is in the home page
+
+*Guarantee:* User will be moved to the desired page
+
+*MSS*
+
+1. User navigates to a specific trip (UC03)
+2. User requests to navigate to the desired page in current trip
+3. V loads and displays the desired page
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. V detects incorrect command to navigate to the page
+* 2a1. V outputs error informing user of incorrect command
+* 2a2. V terminates the command
++
+Use case ends
+
+[none]
+* 2b. V is unable to detect a valid keyword
+* 2b1. V outputs error informing user of invalid keyword
+* 2b2. V terminates the command
++
+Use case ends
+
+[discrete]
+=== UC05 - Adding Contact to Contact List in a Trip
+
+**Precondition: **User is in the Contact List page of a trip
+
+**Guarantee: **A new contact will be added to the Contact List
+
+*MSS*
+
+1. User enters details of the contact
+2. V confirms the addition of the contact to the contact list and displays new contact in the contact list
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. V detects invalid characters in contact entry
+* 1a1. V outputs error informing user of invalid characters
+* 1a2. V terminates the command
++
+Use case ends
+
+[none]
+* 1b. V detects missing fields in contact entry
+* 1b1. V outputs error informing user of missing contact entry
+* 1b2. V terminates the command
++
+Use case ends
+
+[none]
+* 1c. V is unable to detect a valid keyword
+* 1c1. V outputs error informing user of invalid keyword
+* 1c2. V terminates the command
++
+Use case ends
+
+[discrete]
+=== UC06 - Adding Travel Entry into Journal in a Trip
+
+**Precondition: **User is already in the Journal page of Trip
+
+**Guarantee: **A new travel entry will be added to the Travel Journal
+
+*MSS*
+
+1. User enters details of the travel entry
+2. V confirms successful entry and displays new entry in the journal
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. V detects invalid characters into travel entry
+* 1a1. V outputs error informing user of invalid characters
+* 1a2. V terminates the command
++
+Use case ends
+
+[none]
+* 1b. V detects missing fields in travel entry
+* 1b1. V outputs error informing user of missing travel entry
+* 1b2. V terminates the command
++
+Use case ends
+
+[none]
+* 1c. V is unable to detect a valid keyword
+* 1c1. V outputs error informing user of invalid keyword
+* 1c2. V terminates the command
++
+Use case ends
+
+[discrete]
+=== UC07 - Adding Activities into Trip Itinerary
+
+**Precondition: **User is already in the Itinerary page of the Trip
+**Guarantee: **A new activity will be added to the Trip Itinerary
+
+*MSS*
+
+1. User enters activity name, date, time and location
+2. V confirms successful entry and displays updated itinerary
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. V detects invalid characters into activity entry
+* 1a1. V outputs error informing user of invalid characters
+* 1a2. V terminates the command
++
+Use case ends
+
+[none]
+* 1b. V detects missing fields in activity entry
+* 1b1. V outputs error informing user of missing activity entry
+* 1b2. V terminates the command
++
+Use case ends
+
+[none]
+* 1c. V is unable to detect a valid keyword
+* 1c1. V outputs error informing user of invalid keyword
+* 1c2. V terminates the command
++
+Use case ends
+
+[discrete]
+=== UC08 - Deleting a Contact in the Contact List of aTrip
+
+*Precondition:* User is in Contact List page of the Trip
+
+*Guarantee:* The contact in the Contact List will be deleted
+
+*MSS*
+
+[none]
+1. User requests to delete a contact in the contact list at the specified index
+2. V deletes the contact at the specified index and display the new contact list
+3. Use case ends
+
+*Extensions*
+
+[none]
+* 1a. V detects an invalid index i.e. index out of range or negative index
+* 1a1. V outputs error informing user of invalid index specified
+* 1a2. V terminates the command
++
+Use case ends
+
+[none]
+* 1b. V is unable to detect a valid keyword
+* 1b1. V outputs error informing user of invalid keyword
+* 1b2. V terminates the command
++
+Use case ends
+
+
+_{More use cases will be added and current use cases may be edited in the future.}_
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 trips without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Commands should be <<one-shot-c,one-shot>> commands as opposed to <<multi-level-c, multi-level commands>>.
 
-_{More to be added}_
+_{More to be added in future development}_
 
 [appendix]
 == Glossary
@@ -358,8 +629,12 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[one-shot-c]] One-shot Commands::
+Commands that are executed using only a single line of user input.
+
+[[multi-level-c]] Multi-level Commands::
+Commands that require multiple lines of user input for execution.
+
 
 [appendix]
 == Product Survey
@@ -423,3 +698,4 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
