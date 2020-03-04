@@ -81,7 +81,128 @@ Coupon Stash is for SoC students and staff who rightfully *prefer to use a deskt
 // to be added (Chester)
 ====
 
-// to be added (Denise)
+=== Viewing help: `help`
+
+Format: `help`
+
+=== Adding a coupon: `add`
+
+Adds a coupon to your coupon stash
+
+Format: add n/name d/DETAILS s/START DATE [e/EXPIRY DATE] [t/TAG]…​
+
+[TIP]
+A coupon can have any number of tags (including 0)
+
+Examples:
+
+* `add n/The Deck Chicken Rice d/20% off s/5/5/2020 e/ 6/5/2020 t/value`
+* `add n/Preenz Gjorjes Pak Mala d/10% off s/2/3/2020 t/value t/friends`
+
+=== Listing all coupons: `list`
+
+Shows a list of all coupons in the coupon stash.
+
+Format: `list`
+
+=== Editing a coupon: `edit`
+
+Edits an existing coupon in the coupon book.
+
+Format: `edit INDEX [n/NAME] [d/DETAILS] [s/START DATE] [e/EXPIRY]
+[t/TAG]`
+
+****
+* Edits the coupon at the specified INDEX. The index refers to the index
+number shown in the displayed coupon list. The index *must be a positive
+integer* 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the coupon will be removed i.e
+adding of tags is not cumulative.
+* You can remove all the coupon’s tags by typing t/ without specifying
+any tags after it.
+****
+
+Examples:
+
+* `edit 1 d/50% off` +
+Edits the details of the 1st coupon to be 50% off
+* `edit 2 n/The Deck Nasi Ayam Hainan t/` +
+Edits the name of the 2nd coupon to be The Deck Nasi Ayam Hainan and
+clears all existing tags.
+
+=== Locating coupons by name: `find`
+
+Find coupon(s) whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g mALa will match Mala
+* The order of the keywords does not matter. e.g. Rice Chicken will
+match Chicken Rice
+* Language does not matter e.g. Nasi to Rice
+* Only full words will be matched e.g. Chicken will not match Chickens
+* Coupons matching at least one keyword will be returned (i.e. OR
+search). e.g. Chicken Rice will return Duck Rice, Chicken Chop
+****
+
+Examples:
+
+Examples:
+
+* `find chicken` +
+Returns Chicken Rice, Ayam Penyet and Chicken Up
+* `find chicken chinese western` +
+Returns any coupon having names chicken, ayam, 鸡, pollo, Hähnchen,
+chinese or western
+
+// tag::delete[]
+=== Deleting a coupon: `delete`
+
+Deletes the specified coupon from the coupon stash.
+
+Todo: confirmation (maybe for not expired)
+
+Todo: recycle bin
+
+Format: `delete INDEX`
+
+****
+* Deletes the coupon at the specified INDEX.
+* The index refers to the index number shown in the displayed coupon
+list.
+* The index *must be a positive integer* 1, 2, 3, …​
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd coupon in the coupon stash.
+* `find rice` +
+`delete 1` +
+Deletes the 1st coupon in the results of the find command.
+
+// end::delete[]
+=== Clearing all entries: `clear`
+
+Clears all entries from the coupon stash. +
+Format: `clear`
+
+=== Exiting the program: `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Coupon stash data is saved in the hard disk automatically after any
+command that changes the data.
+
+There is no need to save manually.
+
 
 == FAQ
 
