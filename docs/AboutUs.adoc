@@ -29,7 +29,7 @@ Responsibilities: In charge of [Display][Data Analysis]
 
 === Ye Chenchen
 image::iyvvvvv.png[width="150", align="left"]
-{empty}[https://github.com/IYVVVVV[github]]
+{empty}[https://github.com/IYVVVVV[github]][<<iyvvvvv#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
