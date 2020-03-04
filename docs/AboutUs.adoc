@@ -4,14 +4,14 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-TATracker was developed by team W17-4. +
+Acknowledgements: Based on the AddressBook-Level3 project created by https://se-education.org[SE-EDU initiative]. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === GABRIEL BENEDICT TEO JIAN CHENG
-image::gabriel.png[flip = "90", width = "150", align = "left"]
+image::potatocombat.png[flip = "90", width = "150", align = "left"]
 {empty} [https://github.com/PotatoCombat[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Lead +
@@ -20,7 +20,7 @@ Responsibilities: Scheduling and tracking
 '''
 
 === AAKANKSHA RAI
-image::rai.png[width="150", align="left"]
+image::aakanksha-rai.png[width="150", align="left"]
 {empty}[https://github.com/aakanksha-rai[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: PlantUML Expert, Deliverables and deadlines
 '''
 
 === CHUA YI JING
-image::yijing.png[width="150", align="left"]
+image::chuayijing.png[width="150", align="left"]
 {empty}[https://github.com/chuayijing[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Testing
 '''
 
 === FATIN NABILAH BTE SUHAIMI
-image::fatin.png[width="150", align="left]
+image::fatin99.png[width="150", align="left]
 {empty}[https://github.com/fatin99[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
