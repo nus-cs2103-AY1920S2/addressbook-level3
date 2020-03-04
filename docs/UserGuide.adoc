@@ -149,7 +149,7 @@ Deletes the transaction with ID 1904850 in the expense tracker.
 === Analysis of transactions : `show analytics`
 
 Shows the analysis of transactions made in the filtered month/year. +
-Analysis will be shown in the form of a pie chart and bar graph. +
+Analysis will be shown in the form of a pie chart for categories and bar graph for month or week depending on the filter. +
 Format: `show analytics`
 
 === List of transactions : `show list`
