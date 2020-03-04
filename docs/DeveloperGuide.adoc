@@ -313,7 +313,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user|view records of food consumption or exercise workout in ascending/descending order of calorie |know which days I took in more/less calorie and which days I burned more/less calorie
 
-|=======================================================================
+==============================================================================
 
 _{More to be added}_
 
