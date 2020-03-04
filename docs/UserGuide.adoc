@@ -44,14 +44,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 == Common Fields and Keywords
-* *en/*
-* *et/*
-* *el/*
-* *ec/*
-* *r/*
-* *[DATE]*
-* *[TIME]*
-* *[INDEX]*
+* *en/* entry name
+* *et/* entry time
+* *el/* entry location
+* *ec/* entry calorie
+* *r/* remark
+* *[DATE]* a date in the fixed format of yyyy-mm-dd
+* *[TIME]* a time in the fixed format of yyyy-mm-dd-hh-mm
+* *[INDEX]* a positive integer indicating the position of an entry in the list
 
 [[Features]]
 == Features
@@ -95,6 +95,18 @@ If `X` is omitted, a list of mixed entries will be displayed.
 Examples:
 
 * `lists`
+
+=== View Reminders : `reminders (optional)DATE`
+
+Shows a list of all undone tasks in the fitness log book. +
+Format: `reminders (optional)DATE`
+
+If the field `DATE` is null, FitHelper will displays the undone tasks for the coming 7 days, otherwise, undone tasks for the specified date will be displayed.
+
+Examples:
+
+* `reminders`
+* `reminders 2019-11-28`
 
 === Editing an entry : `edit`
 
@@ -305,6 +317,11 @@ Format: `today DATE`
 [TIP]
 The `DATE` should be equal or prior to `today`. Requiring a `Today Page` for a future date will generate a blank page if that particular day does not have any entries.
 
+Examples:
+
+* `today`
+* `today 2020-02-14`
+
 === Weekly Report
 
 A weekly report serves as a summary for the past week. The user can see his performance in the past week. The weekly report also contains his rewarding points, diary logs, and preferred sports and food from the previous week. +
@@ -327,6 +344,10 @@ Format: `weekreport DATE` where `DATE` specifies the week it is in
 [TIP]
 The `DATE` should be equal or prior to days in the current week. Requiring a `Week Report` for a future week will generate a blank page if that particular day does not have any entries.
 
+Examples:
+
+* `weekreport`
+* `weekreport 2020-02-14`
 
 === Help Page
 
