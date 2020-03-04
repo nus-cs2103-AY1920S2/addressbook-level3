@@ -11,7 +11,7 @@ Fitness Helper was developed by the following team members:
 == Project Team
 
 === Liao Meng
-image::liaomeng.png[width="150", align="left"]
+image::lm5lm5.png[width="150", align="left"]
 {empty}[https://github.com/lm5lm5[github]]
 
 Role: Member
