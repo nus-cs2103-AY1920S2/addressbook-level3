@@ -310,6 +310,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user|update my basic information such as address and name if necessary |have an updated profile at any time
 
 |`* *` |user|view pending tasks and status of daily calories goals in a calendar |have cleaner display of data
+
+|`* *` |user|view records of food consumption or exercise workout in the order of calorie |know which days I took in more calorie and which days I burned more calorie
+
 |=======================================================================
 
 _{More to be added}_
