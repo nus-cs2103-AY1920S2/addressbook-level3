@@ -70,6 +70,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
+Asks the application to display a condensed list of available
+functions with correct format of input. A link to the full
+User Guide is also provided after the list.
+
 Format: `help`
 
 === Adding an entry: `add`
@@ -214,10 +218,31 @@ There is no need to save manually.
 // remark::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-=== Check Calorie Table
+=== Check calorie intake/consumption reference values
+
+Asks the application to show records of calorie intake of some common food (unit: kcal per serving)
+or calorie consumption of some common sports (unit: kcal per hour),
+whose description contains the keyword specified by the user.
+The recorded are searched within the application's pre-installed data.
+format: `checkX KEYWORDS`
+
+example:
+
+* `checkf apple`
+* `checks swimming`
+
+=== Show calorie table
+
+Asks the application to display a table that shows calorie intake from food consumption
+or calorie consumption from exercise in a particular day specified by the user.
+
+format: `tableX DATE`
+
+example:
+
+* `tableX 2020-02-02`
 
 === Record Profile
 
@@ -315,7 +340,7 @@ The `Today Page` for some day in the history can be displayed.
 Format: `today DATE`
 
 [TIP]
-The `DATE` should be equal or prior to `today`. Requiring a `Today Page` for a future date will generate a blank page if that particular day does not have any entries.
+The `DATE` should be equal or prior to `today`. Requiring a `Today Page` for a future #date# will generate a blank page if that particular day does not have any entries.
 
 Examples:
 
@@ -349,7 +374,11 @@ Examples:
 * `weekreport`
 * `weekreport 2020-02-14`
 
-=== Help Page
+=== Sort food consumption or exercise record
+
+
+format: `sort -c -a OR sort -c -d`
+
 
 == FAQ
 
