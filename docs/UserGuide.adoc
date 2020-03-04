@@ -226,6 +226,7 @@ Asks the application to show records of calorie intake of some common food (unit
 or calorie consumption of some common sports (unit: kcal per hour),
 whose description contains the keyword specified by the user.
 The recorded are searched within the application's pre-installed data.
+
 format: `checkX KEYWORDS`
 
 example:
