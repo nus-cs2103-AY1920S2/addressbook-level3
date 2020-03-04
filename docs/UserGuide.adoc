@@ -253,8 +253,9 @@ Format: `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPT
 Examples:
 
 * `addt p/1 c/10 dt/2020-02-19 19:00 m/20` +
-Add a transaction between product 1 and customer 10 of 20 dollars at 2020-02-19 19:00.
+Add a transaction with product 1 and customer 10 of 20 dollars at 2020-02-19 19:00.
 * `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount` +
+Add a transaction with product 20 and customer 2 of 30 dollars at 2020-02-20 10:00.
 
 
 === Listing all transaction : `listt`
@@ -275,7 +276,7 @@ Returns transactions in an unsorted manner.
 * `listt s/money_amount` +
 Returns transactions sorted by the amount of money by descending order.
 
-=== Editing a transaction : editt
+=== Editing a transaction : `editt`
 
 Edits a transaction in the system. +
 Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]`
@@ -300,16 +301,16 @@ Format: `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONE
 * Ideally, the user would keep a receipt and find the transaction by id printed on the receipt.
 * The search is case insensitive. e.g blue will match Blue
 * At least one of the option fields must be provided.
-* MONEY_LOW must be smaller than MONEY_HIGH
+* `MONEY_LOW` must be smaller than `MONEY_HIGH`
 * Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
 Examples:
 
 * `findt id/001` +
-Returns the transaction with id 001.
+Returns the transaction dettails with id 001.
 * `findt p/iphone` +
-Returns all transactions that involve the product iphone.
+Returns all transactions that involve the product `iphone`.
 * `findt c/bob` +
 Returns all transactions that involve a customer named Bob.
 * `findt dt/2020-02-07` +
@@ -325,7 +326,7 @@ Deletes the specified transaction from the system. +
 Format: `delete INDEX`
 
 ****
-* Deletes the transaction at the specified INDEX.
+* Deletes the transaction at the specified `INDEX`.
 * The index refers to the index number shown in the displayed transaction list.
 * The index must be a positive integer 1, 2, 3, …​
 ****
@@ -358,7 +359,7 @@ image::TopSellingProduct.png[]
 Format: `revenue [dt/START_DATE-END_DATE]`
 
 ****
-* The start date and end date must follow a format of “yyyy-mm-dd”
+* The start date and end date must follow a format of `yyyy-mm-dd`
 * The default period is the last month.
 ****
 
