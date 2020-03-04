@@ -26,26 +26,26 @@ import seedu.address.testutil.OrderBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_orderAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingOrderAdded modelStub = new ModelStubAcceptingOrderAdded();
         Order validOrder = new OrderBuilder().build();
 
         CommandResult commandResult = new AddCommand(validOrder).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validOrder), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validOrder), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validOrder), modelStub.ordersAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateOrder_throwsCommandException() {
         Order validOrder = new OrderBuilder().build();
         AddCommand addCommand = new AddCommand(validOrder);
-        ModelStub modelStub = new ModelStubWithPerson(validOrder);
+        ModelStub modelStub = new ModelStubWithOrder(validOrder);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
@@ -150,12 +150,12 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single order.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithOrder extends ModelStub {
         private final Order order;
 
-        ModelStubWithPerson(Order order) {
+        ModelStubWithOrder(Order order) {
             requireNonNull(order);
             this.order = order;
         }
@@ -168,21 +168,21 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the order being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Order> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingOrderAdded extends ModelStub {
+        final ArrayList<Order> ordersAdded = new ArrayList<>();
 
         @Override
         public boolean hasPerson(Order order) {
             requireNonNull(order);
-            return personsAdded.stream().anyMatch(order::isSameOrder);
+            return ordersAdded.stream().anyMatch(order::isSameOrder);
         }
 
         @Override
         public void addPerson(Order order) {
             requireNonNull(order);
-            personsAdded.add(order);
+            ordersAdded.add(order);
         }
 
         @Override

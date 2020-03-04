@@ -26,7 +26,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
+    public void execute_newOrder_success() {
         Order validOrder = new OrderBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -37,7 +37,7 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateOrder_throwsCommandException() {
         Order orderInList = model.getAddressBook().getOrderList().get(0);
         assertCommandFailure(new AddCommand(orderInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
