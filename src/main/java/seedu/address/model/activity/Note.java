@@ -20,17 +20,17 @@ public class Note {
      */
     public static final String VALIDATION_REGEX = "^(?!\\s*$).+";
 
-    public final String notes;
+    public final String content;
 
     /**
      * Constructs a {@code Note}.
      *
      * @param notes Valid notes.
      */
-    public Note(String notes) {
-        requireNonNull(notes);
-        checkArgument(isValidNote(notes), MESSAGE_CONSTRAINTS);
-        this.notes = notes;
+    public Note(String content) {
+        requireNonNull(content);
+        checkArgument(isValidNote(content), MESSAGE_CONSTRAINTS);
+        this.content = content;
     }
 
     /**
@@ -42,18 +42,18 @@ public class Note {
 
     @Override
     public String toString() {
-        return notes;
+        return content;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Note // instanceof handles nulls
-                && notes.equals(((Note) other).notes)); // state check
+                && content.equals(((Note) other).content)); // state check
     }
 
     @Override
     public int hashCode() {
-        return notes.hashCode();
+        return content.hashCode();
     }
 }
