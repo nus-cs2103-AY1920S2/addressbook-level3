@@ -9,9 +9,11 @@ import seedu.foodiebot.model.Model;
 public class RandomizeCommand extends Command {
     public static final String COMMAND_WORD = "randomize";
 
-    public static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generate a random food option.";
 
-    public static final String MESSAGE_SUCCESS = "";
+    public static final String MESSAGE_SUCCESS = "Here are the choices: ";
+
+
 
     @Override
     public CommandResult execute(Model model) {
