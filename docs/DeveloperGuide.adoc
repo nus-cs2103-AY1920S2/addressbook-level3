@@ -319,7 +319,174 @@ _{More to be added}_
 (For all use cases below, the *System* is the `FitHelper` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01 - Record Profile
+=== Use case: UC01 - Add an Entry
+
+*MSS*
+
+1.  User adds an entry specifying a meal or a sport with name, time, location, and calorie.
+2.  FitHelper stores the entry to the specific date file.
+3.  FitHelper display successful record and the entry status.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User input incomplete values.
++
+[none]
+** 1a1. FitHelper shows an error message.
++
+Use case ends.
+
+* 1b. The input time has clashes with previous entries.
++
+[none]
+** 1b1. FitHelper shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC02 - Edits an Entry
+
+*MSS*
+
+1.  User edits an entry specifying a meal or a sport with name, time, location, and calorie.
+2.  FitHelper modifies the entry to the specific date file.
+3.  FitHelper display successful record and the entry status.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User input repeated values that are already stored in the entry.
++
+[none]
+** 1a1. FitHelper ignores the edit command.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Deletes an Entry
+
+*MSS*
+
+1.  User deletes an entry by using the`delete` command.
+2.  FitHelper deletes the corresponding entry in the list and in the file.
+3.  FitHelper display the entry status and the successfully-delete message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The `INDEX` specified by the user does not exist.
++
+[none]
+** 1a1. FitHelper shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - Display the List
+
+*MSS*
+
+1.  User requests to display the list of a day.
+2.  FitHelper displays the list corresponding to the specified date. If the user does not specify a date, FitHelper will display the list for `today`.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The date specified by the user does not contain any entries.
++
+[none]
+** 1a1. FitHelper shows the message reminding the user that that specific day is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - Show Reminders
+
+*MSS*
+
+1.  User requests to display the undone tasks for a specific day.
+2.  FitHelper displays the undone task list corresponding to the specified date. If the user does not specify a date, FitHelper will display all the undone tasks in the coming 7 days.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The date specified by the user does not contain any entries.
++
+[none]
+** 1a1. FitHelper shows the message reminding the user that that specific day is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - Clear
+
+*MSS*
+
+1.  User requests to clear the entries for a specific day.
+2.  FitHelper clears the entries in the daily file for the specified day. If the user does not input a `DATE`, FitHelper will delete all the entries for `today`.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The date specified by the user does not contain any entries.
++
+[none]
+** 1a1. FitHelper shows the message reminding the user that that specific day is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Undo
+
+*MSS*
+
+1.  User requests to undo the previous command.
+2.  FitHelper undoes the previous command.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. There is no previous command.
++
+[none]
+** 1a1. FitHelper shows an error message indicating there is no previous command.
++
+Use case ends.
+
+* 1b. The previous command is not undoable. e.g. The previous command is a `list` command where `undo` does not make sense.
++
+[none]
+** 1b1. FitHelper shows an error message indicating the previous command is not undoable.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - Exit
+
+*MSS*
+
+1.  User requests to exit the application.
+2.  FitHelper displayes the `goodbye` word and terminates the application.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC09 - Record Profile
 
 *MSS*
 
@@ -348,7 +515,7 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC02 - Update Profile
+=== Use case: UC10 - Update Profile
 
 *MSS*
 
@@ -377,7 +544,7 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC03 - Show Profile
+=== Use case: UC11 - Show Profile
 
 *MSS*
 
@@ -398,7 +565,7 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC04 - Show Weight Graph Page (for certain period)
+=== Use case: UC12 - Show Weight Graph Page (for certain period)
 
 *MSS*
 
@@ -416,6 +583,8 @@ Use case ends.
 ** 1a1. FitHelper shows an error message.
 +
 Use case ends.
+
+
 
 _{More to be added}_
 
