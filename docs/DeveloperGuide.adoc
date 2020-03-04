@@ -309,6 +309,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user|update my basic information such as address and name if necessary |have an updated profile at any time
 
+|`* *` |user|view pending tasks and status of daily calories goals in a calendar |have cleaner display of data
 |=======================================================================
 
 _{More to be added}_
