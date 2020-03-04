@@ -83,7 +83,7 @@ Edits an existing customer in the customer list. +
 Format: `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 ****
-* Edits the customer at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
+* Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -109,7 +109,6 @@ Format: `findc [k/KEYWORD] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * The keyword will be searched only in the customer’s name.
 * The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
 * Customers matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
-* Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
 Examples:
@@ -125,7 +124,7 @@ Deletes the specified customer from the customer list. +
 Format: `deletec INDEX`
 
 ****
-* Deletes the customer at the specified INDEX.
+* Deletes the customer at the specified `INDEX`.
 * The index refers to the index number shown in the displayed customer list.
 * The index must be a positive integer 1, 2, 3, …​
 ****
@@ -184,7 +183,7 @@ Edits an existing product in the product list. +
 Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]`
 
 ****
-* Edits the product at the specified INDEX. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​
+* Edits the product at the specified `INDEX`. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -208,7 +207,6 @@ Format: `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]`
 * The keyword will be searched only in the product’s description.
 * The order of the keywords does not matter. e.g. blue shoes will match shoes blue
 * Products matching at least one keyword will be returned (i.e. OR search). e.g. blue shoes will return blue slippers, red shoes
-* Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
 Examples:
@@ -284,7 +282,7 @@ Edits a transaction in the system. +
 Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]`
 
 ****
-* Edits the transaction at the specified INDEX. The index refers to the index number shown in the displayed transaction list. The index must be a positive integer 1, 2, 3, …​
+* Edits the transaction at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -379,7 +377,7 @@ Sets the notification threshold.
 Format: `lowinv [p/PRODUCT_ID] t/THRESHOLD`
 
 ****
-* THRESHOLD must be in numerical format.
+* `THRESHOLD` must be non-negative integers, i.e. 1, 2, 3, ...
 * If the product id is not specified, the threshold applies to all products.
 ****
 
