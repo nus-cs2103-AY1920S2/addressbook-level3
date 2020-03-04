@@ -1,12 +1,13 @@
 package seedu.address.model.activity;
 
+/**
+ * Abstract class to provide template for activities.
+ */
 public abstract class Activity {
-    Name name;
-    Date date;
-    /*
-    Note note;
-    Priority priority;
-     */
+    private Name name;
+    private Date date;
+    private Note note;
+    //Priority priority;
 
     public Name getName() {
         return name;
@@ -23,16 +24,14 @@ public abstract class Activity {
     public void setDate(Date date) {
         this.date = date;
     }
-/*
+
     public Note getNote() {
-        return notes;
+        return note;
     }
 
     public void setNote(Note note) {
         this.note = note;
     }
-
- */
 
     /*
     public Priority getPriority() {
