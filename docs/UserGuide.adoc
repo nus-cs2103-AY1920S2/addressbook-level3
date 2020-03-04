@@ -286,6 +286,10 @@ It shows information includes: address, name, gender, height, current weight, ta
 Format: `profile`
 
 === Calendar View
+Calendar view will display all the exercises and meals for each day of the current month. For past dates, signs of different colors will be highlighted to show whether the calories intake exceeds or is below the target. +
+For female users, the monthly period will be highlighted +
+Format for entering data: `periodstart d/yyyy-mm-dd periodend d/yyyy-mm-dd` +
+Format for entering calendar view: `calendar`
 
 === Today Page
 
@@ -365,3 +369,4 @@ Examples:
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 * *List* : `list`
 * *Help* : `help`
+* *Calendar* : `calendar`

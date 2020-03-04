@@ -717,7 +717,30 @@ Use case ends.
 [none]
 ** 1a1. FitHelper shows shows an error message indicating no entry matches the keyword.
 +
+
+
 Use case ends.
+[discrete]
+=== Use case: UC19 - Calendar View
+
+*MSS*
+
+1.  User requests to display tasks in calendar view.
+2.  FitHelper displays all tasks of the current months with colored indication of whether the daily target is achieved or not.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User specifies an invalid command.
++
+[none]
+** 1a1. FitHelper shows shows an error message indicating the command is invalid.
++
+Use case ends.
+
+[discrete]
 _{More to be added}_
 
 [appendix]
