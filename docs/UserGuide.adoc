@@ -207,18 +207,78 @@ _{explain how the user can enable/disable data encryption}_
 
 === Check Calorie Table
 
-=== Update Personal Data
+=== Record Profile
 
-=== Weight Graph
+Adds new user basic personal data to profile. +
+Format: `recordprofile addr/ADDRESS n/NAME g/GENDER h/HEIGHT cw/CURRENTWEIGHT tw/TARGETWEIGHT`
+
+****
+* New user should record basic profile first data before using other commands.
+* One user can ony *initiate profile data once*.
+* The value of each attribute need to in correct data type:
+- addr/n: string of address/name
+- g: *male/female*
+- h: number in *meter*
+- cw/tw: number in *kilogram*.
+****
+
+Examples:
+
+* `recordprofile addr/utown n/Alice g/female h/1.68 cw/50 tw/45`
+* `recordprofile addr/rvrc n/Bob g/male h/1.8 cw/70 tw/65.5`
+
+=== Update Profile Data
+
+Update user data in the profile by attributes. +
+Format: `update attr/ATTRIBUTE v/VALUE`
+
+****
+* The updated attribute must have original value.
+* Any updated value should follow its original data type.
+
+****
+
+Examples:
+
+* `update attr/h v/1.7`
+* `update attr/name v/Alice Wang`
+
+=== Weight Graph Page
+
+Weight graph page serves to be a summary for user's weight and BMI changes according to time. +
+It shows user data in graph for easy understanding. By default, it will generate graph from all history data. User can also set a duration to generate graph for that specific time range. +
+Format: `weightgraph (dr/yyyy-mm-dd yyyy-mm-dd)`
+
+* *Current Data Table* +
+The table of user's latest data of weight and computed BMI. BMI value is computed based on latest weight and height. +
+Weight value can be: below/ above/ equals to target wieght value. +
+BMI value can be: too low/ moderate / too high.
+
+* *Trend Graph - Weight* +
+Display a trend graph of user's weight. Target weight line and the gap between target and current weight will be highlighted in the graph.
+
+* *Trend Graph - BMI* +
+Display a trend graph of user's BMI. Lowest and highest healthy BMI lines will be highlighted in the graph to specify a healthy range.
+
+* *Progress Graph* +
+Display a progress graph using coloring to indicate the gap between current Weight and Target weight. A percentage number will be shown explicitly in the graph.
+
+Examples:
+
+* `weightgraph`
+* `weightgraph dr/2020-01-01 2020-02-14`
 
 === Profile Page
+Profile page serves to be a summary for basic user data. +
+It shows information includes: address, name, gender, height, current weight, target weight and current BMI. +
+Format: `profile`
 
 === Calendar View
 
 === Today Page
 
-Today page serves to be a summary for the daily arrangements.
-It shows the daily schedule for the user. Users can see the entries for the day, a recommended lunch place, and their performances. They can also see their diary for the day as well as the rewarding point.
+Today page serves to be a summary for the daily arrangements. +
+It shows the daily schedule for the user. Users can see the entries for the day, a recommended lunch place, and their performances. They can also see their diary for the day as well as the rewarding point. +
 Format: `today`
 
 * *Daily Schedule* +
@@ -247,7 +307,7 @@ The `DATE` should be equal or prior to `today`. Requiring a `Today Page` for a f
 
 === Weekly Report
 
-A weekly report serves as a summary for the past week. The user can see his performance in the past week. The weekly report also contains his rewarding points, diary logs, and preferred sports and food from the previous week.
+A weekly report serves as a summary for the past week. The user can see his performance in the past week. The weekly report also contains his rewarding points, diary logs, and preferred sports and food from the previous week. +
 Format: `weekreport`
 
 * *Weekly Performance* +
@@ -261,7 +321,7 @@ Users can see his preferred food and sports, based on his entries for the past w
 
 ==== Some Week Report
 
-The `Week Report` for some week in the history can be displayed.
+The `Week Report` for some week in the history can be displayed. +
 Format: `weekreport DATE` where `DATE` specifies the week it is in
 
 [TIP]
