@@ -1,7 +1,7 @@
 package seedu.address.model.activity;
 
 /**
- * Abstract class to provide template for activities.
+ * Abstract class to specify fields with getter and setters for activities.
  */
 public abstract class Activity {
     private Name name;
