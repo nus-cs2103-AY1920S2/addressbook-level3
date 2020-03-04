@@ -55,7 +55,7 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
         FoodieBot original = getTypicalFoodieBot();
-        storageManager.saveFoodieBot(original);
+        storageManager.saveFoodieBot(original, "Canteen");
         ReadOnlyFoodieBot retrieved = storageManager.readFoodieBot("Canteen").get();
         assertEquals(original, new FoodieBot(retrieved));
     }

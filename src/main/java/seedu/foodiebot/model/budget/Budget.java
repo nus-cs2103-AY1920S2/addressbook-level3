@@ -81,8 +81,6 @@ public class Budget {
         }
     }
 
-
-
     /**
      * Resets any spending of the budget if the duration of the budget has been reached.
      * @return A new budget.
