@@ -1,4 +1,4 @@
-= Healthy Baby - User Guide
+= AddressBook Level 3 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,30 +14,28 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-1/main
 
-By: `Team HYBB`      Since: `Mar 2020`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-HealthyBaby (HYBB) is for those who *wish to lead a healthier lifestyle by cooking healthier meals*.
-HYBB is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-Through our convenient filters, searching and planning for new healthy recipes will be a breeze.
-Get motivated through our eye-catching goals and achievements. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `healthybaby.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your HealthyBaby application.
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Enter the command in the command box to execute it. +
-e.g. Entering *`help`* will open the help window.
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* **`list`** : lists all recipes
-* **`delete`**`3` : deletes the 3rd recipe shown in the current list
+* *`list`* : lists all contacts
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -48,75 +46,99 @@ e.g. Entering *`help`* will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Spicy Chicken`.
-* Items in square brackets are optional e.g `n/NAME [g/GOAL]` can be used as `n/Spicy Chicken g/Bulk like the Hulk` or as `n/Spicy Chicken`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[g/GOAL]...` can be used as `{nbsp}` (i.e. 0 times), `g/Bulk like the Hulk`, `g/Wholesome wholemeals' g/Herbivore` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME i/INGREDIENT`, `i/INGREDIENT n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a recipe: `add`
+=== Adding a person: `add`
 
-Adds a recipe to the recipe book +
-Format: `add n/NAME t/TIME [ig/AMT, GRAINS_INGREDIENT] [iv/AMT, VEGETABLE_INGREDIENT] [ip/AMT, PROTEIN_INGREDIENT] [io/AMT, OTHER_INGREDIENT] [g/GOAL]...`
+Adds a person to the address book +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
-A recipe can have any number of ingredients and goals (including 0).
-The amount (AMT) of each ingredient is measured by grams (g).
-The time taken for the meal to be cooked is measured in minutes (min).
+A person can have any number of tags (including 0)
 
 Examples:
 
-* `add n/Spicy Chicken t/30 ip/300, Chicken Wings io/50, Ketchup io/50, Garlic Chili Sauce
-* `add n/Everyday Salad Bowl t/10 iv/100, Romaine Lettuce iv/100, Cherry Tomato iv/100, Cucumber, io/30, Salad Dressing g/Herbivore
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Adding the steps to a recipe: `addS`
+=== Listing all persons : `list`
 
-Adds the steps to a recipe at the specified index +
-Format: `addS RECIPE_INDEX NEXT_STEP [/ NEXT_STEP]`
-
-[TIP]
-Any number of steps can be added to the recipe.
-
-// edit the examples and notes
-
-=== Listing all recipes : `list`
-
-Shows a list of all recipes in the recipe book. +
+Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a recipe : `edit`
+=== Editing a person : `edit`
 
-Edits an existing recipe in the recipe book. +
-Format: `edit RECIPE_INDEX [n/NAME] [ig/AMT, GRAINS_INGREDIENT] [iv/AMT, VEGETABLE_INGREDIENT] [ip/AMT, PROTEIN_INGREDIENT] [io/AMT, OTHER_INGREDIENT] [g/GOAL]...`
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
-// edit the examples and notes
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
 
-=== Editing the steps to a  recipe : `editS`
+Examples:
 
-Edits the steps of an existing recipe in the recipe book. +
-Format: `editS RECIPE_INDEX STEP_INDEX NEW_STEP'
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating recipes by name: `find`
+=== Locating persons by name: `find`
 
-Finds recipes whose names contain any of the given keywords. +
+Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-// edit the examples and notes
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
 
-=== Deleting a recipe : `delete`
+Examples:
 
-Deletes the specified recipe from the recipe book. +
-Format: `delete RECIPE_INDEX`
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
 
-// edit the examples and notes
+// tag::delete[]
+=== Deleting a person : `delete`
 
+Deletes the specified person from the address book. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+// end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the recipe book. +
+Clears all entries from the address book. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -126,56 +148,30 @@ Format: `exit`
 
 === Saving the data
 
-HYBB data are saved in the hard disk automatically after any command that changes the data. +
+Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-== Advanced Features
+// tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
 
-=== Filter
-
-=== Planning
-
-==== Set a recipe to be cooked on a certain day: `set`
-
-Set a recipe that you would like to cook on a certain day. +
-Format: `set RECIPE_INDEX d/YYYY-MM-DD`
-
-==== See planned recipes: `planned`
-
-Check the recipes you have planned out during a period of time or within the next few days. +
-Format: planned d/YYYY-MM-DD to d/YYYY-MM-DD
-Format: planned NUM_OF_DAYS
-
-==== Get ingredient list: `get`
-
-Gives you the list of ingredients needed for the recipes that you have planned during a period of time or within the next few days. +
-Format: get d/YYYY-MM-DD to d/YYYY-MM-DD
-Format: get NUM_OF_DAYS
-
-=== Goal
-
-=== Motivation
-
-==== Suggest a recipe based on current goal: `suggest`
-
-Gives you a random recipe which falls under the goal you have chosen. +
-Format: suggest
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HYBB folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add*
-e.g.
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
-* *Delete* : `delete RECIPE_INDEX` +
+* *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit +
-e.g.
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find Spicy Chicken`
+e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
