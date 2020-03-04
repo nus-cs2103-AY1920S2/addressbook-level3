@@ -18,7 +18,7 @@ By: `Team W16-2`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
 ZeroToOne is an application for managing your exercise regimes. It allows you to transform from a round ‘0’ shape, to a fitter and healthier ‘1’ shape!
- 
+
 ZeroToOne is for those who *prefer to use a desktop app for managing their exercise and fitness regimes*. More importantly, ZeroToOne is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ZeroToOne can get your exercise management tasks done faster than traditional GUI apps. Interested in the magnificent transformation from 0 to 1? Jump to Section 2, <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -188,7 +188,7 @@ Examples:
 
 * `start Push 5 100`
 * `start Pull 6 110`
- 
+
 ==== Stop a workout
 Stops the current workout, effectively resetting it.
 
@@ -240,7 +240,7 @@ Format: `skip`
 ==== Schedule a single workout session
 Schedules a single workout session on a specified date and time.
 
-Format: 
+Format:
 
 `schedule single <workout> <date>`
 
@@ -255,7 +255,7 @@ date must be in the format {yyyy}-{mm}-{dd}T{2359}.
 ==== Schedule a recurring workout session
 Schedules a recurring workout session from specified date and time, with a frequency of the recurrence.
 
-Format: 
+Format:
 
 `schedule recurring  <workout> <date>`
 
@@ -267,7 +267,7 @@ Examples:
 ==== Delete a workout session
 Deletes a specified single workout session from the user’s schedule for the specified date.
 
-Format: 
+Format:
 
 `schedule single delete <workout> <date>`
 
@@ -279,7 +279,7 @@ Examples:
 ==== Delete a recurring workout session
 Deletes a recurring workout session, clearing all of the future recurring sessions from the user’s whole schedule.
 
-Format: 
+Format:
 
 `schedule recurring delete <workout>`
 
@@ -307,9 +307,9 @@ The index refers to the index number displayed on the log list.
 Format: `log delete <log_index>`
 
 [TIP]
-The index must be a positive integer i.e. 1, 2, 3… 
+The index must be a positive integer i.e. 1, 2, 3…
 
- 
+
 ==== Find a past workout
 Finds a past workout by date or keyword. Query types: DATE, EXERCISE, WORKOUT, SCHEDULE.
 
@@ -343,7 +343,7 @@ There is no need to save manually.
 *A*: Ensure that you have Java 11 installed on your computer. You can check your current Java version by opening up a Command Prompt or Terminal, and entering java -version. Do install Java 11 if it is not installed. If installing Java 11  does not work, then try installing JavaFX 11 Dependencies on your computer.
 
 == Command Summary
- 
+
 * List: list
 * Log: log
 * Start: start <workout>
