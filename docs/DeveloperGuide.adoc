@@ -1,4 +1,4 @@
-= Fitness Helper - Developer Guide
+= FitHelper - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
