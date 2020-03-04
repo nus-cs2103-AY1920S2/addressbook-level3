@@ -25,7 +25,7 @@ public class Note {
     /**
      * Constructs a {@code Note}.
      *
-     * @param notes Valid notes.
+     * @param content Valid notes.
      */
     public Note(String content) {
         requireNonNull(content);
