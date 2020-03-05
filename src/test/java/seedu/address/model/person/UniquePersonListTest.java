@@ -84,12 +84,7 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-<<<<<<< HEAD
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
-                .build();
-=======
         Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
->>>>>>> upstream/master
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
         expectedUniquePersonList.add(editedAlice);

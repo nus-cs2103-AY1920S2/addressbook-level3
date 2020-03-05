@@ -22,10 +22,7 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-<<<<<<< HEAD
-=======
             .withEmail("alice@example.com")
->>>>>>> upstream/master
             .withPhone("94351253")
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")

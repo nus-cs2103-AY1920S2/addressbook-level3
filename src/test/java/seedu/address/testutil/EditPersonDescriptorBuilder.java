@@ -61,10 +61,6 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
