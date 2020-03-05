@@ -34,7 +34,7 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Usage>> for details of each command.
 
 [[Layout]]
 == Layout
