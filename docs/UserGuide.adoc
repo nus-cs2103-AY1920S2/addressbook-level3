@@ -95,7 +95,7 @@ Enrolls the student with the matriculation number A01234567J in tutorial G06 of 
 
 ==== Removing a student from a class : `kick`
 
-Removes a student from a class in the program. 
+Removes a student from a class in the program.
 
 Format: `kick MATRIC_NUMBER CLASS_CODE MOD_CODE`
 
@@ -132,6 +132,7 @@ Marks the session with the unique session id of 25 as done.
 
 Labels a session as a makeup session.
 If the session is claimable, it will appear as a new claim in the TSS view.
+
 Format: `makeup SESSION_UID`
 
 ****
