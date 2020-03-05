@@ -42,7 +42,7 @@ image::fatin99.png[width="150", align="left]
 {empty}[https://github.com/fatin99[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Documentation  and Code Quality
+Responsibilities: Documentation and Code Quality
 
 '''
 

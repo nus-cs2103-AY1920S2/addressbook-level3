@@ -14,11 +14,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team W17-4`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
-TATracker (TAT) is a productivity tool made for NUS Computing Teaching Assistants (TAs) who want to be able to track and manage all of their claimable hours in NUS. Interested? Jump to Section 2 “Quick Start” to get started!
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage all of their claimable hours in NUS.
+Interested? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
@@ -37,19 +39,19 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Layout]]
 == Layout
 
-. [.underline]#Dashboard:#
+=== Dashboard
 Home page.
 
-. [.underline]#Student View:#
+=== Student View
 This view will show you the list of all your students. It will show you information such as student name, matriculation number, attendance, ratings you give the student(such as for participation), any notes you have on the student and contact details (email and telegram id).
 
-. [.underline]#Session View:#
+=== Session View
 This view will contain the upcoming tasks and statistics.
 
-. [.underline]#TSS View:#
+=== TSS View
 This will show you all your claimable hours up till now in the same format as that used in the TSS claim files.
 
-. [.underline]#Automatic Backups:#
+=== Automatic Backups
 TATracker data is automatically saved in the hard disk as backup files after any command that changes the data. These automatic backups will preserve all data and settings within the program at the time of use. These backups will also be automatically loaded into the program when it is opened.
 
 
@@ -66,29 +68,29 @@ TATracker data is automatically saved in the hard disk as backup files after any
 
 *Common Parameters*
 
-* PAGE_NAME - one of the following pages:
+* `PAGE_NAME` - one of the following pages:
 ** home - Dashboard: the default view you first see when you open the GUI
 ** session - Sessions: list of sessions according to date
 ** students - Students: list of students you are teaching
 ** tss - TSS Form: list of claimable sessions (only sessions that have been marked as done
-* CATEGORY_UID - a category unique id
-* MATRIC_NUMBER - the matriculation number of a student
+* `CATEGORY_UID` - a category unique id
+* `MATRIC_NUMBER` - the matriculation number of a student
 ** Must start with an ‘A’
 ** Must end with an letter
 ** Must have x numbers in between the start and end letter
-* MOD_CODE - replace with the unique code for the module
-* CLASS_CODE - replace with the unique code for the tutorial/class
-* SESSION_UID - the unique numeric identifier of a session
+* `MOD_CODE` - replace with the unique code for the module
+* `CLASS_CODE` - replace with the unique code for the tutorial/class
+* `SESSION_UID` - the unique numeric identifier of a session
 ** Must be a positive integer (eg. 1, 2, 3, ...)
-* SESSION_TYPE - replace with one of the following:
+* `SESSION_TYPE` - replace with one of the following:
 ** consult - Consultations
 ** tutorial - Tutorials
 ** grading - Grading and assessments
 ** prep - Class preparation
 ** todo - other tasks and notes
 ** lab - Lab
-* START, END - a time parameter, in the following format: HH:mm
-* DATE - a date parameter, in the following format: dd-MM-yyyy
+* `START`, `END` - a time parameter, in the following format: HH:mm
+* `DATE` - a date parameter, in the following format: dd-MM-yyyy
 ====
 
 === Viewing help : `help`
