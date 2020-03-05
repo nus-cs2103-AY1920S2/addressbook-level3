@@ -166,6 +166,7 @@ match Chicken Rice
 * Coupons matching at least one keyword will be returned (i.e. OR
 search). e.g. Chicken Rice will return Duck Rice, Chicken Chop
 ****
+
 Examples:
 
 * `find chicken` +
@@ -202,6 +203,23 @@ Deletes the 2nd coupon in the coupon stash.
 Deletes the 1st coupon in the results of the find command.
 
 // end::delete[]
+
+=== Listing all expiring coupons: `expiring`
+
+Lists all your expiring coupons.
+
+Format: expiring DATE
+
+* Lists all coupons that are expiring before the specified DATE
+* The date must be in CouponStash-Date format
+* The date must be a future date
+
+Examples:
+
+* `expiring 2-3-2020` +
+Shows you all the coupons that will expire before 2 March 2020.
+
+
 === Clearing all entries: `clear`
 
 Clears all entries from the coupon stash. +
