@@ -2,6 +2,7 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+/bin/
 
 # IDEA files
 /.idea/
@@ -24,3 +25,5 @@ src/test/data/sandbox/
 .project
 .settings/org.eclipse.buildship.core.prefs
 .vscode/settings.json
+.classpath
+.settings/org.eclipse.jdt.core.prefs

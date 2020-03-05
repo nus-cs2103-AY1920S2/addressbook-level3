@@ -37,10 +37,6 @@ jacocoTestReport {
     }
 }
 
-test {
-    useJUnitPlatform()
-}
-
 dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
@@ -98,6 +94,8 @@ tasks.coveralls {
 }
 
 test {
+    useJUnitPlatform()
+
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
 
