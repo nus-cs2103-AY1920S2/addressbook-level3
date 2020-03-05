@@ -61,7 +61,7 @@ Format: `help`
 
 === Set a monthly budget : `budget`
 
-Sets a spendable budget for the month +
+Sets a spendable budget for the current month +
 Format: `budget AMOUNT`
         `budget /repeat AMOUNT` (to set repeating budget of $AMOUNT for the coming months)
 
@@ -120,7 +120,8 @@ Examples:
 
 === Search transactions : `search`
 
-Search for transactions with certain keywords. +
+Search for transactions with certain keywords.
+
 Format: `search KEYWORD [MORE_KEYWORDS]`
 
 [TIP]
