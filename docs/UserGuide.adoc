@@ -223,9 +223,47 @@ command that changes the data.
 There is no need to save manually.
 
 
+
 == FAQ
 
-// to be added (Kevin)
+
+*Q*: How do I transfer my data to another computer?
+
+*A*: Simply install Stash in the other computer and overwrite the empty data file with your intended data file. +
+{empty} +
+
+*Q*: Can I add multiple coupons using a command line?
+
+*A:* Yes, you can. Use the ``Add'' command and type in all your coupons
+in this format, +
+add n/Co-op d/25% off on all stationeries s/25/2/2020 t/value
+t/stationaries +
+n/PGP Mala d/10% off s/2/3/2020 t/value t/friends +
+n/Universal Studios theme part d/ 50% off for all students s/2/5/2020
+e/1/1/2021 t/value +
+{empty} +
+
+*Q* : Why do I need to tag my coupons?
+
+*A* : Tagging is not compulsory. However, it allows you to group similar
+coupons together for easier execution. For example, you can easily
+delete all the coupons that are tagged, cheap. Do refer to section 4
+for more detail. +
+{empty} +
+
+*Q* : How do I store coupons with no ending date?
+
+*A* : Sorry, at the moment, coupon entries with no ending date cannot be
+stored. You would need to enter a much further date like 01/01/2030. To
+be added in version 2.0.0 +
+{empty} +
+
+*Q* : How do you calculate the savings value?
+
+*A* :  Whenever a coupon is marked as done, Stash will automatically
+calculate the values saved based on the details of the coupon.
+{empty} +
+
 
 == Command Summary
 
