@@ -328,10 +328,10 @@ Use case ends.
 
 *Extensions*
 
-* 1.  The requested page is invalid.
+* 1a.  The requested page is invalid.
 +
 [none]
-** a.  AddressBook shows an error message.
+** 1a1.  AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
@@ -358,10 +358,10 @@ Use case ends.
 
 *Extensions*
 
-* 1. The given index is invalid.
+* 1a. The given page is invalid.
 +
 [none]
-** 1a. AddressBook shows an error message.
+** 1a1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
@@ -380,10 +380,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. The given rate is invalid.
+* 1a. The given rate is invalid.
 +
 [none]
-** 1a1 AddressBook shows an error message.
+** 1a1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
@@ -401,10 +401,10 @@ Use case ends.
 
 *Extensions*
 
-* 1. The input required (eg. Matric Number) to add a student is invalid.
+* 1a. The input required (eg. Matric Number) to add a student is invalid.
 +
 [none]
-** 1a. AddressBook shows an error message.
+** 1a1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
@@ -422,10 +422,10 @@ Use case ends.
 
 *Extensions*
 
-* 1. The given module code is invalid.
+* 1a. The given module code is invalid.
 +
 [none]
-** 1a. AddressBook shows an error message.
+** 1a1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
@@ -444,18 +444,18 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. The given module code is invalid.
+* 1a. The given module code is invalid.
 +
 [none]
-** 1a. AddressBook shows an error message.
+** 1a1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
 [none]
-* 2. The given class code is invalid.
+* 1a. The given class code is invalid.
 +
 [none]
-** 2a. AddressBook shows an error message.
+** 1a1. AddressBook shows an error message.
 +
 Use case resumes at step 1.
 
@@ -474,21 +474,21 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. The list is empty.
+* 2a. The list is empty.
 +
 Use case ends.
 
-* 2. The given matric number is invalid.
+* 3a. The given matric number is invalid.
 +
 [none]
-** 2a. AddressBook shows an error message.
+** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 3.
 
-* 3. The given new input for the parameter(s) are invalid.
+* 3a. The given new input for the parameter(s) are invalid.
 +
 [none]
-** 3a. AddressBook shows an error message.
+** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 3.
 
@@ -497,7 +497,7 @@ Use case resumes at step 3.
 
 *MSS*
 
-1.  User requests to show students page
+1. User requests to show students page
 2. AddressBook shows a list of students categorised by tutorial
 3. User requests to delete a specific student in the list
 4. AddressBook deletes the student
@@ -507,14 +507,14 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. The list is empty.
+* 2a. The list is empty.
 +
 Use case ends.
 
-* 2. The given matric number is invalid.
+* 3a. The given matric number is invalid.
 +
 [none]
-** 2a. AddressBook shows an error message.
+** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 3.
 
@@ -523,7 +523,7 @@ Use case resumes at step 3.
 
 *MSS*
 
-1.  User requests to show sessions page
+1. User requests to show sessions page
 2. AddressBook shows a list of sessions categorised by modules
 3. User requests to delete a specific module in the list
 4. AddressBook deletes the module and all of the sessions and tutorials in it
@@ -533,14 +533,14 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. The list is empty.
+* 2a. The list is empty.
 +
 Use case ends.
 
-* 2. The given module code is invalid.
+* 3a. The given module code is invalid.
 +
 [none]
-** 2a. AddressBook shows an error message.
+** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 3.
 
@@ -559,14 +559,14 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1. The list is empty.
+* 2a. The list is empty.
 +
 Use case ends.
 
-* 2. The given class code is invalid.
+* 3a. The given class code is invalid.
 +
 [none]
-** 2a. AddressBook shows an error message.
+** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 3.
 
@@ -575,7 +575,7 @@ Use case resumes at step 3.
 
 *MSS*
 
-1.  User requests to exit the app
+1. User requests to exit the app
 2. App window closes
 +
 Use case ends.
