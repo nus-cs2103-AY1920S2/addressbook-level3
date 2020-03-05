@@ -1,6 +1,5 @@
 package seedu.address.model.profile.course;
 
-import java.lang.Module;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +8,7 @@ import java.util.ArrayList;
  */
 public class ModuleSet {
 
-    ArrayList<Module> moduleSet; // can use TreeSet to sort modules by code
+    private final ArrayList<Module> moduleSet; // can use TreeSet to sort modules by code
 
     /**
      * Constructs a {@code ModuleSet}.
