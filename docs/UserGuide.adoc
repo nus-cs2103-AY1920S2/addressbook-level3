@@ -367,6 +367,10 @@ _{explain how the user can reschedule their orders when customers notify them th
 === Keeping track of work schedule `[coming in v2.0]`
 _{explain how the user can keep track of their work schedule}_
 
+=== Statistics for completed orders `[coming in v2.0]`
+_{explain how the user can view statistics such as on-time rates (difference between actual and expected
+delivery), number of deliveries completed in a day}_
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
