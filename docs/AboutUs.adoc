@@ -23,15 +23,6 @@ Responsibilities: "Undo" Feature in Coupon Stash to revert commands and changes
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
 === Chester Sim
 image::chestersim.png[width="150", align="left"]
 {empty}[http://github.com/chestersim[github]] [<<johndoe#, portfolio>>]
