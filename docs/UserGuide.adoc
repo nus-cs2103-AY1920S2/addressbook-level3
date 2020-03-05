@@ -198,7 +198,12 @@ Return delivery order with transaction ID of `920392844`
 [[help]]
 === Viewing help : `help`
 
-Format: `help`
+==== Description
+You can use the help command to display all commands that are available to be used
+so that you can navigate the application easily. +
+
+==== Format:
+* `help`
 
 [[import]]
 === Importing a list of orders : `import`
