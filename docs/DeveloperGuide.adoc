@@ -398,10 +398,10 @@ Use case ends.
 * 1a. List command contains invalid flag.
 ** 1a1. EYLAH prints out default list which contains food logged for the day
 
-* 2a. Invalid or empty index keyed into command.
-** 2a1. EYLAH requests user to re-enter index in correct format
-** 2a2. User enters delete item in  correct format +
-Steps 2a1-2a2 are repeated until the correct  entered is correct. +
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
+Steps 3a1-3a2 are repeated until the correct  entered is correct. +
 Use case ends.
 
 [discrete]
@@ -422,16 +422,16 @@ Use case ends.
 * 1a. List command contains invalid flag.
 ** 1a1. EYLAH prints out default list which contains food logged for the day
 
-* 2a. Invalid or empty index keyed into command.
-** 2a1. EYLAH requests user to re-enter index in correct format
-** 2a2. User enters delete item in  correct format +
+* 3a. Invalid or empty index keyed into command.
+** 3a1. EYLAH requests user to re-enter index in correct format
+** 3a2. User enters delete item in  correct format +
 Steps 2a1-2a2 are repeated until the correct  entered is correct. +
 Use case ends.
 
-* 2b. No additional tags and data keyed in as flags to replace existing data.
-** 2b1. EYLAH requests user to re-enter command with at least one flag
-** 2a2. User enters command with flag and data +
-Steps 2b1-2b2 are repeated until the correct  entered is correct. +
+* 3b. No additional tags and data keyed in as flags to replace existing data.
+** 3b1. EYLAH requests user to re-enter command with at least one flag
+** 3b2. User enters command with flag and data +
+Steps 3b1-3b2 are repeated until the correct  entered is correct. +
 Use case ends.
 
 [discrete]
@@ -486,12 +486,6 @@ Use case ends.
 * 1a. BMI command contains invalid flag.
 ** 1a1. EYLAH suggests to user the correct format to use
 ** 1a2. User will key in the correct format
-
-* 3a. Invalid or empty index keyed into command.
-** 3a1. EYLAH requests user to re-enter index in correct format
-** 3a2. User enters delete item in  correct format +
-Steps 3a1-3a2 are repeated until the correct  entered is correct. +
-Use case ends.
 
 [discrete]
 === Expense Splitter Use Cases
