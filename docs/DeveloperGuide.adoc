@@ -313,15 +313,15 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TA-Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Viewing a page
 
 *MSS*
 
-1.  User requests to view a different page
-2. AddressBook layout changes to show the new page
+1.  User requests to view a different page.
+2. TA-Tracker layout changes to show the new page.
 
 +
 Use case ends.
@@ -331,7 +331,7 @@ Use case ends.
 * 1a.  The requested page is invalid.
 +
 [none]
-** 1a1.  AddressBook shows an error message.
+** 1a1.  TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -340,8 +340,8 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to view the help menu
-2. AddressBook shows the list of commands
+1.  User requests to view the help menu.
+2. TA-Tracker shows the list of commands.
 +
 Use case ends.
 
@@ -350,9 +350,9 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to change the default view to a specified page
-2. AddressBook changes the default view
-3. AddressBook shows the default view
+1.  User requests to change the default view to a specified page.
+2. TA-Tracker changes the default view.
+3. TA-Tracker shows the default view.
 +
 Use case ends.
 
@@ -361,7 +361,7 @@ Use case ends.
 * 1a. The given page is invalid.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -370,9 +370,9 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to change the hourly pay rate to a specified amount
-2. AddressBook changes the pay rate
-3. AddressBook shows an edited TSS claims page the total pay adjusted to reflect the new pay rate
+1.  User requests to change the hourly pay rate to a specified amount.
+2. TA-Tracker changes the pay rate.
+3. TA-Tracker shows an edited TSS claims page the total pay adjusted to reflect the new pay rate.
 
 +
 Use case ends.
@@ -383,7 +383,7 @@ Use case ends.
 * 1a. The given rate is invalid.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -392,9 +392,9 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to add a student
-2. AddressBook adds new student
-3. AddressBook layout changes to show the student list page
+1.  User requests to add a student.
+2. TA-Tracker adds new student.
+3. TA-Tracker layout changes to show the student list page.
 
 +
 Use case ends.
@@ -404,7 +404,7 @@ Use case ends.
 * 1a. The input required (eg. Matric Number) to add a student is invalid.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -413,9 +413,9 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to add a new module
-2. AddressBook adds a new module
-3. AddressBook layout changes to show the session list page
+1.  User requests to add a new module.
+2. TA-Tracker adds a new module.
+3. TA-Tracker layout changes to show the session list page.
 
 +
 Use case ends.
@@ -425,7 +425,7 @@ Use case ends.
 * 1a. The given module code is invalid.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -434,9 +434,9 @@ Use case resumes at step 1.
 
 *MSS*
 
-1.  User requests to add a new tutorial
-2. AddressBook shows adds a new tutorial linked to the specified module
-3. AddressBook layout changes to show the session list page
+1.  User requests to add a new tutorial.
+2. TA-Tracker shows adds a new tutorial linked to the specified module.
+3. TA-Tracker layout changes to show the session list page.
 
 +
 Use case ends.
@@ -447,7 +447,7 @@ Use case ends.
 * 1a. The given module code is invalid.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -455,7 +455,7 @@ Use case resumes at step 1.
 * 1a. The given class code is invalid.
 +
 [none]
-** 1a1. AddressBook shows an error message.
+** 1a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 1.
 
@@ -464,10 +464,10 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. User requests to list students
-2. AddressBook shows a list of students
-3. User requests to edit a specific student in the list
-4. AddressBook edits the student according to the specified parameters
+1. User requests to list students.
+2. TA-Tracker shows a list of students.
+3. User requests to edit a specific student in the list.
+4. TA-Tracker edits the student according to the specified parameters.
 +
 Use case ends.
 
@@ -481,14 +481,14 @@ Use case ends.
 * 3a. The given matric number is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
 * 3a. The given new input for the parameter(s) are invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -497,10 +497,10 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to show students page
-2. AddressBook shows a list of students categorised by tutorial
-3. User requests to delete a specific student in the list
-4. AddressBook deletes the student
+1. User requests to show students page.
+2. TA-Tracker shows a list of students categorised by tutorial.
+3. User requests to delete a specific student in the list.
+4. TA-Tracker deletes the student.
 +
 Use case ends.
 
@@ -514,7 +514,7 @@ Use case ends.
 * 3a. The given matric number is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -523,10 +523,10 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to show sessions page
-2. AddressBook shows a list of sessions categorised by modules
-3. User requests to delete a specific module in the list
-4. AddressBook deletes the module and all of the sessions and tutorials in it
+1. User requests to show sessions page.
+2. TA-Tracker shows a list of sessions categorised by modules.
+3. User requests to delete a specific module in the list.
+4. TA-Tracker deletes the module and all of the sessions and tutorials in it.
 +
 Use case ends.
 
@@ -540,7 +540,7 @@ Use case ends.
 * 3a. The given module code is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -549,10 +549,10 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to show students page
-2. AddressBook shows a list of students categorised by tutorial
-3. User requests to delete a specific tutorial in the list
-4. AddressBook deletes the tutorial and all of the students in it
+1. User requests to show students page.
+2. TA-Tracker shows a list of students categorised by tutorial.
+3. User requests to delete a specific tutorial in the list.
+4. TA-Tracker deletes the tutorial and all of the students in it.
 +
 Use case ends.
 
@@ -566,7 +566,7 @@ Use case ends.
 * 3a. The given class code is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
 Use case resumes at step 3.
 
@@ -575,8 +575,8 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to exit the app
-2. App window closes
+1. User requests to exit the app.
+2. App window closes.
 +
 Use case ends.
 
