@@ -4,31 +4,32 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-*AkshayFit* was developed by the following team.
+*ZeroToOne* was developed by the following team.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Liow Jia Chen
-image::jiachen247.jpeg[width="150", align="left"]
+image::jiachen247.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~jiachen[homepage]] [https://github.com/jiachen247[github]] [<<jiachen247#, portfolio>>]
 
 Role: Developer +
 Responsibilities: DevOps
+
 '''
 
 === Gabriel Yeo
-image::gb3h.jpg[width="150", align="left"]
+image::gb3h.png[width="150", align="left"]
 {empty}[http://github.com/gb3h[github]] [<<gb3h#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI/UX
 
 '''
 
 === Guofeng Tang
-image::Guofeng-Tang.jpg[width="150", align="left"]
+image::Guofeng-Tang.png[width="150", align="left"]
 {empty}[http://github.com/Guofeng-Tang[github]] [<<Guofeng-Tang#, portfolio>>]
 
 Role: Developer +
@@ -37,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Wong Chi Shan
-image::chishanw.jpg[width="150", align="left"]
+image::chishanw.png[width="150", align="left"]
 {empty}[http://github.com/chishanw[github]] [<<chishanw#, portfolio>>]
 
 Role: Developer +
@@ -46,10 +47,10 @@ Responsibilities: Threading
 '''
 
 === Aloysius Chan
-image::alloystory.jpg[width="150", align="left"]
-{empty}[http://github.com/alloystory[github]] [<<alloystory#, portfolio>>]
+image::alloystory.png[width="150", align="left"]
+{empty}[https://www.aloysiuschan.co[homepage]] [http://github.com/alloystory[github]] [<<alloystory#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI/UX
 
 '''
