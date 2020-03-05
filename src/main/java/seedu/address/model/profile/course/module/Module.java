@@ -80,8 +80,14 @@ public class Module {
 
         return builder.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Module // instanceof handles nulls
+                && moduleCode.equals(((Module) other).moduleCode)); // state check
+    }
     // methods to be implemented
     // isSameModule()
-    // equals()
     // hashCode()
 }
