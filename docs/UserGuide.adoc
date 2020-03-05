@@ -117,7 +117,7 @@ Removes the student with the matriculation number A01234567J from tutorial G06 o
 Labels a session as done.
 If the session is claimable, it will appear as a new claim in the TSS view.
 
-Format: `done SESSION_UID'
+Format: `done SESSION_UID`
 
 ****
 * Marks the session with the given unique session identifier as done.
