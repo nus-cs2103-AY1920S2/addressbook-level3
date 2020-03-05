@@ -34,9 +34,9 @@ public class ModuleSet {
         ModuleSet otherSet = (ModuleSet) other;
         for (Module module : moduleSet) {
             for (Module otherModule : otherSet.getModuleSet()) {
-                 if (!module.equals(otherModule)) {
-                     return false;
-                 }
+                if (!module.equals(otherModule)) {
+                    return false;
+                }
             }
         }
         return true;
