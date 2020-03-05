@@ -23,17 +23,8 @@ Responsibilities: "Undo" Feature in Coupon Stash to revert commands and changes
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
-
-'''
-
 === Chester Sim
-image::chester.png[width="150", align="left"]
+image::chestersim.png[width="150", align="left"]
 {empty}[http://github.com/chestersim[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer/UI Lead +
@@ -60,8 +51,8 @@ Responsibilities: Useless
 '''
 
 === Denise Ng
-image::Denise-Ng.png[width="150", align="left"]
-{empty}[http://github.com/Denise-Ng[github]] [<<Denise#, portfolio>>]
+image::denise-ng.png[width="150", align="left"]
+{empty}[http://github.com/denise-ng[github]] [<<Denise#, portfolio>>]
 
 Role: Junior Developer +
 Responsibilities: Try my best
