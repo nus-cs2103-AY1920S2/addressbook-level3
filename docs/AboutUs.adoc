@@ -40,7 +40,7 @@ Responsibilities: Data
 '''
 
 === Alden Tan
-image::alden.png[width="150", align="left"]
+image::alcen.png[width="150", align="left"]
 {empty}[http://github.com/alcen[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
