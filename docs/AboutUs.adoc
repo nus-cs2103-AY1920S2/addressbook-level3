@@ -56,3 +56,12 @@ Role: Junior Developer +
 Responsibilities: Useless
 
 '''
+
+=== Denise Ng
+image::Denise-Ng.png[width="150", align="left"]
+{empty}[http://github.com/Denise-Ng[github]] [<<Denise#, portfolio>>]
+
+Role: Junior Developer +
+Responsibilities: Try my best
+
+'''
