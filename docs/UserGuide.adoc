@@ -115,88 +115,110 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Student Management
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+==== Enrolling a student in a class : `enroll`
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Enrolls a student in a class in the program. +
 
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `enroll MATRIC_NUMBER CLASS_CODE MOD_CODE`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Enrolls the student with the given matriculation number in the specified class.
+* The class should belong to the module with the given MOD_CODE.
+* The class should already exist in the TA-Tracker with the given CLASS_CODE.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `enroll A01234567J G06 CS2101` +
+Enrolls the student with the matriculation number A01234567J in tutorial G06 of module CS2101.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Removing a student from a class : `kick`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Removes a student from a class in the program.
+
+Format: `kick MATRIC_NUMBER CLASS_CODE MOD_CODE`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Removes the student with the given matriculation number from the specified class.
+* The class should belong to the module with the given MOD_CODE.
+* The class should already exist in the TA-Tracker with the given CLASS_CODE.
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `kick A01234567J G06 CS2101` +
+Removes the student with the matriculation number A01234567J from tutorial G06 of module CS2101.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Session Management
 
-Clears all entries from the address book. +
-Format: `clear`
+==== Labelling a session as completed : `done`
 
-=== Exiting the program : `exit`
+Labels a session as done.
+If the session is claimable, it will appear as a new claim in the TSS view.
 
-Exits the program. +
-Format: `exit`
+Format: `done SESSION_UID`
 
-=== Saving the data
+****
+* Marks the session with the given unique session identifier as done.
+****
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Examples:
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+* `done 25` +
+Marks the session with the unique session id of 25 as done.
 
-_{explain how the user can enable/disable data encryption}_+
-// end::dataencryption[]
+==== Labeling a session as a makeup : `makeup`
+
+Labels a session as a makeup session.
+If the session is claimable, it will appear as a new claim in the TSS view.
+
+Format: `makeup SESSION_UID`
+
+****
+* Marks the session with the given unique session identifier as a makeup.
+****
+
+Examples:
+
+* `makeup 25` +
+Marks the session with the unique session id of 25 as a makeup.
+
+=== Settings
+
+==== Adjusting the settings : `set`
+
+Adjusts the chosen settings.
+
+Format: `set SETTING`
+
+Here are the things that you can set:
+
+*rate:* Adjusts the hourly rate. +
+Sets the hourly rate for the total income and claim computation.
+
+Format: `set rate AMOUNT`
+****
+* AMOUNT is the amount you want to change the hourly rate to.
+* To specify in exact dollars, you can write it as just the number (example: 20).
+* To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
+****
+
+Examples:
+
+* `set rate 25` +
+Sets the current hourly rate to 25$.
+
+*default:* Adjusts the default layout +
+Change the default view shown when the GUI is first opened.
+
+Format: `set default PAGE_NAME`
+
+Examples:
+
+* `set default sessions` +
+Sets the default view to be the list of sessions every time you open the GUI.
 
 == FAQ
 
@@ -205,7 +227,7 @@ _{explain how the user can enable/disable data encryption}_+
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+* *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +

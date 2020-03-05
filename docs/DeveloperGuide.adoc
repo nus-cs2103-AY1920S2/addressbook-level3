@@ -297,18 +297,94 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |TA |see an overview of events in a week |know what I have that week in a glance
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* *` |TA |give students ratings |keep a track of student participation in class
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
+
+|`* *` |TA |be able to get tasks on a particular date |
+
+|`* *` |TA |filter by a module |see events relating to a particular module clearly
+
+|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
+
+|`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
+
+|`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
+
+|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
+
+|`* * *` |user |change between the different pages |view the information on the different pages
+
+|`* * *` |TA |add students to a particular module |
+
+|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
+
+|`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
+
+|`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
+
+|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
+
+|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
+
+|`* * *` |TA |edit student details |
+
+|`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
+
+|`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
+
+|`* *` |TA |give students ratings |keep a track of student participation in class
+
+|`* *` |TA |delete tasks and events |remove cancelled tasks and events from my session tracker
+
+|`* * *` |TA |schedule consultation sessions with my students |keep track of claimable hours spent in consultations
+
+|`*` |TA |get a message when a new task clashes with an old one |prevent clashes in my schedule
+
+|`* * *` |TA |store and retrieve details of my students |I can get details relating to students whenever necessary
+
+|`* *` |TA |be able to get tasks on a particular date |
+
+|`* *` |TA |filter by a module |see events relating to a particular module clearly
+
+|`*` |TA |state that a task is recurring |prevent the need to put a recurring task in my schedule each week
+
+|`* * *` |TA |see all my claimable hours in the TSS format |type my claims easily at the end of the semester
+
+|`* * *` |TA |set my hourly rate |get the value of my estimated pay according to the latest rate of the semester
+
+|`* *` |TA |get information on how many hours I've worked so far |keep track of how much work I've done
+
+|`* * *` |user |change between the different pages |view the information on the different pages
+
+|`* * *` |TA |add students to a particular module |
+
+|`* *` |TA |store my students' email ids |retrieve their email ids when I need to contact them
+
+|`* * *` |TA |add multiple modules |keep track of the different modules I am a TA for
+
+|`* * *` |TA |add a tutorial/lab group |keep track of the different tutorial and lab groups I conduct
+
+|`* *` |TA |delete a tutorial group |remove tasks relating to a tutorial group I am no longer the TA of
+
+|`* *` |TA |delete a module |remove tasks relating to a module I am no longer the TA of
+
+|`* * *` |TA |edit student details |
+
+|`* * *` |TA |remove students from a tutorial or lab group |no longer have details of students that are no longer in my tutorial/lab group
+
+|`* * *` |TA |mark a session as done |automatically get filled in my TSS claim section.
+
+|`*` |user |change the default view of the application |
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
