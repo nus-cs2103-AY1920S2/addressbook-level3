@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Good's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidGoodName(String)}
  */
 public class GoodName {
 
@@ -18,7 +18,7 @@ public class GoodName {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullName;
+    public final String fullGoodName;
 
     /**
      * Constructs a {@code Name}.
@@ -27,33 +27,33 @@ public class GoodName {
      */
     public GoodName(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        checkArgument(isValidGoodName(name), MESSAGE_CONSTRAINTS);
+        fullGoodName = name;
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid good name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidGoodName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
 
     @Override
     public String toString() {
-        return fullName;
+        return fullGoodName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof GoodName // instanceof handles nulls
-                && fullName.equals(((GoodName) other).fullName)); // state check
+                && fullGoodName.equals(((GoodName) other).fullGoodName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return fullGoodName.hashCode();
     }
 
 }
