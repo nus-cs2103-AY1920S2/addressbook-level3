@@ -39,12 +39,12 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/kevvvinn[github]] [<<johndoe#, portfolio>>]
+=== Alden Tan
+image::alden.png[width="150", align="left"]
+{empty}[http://github.com/alcen[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities:
+Responsibilities: "Saved" Feature in Coupon Stash to see how much you have saved
 
 '''
 
