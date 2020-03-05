@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * The API of the Model component.
@@ -84,4 +85,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Returns true if a transaction with the same identity as {@code transaction} exists in the address book.
+     */
+    boolean hasTransaction(Transaction transaction);
+
+    /**
+     * Adds the given transaction.
+     * {@code transaction} must not already exist in the address book.
+     */
+    void addTransaction(Transaction transaction);
 }
