@@ -1,7 +1,7 @@
 package seedu.address.model.profile.course.module;
 
 /**
- * Represents a Module's list of prerequisites in the address book.
+ * Represents a Module's number of modular credits in the address book.
  * Guarantees:
  */
 public class ModularCredits {
