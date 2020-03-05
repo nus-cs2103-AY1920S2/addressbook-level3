@@ -169,8 +169,6 @@ search). e.g. Chicken Rice will return Duck Rice, Chicken Chop
 
 Examples:
 
-Examples:
-
 * `find chicken` +
 Returns Chicken Rice, Ayam Penyet and Chicken Up
 * `find chicken chinese western` +
@@ -218,7 +216,7 @@ Format: expiring DATE
 
 Examples:
 
-* `list expiring 2-3-2020`
+* `expiring 2-3-2020` +
 Shows you all the coupons that will expire before 2 March 2020.
 
 
