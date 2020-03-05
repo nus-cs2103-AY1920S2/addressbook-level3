@@ -67,12 +67,16 @@ public class Module {
         final StringBuilder builder = new StringBuilder();
 
         builder.append(getModuleCode());
+        builder.append(": ");
         builder.append(getTitle());
+
+        /*
         builder.append(getPrereqList());
         builder.append(getModularCredits());
         builder.append(getDescription());
         builder.append(getSemesterData());
         builder.append(getAcadYear());
+         */
 
         return builder.toString();
     }
