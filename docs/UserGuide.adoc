@@ -80,10 +80,12 @@ Format: `list`
 
 Enrolls a student in a class in the program. +
 
-Format: `enroll MATRIC_NUMBER CLASS_CODE MOD_CODE'
+Format: `enroll MATRIC_NUMBER CLASS_CODE MOD_CODE`
 
 ****
-* Enrolls the person with the given matriculation number in the class given by the class code of the module given by the module code.
+* Enrolls the student with the given matriculation number in the specified class.
+* The class should belong to the module with the given MOD_CODE.
+* The class should already exist in the TA-Tracker with the given CLASS_CODE.
 ****
 
 Examples:
@@ -93,11 +95,14 @@ Enrolls the student with the matriculation number A01234567J in tutorial G06 of 
 
 ==== Removing a student from a class : `kick`
 
-Removes a student from a class in the program. +
+Removes a student from a class in the program. 
+
 Format: `kick MATRIC_NUMBER CLASS_CODE MOD_CODE`
 
 ****
-* Removes the person with the given matriculation number from the class given by the class code of the module given by the module code.
+* Removes the student with the given matriculation number from the specified class.
+* The class should belong to the module with the given MOD_CODE.
+* The class should already exist in the TA-Tracker with the given CLASS_CODE.
 ****
 
 Examples:
@@ -109,8 +114,9 @@ Removes the student with the matriculation number A01234567J from tutorial G06 o
 
 ==== Labelling a session as completed : `done`
 
-Labels a session as done. If the session is claimable, it will appear as
-a new claim in the TSS view.+
+Labels a session as done.
+If the session is claimable, it will appear as a new claim in the TSS view.
+
 Format: `done SESSION_UID'
 
 ****
@@ -124,8 +130,8 @@ Marks the session with the unique session id of 25 as done.
 
 ==== Labeling a session as a makeup : `makeup`
 
-Labels a session as a makeup session. If the session is claimable, it will appear
- as a new claim in the TSS view.+
+Labels a session as a makeup session.
+If the session is claimable, it will appear as a new claim in the TSS view.
 Format: `makeup SESSION_UID`
 
 ****
@@ -141,7 +147,8 @@ Marks the session with the unique session id of 25 as a makeup.
 
 ==== Adjusting the settings : `set`
 
-Adjusts the chosen settings. +
+Adjusts the chosen settings.
+
 Format: `set SETTING`
 
 Here are the things that you can set:
@@ -150,9 +157,11 @@ Here are the things that you can set:
 Sets the hourly rate for the total income and claim computation.
 
 Format: `set rate AMOUNT`
+****
 * AMOUNT is the amount you want to change the hourly rate to.
 * To specify in exact dollars, you can write it as just the number (example: 20).
 * To specify in exact dollars and cents, write it as a decimal up to 2 decimal places (example: 20.05).
+****
 
 Examples:
 
