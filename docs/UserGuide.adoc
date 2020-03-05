@@ -67,6 +67,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ==== Format
 * `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
+[TIP]
+List of order attribute prefix can be found <<command_prefix, here>>.
+
 ==== Examples
 
 * `add` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `pm/Cash`
@@ -137,9 +140,8 @@ The order at the second index of the list is marked as done.
 
 [TIP]
 Use the <<list, `list`>> command to see which delivery order you want to edit. +
-You can edit more than one field by providing the corresponding <<command_prefix, order attribute prefix>>.
 
-* `edit` `INDEX` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE`
+* `edit` `INDEX` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/NEW_VALUE` `<<command_prefix, [MORE_ORDER_ATTRIBUTE_PREFIXES>>/NEW_VALUE]...`
 
 [WARNING]
 The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ... +
@@ -243,7 +245,7 @@ The done status of the delivery order will be used to list the delivery orders w
 There are three types of list commands that are shown in the examples below.
 
 ==== Format
-`list` `[DONE/UNDONE]` +
+`list` `[DONE/UNDONE]`
 
 ==== Examples
 * `list` +
@@ -262,11 +264,12 @@ Adds a particular order as a return parcel into a new list.
 `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE NUMBER` `ts/DELIVER_DATE_&_TIME` `w/WAREHOUSE_LOCATION`
  `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
+[TIP]
+List of order attribute prefix can be found <<command_prefix, here>>.
+
 ==== Examples:
-* `return `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` +
-`p/91230456` `ts/12-12-2020` `w/Jurong Warehouse pm/visa c/NIL type/glass` +
-* `return `tid/a1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` +
-`p/91230456` `ts/12-12-2020` `w/Jurong Warehouse pm/visa c/Leave it at the lobby type/metal`
+* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `ts/12-12-2020` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass` +
+* `return` `tid/a1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `ts/12-12-2020` `w/Jurong Warehouse` `pm/visa` `c/Leave it at the lobby` `type/metal` +
 Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
 
 [[sort]]
