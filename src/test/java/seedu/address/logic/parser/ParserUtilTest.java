@@ -281,25 +281,25 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePriority_validPriorityWithoutWhiteSpaces_returnsPriority() throws Exception {
+    public void parsePriority_validPriorityWithoutWhitespaces_returnsPriority() throws Exception {
         Priority expectedPriority = new Priority(VALID_PRIORITY);
         assertEquals(expectedPriority, ParserUtil.parsePriority(VALID_PRIORITY));
     }
 
     @Test
-    public void parsePriority_validPriorityWithWhiteSpaces_returnsPriority() throws Exception {
+    public void parsePriority_validPriorityWithWhitespaces_returnsPriority() throws Exception {
         String priorityWithWhitespaces = WHITESPACE + VALID_PRIORITY + WHITESPACE;
         Priority expectedPriority = new Priority(VALID_PRIORITY);
         assertEquals(expectedPriority, ParserUtil.parsePriority(priorityWithWhitespaces));
     }
 
     @Test
-    public void parsePriority_invalidPriorityWithoutWhiteSpaces_throwsParseException() {
+    public void parsePriority_invalidPriorityWithoutWhitespaces_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parsePriority(INVALID_PRIORITY));
     }
 
     @Test
-    public void parsePriority_invalidPriorityWithWhiteSpaces_throwsParseException() {
+    public void parsePriority_invalidPriorityWithWhitespaces_throwsParseException() {
         String priorityWithWhitespaces = WHITESPACE + INVALID_PRIORITY + WHITESPACE;
         assertThrows(ParseException.class, () -> ParserUtil.parsePriority(priorityWithWhitespaces));
     }
