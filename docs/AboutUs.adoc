@@ -20,7 +20,7 @@ Role: Member
 
 === Wang Yuchen
 image::wang-yuchen-alice.png[width="150", align="left"]
-{empty}[http://github.com/WANG-Yuchen-Alice[github]]
+{empty}[http://github.com/WANG-Yuchen-Alice[github]][<<wang-yuchen-alice#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: In charge of [Display][Data Analysis]
