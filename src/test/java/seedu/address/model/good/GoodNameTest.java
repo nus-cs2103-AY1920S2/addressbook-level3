@@ -2,7 +2,8 @@ package seedu.address.model.good;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.good.GoodName.isValidGoodName;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOOD_NAME_AVOCADO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOOD_NAME_BLUEBERRY;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -21,21 +22,37 @@ public class GoodNameTest {
     }
 
     @Test
-    public void isValidName() {
+    public void isValidGoodName() {
         // null name
-        assertThrows(NullPointerException.class, () -> isValidGoodName(null));
+        assertThrows(NullPointerException.class, () -> GoodName.isValidGoodName(null));
 
         // invalid name
-        assertFalse(isValidGoodName("")); // empty string
-        assertFalse(isValidGoodName(" ")); // spaces only
-        assertFalse(isValidGoodName("^")); // only non-alphanumeric characters
-        assertFalse(isValidGoodName("apple*")); // contains non-alphanumeric characters
+        assertFalse(GoodName.isValidGoodName("")); // empty string
+        assertFalse(GoodName.isValidGoodName(" ")); // spaces only
+        assertFalse(GoodName.isValidGoodName("^")); // only non-alphanumeric characters
+        assertFalse(GoodName.isValidGoodName("apple*")); // contains non-alphanumeric characters
 
         // valid name
-        assertTrue(isValidGoodName("fuji apple")); // alphabets only
-        assertTrue(isValidGoodName("12345")); // numbers only
-        assertTrue(isValidGoodName("2nd Gen fuji apple")); // alphanumeric characters
-        assertTrue(isValidGoodName("Fuji apple")); // with capital letters
-        assertTrue(isValidGoodName("fuji apple with very very very long name")); // long names
+        assertTrue(GoodName.isValidGoodName("fuji apple")); // alphabets only
+        assertTrue(GoodName.isValidGoodName("12345")); // numbers only
+        assertTrue(GoodName.isValidGoodName("2nd Gen fuji apple")); // alphanumeric characters
+        assertTrue(GoodName.isValidGoodName("Fuji apple")); // with capital letters
+        assertTrue(GoodName.isValidGoodName("fuji apple with very very very long name")); // long names
+    }
+
+    @Test
+    public void equals() {
+        GoodName sampleGoodName = new GoodName(VALID_GOOD_NAME_AVOCADO);
+        assertFalse(sampleGoodName.equals(new GoodName(VALID_GOOD_NAME_BLUEBERRY)));
+
+        assertTrue(sampleGoodName.equals(new GoodName(VALID_GOOD_NAME_AVOCADO)));
+    }
+
+    @Test
+    public void toStringTest() {
+        GoodName sampleGoodName = new GoodName(VALID_GOOD_NAME_AVOCADO);
+        assertTrue(sampleGoodName.toString().equals(VALID_GOOD_NAME_AVOCADO));
+
+        assertFalse(sampleGoodName.toString().equals(new GoodName(VALID_GOOD_NAME_BLUEBERRY)));
     }
 }
