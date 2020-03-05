@@ -264,8 +264,36 @@ Reminders will be displayed as a pop up when you launch the app.
 Reminds you about the 5th  coupon on 1 May 2020.
 Reminders will be displayed as a pop up when you launch the app.
 
+=== Undo the previous command: `undo`
+Undo previous operation. Has no effect if there is no previous operation.
 
 
+Examples:
+
+* `remind 1 /p 5 days` +
+  `undo` +
+Undo the `remind` command. Reminder is removed.
+
+
+* `edit 1 d/50% off` +
+  `undo` +
+Revert the edit that was performed. Has no effect if nothing was undone before.
+
+=== Redo the undone command: `redo`
+Redo the previously undone command.
+
+Examples:
+
+* `remind 1 /p 5 days` +
+  `undo` +
+  `redo` +
+Un-undo the `remind` command.
+
+
+* `edit 1 d/50% off` +
+  `undo` +
+  `redo`
+Un-undo the `redit` command.
 
 == FAQ
 
@@ -310,8 +338,67 @@ calculate the values saved based on the details of the coupon.
 
 == Command Summary
 
-// to be added (Nelson)
+* *Add:* `add n/NAME d/DETAILS s/START DATE [e/EXPIRY] [t/TAG]…`​ +
+e.g. `add n/The Deck Chicken Rice d/20% off s/2/3/2020 t/friend t/value`
+* *Clear*: `clear`
+* *Delete*: `delete INDEX` +
+e.g. `delete 3`
+* *Edit*: `edit INDEX [n/NAME] [d/DETAILS] [s/START DATE] [e/EXPIRY]
+[t/TAG]…`​ +
+e.g. `edit 2 n/Chicken Up d/50% off`
+* *Find*: `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find western chick`
+* *List*: `list`
+* *Used*:
+* *Expiring*:
+* *Remind*:
+* *Saved*:
+* *Help*: help
+* *Undo*:
+* *Redo*:
 
 == Appendix
 
-// to be added (Nelson)
+=== *Query expressions (coming in v2.0)*
+
+Query expressions serve to enable users to perform efficient batch
+operations on stored coupons using SQL-like syntax.
+
+Examples:
+
+* `edit favorites set tag=hated where expiry < 19/2/2020` +
+For all coupons tagged as ``favorites'', set their tag to ``hated'' if
+they expire before the 19th Feb 2020.
+
+* `delete favorites where expiry < 19/2/2020` +
+For all coupons tagged as ``favorites'', delete them if they expire
+before the 19th Feb 2020.
+
+
+==== *Bulk edit*
+
+Format: `edit _tag_ set _field1=value1, field2=value2, …_ [where
+condition]`
+
+* The `edit` keyword is compulsory.
+** If selecting all tags, put tag as `*`.
+* The `set` keyword is compulsory.
+** If the field is present in a coupon, update the value, else create
+the field and value.
+** At least 1 field must be updated/added per edit operation.
+* The `where` keyword is optional.
+** The `==`, `>=`, `<=`, `>`, `<`, `!=`, operators are
+supported in the condition.
+** Only default fields can be compared.
+** Condition syntax: `DEFAULT_FIELD _operator_ LITERAL_VALUE`
+** `AND`/`OR` functionality is not available.
+
+==== *Bulk delete*
+
+Format: `delete _tag_ [where condition]`
+
+* The `delet`e keyword is compulsory.
+** If selecting all tags, put tag as ``*''.
+* The `where` keyword is optional.
+** If the `where` keyword is omitted, deletes all coupons with that tag.
+** Follows syntax explained above.
