@@ -265,6 +265,30 @@ Reminds you about the 5th  coupon on 1 May 2020.
 Reminders will be displayed as a pop up when you launch the app.
 
 
+=== Viewing savings: `saved`
+
+Shows you all your savings from using the coupons, from
+a specified date. +
+Format: +
+`saved /d (date to track from)`
+
+****
+* Shows you a numeric value (e.g. 12.00 to represent
+twelve dollars/euros/pounds/pesos) that represents how much
+you saved since a certain date
+* This value changes depending on which coupons were marked
+as used during that period
+****
+Examples:
+
+* `saved /d 2020-03-01` +
+A message will be displayed: You have saved 0.10 since 1st March, 2020
+
+
+* `saved /d 2019-05-01` +
+A message will be displayed: You have saved 2.10 since 1st May, 2019
+
+
 
 
 == FAQ
