@@ -32,12 +32,12 @@ Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Chester Sim
+image::chester.png[width="150", align="left"]
+{empty}[http://github.com/chestersim[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Developer/UI Lead +
+Responsibilities: Implement "used" feature and lead the team in the UI/UX of the product
 
 '''
 
@@ -56,5 +56,14 @@ image::kevvvinn.png[width="150", align="left"]
 
 Role: Junior Developer +
 Responsibilities: Useless
+
+'''
+
+=== Denise Ng
+image::Denise-Ng.png[width="150", align="left"]
+{empty}[http://github.com/Denise-Ng[github]] [<<Denise#, portfolio>>]
+
+Role: Junior Developer +
+Responsibilities: Try my best
 
 '''
