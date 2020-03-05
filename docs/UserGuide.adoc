@@ -169,8 +169,6 @@ search). e.g. Chicken Rice will return Duck Rice, Chicken Chop
 
 Examples:
 
-Examples:
-
 * `find chicken` +
 Returns Chicken Rice, Ayam Penyet and Chicken Up
 * `find chicken chinese western` +
@@ -205,6 +203,23 @@ Deletes the 2nd coupon in the coupon stash.
 Deletes the 1st coupon in the results of the find command.
 
 // end::delete[]
+
+=== Listing all expiring coupons: `expiring`
+
+Lists all your expiring coupons.
+
+Format: expiring DATE
+
+* Lists all coupons that are expiring before the specified DATE
+* The date must be in CouponStash-Date format
+* The date must be a future date
+
+Examples:
+
+* `expiring 2-3-2020` +
+Shows you all the coupons that will expire before 2 March 2020.
+
+
 === Clearing all entries: `clear`
 
 Clears all entries from the coupon stash. +
@@ -222,10 +237,76 @@ command that changes the data.
 
 There is no need to save manually.
 
+=== Adding a reminder: `remind`
+
+Adds a reminder to remind yourself to use a coupon +
+Format: +
+`remind INDEX /e (period before expiry)` +
+or +
+`remind INDEX /d  (specific date to remind)`
+
+****
+* Reminds you about the coupon at the specified INDEX.
+* The index refers to the index number shown in the displayed coupon list.
+* The index must be a positive integer 1, 2, 3, …​
+* /e - to indicate the period before the coupon’s expiry date
+* /d - to indicate the specific date to remind
+
+****
+Examples:
+
+* `remind 1 /p 5 days` +
+Reminds you about the 1st coupon, 5 days before it expires.
+Reminders will be displayed as a pop up when you launch the app.
+
+
+* `remind 5 /d 2020-05-01` +
+Reminds you about the 5th  coupon on 1 May 2020.
+Reminders will be displayed as a pop up when you launch the app.
+
+
+
 
 == FAQ
 
-// to be added (Kevin)
+
+*Q*: How do I transfer my data to another computer?
+
+*A*: Simply install Stash in the other computer and overwrite the empty data file with your intended data file. +
+{empty} +
+
+*Q*: Can I add multiple coupons using a command line?
+
+*A:* Yes, you can. Use the ``Add'' command and type in all your coupons
+in this format, +
+add n/Co-op d/25% off on all stationeries s/25/2/2020 t/value
+t/stationaries +
+n/PGP Mala d/10% off s/2/3/2020 t/value t/friends +
+n/Universal Studios theme part d/ 50% off for all students s/2/5/2020
+e/1/1/2021 t/value +
+{empty} +
+
+*Q* : Why do I need to tag my coupons?
+
+*A* : Tagging is not compulsory. However, it allows you to group similar
+coupons together for easier execution. For example, you can easily
+delete all the coupons that are tagged, cheap. Do refer to section 4
+for more detail. +
+{empty} +
+
+*Q* : How do I store coupons with no ending date?
+
+*A* : Sorry, at the moment, coupon entries with no ending date cannot be
+stored. You would need to enter a much further date like 01/01/2030. To
+be added in version 2.0.0 +
+{empty} +
+
+*Q* : How do you calculate the savings value?
+
+*A* :  Whenever a coupon is marked as done, Stash will automatically
+calculate the values saved based on the details of the coupon.
+{empty} +
+
 
 == Command Summary
 
