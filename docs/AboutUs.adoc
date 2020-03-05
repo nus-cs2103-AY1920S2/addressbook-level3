@@ -17,7 +17,8 @@ image::lm5lm5.png[width="150", align="left"]
 Role: Developer + 
 Responsibilities: Documentation, Integration + 
 In charge of [Storage][Sorting][Help Page]
-'''
+
+''' 
 
 === Wang Yuchen
 image::wang-yuchen-alice.png[width="150", align="left"]
