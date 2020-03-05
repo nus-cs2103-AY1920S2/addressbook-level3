@@ -14,34 +14,49 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W17-4`      Since: `Jan 2010`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TA-Tracker is a productivity tool made for NUS Computing Teaching Assistants (TAs)
+who want to be able to track and manage all of their claimable hours in NUS.
+Interested? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `tatracker.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your TA tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+.  Refer to <<Usage>> for details of each command.
 
-.  Refer to <<Features>> for details of each command.
+[[Layout]]
+== Layout
 
-[[Features]]
-== Features
+=== Dashboard
+Home page.
+
+=== Student View
+This view will show you the list of all your students. It will show you information such as student name, matriculation number, attendance, ratings you give the student(such as for participation), any notes you have on the student and contact details (email and telegram id).
+
+=== Session View
+This view will contain the upcoming tasks and statistics.
+
+=== TSS View
+This will show you all your claimable hours up till now in the same format as that used in the TSS claim files.
+
+=== Automatic Backups
+TATracker data is automatically saved in the hard disk as backup files after any command that changes the data. These automatic backups will preserve all data and settings within the program at the time of use. These backups will also be automatically loaded into the program when it is opened.
+
+
+[[Usage]]
+== Usage
 
 ====
 *Command Format*
@@ -50,6 +65,32 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
+*Common Parameters*
+
+* `PAGE_NAME` - one of the following pages:
+** home - Dashboard: the default view you first see when you open the GUI
+** session - Sessions: list of sessions according to date
+** students - Students: list of students you are teaching
+** tss - TSS Form: list of claimable sessions (only sessions that have been marked as done
+* `CATEGORY_UID` - a category unique id
+* `MATRIC_NUMBER` - the matriculation number of a student
+** Must start with an ‘A’
+** Must end with an letter
+** Must have x numbers in between the start and end letter
+* `MOD_CODE` - replace with the unique code for the module
+* `CLASS_CODE` - replace with the unique code for the tutorial/class
+* `SESSION_UID` - the unique numeric identifier of a session
+** Must be a positive integer (eg. 1, 2, 3, ...)
+* `SESSION_TYPE` - replace with one of the following:
+** consult - Consultations
+** tutorial - Tutorials
+** grading - Grading and assessments
+** prep - Class preparation
+** todo - other tasks and notes
+** lab - Lab
+* `START`, `END` - a time parameter, in the following format: HH:mm
+* `DATE` - a date parameter, in the following format: dd-MM-yyyy
 ====
 
 === Viewing help : `help`

@@ -389,17 +389,161 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TA-Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Viewing a page
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to view a different page.
+2. TA-Tracker layout changes to show the new page.
+
++
+Use case ends.
+
+*Extensions*
+
+* 1a.  The requested page is invalid.
++
+[none]
+** 1a1.  TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Viewing the help menu
+
+*MSS*
+
+1.  User requests to view the help menu.
+2. TA-Tracker shows the list of commands.
++
+Use case ends.
+
+[discrete]
+=== Use case: Change default view
+
+*MSS*
+
+1.  User requests to change the default view to a specified page.
+2. TA-Tracker changes the default view.
+3. TA-Tracker shows the default view.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The given page is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Change the hourly pay rate
+
+*MSS*
+
+1.  User requests to change the hourly pay rate to a specified amount.
+2. TA-Tracker changes the pay rate.
+3. TA-Tracker shows an edited TSS claims page the total pay adjusted to reflect the new pay rate.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given rate is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add student
+
+*MSS*
+
+1.  User requests to add a student.
+2. TA-Tracker adds new student.
+3. TA-Tracker layout changes to show the student list page.
+
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The input required (eg. Matric Number) to add a student is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add module
+
+*MSS*
+
+1.  User requests to add a new module.
+2. TA-Tracker adds a new module.
+3. TA-Tracker layout changes to show the session list page.
+
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The given module code is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Add tutorial
+
+*MSS*
+
+1.  User requests to add a new tutorial.
+2. TA-Tracker shows adds a new tutorial linked to the specified module.
+3. TA-Tracker layout changes to show the session list page.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given module code is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 1a. The given class code is invalid.
++
+[none]
+** 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit Student
+
+*MSS*
+
+1. User requests to list students.
+2. TA-Tracker shows a list of students.
+3. User requests to edit a specific student in the list.
+4. TA-Tracker edits the student according to the specified parameters.
 +
 Use case ends.
 
@@ -410,14 +554,107 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given matric number is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TA-Tracker shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 3.
 
-_{More to be added}_
+* 3a. The given new input for the parameter(s) are invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete student
+
+*MSS*
+
+1. User requests to show students page.
+2. TA-Tracker shows a list of students categorised by tutorial.
+3. User requests to delete a specific student in the list.
+4. TA-Tracker deletes the student.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given matric number is invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete module
+
+*MSS*
+
+1. User requests to show sessions page.
+2. TA-Tracker shows a list of sessions categorised by modules.
+3. User requests to delete a specific module in the list.
+4. TA-Tracker deletes the module and all of the sessions and tutorials in it.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given module code is invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete tutorial
+
+*MSS*
+
+1. User requests to show students page.
+2. TA-Tracker shows a list of students categorised by tutorial.
+3. User requests to delete a specific tutorial in the list.
+4. TA-Tracker deletes the tutorial and all of the students in it.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given class code is invalid.
++
+[none]
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Exit the app
+
+*MSS*
+
+1. User requests to exit the app.
+2. App window closes.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
