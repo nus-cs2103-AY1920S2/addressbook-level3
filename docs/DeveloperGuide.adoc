@@ -12,9 +12,14 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
+<<<<<<< HEAD
 :repoURL: https://github.com/tharshita/main
+=======
+:repoURL: https://github.com/AY1920S2-CS2103T-T10-1/main
+>>>>>>> upstream/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+end
+By: `Team HYBB`      Since: `Mar 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +284,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* wishes to lead a healthier lifestyle
+* has trouble thinking about what to cook
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
 
 [appendix]
 == User Stories
@@ -297,15 +303,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |picky eater |filter food preferences |the food I cook matches my taste
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |beginner at cooking |easily search for recipes with the ingredients I already have |use up all the food in my fridge
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |save my favourite recipes |quickly navigate to them without having to search them up again
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |goal-oriented student |track my progress |see how far I came and how much further I have to go to reach my goal
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many recipes in the recipe book |filter recipes by ingredients |locate a recipe easily
 |=======================================================================
 
 _{More to be added}_
