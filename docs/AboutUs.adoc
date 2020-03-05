@@ -25,7 +25,7 @@ image::wang-yuchen-alice.png[width="150", align="left"]
 {empty}[http://github.com/WANG-Yuchen-Alice[github]][<<wang-yuchen-alice#, portfolio>>]
 
 Role: Team Lead, Developer + 
-Responsibilities: Testing, Integration
+Responsibilities: Testing, Integration +
 In charge of [Today Page][Weekly Report]
 
 '''
