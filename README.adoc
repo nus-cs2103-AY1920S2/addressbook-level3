@@ -16,9 +16,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+== Introduction
+
+* Delino is for couriers who prefer to use a desktop app for managing their delivery tasks.
+* Delino is optimised for those who have a strong preference towards Command Line Interface (CLI)
+while still enjoying the benefits of a Graphical User Interface (GUI)
 
 == Site Map
 
@@ -32,5 +34,6 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
 == Licence : link:LICENSE[MIT]

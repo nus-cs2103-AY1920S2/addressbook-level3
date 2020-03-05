@@ -61,16 +61,16 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[add]]
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Description
+* Adds a new order to the list of orders
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Format
+* `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
-Examples:
+==== Examples
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `pm/Cash`
+* `add` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser` `type/glass`
 
 [[clear]]
 === Clearing all entries : `clear`
@@ -110,7 +110,6 @@ Deletes the 2nd order.
 `delete` `1` +
 Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
 
-// end::delete[]
 [[done]]
 === Mark order as done: `done`
 ==== Description
@@ -205,7 +204,12 @@ Return delivery order with transaction ID of `920392844`
 [[help]]
 === Viewing help : `help`
 
-Format: `help`
+==== Description
+You can use the help command to display all commands that are available to be used
+so that you can navigate the application easily. +
+
+==== Format:
+* `help`
 
 [[import]]
 === Importing a list of orders : `import`
@@ -241,13 +245,29 @@ There are three types of list commands that are shown in the examples below.
 ==== Format
 `list` `[DONE/UNDONE]` +
 
-=== Examples
+==== Examples
 * `list` +
 List down all the orders, regardless of whether its completed or uncompleted.
 * `list` `done` +
 List down all the orders that are completed.
 * `list` `undone` +
 List down all the orders that are uncompleted.
+
+[[return]]
+=== Returning an order: `return`
+==== Description
+Adds a particular order as a return parcel into a new list.
+
+==== Format
+`return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE NUMBER` `ts/DELIVER_DATE_&_TIME` `w/WAREHOUSE_LOCATION`
+ `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+==== Examples:
+* `return `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` +
+`p/91230456` `ts/12-12-2020` `w/Jurong Warehouse pm/visa c/NIL type/glass` +
+* `return `tid/a1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` +
+`p/91230456` `ts/12-12-2020` `w/Jurong Warehouse pm/visa c/Leave it at the lobby type/metal`
+Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
 
 [[sort]]
 === Sorting orders: `sort`
