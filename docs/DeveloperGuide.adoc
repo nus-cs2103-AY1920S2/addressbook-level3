@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Coupon Stash - Developer Guide v1.0
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: Team F09-1
 
 == Setting up
 
@@ -277,89 +277,137 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
-*Target user profile*:
+* Bargain hunter that has accumulated many coupons
+* Likes to use desktop applications
+* Would rather type a command than click a button
+* Fast typist
+* Enjoys using command-line interface
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition:** Manage coupons faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+Priorities: epic++ (must have) - * * * *,
+rare++ (nice to have) - * * * ,
+comon (unlikely to have) - * *, rabak (will negatively affect the application) - *
 
+.User stories and their priorities
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|Priority |As a ... |I want to ... |so that I can
+|* * * *
+|forgetful student
+|keep track of all the promo codes/coupons that I collected
+|use them at their respective shops
 
-|`* * *` |user |add a new person |
+| TO
+| BE
+| ADDED
+|, EVERYONE
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|
+|
+|
+|
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|
+|
+|
+|
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+This is a list of Use-Cases for STASH,
+a coupon stash application. Primary actor is the user.
+
+.Use Cases Overview for STASH
+image::usecase.png[Use Case Diagram,500,200]
 
 [discrete]
-=== Use case: Delete person
+=== **_Use Case: UC1 - Add  a new coupon entry_**
 
-*MSS*
+Actor: User +
+This use case describes how a user uses STASH to add
+and save a new coupon entry. +
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
+MSS:
+[start=1]
+. User keys in command to add a coupon entry.
+. STASH evaluates input details and adds the coupon entry.
+. STASH inform user that entry is added
 
-*Extensions*
 
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
+=== **_Use Case: UC2 - Listing all the coupon entries_**
+This use case describes how a user uses STASH to list all the
+coupon entries. +
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+MSS:
+[start=1]
+. User keys in command to list all the coupons.
+. STASH evaluates input details and prints out all coupons. +
 
-_{More to be added}_
+Extensions:
+[start=2]
+. STASH detects that the data list is empty. +
+.. STASH will inform the user that the list is empty. +
+.. Use case ends
+
+=== **_Use Case: UC3_**
+Continue adding
+
+=== **_Use Case: UC4_**
+Continue adding
+
+=== **_Use Case: UC5_**
+Continue adding
+
+=== **_Use Case: UC6_**
+Continue adding
+
+=== **_Use Case: UC7_**
+Continue adding
+
+=== **_Use Case: UC8_**
+Continue adding
 
 [appendix]
-== Non Functional Requirements
+== Non-Functional Requirements
+. Coupon Stash works on `_common operating systems
+(OS)_` that have `_Java 11_` installed
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Continue adding
 
-_{More to be added}_
+. Continue adding
+
+. Continue adding
+
+. Continue adding
+
+. Continue adding
+
+. Continue adding
+
+. Continue adding
+
+. Continue adding
+
+. Continue adding
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Highlighted and italicised terms, (e.g operating system) can be
+found with definitions here.
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+. **Apple** - American technology company well known for
+lifestyle devices like iPhone and iPad, which are manufactured
+exclusively by exploited minimum wage workers in China and Taiwan
+
+. Continue adding
 
 [appendix]
 == Product Survey
