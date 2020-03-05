@@ -1,4 +1,4 @@
-package seedu.address.model.person.exceptions;
+package seedu.address.model.profile.exceptions;
 
 /**
  * Signals that the operation is unable to find the specified person.
