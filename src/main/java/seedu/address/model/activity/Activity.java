@@ -80,6 +80,42 @@ public abstract class Activity {
     }
 
     /**
+     * Returns true if both activities of the same name, note and date.
+     * @param otherActivity
+     * @return
+     */
+    public boolean isSameActivity(Activity otherActivity) {
+        if (otherActivity == this) {
+            return true;
+        }
+
+        return otherActivity != null
+                && otherActivity.getName().equals(getName())
+                && otherActivity.getNote().equals(getNote())
+                && otherActivity.getDate().equals(getDate());
+    }
+
+    /**
+     * Returns true if both activities have the same identity and data fields.
+     * This defines a stronger notion of equality between two activities.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Activity)) {
+            return false;
+        }
+
+        Activity otherActivity = (Activity) other;
+        return otherActivity.getName().equals(getName())
+                && otherActivity.getNote().equals(getNote())
+                && otherActivity.getDate().equals(getDate());
+    }
+  
+    /**
      * Sets the task to done.
      */
     public void setDone() {
@@ -93,7 +129,7 @@ public abstract class Activity {
     public boolean getIsDone() {
         return isDone;
     }
-
+  
     /*
     public Priority getPriority() {
         return priority;
