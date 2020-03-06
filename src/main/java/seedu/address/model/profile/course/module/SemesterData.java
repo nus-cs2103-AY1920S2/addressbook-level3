@@ -9,7 +9,7 @@ public class SemesterData {
     public final int semNumber;
 
     /**
-     * Constructs a {@code PrereqList}.
+     * Constructs a {@code SemesterData}.
      *
      * @param semNumber A valid semester number
      */
