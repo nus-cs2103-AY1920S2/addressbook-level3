@@ -1,6 +1,6 @@
 package NASA.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
+import NASA.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**

@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package NASA.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,13 +6,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.activity.Date;
-import seedu.address.model.activity.Name;
-import seedu.address.model.activity.Note;
-import seedu.address.model.activity.Priority;
+import NASA.commons.core.index.Index;
+import NASA.commons.util.StringUtil;
+import NASA.logic.parser.exceptions.ParseException;
+import NASA.model.activity.Date;
+import NASA.model.activity.Name;
+import NASA.model.activity.Note;
+import NASA.model.activity.Priority;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Phone;
