@@ -7,5 +7,6 @@
       "y" : 88
     }
   },
-  "addressBookFilePath" : "data\\addressbook.json"
+  "foodieBotFilePath" : "foodiebot.json",
+  "stallsFilePath" : "foodiebot-stalls.json"
 }

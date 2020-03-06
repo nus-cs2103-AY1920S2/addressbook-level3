@@ -338,3 +338,107 @@ Feb 18, 2020 9:36:34 PM seedu.address.ui.MainWindow executeCommand
 INFO: Result: Exiting Address Book as requested ...
 Feb 18, 2020 9:36:34 PM seedu.address.MainApp stop
 INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:55:25 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:55:25 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:55:31 PM seedu.foodiebot.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][bye]
+Mar 03, 2020 9:55:31 PM seedu.foodiebot.ui.MainWindow executeCommand
+INFO: Invalid command: bye
+Mar 03, 2020 9:55:36 PM seedu.foodiebot.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][menu all]
+Mar 03, 2020 9:55:41 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:56:16 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:57:51 PM seedu.foodiebot.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][menu]
+Mar 03, 2020 9:57:56 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:58:05 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:58:05 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:58:11 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 04, 2020 12:06:12 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 04, 2020 12:06:12 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 04, 2020 12:06:16 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 04, 2020 12:23:23 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================

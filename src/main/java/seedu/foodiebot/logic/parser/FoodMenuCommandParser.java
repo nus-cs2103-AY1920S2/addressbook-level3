@@ -16,7 +16,7 @@ public class FoodMenuCommandParser implements Parser<FoodMenuCommand> {
      */
     public FoodMenuCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        if (!trimmedArgs.isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FoodMenuCommand.MESSAGE_USAGE));
         }

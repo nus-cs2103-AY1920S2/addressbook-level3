@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 
 /** The API of the Model component. */
 public interface Model {
