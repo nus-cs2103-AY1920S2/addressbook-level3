@@ -10,6 +10,8 @@ import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.UniqueCanteenList;
+import seedu.foodiebot.model.food.Food;
+import seedu.foodiebot.model.food.UniqueFoodList;
 import seedu.foodiebot.model.stall.UniqueStallList;
 
 /**
@@ -155,7 +157,6 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     public void addStall(Stall s) {
         stalls.add(s);
     }
-
 
     @Override
     public boolean equals(Object other) {
