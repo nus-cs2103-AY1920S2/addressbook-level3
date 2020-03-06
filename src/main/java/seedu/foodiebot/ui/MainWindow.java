@@ -17,8 +17,10 @@ import seedu.foodiebot.logic.Logic;
 import seedu.foodiebot.logic.commands.CommandResult;
 import seedu.foodiebot.logic.commands.DirectionsCommandResult;
 import seedu.foodiebot.logic.commands.EnterCanteenCommand;
+import seedu.foodiebot.logic.commands.ExitCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 
 /**
@@ -236,6 +238,13 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case EnterCanteenCommand.COMMAND_WORD:
                 handleListStalls();
+                break;
+            case ExitCommand.COMMAND_WORD:
+                if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                    handleListCanteens();
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
+                    handleListStalls();
+                }
                 break;
             default:
                 break;
