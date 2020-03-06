@@ -76,6 +76,6 @@ class JsonAdaptedStall {
         final String modelCanteenName = canteenName;
 
         return new Stall(modelName, modelCanteenName, stallNumber, stallImageName, cuisine,
-                overallPriceRating, favorite);
+                overallPriceRating, favorite, new ArrayList<>());
     }
 }

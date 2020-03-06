@@ -1,0 +1,51 @@
+package seedu.foodiebot.logic.parser;
+
+import java.util.Optional;
+
+import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
+
+/**
+ * Shows the context that the Parser is currently parsing in
+ */
+public class ParserContext {
+    public static final String MAIN_CONTEXT = "MAIN";
+    public static final String CANTEEN_CONTEXT = "CANTEEN";
+    public static final String STALL_CONTEXT = "STALL";
+    public static final String INVALID_CONTEXT_MESSAGE = "Wrong Context to Call Message. Current Context: ";
+
+    private static String currentContext = ParserContext.MAIN_CONTEXT;
+
+    private static Optional<Canteen> currentCanteen = Optional.empty();
+    private static Optional<Stall> currentStall = Optional.empty();
+
+    public static String getCurrentContext() {
+        return currentContext;
+    }
+
+    public static void setCurrentContext(String context) {
+        currentContext = context;
+    }
+
+    public static Optional<Canteen> getCurrentCanteen() {
+        return currentCanteen;
+    }
+
+    public static void setCurrentCanteen(Optional<Canteen> canteen) {
+        currentCanteen = canteen;
+    }
+
+    public static Optional<Stall> getCurrentStall() {
+        return currentStall;
+    }
+
+    public static void setCurrentStall(Optional<Stall> stall) {
+        currentStall = stall;
+    }
+
+    public static void setCanteenContext(Canteen canteen) {
+        ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
+        ParserContext.setCurrentCanteen(Optional.of(canteen));
+    }
+
+}

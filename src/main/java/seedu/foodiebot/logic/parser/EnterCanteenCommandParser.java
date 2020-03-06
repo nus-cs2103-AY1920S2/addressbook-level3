@@ -32,6 +32,10 @@ public class EnterCanteenCommandParser implements Parser<EnterCanteenCommand> {
 
         Index index;
 
+        if (!ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+            throw new ParseException(ParserContext.INVALID_CONTEXT_MESSAGE + ParserContext.getCurrentContext());
+        }
+
         try {
             index = ParserUtil.parseIndex(enteredText);
             return new EnterCanteenCommand(index);

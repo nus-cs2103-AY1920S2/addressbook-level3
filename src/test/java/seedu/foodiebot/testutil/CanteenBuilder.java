@@ -1,5 +1,6 @@
 package seedu.foodiebot.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -126,6 +127,6 @@ public class CanteenBuilder {
     /** Creates the canteen object. */
     public Canteen build() {
         return new Canteen(name, numberOfStalls, distance, blockName, directionsImageName,
-                directions, tags, canteenImageName);
+                directions, tags, canteenImageName, new ArrayList<>());
     }
 }

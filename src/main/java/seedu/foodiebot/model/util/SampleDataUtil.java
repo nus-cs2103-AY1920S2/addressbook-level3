@@ -1,5 +1,6 @@
 package seedu.foodiebot.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class SampleDataUtil {
         return new Canteen[]{
             new Canteen(new Name("The Deck"), 2, 800, "COM1",
                 "com1_deck.png",
-                COM1_TO_DECK_DIRECTIONS, getTagSet("asian"), "deck.jpg"),
+                COM1_TO_DECK_DIRECTIONS, getTagSet("asian"), "deck.jpg", new ArrayList<>()),
             new Canteen(
                 new Name("Nus Flavors"),
                 2,
@@ -35,7 +36,7 @@ public class SampleDataUtil {
                 "COM1",
                 "utown_flavors.png",
                 COM1_TO_NUSFLAVORS_DIRECTIONS,
-                getTagSet("asian", "western", "muslim"), "utown.jpg")
+                getTagSet("asian", "western", "muslim"), "utown.jpg", new ArrayList<>())
         };
     }
 
@@ -43,10 +44,10 @@ public class SampleDataUtil {
         return new Stall[]{
             new Stall(new Name("Taiwanese"), "The Deck", 3, "muslim.png",
                 "asian",
-                "$", 0),
+                "$", 0, new ArrayList<>()),
             new Stall(new Name("Yong Tau Foo"), "Nus Flavors", 5, "yongtaufoo.png",
                 "asian",
-                "$", 0),
+                "$", 0, new ArrayList<>()),
         };
     }
 

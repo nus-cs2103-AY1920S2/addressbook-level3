@@ -1,15 +1,16 @@
 package seedu.foodiebot.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
-import seedu.foodiebot.model.food.Food;
 
 /** The API of the Model component. */
 public interface Model {
@@ -89,4 +90,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStallList(Predicate<Stall> predicate);
+
+    void updateFilteredStallList(List<Stall> list);
 }

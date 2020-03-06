@@ -100,6 +100,6 @@ class JsonAdaptedCanteen {
 
         final Set<Tag> modelTags = new HashSet<>(canteenTags);
         return new Canteen(modelName, modelNumberOfStalls, distance, modelBlockName, directionsImageName,
-                directionsText, modelTags, canteenImageName);
+            directionsText, modelTags, canteenImageName, new ArrayList<>());
     }
 }

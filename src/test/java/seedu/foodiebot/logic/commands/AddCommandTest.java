@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -178,6 +179,14 @@ public class AddCommandTest {
          */
         @Override
         public void updateFilteredStallList(Predicate<Stall> predicate) {
+
+        }
+
+        /**
+         *
+         */
+        @Override
+        public void updateFilteredStallList(List<Stall> stalls) {
 
         }
     }

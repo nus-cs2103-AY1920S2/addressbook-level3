@@ -2,12 +2,14 @@ package seedu.foodiebot.model.canteen;
 
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.scene.image.Image;
 
 import seedu.foodiebot.commons.core.LogsCenter;
+import seedu.foodiebot.model.food.Food;
 
 /**
  * Represents a Stall in FoodieBot. Guarantees: details are present and not null, field
@@ -25,13 +27,14 @@ public class Stall {
     private final String cuisine;
     private final String overallPriceRating;
     private final int favorite;
+    private final List<Food> foodMenu;
 
     /**
      * Every field must be present and not null.
      */
     public Stall(
         Name name, String canteenName, int stallNumber, String stallImageName,
-        String cuisine, String overallPriceRating, int favorite) {
+        String cuisine, String overallPriceRating, int favorite, List<Food> foodMenu) {
         requireAllNonNull(name, canteenName, stallNumber, stallImageName, cuisine, overallPriceRating, favorite);
         this.name = name;
         this.canteenName = canteenName;
@@ -40,6 +43,7 @@ public class Stall {
         this.cuisine = cuisine;
         this.overallPriceRating = overallPriceRating;
         this.favorite = favorite;
+        this.foodMenu = foodMenu;
     }
 
     public Name getName() {

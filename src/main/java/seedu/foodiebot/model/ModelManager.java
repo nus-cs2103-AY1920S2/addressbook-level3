@@ -5,6 +5,7 @@ import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -18,7 +19,6 @@ import seedu.foodiebot.commons.exceptions.DataConversionException;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
-import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.storage.FoodieBotStorage;
 import seedu.foodiebot.storage.JsonFoodieBotStorage;
 import seedu.foodiebot.storage.Storage;
@@ -205,6 +205,12 @@ public class ModelManager implements Model {
     public void updateFilteredStallList(Predicate<Stall> predicate) {
         requireNonNull(predicate);
         filteredStalls.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredStallList(List<Stall> list) {
+        filteredStalls.removeAll();
+        filteredStalls.addAll(list);
     }
 
     /**

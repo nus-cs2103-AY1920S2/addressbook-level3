@@ -2,14 +2,19 @@ package seedu.foodiebot.model.food;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.foodiebot.model.canteen.Stall;
+
 import seedu.foodiebot.model.stall.exceptions.DuplicateStallException;
 import seedu.foodiebot.model.stall.exceptions.StallNotFoundException;
 
+/**
+ * List of Food Available while ensuring no duplicates
+ */
 public class UniqueFoodList implements Iterable<Food> {
     private final ObservableList<Food> internalList = FXCollections.observableArrayList();
     private final ObservableList<Food> internalUnmodifiableList =
