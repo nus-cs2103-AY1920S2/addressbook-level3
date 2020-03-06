@@ -161,9 +161,9 @@ Format: `exit`
 
 === Statistics : 'stats'
 
-Views statistics generated through the app usage. 
-stats SPEED/DONE 
-SPEED : Displays average time taken to complete tasks over past week/month/year. 
+Views statistics generated through the app usage.
+stats SPEED/DONE
+SPEED : Displays average time taken to complete tasks over past week/month/year.
 DONE : Displays average number of tasks done over past week/month/year.
 
 === Pet
@@ -195,5 +195,5 @@ e.g. `edit 2 n/Add Buy Feature ld/2020-03-04`
 e.g. `find Quiz Essay`
 * *List* : `list`
 * *Help* : `help`
-* *Statistics* : 'stats SPEED/DONE'
-* *Pom* : 'pom 10'
+* *Statistics* : `stats SPEED/DONE`
+* *Pom* : `pom 10`
