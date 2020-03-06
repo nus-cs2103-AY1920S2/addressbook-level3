@@ -318,6 +318,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |be able to remind myself on when I plan to work on a task |be on track to complete my tasks
 
+|`* * *` |user |get a visual cue from my pet to prompt me to do work|be motivated to work when my productivity is low
+
 |`* *` |pro user |navigate commands using shortcuts |save more time
 
 |`* *` |pro user |delete several tasks at once |save more time
@@ -331,8 +333,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |pro user |customise the rate at which I should do work in the Pomodoro |fit my workstyle better
 
 |`* *` |pro user |automate when my done tasks are cleared |customise when I want my tasks to be removed
-
-|`*` |user |customise my pet with different seasons |I am more entertained
 
 |`*` |user |be greeted by a cute mascot |feel happy and motivated to do work
 
