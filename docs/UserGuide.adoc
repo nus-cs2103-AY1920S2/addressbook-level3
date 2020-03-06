@@ -59,7 +59,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 [[add]]
-=== Adding a person: `add`
+=== Adding an order: `add`
 
 ==== Description
 * Adds a new order to the list of orders based on their order attributes.
