@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Person;
 
 /**
  * A utility class to help with building Person objects.
