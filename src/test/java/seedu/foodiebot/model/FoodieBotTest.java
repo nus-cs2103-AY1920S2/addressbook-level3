@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.exceptions.DuplicateCanteenException;
@@ -55,7 +56,7 @@ public class FoodieBotTest {
                 .withTags(VALID_TAG_ASIAN)
                 .build();
         List<Canteen> newCanteens = Arrays.asList(DECK, editedAlice);
-        FoodieBotStub newData = new FoodieBotStub(newCanteens, new ArrayList<>());
+        FoodieBotStub newData = new FoodieBotStub(newCanteens, new ArrayList<>(), new Budget());
 
         assertThrows(DuplicateCanteenException.class, () -> foodieBot.resetData(newData));
     }
@@ -99,10 +100,12 @@ public class FoodieBotTest {
     private static class FoodieBotStub implements ReadOnlyFoodieBot {
         private final ObservableList<Canteen> canteens = FXCollections.observableArrayList();
         private final ObservableList<Stall> stalls = FXCollections.observableArrayList();
+        private Budget budget;
 
-        FoodieBotStub(Collection<Canteen> canteens, Collection<Stall> stalls) {
+        FoodieBotStub(Collection<Canteen> canteens, Collection<Stall> stalls, Budget budget) {
             this.canteens.setAll(canteens);
             this.stalls.setAll(stalls);
+            this.budget = budget;
         }
 
         @Override
@@ -113,6 +116,11 @@ public class FoodieBotTest {
         @Override
         public ObservableList<Stall> getStallList() {
             return stalls;
+        }
+
+        @Override
+        public Budget getBudget() {
+            return budget;
         }
     }
 }

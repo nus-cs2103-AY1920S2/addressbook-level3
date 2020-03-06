@@ -28,6 +28,7 @@ import seedu.foodiebot.logic.parser.FoodieBotParser;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.food.Food;
@@ -84,7 +85,7 @@ public class LogicManager implements Logic {
             return Food.class.getSimpleName();
 
         case BudgetCommand.COMMAND_WORD:
-            //TODO Not Implemented
+            return Budget.class.getSimpleName();
 
         case ReportCommand.COMMAND_WORD:
             //TODO Not Implemented

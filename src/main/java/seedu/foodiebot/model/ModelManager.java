@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.commons.exceptions.DataConversionException;
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.food.Food;
@@ -34,6 +35,8 @@ public class ModelManager implements Model {
     private final FilteredList<Canteen> filteredCanteens;
     private final FilteredList<Stall> filteredStalls;
 
+    private final Budget budget;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -48,6 +51,7 @@ public class ModelManager implements Model {
 
         filteredCanteens = new FilteredList<>(this.foodieBot.getCanteenList());
         filteredStalls = new FilteredList<>(this.foodieBot.getStallList());
+        budget = this.foodieBot.getBudget();
     }
 
     public ModelManager() {
@@ -126,6 +130,39 @@ public class ModelManager implements Model {
 
         foodieBot.setCanteen(target, editedCanteen);
     }
+
+    @Override
+    public void setBudget(Budget budget) {
+        requireAllNonNull(budget);
+        foodieBot.setBudget(budget);
+    }
+
+    /**
+     * Reads the stored budget in the Json file.
+     * @return The budget object stored in the Json file. If the file is not present,
+     * returns an empty Optional value.
+     */
+    @Override
+    public Optional<Budget> getBudget() {
+        try {
+            FoodieBotStorage foodieBotStorage =
+                    new JsonFoodieBotStorage(userPrefs.getBudgetFilePath());
+            Storage storage = new StorageManager(foodieBotStorage);
+            Optional<ReadOnlyFoodieBot> newBot = storage.readFoodieBot(Budget.class.getSimpleName());
+            if (newBot.equals(Optional.empty())) {
+                return Optional.empty();
+            }
+            return Optional.of(newBot.get().getBudget());
+        } catch (DataConversionException e) {
+            return Optional.empty();
+        } catch (IOException e) {
+            return Optional.empty();
+        }
+        // return foodieBot.getBudget();
+
+    }
+
+
 
     // =========== Filtered Person List Accessors
     // =============================================================

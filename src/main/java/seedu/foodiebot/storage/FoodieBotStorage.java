@@ -29,6 +29,10 @@ public interface FoodieBotStorage {
     Optional<ReadOnlyFoodieBot> readFoodieBot(Path filePath, String modelType)
             throws DataConversionException, IOException;
 
+
+    Path getModelFilePath(String modelType);
+
+
     /**
      * Saves the given {@link ReadOnlyFoodieBot} to the storage.
      *

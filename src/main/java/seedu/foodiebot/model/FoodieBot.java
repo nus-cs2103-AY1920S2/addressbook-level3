@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Stall;
@@ -20,6 +21,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
 
     private final UniqueCanteenList canteens;
     private final UniqueStallList stalls;
+    private Budget budget;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +33,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     {
         canteens = new UniqueCanteenList();
         stalls = new UniqueStallList();
+        budget = new Budget();
     }
 
     public FoodieBot() {}
@@ -54,6 +57,12 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     public void setStalls(List<Stall> stalls) {
         this.stalls.setStalls(stalls);
     }
+
+
+    public void setBudget(Budget budget) {
+        this.budget = budget;
+    }
+
 
     /** Resets the existing data of this {@code FoodieBot} with {@code newData}. */
     public void resetData(ReadOnlyFoodieBot newData) {
@@ -119,6 +128,11 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     @Override
     public ObservableList<Canteen> getCanteenList() {
         return canteens.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public Budget getBudget() {
+        return budget;
     }
 
     //// stall-level operations
