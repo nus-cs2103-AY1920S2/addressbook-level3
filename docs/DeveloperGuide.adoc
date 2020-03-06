@@ -337,7 +337,7 @@ Use case ends.
 [none]
 ** 1a1. MODdy shows an error message.
 +
-Use case resumes at step 1.
+Use case ends.
 
 * 1b. The user has not enrolled into NUS.
 +
@@ -363,7 +363,7 @@ Use case ends.
 [none]
 ** 1a1. MODdy shows an error message.
 +
-Use case resumes at step 1.
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
