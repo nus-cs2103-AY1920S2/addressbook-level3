@@ -1,8 +1,11 @@
 package seedu.address.model.activity;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.TypicalActivities.DEADLINE;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class UniqueActivityListTest {
 
@@ -15,6 +18,12 @@ class UniqueActivityListTest {
 
     @Test
     public void contains_activityNotInList_returnsFalse() {
-        //assertFalse(uniqueActivityList.contains());
+        assertFalse(uniqueActivityList.contains(DEADLINE));
+    }
+
+    @Test
+    public void contains_activityInList_returnsTrue() {
+        uniqueActivityList.add(DEADLINE);
+        assertTrue(uniqueActivityList.contains(DEADLINE));
     }
 }

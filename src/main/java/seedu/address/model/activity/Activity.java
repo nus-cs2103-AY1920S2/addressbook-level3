@@ -9,6 +9,15 @@ public abstract class Activity {
     private Note note;
     //Priority priority;
 
+    /**
+     * Every field must be present and not null.
+     */
+    public Activity(Name name, Date date, Note note) {
+        this.name = name;
+        this.date = date;
+        this.note = note;
+    }
+
     public Name getName() {
         return name;
     }
