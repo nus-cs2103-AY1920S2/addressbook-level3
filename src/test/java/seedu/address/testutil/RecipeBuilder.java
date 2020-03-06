@@ -6,8 +6,8 @@ import java.util.Set;
 import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Time;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -16,17 +16,17 @@ import seedu.address.model.util.SampleDataUtil;
 public class RecipeBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_TIME = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
 
     private Name name;
-    private Phone phone;
+    private Time time;
     private Email email;
     private Set<Goal> goals;
 
     public RecipeBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        time = new Time(DEFAULT_TIME);
         email = new Email(DEFAULT_EMAIL);
         goals = new HashSet<>();
     }
@@ -36,7 +36,7 @@ public class RecipeBuilder {
      */
     public RecipeBuilder(Recipe recipeToCopy) {
         name = recipeToCopy.getName();
-        phone = recipeToCopy.getPhone();
+        time = recipeToCopy.getTime();
         email = recipeToCopy.getEmail();
         goals = new HashSet<>(recipeToCopy.getGoals());
     }
@@ -58,10 +58,10 @@ public class RecipeBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Recipe} that we are building.
+     * Sets the {@code Time} of the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public RecipeBuilder withTime(String time) {
+        this.time = new Time(time);
         return this;
     }
 
@@ -74,7 +74,7 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(name, phone, email, goals);
+        return new Recipe(name, time, email, goals);
     }
 
 }

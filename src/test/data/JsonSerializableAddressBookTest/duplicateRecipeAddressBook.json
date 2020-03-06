@@ -1,12 +1,12 @@
 {
   "recipes": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "time": "94351253",
     "email": "alice@example.com",
     "goals": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "time": "94351253",
     "email": "pauline@example.com"
   } ]
 }

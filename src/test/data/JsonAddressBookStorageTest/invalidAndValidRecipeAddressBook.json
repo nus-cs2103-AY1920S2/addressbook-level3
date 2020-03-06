@@ -1,11 +1,11 @@
 {
   "recipes": [ {
     "name": "Valid Recipe",
-    "phone": "9482424",
+    "time": "9482424",
     "email": "hans@example.com"
   }, {
-    "name": "Recipe With Invalid Phone Field",
-    "phone": "948asdf2424",
+    "name": "Recipe With Invalid Time Field",
+    "time": "948asdf2424",
     "email": "hans@example.com"
   } ]
 }

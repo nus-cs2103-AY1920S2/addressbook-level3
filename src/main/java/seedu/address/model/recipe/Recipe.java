@@ -17,7 +17,7 @@ public class Recipe {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Time time;
     private final Email email;
 
     // Data fields
@@ -26,10 +26,10 @@ public class Recipe {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Phone phone, Email email, Set<Goal> goals) {
-        requireAllNonNull(name, phone, email, goals);
+    public Recipe(Name name, Time time, Email email, Set<Goal> goals) {
+        requireAllNonNull(name, time, email, goals);
         this.name = name;
-        this.phone = phone;
+        this.time = time;
         this.email = email;
         this.goals.addAll(goals);
     }
@@ -38,8 +38,8 @@ public class Recipe {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Time getTime() {
+        return time;
     }
 
     public Email getEmail() {
@@ -65,7 +65,7 @@ public class Recipe {
 
         return otherRecipe != null
                 && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
+                && (otherRecipe.getTime().equals(getTime()) || otherRecipe.getEmail().equals(getEmail()));
     }
 
     /**
@@ -84,7 +84,7 @@ public class Recipe {
 
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-                && otherRecipe.getPhone().equals(getPhone())
+                && otherRecipe.getTime().equals(getTime())
                 && otherRecipe.getEmail().equals(getEmail())
                 && otherRecipe.getGoals().equals(getGoals());
     }
@@ -92,15 +92,15 @@ public class Recipe {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, goals);
+        return Objects.hash(name, time, email, goals);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Time: ")
+                .append(getTime())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Goals: ");

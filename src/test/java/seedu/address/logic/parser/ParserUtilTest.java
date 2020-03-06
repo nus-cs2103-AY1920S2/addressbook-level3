@@ -17,16 +17,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Phone;
+import seedu.address.model.recipe.Time;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_TIME = "+651234";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_GOAL = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_TIME = "123456";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_GOAL_1 = "friend";
     private static final String VALID_GOAL_2 = "neighbour";
@@ -77,26 +77,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parseTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTime((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parseTime_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTime(INVALID_TIME));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parseTime_validValueWithoutWhitespace_returnsTime() throws Exception {
+        Time expectedTime = new Time(VALID_TIME);
+        assertEquals(expectedTime, ParserUtil.parseTime(VALID_TIME));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseTime_validValueWithWhitespace_returnsTrimmedTime() throws Exception {
+        String timeWithWhitespace = WHITESPACE + VALID_TIME + WHITESPACE;
+        Time expectedTime = new Time(VALID_TIME);
+        assertEquals(expectedTime, ParserUtil.parseTime(timeWithWhitespace));
     }
 
     @Test

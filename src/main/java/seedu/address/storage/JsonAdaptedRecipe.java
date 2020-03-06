@@ -13,8 +13,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Time;
 
 /**
  * Jackson-friendly version of {@link Recipe}.
@@ -24,7 +24,7 @@ class JsonAdaptedRecipe {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Recipe's %s field is missing!";
 
     private final String name;
-    private final String phone;
+    private final String time;
     private final String email;
     private final List<JsonAdaptedGoal> goals = new ArrayList<>();
 
@@ -32,11 +32,11 @@ class JsonAdaptedRecipe {
      * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
      */
     @JsonCreator
-    public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("time") String time,
             @JsonProperty("email") String email,
             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
-        this.phone = phone;
+        this.time = time;
         this.email = email;
         if (goals != null) {
             this.goals.addAll(goals);
@@ -48,7 +48,7 @@ class JsonAdaptedRecipe {
      */
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
+        time = source.getTime().value;
         email = source.getEmail().value;
         goals.addAll(source.getGoals().stream()
                 .map(JsonAdaptedGoal::new)
@@ -74,13 +74,13 @@ class JsonAdaptedRecipe {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (time == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!Time.isValidTime(time)) {
+            throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Time modelTime = new Time(time);
 
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
@@ -91,7 +91,7 @@ class JsonAdaptedRecipe {
         final Email modelEmail = new Email(email);
 
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
-        return new Recipe(modelName, modelPhone, modelEmail, modelGoals);
+        return new Recipe(modelName, modelTime, modelEmail, modelGoals);
     }
 
 }

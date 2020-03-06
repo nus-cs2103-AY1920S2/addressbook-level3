@@ -8,8 +8,8 @@ import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Time;
 
 /**
  * A utility class to help with building EditRecipeDescriptor objects.
@@ -32,7 +32,7 @@ public class EditRecipeDescriptorBuilder {
     public EditRecipeDescriptorBuilder(Recipe recipe) {
         descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
-        descriptor.setPhone(recipe.getPhone());
+        descriptor.setTime(recipe.getTime());
         descriptor.setEmail(recipe.getEmail());
         descriptor.setGoals(recipe.getGoals());
     }
@@ -46,10 +46,10 @@ public class EditRecipeDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditRecipeDescriptor} that we are building.
+     * Sets the {@code Time} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditRecipeDescriptorBuilder withTime(String time) {
+        descriptor.setTime(new Time(time));
         return this;
     }
 

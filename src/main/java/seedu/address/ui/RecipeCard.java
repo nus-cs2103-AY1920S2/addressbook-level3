@@ -33,7 +33,7 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label time;
     @FXML
     private Label email;
     @FXML
@@ -44,7 +44,7 @@ public class RecipeCard extends UiPart<Region> {
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
-        phone.setText(recipe.getPhone().value);
+        time.setText(recipe.getTime().value + " min");
         email.setText(recipe.getEmail().value);
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))

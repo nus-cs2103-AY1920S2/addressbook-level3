@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.Set;
 
@@ -30,7 +30,7 @@ public class RecipeUtil {
     public static String getRecipeDetails(Recipe recipe) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + recipe.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + recipe.getPhone().value + " ");
+        sb.append(PREFIX_TIME + recipe.getTime().value + " ");
         sb.append(PREFIX_EMAIL + recipe.getEmail().value + " ");
         recipe.getGoals().stream().forEach(
             s -> sb.append(PREFIX_GOAL + s.goalName + " ")
@@ -44,7 +44,7 @@ public class RecipeUtil {
     public static String getEditRecipeDescriptorDetails(EditRecipeDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getTime().ifPresent(time -> sb.append(PREFIX_TIME).append(time.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         if (descriptor.getGoals().isPresent()) {
             Set<Goal> goals = descriptor.getGoals().get();
