@@ -57,13 +57,10 @@ Format: `reminder <index> /at yyyy-mm-ddThh-mm-ss`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a task: `add`
 
 Adds a task to the task list +
 Format: `add n/Do math homework d/pages 1-2 ld/LOCALDATE`
-
-[TIP]
-TODO: Insert a tip here.
 
 Examples:
 
@@ -172,8 +169,8 @@ DONE : Displays average number of tasks done over past week/month/year.
 === Pet
 
 The Pet gives a sense of responsibility to the user. +
-The Pet acts as a motivation to encourage the user to be productive. +
-The Pet gives a sense of satisfaction to the user when it is being fed.
+It acts as a motivation to encourage the user to be productive. +
+The Pet also gives a sense of satisfaction to the user when it is being fed.
 
 === Saving the data
 
@@ -198,4 +195,5 @@ e.g. `edit 2 n/Add Buy Feature ld/2020-03-04`
 e.g. `find Quiz Essay`
 * *List* : `list`
 * *Help* : `help`
-* *Statistics* : stats SPEED/DONE
+* *Statistics* : 'stats SPEED/DONE'
+* *Pom* : 'pom 10'
