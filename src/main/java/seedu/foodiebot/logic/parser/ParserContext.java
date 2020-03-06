@@ -48,4 +48,9 @@ public class ParserContext {
         ParserContext.setCurrentCanteen(Optional.of(canteen));
     }
 
+    public static void setStallContext(Stall stall) {
+        ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
+        ParserContext.setCurrentStall(Optional.of(stall));
+    }
+
 }

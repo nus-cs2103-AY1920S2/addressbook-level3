@@ -2,6 +2,7 @@ package seedu.foodiebot.model.canteen;
 
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -16,9 +17,10 @@ import seedu.foodiebot.model.food.Food;
  * values are validated, immutable.
  */
 public class Stall {
-
+    public static final String[] STALLS = new String[]{"Taiwanese", "Yong Tau Foo"};
     public static final String IMAGE_FOLDER = "/images/canteen/";
     private static final Logger logger = LogsCenter.getLogger(Stall.class);
+    public static final String MESSAGE_CONSTRAINTS = "Stall name should be from " + Arrays.toString(STALLS);
     // Identity fields
     private final Name name;
     private final String canteenName;
@@ -81,6 +83,18 @@ public class Stall {
 
     public int getFavorite() {
         return favorite;
+    }
+
+    public List<Food> getFoodMenu() {
+        return foodMenu;
+    }
+
+    /**
+     * Returns true if the {@code trimmedStallName} is a valid stall name
+     */
+    public static boolean isValidStall(String trimmedStallName) {
+        return Arrays.stream(STALLS)
+            .anyMatch(trimmedStallName::equalsIgnoreCase);
     }
 
     /**

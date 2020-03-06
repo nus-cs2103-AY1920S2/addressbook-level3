@@ -24,6 +24,7 @@ import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.exceptions.DuplicateCanteenException;
+import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.testutil.CanteenBuilder;
 
 public class FoodieBotTest {
@@ -100,6 +101,7 @@ public class FoodieBotTest {
     private static class FoodieBotStub implements ReadOnlyFoodieBot {
         private final ObservableList<Canteen> canteens = FXCollections.observableArrayList();
         private final ObservableList<Stall> stalls = FXCollections.observableArrayList();
+        private final ObservableList<Food> foods = FXCollections.observableArrayList();
         private Budget budget;
 
         FoodieBotStub(Collection<Canteen> canteens, Collection<Stall> stalls, Budget budget) {
@@ -116,6 +118,11 @@ public class FoodieBotTest {
         @Override
         public ObservableList<Stall> getStallList() {
             return stalls;
+        }
+
+        @Override
+        public ObservableList<Food> getFoodList() {
+            return foods;
         }
 
         @Override

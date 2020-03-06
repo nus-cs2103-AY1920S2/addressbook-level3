@@ -18,6 +18,7 @@ import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 
 public class AddCommandTest {
 
@@ -187,6 +188,18 @@ public class AddCommandTest {
          */
         @Override
         public void updateFilteredStallList(List<Stall> stalls) {
+
+        }
+
+        @Override
+        public ObservableList<Food> getFilteredFoodList() {
+            throw new AssertionError("This method is a placeholder");
+        }
+        /**
+         *
+         */
+        @Override
+        public void updateFilteredFoodList(List<Food> foods) {
 
         }
     }

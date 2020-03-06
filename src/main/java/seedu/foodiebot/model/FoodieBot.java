@@ -12,6 +12,8 @@ import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.UniqueCanteenList;
+import seedu.foodiebot.model.food.Food;
+import seedu.foodiebot.model.food.UniqueFoodList;
 import seedu.foodiebot.model.stall.UniqueStallList;
 
 /**
@@ -21,6 +23,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
 
     private final UniqueCanteenList canteens;
     private final UniqueStallList stalls;
+    private final UniqueFoodList foods;
     private Budget budget;
 
     /*
@@ -33,6 +36,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     {
         canteens = new UniqueCanteenList();
         stalls = new UniqueStallList();
+        foods = new UniqueFoodList();
         budget = new Budget();
     }
 
@@ -156,6 +160,18 @@ public class FoodieBot implements ReadOnlyFoodieBot {
      */
     public void addStall(Stall s) {
         stalls.add(s);
+    }
+
+    public ObservableList<Food> getFoodList() {
+        return foods.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Adds a food to the foodiebot. The food must not already exist in the foodiebot
+     * @param f
+     */
+    public void addFood(Food f) {
+        foods.add(f);
     }
 
     @Override

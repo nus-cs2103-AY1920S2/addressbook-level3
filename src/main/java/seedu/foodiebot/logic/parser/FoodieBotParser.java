@@ -60,7 +60,11 @@ public class FoodieBotParser {
             return new GoToCanteenCommandParser().parse(arguments);
 
         case EnterCanteenCommand.COMMAND_WORD:
-            return new EnterCanteenCommandParser().parse(arguments);
+            if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                return new EnterCanteenCommandParser().parse(arguments);
+            } else {
+                return new EnterStallCommandParser().parse(arguments);
+            }
 
         case FoodMenuCommand.COMMAND_WORD:
             return new FoodMenuCommandParser().parse(arguments);

@@ -19,6 +19,7 @@ import seedu.foodiebot.commons.exceptions.DataConversionException;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.storage.FoodieBotStorage;
 import seedu.foodiebot.storage.JsonFoodieBotStorage;
 import seedu.foodiebot.storage.Storage;
@@ -34,6 +35,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Canteen> filteredCanteens;
     private final FilteredList<Stall> filteredStalls;
+    private final FilteredList<Food> filteredFoods;
 
     private final Budget budget;
 
@@ -51,6 +53,7 @@ public class ModelManager implements Model {
 
         filteredCanteens = new FilteredList<>(this.foodieBot.getCanteenList());
         filteredStalls = new FilteredList<>(this.foodieBot.getStallList());
+        filteredFoods = new FilteredList<>(this.foodieBot.getFoodList());
         budget = this.foodieBot.getBudget();
     }
 
@@ -194,6 +197,18 @@ public class ModelManager implements Model {
         return filteredStalls;
     }
 
+    @Override
+    public ObservableList<Food> getFilteredFoodList() {
+        return filteredFoods;
+    }
+
+    @Override
+    public void updateFilteredFoodList(List<Food> foods) {
+        //List<Food> filterCopy = new ArrayList<>(filteredFoods);
+        //filteredFoods.removeAll(filterCopy);
+        //filteredFoods.addAll(foods);
+    }
+
 
     /**
      * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
@@ -209,8 +224,9 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredStallList(List<Stall> list) {
-        filteredStalls.removeAll();
-        filteredStalls.addAll(list);
+        //List<Stall> filterCopy = new ArrayList<>(filteredStalls);
+        //filteredStalls.removeAll(filterCopy);
+        //filteredStalls.addAll(list);
     }
 
     /**
