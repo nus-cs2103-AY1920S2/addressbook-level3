@@ -360,43 +360,114 @@ Primary actor is the user.
 .Use Cases Overview for STASH
 image::usecase.png[Use Case Diagram,500,200]
 
-[discrete]
-=== **_Use Case: UC1 - Add  a new coupon entry_**
+=== **Use Case: UC1 -  Add Coupon**
+**Actor**: `user`
 
-Actor: User +
-This use case describes how a user uses STASH to add and save a new coupon entry. +
+This use case describes how a user uses STASH to add a new coupon entry.
 
-MSS:
+**MSS**
 
-[start=1]
 . User keys in command to add a coupon entry.
-. STASH evaluates input details and adds the coupon entry.
-. STASH inform user that entry is added
+. STASH informs the user that the entry is added.
++
+Use case ends.
 
-=== **_Use Case: UC2 - Listing all the coupon entries_**
+**Extensions**
 
-This use case describes how a user uses STASH to list all the coupon entries. +
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
 
-MSS:
+=== **Use Case: UC2 - Listing all the coupon entries**
+**Actor**: `user`
 
-[start=1]
-. User keys in command to list all the coupons.
-. STASH evaluates input details and prints out all coupons. +
+This use case describes how a user uses STASH to list out all the coupon entries.
 
-Extensions:
+**MSS**
 
-[start=2]
-. STASH detects that the data list is empty. +
-.. STASH will inform the user that the list is empty. +
-.. Use case ends
+. User keys in command to add a coupon entry.
+. STASH lists out all coupons.
++
+Use case ends.
 
-=== **_Use Case: UC3_**
+**Extensions**
 
-Continue adding
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
 
-=== **_Use Case: UC4_**
+[none]
+* 1b. STASH detects that the data list is empty.
+[none]
+** 1b1. STASH informs the user that the list is empty.
+** Use case ends
 
-Continue adding
+
+=== **_Use Case: UC3 - Mark a coupon as used_**
+**Actor**: `user`
+
+This use case describes how a user uses STASH to mark a coupon entry as used.
+
+**MSS**
+
+. User keys in command to mark a coupon as used.
+. STASH marks the coupon as used.
++
+Use case ends.
+
+**Extensions**
+
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+[none]
+* 1b. STASH detects that the specified coupon does not exist.
+[none]
+** 1b1. STASH requests the user to enter an index that corresponds with an existing coupon.
+** 1b2. User enters new index.
+** Use case resumes from step 2.
+
+=== **_Use Case: UC4 - Find coupon(s) by keyword(s)_**
+**Actor**: `user`
+
+This use case describes how a user uses STASH to find the coupon(s) with keyword(s).
+
+**MSS**
+
+. User keys in command to find a coupon based on keyword(s).
+. Matched coupons are displayed to the user.
++
+Use case ends.
+
+**Extensions**
+
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+[none]
+* 1b. STASH detects that the specified coupon does not exist.
+[none]
+** 1b1. STASH requests the user to enter an index that corresponds with an existing coupon.
+** 1b2. User enters new index.
+** Use case resumes from step 2.
 
 === **Use Case: UC5 - Edit coupon's details**
 **Actor**: `user`
