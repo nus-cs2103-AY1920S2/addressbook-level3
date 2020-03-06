@@ -2,12 +2,12 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,14 +24,14 @@ public class TypicalRecipes {
     public static final Recipe ALICE = new RecipeBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
             .withPhone("94351253")
-            .withTags("friends").build();
+            .withGoals("friends").build();
     public static final Recipe BENSON = new RecipeBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").build();
+            .withGoals("owesMoney", "friends").build();
     public static final Recipe CARL = new RecipeBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").build();
     public static final Recipe DANIEL = new RecipeBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withTags("friends").build();
+            .withEmail("cornelia@example.com").withGoals("friends").build();
     public static final Recipe ELLE = new RecipeBuilder().withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com").build();
     public static final Recipe FIONA = new RecipeBuilder().withName("Fiona Kunz").withPhone("9482427")
@@ -47,9 +47,9 @@ public class TypicalRecipes {
 
     // Manually added - Recipe's details found in {@code CommandTestUtil}
     public static final Recipe AMY = new RecipeBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withTags(VALID_TAG_FRIEND).build();
+            .withEmail(VALID_EMAIL_AMY).withGoals(VALID_GOAL_FRIEND).build();
     public static final Recipe BOB = new RecipeBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withEmail(VALID_EMAIL_BOB).withGoals(VALID_GOAL_HUSBAND, VALID_GOAL_FRIEND)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

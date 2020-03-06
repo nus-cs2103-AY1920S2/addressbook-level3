@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.goal.Goal;
 
 /**
  * Represents a Recipe in the address book.
@@ -21,17 +21,17 @@ public class Recipe {
     private final Email email;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
+    private final Set<Goal> goals = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+    public Recipe(Name name, Phone phone, Email email, Set<Goal> goals) {
+        requireAllNonNull(name, phone, email, goals);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.tags.addAll(tags);
+        this.goals.addAll(goals);
     }
 
     public Name getName() {
@@ -47,11 +47,11 @@ public class Recipe {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable goal set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Set<Goal> getGoals() {
+        return Collections.unmodifiableSet(goals);
     }
 
     /**
@@ -86,13 +86,13 @@ public class Recipe {
         return otherRecipe.getName().equals(getName())
                 && otherRecipe.getPhone().equals(getPhone())
                 && otherRecipe.getEmail().equals(getEmail())
-                && otherRecipe.getTags().equals(getTags());
+                && otherRecipe.getGoals().equals(getGoals());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, phone, email, goals);
     }
 
     @Override
@@ -103,8 +103,8 @@ public class Recipe {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Goals: ");
+        getGoals().forEach(builder::append);
         return builder.toString();
     }
 

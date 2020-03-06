@@ -37,7 +37,7 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane goals;
 
     public RecipeCard(Recipe recipe, int displayedIndex) {
         super(FXML);
@@ -46,9 +46,9 @@ public class RecipeCard extends UiPart<Region> {
         name.setText(recipe.getName().fullName);
         phone.setText(recipe.getPhone().value);
         email.setText(recipe.getEmail().value);
-        recipe.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        recipe.getGoals().stream()
+                .sorted(Comparator.comparing(goal -> goal.goalName))
+                .forEach(goal -> goals.getChildren().add(new Label(goal.goalName)));
     }
 
     @Override

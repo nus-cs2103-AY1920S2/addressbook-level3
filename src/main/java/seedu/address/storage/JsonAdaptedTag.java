@@ -4,45 +4,45 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.goal.Goal;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * Jackson-friendly version of {@link Goal}.
  */
-class JsonAdaptedTag {
+class JsonAdaptedGoal {
 
-    private final String tagName;
+    private final String goalName;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedGoal} with the given {@code goalName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
-        this.tagName = tagName;
+    public JsonAdaptedGoal(String goalName) {
+        this.goalName = goalName;
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code Goal} into this class for Jackson use.
      */
-    public JsonAdaptedTag(Tag source) {
-        tagName = source.tagName;
+    public JsonAdaptedGoal(Goal source) {
+        goalName = source.goalName;
     }
 
     @JsonValue
-    public String getTagName() {
-        return tagName;
+    public String getGoalName() {
+        return goalName;
     }
 
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
+     * Converts this Jackson-friendly adapted goal object into the model's {@code Goal} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted goal.
      */
-    public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+    public Goal toModelType() throws IllegalValueException {
+        if (!Goal.isValidGoalName(goalName)) {
+            throw new IllegalValueException(Goal.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(tagName);
+        return new Goal(goalName);
     }
 
 }

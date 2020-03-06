@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -19,17 +19,17 @@ public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
             new Recipe(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends")),
+                getGoalSet("friends")),
             new Recipe(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                getTagSet("colleagues", "friends")),
+                getGoalSet("colleagues", "friends")),
             new Recipe(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                getTagSet("neighbours")),
+                getGoalSet("neighbours")),
             new Recipe(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                getTagSet("family")),
+                getGoalSet("family")),
             new Recipe(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                getTagSet("classmates")),
+                getGoalSet("classmates")),
             new Recipe(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                getTagSet("colleagues"))
+                getGoalSet("colleagues"))
         };
     }
 
@@ -42,11 +42,11 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a tag set containing the list of strings given.
+     * Returns a goal set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(String... strings) {
+    public static Set<Goal> getGoalSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
+                .map(Goal::new)
                 .collect(Collectors.toSet());
     }
 

@@ -10,11 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Recipe}.
@@ -26,7 +26,7 @@ class JsonAdaptedRecipe {
     private final String name;
     private final String phone;
     private final String email;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedGoal> goals = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
@@ -34,12 +34,12 @@ class JsonAdaptedRecipe {
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
+        if (goals != null) {
+            this.goals.addAll(goals);
         }
     }
 
@@ -50,8 +50,8 @@ class JsonAdaptedRecipe {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
+        goals.addAll(source.getGoals().stream()
+                .map(JsonAdaptedGoal::new)
                 .collect(Collectors.toList()));
     }
 
@@ -61,9 +61,9 @@ class JsonAdaptedRecipe {
      * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
      */
     public Recipe toModelType() throws IllegalValueException {
-        final List<Tag> recipeTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            recipeTags.add(tag.toModelType());
+        final List<Goal> recipeGoals = new ArrayList<>();
+        for (JsonAdaptedGoal goal : goals) {
+            recipeGoals.add(goal.toModelType());
         }
 
         if (name == null) {
@@ -90,8 +90,8 @@ class JsonAdaptedRecipe {
         }
         final Email modelEmail = new Email(email);
 
-        final Set<Tag> modelTags = new HashSet<>(recipeTags);
-        return new Recipe(modelName, modelPhone, modelEmail, modelTags);
+        final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
+        return new Recipe(modelName, modelPhone, modelEmail, modelGoals);
     }
 
 }

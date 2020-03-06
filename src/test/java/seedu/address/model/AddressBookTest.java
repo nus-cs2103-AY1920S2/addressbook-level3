@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.ALICE;
 import static seedu.address.testutil.TypicalRecipes.getTypicalAddressBook;
@@ -45,7 +45,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND)
                 .build();
         List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newRecipes);
@@ -72,7 +72,7 @@ public class AddressBookTest {
     @Test
     public void hasRecipe_recipeWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addRecipe(ALICE);
-        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND)
                 .build();
         assertTrue(addressBook.hasRecipe(editedAlice));
     }

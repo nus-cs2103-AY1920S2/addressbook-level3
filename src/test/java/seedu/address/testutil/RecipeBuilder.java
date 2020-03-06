@@ -3,11 +3,11 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -22,13 +22,13 @@ public class RecipeBuilder {
     private Name name;
     private Phone phone;
     private Email email;
-    private Set<Tag> tags;
+    private Set<Goal> goals;
 
     public RecipeBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
-        tags = new HashSet<>();
+        goals = new HashSet<>();
     }
 
     /**
@@ -38,7 +38,7 @@ public class RecipeBuilder {
         name = recipeToCopy.getName();
         phone = recipeToCopy.getPhone();
         email = recipeToCopy.getEmail();
-        tags = new HashSet<>(recipeToCopy.getTags());
+        goals = new HashSet<>(recipeToCopy.getGoals());
     }
 
     /**
@@ -50,10 +50,10 @@ public class RecipeBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Recipe} that we are building.
+     * Parses the {@code goals} into a {@code Set<Goal>} and set it to the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+    public RecipeBuilder withGoals(String ... goals) {
+        this.goals = SampleDataUtil.getGoalSet(goals);
         return this;
     }
 
@@ -74,7 +74,7 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(name, phone, email, tags);
+        return new Recipe(name, phone, email, goals);
     }
 
 }

@@ -3,7 +3,7 @@ package seedu.address.model.recipe;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.ALICE;
 import static seedu.address.testutil.TypicalRecipes.BOB;
@@ -41,7 +41,7 @@ public class UniqueRecipeListTest {
     @Test
     public void contains_recipeWithSameIdentityFieldsInList_returnsTrue() {
         uniqueRecipeList.add(ALICE);
-        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND)
                 .build();
         assertTrue(uniqueRecipeList.contains(editedAlice));
     }
@@ -84,7 +84,7 @@ public class UniqueRecipeListTest {
     @Test
     public void setRecipe_editedRecipeHasSameIdentity_success() {
         uniqueRecipeList.add(ALICE);
-        Recipe editedAlice = new RecipeBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND).build();
         uniqueRecipeList.setRecipe(ALICE, editedAlice);
         UniqueRecipeList expectedUniqueRecipeList = new UniqueRecipeList();
         expectedUniqueRecipeList.add(editedAlice);

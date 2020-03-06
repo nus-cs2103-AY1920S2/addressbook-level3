@@ -1,16 +1,16 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Recipe.
@@ -32,8 +32,8 @@ public class RecipeUtil {
         sb.append(PREFIX_NAME + recipe.getName().fullName + " ");
         sb.append(PREFIX_PHONE + recipe.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + recipe.getEmail().value + " ");
-        recipe.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        recipe.getGoals().stream().forEach(
+            s -> sb.append(PREFIX_GOAL + s.goalName + " ")
         );
         return sb.toString();
     }
@@ -46,12 +46,12 @@ public class RecipeUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+        if (descriptor.getGoals().isPresent()) {
+            Set<Goal> goals = descriptor.getGoals().get();
+            if (goals.isEmpty()) {
+                sb.append(PREFIX_GOAL);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
+                goals.forEach(s -> sb.append(PREFIX_GOAL).append(s.goalName).append(" "));
             }
         }
         return sb.toString();

@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
+import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditRecipeDescriptor objects.
@@ -34,7 +34,7 @@ public class EditRecipeDescriptorBuilder {
         descriptor.setName(recipe.getName());
         descriptor.setPhone(recipe.getPhone());
         descriptor.setEmail(recipe.getEmail());
-        descriptor.setTags(recipe.getTags());
+        descriptor.setGoals(recipe.getGoals());
     }
 
     /**
@@ -62,12 +62,12 @@ public class EditRecipeDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditRecipeDescriptor}
+     * Parses the {@code goals} into a {@code Set<Goal>} and set it to the {@code EditRecipeDescriptor}
      * that we are building.
      */
-    public EditRecipeDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditRecipeDescriptorBuilder withGoals(String... goals) {
+        Set<Goal> goalSet = Stream.of(goals).map(Goal::new).collect(Collectors.toSet());
+        descriptor.setGoals(goalSet);
         return this;
     }
 
