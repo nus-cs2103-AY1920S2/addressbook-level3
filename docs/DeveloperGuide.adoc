@@ -757,14 +757,6 @@ Refers to the display field showing the results of an executed command
 |===
 |Command |Flag |Meaning
 
-|Sort
-|-a
-|Sort in *ascending* order
-
-|Sort
-|-d
-|Sort in *descending* order
-
 |Clear
 |-f
 |Force clear, no user confirmation will be requested
