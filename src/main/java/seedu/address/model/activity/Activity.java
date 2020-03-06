@@ -33,6 +33,21 @@ public abstract class Activity {
         this.note = note;
     }
 
+    /**
+     * Returns true if both activities of the same name, note and date.
+     * @param otherActivity
+     * @return
+     */
+    public boolean isSameActivity(Activity otherActivity) {
+        if (otherActivity == this) {
+            return true;
+        }
+
+        return otherActivity != null
+                && otherActivity.getName().equals(getName())
+                && otherActivity.getNote().equals(getNote())
+                && otherActivity.getDate().equals(getDate());
+    }
     /*
     public Priority getPriority() {
         return priority;
