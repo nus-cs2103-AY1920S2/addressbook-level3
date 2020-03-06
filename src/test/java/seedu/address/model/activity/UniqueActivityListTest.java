@@ -7,6 +7,9 @@ import static seedu.address.testutil.TypicalActivities.DEADLINE;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * To test the UniqueActivity class.
+ */
 class UniqueActivityListTest {
 
     private final UniqueActivityList uniqueActivityList = new UniqueActivityList();
