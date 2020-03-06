@@ -10,10 +10,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
-
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -37,7 +35,9 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
+        assertEquals(
+                String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
@@ -47,7 +47,10 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(
+                CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -74,9 +77,7 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
-    /**
-     * A default model stub that have all of the methods failing.
-     */
+    /** A default model stub that have all of the methods failing. */
     private class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -149,9 +150,7 @@ public class AddCommandTest {
         }
     }
 
-    /**
-     * A Model stub that contains a single person.
-     */
+    /** A Model stub that contains a single person. */
     private class ModelStubWithPerson extends ModelStub {
         private final Person person;
 
@@ -167,9 +166,7 @@ public class AddCommandTest {
         }
     }
 
-    /**
-     * A Model stub that always accept the person being added.
-     */
+    /** A Model stub that always accept the person being added. */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
@@ -190,5 +187,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }
