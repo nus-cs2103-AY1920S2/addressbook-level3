@@ -19,8 +19,8 @@ public class PrereqList {
         // requireAllNonNull() // to be implemented
         // checkArgument() // to be implemented
         ArrayList<String> prereqList = new ArrayList<>();
-        // String[] prereqArray = prereqs.split("");
         /*
+        String[] prereqArray = prereqs.split("");
         for (String prereq : prereqArray) {
             prereqList.add(prereq);
         }
