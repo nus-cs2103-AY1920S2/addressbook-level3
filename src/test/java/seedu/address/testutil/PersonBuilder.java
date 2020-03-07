@@ -17,8 +17,10 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
 
+
     private Name name;
     private Phone phone;
+
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -61,9 +63,15 @@ public class PersonBuilder {
     }
 
 
+    /**
+     * Builds a person.
+     *
+     * @return a Person.
+     */
 
     public Person build() {
         return new Person(name, phone, tags);
+
     }
 
 }
