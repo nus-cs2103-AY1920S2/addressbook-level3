@@ -13,10 +13,10 @@ public class ModuleCode {
             "Module codes should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /**
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Module code should not contain any whitespace, and all values must be alphanumeric.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String ALPHA_NUMERIC_VALIDATION_REGEX = "[a-zA-Z0-9]*";
+    public static final String NON_EMPTY_STRING_VALIDATION_REGEX = "^(?=\\s*\\S).*$";
 
     public final String moduleCode;
 
@@ -35,7 +35,7 @@ public class ModuleCode {
      * Returns true if a given string is a valid module code.
      */
     public static boolean isValidModuleCode(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(ALPHA_NUMERIC_VALIDATION_REGEX) && test.matches(NON_EMPTY_STRING_VALIDATION_REGEX);
     }
 
 
