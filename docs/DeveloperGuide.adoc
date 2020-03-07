@@ -299,15 +299,44 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |picky eater |filter food preferences |the food I cook matches my taste
+|`* * *` |picky eater |filter food preferences |cook food that matches my taste
 
-|`* * *` |beginner at cooking |easily search for recipes with the ingredients I already have |use up all the food in my fridge
+|`* * *` |frugal user |easily search for recipes with the ingredients I already have |use up all the food in my fridge
 
-|`* * *` |user |save my favourite recipes |quickly navigate to them without having to search them up again
+|`* * *` |frequent user |save my favourite recipes |quickly navigate to them without having to search them up again
 
 |`* * *` |goal-oriented student |track my progress |see how far I came and how much further I have to go to reach my goal
 
-|`*` |user with many recipes in the recipe book |filter recipes by ingredients |locate a recipe easily
+|`* * *` |user with many recipes in the recipe book |filter recipes by ingredients |locate a recipe easily
+
+|`* * *` |user struggling to eat healthier |receive motivation for eating healthy meals |stay motivated on my goal
+
+|`* * *` |user who cooks regularly |add my own recipes with the goals they fall under |progress in my goals when I cook my own unique meals
+
+|`* *` |user who dislikes food wastage |see what ingredients I need to buy when i grocery shop |only buy ingredients that I will use
+
+|`* *` |busy student |get a list of the ingredients I need for the week in one go |save time and not make wasted trips
+
+|`* *` |busy student |pre-select meals for certain days |save time from ruminating over what to cook
+
+|`* *` |user with allergies |filter out recipes containing ingredients I am allergic to |get recipes catered to me
+
+|`* *` |bodybuilder |search for protein-rich recipes specifically |build my muscles
+
+|`* *` |busy student |filter recipes by preparation time |choose meals that can be done quickly
+
+|`* *` |avid planner |choose recipes and place them in a timetable for the week |plan my meals beforehand
+
+|`*` |novice cook |filter recipes by difficulty level |select easier recipes
+
+|`*` |user who is passionate about cooking |share the recipes on social media |show my friends what I have cooked today
+
+|`*` |adventurous user |filter the recipes by cuisine |try a new cuisine every time
+
+|`*` |user who prefers hard-copy materials |save my favourite recipes locally |print them out
+
+|`*` |frequent party host |easily scale up the ingredients needed for a recipe |make the correct amount of food
+
 |=======================================================================
 
 _{More to be added}_
