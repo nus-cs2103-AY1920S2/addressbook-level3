@@ -21,19 +21,16 @@ public class Person {
 
 
     // Data fields
-    private final Address address;
-    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Address address, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
+
+    public Person(Name name, Phone phone, Set<Tag> tags) {
+        requireAllNonNull(name, phone, tags);
         this.name = name;
         this.phone = phone;
-        this.address = address;
-        this.remark = remark;
         this.tags.addAll(tags);
     }
 
@@ -45,14 +42,6 @@ public class Person {
         return phone;
     }
 
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public Remark getRemark() {
-        return remark;
-    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -93,14 +82,15 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+
+        return Objects.hash(name, phone, tags);
+
     }
 
     @Override
@@ -109,10 +99,6 @@ public class Person {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Remark: ")
-                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
