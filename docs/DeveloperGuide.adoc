@@ -307,7 +307,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |edit information in delivery orders |rectify any errors in delivery orders
 
-|`* * *` |courier |sort delivery orders |see the list of orders based on preference/need
+|`* * *` |courier |view delivery orders based on a given postal sector |easily find delivery orders in the same general location
 
 |`* * *` |courier |see the warehouse details of the orders |know where to get the packages from
 
