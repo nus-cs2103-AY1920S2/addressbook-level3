@@ -23,7 +23,7 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `iTrackPro.jar.` link:{repoURL}/releases[here].
+.  Download the latest `iTrackPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -145,8 +145,6 @@ Format: `clearc`
 
 === Adding a product: `addp`
 
-image::Products.png[width="790"]
-
 Adds a product to the product list. +
 Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]`
 
@@ -159,6 +157,8 @@ Examples:
 * `addp d/camera pr/2000 q/90 s/100`
 
 === Listing all products : `listp`
+
+image::Products.png[width="790"]
 
 Shows a list of all products in the product list. It could be sorted by the amount of sales, inventory left, etc. +
 Format: `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]`
@@ -234,14 +234,14 @@ Examples:
 `deletep 2` +
 Deletes the 2nd product in the product list.
 * `findp camera` +
-`delete 1` +
+`deletep 1` +
 Deletes the 1st product in the results of the find command.
 
 // end::delete[]
 === Clearing all entries : `clearp`
 
 Clears all entries from the product list. +
-Format: `clear`
+Format: `clearp`
 
 === Adding a transaction : `addt`
 
@@ -323,7 +323,7 @@ Returns all transactions that Bob made on the 7th February 2020.
 === Deleting a transaction : `deletet`
 
 Deletes the specified transaction from the system. +
-Format: `delete INDEX`
+Format: `deletet INDEX`
 
 ****
 * Deletes the transaction at the specified `INDEX`.
@@ -414,7 +414,7 @@ The application data is saved in the hard disk automatically after any command t
 == FAQ
 
 *Q*: How to delete a product? +
-*A*: First, display a list of product, e.g. `listp`. Then type `delete INDEX` where the index refers to the index displayed in the list. Refer to <<Deleting a product : `deletep`>>.
+*A*: First, display a list of product, e.g. `listp`. Then type `deletep INDEX` where the index refers to the index displayed in the list. Refer to <<Deleting a product : `deletep`>>.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
