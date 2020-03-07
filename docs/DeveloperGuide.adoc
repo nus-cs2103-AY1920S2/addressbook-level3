@@ -343,6 +343,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |adventurous user |ask for suggested recipes |choose a random recipe and start cooking
 
+|=======================================================================
 
 _{More to be added}_
 
