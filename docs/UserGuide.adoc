@@ -52,10 +52,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `insert n/CUSTOMER_NAME`, `CUSTOMER_NAME` is a parameter which can be used as `insert n/John Doe`.
+* Items in square brackets are optional e.g `n/CUSTOMER_NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/CUSTOMER_NAME` is also acceptable.
 ====
 
 [[insert]]
@@ -112,7 +112,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Deletes the 2nd order.
 * `find` `-n` `Betsy` +
 `delete` `1` +
-Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
+Deletes the 1st order in the results of the `find` command (find all orders with customer's name `Betsy`).
 
 [[done]]
 === Mark order as done: `done`
@@ -309,7 +309,7 @@ orders in ascending/descending order.
 `ORDER_ATTRIBUTE_PREFIX` *must* be one of the following:
 
 * `a/` - Address
-* `n/` - Name
+* `n/` - Customer Name
 * `p/` - Phone Number
 * `pm/` - Payment Method
 * `tid/` - Transaction ID
@@ -379,7 +379,7 @@ delivery), number of deliveries completed in a day}_
 == Command Summary
 
 * <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `add` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `pm/cash` `c/please knock the door three times :D` `type/heavy`
+e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `pm/cash` `c/please knock the door three times :D` `type/heavy`
 * <<clear, *Clear*>> : `clear` `[FLAG]` +
 e.g. `clear` `-f`
 * <<delete, *Delete*>> : `delete` `INDEX` +
@@ -414,7 +414,7 @@ e.g. `sort` `-d` `dts/`
 |<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
 |n/
-|Name
+|Customer Name
 |<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
 |a/
@@ -468,7 +468,7 @@ e.g. `sort` `-d` `dts/`
 |<<clear, Clear>>
 
 |-n
-|Search using Name
+|Search using Customer Name
 |<<find, Find>>
 
 |-t

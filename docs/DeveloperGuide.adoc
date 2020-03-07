@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding an order).
+.  The command execution can affect the `Model` (e.g. adding a Person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -721,7 +721,7 @@ Refers to the display field showing the results of an executed command
 |Insert, Return
 
 |n/
-|Name
+|Customer Name
 |Insert
 
 |a/
@@ -816,7 +816,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Insert a minimum of 2 orders
 
-.. Insert command format: `insert` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+.. Insert command format: `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 .. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `pm/Cash` +
    Expected: Inserts an order with the above details to the list and displayed on the GUI
@@ -824,6 +824,8 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Inserts the order to the list, including the item type and the order comment
 .. Test case: Invalid Syntax
    Expected: No order is added. Error details shown in the response message. A help message displayed for user to insert accordingly. Status bar remain unchanged
+.. Test case: Insert order with existing Transaction ID in list
+   Expected: An error will occur and a message will be displayed, stating that order with duplicate ID cannot be inserted into the list
 
 === Deleting an order
 
