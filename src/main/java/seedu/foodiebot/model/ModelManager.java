@@ -193,6 +193,12 @@ public class ModelManager implements Model {
         return filteredStalls;
     }
 
+    public ObservableList<Stall> getFilteredStallList(Predicate<Stall> predicate) {
+        requireNonNull(predicate);
+        filteredStalls.setPredicate(predicate);
+        return filteredStalls;
+    }
+
     public ObservableList<Stall> getFilteredStallList() {
         return filteredStalls;
     }
