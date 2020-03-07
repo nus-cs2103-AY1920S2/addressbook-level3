@@ -317,7 +317,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |demotivated user |choose a goal for myself |cook more meals and be motivated by my progress
 
-|`* *` |user who dislikes food wastage |see what ingredients I need to buy when i grocery shop |only buy ingredients that I will use
+|`* *` |user who dislikes food wastage |see what ingredients I need to buy when I grocery shop |only buy ingredients that I will use
 
 |`* *` |busy student |get a list of the ingredients I need for the week in one go |save time and not make wasted trips
 
