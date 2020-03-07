@@ -298,7 +298,7 @@ Adds the order with transaction id 'b1230512' as a return parcel into the list o
 ==== Description
 [NOTE]
 ====
-A *postal sector* refers to the first *two* digits of a six digit postal code.
+A *postal sector* refers to the first *two* digits of a six digit Singapore postal code.
 ====
 * You can view the orders at a specified Singapore *postal sector*.
 * The general location for the order will be identified if a valid postal sector is given.
