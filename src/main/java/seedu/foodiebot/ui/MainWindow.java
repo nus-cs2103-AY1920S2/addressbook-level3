@@ -237,6 +237,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleListCanteens();
                 break;
             case EnterCanteenCommand.COMMAND_WORD:
+                ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
+                //ParserContext.setCurrentCanteen(EnterCanteenCommand.getCanteenName());
                 handleListStalls();
                 break;
             case ExitCommand.COMMAND_WORD:

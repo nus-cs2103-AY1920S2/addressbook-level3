@@ -21,7 +21,6 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Stall> PREDICATE_SHOW_ALL_STALLS = unused -> true;
 
-
     /** Replaces user prefs data with the data in {@code userPrefs}. */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
@@ -85,6 +84,7 @@ public interface Model {
 
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
 
+    ObservableList<Stall> getFilteredStallList(Predicate<Stall> predicate);
     /**
      * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
      *
