@@ -11,6 +11,7 @@ import NASA.logic.commands.exceptions.CommandException;
 import NASA.model.Model;
 import NASA.model.module.Module;
 import NASA.commons.core.index.Index;
+import NASA.model.module.ModuleCode;
 
 public class EditActivityCommand extends Command {
 
@@ -37,10 +38,12 @@ public class EditActivityCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This activity already exists in the module activity list.";
 
     private final Index index;
+    private final ModuleCode moduleCode;
 
-    public EditActivityCommand(Index index) {
+    public EditActivityCommand(Index index, ModuleCode moduleCode) {
         requireNonNull(index);
         this.index = index;
+        this.moduleCode = moduleCode;
     }
 
     @Override
