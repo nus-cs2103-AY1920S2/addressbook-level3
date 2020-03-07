@@ -12,11 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-<<<<<<< HEAD
-:repoURL: https://github.com/tharshita/main
-=======
 :repoURL: https://github.com/AY1920S2-CS2103T-T10-1/main
->>>>>>> upstream/master
 
 end
 By: `Team HYBB`      Since: `Mar 2020`      Licence: `MIT`
@@ -303,15 +299,26 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |picky eater |filter food preferences |the food I cook matches my taste
+|`* * *` |picky eater |filter food preferences |cook food that matches my taste
 
 |`* * *` |beginner at cooking |easily search for recipes with the ingredients I already have |use up all the food in my fridge
 
-|`* * *` |user |save my favourite recipes |quickly navigate to them without having to search them up again
+|`* * *` |frequent user |save my favourite recipes |quickly navigate to them without having to search them up again
 
 |`* * *` |goal-oriented student |track my progress |see how far I came and how much further I have to go to reach my goal
 
+|`* * *` |user with allergies |exclude allegic ingredients | obtain recipes that are catered to me.
+
+|`* * *` |demotivated user |choose a goal for myself | cook more meals and be motivated by my progress.
+
+|`* * *` |busy student |preselect meals for the week | save time deciding on what to eat each day.
+
+|`**` |clueless user |ask for suggested recipes | chose a random recipe to start cooking.
+
+|`*` |student on budget |choose recipes that require lower cost| save money
+
 |`*` |user with many recipes in the recipe book |filter recipes by ingredients |locate a recipe easily
+
 |=======================================================================
 
 _{More to be added}_
@@ -319,7 +326,42 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `HealthyBaby` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Add recipe
+
+*MSS*
+
+1.  User requests to add recipe
+2.  HealthyBaby creates a new recipe with the specified name.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The name/time/ingredients fields are empty.
++
+[none]
+** 2a1. HealthyBaby shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 2b. The given name already exists.
++
+[none]
+** 2b1. HealthyBaby shows an error message.
++
+Use case resumes at step 1.
+
+* 2c. The user tries to add goals that do not exist in the goals list.
++
+[none]
+** 3c1. HealthyBaby shows an error message.
++
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Delete recipe
@@ -327,9 +369,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list recipes
-2.  AddressBook shows a list of recipes
+2.  HealthyBaby shows a list of recipes
 3.  User requests to delete a specific recipe in the list
-4.  AddressBook deletes the recipe
+4.  HealthyBaby deletes the recipe
 +
 Use case ends.
 
@@ -347,6 +389,40 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Add goal
+
+*MSS*
+
+1.  User requests to see list of goals
+2.  HealthyBaby shows a list of goals
+3.  User requests to add a specific goal in the list
+4.  HealthyBaby starts tracking the goal.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[none]
+* 3a. The given goal is invalid.
++
+[none]
+** 3a1. HealthyBaby shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given goal is already being tracked.
++
+[none]
+** 3a1b. HealthyBaby shows an error message.
++
+Use case resumes at step 2.
+
 _{More to be added}_
 
 [appendix]
@@ -355,6 +431,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 recipes without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The software should be portable (i.e. works on and can be moved to different operating systems)
 
 _{More to be added}_
 
