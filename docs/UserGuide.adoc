@@ -43,7 +43,7 @@ e.g. Entering *`help`* will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-== Features
+== Inherited Features
 
 ====
 *Command Format*
@@ -129,58 +129,56 @@ Format: `exit`
 HYBB data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-== Advanced Features
+== Filter Feature
 
-=== Filter
+== Plan Feature
 
-=== Planning
-
-==== Set a recipe to be cooked on a certain day: `set`
+=== Set a recipe to be cooked on a certain day: `set`
 
 Set a recipe that you would like to cook on a certain day. +
 Format: `set RECIPE_INDEX d/YYYY-MM-DD`
 
-==== See planned recipes: `planned`
+=== See planned recipes: `planned`
 
 Check the recipes you have planned out during a period of time or within the next few days. +
 Format: planned d/YYYY-MM-DD to d/YYYY-MM-DD
 Format: planned NUM_OF_DAYS
 
-==== Get ingredient list: `get`
+=== Get ingredient list: `get`
 
 Gives you the list of ingredients needed for the recipes that you have planned during a period of time or within the next few days. +
 Format: get d/YYYY-MM-DD to d/YYYY-MM-DD
 Format: get NUM_OF_DAYS
 
-=== Goal
-==== Add a custom goal to track: `addGoal`
+== Goal Feature
+=== Add a custom goal to track: `addGoal`
 
 Adds a goal chosen by user from the given goals to start tracking progress. +
 Format: `addGoal g/GOAL`
 
-==== Remove goal: `removeGoal`
+=== Remove goal: `removeGoal`
 
 Removes a goal that the user had selected. This goal will no longer be tracked. +
 Format: `removeGoal g/GOAL`
 
-==== List goals being tracked: `listGoals`
+=== List goals being tracked: `listGoals`
 
 List all current goals being tracked by the user. +
 Format: `listGoals`
 
-==== Track cooked meals: `cooked`
+=== Track cooked meals: `cooked`
 
 Tracks all cooked meals and added to the progress of their respective goals. +
 Format: `cooked n/NAME g/GOAL`
 
-==== Show graph of goals: `chart`
+=== Show graph of goals: `chart`
 
 Shows weekly progress of respective goal through graph. +
 Format: `chart g/GOAL`
 
-=== Motivation
+== Motivation Feature
 
-==== Suggest a recipe based on current goal: `suggest`
+=== Suggest a recipe based on current goal: `suggest`
 
 Gives you a random recipe which falls under the goal you have chosen. +
 Format: suggest
