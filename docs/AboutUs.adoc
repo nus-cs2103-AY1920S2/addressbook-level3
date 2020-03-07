@@ -14,17 +14,17 @@ Fitness Helper was developed by the following team members:
 image::lm5lm5.png[width="150", align="left"]
 {empty}[https://github.com/lm5lm5[github]][<<lm5lm5#, portfolio>>]
 
-Role: Developer + 
-Responsibilities: Documentation, Integration + 
+Role: Developer +
+Responsibilities: Documentation, Integration +
 In charge of [Storage][Sorting][Help Page]
 
-''' 
+'''
 
 === Wang Yuchen
 image::wang-yuchen-alice.png[width="150", align="left"]
 {empty}[http://github.com/WANG-Yuchen-Alice[github]][<<wang-yuchen-alice#, portfolio>>]
 
-Role: Team Lead, Developer + 
+Role: Team Lead, Developer +
 Responsibilities: Testing, Integration +
 In charge of [Today Page][Weekly Report]
 
@@ -44,7 +44,7 @@ In charge of [Profile Page][Weight Graph]
 image::zhangyiping126.png[width="150", align="left"]
 {empty}[http://github.com/zhangyiping126[github]] [<<zhangyiping126#, portfolio>>]
 
-Role: Developer + 
+Role: Developer +
 Responsibilities: Deliverables and deadlines, Scheduling and tracking +
 In charge of [Calendar]
 
