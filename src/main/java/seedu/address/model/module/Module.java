@@ -3,7 +3,7 @@ package seedu.address.model.module;
 /**
  * Abstract class to specify fields with getter and setters for modules.
  */
-public abstract class Module {
+public class Module {
 
     private ModuleCode moduleCode;
 
