@@ -26,6 +26,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
+
     public Person(Name name, Phone phone, Set<Tag> tags) {
         requireAllNonNull(name, phone, tags);
         this.name = name;
@@ -87,7 +88,9 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
+
         return Objects.hash(name, phone, tags);
+
     }
 
     @Override

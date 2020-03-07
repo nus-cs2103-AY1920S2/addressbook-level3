@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -63,7 +64,12 @@ public class ParserUtil {
         return new Phone(trimmedPhone);
     }
 
+
+
+
     /**
+=======
+>>>>>>> 8582d0b93c8553d18a49b0140d59b6dded882a6f
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
