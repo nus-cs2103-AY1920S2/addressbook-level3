@@ -1,7 +1,7 @@
 package NASA.logic.commands;
 
 import NASA.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import NASA.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

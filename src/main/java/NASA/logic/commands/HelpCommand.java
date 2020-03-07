@@ -1,6 +1,6 @@
 package NASA.logic.commands;
 
-import seedu.address.model.Model;
+import NASA.model.Model;
 
 /**
  * Format full help instructions for every command for display.

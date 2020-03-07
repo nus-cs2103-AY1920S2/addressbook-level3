@@ -1,6 +1,6 @@
 package NASA.logic.commands;
 
-import seedu.address.model.Model;
+import NASA.model.Model;
 
 /**
  * Terminates the program.
