@@ -364,14 +364,30 @@ image::usecase.png[Use Case Diagram,500,200]
 === **_Use Case: UC1 - Add  a new coupon entry_**
 
 Actor: User +
-This use case describes how a user uses STASH to add and save a new coupon entry. +
+This use case describes how a user uses STASH to add
+and save a new coupon entry. +
 
 MSS:
-
 [start=1]
 . User keys in command to add a coupon entry.
-. STASH evaluates input details and adds the coupon entry.
-. STASH inform user that entry is added
+. STASH inform user that entry is added +
+
+Use case ends +
+Extensions:
+
+1a) STASH detects an error in the entered data.
+
+...  STASH requests the user to enter the details with the correct format.
+...  User enters new data. +
+
+Steps 1a.i- 1a.ii are repeated until the data entered are correct. Use case resumes from step 2.
+
+1b) STASH detects that the specified coupon does not exist.
+
+... STASH requests the user to enter an index that corresponds with an existing coupon.
+...  User enters new index +
+
+Use case resumes from step 2.
 
 === **_Use Case: UC2 - Listing all the coupon entries_**
 
@@ -398,21 +414,151 @@ Continue adding
 
 Continue adding
 
-=== **_Use Case: UC5_**
+=== **Use Case: UC5 - Edit coupon's details**
+**Actor**: `user`
 
-Continue adding
+This use case describes how a user uses STASH to edit details of an existing coupon.
 
-=== **_Use Case: UC6_**
+**MSS**
 
-Continue adding
+. User keys in command to edit an existing coupon.
+. A confirmation pop will be displayed to the user to confirm its decision.
+. Once confirmed, the coupon’s details are changed to follow the users input.
+. STASH informs the user that the coupon’s details have been changed.
++
+Use case ends.
 
-=== **_Use Case: UC7_**
+**Extensions**
 
-Continue adding
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
 
-=== **_Use Case: UC8_**
+[none]
+* 1b. STASH detects that the specified coupon does not exist.
+[none]
+** 1b1. STASH requests the user to enter an index that corresponds with an existing coupon.
+** 1b2. User enters new index.
+** Use case resumes from step 2.
 
-Continue adding
+[none]
+* 2a. User cancels the confirmation pop up
+[none]
+** 2a1. STASH verifies that user has cancelled during confirmation
+** Use case ends.
+
+=== **Use Case: UC6 - Set reminder**
+**Actor**: `user`
+
+This use case describes how a user uses STASH to set reminders for an existing coupon.
+
+**MSS**
+
+. User keys in command to set reminders for an existing coupon.
+. On the day of the input date, a pop up will appear and remind the user about the coupon and its details.
++
+Use case ends.
+
+
+**Extensions**
+
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+[none]
+* 1b. STASH detects that the specified coupon does not exist.
+[none]
+** 1b1. STASH requests the user to enter an index that corresponds with an existing coupon.
+** 1b2. User enters new index.
+** Use case resumes from step 2.
+
+=== **Use Case: UC7 - List coupon(s) expiring before date**
+**Actor**: `user`
+
+This use case describes how a user uses STASH to find the coupon(s) expiring before the input expiry date.
+
+**MSS**
+
+. User keys in command to find a coupon based on expiry date.
+. Matched coupons are displayed for the user.
++
+Use case ends.
+
+**Extensions**
+
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+[none]
+* 1b. STASH detects that the specified coupon does not exist.
+[none]
+** 1b1. STASH requests the user to enter an index that corresponds with an existing coupon.
+** 1b2. User enters new index.
+** Use case resumes from step 2.
+
+=== **Use Case: UC8 - Delete coupon**
+**Actor**: `user`
+
+This use case describes how a user uses STASH to delete an existing coupon.
+
+**MSS**
+
+. User lists all the coupons (UC2) or Find coupon(s) by keywords(s) (UC4) or lists coupons before the expiry date (UC7).
+. User keys in command to delete an existing coupon.
+. A confirmation pop will be displayed to the user to confirm its decision.
+. STASH informs the user that the coupon has been removed.
++
+Use case ends.
+
+=== **Use Case: UC9 - Undo previous command**
+**Actor**: `user`
+
+This use case describes how a user undo the previous command in STASH.
+
+**MSS**
+
+. User keys in command to undo a previous command.
+. A confirmation pop will be displayed to the user to confirm its decision.
+. Once confirmed, STASH will undo the previous command and inform the user that undo operation is successful.
++
+Use case ends.
+
+**Extensions**
+
+[none]
+* 1a. STASH detects an error in the entered data.
+[none]
+** 1a1. STASH requests the user to enter the details with the correct format.
+** 1a2. User enters new data.
+** Steps 1a1 - 1a2 are repeated until the data entered are correct.
+** Use case resumes from step 2.
+
+[none]
+* 1b. STASH detects that the specified coupon does not exist.
+[none]
+** 1b1. STASH requests the user to enter an index that corresponds with an existing coupon.
+** 1b2. User enters new index.
+** Use case resumes from step 2.
+
+[none]
+* 2a. User cancels the confirmation pop up
+[none]
+** 2a1. STASH verifies that user has cancelled during confirmation
+** Use case ends.
 
 [appendix]
 == Non-Functional Requirements
@@ -428,7 +574,7 @@ Continue adding
 . Coupon Stash should be portable.
 . Data files should remain unchanged when moving from OS to OS.
 . Coupon Stash works perfectly without access to the internet.
-. Coupon Stash supports various types of coupons (e.g. promotional codes, QR code, or barcode) (coming in in v2.0)
+. Coupon Stash supports various types of coupons. (e.g. promotional codes, QR code, or barcode) (coming in in v2.0)
 
 [appendix]
 == Glossary
