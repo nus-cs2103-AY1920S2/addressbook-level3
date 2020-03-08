@@ -13,7 +13,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Annie Paul";
 
     private Name name;
     private Set<Tag> tags;
