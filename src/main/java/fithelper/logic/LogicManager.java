@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import fithelper.commons.core.GuiSettings;
 import fithelper.commons.core.LogsCenter;
 import fithelper.logic.commands.Command;
@@ -16,6 +15,8 @@ import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
 import fithelper.storage.Storage;
+
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

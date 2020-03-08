@@ -1,7 +1,7 @@
 package fithelper.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static fithelper.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static fithelper.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 
 import fithelper.model.Model;
 
@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

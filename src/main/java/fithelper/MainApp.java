@@ -5,10 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import fithelper.model.*;
+import fithelper.model.Model;
+import fithelper.model.ReadOnlyFitHelper;
+import fithelper.model.ReadOnlyUserPrefs;
+import fithelper.model.UserPrefs;
+import fithelper.model.FitHelper;
+import fithelper.model.ModelManager;
 import javafx.application.Application;
 
-import javafx.stage.Stage;
 import fithelper.commons.core.Config;
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Version;
@@ -27,6 +31,7 @@ import fithelper.storage.UserPrefsStorage;
 import fithelper.ui.Ui;
 import fithelper.ui.UiManager;
 
+import javafx.stage.Stage;
 /**
  * Runs the application.
  */

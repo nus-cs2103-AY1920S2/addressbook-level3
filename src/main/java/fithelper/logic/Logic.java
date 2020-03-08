@@ -2,13 +2,13 @@ package fithelper.logic;
 
 import java.nio.file.Path;
 
-import javafx.collections.ObservableList;
 import fithelper.commons.core.GuiSettings;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

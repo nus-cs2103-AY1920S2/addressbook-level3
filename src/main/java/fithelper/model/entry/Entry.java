@@ -88,7 +88,9 @@ public class Entry {
         return remark;
     }
 
-    public Status getStatus() {return status;}
+    public Status getStatus() {
+        return status;
+    }
 
     public boolean isFood() {
         return this.type.getValue().equals("food");

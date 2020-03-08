@@ -1,12 +1,12 @@
 package fithelper.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
 import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
 import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static fithelper.logic.parser.CliSyntax.PREFIX_REMARK;
+import static java.util.Objects.requireNonNull;
 
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;

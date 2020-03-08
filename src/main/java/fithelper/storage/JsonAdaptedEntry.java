@@ -2,15 +2,16 @@ package fithelper.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.entry.Entry;
-import fithelper.model.entry.Type;
 import fithelper.model.entry.Name;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Status;
 import fithelper.model.entry.Remark;
+import fithelper.model.entry.Type;
 
 
 /**

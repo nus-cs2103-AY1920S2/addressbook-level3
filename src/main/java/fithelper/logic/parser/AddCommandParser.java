@@ -2,11 +2,11 @@ package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
-import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
 import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static fithelper.logic.parser.CliSyntax.PREFIX_REMARK;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
@@ -14,12 +14,12 @@ import fithelper.logic.commands.AddCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 
 import fithelper.model.entry.Entry;
-import fithelper.model.entry.Type;
 import fithelper.model.entry.Name;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Remark;
+import fithelper.model.entry.Type;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -33,7 +33,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION, PREFIX_CALORIE, PREFIX_REMARK);
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
+                        PREFIX_CALORIE, PREFIX_REMARK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION, PREFIX_CALORIE)
                 || !argMultimap.getPreamble().isEmpty()) {

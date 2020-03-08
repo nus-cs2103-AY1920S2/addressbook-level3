@@ -1,7 +1,5 @@
 package fithelper.logic.parser;
 
-import static java.util.Objects.requireNonNull;
-
 import fithelper.commons.core.index.Index;
 import fithelper.commons.util.StringUtil;
 import fithelper.logic.parser.exceptions.ParseException;
@@ -12,6 +10,8 @@ import fithelper.model.entry.Location;
 import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Status;
 import fithelper.model.entry.Remark;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
