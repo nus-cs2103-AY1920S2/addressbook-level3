@@ -4,26 +4,25 @@ import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import fithelper.model.person.Remark;
-
 /**
- * Represents a Person in the address book.
+ * Represents a Entry in the FitHelper.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Entry {
 
-    private final String name;
-    private final String time;
-
-    private final String location;
-    private final String calorie;
+    private final Type type;
+    private final Name name;
+    private final Time time;
+    private final Location location;
+    private final Calorie calorie;
     private Remark remark = new Remark("");
 
     /**
      * Every field must be present and not null.
      */
-    public Entry(String name, String time, String location, String calorie) {
-        requireAllNonNull(name, location, time, calorie);
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
         this.name = name;
         this.location = location;
         this.time = time;
@@ -33,8 +32,9 @@ public class Entry {
     /**
      * Every field must be present and not null.
      */
-    public Entry(String name, String time, String location, String calorie, Remark remark) {
-        requireAllNonNull(name, location, time, calorie);
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Remark remark) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
         this.name = name;
         this.location = location;
         this.time = time;
@@ -42,19 +42,23 @@ public class Entry {
         this.remark = remark;
     }
 
-    public String getName() {
+    public Type getType() {
+        return type;
+    }
+
+    public Name getName() {
         return name;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public String getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public String getCalorie() {
+    public Calorie getCalorie() {
         return calorie;
     }
 
