@@ -42,7 +42,7 @@ public class UniquePersonListTest {
         uniquePersonList.add(ALICE);
         Person editedAlice =
                 new PersonBuilder(ALICE)
-                        .withAddress(VALID_ADDRESS_BOB)
+                        .withDescription(VALID_ADDRESS_BOB)
                         .withTags(VALID_TAG_HUSBAND)
                         .build();
         assertTrue(uniquePersonList.contains(editedAlice));
@@ -88,7 +88,7 @@ public class UniquePersonListTest {
         uniquePersonList.add(ALICE);
         Person editedAlice =
                 new PersonBuilder(ALICE)
-                        .withAddress(VALID_ADDRESS_BOB)
+                        .withDescription(VALID_ADDRESS_BOB)
                         .withTags(VALID_TAG_HUSBAND)
                         .build();
         uniquePersonList.setPerson(ALICE, editedAlice);

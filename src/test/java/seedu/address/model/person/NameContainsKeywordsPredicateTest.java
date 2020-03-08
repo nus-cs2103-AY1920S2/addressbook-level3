@@ -80,7 +80,7 @@ public class NameContainsKeywordsPredicateTest {
                                 .withName("Alice")
                                 .withPriority("12345")
                                 .withEmail("alice@email.com")
-                                .withAddress("Main Street")
+                                .withDescription("Main Street")
                                 .build()));
     }
 }

@@ -27,7 +27,7 @@ public class PersonListCard extends UiPart<Region> {
     @FXML private Label name;
     @FXML private Label id;
     @FXML private Label priority;
-    @FXML private Label address;
+    @FXML private Label description;
     @FXML private Label email;
     @FXML private FlowPane tags;
 
@@ -37,7 +37,7 @@ public class PersonListCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         priority.setText(person.getPriority().value);
-        address.setText(person.getAddress().value);
+        description.setText(person.getDescription().value);
         email.setText(person.getEmail().value);
         person.getTags()
                 .stream()

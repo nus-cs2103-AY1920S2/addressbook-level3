@@ -20,16 +20,16 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Address address;
+    private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     /** Every field must be present and not null. */
-    public Person(Name name, Priority priority, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, priority, email, address, tags);
+    public Person(Name name, Priority priority, Email email, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, priority, email, description, tags);
         this.name = name;
         this.priority = priority;
         this.email = email;
-        this.address = address;
+        this.description = description;
         this.tags.addAll(tags);
     }
 
@@ -45,8 +45,8 @@ public class Person {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public Description getDescription() {
+        return description;
     }
 
     /**
@@ -90,14 +90,14 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPriority().equals(getPriority())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getDescription().equals(getDescription())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, priority, email, address, tags);
+        return Objects.hash(name, priority, email, description, tags);
     }
 
     @Override
@@ -108,8 +108,8 @@ public class Person {
                 .append(getPriority())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

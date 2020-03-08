@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Address;
+import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Priority;
@@ -87,7 +87,7 @@ public class EditCommandParserTest {
         assertParseFailure(
                 parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(
-                parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+                parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid priority followed by valid email
@@ -141,7 +141,7 @@ public class EditCommandParserTest {
                         .withName(VALID_NAME_AMY)
                         .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_AMY)
-                        .withAddress(VALID_ADDRESS_AMY)
+                        .withDescription(VALID_ADDRESS_AMY)
                         .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
                         .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -188,7 +188,7 @@ public class EditCommandParserTest {
 
         // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withDescription(VALID_ADDRESS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -221,7 +221,7 @@ public class EditCommandParserTest {
                 new EditPersonDescriptorBuilder()
                         .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_BOB)
-                        .withAddress(VALID_ADDRESS_BOB)
+                        .withDescription(VALID_ADDRESS_BOB)
                         .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                         .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -250,7 +250,7 @@ public class EditCommandParserTest {
                 new EditPersonDescriptorBuilder()
                         .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_BOB)
-                        .withAddress(VALID_ADDRESS_BOB)
+                        .withDescription(VALID_ADDRESS_BOB)
                         .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
