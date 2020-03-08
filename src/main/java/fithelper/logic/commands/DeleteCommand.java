@@ -1,6 +1,6 @@
 package fithelper.logic.commands;
 
-import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;

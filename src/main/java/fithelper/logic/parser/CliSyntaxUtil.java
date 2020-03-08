@@ -3,7 +3,7 @@ package fithelper.logic.parser;
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
-public class CliSyntax {
+public class CliSyntaxUtil {
 
     /* Prefix definitions */
     public static final Prefix PREFIX_TYPE = new Prefix("x/");

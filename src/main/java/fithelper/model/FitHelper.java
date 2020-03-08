@@ -15,20 +15,8 @@ import javafx.collections.ObservableList;
  */
 public class FitHelper implements ReadOnlyFitHelper {
 
-    private final UniqueEntryList foodEntries;
-    private final UniqueEntryList sportsEntries;
-
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        foodEntries = new UniqueEntryList();
-        sportsEntries = new UniqueEntryList();
-    }
+    private final UniqueEntryList foodEntries = new fithelper.model.entry.UniqueEntryList();
+    private final UniqueEntryList sportsEntries = new fithelper.model.entry.UniqueEntryList();
 
     public FitHelper() {}
 

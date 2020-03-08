@@ -28,7 +28,7 @@ public class Status {
      * Returns true if a given string is a valid status.
      */
     public static boolean isValidStatus(String test) {
-        return test.equals("Done") || test.equals("Undone");
+        return "Done".equals(test) || "Undone".equals(test);
     }
 
     @Override
