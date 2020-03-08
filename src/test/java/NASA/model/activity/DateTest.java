@@ -27,11 +27,13 @@ class DateTest {
         // invalid Dates
         assertFalse(Date.isValidDate("")); // empty string
         assertFalse(Date.isValidDate(" ")); // spaces only
-        assertFalse(Date.isValidDate("2020-02-30")); // invalid date
+        assertFalse(Date.isValidDate("30-02-2020")); // invalid date
+        assertFalse(Date.isValidDate("31-02-2020 12:00"));
+        assertFalse(Date.isValidDate("29-02-2020")); //regular date;
 
         // valid Dates
-        assertTrue(Date.isValidDate("2020-02-29")); //leap year
-        assertTrue(Date.isValidDate("2010-03-12")); //regular date
+        assertTrue(Date.isValidDate("29-02-2020 23:59")); //leap year
+
     }
 
     @Test

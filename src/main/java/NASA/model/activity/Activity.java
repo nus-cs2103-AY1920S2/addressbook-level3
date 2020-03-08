@@ -1,6 +1,6 @@
 package NASA.model.activity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Abstract class to specify fields with getter and setters for activities.
@@ -121,7 +121,7 @@ public abstract class Activity {
     }
 
     public void updateStatus() {
-        if (status == Status.ONGOING && LocalDate.now().isAfter(date.getDate())) {
+        if (status == Status.ONGOING && LocalDateTime.now().isAfter(date.getDate())) {
             status = Status.LATE;
         }
     }

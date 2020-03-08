@@ -3,9 +3,10 @@ package NASA.model.activity;
 import static java.util.Objects.requireNonNull;
 import static NASA.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Represents Date of an Activity.
@@ -13,9 +14,9 @@ import java.time.format.DateTimeParseException;
  */
 public class Date {
     public static final String MESSAGE_CONSTRAINTS =
-            "Dates should only be in the format YYYY-MM-DD, and it should not be blank";
+            "Dates should only be in the format DD-MM-YYYY HH:MM, and it should not be blank";
 
-    public final LocalDate date;
+    public final LocalDateTime date;
 
     /**
      * Constructs a {@code Date}.
@@ -25,7 +26,12 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        this.date = LocalDate.parse(date);
+        this.date = constructDateTime(date);
+    }
+
+    private static LocalDateTime constructDateTime(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return LocalDateTime.parse(date, formatter);
     }
 
     /**
@@ -35,14 +41,16 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
-            LocalDate.parse(test);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            formatter.setLenient(false);
+            formatter.parse(test);
             return true;
-        } catch (DateTimeParseException e) {
+        } catch (ParseException e) {
             return false;
         }
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
@@ -53,7 +61,7 @@ public class Date {
      */
     @Override
     public String toString() {
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
 
     @Override
