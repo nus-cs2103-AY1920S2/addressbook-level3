@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="MODdy" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -23,38 +24,64 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+        <VBox>
+          <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+            <Menu mnemonicParsing="false" text="File">
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+            </Menu>
+          </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+            <padding>
+              <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+          </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                     minHeight="70" prefHeight="70" maxHeight="70">
+            <padding>
+              <Insets top="5" right="10" bottom="5" left="10" />
+            </padding>
+          </StackPane>
 
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+    <!--Arrange person panel and deadline panel side-by-side-->
+          <HBox>
+    <!--Profile-->
+            <VBox fx:id="personList" styleClass="pane-with-border" alignment="CENTER_LEFT"
+                  minWidth="500" prefWidth="500" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+    <!--Deadline display-->
+            <VBox fx:id="deadlineDisplayPlaceholder" styleClass="pane-with-border" alignment="CENTER_RIGHT"
+                       minWidth="280" prefWidth="280" VBox.vgrow="ALWAYS">
+              <padding>
+                <Insets top="10" right="10" bottom="5" left="10" />
+              </padding>
+            </VBox>
+
+          </HBox>
+
+          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+
         </VBox>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
+
+
+
+<!--      <HBox alignment="CENTER_RIGHT">-->
+<!--        <StackPane VBox.vgrow="NEVER" fx:id="deadlineDisplayPlaceholder" styleClass="pane-with-border"-->
+<!--                   minHeight="100" prefHeight="100" maxHeight="100">-->
+<!--          <padding>-->
+<!--            <Insets top="5" right="10" bottom="5" left="10" />-->
+<!--          </padding>-->
+<!--        </StackPane>-->
+<!--      </HBox>-->
     </Scene>
   </scene>
 </fx:root>
