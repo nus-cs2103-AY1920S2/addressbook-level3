@@ -1,12 +1,12 @@
 {
   "persons": [
     {
-      "name": "Valid Person",
+      "name": "Valid Task",
       "priority": "9482424",
       "address": "4th street"
     },
     {
-      "name": "Person With Invalid Priority Field",
+      "name": "Task With Invalid Priority Field",
       "priority": "948asdf2424",
       "address": "4th street"
     }

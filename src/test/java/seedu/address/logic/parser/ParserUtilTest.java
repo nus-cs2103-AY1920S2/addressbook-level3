@@ -12,8 +12,8 @@ import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Priority;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Priority;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {

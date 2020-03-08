@@ -3,43 +3,43 @@ package seedu.address.testutil;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Priority;
+import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.Priority;
 import seedu.address.model.tag.Tag;
 
 /** A utility class to help with building EditPersonDescriptor objects. */
-public class EditPersonDescriptorBuilder {
+public class EditTaskDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditTaskDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+    public EditTaskDescriptorBuilder() {
+        descriptor = new EditTaskDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditTaskDescriptorBuilder(EditTaskDescriptor descriptor) {
+        this.descriptor = new EditTaskDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing
      * {@code person}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
-        descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getName());
-        descriptor.setPriority(person.getPriority());
-        descriptor.setDescription(person.getDescription());
-        descriptor.setTags(person.getTags());
+    public EditTaskDescriptorBuilder(Task task) {
+        descriptor = new EditTaskDescriptor();
+        descriptor.setName(task.getName());
+        descriptor.setPriority(task.getPriority());
+        descriptor.setDescription(task.getDescription());
+        descriptor.setTags(task.getTags());
     }
 
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are
      * building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
+    public EditTaskDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
@@ -48,7 +48,7 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Priority} of the {@code EditPersonDescriptor} that we are
      * building.
      */
-    public EditPersonDescriptorBuilder withPriority(String priority) {
+    public EditTaskDescriptorBuilder withPriority(String priority) {
         descriptor.setPriority(new Priority(priority));
         return this;
     }
@@ -57,7 +57,7 @@ public class EditPersonDescriptorBuilder {
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are
      * building.
      */
-    public EditPersonDescriptorBuilder withDescription(String description) {
+    public EditTaskDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));
         return this;
     }
@@ -66,13 +66,13 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code
      * EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditTaskDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditTaskDescriptor build() {
         return descriptor;
     }
 }
