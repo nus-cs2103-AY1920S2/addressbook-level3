@@ -18,16 +18,16 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD
-                    + ": Adds a person to the address book. "
+                    + ": Adds a task to the task list. "
                     + "Parameters: "
                     + PREFIX_NAME
                     + "NAME "
                     + PREFIX_PRIORITY
-                    + "PHONE "
+                    + "PRIORITY "
                     + PREFIX_EMAIL
                     + "EMAIL "
                     + PREFIX_DESCRIPTION
-                    + "ADDRESS "
+                    + "DESCRIPTION "
                     + "["
                     + PREFIX_TAG
                     + "TAG]...\n"
@@ -35,19 +35,17 @@ public class AddCommand extends Command {
                     + COMMAND_WORD
                     + " "
                     + PREFIX_NAME
-                    + "John Doe "
+                    + "Math Homework"
                     + PREFIX_PRIORITY
-                    + "98765432 "
+                    + "1 "
                     + PREFIX_EMAIL
                     + "johnd@example.com "
                     + PREFIX_DESCRIPTION
-                    + "311, Clementi Ave 2, #02-25 "
+                    + "Chapter 5, Pages 1 - 3 "
                     + PREFIX_TAG
-                    + "friends "
-                    + PREFIX_TAG
-                    + "owesMoney";
+                    + "for school ";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON =
             "This person already exists in the address book";
 

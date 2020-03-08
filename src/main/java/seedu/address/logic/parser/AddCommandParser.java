@@ -30,22 +30,46 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PRIORITY, PREFIX_EMAIL, PREFIX_DESCRIPTION, PREFIX_TAG);
+                        args,
+                        PREFIX_NAME,
+                        PREFIX_PRIORITY,
+                        PREFIX_EMAIL,
+                        PREFIX_DESCRIPTION,
+                        PREFIX_TAG);
 
-        if (!arePrefixesPresent(
-                        argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_PRIORITY, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+        // if (!arePrefixesPresent(
+        // argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION, PREFIX_PRIORITY, PREFIX_EMAIL)
+        // || !argMultimap.getPreamble().isEmpty()) {
+        // throw new ParseException(
+        // String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        // }
 
+        System.out.println("Attempting parse.");
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Description address = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+
+        Priority priority =
+                (argMultimap.getValue(PREFIX_PRIORITY).isEmpty())
+                        ? ParserUtil.parsePriority("1")
+                        : ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+
+        Email email =
+                (argMultimap.getValue(PREFIX_EMAIL).isEmpty())
+                        ? ParserUtil.parseEmail("berniceyu@example.com")
+                        : ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+
+        Description description =
+                (argMultimap.getValue(PREFIX_DESCRIPTION).isEmpty())
+                        ? ParserUtil.parseDescription("")
+                        : ParserUtil.parseDescription(
+                                argMultimap.getValue(PREFIX_DESCRIPTION).get());
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, priority, email, address, tagList);
+        Person person = new Person(name, priority, email, description, tagList);
 
         return new AddCommand(person);
     }

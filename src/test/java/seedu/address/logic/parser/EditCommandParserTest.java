@@ -87,7 +87,9 @@ public class EditCommandParserTest {
         assertParseFailure(
                 parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(
-                parser, "1" + INVALID_ADDRESS_DESC, Description.MESSAGE_CONSTRAINTS); // invalid address
+                parser,
+                "1" + INVALID_ADDRESS_DESC,
+                Description.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid priority followed by valid email
