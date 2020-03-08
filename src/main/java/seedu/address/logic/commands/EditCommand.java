@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -40,7 +40,7 @@ public class EditCommand extends Command {
                     + PREFIX_NAME
                     + "NAME] "
                     + "["
-                    + PREFIX_PHONE
+                    + PREFIX_PRIORITY
                     + "PHONE] "
                     + "["
                     + PREFIX_EMAIL
@@ -54,7 +54,7 @@ public class EditCommand extends Command {
                     + "Example: "
                     + COMMAND_WORD
                     + " 1 "
-                    + PREFIX_PHONE
+                    + PREFIX_PRIORITY
                     + "91234567 "
                     + PREFIX_EMAIL
                     + "johndoe@example.com";
