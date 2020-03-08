@@ -6,7 +6,6 @@ import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
 import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static fithelper.logic.parser.CliSyntax.PREFIX_STATUS;
 import static fithelper.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.util.stream.Stream;
@@ -14,12 +13,12 @@ import java.util.stream.Stream;
 import fithelper.logic.commands.AddCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 
-import fithelper.model.entry.Name;
+import fithelper.model.entry.Entry;
 import fithelper.model.entry.Type;
+import fithelper.model.entry.Name;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Calorie;
-import fithelper.model.entry.Status;
 import fithelper.model.entry.Remark;
 
 /**
@@ -36,20 +35,21 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION, PREFIX_CALORIE, PREFIX_REMARK);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION, PREFIX_CALORIE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        Type type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
+        Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
+        Calorie calorie = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).get());
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
 
-        Person person = new Person(name, email, address, remark, tagList);
+        Entry entry = new Entry(type, name, time, location, calorie, remark);
 
-        return new AddCommand(person);
+        return new AddCommand(entry);
     }
 
     /**
