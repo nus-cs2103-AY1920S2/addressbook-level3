@@ -66,9 +66,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedTask}. {@code
-     * target} must exist in the address book. The person identity of {@code editedTask} must not
-     * be the same as another existing person in the address book.
+     * Replaces the given person {@code target} in the list with {@code editedTask}. {@code target}
+     * must exist in the address book. The person identity of {@code editedTask} must not be the
+     * same as another existing person in the address book.
      */
     public void setTask(Task target, Task editedTask) {
         requireNonNull(editedTask);

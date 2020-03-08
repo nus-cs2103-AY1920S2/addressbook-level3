@@ -17,33 +17,52 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.task.Description;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.Priority;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Done;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.Task;
 
 /** Edits the details of an existing person in the address book. */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) " + "[" + PREFIX_NAME + "NAME] " + "[" + PREFIX_PRIORITY
-            + "PHONE] " + "[" + PREFIX_DESCRIPTION + "ADDRESS] " + "[" + PREFIX_TAG + "TAG]...\n" + "Example: "
-            + COMMAND_WORD + " 1 " + PREFIX_PRIORITY + "91234567 ";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD
+                    + ": Edits the details of the person identified "
+                    + "by the index number used in the displayed person list. "
+                    + "Existing values will be overwritten by the input values.\n"
+                    + "Parameters: INDEX (must be a positive integer) "
+                    + "["
+                    + PREFIX_NAME
+                    + "NAME] "
+                    + "["
+                    + PREFIX_PRIORITY
+                    + "PHONE] "
+                    + "["
+                    + PREFIX_DESCRIPTION
+                    + "ADDRESS] "
+                    + "["
+                    + PREFIX_TAG
+                    + "TAG]...\n"
+                    + "Example: "
+                    + COMMAND_WORD
+                    + " 1 "
+                    + PREFIX_PRIORITY
+                    + "91234567 ";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "This person already exists in the address book.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
 
     /**
-     * @param index              of the person in the filtered person list to edit
+     * @param index of the person in the filtered person list to edit
      * @param editTaskDescriptor details to edit the person with
      */
     public EditCommand(Index index, EditTaskDescriptor editTaskDescriptor) {
@@ -76,18 +95,21 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Task} with the details of {@code personToEdit}
-     * edited with {@code editTaskDescriptor}.
+     * Creates and returns a {@code Task} with the details of {@code personToEdit} edited with
+     * {@code editTaskDescriptor}.
      */
     private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
         assert taskToEdit != null;
 
         Name updatedName = editTaskDescriptor.getName().orElse(taskToEdit.getName());
-        Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
-        Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
+        Priority updatedPriority =
+                editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
+        Description updatedDescription =
+                editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
+        Done updatedDone = editTaskDescriptor.getDone().orElse(taskToEdit.getDone());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
-        return new Task(updatedName, updatedPriority, updatedDescription, updatedTags);
+        return new Task(updatedName, updatedPriority, updatedDescription, updatedDone, updatedTags);
     }
 
     @Override
@@ -108,23 +130,24 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will
-     * replace the corresponding field value of the person.
+     * Stores the details to edit the person with. Each non-empty field value will replace the
+     * corresponding field value of the person.
      */
     public static class EditTaskDescriptor {
         private Name name;
         private Priority priority;
         private Description description;
+        private Done done;
         private Set<Tag> tags;
 
-        public EditTaskDescriptor() {
-        }
+        public EditTaskDescriptor() {}
 
         /** Copy constructor. A defensive copy of {@code tags} is used internally. */
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setName(toCopy.name);
             setPriority(toCopy.priority);
             setDescription(toCopy.description);
+            setDone(toCopy.done);
             setTags(toCopy.tags);
         }
 
@@ -139,6 +162,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setDone(Done done) {
+            this.done = done;
+        }
+
+        public Optional<Done> getDone() {
+            return Optional.ofNullable(done);
         }
 
         public void setPriority(Priority priority) {
@@ -158,20 +189,21 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}. A defensive copy of
-         * {@code tags} is used internally.
+         * Sets {@code tags} to this object's {@code tags}. A defensive copy of {@code tags} is used
+         * internally.
          */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws
-         * {@code UnsupportedOperationException} if modification is attempted. Returns
-         * {@code Optional#empty()} if {@code tags} is null.
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException} if
+         * modification is attempted. Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+            return (tags != null)
+                    ? Optional.of(Collections.unmodifiableSet(tags))
+                    : Optional.empty();
         }
 
         @Override
@@ -189,8 +221,11 @@ public class EditCommand extends Command {
             // state check
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
-            return getName().equals(e.getName()) && getPriority().equals(e.getPriority())
-                    && getDescription().equals(e.getDescription()) && getTags().equals(e.getTags());
+            return getName().equals(e.getName())
+                    && getPriority().equals(e.getPriority())
+                    && getDescription().equals(e.getDescription())
+                    && getDone().equals(e.getDone())
+                    && getTags().equals(e.getTags());
         }
     }
 }

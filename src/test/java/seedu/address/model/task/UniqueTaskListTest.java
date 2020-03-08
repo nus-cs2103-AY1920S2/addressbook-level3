@@ -134,8 +134,7 @@ public class UniqueTaskListTest {
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
         assertThrows(
-                NullPointerException.class,
-                () -> uniqueTaskList.setTasks((UniqueTaskList) null));
+                NullPointerException.class, () -> uniqueTaskList.setTasks((UniqueTaskList) null));
     }
 
     @Test
@@ -149,8 +148,7 @@ public class UniqueTaskListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(
-                NullPointerException.class, () -> uniqueTaskList.setTasks((List<Task>) null));
+        assertThrows(NullPointerException.class, () -> uniqueTaskList.setTasks((List<Task>) null));
     }
 
     @Test
@@ -167,8 +165,7 @@ public class UniqueTaskListTest {
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Task> listWithDuplicateTask = Arrays.asList(ALICE, ALICE);
         assertThrows(
-                DuplicateTaskException.class,
-                () -> uniqueTaskList.setTasks(listWithDuplicateTask));
+                DuplicateTaskException.class, () -> uniqueTaskList.setTasks(listWithDuplicateTask));
     }
 
     @Test

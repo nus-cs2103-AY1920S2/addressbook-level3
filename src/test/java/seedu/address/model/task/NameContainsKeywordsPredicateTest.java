@@ -11,67 +11,73 @@ import seedu.address.testutil.TaskBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 
-        @Test
-        public void equals() {
-                List<String> firstPredicateKeywordList = Collections.singletonList("first");
-                List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
+    @Test
+    public void equals() {
+        List<String> firstPredicateKeywordList = Collections.singletonList("first");
+        List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-                NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(
-                                firstPredicateKeywordList);
-                NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(
-                                secondPredicateKeywordList);
+        NameContainsKeywordsPredicate firstPredicate =
+                new NameContainsKeywordsPredicate(firstPredicateKeywordList);
+        NameContainsKeywordsPredicate secondPredicate =
+                new NameContainsKeywordsPredicate(secondPredicateKeywordList);
 
-                // same object -> returns true
-                assertTrue(firstPredicate.equals(firstPredicate));
+        // same object -> returns true
+        assertTrue(firstPredicate.equals(firstPredicate));
 
-                // same values -> returns true
-                NameContainsKeywordsPredicate firstPredicateCopy = new NameContainsKeywordsPredicate(
-                                firstPredicateKeywordList);
-                assertTrue(firstPredicate.equals(firstPredicateCopy));
+        // same values -> returns true
+        NameContainsKeywordsPredicate firstPredicateCopy =
+                new NameContainsKeywordsPredicate(firstPredicateKeywordList);
+        assertTrue(firstPredicate.equals(firstPredicateCopy));
 
-                // different types -> returns false
-                assertFalse(firstPredicate.equals(1));
+        // different types -> returns false
+        assertFalse(firstPredicate.equals(1));
 
-                // null -> returns false
-                assertFalse(firstPredicate.equals(null));
+        // null -> returns false
+        assertFalse(firstPredicate.equals(null));
 
-                // different person -> returns false
-                assertFalse(firstPredicate.equals(secondPredicate));
-        }
+        // different person -> returns false
+        assertFalse(firstPredicate.equals(secondPredicate));
+    }
 
-        @Test
-        public void test_nameContainsKeywords_returnsTrue() {
-                // One keyword
-                NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(
-                                Collections.singletonList("Alice"));
-                assertTrue(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
+    @Test
+    public void test_nameContainsKeywords_returnsTrue() {
+        // One keyword
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        assertTrue(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
 
-                // Multiple keywords
-                predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-                assertTrue(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
+        // Multiple keywords
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
+        assertTrue(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
 
-                // Only one matching keyword
-                predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-                assertTrue(predicate.test(new TaskBuilder().withName("Alice Carol").build()));
+        // Only one matching keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        assertTrue(predicate.test(new TaskBuilder().withName("Alice Carol").build()));
 
-                // Mixed-case keywords
-                predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-                assertTrue(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
-        }
+        // Mixed-case keywords
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        assertTrue(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
+    }
 
-        @Test
-        public void test_nameDoesNotContainKeywords_returnsFalse() {
-                // Zero keywords
-                NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-                assertFalse(predicate.test(new TaskBuilder().withName("Alice").build()));
+    @Test
+    public void test_nameDoesNotContainKeywords_returnsFalse() {
+        // Zero keywords
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(Collections.emptyList());
+        assertFalse(predicate.test(new TaskBuilder().withName("Alice").build()));
 
-                // Non-matching keyword
-                predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-                assertFalse(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
+        // Non-matching keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
+        assertFalse(predicate.test(new TaskBuilder().withName("Alice Bob").build()));
 
-                // Keywords match priority and address, but does not match name
-                predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "Main", "Street"));
-                assertFalse(predicate.test(new TaskBuilder().withName("Alice").withPriority("12345")
-                                .withDescription("Main Street").build()));
-        }
+        // Keywords match priority and address, but does not match name
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "Main", "Street"));
+        assertFalse(
+                predicate.test(
+                        new TaskBuilder()
+                                .withName("Alice")
+                                .withPriority("12345")
+                                .withDescription("Main Street")
+                                .build()));
+    }
 }

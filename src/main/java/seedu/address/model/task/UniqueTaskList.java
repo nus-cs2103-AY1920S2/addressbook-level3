@@ -12,11 +12,11 @@ import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls. A
- * person is considered unique by comparing using {@code Task#isSameTask(Task)}. As such,
- * adding and updating of persons uses Task#isSameTask(Task) for equality so as to ensure that
- * the person being added or updated is unique in terms of identity in the UniqueTaskList.
- * However, the removal of a person uses Task#equals(Object) so as to ensure that the person with
- * exactly the same fields will be removed.
+ * person is considered unique by comparing using {@code Task#isSameTask(Task)}. As such, adding and
+ * updating of persons uses Task#isSameTask(Task) for equality so as to ensure that the person being
+ * added or updated is unique in terms of identity in the UniqueTaskList. However, the removal of a
+ * person uses Task#equals(Object) so as to ensure that the person with exactly the same fields will
+ * be removed.
  *
  * <p>Supports a minimal set of list operations.
  *
@@ -45,8 +45,8 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Replaces the person {@code target} in the list with {@code editedTask}. {@code target} must
-     * exist in the list. The person identity of {@code editedTask} must not be the same as
-     * another existing person in the list.
+     * exist in the list. The person identity of {@code editedTask} must not be the same as another
+     * existing person in the list.
      */
     public void setTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);

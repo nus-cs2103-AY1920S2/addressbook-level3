@@ -15,13 +15,34 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. " + "Parameters: "
-            + PREFIX_NAME + "NAME " + PREFIX_PRIORITY + "PRIORITY " + PREFIX_DESCRIPTION + "DESCRIPTION " + "["
-            + PREFIX_TAG + "TAG]...\n" + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "Math Homework"
-            + PREFIX_PRIORITY + "1 " + PREFIX_DESCRIPTION + "Chapter 5, Pages 1 - 3 " + PREFIX_TAG + "for school ";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD
+                    + ": Adds a task to the task list. "
+                    + "Parameters: "
+                    + PREFIX_NAME
+                    + "NAME "
+                    + PREFIX_PRIORITY
+                    + "PRIORITY "
+                    + PREFIX_DESCRIPTION
+                    + "DESCRIPTION "
+                    + "["
+                    + PREFIX_TAG
+                    + "TAG]...\n"
+                    + "Example: "
+                    + COMMAND_WORD
+                    + " "
+                    + PREFIX_NAME
+                    + "Math Homework"
+                    + PREFIX_PRIORITY
+                    + "1 "
+                    + PREFIX_DESCRIPTION
+                    + "Chapter 5, Pages 1 - 3 "
+                    + PREFIX_TAG
+                    + "for school ";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "This person already exists in the address book";
 
     private final Task toAdd;
 

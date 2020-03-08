@@ -15,38 +15,40 @@ import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 public class EditTaskDescriptorTest {
 
-        @Test
-        public void equals() {
-                // same values -> returns true
-                EditTaskDescriptor descriptorWithSameValues = new EditTaskDescriptor(DESC_AMY);
-                assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+    @Test
+    public void equals() {
+        // same values -> returns true
+        EditTaskDescriptor descriptorWithSameValues = new EditTaskDescriptor(DESC_AMY);
+        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
-                // same object -> returns true
-                assertTrue(DESC_AMY.equals(DESC_AMY));
+        // same object -> returns true
+        assertTrue(DESC_AMY.equals(DESC_AMY));
 
-                // null -> returns false
-                assertFalse(DESC_AMY.equals(null));
+        // null -> returns false
+        assertFalse(DESC_AMY.equals(null));
 
-                // different types -> returns false
-                assertFalse(DESC_AMY.equals(5));
+        // different types -> returns false
+        assertFalse(DESC_AMY.equals(5));
 
-                // different values -> returns false
-                assertFalse(DESC_AMY.equals(DESC_BOB));
+        // different values -> returns false
+        assertFalse(DESC_AMY.equals(DESC_BOB));
 
-                // different name -> returns false
-                EditTaskDescriptor editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-                assertFalse(DESC_AMY.equals(editedAmy));
+        // different name -> returns false
+        EditTaskDescriptor editedAmy =
+                new EditTaskDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
 
-                // different priority -> returns false
-                editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withPriority(VALID_PHONE_BOB).build();
-                assertFalse(DESC_AMY.equals(editedAmy));
+        // different priority -> returns false
+        editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withPriority(VALID_PHONE_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
 
-                // different address -> returns false
-                editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withDescription(VALID_ADDRESS_BOB).build();
-                assertFalse(DESC_AMY.equals(editedAmy));
+        // different address -> returns false
+        editedAmy =
+                new EditTaskDescriptorBuilder(DESC_AMY).withDescription(VALID_ADDRESS_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
 
-                // different tags -> returns false
-                editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-                assertFalse(DESC_AMY.equals(editedAmy));
-        }
+        // different tags -> returns false
+        editedAmy = new EditTaskDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+    }
 }

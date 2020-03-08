@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
-import seedu.address.model.task.Task;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 
 /** A utility class for Person. */
 public class TaskUtil {
@@ -19,9 +19,7 @@ public class TaskUtil {
         return AddCommand.COMMAND_WORD + " " + getTaskDetails(task);
     }
 
-    /**
-     * Returns the part of command string for the given {@code person}'s details.
-     */
+    /** Returns the part of command string for the given {@code person}'s details. */
     public static String getTaskDetails(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + task.getName().fullName + " ");
@@ -31,16 +29,20 @@ public class TaskUtil {
         return sb.toString();
     }
 
-    /**
-     * Returns the part of command string for the given
-     * {@code EditPersonDescriptor}'s details.
-     */
+    /** Returns the part of command string for the given {@code EditPersonDescriptor}'s details. */
     public static String getEditTaskDescriptorDetails(EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPriority().ifPresent(priority -> sb.append(PREFIX_PRIORITY).append(priority.value).append(" "));
-        descriptor.getDescription()
-                .ifPresent(address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
+        descriptor
+                .getName()
+                .ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor
+                .getPriority()
+                .ifPresent(
+                        priority -> sb.append(PREFIX_PRIORITY).append(priority.value).append(" "));
+        descriptor
+                .getDescription()
+                .ifPresent(
+                        address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

@@ -40,8 +40,7 @@ public class EditCommandTest {
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(editedTask).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage =
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -71,8 +70,7 @@ public class EditCommandTest {
                         .build();
         EditCommand editCommand = new EditCommand(indexLastTask, descriptor);
 
-        String expectedMessage =
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -86,8 +84,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditTaskDescriptor());
         Task editedTask = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage =
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
@@ -101,8 +98,7 @@ public class EditCommandTest {
 
         Task taskInFilteredList =
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Task editedPerson =
-                new TaskBuilder(taskInFilteredList).withName(VALID_NAME_BOB).build();
+        Task editedPerson = new TaskBuilder(taskInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand =
                 new EditCommand(
                         INDEX_FIRST_PERSON,
