@@ -64,6 +64,12 @@ class JsonAdaptedEntry {
         remark = source.getRemark().value;
     }
 
+    /**
+     * Build {@code Type} based on Json file string.
+     *
+     * @return Attribute type.
+     * @throws IllegalValueException Invalid value for type.
+     */
     public Type buildType() throws IllegalValueException {
         if (type == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
@@ -74,6 +80,12 @@ class JsonAdaptedEntry {
         return new Type(type);
     }
 
+    /**
+     * Build {@code Name} based on Json file string.
+     *
+     * @return Attribute name.
+     * @throws IllegalValueException Invalid value for name.
+     */
     public Name buildName() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -84,6 +96,12 @@ class JsonAdaptedEntry {
         return new Name(name);
     }
 
+    /**
+     * Build {@code Time} based on Json file string.
+     *
+     * @return Attribute time.
+     * @throws IllegalValueException Invalid value for time.
+     */
     public Time buildTime() throws IllegalValueException {
         if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
@@ -94,6 +112,12 @@ class JsonAdaptedEntry {
         return new Time(time);
     }
 
+    /**
+     * Build {@code Location} based on Json file string.
+     *
+     * @return Attribute location.
+     * @throws IllegalValueException Invalid value for location.
+     */
     public Location buildLocation() throws IllegalValueException {
         if (location == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -105,6 +129,12 @@ class JsonAdaptedEntry {
         return new Location(location);
     }
 
+    /**
+     * Build {@code Calorie} based on Json file string.
+     *
+     * @return Attribute calorie.
+     * @throws IllegalValueException Invalid value for calorie.
+     */
     public Calorie buildCalorie() throws IllegalValueException {
         if (calorie == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Calorie.class.getSimpleName()));
@@ -115,6 +145,12 @@ class JsonAdaptedEntry {
         return new Calorie(calorie);
     }
 
+    /**
+     * Build {@code Status} based on Json file string.
+     *
+     * @return Attribute status.
+     * @throws IllegalValueException Invalid value for status.
+     */
     public Status buildStatus() throws IllegalValueException {
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
@@ -125,6 +161,12 @@ class JsonAdaptedEntry {
         return new Status(status);
     }
 
+    /**
+     * Build {@code Remark} based on Json file string.
+     *
+     * @return Attribute remark.
+     * @throws IllegalValueException Invalid value for remark.
+     */
     public Remark buildRemark() throws IllegalValueException {
         if (remark == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
