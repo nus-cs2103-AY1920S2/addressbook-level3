@@ -38,7 +38,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
@@ -83,22 +83,22 @@ public class EditCommandParserTest {
         assertParseFailure(
                 parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(
-                parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+                parser, "1" + INVALID_PHONE_DESC, Priority.MESSAGE_CONSTRAINTS); // invalid priority
         assertParseFailure(
                 parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(
                 parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        // invalid phone followed by valid email
+        // invalid priority followed by valid email
         assertParseFailure(
-                parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+                parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Priority.MESSAGE_CONSTRAINTS);
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid
-        // phone
+        // valid priority followed by invalid priority. The test case for invalid priority followed by valid
+        // priority
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(
-                parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+                parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Priority.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being
         // edited,
@@ -138,7 +138,7 @@ public class EditCommandParserTest {
         EditPersonDescriptor descriptor =
                 new EditPersonDescriptorBuilder()
                         .withName(VALID_NAME_AMY)
-                        .withPhone(VALID_PHONE_BOB)
+                        .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_AMY)
                         .withAddress(VALID_ADDRESS_AMY)
                         .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
@@ -155,7 +155,7 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor =
                 new EditPersonDescriptorBuilder()
-                        .withPhone(VALID_PHONE_BOB)
+                        .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_AMY)
                         .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -173,9 +173,9 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
+        // priority
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
+        descriptor = new EditPersonDescriptorBuilder().withPriority(VALID_PHONE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -218,7 +218,7 @@ public class EditCommandParserTest {
 
         EditPersonDescriptor descriptor =
                 new EditPersonDescriptorBuilder()
-                        .withPhone(VALID_PHONE_BOB)
+                        .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_BOB)
                         .withAddress(VALID_ADDRESS_BOB)
                         .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
@@ -234,7 +234,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
         EditPersonDescriptor descriptor =
-                new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+                new EditPersonDescriptorBuilder().withPriority(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -247,7 +247,7 @@ public class EditCommandParserTest {
                         + PHONE_DESC_BOB;
         descriptor =
                 new EditPersonDescriptorBuilder()
-                        .withPhone(VALID_PHONE_BOB)
+                        .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_BOB)
                         .withAddress(VALID_ADDRESS_BOB)
                         .build();

@@ -6,35 +6,35 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class PhoneTest {
+public class PriorityTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Phone(null));
+        assertThrows(NullPointerException.class, () -> new Priority(null));
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        assertThrows(IllegalArgumentException.class, () -> new Phone(invalidPhone));
+    public void constructor_invalidPriority_throwsIllegalArgumentException() {
+        String invalidPriority = "";
+        assertThrows(IllegalArgumentException.class, () -> new Priority(invalidPriority));
     }
 
     @Test
-    public void isValidPhone() {
-        // null phone number
-        assertThrows(NullPointerException.class, () -> Phone.isValidPhone(null));
+    public void isValidPriority() {
+        // null priority number
+        assertThrows(NullPointerException.class, () -> Priority.isValidPriority(null));
 
-        // invalid phone numbers
-        assertFalse(Phone.isValidPhone("")); // empty string
-        assertFalse(Phone.isValidPhone(" ")); // spaces only
-        assertFalse(Phone.isValidPhone("91")); // less than 3 numbers
-        assertFalse(Phone.isValidPhone("phone")); // non-numeric
-        assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
-        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
+        // invalid priority numbers
+        assertFalse(Priority.isValidPriority("")); // empty string
+        assertFalse(Priority.isValidPriority(" ")); // spaces only
+        assertFalse(Priority.isValidPriority("91")); // less than 3 numbers
+        assertFalse(Priority.isValidPriority("priority")); // non-numeric
+        assertFalse(Priority.isValidPriority("9011p041")); // alphabets within digits
+        assertFalse(Priority.isValidPriority("9312 1534")); // spaces within digits
 
-        // valid phone numbers
-        assertTrue(Phone.isValidPhone("911")); // exactly 3 numbers
-        assertTrue(Phone.isValidPhone("93121534"));
-        assertTrue(Phone.isValidPhone("124293842033123")); // long phone numbers
+        // valid priority numbers
+        assertTrue(Priority.isValidPriority("911")); // exactly 3 numbers
+        assertTrue(Priority.isValidPriority("93121534"));
+        assertTrue(Priority.isValidPriority("124293842033123")); // long priority numbers
     }
 }
