@@ -35,7 +35,7 @@ public class PersonListCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(String.format("[%s] %s", person.getDone().toString(), person.getName().fullName));
         priority.setText(person.getPriority().value);
         description.setText(person.getDescription().value);
         email.setText(person.getEmail().value);

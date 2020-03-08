@@ -69,7 +69,13 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, priority, email, description, tagList); // overloaded constructor which handles new Tasks
+        Person person =
+                new Person(
+                        name,
+                        priority,
+                        email,
+                        description,
+                        tagList); // overloaded constructor which handles new Tasks
 
         return new AddCommand(person);
     }

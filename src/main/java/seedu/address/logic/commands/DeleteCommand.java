@@ -59,6 +59,6 @@ public class DeleteCommand extends Command {
                         && targetIndices.equals(
                                 ((DeleteCommand) other)
                                         .targetIndices)); // TODO check if non primitive data will
-                                                          // be checked
+        // be checked
     }
 }

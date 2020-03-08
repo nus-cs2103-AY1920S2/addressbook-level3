@@ -26,7 +26,12 @@ public class Person {
 
     /** Every field must be present and not null. */
     public Person(
-            Name name, Priority priority, Email email, Description description, Done done, Set<Tag> tags) {
+            Name name,
+            Priority priority,
+            Email email,
+            Description description,
+            Done done,
+            Set<Tag> tags) {
         requireAllNonNull(name, priority, email, description, tags);
         this.name = name;
         this.priority = priority;
@@ -125,11 +130,10 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(String.format("[%s] ",getDone().toString()))
+                .append(getName())
                 .append(" Priority: ")
                 .append(getPriority())
-                .append(" Done: ")
-                .append(getDone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Description: ")

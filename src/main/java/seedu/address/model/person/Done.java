@@ -9,8 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Done {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Done should be a simple Boolean ";
+    public static final String MESSAGE_CONSTRAINTS = "Done should be a simple Boolean ";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -35,7 +34,9 @@ public class Done {
         this.isDone = isDone.equals(DONE);
     }
 
-    public Done() { // TODO maybe don't need, but i don't get why we should use a PersonBuilder to inject default values
+    public
+    Done() { // TODO maybe don't need, but i don't get why we should use a PersonBuilder to inject
+             // default values
         this.isDone = false;
     }
 

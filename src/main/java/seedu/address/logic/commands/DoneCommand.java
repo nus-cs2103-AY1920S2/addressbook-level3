@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Set;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -70,7 +69,12 @@ public class DoneCommand extends Command {
         Set<Tag> updatedTags = personToEdit.getTags();
 
         return new Person(
-                updatedName, updatedPriority, updatedEmail, updatedDescription, new Done("Y"), updatedTags);
+                updatedName,
+                updatedPriority,
+                updatedEmail,
+                updatedDescription,
+                new Done("Y"),
+                updatedTags);
     }
 
     @Override
@@ -80,6 +84,6 @@ public class DoneCommand extends Command {
                         && targetIndices.equals(
                                 ((DoneCommand) other)
                                         .targetIndices)); // TODO check if non primitive data will
-                                                          // be checked
+        // be checked
     }
 }

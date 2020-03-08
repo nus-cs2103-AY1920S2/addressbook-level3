@@ -115,12 +115,16 @@ public class EditCommand extends Command {
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Description updatedDescription =
                 editPersonDescriptor.getDescription().orElse(personToEdit.getDescription());
-        Done updatedDone =
-                editPersonDescriptor.getDone().orElse(personToEdit.getDone());
+        Done updatedDone = editPersonDescriptor.getDone().orElse(personToEdit.getDone());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(
-                updatedName, updatedPriority, updatedEmail, updatedDescription, updatedDone, updatedTags);
+                updatedName,
+                updatedPriority,
+                updatedEmail,
+                updatedDescription,
+                updatedDone,
+                updatedTags);
     }
 
     @Override

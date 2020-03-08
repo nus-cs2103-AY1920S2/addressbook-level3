@@ -105,12 +105,11 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelAddress = new Description(description);
-        
+
         if (!Done.isValidDone(done)) {
             throw new IllegalValueException(Done.MESSAGE_CONSTRAINTS);
         }
         final Done modelDone = new Done(done);
-
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPriority, modelEmail, modelAddress, modelDone, modelTags);
