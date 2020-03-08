@@ -310,9 +310,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |student |maintain a list of unfinished homework and their deadlines |submit my assignments in time
 
-|`* *` |student |pool notes for my modules together |easily find my notes for each module
+|`*` |student |pool notes for my modules together |easily find my notes for each module
 
-|`*` |student |see the modules that I have taken |
+|`* *` |student |see the modules that I have taken |track my degree progression
 |=======================================================================
 
 [appendix]

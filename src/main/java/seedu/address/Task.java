@@ -1,0 +1,36 @@
+package seedu.address;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+/**
+ * Represents a Task in Module.
+ */
+public class Task {
+    protected String description;
+    protected LocalDate date;
+    protected LocalTime time;
+
+    String inputTimePattern = "HH:mm";
+    DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
+
+    public Task(String description, String date, String time) throws DateTimeException {
+        this.description = description;
+        try {
+            this.date = LocalDate.parse(date);
+            this.time = LocalTime.parse(time, inputTimeFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DateTimeException("Try: d/YYYY-MM-DD HH:mm");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Task: " + this.description + " by " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
+                + LocalTime.parse(time.toString(), inputTimeFormatter) + " added.";
+    }
+
+
+}
