@@ -7,22 +7,22 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Food's carb amount in the diet tracker of EYLAH.
  * Guarantees: immutable; is valid as declared in {@link #isValidCarbs(float)}
  */
-public class Carbs {
+public class Carb {
 
     public static final float FLOAT_ZERO = 0;
     public static final String MESSAGE_CONSTRAINTS =
-            "Carbs count should be zero or a positive float";
+            "Carb count should be zero or a positive float";
     public final float value;
 
     /**
      * Constructs a {@code Phone}.
      *
-     * @param carbs A valid carbs number.
+     * @param carb A valid carbs number.
      */
-    public Carbs(float carbs) {
-        requireNonNull(carbs);
-        checkArgument(isValidCarbs(carbs), MESSAGE_CONSTRAINTS);
-        this.value = carbs;
+    public Carb(float carb) {
+        requireNonNull(carb);
+        checkArgument(isValidCarbs(carb), MESSAGE_CONSTRAINTS);
+        this.value = carb;
     }
 
     /**
@@ -40,8 +40,8 @@ public class Carbs {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Carbs // instanceof handles nulls
-                && value == ((Carbs) other).value); // state check
+                || (other instanceof Carb // instanceof handles nulls
+                && value == ((Carb) other).value); // state check
     }
 
     @Override
