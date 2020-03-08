@@ -2,18 +2,16 @@ package fithelper.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import fithelper.commons.core.index.Index;
 import fithelper.commons.util.StringUtil;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.person.Address;
-import fithelper.model.person.Email;
-import fithelper.model.person.Name;
-import fithelper.model.person.Remark;
-import fithelper.model.tag.Tag;
+import fithelper.model.entry.Name;
+import fithelper.model.entry.Type;
+import fithelper.model.entry.Time;
+import fithelper.model.entry.Location;
+import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Status;
+import fithelper.model.entry.Remark;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -36,6 +34,20 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String type} into a {@code Type}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code type} is invalid.
+     */
+    public static Type parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!Type.isValidType(trimmedType)) {
+            throw new ParseException(Type.MESSAGE_CONSTRAINTS);
+        }
+        return new Type(trimmedType);
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      * @throws ParseException if the given {@code name} is invalid.
@@ -50,96 +62,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a {@code String location} into an {@code Location}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code location} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
-
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
-    }
-
-    /**
-     * Parses a {@code String remark} into an {@code Remark}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code remark} is invalid.
-     */
-    public static Remark parseRemark(String remark) throws ParseException {
-        requireNonNull(remark);
-        String trimmedRemark = remark.trim();
-        return new Remark(trimmedRemark);
-    }
-
-    /**
-     * Parses a {@code String name} into an {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
-    public static String parseEntryName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        return trimmedName;
-    }
-
-    /**
-     * Parses a {@code String time} into an {@code Time}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code time} is invalid.
-     */
-    public static String parseEntryTime(String time) throws ParseException {
+    public static Time parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        return trimmedTime;
+        if (!Time.isValidTime(trimmedTime)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new Time(trimmedTime);
     }
 
     /**
@@ -148,21 +82,52 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code location} is invalid.
      */
-    public static String parseEntryLocation(String location) throws ParseException {
+    public static Location parseLocation(String location) throws ParseException {
         requireNonNull(location);
         String trimmedLocation = location.trim();
-        return trimmedLocation;
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
     }
 
     /**
-     * Parses a {@code String weight} into an {@code Weight}.
+     * Parses a {@code String calorie} into an {@code Calorie}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code weight} is invalid.
+     * @throws ParseException if the given {@code calorie} is invalid.
      */
-    public static String parseEntryCalorie(String calorie) throws ParseException {
+    public static Calorie parseCalorie(String calorie) throws ParseException {
         requireNonNull(calorie);
-        String trimmedWeight = calorie.trim();
-        return trimmedWeight;
+        String trimmedCalorie = calorie.trim();
+        if (!Calorie.isValidCalorie(trimmedCalorie)) {
+            throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
+        }
+        return new Calorie(trimmedCalorie);
+    }
+
+    /**
+     * Parses a {@code String status} into an {@code Status}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
+    public static Status parseStatus(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus= status.trim();
+        if (!Status.isValidStatus(trimmedStatus)) {
+            throw new ParseException(Status.MESSAGE_CONSTRAINTS);
+        }
+        return new Status(trimmedStatus);
+    }
+
+    /**
+     * Parses a {@code String remark} into an {@code Remark}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Remark parseRemark(String remark) {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        return new Remark(trimmedRemark);
     }
 }

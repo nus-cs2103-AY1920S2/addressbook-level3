@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fithelper.logic.commands.AddCommand;
-import fithelper.logic.commands.AddEntryCommand;
 import fithelper.logic.commands.ClearCommand;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.DeleteCommand;
@@ -47,9 +46,6 @@ public class FitHelperParser {
         switch (commandWord) {
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);
-
-            case AddEntryCommand.COMMAND_WORD:
-                return new AddEntryCommandParser().parse(arguments);
 
             case EditCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
