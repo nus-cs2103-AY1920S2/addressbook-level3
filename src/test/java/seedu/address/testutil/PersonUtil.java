@@ -39,7 +39,8 @@ public class PersonUtil {
                 .ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor
                 .getPriority()
-                .ifPresent(priority -> sb.append(PREFIX_PRIORITY).append(priority.value).append(" "));
+                .ifPresent(
+                        priority -> sb.append(PREFIX_PRIORITY).append(priority.value).append(" "));
         descriptor
                 .getEmail()
                 .ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));

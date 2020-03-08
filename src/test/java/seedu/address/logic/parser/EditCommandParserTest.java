@@ -94,7 +94,8 @@ public class EditCommandParserTest {
         assertParseFailure(
                 parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Priority.MESSAGE_CONSTRAINTS);
 
-        // valid priority followed by invalid priority. The test case for invalid priority followed by valid
+        // valid priority followed by invalid priority. The test case for invalid priority followed
+        // by valid
         // priority
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(

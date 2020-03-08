@@ -49,8 +49,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String priority} into a {@code Priority}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String priority} into a {@code Priority}. Leading and trailing whitespaces
+     * will be trimmed.
      *
      * @throws ParseException if the given {@code priority} is invalid.
      */

@@ -109,7 +109,8 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Priority updatedPriority = editPersonDescriptor.getPriority().orElse(personToEdit.getPriority());
+        Priority updatedPriority =
+                editPersonDescriptor.getPriority().orElse(personToEdit.getPriority());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress =
                 editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
