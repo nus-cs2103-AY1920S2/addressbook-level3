@@ -6,16 +6,17 @@ package fithelper.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
+    public static final Prefix PREFIX_TYPE = new Prefix("x/");
     public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_TIME = new Prefix("t/");
+    public static final Prefix PREFIX_LOCATION = new Prefix("l/");
+    public static final Prefix PREFIX_CALORIE = new Prefix("c/");
+    public static final Prefix PREFIX_STATUS = new Prefix("s/");
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
 
-    public static final Prefix PREFIX_ENTRYNAME = new Prefix("en/");
-    public static final Prefix PREFIX_ENTRYTIME = new Prefix("et/");
-    public static final Prefix PREFIX_ENTRYLOCATION = new Prefix("el/");
-    public static final Prefix PREFIX_ENTRYCALORIE = new Prefix("ec/");
+    public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_DURATION = new Prefix("dr/");
 
+    public static final Prefix PREFIX_ATTRIBUTE = new Prefix("attr/");
+    public static final Prefix PREFIX_VALUE = new Prefix("v/");
 }
