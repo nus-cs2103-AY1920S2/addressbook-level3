@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 import seedu.address.model.person.Description;
+import seedu.address.model.person.Done;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -17,11 +18,13 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_DESCRIPTION = "Page 1 and 2";
+    public static final String DEFAULT_DONE = "N";
 
     private Name name;
     private Priority priority;
     private Email email;
     private Description description;
+    private Done done;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -29,6 +32,7 @@ public class PersonBuilder {
         priority = new Priority(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         description = new Description(DEFAULT_DESCRIPTION);
+        done = new Done(DEFAULT_DONE);
         tags = new HashSet<>();
     }
 
@@ -38,6 +42,7 @@ public class PersonBuilder {
         priority = personToCopy.getPriority();
         email = personToCopy.getEmail();
         description = personToCopy.getDescription();
+        done = personToCopy.getDone();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -74,7 +79,12 @@ public class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withDone(String done) {
+        this.done = new Done(done);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, priority, email, description, tags);
+        return new Person(name, priority, email, description, done, tags);
     }
 }

@@ -18,6 +18,7 @@ public class Person {
     private final Name name;
     private final Priority priority;
     private final Email email;
+    private final Done done;
 
     // Data fields
     private final Description description;
@@ -25,12 +26,25 @@ public class Person {
 
     /** Every field must be present and not null. */
     public Person(
+            Name name, Priority priority, Email email, Description description, Done done, Set<Tag> tags) {
+        requireAllNonNull(name, priority, email, description, tags);
+        this.name = name;
+        this.priority = priority;
+        this.email = email;
+        this.description = description;
+        this.done = done;
+        this.tags.addAll(tags);
+    }
+
+    // without done provided
+    public Person(
             Name name, Priority priority, Email email, Description description, Set<Tag> tags) {
         requireAllNonNull(name, priority, email, description, tags);
         this.name = name;
         this.priority = priority;
         this.email = email;
         this.description = description;
+        this.done = new Done();
         this.tags.addAll(tags);
     }
 
@@ -48,6 +62,10 @@ public class Person {
 
     public Description getDescription() {
         return description;
+    }
+
+    public Done getDone() {
+        return done;
     }
 
     /**
@@ -70,7 +88,9 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPriority().equals(getPriority())
-                        || otherPerson.getEmail().equals(getEmail()));
+                        || otherPerson.getEmail().equals(getEmail()))
+                && otherPerson.getDone().equals(getDone())
+                && otherPerson.getDescription().equals(getDescription());
     }
 
     /**
@@ -91,6 +111,7 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPriority().equals(getPriority())
                 && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getDone().equals(getDone())
                 && otherPerson.getDescription().equals(getDescription())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -98,7 +119,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, priority, email, description, tags);
+        return Objects.hash(name, priority, email, description, done, tags);
     }
 
     @Override
@@ -107,6 +128,8 @@ public class Person {
         builder.append(getName())
                 .append(" Priority: ")
                 .append(getPriority())
+                .append(" Done: ")
+                .append(getDone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Description: ")

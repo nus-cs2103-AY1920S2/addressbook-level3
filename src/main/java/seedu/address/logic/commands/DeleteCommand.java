@@ -17,13 +17,13 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             COMMAND_WORD
-                    + ": Deletes the person identified by the index number used in the displayed person list.\n"
+                    + ": Deletes the task identified by the index number used in the displayed tasks list.\n"
                     + "Parameters: INDEX (must be a positive integer)\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person(s): ";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task(s): ";
 
     private final Index[] targetIndices;
 
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-        StringBuilder personsDeleted = new StringBuilder(MESSAGE_DELETE_PERSON_SUCCESS);
+        StringBuilder personsDeleted = new StringBuilder(MESSAGE_DELETE_TASK_SUCCESS);
         List<Person> toDeletePersons = new ArrayList<>();
         for (Index targetIndex : targetIndices) {
             targetIndex.getZeroBased();
