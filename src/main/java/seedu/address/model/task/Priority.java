@@ -1,10 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's priority number in the address book. Guarantees: immutable; is valid as
+ * Represents a Task's priority number in the address book. Guarantees: immutable; is valid as
  * declared in {@link #isValidPriority(String)}
  */
 public class Priority {

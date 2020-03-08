@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book. Guarantees: details are present and not null, field
+ * Represents a Task in the task list. Guarantees: details are present and not null, field
  * values are validated, immutable.
  */
-public class Person {
+public class Task {
 
     // Identity fields
     private final Name name;
@@ -24,7 +24,7 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /** Every field must be present and not null. */
-    public Person(
+    public Task(
             Name name, Priority priority, Email email, Description description, Set<Tag> tags) {
         requireAllNonNull(name, priority, email, description, tags);
         this.name = name;
@@ -62,15 +62,15 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is
      * the same. This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPriority().equals(getPriority())
-                        || otherPerson.getEmail().equals(getEmail()));
+        return otherTask != null
+                && otherTask.getName().equals(getName())
+                && (otherTask.getPriority().equals(getPriority())
+                        || otherTask.getEmail().equals(getEmail()));
     }
 
     /**
@@ -83,16 +83,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Task)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPriority().equals(getPriority())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getDescription().equals(getDescription())
-                && otherPerson.getTags().equals(getTags());
+        Task otherTask = (Task) other;
+        return otherTask.getName().equals(getName())
+                && otherTask.getPriority().equals(getPriority())
+                && otherTask.getEmail().equals(getEmail())
+                && otherTask.getDescription().equals(getDescription())
+                && otherTask.getTags().equals(getTags());
     }
 
     @Override
