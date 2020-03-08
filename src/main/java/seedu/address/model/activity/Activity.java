@@ -114,7 +114,7 @@ public abstract class Activity {
                 && otherActivity.getNote().equals(getNote())
                 && otherActivity.getDate().equals(getDate());
     }
-  
+
     /**
      * Sets the task to done.
      */
@@ -129,7 +129,7 @@ public abstract class Activity {
     public boolean getIsDone() {
         return isDone;
     }
-  
+
     /*
     public Priority getPriority() {
         return priority;

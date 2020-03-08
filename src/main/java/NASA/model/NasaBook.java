@@ -58,6 +58,18 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
+     * Add a single activity to module {@moduleCode} with {@code activity}
+     * {@code activity} must not contain duplicate activities.
+     */
+    public void add(Module module, Activity activity) {
+        requireNonNull(activity);
+
+        Module toEditModule = moduleList.getModule(module);
+        toEditModule.add(activity);
+        moduleList.setModule(module, toEditModule);
+    }
+
+    /**
      * Resets the existing data of this {@code NasaBook} with {@code newData}
      */
     public void resetData(ReadOnlyNasaBook newData) {
