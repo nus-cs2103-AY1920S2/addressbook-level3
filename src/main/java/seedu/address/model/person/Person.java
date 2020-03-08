@@ -24,7 +24,8 @@ public class Person {
     private final Set<Tag> tags = new HashSet<>();
 
     /** Every field must be present and not null. */
-    public Person(Name name, Priority priority, Email email, Description description, Set<Tag> tags) {
+    public Person(
+            Name name, Priority priority, Email email, Description description, Set<Tag> tags) {
         requireAllNonNull(name, priority, email, description, tags);
         this.name = name;
         this.priority = priority;

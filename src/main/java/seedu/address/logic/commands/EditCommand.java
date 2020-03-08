@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -117,7 +116,8 @@ public class EditCommand extends Command {
                 editPersonDescriptor.getDescription().orElse(personToEdit.getDescription());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPriority, updatedEmail, updatedDescription, updatedTags);
+        return new Person(
+                updatedName, updatedPriority, updatedEmail, updatedDescription, updatedTags);
     }
 
     @Override

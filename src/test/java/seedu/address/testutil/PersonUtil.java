@@ -46,7 +46,8 @@ public class PersonUtil {
                 .ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor
                 .getDescription()
-                .ifPresent(address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
+                .ifPresent(
+                        address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
