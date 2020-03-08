@@ -130,7 +130,7 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(String.format("[%s] ",getDone().toString()))
+        builder.append(String.format("[%s] ", getDone().toString()))
                 .append(getName())
                 .append(" Priority: ")
                 .append(getPriority())
