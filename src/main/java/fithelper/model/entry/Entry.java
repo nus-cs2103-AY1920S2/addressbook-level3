@@ -75,6 +75,10 @@ public class Entry {
 
     public Status getStatus() {return status;}
 
+    public boolean isFood() {
+        return this.type.getValue().equals("food");
+    }
+
     /**
      * Returns true if both Entry of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two entries.

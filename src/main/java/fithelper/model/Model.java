@@ -6,14 +6,13 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import fithelper.commons.core.GuiSettings;
 import fithelper.model.entry.Entry;
-import fithelper.model.person.Person;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -36,38 +35,27 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' FitHelper file path.
      */
-    Path getAddressBookFilePath();
+    Path getFitHelperFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' FitHelper file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setFitHelperFilePath(Path fitHelperFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces FitHelper data with the data in {@code fitHelper}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setFitHelper(ReadOnlyFitHelper fitHelper);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the FitHelper */
+    ReadOnlyFitHelper getFitHelper();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Returns true if an Entry with the same identity as {@code entry} exists in the address book.
+     * Returns true if an Entry with the same identity as {@code entry} exists in the FitHelper.
      */
     boolean hasEntry(Entry entry);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
 
     /**
      * Deletes the given entry.
@@ -76,23 +64,10 @@ public interface Model {
     void deleteEntry(Entry target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
      * Adds the given Entry.
      * {@code entry} must not already exist in the log book.
      */
     void addEntry(Entry entry);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
@@ -101,18 +76,11 @@ public interface Model {
      */
     void setEntry(Entry target, Entry editedEntry);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered food entry list */
+    ObservableList<Entry> getFilteredFoodEntryList();
 
-    /** Returns an unmodifiable view of the filtered entry list */
-    ObservableList<Entry> getFilteredEntryList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
+    /** Returns an unmodifiable view of the filtered sports entry list */
+    ObservableList<Entry> getFilteredSportsEntryList();
 
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.

@@ -12,36 +12,35 @@ import javafx.collections.transformation.FilteredList;
 import fithelper.commons.core.GuiSettings;
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
-import fithelper.model.person.Person;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the FitHelper data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final FitHelper fitHelper;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Entry> filteredEntries;
+    private final FilteredList<Entry> filteredFoodEntries;
+    private final FilteredList<Entry> filteredSportsEntries;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given fitHelper and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(fitHelper, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with FitHelper: " + fitHelper + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.fitHelper = new FitHelper(fitHelper);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredEntries = new FilteredList<>(this.addressBook.getEntryList());
+        filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
+        filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new FitHelper(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -69,43 +68,32 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getFitHelperFilePath() {
+        return userPrefs.getFitHelperFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setFitHelperFilePath(Path fitHelperFilePath) {
+        requireNonNull(fitHelperFilePath);
+        userPrefs.setFitHelperFilePath(fitHelperFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== FitHelper ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public void setFitHelper(ReadOnlyFitHelper fitHelper) {
+        this.fitHelper.resetData(fitHelper);
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public ReadOnlyFitHelper getFitHelper() {
+        return fitHelper;
     }
 
     @Override
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
-        return addressBook.hasEntry(entry);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        return fitHelper.hasEntry(entry);
     }
 
     /**
@@ -115,24 +103,13 @@ public class ModelManager implements Model {
      */
     @Override
     public void deleteEntry(Entry target) {
-        addressBook.removeEntry(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        fitHelper.removeEntry(target);
     }
 
     @Override
     public void addEntry(Entry entry) {
-        addressBook.addEntry(entry);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-        addressBook.setPerson(target, editedPerson);
+        fitHelper.addEntry(entry);
+        updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
     }
 
     /**
@@ -146,32 +123,27 @@ public class ModelManager implements Model {
     @Override
     public void setEntry(Entry target, Entry editedEntry) {
         requireAllNonNull(target, editedEntry);
-        addressBook.setEntry(target, editedEntry);
+        fitHelper.setEntry(target, editedEntry);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Entry List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the food list of {@code Entry} backed by the internal list of
+     * {@code versionedFitHelper}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Entry> getFilteredFoodEntryList() {
+        return filteredFoodEntries;
     }
 
     /**
-     * Returns an unmodifiable view of the filtered entry list
+     * Returns an unmodifiable view of the food list of {@code Entry} backed by the internal list of
+     * {@code versionedFitHelper}
      */
     @Override
-    public ObservableList<Entry> getFilteredEntryList() {
-        return null;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public ObservableList<Entry> getFilteredSportsEntryList() {
+        return filteredSportsEntries;
     }
 
     /**
@@ -183,7 +155,8 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
-        filteredEntries.setPredicate(predicate);
+        filteredFoodEntries.setPredicate(predicate);
+        filteredSportsEntries.setPredicate(predicate);
     }
 
     @Override
@@ -200,9 +173,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return fitHelper.equals(other.fitHelper)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredFoodEntries.equals(other.filteredFoodEntries)
+                && filteredSportsEntries.equals(other.filteredSportsEntries);
     }
 
 }

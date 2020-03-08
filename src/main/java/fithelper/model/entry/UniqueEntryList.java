@@ -72,7 +72,7 @@ public class UniqueEntryList implements Iterable<Entry> {
      * Replaces the contents of this list with {@code entries}.
      * {@code entries} must not contain duplicate entries.
      */
-    public void setEntry(List<Entry> entries) {
+    public void setEntries(List<Entry> entries) {
         requireAllNonNull(entries);
         if (!entriesAreUnique(entries)) {
             throw new DuplicateEntryException();

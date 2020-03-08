@@ -31,6 +31,10 @@ public class Type {
         return test.equals("food") || test.equals("f") || test.equals("sports") || test.equals("s");
     }
 
+    public String getValue() {
+        return this.value;
+    }
+
     @Override
     public String toString() {
         return value;
