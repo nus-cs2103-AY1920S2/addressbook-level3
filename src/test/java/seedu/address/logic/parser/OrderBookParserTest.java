@@ -29,9 +29,9 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class OrderParserTest {
+public class OrderBookParserTest {
 
-    private final OrderParser parser = new OrderParser();
+    private final OrderBookParser parser = new OrderBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
