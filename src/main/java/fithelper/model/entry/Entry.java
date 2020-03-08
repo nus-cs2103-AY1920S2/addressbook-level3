@@ -16,7 +16,7 @@ public class Entry {
     private final Location location;
     private final Calorie calorie;
     private Status status;
-    private Remark remark = new Remark("");
+    private Remark remark;
 
     /**
      * Every field must be present and not null.
@@ -29,6 +29,7 @@ public class Entry {
         this.time = time;
         this.calorie = calorie;
         this.status = new Status("FALSE");
+        this.remark = new Remark("");
     }
 
     /**
@@ -42,6 +43,20 @@ public class Entry {
         this.time = time;
         this.calorie = calorie;
         this.status = new Status("FALSE");
+        this.remark = remark;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Status status, Remark remark) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
+        this.name = name;
+        this.location = location;
+        this.time = time;
+        this.calorie = calorie;
+        this.status = status;
         this.remark = remark;
     }
 

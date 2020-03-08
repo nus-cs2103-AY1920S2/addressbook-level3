@@ -5,14 +5,14 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import fithelper.commons.exceptions.DataConversionException;
-import fithelper.model.ReadOnlyAddressBook;
+import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserPrefs;
 import fithelper.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends FitHelperStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +21,12 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getFitHelperFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyFitHelper> readFitHelper() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveFitHelper(ReadOnlyFitHelper fitHelper) throws IOException;
 
 }

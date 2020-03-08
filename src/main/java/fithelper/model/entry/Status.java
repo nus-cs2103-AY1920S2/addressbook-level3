@@ -9,9 +9,9 @@ import static java.util.Objects.requireNonNull;
  */
 public class Status {
 
-    public static final String MESSAGE_CONSTRAINTS = "Status can only be TRUE or FALSE.";
+    public static final String MESSAGE_CONSTRAINTS = "Status can only be Done or Undone.";
 
-    public final boolean value;
+    public final String value;
 
     /**
      * Constructs an {@code Status}.
@@ -21,30 +21,30 @@ public class Status {
     public Status(String status) {
         requireNonNull(status);
         checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS);
-        value = status.equals("TRUE");
+        value = status;
     }
 
     /**
      * Returns true if a given string is a valid status.
      */
     public static boolean isValidStatus(String test) {
-        return test.equals("TRUE") || test.equals("FALSE");
+        return test.equals("Done") || test.equals("Undone");
     }
 
     @Override
     public String toString() {
-        return value ? "Done" : "Not done";
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Status // instanceof handles nulls
-                && value == ((Status) other).value); // state check
+                && value.equals(((Status) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return this.toString().hashCode();
+        return value.hashCode();
     }
 }

@@ -18,8 +18,8 @@ import fithelper.commons.util.StringUtil;
 import fithelper.logic.Logic;
 import fithelper.logic.LogicManager;
 import fithelper.model.util.SampleDataUtil;
-import fithelper.storage.AddressBookStorage;
-import fithelper.storage.JsonAddressBookStorage;
+import fithelper.storage.FitHelperStorage;
+import fithelper.storage.JsonFitHelperStorage;
 import fithelper.storage.JsonUserPrefsStorage;
 import fithelper.storage.Storage;
 import fithelper.storage.StorageManager;
@@ -52,7 +52,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getFitHelperFilePath());
+        FitHelperStorage addressBookStorage = new JsonFitHelperStorage(userPrefs.getFitHelperFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -70,20 +70,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyFitHelper> addressBookOptional;
+        ReadOnlyFitHelper initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readFitHelper();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample FitHelper");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleFitHelper);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FitHelper");
-            initialData = new AddressBook();
+            initialData = new FitHelper();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty FitHelper");
-            initialData = new AddressBook();
+            initialData = new FitHelper();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -169,7 +169,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping FitHelper ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
