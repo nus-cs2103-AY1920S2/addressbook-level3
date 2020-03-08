@@ -25,7 +25,7 @@ public class Warehouse {
     public Warehouse(String address) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
-        this.address = address.trim();
+        this.address = address;
     }
 
     /**

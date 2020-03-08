@@ -42,7 +42,7 @@ class WarehouseTest {
         assertNotEquals(w1, w2);
         assertNotEquals(w2, w1);
 
-        Warehouse w3 = new Warehouse("S049332      ");
+        Warehouse w3 = new Warehouse("S049332");
         assertEquals(w1, w3);
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -18,6 +19,7 @@ import seedu.address.model.order.Address;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -26,10 +28,12 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_WAREHOUSE_ADDRESS = "";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_WAREHOUSE_ADDRESS = "Goose Road, #01-93";
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
@@ -43,8 +47,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(
+                Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
@@ -123,6 +127,37 @@ public class ParserUtilTest {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
         Address expectedAddress = new Address(VALID_ADDRESS);
         assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+    }
+
+    @Test
+    public void parseWarehouse_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseWarehouse(null));
+    }
+
+    @Test
+    public void parseWarehouse_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseWarehouse(INVALID_WAREHOUSE_ADDRESS));
+    }
+
+    @Test
+    public void parseWarehouse_validValueWithoutWhitespace_returnsWarehouse() {
+        Warehouse expectedWarehouse = new Warehouse(VALID_WAREHOUSE_ADDRESS);
+        try {
+            assertEquals(expectedWarehouse, ParserUtil.parseWarehouse(VALID_WAREHOUSE_ADDRESS));
+        } catch (ParseException pe) {
+            fail("Should not throw ParseException for parseWarehouse function");
+        }
+    }
+
+    @Test
+    public void parseWarehouse_validValueWithWhitespace_returnsTrimmedWarehouse() {
+        String warehouseAddressWithWhitespace = WHITESPACE + VALID_WAREHOUSE_ADDRESS + WHITESPACE;
+        Warehouse expectedWarehouse = new Warehouse(VALID_WAREHOUSE_ADDRESS);
+        try {
+            assertEquals(expectedWarehouse, ParserUtil.parseWarehouse(warehouseAddressWithWhitespace));
+        } catch (ParseException pe) {
+            fail("Should not throw ParseException for parseWarehouse function");
+        }
     }
 
     @Test
