@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.Messages;
 import fithelper.model.Model;
-import fithelper.model.person.NameContainsKeywordsPredicate;
+import fithelper.model.entry.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all entries in fitHelper whose name contains any of the argument keywords.
@@ -28,9 +28,11 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+        model.updateFilteredEntryList(predicate);
+        String feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW, model.getFilteredFoodEntryList().size())
+                + " "
+                + String.format(Messages.MESSAGE_SPORTS_LISTED_OVERVIEW, model.getFilteredSportsEntryList().size());
+        return new CommandResult(feedback);
     }
 
     @Override

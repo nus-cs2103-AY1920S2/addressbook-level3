@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import fithelper.logic.commands.FindCommand;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.person.NameContainsKeywordsPredicate;
+import fithelper.model.entry.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
