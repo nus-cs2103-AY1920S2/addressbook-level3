@@ -23,7 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Order;
+import seedu.address.model.order.Order;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 
