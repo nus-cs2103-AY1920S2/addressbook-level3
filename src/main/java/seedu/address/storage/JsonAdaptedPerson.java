@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Description;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Priority;
@@ -22,21 +21,15 @@ class JsonAdaptedPerson {
 
     private final String name;
     private final String priority;
-    private final String email;
     private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /** Constructs a {@code JsonAdaptedPerson} with the given person details. */
     @JsonCreator
-    public JsonAdaptedPerson(
-            @JsonProperty("name") String name,
-            @JsonProperty("priority") String priority,
-            @JsonProperty("email") String email,
-            @JsonProperty("description") String description,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("priority") String priority,
+            @JsonProperty("description") String description, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.priority = priority;
-        this.email = email;
         this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -47,17 +40,16 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
         priority = source.getPriority().value;
-        email = source.getEmail().value;
         description = source.getDescription().value;
-        tagged.addAll(
-                source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
+        tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's
+     * {@code Person} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted
-     *     person.
+     * @throws IllegalValueException if there were any data constraints violated in
+     *                               the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
@@ -66,8 +58,7 @@ class JsonAdaptedPerson {
         }
 
         if (name == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -83,15 +74,6 @@ class JsonAdaptedPerson {
         }
         final Priority modelPriority = new Priority(priority);
 
-        if (email == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
         if (description == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
@@ -102,6 +84,6 @@ class JsonAdaptedPerson {
         final Description modelAddress = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPriority, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelPriority, modelAddress, modelTags);
     }
 }
