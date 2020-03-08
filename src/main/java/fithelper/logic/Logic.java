@@ -7,9 +7,8 @@ import fithelper.commons.core.GuiSettings;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.ReadOnlyAddressBook;
+import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
-import fithelper.model.person.Person;
 
 /**
  * API of the Logic component
@@ -25,22 +24,22 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the FitHelper.
      *
-     * @see fithelper.model.Model#getAddressBook()
+     * @see fithelper.model.Model#getFitHelper()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyFitHelper getFitHelper();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of food entries*/
+    ObservableList<Entry> getFilteredFoodEntryList();
 
-    /** Returns an unmodifiable view of the filtered list of entries*/
-    ObservableList<Entry> getFilteredEntryList();
+    /** Returns an unmodifiable view of the filtered list of sports entries*/
+    ObservableList<Entry> getFilteredSportsEntryList();
 
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getFitHelperFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

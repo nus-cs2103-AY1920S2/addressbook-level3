@@ -59,9 +59,6 @@ public class FitHelperParser {
             case FindCommand.COMMAND_WORD:
                 return new FindCommandParser().parse(arguments);
 
-            case RemarkCommand.COMMAND_WORD:
-                return new RemarkCommandParser().parse(arguments);
-
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 

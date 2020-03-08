@@ -1,105 +1,110 @@
 package fithelper.logic.commands;
 
+import static fithelper.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static java.util.Objects.requireNonNull;
-import static fithelper.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static fithelper.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
-import static fithelper.logic.parser.CliSyntax.PREFIX_PHONE;
-import static fithelper.logic.parser.CliSyntax.PREFIX_TAG;
-import static fithelper.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
+import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static fithelper.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static fithelper.logic.parser.CliSyntax.PREFIX_STATUS;
+import static fithelper.logic.parser.CliSyntax.PREFIX_REMARK;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import fithelper.commons.core.Messages;
 import fithelper.commons.core.index.Index;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
-import fithelper.model.person.Address;
-import fithelper.model.person.Email;
-import fithelper.model.person.Name;
-import fithelper.model.person.Person;
-import fithelper.model.person.Remark;
-import fithelper.model.tag.Tag;
+import fithelper.model.entry.*;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing entry in the location book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the entry identified "
+            + "by the index number used in the displayed entry list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + "[" + PREFIX_TYPE + "TYPE] "
+            + "INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TIME + "TIME] "
+            + "[" + PREFIX_LOCATION + "LOCATION] "
+            + "[" + PREFIX_CALORIE + "CALORIE] "
+            + "[" + PREFIX_STATUS + "STATUS] "
+            + "[" + PREFIX_REMARK + "REMARK]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_NAME + "running "
+            + PREFIX_STATUS + "Done";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the location book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditEntryDescriptor editEntryDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the entry in the filtered entry list to edit
+     * @param editEntryDescriptor details to edit the entry with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditEntryDescriptor editEntryDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editEntryDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editEntryDescriptor = new EditEntryDescriptor(editEntryDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Entry> lastShownList;
+        if (editEntryDescriptor.getType().equals(new Type("food"))) {
+            lastShownList = model.getFilteredFoodEntryList();
+        } else {
+            lastShownList = model.getFilteredSportsEntryList();
+        }
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Entry entryToEdit = lastShownList.get(index.getZeroBased());
+        Entry editedEntry = createEditedEntry(entryToEdit, editEntryDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setEntry(entryToEdit, editedEntry);
+        model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Entry} with the details of {@code entryToEdit}
+     * edited with {@code editEntryDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Entry createEditedEntry(Entry entryToEdit, EditEntryDescriptor editEntryDescriptor) {
+        assert entryToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Remark updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Type updatedType = editEntryDescriptor.getType();
+        Name updatedName = editEntryDescriptor.getName().orElse(entryToEdit.getName());
+        Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
+        Location updatedLocation = editEntryDescriptor.getLocation().orElse(entryToEdit.getLocation());
+        Calorie updatedCalorie = editEntryDescriptor.getCalorie().orElse(entryToEdit.getCalorie());
+        Status updatedStatus = editEntryDescriptor.getStatus().orElse(entryToEdit.getStatus());
+        Remark updatedRemark = editEntryDescriptor.getRemark().orElse(entryToEdit.getRemark());
 
-        return new Person(updatedName, updatedEmail, updatedAddress, updatedRemark, updatedTags);
+        return new Entry(updatedType, updatedName, updatedTime, updatedLocation, updatedCalorie, updatedStatus,
+                updatedRemark);
     }
 
     @Override
@@ -117,39 +122,51 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editEntryDescriptor.equals(e.editEntryDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the entry with. Each non-empty field value will replace the
+     * corresponding field value of the entry.
      */
-    public static class EditPersonDescriptor {
+    public static class EditEntryDescriptor {
+        private Type type;
         private Name name;
-        private Email email;
-        private Address address;
+        private Time time;
+        private Location location;
+        private Calorie calorie;
+        private Status status;
         private Remark remark;
-        private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditEntryDescriptor() {}
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code status} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditEntryDescriptor(EditEntryDescriptor toCopy) {
+            setType(toCopy.type);
             setName(toCopy.name);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
+            setTime(toCopy.time);
+            setLocation(toCopy.location);
+            setCalorie(toCopy.calorie);
+            setStatus(toCopy.status);
             setRemark(toCopy.remark);
-            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, time, location, calorie, status, remark);
+        }
+
+        public void setType(Type type) {
+            this.type = type;
+        }
+
+        public Type getType() {
+            return this.type;
         }
 
         public void setName(Name name) {
@@ -160,20 +177,36 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setTime(Time time) {
+            this.time = time;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Time> getTime() {
+            return Optional.ofNullable(time);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setLocation(Location location) {
+            this.location = location;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Location> getLocation() {
+            return Optional.ofNullable(location);
+        }
+
+        public void setCalorie(Calorie calorie) {
+            this.calorie = calorie;
+        }
+
+        public Optional<Calorie> getCalorie() {
+            return Optional.ofNullable(calorie);
+        }
+
+        public void setStatus(Status status) {
+            this.status = status;
+        }
+
+        public Optional<Status> getStatus() {
+            return Optional.ofNullable(status);
         }
 
         public void setRemark(Remark remark) {
@@ -184,23 +217,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(remark);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -209,17 +225,20 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditEntryDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditEntryDescriptor e = (EditEntryDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getType().equals(e.getType())
+                    && getTime().equals(e.getTime())
+                    && getLocation().equals(e.getLocation())
+                    && getStatus().equals(e.getStatus())
+                    && getCalorie().equals(e.getCalorie())
+                    && getRemark().equals(e.getRemark());
         }
     }
 }

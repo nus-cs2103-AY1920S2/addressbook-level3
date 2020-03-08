@@ -13,9 +13,8 @@ import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.FitHelperParser;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.Model;
-import fithelper.model.ReadOnlyAddressBook;
+import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
-import fithelper.model.person.Person;
 import fithelper.storage.Storage;
 
 /**
@@ -44,7 +43,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveFitHelper(model.getFitHelper());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,23 +52,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyFitHelper getFitHelper() {
+        return model.getFitHelper();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Entry> getFilteredFoodEntryList() {
+        return model.getFilteredFoodEntryList();
     }
 
     @Override
-    public ObservableList<Entry> getFilteredEntryList() {
-        return model.getFilteredEntryList();
+    public ObservableList<Entry> getFilteredSportsEntryList() {
+        return model.getFilteredSportsEntryList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getFitHelperFilePath() {
+        return model.getFitHelperFilePath();
     }
 
     @Override

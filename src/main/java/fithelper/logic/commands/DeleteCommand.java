@@ -8,7 +8,7 @@ import fithelper.commons.core.Messages;
 import fithelper.commons.core.index.Index;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
-import fithelper.model.person.Person;
+import fithelper.model.entry.Entry;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

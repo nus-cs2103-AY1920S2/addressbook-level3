@@ -2,22 +2,24 @@ package fithelper.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static fithelper.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static fithelper.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
-import static fithelper.logic.parser.CliSyntax.PREFIX_PHONE;
-import static fithelper.logic.parser.CliSyntax.PREFIX_TAG;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
+import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static fithelper.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static fithelper.logic.parser.CliSyntax.PREFIX_STATUS;
+import static fithelper.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Stream;
 
 import fithelper.commons.core.index.Index;
+import fithelper.logic.commands.AddCommand;
 import fithelper.logic.commands.EditCommand;
-import fithelper.logic.commands.EditCommand.EditPersonDescriptor;
+import fithelper.logic.commands.EditCommand.EditEntryDescriptor;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -32,7 +34,13 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
+                        PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
 
         Index index;
 
@@ -42,38 +50,38 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditEntryDescriptor editEntryDescriptor = new EditEntryDescriptor();
+        editEntryDescriptor.setType(ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get()));
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editEntryDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            editEntryDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
+            editEntryDescriptor.setLocation(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
+        if (argMultimap.getValue(PREFIX_CALORIE).isPresent()) {
+            editEntryDescriptor.setCalorie(ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            editEntryDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+        }
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+
+        if (!editEntryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editEntryDescriptor);
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }
