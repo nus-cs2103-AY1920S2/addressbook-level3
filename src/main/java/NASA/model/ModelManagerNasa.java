@@ -115,8 +115,20 @@ public class ModelManagerNasa implements ModelNasa {
 
     @Override
     public void addActivity(Module target, Activity activity) {
-        nasaBook.add(target, activity);
+        nasaBook.addActivity(target, activity);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public void removeActivity(Module target, Activity activity) {
+        nasaBook.removeActivity(target, activity);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public boolean hasActivity(Module target, Activity activity) {
+        requireNonNull(activity);
+        return nasaBook.hasActivity(target, activity);
     }
 
     //=========== Filtered Module List Accessors =============================================================

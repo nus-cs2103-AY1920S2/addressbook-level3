@@ -83,6 +83,17 @@ public interface ModelNasa {
      */
     void addActivity(Module target, Activity activity);
 
+    /**
+     * Remove the given activity.
+     * {@code activity} must not already exist in the nasa book.
+     */
+    void removeActivity(Module target, Activity activity);
+
+    /**
+     * Returns true if a module {@code target} has {@code activity} exists in the nasa book.
+     */
+    boolean hasActivity(Module target, Activity activity);
+
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();
 
