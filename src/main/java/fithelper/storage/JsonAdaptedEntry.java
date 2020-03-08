@@ -4,14 +4,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.model.entry.Entry;
-import fithelper.model.entry.Name;
-import fithelper.model.entry.Time;
-import fithelper.model.entry.Location;
+
 import fithelper.model.entry.Calorie;
-import fithelper.model.entry.Status;
+import fithelper.model.entry.Entry;
+import fithelper.model.entry.Location;
+import fithelper.model.entry.Name;
 import fithelper.model.entry.Remark;
+import fithelper.model.entry.Status;
+import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
+
 
 
 /**
@@ -47,7 +49,7 @@ class JsonAdaptedEntry {
         this.calorie = calorie;
         this.status = status;
         this.remark = remark;
-        }
+    }
 
     /**
      * Converts a given {@code Entry} into this class for Jackson use.
@@ -98,7 +100,8 @@ class JsonAdaptedEntry {
 
         // location.
         if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Location.class.getSimpleName()));
         }
         if (!Location.isValidLocation(location)) {
             throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);

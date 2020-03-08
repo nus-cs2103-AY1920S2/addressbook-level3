@@ -4,12 +4,12 @@ import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.stream.Stream;
+
 import fithelper.commons.core.index.Index;
 import fithelper.logic.commands.DeleteCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.entry.Type;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

@@ -14,7 +14,7 @@ public class Time {
 
     public static final String MESSAGE_CONSTRAINTS = "Time should be in format: yyyy-MM-dd-HH:mm";
 
-    public static final DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
+    public static final DateTimeFormatter PARSEFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
 
     public final LocalTime value;
 
@@ -26,7 +26,7 @@ public class Time {
     public Time(String time) {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
-        value = LocalTime.parse(time, parseFormat);
+        value = LocalTime.parse(time, PARSEFORMAT);
     }
 
     /**
@@ -34,7 +34,7 @@ public class Time {
      */
     public static boolean isValidTime(String test) {
         try {
-            LocalTime time = LocalTime.parse(test, parseFormat);
+            LocalTime.parse(test, PARSEFORMAT);
         } catch (Exception e) {
             return false;
         }

@@ -1,13 +1,13 @@
 package fithelper.logic.commands;
 
-import static fithelper.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
-import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
-import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
-import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static fithelper.logic.parser.CliSyntax.PREFIX_STATUS;
+import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
 import static fithelper.logic.parser.CliSyntax.PREFIX_REMARK;
+import static fithelper.logic.parser.CliSyntax.PREFIX_STATUS;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
+import static fithelper.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -18,13 +18,13 @@ import fithelper.commons.core.index.Index;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
-import fithelper.model.entry.Entry;
-import fithelper.model.entry.Name;
-import fithelper.model.entry.Time;
-import fithelper.model.entry.Location;
 import fithelper.model.entry.Calorie;
-import fithelper.model.entry.Status;
+import fithelper.model.entry.Entry;
+import fithelper.model.entry.Location;
+import fithelper.model.entry.Name;
 import fithelper.model.entry.Remark;
+import fithelper.model.entry.Status;
+import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
 
 /**

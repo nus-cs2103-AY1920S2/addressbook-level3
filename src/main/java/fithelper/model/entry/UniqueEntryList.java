@@ -1,15 +1,15 @@
 package fithelper.model.entry;
 
-import static java.util.Objects.requireNonNull;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import fithelper.model.entry.exceptions.DuplicateEntryException;
 import fithelper.model.entry.exceptions.EntryNotFoundException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of entries that enforces uniqueness between its elements and does not allow nulls.
@@ -80,6 +80,11 @@ public class UniqueEntryList implements Iterable<Entry> {
         internalList.setAll(entries);
     }
 
+    public void setEntries(UniqueEntryList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
     /**
      * Removes the equivalent entry from the list.
      * The entry must exist in the list.
@@ -89,11 +94,6 @@ public class UniqueEntryList implements Iterable<Entry> {
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
         }
-    }
-
-    public void setEntries(UniqueEntryList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
     }
 
     /**

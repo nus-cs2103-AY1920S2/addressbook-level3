@@ -2,13 +2,6 @@ package fithelper.ui;
 
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.StackPane;
 import fithelper.commons.core.GuiSettings;
 import fithelper.commons.core.LogsCenter;
 import fithelper.logic.Logic;
@@ -16,6 +9,13 @@ import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -104,22 +104,22 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-//    /**
-//     * Fills up all the placeholders of this window.
-//     */
-//    void fillInnerParts() {
-//        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-//        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-//
-//        resultDisplay = new ResultDisplay();
-//        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-//
-//        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitHelperFilePath());
-//        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-//
-//        CommandBox commandBox = new CommandBox(this::executeCommand);
-//        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-//    }
+    //    /**
+    //     * Fills up all the placeholders of this window.
+    //     */
+    //    void fillInnerParts() {
+    //        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+    //        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    //
+    //        resultDisplay = new ResultDisplay();
+    //        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+    //
+    //        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitHelperFilePath());
+    //        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    //
+    //        CommandBox commandBox = new CommandBox(this::executeCommand);
+    //        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    //      }
 
     /**
      * Sets the default size based on {@code guiSettings}.

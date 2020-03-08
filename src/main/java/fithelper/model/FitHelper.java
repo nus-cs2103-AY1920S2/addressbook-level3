@@ -1,13 +1,13 @@
 package fithelper.model;
 
-import fithelper.model.entry.Entry;
-import fithelper.model.entry.UniqueEntryList;
-import javafx.collections.ObservableList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import fithelper.model.entry.Entry;
+import fithelper.model.entry.UniqueEntryList;
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level
@@ -162,7 +162,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         return other == this // short circuit if same object
                 || (other instanceof FitHelper // instanceof handles nulls
                 && foodEntries.equals(((FitHelper) other).foodEntries)
-                && sportsEntries.equals(((FitHelper)other).sportsEntries));
+                && sportsEntries.equals(((FitHelper) other).sportsEntries));
     }
 
     @Override

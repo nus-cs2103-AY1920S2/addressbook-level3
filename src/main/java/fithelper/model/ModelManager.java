@@ -1,17 +1,18 @@
 package fithelper.model;
 
-import static java.util.Objects.requireNonNull;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import fithelper.commons.core.GuiSettings;
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
+
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Represents the in-memory model of the FitHelper data.

@@ -1,17 +1,17 @@
 package fithelper.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.model.FitHelper;
-import fithelper.model.ReadOnlyFitHelper;
-import fithelper.model.entry.Entry;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
+
+import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.model.FitHelper;
+import fithelper.model.ReadOnlyFitHelper;
+import fithelper.model.entry.Entry;
 
 /**
  * An Immutable FitHelper that is serializable to JSON format.

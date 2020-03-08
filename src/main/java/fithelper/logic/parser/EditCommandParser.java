@@ -1,13 +1,14 @@
 package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
-import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
-import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
-import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static fithelper.logic.parser.CliSyntax.PREFIX_STATUS;
+import static fithelper.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static fithelper.logic.parser.CliSyntax.PREFIX_NAME;
 import static fithelper.logic.parser.CliSyntax.PREFIX_REMARK;
+import static fithelper.logic.parser.CliSyntax.PREFIX_STATUS;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TIME;
+import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Stream;

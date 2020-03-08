@@ -1,7 +1,7 @@
 package fithelper.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static fithelper.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's address in the address book.

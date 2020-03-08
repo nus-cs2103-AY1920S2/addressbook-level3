@@ -2,15 +2,16 @@ package fithelper.ui;
 
 import java.util.logging.Logger;
 
+import fithelper.MainApp;
+import fithelper.commons.core.LogsCenter;
+import fithelper.commons.util.StringUtil;
+import fithelper.logic.Logic;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import fithelper.MainApp;
-import fithelper.commons.core.LogsCenter;
-import fithelper.commons.util.StringUtil;
-import fithelper.logic.Logic;
 
 /**
  * The manager of the UI component.

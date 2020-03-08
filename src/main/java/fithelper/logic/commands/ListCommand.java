@@ -1,7 +1,7 @@
 package fithelper.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
+import static java.util.Objects.requireNonNull;
 
 import fithelper.model.Model;
 

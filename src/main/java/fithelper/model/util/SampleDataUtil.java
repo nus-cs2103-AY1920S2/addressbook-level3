@@ -2,14 +2,14 @@ package fithelper.model.util;
 
 import fithelper.model.FitHelper;
 import fithelper.model.ReadOnlyFitHelper;
-import fithelper.model.entry.Entry;
-import fithelper.model.entry.Name;
-import fithelper.model.entry.Time;
-import fithelper.model.entry.Location;
-import fithelper.model.entry.Calorie;
-import fithelper.model.entry.Remark;
-import fithelper.model.entry.Type;
 
+import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Entry;
+import fithelper.model.entry.Location;
+import fithelper.model.entry.Name;
+import fithelper.model.entry.Remark;
+import fithelper.model.entry.Time;
+import fithelper.model.entry.Type;
 
 /**
  * Contains utility methods for populating {@code FitHelper} with sample data.

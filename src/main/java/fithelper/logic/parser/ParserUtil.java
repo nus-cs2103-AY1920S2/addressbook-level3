@@ -1,17 +1,17 @@
 package fithelper.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import fithelper.commons.core.index.Index;
 import fithelper.commons.util.StringUtil;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.entry.Name;
-import fithelper.model.entry.Type;
-import fithelper.model.entry.Time;
-import fithelper.model.entry.Location;
 import fithelper.model.entry.Calorie;
-import fithelper.model.entry.Status;
+import fithelper.model.entry.Location;
+import fithelper.model.entry.Name;
 import fithelper.model.entry.Remark;
-
-import static java.util.Objects.requireNonNull;
+import fithelper.model.entry.Status;
+import fithelper.model.entry.Time;
+import fithelper.model.entry.Type;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -114,7 +114,7 @@ public class ParserUtil {
      */
     public static Status parseStatus(String status) throws ParseException {
         requireNonNull(status);
-        String trimmedStatus= status.trim();
+        String trimmedStatus = status.trim();
         if (!Status.isValidStatus(trimmedStatus)) {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }

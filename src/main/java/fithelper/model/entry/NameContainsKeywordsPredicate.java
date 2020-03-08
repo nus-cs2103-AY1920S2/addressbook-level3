@@ -1,9 +1,9 @@
 package fithelper.model.entry;
 
-import fithelper.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import fithelper.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Entry}'s {@code Name} matches any of the keywords given.

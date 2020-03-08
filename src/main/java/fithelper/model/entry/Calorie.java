@@ -10,7 +10,7 @@ import static java.util.Objects.requireNonNull;
 public class Calorie {
 
     public static final String MESSAGE_CONSTRAINTS = "Calorie should a positive number.";
-    public final double TOLERANCE = 0.0001; // tolerance for double comparision.
+    public static final double T = 0.0001; // tolerance for double comparision.
 
     public final double value;
 
@@ -47,7 +47,7 @@ public class Calorie {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Calorie // instanceof handles nulls
-                && Math.abs(value - ((Calorie) other).value) < TOLERANCE); // state check
+                && Math.abs(value - ((Calorie) other).value) < T); // state check
     }
 
     @Override
