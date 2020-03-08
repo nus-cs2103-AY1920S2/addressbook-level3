@@ -3,6 +3,12 @@ package fithelper.model.util;
 import fithelper.model.FitHelper;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.Type;
+import fithelper.model.entry.Name;
+import fithelper.model.entry.Time;
+import fithelper.model.entry.Location;
+import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Remark;
 
 
 /**
@@ -11,24 +17,32 @@ import fithelper.model.entry.Entry;
 public class SampleDataUtil {
     public static Entry[] getSampleEntries() {
         return new Entry[]{
-                new Entry(new Name("Alex Yeoh"), new Email("alexyeoh@example.com"),
-                        new Address("Blk 30 Geylang Street 29, #06-40"), new Remark("He is rich."),
-                        getTagSet("friends")),
-                new Entry(new Name("Bernice Yu"), new Email("berniceyu@example.com"),
-                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Remark("He is rich."),
-                        getTagSet("colleagues", "friends")),
-                new Entry(new Name("Charlotte Oliveiro"), new Email("charlotte@example.com"),
-                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), new Remark("A funny person."),
-                        getTagSet("neighbours")),
-                new Entry(new Name("David Li"), new Email("lidavid@example.com"),
-                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), new Remark("He studies really hard."),
-                        getTagSet("family")),
-                new Entry(new Name("Irfan Ibrahim"), new Email("irfan@example.com"),
-                        new Address("Blk 47 Tampines Street 20, #17-35"), new Remark("People person."),
-                        getTagSet("classmates")),
-                new Entry(new Name("Roy Balakrishnan"), new Email("royb@example.com"),
-                        new Address("Blk 45 Aljunied Street 85, #11-31"), new Remark("Handsome boy."),
-                        getTagSet("colleagues"))
+                new Entry(
+                        new Type("food"),
+                        new Name("Noodles"),
+                        new Time("2020-03-01-15:30"),
+                        new Location("Utown canteen"),
+                        new Calorie("150.5"),
+                        new Remark("Too expensive")),
+                new Entry(
+                        new Type("food"),
+                        new Name("Apple juice"),
+                        new Time("2020-03-01-11:30"),
+                        new Location("Utown 711"),
+                        new Calorie("79")),
+                new Entry(
+                        new Type("sports"),
+                        new Name("Running"),
+                        new Time("2020-03-01-10:00"),
+                        new Location("Utown gym"),
+                        new Calorie("300")),
+                new Entry(
+                        new Type("s"),
+                        new Name("Swimming"),
+                        new Time("2020-03-01-20:20"),
+                        new Location("Sports Center"),
+                        new Calorie("450.5"),
+                        new Remark("Very tired.")),
         };
     }
 
