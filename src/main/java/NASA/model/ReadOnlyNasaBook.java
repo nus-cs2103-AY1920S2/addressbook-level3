@@ -1,7 +1,7 @@
 package NASA.model;
 
 import javafx.collections.ObservableList;
-import NASA.model.activity.Activity;
+import NASA.model.module.Module;
 
 /**
  * Unmodifiable view of an Nasa book
@@ -9,8 +9,8 @@ import NASA.model.activity.Activity;
 public interface ReadOnlyNasaBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the modules list.
+     * This list will not contain any duplicate modules.
      */
-    ObservableList<Activity> getActivityList();
+    ObservableList<Module> getModuleList();
 }

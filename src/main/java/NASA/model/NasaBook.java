@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import NASA.model.activity.Activity;
 import NASA.model.activity.UniqueActivityList;
+import NASA.model.module.Module;
+import NASA.model.module.UniqueModuleList;
 
 /**
  * Wraps all data at the Nasa Book Level
@@ -14,8 +16,7 @@ import NASA.model.activity.UniqueActivityList;
  */
 public class NasaBook implements ReadOnlyNasaBook {
 
-    private final UniqueActivityList activities;
-    //private final UniqueModuleList modules;
+    private final UniqueModuleList moduleList;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,14 +26,13 @@ public class NasaBook implements ReadOnlyNasaBook {
      *   among constructors.
      */
     {
-        activities = new UniqueActivityList();
-        //modules = new UniqueModuleList();
+        moduleList = new UniqueModuleList();
     }
 
     public NasaBook() {}
 
     /**
-     * Creates a NasaBook using the Activities in the {@code toBeCopied}
+     * Creates a NasaBook using the moduleList in the {@code toBeCopied}
      */
     public NasaBook(ReadOnlyNasaBook toBeCopied) {
         this();
@@ -40,11 +40,55 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
-     * Replaces the contents of the activities with {@code activities}
-     * {@code activities} must not contain duplicate activities
+     * Replaces the contents of the activities of module {@moduleCode} with {@code activities}
+     * {@code activities} must not contain duplicate activities.
      */
-    public void setActivities(List<Activity> activities) {
-        this.activities.setActivities(activities);
+    public UniqueActivityList getActivities(Module module) {
+        return moduleList.getActivities(module);
+    }
+
+    /**
+     * Replaces the contents of the activities of module {@moduleCode} with {@code activities}
+     * {@code activities} must not contain duplicate activities.
+     */
+    public void setActivities(Module module, List<Activity> activities) {
+        Module toEditModule = moduleList.getModule(module);
+        toEditModule.setActivities(activities);
+        moduleList.setModule(module, toEditModule);
+    }
+
+    /**
+     * Add a single activity to module {@moduleCode} with {@code activity}
+     * {@code activity} must not contain duplicate activities.
+     */
+    public void addActivity(Module module, Activity activity) {
+        requireNonNull(activity);
+
+        Module toEditModule = moduleList.getModule(module);
+        toEditModule.add(activity);
+        moduleList.setModule(module, toEditModule);
+    }
+
+    /**
+     * Remove a single activity from module {@code module} with {@code activity}
+     * {@code activity} must exist in the list.
+     */
+    public void removeActivity(Module module, Activity activity) {
+        requireNonNull(activity);
+
+        Module toEditModule = moduleList.getModule(module);
+        toEditModule.remove(activity);
+        moduleList.setModule(module, toEditModule);
+    }
+
+    /**
+     * Check if it has activity {@code activity} in {@code module}
+     */
+    public boolean hasActivity(Module module, Activity activity) {
+        requireNonNull(activity);
+
+        Module toEditModule = moduleList.getModule(module);
+        return toEditModule.contains(activity);
     }
 
     /**
@@ -53,68 +97,68 @@ public class NasaBook implements ReadOnlyNasaBook {
     public void resetData(ReadOnlyNasaBook newData) {
         requireNonNull(newData);
 
-        setActivities(newData.getActivityList());
+        moduleList.setModules(newData.getModuleList());
     }
 
-    //// activity-Level operations
+    //// module-Level operations
 
     /**
-     * Returns true if an activity has the same identity as {@code activity} exits in NasaBook.
+     * Returns true if an module has the same identity as {@code module} exits in NasaBook.
      */
-    public boolean hasActivity(Activity activity) {
-        requireNonNull(activity);
-        return activities.contains(activity);
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return moduleList.contains(module);
     }
 
     /**
-     * Adds an activity to the NasaBook.
-     * The activity must not already exist in the NasaBook
+     * Adds an module to the NasaBook.
+     * The module must not already exist in the NasaBook
      */
-    public void addActivity(Activity activity) {
-        activities.add(activity);
+    public void addModule(Module module) {
+        moduleList.add(module);
     }
 
     /**
-     * Replaces the given activity {@code target} in the list with {@code editedActivity}.
+     * Replaces the given module {@code target} in the list with {@code editedActivity}.
      * {@code target} must exit in the NasaBook.
-     * The activity identity of {@code editedActivity} must not be the same as another existing activity in Nasa Book.
+     * The module identity of {@code editedActivity} must not be the same as another existing module in Nasa Book.
      */
-    public void setActivity(Activity target, Activity editedActivity) {
+    public void setModule(Module target, Module editedActivity) {
         requireNonNull(editedActivity);
 
-        activities.setActivity(target, editedActivity);
+        moduleList.setModule(target, editedActivity);
     }
 
     /**
      * Removes {@code key} from this {@code NasaBook}.
      * {@code key} must exist in the Nasa Book.
      */
-    public void removeActivity(Activity key) {
-        activities.remove(key);
+    public void removeModule(Module key) {
+        moduleList.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return activities.asUnmodifiableObservableList().size() + " activities";
+        return moduleList.asUnmodifiableObservableList().size() + " moduleList";
         //TODO: refine Later
     }
 
     @Override
-    public ObservableList<Activity> getActivityList() {
-        return activities.asUnmodifiableObservableList();
+    public ObservableList<Module> getModuleList() {
+        return moduleList.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof NasaBook
-                && activities.equals(((NasaBook) other).activities));
+                && moduleList.equals(((NasaBook) other).moduleList));
     }
 
     @Override
     public int hashCode() {
-        return activities.hashCode();
+        return moduleList.hashCode();
     }
 }

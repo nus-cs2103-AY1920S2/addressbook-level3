@@ -1,5 +1,7 @@
 package NASA.model.activity;
 
+import java.time.LocalDate;
+
 /**
  * Represents Deadlines method in Nasa Book.
  * Guarantees: details are present and not null, field values are validated, immutable.
