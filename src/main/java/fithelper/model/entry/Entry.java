@@ -15,6 +15,7 @@ public class Entry {
     private final Time time;
     private final Location location;
     private final Calorie calorie;
+    private Status status;
     private Remark remark = new Remark("");
 
     /**
@@ -27,6 +28,7 @@ public class Entry {
         this.location = location;
         this.time = time;
         this.calorie = calorie;
+        this.status = new Status("FALSE");
     }
 
     /**
@@ -39,6 +41,7 @@ public class Entry {
         this.location = location;
         this.time = time;
         this.calorie = calorie;
+        this.status = new Status("FALSE");
         this.remark = remark;
     }
 
@@ -70,6 +73,8 @@ public class Entry {
         return remark;
     }
 
+    public Status getStatus() {return status;}
+
     /**
      * Returns true if both Entry of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two entries.
@@ -99,17 +104,18 @@ public class Entry {
             return false;
         }
 
-        Entry otherPerson = (Entry) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getLocation().equals(getLocation())
-                && otherPerson.getTime().equals(getTime())
-                && otherPerson.getCalorie().equals(getCalorie());
+        Entry otherEntry = (Entry) other;
+        return otherEntry.getName().equals(getName())
+                && otherEntry.getType().equals(getType())
+                && otherEntry.getLocation().equals(getLocation())
+                && otherEntry.getTime().equals(getTime())
+                && otherEntry.getCalorie().equals(getCalorie());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, time, location, calorie);
+        return Objects.hash(type, name, time, location, calorie);
     }
 
     @Override
@@ -122,6 +128,8 @@ public class Entry {
                 .append(getLocation())
                 .append(" Calorie: ")
                 .append(getCalorie())
+                .append(" Status:")
+                .append(getStatus())
                 .append(" Remark: ")
                 .append(getRemark().toString());
         return builder.toString();

@@ -9,9 +9,9 @@ import static java.util.Objects.requireNonNull;
  */
 public class Status {
 
-    public static final String MESSAGE_CONSTRAINTS = "Status can only be.";
+    public static final String MESSAGE_CONSTRAINTS = "Status can only be TRUE or FALSE.";
 
-    public final String value;
+    public final boolean value;
 
     /**
      * Constructs an {@code Status}.
@@ -21,30 +21,30 @@ public class Status {
     public Status(String status) {
         requireNonNull(status);
         checkArgument(isValidStatus(status), MESSAGE_CONSTRAINTS);
-        value = (status.equals("food") || status.equals("f")) ? "food" : "sports";
+        value = status.equals("TRUE");
     }
 
     /**
      * Returns true if a given string is a valid status.
      */
     public static boolean isValidStatus(String test) {
-        return test.equals("food") || test.equals("f") || test.equals("sports") || test.equals("s");
+        return test.equals("TRUE") || test.equals("FALSE");
     }
 
     @Override
     public String toString() {
-        return value;
+        return value ? "Done" : "Not done";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Status // instanceof handles nulls
-                && value.equals(((Status) other).value)); // state check
+                && value == ((Status) other).value); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return this.toString().hashCode();
     }
 }
