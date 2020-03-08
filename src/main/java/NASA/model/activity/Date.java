@@ -42,6 +42,10 @@ public class Date {
         }
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     /**
      * Returns date as a string with format MMM d yyyy.
      *

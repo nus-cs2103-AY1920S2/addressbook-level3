@@ -1,5 +1,7 @@
 package NASA.model.activity;
 
+import java.time.LocalDate;
+
 /**
  * Abstract class to specify fields with getter and setters for activities.
  */
@@ -11,7 +13,9 @@ public abstract class Activity {
 
     private Note note;
 
-    private boolean isDone;
+    //private boolean isDone;
+
+    private Status status;
 
     /**
      * Constructs a {@code activity}
@@ -23,7 +27,8 @@ public abstract class Activity {
         this.name = name;
         this.date = date;
         this.note = note;
-        this.isDone = false;
+        //this.isDone = false;
+        this.status = Status.ONGOING;
     }
 
     //Priority priority;
@@ -114,20 +119,34 @@ public abstract class Activity {
                 && otherActivity.getNote().equals(getNote())
                 && otherActivity.getDate().equals(getDate());
     }
-  
+
+    public void updateStatus() {
+        if (status == Status.ONGOING && LocalDate.now().isAfter(date.getDate())) {
+            status = Status.LATE;
+        }
+    }
+
+    /**
+     * Retrieve the late status of the activity
+     * @return boolean, true means late, false means not
+     */
+    public boolean isLate() {
+        return status == Status.LATE;
+    }
+
     /**
      * Sets the task to done.
      */
     public void setDone() {
-        isDone = true;
+        status = Status.DONE;
     }
 
     /**
      * Retrieve the done status of the activity.
      * @return boolean, true means done, false means not
      */
-    public boolean getIsDone() {
-        return isDone;
+    public boolean isDone() {
+        return status == Status.DONE;
     }
   
     /*
