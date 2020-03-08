@@ -76,14 +76,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-<<<<<<< HEAD
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-=======
-
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY;
-
->>>>>>> 342ac23028c26faada3cead0e1bb8d3d656b6263
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
