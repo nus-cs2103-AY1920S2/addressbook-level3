@@ -8,13 +8,12 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Done;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Priority;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Done;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Priority;
+import seedu.address.model.task.Task;
 
 /** Deletes a person identified using it's displayed index from the address book. */
 public class DoneCommand extends Command {
@@ -40,41 +39,34 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Task> lastShownList = model.getFilteredTaskList();
         StringBuilder tasksDone = new StringBuilder(MESSAGE_DONE_TASK_SUCCESS);
-        // List<Person> toDeletePersons = new ArrayList<>();
         for (Index targetIndex : targetIndices) {
             targetIndex.getZeroBased();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
             // Person person = lastShownList.get(targetIndex.getZeroBased());
-            Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
-            Person editedPerson = createDoneTask(personToEdit);
-            tasksDone.append(String.format("%n%s", editedPerson));
-            model.setPerson(personToEdit, editedPerson);
+            Task taskToEdit = lastShownList.get(targetIndex.getZeroBased());
+            Task editedTask = createDoneTask(taskToEdit);
+            tasksDone.append(String.format("%n%s", editedTask));
+            model.setTask(taskToEdit, editedTask);
         }
         // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(tasksDone.toString());
     }
 
-    private static Person createDoneTask(Person personToEdit) {
-        assert personToEdit != null;
+    private static Task createDoneTask(Task taskToEdit) {
+        assert taskToEdit != null;
 
-        Name updatedName = personToEdit.getName();
-        Priority updatedPriority = personToEdit.getPriority();
-        Email updatedEmail = personToEdit.getEmail();
-        Description updatedDescription = personToEdit.getDescription();
-        Set<Tag> updatedTags = personToEdit.getTags();
+        Name updatedName = taskToEdit.getName();
+        Priority updatedPriority = taskToEdit.getPriority();
+        Description updatedDescription = taskToEdit.getDescription();
+        Set<Tag> updatedTags = taskToEdit.getTags();
 
-        return new Person(
-                updatedName,
-                updatedPriority,
-                updatedEmail,
-                updatedDescription,
-                new Done("Y"),
-                updatedTags);
+        return new Task(
+                updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
     }
 
     @Override

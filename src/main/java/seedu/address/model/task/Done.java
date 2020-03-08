@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -36,7 +36,7 @@ public class Done {
 
     public
     Done() { // TODO maybe don't need, but i don't get why we should use a PersonBuilder to inject
-             // default values
+        // default values
         this.isDone = false;
     }
 
