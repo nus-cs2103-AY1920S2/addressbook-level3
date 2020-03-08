@@ -77,24 +77,6 @@ public class ParserUtil {
         return new Address(trimmedAddress);
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * Parses a {@code String email} into an {@code Email}. Leading and trailing whitespaces will be
-     * trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
->>>>>>> bfdc780ad65e57cc37de4bb646c489965b434505
-
     /**
      * Parses a {@code String tag} into a {@code Tag}. Leading and trailing whitespaces will be
      * trimmed.
