@@ -1,5 +1,6 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.parser.CliSyntax.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -9,9 +10,10 @@ import fithelper.commons.core.index.Index;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.Type;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a entry identified using it's displayed index from the address book.
  */
 public class DeleteCommand extends Command {
 
@@ -19,29 +21,40 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the entry identified by the index number used in the displayed entry list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: "
+            + PREFIX_TYPE + "TYPE "
+            + "INDEX (must be a positive integer) "
+            + "Example: " + COMMAND_WORD
+            + PREFIX_TYPE + "food "
+            + "1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Entry: %1$s";
+    public static final String MESSAGE_DELETE_ENTRY_SUCCESS = "Deleted Entry: %1$s";
 
+    private final Type deleteType;
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteCommand(Type deleteType, Index targetIndex) {
+        this.deleteType = deleteType;
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        List<Entry> lastShownList;
+        if (deleteType.equals(new Type("food"))) {
+            lastShownList = model.getFilteredFoodEntryList();
+        } else {
+            lastShownList = model.getFilteredSportsEntryList();
         }
 
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
+        }
+
+        Entry entryToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteEntry(entryToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }
 
     @Override

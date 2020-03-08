@@ -31,7 +31,7 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed entry list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + "[" + PREFIX_TYPE + "TYPE] "
+            + PREFIX_TYPE + "TYPE "
             + "INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_TIME + "TIME] "
@@ -39,7 +39,9 @@ public class EditCommand extends Command {
             + "[" + PREFIX_CALORIE + "CALORIE] "
             + "[" + PREFIX_STATUS + "STATUS] "
             + "[" + PREFIX_REMARK + "REMARK]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD
+            + PREFIX_TYPE + "sports "
+            + "1 "
             + PREFIX_NAME + "running "
             + PREFIX_STATUS + "Done";
 
