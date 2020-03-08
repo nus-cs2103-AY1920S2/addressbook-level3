@@ -22,6 +22,7 @@ Class Email
 Class Name
 Class Phone
 Class UniqueOrderList
+Class Warehouse
 }
 
 Package Tag {
@@ -47,6 +48,7 @@ Order *--> Phone
 Order *--> Email
 Order *--> Address
 Order *--> "*" Tag
+Order *--> Warehouse
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
