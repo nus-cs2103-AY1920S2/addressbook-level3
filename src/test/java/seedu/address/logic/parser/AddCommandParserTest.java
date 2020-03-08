@@ -73,9 +73,6 @@ public class AddCommandParserTest {
 
         assertParseFailure(parser, VALID_NAME_BOB, expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB, expectedMessage);
-
         // all prefixes missing
         assertParseFailure(parser, VALID_NAME_BOB, expectedMessage);
     }
