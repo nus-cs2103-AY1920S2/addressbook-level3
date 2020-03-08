@@ -184,22 +184,6 @@ public class AddCommandParserTest {
                         + TAG_DESC_FRIEND,
                 Phone.MESSAGE_CONSTRAINTS);
 
-        // invalid email
-<<<<<<< HEAD
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND);
-=======
-        assertParseFailure(
-                parser,
-                NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + INVALID_EMAIL_DESC
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_HUSBAND
-                        + TAG_DESC_FRIEND,
-                Email.MESSAGE_CONSTRAINTS);
->>>>>>> bfdc780ad65e57cc37de4bb646c489965b434505
-
         // invalid address
         assertParseFailure(
                 parser,

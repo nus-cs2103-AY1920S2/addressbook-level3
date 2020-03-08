@@ -63,15 +63,6 @@ public class PersonBuilder {
         return this;
     }
 
-<<<<<<< HEAD
-=======
-    /** Sets the {@code Email} of the {@code Person} that we are building. */
-    public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
->>>>>>> bfdc780ad65e57cc37de4bb646c489965b434505
     public Person build() {
         return new Person(name, phone, address, tags);
     }
