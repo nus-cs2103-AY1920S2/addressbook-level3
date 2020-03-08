@@ -23,6 +23,9 @@ import fithelper.logic.parser.exceptions.ParseException;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private ArgumentMultimap argMultimap;
+    private EditEntryDescriptor editEntryDescriptor;
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
@@ -30,8 +33,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
+        argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
                         PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)
@@ -47,30 +49,56 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditEntryDescriptor editEntryDescriptor = new EditEntryDescriptor();
+        editEntryDescriptor = new EditEntryDescriptor();
         editEntryDescriptor.setType(ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get()));
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editEntryDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
-            editEntryDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
-        }
-        if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
-            editEntryDescriptor.setLocation(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
-        }
-        if (argMultimap.getValue(PREFIX_CALORIE).isPresent()) {
-            editEntryDescriptor.setCalorie(ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).get()));
-        }
-        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
-            editEntryDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
-        }
-
+        setName();
+        setTime();
+        setLocation();
+        setCalorie();
+        setStatus();
+        setRemark();
 
         if (!editEntryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index, editEntryDescriptor);
+    }
+
+    public void setName() throws ParseException {
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editEntryDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
+    }
+
+    public void setTime() throws ParseException {
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            editEntryDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
+        }
+    }
+
+    public void setLocation() throws ParseException {
+        if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
+            editEntryDescriptor.setLocation(ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
+        }
+    }
+
+    public void setCalorie() throws ParseException {
+        if (argMultimap.getValue(PREFIX_CALORIE).isPresent()) {
+            editEntryDescriptor.setCalorie(ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).get()));
+        }
+    }
+
+    public void setStatus() throws ParseException {
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            editEntryDescriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
+        }
+    }
+
+    public void setRemark() throws ParseException {
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            editEntryDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+        }
     }
 
     /**

@@ -64,41 +64,37 @@ class JsonAdaptedEntry {
         remark = source.getRemark().value;
     }
 
-    /**
-     * Converts this Jackson-friendly adapted entry object into the model's {@code Entry} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted entry.
-     */
-    public Entry toModelType() throws IllegalValueException {
-
-        // type.
+    public Type buildType() throws IllegalValueException {
         if (type == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
         }
         if (!Type.isValidType(type)) {
             throw new IllegalValueException(Type.MESSAGE_CONSTRAINTS);
         }
-        final Type modelType = new Type(type);
+        return new Type(type);
+    }
 
-        // name.
+    public Name buildName() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        return new Name(name);
+    }
 
-        // time.
+    public Time buildTime() throws IllegalValueException {
         if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
         if (!Time.isValidTime(time)) {
             throw new IllegalValueException(Time.MESSAGE_CONSTRAINTS);
         }
-        final Time modelTime = new Time(time);
+        return new Time(time);
+    }
 
-        // location.
+    public Location buildLocation() throws IllegalValueException {
         if (location == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Location.class.getSimpleName()));
@@ -106,31 +102,50 @@ class JsonAdaptedEntry {
         if (!Location.isValidLocation(location)) {
             throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
-        final Location modelLocation = new Location(location);
+        return new Location(location);
+    }
 
-        // calorie.
+    public Calorie buildCalorie() throws IllegalValueException {
         if (calorie == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Calorie.class.getSimpleName()));
         }
         if (!Calorie.isValidCalorie(calorie)) {
             throw new IllegalValueException(Calorie.MESSAGE_CONSTRAINTS);
         }
-        final Calorie modelCalorie = new Calorie(calorie);
+        return new Calorie(calorie);
+    }
 
-        // status.
+    public Status buildStatus() throws IllegalValueException {
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
         if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
-        final Status modelStatus = new Status(status);
+        return new Status(status);
+    }
 
-        // remark.
+    public Remark buildRemark() throws IllegalValueException {
         if (remark == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
         }
-        final Remark modelRemark = new Remark(remark);
+        return new Remark(remark);
+    }
+
+    /**
+     * Converts this Jackson-friendly adapted entry object into the model's {@code Entry} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted entry.
+     */
+    public Entry toModelType() throws IllegalValueException {
+
+        final Type modelType = buildType();
+        final Name modelName = buildName();
+        final Time modelTime = buildTime();
+        final Location modelLocation = buildLocation();
+        final Calorie modelCalorie = buildCalorie();
+        final Status modelStatus = buildStatus();
+        final Remark modelRemark = buildRemark();
 
         return new Entry(modelType, modelName, modelTime, modelLocation, modelCalorie, modelStatus, modelRemark);
     }
