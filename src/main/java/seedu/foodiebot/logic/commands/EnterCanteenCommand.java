@@ -51,11 +51,6 @@ public class EnterCanteenCommand extends Command {
         this.canteenName = Optional.of(canteenName);
     }
 
-    public Optional<String> getCanteenName() {
-        return this.canteenName;
-    }
-
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

@@ -234,11 +234,14 @@ public class MainWindow extends UiPart<Stage> {
 
             switch (commandResult.commandName) {
             case ListCommand.COMMAND_WORD:
-                handleListCanteens();
+                if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                    handleListCanteens();
+                } else {
+                    resultDisplay.setFeedbackToUser(ParserContext.INVALID_CONTEXT_MESSAGE);
+                }
                 break;
             case EnterCanteenCommand.COMMAND_WORD:
                 ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
-                //ParserContext.setCurrentCanteen(EnterCanteenCommand.getCanteenName());
                 handleListStalls();
                 break;
             case ExitCommand.COMMAND_WORD:

@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
@@ -83,8 +84,6 @@ public interface Model {
     ObservableList<Stall> getFilteredStallList();
 
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
-
-    ObservableList<Stall> getFilteredStallList(Predicate<Stall> predicate);
     /**
      * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
      *

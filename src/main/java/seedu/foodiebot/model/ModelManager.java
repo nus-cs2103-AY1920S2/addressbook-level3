@@ -5,6 +5,7 @@ import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -34,7 +35,7 @@ public class ModelManager implements Model {
     private final FoodieBot foodieBot;
     private final UserPrefs userPrefs;
     private final FilteredList<Canteen> filteredCanteens;
-    private final FilteredList<Stall> filteredStalls;
+    private FilteredList<Stall> filteredStalls;
     private final FilteredList<Food> filteredFoods;
 
     private final Budget budget;
@@ -193,14 +194,6 @@ public class ModelManager implements Model {
         return filteredStalls;
     }
 
-    @Override
-    public ObservableList<Stall> getFilteredStallList(Predicate<Stall> predicate) {
-        requireNonNull(predicate);
-        filteredStalls.setPredicate(predicate);
-
-        return filteredStalls;
-    }
-
     public ObservableList<Stall> getFilteredStallList() {
         return filteredStalls;
     }
@@ -233,7 +226,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredStallList(List<Stall> list) {
         //List<Stall> filterCopy = new ArrayList<>(filteredStalls);
-        //filteredStalls.removeAll(filterCopy);
+        //filteredStalls.getSource().removeAll(filterCopy);
         //filteredStalls.addAll(list);
     }
 
