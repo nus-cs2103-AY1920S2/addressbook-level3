@@ -15,8 +15,8 @@ import javafx.collections.ObservableList;
  */
 public class FitHelper implements ReadOnlyFitHelper {
 
-    private final UniqueEntryList foodEntries = new fithelper.model.entry.UniqueEntryList();
-    private final UniqueEntryList sportsEntries = new fithelper.model.entry.UniqueEntryList();
+    private final UniqueEntryList foodEntries = new UniqueEntryList();
+    private final UniqueEntryList sportsEntries = new UniqueEntryList();
 
     public FitHelper() {}
 
