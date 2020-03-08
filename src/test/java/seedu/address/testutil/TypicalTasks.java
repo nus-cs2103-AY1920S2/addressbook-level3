@@ -15,58 +15,58 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
-/** A utility class containing a list of {@code Person} objects to be used in tests. */
-public class TypicalPersons {
+/** A utility class containing a list of {@code Task} objects to be used in tests. */
+public class TypicalTasks {
 
-    public static final Person ALICE =
-            new PersonBuilder()
+    public static final Task ALICE =
+            new TaskBuilder()
                     .withName("Alice Pauline")
                     .withDescription("123, Jurong West Ave 6, #08-111")
                     .withEmail("alice@example.com")
                     .withPriority("94351253")
                     .withTags("friends")
                     .build();
-    public static final Person BENSON =
-            new PersonBuilder()
+    public static final Task BENSON =
+            new TaskBuilder()
                     .withName("Benson Meier")
                     .withDescription("311, Clementi Ave 2, #02-25")
                     .withEmail("johnd@example.com")
                     .withPriority("98765432")
                     .withTags("owesMoney", "friends")
                     .build();
-    public static final Person CARL =
-            new PersonBuilder()
+    public static final Task CARL =
+            new TaskBuilder()
                     .withName("Carl Kurz")
                     .withPriority("95352563")
                     .withEmail("heinz@example.com")
                     .withDescription("wall street")
                     .build();
-    public static final Person DANIEL =
-            new PersonBuilder()
+    public static final Task DANIEL =
+            new TaskBuilder()
                     .withName("Daniel Meier")
                     .withPriority("87652533")
                     .withEmail("cornelia@example.com")
                     .withDescription("10th street")
                     .withTags("friends")
                     .build();
-    public static final Person ELLE =
-            new PersonBuilder()
+    public static final Task ELLE =
+            new TaskBuilder()
                     .withName("Elle Meyer")
                     .withPriority("9482224")
                     .withEmail("werner@example.com")
                     .withDescription("michegan ave")
                     .build();
-    public static final Person FIONA =
-            new PersonBuilder()
+    public static final Task FIONA =
+            new TaskBuilder()
                     .withName("Fiona Kunz")
                     .withPriority("9482427")
                     .withEmail("lydia@example.com")
                     .withDescription("little tokyo")
                     .build();
-    public static final Person GEORGE =
-            new PersonBuilder()
+    public static final Task GEORGE =
+            new TaskBuilder()
                     .withName("George Best")
                     .withPriority("9482442")
                     .withEmail("anna@example.com")
@@ -74,15 +74,15 @@ public class TypicalPersons {
                     .build();
 
     // Manually added
-    public static final Person HOON =
-            new PersonBuilder()
+    public static final Task HOON =
+            new TaskBuilder()
                     .withName("Hoon Meier")
                     .withPriority("8482424")
                     .withEmail("stefan@example.com")
                     .withDescription("little india")
                     .build();
-    public static final Person IDA =
-            new PersonBuilder()
+    public static final Task IDA =
+            new TaskBuilder()
                     .withName("Ida Mueller")
                     .withPriority("8482131")
                     .withEmail("hans@example.com")
@@ -90,16 +90,16 @@ public class TypicalPersons {
                     .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY =
-            new PersonBuilder()
+    public static final Task AMY =
+            new TaskBuilder()
                     .withName(VALID_NAME_AMY)
                     .withPriority(VALID_PHONE_AMY)
                     .withEmail(VALID_EMAIL_AMY)
                     .withDescription(VALID_ADDRESS_AMY)
                     .withTags(VALID_TAG_FRIEND)
                     .build();
-    public static final Person BOB =
-            new PersonBuilder()
+    public static final Task BOB =
+            new TaskBuilder()
                     .withName(VALID_NAME_BOB)
                     .withPriority(VALID_PHONE_BOB)
                     .withEmail(VALID_EMAIL_BOB)
@@ -109,18 +109,18 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalTasks() {} // prevents instantiation
 
     /** Returns an {@code AddressBook} with all the typical persons. */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+        for (Task task : getTypicalTasks()) {
+            ab.addTask(task);
         }
         return ab;
     }
 
-    public static List<Person> getTypicalPersons() {
+    public static List<Task> getTypicalTasks() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

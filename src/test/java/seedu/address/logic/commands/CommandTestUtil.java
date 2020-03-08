@@ -16,9 +16,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.task.NameContainsKeywordsPredicate;
+import seedu.address.model.task.Task;
+import seedu.address.testutil.EditTaskDescriptorBuilder;
 
 /** Contains helper methods for testing commands. */
 public class CommandTestUtil {
@@ -59,12 +59,12 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditTaskDescriptor DESC_AMY;
+    public static final EditCommand.EditTaskDescriptor DESC_BOB;
 
     static {
         DESC_AMY =
-                new EditPersonDescriptorBuilder()
+                new EditTaskDescriptorBuilder()
                         .withName(VALID_NAME_AMY)
                         .withPriority(VALID_PHONE_AMY)
                         .withEmail(VALID_EMAIL_AMY)
@@ -72,7 +72,7 @@ public class CommandTestUtil {
                         .withTags(VALID_TAG_FRIEND)
                         .build();
         DESC_BOB =
-                new EditPersonDescriptorBuilder()
+                new EditTaskDescriptorBuilder()
                         .withName(VALID_NAME_BOB)
                         .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_BOB)
@@ -122,24 +122,24 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Task> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTaskList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredTaskList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code
      * targetIndex} in the {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredTaskList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(
+        Task task = model.getFilteredTaskList().get(targetIndex.getZeroBased());
+        final String[] splitName = task.getName().fullName.split("\\s+");
+        model.updateFilteredTaskList(
                 new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredTaskList().size());
     }
 }
