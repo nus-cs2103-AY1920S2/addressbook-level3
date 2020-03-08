@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entry.Entry;
-import seedu.address.model.food.Food;
 import seedu.address.model.person.Person;
 
 /**
@@ -123,11 +122,6 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void addFood(Food food) {
-        addressBook.addFood(food);
     }
 
     @Override

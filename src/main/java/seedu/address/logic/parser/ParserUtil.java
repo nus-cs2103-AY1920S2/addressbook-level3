@@ -124,54 +124,6 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static String parseFoodName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        return trimmedName;
-    }
-
-    /**
-     * Parses a {@code String time} into an {@code Time}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code time} is invalid.
-     */
-    public static String parseFoodTime(String time) throws ParseException {
-        requireNonNull(time);
-        String trimmedTime = time.trim();
-        return trimmedTime;
-    }
-
-    /**
-     * Parses a {@code String location} into an {@code Location}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code location} is invalid.
-     */
-    public static String parseFoodLocation(String location) throws ParseException {
-        requireNonNull(location);
-        String trimmedLocation = location.trim();
-        return trimmedLocation;
-    }
-
-    /**
-     * Parses a {@code String weight} into an {@code Weight}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code weight} is invalid.
-     */
-    public static String parseFoodWeight(String weight) throws ParseException {
-        requireNonNull(weight);
-        String trimmedWeight = weight.trim();
-        return trimmedWeight;
-    }
-
-    /**
-     * Parses a {@code String name} into an {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
     public static String parseEntryName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();

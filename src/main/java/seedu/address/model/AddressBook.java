@@ -7,8 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.entry.Entry;
 import seedu.address.model.entry.UniqueEntryList;
-import seedu.address.model.food.Food;
-import seedu.address.model.food.UniqueFoodList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -19,12 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniqueFoodList foods;
     private final UniqueEntryList entries;
-
-    {
-        foods = new UniqueFoodList();
-    }
 
     {
         entries = new UniqueEntryList();
@@ -114,14 +107,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
-    }
-
-    /**
-     * Adds a food to the list.
-     * The food must not already exist in the list.
-     */
-    public void addFood(Food food) {
-        foods.add(food);
     }
 
     /**
