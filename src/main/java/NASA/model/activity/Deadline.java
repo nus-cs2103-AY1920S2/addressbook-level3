@@ -24,11 +24,4 @@ public class Deadline extends Activity {
         super(name, date, note);
     }
 
-    /**
-     *
-     */
-    public boolean isLate() {
-        LocalDate deadline = super.getDate().getDate();
-        return LocalDate.now().isAfter(deadline);
-    }
 }
