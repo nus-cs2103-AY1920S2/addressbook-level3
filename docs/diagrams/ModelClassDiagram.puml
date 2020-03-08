@@ -27,6 +27,10 @@ Class UniqueOrderList
 Package Tag {
 Class Tag
 }
+
+Package Comment {
+Class Comment
+}
 }
 
 Class HiddenOutside #FFFFFF
@@ -47,10 +51,12 @@ Order *--> Phone
 Order *--> Email
 Order *--> Address
 Order *--> "*" Tag
+Order *--> Comment
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
+Order -[hidden]left-> Comment
 
 ModelManager -->"1" Order : filtered list
 @enduml
