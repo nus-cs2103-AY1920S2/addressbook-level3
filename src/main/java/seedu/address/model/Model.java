@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.Order;
+import seedu.address.model.order.Order;
 
 /**
  * The API of the Model component.

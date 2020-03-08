@@ -14,7 +14,7 @@ import seedu.address.logic.parser.OrderParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyOrderBook;
-import seedu.address.model.person.Order;
+import seedu.address.model.order.Order;
 import seedu.address.storage.Storage;
 
 /**
