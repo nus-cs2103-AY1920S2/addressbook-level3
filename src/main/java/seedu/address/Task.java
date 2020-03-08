@@ -13,8 +13,8 @@ public class Task {
     protected LocalDate date;
     protected LocalTime time;
 
-    String inputTimePattern = "HH:mm";
-    DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
+    private String inputTimePattern = "HH:mm";
+    private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
 
     public Task(String description, String date, String time) throws DateTimeException {
         this.description = description;
@@ -24,6 +24,14 @@ public class Task {
         } catch (DateTimeParseException e) {
             throw new DateTimeException("Try: d/YYYY-MM-DD HH:mm");
         }
+    }
+
+    public DateTimeFormatter getInputTimeFormatter() {
+        return inputTimeFormatter;
+    }
+
+    public String getInputTimePattern() {
+        return inputTimePattern;
     }
 
     @Override
