@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 import seedu.address.model.task.Description;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Priority;
@@ -15,19 +14,16 @@ public class TaskBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_DESCRIPTION = "Page 1 and 2";
 
     private Name name;
     private Priority priority;
-    private Email email;
     private Description description;
     private Set<Tag> tags;
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
         priority = new Priority(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
     }
@@ -36,7 +32,6 @@ public class TaskBuilder {
     public TaskBuilder(Task taskToCopy) {
         name = taskToCopy.getName();
         priority = taskToCopy.getPriority();
-        email = taskToCopy.getEmail();
         description = taskToCopy.getDescription();
         tags = new HashSet<>(taskToCopy.getTags());
     }
@@ -48,8 +43,8 @@ public class TaskBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are
-     * building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the
+     * {@code Person} that we are building.
      */
     public TaskBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -68,13 +63,7 @@ public class TaskBuilder {
         return this;
     }
 
-    /** Sets the {@code Email} of the {@code Person} that we are building. */
-    public TaskBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
     public Task build() {
-        return new Task(name, priority, email, description, tags);
+        return new Task(name, priority, description, tags);
     }
 }

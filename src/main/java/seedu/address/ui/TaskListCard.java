@@ -14,22 +14,27 @@ public class TaskListCard extends UiPart<Region> {
     private static final String FXML = "PersonListCard.fxml";
 
     /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As
-     * a consequence, UI elements' variable names cannot be set to such keywords or an exception
-     * will be thrown by JavaFX during runtime.
+     * Note: Certain keywords such as "location" and "resources" are reserved
+     * keywords in JavaFX. As a consequence, UI elements' variable names cannot be
+     * set to such keywords or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on
-     *     AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The
+     *      issue on AddressBook level 4</a>
      */
     public final Task task;
 
-    @FXML private HBox cardPane;
-    @FXML private Label name;
-    @FXML private Label id;
-    @FXML private Label priority;
-    @FXML private Label description;
-    @FXML private Label email;
-    @FXML private FlowPane tags;
+    @FXML
+    private HBox cardPane;
+    @FXML
+    private Label name;
+    @FXML
+    private Label id;
+    @FXML
+    private Label priority;
+    @FXML
+    private Label description;
+    @FXML
+    private FlowPane tags;
 
     public TaskListCard(Task task, int displayedIndex) {
         super(FXML);
@@ -38,10 +43,7 @@ public class TaskListCard extends UiPart<Region> {
         name.setText(task.getName().fullName);
         priority.setText(task.getPriority().value);
         description.setText(task.getDescription().value);
-        email.setText(task.getEmail().value);
-        task.getTags()
-                .stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
+        task.getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

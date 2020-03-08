@@ -18,8 +18,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.task.Task;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit
- * tests for {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and
+ * RedoCommand) and unit tests for {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
 
@@ -27,12 +27,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Task taskToDelete =
-                model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
@@ -52,12 +50,10 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Task taskToDelete =
-                model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);

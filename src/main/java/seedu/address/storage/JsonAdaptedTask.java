@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Description;
-import seedu.address.model.task.Email;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Priority;
@@ -22,21 +21,15 @@ class JsonAdaptedTask {
 
     private final String name;
     private final String priority;
-    private final String email;
     private final String description;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /** Constructs a {@code JsonAdaptedTask} with the given person details. */
     @JsonCreator
-    public JsonAdaptedTask(
-            @JsonProperty("name") String name,
-            @JsonProperty("priority") String priority,
-            @JsonProperty("email") String email,
-            @JsonProperty("description") String description,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("priority") String priority,
+            @JsonProperty("description") String description, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.priority = priority;
-        this.email = email;
         this.description = description;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -47,17 +40,16 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(Task source) {
         name = source.getName().fullName;
         priority = source.getPriority().value;
-        email = source.getEmail().value;
         description = source.getDescription().value;
-        tagged.addAll(
-                source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
+        tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Task} object.
+     * Converts this Jackson-friendly adapted person object into the model's
+     * {@code Task} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted
-     *     person.
+     * @throws IllegalValueException if there were any data constraints violated in
+     *                               the adapted person.
      */
     public Task toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
@@ -66,8 +58,7 @@ class JsonAdaptedTask {
         }
 
         if (name == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -83,15 +74,6 @@ class JsonAdaptedTask {
         }
         final Priority modelPriority = new Priority(priority);
 
-        if (email == null) {
-            throw new IllegalValueException(
-                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
         if (description == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
@@ -99,9 +81,9 @@ class JsonAdaptedTask {
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Description modelAddress = new Description(description);
+        final Description modelDescription = new Description(description);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Task(modelName, modelPriority, modelEmail, modelAddress, modelTags);
+        return new Task(modelName, modelPriority, modelDescription, modelTags);
     }
 }

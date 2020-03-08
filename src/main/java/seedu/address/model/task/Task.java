@@ -9,27 +9,24 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Task in the task list. Guarantees: details are present and not null, field
- * values are validated, immutable.
+ * Represents a Task in the task list. Guarantees: details are present and not
+ * null, field values are validated, immutable.
  */
 public class Task {
 
     // Identity fields
     private final Name name;
     private final Priority priority;
-    private final Email email;
 
     // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
 
     /** Every field must be present and not null. */
-    public Task(
-            Name name, Priority priority, Email email, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, priority, email, description, tags);
+    public Task(Name name, Priority priority, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, priority, description, tags);
         this.name = name;
         this.priority = priority;
-        this.email = email;
         this.description = description;
         this.tags.addAll(tags);
     }
@@ -42,40 +39,35 @@ public class Task {
         return priority;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
     public Description getDescription() {
         return description;
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
-     * modification is attempted.
+     * Returns an immutable tag set, which throws
+     * {@code UnsupportedOperationException} if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is
-     * the same. This defines a weaker notion of equality between two persons.
+     * Returns true if both persons of the same name have at least one other
+     * identity field that is the same. This defines a weaker notion of equality
+     * between two persons.
      */
     public boolean isSameTask(Task otherTask) {
         if (otherTask == this) {
             return true;
         }
 
-        return otherTask != null
-                && otherTask.getName().equals(getName())
-                && (otherTask.getPriority().equals(getPriority())
-                        || otherTask.getEmail().equals(getEmail()));
+        return otherTask != null && otherTask.getName().equals(getName())
+                && (otherTask.getPriority().equals(getPriority()));
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields. This defines a stronger
-     * notion of equality between two persons.
+     * Returns true if both persons have the same identity and data fields. This
+     * defines a stronger notion of equality between two persons.
      */
     @Override
     public boolean equals(Object other) {
@@ -88,30 +80,21 @@ public class Task {
         }
 
         Task otherTask = (Task) other;
-        return otherTask.getName().equals(getName())
-                && otherTask.getPriority().equals(getPriority())
-                && otherTask.getEmail().equals(getEmail())
-                && otherTask.getDescription().equals(getDescription())
-                && otherTask.getTags().equals(getTags());
+        return otherTask.getName().equals(getName()) && otherTask.getPriority().equals(getPriority())
+                && otherTask.getDescription().equals(getDescription()) && otherTask.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, priority, email, description, tags);
+        return Objects.hash(name, priority, description, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Priority: ")
-                .append(getPriority())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Description: ")
-                .append(getDescription())
-                .append(" Tags: ");
+        builder.append(getName()).append(" Priority: ").append(getPriority()).append(" Description: ")
+                .append(getDescription()).append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
