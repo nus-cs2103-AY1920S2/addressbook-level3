@@ -25,7 +25,6 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
         sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
         return sb.toString();
@@ -40,9 +39,6 @@ public class PersonUtil {
         descriptor
                 .getPhone()
                 .ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor
-                .getEmail()
-                .ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor
                 .getAddress()
                 .ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
