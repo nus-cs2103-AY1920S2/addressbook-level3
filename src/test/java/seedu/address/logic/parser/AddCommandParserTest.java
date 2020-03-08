@@ -35,7 +35,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
                         + TAG_DESC_FRIEND,
                 new AddCommand(expectedPerson));
 
-        // multiple phones - last phone accepted
+        // multiple prioritys - last priority accepted
         assertParseSuccess(
                 parser,
                 NAME_DESC_BOB
@@ -136,7 +136,7 @@ public class AddCommandParserTest {
                 VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
+        // missing priority prefix
         assertParseFailure(
                 parser,
                 NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
@@ -174,7 +174,7 @@ public class AddCommandParserTest {
                         + TAG_DESC_FRIEND,
                 Name.MESSAGE_CONSTRAINTS);
 
-        // invalid phone
+        // invalid priority
         assertParseFailure(
                 parser,
                 NAME_DESC_BOB
@@ -183,7 +183,7 @@ public class AddCommandParserTest {
                         + ADDRESS_DESC_BOB
                         + TAG_DESC_HUSBAND
                         + TAG_DESC_FRIEND,
-                Phone.MESSAGE_CONSTRAINTS);
+                Priority.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(

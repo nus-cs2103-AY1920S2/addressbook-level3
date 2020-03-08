@@ -6,7 +6,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Priority;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,14 +19,14 @@ public class PersonBuilder {
     public static final String DEFAULT_DESCRIPTION = "Page 1 and 2";
 
     private Name name;
-    private Phone phone;
+    private Priority priority;
     private Email email;
     private Description description;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        priority = new Priority(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         description = new Description(DEFAULT_DESCRIPTION);
         tags = new HashSet<>();
@@ -35,7 +35,7 @@ public class PersonBuilder {
     /** Initializes the PersonBuilder with the data of {@code personToCopy}. */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
-        phone = personToCopy.getPhone();
+        priority = personToCopy.getPriority();
         email = personToCopy.getEmail();
         description = personToCopy.getDescription();
         tags = new HashSet<>(personToCopy.getTags());
@@ -62,9 +62,9 @@ public class PersonBuilder {
         return this;
     }
 
-    /** Sets the {@code Phone} of the {@code Person} that we are building. */
-    public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    /** Sets the {@code Priority} of the {@code Person} that we are building. */
+    public PersonBuilder withPriority(String priority) {
+        this.priority = new Priority(priority);
         return this;
     }
 
@@ -75,6 +75,6 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, description, tags);
+        return new Person(name, priority, email, description, tags);
     }
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -23,7 +23,7 @@ import seedu.address.model.person.Description;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.Priority;
 import seedu.address.model.tag.Tag;
 
 /** Edits the details of an existing person in the address book. */
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
                     + PREFIX_NAME
                     + "NAME] "
                     + "["
-                    + PREFIX_PHONE
+                    + PREFIX_PRIORITY
                     + "PHONE] "
                     + "["
                     + PREFIX_EMAIL
@@ -55,7 +55,7 @@ public class EditCommand extends Command {
                     + "Example: "
                     + COMMAND_WORD
                     + " 1 "
-                    + PREFIX_PHONE
+                    + PREFIX_PRIORITY
                     + "91234567 "
                     + PREFIX_EMAIL
                     + "johndoe@example.com";
@@ -110,13 +110,14 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Priority updatedPriority =
+                editPersonDescriptor.getPriority().orElse(personToEdit.getPriority());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Description updatedDescription =
                 editPersonDescriptor.getDescription().orElse(personToEdit.getDescription());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedDescription, updatedTags);
+        return new Person(updatedName, updatedPriority, updatedEmail, updatedDescription, updatedTags);
     }
 
     @Override
@@ -142,7 +143,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
+        private Priority priority;
         private Email email;
         private Description description;
         private Set<Tag> tags;
@@ -152,7 +153,7 @@ public class EditCommand extends Command {
         /** Copy constructor. A defensive copy of {@code tags} is used internally. */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setPriority(toCopy.priority);
             setEmail(toCopy.email);
             setDescription(toCopy.description);
             setTags(toCopy.tags);
@@ -160,7 +161,7 @@ public class EditCommand extends Command {
 
         /** Returns true if at least one field is edited. */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, description, tags);
+            return CollectionUtil.isAnyNonNull(name, priority, email, description, tags);
         }
 
         public void setName(Name name) {
@@ -171,12 +172,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setPriority(Priority priority) {
+            this.priority = priority;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
         }
 
         public void setEmail(Email email) {
@@ -229,7 +230,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getPriority().equals(e.getPriority())
                     && getEmail().equals(e.getEmail())
                     && getDescription().equals(e.getDescription())
                     && getTags().equals(e.getTags());

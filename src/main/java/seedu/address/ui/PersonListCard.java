@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
 /** An UI component that displays information of a {@code Person}. */
-public class PersonCard extends UiPart<Region> {
+public class PersonListCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -26,17 +26,17 @@ public class PersonCard extends UiPart<Region> {
     @FXML private HBox cardPane;
     @FXML private Label name;
     @FXML private Label id;
-    @FXML private Label phone;
+    @FXML private Label priority;
     @FXML private Label description;
     @FXML private Label email;
     @FXML private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonListCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
+        priority.setText(person.getPriority().value);
         description.setText(person.getDescription().value);
         email.setText(person.getEmail().value);
         person.getTags()
@@ -53,12 +53,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof PersonListCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        PersonListCard card = (PersonListCard) other;
         return id.getText().equals(card.id.getText()) && person.equals(card.person);
     }
 }

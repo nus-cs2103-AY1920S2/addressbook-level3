@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,7 +22,7 @@ public class AddCommand extends Command {
                     + "Parameters: "
                     + PREFIX_NAME
                     + "NAME "
-                    + PREFIX_PHONE
+                    + PREFIX_PRIORITY
                     + "PHONE "
                     + PREFIX_EMAIL
                     + "EMAIL "
@@ -36,7 +36,7 @@ public class AddCommand extends Command {
                     + " "
                     + PREFIX_NAME
                     + "John Doe "
-                    + PREFIX_PHONE
+                    + PREFIX_PRIORITY
                     + "98765432 "
                     + PREFIX_EMAIL
                     + "johnd@example.com "

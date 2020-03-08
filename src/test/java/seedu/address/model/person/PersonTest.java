@@ -30,10 +30,10 @@ public class PersonTest {
         // null -> returns false
         assertFalse(ALICE.isSamePerson(null));
 
-        // different phone and email -> returns false
+        // different priority and email -> returns false
         Person editedAlice =
                 new PersonBuilder(ALICE)
-                        .withPhone(VALID_PHONE_BOB)
+                        .withPriority(VALID_PHONE_BOB)
                         .withEmail(VALID_EMAIL_BOB)
                         .build();
         assertFalse(ALICE.isSamePerson(editedAlice));
@@ -42,7 +42,7 @@ public class PersonTest {
         editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same priority, different attributes -> returns true
         editedAlice =
                 new PersonBuilder(ALICE)
                         .withEmail(VALID_EMAIL_BOB)
@@ -54,13 +54,13 @@ public class PersonTest {
         // same name, same email, different attributes -> returns true
         editedAlice =
                 new PersonBuilder(ALICE)
-                        .withPhone(VALID_PHONE_BOB)
+                        .withPriority(VALID_PHONE_BOB)
                         .withDescription(VALID_ADDRESS_BOB)
                         .withTags(VALID_TAG_HUSBAND)
                         .build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same priority, same email, different attributes -> returns true
         editedAlice =
                 new PersonBuilder(ALICE)
                         .withDescription(VALID_ADDRESS_BOB)
@@ -91,8 +91,8 @@ public class PersonTest {
         Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different priority -> returns false
+        editedAlice = new PersonBuilder(ALICE).withPriority(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
