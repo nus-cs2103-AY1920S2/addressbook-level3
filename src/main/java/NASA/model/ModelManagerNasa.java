@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import NASA.commons.core.GuiSettings;
 import NASA.commons.core.LogsCenter;
 import NASA.model.module.Module;
+import NASA.model.activity.Activity;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -102,7 +103,7 @@ public class ModelManagerNasa implements ModelNasa {
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        updateFilteredModuleList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
@@ -110,6 +111,12 @@ public class ModelManagerNasa implements ModelNasa {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
+    }
+
+    @Override
+    public void addActivity(Module target, Activity activity) {
+        nasaBook.add(target, activity);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     //=========== Filtered Module List Accessors =============================================================

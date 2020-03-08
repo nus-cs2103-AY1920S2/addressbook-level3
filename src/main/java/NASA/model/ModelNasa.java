@@ -6,13 +6,14 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import NASA.commons.core.GuiSettings;
 import NASA.model.module.Module;
+import NASA.model.activity.Activity;
 
 /**
  * The API of the Model component.
  */
 public interface ModelNasa {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Module> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -59,22 +60,28 @@ public interface ModelNasa {
 
     /**
      * Deletes the given module.
-     * The module must exist in the address book.
+     * The module must exist in the nasa book.
      */
     void deleteModule(Module target);
 
     /**
      * Adds the given module.
-     * {@code module} must not already exist in the address book.
+     * {@code module} must not already exist in the nasa book.
      */
     void addModule(Module module);
 
     /**
      * Replaces the given module {@code target} with {@code editedModule}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the nasa book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
      */
     void setModule(Module target, Module editedModule);
+
+    /**
+     * Adds the given activity.
+     * {@code activity} must not already exist in the nasa book.
+     */
+    void addActivity(Module target, Activity activity);
 
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();
