@@ -1,8 +1,8 @@
 package seedu.address.model.food;
 
-import java.util.Objects;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a Food in the diet tracker of EYLAH.
