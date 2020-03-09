@@ -22,54 +22,53 @@ import seedu.address.testutil.EditTaskDescriptorBuilder;
 /** Contains helper methods for testing commands. */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NAME_TASK1 = "Homework 1";
+    public static final String VALID_NAME_TASK2 = "Lab 2";
+    public static final String VALID_PRIORITY_TASK1 = "1";
+    public static final String VALID_PRIORITY_TASK2 = "2";
+    public static final String VALID_DESCRIPTION_TASK1 = "Pages 10 - 12";
+    public static final String VALID_DESCRIPTION_TASK2 = "Introduction to TCP";
+    public static final String VALID_TAG_MA1521 = "MA1521";
+    public static final String VALID_TAG_HELP = "HELP";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PRIORITY + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PRIORITY + VALID_PHONE_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_DESCRIPTION + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_TASK1 = " " + PREFIX_NAME + VALID_NAME_TASK1;
+    public static final String NAME_DESC_TASK2 = " " + PREFIX_NAME + VALID_NAME_TASK2;
+    public static final String PRIORITY_DESC_TASK1 = " " + PREFIX_PRIORITY + VALID_PRIORITY_TASK1;
+    public static final String PRIORITY_DESC_TASK2 = " " + PREFIX_PRIORITY + VALID_PRIORITY_TASK2;
+    public static final String DESCRIPTION_DESC_TASK1 = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TASK1;
+    public static final String DESCRIPTION_DESC_TASK2 = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TASK2;
+    public static final String TAG_DESC_HELP = " " + PREFIX_TAG + VALID_TAG_HELP;
+    public static final String TAG_DESC_MA1521 = " " + PREFIX_TAG + VALID_TAG_MA1521;
 
     public static final String INVALID_NAME_DESC =
-            " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC =
-            " " + PREFIX_PRIORITY + "911a"; // 'a' not allowed in prioritys
-    public static final String INVALID_ADDRESS_DESC =
-            " " + PREFIX_DESCRIPTION; // empty string not allowed for
-    // addresses
+            " " + PREFIX_NAME + "math&"; // '&' not allowed in names
+    public static final String INVALID_PRIORITY_DESC =
+            " " + PREFIX_PRIORITY + "99"; // any number not 1,2 or 3 not allowed in priority
+    public static final String INVALID_DESCRIPTION_DESC =
+            " " + PREFIX_DESCRIPTION; // empty string not allowed for description
     public static final String INVALID_TAG_DESC =
-            " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+            " " + PREFIX_TAG + "tricky*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditTaskDescriptor DESC_AMY;
-    public static final EditCommand.EditTaskDescriptor DESC_BOB;
+    public static final EditCommand.EditTaskDescriptor DESC_TASK1;
+    public static final EditCommand.EditTaskDescriptor DESC_TASK2;
 
     static {
-        DESC_AMY =
+        DESC_TASK1 =
                 new EditTaskDescriptorBuilder()
-                        .withName(VALID_NAME_AMY)
-                        .withPriority(VALID_PHONE_AMY)
-                        .withDescription(VALID_ADDRESS_AMY)
-                        .withTags(VALID_TAG_FRIEND)
+                        .withName(VALID_NAME_TASK1)
+                        .withPriority(VALID_PRIORITY_TASK1)
+                        .withDescription(VALID_DESCRIPTION_TASK1)
+                        .withTags(VALID_TAG_HELP)
                         .build();
-        DESC_BOB =
+        DESC_TASK2 =
                 new EditTaskDescriptorBuilder()
-                        .withName(VALID_NAME_BOB)
-                        .withPriority(VALID_PHONE_BOB)
-                        .withDescription(VALID_ADDRESS_BOB)
-                        .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+                        .withName(VALID_NAME_TASK2)
+                        .withPriority(VALID_PRIORITY_TASK2)
+                        .withDescription(VALID_DESCRIPTION_TASK2)
+                        .withTags(VALID_TAG_MA1521, VALID_TAG_HELP)
                         .build();
     }
 
