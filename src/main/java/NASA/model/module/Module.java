@@ -13,13 +13,16 @@ public class Module {
 
     private ModuleCode moduleCode;
     private UniqueActivityList activityList;
+    private ModuleName moduleName;
 
     /**
      * Constructs a {@code module}
      * @param moduleCode module code
      */
-    public Module(ModuleCode moduleCode, UniqueActivityList uniqueActivityList) {
+    public Module(ModuleCode moduleCode, ModuleName moduleName, UniqueActivityList uniqueActivityList) {
         this.moduleCode = moduleCode;
+        this.activityList = new UniqueActivityList();
+        this.moduleName = moduleName;
         this.activityList = uniqueActivityList;
     }
 
