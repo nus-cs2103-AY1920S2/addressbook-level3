@@ -284,6 +284,9 @@ Refer to the guide <<DevOps#, here>>.
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* has a need to manage deadlines and tasks
+* has a need to manage module planning
+* is studying in NUS
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
@@ -292,7 +295,7 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
@@ -303,9 +306,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |add deadline |know when to complete tasks in todo list
+
+|`* * *` |user |add module to module plan |see modules I need to take to fulfill degree requirements
+
+|`* * *` |user |show module plan |see list of modules I need to take/have taken
+
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
+|`* *` |user |add diary entry |record what I have done for the day
+
+|`* *` |user |delete diary entry |
+
+|`* *` |user |show diary entry list |
+
+|`* *` |user |delete module from module plan |know which modules I have taken
+
+|`* *` |user |fetch module information |
+
+|`* *` |user |know current CAP |
+
+|`* *` |user |sort deadlines |prioritize which tasks to finish first
+
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |create group chats |communicate with peers in the same module
 |=======================================================================
 
 _{More to be added}_
@@ -341,6 +366,27 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Delete module
+
+*MSS*
+
+1. User requests to show module plan
+2. AddressBook shows module plan
+3. User requests to delete a module taken
+4. AddressBook deletes module
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. The given module code is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
 _{More to be added}_
 
 [appendix]
@@ -349,6 +395,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should respond within 2 seconds
+.  Should be easy to use for users who are not IT-savvy
+.  User should be a current student in NUS
+
 
 _{More to be added}_
 

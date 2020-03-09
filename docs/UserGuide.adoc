@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= NusProductivity
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,11 +14,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-4`      Since: `Mar 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+NusProductivity is an application for better management of your school work. The app will allow you to keep track of the modules you have taken, allow you to map your module out to plan for future modules. More importantly, NusProductivity is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 == Quick Start
 
@@ -56,10 +56,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `addContact`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `addContact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -69,109 +69,152 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+=== Listing all persons : contactList
 
-=== Editing a person : `edit`
+Shows a list of all persons in the address book.
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: contactList
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== Editing a person : contactEdit
 
-Examples:
+Edits an existing person in the address book.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: contactEdit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…
+•	Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …
+•	At least one of the optional fields must be provided.
+•	Existing values will be updated to the input values.
+•	When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+•	You can remove all the person’s tags by typing t/ without specifying any tags after it.
 
 Examples:
+•	edit 1 p/91234567 e/johndoe@example.com
+ Edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
+•	edit 2 n/Betsy Crower t/
+ Edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+=== Locating persons by name: contactFind
 
-// tag::delete[]
-=== Deleting a person : `delete`
+Finds persons whose names contain any of the given keywords.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: contactFind KEYWORD [MORE_KEYWORDS]
+•	The search is case insensitive. e.g hans will match Hans
+•	The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
+•	Only the name is searched.
+•	Only full words will be matched e.g. Han will not match Hans
+•	Persons matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
 
 Examples:
+•	find John
+ Returns john and John Doe
+•	find Betsy Tim John
+ Returns any person having names Betsy, Tim, or John
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+=== Deleting a person : contactDelete
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Deletes the specified person from the address book.
 
-Clears all entries from the address book. +
-Format: `clear`
+Format: contactDelete INDEX
+•	Deletes the person at the specified INDEX.
+•	The index refers to the index number shown in the displayed person list.
+•	The index must be a positive integer 1, 2, 3, …
 
-=== Exiting the program : `exit`
+Examples:
+•	list
+ delete 2
+ Deletes the 2nd person in the address book.
+•	find Betsy
+ delete 1
+ Deletes the 1st person in the results of the find command.
 
-Exits the program. +
-Format: `exit`
+=== Clearing all entries : contactClear
 
-=== Saving the data
+Clears all entries from the address book.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Format: clear
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Exiting the program : exit
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Exits the program.
 
-== FAQ
+Format: exit
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+=== View CAP summary : cap
 
-== Command Summary
+Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+Format: cap {breakdown}
+If cap breakdown is inputted, it will show a breakdown of all the modules and grades that is tagged to the module.
+
+=== View module requirement: modreq
+
+Shows the modules requirement for the major specified.
+
+Format: modreq {/MAJOR}
+Example: modreq computer science
+
+
+=== Module information: module
+
+Shows basic information about the module, such as time of lecture, tutorial, exam venues and professor’s contact associated with the module.
+
+Format: module {/MODULE CODE}
+Example: module CS2103T
+
+=== Diary: diary
+
+Format:
+a.	diary log {Limit} : shows the most recent few amount of diary specified in limit, if no limit is specified, it will be limited to the most recent 10.
+b.	diary {DD-MM-YYYY} : shows the diary entry at the specified date if there is any
+c.	diary add {ENTRY} : Adds the specific entry to the diary log, date and time will be logged automatically
+d.	diary delete {ENTRY ID} : Deletes the specified diary ID’s entry.
+
+
+=== Todo list: todo
+
+Shows the list of tasks that are scheduled for the week with the deadline.
+
+Format: todo
+
+=== Deadline: deadline
+
+Adds a new task to the todo list. The deadline will be shown alongside the task description.
+
+Format: deadline {/Description} /by {DD-MM-YYYY} {HHMM}
+
+=== Module planning: mymodplan
+
+Shows list of modules taken/to be taken to fulfill major requirements.
+
+Format:
+a.	mymodplan: shows module planning list
+b.	mymodplan add {/MODULE CODE}: adds a module to the module plan
+c.	mymodplan done {/MODULE CODE}: marks a module as taken/done
+
+=== Command Summary
+•	contactAdd contactAdd n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…
+ e.g. contactAdd n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague
+•	contactClear : contactClear
+•	contactDelete : contactDelete INDEX
+ e.g. delete 3
+•	contactEdit : contactEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…
+ e.g. edit 2 n/James Lee e/jameslee@example.com
+•	contactFind : contactFind KEYWORD [MORE_KEYWORDS]
+ e.g. find James Jake
+•	addressbooklist: list
+•	cap : cap {breakdown}
+•	modreq : modreq {\MAJOR}
+e.g. modreq computer science
+•	todo: todo
+•	help : help
+•	diary :
+•	diary log {Limit}
+•	diary {DD-MM-YYYY}
+•	diary add {ENTRY}
+•	diary delete {ENTRY ID}
+•	reminders : reminders
+•	deadline : deadline {/Description} /by {DD-MM-YYYY} {HHMM}
+•	mymodplan:
+•	mymodplan
+•	mymodplan add {/MODULE CODE}
+•	mymodplan done {/MODULE CODE}
