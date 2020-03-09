@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
@@ -22,12 +23,14 @@ public class OrderBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_WAREHOUSE = "5 Toh Guan Rd E, #02-30 S608831";
+    public static final String DEFAULT_COMMENT = "NIL";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
     private Warehouse warehouse;
+    private Comment comment;
     private Set<Tag> tags;
 
     public OrderBuilder() {
@@ -36,6 +39,7 @@ public class OrderBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         warehouse = new Warehouse(DEFAULT_WAREHOUSE);
+        comment = new Comment(DEFAULT_COMMENT);
         tags = new HashSet<>();
     }
 
@@ -48,6 +52,7 @@ public class OrderBuilder {
         email = orderToCopy.getEmail();
         address = orderToCopy.getAddress();
         warehouse = orderToCopy.getWarehouse();
+        comment = orderToCopy.getComment();
         tags = new HashSet<>(orderToCopy.getTags());
     }
 
@@ -99,8 +104,16 @@ public class OrderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Comment} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withComment(String comment) {
+        this.comment = new Comment(comment);
+        return this;
+    }
+
     public Order build() {
-        return new Order(name, phone, email, address, warehouse, tags);
+        return new Order(name, phone, email, address, warehouse, comment, tags);
     }
 
 }

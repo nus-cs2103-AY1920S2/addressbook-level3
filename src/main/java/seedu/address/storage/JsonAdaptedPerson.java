@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
@@ -30,6 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String warehouse;
+    private final String comment;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -38,13 +40,14 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("warehouse") String warehouse,
+            @JsonProperty("warehouse") String warehouse, @JsonProperty("comment") String comment,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.warehouse = warehouse;
+        this.comment = comment;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -59,6 +62,7 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         warehouse = source.getWarehouse().address;
+        comment = source.getComment().commentMade;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -116,8 +120,19 @@ class JsonAdaptedPerson {
         }
         final Warehouse modelWarehouse = new Warehouse(warehouse);
 
+        final Comment modelComment;
+        if (comment == null) {
+            modelComment = new Comment("NIL");
+        } else {
+            if (!Comment.isValidComment(comment)) {
+                throw new IllegalValueException(Comment.MESSAGE_CONSTRAINTS);
+            }
+            modelComment = new Comment(comment);
+        }
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelWarehouse, modelTags);
+        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelWarehouse,
+                modelComment, modelTags);
     }
 
 }

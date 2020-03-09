@@ -40,7 +40,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * <<list, `list`>> : lists all orders to be delivered.
-* <<add, `add`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
+* <<insert, `insert`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
 * <<delete, `delete`>> `3` : deletes the 3rd delivery order shown in the current list
 * <<exit, `exit`>> : exits the app
 
@@ -52,20 +52,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `insert n/CUSTOMER_NAME`, `CUSTOMER_NAME` is a parameter which can be used as `insert n/John Doe`.
+* Items in square brackets are optional e.g `n/CUSTOMER_NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/CUSTOMER_NAME` is also acceptable.
 ====
 
-[[add]]
-=== Adding an order: `add`
+[[insert]]
+=== Inserting an order: `insert`
 
 ==== Description
-* Adds a new order to the list of orders based on their order attributes.
+* Inserts a new order to the list of orders based on their order attributes.
 
 ==== Format
-* `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+* `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 [TIP]
 ====
@@ -74,8 +74,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Examples
 
-* `add` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `dts/2020-02-20 1300` `w/Yishun` `pm/Cash`
-* `add` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser` `type/glass`
+* `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `dts/2020-02-20 1300` `w/Yishun` `cod/$4`
+* `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 
 [[clear]]
 === Clearing all entries : `clear`
@@ -112,7 +112,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Deletes the 2nd order.
 * `find` `-n` `Betsy` +
 `delete` `1` +
-Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
+Deletes the 1st order in the results of the `find` command (find all orders with customer's name `Betsy`).
 
 [[done]]
 === Mark order as done: `done`
@@ -293,45 +293,66 @@ Adds the order with transaction id 'ac17s2a' as a return parcel into the list of
 * `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `rts/12-12-2020 1400` `w/Jurong Warehouse` `pm/visa` `c/Leave it at the lobby` `type/metal` +
 Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
 
-[[sort]]
-=== Sorting orders: `sort`
+[[nearby]]
+=== View orders located at the same postal sector: `nearby`
 ==== Description
-* You can sort the orders based on their attributes *(given in prefix form)*.
-* An additional flag can be provided *(`-a` or `-d`)* can be used to sort the delivery
-orders in ascending/descending order.
-* If no additional flag is provided, the orders will be sorted in *ascending order*.
+[NOTE]
+====
+A *postal sector* refers to the first *two* digits of a six digit Singapore postal code.
+====
+* You can view the orders at a specified Singapore *postal sector*.
+* The general location for the order will be identified if a valid postal sector is given.
+* The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
+
+.Postal Sectors in Singapore
+|===
+|Postal Sector |General Location
+
+|01, 02, 03, 04, 05, 06 |Raffles Place, Cecil, Marina, People's Park
+|07, 08 |Anson, Tanjong Pagar
+|14, 15, 16 |Queenstown, Tiong Bahru
+|09, 10 |Telok Blangah, Harbourfront
+|11, 12, 13 |Pasir Panjang, Hong Leong Garden, Clementi New Town
+|17 |High Street, Beach Road (part)
+|18, 19 |Middle Road, Golden Mile
+|20, 21 |Little India
+|22, 23 |Orchard, Cairnhill, River Valley
+|24, 25, 26, 27 |Ardmore, Bukit Timah, Holland Road, Tanglin
+|28, 29, 30 |Watten Estate, Novena, Thomson
+|31, 32, 33 |Balestier, Toa Payoh, Serangoon
+|34, 35, 36, 37 |Macpherson, Braddell
+|38, 39, 40, 41 |Geylang, Eunos
+|42, 43, 44, 45 |Katong, Joo Chiat, Amber Road
+|46, 47, 48 |Bedok, Upper East Coast, Eastwood, Kew Drive
+|49, 50, 81 |Loyang, Changi
+|51, 52 |Tampines, Pasir Ris
+|53, 54, 55, 82 |Serangoon Garden, Hougang, Ponggol
+|56, 57 |Bishan, Ang Mo Kio
+|58, 59 |Upper Bukit Timah, Clementi Park, Ulu Pandan
+|60, 61, 62, 63, 64 |Jurong
+|65, 66, 67, 68 |Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang
+|69, 70, 71 |Lim Chu Kang, Tengah
+|72, 73 |Kranji, Woodgrove
+|77, 78 |Upper Thomson, Springleaf
+|75, 76 |Yishun, Sembawang
+|79, 80 |Seletar
+|===
 
 ==== Format
-`sort` `[ORDER FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
+`nearby` `POSTAL_SECTOR` +
 
 [IMPORTANT]
 ====
-`ORDER_ATTRIBUTE_PREFIX` *must* be one of the following:
-
-* `a/` - Address
-* `n/` - Name
-* `p/` - Phone Number
-* `pm/` - Payment Method
-* `tid/` - Transaction ID
-* `dts/` - Delivery Date and Time
-* `w/` - Warehouse Location
+`POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
 ====
 
-****
-*ORDER FLAG*  can be either +
-*-d* (descending order) or +
-*-a* (ascending order).
-****
-
 ==== Examples
-* `sort` `dts/` +
-You will sort the orders in ascending order based on the timestamp of the orders.
-* `sort` `-a` `n/` +
-You will sort the orders in ascending order based on the names of the customers.
-* `sort` `-d` `dts/` +
-You will sort the orders in descending order based on the timestamp of the orders.
-* `sort` `-d` `tid/` +
-You will sort the orders in descending order based on the transaction id of the orders.
+* `nearby` `14` +
+You will view all orders located in the general location of `Queenstown, Tiong Bahru`.
+* `nearby` `04` +
+You will view all orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
 
 [[undo]]
 === Undo the previous action: `undo`
@@ -378,8 +399,8 @@ delivery), number of deliveries completed in a day}_
 
 == Command Summary
 
-* <<add, *Add*>> : `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `add` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `pm/cash` `c/please knock the door three times :D` `type/heavy`
+* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
 * <<clear, *Clear*>> : `clear` `[FLAG]` +
 e.g. `clear` `-f`
 * <<delete, *Delete*>> : `delete` `INDEX` +
@@ -398,8 +419,8 @@ e.g. `import` `orders.csv`
 e.g. `list` `done`
 * <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
 e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass`
-* <<sort, *Sort*>> : `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
-e.g. `sort` `-d` `dts/`
+* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` +
+e.g. `nearby` `14`
 * <<undo, *Undo*>> : `undo`
 
 == Appendix A: Glossary
@@ -411,23 +432,23 @@ e.g. `sort` `-d` `dts/`
 
 |tid/
 |Transaction ID
-|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
 |n/
-|Name
-|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|Customer Name
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
 |a/
 |Address
-|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
 |p/
 |Phone Number
-|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
 |dts/
 |Delivery Date And Time
-|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
 
 |rts/
 |Return Date and Time
@@ -435,19 +456,19 @@ e.g. `sort` `-d` `dts/`
 
 |w/
 |Warehouse Location
-|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
-|pm/
-|Payment Method
-|<<add, Add>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|cod/
+|Cash On Delivery
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
 
 |c/
 |Comments by Customer
-|<<add, Add>>, <<edit, Edit>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
 
 |type/
 |Type of Item
-|<<add, Add>>, <<edit, Edit>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
 |===
 
 [[command_flags]]
@@ -455,20 +476,12 @@ e.g. `sort` `-d` `dts/`
 |===
 |Flag |Meaning |Used in the following Command(s)
 
-|-a
-|Sort in *ascending* order
-|<<sort, Sort>>
-
-|-d
-|Sort in *descending* order
-|<<sort, Sort>>
-
 |-f
 |Force clear, no user confirmation will be requested
 |<<clear, Clear>>
 
 |-n
-|Search using Name
+|Search using Customer Name
 |<<find, Find>>
 
 |-t

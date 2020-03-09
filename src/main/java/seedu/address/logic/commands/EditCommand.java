@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,6 +21,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
@@ -44,6 +46,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
+            + "[" + PREFIX_COMMENT + "COMMENT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -101,9 +104,11 @@ public class EditCommand extends Command {
         Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
+        Comment updatedComment = editPersonDescriptor.getComment().orElse(orderToEdit.getComment());
         Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
-        return new Order(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedWarehouse, updatedTags);
+        return new Order(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedWarehouse,
+                updatedComment, updatedTags);
     }
 
     @Override
@@ -134,6 +139,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Warehouse warehouse;
+        private Comment comment;
         private Set<Tag> tags;
 
         public EditOrderDescriptor() {
@@ -149,6 +155,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setWarehouse(toCopy.warehouse);
+            setComment(toCopy.comment);
             setTags(toCopy.tags);
         }
 
@@ -156,7 +163,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, warehouse, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, warehouse, comment, tags);
         }
 
         public void setName(Name name) {
@@ -199,6 +206,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(warehouse);
         }
 
+        public void setComment(Comment comment) {
+            this.comment = comment;
+        }
+
+        public Optional<Comment> getComment() {
+            return Optional.ofNullable(comment);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -236,6 +251,7 @@ public class EditCommand extends Command {
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getWarehouse().equals(e.getWarehouse())
+                    && getComment().equals(e.getComment())
                     && getTags().equals(e.getTags());
         }
     }

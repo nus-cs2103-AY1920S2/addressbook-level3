@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.comment.Comment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,19 +24,21 @@ public class Order {
     // Data fields
     private final Address address;
     private final Warehouse warehouse;
+    private final Comment comment;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Order(Name name, Phone phone, Email email, Address address, Warehouse warehouse,
-                 Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, warehouse, tags);
+                 Comment comment, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, warehouse, comment, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.warehouse = warehouse;
+        this.comment = comment;
         this.tags.addAll(tags);
     }
 
@@ -57,6 +60,10 @@ public class Order {
 
     public Warehouse getWarehouse() {
         return warehouse;
+    }
+
+    public Comment getComment() {
+        return comment;
     }
 
     /**
@@ -101,13 +108,14 @@ public class Order {
                 && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
                 && otherOrder.getWarehouse().equals(getWarehouse())
+                && otherOrder.getComment().equals(getComment())
                 && otherOrder.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, warehouse, tags);
+        return Objects.hash(name, phone, email, address, warehouse, comment, tags);
     }
 
     @Override
@@ -122,6 +130,8 @@ public class Order {
                 .append(getAddress())
                 .append(" Warehouse: ")
                 .append(getWarehouse())
+                .append(" Comment: ")
+                .append(getComment())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

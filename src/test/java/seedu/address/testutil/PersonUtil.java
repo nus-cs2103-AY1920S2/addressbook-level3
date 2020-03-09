@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -37,6 +38,10 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + order.getAddress().value + " ");
         sb.append(PREFIX_WAREHOUSE + order.getWarehouse().address + " ");
         order.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
+        sb.append(PREFIX_COMMENT + order.getComment().commentMade + " ");
+        order.getTags().stream().forEach(
+            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        );
         return sb.toString();
     }
 
@@ -51,6 +56,7 @@ public class PersonUtil {
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getWarehouse().ifPresent(warehouse -> sb.append(PREFIX_WAREHOUSE)
                 .append(warehouse.address).append(" "));
+        descriptor.getComment().ifPresent(comment -> sb.append(PREFIX_COMMENT).append(comment.commentMade).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
