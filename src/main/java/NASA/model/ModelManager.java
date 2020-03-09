@@ -21,37 +21,37 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final NasaBook nasaBook;
-    private final UserPrefsNasa userPrefs;
+    private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
 
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
      */
-    public ModelManager(ReadOnlyNasaBook NasaBook, ReadOnlyUserPrefsNasa userPrefs) {
+    public ModelManager(ReadOnlyNasaBook NasaBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(NasaBook, userPrefs);
 
         logger.fine("Initializing with address book: " + NasaBook + " and user prefs " + userPrefs);
 
         this.nasaBook = new NasaBook(NasaBook);
-        this.userPrefs = new UserPrefsNasa(userPrefs);
+        this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
     }
 
     public ModelManager() {
-        this(new NasaBook(), new UserPrefsNasa());
+        this(new NasaBook(), new UserPrefs());
     }
 
     //=========== UserPrefsNasa ==================================================================================
 
     @Override
-    public void setUserPrefsNasa(ReadOnlyUserPrefsNasa userPrefs) {
+    public void setUserPrefsNasa(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
     }
 
     @Override
-    public ReadOnlyUserPrefsNasa getUserPrefsNasa() {
+    public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
     }
 

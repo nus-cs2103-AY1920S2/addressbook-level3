@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import NASA.commons.util.StringUtil;
 import NASA.logic.Logic;
 import NASA.logic.LogicManager;
+import NASA.model.ModelManager;
 import NASA.model.NasaBook;
 import NASA.model.ReadOnlyNasaBook;
 import NASA.storage.JsonNasaBookStorage;
@@ -27,6 +28,7 @@ import NASA.storage.JsonUserPrefsStorage;
 import NASA.storage.Storage;
 import NASA.storage.StorageManager;
 import NASA.storage.UserPrefsStorage;
+import NASA.model.util.SampleDataUtil;
 
 /**
  * Runs the application.
@@ -78,7 +80,7 @@ public class MainApp extends Application {
             if (!nasaBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = nasaBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = nasaBookOptional.orElseGet(SampleDataUtil::getSampleNasaBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty NasaBook");
             initialData = new NasaBook();
