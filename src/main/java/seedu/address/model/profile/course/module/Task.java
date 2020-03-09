@@ -1,11 +1,12 @@
 package seedu.address.model.profile.course.module;
 
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
-
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+
+
 
 
 /**
