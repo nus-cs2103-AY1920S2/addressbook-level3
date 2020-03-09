@@ -26,6 +26,13 @@ public class Session {
     private SessionType sessionType;
 
     /**
+     * Constructs a Session object.
+     */
+    public Session() {
+
+    }
+
+    /**
      * Returns the date when the session will take place.
      */
     public LocalDate getDate() {
