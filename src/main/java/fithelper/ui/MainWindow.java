@@ -37,6 +37,11 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+   /* private TodayPage todayPage;
+    private ReportPage reportPage;
+    private ProfilePage profilePage;
+    private CalendarPage calendarPage;*/
+
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -60,12 +65,12 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
+
         this.logic = logic;
 
-        // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
-
         setAccelerators();
+
+        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -109,7 +114,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    public void fillInnerParts() {
+    void fillInnerParts() {
         foodListPanel = new FoodListPanel(logic.getFilteredFoodEntryList());
         foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
@@ -118,9 +123,6 @@ public class MainWindow extends UiPart<Stage> {
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitHelperFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -161,7 +163,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        helpWindow.hide();
         primaryStage.hide();
     }
 

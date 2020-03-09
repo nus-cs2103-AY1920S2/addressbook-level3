@@ -12,6 +12,7 @@ import fithelper.commons.exceptions.DataConversionException;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.FileUtil;
 import fithelper.commons.util.JsonUtil;
+import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.ReadOnlyFitHelper;
 
 /**
@@ -53,14 +54,18 @@ public class JsonFitHelperStorage implements FitHelperStorage {
 
         try {
             return Optional.of(jsonFitHelper.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataConversionException(ive);
+        } catch (IllegalValueException | IllegalArgumentException e) {
+            logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
+            throw new DataConversionException(e);
+        } catch (Exception i) {
+            logger.info("Exception happened while reading data" + i.getMessage());
+            throw new DataConversionException(i);
         }
     }
 
     @Override
     public void saveFitHelper(ReadOnlyFitHelper fitHelper) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
         saveFitHelper(fitHelper, filePath);
     }
 
