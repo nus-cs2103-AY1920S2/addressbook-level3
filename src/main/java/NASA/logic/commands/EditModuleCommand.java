@@ -11,7 +11,7 @@ import NASA.commons.core.index.Index;
 
 public class EditModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "medit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
             + "by the index number used in the displayed NASA application. "
