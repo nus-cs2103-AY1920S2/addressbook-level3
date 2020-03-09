@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK1;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.AMY;
+import static seedu.address.testutil.TypicalTasks.TASK1;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -82,7 +82,7 @@ public class LogicManagerTest {
                         + NAME_DESC_TASK1
                         + PRIORITY_DESC_TASK1
                         + DESCRIPTION_DESC_TASK1;
-        Task expectedTask = new TaskBuilder(AMY).withTags().build();
+        Task expectedTask = new TaskBuilder(TASK1).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTask(expectedTask);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

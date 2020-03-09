@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ALICE;
-import static seedu.address.testutil.TypicalTasks.BENSON;
+import static seedu.address.testutil.TypicalTasks.HOMEWORK10;
+import static seedu.address.testutil.TypicalTasks.LAB_3;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -77,13 +77,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasTask(ALICE));
+        assertFalse(modelManager.hasTask(HOMEWORK10));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addTask(ALICE);
-        assertTrue(modelManager.hasTask(ALICE));
+        modelManager.addTask(HOMEWORK10);
+        assertTrue(modelManager.hasTask(HOMEWORK10));
     }
 
     @Test
@@ -96,7 +96,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         AddressBook addressBook =
-                new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+                new AddressBookBuilder().withPerson(HOMEWORK10).withPerson(LAB_3).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -118,7 +118,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = HOMEWORK10.getName().fullName.split("\\s+");
         modelManager.updateFilteredTaskList(
                 new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));

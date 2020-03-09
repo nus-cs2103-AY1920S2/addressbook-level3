@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ALICE;
+import static seedu.address.testutil.TypicalTasks.HOMEWORK10;
 import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -45,11 +45,11 @@ public class AddressBookTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Task editedAlice =
-                new TaskBuilder(ALICE)
+                new TaskBuilder(HOMEWORK10)
                         .withDescription(VALID_DESCRIPTION_TASK2)
                         .withTags(VALID_TAG_MA1521)
                         .build();
-        List<Task> newPersons = Arrays.asList(ALICE, editedAlice);
+        List<Task> newPersons = Arrays.asList(HOMEWORK10, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
         assertThrows(DuplicateTaskException.class, () -> addressBook.resetData(newData));
@@ -62,20 +62,20 @@ public class AddressBookTest {
 
     @Test
     public void hasTask_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasTask(ALICE));
+        assertFalse(addressBook.hasTask(HOMEWORK10));
     }
 
     @Test
     public void hasTask_personInAddressBook_returnsTrue() {
-        addressBook.addTask(ALICE);
-        assertTrue(addressBook.hasTask(ALICE));
+        addressBook.addTask(HOMEWORK10);
+        assertTrue(addressBook.hasTask(HOMEWORK10));
     }
 
     @Test
     public void hasTask_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addTask(ALICE);
+        addressBook.addTask(HOMEWORK10);
         Task editedAlice =
-                new TaskBuilder(ALICE)
+                new TaskBuilder(HOMEWORK10)
                         .withDescription(VALID_DESCRIPTION_TASK2)
                         .withTags(VALID_TAG_MA1521)
                         .build();

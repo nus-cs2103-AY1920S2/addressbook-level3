@@ -7,8 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalTasks.ALICE;
-import static seedu.address.testutil.TypicalTasks.BOB;
+import static seedu.address.testutil.TypicalTasks.HOMEWORK10;
+import static seedu.address.testutil.TypicalTasks.TASK2;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.testutil.TaskBuilder;
@@ -24,77 +24,77 @@ public class PersonTest {
     @Test
     public void isSamePerson() {
         // same object -> returns true
-        assertTrue(ALICE.isSameTask(ALICE));
+        assertTrue(HOMEWORK10.isSameTask(HOMEWORK10));
 
         // null -> returns false
-        assertFalse(ALICE.isSameTask(null));
+        assertFalse(HOMEWORK10.isSameTask(null));
 
         // different priority -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).withPriority(VALID_PRIORITY_TASK2).build();
-        assertFalse(ALICE.isSameTask(editedAlice));
+        Task editedAlice = new TaskBuilder(HOMEWORK10).withPriority(VALID_PRIORITY_TASK2).build();
+        assertFalse(HOMEWORK10.isSameTask(editedAlice));
 
         // different name -> returns false
-        editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_TASK2).build();
-        assertFalse(ALICE.isSameTask(editedAlice));
+        editedAlice = new TaskBuilder(HOMEWORK10).withName(VALID_NAME_TASK2).build();
+        assertFalse(HOMEWORK10.isSameTask(editedAlice));
 
         // same name, same priority, different attributes -> returns true
         editedAlice =
-                new TaskBuilder(ALICE)
+                new TaskBuilder(HOMEWORK10)
                         .withDescription(VALID_DESCRIPTION_TASK2)
                         .withTags(VALID_TAG_MA1521)
                         .build();
-        assertTrue(ALICE.isSameTask(editedAlice));
+        assertTrue(HOMEWORK10.isSameTask(editedAlice));
 
         // same name, different attributes -> returns true
         editedAlice =
-                new TaskBuilder(ALICE)
+                new TaskBuilder(HOMEWORK10)
                         .withPriority(VALID_PRIORITY_TASK2)
                         .withDescription(VALID_DESCRIPTION_TASK2)
                         .withTags(VALID_TAG_MA1521)
                         .build();
-        assertTrue(ALICE.isSameTask(editedAlice));
+        assertTrue(HOMEWORK10.isSameTask(editedAlice));
 
         // same name, same priority, different attributes -> returns true
         editedAlice =
-                new TaskBuilder(ALICE)
+                new TaskBuilder(HOMEWORK10)
                         .withDescription(VALID_DESCRIPTION_TASK2)
                         .withTags(VALID_TAG_MA1521)
                         .build();
-        assertTrue(ALICE.isSameTask(editedAlice));
+        assertTrue(HOMEWORK10.isSameTask(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Task aliceCopy = new TaskBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Task aliceCopy = new TaskBuilder(HOMEWORK10).build();
+        assertTrue(HOMEWORK10.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(HOMEWORK10.equals(HOMEWORK10));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(HOMEWORK10.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(HOMEWORK10.equals(5));
 
         // different person -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(HOMEWORK10.equals(TASK2));
 
         // different name -> returns false
-        Task editedAlice = new TaskBuilder(ALICE).withName(VALID_NAME_TASK2).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Task editedAlice = new TaskBuilder(HOMEWORK10).withName(VALID_NAME_TASK2).build();
+        assertFalse(HOMEWORK10.equals(editedAlice));
 
         // different priority -> returns false
-        editedAlice = new TaskBuilder(ALICE).withPriority(VALID_PRIORITY_TASK2).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new TaskBuilder(HOMEWORK10).withPriority(VALID_PRIORITY_TASK2).build();
+        assertFalse(HOMEWORK10.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new TaskBuilder(ALICE).withDescription(VALID_DESCRIPTION_TASK2).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new TaskBuilder(HOMEWORK10).withDescription(VALID_DESCRIPTION_TASK2).build();
+        assertFalse(HOMEWORK10.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new TaskBuilder(ALICE).withTags(VALID_TAG_MA1521).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new TaskBuilder(HOMEWORK10).withTags(VALID_TAG_MA1521).build();
+        assertFalse(HOMEWORK10.equals(editedAlice));
     }
 }

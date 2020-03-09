@@ -18,75 +18,76 @@ import seedu.address.model.task.Task;
 /** A utility class containing a list of {@code Task} objects to be used in tests. */
 public class TypicalTasks {
 
-    public static final Task ALICE =
+    public static final Task HOMEWORK10  =
             new TaskBuilder()
-                    .withName("Alice Pauline")
-                    .withDescription("123, Jurong West Ave 6, #08-111")
-                    .withPriority("94351253")
-                    .withTags("friends")
+                    .withName("Homework 10")
+                    .withDescription("Pages 100 - 112")
+                    .withPriority("1")
+                    .withTags("MA1521")
                     .build();
-    public static final Task BENSON =
+    public static final Task LAB_3  =
             new TaskBuilder()
-                    .withName("Benson Meier")
-                    .withDescription("311, Clementi Ave 2, #02-25")
-                    .withPriority("98765432")
-                    .withTags("owesMoney", "friends")
+                    .withName("Lab 3")
+                    .withDescription("Introduction to UDP")
+                    .withPriority("2")
+                    .withTags("help")
                     .build();
-    public static final Task CARL =
+    public static final Task TUTORIAL_1  =
             new TaskBuilder()
-                    .withName("Carl Kurz")
-                    .withPriority("95352563")
-                    .withDescription("wall street")
+                    .withName("Tutorial 1")
+                    .withPriority("3")
+                    .withDescription("Introduction to Calculus")
+                    .withTags("MA1521")
                     .build();
-    public static final Task DANIEL =
+    public static final Task BUY_MILK  =
             new TaskBuilder()
-                    .withName("Daniel Meier")
-                    .withPriority("87652533")
-                    .withDescription("10th street")
-                    .withTags("friends")
+                    .withName("Buy milk")
+                    .withPriority("2")
+                    .withDescription("Very hungry")
                     .build();
-    public static final Task ELLE =
+    public static final Task FEED_CAT  =
             new TaskBuilder()
-                    .withName("Elle Meyer")
-                    .withPriority("9482224")
-                    .withDescription("michegan ave")
+                    .withName("Feed cat")
+                    .withPriority("3")
+                    .withDescription("Cat is making noise")
                     .build();
-    public static final Task FIONA =
+    public static final Task RUN  =
             new TaskBuilder()
-                    .withName("Fiona Kunz")
-                    .withPriority("9482427")
-                    .withDescription("little tokyo")
+                    .withName("Running")
+                    .withPriority("1")
+                    .withDescription("Complete 2.4km run!")
                     .build();
-    public static final Task GEORGE =
+    public static final Task GYM  =
             new TaskBuilder()
-                    .withName("George Best")
-                    .withPriority("9482442")
-                    .withDescription("4th street")
+                    .withName("Gym")
+                    .withPriority("3")
+                    .withDescription("Complete 100 sets of pushups")
                     .build();
 
     // Manually added
-    public static final Task HOON =
+    public static final Task OPTIONAL_LAB  =
             new TaskBuilder()
-                    .withName("Hoon Meier")
-                    .withPriority("8482424")
-                    .withDescription("little india")
+                    .withName("Bonus Lab")
+                    .withPriority("1")
+                    .withDescription("Implement Google")
                     .build();
-    public static final Task IDA =
+    public static final Task OPTIONAL_HOMEWORK  =
             new TaskBuilder()
-                    .withName("Ida Mueller")
-                    .withPriority("8482131")
-                    .withDescription("chicago ave")
+                    .withName("Homework 11")
+                    .withPriority("2")
+                    .withDescription("Fourier Analysis")
+                    .withTags("Optional")
                     .build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Task AMY =
+    public static final Task TASK1 =
             new TaskBuilder()
                     .withName(VALID_NAME_TASK1)
                     .withPriority(VALID_PRIORITY_TASK1)
                     .withDescription(VALID_DESCRIPTION_TASK1)
                     .withTags(VALID_TAG_HELP)
                     .build();
-    public static final Task BOB =
+    public static final Task TASK2 =
             new TaskBuilder()
                     .withName(VALID_NAME_TASK2)
                     .withPriority(VALID_PRIORITY_TASK2)
@@ -108,6 +109,6 @@ public class TypicalTasks {
     }
 
     public static List<Task> getTypicalTasks() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(HOMEWORK10, LAB_3, TUTORIAL_1, BUY_MILK, FEED_CAT, RUN, GYM));
     }
 }
