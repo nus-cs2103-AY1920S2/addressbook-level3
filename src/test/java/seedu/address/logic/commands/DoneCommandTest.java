@@ -90,7 +90,7 @@ public class DoneCommandTest {
         assertTrue(doneFirstCommand.equals(doneFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(new Index[] {INDEX_FIRST_PERSON});
+        DoneCommand deleteFirstCommandCopy = new DoneCommand(new Index[] {INDEX_FIRST_PERSON});
         assertTrue(doneFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
