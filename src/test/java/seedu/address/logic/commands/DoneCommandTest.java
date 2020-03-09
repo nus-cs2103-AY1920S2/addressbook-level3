@@ -68,7 +68,7 @@ public class DoneCommandTest {
         expectedModel.setTask(
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()), doneTask);
 
-        showNoPerson(expectedModel);
+        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
         assertCommandSuccess(doneCommand, model, expectedMessage.toString(), expectedModel);
     }
 
