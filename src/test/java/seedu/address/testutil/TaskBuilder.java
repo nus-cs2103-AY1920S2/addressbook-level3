@@ -13,9 +13,9 @@ import seedu.address.model.util.SampleDataUtil;
 /** A utility class to help with building Person objects. */
 public class TaskBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_DESCRIPTION = "Page 1 and 2";
+    public static final String DEFAULT_NAME = "Default homework";
+    public static final String DEFAULT_PRIORITY = "1";
+    public static final String DEFAULT_DESCRIPTION = "Default Pages 1 and 2";
     public static final String DEFAULT_DONE = "N";
 
     private Name name;
@@ -26,7 +26,7 @@ public class TaskBuilder {
 
     public TaskBuilder() {
         name = new Name(DEFAULT_NAME);
-        priority = new Priority(DEFAULT_PHONE);
+        priority = new Priority(DEFAULT_PRIORITY);
         description = new Description(DEFAULT_DESCRIPTION);
         done = new Done(DEFAULT_DONE);
         tags = new HashSet<>();
