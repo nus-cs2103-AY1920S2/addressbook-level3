@@ -54,17 +54,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Format: `help`
+- Format: `help`
 
 === Adding a person: `addContact`
 
-Adds a person to the address book +
+- Adds a person to the address book +
 Format: `addContact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
-Examples:
+- Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
@@ -72,15 +72,15 @@ Examples:
 
 === Listing all persons : `contactList`
 
-Shows a list of all persons in the address book.
+- Shows a list of all persons in the address book.
 
-Format: `contactList`
+- Format: `contactList`
 
 === Editing a person : `contactEdit`
 
-Edits an existing person in the address book.
+- Edits an existing person in the address book.
 
-Format: `contactEdit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+- Format: `contactEdit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 
 ****
 •	Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …
@@ -90,7 +90,7 @@ Format: `contactEdit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
 •	You can remove all the person’s tags by typing t/ without specifying any tags after it.
 ****
 
-Examples:
+- Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
@@ -99,9 +99,9 @@ Examples:
 
 === Locating persons by name: contactFind
 
-Finds persons whose names contain any of the given keywords.
+- Finds persons whose names contain any of the given keywords.
 
-Format: `contactFind KEYWORD [MORE_KEYWORDS]`
+- Format: `contactFind KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
@@ -120,9 +120,9 @@ Examples:
 
 === Deleting a person : `contactDelete`
 
-Deletes the specified person from the address book.
+- Deletes the specified person from the address book.
 
-Format: `contactDelete INDEX`
+- Format: `contactDelete INDEX`
 
 ****
 * Deletes the person at the specified INDEX.
@@ -130,7 +130,7 @@ Format: `contactDelete INDEX`
 * The index must be a positive integer 1, 2, 3, …
 ****
 
-Examples:
+- Examples:
 
 * `list` +
  `delete 2` +
@@ -141,21 +141,21 @@ Examples:
 
 === Clearing all entries : `contactClear`
 
-Clears all entries from the address book.
+- Clears all entries from the address book.
 
-Format: `clear`
+- Format: `clear`
 
 === Exiting the program : `exit`
 
-Exits the program.
+- Exits the program.
 
-Format: `exit`
+- Format: `exit`
 
 === View CAP summary : `cap`
 
-Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
+- Shows the current cap of the individual. If only cap is specified, it will only show the MCs taken up to the point and the CAP.
 
-Format: `cap {breakdown}`
+- Format: `cap {breakdown}`
 
 ****
 If cap breakdown is inputted, it will show a breakdown of all the modules and grades that is tagged to the module.
@@ -163,29 +163,29 @@ If cap breakdown is inputted, it will show a breakdown of all the modules and gr
 
 === View module requirement: `modreq`
 
-Shows the modules requirement for the major specified.
+- Shows the modules requirement for the major specified.
 
-Format: `modreq {/MAJOR}`
+- Format: `modreq {/MAJOR}`
 
-Example:
+- Example:
 
 * `modreq computer science`
 
 
 === Module information: `module`
 
-Shows basic information about the module, such as time of lecture, tutorial, exam venues and
+- Shows basic information about the module, such as time of lecture, tutorial, exam venues and
 professor’s contact associated with the module.
 
-Format: `module {/MODULE CODE}`
+- Format: `module {/MODULE CODE}`
 
-Example:
+- Example:
 
 * `module CS2103T`
 
 === Diary: `diary`
 
-Format:
+- Format:
 
 a.	`diary log {Limit}`: shows the most recent few amount of diary specified in limit, if no limit is specified,
 it will be limited to the most recent 10.
@@ -198,30 +198,30 @@ f.  `diary emotion {ID} {Emotion}` :  tag the diary with the specific ID with a 
 
 === Todo list: `todo`
 
-Shows the list of tasks that are scheduled for the week with the deadline.
+- Shows the list of tasks that are scheduled for the week with the deadline.
 
-Format: `todo`
+- Format: `todo`
 
 === Deadline: `deadline`
 
-Adds a new task to the todo list. The deadline will be shown alongside the task description.
+- Adds a new task to the todo list. The deadline will be shown alongside the task description.
 
-Format: `deadline {/Description} /by {DD-MM-YYYY} {HHMM}`
+- Format: `deadline {/Description} /by {DD-MM-YYYY} {HHMM}`
 
 === Event: `event`
 
-Adds a new task to the todo list. The date of the event will be shown alongside the task description.
+- Adds a new task to the todo list. The date of the event will be shown alongside the task description.
 
-Format:
+- Format:
 
 a. `event {/Description} /at {DD-MM-YYYY} {HHMM}`
 b. `event {ID} {name of participant}` : add the contact card of the specific participant to the event
 
 === Module planning: `mymodplan`
 
-Shows list of modules taken/to be taken to fulfill major requirements.
+- Shows list of modules taken/to be taken to fulfill major requirements.
 
-Format:
+- Format:
 
 a.	`mymodplan`: shows module planning list
 b.	`mymodplan add {/MODULE CODE}`: adds a module to the module plan
