@@ -9,7 +9,7 @@ public class ModularCredits {
     public final int modularCredits;
 
     /**
-     * Constructs a {@code PrereqList}.
+     * Constructs a {@code ModularCredits}.
      *
      * @param modularCredits A valid String Integer of modular credits
      */

@@ -16,13 +16,14 @@ public class Module {
 
     // Attributes to add
     // Personal { Status, Grade, TaskList }
+    private TaskList taskList;
 
     /**
      * Every field must be present and not null.
      */
     public Module(ModuleCode moduleCode, Title title, PrereqList prereqList,
                   ModularCredits modularCredits, Description description, SemesterData semesterData,
-                  AcadYear acadYear) {
+                  AcadYear acadYear, TaskList taskList) {
         // requireAllNonNull() // to be implemented
         this.moduleCode = moduleCode;
         this.title = title;
@@ -32,6 +33,7 @@ public class Module {
         this.semesterData = semesterData;
         this.acadYear = acadYear;
 
+        this.taskList = taskList;
     }
 
     public ModuleCode getModuleCode() {
@@ -60,6 +62,10 @@ public class Module {
 
     public AcadYear getAcadYear() {
         return acadYear;
+    }
+
+    public TaskList getTaskList() {
+        return taskList;
     }
 
     @Override
