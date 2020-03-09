@@ -316,7 +316,7 @@ Format: `event d/DATE t/TIME`
 
 ****
 * `DATE` must be in a YYYY-MM-DD format.
-* `TIME` must be in a HH:MM format. 
+* `TIME` must be in a HH:MM format.
 ****
 
 === Deleting a person : `delete`
