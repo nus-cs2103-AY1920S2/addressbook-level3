@@ -1,18 +1,5 @@
 package com.notably.logic.parser;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static com.notably.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static com.notably.testutil.Assert.assertThrows;
-import static com.notably.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Test;
-
 import com.notably.logic.commands.AddCommand;
 import com.notably.logic.commands.ClearCommand;
 import com.notably.logic.commands.DeleteCommand;
@@ -23,10 +10,20 @@ import com.notably.logic.commands.FindCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.ListCommand;
 import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.model.person.NameContainsKeywordsPredicate;
 import com.notably.testutil.EditPersonDescriptorBuilder;
-import com.notably.testutil.PersonBuilder;
 import com.notably.testutil.PersonUtil;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static com.notably.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static com.notably.testutil.Assert.assertThrows;
+import static com.notably.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AddressBookParserTest {
 
@@ -34,9 +31,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand());
+        assertEquals(new AddCommand(), command);
     }
 
     @Test
@@ -54,8 +50,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
@@ -72,7 +67,6 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

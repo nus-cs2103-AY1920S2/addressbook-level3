@@ -1,24 +1,15 @@
 package com.notably.logic.commands;
 
-import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
-import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
-import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
-import static com.notably.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.notably.commons.core.index.Index;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.AddressBook;
 import com.notably.model.Model;
-import com.notably.model.person.NameContainsKeywordsPredicate;
 import com.notably.testutil.EditPersonDescriptorBuilder;
+
+import static com.notably.logic.parser.CliSyntax.*;
+import static com.notably.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Contains helper methods for testing commands.
@@ -104,7 +95,6 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
@@ -117,9 +107,6 @@ public class CommandTestUtil {
     public static void showPersonAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
