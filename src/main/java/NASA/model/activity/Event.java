@@ -8,41 +8,41 @@ import static java.util.Objects.requireNonNull;
  */
 public class Event extends Activity {
 
-    private Date from;
-    private Date to;
+    private Date startDate;
+    private Date endDate;
 
     /**
      * Initialise Event with default "deadlines".
      * Every field must be present and not null.
      */
-    public Event(Date from, Date to, Note note) {
+    public Event(Date startDate, Date endDate, Note note) {
         super(new Name("event"), note);
 
-        requireNonNull(from);
-        requireNonNull(to);
-        this.from = from;
-        this.to = to;
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */
-    public Event(Name name, Date from, Date to, Note note) {
+    public Event(Name name, Date startDate, Date endDate, Note note) {
         super(name, note);
 
-        requireNonNull(from);
-        requireNonNull(to);
-        this.from = from;
-        this.to = to;
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public Date getDateFrom() {
-        return from;
+        return startDate;
     }
 
     public Date getDateTo() {
-        return to;
+        return endDate;
     }
 
     public static boolean isValidEvent(Activity activity) {
