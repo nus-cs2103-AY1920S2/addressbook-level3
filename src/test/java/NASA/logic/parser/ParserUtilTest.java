@@ -22,7 +22,7 @@ public class ParserUtilTest {
     private static final String VALID_NOTE = "Finish milestone v1.2 by next wednesday."
             + "prepare for new features.";
     private static final String VALID_PRIORITY = "3";
-    private static final String VALID_MODULE_NAME = "CS2100";
+    private static final String VALID_MODULE_NAME = "Computer organisation";
 
     private static final String INVALID_DATE = "2020-12-20 12:59";
     private static final String INVALID_ACTIVITY_NAME = " ";
