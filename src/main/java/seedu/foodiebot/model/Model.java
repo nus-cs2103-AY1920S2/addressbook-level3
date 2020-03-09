@@ -91,8 +91,6 @@ public interface Model {
      */
     void updateFilteredStallList(Predicate<Stall> predicate);
 
-    void updateFilteredStallList(List<Stall> list);
-
     ObservableList<Food> getFilteredFoodList();
 
     void updateFilteredFoodList(List<Food> list);

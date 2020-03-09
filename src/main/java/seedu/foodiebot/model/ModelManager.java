@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -35,7 +34,7 @@ public class ModelManager implements Model {
     private final FoodieBot foodieBot;
     private final UserPrefs userPrefs;
     private final FilteredList<Canteen> filteredCanteens;
-    private FilteredList<Stall> filteredStalls;
+    private final FilteredList<Stall> filteredStalls;
     private final FilteredList<Food> filteredFoods;
 
     private final Budget budget;
@@ -221,20 +220,6 @@ public class ModelManager implements Model {
     public void updateFilteredStallList(Predicate<Stall> predicate) {
         requireNonNull(predicate);
         filteredStalls.setPredicate(predicate);
-    }
-
-    @Override
-    public void updateFilteredStallList(List<Stall> list) {
-        ObservableList<Stall> updatedStallList = FXCollections.observableArrayList();
-        for (int i = 0; i < list.size(); i++) {
-            updatedStallList.add(list.get(i));
-        }
-        ObservableList<Stall> unmodifiableUpdatedStallList =
-                FXCollections.unmodifiableObservableList(updatedStallList);
-        filteredStalls = new FilteredList<>(unmodifiableUpdatedStallList);
-        //List<Stall> filterCopy = new ArrayList<>(filteredStalls);
-        //filteredStalls.removeAll(filterCopy);
-        //filteredStalls.addAll(list);
     }
 
     /**

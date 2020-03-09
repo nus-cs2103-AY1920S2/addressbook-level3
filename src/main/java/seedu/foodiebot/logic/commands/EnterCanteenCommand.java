@@ -11,6 +11,7 @@ import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.canteen.Stall;
 
 /**
  * Selects a canteen to view the food stalls.
@@ -59,14 +60,14 @@ public class EnterCanteenCommand extends Command {
         if (index.isPresent()) {
             Canteen canteen = model.getFilteredCanteenList().get(index.get().getZeroBased());
             logger.info("Enter " + canteen.getName());
-            model.updateFilteredStallList(canteen.getStallsList());
+            model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(canteen.getName().toString()));
 
         } else if (canteenName.isPresent()) {
             List<Canteen> canteens = model.getFilteredCanteenList();
             for (Canteen c : canteens) {
                 if (c.getName().toString().equalsIgnoreCase(canteenName.get())) {
                     ParserContext.setCanteenContext(c);
-                    model.updateFilteredStallList(c.getStallsList());
+                    model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(c.getName().toString()));
                     break;
                 }
             }
