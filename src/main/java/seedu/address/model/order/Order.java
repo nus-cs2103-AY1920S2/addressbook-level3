@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.order;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.comment.Comment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,17 +23,19 @@ public class Order {
 
     // Data fields
     private final Address address;
+    private final Comment comment;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Order(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Order(Name name, Phone phone, Email email, Address address, Comment comment, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, comment, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.comment = comment;
         this.tags.addAll(tags);
     }
 
@@ -50,6 +53,10 @@ public class Order {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Comment getComment() {
+        return comment;
     }
 
     /**
@@ -93,13 +100,14 @@ public class Order {
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
+                && otherOrder.getComment().equals(getComment())
                 && otherOrder.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, comment, tags);
     }
 
     @Override
@@ -112,6 +120,8 @@ public class Order {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Comment: ")
+                .append(getComment())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

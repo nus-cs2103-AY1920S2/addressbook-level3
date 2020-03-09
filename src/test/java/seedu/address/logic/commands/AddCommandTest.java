@@ -20,7 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.person.Order;
+import seedu.address.model.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
 public class AddCommandTest {

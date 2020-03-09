@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Order;
+import seedu.address.model.order.Order;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -39,6 +39,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label comment;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Order order, int displayedIndex) {
@@ -49,6 +51,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);
         email.setText(order.getEmail().value);
+        comment.setText(order.getComment().commentMade);
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
