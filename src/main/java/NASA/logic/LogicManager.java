@@ -1,6 +1,7 @@
 package NASA.logic;
 
 import NASA.logic.parser.NasaBookParser;
+import NASA.model.ModelNasa;
 import javafx.collections.ObservableList;
 import NASA.commons.core.GuiSettings;
 import NASA.commons.core.LogsCenter;
@@ -25,11 +26,11 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final Model model;
+    private final ModelNasa model;
     private final Storage storage;
     private final NasaBookParser nasaBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(ModelNasa model, Storage storage) {
         this.model = model;
         this.storage = storage;
         nasaBookParser = new NasaBookParser();
