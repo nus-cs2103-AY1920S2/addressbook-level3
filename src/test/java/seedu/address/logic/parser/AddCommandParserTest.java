@@ -27,7 +27,6 @@ import static seedu.address.testutil.TypicalTasks.TASK2;
 import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
@@ -179,9 +178,7 @@ public class AddCommandParserTest {
 
         // two invalid values, only first invalid value reported
         assertParseFailure(
-                parser,
-                INVALID_NAME_DESC + INVALID_PRIORITY_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+                parser, INVALID_NAME_DESC + INVALID_PRIORITY_DESC, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(
