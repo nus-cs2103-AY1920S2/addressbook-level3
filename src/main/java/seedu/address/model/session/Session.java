@@ -23,13 +23,19 @@ public class Session {
         SESSION_TYPE_OTHER
     }
 
-    private SessionType sessionType;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private LocalDate date;
+    private SessionType type;
 
     /**
      * Constructs a Session object.
      */
-    public Session() {
-
+    public Session(LocalTime startTime, LocalTime endTime, LocalDate date, SessionType type) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+        this.type = type;
     }
 
     /**
@@ -57,6 +63,6 @@ public class Session {
      * Returns the type of session.
      */
     public SessionType getSessionType() {
-        return sessionType;
+        return type;
     }
 }
