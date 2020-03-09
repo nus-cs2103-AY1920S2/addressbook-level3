@@ -333,6 +333,7 @@ Use case ends.
 
 [none]
 * 1a. The given description, deadline, and number of estimated hours to complete work is invalid/empty.
++
 [none]
 ** 1a1. Naggy Joel shows an error message. 
 + 
@@ -347,6 +348,7 @@ Use case ends.
 2. Naggy Joel lists out all upcoming social events, displaying the dates and times of each event. 
 3. User chooses the event for which he wants to find a restaurant for. 
 4. Naggy Joel recommends a restaurant based on the people attending the social event, the number of people attending the social event, and what restaurants the user has noted down previously.
++
 Use case ends. 
 
 *Extensions*
@@ -375,6 +377,7 @@ Use case ends.
 
 [none]
 * 1a. The social event to be added clashes with an assignment's due date/due time, or another social event's date/time. 
++
 [none]
 ** 1a1. Naggy Joel throws an error and scolds the user for trying to fit too many events in their schedule. 
 + 
@@ -384,6 +387,45 @@ Use case ends.
 * 3a. The user does not add any contacts from Naggy Joel's database to the upcoming social event.
 + 
 Use case ends.
+
+
+[discrete]
+=== Use case: Finding time for a social event
+
+*MSS*
+
+1. User requests to know all the free time in his schedule for the next upcoming period (can be the next day, week or month)
+2. Naggy Joel displays all the pockets of free time in the user's schedule for the next upcoming period.
+3. User chooses a period of free time as shown by Duke. 
+4. Naggy Joel prompts the user to create a social event happening during this period of free time. 
+5. User creates social event and inputs just the description of social event. 
+6. Naggy Joel creates the social event and adds it to the list of upcoming social events. 
++ 
+Use case ends. 
+
+*Extensions*
+
+[none]
+* 5a. User cancels creating a social event. 
++
+[none]
+** 5a1. Naggy Joel prompts the user if they are sure they want to cancel the creation of the social event.  
+** 5a2. User affirms cancellation.
+** 5a3. Naggy Joel cancels the creation of the social event. 
++ 
+Use case ends.
+
+[discrete]
+=== Use case: Marking assignment as done
+
+*MSS*
+
+1. User requests to list out all assignments with upcoming deadlines. 
+2. Naggy Joel displays a list of all assignments with upcoming deadlines.
+3. User chooses the assignment which has been completed. 
+4. Naggy Joel marks the indicated assignment as completed.
++ 
+Use case ends. 
 
 _{More to be added}_
 
