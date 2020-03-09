@@ -10,14 +10,14 @@ import NASA.model.module.Module;
 
 public class AddModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "event";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to NASA. "
-            + "Parameters:"
-            + PREFIX_MODULE + "MODULE CODE"
+            + "Parameters: "
+            + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_MODULE_NAME + "MODULE NAME" + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS3233"
+            + PREFIX_MODULE + "CS3233 "
             + PREFIX_MODULE_NAME + "Competitive Programming";
 
     public static final String MESSAGE_SUCCESS = "New module added!";
@@ -34,7 +34,13 @@ public class AddModuleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         // TODO add the necessary implementation once model is done
-        return new CommandResult("");
+
+        if (model.hasModule(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);
+        }
+
+        model.addModule(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
