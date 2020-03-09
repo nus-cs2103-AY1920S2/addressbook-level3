@@ -5,12 +5,12 @@ import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -225,8 +225,15 @@ public class ModelManager implements Model {
 
     @Override
     public void updateFilteredStallList(List<Stall> list) {
+        ObservableList<Stall> updatedStallList = FXCollections.observableArrayList();
+        for (int i = 0; i < list.size(); i++) {
+            updatedStallList.add(list.get(i));
+        }
+        ObservableList<Stall> unmodifiableUpdatedStallList =
+                FXCollections.unmodifiableObservableList(updatedStallList);
+        filteredStalls = new FilteredList<>(unmodifiableUpdatedStallList);
         //List<Stall> filterCopy = new ArrayList<>(filteredStalls);
-        //filteredStalls.getSource().removeAll(filterCopy);
+        //filteredStalls.removeAll(filterCopy);
         //filteredStalls.addAll(list);
     }
 
