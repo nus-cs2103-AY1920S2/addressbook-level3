@@ -42,6 +42,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Layout]]
 == Layout
+A brief overview of the layout of the TATracker.
 
 === Dashboard
 Home page.
