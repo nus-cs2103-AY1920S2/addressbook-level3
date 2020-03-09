@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
+import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
@@ -39,7 +40,16 @@ public class EditOrderDescriptorBuilder {
         descriptor.setEmail(order.getEmail());
         descriptor.setAddress(order.getAddress());
         descriptor.setWarehouse(order.getWarehouse());
+        descriptor.setComment(order.getComment());
         descriptor.setTags(order.getTags());
+    }
+
+    /**
+     * Sets the {@code Comment} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditOrderDescriptorBuilder withComment(String comment) {
+        descriptor.setComment(new Comment(comment));
+        return this;
     }
 
     /**

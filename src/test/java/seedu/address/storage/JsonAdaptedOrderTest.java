@@ -111,7 +111,7 @@ public class JsonAdaptedOrderTest {
     @Test
     public void toModelType_invalidWarehouse_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                INVALID_WAREHOUSE, VALID_TAGS);
+                INVALID_WAREHOUSE, VALID_COMMENT, VALID_TAGS);
         String expectedMessage = Warehouse.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -119,7 +119,7 @@ public class JsonAdaptedOrderTest {
     @Test
     public void toModelType_nullWarehouse_throwsIllegalValueException() {
         JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                null, VALID_TAGS);
+                null, VALID_COMMENT, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Warehouse.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
@@ -127,7 +127,7 @@ public class JsonAdaptedOrderTest {
     @Test
     public void toModelType_invalidComment_throwsIllegalValueException() {
         JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
+                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_WAREHOUSE,
                         INVALID_COMMENT, VALID_TAGS);
         String expectedMessage = Comment.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);

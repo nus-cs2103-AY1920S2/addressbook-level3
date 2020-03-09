@@ -104,7 +104,7 @@ public class EditCommand extends Command {
         Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
-        Comment updatedComment = editPersonDescriptor.getComment().orElse(orderToEdit.getComment());
+        Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
         Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
         return new Order(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedWarehouse,

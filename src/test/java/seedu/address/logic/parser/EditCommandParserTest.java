@@ -169,7 +169,7 @@ public class EditCommandParserTest {
 
         // comment
         userInput = targetIndex.getOneBased() + COMMENT_DESC_INSTRUCTION;
-        descriptor = new EditPersonDescriptorBuilder().withComment(VALID_COMMENT_INSTRUCTION).build();
+        descriptor = new EditOrderDescriptorBuilder().withComment(VALID_COMMENT_INSTRUCTION).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
