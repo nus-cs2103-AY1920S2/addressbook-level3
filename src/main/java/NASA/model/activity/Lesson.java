@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Lesson extends Activity {
+    private int numOfDaysTillNextLesson = 7; // Frequency of lesson in number of days (eg. every 7 days) Default is 7 days.
 
     /**
      * Initialise Event with default "lesson".
@@ -24,12 +25,19 @@ public class Lesson extends Activity {
         super(name, date, note);
     }
 
+    public int getNumOfDaysTillNextLesson() {
+        return numOfDaysTillNextLesson;
+    }
+
+    public void setNumOfDaysTillNextLesson(int newNumOfDays) {
+        this.numOfDaysTillNextLesson = newNumOfDays;
+    }
+
     /**
      * Initialise new lesson with the new date.
-     * @param numOfDaysTillNextLesson number of days from the current lesson till the next lesson
      * @return new instance of lesson at the new date
      */
-    public Lesson regenerateNewLesson(int numOfDaysTillNextLesson) {
+    public Lesson regenerate() {
         Lesson newLesson = new Lesson(this.getName(), this.getDate().addDaysToCurrDate(numOfDaysTillNextLesson),
                 this.getNote());
         return newLesson;

@@ -1,11 +1,13 @@
 package NASA.model.activity;
 
+import NASA.model.Regenerable;
+
 import java.time.LocalDateTime;
 
 /**
  * Abstract class to specify fields with getter and setters for activities.
  */
-public abstract class Activity {
+public abstract class Activity implements Regenerable<Activity> {
 
     private Name name;
 
@@ -158,4 +160,10 @@ public abstract class Activity {
         this.priority = priority;
     }
      */
+
+    /**
+     * Regenerate activity based on set rules and logic.
+     * @return new instance of the activity, with its attributes possibly modified
+     */
+    public abstract Activity regenerate();
 }

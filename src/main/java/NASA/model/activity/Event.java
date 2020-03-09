@@ -22,4 +22,10 @@ public class Event extends Activity {
         super(name, date, note);
     }
 
+
+    //TODO: detailed implementation of event regeneration
+    public Event regenerate() {
+        return this;
+    }
+
 }
