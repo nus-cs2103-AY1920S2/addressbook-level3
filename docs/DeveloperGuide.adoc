@@ -324,21 +324,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |busy university student with a hectic work schedule |be able to be suggested places to eat with my friends based on "KIV" notes for certain restaurants |choose a gathering place without much hassle
 
-|`* * *` |university student who wants to live life to the fullest | be able to schedule social events whenever I have free time | still hang out with my friends  amidst all the school work. 
- 
+|`* * *` |university student who wants to live life to the fullest | be able to schedule social events whenever I have free time | still hang out with my friends  amidst all the school work.
+
 |`* * *` |university student with many places to explore| be able to keep track of the different must-try food places | visit them when hanging out with friends.
 
-|`* * *` |university student with many places to explore| be able to keep track of the different food places that opens at odd times| eat when I’m studying until the wee hours. 
- 
-|`* * *` |university student with different groups of friends | be able to categorise my contacts | know how I met them. 
- 
-|`* * *` |user | be able to delete unwanted contacts/details | keep the application free from clutter and ensure that it does not take up unnecessary space.
- 
-|`* * *` |user | be able to keep track of the restaurants I have visited | have a list of restaurants to go to when I have no preferences. 
- 
-|`* * *` |university student who aims to have a good social life | be able to remember miscellaneous information about my friends | easily find places to hang out with my friends and identify gifts to buy for their birthdays. 
+|`* * *` |university student with many places to explore| be able to keep track of the different food places that opens at odd times| eat when I’m studying until the wee hours.
 
-|`* * *` | university student with many assignment to keep track of | mark assignments as done | have a better idea of my remaining assignments. 
+|`* * *` |university student with different groups of friends | be able to categorise my contacts | know how I met them.
+
+|`* * *` |user | be able to delete unwanted contacts/details | keep the application free from clutter and ensure that it does not take up unnecessary space.
+
+|`* * *` |user | be able to keep track of the restaurants I have visited | have a list of restaurants to go to when I have no preferences.
+
+|`* * *` |university student who aims to have a good social life | be able to remember miscellaneous information about my friends | easily find places to hang out with my friends and identify gifts to buy for their birthdays.
+
+|`* * *` | university student with many assignment to keep track of | mark assignments as done | have a better idea of my remaining assignments.
 
 |`* * *` |busy university student with many assignments and projects |add an assignment to the app | not have to remember the details and deliverables of each assignment.
 
@@ -357,10 +357,10 @@ _{More to be added}_
 
 *MSS*
 
-1. User adds an assignment by typing the "add" command and includes description of the assignment, deadline, and number of estimated hours to complete the work. 
-2. Naggy Joel adds the assignment to the list of assignments. 
-+ 
-Use case ends. 
+1. User adds an assignment by typing the "add" command and includes description of the assignment, deadline, and number of estimated hours to complete the work.
+2. Naggy Joel adds the assignment to the list of assignments.
++
+Use case ends.
 
 *Extensions*
 
@@ -368,8 +368,8 @@ Use case ends.
 * 1a. The given description, deadline, and number of estimated hours to complete work is invalid/empty.
 +
 [none]
-** 1a1. Naggy Joel shows an error message. 
-+ 
+** 1a1. Naggy Joel shows an error message.
++
 Use case ends.
 
 [discrete]
@@ -378,20 +378,20 @@ Use case ends.
 *MSS*
 
 1. User requests to list out all upcoming social events.
-2. Naggy Joel lists out all upcoming social events, displaying the dates and times of each event. 
-3. User chooses the event for which he wants to find a restaurant for. 
+2. Naggy Joel lists out all upcoming social events, displaying the dates and times of each event.
+3. User chooses the event for which he wants to find a restaurant for.
 4. Naggy Joel recommends a restaurant based on the people attending the social event, the number of people attending the social event, and what restaurants the user has noted down previously.
 +
-Use case ends. 
+Use case ends.
 
 *Extensions*
 
 [none]
-* 4a. The contacts attending the social event do not have any likes/dislikes recorded down in Naggy Joel's database. 
+* 4a. The contacts attending the social event do not have any likes/dislikes recorded down in Naggy Joel's database.
 +
 [none]
 ** 4a1. Naggy Joel recommends the user a few restaurants in its default database which the user has not visited before.
-+ 
++
 Use case ends.
 
 [discrete]
@@ -399,26 +399,26 @@ Use case ends.
 
 *MSS*
 
-1. User adds a social event, providing information such as the description, date and time of the social event. 
-2. Naggy Joel requests for the user to add contacts who are going to the social event. 
+1. User adds a social event, providing information such as the description, date and time of the social event.
+2. Naggy Joel requests for the user to add contacts who are going to the social event.
 3. User adds the contacts going to the social event.
 4. Naggy Joel adds the social event to the list of upcoming social events.
-+ 
-Use case ends. 
++
+Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The social event to be added clashes with an assignment's due date/due time, or another social event's date/time. 
+* 1a. The social event to be added clashes with an assignment's due date/due time, or another social event's date/time.
 +
 [none]
-** 1a1. Naggy Joel throws an error and scolds the user for trying to fit too many events in their schedule. 
-+ 
+** 1a1. Naggy Joel throws an error and scolds the user for trying to fit too many events in their schedule.
++
 Use case ends.
 
 [none]
 * 3a. The user does not add any contacts from Naggy Joel's database to the upcoming social event.
-+ 
++
 Use case ends.
 
 
@@ -429,23 +429,23 @@ Use case ends.
 
 1. User requests to know all the free time in his schedule for the next upcoming period (can be the next day, week or month)
 2. Naggy Joel displays all the pockets of free time in the user's schedule for the next upcoming period.
-3. User chooses a period of free time as shown by Duke. 
-4. Naggy Joel prompts the user to create a social event happening during this period of free time. 
-5. User creates social event and inputs just the description of social event. 
-6. Naggy Joel creates the social event and adds it to the list of upcoming social events. 
-+ 
-Use case ends. 
+3. User chooses a period of free time as shown by Duke.
+4. Naggy Joel prompts the user to create a social event happening during this period of free time.
+5. User creates social event and inputs just the description of social event.
+6. Naggy Joel creates the social event and adds it to the list of upcoming social events.
++
+Use case ends.
 
 *Extensions*
 
 [none]
-* 5a. User cancels creating a social event. 
+* 5a. User cancels creating a social event.
 +
 [none]
-** 5a1. Naggy Joel prompts the user if they are sure they want to cancel the creation of the social event.  
+** 5a1. Naggy Joel prompts the user if they are sure they want to cancel the creation of the social event.
 ** 5a2. User affirms cancellation.
-** 5a3. Naggy Joel cancels the creation of the social event. 
-+ 
+** 5a3. Naggy Joel cancels the creation of the social event.
++
 Use case ends.
 
 [discrete]
@@ -453,12 +453,12 @@ Use case ends.
 
 *MSS*
 
-1. User requests to list out all assignments with upcoming deadlines. 
+1. User requests to list out all assignments with upcoming deadlines.
 2. Naggy Joel displays a list of all assignments with upcoming deadlines.
-3. User chooses the assignment which has been completed. 
+3. User chooses the assignment which has been completed.
 4. Naggy Joel marks the indicated assignment as completed.
-+ 
-Use case ends. 
++
+Use case ends.
 
 _{More to be added}_
 
