@@ -11,7 +11,6 @@ import seedu.foodiebot.commons.core.index.Index;
 import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.canteen.Canteen;
-import seedu.foodiebot.model.canteen.Stall;
 
 /**
  * Selects a canteen to view the food stalls.

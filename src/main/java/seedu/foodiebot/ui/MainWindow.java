@@ -265,11 +265,9 @@ public class MainWindow extends UiPart<Stage> {
                 if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
                     handleListCanteens();
                 } else if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
-                    ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
                     handleListStalls();
                 } else if (ParserContext.getCurrentContext().equals(ParserContext.STALL_CONTEXT)) {
-                    ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
-                    handleListStalls();
+                    handleListFood();
                 }
                 break;
             default:
