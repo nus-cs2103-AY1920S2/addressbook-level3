@@ -7,7 +7,7 @@ package seedu.address.model.activity;
 public class Deadline extends Activity {
 
     /**
-     * Initialise Deadlines with default "deadlines".
+     * Initialise Deadline with default "deadlines".
      * Every field must be present and not null.
      */
     public Deadline(Date date, Note note) {

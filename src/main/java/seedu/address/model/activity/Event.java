@@ -7,7 +7,7 @@ package seedu.address.model.activity;
 public class Event extends Activity {
 
     /**
-     * Initialise Event with default "deadlines".
+     * Initialise Event with default "event".
      * Every field must be present and not null.
      */
     public Event(Date date, Note note) {
@@ -15,7 +15,7 @@ public class Event extends Activity {
     }
 
     /**
-     * Initialise Deadlines with a particular unique {@code name}.
+     * Initialise Event with a particular unique {@code name}.
      * Every field must be present and not null.
      */
     public Event(Name name, Date date, Note note) {
