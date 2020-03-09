@@ -7,7 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import NASA.logic.commands.AddModuleCommand;
+import NASA.logic.commands.ClearCommand;
 import NASA.logic.commands.Command;
+import NASA.logic.commands.DeleteActivityCommand;
+import NASA.logic.commands.DeleteModuleCommand;
+import NASA.logic.commands.EditActivityCommand;
 import NASA.logic.commands.EditModuleCommand;
 import NASA.logic.commands.ExitCommand;
 import NASA.logic.commands.FindCommand;
