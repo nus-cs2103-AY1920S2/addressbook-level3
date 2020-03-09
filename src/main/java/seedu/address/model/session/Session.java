@@ -31,8 +31,15 @@ public class Session {
 
     /**
      * Constructs a Session object.
+     * The session's end time should be strictly after the session's start time.
      */
-    public Session(LocalTime startTime, LocalTime endTime, LocalDate date, SessionType type, String description) {
+    public Session(LocalTime startTime, LocalTime endTime, LocalDate date, SessionType type,
+                   String description) throws IllegalArgumentException {
+
+        if (startTime.compareTo(endTime) > 0) {
+            throw new IllegalArgumentException("[Session] Start time is set to after end time!");
+        }
+
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
