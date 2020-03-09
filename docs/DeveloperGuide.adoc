@@ -333,7 +333,6 @@ Use case ends.
 
 [none]
 * 1a. The given description, deadline, and number of estimated hours to complete work is invalid/empty.
-+
 [none]
 ** 1a1. Naggy Joel shows an error message. 
 + 
@@ -348,7 +347,6 @@ Use case ends.
 2. Naggy Joel lists out all upcoming social events, displaying the dates and times of each event. 
 3. User chooses the event for which he wants to find a restaurant for. 
 4. Naggy Joel recommends a restaurant based on the people attending the social event, the number of people attending the social event, and what restaurants the user has noted down previously.
-+ 
 Use case ends. 
 
 *Extensions*
@@ -377,7 +375,6 @@ Use case ends.
 
 [none]
 * 1a. The social event to be added clashes with an assignment's due date/due time, or another social event's date/time. 
-+
 [none]
 ** 1a1. Naggy Joel throws an error and scolds the user for trying to fit too many events in their schedule. 
 + 
