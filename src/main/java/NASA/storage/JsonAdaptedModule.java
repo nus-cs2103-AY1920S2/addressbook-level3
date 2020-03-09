@@ -32,9 +32,8 @@ class JsonAdaptedModule {
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode,
-                             @JsonProperty("moduleName") String moduleName,
-                             List<JsonAdaptedActivity> activities) {
+    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("moduleName") String moduleName,
+                             @JsonProperty("activities") List<JsonAdaptedActivity> activities) {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
         if (activities != null) {
