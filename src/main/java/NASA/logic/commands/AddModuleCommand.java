@@ -5,7 +5,7 @@ import static NASA.logic.parser.CliSyntax.PREFIX_MODULE;
 import static NASA.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 
 import NASA.logic.commands.exceptions.CommandException;
-import NASA.model.Model;
+import NASA.model.ModelNasa;
 import NASA.model.module.Module;
 
 public class AddModuleCommand extends Command {
@@ -21,7 +21,7 @@ public class AddModuleCommand extends Command {
             + PREFIX_MODULE_NAME + "Competitive Programming";
 
     public static final String MESSAGE_SUCCESS = "New module added!";
-    public static final String MESSAGE_DUPLICATED_ACTIVITY = "This module already exist!";
+    public static final String MESSAGE_DUPLICATED_MODULE = "This module already exist!";
 
     private Module toAdd;
 
@@ -31,10 +31,13 @@ public class AddModuleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(ModelNasa model) throws CommandException {
         requireNonNull(model);
-        // TODO add the necessary implementation once model is done
-        return new CommandResult("");
+        if (model.hasModule(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATED_MODULE);
+        }
+        model.addModule(toAdd);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

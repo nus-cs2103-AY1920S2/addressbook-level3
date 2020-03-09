@@ -1,7 +1,7 @@
 package NASA.logic.commands;
 
 import NASA.logic.commands.exceptions.CommandException;
-import NASA.model.Model;
+import NASA.model.ModelNasa;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -15,6 +15,6 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(ModelNasa model) throws CommandException;
 
 }

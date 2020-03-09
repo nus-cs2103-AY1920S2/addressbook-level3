@@ -1,6 +1,6 @@
 package NASA.logic.commands;
 
-import NASA.model.Model;
+import NASA.model.ModelNasa;
 
 /**
  * Format full help instructions for every command for display.
@@ -15,7 +15,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(ModelNasa model) {
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }
