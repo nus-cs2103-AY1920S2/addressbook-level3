@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.address.model.profile.course.module;
 
 import java.util.ArrayList;
 

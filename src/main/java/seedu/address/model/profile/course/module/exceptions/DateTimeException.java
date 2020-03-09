@@ -1,4 +1,4 @@
-package seedu.address;
+package seedu.address.model.profile.course.module.exceptions;
 
 /**
  * Exception thrown when there is an input error of date and time.

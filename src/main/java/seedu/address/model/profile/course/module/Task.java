@@ -1,4 +1,6 @@
-package seedu.address;
+package seedu.address.model.profile.course.module;
+
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
