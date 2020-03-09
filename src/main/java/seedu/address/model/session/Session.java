@@ -15,7 +15,12 @@ public class Session {
      * Example session types include: Tutorial, Grading, Consultation, etc.
      */
     public enum SessionType {
-        SESSION_TYPE_INVALID
+        SESSION_TYPE_TUTORIAL,
+        SESSION_TYPE_LAB,
+        SESSION_TYPE_CONSULTATION,
+        SESSION_TYPE_GRADING,
+        SESSION_TYPE_PREPARATION,
+        SESSION_TYPE_OTHER
     }
 
     private SessionType sessionType;
