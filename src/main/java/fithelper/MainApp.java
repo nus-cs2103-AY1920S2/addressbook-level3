@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        FitHelperStorage addressBookStorage = new JsonFitHelperStorage(userPrefs.getFitHelperFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        FitHelperStorage fitHelperStorage = new JsonFitHelperStorage(userPrefs.getFitHelperFilePath());
+        storage = new StorageManager(fitHelperStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,14 +74,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyFitHelper> addressBookOptional;
+        Optional<ReadOnlyFitHelper> fitHelperOptional;
         ReadOnlyFitHelper initialData;
         try {
-            addressBookOptional = storage.readFitHelper();
-            if (!addressBookOptional.isPresent()) {
+            fitHelperOptional = storage.readFitHelper();
+            if (!fitHelperOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample FitHelper");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleFitHelper);
+            initialData = fitHelperOptional.orElseGet(SampleDataUtil::getSampleFitHelper);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FitHelper");
             initialData = new FitHelper();
@@ -89,7 +89,6 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty FitHelper");
             initialData = new FitHelper();
         }
-
         return new ModelManager(initialData, userPrefs);
     }
 
