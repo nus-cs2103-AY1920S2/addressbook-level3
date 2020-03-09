@@ -307,6 +307,18 @@ Format: `schedule`
 ****
 
 // tag::delete[]
+
+
+=== Create a new social event
+
+Creates a social event. +
+Format: `event d/DATE t/TIME`
+
+****
+* `DATE` must be in a YYYY-MM-DD format.
+* `TIME` must be in a HH:MM format. 
+****
+
 === Deleting a person : `delete`
 
 Deletes the contact at index INDEX +
