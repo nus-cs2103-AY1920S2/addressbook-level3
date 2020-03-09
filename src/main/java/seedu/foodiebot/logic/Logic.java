@@ -10,6 +10,7 @@ import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 
 /** API of the Logic component */
 public interface Logic {
@@ -42,5 +43,10 @@ public interface Logic {
     /** Set the user prefs' GUI settings. */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** Returns an unmodifiable view of the filtered list of Stalls */
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
+
+    /** Returns an unmodifiable view of the filtered list of Food */
+    ObservableList<Food> getFilteredFoodList(boolean isInitialised);
 }
+

@@ -81,8 +81,10 @@ public interface Model {
      */
     void updateFilteredCanteenList(Predicate<Canteen> predicate);
 
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList();
 
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
     /**
      * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
@@ -91,7 +93,16 @@ public interface Model {
      */
     void updateFilteredStallList(Predicate<Stall> predicate);
 
+    /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
 
-    void updateFilteredFoodList(List<Food> list);
+    /** Returns an unmodifiable view of the filtered food list */
+    ObservableList<Food> getFilteredFoodList(boolean isInitialised);
+
+    /**
+     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFoodList(Predicate<Food> predicate);
 }

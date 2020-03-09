@@ -62,6 +62,10 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         this.stalls.setStalls(stalls);
     }
 
+    public void setFood(List<Food> food) {
+        this.foods.setFood(food);
+    }
+
 
     public void setBudget(Budget budget) {
         this.budget = budget;
@@ -74,6 +78,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
 
         setCanteens(newData.getCanteenList());
         setStalls(newData.getStallList());
+        setFood(newData.getFoodList());
     }
 
     //// canteen-level operations
@@ -142,13 +147,21 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     //// stall-level operations
 
     /**
-     * Returns true if a canteen with the same identity as {@code canteen} exists in the address
+     * Returns true if a canteen with the same identity as {@code Stall} exists in the address
      * book.
      */
-
     public boolean hasStall(Stall stall) {
         requireNonNull(stall);
         return stalls.contains(stall);
+    }
+
+    /**
+     * Returns true if a food with the same identity as {@code food} exists in the address
+     * book.
+     */
+    public boolean hasFood(Food food) {
+        requireNonNull(food);
+        return foods.contains(food);
     }
 
     public ObservableList<Stall> getStallList() {

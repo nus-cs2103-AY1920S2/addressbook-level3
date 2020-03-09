@@ -10,6 +10,7 @@ import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.tag.Tag;
 
 /**
@@ -121,6 +122,11 @@ public class SampleDataUtil {
         };
     }
 
+    public static Food[] getSampleFoods() {
+        return new Food[] { new Food("Combo Set", 6, "1 Meat, 1 Pasta, 2 Sides", "ComboSet.png",
+                        1, "Nus Flavors", "Western", getTagSet("1"))};
+    }
+
     public static ReadOnlyFoodieBot getSampleFoodieBot() {
         FoodieBot sampleAb = new FoodieBot();
         for (Canteen sampleCanteen : getSampleCanteens()) {
@@ -129,6 +135,10 @@ public class SampleDataUtil {
 
         for (Stall sampleStall : getSampleStalls()) {
             sampleAb.addStall(sampleStall);
+        }
+
+        for (Food sampleFood : getSampleFoods()) {
+            sampleAb.addFood(sampleFood);
         }
         return sampleAb;
     }

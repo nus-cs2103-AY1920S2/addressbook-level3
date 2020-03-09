@@ -42,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private DirectionsToCanteenPanel directionsToCanteenPanel;
     private boolean isStallInitialised;
+    private boolean isFoodInitialised;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -190,6 +191,17 @@ public class MainWindow extends UiPart<Stage> {
         isStallInitialised = true;
     }
 
+    /**
+     * Fills the foodListPanel region.
+     */
+    @FXML
+    public void handleListFood() {
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(new FoodListPanel(logic.getFilteredFoodList(isFoodInitialised))
+                .getRoot());
+        isFoodInitialised = true;
+    }
+
 
     void show() {
         primaryStage.show();
@@ -241,13 +253,22 @@ public class MainWindow extends UiPart<Stage> {
                 }
                 break;
             case EnterCanteenCommand.COMMAND_WORD:
-                ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
-                handleListStalls();
+                if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                    ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
+                    handleListStalls();
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
+                    ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
+                    handleListFood();
+                }
                 break;
             case ExitCommand.COMMAND_WORD:
                 if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
                     handleListCanteens();
                 } else if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
+                    ParserContext.setCurrentContext(ParserContext.MAIN_CONTEXT);
+                    handleListStalls();
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.STALL_CONTEXT)) {
+                    ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
                     handleListStalls();
                 }
                 break;

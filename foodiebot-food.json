@@ -1,0 +1,13 @@
+{
+  "foods" : [ {
+    "name" : "Combo Set",
+    "price" : 6,
+    "description" : "1 Meat, 1 Pasta, 2 Sides",
+    "foodImageName" : "javafx.scene.image.Image@449cdbd2",
+    "stallNo" : 1,
+    "canteen" : "Nus Flavors",
+    "stallName" : "Western",
+    "tags" : [ ],
+    "tagged" : [ ]
+  } ]
+}

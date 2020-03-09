@@ -40,8 +40,9 @@ public class EnterStallCommandParser implements Parser<EnterStallCommand> {
             index = ParserUtil.parseIndex(enteredText);
             return new EnterStallCommand(index);
         } catch (ParseException pe) {
-            String canteenName = ParserUtil.parseStallName(enteredText);
-            return new EnterStallCommand(canteenName);
+            String stallName = ParserUtil.parseStallName(enteredText);
+            return new EnterStallCommand(stallName);
         }
     }
 }
+
