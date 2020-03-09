@@ -46,14 +46,14 @@ public class PersonTest {
                         .build();
         assertTrue(HOMEWORK10.isSameTask(editedAlice));
 
-        // same name, different attributes -> returns true
+        // same name, different attributes -> returns false
         editedAlice =
                 new TaskBuilder(HOMEWORK10)
                         .withPriority(VALID_PRIORITY_TASK2)
                         .withDescription(VALID_DESCRIPTION_TASK2)
                         .withTags(VALID_TAG_MA1521)
                         .build();
-        assertTrue(HOMEWORK10.isSameTask(editedAlice));
+        assertFalse(HOMEWORK10.isSameTask(editedAlice));
 
         // same name, same priority, different attributes -> returns true
         editedAlice =
