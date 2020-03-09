@@ -24,11 +24,11 @@ import NASA.commons.util.ConfigUtil;;
 import NASA.model.Model;
 import NASA.model.ReadOnlyUserPrefs;
 import NASA.model.UserPrefs;
-import NASA.storage.JsonUserPrefsStorage;
 import NASA.storage.Storage;
 import NASA.storage.StorageManager;
 import NASA.storage.UserPrefsStorage;
 import NASA.model.util.SampleDataUtil;
+import NASA.storage.JsonUserPrefsStorage;
 
 /**
  * Runs the application.
@@ -53,7 +53,7 @@ public class MainApp extends Application {
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
-        UserPrefsStorage userPrefsStorage = (UserPrefsStorage) new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         NasaBookStorage nasaBookStorage = new JsonNasaBookStorage(userPrefs.getNasaBookFilePath());
         storage = new StorageManager(nasaBookStorage, userPrefsStorage);

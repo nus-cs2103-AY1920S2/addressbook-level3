@@ -1,27 +1,22 @@
 package NASA.storage;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-import com.google.gson.Gson;
+
 import NASA.commons.core.LogsCenter;
 import NASA.commons.exceptions.DataConversionException;
-import NASA.model.NasaBook;
 import NASA.model.ReadOnlyNasaBook;
 import NASA.model.ReadOnlyUserPrefs;
 import NASA.model.UserPrefs;
-import NASA.storage.NasaBookStorage;
-import NASA.storage.Storage;
-import NASA.storage.UserPrefsStorage;
 
 /**
  * Manages storage of NasaBook data in local storage.
  */
 public class StorageManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(NASA.storage.StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private NasaBookStorage NasaBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
