@@ -34,7 +34,7 @@ public class TypicalTasks {
                     .build();
     public static final Task TUTORIAL_1 =
             new TaskBuilder()
-                    .withName("Tutorial 1")
+                    .withName("mum tells me to do Tutorial 1")
                     .withPriority("3")
                     .withDescription("Introduction to Calculus")
                     .withTags("MA1521")
@@ -47,13 +47,13 @@ public class TypicalTasks {
                     .build();
     public static final Task FEED_CAT =
             new TaskBuilder()
-                    .withName("Feed cat")
+                    .withName("mum tells me to feed cat")
                     .withPriority("3")
                     .withDescription("Cat is making noise")
                     .build();
     public static final Task RUN =
             new TaskBuilder()
-                    .withName("Running")
+                    .withName("mum tells me to run")
                     .withPriority("1")
                     .withDescription("Complete 2.4km run!")
                     .build();
