@@ -113,7 +113,6 @@ public abstract class Activity {
         if (!(other instanceof Activity)) {
             return false;
         }
-
         Activity otherActivity = (Activity) other;
         return otherActivity.getName().equals(getName())
                 && otherActivity.getNote().equals(getNote())

@@ -13,4 +13,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_MODULE_NAME = new Prefix("n/");
     public static final Prefix PREFIX_NOTE = new Prefix("n/");
     public static final Prefix PREFIX_REPEAT = new Prefix("r/");
+    
 }
