@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.foodiebot.commons.exceptions.IllegalValueException;
 import seedu.foodiebot.model.canteen.Name;
-import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.tag.Tag;
 

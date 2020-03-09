@@ -1,13 +1,11 @@
 package seedu.foodiebot.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;

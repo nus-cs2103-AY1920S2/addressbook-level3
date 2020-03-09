@@ -40,25 +40,20 @@ public class UniqueFoodList implements Iterable<Food> {
         internalList.add(toAdd);
     }
 
-    /**
-     * Replaces the food {@code target} in the list with {@code editedPerson}. {@code target}
-     * must exist in the list. The food identity of {@code editedPerson} must not be the same as
-     * another existing food in the list.
-     */
-    public void setFood(Food target, Food editedFood) {
-        requireAllNonNull(target, editedFood);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new StallNotFoundException();
-        }
-
-        if (!target.isSameFood(editedFood) && contains(editedFood)) {
-            throw new DuplicateStallException();
-        }
-
-        internalList.set(index, editedFood);
-    }
+    //public void setFood(Food target, Food editedFood) {
+    //    requireAllNonNull(target, editedFood);
+    //
+    //    int index = internalList.indexOf(target);
+    //    if (index == -1) {
+    //        throw new StallNotFoundException();
+    //    }
+    //
+    //    if (!target.isSameFood(editedFood) && contains(editedFood)) {
+    //        throw new DuplicateStallException();
+    //    }
+    //
+    //      internalList.set(index, editedFood);
+    //}
 
     /**
      * Removes the equivalent food from the list. The food must exist in the list.
@@ -126,6 +121,11 @@ public class UniqueFoodList implements Iterable<Food> {
         return true;
     }
 
+    /**
+     * Replaces the food {@code target} in the list with {@code editedPerson}. {@code target}
+     * must exist in the list. The food identity of {@code editedPerson} must not be the same as
+     * another existing food in the list.
+     */
     public void setFood(List<Food> food) {
         requireAllNonNull(food);
         if (!foodsAreUnique(food)) {

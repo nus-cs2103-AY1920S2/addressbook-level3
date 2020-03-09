@@ -21,9 +21,9 @@ public class FoodListPanel extends UiPart<Region> {
     @FXML
     private ListView<Food> simpleListView;
 
-    public FoodListPanel(ObservableList<Food> FoodList) {
+    public FoodListPanel(ObservableList<Food> foodList) {
         super(FXML);
-        simpleListView.setItems(FoodList);
+        simpleListView.setItems(foodList);
         simpleListView.setCellFactory(listView -> new FoodListViewCell());
     }
 
