@@ -147,7 +147,6 @@ public abstract class Activity {
     public boolean isDone() {
         return status == Status.DONE;
     }
-  
     /*
     public Priority getPriority() {
         return priority;
