@@ -1,7 +1,5 @@
 package com.notably.logic;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static com.notably.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static com.notably.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static com.notably.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static com.notably.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -26,6 +24,7 @@ import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.UserPrefs;
+import com.notably.model.person.Person;
 import com.notably.storage.JsonAddressBookStorage;
 import com.notably.storage.JsonUserPrefsStorage;
 import com.notably.storage.StorageManager;
@@ -50,24 +49,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_invalidCommandFormat_throwsParseException() {
-        String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-    }
 
-    @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-    }
-
-    @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
