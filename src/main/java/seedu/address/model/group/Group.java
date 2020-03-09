@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * A group is anything that would include a
  * group of students such as a lab or tutorial.
  */
-public abstract class Group {
+public class Group {
 
     /**
      * Represents a group type.
@@ -34,7 +34,7 @@ public abstract class Group {
         this.identifier = identifier;
         students = new ArrayList<>();
         type.toLowerCase();
-        if(type.equals("lab")) {
+        if (type.equals("lab")) {
             groupType = GroupType.LAB;
         } else {
             groupType = GroupType.TUTORIAL;
