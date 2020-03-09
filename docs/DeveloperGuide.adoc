@@ -307,7 +307,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |edit information in delivery orders |rectify any errors in delivery orders
 
-|`* * *` |courier |sort delivery orders |see the list of orders based on preference/need
+|`* * *` |courier |view delivery orders based on a given postal sector |easily find delivery orders in the same general location
 
 |`* * *` |courier |see the warehouse details of the orders |know where to get the packages from
 
@@ -629,13 +629,13 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC12 - Sort orders
+=== Use case: UC12 - Obtain orders in a postal sector
 
 *MSS*
 
-1.  User requests to sort the orders
-2.  Delino sort the orders
-3.  Delino display the sorted list
+1.  User requests to obtain orders in a specified postal sector
+2.  Delino obtains all orders located in the postal sector
+3.  Delino display the list of orders
 +
 Use case ends.
 
@@ -756,14 +756,6 @@ Refers to the display field showing the results of an executed command
 .Possible Command Flags
 |===
 |Command |Flag |Meaning
-
-|Sort
-|-a
-|Sort in *ascending* order
-
-|Sort
-|-d
-|Sort in *descending* order
 
 |Clear
 |-f
@@ -891,7 +883,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Find command format: `find` `FLAG` `KEYWORD`
 
-.. Prerequisite: Call the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a find command, the orders from the output list is based on the list of completed orders
+.. Prerequisite: Call the list command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a find command, the orders from the output list is based on the list of completed orders
 .. Test case: `list` `done` +
    `find` `-t` `A18512357Z` +
    Expected: Specifically find the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
@@ -941,23 +933,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: Invalid syntax
    Expected: An error will occur and the response box will show an error message
 
-=== Sort orders
+=== Obtain all nearby orders based on postal sector
 
-. Sort the orders based on the attributes input by the user. There are some things which we can sort by : Name of person, Transaction ID or Timestamp. The user will also input flags to indicate ascending order (-a) or descending order (-d)
+. Obtain all orders located in the same postal sector. +
+The postal sector to search for is given by the user. +
+A *postal sector* is the first *two* digits of a six digit Singapore postal code. +
+The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
-.. Sort command format: `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX`
+.. Nearby command format: `nearby` `POSTAL_SECTOR`
 
-.. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list
-.. Test case: `sort` `-a` `n/` +
-   Expected: Sort all orders in ascending order based on the customer names
-.. Test case: `sort` `-d` `tid/` +
-   Expected: Sort all orders in descending order based on transaction ID
-.. Test case: `sort` `-a` `ts/` +
-   Expected: Sort all orders in ascending order based on timestamp
-.. Test case: `sort` `n/` +
-   Expected: By default, if there is no flag, it will sort all orders in ascending order based the on customer names
-.. Test case: `sort` +
-   Expected: Error will occur as it is an invalid syntax
+.. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
+.. Test case: `nearby` `79` +
+   Expected: Obtain all orders located in postal sector 79 (Seletar)
+.. Test case: `nearby` `07` +
+   Expected: Obtain all orders located in postal sector 07 (Anson, Tanjong Pagar)
+.. Test case: `nearby` `99` +
+   Expected: An error will occur as the given postal sector is invalid
+.. Test case: `nearby` `600` +
+   Expected: An error will occur as the given postal sector is invalid
+.. Test case: `nearby` +
+   Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
 
 === Undo previous action
 
