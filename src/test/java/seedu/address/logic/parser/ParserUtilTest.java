@@ -19,7 +19,6 @@ import seedu.address.model.task.Priority;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PRIORITY = "+651234";
-    private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -101,11 +100,6 @@ public class ParserUtilTest {
     @Test
     public void parseDescription_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
-    }
-
-    @Test
-    public void parseDescription_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
     }
 
     @Test

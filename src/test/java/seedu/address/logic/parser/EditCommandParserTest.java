@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK2;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -31,7 +30,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.testutil.EditTaskDescriptorBuilder;
@@ -80,9 +78,6 @@ public class EditCommandParserTest {
                 parser,
                 "1" + INVALID_PRIORITY_DESC,
                 Priority.MESSAGE_CONSTRAINTS); // invalid priority
-        assertParseFailure(
-                parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid
-        // address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid priority
