@@ -3,8 +3,8 @@ package seedu.address.model.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ALICE;
 import static seedu.address.testutil.TypicalTasks.BOB;
@@ -42,8 +42,8 @@ public class UniqueTaskListTest {
         uniqueTaskList.add(ALICE);
         Task editedAlice =
                 new TaskBuilder(ALICE)
-                        .withDescription(VALID_ADDRESS_BOB)
-                        .withTags(VALID_TAG_HUSBAND)
+                        .withDescription(VALID_DESCRIPTION_TASK2)
+                        .withTags(VALID_TAG_MA1521)
                         .build();
         assertTrue(uniqueTaskList.contains(editedAlice));
     }
@@ -88,8 +88,8 @@ public class UniqueTaskListTest {
         uniqueTaskList.add(ALICE);
         Task editedAlice =
                 new TaskBuilder(ALICE)
-                        .withDescription(VALID_ADDRESS_BOB)
-                        .withTags(VALID_TAG_HUSBAND)
+                        .withDescription(VALID_DESCRIPTION_TASK2)
+                        .withTags(VALID_TAG_MA1521)
                         .build();
         uniqueTaskList.setTask(ALICE, editedAlice);
         UniqueTaskList expectedUniquePersonList = new UniqueTaskList();

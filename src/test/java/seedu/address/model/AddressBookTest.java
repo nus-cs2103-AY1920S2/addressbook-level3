@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.ALICE;
 import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
@@ -46,8 +46,8 @@ public class AddressBookTest {
         // Two persons with the same identity fields
         Task editedAlice =
                 new TaskBuilder(ALICE)
-                        .withDescription(VALID_ADDRESS_BOB)
-                        .withTags(VALID_TAG_HUSBAND)
+                        .withDescription(VALID_DESCRIPTION_TASK2)
+                        .withTags(VALID_TAG_MA1521)
                         .build();
         List<Task> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
@@ -76,8 +76,8 @@ public class AddressBookTest {
         addressBook.addTask(ALICE);
         Task editedAlice =
                 new TaskBuilder(ALICE)
-                        .withDescription(VALID_ADDRESS_BOB)
-                        .withTags(VALID_TAG_HUSBAND)
+                        .withDescription(VALID_DESCRIPTION_TASK2)
+                        .withTags(VALID_TAG_MA1521)
                         .build();
         assertTrue(addressBook.hasTask(editedAlice));
     }

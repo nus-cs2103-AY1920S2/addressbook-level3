@@ -1,25 +1,25 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HELP;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MA1521;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HELP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalTasks.AMY;
@@ -39,60 +39,64 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedTask = new TaskBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Task expectedTask = new TaskBuilder(BOB).withTags(VALID_TAG_HELP).build();
 
         // whitespace only preamble
         assertParseSuccess(
                 parser,
                 PREAMBLE_WHITESPACE
-                        + NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_FRIEND,
+                        + NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_HELP,
                 new AddCommand(expectedTask));
 
         // multiple names - last name accepted
         assertParseSuccess(
                 parser,
-                NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                NAME_DESC_TASK1
+                        + NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_HELP,
                 new AddCommand(expectedTask));
 
         // multiple prioritys - last priority accepted
         assertParseSuccess(
                 parser,
-                NAME_DESC_BOB
-                        + PHONE_DESC_AMY
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_FRIEND,
+                NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK1
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_HELP,
                 new AddCommand(expectedTask));
 
         // multiple emails - last email accepted
         assertParseSuccess(
                 parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND,
+                NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2 + TAG_DESC_HELP,
                 new AddCommand(expectedTask));
 
         // multiple addresses - last address accepted
         assertParseSuccess(
                 parser,
-                NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_AMY
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_FRIEND,
+                NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK1
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_HELP,
                 new AddCommand(expectedTask));
 
         // multiple tags - all accepted
         Task expectedTaskMultipleTags =
-                new TaskBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
+                new TaskBuilder(BOB).withTags(VALID_TAG_HELP, VALID_TAG_MA1521).build();
         assertParseSuccess(
                 parser,
-                NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_HUSBAND
-                        + TAG_DESC_FRIEND,
+                NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_MA1521
+                        + TAG_DESC_HELP,
                 new AddCommand(expectedTaskMultipleTags));
     }
 
@@ -102,7 +106,7 @@ public class AddCommandParserTest {
         Task expectedTask = new TaskBuilder(AMY).withTags().build();
         assertParseSuccess(
                 parser,
-                NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY,
+                NAME_DESC_TASK1 + PRIORITY_DESC_TASK1 + DESCRIPTION_DESC_TASK1,
                 new AddCommand(expectedTask));
     }
 
@@ -113,23 +117,33 @@ public class AddCommandParserTest {
 
         // missing name prefix
         assertParseFailure(
-                parser, VALID_NAME_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB, expectedMessage);
+                parser,
+                VALID_NAME_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2,
+                expectedMessage);
 
         // missing priority prefix
         assertParseFailure(
-                parser, NAME_DESC_BOB + VALID_PHONE_BOB + ADDRESS_DESC_BOB, expectedMessage);
+                parser,
+                NAME_DESC_TASK2 + VALID_PRIORITY_TASK2 + DESCRIPTION_DESC_TASK2,
+                expectedMessage);
 
         // missing email prefix
         assertParseFailure(
-                parser, NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB, expectedMessage);
+                parser,
+                NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2,
+                expectedMessage);
 
         // missing address prefix
         assertParseFailure(
-                parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_ADDRESS_BOB, expectedMessage);
+                parser,
+                NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + VALID_DESCRIPTION_TASK2,
+                expectedMessage);
 
         // all prefixes missing
         assertParseFailure(
-                parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_ADDRESS_BOB, expectedMessage);
+                parser,
+                VALID_NAME_TASK2 + VALID_PRIORITY_TASK2 + VALID_DESCRIPTION_TASK2,
+                expectedMessage);
     }
 
     @Test
@@ -138,67 +152,57 @@ public class AddCommandParserTest {
         assertParseFailure(
                 parser,
                 INVALID_NAME_DESC
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_HUSBAND
-                        + TAG_DESC_FRIEND,
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_MA1521
+                        + TAG_DESC_HELP,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid priority
         assertParseFailure(
                 parser,
-                NAME_DESC_BOB
-                        + INVALID_PHONE_DESC
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_HUSBAND
-                        + TAG_DESC_FRIEND,
+                NAME_DESC_TASK2
+                        + INVALID_PRIORITY_DESC
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_MA1521
+                        + TAG_DESC_HELP,
                 Priority.MESSAGE_CONSTRAINTS);
-
-        // invalid email
-        assertParseFailure(
-                parser,
-                NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_HUSBAND
-                        + TAG_DESC_FRIEND,
-                Email.MESSAGE_CONSTRAINTS);
 
         // invalid address
         assertParseFailure(
                 parser,
-                NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + INVALID_ADDRESS_DESC
-                        + TAG_DESC_HUSBAND
-                        + TAG_DESC_FRIEND,
+                NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + INVALID_DESCRIPTION_DESC
+                        + TAG_DESC_MA1521
+                        + TAG_DESC_HELP,
                 Description.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(
                 parser,
-                NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB
+                NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
                         + INVALID_TAG_DESC
-                        + VALID_TAG_FRIEND,
+                        + VALID_TAG_HELP,
                 Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(
                 parser,
-                INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
+                INVALID_NAME_DESC + PRIORITY_DESC_TASK2 + INVALID_DESCRIPTION_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(
                 parser,
                 PREAMBLE_NON_EMPTY
-                        + NAME_DESC_BOB
-                        + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB
-                        + TAG_DESC_HUSBAND
-                        + TAG_DESC_FRIEND,
+                        + NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_MA1521
+                        + TAG_DESC_HELP,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

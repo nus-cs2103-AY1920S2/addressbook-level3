@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HELP;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -81,17 +81,17 @@ public class TypicalTasks {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Task AMY =
             new TaskBuilder()
-                    .withName(VALID_NAME_AMY)
-                    .withPriority(VALID_PHONE_AMY)
-                    .withDescription(VALID_ADDRESS_AMY)
-                    .withTags(VALID_TAG_FRIEND)
+                    .withName(VALID_NAME_TASK1)
+                    .withPriority(VALID_PRIORITY_TASK1)
+                    .withDescription(VALID_DESCRIPTION_TASK1)
+                    .withTags(VALID_TAG_HELP)
                     .build();
     public static final Task BOB =
             new TaskBuilder()
-                    .withName(VALID_NAME_BOB)
-                    .withPriority(VALID_PHONE_BOB)
-                    .withDescription(VALID_ADDRESS_BOB)
-                    .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+                    .withName(VALID_NAME_TASK2)
+                    .withPriority(VALID_PRIORITY_TASK2)
+                    .withDescription(VALID_DESCRIPTION_TASK2)
+                    .withTags(VALID_TAG_MA1521, VALID_TAG_HELP)
                     .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
