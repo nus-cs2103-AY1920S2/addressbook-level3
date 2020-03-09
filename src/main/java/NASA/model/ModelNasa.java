@@ -1,8 +1,10 @@
 package NASA.model;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.function.Predicate;
 
+import NASA.commons.core.index.Index;
 import javafx.collections.ObservableList;
 import NASA.commons.core.GuiSettings;
 import NASA.model.module.Module;
@@ -93,6 +95,16 @@ public interface ModelNasa {
      * Returns true if a module {@code target} has {@code activity} exists in the nasa book.
      */
     boolean hasActivity(Module target, Activity activity);
+
+    /**
+     * Sets activity through it's index.
+     */
+    void setActivityByIndex(Module module, Index index, Activity activity);
+
+    /**
+     * Edit activity attributes through it's index.
+     */
+    void editActivityByIndex(Module module, Index index, Objects... args);
 
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();

@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import NASA.commons.core.GuiSettings;
+import NASA.commons.core.index.Index;
 import NASA.commons.core.LogsCenter;
 import NASA.model.module.Module;
 import NASA.model.activity.Activity;
@@ -116,6 +118,18 @@ public class ModelManagerNasa implements ModelNasa {
     @Override
     public void addActivity(Module target, Activity activity) {
         nasaBook.addActivity(target, activity);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public void setActivityByIndex(Module module, Index index, Activity activity) {
+        nasaBook.setActivityByIndex(module, index, activity);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public void editActivityByIndex(Module module, Index index, Objects... args) {
+        nasaBook.editActivityByIndex(module, index, args);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 

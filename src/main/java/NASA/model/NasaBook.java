@@ -3,7 +3,10 @@ package NASA.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
+import NASA.commons.core.index.Index;
+import NASA.model.activity.Note;
 import javafx.collections.ObservableList;
 import NASA.model.activity.Activity;
 import NASA.model.activity.UniqueActivityList;
@@ -127,6 +130,18 @@ public class NasaBook implements ReadOnlyNasaBook {
         requireNonNull(editedActivity);
 
         moduleList.setModule(target, editedActivity);
+    }
+
+    public void setActivityByIndex(Module module, Index index, Activity activity) {
+        requireNonNull(activity);
+
+        moduleList.setActivityByIndex(module, index, activity);
+    }
+
+    public void editActivityByIndex(Module module, Index index, Objects... args) {
+        requireNonNull(args);
+
+        moduleList.editActivityByIndex(module, index, args);
     }
 
     /**

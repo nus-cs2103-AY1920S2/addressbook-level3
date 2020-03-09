@@ -5,7 +5,9 @@ import static NASA.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
+import NASA.commons.core.index.Index;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import NASA.model.activity.exceptions.ActivityNotFoundException;
@@ -67,6 +69,38 @@ public class UniqueActivityList implements Iterable<Activity> {
         }
 
         internalList.set(index, editedActivity);
+    }
+
+    public void setActivityByIndex(Index index, Activity activity) {
+        requireNonNull(activity);
+
+        internalList.set(index.getZeroBased(), activity);
+    }
+
+    public void editActivityByIndex(Index index, Objects... args) {
+        requireAllNonNull(args);
+
+        Activity activity = internalList.get(index.getZeroBased());
+
+        for (Object object : args) {
+            if (object instanceof Note) {
+                Note note = (Note) object;
+                activity.setNote(note);
+            }
+
+            if (object instanceof Name) {
+                Name name = (Name) object;
+                activity.setName(name);
+            }
+
+            if (activity instanceof Deadline
+                    && object instanceof Date) {
+                Date extendDateLine = (Date) object;
+                activity.setDate(extendDateLine);
+            }
+        }
+
+        internalList.set(index.getZeroBased(), activity);
     }
 
     /**

@@ -5,7 +5,10 @@ import static NASA.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
+import NASA.commons.core.index.Index;
+import NASA.model.activity.Activity;
 import NASA.model.activity.UniqueActivityList;
 import NASA.model.module.exceptions.DuplicateModuleException;
 import NASA.model.module.exceptions.ModuleNotFoundException;
@@ -98,6 +101,20 @@ public class UniqueModuleList implements Iterable<Module> {
         }
 
         internalList.setAll(modules);
+    }
+
+    public void setActivityByIndex(Module module, Index index, Activity activity) {
+        requireNonNull(activity);
+
+        Module moduleSelected = internalList.get(index.getZeroBased());
+        moduleSelected.setActivityByIndex(index, activity);
+    }
+
+    public void editActivityByIndex(Module module, Index index, Objects... args) {
+        requireNonNull(args);
+
+        Module moduleSelected = internalList.get(index.getZeroBased());
+        moduleSelected.editActivityByIndex(index, args);
     }
 
     public UniqueActivityList getActivities(Module module) {

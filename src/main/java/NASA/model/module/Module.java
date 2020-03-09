@@ -2,7 +2,9 @@ package NASA.model.module;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
+import NASA.commons.core.index.Index;
 import NASA.model.activity.Activity;
 import NASA.model.activity.UniqueActivityList;
 
@@ -72,6 +74,14 @@ public class Module {
      */
     public void setActivities(List<Activity> activities) {
         activityList.setActivities(activities);
+    }
+
+    public void setActivityByIndex(Index index, Activity activity) {
+        activityList.setActivityByIndex(index, activity);
+    }
+
+    public void editActivityByIndex(Index index, Objects... args) {
+        activityList.editActivityByIndex(index, args);
     }
 
     public Iterator<Activity> iterator() {
