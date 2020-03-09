@@ -290,11 +290,20 @@ Format: `st delete INDEX`
 
 === Add person to assignment
 
-Deletes an assignment. +
+Adds a group mate to an assignment. +
 Format: `st addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
 
 ****
 * INDEX must be a positive integer. It corresponds to the rank of the assignment shown
+****
+
+=== Schedule an event
+
+Looks through the list of current assignments to find a free slot for social activities. +
+Format: `schedule`
+
+****
+* A list of free slots that are available for social activities will be shown.
 ****
 
 // tag::delete[]
