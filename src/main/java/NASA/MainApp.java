@@ -21,7 +21,6 @@ import NASA.commons.core.Version;
 import NASA.commons.exceptions.DataConversionException;
 import NASA.commons.util.ConfigUtil;;
 import NASA.model.Model;
-import NASA.model.ModelManager;
 import NASA.model.ReadOnlyUserPrefs;
 import NASA.model.UserPrefs;
 import NASA.storage.JsonUserPrefsStorage;
