@@ -21,7 +21,7 @@ public class Comment {
     public final String commentMade;
 
     /**
-     * Constructs a {@code Tag}.
+     * Constructs a {@code Comment}.
      *
      * @param commentMade A valid comment.
      */
