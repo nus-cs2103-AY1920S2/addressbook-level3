@@ -1,9 +1,13 @@
-= AddressBook Level 3 - User Guide
+= TA-Tracker - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
+:sectnumlevels: 4
+:sectlinks:
+:sectanchors:
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -92,29 +96,286 @@ TATracker data is automatically saved in the hard disk as backup files after any
 ** lab - Lab
 * `START`, `END` - a time parameter, in the following format: HH:mm
 * `DATE` - a date parameter, in the following format: dd-MM-yyyy
+* `->` - indicates that the command has more parameters than specified. These missing parameters will stated in a later section of the guide.
+* `./` - indicates the presence of a tag that will be specified in a later section of the guide.
 ====
 
-=== Viewing help : `help`
+=== Navigation
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+==== Exiting the program : `exit`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Exits the program. +
+Format: `exit`
 
-[TIP]
-A person can have any number of tags (including 0)
+=== Data Management
+
+==== Adding data: `add`
+Adds different categories of data into the program.
+
+Format: `add c/CATEGORY ./CATEGORY_UID ->`
+
+****
+[.big]#List of categories:#
+
+[%hardbreaks]
+<<AddStudent, 1. Adding a student: `add c/student`>>
+<<AddModule, 2. Adding a module: `add c/module`>>
+<<AddSessionType, 3. Adding a type of session: `add c/SESSION_TYPE`>>
+<<AddSession, 4. Adding a session: `add c/session`>>
+****
+
+[[AddStudent]]
+===== Adding a student: `add c/student`
+Adds a new student into the program.
+The `CATEGORY_UID` for this command is the student’s matriculation number.
+
+Format: `add c/student m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]...`
+
+[NOTE]
+====
+[horizontal]
+`MATRIC_NUMBER`:: see Common Parameters
+`NAME`:: the name of the student
+`EMAIL`:: the email address of the student
+`RATING`:: a number between 1 (poor) to 5 (excellent)
+`TAG`:: a remark(s) for this student
+====
+====
+Examples:
+
+* `add c/student m/A0123456J n/Alice`
++
+Adds the student with the matriculation number A0123456J
+and the name Alice.
+====
+
+[[AddModule]]
+===== Adding a module: `add c/module`
+Adds a new module group into the program.
+The `CATEGORY_UID` for this command is the module code.
+
+Format: `add c/module m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+`MOD_CODE`:: see Common Parameters
+====
+====
+Examples:
+
+* `add c/module m/CS2103T`
++
+Adds the CS2103T module group.
+====
+
+[[AddSessionType]]
+===== Adding a type of session: `add c/SESSION_TYPE`
+Adds a new type of session for an existing module group in the program.
+The `CATEGORY_UID` for this command is the SESSION_TYPE code.
+
+Format: `add c/SESSION_TYPE t/SESSION_TYPE m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+`SESSION_TYPE` `TUT_CODE` `MOD_CODE`:: see Common Parameters
+====
+====
+Examples:
+
+* `add c/tutorial t/W17 m/CS2103T`
++
+Adds a tutorial with the tutorial code W17,
+and links it to the CS2103T module group.
+====
+
+[[AddSession]]
+===== Adding a session: `add c/session`
+Adds a session into the program for a specific module.
+There is no need to provide the `CATEGORY_UID`,
+as a unique session id (`SESSION_UID`) will be automatically generated for it.
+
+Format: `add c/session s/START e/END d/DATE [-r] m/MOD_CODE [t/SESSION_TYPE] [n/NOTES]`
+[NOTE]
+====
+[horizontal]
+`START` `END` `DATE`:: see Common Parameters
+
+`[-r]`::  makes the session recur at the same time every week
+
+`MOD_CODE` `SESSION_TYPE`:: see Common Parameters
+
+`NOTES`:: notes for this session (eg: weekly tutorials or prep sessions)
+--
+* The session will automatically be given a `SESSION_UID`
+--
+====
+====
+Examples:
+
+* `add c/session s/14:00 e/16:00 d/19-02-2020 m/CS2103T t/consult n/with Alice and Bob`
++
+Adds a consultation session on 19 Feb 2020,
+from 2pm to 4pm,
+with Alice and Bob.
+====
+
+==== Deleting data: `delete`
+Deletes different categories of data from the program.
+
+Format: `delete c/CATEGORY ./CATEGORY_UID ->`
+
+****
+[.big]#List of categories:#
+
+[%hardbreaks]
+<<DeleteStudent, 1. Deleting a student: `delete c/student`>>
+<<DeleteModule, 2. Deleting a module: `delete c/module`>>
+<<DeleteTutorial, 3. Deleting a tutorial: `delete c/tutorial`>>
+<<DeleteSession, 4. Deleting a session: `delete c/session`>>
+****
+
+[[DeleteStudent]]
+===== Deleting a student: `delete c/student`
+Deletes a student from the program.
+The `CATEGORY_UID` for this command is the student’s matriculation number.
+
+Format: `delete c/student m/MATRIC_NUMBER`
+
+[NOTE]
+====
+[horizontal]
+`MATRIC_NUMBER`:: see Common Parameters
+====
+====
+Examples:
+
+* `delete c/student m/A0123456J`
++
+Deletes the student with the matriculation number A0123456J from the program.
+====
+
+[[DeleteModule]]
+===== Deleting a module: `delete c/module`
+Deletes a module group from the program, and all the tutorials and sessions that are linked to it.
+The `CATEGORY_UID` for this command is the module code.
+
+Format: `delete c/module m/MOD_CODE`
+
+[NOTE]
+====
+[horizontal]
+`MOD_CODE`:: see Common Parameters
+====
+====
+Examples:
+
+* `delete c/module m/CS2101`
++
+Deletes the module group CS2101, and all of the tutorials or sessions that are linked to it.
+====
+
+[[DeleteTutorial]]
+===== Deleting a tutorial: `delete c/tutorial`
+Deletes a tutorial from the program.
+The `CATEGORY_UID` for this command is the tutorial code.
+
+Format: `delete c/tutorial t/TUT_CODE m/MOD_CODE`
+
+****
+* `TUT_CODE`, `MOD_CODE` - see Common Parameters
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `delete c/tutorial t/G06 m/CS2101`
+Deletes the CS2101 tutorial with the code G06 from the program.
 
-=== Listing all persons : `list`
+[[DeleteSession]]
+===== Deleting a session: `delete c/session`
+Deletes a session from the program.
+The `CATEGORY_UID` used in this case is the session’s unique id.
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Format: `delete c/session i/SESSION_UID`
+
+****
+* `SESSION_UID` - see Common Parameters
+****
+
+Examples:
+
+* delete c/session i/10
+Deletes the session with the identifier of 10
+
+==== Editing existing data: `edit`
+edit - Editing existing data
+
+Format: `edit c/CATEGORY …/CATEGORY_UID...`
+
+****
+*List of categories:*
+
+1. Editing an existing student: `edit c/student`
+2. Editing an existing session: `edit c/session`
+****
+
+===== Editing an existing student: `edit c/student`
+Edits the student with the specified matriculation number.
+The CATEGORY_UID used in this case is the student’s matriculation number.
+
+Format: `edit c/student m/MATRIC_NUMBER [n/NAME] [e/EMAIL] [r/RATING] [t/TAG]…​`
+
+****
+* `MATRIC_NUMBER` - see Common Parameters
+
+* At least one of the optional fields must be provided.
+** `NAME` - the name of the student
+** `EMAIL` - the email address of the student
+** `RATING` - a number between 1 (poor) to 5 (excellent)
+** `TAG` - other notes about this student
+
+* Existing fields will be updated to the input values.
+
+* All existing `TAG(s)` on a student will be removed,
+then replaced with the new tags,
+i.e adding of tags is not cumulative.
+
+[TIP]
+You can remove all the person’s tags by typing t/ without specifying any tags after it.
+****
+
+Examples:
+
+* `edit A0123456J p/91234567 e/johndoe@example.com`
+Edits student `A0123456J` to have `91234567` as their phone number,
+and `johndoe@example.com` as their email address.
+
+* `edit A9876543K n/Betsy Crower t/`
+Edits student `A9876543K` to have `Betsy Crower` as their name.
+In addition, all existing tags will be removed.
+
+==== Editing an existing session: `edit c/session`
+Edits an existing session with the specified session unique id.
+
+Format: `edit c/session i/SESSION_UID [s/START] [e/END] [d/DATE] [-r] [m/MOD_CODE] [t/SESSION_TYPE] [n/NOTES]`
+
+****
+* `SESSION_UID` - see Common Parameters
+At least one of the optional fields must be provided.
+* `START`, `END`, `DATE`, `MOD_CODE`, `SESSION_TYPE` - see Common Parameters
+* `[-r]` - Make the session recur at the same time every week
+* `NOTES` - notes for this session (eg: weekly tutorials or prep sessions)
+****
+
+Examples:
+
+* `edit c/session i/7 d/20-02-2020`
+Edits the date of a session with uid 7 to 20 Feb 2020.
 
 === Student Management
 
@@ -170,7 +431,7 @@ Examples:
 * `done 25` +
 Marks the session with the unique session id of 25 as done.
 
-==== Labeling a session as a makeup : `makeup`
+==== Labelling a session as a makeup : `makeup`
 
 Labels a session as a makeup session.
 If the session is claimable, it will appear as a new claim in the TSS view.
@@ -239,3 +500,4 @@ e.g. `edit 2 n/James Lee e/jameslee@example.com`
 e.g. `find James Jake`
 * *List* : `list`
 * *Help* : `help`
+

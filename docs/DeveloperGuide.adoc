@@ -56,7 +56,7 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -389,9 +389,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-
 [appendix]
 == Use Cases
+:sectnums!: // Disables section numbering to avoid typing [discrete] tag for headers
 
 (For all use cases below, the *System* is the `TA-Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
@@ -650,6 +650,217 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+=== Use case: Add session
+
+*MSS*
+
+1. User requests to add a session.
+2. TA-Tracker creates the new session.
+3. TA-Tracker adds the new session into the corresponding session group.
+4. TA-Tracker switches to the Schedule View in order to display the new session.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+. 1a. The user requests to add a recurring session.
+[none]
+.. 1a1. TA-Tracker creates a new session, and labels it as recurring.
++
+Use case resumes at step 3.
+
+[none]
+. 2a. The module does not exist.
+[none]
+.. 2a1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+. 2b. The session group does not exist.
+[none]
+.. 2b1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Edit session
+
+*MSS*
+
+1. User requests to view the Schedule View.
+2. TA-Tracker switches to the Schedule View.
+3. User requests to edit a specific session in the view.
+4. TA-Tracker edits the session.
+5. TA-Tracker replaces the session in the current view with the new version.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Schedule View is empty.
++
+Use case ends.
+
+* 3a. The given session UID is invalid.
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Delete session
+
+*MSS*
+
+1. User requests to view the Schedule View.
+2. TA-Tracker switches to the Schedule View.
+3. User requests to delete a specific session in the view.
+4. TA-Tracker deletes the session.
+5. TA-Tracker removes the session from the current view.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Schedule View is empty.
++
+Use case ends.
+
+* 3a. The given session UID is invalid.
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Mark a session as done
+
+*MSS*
+
+1. User requests to view the Schedule View.
+2. TA-Tracker switches to the Schedule View.
+3. User requests to mark a specific session in the view as done.
+4. TA-Tracker marks the session as done.
+5. TA-Tracker shows a tick next to the session in the current view.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The Schedule View is empty.
++
+Use case ends.
+
+* 3a. The given session UID is invalid.
+** 3a1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Enroll student into class
+
+*MSS*
+
+1. User requests to enroll a student in a session group.
+2. TA-Tracker registers the student in the session group.
+3. TA-Tracker switches to the Student View.
+4. TA-Tracker shows the student in the student list for the session group.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+. 2a. The student does not exist.
+[none]
+.. 2a1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+. 2b. The module does not exist.
+[none]
+.. 2b1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+. 2c. The session group does not exist.
+[none]
+.. 2c1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Kick student from class
+
+*MSS*
+
+1. User requests to withdraw a student from a session group.
+2. TA-Tracker removes the student from the session group.
+3. TA-Tracker switches to the Student View.
+4. TA-Tracker shows that the student is removed from the student list for the session group.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+. 2a. The student does not exist.
+[none]
+.. 2a1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+. 2b. The module does not exist.
+[none]
+.. 2b1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+. 2c. The session group does not exist.
+[none]
+.. 2c1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Filter information for a specific module
+
+*MSS*
+
+1. User requests to filter information for a specific module.
+2. TA-Tracker hides unrelated information from the current view.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+. 1a. The module does not exist.
+[none]
+.. 1a1. TA-Tracker shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Find sessions matching a keyword
+
+*MSS*
+
+1. User requests to find sessions related to a specific keyword.
+2. TA-Tracker retrieves a list of sessions containing the keyword in any of their fields.
+3. TA-Tracker shows the list of sessions.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+. 2a. The search did find any matches.
+[none]
+.. 2a1. TA-Tracker shows an empty list.
++
+Use case resumes at step 2.
+
 [discrete]
 === Use case: Exit the app
 
@@ -659,6 +870,8 @@ Use case resumes at step 3.
 2. App window closes.
 +
 Use case ends.
+
+:sectnums: // Enables section numbering again outside of the use cases
 
 [appendix]
 == Non Functional Requirements
