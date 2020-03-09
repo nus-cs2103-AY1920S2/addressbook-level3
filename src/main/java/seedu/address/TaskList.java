@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * TaskList contains the list of tasks and methods for the list.
  */
 public class TaskList {
-    public ArrayList<Task> list;
+    private ArrayList<Task> list;
 
     public TaskList() {
         this.list = new ArrayList<Task>();
@@ -14,6 +14,10 @@ public class TaskList {
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;
+    }
+
+    public ArrayList<Task> getList() {
+        return list;
     }
 
     /**
