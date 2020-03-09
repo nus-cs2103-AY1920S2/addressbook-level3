@@ -300,15 +300,48 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
+|`* * *` |new user |see usage instructions | refer to instructions when I forget how to use the app
+
+|`* * *` |user |add new contact | so that I can expand my address book
+
+|`* * *` |user |list all my contacts according to particular filters | easily search and locate the people I want to find according to certain filters
+
+|`* * *` |user |edit my contacts | update my contacts’ information to ensure accuracy of my data
+
 |`* * *` |busy university student |be reminded of my friends' birthdays as and when they are approaching | have no need to memorize all my friends' birthdays
 
 |`* * *` |busy university student with many groupmates and friends | find and sort contacts by certain criteria (eg. find by name, find by tags, find by organization) |locate my friends and groupmates easily
+
+|`* * *` |user |undo and redo commands | reverse mistakes.
+
+|`* * *` |user |view a contact in its entirety | see all the information pertinent to a particular contact
+
+|`* * *` |user |add notes to a particular contact | store additional useful information pertaining to a particular contact
 
 |`* * *` |busy university student with many assignments and project deadlines scattered throughout the semester |be provided timely reminders of my work deadlines |not have to remember the specific timing, date and deliverables of each assignment.
 
 |`* * *` |busy university student with a hectic work schedule |be able to find pockets of free time within my schedule where I can go meet my friends |schedule my social events efficiently
 
 |`* *` |busy university student with a hectic work schedule |be able to be suggested places to eat with my friends based on "KIV" notes for certain restaurants |choose a gathering place without much hassle
+
+|`* * *` |university student who wants to live life to the fullest | be able to schedule social events whenever I have free time | still hang out with my friends  amidst all the school work. 
+ 
+|`* * *` |university student with many places to explore| be able to keep track of the different must-try food places | visit them when hanging out with friends.
+
+|`* * *` |university student with many places to explore| be able to keep track of the different food places that opens at odd times| eat when I’m studying until the wee hours. 
+ 
+|`* * *` |university student with different groups of friends | be able to categorise my contacts | know how I met them. 
+ 
+|`* * *` |user | be able to delete unwanted contacts/details | keep the application free from clutter and ensure that it does not take up unnecessary space.
+ 
+|`* * *` |user | be able to keep track of the restaurants I have visited | have a list of restaurants to go to when I have no preferences. 
+ 
+|`* * *` |university student who aims to have a good social life | be able to remember miscellaneous information about my friends | easily find places to hang out with my friends and identify gifts to buy for their birthdays. 
+
+|`* * *` | university student with many assignment to keep track of | mark assignments as done | have a better idea of my remaining assignments. 
+
+|`* * *` |busy university student with many assignments and projects |add an assignment to the app | not have to remember the details and deliverables of each assignment.
+
 
 |=======================================================================
 
