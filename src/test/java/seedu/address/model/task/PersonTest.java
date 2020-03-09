@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PRIORITY_TASK2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HELP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.HOMEWORK10;
@@ -94,7 +95,7 @@ public class PersonTest {
         assertFalse(HOMEWORK10.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new TaskBuilder(HOMEWORK10).withTags(VALID_TAG_MA1521).build();
+        editedAlice = new TaskBuilder(HOMEWORK10).withTags(VALID_TAG_HELP).build();
         assertFalse(HOMEWORK10.equals(editedAlice));
     }
 }
