@@ -42,27 +42,27 @@ public class Session {
      * Returns the date when the session will take place.
      */
     public LocalDate getDate() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return this.date;
     }
 
     /**
      * Returns the start time of the session.
      */
     public LocalTime getStartTime() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return this.startTime;
     }
 
     /**
      * Returns the end time of the session.
      */
     public LocalTime getEndTime() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return this.endTime;
     }
 
     /**
      * Returns the type of session.
      */
     public SessionType getSessionType() {
-        return type;
+        return this.type;
     }
 }
