@@ -1,5 +1,6 @@
 package seedu.address.model.session;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -82,5 +83,12 @@ public class Session {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the duration of the session.
+     */
+    public Duration getSessionDuration() {
+        return Duration.between(this.startTime, this.endTime);
     }
 }
