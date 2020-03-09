@@ -89,7 +89,7 @@ public class Product {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Description: ")
+        builder.append("Description: ")
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())

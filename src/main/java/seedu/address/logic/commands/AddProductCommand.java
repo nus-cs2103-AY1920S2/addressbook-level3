@@ -51,6 +51,7 @@ public class AddProductCommand extends Command {
         }
 
         model.addProduct(toAdd);
+        System.out.println("Add " + model.getFilteredProductList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
