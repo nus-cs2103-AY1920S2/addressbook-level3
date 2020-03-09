@@ -4,17 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book. Guarantees: immutable; is valid as declared in
- * {@link #isValidName(String)}
+ * Represents a Task's Done in the address book. Guarantees: immutable; is valid as declared in
+ * {@link #isValidDone(String)}
  */
 public class Done {
 
     public static final String MESSAGE_CONSTRAINTS = "Done should be a simple Boolean ";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
 
     public static final String DONE = "Y";
     public static final String NOT_DONE = "N";
@@ -24,9 +19,9 @@ public class Done {
     public final Boolean isDone;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Done}.
      *
-     * @param name A valid name.
+     * @param isDone A valid Done.
      */
     public Done(String isDone) {
         requireNonNull(isDone);

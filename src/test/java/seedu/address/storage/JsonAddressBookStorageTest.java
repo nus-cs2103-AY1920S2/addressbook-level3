@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalTasks.HOMEWORK10;
 import static seedu.address.testutil.TypicalTasks.OPTIONAL_LAB;
-import static seedu.address.testutil.TypicalTasks.OPTIONAL_HOMEWORK;
 import static seedu.address.testutil.TypicalTasks.getTypicalAddressBook;
 
 import java.io.IOException;
