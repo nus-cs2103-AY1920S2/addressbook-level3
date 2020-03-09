@@ -32,6 +32,8 @@ public class Session {
     /**
      * Constructs a Session object.
      * The session's end time should be strictly after the session's start time.
+     *
+     * TODO: Handle cases where endTime is before startTime, but on a later date. This case is unlikely but still valid.
      */
     public Session(LocalTime startTime, LocalTime endTime, LocalDate date, SessionType type,
                    String description) throws IllegalArgumentException {
