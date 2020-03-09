@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.product.Product;
 
 /**
- * Adds a person to the address book.
+ * Adds a product to the product list.
  */
 public class AddProductCommand extends Command {
 
@@ -35,7 +35,7 @@ public class AddProductCommand extends Command {
     private final Product toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddProductCommand to add the specified {@code Product}
      */
     public AddProductCommand(Product product) {
         requireNonNull(product);
@@ -51,7 +51,6 @@ public class AddProductCommand extends Command {
         }
 
         model.addProduct(toAdd);
-        System.out.println("Add " + model.getFilteredProductList());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
