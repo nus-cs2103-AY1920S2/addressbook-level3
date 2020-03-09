@@ -77,7 +77,9 @@ public class EditCommandParserTest {
         assertParseFailure(
                 parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(
-                parser, "1" + INVALID_PRIORITY_DESC, Priority.MESSAGE_CONSTRAINTS); // invalid priority
+                parser,
+                "1" + INVALID_PRIORITY_DESC,
+                Priority.MESSAGE_CONSTRAINTS); // invalid priority
         assertParseFailure(
                 parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid
         // address
@@ -92,24 +94,20 @@ public class EditCommandParserTest {
         // priority
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(
-                parser, "1" + PRIORITY_DESC_TASK2 + INVALID_PRIORITY_DESC, Priority.MESSAGE_CONSTRAINTS);
+                parser,
+                "1" + PRIORITY_DESC_TASK2 + INVALID_PRIORITY_DESC,
+                Priority.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code
         // Person} being
         // edited,
         // parsing it together with a valid tag results in error
         assertParseFailure(
-                parser,
-                "1" + TAG_DESC_HELP + TAG_DESC_MA1521 + TAG_EMPTY,
-                Tag.MESSAGE_CONSTRAINTS);
+                parser, "1" + TAG_DESC_HELP + TAG_DESC_MA1521 + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(
-                parser,
-                "1" + TAG_DESC_HELP + TAG_EMPTY + TAG_DESC_MA1521,
-                Tag.MESSAGE_CONSTRAINTS);
+                parser, "1" + TAG_DESC_HELP + TAG_EMPTY + TAG_DESC_MA1521, Tag.MESSAGE_CONSTRAINTS);
         assertParseFailure(
-                parser,
-                "1" + TAG_EMPTY + TAG_DESC_HELP + TAG_DESC_MA1521,
-                Tag.MESSAGE_CONSTRAINTS);
+                parser, "1" + TAG_EMPTY + TAG_DESC_HELP + TAG_DESC_MA1521, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(
@@ -171,7 +169,8 @@ public class EditCommandParserTest {
 
         // address
         userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_TASK1;
-        descriptor = new EditTaskDescriptorBuilder().withDescription(VALID_DESCRIPTION_TASK1).build();
+        descriptor =
+                new EditTaskDescriptorBuilder().withDescription(VALID_DESCRIPTION_TASK1).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -220,7 +219,10 @@ public class EditCommandParserTest {
 
         // other valid values specified
         userInput =
-                targetIndex.getOneBased() + INVALID_PRIORITY_DESC + DESCRIPTION_DESC_TASK2 + PRIORITY_DESC_TASK2;
+                targetIndex.getOneBased()
+                        + INVALID_PRIORITY_DESC
+                        + DESCRIPTION_DESC_TASK2
+                        + PRIORITY_DESC_TASK2;
         descriptor =
                 new EditTaskDescriptorBuilder()
                         .withPriority(VALID_PRIORITY_TASK2)

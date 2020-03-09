@@ -78,7 +78,10 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand =
-                AddCommand.COMMAND_WORD + NAME_DESC_TASK1 + PRIORITY_DESC_TASK1 + DESCRIPTION_DESC_TASK1;
+                AddCommand.COMMAND_WORD
+                        + NAME_DESC_TASK1
+                        + PRIORITY_DESC_TASK1
+                        + DESCRIPTION_DESC_TASK1;
         Task expectedTask = new TaskBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTask(expectedTask);

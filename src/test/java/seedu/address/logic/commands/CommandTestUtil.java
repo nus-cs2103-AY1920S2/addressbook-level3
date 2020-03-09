@@ -35,8 +35,10 @@ public class CommandTestUtil {
     public static final String NAME_DESC_TASK2 = " " + PREFIX_NAME + VALID_NAME_TASK2;
     public static final String PRIORITY_DESC_TASK1 = " " + PREFIX_PRIORITY + VALID_PRIORITY_TASK1;
     public static final String PRIORITY_DESC_TASK2 = " " + PREFIX_PRIORITY + VALID_PRIORITY_TASK2;
-    public static final String DESCRIPTION_DESC_TASK1 = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TASK1;
-    public static final String DESCRIPTION_DESC_TASK2 = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TASK2;
+    public static final String DESCRIPTION_DESC_TASK1 =
+            " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TASK1;
+    public static final String DESCRIPTION_DESC_TASK2 =
+            " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_TASK2;
     public static final String TAG_DESC_HELP = " " + PREFIX_TAG + VALID_TAG_HELP;
     public static final String TAG_DESC_MA1521 = " " + PREFIX_TAG + VALID_TAG_MA1521;
 

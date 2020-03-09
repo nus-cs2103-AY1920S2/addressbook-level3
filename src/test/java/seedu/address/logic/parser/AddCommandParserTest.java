@@ -9,10 +9,10 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK1;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK2;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK1;
-import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK2;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HELP;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MA1521;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TASK2;
@@ -54,7 +54,11 @@ public class AddCommandParserTest {
         // multiple names - last name accepted
         assertParseSuccess(
                 parser,
-                NAME_DESC_TASK1 + NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2 + TAG_DESC_HELP,
+                NAME_DESC_TASK1
+                        + NAME_DESC_TASK2
+                        + PRIORITY_DESC_TASK2
+                        + DESCRIPTION_DESC_TASK2
+                        + TAG_DESC_HELP,
                 new AddCommand(expectedTask));
 
         // multiple prioritys - last priority accepted
@@ -113,23 +117,33 @@ public class AddCommandParserTest {
 
         // missing name prefix
         assertParseFailure(
-                parser, VALID_NAME_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2, expectedMessage);
+                parser,
+                VALID_NAME_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2,
+                expectedMessage);
 
         // missing priority prefix
         assertParseFailure(
-                parser, NAME_DESC_TASK2 + VALID_PRIORITY_TASK2 + DESCRIPTION_DESC_TASK2, expectedMessage);
+                parser,
+                NAME_DESC_TASK2 + VALID_PRIORITY_TASK2 + DESCRIPTION_DESC_TASK2,
+                expectedMessage);
 
         // missing email prefix
         assertParseFailure(
-                parser, NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2, expectedMessage);
+                parser,
+                NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2,
+                expectedMessage);
 
         // missing address prefix
         assertParseFailure(
-                parser, NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + VALID_DESCRIPTION_TASK2, expectedMessage);
+                parser,
+                NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + VALID_DESCRIPTION_TASK2,
+                expectedMessage);
 
         // all prefixes missing
         assertParseFailure(
-                parser, VALID_NAME_TASK2 + VALID_PRIORITY_TASK2 + VALID_DESCRIPTION_TASK2, expectedMessage);
+                parser,
+                VALID_NAME_TASK2 + VALID_PRIORITY_TASK2 + VALID_DESCRIPTION_TASK2,
+                expectedMessage);
     }
 
     @Test

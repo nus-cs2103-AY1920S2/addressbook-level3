@@ -39,12 +39,17 @@ public class EditTaskDescriptorTest {
         assertFalse(DESC_TASK1.equals(editedAmy));
 
         // different priority -> returns false
-        editedAmy = new EditTaskDescriptorBuilder(DESC_TASK1).withPriority(VALID_PRIORITY_TASK2).build();
+        editedAmy =
+                new EditTaskDescriptorBuilder(DESC_TASK1)
+                        .withPriority(VALID_PRIORITY_TASK2)
+                        .build();
         assertFalse(DESC_TASK1.equals(editedAmy));
 
         // different address -> returns false
         editedAmy =
-                new EditTaskDescriptorBuilder(DESC_TASK1).withDescription(VALID_DESCRIPTION_TASK2).build();
+                new EditTaskDescriptorBuilder(DESC_TASK1)
+                        .withDescription(VALID_DESCRIPTION_TASK2)
+                        .build();
         assertFalse(DESC_TASK1.equals(editedAmy));
 
         // different tags -> returns false
