@@ -27,15 +27,17 @@ public class Session {
     private LocalTime endTime;
     private LocalDate date;
     private SessionType type;
+    private String description;
 
     /**
      * Constructs a Session object.
      */
-    public Session(LocalTime startTime, LocalTime endTime, LocalDate date, SessionType type) {
+    public Session(LocalTime startTime, LocalTime endTime, LocalDate date, SessionType type, String description) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
         this.type = type;
+        this.description = description;
     }
 
     /**
@@ -64,5 +66,12 @@ public class Session {
      */
     public SessionType getSessionType() {
         return this.type;
+    }
+
+    /**
+     * Returns the description of the session.
+     */
+    public String getDescription() {
+        return this.description;
     }
 }
