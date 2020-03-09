@@ -1,5 +1,7 @@
 package seedu.address.model.activity;
 
+import NASA.model.activity.Status;
+
 /**
  * Abstract class to specify fields with getter and setters for activities.
  */
@@ -12,6 +14,10 @@ public abstract class Activity {
     private Note note;
 
     private boolean isDone;
+
+    private Status status;
+
+    private Priority priority;
 
     /**
      * Constructs a {@code activity}
@@ -130,7 +136,13 @@ public abstract class Activity {
         return isDone;
     }
 
-    /*
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
     public Priority getPriority() {
         return priority;
     }
@@ -138,5 +150,4 @@ public abstract class Activity {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-     */
 }

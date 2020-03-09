@@ -1,46 +1,48 @@
 package NASA.storage;
 
+import NASA.commons.exceptions.IllegalValueException;
+import NASA.model.activity.Deadline;
+import NASA.model.activity.Event;
+import NASA.model.activity.Lesson;
+import NASA.model.activity.Name;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import NASA.model.activity.Activity;
 import NASA.model.activity.Date;
 import NASA.model.activity.Note;
 import NASA.model.activity.Priority;
 import NASA.model.activity.Status;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.Activity.Activity;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-
-import static NASA.storage.JsonAdaptedModule.MISSING_FIELD_MESSAGE_FORMAT;
 
 /**
  * Jackson-friendly version of {@link Activity}.
  */
 class JsonAdaptedActivity {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Activity's %s field is missing!";
+
+    private final String type;
     private final String name;
     private final String date;
     private final String note;
     private final String isDone;
-    private final String status;
     private final String priority;
 
 
     /**
-     * Constructs a {@code JsonAdaptedActivity} with the given {@code ActivityName}.
+     * Constructs a {@code JsonAdaptedActivity} with the given activity details.
      */
     @JsonCreator
-    public JsonAdaptedActivity(String name, String date, String note, String isDone,  String status, String priority) {
+    public JsonAdaptedActivity(@JsonProperty("type") String type, @JsonProperty("name") String name,
+                               @JsonProperty("date") String date, @JsonProperty("note") String note,
+                               @JsonProperty("isDone") String isDone,
+                               @JsonProperty("priority") String priority) {
+        this.type = type;
         this.name = name;
         this.date = date;
         this.note = note;
         this.isDone = isDone;
-        this.status = status;
         this.priority = priority;
     }
 
@@ -48,60 +50,71 @@ class JsonAdaptedActivity {
      * Converts a given {@code Activity} into this class for Jackson use.
      */
     public JsonAdaptedActivity(Activity source) {
-        ActivityName = source.ActivityName;
-    }
-
-    @JsonValue
-    public String getActivityName() {
-        return ActivityName;
+        name = source.getName().name;
+        date = source.getDate().toString();
+        note = source.getNote().toString();
+        isDone = Boolean.toString(source.isDone());
+        priority = source.getPriority().toString();
+        if (source instanceof Deadline) {
+            type = "deadline";
+        } else if (source instanceof Event) {
+            type = "event";
+        } else  {
+            type = "lesson";
+        }
     }
 
     /**
-     * Converts this Jackson-friendly adapted Activity object into the model's {@code Activity} object.
+     * Converts this Jackson-friendly adapted activity object into the model's {@code Activity} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted Activity.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted activity.
      */
     public Activity toModelType() throws IllegalValueException {
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, seedu.address.model.person.Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(seedu.address.model.person.Name.MESSAGE_CONSTRAINTS);
         }
-        final seedu.address.model.person.Name modelName = new Name(name);
+        final Name modelName = new Name(name);
 
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
         if (!Date.isValidDate(date)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Date modelPhone = new Date(date);
+        final Date modelDate = new Date(date);
 
-        if (isDone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (note == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Note.class.getSimpleName()));
         }
-        if (!Status.isValidStatus(status)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Status modelEmail = new Status(status);
-
-        if (priority == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Priority.class.getSimpleName()));
-        }
-        if (!Priority.isValidPriorityValue(priority)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Priority modelPriority = new Priority(priority;
-
-        if (!Activity.isValidActivityName(ActivityName)) {
-            throw new IllegalValueException(Activity.MESSAGE_CONSTRAINTS);
+        if (!Note.isValidNote(note)) {
+            throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
         }
 
+            final Note modelNote = new Note(note);
 
-        return new Activity(name, date, note);
+            if (priority == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                        Priority.class.getSimpleName()));
+            }
+            if (!Priority.isValidPriorityValue(priority)) {
+                throw new IllegalValueException("");
+            }
+            final Priority modelPriority = new Priority(priority);
+
+            Activity activity = null;
+            switch (type) {
+                case "deadline":
+                    activity =  new Deadline(modelName, modelDate, modelNote);
+                case "event":
+                    activity = new Event(modelName, modelDate, modelNote);
+                case "lesson":
+                    activity = new Lesson(modelName, modelDate, modelNote);
+            }
+
+            return activity;
     }
-
 }

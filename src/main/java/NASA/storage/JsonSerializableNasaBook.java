@@ -16,15 +16,15 @@ import NASA.model.module.Module;
 /**
  * An Immutable NASABook that is serializable to JSON format.
  */
-@JsonRootName(value = "NASABook")
+@JsonRootName(value = "nasabook")
 class JsonSerializableNasaBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Module list contains duplicate module(s).";
 
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableNASABook} with the given persons.
+     * Constructs a {@code JsonSerializableNasaBook} with the given modules.
      */
     @JsonCreator
     public JsonSerializableNasaBook(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
@@ -32,7 +32,7 @@ class JsonSerializableNasaBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyNASABook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyNasaBook} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableNASABook}.
      */
@@ -41,7 +41,7 @@ class JsonSerializableNasaBook {
     }
 
     /**
-     * Converts this address book into the model's {@code NASABook} object.
+     * Converts this nasa book into the model's {@code NasaBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
