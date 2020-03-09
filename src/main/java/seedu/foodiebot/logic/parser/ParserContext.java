@@ -45,17 +45,17 @@ public class ParserContext {
 
     public static void setCanteenContext(Canteen canteen) {
         //ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
-        ParserContext.setCurrentCanteen(Optional.of(canteen));
-    }
-
-    public static void setStallContext(Stall stall) {
-        //ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
         /**I comment this out because in EnterCanteenCommand, if you
          * enter the canteen with text eg. enter The Deck, you change canteen context
          * inside the command. However, you cannot change the currentContext as
          * there is a check in MainWindow for EnterCanteenCommand, whether it is MAIN or
          * CANTEEN, so should only change currentContext after it passes through check
          */
+        ParserContext.setCurrentCanteen(Optional.of(canteen));
+    }
+
+    public static void setStallContext(Stall stall) {
+        //ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
         ParserContext.setCurrentStall(Optional.of(stall));
     }
 
