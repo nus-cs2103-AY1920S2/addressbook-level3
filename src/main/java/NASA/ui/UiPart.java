@@ -1,7 +1,7 @@
 package NASA.ui;
 
 import javafx.fxml.FXMLLoader;
-import seedu.address.MainApp;
+import NASA.MainApp;
 
 import java.io.IOException;
 import java.net.URL;

@@ -5,10 +5,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.Logic;
+import NASA.MainApp;
+import NASA.commons.core.LogsCenter;
+import NASA.commons.util.StringUtil;
+import NASA.logic.Logic;
 
 import java.util.logging.Logger;
 
@@ -82,5 +82,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
 }

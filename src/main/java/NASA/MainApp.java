@@ -51,7 +51,7 @@ public class MainApp extends Application {
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = (UserPrefsStorage) new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         NasaBookStorage nasaBookStorage = new JsonNasaBookStorage(userPrefs.getNasaBookFilePath());
         storage = new StorageManager(nasaBookStorage, userPrefsStorage);

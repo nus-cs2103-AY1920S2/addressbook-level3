@@ -18,12 +18,12 @@ public interface Model {
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
-    void setUserPrefsNasa(ReadOnlyUserPrefsNasa userPrefs);
+    void setUserPrefsNasa(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs.
      */
-    ReadOnlyUserPrefsNasa getUserPrefsNasa();
+    ReadOnlyUserPrefs getUserPrefs();
 
     /**
      * Returns the user prefs' GUI settings.
