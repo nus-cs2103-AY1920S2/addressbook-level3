@@ -45,7 +45,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Comment} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Comment} of the {@code EditOrderDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withComment(String comment) {
         descriptor.setComment(new Comment(comment));
