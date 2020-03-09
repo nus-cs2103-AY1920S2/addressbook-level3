@@ -218,7 +218,7 @@ Format: `rt add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISI
 
 Examples:
 
-* `rt add rubbish o/0900:23000 p/$$` +
+* `rt add rubbish o/0900:2300 p/$$` +
 Adds a new restaurant called rubbish with 2 dollar signs price point and opens form 9am to 11pm
 
 === Search: `search`
