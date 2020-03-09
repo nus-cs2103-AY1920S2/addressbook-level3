@@ -298,21 +298,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |Computing student |plan for specialisations |complete the requirements for my specialisation
 
-|`* * *` |student |see the overview of my degree progression |keep in mind my progress in school
+|`* * *` |Student |see the overview of my degree progression |
 
-|`* * *` |student |choose modules to take for future semesters |plan for future semesters
+|`* * *` |Student |choose modules to be taken |plan for future academic semesters
 
-|`* * *` |student |store my past grades |calculate my overall <<CAP, CAP>> every semester
+|`* * *` |Student |store my past grades |calculate my overall <<CAP, CAP>>
 
-|`* * *` |student |view <<prerequisite, prerequisites>> of every module |know what modules I should complete early
+|`* * *` |Student |view <<prerequisite, prerequisites>> of every module |know what modules I should complete early
 
-|`* * *` |student |view <<preclusion, preclusions>> of every module |know what modules I should not take
+|`* * *` |Student |view <<preclusion, preclusions>> of every module |know what modules I cannot take
 
-|`* *` |student |maintain a list of unfinished homework and their deadlines |submit my assignments in time
+|`* *` |Student |maintain a list of unfinished homework and their deadlines |submit my assignments on time
 
-|`*` |student |pool notes for my modules together |easily find my notes for each module
+|`* *` |Student |edit my list of tasks |make relevant changes if required
 
-|`* *` |student |see the modules that I have taken |track my degree progression
+|`**` |Double degree student |have a single platform to see both degrees' modules |track my degree progression
+
+|`*` |Student |pool notes for my modules together |organise my notes according to my modules
 |=======================================================================
 
 [appendix]
@@ -321,33 +323,74 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `MODdy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add module
+=== Use case: UC01 - Add module
 
 *MSS*
 
 1.  User requests to add a module for a particular semester
-2.  MODdy adds the module to that semester
+2.  User provides the module code for that module
+3.  MODdy adds the module to that semester
 +
 Use case ends.
 
 *Extensions*
 
-* 1a. The module does not exist in the database.
+* 2a. The module code does not exist
 +
 [none]
-** 1a1. MODdy shows an error message.
+** 2a1. MODdy shows an error message
 +
 Use case ends.
 
-* 1b. The user has not enrolled into NUS.
+* 3b. The user has not enrolled into NUS
 +
 [none]
-** 1b1. MODdy adds the module to that semester, noting that it is under planning.
+** 3b1. MODdy adds the module to that semester, noting that it is under planning
 +
 Use case ends.
 
 [discrete]
-=== Use case: View grades
+=== Use case: UC02 - View module
+
+*MSS*
+
+1.  User requests to view a module
+2.  User provides the module code for that module
+3.  MODdy shows all information related to the module
++
+Use case ends
+
+*Extensions*
+
+* 2a. The module code does not exist
++
+[none]
+** 2a1. MODdy shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: UC03 - Add grades
+
+*MSS*
+
+1.  User requests to update his results at the end of a semester
+2.  User provides the alphabet grade beside each module taken
+3.  MODdy adds the alphabet grade to each module and updates overall CAP
++
+Use case ends
+
+*Extensions*
+
+* 2a. The module code does not exist
++
+[none]
+** 2a1. MODdy shows an error message
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - View grades
 
 *MSS*
 
@@ -358,12 +401,58 @@ Use case ends.
 
 *Extensions*
 
-* 1a. The user has not stored any grades in MODdy.
+* 1a. The user has not stored any grades in MODdy
 +
 [none]
-** 1a1. MODdy shows an error message.
+** 1a1. MODdy shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: UC05 - Add task
+
+*MSS*
+
+1.  User requests to add a task, with a deadline, to be tracked
+2.  User provides the task description and deadline
+3.  MODdy displays the tasks in the deadline pane
 +
 Use case ends.
+
+*Extensions*
+
+* 2a. The format of the deadline provided is wrong
++
+[none]
+** 2a1. MODdy shows an error message
++
+Use case ends
+
+[discrete]
+=== Use case: UC05 - Edit task
+
+*MSS*
+
+1.  User provides the index of the task (shown in deadline pane) to be edited
+2.  User provides the new task description and deadline
+3.  MODdy displays the updated task in the deadline pane
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The index provided does not exist
++
+[none]
+** 1a1. MODdy shows an error message
++
+Use case ends
+* 2a. The format of the deadline provided is wrong
++
+[none]
+** 2a1. MODdy shows an error message
++
+Use case ends
 
 [appendix]
 == Non Functional Requirements
@@ -376,7 +465,7 @@ Use case ends.
 == Glossary
 
 [[CAP]] CAP::
-http://www.nus.edu.sg/registrar/academic-information-policies/undergraduate-students/modular-system[Cummulative Average Point]
+http://www.nus.edu.sg/registrar/academic-information-policies/undergraduate-students/modular-system[Cumulative Average Point]
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
