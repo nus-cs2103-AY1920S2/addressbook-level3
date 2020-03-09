@@ -29,13 +29,15 @@ public class DeleteCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(new Index[] {INDEX_FIRST_PERSON});
-        String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+
+        StringBuilder expectedMessage =
+                new StringBuilder(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
+        expectedMessage.append(String.format("%n%s", taskToDelete));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage.toString(), expectedModel);
     }
 
     @Test
@@ -53,14 +55,15 @@ public class DeleteCommandTest {
         Task taskToDelete = model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(new Index[] {INDEX_FIRST_PERSON});
 
-        String expectedMessage =
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, taskToDelete);
+        StringBuilder expectedMessage =
+                new StringBuilder(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS);
+        expectedMessage.append(String.format("%n%s", taskToDelete));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteTask(taskToDelete);
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage.toString(), expectedModel);
     }
 
     @Test

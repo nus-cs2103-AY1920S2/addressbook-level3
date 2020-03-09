@@ -22,8 +22,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HELP;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MA1521;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalTasks.AMY;
-import static seedu.address.testutil.TypicalTasks.BOB;
+import static seedu.address.testutil.TypicalTasks.TASK1;
+import static seedu.address.testutil.TypicalTasks.TASK2;
 
 import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
@@ -39,7 +39,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Task expectedTask = new TaskBuilder(BOB).withTags(VALID_TAG_HELP).build();
+        Task expectedTask = new TaskBuilder(TASK2).withTags(VALID_TAG_HELP).build();
 
         // whitespace only preamble
         assertParseSuccess(
@@ -89,7 +89,7 @@ public class AddCommandParserTest {
 
         // multiple tags - all accepted
         Task expectedTaskMultipleTags =
-                new TaskBuilder(BOB).withTags(VALID_TAG_HELP, VALID_TAG_MA1521).build();
+                new TaskBuilder(TASK2).withTags(VALID_TAG_HELP, VALID_TAG_MA1521).build();
         assertParseSuccess(
                 parser,
                 NAME_DESC_TASK2
@@ -103,7 +103,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Task expectedTask = new TaskBuilder(AMY).withTags().build();
+        Task expectedTask = new TaskBuilder(TASK1).withTags().build();
         assertParseSuccess(
                 parser,
                 NAME_DESC_TASK1 + PRIORITY_DESC_TASK1 + DESCRIPTION_DESC_TASK1,

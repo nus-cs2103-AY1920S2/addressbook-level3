@@ -71,11 +71,19 @@ public class DoneCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DoneCommand // instanceof handles nulls
-                        && targetIndices.equals(
-                                ((DoneCommand) other)
-                                        .targetIndices)); // TODO check if non primitive data will
-        // be checked
+        if (other == this) {
+            return true;
+        } else if (other instanceof DoneCommand) {
+            Index[] myTargetIndices = targetIndices;
+            Index[] otherTargetIndices = ((DoneCommand) other).targetIndices;
+            for (int i = 0; i < myTargetIndices.length; i++) {
+                if (!myTargetIndices[i].equals(otherTargetIndices[i])) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 }
