@@ -22,17 +22,20 @@ public class Order {
 
     // Data fields
     private final Address address;
+    private final Warehouse warehouse;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Order(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Order(Name name, Phone phone, Email email, Address address, Warehouse warehouse,
+                 Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, warehouse, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.warehouse = warehouse;
         this.tags.addAll(tags);
     }
 
@@ -50,6 +53,10 @@ public class Order {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
     }
 
     /**
@@ -93,13 +100,14 @@ public class Order {
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
+                && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, warehouse, tags);
     }
 
     @Override
@@ -112,6 +120,8 @@ public class Order {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Warehouse: ")
+                .append(getWarehouse())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
