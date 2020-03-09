@@ -18,9 +18,9 @@ public class Module {
      * Constructs a {@code module}
      * @param moduleCode module code
      */
-    public Module(ModuleCode moduleCode) {
+    public Module(ModuleCode moduleCode, UniqueActivityList uniqueActivityList) {
         this.moduleCode = moduleCode;
-        this.activityList = new UniqueActivityList();
+        this.activityList = uniqueActivityList;
     }
 
     //Priority priority;

@@ -13,9 +13,11 @@ public abstract class Activity {
 
     private Note note;
 
-    //private boolean isDone;
+    private boolean isDone;
 
     private Status status;
+
+    private Priority priority;
 
     /**
      * Constructs a {@code activity}
@@ -27,7 +29,7 @@ public abstract class Activity {
         this.name = name;
         this.date = date;
         this.note = note;
-        //this.isDone = false;
+        this.isDone = false;
         this.status = Status.ONGOING;
     }
 
@@ -148,8 +150,7 @@ public abstract class Activity {
     public boolean isDone() {
         return status == Status.DONE;
     }
-  
-    /*
+
     public Priority getPriority() {
         return priority;
     }
@@ -157,5 +158,4 @@ public abstract class Activity {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-     */
 }
