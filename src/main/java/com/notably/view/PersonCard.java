@@ -37,7 +37,7 @@ public class PersonCard extends ViewPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard int displayedIndex) {
+    public PersonCard (int displayedIndex) {
         super(FXML);
 
     }
