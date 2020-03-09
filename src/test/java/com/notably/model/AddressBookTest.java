@@ -1,13 +1,13 @@
 package com.notably.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.notably.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static com.notably.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalPersons.ALICE;
 import static com.notably.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,11 +16,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import com.notably.model.person.Person;
 import com.notably.model.person.exceptions.DuplicatePersonException;
 import com.notably.testutil.PersonBuilder;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class AddressBookTest {
 

@@ -1,12 +1,12 @@
 package com.notably.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.notably.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalPersons.ALICE;
 import static com.notably.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

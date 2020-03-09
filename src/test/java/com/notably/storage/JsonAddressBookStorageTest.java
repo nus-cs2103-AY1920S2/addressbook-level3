@@ -1,12 +1,12 @@
 package com.notably.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalPersons.ALICE;
 import static com.notably.testutil.TypicalPersons.HOON;
 import static com.notably.testutil.TypicalPersons.IDA;
 import static com.notably.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.IOException;
 import java.nio.file.Path;

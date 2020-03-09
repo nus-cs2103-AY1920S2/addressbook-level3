@@ -1,14 +1,14 @@
 package com.notably.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.notably.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static com.notably.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.notably.testutil.TypicalPersons.CARL;
 import static com.notably.testutil.TypicalPersons.ELLE;
 import static com.notably.testutil.TypicalPersons.FIONA;
 import static com.notably.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

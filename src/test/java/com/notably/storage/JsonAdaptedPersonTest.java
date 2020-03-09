@@ -1,9 +1,9 @@
 package com.notably.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.notably.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalPersons.BENSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;

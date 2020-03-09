@@ -1,11 +1,11 @@
 package com.notably.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static com.notably.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,10 +1,10 @@
 package com.notably.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.notably.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collections;

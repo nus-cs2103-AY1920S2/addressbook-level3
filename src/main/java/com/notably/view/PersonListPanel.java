@@ -2,13 +2,14 @@ package com.notably.view;
 
 import java.util.logging.Logger;
 
+import com.notably.commons.core.LogsCenter;
+import com.notably.model.person.Person;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import com.notably.commons.core.LogsCenter;
-import com.notably.model.person.Person;
 
 /**
  * Panel containing the list of persons.

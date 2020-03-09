@@ -1,6 +1,5 @@
 package com.notably.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.notably.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static com.notably.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static com.notably.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
@@ -9,6 +8,7 @@ import static com.notably.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static com.notably.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalPersons.AMY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;

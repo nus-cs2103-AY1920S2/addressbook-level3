@@ -2,13 +2,14 @@ package com.notably.logic;
 
 import java.nio.file.Path;
 
-import javafx.collections.ObservableList;
 import com.notably.commons.core.GuiSettings;
 import com.notably.logic.commands.CommandResult;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.person.Person;
+
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component

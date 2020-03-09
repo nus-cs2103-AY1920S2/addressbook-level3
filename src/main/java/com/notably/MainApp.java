@@ -5,9 +5,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-
 import com.notably.commons.core.Config;
 import com.notably.commons.core.LogsCenter;
 import com.notably.commons.core.Version;
@@ -31,6 +28,9 @@ import com.notably.storage.StorageManager;
 import com.notably.storage.UserPrefsStorage;
 import com.notably.view.View;
 import com.notably.view.ViewManager;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 /**
  * Runs the application.

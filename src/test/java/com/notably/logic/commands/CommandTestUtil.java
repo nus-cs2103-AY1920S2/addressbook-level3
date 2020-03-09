@@ -1,13 +1,13 @@
 package com.notably.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
 import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
 import static com.notably.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;

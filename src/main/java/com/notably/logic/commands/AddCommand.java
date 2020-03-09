@@ -1,11 +1,11 @@
 package com.notably.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
 import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
+import static java.util.Objects.requireNonNull;
 
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;

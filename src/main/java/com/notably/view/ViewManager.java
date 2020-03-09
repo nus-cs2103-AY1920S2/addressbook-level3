@@ -2,15 +2,16 @@ package com.notably.view;
 
 import java.util.logging.Logger;
 
+import com.notably.MainApp;
+import com.notably.commons.core.LogsCenter;
+import com.notably.commons.util.StringUtil;
+import com.notably.logic.Logic;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import com.notably.MainApp;
-import com.notably.commons.core.LogsCenter;
-import com.notably.commons.util.StringUtil;
-import com.notably.logic.Logic;
 
 /**
  * The manager of the VIEW component.

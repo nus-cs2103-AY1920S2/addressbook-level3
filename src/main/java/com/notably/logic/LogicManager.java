@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
 import com.notably.logic.commands.Command;
@@ -16,6 +15,8 @@ import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.person.Person;
 import com.notably.storage.Storage;
+
+import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

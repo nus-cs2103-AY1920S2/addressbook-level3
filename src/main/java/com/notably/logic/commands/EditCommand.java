@@ -1,12 +1,12 @@
 package com.notably.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
 import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
 import static com.notably.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;

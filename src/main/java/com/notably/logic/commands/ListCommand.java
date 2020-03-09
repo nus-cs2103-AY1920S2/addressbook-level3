@@ -1,7 +1,7 @@
 package com.notably.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static com.notably.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static java.util.Objects.requireNonNull;
 
 import com.notably.model.Model;
 

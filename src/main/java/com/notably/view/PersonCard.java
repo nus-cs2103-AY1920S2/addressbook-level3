@@ -2,12 +2,13 @@ package com.notably.view;
 
 import java.util.Comparator;
 
+import com.notably.model.person.Person;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import com.notably.model.person.Person;
 
 /**
  * An VIEW component that displays information of a {@code Person}.

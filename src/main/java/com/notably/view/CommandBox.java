@@ -1,12 +1,13 @@
 package com.notably.view;
 
+import com.notably.logic.commands.CommandResult;
+import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.parser.exceptions.ParseException;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import com.notably.logic.commands.CommandResult;
-import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.logic.parser.exceptions.ParseException;
 
 /**
  * The VIEW component that is responsible for receiving user command inputs.

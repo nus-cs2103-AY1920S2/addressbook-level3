@@ -2,6 +2,13 @@ package com.notably.view;
 
 import java.util.logging.Logger;
 
+import com.notably.commons.core.GuiSettings;
+import com.notably.commons.core.LogsCenter;
+import com.notably.logic.Logic;
+import com.notably.logic.commands.CommandResult;
+import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.parser.exceptions.ParseException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -10,12 +17,6 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import com.notably.commons.core.GuiSettings;
-import com.notably.commons.core.LogsCenter;
-import com.notably.logic.Logic;
-import com.notably.logic.commands.CommandResult;
-import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing

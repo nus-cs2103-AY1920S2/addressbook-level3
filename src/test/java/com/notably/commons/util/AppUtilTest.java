@@ -1,7 +1,7 @@
 package com.notably.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static com.notably.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
