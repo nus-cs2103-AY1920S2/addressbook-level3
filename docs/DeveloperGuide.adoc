@@ -320,7 +320,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |busy university student with many assignments and project deadlines scattered throughout the semester |be provided timely reminders of my work deadlines |not have to remember the specific timing, date and deliverables of each assignment.
 
-|`* * *` |busy university student with a hectic work schedule |be able to find pockets of free time within my schedule where I can go meet my friends |schedule my social events efficiently
+|`* * *` |busy university student with a hectic work schedule | get a sense of how free I am to go out with my friends and pursue other social events given my upcoming deadlines |pursue social events without missing my deadlines
 
 |`* *` |busy university student with a hectic work schedule |be able to be suggested places to eat with my friends based on "KIV" notes for certain restaurants |choose a gathering place without much hassle
 
