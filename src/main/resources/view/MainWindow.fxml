@@ -12,10 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MODdy" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="MODdy" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/study_books.png" />
   </icons>
   <scene>
     <Scene>
@@ -51,37 +52,27 @@
           <HBox>
     <!--Profile-->
             <VBox fx:id="personList" styleClass="pane-with-border" alignment="CENTER_LEFT"
-                  minWidth="500" prefWidth="500" VBox.vgrow="ALWAYS">
+                  minWidth="540" prefWidth="540" VBox.vgrow="ALWAYS">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
-              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
             </VBox>
     <!--Deadline display-->
             <VBox fx:id="deadlineDisplayPlaceholder" styleClass="pane-with-border" alignment="CENTER_RIGHT"
-                       minWidth="280" prefWidth="280" VBox.vgrow="ALWAYS">
+                       minWidth="260" prefWidth="260" VBox.vgrow="ALWAYS">
+              <VBox fx:id="deadlineTitle" alignment="TOP_LEFT">
+                <Label text="Deadline" styleClass="deadline_title"></Label>
+              </VBox>
+
               <padding>
                 <Insets top="10" right="10" bottom="5" left="10" />
               </padding>
+              <StackPane fx:id="deadlinePanelPlaceholder" VBox.vgrow="ALWAYS"/>
+
             </VBox>
-
           </HBox>
-
           <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-
         </VBox>
-
-
-
-
-<!--      <HBox alignment="CENTER_RIGHT">-->
-<!--        <StackPane VBox.vgrow="NEVER" fx:id="deadlineDisplayPlaceholder" styleClass="pane-with-border"-->
-<!--                   minHeight="100" prefHeight="100" maxHeight="100">-->
-<!--          <padding>-->
-<!--            <Insets top="5" right="10" bottom="5" left="10" />-->
-<!--          </padding>-->
-<!--        </StackPane>-->
-<!--      </HBox>-->
     </Scene>
   </scene>
 </fx:root>
