@@ -33,13 +33,15 @@ public class DoneCommandTest {
         Task doneTask = new TaskBuilder(taskToDone).withDone(DONE).build();
 
         DoneCommand doneCommand = new DoneCommand(new Index[] {INDEX_FIRST_PERSON});
-        String expectedMessage = String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskToDone);
+
+        StringBuilder expectedMessage = new StringBuilder(DoneCommand.MESSAGE_DONE_TASK_SUCCESS);
+        expectedMessage.append(String.format("%n%s", doneTask));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setTask(
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()), doneTask);
 
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(doneCommand, model, expectedMessage.toString(), expectedModel);
     }
 
     @Test
@@ -58,14 +60,16 @@ public class DoneCommandTest {
         Task doneTask = new TaskBuilder(taskToDone).withDone(DONE).build();
 
         DoneCommand doneCommand = new DoneCommand(new Index[] {INDEX_FIRST_PERSON});
-        String expectedMessage = String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskToDone);
+
+        StringBuilder expectedMessage = new StringBuilder(DoneCommand.MESSAGE_DONE_TASK_SUCCESS);
+        expectedMessage.append(String.format("%n%s", doneTask));
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setTask(
                 model.getFilteredTaskList().get(INDEX_FIRST_PERSON.getZeroBased()), doneTask);
 
         showNoPerson(expectedModel);
-        assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(doneCommand, model, expectedMessage.toString(), expectedModel);
     }
 
     @Test
