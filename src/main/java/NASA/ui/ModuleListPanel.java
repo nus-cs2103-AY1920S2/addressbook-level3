@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * Panel containing the list of modules.
  */
 public class ModuleListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "ModuleListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ModuleListPanel.class);
 
     @FXML
