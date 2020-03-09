@@ -133,6 +133,14 @@ public class LogicManager implements Logic {
         return model.getFilteredCanteenList();
     }
 
+    /**
+     * Returns an unmodifiable view of the filtered list of canteens sorted by distance
+     */
+    @Override
+    public ObservableList<Canteen> getFilteredCanteenListSortedByDistance() {
+        return model.getFilteredCanteenListSortedByDistance();
+    }
+
 
     @Override
     public Path getFoodieBotFilePath() {
