@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 
 import com.notably.commons.core.index.Index;
 import com.notably.model.Model;
-import com.notably.model.person.Person;
 
 /**
  * A utility class for test cases.

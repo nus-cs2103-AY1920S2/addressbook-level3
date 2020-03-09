@@ -18,7 +18,6 @@ import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.AddressBook;
 import com.notably.model.Model;
 import com.notably.model.person.NameContainsKeywordsPredicate;
-import com.notably.model.person.Person;
 import com.notably.testutil.EditPersonDescriptorBuilder;
 
 /**

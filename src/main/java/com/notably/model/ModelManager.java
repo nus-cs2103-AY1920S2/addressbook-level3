@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
-import com.notably.model.person.Person;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;

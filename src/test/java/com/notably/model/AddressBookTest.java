@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.notably.model.person.Person;
 import com.notably.model.person.exceptions.DuplicatePersonException;
 import com.notably.testutil.PersonBuilder;
 

@@ -1,7 +1,6 @@
 package com.notably.testutil;
 
 import com.notably.model.AddressBook;
-import com.notably.model.person.Person;
 
 /**
  * A utility class to help with building Addressbook objects.

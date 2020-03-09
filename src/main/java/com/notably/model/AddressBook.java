@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import com.notably.model.person.Person;
 import com.notably.model.person.UniquePersonList;
 
 import javafx.collections.ObservableList;

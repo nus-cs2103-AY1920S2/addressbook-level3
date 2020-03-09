@@ -32,11 +32,6 @@ import static com.notably.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import com.notably.logic.commands.AddCommand;
-import com.notably.model.person.Address;
-import com.notably.model.person.Email;
-import com.notably.model.person.Name;
-import com.notably.model.person.Person;
-import com.notably.model.person.Phone;
 import com.notably.model.tag.Tag;
 import com.notably.testutil.PersonBuilder;
 

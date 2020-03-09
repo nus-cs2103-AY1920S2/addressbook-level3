@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import com.notably.commons.exceptions.IllegalValueException;
 import com.notably.model.AddressBook;
 import com.notably.model.ReadOnlyAddressBook;
-import com.notably.model.person.Person;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

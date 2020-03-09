@@ -14,10 +14,6 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.model.person.Address;
-import com.notably.model.person.Email;
-import com.notably.model.person.Name;
-import com.notably.model.person.Phone;
 import com.notably.model.tag.Tag;
 
 public class ParserUtilTest {

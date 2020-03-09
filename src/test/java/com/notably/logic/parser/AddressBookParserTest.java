@@ -24,7 +24,6 @@ import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.ListCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.person.NameContainsKeywordsPredicate;
-import com.notably.model.person.Person;
 import com.notably.testutil.EditPersonDescriptorBuilder;
 import com.notably.testutil.PersonBuilder;
 import com.notably.testutil.PersonUtil;

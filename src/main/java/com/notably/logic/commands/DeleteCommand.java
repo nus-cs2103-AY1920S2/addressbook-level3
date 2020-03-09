@@ -8,7 +8,6 @@ import com.notably.commons.core.Messages;
 import com.notably.commons.core.index.Index;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
-import com.notably.model.person.Person;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

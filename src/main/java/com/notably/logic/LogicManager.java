@@ -13,7 +13,6 @@ import com.notably.logic.parser.AddressBookParser;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
-import com.notably.model.person.Person;
 import com.notably.storage.Storage;
 
 import javafx.collections.ObservableList;

@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.UserPrefs;
-import com.notably.model.person.Person;
 import com.notably.testutil.PersonBuilder;
 
 /**

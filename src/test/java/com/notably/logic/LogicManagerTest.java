@@ -26,7 +26,6 @@ import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.UserPrefs;
-import com.notably.model.person.Person;
 import com.notably.storage.JsonAddressBookStorage;
 import com.notably.storage.JsonUserPrefsStorage;
 import com.notably.storage.StorageManager;
