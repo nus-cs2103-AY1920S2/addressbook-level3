@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import NASA.model.module.ModuleName;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -24,14 +25,18 @@ class JsonAdaptedModule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
     private final String moduleCode;
+    private final String moduleName;
     private final List<JsonAdaptedActivity> activityList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, List<JsonAdaptedActivity> activities) {
+    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode,
+                             @JsonProperty("moduleName") String moduleName,
+                             List<JsonAdaptedActivity> activities) {
         this.moduleCode = moduleCode;
+        this.moduleName = moduleName;
         if (activities != null) {
             this.activityList.addAll(activities);
         }
@@ -42,6 +47,7 @@ class JsonAdaptedModule {
      */
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
+        moduleName= source.getModuleName().toString();
         activityList.addAll(source.getActivities().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedActivity::new)
                 .collect(Collectors.toList()));
@@ -67,10 +73,19 @@ class JsonAdaptedModule {
         }
         final ModuleCode modelModuleCode = new ModuleCode(moduleCode);
 
+        if (moduleName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ModuleName.class.getSimpleName()));
+        }
+        if (!ModuleName.isValidModuleName(moduleName)) {
+            throw new IllegalValueException(ModuleName.MESSAGE_CONSTRAINTS);
+        }
+        final ModuleName modelModuleName = new ModuleName(moduleName);
+
         final UniqueActivityList uniqueActivityList = new UniqueActivityList();
         uniqueActivityList.setActivities(moduleActivities);
 
-        return new Module(modelModuleCode, uniqueActivityList);
+        return new Module(modelModuleCode, modelModuleName, uniqueActivityList);
     }
 
 }

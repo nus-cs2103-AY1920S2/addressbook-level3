@@ -16,17 +16,24 @@ public class Module {
     private ModuleName moduleName;
 
     /**
+     * Constructs a {@code module} and initialises the activity list.
+     * @param moduleCode module code
+     */
+    public Module(ModuleCode moduleCode, ModuleName moduleName) {
+        this.moduleCode = moduleCode;
+        this.moduleName = moduleName;
+        this.activityList = new UniqueActivityList();
+    }
+
+    /**
      * Constructs a {@code module}
      * @param moduleCode module code
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName, UniqueActivityList uniqueActivityList) {
         this.moduleCode = moduleCode;
-        this.activityList = new UniqueActivityList();
         this.moduleName = moduleName;
         this.activityList = uniqueActivityList;
     }
-
-    //Priority priority;
 
     /**
      * Retrieve the moduleCode of the module.
@@ -97,5 +104,13 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getModuleCode().equals(getModuleCode());
+    }
+
+    public ModuleName getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(ModuleName moduleName) {
+        this.moduleName = moduleName;
     }
 }
