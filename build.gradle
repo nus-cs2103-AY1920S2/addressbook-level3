@@ -11,11 +11,16 @@ plugins {
     id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'application'
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+//mainClassName = 'seedu.address.Main'
+
+application {
+    mainClassName = 'seedu.address.Main'
+}
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -23,6 +28,11 @@ targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 checkstyle {
