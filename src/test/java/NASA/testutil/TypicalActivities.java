@@ -16,7 +16,11 @@ public class TypicalActivities {
             .withToDate("01-01-2020 06:00").build();
 
     public static final Activity CORRECT_EVENT = new ActivityBuilder().withName("event")
-            .withFromDate("02-02-2019 06:00")
+            .withFromDate("02-04-2020 06:00")
+            .withToDate("13-06-2020 06:00").build();
+
+    public static final Activity PAST_EVENT = new ActivityBuilder().withName("event")
+            .withFromDate("02-04-2019 06:00")
             .withToDate("13-06-2019 06:00").build();
 
     private TypicalActivities() {} // prevents instantiation

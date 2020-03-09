@@ -17,6 +17,9 @@ public class Event extends Activity {
      */
     public Event(Date from, Date to, Note note) {
         super(new Name("event"), note);
+
+        requireNonNull(from);
+        requireNonNull(to);
         this.from = from;
         this.to = to;
     }
@@ -27,6 +30,9 @@ public class Event extends Activity {
      */
     public Event(Name name, Date from, Date to, Note note) {
         super(name, note);
+
+        requireNonNull(from);
+        requireNonNull(to);
         this.from = from;
         this.to = to;
     }
@@ -44,7 +50,9 @@ public class Event extends Activity {
 
         if (activity instanceof Event) {
             Event event = (Event) activity;
-            return event.getDateFrom().isBefore(event.getDateTo());
+            boolean hasNotExpired = Date.now().isBefore(event.getDateTo());
+            boolean isLogical = event.getDateFrom().isBefore(event.getDateTo());
+            return hasNotExpired && isLogical;
         } else {
             return false;
         }
