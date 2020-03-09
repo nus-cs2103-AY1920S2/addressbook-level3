@@ -2,19 +2,17 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
-import seedu.address.model.product.*;
-import seedu.address.model.tag.Tag;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.product.Description;
+import seedu.address.model.product.Price;
+import seedu.address.model.product.Product;
+import seedu.address.model.product.Quantity;
+import seedu.address.model.product.Sales;
+
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Product}.
  */
 class JsonAdaptedProduct {
 
@@ -54,10 +52,11 @@ class JsonAdaptedProduct {
      */
     public Product toModelType() throws IllegalValueException {
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                                            Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
         final Description modelDescription = new Description(description);
 
@@ -70,10 +69,11 @@ class JsonAdaptedProduct {
         final Price modelPrice = new Price(price);
 
         if (quantity == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Quantity.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                                            Quantity.class.getSimpleName()));
         }
         if (!Quantity.isValidQuantity(quantity)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
         }
         final Quantity modelQuantity = new Quantity(quantity);
 
@@ -81,7 +81,7 @@ class JsonAdaptedProduct {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sales.class.getSimpleName()));
         }
         if (!Sales.isValidSales(sales)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Sales.MESSAGE_CONSTRAINTS);
         }
         final Sales modelSales = new Sales(sales);
 
