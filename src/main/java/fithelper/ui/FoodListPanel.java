@@ -1,8 +1,5 @@
 package fithelper.ui;
 
-import java.util.logging.Logger;
-
-import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +12,6 @@ import javafx.scene.layout.Region;
  */
 public class FoodListPanel extends UiPart<Region> {
     private static final String FXML = "FoodListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(FoodListPanel.class);
 
     @FXML
     private ListView<Entry> foodListView;
@@ -38,7 +34,7 @@ public class FoodListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FoodCard(food, getIndex() + 1).getRoot());
+                setGraphic(new FoodCard(food).getRoot());
             }
         }
     }

@@ -37,7 +37,7 @@ public class SportsCard extends UiPart<Region> {
     @FXML
     private Label remark;
 
-    public SportsCard(Entry sports, int displayedIndex) {
+    public SportsCard(Entry sports) {
         super(FXML);
         this.sports = sports;
         name.setText(sports.getName().toString());

@@ -37,7 +37,7 @@ public class FoodCard extends UiPart<Region> {
     @FXML
     private Label remark;
 
-    public FoodCard(Entry food, int displayedIndex) {
+    public FoodCard(Entry food) {
         super(FXML);
         this.food = food;
         name.setText(food.getName().toString());
