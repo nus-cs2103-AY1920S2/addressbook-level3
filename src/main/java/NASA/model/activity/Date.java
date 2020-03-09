@@ -34,6 +34,11 @@ public class Date {
         return LocalDateTime.parse(date, formatter);
     }
 
+    public static Date now() {
+       String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+       return new Date(now);
+    }
+
     /**
      * Checks if a given string is a valid date.
      *
@@ -48,6 +53,18 @@ public class Date {
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    public boolean isAfter(Date other) {
+        return date.isAfter(other.getDate());
+    }
+
+    public boolean isBefore(Date other) {
+        return date.isBefore(other.getDate());
+    }
+
+    public boolean isEqual(Date other) {
+        return date.isEqual(other.getDate());
     }
 
     public LocalDateTime getDate() {

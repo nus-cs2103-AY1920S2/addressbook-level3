@@ -14,12 +14,16 @@ import NASA.model.activity.Note;
 public class ActivityBuilder {
 
     public static final String DEFAULT_NAME = "deadline";
-    public static final String DEFAULT_DATE = "2020-03-19";
+    public static final String DEFAULT_DATE = "19-10-2020 03:00";
     public static final String DEFAULT_NOTE = "Do homework";
+    public static final String DEFAULT_TO_DATE = "03-10-2020 04:00";
+    public static final String DEFAULT_FROM_DATE = "02-01-2020 05:00";
 
     private Name name;
     private Date date;
     private Note note;
+    private Date toDate;
+    private Date fromDate;
 
     /**
      * Initialise default name, date and note for an activity to test.
@@ -28,6 +32,8 @@ public class ActivityBuilder {
         name = new Name(DEFAULT_NAME);
         date = new Date(DEFAULT_DATE);
         note = new Note(DEFAULT_NOTE);
+        toDate = new Date(DEFAULT_TO_DATE);
+        fromDate = new Date(DEFAULT_FROM_DATE);
     }
 
     /**
@@ -38,6 +44,8 @@ public class ActivityBuilder {
         name = activity.getName();
         date = activity.getDate();
         note = activity.getNote();
+        toDate = new Date(DEFAULT_TO_DATE);
+        fromDate = new Date(DEFAULT_FROM_DATE);
     }
 
     /**
@@ -65,13 +73,29 @@ public class ActivityBuilder {
     }
 
     /**
+     * Sets the {@code toDate} of the {@code Activity} that we are building.
+     */
+    public ActivityBuilder withToDate(String toDate) {
+        this.toDate = new Date(toDate);
+        return this;
+    }
+
+    /**
+     * Sets the {@code fromDate} of the {@code Activity} that we are building.
+     */
+    public ActivityBuilder withFromDate(String fromDate) {
+        this.fromDate = new Date(fromDate);
+        return this;
+    }
+
+    /**
      * Build an activity accordingly.
      */
     public Activity build() {
         if (name.equals(new Name("deadline"))) {
             return new Deadline(name, date, note);
         } else if (name.equals(new Name("event"))) {
-            return new Event(name, date, note);
+            return new Event(name, fromDate, toDate, note);
         } else if (name.equals(new Name("lesson"))) {
             return new Lesson(name, date, note);
         } else {

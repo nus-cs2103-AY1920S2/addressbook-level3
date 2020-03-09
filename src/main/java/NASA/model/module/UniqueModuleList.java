@@ -6,11 +6,13 @@ import static NASA.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import NASA.model.activity.UniqueActivityList;
 import NASA.model.module.exceptions.DuplicateModuleException;
 import NASA.model.module.exceptions.ModuleNotFoundException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.

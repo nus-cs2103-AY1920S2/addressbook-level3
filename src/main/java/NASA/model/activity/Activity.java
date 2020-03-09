@@ -31,6 +31,13 @@ public abstract class Activity {
         this.status = Status.ONGOING;
     }
 
+    public Activity(Name name, Note note) {
+        this.name = name;
+        this.note = note;
+        this.date = Date.now();
+        this.status = Status.ONGOING;
+    }
+
     //Priority priority;
 
     /**
@@ -148,7 +155,7 @@ public abstract class Activity {
     public boolean isDone() {
         return status == Status.DONE;
     }
-  
+
     /*
     public Priority getPriority() {
         return priority;
