@@ -243,29 +243,32 @@ transaction id of the parcels and the address of the customers, etc.
 * Import the specific csv with the `FILE_NAME` in *data* folder to the application.
 ====
 
-[IMPORTANT]
-====
 * The data in the `csv file` should be written in the following format:
 
-[%header, format=csv]
-.Data format in csv file
+[format=csv]
+.Order data format
 |===
-ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, dts/DELIVERY_DATE_&_TIME (rts/RETURN_DATE_&_TIME), w/WAREHOUSE_LOCATION, pm/PAYMENT_METHOD, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, dts/DELIVERY_DATE_&_TIME, w/WAREHOUSE_LOCATION, cod/CASH_ON_DELIVERY, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
 |===
+* Examples:
+** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`, +
+`dts/2020-03-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
 
+[format=csv]
+.Return data format
+|===
+ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+|===
 
 * Examples:
-** ot/order, tid/1023456789, n/Amos Cheong, a/Blk 572 Hougang st 51 #11-37 S530572, p/9001 0019, dts/2020-03-10 1650, w/Marsiling, pm/Nets, c/Leave it at the riser, type/glass
-** ot/return, tid/b1230512, n/Aaron Teo, a/256 Alpha Road #03-22 S123567, p/91230456, rts/12-12-2020 1400, w/Jurong Warehouse, pm/visa, c/Leave it at the lobby, type/metal
+** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, +
+`rts/12-12-2020 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
 
 * Note:
 ** Commas `,` are required in between of the different fields.
 ** Prefixes are required before any value for that field.
 ** `ORDER_TYPE` can only be either `order` or `return`.
 ** Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
-
-
-====
 
 ==== Examples
 
