@@ -6,7 +6,9 @@ import static NASA.logic.parser.CliSyntax.PREFIX_MODULE;
 import NASA.commons.core.index.Index;
 import NASA.logic.commands.exceptions.CommandException;
 import NASA.model.ModelNasa;
+import NASA.model.module.Module;
 import NASA.model.module.ModuleCode;
+import NASA.model.module.ModuleName;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class DeleteActivityCommand extends Command {
             + PREFIX_MODULE + "CS3233"
             + "1 2 3";
 
-    public static final String MESSAGE_SUCCESS = "Activities are deleted successfully!";
+    public static final String MESSAGE_SUCCESS = " are deleted successfully!";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -36,7 +38,7 @@ public class DeleteActivityCommand extends Command {
     @Override
     public CommandResult execute(ModelNasa model) throws CommandException {
         requireNonNull(model);
-        // TODO add the necessary implementation once model is done
+        // TODO wait for them to change the model
         return new CommandResult("");
     }
 
