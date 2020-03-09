@@ -1,7 +1,8 @@
 package seedu.address.model.module;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.model.group.Group;
 
 /**
@@ -9,7 +10,7 @@ import seedu.address.model.group.Group;
  */
 public class Module {
     private final String identifier;
-    private final ArrayList<Group>  groups;
+    private final ArrayList<Group> groups;
 
     /**
      * Constructs a group object.
@@ -37,7 +38,7 @@ public class Module {
     public Group getGroup(String identifier) {
         //temporary
         Group group = new Group(identifier, "lab");
-        for(int i = 0; i < groups.size(); ++i) {
+        for (int i = 0; i < groups.size(); ++i) {
             group = groups.get(i);
             if (group.getIdentifier().equals(identifier)) {
                 break;
