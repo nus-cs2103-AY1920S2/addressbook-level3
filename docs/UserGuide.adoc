@@ -23,19 +23,20 @@ More importantly, CCX is *optimized for those who prefer to work with a Command 
 If you can type fast, CCX can allow you to manage your camp's administrative tasks faster than traditional GUI apps.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-=== Adding a homework: `add homework`
+=== Homework
+==== Adding a homework: `add homework`
 
 Adds a homework to the list of homework +
 Format: `add homework n/NAME d/DEADLINE`
 
 * `add n/Function Programming Assignment d/2020-01-30`
 
-=== Listing all homework : `list homework`
+==== Listing all homework : `list homework`
 
 Shows a list of all homework. +
 Format: `list homework`
 
-=== Listing all homework for a course: `list homework`
+==== Listing all homework for a course: `list homework`
 
 Shows a list of all homework assigned to a course. +
 Format: `list homework c/courseID`
@@ -44,7 +45,7 @@ Examples:
 
 * `list homework c/001'
 
-=== Editing a homework : `edit homework`
+==== Editing a homework : `edit homework`
 
 Edits an existing person in the address book. +
 Format: `edit homework HOMEWORKID [n/NAME] [d/DEADLINE]`
@@ -55,10 +56,10 @@ Format: `edit homework HOMEWORKID [n/NAME] [d/DEADLINE]`
 * Existing values will be updated to the input values.
 ****
 
-* `edit 001 n/Machine Learning Assignment e/2020-02-30` +
+* `edit homework 001 n/Machine Learning Assignment e/2020-02-30` +
 Edits the name and deadline of the homework with ID of 001 to be `Machine Learning Assignment` and `2020-02-30` respectively.
 
-=== Locating homework by KEYWORD/ID/DEADLINE: `find homework`
+==== Locating homework by KEYWORD/ID/DEADLINE: `find homework`
 
 Finds homework with the any of the given keywords/ID/deadline +
 Format: `find homework [k/KEYWORDS] [id/HOMEWORKID] [d/DEADLINE]
@@ -74,7 +75,55 @@ Format: `find homework [k/KEYWORDS] [id/HOMEWORKID] [d/DEADLINE]
 
 Examples:
 
-* `find k/Machine` +
-Returns any homework with `Machine` in its name such as - `Machine Learning Assignment`, `Reinforcement Learning Assignment`
-* `find d/2020-01-30` +
+* `find homework k/Learning` +
+Returns any homework with `Learning` in its name such as - `Machine Learning Assignment`, `Reinforcement Learning Assignment`
+* `find homework d/2020-01-30` +
 Returns any homework with a deadline of `2020-01-30`
+
+=== Finance
+==== Adding a finance: `add finance`
+
+Adds a finance to the list of finance +
+Format: `add finance n/NAME a/AMOUNT`
+
+* `add n/Paid NUS for textbooks a/2000`
+
+==== Listing all finance : `list finance`
+
+Shows a list of all finance. +
+Format: `list finance`
+
+==== Editing a finance : `edit finance`
+
+Edits an existing finance in the address book. +
+Format: `edit finance FINANCEID [n/NAME] [a/AMOUNT]`
+
+****
+* Edits the finance with the specified `FINANCEID'. The financeID *must exists* in the list of finances.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+* `edit finance 001 n/Purchased Crayons a/20` +
+Edits the name and amount of the finance with ID of 001 to be `Purchased Crayons` and `20` respectively.
+
+==== Locating finance by KEYWORD/ID/DEADLINE: `find finance`
+
+Finds finance with the any of the given keywords/ID/amount +
+Format: `find finance [k/KEYWORDS] [id/FINANCEID] [a/AMOUNT]
+
+****
+* The search is case insensitive. e.g `nus` will match `NUS`
+* Only the name is searched.
+* Only full words will be matched e.g. `NUS` will not match `NUSSU`
+* Only 1 of the parameters can be present
+* HOMEWORKID must be valid.
+* AMOUNT must be properly formatted
+****
+
+Examples:
+
+* `find finance k/NUS` +
+Returns any finance with `NUS` in its name such as - `Bought textbooks from NUS`, `NUS bonding day`
+* `find finance a/200` +
+Returns any finance with an amount of `200`
