@@ -2,10 +2,14 @@ package seedu.address.logic.commands.customerCommands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.customer.AddressContainsKeywordsPredicate;
+import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 
 /**
@@ -21,9 +25,9 @@ public class FindCustomerCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final Predicate<Customer> predicate;
 
-    public FindCustomerCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCustomerCommand(Predicate<Customer> predicate) {
         this.predicate = predicate;
     }
 
@@ -31,8 +35,11 @@ public class FindCustomerCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCustomerList(predicate);
-        if (model.getFilteredCustomerList().size() == 0) {
+        if (model.getFilteredCustomerList().size() == 0 && predicate instanceof NameContainsKeywordsPredicate) {
             return new CommandResult(String.format("No customer named %s found!", predicate.toString()));
+        } else if (model.getFilteredCustomerList().size() == 0 &&
+                predicate instanceof AddressContainsKeywordsPredicate) {
+            return new CommandResult(String.format("No customer staying in the area %s found!", predicate.toString()));
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCustomerList().size()));
