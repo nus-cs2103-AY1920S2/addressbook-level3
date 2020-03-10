@@ -13,9 +13,6 @@ import fithelper.logic.LogicManager;
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
 import fithelper.model.ReadOnlyFitHelper;
-
-import fithelper.model.util.SampleDataUtil;
-
 import fithelper.storage.FitHelperStorage;
 import fithelper.storage.JsonFitHelperStorage;
 import fithelper.ui.Ui;
@@ -23,6 +20,8 @@ import fithelper.ui.UiManager;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import fithelper.model.util.SampleDataUtil;
 
 import static fithelper.model.util.SampleDataUtil.getSampleFitHelper;
 
