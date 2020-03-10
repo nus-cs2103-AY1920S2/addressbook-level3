@@ -27,8 +27,11 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 * *Other contributions*:
 
+
 ** Project management:
 *** In charge of team facilitation and code integration.
+*** Planned project timeline of EYLAH. +
+    image::Ui.png[width="790"]
 
 ** Enhancements to existing features:
 *** Adapted the given Address Book UI into EYLAH's first draft UI. https://github.com/
