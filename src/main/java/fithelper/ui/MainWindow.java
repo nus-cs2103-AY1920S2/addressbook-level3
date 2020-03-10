@@ -9,6 +9,8 @@ import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.ui.calendar.CalendarPage;
+import fithelper.ui.calendar.FullCalendar;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,8 +40,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private TodayPage todayPage;
     /*private ReportPage reportPage;
-    private ProfilePage profilePage;
-    private CalendarPage calendarPage;*/
+    private ProfilePage profilePage;*/
+    private CalendarPage calendarPage;
+    private FullCalendar fullCalendar;
 
     @FXML
     private StackPane foodListPanelPlaceholder;
@@ -84,12 +87,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
-
         setAllPageAnchor(todayPage.getRoot());
+        calendarPage = new CalendarPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        setAllPageAnchor(calendarPage.getRoot());
+        fullCalendar = new FullCalendar(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        //setAllPageAnchor(fullCalendar.getRoot());
         logger.fine("All pages filled in MainWindow");
-
     }
 
     void show() {
@@ -127,6 +131,9 @@ public class MainWindow extends UiPart<Stage> {
         case TODAY:
             showTodayPage();
             break;
+        case CALENDAR:
+            showCalendarPage();
+            break;
         default:
             break;
         }
@@ -137,10 +144,24 @@ public class MainWindow extends UiPart<Stage> {
         showTodayPage();
     }
 
+    @FXML
+    public void handleShowCalendarPage() {
+        showCalendarPage();
+    }
+
     private void showTodayPage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(todayPage.getRoot());
         currentPage.setText("Today");
+    }
+
+    /**
+     * Shows the calendar page.
+     */
+    private void showCalendarPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().addAll(calendarPage.getRoot(), fullCalendar.getView());
+        currentPage.setText("Calendar");
     }
 
     private void showResultMessage(String message) {
