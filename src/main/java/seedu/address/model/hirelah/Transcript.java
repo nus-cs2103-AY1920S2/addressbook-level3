@@ -12,4 +12,5 @@ public class Transcript {
      3. query by question number
      4. contains the audio file object as well
      */
+    public Transcript() {}
 }
