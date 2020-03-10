@@ -286,7 +286,12 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+* Manage the addition and removal of students quickly
+* Manage the addition and removal of courses quickly
+* Manage the addition and removal of homework and progress quickly
+* Check the financial status of courses
+* Track student progress for courses quickly
 
 [appendix]
 == User Stories
@@ -298,15 +303,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a homework with a deadline |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |list all homework tasks |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |user |list all homework to be done for a course |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a particular homework |locate the details of the homework without going through the whole list of all homeworks
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |edit a homework's detail |quickly change the details of the homework without creating a new entry and deleting the old one
+
+|`* * *` |user |assign a homework to course |
+
+|`* * *` |user |assign a list of homework to course |quickly add all homeworks to a course without going through them one by one
+
+|`* * *` |user |for every student added to a course, assign a list of progress items to them automatically based on the homework for the course | make it more convenient for the administrative staff to assign students to courses
+
+|`* * *` |user |track the progress of an individual student | to ensure that students are caught up on study materials
+
+|`* * *` |user |track the progress of all students in a particular course |to get an overview understanding of all students' progress in a course
+
+|`* * *` |user |mark as done the homework of a student |
+
+|`* * *` |user |mark as done the homework of a few/all students for a particular week |quickly mark students' homework as done without iterating through all of the homework
+
+|`* *` |user |get notified if there is a student with too many undone homework |help to easily inform the teachers on the student progress
 |=======================================================================
 
 _{More to be added}_
@@ -314,33 +335,287 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Code Camp X` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: Adding a homework
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User inputs an 'add homework' command with name and deadline
+2.  CCX adds the homework into the system
++ Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No name/deadline is provided.
+[none]
+** 1a1. CCX shows an error message.
++
+Use case ends.
+
+* 1b. The Date deadline is wrongly formatted.
+[none]
+** 1b1. CCX shows an error message.
+
+[discrete]
+=== Use Case 2: Listing all homework
+
+*MSS*
+
+1.  User requests to see all homework
+2.  CCX outputs all homework in its database
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. List is empty.
++
+Use case ends.
+
+[discrete]
+=== Use Case 3: Deleting a homework
+
+*MSS*
+
+1.  User sees all homework using UC2
+2.  User requests to delete homework using its respective homeworkID
+3.  CCX finds the homework using UC4
+4.  CCX removes the homework from the system
+5.  CCX outputs a success message with the details for the homework
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. homeworkID does not exist.
+** 2a1. CCX shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use Case 4: Finding a homework by homeworkID
+
+*MSS*
+
+1.  User sees all homework using UC2
+2.  User requests to view a homework using its respective homeworkID
+3.  CCX searches the the system for the relevant homework
+4.  CCX outputs a success message with the details for the homework
 +
+Use case ends.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* 2a. homeworkID does not exist.
+** 2a1. CCX shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
+
+[discrete]
+=== Use Case 5: Edit a homework using homeworkID
+
+*MSS*
+
+1.  User sees all homework using UC2
+2.  CCX outputs the whole list of homework
+3.  User requests to edit a homework using its respective homeworkID
+4.  CCX finds for the specific homework using UC4
+5.  CCX changes the details of the homework
+6.  CCX outputs a success message with the updated details for the homework
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. homeworkID does not exist.
+[none]
+** 3a1. CCX shows an error message.
++
+Use case ends.
+
+* 3b. New deadline provided is not properly formatted.
+[none]
+** 3b1. CCX shows an error message.
++
+Use case ends.
+
+* 3c. No new details are provided.
+[none]
+** 3c1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 6: Assign a homework to a course
+
+*MSS*
+
+1.  User requests to see homework using UC2
+2.  CCX outputs the whole list of homework
+3.  User requests to see all courses using *UC??*
+4.  User requests to assign a homework to a course using their respective IDs
+5.  CCX adds the homeworkID into the course's list of homework
+6.  CCX outputs a success message with the successful addition of homework
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. homeworkID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 7: Assign several homework to a course
+
+*MSS*
+
+1.  User requests to see homework using UC2
+2.  CCX outputs the whole list of homework
+3.  User requests to see all courses using *UC??*
+4.  User requests to assign a list of homework to a course using their respective IDs
+5.  CCX adds the list of homeworkID into the course's list of homework
+6.  CCX outputs a success message with the successful addition of homework
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. Any one of the homeworkID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 8: Signup a student to a course
+
+*MSS*
+
+1.  User requests to see all students using *UC??*
+2.  CCX outputs the whole list of students
+3.  User requests to see all courses using *UC??*
+4.  User requests to signup a student to a course using their respective IDs
+5.  CCX finds all homework assigned to the course
+6.  CCX creates a Progress object for each homework and ties it to the student ID
+4.  CCX adds the Progress object into the system
+5.  CCX outputs a success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. studentID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 9: View progress for a particular student, for a certain course
+
+*MSS*
+
+1.  User requests to see all students using *UC??*
+2.  CCX outputs the whole list of students
+3.  User requests to see all courses using *UC??*
+4.  User requests to view the progress for a student, for a course using their respective IDs
+5.  CCX finds all Progress objects using the courseID and studentID
+6.  CCX outputs all the respective Progress objects
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. studentID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+* 4c. Student is not assigned to the course.
+[none]
+** 4c1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 10: View progress for all students, for a certain course
+
+*MSS*
+
+1.  User requests to see all courses using *UC??*
+2.  User requests to view the progress for all students for a course using their respective IDs using UC9
+3.  CCX finds all Progress objects using the courseID and studentID
+4.  CCX outputs all the respective Progress objects
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. courseID does not exist.
+[none]
+** 2a1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 11: Mark a student's Progress object as done
+
+*MSS*
+
+1.  User requests to see a student's Progress for a certain course using UC9
+2.  User requests to view the mark a particular Progress as 'Done' using the progressID
+4.  CCX outputs a success message with the updated Progress object
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. progressID does not exist.
+[none]
+** 2a1. CCX shows an error message.
++
+Use case ends.
+
 
 _{More to be added}_
 
@@ -356,11 +631,14 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+*Homework* ::
+A task that is to be done before a certain date
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+*Progress* ::
+An object that contains a homework, a isDone boolean and is tied to student.
+
+*Signup* ::
+Officially adds a paying student to a course
 
 [appendix]
 == Product Survey
