@@ -28,7 +28,8 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for ModifyCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * ModifyCommand.
  */
 public class ModifyCommandTest {
 
@@ -57,8 +58,8 @@ public class ModifyCommandTest {
         Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withPhone(
+                VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         ModifyCommand modifyCommand = new ModifyCommand(indexLastPerson, descriptor);
 
         String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
