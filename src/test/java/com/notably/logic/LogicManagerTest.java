@@ -18,7 +18,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import com.notably.logic.commands.AddCommand;
 import com.notably.logic.commands.CommandResult;
-import com.notably.logic.commands.ListCommand;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
@@ -57,12 +56,6 @@ public class LogicManagerTest {
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
     @Test
