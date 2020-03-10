@@ -18,10 +18,11 @@ import fithelper.storage.JsonFitHelperStorage;
 import fithelper.ui.Ui;
 import fithelper.ui.UiManager;
 
+import fithelper.model.util.SampleDataUtil;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import fithelper.model.util.SampleDataUtil;
+
 
 import static fithelper.model.util.SampleDataUtil.getSampleFitHelper;
 
