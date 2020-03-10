@@ -15,14 +15,16 @@ public class Module {
 
     private ModuleCode moduleCode;
     private UniqueActivityList activityList;
+    private ModuleName moduleName;
 
     /**
      * Constructs a {@code module}
      * @param moduleCode module code
      */
-    public Module(ModuleCode moduleCode) {
+    public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
         this.activityList = new UniqueActivityList();
+        this.moduleName = moduleName;
     }
 
     //Priority priority;
@@ -54,6 +56,10 @@ public class Module {
 
     public void setActivity(Activity target, Activity editedActivity) {
         activityList.setActivity(target, editedActivity);
+    }
+
+    public ModuleName getModuleName() {
+        return moduleName;
     }
 
     public void remove(Activity toRemove) {

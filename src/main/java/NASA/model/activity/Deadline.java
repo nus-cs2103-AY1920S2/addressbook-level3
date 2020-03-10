@@ -24,4 +24,9 @@ public class Deadline extends Activity {
         super(name, date, note);
     }
 
+    //TODO: detailed implementation of deadline regeneration
+    public Deadline regenerate() {
+        return this;
+    }
+
 }

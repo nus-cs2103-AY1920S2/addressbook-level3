@@ -10,9 +10,9 @@ import NASA.model.module.Module;
 
 public class AddModuleCommand extends Command {
 
-    public final String COMMAND_WORD = "event";
+    public static final String COMMAND_WORD = "event";
 
-    public final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to NASA. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to NASA. "
             + "Parameters:"
             + PREFIX_MODULE + "MODULE CODE"
             + PREFIX_MODULE_NAME + "MODULE NAME" + "\n"

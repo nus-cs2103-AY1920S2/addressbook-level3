@@ -10,6 +10,7 @@ import NASA.model.activity.Name;
 import NASA.model.activity.Note;
 import NASA.model.activity.Priority;
 import NASA.model.module.ModuleCode;
+import NASA.model.module.ModuleName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -102,5 +103,14 @@ public class ParserUtil {
             throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
         return new ModuleCode(moduleCodeTrimmed);
+    }
+
+    public static ModuleName parseModuleName(String moduleName) throws ParseException {
+        requireNonNull(moduleName);
+        String moduleNameTrimmed = moduleName.trim();
+        if (!ModuleName.isValidModuleName(moduleNameTrimmed)) {
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
+        }
+        return new ModuleName(moduleNameTrimmed);
     }
 }

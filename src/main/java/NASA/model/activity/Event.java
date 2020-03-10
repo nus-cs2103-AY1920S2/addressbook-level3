@@ -58,4 +58,10 @@ public class Event extends Activity {
         }
     }
 
+
+    //TODO: detailed implementation of event regeneration
+    public Event regenerate() {
+        return this;
+    }
+
 }

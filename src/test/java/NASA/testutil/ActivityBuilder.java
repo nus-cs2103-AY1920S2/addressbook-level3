@@ -99,12 +99,13 @@ public class ActivityBuilder {
         } else if (name.equals(new Name("lesson"))) {
             return new Lesson(name, date, note);
         } else {
-            return new Activity(name, date, note) {
-                @Override
-                public void setName(Name name) {
-                    super.setName(new Name(" "));
-                }
-            };
+            throw new NullPointerException("Failed to execute activity build.");
+//            return new Activity(name, date, note) {
+//                @Override
+//                public void setName(Name name) {
+//                    super.setName(new Name(" "));
+//                }
+//            };
         }
 
     }
