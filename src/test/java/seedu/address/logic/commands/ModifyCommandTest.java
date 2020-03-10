@@ -162,7 +162,7 @@ public class ModifyCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ResetCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new ModifyCommand(INDEX_SECOND_PERSON, DESC_AMY)));
