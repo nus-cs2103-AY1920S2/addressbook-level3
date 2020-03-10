@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: white;" text="Today's Food" textFill="DARKORANGE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="118.0" layoutY="18.0" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: white;" text="Today's Sports" textFill="DARKORANGE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="78.0" prefWidth="300.0" spacing="5.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0">
+         <children>
+            <Label fx:id="doneFoodCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ff8c00;" text="done food plan" textFill="WHITE" />
+            <Label fx:id="undoneFoodCounter" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ff8c00;" text="undone food plan" textFill="WHITE" />
+         </children>
+         <padding>
+            <Insets bottom="6.0" left="5.0" right="5.0" top="6.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="332.0" prefHeight="78.0" prefWidth="300.0" spacing="5.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label fx:id="doneSportCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ff8c00;" text="done sports plan" textFill="WHITE" />
+            <Label fx:id="undoneSportCounter" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #ff8c00;" text="undone sport plan" textFill="WHITE" />
+         </children>
+         <padding>
+            <Insets bottom="6.0" left="5.0" right="5.0" top="6.0" />
+         </padding>
+      </VBox>
+      <ListView fx:id="foodListView" prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="330.0" AnchorPane.topAnchor="45.0" />
+      <ListView fx:id="sportListView" prefHeight="300.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="330.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="45.0" />
+   </children>
+</AnchorPane>

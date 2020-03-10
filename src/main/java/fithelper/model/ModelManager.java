@@ -3,11 +3,9 @@ package fithelper.model;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import fithelper.commons.core.GuiSettings;
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
 
@@ -21,62 +19,25 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final FitHelper fitHelper;
-    private final UserPrefs userPrefs;
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
      */
-    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyFitHelper fitHelper) {
         super();
-        requireAllNonNull(fitHelper, userPrefs);
+        requireAllNonNull(fitHelper);
 
-        logger.fine("Initializing with FitHelper: " + fitHelper + " and user prefs " + userPrefs);
+        logger.fine("Initializing with FitHelper: " + fitHelper);
 
         this.fitHelper = new FitHelper(fitHelper);
-        this.userPrefs = new UserPrefs(userPrefs);
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
     }
 
     public ModelManager() {
-        this(new FitHelper(), new UserPrefs());
-    }
-
-    //=========== UserPrefs ==================================================================================
-
-    @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
-    }
-
-    @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
-    }
-
-    @Override
-    public Path getFitHelperFilePath() {
-        return userPrefs.getFitHelperFilePath();
-    }
-
-    @Override
-    public void setFitHelperFilePath(Path fitHelperFilePath) {
-        requireNonNull(fitHelperFilePath);
-        userPrefs.setFitHelperFilePath(fitHelperFilePath);
+        this(new FitHelper());
     }
 
     //=========== FitHelper ================================================================================
@@ -88,9 +49,10 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyFitHelper getFitHelper() {
-        return fitHelper;
+        return this.fitHelper;
     }
 
+    //=========== Basic Functions ===========================================================================
     @Override
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
@@ -175,9 +137,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return fitHelper.equals(other.fitHelper)
-                && userPrefs.equals(other.userPrefs)
                 && filteredFoodEntries.equals(other.filteredFoodEntries)
                 && filteredSportsEntries.equals(other.filteredSportsEntries);
     }
-
 }

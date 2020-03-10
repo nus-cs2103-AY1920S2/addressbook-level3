@@ -23,7 +23,7 @@ public class FoodListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code FoodCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Entry} using a {@code FoodCard}.
      */
     class FoodListViewCell extends ListCell<Entry> {
         @Override
