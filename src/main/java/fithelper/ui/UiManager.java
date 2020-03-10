@@ -25,10 +25,18 @@ public class UiManager implements Ui {
 
     private Logic logic;
     private MainWindow mainWindow;
+    private static UiManager thisUiManager = null;
 
     public UiManager(Logic logic) {
         super();
         this.logic = logic;
+    }
+
+    public static UiManager getInstance(Logic logic) {
+        if (thisUiManager == null) {
+            thisUiManager = new UiManager(logic);
+        }
+        return thisUiManager;
     }
 
     @Override
@@ -41,7 +49,7 @@ public class UiManager implements Ui {
         try {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
-            //mainWindow.fillInnerParts();
+            mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));

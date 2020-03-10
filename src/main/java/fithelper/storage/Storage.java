@@ -15,12 +15,6 @@ import fithelper.model.UserPrefs;
 public interface Storage extends FitHelperStorage, UserPrefsStorage {
 
     @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
-
-    @Override
-    void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
-
-    @Override
     Path getFitHelperFilePath();
 
     @Override

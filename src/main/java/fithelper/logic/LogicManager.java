@@ -1,10 +1,8 @@
 package fithelper.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import fithelper.commons.core.GuiSettings;
 import fithelper.commons.core.LogsCenter;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
@@ -14,7 +12,7 @@ import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
-import fithelper.storage.Storage;
+import fithelper.storage.FitHelperStorage;
 
 import javafx.collections.ObservableList;
 
@@ -26,13 +24,13 @@ public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final Storage storage;
+    private final FitHelperStorage storage;
     private final FitHelperParser fitHelperParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, FitHelperStorage storage) {
         this.model = model;
         this.storage = storage;
-        fitHelperParser = new FitHelperParser();
+        this.fitHelperParser = new FitHelperParser();
     }
 
     @Override
@@ -46,6 +44,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveFitHelper(model.getFitHelper());
         } catch (IOException ioe) {
+            logger.severe(ioe.getMessage());
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
@@ -66,19 +65,5 @@ public class LogicManager implements Logic {
     public ObservableList<Entry> getFilteredSportsEntryList() {
         return model.getFilteredSportsEntryList();
     }
-
-    @Override
-    public Path getFitHelperFilePath() {
-        return model.getFitHelperFilePath();
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
-    }
 }
+

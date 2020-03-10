@@ -1,8 +1,5 @@
 package fithelper.logic;
 
-import java.nio.file.Path;
-
-import fithelper.commons.core.GuiSettings;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
@@ -36,18 +33,4 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of sports entries*/
     ObservableList<Entry> getFilteredSportsEntryList();
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getFitHelperFilePath();
-
-    /**
-     * Returns the user prefs' GUI settings.
-     */
-    GuiSettings getGuiSettings();
-
-    /**
-     * Set the user prefs' GUI settings.
-     */
-    void setGuiSettings(GuiSettings guiSettings);
 }
