@@ -38,7 +38,7 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S2/forum/issues/52[1], https://github.com/nus-cs2103-AY1920S2/forum/issues/48[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 ** Tools:
