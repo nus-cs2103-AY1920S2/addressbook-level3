@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.FindCustomerCommand;
+import seedu.address.logic.commands.customerCommands.FindCustomerCommand;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 
 public class FindCustomerCommandParserTest {

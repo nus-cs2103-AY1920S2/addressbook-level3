@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.Arrays;
 
-import seedu.address.logic.commands.FindCustomerCommand;
+import seedu.address.logic.commands.customerCommands.FindCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 

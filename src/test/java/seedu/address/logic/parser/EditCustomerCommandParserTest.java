@@ -34,8 +34,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCustomerCommand;
-import seedu.address.logic.commands.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customerCommands.EditCustomerCommand;
+import seedu.address.logic.commands.customerCommands.EditCustomerCommand.EditPersonDescriptor;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
