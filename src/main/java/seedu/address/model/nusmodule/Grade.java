@@ -1,5 +1,8 @@
 package seedu.address.model.nusmodule;
 
+/**
+ * Represents the grades obtained by a NUS student for any specific module.
+ */
 public enum Grade {
     APLUS(5.0, "A+", true, true),
     A(5.0, "A", true, true),
@@ -29,8 +32,8 @@ public enum Grade {
 
     public static Grade getGrade(String text) {
         Grade grade = F;
-        for(Grade g : values()) {
-            if(g.text.equals(text)) {
+        for (Grade g : values()) {
+            if (g.text.equals(text)) {
                 grade = g;
             }
         }
@@ -39,7 +42,7 @@ public enum Grade {
 
     public static Grade getGradeAfterSu(String text) {
         for (Grade g : values()) {
-            if (g.text.equals(text) &&g.isSatisfactory) {
+            if (g.text.equals(text) && g.isSatisfactory) {
                 return S;
             }
         }

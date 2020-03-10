@@ -2,6 +2,9 @@ package seedu.address.model.nusmodule;
 
 import java.util.Optional;
 
+/**
+ * Represents a module in NUS.
+ */
 public class NusModule {
     public final ModuleCode moduleCode;
     public final int modularCredit;
