@@ -1,5 +1,9 @@
 package seedu.address.model.ingredient;
 
+/**
+ * Represents the standardized units that will be used in the recipe book.
+ */
+
 public enum Unit {
     LIQUID("ml"),
     SOLID("g"),

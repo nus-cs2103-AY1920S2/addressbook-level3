@@ -1,5 +1,9 @@
 package seedu.address.model.ingredient;
 
+/**
+ * Represents an Ingredient in the recipe book.
+ */
+
 public abstract class Ingredient {
     protected String name;
     protected double quantity;
