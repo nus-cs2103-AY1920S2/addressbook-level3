@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -8,7 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddProductCommand;
+import seedu.address.logic.commands.product.AddProductCommand;
+import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
