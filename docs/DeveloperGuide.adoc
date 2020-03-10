@@ -386,13 +386,64 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. No name/deadline is provided.
-** 1a1. CCX shows an error message.
+* 2a. homeworkID does not exist.
+** 2a1. CCX shows an error message.
 +
 Use case ends.
 
-* 1b. The Date deadline is wrongly formatted.
-** 1b1. CCX shows an error message.
+=== Use Case 4: Finding a homework by homeworkID
+
+*MSS*
+
+1.  User sees all homework using UC2
+2.  User requests to view a homework using its respective homeworkID
+3.  CCX searches the the system for the relevant homework
+4.  CCX outputs a success message with the details for the homework
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. homeworkID does not exist.
+** 2a1. CCX shows an error message.
++
+Use case ends.
+
+=== Use Case 5: Edit a homework using homeworkID
+
+*MSS*
+
+1.  User sees all homework using UC2.
+3.  CCX outputs the whole list of homework.
+2.  User requests to edit a homework using its respective homeworkID.
+3.  CCX finds for the specific homework using UC4.
+4.  CCX changes the details of the homework.
+5.  CCX outputs a success message with the updated details for the homework
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. homeworkID does not exist.
+[none]
+** 2a1. CCX shows an error message.
++
+Use case ends.
+
+* 2b. New deadline provided is not properly formatted.
+[none]
+** 2b1. CCX shows an error message.
++
+Use case ends.
+
+* 2c. No new details are provided.
+[none]
+** 2c1. CCX shows an error message.
++
+Use case ends.
+
 
 _{More to be added}_
 
