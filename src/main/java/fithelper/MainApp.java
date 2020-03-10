@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import static fithelper.model.util.SampleDataUtil.getSampleFitHelper;
+
 import fithelper.commons.core.Config;
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Version;
@@ -20,8 +22,6 @@ import fithelper.ui.Ui;
 import fithelper.ui.UiManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import static fithelper.model.util.SampleDataUtil.getSampleFitHelper;
 
 /**
  * Runs the application.
