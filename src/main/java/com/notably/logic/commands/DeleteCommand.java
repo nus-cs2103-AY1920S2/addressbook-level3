@@ -1,13 +1,13 @@
 package com.notably.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import com.notably.commons.core.Messages;
 import com.notably.commons.core.index.Index;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

@@ -1,12 +1,16 @@
 package com.notably.logic.parser;
 
-import com.notably.logic.commands.AddCommand;
-import com.notably.logic.parser.exceptions.ParseException;
+import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
+import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
+import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static com.notably.logic.parser.CliSyntax.*;
+import com.notably.logic.commands.AddCommand;
+import com.notably.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCommand object

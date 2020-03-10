@@ -15,7 +15,6 @@ import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.storage.Storage;
 
-import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.

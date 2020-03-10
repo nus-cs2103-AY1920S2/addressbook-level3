@@ -1,10 +1,11 @@
 package com.notably.logic.commands;
 
-import com.notably.commons.core.Messages;
-import com.notably.commons.core.index.Index;
-import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.model.Model;
-import com.notably.model.tag.Tag;
+import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
+import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
+import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,8 +13,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.notably.logic.parser.CliSyntax.*;
-import static java.util.Objects.requireNonNull;
+import com.notably.commons.core.Messages;
+import com.notably.commons.core.index.Index;
+import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.model.Model;
+import com.notably.model.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.

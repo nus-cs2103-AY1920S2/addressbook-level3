@@ -1,19 +1,23 @@
 package com.notably.logic.parser;
 
-import com.notably.commons.core.index.Index;
-import com.notably.logic.commands.EditCommand;
-import com.notably.logic.commands.EditCommand.EditPersonDescriptor;
-import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.model.tag.Tag;
+import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
+import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
+import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static com.notably.logic.parser.CliSyntax.*;
-import static java.util.Objects.requireNonNull;
+import com.notably.commons.core.index.Index;
+import com.notably.logic.commands.EditCommand;
+import com.notably.logic.commands.EditCommand.EditPersonDescriptor;
+import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object

@@ -1,10 +1,11 @@
 package com.notably.model;
 
-import com.notably.commons.core.GuiSettings;
-import javafx.collections.ObservableList;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
+
+import com.notably.commons.core.GuiSettings;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.

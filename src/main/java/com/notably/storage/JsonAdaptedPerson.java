@@ -1,12 +1,12 @@
 package com.notably.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.notably.commons.exceptions.IllegalValueException;
 import com.notably.model.tag.Tag;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Jackson-friendly version of {@link Object}.

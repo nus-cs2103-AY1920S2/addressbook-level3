@@ -1,9 +1,9 @@
 package com.notably.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import com.notably.commons.core.Messages;
 import com.notably.model.Model;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

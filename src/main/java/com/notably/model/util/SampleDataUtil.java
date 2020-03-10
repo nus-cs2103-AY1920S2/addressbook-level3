@@ -1,12 +1,12 @@
 package com.notably.model.util;
 
-import com.notably.model.AddressBook;
-import com.notably.model.ReadOnlyAddressBook;
-import com.notably.model.tag.Tag;
-
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.notably.model.AddressBook;
+import com.notably.model.ReadOnlyAddressBook;
+import com.notably.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

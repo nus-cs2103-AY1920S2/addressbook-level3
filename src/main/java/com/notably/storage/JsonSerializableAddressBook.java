@@ -1,14 +1,14 @@
 package com.notably.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.notably.commons.exceptions.IllegalValueException;
 import com.notably.model.AddressBook;
 import com.notably.model.ReadOnlyAddressBook;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.

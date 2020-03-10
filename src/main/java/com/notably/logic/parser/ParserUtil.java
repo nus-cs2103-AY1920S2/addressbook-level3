@@ -1,15 +1,15 @@
 package com.notably.logic.parser;
 
-import com.notably.commons.core.index.Index;
-import com.notably.commons.util.StringUtil;
-import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
+import com.notably.commons.core.index.Index;
+import com.notably.commons.util.StringUtil;
+import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
