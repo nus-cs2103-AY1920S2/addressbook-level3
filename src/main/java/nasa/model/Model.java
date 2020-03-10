@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import nasa.commons.core.GuiSettings;
 import nasa.model.activity.Activity;
 import nasa.model.module.Module;

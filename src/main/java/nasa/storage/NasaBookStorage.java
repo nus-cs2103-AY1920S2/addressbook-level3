@@ -23,23 +23,23 @@ public interface NasaBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException, nasa.commons.exceptions.DataConversionException;
+    Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException;
 
     /**
      * @see #getNasaBookFilePath()
      */
-    Optional<ReadOnlyNasaBook> readNasaBook(Path filePath) throws DataConversionException, IOException, nasa.commons.exceptions.DataConversionException;
+    Optional<ReadOnlyNasaBook> readNasaBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyNasaBook} to the storage.
-     * @param NasaBook cannot be null.
+     * @param nasaBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveNasaBook(ReadOnlyNasaBook NasaBook) throws IOException;
+    void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException;
 
     /**
      * @see #saveNasaBook(ReadOnlyNasaBook)
      */
-    void saveNasaBook(ReadOnlyNasaBook NasaBook, Path filePath) throws IOException;
+    void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException;
 
 }

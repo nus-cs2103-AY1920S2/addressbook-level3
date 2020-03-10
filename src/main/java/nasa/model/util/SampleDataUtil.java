@@ -12,9 +12,9 @@ import nasa.model.module.ModuleName;
 public class SampleDataUtil {
     public static Module[] getSampleModules() {
         return new Module[] {
-                new Module(new ModuleCode("CS2101"), new ModuleName("Effective Communication for Computing " +
-                        "Professionals")),
-                new Module(new ModuleCode("CS2103T"), new ModuleName("Software Engineering"))
+            new Module(new ModuleCode("CS2101"), new ModuleName("Effective Communication for Computing "
+                    + "Professionals")),
+            new Module(new ModuleCode("CS2103T"), new ModuleName("Software Engineering"))
         };
     }
 

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import nasa.commons.core.Config;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.core.Version;

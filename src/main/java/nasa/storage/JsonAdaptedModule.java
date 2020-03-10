@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
@@ -29,7 +30,8 @@ class JsonAdaptedModule {
      * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
-    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("moduleName") String moduleName,
+    public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode,
+                             @JsonProperty("moduleName") String moduleName,
                              @JsonProperty("activities") List<JsonAdaptedActivity> activities) {
         this.moduleCode = moduleCode;
         this.moduleName = moduleName;
@@ -43,7 +45,7 @@ class JsonAdaptedModule {
      */
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
-        moduleName= source.getModuleName().toString();
+        moduleName = source.getModuleName().toString();
         activityList.addAll(source.getActivities().asUnmodifiableObservableList().stream()
                 .map(JsonAdaptedActivity::new)
                 .collect(Collectors.toList()));

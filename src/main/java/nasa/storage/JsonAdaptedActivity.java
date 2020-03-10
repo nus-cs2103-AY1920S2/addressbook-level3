@@ -2,6 +2,7 @@ package nasa.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Date;
@@ -56,7 +57,7 @@ class JsonAdaptedActivity {
             type = "deadline";
         } else if (source instanceof Event) {
             type = "event";
-        } else  {
+        } else {
             type = "lesson";
         }
     }
@@ -105,11 +106,16 @@ class JsonAdaptedActivity {
         Activity activity = null;
         switch (type) {
         case "deadline":
-            activity =  new Deadline(modelName, modelDate, modelNote);
+            activity = new Deadline(modelName, modelDate, modelNote);
+            break;
         case "event":
             activity = new Event(modelName, modelDate, modelNote);
+            break;
         case "lesson":
             activity = new Lesson(modelName, modelDate, modelNote);
+            break;
+        default:
+            throw new IllegalValueException("");
         }
         return activity;
     }

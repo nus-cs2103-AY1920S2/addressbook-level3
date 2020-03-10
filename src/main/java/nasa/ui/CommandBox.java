@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;

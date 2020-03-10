@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import nasa.MainApp;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.util.StringUtil;

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+
 import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 
@@ -46,7 +47,8 @@ public class ModuleCard extends UiPart<Region> {
         name.setText(module.getModuleName().toString());
         module.getActivities().asUnmodifiableObservableList().stream()
                 .sorted(Comparator.comparing(activity -> activity.getName().toString()))
-                .forEach(activity -> activities.getChildren().add(new Label(((Activity) activity).getName().toString())));
+                .forEach(activity -> activities.getChildren().add(
+                        new Label(((Activity) activity).getName().toString())));
     }
 
     @Override

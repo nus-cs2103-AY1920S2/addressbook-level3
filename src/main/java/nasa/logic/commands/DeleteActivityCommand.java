@@ -12,7 +12,8 @@ public class DeleteActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":Deletes the activities identified by the index numbers used in the displayed activity list.\n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ":Deletes the activities identified by the index numbers used in the displayed activity list.\n "
             + "Parameters:"
             + PREFIX_MODULE + "MODULE CODE"
             + "INDEX" + "\n"

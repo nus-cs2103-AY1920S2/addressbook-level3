@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.logic.Logic;

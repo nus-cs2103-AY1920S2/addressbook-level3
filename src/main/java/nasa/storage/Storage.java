@@ -27,6 +27,6 @@ public interface Storage extends NasaBookStorage, UserPrefsStorage {
     Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException;
 
     @Override
-    void saveNasaBook(ReadOnlyNasaBook NASABook) throws IOException;
+    void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException;
 
 }

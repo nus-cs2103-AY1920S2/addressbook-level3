@@ -17,14 +17,14 @@ import nasa.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private NasaBookStorage NasaBookStorage;
+    private NasaBookStorage nasaBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
 
-    public StorageManager(NasaBookStorage NasaBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(NasaBookStorage nasaBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.NasaBookStorage = NasaBookStorage;
+        this.nasaBookStorage = nasaBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -50,29 +50,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getNasaBookFilePath() {
-        return NasaBookStorage.getNasaBookFilePath();
+        return nasaBookStorage.getNasaBookFilePath();
     }
 
     @Override
     public Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException {
-        return readNasaBook(NasaBookStorage.getNasaBookFilePath());
+        return readNasaBook(nasaBookStorage.getNasaBookFilePath());
     }
 
     @Override
     public Optional<ReadOnlyNasaBook> readNasaBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return NasaBookStorage.readNasaBook(filePath);
+        return nasaBookStorage.readNasaBook(filePath);
     }
 
     @Override
-    public void saveNasaBook(ReadOnlyNasaBook NasaBook) throws IOException {
-        saveNasaBook(NasaBook, NasaBookStorage.getNasaBookFilePath());
+    public void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException {
+        saveNasaBook(nasaBook, nasaBookStorage.getNasaBookFilePath());
     }
 
     @Override
-    public void saveNasaBook(ReadOnlyNasaBook NasaBook, Path filePath) throws IOException {
+    public void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        NasaBookStorage.saveNasaBook(NasaBook, filePath);
+        nasaBookStorage.saveNasaBook(nasaBook, filePath);
     }
 
 }

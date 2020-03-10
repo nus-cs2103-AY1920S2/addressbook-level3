@@ -60,8 +60,8 @@ public class JsonNasaBookStorage implements NasaBookStorage {
     }
 
     @Override
-    public void saveNasaBook(ReadOnlyNasaBook NasaBook) throws IOException {
-        saveNasaBook(NasaBook, filePath);
+    public void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException {
+        saveNasaBook(nasaBook, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonNasaBookStorage implements NasaBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveNasaBook(ReadOnlyNasaBook NasaBook, Path filePath) throws IOException {
-        requireNonNull(NasaBook);
+    public void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException {
+        requireNonNull(nasaBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableNasaBook(NasaBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePath);
     }
 
 }

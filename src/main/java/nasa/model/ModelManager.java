@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;
@@ -27,13 +28,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
      */
-    public ModelManager(ReadOnlyNasaBook NasaBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(NasaBook, userPrefs);
+        requireAllNonNull(nasaBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + NasaBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + nasaBook + " and user prefs " + userPrefs);
 
-        this.nasaBook = new NasaBook(NasaBook);
+        this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
     }
@@ -80,8 +81,8 @@ public class ModelManager implements Model {
     //=========== NasaBook ================================================================================
 
     @Override
-    public void setNasaBook(ReadOnlyNasaBook NasaBook) {
-        this.nasaBook.resetData(NasaBook);
+    public void setNasaBook(ReadOnlyNasaBook nasaBook) {
+        this.nasaBook.resetData(nasaBook);
     }
 
     @Override

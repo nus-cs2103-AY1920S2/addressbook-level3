@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.model.module.exceptions.ModuleNotFoundException;

@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.logic.commands.Command;

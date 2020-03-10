@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
