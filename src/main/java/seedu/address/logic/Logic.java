@@ -26,7 +26,7 @@ public interface Logic {
     /**
      * Returns the RecipeBook.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getRecipeBook()
      */
     ReadOnlyRecipeBook getAddressBook();
 

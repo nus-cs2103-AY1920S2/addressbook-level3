@@ -37,7 +37,7 @@ class JsonSerializableRecipeBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableRecipeBook}.
      */
     public JsonSerializableRecipeBook(ReadOnlyRecipeBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getRecipeList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
