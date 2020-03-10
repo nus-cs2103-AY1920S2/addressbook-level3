@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CodeCampX - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -23,48 +23,43 @@ More importantly, CCX is *optimized for those who prefer to work with a Command 
 If you can type fast, CCX can allow you to manage your camp's administrative tasks faster than traditional GUI apps.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-== Quick Start
+. Define a very specific _target user profile_.
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+Coding bootcamp
+(Reasonable to assume that officers are educated enough to prefer typing)
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+. Define a clear _value proposition_ that matches the target user profile i.e., what problem does the product solve? How does it make the the user's life easier?
+* *[Staff Management]* Helps the owner to schedule teachers
+* *[Student Management]* Helps the owner to keep track of students progress
+* *[Finances Management]* Helps the owner to track finances (profits and expenses)
+* *[Courses Management]* Schedule courses
 
-.  Refer to <<Features>> for details of each command.
+Hierarchy: Owner -> Admin Staff-> Teachers -> Students -> Progress +
+Each owner has a few teachers, each admin staff takes care of a few teachers, each teachers has a few students, each students has a progress
 
-[[Features]]
-== Features
+. Optimize the product to the chosen target users i.e., add features that are especially/only applicable for target users (to make the app especially attractive to them).
+Sheng Xue: I will try to organise in terms of when the feature should be done. I.e For each of the 4 functions, those on top should be done early, and those on the bottom will be done later. +
+*[Staff Management]* +
+*[Must-have] [Week 7]* +
+As an owner, I want to be able to add and delete teachers, so I can hire and fire teachers.
 
-====
-*Command Format*
+*[Must-have] [Week 7]* +
+As a user, I want to be able to promote or fire my teachers in the system.
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
+*[Must-have] [Week 8]* +
+As a user, I want to be able to edit the details of the teachers such as their incomes, so that their incomes will be automatically deducted from the finances of the tuition centre (STAFF>FINANCE)
 
-=== Viewing help : `help`
+*[Must-have] [Week 9]* +
+As a user, I can specify the availability of the teachers, so that I can easily assign available teachers to teach specific courses. (STAFF -> COURSES)
 
-Format: `help`
+*[Must-have] [Week 10]* +
+As a user, I can specify the skill levels and the courses that the teachers can teach.
 
 === Adding a homework: `add homework`
 
 Adds a homework to the list of homework +
 Format: `add homework n/NAME d/DEADLINE`
 
-Examples:
 
 * `add n/Function Programming Assignment d/2020-01-30`
 
@@ -93,8 +88,6 @@ Format: `edit homework HOMEWORKID [n/NAME] [d/DEADLINE]`
 * Existing values will be updated to the input values.
 ****
 
-Examples:
-
 * `edit 001 n/Machine Learning Assignment e/2020-02-30` +
 Edits the name and deadline of the homework with ID of 001 to be `Machine Learning Assignment` and `2020-02-30` respectively.
 
@@ -111,72 +104,8 @@ Format: `find homework [k/KEYWORDS] [id/HOMEWORKID] [d/DEADLINE]
 * HOMEWORKID must be valid.
 * DEADLINE must be properly formatted
 ****
-
-Examples:
-
+-update
 * `find k/Machine` +
 Returns any homework with `Machine` in its name such as - `Machine Learning Assignment`, `Reinforcement Learning Assignment`
 * `find d/2020-01-30` +
 Returns any homework with a deadline of `2020-01-30`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
