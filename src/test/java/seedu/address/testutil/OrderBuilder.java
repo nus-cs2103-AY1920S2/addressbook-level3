@@ -9,6 +9,7 @@ import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -21,12 +22,14 @@ public class OrderBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_WAREHOUSE = "5 Toh Guan Rd E, #02-30 S608831";
     public static final String DEFAULT_COMMENT = "NIL";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Warehouse warehouse;
     private Comment comment;
     private Set<Tag> tags;
 
@@ -35,6 +38,7 @@ public class OrderBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        warehouse = new Warehouse(DEFAULT_WAREHOUSE);
         comment = new Comment(DEFAULT_COMMENT);
         tags = new HashSet<>();
     }
@@ -47,6 +51,7 @@ public class OrderBuilder {
         phone = orderToCopy.getPhone();
         email = orderToCopy.getEmail();
         address = orderToCopy.getAddress();
+        warehouse = orderToCopy.getWarehouse();
         comment = orderToCopy.getComment();
         tags = new HashSet<>(orderToCopy.getTags());
     }
@@ -62,7 +67,7 @@ public class OrderBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Order} that we are building.
      */
-    public OrderBuilder withTags(String ... tags) {
+    public OrderBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -72,6 +77,14 @@ public class OrderBuilder {
      */
     public OrderBuilder withAddress(String address) {
         this.address = new Address(address);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Warehouse} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withWarehouse(String warehouseLocation) {
+        this.warehouse = new Warehouse(warehouseLocation);
         return this;
     }
 
@@ -100,7 +113,7 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(name, phone, email, address, comment, tags);
+        return new Order(name, phone, email, address, warehouse, comment, tags);
     }
 
 }

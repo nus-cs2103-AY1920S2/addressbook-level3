@@ -23,18 +23,21 @@ public class Order {
 
     // Data fields
     private final Address address;
+    private final Warehouse warehouse;
     private final Comment comment;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Order(Name name, Phone phone, Email email, Address address, Comment comment, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, comment, tags);
+    public Order(Name name, Phone phone, Email email, Address address, Warehouse warehouse,
+                 Comment comment, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, warehouse, comment, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.warehouse = warehouse;
         this.comment = comment;
         this.tags.addAll(tags);
     }
@@ -53,6 +56,10 @@ public class Order {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
     }
 
     public Comment getComment() {
@@ -100,6 +107,7 @@ public class Order {
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
+                && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
                 && otherOrder.getTags().equals(getTags());
     }
@@ -107,7 +115,7 @@ public class Order {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, comment, tags);
+        return Objects.hash(name, phone, email, address, warehouse, comment, tags);
     }
 
     @Override
@@ -120,6 +128,8 @@ public class Order {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Warehouse: ")
+                .append(getWarehouse())
                 .append(" Comment: ")
                 .append(getComment())
                 .append(" Tags: ");

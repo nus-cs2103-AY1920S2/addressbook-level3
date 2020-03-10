@@ -14,6 +14,7 @@ import seedu.address.model.order.Address;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,6 +27,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -79,6 +81,21 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Warehouse}.
+     * Leading and trailing whitespace will be removed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Warehouse parseWarehouse(String address) throws ParseException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        if (!Warehouse.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Warehouse.MESSAGE_CONSTRAINTS);
+        }
+        return new Warehouse(trimmedAddress);
     }
 
     /**

@@ -16,6 +16,7 @@ import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,26 +24,29 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedPerson {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 
     private final String name;
     private final String phone;
     private final String email;
     private final String address;
+    private final String warehouse;
     private final String comment;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedPerson} with the given order details.
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("comment") String comment, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("warehouse") String warehouse, @JsonProperty("comment") String comment,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.warehouse = warehouse;
         this.comment = comment;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -57,6 +61,7 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        warehouse = source.getWarehouse().address;
         comment = source.getComment().commentMade;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -106,6 +111,15 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (warehouse == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Warehouse.class.getSimpleName()));
+        }
+        if (!Warehouse.isValidAddress(warehouse)) {
+            throw new IllegalValueException(Warehouse.MESSAGE_CONSTRAINTS);
+        }
+        final Warehouse modelWarehouse = new Warehouse(warehouse);
+
         final Comment modelComment;
         if (comment == null) {
             modelComment = new Comment("NIL");
@@ -117,7 +131,8 @@ class JsonAdaptedPerson {
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelComment, modelTags);
+        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelWarehouse,
+                modelComment, modelTags);
     }
 
 }

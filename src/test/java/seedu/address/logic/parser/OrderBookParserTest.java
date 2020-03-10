@@ -17,7 +17,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -25,13 +24,13 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.NameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class OrderParserTest {
+public class OrderBookParserTest {
 
-    private final OrderParser parser = new OrderParser();
+    private final OrderBookParser parser = new OrderBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -56,7 +55,7 @@ public class OrderParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Order order = new OrderBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(order).build();
+        EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(order).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

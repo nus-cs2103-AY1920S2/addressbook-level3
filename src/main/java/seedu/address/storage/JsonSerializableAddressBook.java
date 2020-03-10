@@ -19,7 +19,7 @@ import seedu.address.model.order.Order;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -50,7 +50,7 @@ class JsonSerializableAddressBook {
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Order order = jsonAdaptedPerson.toModelType();
             if (addressBook.hasOrder(order)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                throw new IllegalValueException(MESSAGE_DUPLICATE_ORDER);
             }
             addressBook.addOrder(order);
         }
