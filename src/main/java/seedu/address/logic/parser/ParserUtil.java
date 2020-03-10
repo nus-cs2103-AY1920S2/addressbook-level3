@@ -7,7 +7,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.module.SemesterData;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -44,21 +43,6 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
-    }
-
-    /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code name} is invalid.
-     */
-    public static SemesterData parseSemesterData(String semester) throws ParseException {
-        requireNonNull(semester);
-        String trimmedSemester = semester.trim();
-        if (!isInteger(semester)) {
-            throw new ParseException(MESSAGE_INVALID_SEMESTER);
-        }
-        return new SemesterData(semester);
     }
 
     /**
