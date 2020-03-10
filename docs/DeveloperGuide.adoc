@@ -345,12 +345,16 @@ _{More to be added}_
 
 [none]
 * 1a. No name/deadline is provided.
+[none]
 ** 1a1. CCX shows an error message.
-+ Use case ends.
++
+Use case ends.
 
 * 1b. The Date deadline is wrongly formatted.
+[none]
 ** 1b1. CCX shows an error message.
 
+[discrete]
 === Use Case 2: Listing all homework
 
 *MSS*
@@ -361,11 +365,12 @@ _{More to be added}_
 Use case ends.
 
 *Extensions*
-
+[none]
 * 1a. List is empty.
 +
 Use case ends.
 
+[discrete]
 === Use Case 3: Deleting a homework
 
 *MSS*
