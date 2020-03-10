@@ -94,13 +94,14 @@
 }
 
 .list-cell {
+    -fx-background-radius: 30;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: #003366;
 }
 
 .list-cell:filled:odd {
@@ -137,6 +138,7 @@
 }
 
 .pane-with-border {
+     -fx-border-radius: 0;
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
@@ -197,7 +199,7 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
@@ -334,7 +336,7 @@
 
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+    -fx-background-radius: 20;
 }
 
 #tags {
