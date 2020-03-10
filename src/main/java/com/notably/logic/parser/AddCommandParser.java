@@ -1,6 +1,5 @@
 package com.notably.logic.parser;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
@@ -30,7 +29,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format("MESSAGE_INVALID_COMMAND_FORMAT", AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());

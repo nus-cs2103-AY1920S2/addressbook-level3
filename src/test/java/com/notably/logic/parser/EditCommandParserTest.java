@@ -1,6 +1,5 @@
 package com.notably.logic.parser;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static com.notably.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static com.notably.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static com.notably.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -44,7 +43,7 @@ public class EditCommandParserTest {
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format("MESSAGE_INVALID_COMMAND_FORMAT", EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 

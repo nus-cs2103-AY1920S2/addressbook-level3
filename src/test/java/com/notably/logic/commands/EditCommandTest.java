@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.notably.commons.core.Messages;
 import com.notably.commons.core.index.Index;
 import com.notably.logic.commands.EditCommand.EditPersonDescriptor;
 import com.notably.model.AddressBook;
@@ -124,7 +123,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, "MESSAGE_INVALID_PERSON_DISPLAYED_INDEX");
     }
 
     /**
@@ -141,7 +140,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, "MESSAGE_INVALID_PERSON_DISPLAYED_INDEX");
     }
 
     @Test
