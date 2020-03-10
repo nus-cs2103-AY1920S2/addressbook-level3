@@ -38,6 +38,11 @@ public class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withCourse(String course) {
+        this.course = new Course(course);
+        return this;
+    }
+
     public Person build() {
         return new Person(name, course, specialisation);
     }
