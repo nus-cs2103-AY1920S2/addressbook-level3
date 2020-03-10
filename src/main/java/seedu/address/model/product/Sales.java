@@ -4,25 +4,24 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Product's price in the product list
+ * Represents a Product's sales in the product list
  * Guarantees: immutable; is valid as declared in {@link #isValidSales(String)}
  */
 public class Sales {
 
-    public static final String MESSAGE_CONSTRAINTS = "Quantity can take any numeric values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Sales can take any numeric values, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Sales}.
      *
-     * @param sales A valid address.
+     * @param sales A valid sales.
      */
     public Sales(String sales) {
         requireNonNull(sales);
@@ -31,7 +30,7 @@ public class Sales {
     }
 
     /**
-     * Returns true if a given string is a valid price.
+     * Returns true if a given string is a valid sales.
      */
     public static boolean isValidSales(String test) {
         return test.matches(VALIDATION_REGEX);

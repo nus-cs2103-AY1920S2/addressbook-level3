@@ -12,17 +12,16 @@ public class Price {
     public static final String MESSAGE_CONSTRAINTS = "Price can take any numeric values, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Price}.
      *
-     * @param price A valid address.
+     * @param price A valid price.
      */
     public Price(String price) {
         requireNonNull(price);

@@ -47,12 +47,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' product list file path.
      */
     Path getProductListFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' product list file path.
      */
     void setProductListFilePath(Path productListFilePath);
 
@@ -70,7 +70,7 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a product with the same identity as {@code product} exists in the product list.
      */
     boolean hasProduct(Product product);
 
@@ -81,8 +81,8 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given product.
+     * The product must exist in the product list.
      */
     void deleteProduct(Product target);
 
@@ -93,8 +93,8 @@ public interface Model {
     void addPerson(Person person);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given product.
+     * {@code product} must not already exist in the product list.
      */
     void addProduct(Product product);
 
@@ -106,9 +106,10 @@ public interface Model {
     void setPerson(Person target, Person editedPerson);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given product {@code target} with {@code editedProduct}.
+     * {@code target} must exist in the product list.
+     * The product identity of {@code editedProduct} must not be the same as
+     * another existing product in the address book.
      */
     void setProduct(Product target, Product editedProduct);
 
@@ -122,11 +123,11 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered product list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredProductList(Predicate<Product> predicate);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered product list */
     ObservableList<Product> getFilteredProductList();
 }

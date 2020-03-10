@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.product;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -6,12 +6,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.product.Product;
 
 /**
- * Adds a person to the address book.
+ * Adds a product to the product list.
  */
 public class AddProductCommand extends Command {
 
@@ -35,7 +37,7 @@ public class AddProductCommand extends Command {
     private final Product toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddProductCommand to add the specified {@code Product}
      */
     public AddProductCommand(Product product) {
         requireNonNull(product);

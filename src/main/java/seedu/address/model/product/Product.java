@@ -5,13 +5,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Product in the product list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Product {
 
     // Identity fields
     private final Description description;
+
+    // Data fields
     private final Price price;
     private final Quantity quantity;
     private final Sales sales;
@@ -44,8 +46,7 @@ public class Product {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both products have the same identity and data fields.
      */
     public boolean isSameProduct(Product otherProduct) {
         if (otherProduct == this) {
@@ -60,8 +61,7 @@ public class Product {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both products have the same identity and data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -89,7 +89,7 @@ public class Product {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Description: ")
+        builder.append("Description: ")
                 .append(getDescription())
                 .append(" Price: ")
                 .append(getPrice())
