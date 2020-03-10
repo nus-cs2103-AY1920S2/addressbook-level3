@@ -5,10 +5,10 @@ package seedu.address.model.profile.course.module;
  */
 public class PersonalModule {
 
-    private final SemesterData semester;
+    private final String semester;
     private final String grade;
 
-    public PersonalModule(SemesterData semester, String grade) {
+    public PersonalModule(String semester, String grade) {
         this.semester = semester;
         this.grade = grade;
     }

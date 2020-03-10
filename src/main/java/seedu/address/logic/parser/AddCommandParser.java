@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.PersonalModule;
-import seedu.address.model.profile.course.module.SemesterData;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -46,7 +45,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         // Add module to list in Personal object within Module Object
-        SemesterData semester = ParserUtil.parseSemesterData(argMultimap.getValue(PREFIX_SEMESTER).get());
+        String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
 
         String grade = null;
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
