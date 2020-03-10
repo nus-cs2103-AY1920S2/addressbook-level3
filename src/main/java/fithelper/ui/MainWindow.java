@@ -2,7 +2,6 @@ package fithelper.ui;
 
 import java.util.logging.Logger;
 
-import fithelper.commons.core.GuiSettings;
 import fithelper.commons.core.LogsCenter;
 import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
@@ -11,10 +10,12 @@ import fithelper.logic.parser.exceptions.ParseException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -60,16 +61,19 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    //blueprint
+    //Main page
+    @FXML
+    private Label currentPage;
+    @FXML
+    private AnchorPane pagePane;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
-
         // Set dependencies
         this.primaryStage = primaryStage;
-
         this.logic = logic;
-
         setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -129,18 +133,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
-    }
-
-    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -153,6 +145,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void show() {
+        primaryStage.setHeight(400);
+        primaryStage.setWidth(600);
         primaryStage.show();
     }
 
@@ -161,8 +155,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
         helpWindow.hide();
         primaryStage.hide();
     }
