@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Represents a Recipe in the address book.
@@ -22,16 +23,18 @@ public class Recipe {
 
     // Data fields
     private final Set<Goal> goals = new HashSet<>();
+    private final Set<Ingredient> ingredients = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Time time, Email email, Set<Goal> goals) {
+    public Recipe(Name name, Time time, Email email, Set<Goal> goals, Set<Ingredient> ingredients) {
         requireAllNonNull(name, time, email, goals);
         this.name = name;
         this.time = time;
         this.email = email;
         this.goals.addAll(goals);
+        this.ingredients.addAll(ingredients);
     }
 
     public Name getName() {
@@ -52,6 +55,15 @@ public class Recipe {
      */
     public Set<Goal> getGoals() {
         return Collections.unmodifiableSet(goals);
+    }
+
+    // todo: double check ingredients get
+    /**
+     * Returns an immutable ingredient set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Ingredient> getIngredients() {
+        return Collections.unmodifiableSet(ingredients);
     }
 
     /**
@@ -101,7 +113,9 @@ public class Recipe {
         builder.append(getName())
                 .append(" Time: ")
                 .append(getTime())
-                .append(" Email: ")
+                .append(" Ingredients: ");
+        getIngredients().forEach(builder::append);
+        builder.append(" Email: ")
                 .append(getEmail())
                 .append(" Goals: ");
         getGoals().forEach(builder::append);
