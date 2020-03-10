@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -17,18 +16,18 @@ import seedu.address.logic.commands.customer.DeleteCustomerCommand;
 import seedu.address.logic.commands.customer.EditCustomerCommand;
 import seedu.address.logic.commands.customer.FindCustomerCommand;
 import seedu.address.logic.commands.customer.ListCustomerCommand;
-import seedu.address.logic.parser.customer.AddCustomerCommandParser;
-import seedu.address.logic.parser.customer.DeleteCustomerCommandParser;
-import seedu.address.logic.parser.customer.EditCustomerCommandParser;
-import seedu.address.logic.parser.customer.FindCustomerCommandParser;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import seedu.address.logic.commands.product.AddProductCommand;
 import seedu.address.logic.commands.product.ClearProductCommand;
 import seedu.address.logic.commands.product.DeleteProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
+
+import seedu.address.logic.parser.customer.AddCustomerCommandParser;
+import seedu.address.logic.parser.customer.DeleteCustomerCommandParser;
+import seedu.address.logic.parser.customer.EditCustomerCommandParser;
+import seedu.address.logic.parser.customer.FindCustomerCommandParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.product.AddProductCommandParser;
 import seedu.address.logic.parser.product.DeleteProductCommandParser;
 import seedu.address.logic.parser.product.EditProductCommandParser;
