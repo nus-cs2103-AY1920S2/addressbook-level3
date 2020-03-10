@@ -36,16 +36,10 @@ public class MainWindow extends UiPart<Stage> {
     private FoodListPanel foodListPanel;
     private SportsListPanel sportsListPanel;
 
-   /* private TodayPage todayPage;
-    private ReportPage reportPage;
+    private TodayPage todayPage;
+    /*private ReportPage reportPage;
     private ProfilePage profilePage;
     private CalendarPage calendarPage;*/
-
-    @FXML
-    private StackPane commandBoxPlaceholder;
-
-    @FXML
-    private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane foodListPanelPlaceholder;
@@ -77,7 +71,7 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
-        // Set dependencies
+        logger.info("Initializing MainWindow");
         this.primaryStage = primaryStage;
         this.logic = logic;
     }
@@ -90,17 +84,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //foodListPanel = new FoodListPanel(logic.getFilteredFoodEntryList());
-        //foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-        //sportsListPanel = new SportsListPanel(logic.getFilteredSportsEntryList());
-        //sportsListPanelPlaceholder.getChildren().add(sportsListPanel.getRoot());
+        todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
 
-        //resultDisplay = new ResultDisplay();
-        //resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        setAllPageAnchor(todayPage.getRoot());
+        logger.fine("All pages filled in MainWindow");
 
-        //CommandBox commandBox = new CommandBox(this::executeCommand);
-        //commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     void show() {
@@ -136,14 +125,28 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    private void handleShowTodayPage() {
+        showTodayPage();
+    }
+
     private void showTodayPage() {
-        //pagePane.getChildren().clear();
-        //pagePane.getChildren().add(orderPage.getRoot());
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(todayPage.getRoot());
         currentPage.setText("Today");
     }
 
     private void showResultMessage(String message) {
         result.setText(message);
+    }
+
+    private void setAllPageAnchor(AnchorPane... pages) {
+        for (AnchorPane page : pages) {
+            AnchorPane.setLeftAnchor(page, 0.0);
+            AnchorPane.setRightAnchor(page, 0.0);
+            AnchorPane.setTopAnchor(page, 0.0);
+            AnchorPane.setBottomAnchor(page, 4.0);
+        }
     }
 
     /**

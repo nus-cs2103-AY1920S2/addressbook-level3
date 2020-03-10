@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * An order page contains order cards and a statistics bar.
  */
 public class TodayPage extends UiPart<AnchorPane> {
-    private static final String FXML = "OrderPage.fxml";
+    private static final String FXML = "TodayPage.fxml";
     private final Logger logger = LogsCenter.getLogger(TodayPage.class);
 
     @FXML
