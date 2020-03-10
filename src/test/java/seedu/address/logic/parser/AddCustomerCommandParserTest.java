@@ -31,7 +31,8 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.customercommands.AddCustomerCommand;
+import seedu.address.logic.commands.customer.AddCustomerCommand;
+import seedu.address.logic.parser.customer.AddCustomerCommandParser;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.Email;
@@ -41,7 +42,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCustomerCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private AddCustomerCommandParser parser = new AddCustomerCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

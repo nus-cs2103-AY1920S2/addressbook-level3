@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.customer;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -14,15 +14,19 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.customercommands.EditCustomerCommand;
-import seedu.address.logic.commands.customercommands.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customer.EditCustomerCommand;
+import seedu.address.logic.commands.customer.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCustomerCommand object.
  */
-public class EditCommandParser implements Parser<EditCustomerCommand> {
+public class EditCustomerCommandParser implements Parser<EditCustomerCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCustomerCommand

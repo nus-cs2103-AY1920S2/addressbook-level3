@@ -8,12 +8,13 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.customercommands.FindCustomerCommand;
+import seedu.address.logic.commands.customer.FindCustomerCommand;
+import seedu.address.logic.parser.customer.FindCustomerCommandParser;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 
 public class FindCustomerCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private FindCustomerCommandParser parser = new FindCustomerCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {

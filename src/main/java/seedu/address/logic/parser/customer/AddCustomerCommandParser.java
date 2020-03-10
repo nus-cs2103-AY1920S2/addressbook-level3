@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.customer;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -10,7 +10,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.customercommands.AddCustomerCommand;
+import seedu.address.logic.commands.customer.AddCustomerCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Customer;
@@ -22,7 +27,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddCustomerCommand object
  */
-public class AddCommandParser implements Parser<AddCustomerCommand> {
+public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCustomerCommand

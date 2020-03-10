@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.customercommands.AddCustomerCommand;
-import seedu.address.logic.commands.customercommands.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customer.AddCustomerCommand;
+import seedu.address.logic.commands.customer.EditCustomerCommand.EditPersonDescriptor;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.tag.Tag;
 

@@ -34,8 +34,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.customercommands.EditCustomerCommand;
-import seedu.address.logic.commands.customercommands.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customer.EditCustomerCommand;
+import seedu.address.logic.commands.customer.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.customer.EditCustomerCommandParser;
 import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
@@ -50,7 +51,7 @@ public class EditCustomerCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditCustomerCommandParser parser = new EditCustomerCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
