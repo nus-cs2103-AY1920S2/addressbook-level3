@@ -285,7 +285,8 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+* Manage the
 
 [appendix]
 == User Stories
@@ -297,15 +298,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a homework with a deadline |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |list all homework tasks |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* *` |user |list all homework to be done for a course |
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find a particular homework |locate the details of the homework without going through the whole list of all homeworks
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |edit a homework |quickly change the details of the homework without creating a new entry and deleting the old one
+
+|`* * *` |user |track the progress of an individual student | to ensure that students are caught up on study materials
+
+|`* * *` |user |track the progress of all students in a particular course | to get an understanding of all students' progress in a course
+
+|`* * *` |user |mark as done the homework of a student |
+
+|`* * *` |user |mark as done the homework of a few/all students for a particular week |quickly mark students' homework as done without iterating through all of the homework
+
+|`* *` |user |get notified if there is a student with too many undone homework |help to easily inform the teachers on the student progress
+
+|`* *` |user |list all homework to be done for a course |
 |=======================================================================
 
 _{More to be added}_
@@ -313,7 +326,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Code Camp X` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
