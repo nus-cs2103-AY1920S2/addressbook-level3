@@ -71,7 +71,9 @@ Format: `find homework [k/KEYWORDS] [id/HOMEWORKID] [d/DEADLINE]
 * HOMEWORKID must be valid.
 * DEADLINE must be properly formatted
 ****
--update
+
+Examples:
+
 * `find k/Machine` +
 Returns any homework with `Machine` in its name such as - `Machine Learning Assignment`, `Reinforcement Learning Assignment`
 * `find d/2020-01-30` +
