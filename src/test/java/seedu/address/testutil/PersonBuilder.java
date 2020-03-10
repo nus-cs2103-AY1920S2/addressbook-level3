@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
 import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Profile objects.
  */
 public class PersonBuilder {
 
@@ -24,14 +24,14 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code profileToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
+    public PersonBuilder(Profile profileToCopy) {
+        name = profileToCopy.getName();
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Profile} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
@@ -39,15 +39,15 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Course} of the {@code Person} that we are building.
+     * Sets the {@code Course} of the {@code Profile} that we are building.
      */
     public PersonBuilder withCourse(String course) {
         this.course = new Course(course);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, course, specialisation);
+    public Profile build() {
+        return new Profile(name, course, specialisation);
     }
 
 }

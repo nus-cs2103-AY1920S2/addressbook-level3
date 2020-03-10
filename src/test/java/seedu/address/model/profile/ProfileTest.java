@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class PersonTest {
+public class ProfileTest {
 
     @Test
     public void isSamePerson() {
@@ -21,7 +21,7 @@ public class PersonTest {
         assertFalse(ALICE.isSamePerson(null));
 
         // different name -> returns false
-        Person editedAlice = new PersonBuilder().withName(VALID_NAME_BOB).build();
+        Profile editedAlice = new PersonBuilder().withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // same name -> returns true
@@ -32,7 +32,7 @@ public class PersonTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).withCourse("Computer Science").build();
+        Profile aliceCopy = new PersonBuilder(ALICE).withCourse("Computer Science").build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -44,11 +44,11 @@ public class PersonTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different person -> returns false
+        // different profile -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        Person editedAlice = new PersonBuilder().withName(VALID_NAME_BOB).build();
+        Profile editedAlice = new PersonBuilder().withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

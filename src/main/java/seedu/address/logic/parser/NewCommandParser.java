@@ -12,11 +12,11 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
 
 /**
- * Parses input arguments and creates a new Person Object.
+ * Parses input arguments and creates a new Profile Object.
  */
 public class NewCommandParser implements Parser<NewCommand> {
 
@@ -43,9 +43,9 @@ public class NewCommandParser implements Parser<NewCommand> {
             specialisation = argMultimap.getValue(PREFIX_SPEC).get();
         }
 
-        Person person = new Person(name, course, currentSemester, specialisation);
+        Profile profile = new Profile(name, course, currentSemester, specialisation);
 
-        return new NewCommand(person);
+        return new NewCommand(profile);
 
     }
 

@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
@@ -61,7 +61,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         personal.setGrade(grade);
 
         // From current semester, determine status
-        int currentSemester = Integer.parseInt(Person.getCurrentSemester());
+        int currentSemester = Integer.parseInt(Profile.getCurrentSemester());
         if (intSemester < currentSemester) {
             personal.setStatus("completed");
         } else if (intSemester == currentSemester) {

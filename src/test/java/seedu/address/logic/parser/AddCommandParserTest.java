@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
@@ -17,7 +17,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder().build();
+        Profile expectedProfile = new PersonBuilder().build();
 
     }
 

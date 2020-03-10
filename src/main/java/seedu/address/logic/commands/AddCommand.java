@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
- * Adds a person to the address book.
+ * Adds a profile to the address book.
  */
 public class AddCommand extends Command {
 
@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     private final Personal toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Profile}
      */
     public AddCommand(Personal personal) {
         requireNonNull(personal);
