@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -26,7 +26,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new RecipeBook(), new RecipeBook(modelManager.getAddressBook()));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        RecipeBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        RecipeBook differentAddressBook = new RecipeBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

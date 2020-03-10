@@ -43,7 +43,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
     public void add(Recipe toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new seedu.address.model.recipe.exceptions.DuplicateRecipeException();
+            throw new DuplicateRecipeException();
         }
         internalList.add(toAdd);
     }
