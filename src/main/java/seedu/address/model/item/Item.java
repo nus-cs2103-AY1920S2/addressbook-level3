@@ -19,6 +19,8 @@ public class Item {
     /**
      * Every field must be present,
      * ItemName and ItemPrice fields must not be null.
+     *
+     * @param name,price represents the compulsory fields of an Item object.
      */
     public Item(ItemName name, ItemPrice price) {
         requireAllNonNull(name, price);
@@ -26,11 +28,21 @@ public class Item {
         this.price = price;
     }
 
-    public ItemName getName() {
+    /**
+     * Returns the ItemName of an Item.
+     *
+     * @return the ItemName of an Item.
+     */
+    public ItemName getItemName() {
         return name;
     }
 
-    public ItemPrice getPrice() {
+    /**
+     * Returns the ItemPrice of an Item.
+     *
+     * @return the ItemPrice of an Item.
+     */
+    public ItemPrice getItemPrice() {
         return price;
     }
 
@@ -38,6 +50,7 @@ public class Item {
     /**
      * Returns true if both Items of the same name have the same price.
      * This defines a weaker notion of equality between two food.
+     * @param
      */
     public boolean isSameItem(Item otherItem) {
         if (otherItem == this) {
@@ -45,8 +58,8 @@ public class Item {
         }
 
         return otherItem != null
-                && otherItem.getName().equals(getName())
-                && otherItem.getPrice().equals(getPrice());
+                && otherItem.getItemName().equals(getItemName())
+                && otherItem.getItemPrice().equals(getItemPrice());
     }
 
     /* Commented out this portion regarding stronger notion of equality for now.
@@ -82,9 +95,9 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getItemName())
                 .append(" Item Price: $")
-                .append(getPrice());
+                .append(getItemPrice());
 
         return builder.toString();
     }

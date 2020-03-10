@@ -33,6 +33,8 @@ public class ItemName {
 
     /**
      * Returns true if a given string is a valid name.
+     *
+     * @parm test whether a name is valid or not.
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -44,6 +46,13 @@ public class ItemName {
         return itemName;
     }
 
+
+    /**
+     * Checks if two Items have the same ItemName.
+     *
+     * @param other ItemName to be checked against.
+     * @return True if two of the Items have the same ItemName, False otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

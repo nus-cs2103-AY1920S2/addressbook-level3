@@ -27,6 +27,8 @@ public class ItemPrice {
 
     /**
      * Returns true if a given price is a valid price.
+     *
+     * @param test if an ItemPrice is > 0 because ItemPrice cannot be <= 0.
      */
     public static boolean isValidPrice(double test) {
         return test > DOUBLE_ZERO;
@@ -37,6 +39,13 @@ public class ItemPrice {
         return String.valueOf(itemPrice);
     }
 
+
+    /**
+     * Checks if two Items have the same ItemPrice.
+     *
+     * @param other ItemPrice to be checked against.
+     * @return True if two of the Items have the same ItemPrice, False otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
