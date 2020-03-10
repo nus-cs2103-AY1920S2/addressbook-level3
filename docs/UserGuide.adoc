@@ -56,7 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `ab add`
 
 Adds a person to the address book +
 Format: `ab add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
@@ -74,7 +74,7 @@ Examples:
 * `ab add n/ Benjamin t/CS2103`
 
 
-=== Listing all persons : `list`
+=== Listing all persons : `ab list`
 
 Lists out all your contacts in the address book. Each contact will have a displayed index. Only lists the name, phone number and tags (if present) +
 Format: `ab list [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
@@ -90,7 +90,7 @@ Examples:
 * `ab list -g/NUS -n/Lim` +
 List all contacts that is in group “NUS” and have the word “Lim” in its name
 
-=== Editing a person : `edit`
+=== Editing a person : `ab edit`
 
 Edits an existing person in the address book. +
 Format: `ab edit INDEX n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
@@ -111,7 +111,7 @@ Changes the 37th person’s address to 2 Cactus Road, S903281.
 * `ab edit 2 n/Elysia Tan o/Comp Club` +
 Changes the second person’s name to Elysia Tan, and organization to Comp Club.
 
-=== Adding tags to a person : `addtag`
+=== Adding tags to a person : `ab addtag`
 
 Allows you to add additional tags to your contacts. +
 Format: `ab addtag INDEX [t/TAG]`
@@ -128,7 +128,7 @@ Examples:
 * `ab addtag 37 t/noob`
 Adds the tag “noob” to the person at index 37
 
-=== Adding tags to a person : `rmtag`
+=== Adding tags to a person : `ab rmtag`
 
 Allows you to add additional tags to your contacts. +
 Format: `ab rmtag INDEX [t/TAG]`
@@ -143,7 +143,7 @@ Examples:
 * `ab rmtag 37 t/noob` +
 Removes the tag “noob” from the person at index 37
 
-=== Sort contacts: `sort`
+=== Sort contacts: `ab sort`
 
 Displays the list of contacts in a certain sorted order +
 Format: `ab sort [-f] [-o] [-b]`
@@ -164,7 +164,7 @@ Lists all contacts alphabetically
 Undoes and redoes the last command. +
 Format: `undo/redo`
 
-=== List everything about a contact in field: `get`
+=== List everything about a contact in field: `ab get`
 Format: `ab get INDEX`
 
 ****
@@ -172,7 +172,7 @@ Format: `ab get INDEX`
 * Displays all information relating to a contact at index INDEX
 ****
 
-=== Store additional information about contacts using the Note Taker: `addnote`
+=== Store additional information about contacts using the Note Taker: `ab addnote`
 
 Store additional information about contacts using the Note Taker +
 Format: `ab addnote INDEX i/INFO1 i/INFO2 ...`
@@ -182,7 +182,7 @@ Format: `ab addnote INDEX i/INFO1 i/INFO2 ...`
 * There should be at least one i/INFO
 ****
 
-=== Edit additional information about contacts
+=== Edit additional information about contacts: `ab editnote`
 
 Edit additional information about contacts using the Note Taker +
 Format: `ab editnote INDEX [-l/LINE_NUMBER] i/INFO`
@@ -193,7 +193,7 @@ Format: `ab editnote INDEX [-l/LINE_NUMBER] i/INFO`
 * [-l] Line number of information to be replaced
 ****
 
-=== Delete additional information about contacts
+=== Delete additional information about contacts: `ab deletenote`
 
 Delete additional information about contacts using the Note Taker +
 Format: `ab deletenote INDEX [-l/LINE_NUMBER]`
@@ -207,7 +207,7 @@ Format: `ab deletenote INDEX [-l/LINE_NUMBER]`
 
 === Obtain gift suggestions for a particular contact using the Birthday Tracker (coming in v2.0)
 
-=== Adds a new restaurant: `add`
+=== Adds a new restaurant: `rt add`
 
 Adds a new restaurant +
 Format: `rt add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISINE]`
@@ -221,7 +221,7 @@ Examples:
 * `rt add rubbish o/0900:2300 p/$$` +
 Adds a new restaurant called rubbish with 2 dollar signs price point and opens from 9am to 11pm
 
-=== Search: `search`
+=== Search: `rt search`
 
 Search for restaurants based on a number of criteria. +
 Format: `rt search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
@@ -241,12 +241,12 @@ Searches for restaurants with the keyword no signboard which is at a medium pric
 * `rt search l/bedok p/$` +
 Searches for restaurants in the bedok area at a low price point.
 
-=== Deletes a restaurant: `delete`
+=== Deletes a restaurant: `rt delete`
 
 Deletes a restaurant from the list +
 Format: `rt delete n/NAME`
 
-=== Add notes to a restaurant: notes
+=== Add notes to a restaurant: `rt notes`
 
 Adds a new restaurant +
 Format: `rt notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
@@ -256,7 +256,7 @@ Examples:
 * `rt notes rubbish r/chicken chop g/truffle fries b/risotto` +
 Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
-=== Add new assignment to the Schoolwork Tracker
+=== Add new assignment to the Schoolwork Tracker: `st add`
 
 Adds a new assignment to your list of assignments and projects. +
 Format: `st add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
@@ -273,7 +273,7 @@ Examples:
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
 
 
-=== List current assignments
+=== List current assignments: `st list`
 
 Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. By default, it sorts the list in alphabetical order. +
 Format: `st list [-d] [-e]`
@@ -284,7 +284,7 @@ Format: `st list [-d] [-e]`
 * [-e] = Estimated completion time
 ****
 
-=== Mark as completed
+=== Mark as completed: `st done`
 
 Marks an assignment as completed. +
 Format: `st done INDEX`
@@ -293,7 +293,7 @@ Format: `st done INDEX`
 * INDEX must be a positive integer. It corresponds to the rank of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function (see above).
 ****
 
-=== Delete assignment
+=== Delete assignment: `st delete`
 
 Deletes an assignment. +
 Format: `st delete INDEX`
@@ -302,7 +302,7 @@ Format: `st delete INDEX`
 * INDEX must be a positive integer. It corresponds to the rank of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function (see above) sorted by alphabetical order.
 ****
 
-=== Add person to assignment
+=== Add person to assignment: `st addmem`
 
 Adds a group mate to an assignment. +
 Format: `st addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
@@ -311,7 +311,7 @@ Format: `st addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
 * INDEX must be a positive integer. It corresponds to the rank of the assignment shown
 ****
 
-=== Schedule an event
+=== Schedule an event: `schedule`
 
 Looks through the list of current assignments to find a free slot for social activities. +
 Format: `schedule`
@@ -323,7 +323,7 @@ Format: `schedule`
 // tag::delete[]
 
 
-=== Create a new social event
+=== Create a new social event: `event`
 
 Creates a social event. +
 Format: `event d/DATE t/TIME`
@@ -333,7 +333,7 @@ Format: `event d/DATE t/TIME`
 * `TIME` must be in a HH:MM format.
 ****
 
-=== Deleting a person : `delete`
+=== Deleting a person : `ab delete`
 
 Deletes the contact at index INDEX +
 Format: `ab delete INDEX`
