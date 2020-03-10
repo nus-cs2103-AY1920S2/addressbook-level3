@@ -1,5 +1,6 @@
 package com.notably.logic.commands;
 
+import static com.notably.logic.commands.CommandTestUtil.assertCommandFailure;
 import static com.notably.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.notably.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static com.notably.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -10,10 +11,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+<<<<<<< HEAD:src/test/java/com/notably/logic/commands/DeleteCommandTest.java
+import com.notably.commons.core.Messages;
+import com.notably.commons.core.index.Index;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.UserPrefs;
-import com.notably.model.person.Person;
+=======
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+>>>>>>> main/master:src/test/java/seedu/address/logic/commands/DeleteCommandTest.java
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -37,6 +47,14 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
@@ -52,7 +70,7 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
-    /**@Test
+    @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
@@ -63,7 +81,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }*/
+    }
 
     @Test
     public void equals() {

@@ -2,6 +2,7 @@ package com.notably.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import com.notably.commons.core.Messages;
 import com.notably.model.Model;
 import com.notably.model.person.NameContainsKeywordsPredicate;
 
@@ -29,7 +30,7 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
-                String.format("", model.getFilteredPersonList().size()));
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 
     @Override

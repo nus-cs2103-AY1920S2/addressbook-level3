@@ -1,5 +1,8 @@
 package com.notably.logic.parser;
 
+import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static com.notably.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static com.notably.testutil.Assert.assertThrows;
 import static com.notably.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -21,7 +24,6 @@ import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.ListCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.person.NameContainsKeywordsPredicate;
-import com.notably.model.person.Person;
 import com.notably.testutil.EditPersonDescriptorBuilder;
 import com.notably.testutil.PersonBuilder;
 import com.notably.testutil.PersonUtil;
@@ -77,5 +79,22 @@ public class AddressBookParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_list() throws Exception {
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_unrecognisedInput_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
+            -> parser.parseCommand(""));
+    }
+
+    @Test
+    public void parseCommand_unknownCommand_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }
