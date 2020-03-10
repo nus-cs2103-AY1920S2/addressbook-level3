@@ -357,12 +357,15 @@ _{More to be added}_
 
 1.  User requests to see all homework
 2.  CCX outputs all homework in its database
+[none]
 + Use case ends.
 
 *Extensions*
 
 [none]
 * 1a. List is empty.
+
+[none]
 + Use case ends.
 
 === Use Case 3: Deleting a homework
