@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.RecipeBook;
 import seedu.address.model.ReadOnlyRecipeBook;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -49,10 +49,10 @@ class JsonSerializableAddressBook {
         RecipeBook addressBook = new RecipeBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Recipe recipe = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(recipe)) {
+            if (addressBook.hasRecipe(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(recipe);
+            addressBook.addRecipe(recipe);
         }
         return addressBook;
     }

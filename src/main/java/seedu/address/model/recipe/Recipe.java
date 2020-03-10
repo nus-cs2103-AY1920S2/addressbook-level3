@@ -64,14 +64,14 @@ public class Recipe {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Recipe otherRecipe) {
+    public boolean isSameRecipe(Recipe otherRecipe) {
         if (otherRecipe == this) {
             return true;
         }
 
         return otherRecipe != null
-                && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
+               && otherRecipe.getName().equals(getName())
+               && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
     }
 
     /**
@@ -90,10 +90,10 @@ public class Recipe {
 
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-                && otherRecipe.getPhone().equals(getPhone())
-                && otherRecipe.getEmail().equals(getEmail())
-                && otherRecipe.getAddress().equals(getAddress())
-                && otherRecipe.getTags().equals(getTags());
+               && otherRecipe.getPhone().equals(getPhone())
+               && otherRecipe.getEmail().equals(getEmail())
+               && otherRecipe.getAddress().equals(getAddress())
+               && otherRecipe.getTags().equals(getTags());
     }
 
     @Override

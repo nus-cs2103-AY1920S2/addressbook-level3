@@ -22,8 +22,8 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.Address;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Phone;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -77,7 +77,7 @@ public class ModifyCommand extends Command {
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
         Recipe editedRecipe = createEditedPerson(recipeToEdit, editPersonDescriptor);
 
-        if (!recipeToEdit.isSamePerson(editedRecipe) && model.hasPerson(editedRecipe)) {
+        if (!recipeToEdit.isSameRecipe(editedRecipe) && model.hasPerson(editedRecipe)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
