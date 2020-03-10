@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.expenditure;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,7 +34,7 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different expenditure -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
@@ -67,9 +67,9 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+        // Keywords match id, amount and address, but does not match name
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "3.14", "Main", "Street"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withId("12345")
+                .withAmount(3.14).withAddress("Main Street").build()));
     }
 }
