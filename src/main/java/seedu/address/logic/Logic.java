@@ -37,12 +37,13 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the list of attributes */
     ObservableList<Attribute> getAttributeList();
 
     /** Returns an unmodifiable view of the filtered list of interviewees */
     ObservableList<Interviewee> getFilteredIntervieweeList();
 
-    /** Returns an unmodifiable view of the filtered list of questions */
+    /** Returns an unmodifiable view of the list of questions */
     ObservableList<Question> getQuestionList();
 
     /** Returns an unmodifiable view of the transcripts entries of an interviewee.

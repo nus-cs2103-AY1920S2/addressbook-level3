@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ToggleView;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.hirelah.Interviewee;
@@ -41,6 +42,8 @@ public class MainWindow extends UiPart<Stage> {
     private DetailedIntervieweeCard detailedIntervieweeCard;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private ToggleView toggleView = ToggleView.INT;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -147,16 +150,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleToggle(ToggleView toggleView) throws IllegalValueException {
-
-        /*
-          @todo
-          After ToggleView enum is created, check if the previous enum state is the same as current enum state.
-          If they are the same, there is no need to update the StackPane.
-         */
+        if (this.toggleView == toggleView) {
+            return;
+        }
 
         primaryStage.hide();
         listPanelStackPane.getChildren().removeAll();
-
         switch (toggleView){
             case ATT: // attribute
             listPanelStackPane.getChildren().add(attributeListPanel.getRoot());
@@ -232,7 +231,7 @@ public class MainWindow extends UiPart<Stage> {
 
             /*
               @todo
-              getToggleView to return an enum type representing the list to display:
+              getToggleView to return a ToggleView enum representing the list to display:
               ATT: AttributeList
               QNS: QuestionList
               TRP: Transcript for an interviewee (inclusive of detailed interviewee information,
