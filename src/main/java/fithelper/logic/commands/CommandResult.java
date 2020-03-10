@@ -1,6 +1,8 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.commands.CommandResult.DisplayedPage.TODAY;
 import static java.util.Objects.requireNonNull;
+import static javafx.application.Platform.exit;
 
 import java.util.Objects;
 
@@ -9,10 +11,14 @@ import java.util.Objects;
  */
 public class CommandResult {
 
+    @Override
+    public String toString() {
+        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
+    }
+
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    private DisplayedPage displayedPage = TODAY;
 
     /** The application should exit. */
     private final boolean exit;
@@ -20,10 +26,33 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, DisplayedPage displayedPage, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
+        this.displayedPage = requireNonNull(displayedPage);
         this.exit = exit;
+        if (this.exit) {
+            exit();
+        }
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, DisplayedPage displayedPage) {
+        this(feedbackToUser, displayedPage, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean exit) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.exit = exit;
+        if (this.exit) {
+            exit();
+        }
     }
 
     /**
@@ -31,19 +60,19 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, TODAY, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public DisplayedPage getDisplayedPage() {
+        return displayedPage;
     }
 
     public boolean isExit() {
-        return exit;
+        return this.exit;
     }
 
     @Override
@@ -59,13 +88,23 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, displayedPage, exit);
+    }
+
+    /**
+     * The page shown to the user.
+     */
+    public enum DisplayedPage {
+        TODAY,
+        CALENDAR,
+        REPORT,
+        PROFILE,
+        HELP
     }
 
 }

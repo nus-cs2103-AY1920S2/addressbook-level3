@@ -1,5 +1,7 @@
 package fithelper.ui;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
@@ -8,13 +10,10 @@ import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -24,13 +23,14 @@ import javafx.stage.Stage;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
-
     private static final String FXML = "MainWindow.fxml";
-
     private final Logger logger = LogsCenter.getLogger(getClass());
-
     private Stage primaryStage;
+
     private Logic logic;
+
+    private List<String> inputHistory = new ArrayList<>();
+    private int historyIndex = inputHistory.size();
 
     // Independent Ui parts residing in this Ui container
     private FoodListPanel foodListPanel;
@@ -45,7 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane foodListPanelPlaceholder;
@@ -53,25 +53,33 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane sportsListPanelPlaceholder;
 
-    @FXML
-    private StackPane resultDisplayPlaceholder;
-
-    @FXML
-    private StackPane statusbarPlaceholder;
-
-    //blueprint
     //Main page
     @FXML
     private Label currentPage;
     @FXML
     private AnchorPane pagePane;
+    @FXML
+    private Label result;
+    @FXML
+    private TextField userInput;
+
+    //Sidebar
+    @FXML
+    private Button todayButton;
+    @FXML
+    private Button calendarButton;
+    @FXML
+    private Button weeklyReportButton;
+    @FXML
+    private Button useProfileButton;
+    @FXML
+    private Button helpButton;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        setAccelerators();
     }
 
     public MainWindow(Stage primaryStage) {
@@ -82,40 +90,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
-    /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
-     */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
     }
 
     /**
@@ -137,6 +111,45 @@ public class MainWindow extends UiPart<Stage> {
 
     void show() {
         primaryStage.show();
+    }
+
+    @FXML
+    private void handleUserInput() {
+        String input = userInput.getText();
+
+        inputHistory.add(input);
+        historyIndex = inputHistory.size();
+
+        try {
+            CommandResult commandResult = logic.execute(input);
+            showPage(commandResult);
+
+            showResultMessage(commandResult.getFeedbackToUser());
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
+            showResultMessage(e.getMessage());
+        }
+        userInput.clear();
+    }
+
+    private void showPage(CommandResult commandResult) {
+        CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
+        switch (toDisplay) {
+            case TODAY:
+                showTodayPage();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void showTodayPage() {
+        //pagePane.getChildren().clear();
+        //pagePane.getChildren().add(orderPage.getRoot());
+        currentPage.setText("Today");
+    }
+
+    private void showResultMessage(String message) {
+        result.setText(message);
     }
 
     /**
