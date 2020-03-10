@@ -69,9 +69,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Button calendarButton;
     @FXML
-    private Button weeklyReportButton;
+    private Button reportButton;
     @FXML
-    private Button useProfileButton;
+    private Button profileButton;
     @FXML
     private Button helpButton;
 
@@ -80,12 +80,6 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-    }
-
-    public MainWindow(Stage primaryStage) {
-        super(FXML, primaryStage);
-        // Set dependencies
-        this.primaryStage = primaryStage;
     }
 
     public Stage getPrimaryStage() {

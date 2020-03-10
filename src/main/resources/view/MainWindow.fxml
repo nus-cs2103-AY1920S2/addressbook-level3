@@ -53,26 +53,26 @@
                                  <Font size="18.0" />
                               </font>
                            </Label>
-                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FF8C00; -fx-border-color: white;" text="Today" textFill="WHITE">
+                           <Button fx:id="todayButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FF8C00; -fx-border-color: white;" text="Today" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Calendar" textFill="WHITE">
+                           <Button fx:id="calendarButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Calendar" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Weekly Report" textFill="WHITE">
+                           <Button fx:id="reportButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Weekly Report" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font></Button>
-                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="User Profile" textFill="WHITE">
+                           <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="User Profile" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Help" textFill="WHITE">
+                           <Button fx:id="helpButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Help" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font>
