@@ -12,6 +12,7 @@ import seedu.address.model.customer.AddressContainsKeywordsPredicate;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.EmailContainsKeywordsPredicate;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
+import seedu.address.model.customer.PhoneContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -24,7 +25,7 @@ public class FindCustomerCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + "n/alice n/bob n/charlie";
 
     private final Predicate<Customer> predicate;
 
@@ -43,6 +44,8 @@ public class FindCustomerCommand extends Command {
             return new CommandResult(String.format("No customer staying in the area %s found!", predicate.toString()));
         } else if (model.getFilteredCustomerList().size() == 0 && predicate instanceof EmailContainsKeywordsPredicate) {
             return new CommandResult(String.format("No customer with email %s found!", predicate.toString()));
+        } else if (model.getFilteredCustomerList().size() == 0 && predicate instanceof PhoneContainsKeywordsPredicate) {
+            return new CommandResult(String.format("No customer with phone number %s found!", predicate.toString()));
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCustomerList().size()));

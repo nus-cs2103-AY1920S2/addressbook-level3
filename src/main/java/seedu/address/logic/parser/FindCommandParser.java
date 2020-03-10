@@ -14,6 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.customer.AddressContainsKeywordsPredicate;
 import seedu.address.model.customer.EmailContainsKeywordsPredicate;
+import seedu.address.model.customer.PhoneContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCustomerCommand object
@@ -48,6 +49,8 @@ public class FindCommandParser implements Parser<FindCustomerCommand> {
                     argMultimap.getAllValues(PREFIX_ADDRESS)));
         } else if (!argMultimap.getAllValues(PREFIX_EMAIL).isEmpty()) {
             return new FindCustomerCommand(new EmailContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_EMAIL)));
+        } else if (!argMultimap.getAllValues(PREFIX_PHONE).isEmpty()) {
+            return new FindCustomerCommand(new PhoneContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_PHONE)));
         }
 
         return new FindCustomerCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
