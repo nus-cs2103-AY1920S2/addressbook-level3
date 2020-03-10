@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= CodeCampX - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -16,6 +16,7 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+image::devDiagram.png[width="300", align="left"]
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
