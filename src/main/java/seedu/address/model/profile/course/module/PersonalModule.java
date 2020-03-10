@@ -1,5 +1,8 @@
 package seedu.address.model.profile.course.module;
 
+/**
+ * Represents a PersonalModule.
+ */
 public class PersonalModule {
 
     private final SemesterData semester;

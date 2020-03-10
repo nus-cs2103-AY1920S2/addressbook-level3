@@ -7,7 +7,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.profile.Person;
 
-
+/**
+ * Creates a new profile.
+ */
 public class NewCommand extends Command {
 
     public static final String COMMAND_WORD = "new";
@@ -31,11 +33,6 @@ public class NewCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-//        if (model.hasPerson(toAdd)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-//        }
-//
-//        model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
