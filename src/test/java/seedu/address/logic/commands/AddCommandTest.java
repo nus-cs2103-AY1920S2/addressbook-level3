@@ -20,6 +20,10 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.hirelah.Attribute;
+import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.Question;
+import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -140,6 +144,26 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Attribute> getAttributeList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Question> getQuestionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Transcript> getTranscriptList(Interviewee interviewee) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Interviewee> getFilteredIntervieweeList() {
             throw new AssertionError("This method should not be called.");
         }
 

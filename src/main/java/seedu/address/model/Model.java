@@ -5,6 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.hirelah.Attribute;
+import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.Question;
+import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.person.Person;
 
 /**
@@ -78,6 +82,18 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the attribute list */
+    ObservableList<Attribute> getAttributeList();
+
+    /** Returns an unmodifiable view of the question list */
+    ObservableList<Question> getQuestionList();
+
+    /** Returns an unmodifiable view of the transcript list of an interviewee */
+    ObservableList<Transcript> getTranscriptList(Interviewee interviewee);
+
+    /** Returns an unmodifiable view of the filtered interviewee list */
+    ObservableList<Interviewee> getFilteredIntervieweeList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

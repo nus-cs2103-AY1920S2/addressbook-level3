@@ -98,10 +98,12 @@ public class Transcript {
      * @param question {@code Question} that are to be queried.
      * @return Instant of the {@code Remark} that are first associated with this {@code Question}.
      */
+
     public Remark getTranscriptAtQuestion(Question question) throws IllegalActionException {
         if (!remarkList.isQuestionAnswered(question)) {
             throw new IllegalActionException("There is no answer for this question");
         }
         return remarkList.getRemarkOfQuestion(question);
     }
+
 }

@@ -14,6 +14,10 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.hirelah.Attribute;
+import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.Question;
+import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -59,6 +63,31 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    /*
+      @todo:
+      Create the following methods in model when we update them.
+     */
+
+    @Override
+    public ObservableList<Attribute> getAttributeList() {
+        return model.getAttributeList();
+    }
+
+    @Override
+    public ObservableList<Question> getQuestionList() {
+        return model.getQuestionList();
+    }
+
+    @Override
+    public ObservableList<Transcript> getTranscriptList(Interviewee interviewee) {
+        return model.getTranscriptList(interviewee);
+    }
+
+    @Override
+    public ObservableList<Interviewee> getFilteredIntervieweeList() {
+        return model.getFilteredIntervieweeList();
     }
 
     @Override
