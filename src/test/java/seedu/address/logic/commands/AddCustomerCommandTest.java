@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.customerCommands.AddCustomerCommand;
+import seedu.address.logic.commands.customercommands.AddCustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -39,7 +39,8 @@ public class AddCustomerCommandTest {
 
         CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub);
 
-        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validCustomer), modelStub.personsAdded);
     }
 
@@ -49,7 +50,8 @@ public class AddCustomerCommandTest {
         AddCustomerCommand addCustomerCommand = new AddCustomerCommand(validCustomer);
         ModelStub modelStub = new ModelStubWithPerson(validCustomer);
 
-        assertThrows(CommandException.class, AddCustomerCommand.MESSAGE_DUPLICATE_PERSON, () -> addCustomerCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCustomerCommand.MESSAGE_DUPLICATE_PERSON, () -> addCustomerCommand.execute(modelStub));
     }
 
     @Test

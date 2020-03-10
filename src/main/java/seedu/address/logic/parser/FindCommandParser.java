@@ -9,11 +9,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 
-import seedu.address.logic.commands.customerCommands.FindCustomerCommand;
+import seedu.address.logic.commands.customercommands.FindCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.customer.AddressContainsKeywordsPredicate;
 import seedu.address.model.customer.EmailContainsKeywordsPredicate;
+import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.customer.PhoneContainsKeywordsPredicate;
 
 /**

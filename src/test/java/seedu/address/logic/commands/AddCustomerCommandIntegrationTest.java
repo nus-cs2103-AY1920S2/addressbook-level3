@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.customerCommands.AddCustomerCommand;
+import seedu.address.logic.commands.customercommands.AddCustomerCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -40,7 +40,8 @@ public class AddCustomerCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Customer customerInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCustomerCommand(customerInList), model, AddCustomerCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCustomerCommand(customerInList), model,
+                AddCustomerCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

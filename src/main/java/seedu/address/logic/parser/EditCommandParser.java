@@ -14,13 +14,13 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.customerCommands.EditCustomerCommand;
-import seedu.address.logic.commands.customerCommands.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customercommands.EditCustomerCommand;
+import seedu.address.logic.commands.customercommands.EditCustomerCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCustomerCommand object
+ * Parses input arguments and creates a new EditCustomerCommand object.
  */
 public class EditCommandParser implements Parser<EditCustomerCommand> {
 
@@ -39,7 +39,8 @@ public class EditCommandParser implements Parser<EditCustomerCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, EditCustomerCommand.MESSAGE_USAGE), pe);
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();

@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.customerCommands.ClearCustomerCommand;
-import seedu.address.logic.commands.customerCommands.EditCustomerCommand;
-import seedu.address.logic.commands.customerCommands.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customercommands.ClearCustomerCommand;
+import seedu.address.logic.commands.customercommands.EditCustomerCommand;
+import seedu.address.logic.commands.customercommands.EditCustomerCommand.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -30,7 +30,8 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCustomerCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests
+ * for EditCustomerCommand.
  */
 public class EditCustomerCommandTest {
 
@@ -73,7 +74,8 @@ public class EditCustomerCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        EditCustomerCommand editCustomerCommand = new EditCustomerCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptor());
         Customer editedCustomer = model.getFilteredCustomerList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCustomerCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCustomer);

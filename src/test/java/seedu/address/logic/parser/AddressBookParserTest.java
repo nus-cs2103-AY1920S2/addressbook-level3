@@ -13,15 +13,15 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.customerCommands.AddCustomerCommand;
-import seedu.address.logic.commands.customerCommands.ClearCustomerCommand;
-import seedu.address.logic.commands.customerCommands.DeleteCustomerCommand;
-import seedu.address.logic.commands.customerCommands.EditCustomerCommand;
-import seedu.address.logic.commands.customerCommands.EditCustomerCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.customerCommands.FindCustomerCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.customerCommands.ListCustomerCommand;
+import seedu.address.logic.commands.customercommands.AddCustomerCommand;
+import seedu.address.logic.commands.customercommands.ClearCustomerCommand;
+import seedu.address.logic.commands.customercommands.DeleteCustomerCommand;
+import seedu.address.logic.commands.customercommands.EditCustomerCommand;
+import seedu.address.logic.commands.customercommands.EditCustomerCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.customercommands.FindCustomerCommand;
+import seedu.address.logic.commands.customercommands.ListCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
