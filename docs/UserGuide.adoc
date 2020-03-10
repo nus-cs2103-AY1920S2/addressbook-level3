@@ -207,7 +207,7 @@ Format: `ab deletenote INDEX [-l/LINE_NUMBER]`
 
 === Obtain gift suggestions for a particular contact using the Birthday Tracker (coming in v2.0)
 
-=== Adds a new restaurant
+=== Adds a new restaurant: `add`
 
 Adds a new restaurant +
 Format: `rt add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISINE]`
@@ -219,7 +219,7 @@ Format: `rt add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISI
 Examples:
 
 * `rt add rubbish o/0900:2300 p/$$` +
-Adds a new restaurant called rubbish with 2 dollar signs price point and opens form 9am to 11pm
+Adds a new restaurant called rubbish with 2 dollar signs price point and opens from 9am to 11pm
 
 === Search: `search`
 
@@ -234,13 +234,27 @@ Format: `rt search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
 * LOCATION, PRICE_POINT, and OPERATING_HOURS must be exact matches (case insensitive)
 ****
 
-
 Examples:
 
 * `rt search k/no signboard p/$$` +
 Searches for restaurants with the keyword no signboard which is at a medium price point.
 * `rt search l/bedok p/$` +
 Searches for restaurants in the bedok area at a low price point.
+
+=== Deletes a restaurant: `delete`
+
+Deletes a restaurant from the list +
+Format: `rt delete n/NAME`
+
+=== Add notes to a restaurant: notes
+
+Adds a new restaurant +
+Format: `rt notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
+
+Examples:
+
+* `rt notes rubbish r/chicken chop g/truffle fries b/risotto` +
+Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
 === Add new assignment to the Schoolwork Tracker
 
