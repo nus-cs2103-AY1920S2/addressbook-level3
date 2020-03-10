@@ -1,9 +1,7 @@
 package fithelper.model;
 
-import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import fithelper.commons.core.GuiSettings;
 import fithelper.model.entry.Entry;
 
 import javafx.collections.ObservableList;
@@ -14,36 +12,8 @@ import javafx.collections.ObservableList;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
-
-    /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
-     */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
-
-    /**
-     * Returns the user prefs.
-     */
-    ReadOnlyUserPrefs getUserPrefs();
-
-    /**
-     * Returns the user prefs' GUI settings.
-     */
-    GuiSettings getGuiSettings();
-
-    /**
-     * Sets the user prefs' GUI settings.
-     */
-    void setGuiSettings(GuiSettings guiSettings);
-
-    /**
-     * Returns the user prefs' FitHelper file path.
-     */
-    Path getFitHelperFilePath();
-
-    /**
-     * Sets the user prefs' FitHelper file path.
-     */
-    void setFitHelperFilePath(Path fitHelperFilePath);
+    Predicate<Entry> PREDICATE_SHOW_UNDONE_ENTRIES = entry -> entry.getStatus().value.equals("Undone");
+    Predicate<Entry> PREDICATE_SHOW_DONE_ENTRIES = entry -> entry.getStatus().value.equals("Done");
 
     /**
      * Replaces FitHelper data with the data in {@code fitHelper}.
