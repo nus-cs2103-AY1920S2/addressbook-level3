@@ -308,9 +308,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user who wants to improve time management |add deadlines |know when to complete tasks in todo list
 
-|`* * *` |user |add module to module plan |see modules I need to take to fulfill degree requirements
+|`* * *` |user |add event |know when and where is the event and who will going to participate in the event
 
-|`* * *` |user |show module plan |see list of modules I need to take/have taken
+|`* * *` |NUS student|add module to module plan |see modules I need to take to fulfill degree requirements
+
+|`* * *` |NUS student|show module plan |see list of modules I need to take/have taken
+
+|`* * *` |NUS student|write and save notes for each module I have taken/am taking
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -322,9 +326,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |delete module from module plan |know which modules I have taken
 
-|`* *` |user |fetch module information |
+|`* *` |NUS student|fetch module information |
 
-|`* *` |user |know current CAP |
+|`* *` |NUS student|know current CAP |
 
 |`* *` |user who wants to improve grades |calculate target CAP |know what grades to aim for to achieve my target CAP
 
@@ -333,6 +337,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
 |`*` |user |create group chats |communicate with peers in the same module
+
+|`*` |user |tag my diary with that day's weather |
+
+|`*` |user |tag my diary with that day's emotion |I can filter my diaries with specific mood
 |=======================================================================
 
 _{More to be added}_
