@@ -14,7 +14,7 @@ public class SampleDataUtil {
         return new Profile[] {
             new Profile(new Name("Alex Yeoh"), new Course("Computer Science"), "1",
                     null),
-            new Profile(new Name("Bernice Yu"), new Course("Business Analytics"),"1",
+            new Profile(new Name("Bernice Yu"), new Course("Business Analytics"), "1",
                     null),
             new Profile(new Name("Charlotte Oliveiro"), new Course("Information Security"), "1",
                     null),

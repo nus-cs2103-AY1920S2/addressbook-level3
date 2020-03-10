@@ -13,10 +13,10 @@ import seedu.address.model.profile.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A profile is considered unique by comparing using {@code Profile#isSamePerson(Profile)}. As such, adding and updating of
- * persons uses Profile#isSamePerson(Profile) for equality so as to ensure that the profile being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a profile uses Profile#equals(Object) so
- * as to ensure that the profile with exactly the same fields will be removed.
+ * A profile is considered unique by comparing using {@code Profile#isSamePerson(Profile)}. As such, adding and
+ * updating of persons uses Profile#isSamePerson(Profile) for equality so as to ensure that the profile being added
+ * or updated is unique in terms of identity in the UniquePersonList. However, the removal of a profile uses
+ * Profile#equals(Object) so as to ensure that the profile with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
