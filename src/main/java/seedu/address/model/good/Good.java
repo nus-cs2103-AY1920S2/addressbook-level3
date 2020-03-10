@@ -6,12 +6,14 @@ import java.util.Objects;
 /**
  * Represents a Good in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
+ * Method summary:
+ * Currently, the good class works as empty object for the inventory.
+ * More methods may be added to enhance the functionality.
  */
 public class Good {
 
     // Identity fields
     private final GoodName goodName;
-
 
     public Good(GoodName goodName) {
         requireNonNull(goodName);
