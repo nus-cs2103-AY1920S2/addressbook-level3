@@ -29,6 +29,9 @@ public class FindCustomerCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCustomerList(predicate);
+        if (model.getFilteredCustomerList().size() == 0) {
+            return new CommandResult(String.format("No customer named %s found!", predicate.toString()));
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCustomerList().size()));
     }

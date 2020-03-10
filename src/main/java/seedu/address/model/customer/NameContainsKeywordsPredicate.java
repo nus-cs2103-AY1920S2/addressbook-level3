@@ -28,4 +28,16 @@ public class NameContainsKeywordsPredicate implements Predicate<Customer> {
                 && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
+    @Override
+    public String toString() {
+        String print = "";
+        for (int i = 0; i < keywords.size(); i++) {
+            if (i + 1 == keywords.size()) {
+                print += keywords.get(i);
+                break;
+            }
+            print += keywords.get(i) + " or ";
+        }
+        return print;
+    }
 }
