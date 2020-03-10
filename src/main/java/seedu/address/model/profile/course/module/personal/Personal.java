@@ -17,4 +17,18 @@ public class Personal {
 
     // Currently unusable because all the fields are private.
     // TODO: Link the parsed input to the input of Personal, then call the respective functions within each class.
+
+    public void setGrade(String grade) {
+        this.grade.setGrade(grade);
+    }
+
+    public void setStatus(String status) {
+        if (status.equals("completed")) {
+            this.status.setCompleted();
+        } else if (status.equals("in progress")) {
+            this.status.setInProgress();
+        } else {
+            this.status.setNotTaken();
+        }
+    }
 }

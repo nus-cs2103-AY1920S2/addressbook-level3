@@ -12,12 +12,18 @@ import seedu.address.model.profile.course.Course;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Course("Computer Science"), null),
-            new Person(new Name("Bernice Yu"), new Course("Business Analytics"), null),
-            new Person(new Name("Charlotte Oliveiro"), new Course("Infomation Security"), null),
-            new Person(new Name("David Li"), new Course("Information Systems"), null),
-            new Person(new Name("Irfan Ibrahim"), new Course("Computer Science"), null),
-            new Person(new Name("Roy Balakrishnan"), new Course("Business Analytics"), null)
+            new Person(new Name("Alex Yeoh"), new Course("Computer Science"), "1",
+                    null),
+            new Person(new Name("Bernice Yu"), new Course("Business Analytics"),"1",
+                    null),
+            new Person(new Name("Charlotte Oliveiro"), new Course("Information Security"), "1",
+                    null),
+            new Person(new Name("David Li"), new Course("Information Systems"), "1",
+                    null),
+            new Person(new Name("Irfan Ibrahim"), new Course("Computer Science"), "1",
+                    null),
+            new Person(new Name("Roy Balakrishnan"), new Course("Business Analytics"), "1",
+                    null)
         };
     }
 

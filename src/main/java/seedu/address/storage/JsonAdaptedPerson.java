@@ -47,7 +47,7 @@ class JsonAdaptedPerson {
         final Name modelName = new Name(name);
         final Course modelCourse = new Course("Computer Science");
 
-        return new Person(modelName, modelCourse, null);
+        return new Person(modelName, modelCourse,"1", null);
     }
 
 }

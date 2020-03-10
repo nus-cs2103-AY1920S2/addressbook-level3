@@ -11,7 +11,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.PersonalModule;
+import seedu.address.model.profile.Person;
+import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -34,7 +35,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        // Add tasks to tasklist
+        // TODO: Add tasks to tasklist
         if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
             String task = argMultimap.getValue(PREFIX_MODULE).get();
             //add task to tasklist
@@ -46,15 +47,30 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         // Add module to list in Personal object within Module Object
         String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
+        if (!ParserUtil.isInteger(semester)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        int intSemester = Integer.parseInt(semester);
 
         String grade = null;
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
             grade = argMultimap.getValue(PREFIX_GRADE).get();
         }
 
-        PersonalModule personalModule = new PersonalModule(semester, grade);
+        Personal personal = new Personal();
+        personal.setGrade(grade);
 
-        return new AddCommand(personalModule);
+        // From current semester, determine status
+        int currentSemester = Integer.parseInt(Person.getCurrentSemester());
+        if (intSemester < currentSemester) {
+            personal.setStatus("completed");
+        } else if (intSemester == currentSemester) {
+            personal.setStatus("in progress");
+        } else {
+            personal.setStatus("not taken");
+        }
+
+        return new AddCommand(personal);
     }
 
     /**

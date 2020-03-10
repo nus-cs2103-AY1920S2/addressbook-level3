@@ -15,16 +15,19 @@ public class Person {
     // Identity fields
     private final Name name;
     private final Course course;
+    private static String currentSemester;
     private final String specialisation;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Course course, String specialisation) {
+    public Person(Name name, Course course, String currentSemester, String specialisation) {
         requireAllNonNull(name);
         requireAllNonNull(course);
+        requireAllNonNull(currentSemester);
         this.name = name;
         this.course = course;
+        this.currentSemester = currentSemester;
         this.specialisation = specialisation;
     }
 
@@ -34,6 +37,10 @@ public class Person {
 
     public Course getCourse() {
         return course;
+    }
+
+    public static String getCurrentSemester() {
+        return currentSemester;
     }
 
     public String getSpecialisation() {
