@@ -10,6 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.customer.AddressContainsKeywordsPredicate;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.EmailContainsKeywordsPredicate;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 
 /**
@@ -37,9 +38,11 @@ public class FindCustomerCommand extends Command {
         model.updateFilteredCustomerList(predicate);
         if (model.getFilteredCustomerList().size() == 0 && predicate instanceof NameContainsKeywordsPredicate) {
             return new CommandResult(String.format("No customer named %s found!", predicate.toString()));
-        } else if (model.getFilteredCustomerList().size() == 0 &&
-                predicate instanceof AddressContainsKeywordsPredicate) {
+        } else if (model.getFilteredCustomerList().size() == 0
+                && predicate instanceof AddressContainsKeywordsPredicate) {
             return new CommandResult(String.format("No customer staying in the area %s found!", predicate.toString()));
+        } else if (model.getFilteredCustomerList().size() == 0 && predicate instanceof EmailContainsKeywordsPredicate) {
+            return new CommandResult(String.format("No customer with email %s found!", predicate.toString()));
         }
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCustomerList().size()));

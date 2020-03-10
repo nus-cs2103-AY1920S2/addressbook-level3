@@ -8,13 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.customerCommands.FindCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.customer.AddressContainsKeywordsPredicate;
+import seedu.address.model.customer.EmailContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCustomerCommand object
@@ -47,7 +46,9 @@ public class FindCommandParser implements Parser<FindCustomerCommand> {
         } else if (!argMultimap.getAllValues(PREFIX_ADDRESS).isEmpty()) {
             return new FindCustomerCommand(new AddressContainsKeywordsPredicate(
                     argMultimap.getAllValues(PREFIX_ADDRESS)));
-        } 
+        } else if (!argMultimap.getAllValues(PREFIX_EMAIL).isEmpty()) {
+            return new FindCustomerCommand(new EmailContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_EMAIL)));
+        }
 
         return new FindCustomerCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
