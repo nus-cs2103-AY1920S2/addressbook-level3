@@ -13,10 +13,10 @@ import seedu.address.model.product.exceptions.ProductNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A customer is considered unique by comparing using {@code Customer#isSamePerson(Customer)}. As such, adding and updating of
+ * persons uses Customer#isSamePerson(Customer) for equality so as to ensure that the customer being added or updated is
+ * unique in terms of identity in the UniqueCustomerList. However, the removal of a customer uses Customer#equals(Object) so
+ * as to ensure that the customer with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -29,7 +29,7 @@ public class UniqueProductList implements Iterable<Product> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent customer as the given argument.
      */
     public boolean contains(Product toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +37,8 @@ public class UniqueProductList implements Iterable<Product> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a customer to the list.
+     * The customer must not already exist in the list.
      */
     public void add(Product toAdd) {
         requireNonNull(toAdd);
@@ -49,9 +49,9 @@ public class UniqueProductList implements Iterable<Product> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the customer {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The customer identity of {@code editedPerson} must not be the same as another existing customer in the list.
      */
     public void setProduct(Product target, Product editedProduct) {
         requireAllNonNull(target, editedProduct);
@@ -87,8 +87,8 @@ public class UniqueProductList implements Iterable<Product> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent customer from the list.
+     * The customer must exist in the list.
      */
     public void remove(Product toRemove) {
         requireNonNull(toRemove);

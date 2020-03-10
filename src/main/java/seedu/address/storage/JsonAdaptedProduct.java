@@ -24,7 +24,7 @@ class JsonAdaptedProduct {
     private final String sales;
 
     /**
-     * Constructs a {@code JsonAdaptedProduct} with the given person details.
+     * Constructs a {@code JsonAdaptedProduct} with the given customer details.
      */
     @JsonCreator
     public JsonAdaptedProduct(@JsonProperty("description") String description, @JsonProperty("price") String price,
@@ -36,7 +36,7 @@ class JsonAdaptedProduct {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Customer} into this class for Jackson use.
      */
     public JsonAdaptedProduct(Product source) {
         description = source.getDescription().value;
@@ -46,9 +46,9 @@ class JsonAdaptedProduct {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted customer object into the model's {@code Customer} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted customer.
      */
     public Product toModelType() throws IllegalValueException {
         if (description == null) {
