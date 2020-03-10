@@ -1,57 +1,58 @@
-package fithelper.calendar;
+package fithelper.ui.calendar;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
+import fithelper.model.entry.Entry;
+import fithelper.ui.UiPart;
+
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
 
 /**
  * Get the full calendar view.
  */
-public class FullCalendarView {
+public class FullCalendar extends UiPart<AnchorPane> {
+    private static final String FXML = "fullCalendar.fxml";
     private ArrayList<AnchorPaneNode> allCalendarDays = new ArrayList<>(35);
-    private VBox view;
+    private AnchorPane view;
     private Text calendarTitle;
     private YearMonth currentYearMonth;
-
     /**
      * Create a calendar view
-     * @param yearMonth year month to create the calendar of
      */
-    public FullCalendarView(YearMonth yearMonth) {
-        currentYearMonth = yearMonth;
+    public FullCalendar(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
+        super(FXML);
+        currentYearMonth = YearMonth.now();
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
-        calendar.setPrefSize(600, 400);
+        calendar.setPrefSize(60, 60);
         calendar.setGridLinesVisible(true);
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
                 AnchorPaneNode ap = new AnchorPaneNode();
-                ap.setPrefSize(200, 200);
+                ap.setPrefSize(20, 20);
                 calendar.add(ap, j, i);
                 allCalendarDays.add(ap);
             }
         }
         // Days of the week labels
-        Text[] dayNames = new Text[]{ new Text("Sunday"), new Text("Monday"), new Text("Tuesday"),
-                                        new Text("Wednesday"), new Text("Thursday"), new Text("Friday"),
-                                        new Text("Saturday") };
+        Text[] dayNames = new Text[]{new Text("S"), new Text("M"), new Text("T"),
+            new Text("W"), new Text("T"), new Text("F"), new Text("S")};
         GridPane dayLabels = new GridPane();
-        dayLabels.setPrefWidth(600);
+        dayLabels.setPrefWidth(20);
         Integer col = 0;
         for (Text txt : dayNames) {
             AnchorPane ap = new AnchorPane();
-            ap.setPrefSize(200, 10);
-            ap.setBottomAnchor(txt, 5.0);
+            ap.setPrefSize(20, 1);
+            ap.setBottomAnchor(txt, 0.5);
             ap.getChildren().add(txt);
             dayLabels.add(ap, col++, 0);
         }
@@ -64,9 +65,13 @@ public class FullCalendarView {
         HBox titleBar = new HBox(previousMonth, calendarTitle, nextMonth);
         titleBar.setAlignment(Pos.BASELINE_CENTER);
         // Populate calendar with the appropriate day numbers
-        populateCalendar(yearMonth);
+        populateCalendar(YearMonth.now());
         // Create the calendar view
-        view = new VBox(titleBar, dayLabels, calendar);
+        view = new AnchorPane(titleBar, dayLabels, calendar);
+        AnchorPane.setLeftAnchor(view, 550.0);
+        AnchorPane.setRightAnchor(view, 0.0);
+        AnchorPane.setTopAnchor(view, 0.0);
+        AnchorPane.setBottomAnchor(view, 0.0);
     }
 
     /**
@@ -87,8 +92,8 @@ public class FullCalendarView {
             }
             Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
             ap.setDate(calendarDate);
-            ap.setTopAnchor(txt, 5.0);
-            ap.setLeftAnchor(txt, 5.0);
+            ap.setTopAnchor(txt, 0.25);
+            ap.setLeftAnchor(txt, 0.25);
             ap.getChildren().add(txt);
             calendarDate = calendarDate.plusDays(1);
         }
@@ -112,7 +117,7 @@ public class FullCalendarView {
         populateCalendar(currentYearMonth);
     }
 
-    public VBox getView() {
+    public AnchorPane getView() {
         return view;
     }
 

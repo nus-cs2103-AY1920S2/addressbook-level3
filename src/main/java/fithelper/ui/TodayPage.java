@@ -44,7 +44,7 @@ public class TodayPage extends UiPart<AnchorPane> {
     public TodayPage(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         super(FXML);
 
-        logger.info("Initializing Order Page");
+        logger.info("Initializing Today Page");
 
         initializeListView(foodList, sportList);
     }
