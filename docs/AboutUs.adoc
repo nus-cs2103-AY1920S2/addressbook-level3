@@ -16,7 +16,7 @@ image::willyseahh.png[width="150", align="left"]
 {empty}[https://github.com/WillySeahh[github]] [<<willyseahh#, portfolio>>]
 
 Role: Project Advisor +
-Responsibilities: Team Facilitation, Code Integration
+Responsibilities: Team Facilitation, Code Integration, Expense Splitter
 
 '''
 
