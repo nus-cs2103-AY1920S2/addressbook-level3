@@ -860,7 +860,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Import command format: `import` `NAME_OF_FILE.csv`
 
-.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
+.. Prerequisites :
+The import file must be a `.csv file` and the `csv file` should be inside `data` folder which is the same directory as the JAR file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
 .. Test case: `import` `customers_20_02_2020.csv` +
    Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders
 
