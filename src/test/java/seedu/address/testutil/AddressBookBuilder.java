@@ -6,7 +6,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code RecipeBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ * {@code RecipeBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 

@@ -55,7 +55,7 @@ public class PersonCard extends UiPart<Region> {
 
     public PersonCard(Recipe recipe, int displayedIndex) {
         super(FXML);
-  this.recipe = recipe;
+        this.recipe = recipe;
 
         if (displayedIndex % 2 == 0) {
             id.setText(displayedIndex + ". ");

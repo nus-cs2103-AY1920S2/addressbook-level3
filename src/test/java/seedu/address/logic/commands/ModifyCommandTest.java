@@ -19,9 +19,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ModifyCommand.EditPersonDescriptor;
-import seedu.address.model.RecipeBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -55,8 +55,8 @@ public class ModifyCommandTest {
         Recipe lastRecipe = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastRecipe);
-        Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withTags(
+                VALID_TAG_HUSBAND).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withPhone(
                 VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
@@ -162,7 +162,7 @@ public class ModifyCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertFalse(standardCommand.equals(new ResetCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new ModifyCommand(INDEX_SECOND_PERSON, DESC_AMY)));
