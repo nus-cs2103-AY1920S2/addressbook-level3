@@ -1,9 +1,9 @@
 package fithelper.calendar;
+import java.time.LocalDate;
 
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-import java.time.LocalDate;
 
 /**
  * Create an anchor pane that can store additional data.

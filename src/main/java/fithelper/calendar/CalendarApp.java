@@ -1,14 +1,16 @@
 package fithelper.calendar;
 
 import javafx.application.Application;
-import jfxtras.icalendarfx.VCalendar;
-import javafx.stage.Stage;
-import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import jfxtras.icalendarfx.VCalendar;
+import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 
-public class CalendarApp extends Application
-{
+/**
+ * Runs the application.
+ */
+public class CalendarApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         VCalendar vCalendar = new VCalendar();
