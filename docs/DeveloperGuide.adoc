@@ -520,8 +520,8 @@ Use case ends.
 4.  User requests to signup a student to a course using their respective IDs
 5.  CCX finds all homework assigned to the course
 6.  CCX creates a Progress object for each homework and ties it to the student ID
-4.  CCX adds the Progress object into the system
-5.  CCX outputs a success message
+7.  CCX adds the Progress object into the system
+8.  CCX outputs a success message
 +
 Use case ends.
 
@@ -603,7 +603,7 @@ Use case ends.
 
 1.  User requests to see a student's Progress for a certain course using UC9
 2.  User requests to view the mark a particular Progress as 'Done' using the progressID
-4.  CCX outputs a success message with the updated Progress object
+3.  CCX outputs a success message with the updated Progress object
 +
 Use case ends.
 
