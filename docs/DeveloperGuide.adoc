@@ -377,7 +377,7 @@ Use case ends.
 
 1.  User sees all homework using UC2
 2.  User requests to delete homework using its respective homeworkID
-3.  CCX searches the the system for the relevant homework
+3.  CCX finds the homework using UC4
 4.  CCX removes the homework from the system
 5.  CCX outputs a success message with the details for the homework
 +
@@ -391,6 +391,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use Case 4: Finding a homework by homeworkID
 
 *MSS*
@@ -410,40 +411,123 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 === Use Case 5: Edit a homework using homeworkID
 
 *MSS*
 
-1.  User sees all homework using UC2.
-3.  CCX outputs the whole list of homework.
-2.  User requests to edit a homework using its respective homeworkID.
-3.  CCX finds for the specific homework using UC4.
-4.  CCX changes the details of the homework.
-5.  CCX outputs a success message with the updated details for the homework
+1.  User sees all homework using UC2
+2.  CCX outputs the whole list of homework
+3.  User requests to edit a homework using its respective homeworkID
+4.  CCX finds for the specific homework using UC4
+5.  CCX changes the details of the homework
+6.  CCX outputs a success message with the updated details for the homework
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. homeworkID does not exist.
+* 3a. homeworkID does not exist.
 [none]
-** 2a1. CCX shows an error message.
+** 3a1. CCX shows an error message.
 +
 Use case ends.
 
-* 2b. New deadline provided is not properly formatted.
+* 3b. New deadline provided is not properly formatted.
 [none]
-** 2b1. CCX shows an error message.
+** 3b1. CCX shows an error message.
 +
 Use case ends.
 
-* 2c. No new details are provided.
+* 3c. No new details are provided.
 [none]
-** 2c1. CCX shows an error message.
+** 3c1. CCX shows an error message.
 +
 Use case ends.
 
+[discrete]
+=== Use Case 6: Assign a homework to a course
+
+*MSS*
+
+1.  User requests to see homework using UC2
+2.  CCX outputs the whole list of homework
+3.  User requests to see all courses using *UC??*
+4.  User requests to assign a homework to a course using their respective IDs
+5.  CCX adds the homeworkID into the course's list of homework
+6.  CCX outputs a success message with the successful addition of homework
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. homeworkID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 7: Assign several homework to a course
+
+*MSS*
+
+1.  User requests to see homework using UC2
+2.  CCX outputs the whole list of homework
+3.  User requests to see all courses using *UC??*
+4.  User requests to assign a list of homework to a course using their respective IDs
+5.  CCX adds the list of homeworkID into the course's list of homework
+6.  CCX outputs a success message with the successful addition of homework
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. Any one of the homeworkID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 7: Signup a student to a course
+
+*MSS*
+
+1.  User requests to see all students using *UC??*
+2.  CCX outputs the whole list of students
+3.  User requests to see all courses using *UC??*
+4.  User requests to signup a student to a course using their respective IDs
+5.  CCX finds all homework assigned to the course
+6.  CCX creates a Progress object for each homework and ties it to the student ID
+4.  CCX adds the Progress object into the system
+5.  CCX outputs a success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. homeworkID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
 
 _{More to be added}_
 
