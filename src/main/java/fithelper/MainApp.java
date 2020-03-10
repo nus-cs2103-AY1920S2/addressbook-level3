@@ -1,10 +1,10 @@
 package fithelper;
 
+import static fithelper.model.util.SampleDataUtil.getSampleFitHelper;
+
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
-
-import static fithelper.model.util.SampleDataUtil.getSampleFitHelper;
 
 import fithelper.commons.core.Config;
 import fithelper.commons.core.LogsCenter;
