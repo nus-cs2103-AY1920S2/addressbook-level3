@@ -16,7 +16,7 @@ plugins {
 
 // Specifies the entry point of the application
 application {
-    mainClassName = 'seedu.address.Main'
+    mainClassName = 'fithelper.Main'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
