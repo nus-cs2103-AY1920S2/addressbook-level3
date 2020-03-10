@@ -325,7 +325,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |lazy user |keep track of previous inputs |enter/edit previous commands easily
 
-|`*` |lazy user |access <<product, products>> that are running low easily |restock and update the system much faster
+|`*` |lazy user |access <<product, products>> that are running low in quantity easily |restock and update the system much faster
 
 |=======================================================================
 
@@ -339,8 +339,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1. User requests to list items
-2. The app displays a list of requested items
+1. User requests to pass:[<u>list items (UC05)</u>]
+2. The app displays a list of requested items.
 3. User requests to delete a specific item in the list
 4. The item is deleted from the list
 
@@ -387,7 +387,7 @@ Use case ends.
 
 *MSS*
 
-1. User requests to list items.
+1. User requests to pass:[<u>list items (UC05)</u>]
 2. The app displays a list of requested items.
 3. User requests to edit a specific item in the list.
 4. The item is updated with the new information entered by the user.
