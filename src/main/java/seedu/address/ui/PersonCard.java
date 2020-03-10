@@ -76,7 +76,6 @@ public class PersonCard extends UiPart<Region> {
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
         }
-        //for original version, delete everything but the contents of the "if" block.
     }
 
     @Override
