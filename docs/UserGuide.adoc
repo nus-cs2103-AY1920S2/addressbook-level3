@@ -205,7 +205,7 @@ Format: `ab deletenote INDEX [-l/LINE_NUMBER]`
 * [-k] Delete all lines that contain this keyword
 ****
 
-=== Obtain gift suggestions for a particular contact using the Birthday Tracker (coming in v2.0)
+=== Obtain gift suggestions for a particular contact using the Birthday Tracker `(coming in v2.0)`
 
 === Adds a new restaurant: `rt add`
 
