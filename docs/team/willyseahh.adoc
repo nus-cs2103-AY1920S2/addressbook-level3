@@ -30,7 +30,7 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 ** Project management:
 *** In charge of team facilitation and code integration.
-*** Planned project timeline of EYLAH.
+*** Participated in planning the project timeline for EYLAH.
 +
 image::Ui.png[width="790"]
 +
