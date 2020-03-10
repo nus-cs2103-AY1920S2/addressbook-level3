@@ -30,7 +30,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     private List<String> inputHistory = new ArrayList<>();
-    private int historyIndex = inputHistory.size();
+    //private int historyIndex = inputHistory.size();
 
     // Independent Ui parts residing in this Ui container
     private FoodListPanel foodListPanel;
@@ -83,7 +83,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
+    private void fillInnerParts() {
 
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
 
@@ -100,11 +100,11 @@ public class MainWindow extends UiPart<Stage> {
      * Handles the user inputs.
      */
     @FXML
-    private void handleUserInput() {
+    public void handleUserInput() {
         String input = userInput.getText();
 
         inputHistory.add(input);
-        historyIndex = inputHistory.size();
+        //historyIndex = inputHistory.size();
 
         try {
             CommandResult commandResult = logic.execute(input);
@@ -133,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    private void handleShowTodayPage() {
+    public void handleShowTodayPage() {
         showTodayPage();
     }
 
