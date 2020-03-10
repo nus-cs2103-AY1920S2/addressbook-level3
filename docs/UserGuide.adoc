@@ -100,7 +100,7 @@ Edits the name of the 2nd customer to be Betsy Crower and clears all existing ta
 === Locating customers by name: `findc`
 
 Finds customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
-Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
+Format: `findc [n/ NAME] [p/ PHONE] [e/ EMAIL] [a/ ADDRESS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
@@ -112,10 +112,12 @@ Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 Examples:
 
-* `findc n/John` +
+* `findc n/ John` +
 Returns john and John Doe from the customer list.
-* `findc n/Betsy n/Tim n/John` +
+* `findc n/ Betsy Tim John` +
 Returns any customer having names Betsy, Tim, or John in the customer list.
+* `findc a/ serangoon yishun` +
+Returns all customers with address in Serangoon and Yishun.
 
 === Deleting a customer: `deletec`
 
