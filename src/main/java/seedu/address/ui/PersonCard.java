@@ -59,7 +59,7 @@ public class PersonCard extends UiPart<Region> {
 
         if (displayedIndex % 2 == 0) {
             id.setText(displayedIndex + ". ");
-            name.setText(recipe.getName().fullName);
+            name.setText(recipe.getName().name);
             phone.setText(recipe.getPhone().value);
             address.setText(recipe.getAddress().value);
             email.setText(recipe.getEmail().value);
@@ -68,7 +68,7 @@ public class PersonCard extends UiPart<Region> {
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         } else {
             id1.setText(displayedIndex + ". ");
-            name1.setText(recipe.getName().fullName);
+            name1.setText(recipe.getName().name);
             phone1.setText(recipe.getPhone().value);
             address1.setText(recipe.getAddress().value);
             email1.setText(recipe.getEmail().value);

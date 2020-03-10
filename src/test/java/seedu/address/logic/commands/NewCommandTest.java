@@ -163,7 +163,7 @@ public class NewCommandTest {
         @Override
         public boolean hasPerson(Recipe recipe) {
             requireNonNull(recipe);
-            return this.recipe.isSamePerson(recipe);
+            return this.recipe.isSameRecipe(recipe);
         }
     }
 
@@ -176,7 +176,7 @@ public class NewCommandTest {
         @Override
         public boolean hasPerson(Recipe recipe) {
             requireNonNull(recipe);
-            return personsAdded.stream().anyMatch(recipe::isSamePerson);
+            return personsAdded.stream().anyMatch(recipe::isSameRecipe);
         }
 
         @Override

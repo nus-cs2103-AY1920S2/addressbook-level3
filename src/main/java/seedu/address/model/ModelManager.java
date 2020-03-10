@@ -91,7 +91,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerson(Recipe recipe) {
         requireNonNull(recipe);
-        return addressBook.hasPerson(recipe);
+        return addressBook.hasRecipe(recipe);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addPerson(Recipe recipe) {
-        addressBook.addPerson(recipe);
+        addressBook.addRecipe(recipe);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setPerson(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
 
-        addressBook.setPerson(target, editedRecipe);
+        addressBook.setRecipe(target, editedRecipe);
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
