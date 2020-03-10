@@ -1,15 +1,18 @@
 package com.notably.logic.commands;
 
+import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
+import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
+import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
+import static com.notably.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.notably.commons.core.index.Index;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.AddressBook;
 import com.notably.model.Model;
-import com.notably.testutil.EditPersonDescriptorBuilder;
-
-import static com.notably.logic.parser.CliSyntax.*;
-import static com.notably.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Contains helper methods for testing commands.
@@ -47,16 +50,9 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
     }
 
     /**
@@ -98,7 +94,6 @@ public class CommandTestUtil {
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
