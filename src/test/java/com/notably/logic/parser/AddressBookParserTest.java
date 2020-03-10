@@ -20,7 +20,6 @@ import com.notably.logic.commands.EditCommand;
 import com.notably.logic.commands.EditCommand.EditPersonDescriptor;
 import com.notably.logic.commands.ExitCommand;
 import com.notably.logic.commands.HelpCommand;
-import com.notably.logic.commands.ListCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.person.NameContainsKeywordsPredicate;
 import com.notably.testutil.EditPersonDescriptorBuilder;
@@ -70,12 +69,6 @@ public class AddressBookParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
-    }
-
-    @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
     }
 
     @Test
