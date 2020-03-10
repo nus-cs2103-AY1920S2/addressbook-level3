@@ -1,6 +1,6 @@
 package seedu.address.model.activity;
 
-import NASA.model.activity.Status;
+import nasa.model.activity.Status;
 
 /**
  * Abstract class to specify fields with getter and setters for activities.
