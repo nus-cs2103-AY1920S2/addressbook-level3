@@ -306,25 +306,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a particular homework |locate the details of the homework without going through the whole list of all homeworks
 
-|`* * *` |user |edit a homework |quickly change the details of the homework without creating a new entry and deleting the old one
+|`* * *` |user |edit a homework's detail |quickly change the details of the homework without creating a new entry and deleting the old one
+
+|`* * *` |user |assign a homework to course |
+
+|`* * *` |user |assign a list of homework to course |quickly add all homeworks to a course without going through them one by one
+
+|`* * *` |user |for every student added to a course, assign a list of progress items to them automatically based on the homework for the course | make it more convenient for the administrative staff to assign students to courses
 
 |`* * *` |user |track the progress of an individual student | to ensure that students are caught up on study materials
 
 |`* * *` |user |track the progress of all students in a particular course |to get an overview understanding of all students' progress in a course
 
-|`* * *` |user |for every student added to a course, assign a list of progress items to them automatically based on the homework for the course | make it more convenient for the administrative staff to assign students to courses
-
 |`* * *` |user |mark as done the homework of a student |
-
-|`* * *` |user |add a homework to course |
-
-|`* * *` |user |add a list of homework to course |quickly add all homeworks to a course without going through them one by one
 
 |`* * *` |user |mark as done the homework of a few/all students for a particular week |quickly mark students' homework as done without iterating through all of the homework
 
 |`* *` |user |get notified if there is a student with too many undone homework |help to easily inform the teachers on the student progress
-
-|`* *` |user |list all homework to be done for a course |
 |=======================================================================
 
 _{More to be added}_
@@ -335,30 +333,58 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Code Camp X` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: Adding a homework
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
+1.  User inputs an 'add homework' command with name and deadline
+2.  CCX adds the homework into the system
++ Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
+* 1a. No name/deadline is provided.
+** 1a1. CCX shows an error message.
++ Use case ends.
 
-* 3a. The given index is invalid.
-+
+* 1b. The Date deadline is wrongly formatted.
+** 1b1. CCX shows an error message.
+
+=== Use Case 2: Listing all homework
+
+*MSS*
+
+1.  User requests to see all homework
+2.  CCX outputs all homework in its database
++ Use case ends.
+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+* 1a. List is empty.
++ Use case ends.
+
+=== Use Case 3: Deleting a homework
+
+*MSS*
+
+1.  User sees all homework using UC2
+2.  User requests to delete homework using its respective homeworkID
+3.  CCX searches the the system for the relevant homework
+4.  CCX removes the homework from the system
+5.  CCX outputs a success message with the details for the homework
++ Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No name/deadline is provided.
+** 1a1. CCX shows an error message.
++ Use case ends.
+
+* 1b. The Date deadline is wrongly formatted.
+** 1b1. CCX shows an error message.
 
 _{More to be added}_
 
