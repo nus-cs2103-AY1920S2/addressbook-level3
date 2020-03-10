@@ -38,6 +38,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Course} of the {@code Person} that we are building.
+     */
     public PersonBuilder withCourse(String course) {
         this.course = new Course(course);
         return this;

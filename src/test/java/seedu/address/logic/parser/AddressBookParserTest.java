@@ -10,7 +10,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -26,12 +28,12 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        assertEquals(1,1);
+        assertEquals(1, 1);
     }
 
     @Test
     public void parseCommand_new() throws Exception {
-        assertEquals(1,1);
+        assertEquals(1, 1);
     }
 
     @Test
