@@ -2,40 +2,55 @@
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons": [
     {
-      "name": "Buy Milk",
+      "name": "Homework 10",
       "priority": "1",
-      "description": "Lorem Ipsum description",
+      "description": "Pages 100 - 112",
       "done" : "N",
       "tagged": [
-        "groceries"
+        "MA1521"
       ]
     },
     {
-      "name": "Buy shoes",
+      "name": "Lab 3",
       "priority": "2",
-      "description": "Lorem Ipsum description",
+      "description": "Introduction to UDP",
       "done" : "N",
       "tagged": [
-        "friends"
+        "help"
       ]
     },
     {
-      "name": "Buy food",
+      "name": "mum tells me to do Tutorial 1",
       "priority": "3",
-      "description": "Lorem Ipsum description",
+      "description": "Introduction to Calculus",
       "done": "N",
       "tagged": [
-        "friends"
+        "MA1521"
       ]
     },
     {
-      "name": "Buy drinks",
+      "name": "Buy milk",
       "priority": "2",
-      "description": "Lorem Ipsum description",
-      "done" : "N",
-      "tagged": [
-        "friends"
-      ]
+      "description": "Very hungry",
+      "done" : "N"
+    },
+    {
+      "name": "mum tells me to feed cat",
+      "priority": "3",
+      "description": "Cat is making noise",
+      "done" : "N"
+    },
+    {
+      "name": "mum tells me to run",
+      "priority": "1",
+      "description": "Complete 2.4km run!",
+      "done" : "N"
+    },
+    {
+      "name": "Gym",
+      "priority": "3",
+      "description": "Complete 100 sets of pushups",
+      "done" : "N"
     }
   ]
 }
