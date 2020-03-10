@@ -1,6 +1,11 @@
 package fithelper;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import jfxtras.icalendarfx.VCalendar;
+import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 
 /**
  * The main entry point to the application.
@@ -19,7 +24,7 @@ import javafx.application.Application;
  * to be the entry point of the application, we avoid this issue.
  */
 public class Main {
-    public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
-    }
+       public static void main(String[] args) {
+          Application.launch(MainApp.class, args);
+       }
 }
