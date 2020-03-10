@@ -31,27 +31,51 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label name1;
+    @FXML
     private Label id;
+    @FXML
+    private Label id1;
     @FXML
     private Label phone;
     @FXML
+    private Label phone1;
+    @FXML
     private Label address;
+    @FXML
+    private Label address1;
     @FXML
     private Label email;
     @FXML
+    private Label email1;
+    @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane tags1;
 
     public PersonCard(Recipe recipe, int displayedIndex) {
         super(FXML);
-        this.recipe = recipe;
-        id.setText(displayedIndex + ". ");
-        name.setText(recipe.getName().fullName);
-        phone.setText(recipe.getPhone().value);
-        address.setText(recipe.getAddress().value);
-        email.setText(recipe.getEmail().value);
-        recipe.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+  this.recipe = recipe;
+
+        if (displayedIndex % 2 == 0) {
+            id.setText(displayedIndex + ". ");
+            name.setText(recipe.getName().fullName);
+            phone.setText(recipe.getPhone().value);
+            address.setText(recipe.getAddress().value);
+            email.setText(recipe.getEmail().value);
+            recipe.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        } else {
+            id1.setText(displayedIndex + ". ");
+            name1.setText(recipe.getName().fullName);
+            phone1.setText(recipe.getPhone().value);
+            address1.setText(recipe.getAddress().value);
+            email1.setText(recipe.getEmail().value);
+            recipe.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
+        }
     }
 
     @Override
