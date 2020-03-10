@@ -14,7 +14,6 @@ import com.notably.logic.commands.EditCommand;
 import com.notably.logic.commands.ExitCommand;
 import com.notably.logic.commands.FindCommand;
 import com.notably.logic.commands.HelpCommand;
-import com.notably.logic.commands.ListCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 
 /**
@@ -58,9 +57,6 @@ public class AddressBookParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
