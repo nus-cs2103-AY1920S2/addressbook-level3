@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 
 import java.util.stream.Stream;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -13,8 +14,16 @@ import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Person;
 import seedu.address.model.profile.course.Course;
 
+/**
+ * Parses input arguments and creates a new Person Object.
+ */
 public class NewCommandParser implements Parser<NewCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the NewCommand
+     * and returns a NewCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE, PREFIX_SPEC);

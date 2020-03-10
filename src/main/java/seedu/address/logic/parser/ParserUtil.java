@@ -46,6 +46,12 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
     public static SemesterData parseSemesterData(String semester) throws ParseException {
         requireNonNull(semester);
         String trimmedSemester = semester.trim();
@@ -55,6 +61,9 @@ public class ParserUtil {
         return new SemesterData(semester);
     }
 
+    /**
+     * Checks that input is an integer
+     */
     public static boolean isInteger(String s) {
         try {
             Integer.parseInt(s);
@@ -64,6 +73,12 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
     public static Course parseCourse(String course) throws ParseException {
         requireNonNull(course);
         String trimmedSemester = course.trim();

@@ -3,6 +3,7 @@ package seedu.address.model.profile;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+
 import seedu.address.model.profile.course.Course;
 
 /**
