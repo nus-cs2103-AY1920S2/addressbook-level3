@@ -22,13 +22,13 @@ import seedu.address.model.product.Quantity;
 import seedu.address.model.product.Sales;
 
 /**
- * Parses input arguments and creates a new AddCustomerCommand object
+ * Parses input arguments and creates a new AddProductCommand object
  */
 public class AddProductCommandParser implements Parser<AddProductCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCustomerCommand
-     * and returns an AddCustomerCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddProductCommand
+     * and returns an AddProductCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddProductCommand parse(String args) throws ParseException {

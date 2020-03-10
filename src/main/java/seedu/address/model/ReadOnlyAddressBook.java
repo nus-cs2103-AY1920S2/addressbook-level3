@@ -10,8 +10,8 @@ import seedu.address.model.product.Product;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the persons list and product list.
+     * This list will not contain any duplicate persons or duplicate products.
      */
     ObservableList<Customer> getPersonList();
     ObservableList<Product> getProductList();

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Product's price in the product list
+ * Represents a Product's quantity in the product list
  * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
  */
 public class Quantity {
@@ -12,17 +12,16 @@ public class Quantity {
     public static final String MESSAGE_CONSTRAINTS = "Quantity can take any numeric values, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * There must be one or more digits entered.
      */
     public static final String VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Quantity}.
      *
-     * @param quantity A valid address.
+     * @param quantity A valid quantity.
      */
     public Quantity(String quantity) {
         requireNonNull(quantity);
@@ -31,7 +30,7 @@ public class Quantity {
     }
 
     /**
-     * Returns true if a given string is a valid price.
+     * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidQuantity(String test) {
         return test.matches(VALIDATION_REGEX);
