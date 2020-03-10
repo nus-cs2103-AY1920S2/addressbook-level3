@@ -32,7 +32,8 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private FoodListPanel foodListPanel;
+    private SportsListPanel sportsListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,7 +44,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane foodListPanelPlaceholder;
+
+    @FXML
+    private StackPane sportsListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -62,8 +66,6 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(logic.getGuiSettings());
 
         setAccelerators();
-
-        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -104,22 +106,25 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
-    //    /**
-    //     * Fills up all the placeholders of this window.
-    //     */
-    //    void fillInnerParts() {
-    //        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-    //        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    //
-    //        resultDisplay = new ResultDisplay();
-    //        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-    //
-    //        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitHelperFilePath());
-    //        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-    //
-    //        CommandBox commandBox = new CommandBox(this::executeCommand);
-    //        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    //      }
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    public void fillInnerParts() {
+        foodListPanel = new FoodListPanel(logic.getFilteredFoodEntryList());
+        foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+
+        sportsListPanel = new SportsListPanel(logic.getFilteredSportsEntryList());
+        sportsListPanelPlaceholder.getChildren().add(sportsListPanel.getRoot());
+
+        resultDisplay = new ResultDisplay();
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFitHelperFilePath());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
 
     /**
      * Sets the default size based on {@code guiSettings}.
@@ -157,12 +162,15 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public FoodListPanel getFoodListPanel() {
+        return foodListPanel;
+    }
+
+    public SportsListPanel getSportsListPanel() {
+        return sportsListPanel;
     }
 
     /**
