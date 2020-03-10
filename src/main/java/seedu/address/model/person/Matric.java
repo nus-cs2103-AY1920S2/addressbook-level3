@@ -16,9 +16,9 @@ public class Matric {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "A" + "\\d{7}" + "[A-Z]";
 
-    public final String matricNumber;
+    public final String value;
 
     /**
      * Constructs a {@code Matric}.
@@ -28,7 +28,7 @@ public class Matric {
     public Matric(String matric) {
         requireNonNull(matric);
         checkArgument(isValidMatric(matric), MESSAGE_CONSTRAINTS);
-        matricNumber = matric;
+        value = matric;
     }
 
     /**
@@ -36,24 +36,25 @@ public class Matric {
      */
     public static boolean isValidMatric(String test) {
         return test.matches(VALIDATION_REGEX);
+        //return true;
     }
 
 
     @Override
     public String toString() {
-        return matricNumber;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Matric // instanceof handles nulls
-                && matricNumber.equals(((Matric) other).matricNumber)); // state check
+                && value.equals(((Matric) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return matricNumber.hashCode();
+        return value.hashCode();
     }
 
 }
