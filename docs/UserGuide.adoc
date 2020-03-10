@@ -62,7 +62,7 @@ Adds a customer to the customer list +
 Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 
 [TIP]
-A person can have any number of tags (including 0)
+A customer can have any number of tags (including 0)
 
 Examples:
 
@@ -83,30 +83,29 @@ Edits an existing customer in the customer list. +
 Format: `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 ****
-* Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
+* Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed customer list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing t/ without specifying any tags after it.
+* When editing tags, the existing tags of the customer will be removed i.e adding of tags is not cumulative.
+* You can remove all the customer’s tags by typing t/ without specifying any tags after it.
 ****
 
 Examples:
 
 * `editc 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
+Edits the phone number and email address of the 1st customer to be 91234567 and johndoe@example.com respectively.
 * `editc 2 n/Betsy Crower t/` +
 Edits the name of the 2nd customer to be Betsy Crower and clears all existing tags.
 
 === Locating customers by name: `findc`
 
 Finds customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
-Format: `findc [k/KEYWORD] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `findc [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
-* At least one of the option fields must be provided.
+* At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
-* The keyword will be searched only in the customer’s name.
 * The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
 * Customers matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
 ****
@@ -115,7 +114,7 @@ Examples:
 
 * `findc n/John` +
 Returns john and John Doe from the customer list.
-* `findc n/Betsy Tim John` +
+* `findc n/Betsy n/Tim n/John` +
 Returns any customer having names Betsy, Tim, or John in the customer list.
 
 === Deleting a customer: `deletec`

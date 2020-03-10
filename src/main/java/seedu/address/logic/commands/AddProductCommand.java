@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.product.Product;
 
 /**
- * Adds a person to the address book.
+ * Adds a customer to the address book.
  */
 public class AddProductCommand extends Command {
 
@@ -35,7 +35,7 @@ public class AddProductCommand extends Command {
     private final Product toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCustomerCommand to add the specified {@code Customer}
      */
     public AddProductCommand(Product product) {
         requireNonNull(product);
