@@ -1,0 +1,7 @@
+{
+  "persons": [ {
+    "name": "Transaction with invalid name field: Ha!ns Mu@ster",
+    "amount": "100.00",
+    "date": "2019-02-07"
+  } ]
+}
