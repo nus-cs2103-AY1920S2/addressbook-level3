@@ -1,4 +1,4 @@
-package seedu.address.model.profile.course.module;
+package seedu.address.model.profile.course.module.personal;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

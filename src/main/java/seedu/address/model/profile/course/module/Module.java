@@ -1,5 +1,7 @@
 package seedu.address.model.profile.course.module;
 
+import seedu.address.model.profile.course.module.personal.Personal;
+
 /**
  * Represents a Module in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -15,7 +17,7 @@ public class Module {
 
     // Attributes to add
     // Personal { Status, Grade, TaskList }
-    private TaskList taskList;
+    private Personal personal;
 
     /**
      * Every field must be present and not null.
@@ -30,7 +32,7 @@ public class Module {
         this.description = description;
         this.semesterData = semesterData;
 
-        this.taskList = taskList;
+        this.personal = new Personal();
     }
 
     public ModuleCode getModuleCode() {
@@ -57,9 +59,7 @@ public class Module {
         return semesterData;
     }
 
-    public TaskList getTaskList() {
-        return taskList;
-    }
+    // To think of whether Personal stuff should have getters and setters here, since it will be largely repetition
 
     @Override
     public String toString() {
