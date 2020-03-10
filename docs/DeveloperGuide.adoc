@@ -342,7 +342,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |busy university student with many assignments and projects |add an assignment to the app | not have to remember the details and deliverables of each assignment.
 
-|`* * *` | busy university student with many events to attend and friends to catch up with |keep track of all the events that I need to attend | do not miss any meetings and anger anyone. 
+|`* * *` | busy university student with many events to attend and friends to catch up with |keep track of all the events that I need to attend | do not miss any meetings and anger anyone.
 
 |`* *`| user who has visited many different restaurants | be able to keep track of terrible dishes at each restaurant | I can avoid ordering them again.
 
