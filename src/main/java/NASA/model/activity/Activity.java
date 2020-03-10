@@ -13,8 +13,6 @@ public abstract class Activity {
 
     private Note note;
 
-    private boolean isDone;
-
     private Status status;
 
     private Priority priority;
@@ -29,11 +27,8 @@ public abstract class Activity {
         this.name = name;
         this.date = date;
         this.note = note;
-        this.isDone = false;
         this.status = Status.ONGOING;
     }
-
-    //Priority priority;
 
     /**
      * Retrieve the name of the activity.

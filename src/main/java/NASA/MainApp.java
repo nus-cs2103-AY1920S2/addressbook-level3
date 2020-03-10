@@ -78,7 +78,7 @@ public class MainApp extends Application {
         try {
             nasaBookOptional = storage.readNasaBook();
             if (!nasaBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample NasaBook");
             }
             initialData = nasaBookOptional.orElseGet(SampleDataUtil::getSampleNasaBook);
         } catch (DataConversionException e) {
