@@ -29,7 +29,6 @@ import com.notably.model.UserPrefs;
 import com.notably.storage.JsonAddressBookStorage;
 import com.notably.storage.JsonUserPrefsStorage;
 import com.notably.storage.StorageManager;
-import com.notably.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

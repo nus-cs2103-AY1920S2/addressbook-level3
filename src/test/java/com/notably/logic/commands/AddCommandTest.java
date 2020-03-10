@@ -19,7 +19,6 @@ import com.notably.model.AddressBook;
 import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.ReadOnlyUserPrefs;
-import com.notably.testutil.PersonBuilder;
 
 import javafx.collections.ObservableList;
 
