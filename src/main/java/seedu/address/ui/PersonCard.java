@@ -4,10 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Profile}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -21,7 +21,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Profile profile;
 
     @FXML
     private HBox cardPane;
@@ -30,11 +30,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Profile profile, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.profile = profile;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(profile.getName().fullName);
     }
 
     @Override
@@ -53,6 +53,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && profile.equals(card.profile);
     }
 }

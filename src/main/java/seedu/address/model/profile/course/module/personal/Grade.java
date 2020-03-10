@@ -3,7 +3,7 @@ package seedu.address.model.profile.course.module.personal;
 import java.util.NoSuchElementException;
 
 /**
- * Stores the grade of a person's Module object.
+ * Stores the grade of a profile's Module object.
  */
 public class Grade {
 

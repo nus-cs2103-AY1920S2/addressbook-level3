@@ -7,24 +7,27 @@ import java.util.Objects;
 import seedu.address.model.profile.course.Course;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Profile in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Profile {
 
     // Identity fields
     private final Name name;
     private final Course course;
+    private static String currentSemester;
     private final String specialisation;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Course course, String specialisation) {
+    public Profile(Name name, Course course, String currentSemester, String specialisation) {
         requireAllNonNull(name);
         requireAllNonNull(course);
+        requireAllNonNull(currentSemester);
         this.name = name;
         this.course = course;
+        this.currentSemester = currentSemester;
         this.specialisation = specialisation;
     }
 
@@ -36,6 +39,10 @@ public class Person {
         return course;
     }
 
+    public static String getCurrentSemester() {
+        return currentSemester;
+    }
+
     public String getSpecialisation() {
         return specialisation;
     }
@@ -45,13 +52,13 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Profile otherProfile) {
+        if (otherProfile == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherProfile != null
+                && otherProfile.getName().equals(getName());
     }
 
     /**
@@ -64,12 +71,12 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Profile)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName());
+        Profile otherProfile = (Profile) other;
+        return otherProfile.getName().equals(getName());
     }
 
     @Override

@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.UniquePersonList;
 
 /**
@@ -40,11 +40,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the profile list with {@code profiles}.
+     * {@code profiles} must not contain duplicate profiles.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Profile> profiles) {
+        this.persons.setPersons(profiles);
     }
 
     /**
@@ -56,40 +56,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// profile-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a profile with the same identity as {@code profile} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Profile profile) {
+        requireNonNull(profile);
+        return persons.contains(profile);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a profile to the address book.
+     * The profile must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Profile p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given profile {@code target} in the list with {@code editedProfile}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The profile identity of {@code editedProfile} must not be the same as another existing profile in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Profile target, Profile editedProfile) {
+        requireNonNull(editedProfile);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedProfile);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Profile key) {
         persons.remove(key);
     }
 
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Profile> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 
