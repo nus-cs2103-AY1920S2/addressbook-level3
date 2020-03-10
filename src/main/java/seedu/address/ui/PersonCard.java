@@ -31,27 +31,51 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label name1;
+    @FXML
     private Label id;
+    @FXML
+    private Label id1;
     @FXML
     private Label phone;
     @FXML
+    private Label phone1;
+    @FXML
     private Label address;
+    @FXML
+    private Label address1;
     @FXML
     private Label email;
     @FXML
+    private Label email1;
+    @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane tags1;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        if (displayedIndex % 2 == 0) {
+            id.setText(displayedIndex + ". ");
+            name.setText(person.getName().fullName);
+            phone.setText(person.getPhone().value);
+            address.setText(person.getAddress().value);
+            email.setText(person.getEmail().value);
+            person.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        } else {
+            id1.setText(displayedIndex + ". ");
+            name1.setText(person.getName().fullName);
+            phone1.setText(person.getPhone().value);
+            address1.setText(person.getAddress().value);
+            email1.setText(person.getEmail().value);
+            person.getTags().stream()
+                    .sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
+        }
     }
 
     @Override
