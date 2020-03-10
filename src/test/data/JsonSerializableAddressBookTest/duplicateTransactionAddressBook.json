@@ -1,0 +1,12 @@
+{
+  "persons": [ {
+    "name": "Alice Pauline",
+    "amount": "100.00",
+    "address": "2020-07-02",
+    "tagged": [ "friends" ]
+  }, {
+    "name": "Alice Pauline",
+    "amount": "100.00",
+    "address": "2019-07-02"
+  } ]
+}
