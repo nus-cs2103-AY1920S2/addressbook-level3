@@ -17,7 +17,7 @@ public class ResetCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new RecipeBook());
+        model.setRecipeBook(new RecipeBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

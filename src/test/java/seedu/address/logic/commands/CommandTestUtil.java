@@ -102,12 +102,12 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        RecipeBook expectedAddressBook = new RecipeBook(actualModel.getAddressBook());
-        List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        RecipeBook expectedAddressBook = new RecipeBook(actualModel.getRecipeBook());
+        List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredRecipeList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedAddressBook, actualModel.getRecipeBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredRecipeList());
     }
 
     /**
@@ -115,13 +115,13 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredRecipeList().size());
 
-        Recipe recipe = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Recipe recipe = model.getFilteredRecipeList().get(targetIndex.getZeroBased());
         final String[] splitName = recipe.getName().name.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredRecipeList().size());
     }
 
 }

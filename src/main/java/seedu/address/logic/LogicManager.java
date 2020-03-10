@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveRecipeBook(model.getAddressBook());
+            storage.saveRecipeBook(model.getRecipeBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,17 +53,17 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyRecipeBook getAddressBook() {
-        return model.getAddressBook();
+        return model.getRecipeBook();
     }
 
     @Override
     public ObservableList<Recipe> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getFilteredRecipeList();
     }
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getRecipeBookFilePath();
     }
 
     @Override

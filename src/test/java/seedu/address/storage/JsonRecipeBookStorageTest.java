@@ -73,7 +73,7 @@ public class JsonRecipeBookStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addRecipe(HOON);
-        original.removePerson(ALICE);
+        original.removeRecipe(ALICE);
         jsonAddressBookStorage.saveRecipeBook(original, filePath);
         readBack = jsonAddressBookStorage.readRecipeBook(filePath).get();
         assertEquals(original, new RecipeBook(readBack));
