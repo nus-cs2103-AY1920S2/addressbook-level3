@@ -46,15 +46,15 @@ class JsonSerializableRecipeBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public RecipeBook toModelType() throws IllegalValueException {
-        RecipeBook addressBook = new RecipeBook();
+        RecipeBook recipeBook = new RecipeBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Recipe recipe = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasRecipe(recipe)) {
+            if (recipeBook.hasRecipe(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addRecipe(recipe);
+            recipeBook.addRecipe(recipe);
         }
-        return addressBook;
+        return recipeBook;
     }
 
 }
