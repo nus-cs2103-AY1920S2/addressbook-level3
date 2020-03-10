@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Person;
+import seedu.address.model.profile.course.Course;
 
 /**
  * A utility class to help with building Person objects.
@@ -9,11 +10,17 @@ import seedu.address.model.profile.Person;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_COURSE = "Computer Science";
+    public static final String DEFAULT_SPEC = "Software Engineering";
 
     private Name name;
+    private Course course;
+    private String specialisation;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
+        course = new Course(DEFAULT_COURSE);
+        specialisation = DEFAULT_SPEC;
     }
 
     /**
@@ -32,7 +39,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name);
+        return new Person(name, course, specialisation);
     }
 
 }
