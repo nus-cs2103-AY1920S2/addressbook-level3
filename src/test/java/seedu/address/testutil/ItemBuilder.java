@@ -25,8 +25,8 @@ public class ItemBuilder {
      * Initializes the ItemBuilder with the data of {@code ItemToCopy}.
      */
     public ItemBuilder(Item itemToCopy) {
-        name = itemToCopy.getName();
-        price = itemToCopy.getPrice();
+        name = itemToCopy.getItemName();
+        price = itemToCopy.getItemPrice();
     }
 
     /**
