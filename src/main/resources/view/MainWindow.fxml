@@ -1,55 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.stage.*?>
 
-<fx:root minHeight="600" minWidth="450" title="FitHelper" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root title="FitHelper" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@../images/address_book_32.png" />
   </icons>
   <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
-
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" text="Help" />
-          </Menu>
-        </MenuBar>
-
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
+    <Scene stylesheets="@Extensions.css">
+         <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;">
+            <children>
+               <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <TextField fx:id="userInput" layoutX="10.0" layoutY="493.0"  prefHeight="33.0" prefWidth="338.0" promptText="Enter any command to start. e.g.  add x/food n/alice t/2020-03-10-16-00 l/utown c/500" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="560.6666666666666" />
+                     <Label fx:id="currentPage" text="FitHelper" textFill="DARKORANGE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
+                        <font>
+                           <Font size="30.0" />
+                        </font></Label>
+                     <Separator prefHeight="3.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0" />
+                     <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                        <children>
+                           <Label alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: white;" text="With FitHelper, Let's Turn Fat into FIT!" textFill="#ffb266" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <font>
+                                 <Font size="17.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </AnchorPane>
+                  </children>
+               </AnchorPane>
+               <AnchorPane maxWidth="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <children>
+                           <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/FitHelperLogo.png" />
+                              </image>
+                              <VBox.margin>
+                                 <Insets top="15.0" />
+                              </VBox.margin>
+                           </ImageView>
+                           <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="10.0" prefHeight="50.0" prefWidth="170.0" text="FitHelper" textAlignment="CENTER" textFill="DARKORANGE" wrapText="true">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FF8C00; -fx-border-color: white;" text="Today" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Calendar" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Weekly Report" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font></Button>
+                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="User Profile" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                           <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Help" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
+                        </children>
+                     </VBox>
+                  </children></AnchorPane>
+            </children>
+         </AnchorPane>
     </Scene>
   </scene>
 </fx:root>

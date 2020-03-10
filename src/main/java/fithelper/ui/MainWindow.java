@@ -35,8 +35,6 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private FoodListPanel foodListPanel;
     private SportsListPanel sportsListPanel;
-    private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
 
    /* private TodayPage todayPage;
     private ReportPage reportPage;
@@ -74,7 +72,12 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         setAccelerators();
-        helpWindow = new HelpWindow();
+    }
+
+    public MainWindow(Stage primaryStage) {
+        super(FXML, primaryStage);
+        // Set dependencies
+        this.primaryStage = primaryStage;
     }
 
     public Stage getPrimaryStage() {
@@ -119,34 +122,20 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        foodListPanel = new FoodListPanel(logic.getFilteredFoodEntryList());
-        foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
+        //foodListPanel = new FoodListPanel(logic.getFilteredFoodEntryList());
+        //foodListPanelPlaceholder.getChildren().add(foodListPanel.getRoot());
 
-        sportsListPanel = new SportsListPanel(logic.getFilteredSportsEntryList());
-        sportsListPanelPlaceholder.getChildren().add(sportsListPanel.getRoot());
+        //sportsListPanel = new SportsListPanel(logic.getFilteredSportsEntryList());
+        //sportsListPanelPlaceholder.getChildren().add(sportsListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+        //resultDisplay = new ResultDisplay();
+        //resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
+        //CommandBox commandBox = new CommandBox(this::executeCommand);
+        //commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     void show() {
-        primaryStage.setHeight(400);
-        primaryStage.setWidth(600);
         primaryStage.show();
     }
 
@@ -155,7 +144,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        helpWindow.hide();
         primaryStage.hide();
     }
 
@@ -176,11 +164,6 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -189,7 +172,6 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }

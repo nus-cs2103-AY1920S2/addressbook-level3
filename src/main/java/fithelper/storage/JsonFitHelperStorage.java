@@ -12,7 +12,6 @@ import fithelper.commons.exceptions.DataConversionException;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.FileUtil;
 import fithelper.commons.util.JsonUtil;
-import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.ReadOnlyFitHelper;
 
 /**
