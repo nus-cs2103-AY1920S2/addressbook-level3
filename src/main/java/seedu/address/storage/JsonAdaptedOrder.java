@@ -16,13 +16,14 @@ import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Order}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedOrder {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 
@@ -30,22 +31,25 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String timeStamp;
     private final String warehouse;
     private final String comment;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given order details.
+     * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("warehouse") String warehouse, @JsonProperty("comment") String comment,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedOrder(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                            @JsonProperty("email") String email, @JsonProperty("address") String address,
+                            @JsonProperty("timestamp") String timeStamp, @JsonProperty("warehouse") String warehouse,
+                            @JsonProperty("comment") String comment,
+                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.timeStamp = timeStamp;
         this.warehouse = warehouse;
         this.comment = comment;
         if (tagged != null) {
@@ -54,13 +58,14 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Order} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Order source) {
+    public JsonAdaptedOrder(Order source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        timeStamp = source.getTimestamp().value;
         warehouse = source.getWarehouse().address;
         comment = source.getComment().commentMade;
         tagged.addAll(source.getTags().stream()
@@ -69,9 +74,9 @@ class JsonAdaptedPerson {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted order object into the model's {@code Order} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
     public Order toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
@@ -111,6 +116,15 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (timeStamp == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TimeStamp.class.getSimpleName()));
+        }
+        if (!TimeStamp.isValidTimeStamp(timeStamp)) {
+            throw new IllegalValueException(TimeStamp.MESSAGE_CONSTRAINTS);
+        }
+        final TimeStamp modelTimeStamp = new TimeStamp(timeStamp);
+
         if (warehouse == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Warehouse.class.getSimpleName()));
@@ -131,7 +145,7 @@ class JsonAdaptedPerson {
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelWarehouse,
+        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelTimeStamp, modelWarehouse,
                 modelComment, modelTags);
     }
 

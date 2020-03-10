@@ -23,6 +23,7 @@ public class Order {
 
     // Data fields
     private final Address address;
+    private final TimeStamp timestamp;
     private final Warehouse warehouse;
     private final Comment comment;
     private final Set<Tag> tags = new HashSet<>();
@@ -30,13 +31,14 @@ public class Order {
     /**
      * Every field must be present and not null.
      */
-    public Order(Name name, Phone phone, Email email, Address address, Warehouse warehouse,
+    public Order(Name name, Phone phone, Email email, Address address, TimeStamp timestamp, Warehouse warehouse,
                  Comment comment, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, warehouse, comment, tags);
+        requireAllNonNull(name, phone, email, address, timestamp, warehouse, comment, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.timestamp = timestamp;
         this.warehouse = warehouse;
         this.comment = comment;
         this.tags.addAll(tags);
@@ -56,6 +58,10 @@ public class Order {
 
     public Address getAddress() {
         return address;
+    }
+
+    public TimeStamp getTimestamp() {
+        return timestamp;
     }
 
     public Warehouse getWarehouse() {
@@ -107,6 +113,7 @@ public class Order {
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
+                && otherOrder.getTimestamp().equals(getTimestamp())
                 && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
                 && otherOrder.getTags().equals(getTags());
@@ -115,7 +122,7 @@ public class Order {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, warehouse, comment, tags);
+        return Objects.hash(name, phone, email, address, timestamp, warehouse, comment, tags);
     }
 
     @Override
@@ -128,6 +135,8 @@ public class Order {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Delivery Date & Time: ")
+                .append(getTimestamp())
                 .append(" Warehouse: ")
                 .append(getWarehouse())
                 .append(" Comment: ")

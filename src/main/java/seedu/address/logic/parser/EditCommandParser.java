@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -35,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_WAREHOUSE, PREFIX_COMMENT, PREFIX_TAG);
+                        PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_COMMENT, PREFIX_TAG);
 
         Index index;
 
@@ -58,10 +59,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editOrderDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        if (argMultimap.getValue(PREFIX_WAREHOUSE).isPresent()) {
-            editOrderDescriptor.setWarehouse(ParserUtil.parseWarehouse(argMultimap.getValue(PREFIX_WAREHOUSE).get()));
+        if (argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent()) {
+            editOrderDescriptor.setTimeStamp(
+                    ParserUtil.parseTimeStamp(argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editOrderDescriptor::setTags);
+        if (argMultimap.getValue(PREFIX_WAREHOUSE).isPresent()) {
+            editOrderDescriptor.setWarehouse(
+                    ParserUtil.parseWarehouse(argMultimap.getValue(PREFIX_WAREHOUSE).get()));
+        }
         if (argMultimap.getValue(PREFIX_COMMENT).isPresent()) {
             editOrderDescriptor.setComment(ParserUtil.parseComment(argMultimap.getValue(PREFIX_COMMENT).get()));
         }

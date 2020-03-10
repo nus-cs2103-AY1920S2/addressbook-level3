@@ -35,53 +35,53 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' order book file path.
      */
-    Path getAddressBookFilePath();
+    Path getOrderBookFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' order book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setOrderBookFilePath(Path orderBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces order book data with the data in {@code orderBook}.
      */
-    void setAddressBook(ReadOnlyOrderBook addressBook);
+    void setOrderBook(ReadOnlyOrderBook orderBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyOrderBook getAddressBook();
+    /** Returns the OrderBook */
+    ReadOnlyOrderBook getOrderBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code order} exists in the order book.
      */
-    boolean hasPerson(Order order);
+    boolean hasOrder(Order order);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given order.
+     * The order must exist in the order book.
      */
-    void deletePerson(Order target);
+    void deleteOrder(Order target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given order.
+     * {@code order} must not already exist in the order book.
      */
-    void addPerson(Order order);
+    void addOrder(Order order);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given order {@code target} with {@code editedOrder}.
+     * {@code target} must exist in the order book.
+     * The person identity of {@code editedOrder} must not be the same as another existing order in the order book.
      */
-    void setPerson(Order target, Order editedOrder);
+    void setOrder(Order target, Order editedOrder);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Order> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered order list */
+    ObservableList<Order> getFilteredOrderList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered order list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Order> predicate);
+    void updateFilteredOrderList(Predicate<Order> predicate);
 }

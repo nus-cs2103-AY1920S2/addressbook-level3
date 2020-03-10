@@ -22,9 +22,9 @@ import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.OrderBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
+        storage = new StorageManager(orderBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -77,7 +77,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyOrderBook> addressBookOptional;
         ReadOnlyOrderBook initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readOrderBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
