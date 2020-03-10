@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import com.notably.commons.exceptions.IllegalValueException;
 import com.notably.commons.util.JsonUtil;
 import com.notably.model.AddressBook;
-import com.notably.testutil.TypicalPersons;
 
 public class JsonSerializableAddressBookTest {
 
