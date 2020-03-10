@@ -286,7 +286,11 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*:
-* Manage the
+* Manage the addition and removal of students quickly
+* Manage the addition and removal of courses quickly
+* Manage the addition and removal of homework and progress quickly
+* Check the financial status of courses
+* Track student progress for courses quickly
 
 [appendix]
 == User Stories
@@ -505,7 +509,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 7: Signup a student to a course
+=== Use Case 8: Signup a student to a course
 
 *MSS*
 
@@ -523,11 +527,94 @@ Use case ends.
 *Extensions*
 
 [none]
-* 4a. homeworkID does not exist.
+* 4a. studentID does not exist.
 [none]
 ** 4a1. CCX shows an error message.
 +
 Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 9: View progress for a particular student, for a certain course
+
+*MSS*
+
+1.  User requests to see all students using *UC??*
+2.  CCX outputs the whole list of students
+3.  User requests to see all courses using *UC??*
+4.  User requests to view the progress for a student, for a course using their respective IDs
+5.  CCX finds all Progress objects using the courseID and studentID
+6.  CCX outputs all the respective Progress objects
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. studentID does not exist.
+[none]
+** 4a1. CCX shows an error message.
++
+Use case ends.
+
+* 4b. courseID does not exist.
+[none]
+** 4b1. CCX shows an error message.
++
+Use case ends.
+
+* 4c. Student is not assigned to the course.
+[none]
+** 4c1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 10: View progress for all students, for a certain course
+
+*MSS*
+
+1.  User requests to see all courses using *UC??*
+2.  User requests to view the progress for all students for a course using their respective IDs using UC9
+3.  CCX finds all Progress objects using the courseID and studentID
+4.  CCX outputs all the respective Progress objects
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. courseID does not exist.
+[none]
+** 2a1. CCX shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case 11: Mark a student's Progress object as done
+
+*MSS*
+
+1.  User requests to see a student's Progress for a certain course using UC9
+2.  User requests to view the mark a particular Progress as 'Done' using the progressID
+4.  CCX outputs a success message with the updated Progress object
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. progressID does not exist.
+[none]
+** 2a1. CCX shows an error message.
++
+Use case ends.
+
 
 _{More to be added}_
 
@@ -543,11 +630,14 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+*Homework* ::
+A task that is to be done before a certain date
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+*Progress* ::
+An object that contains a homework, a isDone boolean and is tied to student.
+
+*Signup* ::
+Officially adds a paying student to a course
 
 [appendix]
 == Product Survey
