@@ -2,42 +2,67 @@ package seedu.address.model.recipe;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Recipe in the recipe book.
+ * Represents a Recipe in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Recipe {
+
     // Identity fields
     private final Name name;
+    private final Phone phone;
+    private final Email email;
 
     // Data fields
-    private final Ingredients ingredients;
-    private final Instructions instructions;
+    private final Address address;
+    private final Set<Tag> tags = new HashSet<>();
 
-
-    public Recipe(Name name, Ingredients ingredients, Instructions instructions) {
-        requireAllNonNull(name, ingredients, instructions);
+    /**
+     * Every field must be present and not null.
+     */
+    public Recipe(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
-        this.ingredients = ingredients;
-        this.instructions = instructions;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
     }
 
-    public Ingredients getIngredients() {
-        return ingredients;
+    public Phone getPhone() {
+        return phone;
     }
 
-    public Instructions getInstructions() {
-        return instructions;
+    public Email getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     /**
-     * Returns true if both recipes have the same name.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two persons.
      */
     public boolean isSameRecipe(Recipe otherRecipe) {
         if (otherRecipe == this) {
@@ -45,12 +70,13 @@ public class Recipe {
         }
 
         return otherRecipe != null
-               && otherRecipe.getName().equals(getName());
+               && otherRecipe.getName().equals(getName())
+               && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
     }
 
     /**
-     * Returns true if both recipes have the same identity and data fields.
-     * This defines a stronger notion of equality between two recipes.
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two persons.
      */
     @Override
     public boolean equals(Object other) {
@@ -64,24 +90,31 @@ public class Recipe {
 
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-               && otherRecipe.getIngredients().equals(getIngredients())
-               && otherRecipe.getInstructions().equals(getInstructions());
+               && otherRecipe.getPhone().equals(getPhone())
+               && otherRecipe.getEmail().equals(getEmail())
+               && otherRecipe.getAddress().equals(getAddress())
+               && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ingredients, instructions);
+        return Objects.hash(name, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Ingredients: ")
-                .append(getIngredients())
-                .append(" Instructions: ")
-                .append(getInstructions());
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
+
 }

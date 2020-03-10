@@ -14,7 +14,7 @@ import seedu.address.model.recipe.UniqueRecipeList;
  */
 public class RecipeBook implements ReadOnlyRecipeBook {
 
-    private final UniqueRecipeList persons;
+    private final UniqueRecipeList recipes;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -22,12 +22,12 @@ public class RecipeBook implements ReadOnlyRecipeBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
-        persons = new UniqueRecipeList();
+     */ {
+        recipes = new UniqueRecipeList();
     }
 
-    public RecipeBook() {}
+    public RecipeBook() {
+    }
 
     /**
      * Creates an RecipeBook using the Persons in the {@code toBeCopied}
@@ -43,8 +43,8 @@ public class RecipeBook implements ReadOnlyRecipeBook {
      * Replaces the contents of the recipe list with {@code recipes}.
      * {@code recipes} must not contain duplicate recipes.
      */
-    public void setPersons(List<Recipe> recipes) {
-        this.persons.setPersons(recipes);
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes.setRecipes(recipes);
     }
 
     /**
@@ -53,68 +53,68 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     public void resetData(ReadOnlyRecipeBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setRecipes(newData.getPersonList());
     }
 
     //// recipe-level operations
 
     /**
-     * Returns true if a recipe with the same identity as {@code recipe} exists in the address book.
+     * Returns true if a recipe with the same identity as {@code recipe} exists in the recipe book.
      */
-    public boolean hasPerson(Recipe recipe) {
+    public boolean hasRecipe(Recipe recipe) {
         requireNonNull(recipe);
-        return persons.contains(recipe);
+        return recipes.contains(recipe);
     }
 
     /**
-     * Adds a recipe to the address book.
-     * The recipe must not already exist in the address book.
+     * Adds a recipe to the recipe book.
+     * The recipe must not already exist in the recipe book.
      */
-    public void addPerson(Recipe p) {
-        persons.add(p);
+    public void addRecipe(Recipe recipe) {
+        recipes.add(recipe);
     }
 
     /**
      * Replaces the given recipe {@code target} in the list with {@code editedRecipe}.
-     * {@code target} must exist in the address book.
-     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the address book.
+     * {@code target} must exist in the recipe book.
+     * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the recipe book.
      */
-    public void setPerson(Recipe target, Recipe editedRecipe) {
+    public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireNonNull(editedRecipe);
 
-        persons.setPerson(target, editedRecipe);
+        recipes.setRecipe(target, editedRecipe);
     }
 
     /**
      * Removes {@code key} from this {@code RecipeBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the recipe book.
      */
     public void removePerson(Recipe key) {
-        persons.remove(key);
+        recipes.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return recipes.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Recipe> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return recipes.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof RecipeBook // instanceof handles nulls
-                && persons.equals(((RecipeBook) other).persons));
+               || (other instanceof RecipeBook // instanceof handles nulls
+                   && recipes.equals(((RecipeBook) other).recipes));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return recipes.hashCode();
     }
 }
