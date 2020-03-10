@@ -96,6 +96,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    /**
+     * Handles the user inputs.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -114,14 +117,18 @@ public class MainWindow extends UiPart<Stage> {
         userInput.clear();
     }
 
+    /**
+     * Shows the page of FitHelper according to the command keyword.
+     * @param commandResult the result ofe executing a command
+     */
     private void showPage(CommandResult commandResult) {
         CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
         switch (toDisplay) {
-            case TODAY:
-                showTodayPage();
-                break;
-            default:
-                break;
+        case TODAY:
+            showTodayPage();
+            break;
+        default:
+            break;
         }
     }
 

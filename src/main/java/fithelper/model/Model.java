@@ -1,9 +1,7 @@
 package fithelper.model;
 
-import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import fithelper.commons.core.GuiSettings;
 import fithelper.model.entry.Entry;
 
 import javafx.collections.ObservableList;

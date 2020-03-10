@@ -1,5 +1,7 @@
 package fithelper.ui;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
 import javafx.collections.ListChangeListener;
@@ -9,8 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.logging.Logger;
 
 /**
  * Controller class for order page.
@@ -49,6 +49,11 @@ public class TodayPage extends UiPart<AnchorPane> {
         initializeListView(foodList, sportList);
     }
 
+    /**
+     * Initializes the list view.
+     * @param foodList an observable list of food entries
+     * @param sportList an observable list of sports entries
+     */
     private void initializeListView(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         foodListView.setItems(foodList);
         foodListView.setCellFactory(listView -> new FoodListViewCell());
@@ -56,6 +61,11 @@ public class TodayPage extends UiPart<AnchorPane> {
         sportListView.setCellFactory(listView -> new SportListViewCell());
     }
 
+    /**
+     * Initializes the listeners.
+     * @param foodList an observable list of food entries
+     * @param sportList an observable list of sports entries
+     */
     private void initializeListener(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         updateFoodStatistics(foodList);
         foodList.addListener((ListChangeListener<Entry>) change ->
@@ -67,6 +77,10 @@ public class TodayPage extends UiPart<AnchorPane> {
         );
     }
 
+    /**
+     * Updates the food entry list statistics.
+     * @param foodList an observable list of food entries
+     */
     private void updateFoodStatistics(ObservableList<Entry> foodList) {
         int undoneCount = 0;
         int doneCount = 0;
@@ -83,6 +97,10 @@ public class TodayPage extends UiPart<AnchorPane> {
         doneFoodCounter.setText(doneCount + " completed");
     }
 
+    /**
+     * Updates the sport entry list statistics.
+     * @param sportList an observable list of sport entries
+     */
     private void updateSportStatistics(ObservableList<Entry> sportList) {
         int undoneCount = 0;
         int doneCount = 0;
@@ -99,6 +117,9 @@ public class TodayPage extends UiPart<AnchorPane> {
         doneSportCounter.setText(doneCount + " sport plans completed");
     }
 
+    /**
+     * Constructs foodListView Cell class.
+     */
     static class FoodListViewCell extends ListCell<Entry> {
         @Override
         protected void updateItem(Entry entry, boolean empty) {
@@ -113,6 +134,9 @@ public class TodayPage extends UiPart<AnchorPane> {
         }
     }
 
+    /**
+     * Constructs sportListView Cell class.
+     */
     static class SportListViewCell extends ListCell<Entry> {
         @Override
         protected void updateItem(Entry sport, boolean empty) {

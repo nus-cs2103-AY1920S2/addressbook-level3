@@ -11,15 +11,8 @@ import java.util.Objects;
  */
 public class CommandResult {
 
-    @Override
-    public String toString() {
-        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
-    }
-
     private final String feedbackToUser;
-
     private DisplayedPage displayedPage = TODAY;
-
     /** The application should exit. */
     private final boolean exit;
 
@@ -94,6 +87,11 @@ public class CommandResult {
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, displayedPage, exit);
+    }
+
+    @Override
+    public String toString() {
+        return "Feedback: " + feedbackToUser + "; " + "Display Page: " + displayedPage;
     }
 
     /**
