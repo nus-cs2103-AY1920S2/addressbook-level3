@@ -4,53 +4,46 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+CodeCamp X was developed by the **FooBar** team. +
+_{We have this idea to help user to manage BootCamps better.}_ +
 {empty} +
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+We are a team that consists of students from http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Sheng Xue
+image::shengxue97.png[width="150", align="left"]
+{empty}[https://github.com/ShengXue97[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
+Role: Developer + UI expert +
+Responsibilities: UI + Testing + Code quality
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Ivan Tee
+image::ivanteejj.png[width="150", align="left"]
+{empty}[https://github.com/ivanteejj[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: Deliverables and deadlines, Scheduling and tracking
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Le Trung Hieu
+image::lth08091998.png[width="150", align="left"]
+{empty}[https://github.com/lth08091998[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer, Database expert +
+Responsibilities: Integration, In charge of Model and storage
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Nguyen Tien Dat
+image::tiendat161.png[width="150", align="left"]
+{empty}[http://github.com/tiendat161[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer + Documentator +
+Responsibilities: Testing + Documentation + Code quality
 
 '''
+

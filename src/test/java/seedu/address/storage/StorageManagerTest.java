@@ -14,6 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
+import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
+import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
+import seedu.address.storage.storageTeacher.JsonTeacherAddressBookStorage;
 
 public class StorageManagerTest {
 
@@ -25,8 +29,18 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonTeacherAddressBookStorage teacherAddressBookStorage =
+            new JsonTeacherAddressBookStorage(getTempFilePath("tab"));
+        JsonStudentAddressBookStorage studentAddressBookStorage =
+            new JsonStudentAddressBookStorage(getTempFilePath("sab"));
+        JsonFinanceAddressBookStorage financeAddressBookStorage =
+            new JsonFinanceAddressBookStorage(getTempFilePath("fab"));
+        JsonCourseAddressBookStorage courseAddressBookStorage =
+            new JsonCourseAddressBookStorage(getTempFilePath("cab"));
+
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, teacherAddressBookStorage,
+            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

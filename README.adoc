@@ -1,10 +1,9 @@
-= Address Book (Level 3)
+= Code Camp X
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level3[image:https://travis-ci.org/se-edu/addressbook-level3.svg?branch=master[Build Status]]
+https://travis-ci.org/AY1920S2-CS2103-W14-1/main[image:https://api.travis-ci.org/AY1920S2-CS2103-W14-1/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/damithc/addressbook-level3[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
 
 ifdef::env-github[]
@@ -15,15 +14,36 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+
+*Code Camp X*
+****
+Code Camp X is the best management tool for you to use if you have issues managing your coding bootcamp!
+This will help you save countless of hours by making it simple for you to track the profitability of each of your courses,
+track the progress of your students and even effectively manage the teachers that you've hired! Why wait? Try our
+application now!
+****
+
+*Who is it for?*
+****
+- Those who find it difficult to managing a coding bootcamp
+- Those who have issues tracking manpower efficiently
+- Those who care about their students and their progress
+- Those who want to effectively tell the profitability of their bootcamp
+- Those who want to immediately see all the students that they have
+****
+
+*Features*
+****
+- Student Progress Tracker
+- Student Fee Payment Tracker
+- Manpower Management
+- Financial Analysis of Courses
+****
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
@@ -32,5 +52,6 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Original Source of Code used (AddressBook Level 3): https://se-education.org
 
 == Licence : link:LICENSE[MIT]
