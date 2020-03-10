@@ -2,16 +2,19 @@
   "persons": [
     {
       "name": "Alice Pauline",
-      "priority": "94351253",
-      "address": "123, Jurong West Ave 6, #08-111",
+      "priority": "1",
+      "description": "123, Jurong West Ave 6, #08-111",
       "tagged": [
         "friends"
       ]
     },
     {
       "name": "Alice Pauline",
-      "priority": "94351253",
-      "address": "4th street"
+      "priority": "3",
+      "description": "4th street",
+      "tagged": [
+        "friends"
+      ]
     }
   ]
 }
