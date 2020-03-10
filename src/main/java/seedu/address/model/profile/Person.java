@@ -3,6 +3,7 @@ package seedu.address.model.profile;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import seedu.address.model.profile.course.Course;
 
 /**
  * Represents a Person in the address book.
@@ -12,18 +13,32 @@ public class Person {
 
     // Identity fields
     private final Name name;
+    private final Course course;
+    private final String specialisation;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name) {
+    public Person(Name name, Course course, String specialisation) {
         requireAllNonNull(name);
+        requireAllNonNull(course);
         this.name = name;
+        this.course = course;
+        this.specialisation = specialisation;
     }
 
     public Name getName() {
         return name;
     }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public String getSpecialisation() {
+        return specialisation;
+    }
+
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
