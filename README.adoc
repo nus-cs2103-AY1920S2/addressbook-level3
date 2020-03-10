@@ -1,4 +1,4 @@
-= Healthy Baby
+= HealthyBaby
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S2-CS2103T-T10-1/main[image:https://travis-ci.org/AY1920S2-CS2103T-T10-1/main.svg?branch=master[Build Status]]
