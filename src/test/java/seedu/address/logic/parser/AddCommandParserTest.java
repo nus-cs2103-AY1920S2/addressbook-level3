@@ -118,31 +118,7 @@ public class AddCommandParserTest {
                 parser,
                 VALID_NAME_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2,
                 expectedMessage);
-
-        // missing priority prefix
-        assertParseFailure(
-                parser,
-                NAME_DESC_TASK2 + VALID_PRIORITY_TASK2 + DESCRIPTION_DESC_TASK2,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(
-                parser,
-                NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + DESCRIPTION_DESC_TASK2,
-                expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(
-                parser,
-                NAME_DESC_TASK2 + PRIORITY_DESC_TASK2 + VALID_DESCRIPTION_TASK2,
-                expectedMessage);
-
-        // all prefixes missing
-        assertParseFailure(
-                parser,
-                VALID_NAME_TASK2 + VALID_PRIORITY_TASK2 + VALID_DESCRIPTION_TASK2,
-                expectedMessage);
-    }
+         }
 
     @Test
     public void parse_invalidValue_failure() {

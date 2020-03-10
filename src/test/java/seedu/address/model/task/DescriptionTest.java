@@ -11,7 +11,8 @@ public class DescriptionTest {
         assertTrue(Description.isValidDescription("")); // empty string
         assertTrue(Description.isValidDescription(" ")); // spaces only
         assertTrue(Description.isValidDescription("^")); // only non-alphanumeric characters
-        assertTrue(Description.isValidDescription("peter*")); // contains non-alphanumeric characters
+        assertTrue(
+                Description.isValidDescription("peter*")); // contains non-alphanumeric characters
         assertTrue(Description.isValidDescription("peter jack")); // alphabets only
         assertTrue(Description.isValidDescription("12345")); // numbers only
         assertTrue(Description.isValidDescription("peter the 2nd")); // alphanumeric characters
