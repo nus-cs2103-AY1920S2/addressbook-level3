@@ -27,7 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -43,7 +43,7 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(
+        JsonRecipeBookStorage addressBookStorage = new JsonRecipeBookStorage(
                 temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
@@ -70,8 +70,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookIoExceptionThrowingStub(
+        // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
+        JsonRecipeBookStorage addressBookStorage = new JsonRecipeBookIoExceptionThrowingStub(
                 temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(
                 temporaryFolder.resolve("ioExceptionUserPrefs.json"));
@@ -154,13 +154,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonRecipeBookIoExceptionThrowingStub extends JsonRecipeBookStorage {
+        private JsonRecipeBookIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyRecipeBook addressBook, Path filePath) throws IOException {
+        public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
