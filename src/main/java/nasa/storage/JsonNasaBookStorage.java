@@ -19,7 +19,7 @@ import nasa.model.ReadOnlyNasaBook;
  */
 public class JsonNasaBookStorage implements NasaBookStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(nasa.storage.JsonNasaBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonNasaBookStorage.class);
 
     private Path filePath;
 

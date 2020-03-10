@@ -32,8 +32,6 @@ import nasa.storage.UserPrefsStorage;
 import nasa.ui.Ui;
 import nasa.ui.UiManager;
 
-;
-
 /**
  * Runs the application.
  */

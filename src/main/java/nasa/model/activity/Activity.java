@@ -30,6 +30,14 @@ public abstract class Activity {
         this.status = Status.ONGOING;
     }
 
+    public Activity(Name name, Date date, Note note, Status status, Priority priority) {
+        this.name = name;
+        this.date = date;
+        this.note = note;
+        this.status = status;
+        this.priority = priority;
+    }
+
     /**
      * Retrieve the name of the activity.
      * @return String name

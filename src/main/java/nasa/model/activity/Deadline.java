@@ -18,8 +18,8 @@ public class Deadline extends Activity {
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */
-    public Deadline(Name name, Date date, Note note) {
-        super(name, date, note);
+    public Deadline(Name name, Date date, Note note, Status status, Priority priority) {
+        super(name, date, note, status, priority);
     }
 
 }

@@ -18,8 +18,8 @@ public class Lesson extends Activity {
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */
-    public Lesson(Name name, Date date, Note note) {
-        super(name, date, note);
+    public Lesson(Name name, Date date, Note note, Status status, Priority priority) {
+        super(name, date, note, status, priority);
     }
 
 }

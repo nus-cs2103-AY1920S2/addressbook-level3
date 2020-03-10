@@ -12,6 +12,7 @@ import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
+import nasa.model.activity.Status;
 
 /**
  * Jackson-friendly version of {@link Activity}.
@@ -103,16 +104,30 @@ class JsonAdaptedActivity {
         }
         final Priority modelPriority = new Priority(priority);
 
+        if (status == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Status.class.getSimpleName()));
+        }
+
+        //TODO check validity
+        /*
+        if (!Status.(priority)) {
+            throw new IllegalValueException("");
+        }
+
+         */
+        final Status modelStatus = Status.valueOf(status);
+
         Activity activity = null;
         switch (type) {
         case "deadline":
-            activity = new Deadline(modelName, modelDate, modelNote);
+            activity = new Deadline(modelName, modelDate, modelNote, modelStatus, modelPriority);
             break;
         case "event":
-            activity = new Event(modelName, modelDate, modelNote);
+            activity = new Event(modelName, modelDate, modelNote, modelStatus, modelPriority);
             break;
         case "lesson":
-            activity = new Lesson(modelName, modelDate, modelNote);
+            activity = new Lesson(modelName, modelDate, modelNote, modelStatus, modelPriority);
             break;
         default:
             throw new IllegalValueException("");

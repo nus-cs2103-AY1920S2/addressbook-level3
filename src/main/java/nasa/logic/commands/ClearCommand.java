@@ -15,7 +15,7 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public nasa.logic.commands.CommandResult execute(Model model) {
+    public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setNasaBook(new NasaBook());
         return new CommandResult(MESSAGE_SUCCESS);
