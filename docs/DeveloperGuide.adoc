@@ -357,16 +357,14 @@ _{More to be added}_
 
 1.  User requests to see all homework
 2.  CCX outputs all homework in its database
-[none]
-+ Use case ends.
++
+Use case ends.
 
 *Extensions*
 
-[none]
 * 1a. List is empty.
-
-[none]
-+ Use case ends.
++
+Use case ends.
 
 === Use Case 3: Deleting a homework
 
@@ -377,14 +375,16 @@ _{More to be added}_
 3.  CCX searches the the system for the relevant homework
 4.  CCX removes the homework from the system
 5.  CCX outputs a success message with the details for the homework
-+ Use case ends.
++
+Use case ends.
 
 *Extensions*
 
 [none]
 * 1a. No name/deadline is provided.
 ** 1a1. CCX shows an error message.
-+ Use case ends.
++
+Use case ends.
 
 * 1b. The Date deadline is wrongly formatted.
 ** 1b1. CCX shows an error message.
