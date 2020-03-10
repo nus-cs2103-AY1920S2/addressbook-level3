@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Objects;
 
 import NASA.commons.core.index.Index;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import NASA.model.activity.exceptions.ActivityNotFoundException;
 import NASA.model.activity.exceptions.DuplicateActivityException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
