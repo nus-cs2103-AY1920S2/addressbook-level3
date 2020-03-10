@@ -310,9 +310,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |track the progress of an individual student | to ensure that students are caught up on study materials
 
-|`* * *` |user |track the progress of all students in a particular course | to get an understanding of all students' progress in a course
+|`* * *` |user |track the progress of all students in a particular course |to get an overview understanding of all students' progress in a course
+
+|`* * *` |user |for every student added to a course, assign a list of progress items to them automatically based on the homework for the course | make it more convenient for the administrative staff to assign students to courses
 
 |`* * *` |user |mark as done the homework of a student |
+
+|`* * *` |user |add a homework to course |
+
+|`* * *` |user |add a list of homework to course |quickly add all homeworks to a course without going through them one by one
 
 |`* * *` |user |mark as done the homework of a few/all students for a particular week |quickly mark students' homework as done without iterating through all of the homework
 
