@@ -117,7 +117,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given product {@code target} in the list with {@code editedProduct}.
      * {@code target} must exist in the product list.
-     * The product identity of {@code editedProduct} must not be the same as another existing product in the product list.
+     * The product identity of {@code editedProduct} must not be the same as another
+     * existing product in the product list.
      */
     public void setProduct(Product target, Product editedProduct) {
         requireNonNull(editedProduct);
@@ -156,7 +157,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Product> getProductList() { return products.asUnmodifiableObservableList(); }
+    public ObservableList<Product> getProductList() {
+        return products.asUnmodifiableObservableList();
+    }
 
     @Override
     public boolean equals(Object other) {

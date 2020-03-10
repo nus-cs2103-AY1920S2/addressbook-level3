@@ -1,20 +1,25 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
+
+import java.util.List;
+import java.util.Optional;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.*;
-import seedu.address.model.product.*;
-import seedu.address.model.tag.Tag;
-
-import java.util.*;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRODUCTS;
+import seedu.address.model.product.Description;
+import seedu.address.model.product.Price;
+import seedu.address.model.product.Product;
+import seedu.address.model.product.Quantity;
+import seedu.address.model.product.Sales;
 
 /**
  * Edits the details of an existing product in the address book.

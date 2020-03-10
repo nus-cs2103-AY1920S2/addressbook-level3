@@ -108,7 +108,8 @@ public interface Model {
     /**
      * Replaces the given product {@code target} with {@code editedProduct}.
      * {@code target} must exist in the product list.
-     * The product identity of {@code editedProduct} must not be the same as another existing product in the address book.
+     * The product identity of {@code editedProduct} must not be the same as
+     * another existing product in the address book.
      */
     void setProduct(Product target, Product editedProduct);
 
