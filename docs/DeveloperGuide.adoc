@@ -315,7 +315,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user who cooks regularly |add my own recipes with the goals they fall under |progress in my goals when I cook my own unique meals
 
-|`* * *` |demotivated user |choose a goal for myself |cook more meals and be motivated by my progress
+|`* * *` |unmotivated user |choose a goal for myself |cook more meals and be motivated by my progress
 
 |`* *` |user who dislikes food wastage |see what ingredients I need to buy when I grocery shop |only buy ingredients that I will use
 
@@ -337,7 +337,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user who prefers hard-copy materials |save my favourite recipes locally |print them out
 
-|`*` |frequent party host |easily scale up the ingredients needed for a recipe |make the correct amount of food
+|`*` |frequent party host | scale up the amount of ingredients needed |make the correct amount of food
 
 |`*` |student on budget |choose recipes that require lower cost |save money
 
