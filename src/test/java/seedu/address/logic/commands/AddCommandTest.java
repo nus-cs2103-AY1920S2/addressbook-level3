@@ -99,52 +99,52 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getOrderBookFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setOrderBookFilePath(Path orderBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Order order) {
+        public void addOrder(Order order) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyOrderBook newData) {
+        public void setOrderBook(ReadOnlyOrderBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyOrderBook getAddressBook() {
+        public ReadOnlyOrderBook getOrderBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Order order) {
+        public boolean hasOrder(Order order) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Order target) {
+        public void deleteOrder(Order target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Order target, Order editedOrder) {
+        public void setOrder(Order target, Order editedOrder) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Order> getFilteredPersonList() {
+        public ObservableList<Order> getFilteredOrderList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Order> predicate) {
+        public void updateFilteredOrderList(Predicate<Order> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Order order) {
+        public boolean hasOrder(Order order) {
             requireNonNull(order);
             return this.order.isSameOrder(order);
         }
@@ -174,19 +174,19 @@ public class AddCommandTest {
         final ArrayList<Order> ordersAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Order order) {
+        public boolean hasOrder(Order order) {
             requireNonNull(order);
             return ordersAdded.stream().anyMatch(order::isSameOrder);
         }
 
         @Override
-        public void addPerson(Order order) {
+        public void addOrder(Order order) {
             requireNonNull(order);
             ordersAdded.add(order);
         }
 
         @Override
-        public ReadOnlyOrderBook getAddressBook() {
+        public ReadOnlyOrderBook getOrderBook() {
             return new OrderBook();
         }
     }

@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.order.exceptions.DuplicatePersonException;
-import seedu.address.model.order.exceptions.PersonNotFoundException;
+import seedu.address.model.order.exceptions.DuplicateOrderException;
+import seedu.address.model.order.exceptions.OrderNotFoundException;
 import seedu.address.testutil.OrderBuilder;
 
 public class UniqueOrderListTest {
@@ -55,7 +55,7 @@ public class UniqueOrderListTest {
     @Test
     public void add_duplicateOrder_throwsDuplicateOrderException() {
         uniqueOrderList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.add(ALICE));
+        assertThrows(DuplicateOrderException.class, () -> uniqueOrderList.add(ALICE));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class UniqueOrderListTest {
 
     @Test
     public void setOrder_targetOrderNotInList_throwsOrderNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueOrderList.setOrder(ALICE, ALICE));
+        assertThrows(OrderNotFoundException.class, () -> uniqueOrderList.setOrder(ALICE, ALICE));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class UniqueOrderListTest {
     public void setOrder_editedOrderHasNonUniqueIdentity_throwsDuplicateOrderException() {
         uniqueOrderList.add(ALICE);
         uniqueOrderList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.setOrder(ALICE, BOB));
+        assertThrows(DuplicateOrderException.class, () -> uniqueOrderList.setOrder(ALICE, BOB));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class UniqueOrderListTest {
 
     @Test
     public void remove_orderDoesNotExist_throwsOrderNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueOrderList.remove(ALICE));
+        assertThrows(OrderNotFoundException.class, () -> uniqueOrderList.remove(ALICE));
     }
 
     @Test
@@ -159,7 +159,7 @@ public class UniqueOrderListTest {
     @Test
     public void setOrders_listWithDuplicateOrders_throwsDuplicateOrderException() {
         List<Order> listWithDuplicateOrders = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueOrderList.setOrders(listWithDuplicateOrders));
+        assertThrows(DuplicateOrderException.class, () -> uniqueOrderList.setOrders(listWithDuplicateOrders));
     }
 
     @Test

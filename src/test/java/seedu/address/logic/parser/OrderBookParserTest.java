@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +26,7 @@ import seedu.address.model.order.NameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.OrderUtil;
 
 public class OrderBookParserTest {
 
@@ -35,7 +35,7 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Order order = new OrderBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(order));
+        AddCommand command = (AddCommand) parser.parseCommand(OrderUtil.getAddCommand(order));
         assertEquals(new AddCommand(order), command);
     }
 
@@ -48,8 +48,8 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_ORDER), command);
     }
 
     @Test
@@ -57,8 +57,8 @@ public class OrderBookParserTest {
         Order order = new OrderBuilder().build();
         EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(order).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_ORDER.getOneBased() + " " + OrderUtil.getEditOrderDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_ORDER, descriptor), command);
     }
 
     @Test

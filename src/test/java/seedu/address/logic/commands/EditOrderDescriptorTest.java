@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_NIL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,6 +51,14 @@ public class EditOrderDescriptorTest {
 
         // different address -> returns false
         editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different delivery timestamp -> returns false
+        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withTimeStamp(VALID_TIMESTAMP_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different comment -> returns false
+        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withAddress(VALID_COMMENT_NIL).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

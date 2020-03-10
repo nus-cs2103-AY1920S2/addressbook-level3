@@ -1,15 +1,17 @@
 {
-  "persons": [ {
+  "orders": [ {
     "name": "Valid Person",
     "phone": "9482424",
     "email": "hans@example.com",
     "address": "4th street",
+    "timestamp": "2020-02-20 1500",
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
     "address": "4th street",
+    "timestamp": "2020-02-20 1500",
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831"
   } ]
 }
