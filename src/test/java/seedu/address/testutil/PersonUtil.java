@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ModifyCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.NewCommand;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 
@@ -22,7 +22,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code recipe}.
      */
     public static String getAddCommand(Recipe recipe) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(recipe);
+        return NewCommand.COMMAND_WORD + " " + getPersonDetails(recipe);
     }
 
     /**
