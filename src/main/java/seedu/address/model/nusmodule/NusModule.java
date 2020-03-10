@@ -1,0 +1,21 @@
+package seedu.address.model.nusmodule;
+
+import java.util.Optional;
+
+public class NusModule {
+    public final ModuleCode moduleCode;
+    public final int modularCredit;
+    public final boolean isTaking;
+    public final Optional<Grade> grade;
+
+    public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking, Optional<Grade> grade) {
+        this.moduleCode = moduleCode;
+        this.modularCredit = modularCredit;
+        this.isTaking = isTaking;
+        this.grade = grade;
+    }
+
+    public double getGradePoint() {
+        return this.grade.get().getPoint();
+    }
+}
