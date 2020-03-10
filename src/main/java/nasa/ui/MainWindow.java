@@ -1,5 +1,7 @@
 package nasa.ui;
 
+import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -14,8 +16,6 @@ import nasa.logic.Logic;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
-
-import java.util.logging.Logger;
 
 /**
  * The Main Window. Provides the basic application layout containing

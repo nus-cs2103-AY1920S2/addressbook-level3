@@ -2,8 +2,8 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import nasa.model.NasaBook;
 import nasa.model.Model;
+import nasa.model.NasaBook;
 
 /**
  * Clears the nasa book.

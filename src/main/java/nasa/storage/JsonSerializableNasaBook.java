@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.NasaBook;
 import nasa.model.ReadOnlyNasaBook;

@@ -1,16 +1,14 @@
 package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import nasa.logic.commands.DeleteActivityCommand;
 import nasa.commons.core.index.Index;
+import nasa.logic.commands.DeleteActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 import seedu.address.logic.commands.EditCommand;
-
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class DeleteActivityCommandParser implements Parser<DeleteActivityCommand> {
     /**

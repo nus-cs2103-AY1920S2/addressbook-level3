@@ -46,38 +46,38 @@ public class NasaBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-            case AddModuleCommand.COMMAND_WORD:
-                return new AddModuleCommandParser().parse(arguments);
+        case AddModuleCommand.COMMAND_WORD:
+            return new AddModuleCommandParser().parse(arguments);
 
-            case EditModuleCommand.COMMAND_WORD:
-                return new EditModuleCommandParser().parse(arguments);
+        case EditModuleCommand.COMMAND_WORD:
+            return new EditModuleCommandParser().parse(arguments);
 
-            case EditActivityCommand.COMMAND_WORD:
-                return new EditActivityCommandParser().parse(arguments);
+        case EditActivityCommand.COMMAND_WORD:
+            return new EditActivityCommandParser().parse(arguments);
 
-            case DeleteActivityCommand.COMMAND_WORD:
-                return new DeleteActivityCommandParser().parse(arguments);
+        case DeleteActivityCommand.COMMAND_WORD:
+            return new DeleteActivityCommandParser().parse(arguments);
 
-            case DeleteModuleCommand.COMMAND_WORD:
-                return new DeleteModuleCommandParser().parse(arguments);
+        case DeleteModuleCommand.COMMAND_WORD:
+            return new DeleteModuleCommandParser().parse(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

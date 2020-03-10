@@ -1,14 +1,14 @@
 package nasa.ui;
 
-import nasa.model.activity.Activity;
+import java.util.Comparator;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import nasa.model.activity.Activity;
 import nasa.model.module.Module;
-
-import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Module}.

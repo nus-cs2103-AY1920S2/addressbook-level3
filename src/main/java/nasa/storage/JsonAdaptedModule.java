@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nasa.model.module.ModuleName;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.model.activity.Activity;
-import nasa.model.module.Module;
 import nasa.model.activity.UniqueActivityList;
+import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
 
 
 /**

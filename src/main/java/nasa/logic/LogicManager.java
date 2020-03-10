@@ -1,21 +1,21 @@
 package nasa.logic;
 
-import nasa.logic.parser.NasaBookParser;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.logic.commands.Command;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.logic.parser.NasaBookParser;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.Model;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.module.Module;
 import nasa.storage.Storage;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

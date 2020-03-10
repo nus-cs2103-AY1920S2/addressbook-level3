@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
-import nasa.model.module.Module;
 import nasa.model.activity.Activity;
+import nasa.model.module.Module;
 
 /**
  * The API of the Model component.

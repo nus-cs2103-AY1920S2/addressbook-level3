@@ -4,31 +4,34 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
-import nasa.commons.util.StringUtil;
-import nasa.logic.Logic;
-import nasa.logic.LogicManager;
-import nasa.model.ModelManager;
-import nasa.model.NasaBook;
-import nasa.model.ReadOnlyNasaBook;
-import nasa.storage.JsonNasaBookStorage;
-import nasa.storage.NasaBookStorage;
-import nasa.ui.Ui;
-import nasa.ui.UiManager;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nasa.commons.core.Config;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.core.Version;
 import nasa.commons.exceptions.DataConversionException;
-import nasa.commons.util.ConfigUtil;;
+import nasa.commons.util.ConfigUtil;
+import nasa.commons.util.StringUtil;
+import nasa.logic.Logic;
+import nasa.logic.LogicManager;
 import nasa.model.Model;
+import nasa.model.ModelManager;
+import nasa.model.NasaBook;
+import nasa.model.ReadOnlyNasaBook;
 import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.UserPrefs;
+import nasa.model.util.SampleDataUtil;
+import nasa.storage.JsonNasaBookStorage;
+import nasa.storage.JsonUserPrefsStorage;
+import nasa.storage.NasaBookStorage;
 import nasa.storage.Storage;
 import nasa.storage.StorageManager;
 import nasa.storage.UserPrefsStorage;
-import nasa.model.util.SampleDataUtil;
-import nasa.storage.JsonUserPrefsStorage;
+import nasa.ui.Ui;
+import nasa.ui.UiManager;
+
+;
 
 /**
  * Runs the application.

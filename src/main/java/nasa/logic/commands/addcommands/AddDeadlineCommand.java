@@ -1,10 +1,10 @@
 package nasa.logic.commands.addcommands;
 
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
+import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
 import nasa.model.activity.Deadline;
 import nasa.model.module.ModuleCode;

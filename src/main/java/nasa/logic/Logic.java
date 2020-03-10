@@ -1,14 +1,14 @@
 package nasa.logic;
 
-import nasa.model.ReadOnlyNasaBook;
+import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.ReadOnlyNasaBook;
 import nasa.model.module.Module;
-
-import java.nio.file.Path;
 
 /**
  * API of the Logic component

@@ -2,14 +2,13 @@ package nasa.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import nasa.commons.exceptions.IllegalValueException;
+import nasa.model.activity.Activity;
+import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Event;
 import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
-import nasa.model.activity.Activity;
-import nasa.model.activity.Date;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 
@@ -92,27 +91,26 @@ class JsonAdaptedActivity {
             throw new IllegalValueException(Note.MESSAGE_CONSTRAINTS);
         }
 
-            final Note modelNote = new Note(note);
+        final Note modelNote = new Note(note);
 
-            if (priority == null) {
-                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                        Priority.class.getSimpleName()));
-            }
-            if (!Priority.isValidPriorityValue(priority)) {
-                throw new IllegalValueException("");
-            }
-            final Priority modelPriority = new Priority(priority);
+        if (priority == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Priority.class.getSimpleName()));
+        }
+        if (!Priority.isValidPriorityValue(priority)) {
+            throw new IllegalValueException("");
+        }
+        final Priority modelPriority = new Priority(priority);
 
-            Activity activity = null;
-            switch (type) {
-                case "deadline":
-                    activity =  new Deadline(modelName, modelDate, modelNote);
-                case "event":
-                    activity = new Event(modelName, modelDate, modelNote);
-                case "lesson":
-                    activity = new Lesson(modelName, modelDate, modelNote);
-            }
-
-            return activity;
+        Activity activity = null;
+        switch (type) {
+        case "deadline":
+            activity =  new Deadline(modelName, modelDate, modelNote);
+        case "event":
+            activity = new Event(modelName, modelDate, modelNote);
+        case "lesson":
+            activity = new Lesson(modelName, modelDate, modelNote);
+        }
+        return activity;
     }
 }

@@ -1,25 +1,22 @@
 package nasa.logic.parser.addcommandparser;
 
-import nasa.logic.commands.addcommands.AddDeadlineCommand;
+import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
+import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
+import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
+import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.parser.ArgumentMultimap;
 import nasa.logic.parser.ArgumentTokenizer;
 import nasa.logic.parser.ParserUtil;
 import nasa.logic.parser.exceptions.ParseException;
-
 import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.module.ModuleCode;
-
-import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
-import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 
 public class AddDeadlineCommandParser extends AddCommandParser {
 

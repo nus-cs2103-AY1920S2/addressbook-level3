@@ -3,10 +3,10 @@ package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
 import nasa.logic.commands.DeleteModuleCommand;
 import nasa.logic.parser.exceptions.ParseException;
-
-import java.util.ArrayList;
 
 public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
     /**

@@ -1,9 +1,9 @@
 package nasa.logic.parser;
 
+import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import nasa.logic.commands.FindCommand;
 import nasa.logic.parser.exceptions.ParseException;
-
-import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class FindCommandParser implements Parser<FindCommand> {
     /**

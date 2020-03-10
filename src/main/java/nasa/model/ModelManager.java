@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
-import nasa.model.module.Module;
 import nasa.model.activity.Activity;
+import nasa.model.module.Module;
 
 /**
  * Represents the in-memory model of the address book data.
