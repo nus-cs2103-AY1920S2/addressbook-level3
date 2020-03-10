@@ -22,7 +22,6 @@
             <children>
                <SplitPane dividerPositions="0.5" VBox.vgrow="ALWAYS">
                   <items>
-            
                         <VBox minWidth="300.0">
                     <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                       <Menu mnemonicParsing="false" text="File">
@@ -33,20 +32,17 @@
                       </Menu>
                     </MenuBar>
                         <StackPane fx:id="petPlaceholder" VBox.vgrow="ALWAYS" />
-            
                           <StackPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="150.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
-            
                                 <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
                       <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                       </padding>
                     </StackPane>
                   </VBox>
-         
                           <VBox fx:id="personList" prefWidth="340.0" styleClass="pane-with-border">
                    <padding>
                      <Insets bottom="10" left="10" right="10" top="10" />
@@ -55,7 +51,6 @@
                  </VBox>
                   </items>
                </SplitPane>
-   
                                    <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
             </children>
          </VBox>
