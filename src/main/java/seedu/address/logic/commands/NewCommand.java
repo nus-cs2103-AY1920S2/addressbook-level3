@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
 
 /**
  * Creates a new profile.
@@ -22,11 +22,11 @@ public class NewCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New profile created: %1$s";
 
-    private final Person toAdd;
+    private final Profile toAdd;
 
-    public NewCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public NewCommand(Profile profile) {
+        requireNonNull(profile);
+        toAdd = profile;
     }
 
     @Override

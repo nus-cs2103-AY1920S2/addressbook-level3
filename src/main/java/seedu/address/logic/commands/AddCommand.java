@@ -5,32 +5,31 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.profile.course.module.PersonalModule;
+import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
- * Adds a person to the address book.
+ * Adds a profile to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal module to the module. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal to the module. "
             + "Parameters: "
             + PREFIX_MODULE + "MODULE \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2103 ";
 
     public static final String MESSAGE_SUCCESS = "New PersonalModule added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final PersonalModule toAdd;
+    private final Personal toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Profile}
      */
-    public AddCommand(PersonalModule personalModule) {
-        requireNonNull(personalModule);
-        toAdd = personalModule;
+    public AddCommand(Personal personal) {
+        requireNonNull(personal);
+        toAdd = personal;
     }
 
     @Override
