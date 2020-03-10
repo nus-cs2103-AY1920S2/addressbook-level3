@@ -6,9 +6,7 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     id 'java'
-    id 'jacoco'
     id 'checkstyle'
-    id 'com.github.kt3k.coveralls' version '2.4.0'
     id 'com.github.johnrengelman.shadow' version '4.0.4'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
@@ -27,14 +25,6 @@ repositories {
 
 checkstyle {
     toolVersion = '8.1'
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination file("${buildDir}/jacocoHtml")
-    }
 }
 
 test {
@@ -72,31 +62,6 @@ shadowJar {
     destinationDir = file("${buildDir}/jar/")
 }
 
-task coverage(type: JacocoReport) {
-    sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
-    classDirectories.from files(sourceSets.main.output)
-    executionData.from files(jacocoTestReport.executionData)
-    afterEvaluate {
-        classDirectories.from files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/*.jar'])
-        })
-    }
-    reports {
-        html.enabled = true
-        xml.enabled = true
-    }
-}
-
-coveralls {
-    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
-    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
-}
-
-tasks.coveralls {
-    dependsOn coverage
-    onlyIf { System.env.'CI' }
-}
-
 test {
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
@@ -107,10 +72,6 @@ test {
         if (System.env.'CI') {
             events << TestLogEvent.STARTED
         }
-    }
-
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
 }
 
@@ -152,4 +113,4 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
-defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+defaultTasks 'clean', 'test', 'asciidoctor'
