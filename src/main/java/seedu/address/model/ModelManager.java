@@ -11,6 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.hirelah.Attribute;
+import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.Question;
+import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.person.Person;
 
 /**
@@ -121,6 +125,26 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return filteredPersons;
+    }
+
+    @Override
+    public ObservableList<Attribute> getAttributeList() {
+        return null;
+    }
+
+    @Override
+    public ObservableList<Question> getQuestionList() {
+        return null;
+    }
+
+    @Override
+    public ObservableList<Transcript> getTranscriptList(Interviewee interviewee) {
+        return null;
+    }
+
+    @Override
+    public ObservableList<Interviewee> getFilteredIntervieweeList() {
+        return null;
     }
 
     @Override

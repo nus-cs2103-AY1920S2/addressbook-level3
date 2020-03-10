@@ -156,16 +156,16 @@ public class MainWindow extends UiPart<Stage> {
 
         primaryStage.hide();
         listPanelStackPane.getChildren().removeAll();
-        switch (toggleView){
-            case ATT: // attribute
+        switch (toggleView) {
+        case ATT: // attribute
             listPanelStackPane.getChildren().add(attributeListPanel.getRoot());
             break;
 
-            case QNS: // questions
+        case QNS: // questions
             listPanelStackPane.getChildren().add(questionListPanel.getRoot());
             break;
 
-            case TRP: // transcript
+        case TRP: // transcript
             transcriptListPanel = new TranscriptListPanel(logic.getTranscriptList(new Interviewee("Test name",
                     10086)));
             detailedIntervieweeCard = new DetailedIntervieweeCard(new Interviewee("Test name",
@@ -174,8 +174,11 @@ public class MainWindow extends UiPart<Stage> {
             StackPane.setAlignment(detailedIntervieweeCard.getRoot(), Pos.TOP_CENTER);
             break;
 
-            case INT: // interviewee
+        case INT: // interviewee
             listPanelStackPane.getChildren().add(intervieweeListPanel.getRoot());
+            break;
+
+        default:
             break;
         }
         primaryStage.show();
@@ -215,7 +218,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText) throws CommandException, IllegalValueException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -229,15 +232,6 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            /*
-              @todo
-              getToggleView to return a ToggleView enum representing the list to display:
-              ATT: AttributeList
-              QNS: QuestionList
-              TRP: Transcript for an interviewee (inclusive of detailed interviewee information,
-                   managed by DetailedInterviewCard)
-              INT: Filtered Interviewee list
-             */
             handleToggle(commandResult.getToggleView());
 
             return commandResult;

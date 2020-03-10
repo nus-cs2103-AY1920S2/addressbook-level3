@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
 import java.io.File;
-import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.hirelah.Interviewee;
@@ -37,10 +35,6 @@ public class DetailedIntervieweeCard extends UiPart<Region> {
     private Label alias;
     @FXML
     private Label resume;
-//    @FXML
-//    private Label email;
-//    @FXML
-//    private FlowPane tags;
 
     public DetailedIntervieweeCard(Interviewee interviewee) {
         super(FXML);
@@ -49,10 +43,6 @@ public class DetailedIntervieweeCard extends UiPart<Region> {
         name.setText(interviewee.getFullName());
         alias.setText(interviewee.getAlias().orElse("No alias has been set."));
         resume.setText(interviewee.getResume().orElse(new File("")).getName());
-//        scores.setText(interviewee.getScores());
-//        interviewee.getTags().stream()
-//                .sorted(Comparator.comparing(tag -> tag.tagName))
-//                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

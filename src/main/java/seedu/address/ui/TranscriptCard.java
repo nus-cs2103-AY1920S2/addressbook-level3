@@ -40,7 +40,7 @@ public class TranscriptCard extends UiPart<Region> {
      */
     public TranscriptCard(Transcript transcript) {
         super(FXML);
-        transcript = new Transcript();
+        this.transcript = new Transcript();
 
     }
 
