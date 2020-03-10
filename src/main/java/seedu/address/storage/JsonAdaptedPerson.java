@@ -13,8 +13,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.recipe.Address;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Phone;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -50,7 +50,7 @@ class JsonAdaptedPerson {
      * Converts a given {@code Recipe} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Recipe source) {
-        name = source.getName().fullName;
+        name = source.getName().name;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;

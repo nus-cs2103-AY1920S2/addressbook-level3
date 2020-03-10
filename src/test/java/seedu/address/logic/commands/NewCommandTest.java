@@ -16,18 +16,18 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.RecipeBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class NewCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new NewCommand(null));
     }
 
     @Test
@@ -35,33 +35,33 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Recipe validRecipe = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validRecipe).execute(modelStub);
+        CommandResult commandResult = new NewCommand(validRecipe).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validRecipe), commandResult.getFeedbackToUser());
+        assertEquals(String.format(NewCommand.MESSAGE_SUCCESS, validRecipe), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validRecipe), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Recipe validRecipe = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validRecipe);
+        NewCommand newCommand = new NewCommand(validRecipe);
         ModelStub modelStub = new ModelStubWithPerson(validRecipe);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, NewCommand.MESSAGE_DUPLICATE_PERSON, () -> newCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Recipe alice = new PersonBuilder().withName("Alice").build();
         Recipe bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        NewCommand addAliceCommand = new NewCommand(alice);
+        NewCommand addBobCommand = new NewCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        NewCommand addAliceCommandCopy = new NewCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -79,12 +79,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyRecipeBook newData) {
+        public ReadOnlyRecipeBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyRecipeBook getAddressBook() {
+        public void setAddressBook(ReadOnlyRecipeBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -163,7 +163,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Recipe recipe) {
             requireNonNull(recipe);
-            return this.recipe.isSamePerson(recipe);
+            return this.recipe.isSameRecipe(recipe);
         }
     }
 
@@ -176,7 +176,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Recipe recipe) {
             requireNonNull(recipe);
-            return personsAdded.stream().anyMatch(recipe::isSamePerson);
+            return personsAdded.stream().anyMatch(recipe::isSameRecipe);
         }
 
         @Override

@@ -12,13 +12,13 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Adds a recipe to the address book.
+ * Adds a recipe to the recipe book.
  */
-public class AddCommand extends Command {
+public class NewCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "new";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the recipe book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -34,14 +34,14 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This recipe already exists in the recipe book";
 
     private final Recipe toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Recipe}
+     * Creates an NewCommand to add the specified {@code Recipe}
      */
-    public AddCommand(Recipe recipe) {
+    public NewCommand(Recipe recipe) {
         requireNonNull(recipe);
         toAdd = recipe;
     }
@@ -61,7 +61,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof NewCommand // instanceof handles nulls
+                    && toAdd.equals(((NewCommand) other).toAdd));
     }
 }
