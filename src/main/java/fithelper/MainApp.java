@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import fithelper.model.util.SampleDataUtil;
-
 import fithelper.commons.core.Config;
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.core.Version;
@@ -15,6 +13,9 @@ import fithelper.logic.LogicManager;
 import fithelper.model.Model;
 import fithelper.model.ModelManager;
 import fithelper.model.ReadOnlyFitHelper;
+
+import fithelper.model.util.SampleDataUtil;
+
 import fithelper.storage.FitHelperStorage;
 import fithelper.storage.JsonFitHelperStorage;
 import fithelper.ui.Ui;
