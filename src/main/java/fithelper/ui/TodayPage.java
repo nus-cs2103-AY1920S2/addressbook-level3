@@ -66,7 +66,7 @@ public class TodayPage extends UiPart<AnchorPane> {
      * @param foodList an observable list of food entries
      * @param sportList an observable list of sports entries
      */
-    private void initializeListener(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
+    public void initializeListener(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         updateFoodStatistics(foodList);
         foodList.addListener((ListChangeListener<Entry>) change ->
                 updateFoodStatistics(foodList)
