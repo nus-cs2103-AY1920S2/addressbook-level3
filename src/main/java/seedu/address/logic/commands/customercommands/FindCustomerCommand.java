@@ -22,10 +22,11 @@ public class FindCustomerCommand extends Command {
 
     public static final String COMMAND_WORD = "findc";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose attributes (n/ for name, "
+            + "a/ for address, p/ for phone number, e/ for email address) contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + "n/alice n/bob n/charlie";
+            + "Parameters: n/ KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " n/ alice bob charlie, " + COMMAND_WORD + " a/ serangoon yishun";
 
     private final Predicate<Customer> predicate;
 
@@ -38,6 +39,9 @@ public class FindCustomerCommand extends Command {
         requireNonNull(model);
         model.updateFilteredCustomerList(predicate);
         if (model.getFilteredCustomerList().size() == 0 && predicate instanceof NameContainsKeywordsPredicate) {
+            if (predicate.toString().trim().isEmpty()) {
+                return new CommandResult("Please enter at least one keyword!");
+            }
             return new CommandResult(String.format("No customer named %s found!", predicate.toString()));
         } else if (model.getFilteredCustomerList().size() == 0
                 && predicate instanceof AddressContainsKeywordsPredicate) {
@@ -47,6 +51,7 @@ public class FindCustomerCommand extends Command {
         } else if (model.getFilteredCustomerList().size() == 0 && predicate instanceof PhoneContainsKeywordsPredicate) {
             return new CommandResult(String.format("No customer with phone number %s found!", predicate.toString()));
         }
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCustomerList().size()));
     }

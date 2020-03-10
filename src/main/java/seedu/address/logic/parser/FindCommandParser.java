@@ -36,21 +36,16 @@ public class FindCommandParser implements Parser<FindCustomerCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCustomerCommand.MESSAGE_USAGE));
-        }
-
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         if (!argMultimap.getAllValues(PREFIX_NAME).isEmpty()) {
-            return new FindCustomerCommand(new NameContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_NAME)));
+            return new FindCustomerCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         } else if (!argMultimap.getAllValues(PREFIX_ADDRESS).isEmpty()) {
-            return new FindCustomerCommand(new AddressContainsKeywordsPredicate(
-                    argMultimap.getAllValues(PREFIX_ADDRESS)));
+            return new FindCustomerCommand(new AddressContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         } else if (!argMultimap.getAllValues(PREFIX_EMAIL).isEmpty()) {
-            return new FindCustomerCommand(new EmailContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_EMAIL)));
+            return new FindCustomerCommand(new EmailContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         } else if (!argMultimap.getAllValues(PREFIX_PHONE).isEmpty()) {
-            return new FindCustomerCommand(new PhoneContainsKeywordsPredicate(argMultimap.getAllValues(PREFIX_PHONE)));
+            return new FindCustomerCommand(new PhoneContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         }
 
         return new FindCustomerCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
