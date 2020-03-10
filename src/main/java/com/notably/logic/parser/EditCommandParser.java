@@ -1,23 +1,19 @@
 package com.notably.logic.parser;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static com.notably.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static com.notably.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
-import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
-import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
-import static java.util.Objects.requireNonNull;
+import com.notably.commons.core.index.Index;
+import com.notably.logic.commands.EditCommand;
+import com.notably.logic.commands.EditCommand.EditPersonDescriptor;
+import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.model.tag.Tag;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
-import com.notably.commons.core.index.Index;
-import com.notably.logic.commands.EditCommand;
-import com.notably.logic.commands.EditCommand.EditPersonDescriptor;
-import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.model.tag.Tag;
+import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static com.notably.logic.parser.CliSyntax.*;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -44,23 +40,16 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
-        }
-
+      
         return new EditCommand(index, editPersonDescriptor);
     }
 

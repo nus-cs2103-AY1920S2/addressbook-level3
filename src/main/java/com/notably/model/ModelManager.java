@@ -1,17 +1,16 @@
 package com.notably.model;
 
-import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
-import static java.util.Objects.requireNonNull;
+import com.notably.commons.core.GuiSettings;
+import com.notably.commons.core.LogsCenter;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import com.notably.commons.core.GuiSettings;
-import com.notably.commons.core.LogsCenter;
-
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
+import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +20,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Object> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,7 +33,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        this.filteredPersons = null;
     }
 
     public ModelManager() {
@@ -89,27 +88,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public void hasPerson(Object person) {
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public void deletePerson(Object target) {
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
+    public void addPerson(Object person) {
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setPerson(Object target, Object editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -119,12 +113,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Object> getFilteredPersonList() {
         return filteredPersons;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPersonList(Predicate<Object> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }

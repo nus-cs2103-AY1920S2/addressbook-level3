@@ -57,5 +57,6 @@ public class PersonCard extends ViewPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
 
+        return true;
     }
 }

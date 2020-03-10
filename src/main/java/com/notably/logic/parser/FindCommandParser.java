@@ -1,9 +1,9 @@
 package com.notably.logic.parser;
 
-import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import com.notably.logic.commands.FindCommand;
 import com.notably.logic.parser.exceptions.ParseException;
+
+import static com.notably.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -23,6 +23,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
+        return new FindCommand();
 
     }
 
