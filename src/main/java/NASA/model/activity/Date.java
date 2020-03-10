@@ -50,6 +50,18 @@ public class Date {
         }
     }
 
+    /**
+     * Constructs a new date from the current date and number of days to add to this current date.
+     * @param numOfDaysToAdd number of days from the current day
+     * @return a new instance of date
+     */
+    public Date addDaysToCurrDate(int numOfDaysToAdd) {
+        LocalDateTime oldDateTime = this.getDate();
+        LocalDateTime newDateTime = oldDateTime.plusDays(numOfDaysToAdd);
+        String newDateTimeStr = newDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return new Date(newDateTimeStr);
+    }
+
     public LocalDateTime getDate() {
         return date;
     }
