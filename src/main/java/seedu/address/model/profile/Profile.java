@@ -13,9 +13,9 @@ import seedu.address.model.profile.course.Course;
 public class Profile {
 
     // Identity fields
+    private static String currentSemester;
     private final Name name;
     private final Course course;
-    private static String currentSemester;
     private final String specialisation;
 
     /**
