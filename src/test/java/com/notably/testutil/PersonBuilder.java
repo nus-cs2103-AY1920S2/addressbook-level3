@@ -58,7 +58,6 @@ public class PersonBuilder {
     }
 
     /**
-<<<<<<< HEAD
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
@@ -67,8 +66,6 @@ public class PersonBuilder {
     }
 
     /**
-=======
->>>>>>> 2ab96d23... Delete Messages class
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
