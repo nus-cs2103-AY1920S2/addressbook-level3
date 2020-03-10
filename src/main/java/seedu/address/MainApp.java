@@ -18,12 +18,15 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ModuleList;
+import seedu.address.model.ModuleManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonModuleListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -45,6 +48,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected ModuleManager moduleManager;
 
     @Override
     public void init() throws Exception {
@@ -66,6 +70,32 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
+        moduleManager = initModuleManager(userPrefs);
+    }
+
+    /**
+     * Returns a {@code ModuleManager} with the data from {@code userPrefs}. <br>
+     * An empty module list will be used instead if the a module list is not found at
+     * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
+     */
+    private ModuleManager initModuleManager(UserPrefs userPrefs) {
+        JsonModuleListStorage modules = new JsonModuleListStorage(userPrefs.getModuleListFilePath());
+        ModuleManager moduleManager;
+        try {
+            Optional<ModuleList> moduleListOptional = modules.readModuleList();
+            if (!moduleListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty ModuleList");
+                moduleManager = new ModuleManager();
+            } else {
+                ModuleList moduleList = moduleListOptional.get();
+                moduleManager = new ModuleManager(moduleList);
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
+            moduleManager = new ModuleManager();
+        }
+        return moduleManager;
     }
 
     /**

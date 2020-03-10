@@ -6,7 +6,12 @@ package seedu.address.model.profile.course.module;
  */
 public class ModularCredits {
 
-    public final int modularCredits;
+    public static final String MESSAGE_CONSTRAINTS =
+            "Modular credits should be a positive number less than 100";
+
+    public static final String VALIDATION_REGEX = "[0-9]{1,2}[.]{0,1}[0-9]{0,1}$";
+
+    public final double modularCredits;
 
     /**
      * Constructs a {@code PrereqList}.
@@ -16,8 +21,12 @@ public class ModularCredits {
     public ModularCredits(String modularCredits) {
         // requireAllNonNull() // to be implemented
         // checkArgument() // to be implemented
-        int credits = Integer.parseInt(modularCredits);
+        double credits = Double.parseDouble(modularCredits);
         this.modularCredits = credits;
+    }
+
+    public static boolean isValidCredits(String modularCredits) {
+        return modularCredits.matches(VALIDATION_REGEX);
     }
 
     @Override
