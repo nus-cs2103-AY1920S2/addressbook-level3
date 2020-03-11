@@ -307,9 +307,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |goal-oriented student |track my progress |see how far I came and how much further I have to go to reach my goal
 
-|`* * *` |user with many recipes in the recipe book |filter recipes by ingredients |locate a recipe easily
+|`* * *` |user with many recipes in the recipe book |filter recipes by various criteria |locate a recipe easily
 
-|`* * *` |user with allergies |exclude allergic ingredients |obtain recipes that are catered to me
+|`* * *` |user with allergies |exclude ingredients that I am allergic to |obtain recipes that are catered to me
 
 |`* * *` |user struggling to eat healthier |receive motivation for eating healthy meals |stay motivated on my goal
 
@@ -358,7 +358,7 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to add recipe
-2.  HealthyBaby creates a new recipe with the specified name.
+2.  HealthyBaby creates a new recipe with the specified name
 +
 Use case ends.
 
@@ -421,7 +421,7 @@ Use case resumes at step 2.
 1.  User requests to see list of goals
 2.  HealthyBaby shows a list of goals
 3.  User requests to add a specific goal in the list
-4.  HealthyBaby starts tracking the goal.
+4.  HealthyBaby starts tracking the goal
 +
 Use case ends.
 
@@ -443,8 +443,53 @@ Use case resumes at step 2.
 * 3b. The given goal is already being tracked.
 +
 [none]
-** 3a1b. HealthyBaby shows an error message.
+** 3b1. HealthyBaby shows an error message.
 +
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find recipe
+
+*MSS*
+
+1.  User enters desired recipe name into CLI
+2.  HealthyBaby shows the desired recipe
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The desired recipe name does not exist in the list.
++
+[none]
+** 2a1. HealthyBaby shows an error message.
+Use case ends.
+
+[discrete]
+=== Use case: Clear entire recipe list
+
+*MSS*
+
+1.  User enters the clear command
+2.  User will be prompted with a confirmation question
+3.  User inputs Y (Yes) to confirm decision
+4.  HealthyBaby clears the entire recipe list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User inputs N (No) to cancel the clear command.
++
+Use case ends.
+
+[none]
+* 3b. User inputs an invalid response to the confirmation question.
++
+[none]
+** 3b1. HealthyBaby shows an error message.
 Use case resumes at step 2.
 
 _{More to be added}_
