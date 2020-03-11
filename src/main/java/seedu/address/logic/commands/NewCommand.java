@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,9 +18,13 @@ public class NewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new profile. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME \n"
+            + PREFIX_NAME + "NAME "
+            + PREFIX_COURSE + "COURSE "
+            + PREFIX_CURRENT_SEMESTER + "CURRENT_SEMESTER" + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe ";
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_COURSE + "Computer Science "
+            + PREFIX_CURRENT_SEMESTER + "4";
 
     public static final String MESSAGE_SUCCESS = "New profile created: %1$s";
 
