@@ -127,3 +127,86 @@ Examples:
 Returns any finance with `NUS` in its name such as - `Bought textbooks from NUS`, `NUS bonding day`
 * `find finance a/200` +
 Returns any finance with an amount of `200`
+
+=== Course
+==== Add a course: `add course`
+
+Add a new course to the list of course +
+Format: `add course n/NAME`
+Example:
+
+* `add course n/Programming Methodology`
+
+==== List all courses: `list course`
+Shows a list of all courses
+Format: `list course`
+
+==== List all students in a course: `list course student`
+Shows a list of all students in a course +
+Format: `list c/courseID --students`
+
+=== Student
+==== Add a student: `add student`
+
+Add a new student to the list of student +
+Format: `add student n/NAME` +
+Example:
+
+* `add student n/Jon Snow`
+
+==== Remove a student: `remove student`
+Remove a student from the list of students +
+Format: `remove student studentID`
+
+==== List all students: `list student`
+Shows a list of all students
+Format: `list course`
+
+==== Edit information about a student: `edit student`
+Edits an existing student in the student list
+Format: `edit student s/studentID [n/NAME] [d/DESCRIPTION]` +
+Example:
+
+* `edit A0131120E n/Aegon Targaryen d/Son of Lyanna Stark and Rhaegar Targaryen`
+
+==== Assign a student to a course: `assign student to course`
+Assign an existing student in the student list to a course in the course list
+Format: `assign student s/studentID course c/courseID`
+
+=== Teacher
+==== Add a teacher: `add teacher`
+
+Add a new teacher to the list of teachers +
+Format: `add teacher n/NAME` +
+Example:
+
+* `add teacher n/Ned Stark`
+
+==== Remove a teacher: `remove staff`
+Remove a teacher from the list of teachers +
+Format: `remove teacher teacherID`
+
+==== Edit information about a teacher: `edit teacher`
+Edit an existing teacher in the teachers list
+Format: `edit teacher s/teacherID [n/NAME] [d/DESCRIPTION]` +
+Example:
+
+* `edit A0131120E n/Ned Stark d/Lord of Winterfell`
+
+==== Assign a teacher to a course: `assign teacher to course`
+Assign an existing teacher in the teacher list to a course in the course list
+Format: `assign teacher s/teacherID course c/courseID`
+
+=== Staff
+
+==== Add a staff: `add staff`
+Add a new staff to the list of staffs +
+Format: `add staff n/NAME`
+
+==== Remove a staff: `add staff`
+Remove a new staff to the list of staffs +
+Format: `remove staff staffID`
+
+==== Edit information about a staff: `edit staff`
+Edit an existing teacher in the staff list +
+Format: `edit staff s/teacherID [n/NAME] [d/DESCRIPTION]`
