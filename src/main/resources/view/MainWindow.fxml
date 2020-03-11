@@ -47,6 +47,7 @@
                    <padding>
                      <Insets bottom="10" left="10" right="10" top="10" />
                    </padding>
+                        <StackPane fx:id="pomodoroPlaceholder" />
                    <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                  </VBox>
                   </items>

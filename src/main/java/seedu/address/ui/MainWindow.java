@@ -35,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private PetDisplay petDisplay;
+    private PomodoroDisplay pomodoroDisplay;
 
     @FXML private StackPane commandBoxPlaceholder;
 
@@ -47,6 +48,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML private StackPane statusbarPlaceholder;
 
     @FXML private StackPane petPlaceholder;
+
+    @FXML private StackPane pomodoroPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -122,6 +125,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        pomodoroDisplay = new PomodoroDisplay("No task in progress.", "25:00");
+        pomodoroPlaceholder.getChildren().add(pomodoroDisplay.getRoot());
     }
 
     /** Sets the default size based on {@code guiSettings}. */
