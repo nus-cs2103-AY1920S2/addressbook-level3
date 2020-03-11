@@ -46,7 +46,7 @@ public class SavedCommand extends Command {
             // SavingsConverter.convertToPure(c.getSavings());
         }
         // get monetary amount
-        moneySaved.append(Double.toString(pms.getMonetaryAmountAsDouble()));
+        moneySaved.append(pms.getMonetaryAmountAsDouble());
 
         // get saveables
         List<Saveable> saveables = pms.getListOfSaveables();
