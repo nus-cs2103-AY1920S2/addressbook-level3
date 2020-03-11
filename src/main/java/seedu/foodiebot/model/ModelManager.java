@@ -3,6 +3,8 @@ package seedu.foodiebot.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -23,6 +25,7 @@ import seedu.foodiebot.storage.JsonFoodieBotStorage;
 import seedu.foodiebot.storage.Storage;
 import seedu.foodiebot.storage.StorageManager;
 
+
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -35,6 +38,7 @@ public class ModelManager implements Model {
     private final FilteredList<Stall> filteredStalls;
 
     private final Budget budget;
+
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -158,10 +162,19 @@ public class ModelManager implements Model {
             return Optional.empty();
         }
         // return foodieBot.getBudget();
-
     }
 
-
+    /**
+     * This function return a FileReader of the jsonfile (foodiebot.json).
+     * @return FileRead of the jsonfile
+     * @throws FileNotFoundException
+     */
+    @Override
+    public FileReader listOfCanteen() throws FileNotFoundException {
+        FoodieBotStorage foodieBotStorage =
+                new JsonFoodieBotStorage(userPrefs.getFoodieBotFilePath());
+        return new FileReader(String.valueOf(foodieBotStorage.getCanteensFilePath()));
+    }
 
     // =========== Filtered Person List Accessors
     // =============================================================

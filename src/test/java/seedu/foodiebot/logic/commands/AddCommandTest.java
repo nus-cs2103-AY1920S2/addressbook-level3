@@ -2,6 +2,8 @@ package seedu.foodiebot.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -167,6 +169,11 @@ public class AddCommandTest {
 
         @Override
         public Optional<Budget> getBudget() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FileReader listOfCanteen() throws FileNotFoundException {
             throw new AssertionError("This method should not be called.");
         }
 
