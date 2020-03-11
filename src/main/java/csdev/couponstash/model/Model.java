@@ -3,9 +3,10 @@ package csdev.couponstash.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.model.person.Person;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.

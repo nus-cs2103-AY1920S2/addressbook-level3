@@ -7,12 +7,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import csdev.couponstash.model.ReadOnlyAddressBook;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.exceptions.DataConversionException;
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.commons.util.FileUtil;
 import csdev.couponstash.commons.util.JsonUtil;
+import csdev.couponstash.model.ReadOnlyAddressBook;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.

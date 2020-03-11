@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.ReadOnlyAddressBook;
-import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.person.Person;
 
 /**

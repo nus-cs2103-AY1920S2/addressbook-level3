@@ -1,7 +1,7 @@
 package csdev.couponstash.logic.commands;
 
-import csdev.couponstash.model.Model;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

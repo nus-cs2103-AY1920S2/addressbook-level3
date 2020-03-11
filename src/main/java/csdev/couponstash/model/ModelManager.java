@@ -1,17 +1,18 @@
 package csdev.couponstash.model;
 
-import static java.util.Objects.requireNonNull;
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.model.person.Person;
+
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Represents the in-memory model of the address book data.

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import csdev.couponstash.commons.exceptions.DataConversionException;
 import csdev.couponstash.commons.core.Config;
+import csdev.couponstash.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

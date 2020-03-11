@@ -1,7 +1,8 @@
 package csdev.couponstash.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -27,7 +28,12 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(
+                        args,
+                        CliSyntax.PREFIX_NAME,
+                        CliSyntax.PREFIX_PHONE,
+                        CliSyntax.PREFIX_EMAIL,
+                        CliSyntax.PREFIX_TAG);
 
         Index index;
 

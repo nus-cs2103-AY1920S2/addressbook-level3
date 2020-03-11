@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import csdev.couponstash.commons.exceptions.DataConversionException;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.UserPrefs;
-import csdev.couponstash.commons.exceptions.DataConversionException;
 
 /**
  * Represents a storage for {@link UserPrefs}.

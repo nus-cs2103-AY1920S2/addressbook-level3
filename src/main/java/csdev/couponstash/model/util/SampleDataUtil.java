@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.ReadOnlyAddressBook;
+import csdev.couponstash.model.person.Email;
 import csdev.couponstash.model.person.Name;
 import csdev.couponstash.model.person.Person;
 import csdev.couponstash.model.person.Phone;
-import csdev.couponstash.model.person.Email;
 import csdev.couponstash.model.tag.Tag;
 
 /**

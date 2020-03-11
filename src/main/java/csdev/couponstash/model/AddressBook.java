@@ -4,9 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import csdev.couponstash.model.person.Person;
 import csdev.couponstash.model.person.UniquePersonList;
+
+import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level

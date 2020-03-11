@@ -1,9 +1,7 @@
 package csdev.couponstash.model.person;
 
-import csdev.couponstash.commons.util.AppUtil;
-
-import static java.util.Objects.requireNonNull;
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -24,7 +22,7 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        AppUtil.checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
         value = phone;
     }
 

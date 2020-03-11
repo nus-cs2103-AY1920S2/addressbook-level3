@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import csdev.couponstash.commons.core.index.Index;
-import csdev.couponstash.model.Model;
 import csdev.couponstash.commons.core.Messages;
+import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.model.Model;
 import csdev.couponstash.model.person.Person;
 
 /**

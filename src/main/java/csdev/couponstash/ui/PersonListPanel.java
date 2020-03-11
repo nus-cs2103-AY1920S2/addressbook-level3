@@ -2,13 +2,14 @@ package csdev.couponstash.ui;
 
 import java.util.logging.Logger;
 
+import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.model.person.Person;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import csdev.couponstash.commons.core.LogsCenter;
-import csdev.couponstash.model.person.Person;
 
 /**
  * Panel containing the list of persons.

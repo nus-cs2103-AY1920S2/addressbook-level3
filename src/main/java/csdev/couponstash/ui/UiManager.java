@@ -2,15 +2,16 @@ package csdev.couponstash.ui;
 
 import java.util.logging.Logger;
 
+import csdev.couponstash.MainApp;
+import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.commons.util.StringUtil;
+import csdev.couponstash.logic.Logic;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import csdev.couponstash.MainApp;
-import csdev.couponstash.commons.core.LogsCenter;
-import csdev.couponstash.commons.util.StringUtil;
-import csdev.couponstash.logic.Logic;
 
 /**
  * The manager of the UI component.

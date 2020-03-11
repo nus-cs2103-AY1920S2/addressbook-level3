@@ -1,7 +1,8 @@
 package csdev.couponstash.model;
 
-import javafx.collections.ObservableList;
 import csdev.couponstash.model.person.Person;
+
+import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of an address book

@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import csdev.couponstash.model.ReadOnlyUserPrefs;
-import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.commons.exceptions.DataConversionException;
 import csdev.couponstash.commons.util.JsonUtil;
+import csdev.couponstash.model.ReadOnlyUserPrefs;
+import csdev.couponstash.model.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

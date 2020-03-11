@@ -1,13 +1,14 @@
 package csdev.couponstash.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
-import csdev.couponstash.model.Model;
+import static java.util.Objects.requireNonNull;
+
 import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.model.Model;
 import csdev.couponstash.model.person.Person;
 
 /**

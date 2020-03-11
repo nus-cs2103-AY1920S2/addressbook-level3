@@ -1,9 +1,8 @@
 package csdev.couponstash.model.person;
 
-import csdev.couponstash.commons.util.AppUtil;
+import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 
 import static java.util.Objects.requireNonNull;
-import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's email in the address book.
@@ -38,7 +37,7 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        AppUtil.checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 

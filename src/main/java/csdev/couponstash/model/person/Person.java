@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import csdev.couponstash.commons.util.CollectionUtil;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -28,7 +27,7 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, phone, email, tags);
+        requireAllNonNull(name, phone, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;

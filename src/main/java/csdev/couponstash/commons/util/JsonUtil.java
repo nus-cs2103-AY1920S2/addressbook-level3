@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
-import csdev.couponstash.commons.exceptions.DataConversionException;
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.commons.exceptions.DataConversionException;
 
 /**
  * Converts a Java object instance to JSON and vice versa

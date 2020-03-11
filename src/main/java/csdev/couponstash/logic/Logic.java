@@ -2,7 +2,6 @@ package csdev.couponstash.logic;
 
 import java.nio.file.Path;
 
-import javafx.collections.ObservableList;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
@@ -10,6 +9,8 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyAddressBook;
 import csdev.couponstash.model.person.Person;
+
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component
