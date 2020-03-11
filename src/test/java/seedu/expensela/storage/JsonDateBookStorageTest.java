@@ -20,7 +20,8 @@ import seedu.expensela.model.AddressBook;
 import seedu.expensela.model.ReadOnlyAddressBook;
 
 public class JsonDateBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "JsonAddressBookStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -52,12 +53,14 @@ public class JsonDateBookStorageTest {
 
     @Test
     public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidTransactionAddressBook.json"));
+        assertThrows(DataConversionException.class, (
+        ) -> readAddressBook("invalidTransactionAddressBook.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidTransactionAddressBook.json"));
+        assertThrows(DataConversionException.class, (
+        ) -> readAddressBook("invalidAndValidTransactionAddressBook.json"));
     }
 
     @Test

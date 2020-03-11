@@ -1,11 +1,6 @@
 package seedu.expensela.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.expensela.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.expensela.model.tag.Tag;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
@@ -34,7 +29,6 @@ public class EditPersonDescriptorBuilder {
         descriptor.setName(transaction.getName());
         descriptor.setAmount(transaction.getAmount());
         descriptor.setDate(transaction.getDate());
-        descriptor.setTags(transaction.getTags());
     }
 
     /**
@@ -58,16 +52,6 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withAddress(String address) {
         descriptor.setDate(new Date(address));
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
-     * that we are building.
-     */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
         return this;
     }
 
