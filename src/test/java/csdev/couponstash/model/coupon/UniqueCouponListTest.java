@@ -1,22 +1,21 @@
 package csdev.couponstash.model.coupon;
 
+import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static csdev.couponstash.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import csdev.couponstash.logic.commands.CommandTestUtil;
-import csdev.couponstash.testutil.Assert;
-import csdev.couponstash.testutil.PersonBuilder;
-import csdev.couponstash.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
+import csdev.couponstash.logic.commands.CommandTestUtil;
 import csdev.couponstash.model.coupon.exceptions.DuplicatePersonException;
 import csdev.couponstash.model.coupon.exceptions.PersonNotFoundException;
+import csdev.couponstash.testutil.PersonBuilder;
+import csdev.couponstash.testutil.TypicalPersons;
 
 public class UniqueCouponListTest {
 
@@ -24,7 +23,7 @@ public class UniqueCouponListTest {
 
     @Test
     public void contains_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.contains(null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.contains(null));
     }
 
     @Test
@@ -48,28 +47,29 @@ public class UniqueCouponListTest {
 
     @Test
     public void add_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.add(null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.add(null));
     }
 
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniquePersonList.add(TypicalPersons.ALICE);
-        Assert.assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(TypicalPersons.ALICE));
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(TypicalPersons.ALICE));
     }
 
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(null, TypicalPersons.ALICE));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(null, TypicalPersons.ALICE));
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(TypicalPersons.ALICE, null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.setPerson(TypicalPersons.ALICE, null));
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        Assert.assertThrows(PersonNotFoundException.class, () -> uniquePersonList.setPerson(TypicalPersons.ALICE, TypicalPersons.ALICE));
+        assertThrows(PersonNotFoundException.class, () ->
+                uniquePersonList.setPerson(TypicalPersons.ALICE, TypicalPersons.ALICE));
     }
 
     @Test
@@ -105,17 +105,18 @@ public class UniqueCouponListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniquePersonList.add(TypicalPersons.ALICE);
         uniquePersonList.add(TypicalPersons.BOB);
-        Assert.assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(TypicalPersons.ALICE, TypicalPersons.BOB));
+        assertThrows(DuplicatePersonException.class, () ->
+                uniquePersonList.setPerson(TypicalPersons.ALICE, TypicalPersons.BOB));
     }
 
     @Test
     public void remove_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.remove(null));
     }
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        Assert.assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(TypicalPersons.ALICE));
+        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(TypicalPersons.ALICE));
     }
 
     @Test
@@ -128,7 +129,7 @@ public class UniqueCouponListTest {
 
     @Test
     public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((UniquePersonList) null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((UniquePersonList) null));
     }
 
     @Test
@@ -142,7 +143,7 @@ public class UniqueCouponListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Coupon>) null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Coupon>) null));
     }
 
     @Test
@@ -158,12 +159,12 @@ public class UniqueCouponListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Coupon> listWithDuplicateCoupons = Arrays.asList(TypicalPersons.ALICE, TypicalPersons.ALICE);
-        Assert.assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateCoupons));
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateCoupons));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, ()
+        assertThrows(UnsupportedOperationException.class, ()
             -> uniquePersonList.asUnmodifiableObservableList().remove(0));
     }
 }

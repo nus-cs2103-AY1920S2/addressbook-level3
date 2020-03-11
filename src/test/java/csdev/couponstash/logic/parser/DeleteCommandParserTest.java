@@ -2,10 +2,10 @@ package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import csdev.couponstash.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.DeleteCommand;
+import csdev.couponstash.testutil.TypicalIndexes;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -25,6 +25,7 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        CommandParserTestUtil.assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        CommandParserTestUtil.assertParseFailure(parser,
+                "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

@@ -3,8 +3,6 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandFailure;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import csdev.couponstash.testutil.PersonBuilder;
-import csdev.couponstash.testutil.TypicalPersons;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +10,8 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.testutil.PersonBuilder;
+import csdev.couponstash.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

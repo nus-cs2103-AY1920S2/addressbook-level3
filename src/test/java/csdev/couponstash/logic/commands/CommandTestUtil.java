@@ -1,25 +1,24 @@
 package csdev.couponstash.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 import static csdev.couponstash.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.testutil.Assert;
-import csdev.couponstash.testutil.EditPersonDescriptorBuilder;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
+import csdev.couponstash.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -102,7 +101,7 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Coupon> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
-        Assert.assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }

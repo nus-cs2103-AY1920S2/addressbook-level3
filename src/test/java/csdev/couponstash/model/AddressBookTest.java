@@ -1,12 +1,12 @@
 package csdev.couponstash.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static csdev.couponstash.testutil.TypicalPersons.ALICE;
 import static csdev.couponstash.testutil.TypicalPersons.getTypicalAddressBook;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,11 +15,12 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.exceptions.DuplicatePersonException;
 import csdev.couponstash.testutil.PersonBuilder;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class AddressBookTest {
 

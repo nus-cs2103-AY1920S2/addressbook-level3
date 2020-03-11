@@ -23,16 +23,16 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND
 import static csdev.couponstash.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static csdev.couponstash.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import csdev.couponstash.testutil.PersonBuilder;
-import csdev.couponstash.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.AddCommand;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
+import csdev.couponstash.testutil.PersonBuilder;
+import csdev.couponstash.testutil.TypicalPersons;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
@@ -58,7 +58,8 @@ public class AddCommandParserTest {
                 + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple tags - all accepted
-        Coupon expectedCouponMultipleTags = new PersonBuilder(TypicalPersons.BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Coupon expectedCouponMultipleTags = new PersonBuilder(TypicalPersons.BOB)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedCouponMultipleTags));

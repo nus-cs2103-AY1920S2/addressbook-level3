@@ -1,10 +1,9 @@
 package csdev.couponstash.commons.core;
 
+import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static csdev.couponstash.testutil.Assert.assertThrows;
 
-import csdev.couponstash.testutil.Assert;
 import org.junit.jupiter.api.Test;
 
 public class VersionTest {
@@ -18,7 +17,7 @@ public class VersionTest {
 
     @Test
     public void versionParsing_wrongVersionString_throwIllegalArgumentException() {
-        Assert.assertThrows(IllegalArgumentException.class, () -> Version.fromString("This is not a version string"));
+        assertThrows(IllegalArgumentException.class, () -> Version.fromString("This is not a version string"));
     }
 
     @Test

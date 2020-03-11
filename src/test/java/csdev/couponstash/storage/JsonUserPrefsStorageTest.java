@@ -1,8 +1,8 @@
 package csdev.couponstash.storage;
 
+import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static csdev.couponstash.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;

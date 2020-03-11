@@ -2,13 +2,13 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import csdev.couponstash.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
+import csdev.couponstash.testutil.TypicalPersons;
 
 public class ClearCommandTest {
 

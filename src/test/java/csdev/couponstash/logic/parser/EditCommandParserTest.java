@@ -21,8 +21,6 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
-import csdev.couponstash.testutil.EditPersonDescriptorBuilder;
-import csdev.couponstash.testutil.TypicalIndexes;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.index.Index;
@@ -32,6 +30,8 @@ import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
+import csdev.couponstash.testutil.EditPersonDescriptorBuilder;
+import csdev.couponstash.testutil.TypicalIndexes;
 
 public class EditCommandParserTest {
 
@@ -71,27 +71,36 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NAME_DESC,
+                Name.MESSAGE_CONSTRAINTS); // invalid name
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_PHONE_DESC,
+                Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_EMAIL_DESC,
+                Email.MESSAGE_CONSTRAINTS); // invalid email
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_TAG_DESC,
+                Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY,
+                Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        CommandParserTestUtil.assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC,
+                Phone.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Coupon} being edited,
         // parsing it together with a valid tag results in error
-        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY,
+                Tag.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND,
+                Tag.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
+                Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_PHONE_AMY,
-                Name.MESSAGE_CONSTRAINTS);
+        CommandParserTestUtil.assertParseFailure(parser,
+                "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_PHONE_AMY, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test

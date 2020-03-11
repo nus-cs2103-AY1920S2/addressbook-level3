@@ -1,6 +1,5 @@
 package csdev.couponstash.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -8,11 +7,11 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static csdev.couponstash.testutil.TypicalPersons.AMY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import csdev.couponstash.model.coupon.Coupon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -26,6 +25,7 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.ReadOnlyAddressBook;
 import csdev.couponstash.model.UserPrefs;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.storage.JsonAddressBookStorage;
 import csdev.couponstash.storage.JsonUserPrefsStorage;
 import csdev.couponstash.storage.StorageManager;

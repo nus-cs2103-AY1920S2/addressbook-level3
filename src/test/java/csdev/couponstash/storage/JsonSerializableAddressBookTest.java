@@ -1,7 +1,7 @@
 package csdev.couponstash.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static csdev.couponstash.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +12,6 @@ import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.commons.util.JsonUtil;
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.testutil.TypicalPersons;
-import csdev.couponstash.storage.JsonSerializableAddressBook;
 
 public class JsonSerializableAddressBookTest {
 

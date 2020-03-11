@@ -1,34 +1,34 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static csdev.couponstash.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.testutil.Assert;
-import csdev.couponstash.testutil.PersonBuilder;
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyAddressBook;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.testutil.PersonBuilder;
+
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validCoupon);
         ModelStub modelStub = new ModelStubWithPerson(validCoupon);
 
-        Assert.assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
     }
 
     @Test

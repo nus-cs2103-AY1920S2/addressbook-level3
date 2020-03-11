@@ -1,16 +1,15 @@
 package csdev.couponstash.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
 import static csdev.couponstash.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import csdev.couponstash.testutil.Assert;
 import org.junit.jupiter.api.Test;
 
 public class CollectionUtilTest {
@@ -88,7 +87,7 @@ public class CollectionUtilTest {
      * if {@code objects} or any element of {@code objects} is null.
      */
     private void assertNullPointerExceptionThrown(Object... objects) {
-        Assert.assertThrows(NullPointerException.class, () -> requireAllNonNull(objects));
+        assertThrows(NullPointerException.class, () -> requireAllNonNull(objects));
     }
 
     /**
@@ -96,7 +95,7 @@ public class CollectionUtilTest {
      * if {@code collection} or any element of {@code collection} is null.
      */
     private void assertNullPointerExceptionThrown(Collection<?> collection) {
-        Assert.assertThrows(NullPointerException.class, () -> requireAllNonNull(collection));
+        assertThrows(NullPointerException.class, () -> requireAllNonNull(collection));
     }
 
     private void assertNullPointerExceptionNotThrown(Object... objects) {

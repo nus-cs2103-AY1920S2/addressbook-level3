@@ -1,14 +1,11 @@
 package csdev.couponstash.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandFailure;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static csdev.couponstash.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.testutil.TypicalIndexes;
-import csdev.couponstash.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
@@ -16,6 +13,9 @@ import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.testutil.TypicalIndexes;
+import csdev.couponstash.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
