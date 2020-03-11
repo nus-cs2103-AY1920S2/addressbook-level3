@@ -56,7 +56,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVED), this.moneySymbol);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Coupon coupon = new Coupon(name, phone, email, tagList);
+        Coupon coupon = new Coupon(name, phone, email, savings, tagList);
 
         return new AddCommand(coupon);
     }

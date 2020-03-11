@@ -14,6 +14,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -91,7 +92,9 @@ class JsonAdaptedCoupon {
         final Email modelEmail = new Email(email);
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
-        return new Coupon(modelName, modelPhone, modelEmail, modelTags);
+        return new Coupon(modelName, modelPhone, modelEmail,
+                // TODO: implement proper saving of Savings
+                new PureMonetarySavings(), modelTags);
     }
 
 }

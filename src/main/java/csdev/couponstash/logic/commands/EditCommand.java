@@ -18,6 +18,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -91,7 +92,9 @@ public class EditCommand extends Command {
         Email updatedEmail = editCouponDescriptor.getEmail().orElse(couponToEdit.getEmail());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
 
-        return new Coupon(updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedEmail,
+                // TODO: implementing editing of savings
+                new PureMonetarySavings(), updatedTags);
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -20,17 +21,21 @@ public class Coupon {
     private final Phone phone;
     private final Email email;
 
+    // Savings field
+    private final Savings savings;
+
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Email email, Set<Tag> tags) {
+    public Coupon(Name name, Phone phone, Email email, Savings savings, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.savings = savings;
         this.tags.addAll(tags);
     }
 
@@ -44,6 +49,16 @@ public class Coupon {
 
     public Email getEmail() {
         return email;
+    }
+
+    /**
+     * Gets the Savings associated with this Coupon.
+     * @return Savings representing either the monetary
+     *     amount saved, percentage amount saved, or
+     *     unquantifiable items (Saveables).
+     */
+    public Savings getSavings() {
+        return savings;
     }
 
     /**
@@ -65,7 +80,8 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && (otherCoupon.getPhone().equals(getPhone()) || otherCoupon.getEmail().equals(getEmail()));
+                && (otherCoupon.getPhone().equals(getPhone()) || otherCoupon.getEmail().equals(getEmail())
+                        || otherCoupon.getSavings().equals(getSavings()));
     }
 
     /**
@@ -86,13 +102,14 @@ public class Coupon {
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getEmail().equals(getEmail())
+                && otherCoupon.getSavings().equals(getSavings())
                 && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, phone, email, savings, tags);
     }
 
     @Override
@@ -103,6 +120,8 @@ public class Coupon {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Savings: ")
+                .append(getSavings())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
