@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable RecipeBook that is serializable to JSON format.
  */
 @JsonRootName(value = "recipebook")
 class JsonSerializableRecipeBook {

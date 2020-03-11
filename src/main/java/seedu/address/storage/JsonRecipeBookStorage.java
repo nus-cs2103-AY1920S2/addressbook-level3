@@ -69,12 +69,12 @@ public class JsonRecipeBookStorage implements RecipeBookStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveRecipeBook(ReadOnlyRecipeBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveRecipeBook(ReadOnlyRecipeBook recipeBook, Path filePath) throws IOException {
+        requireNonNull(recipeBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableRecipeBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableRecipeBook(recipeBook), filePath);
     }
 
 }

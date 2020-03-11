@@ -4,9 +4,9 @@ import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building RecipeBook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withRecipe("John", "Doe").build();}
+ *     {@code RecipeBook ab = new RecipeBookBuilder().withRecipe("John", "Doe").build();}
  */
 public class RecipeBookBuilder {
 
@@ -21,7 +21,7 @@ public class RecipeBookBuilder {
     }
 
     /**
-     * Adds a new {@code Recipe} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Recipe} to the {@code RecipeBook} that we are building.
      */
     public RecipeBookBuilder withRecipe(Recipe recipe) {
         recipeBook.addRecipe(recipe);
