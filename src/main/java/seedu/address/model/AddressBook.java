@@ -65,6 +65,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the product list with {@code products}.
+     * {@code products} must not contain duplicate products.
+     */
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions.setTransaction(transactions);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -72,6 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setProducts(newData.getProductList());
+        setTransactions(newData.getTransactionList());
     }
 
     //// customer-level operations
