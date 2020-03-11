@@ -1,0 +1,39 @@
+{
+  "_comment": "AddressBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalAddressBook()",
+  "recipes" : [ {
+    "name" : "Alice Pauline",
+    "time" : "94351253",
+    "email" : "alice@example.com",
+    "goals" : [ "friends" ]
+  }, {
+    "name" : "Benson Meier",
+    "time" : "98765432",
+    "email" : "johnd@example.com",
+    "goals" : [ "owesMoney", "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "time" : "95352563",
+    "email" : "heinz@example.com",
+    "goals" : [ ]
+  }, {
+    "name" : "Daniel Meier",
+    "time" : "87652533",
+    "email" : "cornelia@example.com",
+    "goals" : [ "friends" ]
+  }, {
+    "name" : "Elle Meyer",
+    "time" : "9482224",
+    "email" : "werner@example.com",
+    "goals" : [ ]
+  }, {
+    "name" : "Fiona Kunz",
+    "time" : "9482427",
+    "email" : "lydia@example.com",
+    "goals" : [ ]
+  }, {
+    "name" : "George Best",
+    "time" : "9482442",
+    "email" : "anna@example.com",
+    "goals" : [ ]
+  } ]
+}
