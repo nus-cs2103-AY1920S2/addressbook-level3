@@ -1,12 +1,12 @@
 package csdev.couponstash.model.coupon.savings;
 
-import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
+import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static csdev.couponstash.commons.util.AppUtil.checkArgument;
+import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
 
 /**
  * Represents a certain amount of savings in CouponStash

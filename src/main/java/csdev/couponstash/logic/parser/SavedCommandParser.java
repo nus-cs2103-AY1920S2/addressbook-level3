@@ -1,10 +1,10 @@
 package csdev.couponstash.logic.parser;
 
-import csdev.couponstash.commons.core.index.Index;
+import static java.util.Objects.requireNonNull;
+
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
-import static java.util.Objects.requireNonNull;
 
 /**
  * This class contains logic for parsing a

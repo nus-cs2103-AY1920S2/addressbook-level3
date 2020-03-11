@@ -1,5 +1,7 @@
 package csdev.couponstash.logic.commands;
 
+import java.util.List;
+
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
@@ -9,8 +11,6 @@ import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.SavingsConverter;
 
 import javafx.collections.ObservableList;
-
-import java.util.List;
 
 /**
  * This class represents the "saved" command

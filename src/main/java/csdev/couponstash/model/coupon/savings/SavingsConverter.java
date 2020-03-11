@@ -1,7 +1,5 @@
 package csdev.couponstash.model.coupon.savings;
 
-import java.text.DecimalFormat;
-
 /**
  * A class that contains static methods for
  * converting Savings into PureMonetarySavings.
