@@ -1,14 +1,9 @@
 package seedu.expensela.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.expensela.model.tag.Tag;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -22,13 +17,11 @@ public class PersonBuilder {
     private Name name;
     private Amount amount;
     private Date date;
-    private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT, true);
         date = new Date(DEFAULT_DATE);
-        tags = new HashSet<>();
     }
 
     /**
@@ -38,7 +31,6 @@ public class PersonBuilder {
         name = transactionToCopy.getName();
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
-        tags = new HashSet<>(transactionToCopy.getTags());
     }
 
     /**
@@ -46,14 +38,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -74,7 +58,7 @@ public class PersonBuilder {
     }
 
     public Transaction build() {
-        return new Transaction(name, amount, date, tags);
+        return new Transaction(name, amount, date);
     }
 
 }
