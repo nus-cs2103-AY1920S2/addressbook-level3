@@ -156,6 +156,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setLocationSpecified(boolean isLocationSpecified) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredCanteenList(Predicate<Canteen> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -193,7 +198,12 @@ public class AddCommandTest {
          */
         @Override
         public void updateFilteredStallList(Predicate<Stall> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
 
+        @Override
+        public boolean isLocationSpecified() {
+            return false;
         }
     }
 

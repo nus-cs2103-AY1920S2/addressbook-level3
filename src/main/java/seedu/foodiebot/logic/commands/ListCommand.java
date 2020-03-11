@@ -31,10 +31,12 @@ public class ListCommand extends Command {
         requireNonNull(model);
         if (nearestBlockName.isBlank()) {
             model.updateFilteredCanteenList(PREDICATE_SHOW_ALL_CANTEEN);
+            model.setLocationSpecified(false);
             return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS, false, false, isLocationSpecified);
         } else {
             model.updateFilteredCanteenList(c -> c.getBlockName().equalsIgnoreCase(nearestBlockName));
             isLocationSpecified = true;
+            model.setLocationSpecified(true);
             return new CommandResult(COMMAND_WORD, MESSAGE_NEAREST_BLOCK, false, false,
                     isLocationSpecified);
         }

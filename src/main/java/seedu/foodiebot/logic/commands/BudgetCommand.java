@@ -5,7 +5,6 @@ import static seedu.foodiebot.commons.core.Messages.MESSAGE_BUDGET_VIEW;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_DATE_BY_MONTH;
 
 import seedu.foodiebot.commons.core.date.DefiniteDate;
-import seedu.foodiebot.model.FoodieBot;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.budget.Budget;
 
@@ -48,7 +47,6 @@ public class BudgetCommand extends Command {
 
     /** Helper function to write the budget to the model. */
     public static void saveBudget(Model model, Budget budget) {
-        model.setFoodieBot(new FoodieBot());
         model.setBudget(budget);
     }
 

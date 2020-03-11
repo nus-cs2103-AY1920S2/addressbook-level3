@@ -122,5 +122,10 @@ public class FoodieBotTest {
         public Budget getBudget() {
             return budget;
         }
+
+        @Override
+        public boolean isLocationSpecified() {
+            return false;
+        }
     }
 }

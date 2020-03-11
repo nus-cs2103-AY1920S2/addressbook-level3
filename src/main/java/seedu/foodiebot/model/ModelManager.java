@@ -140,6 +140,11 @@ public class ModelManager implements Model {
         foodieBot.setBudget(budget);
     }
 
+    @Override
+    public void setLocationSpecified(boolean isLocationSpecified) {
+        foodieBot.setLocationSpecified(isLocationSpecified);
+    }
+
     /**
      * Reads the stored budget in the Json file.
      * @return The budget object stored in the Json file. If the file is not present,
@@ -230,6 +235,10 @@ public class ModelManager implements Model {
         filteredStalls.setPredicate(predicate);
     }
 
+    @Override
+    public boolean isLocationSpecified() {
+        return foodieBot.isLocationSpecified();
+    }
     /**
      * .
      */

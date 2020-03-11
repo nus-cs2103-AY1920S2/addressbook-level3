@@ -20,6 +20,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     private final UniqueCanteenList canteens;
     private final UniqueStallList stalls;
     private Budget budget;
+    private boolean isLocationSpecified;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -32,6 +33,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         canteens = new UniqueCanteenList();
         stalls = new UniqueStallList();
         budget = new Budget();
+        isLocationSpecified = false;
     }
 
     public FoodieBot() {}
@@ -59,6 +61,10 @@ public class FoodieBot implements ReadOnlyFoodieBot {
 
     public void setBudget(Budget budget) {
         this.budget = budget;
+    }
+
+    public void setLocationSpecified(boolean isLocationSpecified) {
+        this.isLocationSpecified = isLocationSpecified;
     }
 
 
@@ -131,6 +137,11 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     @Override
     public Budget getBudget() {
         return budget;
+    }
+
+    @Override
+    public boolean isLocationSpecified() {
+        return isLocationSpecified;
     }
 
 

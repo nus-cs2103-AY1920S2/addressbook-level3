@@ -75,6 +75,7 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered canteen list sorted by distance */
     ObservableList<Canteen> getFilteredCanteenListSortedByDistance();
+    void setLocationSpecified(boolean isLocationSpecified);
 
     /**
      * Updates the filter of the filtered canteen list to filter by the given {@code predicate}.
@@ -92,4 +93,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStallList(Predicate<Stall> predicate);
+    boolean isLocationSpecified();
 }
