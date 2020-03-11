@@ -1,7 +1,5 @@
 package csdev.couponstash.model.coupon.savings;
 
-import csdev.couponstash.model.coupon.Email;
-
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 
 /**
@@ -61,6 +59,7 @@ public class PercentageAmount implements Comparable<PercentageAmount> {
 
     @Override
     public String toString() {
-        return String.format("%.2f", this.percentage);
+        // rounds the double to nearest integer
+        return String.format("%.0f", this.percentage) + "%";
     }
 }
