@@ -57,7 +57,7 @@ public class JsonRecipeBookStorageTest {
 
     @Test
     public void readRecipeBook_invalidAndValidRecipeRecipeBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readRecipeBook("invalidAndValidRecipeRecipeBook.json"));
+        assertThrows(DataConversionException.class, () -> readRecipeBook("invalidAndValidRecipeBook.json"));
     }
 
     @Test
