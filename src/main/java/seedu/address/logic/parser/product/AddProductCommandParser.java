@@ -18,8 +18,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
-import seedu.address.model.product.Quantity;
 import seedu.address.model.product.Sales;
+import seedu.address.model.util.Quantity;
 
 /**
  * Parses input arguments and creates a new AddProductCommand object

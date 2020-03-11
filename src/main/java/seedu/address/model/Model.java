@@ -5,13 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-<<<<<<< HEAD
-import seedu.address.model.person.Person;
-import seedu.address.model.transaction.Transaction;
-=======
+
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
->>>>>>> master
+import seedu.address.model.transaction.Transaction;
 
 /**
  * The API of the Model component.
@@ -126,8 +123,6 @@ public interface Model {
      * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-<<<<<<< HEAD
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the address book.
@@ -139,7 +134,7 @@ public interface Model {
      * {@code transaction} must not already exist in the address book.
      */
     void addTransaction(Transaction transaction);
-=======
+
     void updateFilteredCustomerList(Predicate<Customer> predicate);
 
     /**
@@ -151,5 +146,4 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered product list */
     ObservableList<Product> getFilteredProductList();
->>>>>>> master
 }

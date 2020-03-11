@@ -1,28 +1,29 @@
 package seedu.address.model.transaction;
 
-import seedu.address.model.person.Person;
-
-import java.time.LocalDateTime;
+import seedu.address.model.util.Quantity;
 
 public class Transaction {
 
     // add dummy class
-    private final Person customer;
+    private final String customer;
     private final String product;
-    private final int quantity;
-    private final int money;
-    private final LocalDateTime dateTime;
+    private final DateTime dateTime;
+    private final Quantity quantity;
+    private final Money money;
+    private final String description;
 
-    public Transaction(Person customer, String product, int quantity,
-                       int money, LocalDateTime dateTime) {
+
+    public Transaction(String customer, String product, DateTime dateTime,
+                       Quantity quantity, Money money, String description) {
         this.customer = customer;
         this.product = product;
         this.quantity = quantity;
         this.money = money;
         this.dateTime = dateTime;
+        this.description = description;
     }
 
-    public Person getCustomer() {
+    public String getCustomer() {
         return customer;
     }
 
@@ -30,16 +31,20 @@ public class Transaction {
         return product;
     }
 
-    public int getQuantity() {
+    public DateTime getDateTime() {
+        return dateTime;
+    }
+
+    public Quantity getQuantity() {
         return quantity;
     }
 
-    public int getMoney() {
+    public Money getMoney() {
         return money;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -56,8 +61,8 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getDateTime().equals(getDateTime())
-                && otherTransaction.getQuantity() == getQuantity()
-                && otherTransaction.getMoney() == getMoney();
+                && otherTransaction.getQuantity().equals(getQuantity())
+                && otherTransaction.getMoney().equals(getMoney());
 
     }
 
@@ -75,7 +80,8 @@ public class Transaction {
         return otherTransaction.getCustomer().equals(getCustomer())
                 && otherTransaction.getProduct().equals(getProduct())
                 && otherTransaction.getDateTime().equals(getDateTime())
-                && otherTransaction.getQuantity() == getQuantity()
-                && otherTransaction.getMoney() == getMoney();
+                && otherTransaction.getQuantity().equals(getQuantity())
+                && otherTransaction.getMoney().equals(getMoney())
+                && otherTransaction.getDescription().equals(getDescription());
     }
 }

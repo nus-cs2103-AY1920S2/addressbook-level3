@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,9 +16,11 @@ import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
-import seedu.address.model.product.Quantity;
 import seedu.address.model.product.Sales;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.DateTime;
+import seedu.address.model.transaction.Money;
+import seedu.address.model.util.Quantity;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -165,7 +168,7 @@ public class ParserUtil {
     public static Quantity parseQuantity(String quantity) throws ParseException {
         requireNonNull(quantity);
         String trimmedQuantity = quantity.trim();
-        if (!Price.isValidPrice(trimmedQuantity)) {
+        if (!Quantity.isValidQuantity(trimmedQuantity)) {
             throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
         }
         return new Quantity(trimmedQuantity);
@@ -185,4 +188,83 @@ public class ParserUtil {
         }
         return new Sales(trimmedSales);
     }
+
+    /**
+     * Parses a {@code String customer} into an {@code Customer}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code customer} is invalid.
+     */
+    public static String parseCustomer(String customer) throws ParseException {
+        requireNonNull(customer);
+        String trimmedCustomer = customer.trim();
+//        if (!Sales.isValidSales(trimmedSales)) {
+//            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Sales(trimmedSales);
+        return trimmedCustomer;
+    }
+
+    /**
+     * Parses a {@code String product} into an {@code product}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code product} is invalid.
+     */
+    public static String parseProduct(String product) throws ParseException {
+        requireNonNull(product);
+        String trimmedProduct = product.trim();
+//        if (!Sales.isValidSales(trimmedSales)) {
+//            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Sales(trimmedSales);
+        return trimmedProduct;
+    }
+
+    /**
+     * Parses a {@code String product} into an {@code product}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code product} is invalid.
+     */
+    public static DateTime parseDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!DateTime.isValidDateTime(trimmedDateTime)) {
+            throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
+        }
+        return new DateTime(trimmedDateTime);
+    }
+
+    /**
+     * Parses a {@code String product} into an {@code product}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code product} is invalid.
+     */
+    public static Money parseMoney(String money) throws ParseException {
+        requireNonNull(money);
+        String trimmedMoney = money.trim();
+        if (!Money.isValidMoney(trimmedMoney)) {
+            throw new ParseException(Money.MESSAGE_CONSTRAINTS);
+        }
+        return new Money(trimmedMoney);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static String parseTransDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+//        if (!Description.isValidDescription(trimmedDescription)) {
+//            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+//        }
+//        return new Description(trimmedDescription);
+        return trimmedDescription;
+    }
+
 }

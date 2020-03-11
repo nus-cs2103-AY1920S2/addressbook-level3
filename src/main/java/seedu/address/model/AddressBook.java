@@ -5,17 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-<<<<<<< HEAD
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.UniqueTransactionList;
-=======
+
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.UniqueCustomerList;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.UniqueProductList;
->>>>>>> master
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.UniqueTransactionList;
 
 /**
  * Wraps all data at the address-book level
@@ -23,13 +19,9 @@ import seedu.address.model.product.UniqueProductList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-<<<<<<< HEAD
-    private final UniquePersonList persons;
-    private final UniqueTransactionList transactions;
-=======
     private final UniqueCustomerList persons;
     private final UniqueProductList products;
->>>>>>> master
+    private final UniqueTransactionList transactions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -39,13 +31,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-<<<<<<< HEAD
-        persons = new UniquePersonList();
         transactions = new UniqueTransactionList();
-=======
         persons = new UniqueCustomerList();
         products = new UniqueProductList();
->>>>>>> master
     }
 
     public AddressBook() {}
@@ -152,7 +140,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-<<<<<<< HEAD
     ////Transaction Level operations
 
     public boolean hasTransaction(Transaction t) {
@@ -162,14 +149,14 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addTransaction(Transaction t) {
         transactions.add(t);
-=======
+    }
+
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the product list.
      */
     public void removeProduct(Product key) {
         products.remove(key);
->>>>>>> master
     }
 
     //// util methods

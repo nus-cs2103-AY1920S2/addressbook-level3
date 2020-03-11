@@ -11,13 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-<<<<<<< HEAD
-import seedu.address.model.person.Person;
-import seedu.address.model.transaction.Transaction;
-=======
+
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
->>>>>>> master
+import seedu.address.model.transaction.Transaction;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -143,7 +140,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-<<<<<<< HEAD
     public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
         return addressBook.hasTransaction(transaction);
@@ -155,8 +151,7 @@ public class ModelManager implements Model {
         addressBook.addTransaction(transaction);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-=======
+    @Override
     public void setPerson(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
 
@@ -171,7 +166,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered Customer List Accessors =============================================================
->>>>>>> master
 
     /**
      * Returns an unmodifiable view of the list of {@code Customer} backed by the internal list of
