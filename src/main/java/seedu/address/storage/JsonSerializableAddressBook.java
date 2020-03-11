@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.transaction.Transaction;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -20,15 +21,19 @@ import seedu.address.model.customer.Customer;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate customer(s).";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
 
     private final List<JsonAdaptedCustomer> persons = new ArrayList<>();
+    private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and transactions.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedCustomer> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedCustomer> persons,
+                                       @JsonProperty("persons") List<JsonAdaptedTransaction> transactions) {
         this.persons.addAll(persons);
+        this.transactions.addAll(transactions);
     }
 
     /**
@@ -38,6 +43,7 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedCustomer::new).collect(Collectors.toList()));
+        transactions.addAll(source.getTransactionList().stream().map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
     }
 
     /**
@@ -54,6 +60,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPerson(customer);
         }
+
+        for (JsonAdaptedTransaction jsonAdaptedTransaction : transactions) {
+            Transaction transaction = jsonAdaptedTransaction.toModelType();
+            if (addressBook.hasTransaction(transaction)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_TRANSACTION);
+            }
+            addressBook.addTransaction(transaction);
+        }
+
         return addressBook;
     }
 
