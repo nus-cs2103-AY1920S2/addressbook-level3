@@ -39,6 +39,13 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Transaction> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
+    }
+
     @Override
     public Iterator<Transaction> iterator() {
         return null;
