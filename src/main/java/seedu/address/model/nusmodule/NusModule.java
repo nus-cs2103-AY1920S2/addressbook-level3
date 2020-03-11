@@ -1,5 +1,6 @@
 package seedu.address.model.nusmodule;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -8,8 +9,8 @@ import java.util.Optional;
 public class NusModule {
     public final ModuleCode moduleCode;
     public final int modularCredit;
-    public final boolean isTaking;
-    public final Optional<Grade> grade;
+    public boolean isTaking;
+    public Optional<Grade> grade;
 
     public NusModule(ModuleCode moduleCode, int modularCredit, boolean isTaking, Optional<Grade> grade) {
         this.moduleCode = moduleCode;
@@ -20,5 +21,13 @@ public class NusModule {
 
     public double getGradePoint() {
         return this.grade.get().getPoint();
+    }
+
+    public Optional<Grade> getGrade() {
+            return this.grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = Optional.ofNullable(grade);
     }
 }

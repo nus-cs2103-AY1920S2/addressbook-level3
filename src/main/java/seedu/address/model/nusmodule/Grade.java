@@ -49,8 +49,18 @@ public enum Grade {
         return U;
     }
 
+    public boolean isSued() {
+        if (this.equals(S) || this.equals(U)) {
+            return true;
+        }
+        return false;
+    }
+
     public double getPoint() {
         return this.point;
     }
 
+    public String getText() {
+        return this.text;
+    }
 }
