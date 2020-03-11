@@ -5,10 +5,17 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+<<<<<<< HEAD
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.transaction.UniqueTransactionList;
+=======
+import seedu.address.model.customer.Customer;
+import seedu.address.model.customer.UniqueCustomerList;
+import seedu.address.model.product.Product;
+import seedu.address.model.product.UniqueProductList;
+>>>>>>> master
 
 /**
  * Wraps all data at the address-book level
@@ -16,8 +23,13 @@ import seedu.address.model.transaction.UniqueTransactionList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+<<<<<<< HEAD
     private final UniquePersonList persons;
     private final UniqueTransactionList transactions;
+=======
+    private final UniqueCustomerList persons;
+    private final UniqueProductList products;
+>>>>>>> master
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -27,14 +39,19 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+<<<<<<< HEAD
         persons = new UniquePersonList();
         transactions = new UniqueTransactionList();
+=======
+        persons = new UniqueCustomerList();
+        products = new UniqueProductList();
+>>>>>>> master
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Persons and Products in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -44,11 +61,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the customer list with {@code customers}.
+     * {@code customers} must not contain duplicate customers.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Customer> customers) {
+        this.persons.setPersons(customers);
+    }
+
+    /**
+     * Replaces the contents of the product list with {@code products}.
+     * {@code products} must not contain duplicate products.
+     */
+    public void setProducts(List<Product> products) {
+        this.products.setProduct(products);
     }
 
     /**
@@ -58,45 +83,76 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setProducts(newData.getProductList());
     }
 
-    //// person-level operations
+    //// customer-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Customer customer) {
+        requireNonNull(customer);
+        return persons.contains(customer);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Returns true if a product with the same identity as {@code product} exists in the product list.
      */
-    public void addPerson(Person p) {
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return products.contains(product);
+    }
+
+    /**
+     * Adds a customer to the address book.
+     * The customer must not already exist in the address book.
+     */
+    public void addPerson(Customer p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Adds a product to the address book.
+     * The product must not already exist in the product list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void addProduct(Product p) {
+        products.add(p);
+    }
 
-        persons.setPerson(target, editedPerson);
+    /**
+     * Replaces the given customer {@code target} in the list with {@code editedCustomer}.
+     * {@code target} must exist in the address book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer
+     * in the address book.
+     */
+    public void setPerson(Customer target, Customer editedCustomer) {
+        requireNonNull(editedCustomer);
+
+        persons.setPerson(target, editedCustomer);
+    }
+
+    /**
+     * Replaces the given product {@code target} in the list with {@code editedProduct}.
+     * {@code target} must exist in the product list.
+     * The product identity of {@code editedProduct} must not be the same as another
+     * existing product in the product list.
+     */
+    public void setProduct(Product target, Product editedProduct) {
+        requireNonNull(editedProduct);
+
+        products.setProduct(target, editedProduct);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Customer key) {
         persons.remove(key);
     }
 
+<<<<<<< HEAD
     ////Transaction Level operations
 
     public boolean hasTransaction(Transaction t) {
@@ -106,19 +162,33 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addTransaction(Transaction t) {
         transactions.add(t);
+=======
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the product list.
+     */
+    public void removeProduct(Product key) {
+        products.remove(key);
+>>>>>>> master
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons"
+                + products.asUnmodifiableObservableList().size() + " products";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Customer> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Product> getProductList() {
+        return products.asUnmodifiableObservableList();
     }
 
     @Override

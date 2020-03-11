@@ -23,7 +23,7 @@ iTrack Pro is for the grocery shop owners to keep track of the products, custome
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `iTrackPro.jar.` link:{repoURL}/releases[here].
+.  Download the latest `iTrackPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -62,7 +62,7 @@ Adds a customer to the customer list +
 Format: `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`
 
 [TIP]
-A person can have any number of tags (including 0)
+A customer can have any number of tags (including 0)
 
 Examples:
 
@@ -83,41 +83,41 @@ Edits an existing customer in the customer list. +
 Format: `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 ****
-* Edits the customer at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
+* Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed customer list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing t/ without specifying any tags after it.
+* When editing tags, the existing tags of the customer will be removed i.e adding of tags is not cumulative.
+* You can remove all the customer’s tags by typing t/ without specifying any tags after it.
 ****
 
 Examples:
 
 * `editc 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
+Edits the phone number and email address of the 1st customer to be 91234567 and johndoe@example.com respectively.
 * `editc 2 n/Betsy Crower t/` +
 Edits the name of the 2nd customer to be Betsy Crower and clears all existing tags.
 
 === Locating customers by name: `findc`
 
-Find customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
-Format: `findc [k/KEYWORD] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Finds customers whose names contain any of the given keywords, and whose attributes match the given attributes. +
+Format: `findc [n/ NAME] [p/ PHONE] [e/ EMAIL] [a/ ADDRESS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
-* At least one of the option fields must be provided.
+* At least one of the optional fields must be provided.
 * Only full words will be matched for keywords e.g. Han will not match Hans
-* The keyword will be searched only in the customer’s name.
 * The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
 * Customers matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
-* Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
 Examples:
 
-* `findc n/John` +
+* `findc n/ John` +
 Returns john and John Doe from the customer list.
-* `findc n/Betsy Tim John` +
+* `findc n/ Betsy Tim John` +
 Returns any customer having names Betsy, Tim, or John in the customer list.
+* `findc a/ serangoon yishun` +
+Returns all customers with address in Serangoon and Yishun.
 
 === Deleting a customer: `deletec`
 
@@ -125,7 +125,7 @@ Deletes the specified customer from the customer list. +
 Format: `deletec INDEX`
 
 ****
-* Deletes the customer at the specified INDEX.
+* Deletes the customer at the specified `INDEX`.
 * The index refers to the index number shown in the displayed customer list.
 * The index must be a positive integer 1, 2, 3, …​
 ****
@@ -146,8 +146,6 @@ Format: `clearc`
 
 === Adding a product: `addp`
 
-image::Products.png[width="790"]
-
 Adds a product to the product list. +
 Format: `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]`
 
@@ -160,6 +158,8 @@ Examples:
 * `addp d/camera pr/2000 q/90 s/100`
 
 === Listing all products : `listp`
+
+image::Products.png[width="790"]
 
 Shows a list of all products in the product list. It could be sorted by the amount of sales, inventory left, etc. +
 Format: `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]`
@@ -184,7 +184,7 @@ Edits an existing product in the product list. +
 Format: `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]`
 
 ****
-* Edits the product at the specified INDEX. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​
+* Edits the product at the specified `INDEX`. The index refers to the index number shown in the displayed product list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -196,7 +196,7 @@ Edits the price and quantity of the 1st product to be 90 and 10 respectively.
 * `editp 2 s/1000` +
 Edits the sales of the 2nd product to be 1000.
 
-=== Find products: `findp`
+=== Finding products : `findp`
 
 Finds products whose description contains a certain keyword or price/ sales/ quantity falls into a certain range. +
 Format: `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]`
@@ -208,7 +208,6 @@ Format: `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]`
 * The keyword will be searched only in the product’s description.
 * The order of the keywords does not matter. e.g. blue shoes will match shoes blue
 * Products matching at least one keyword will be returned (i.e. OR search). e.g. blue shoes will return blue slippers, red shoes
-* Transactions matching all attributes will be returned (i.e. AND search).
 ****
 
 Examples:
@@ -236,46 +235,231 @@ Examples:
 `deletep 2` +
 Deletes the 2nd product in the product list.
 * `findp camera` +
-`delete 1` +
+`deletep 1` +
 Deletes the 1st product in the results of the find command.
 
 // end::delete[]
 === Clearing all entries : `clearp`
 
 Clears all entries from the product list. +
-Format: `clear`
+Format: `clearp`
 
-=== Exiting the program : `exit`
+=== Adding a transaction : `addt`
 
-Exits the program. +
+Adds a specified transaction to the system. +
+Format: `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPTION]` +
+
+Examples:
+
+* `addt p/1 c/10 dt/2020-02-19 19:00 m/20` +
+Adds a transaction with product 1 and customer 10 of 20 dollars at 2020-02-19 19:00.
+* `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount` +
+Adds a transaction with product 20 and customer 2 of 30 dollars at 2020-02-20 10:00.
+
+
+=== Listing all transaction : `listt`
+
+image::Transactions.png[]
+
+Lists all the transactions. +
+Format: `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]`
+
+****
+* The order field shows up only if the sort field is provided.
+* The transactions can only be sorted by the amount of money.
+* The sorting order by default will be descending.
+****
+
+Examples:
+
+* `listt` +
+Returns transactions in an unsorted manner.
+* `listt s/money_amount` +
+Returns transactions sorted by the amount of money by descending order.
+
+=== Editing a transaction : `editt`
+
+Edits a transaction in the system. +
+Format: `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]`
+
+****
+* Edits the transaction at the specified `INDEX`. The index refers to the index number shown in the displayed transaction list. The index must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `editt 1 p/101 c/123` +
+Edits the product id and customer id of the 1st transaction to be 101 and 123 respectively.
+
+=== Locating transaction : `findt`
+
+Finds transactions whose attributes match the given attributes. +
+Format: `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY_LOW-MONEY_HIGH]`
+
+****
+* Ideally, the user would keep a receipt and find the transaction by id printed on the receipt.
+* The search is case insensitive. e.g blue will match Blue
+* At least one of the option fields must be provided.
+* `MONEY_LOW` must be smaller than `MONEY_HIGH`
+* Transactions matching all attributes will be returned (i.e. AND search).
+****
+
+Examples:
+
+* `findt id/001` +
+Returns the transaction dettails with id 001.
+* `findt p/iphone` +
+Returns all transactions that involve the product `iphone`.
+* `findt c/bob` +
+Returns all transactions that involve a customer named Bob.
+* `findt dt/2020-02-07` +
+Returns all transactions made on 7th February 2020.
+* `findt m/100-400` +
+Returns all transactions that have a selling price ranging from 100-400 dollars.
+* `findt c/bob dt/2020-02-07` +
+Returns all transactions that Bob made on the 7th February 2020.
+
+=== Deleting a transaction : `deletet`
+
+Deletes the specified transaction from the system. +
+Format: `deletet INDEX`
+
+****
+* Deletes the transaction at the specified `INDEX`.
+* The index refers to the index number shown in the displayed transaction list.
+* The index must be a positive integer 1, 2, 3, …​
+****
+
+Examples:
+
+* `listt` +
+`deletet 2` +
+Deletes the 2nd transaction in the displayed list.
+* `findt 2020-01-03` +
+`deletet 1` +
+Deletes the 1st transaction in the results of the find command.
+
+=== Clearing all transactions : `cleart`
+
+Clears all transactions from the list of transactions. +
+Format: `cleart`
+
+=== Viewing the top-selling and worst-selling product.
+
+Displays and updates the top-selling and worst-selling product as transactions are made. +
+
+[NOTE]
+This is a passive feature, which automatically updates on Ui.
+
+Example:
+
+image::TopSellingProduct.png[]
+
+=== Viewing the revenue trend in a certain period : `revenue`
+
+Displays the revenue trend in a selected period.
+Format: `revenue [dt/START_DATE-END_DATE]`
+
+****
+* The start date and end date must follow a format of `yyyy-mm-dd`
+* The default period is the last month.
+****
+
+Example:
+
+* `revenue` +
+Returns the revenue in line graph for the last month.
+
+=== Setting the low-inventory threshold : `lowinv`
+
+Sets the notification threshold.
+Format: `lowinv [p/PRODUCT_ID] t/THRESHOLD`
+
+****
+* `THRESHOLD` must be non-negative integers, i.e. 1, 2, 3, ...
+* If the product id is not specified, the threshold applies to all products.
+****
+
+Examples:
+
+* `lowinv p/001 t/20` +
+Sets the low inventory threshold for product 001 as 20.
+
+=== Receiving notification while a certain product is running low.
+
+Pops up notification upon launching the application if any product’s stock is running low. +
+
+[NOTE]
+This is a passive feature.
+
+=== Predicting the sales for the next month : `predict`.
+
+Displays a line graph representing the predicted sales for each day in the next month. +
+Format: `predict`
+
+=== Exiting from the program : `exit`
+
+Exit from the program. +
 Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+The application data is saved in the hard disk automatically after any command that changes the data. +
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+****
+* There is no need to save manually.
+****
 
 == FAQ
+
+*Q*: How to delete a product? +
+*A*: First, display a list of product, e.g. `listp`. Then type `deletep INDEX` where the index refers to the index displayed in the list. Refer to <<Deleting a product : `deletep`>>.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Adding customer* : `addc n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…` +
+e.g. `addc n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* *Listing all customers* : `listc`
+* *Editing customer information* : `editc INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` +
+e.g. `editc 1 p/91234567 e/johndoe@example.com`
+* *Locating customers* : `findc [k/KEYWORD] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `findc n/John`
+* *Deleting a customer* : `deletec INDEX` +
+e.g. `findc n/Betsy` +
+`deletec 1`
+* *Clearing all customers* : `clearc`
+* *Adding a product* : `addp d/DESCRIPTION pr/PRICE q/QUANTITY [s/SALES]` +
+e.g. `addp d/iphone x pr/1000 q/10`
+* *Listing all products* : `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]` +
+e.g. `listp s/quantity o/ASC`
+* *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]` +
+e.g. `editp 1 pr/1150 q/80`
+* *Finding products* : `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]` +
+e.g. `findp pr/1000-2000`
+* *Deleting a product* : `deletep INDEX` +
+e.g. `listp` +
+`deletep 2`
+* *Clearing all entries* : `clearp`
+* *Adding a transaction* : `addt p/PRODUCT_ID c/CUSTOMER_ID dt/DATE_TIME m/MONEY_AMOUNT [d/DESCRIPTION]` +
+e.g. `addt p/20 c/2 dt/2020-02-20 10:00 m/30 d/under discount`
+* *Listing all transaction* : `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]` +
+e.g. `listt s/money_amount`
+* *Editing a transaction* : `editt INDEX [p/PRODUCT_ID] [c/CUSTOMER_ID] [dt/DATE_TIME] [m/MONEY_AMOUNT] [d/DESCRIPTION]` +
+e.g. `editt 1 p/101 c/123`
+* *Locating transaction* : `findt [id/ID] [p/PRODUCT_NAME] [c/CUSTOMER_NAME] [dt/DATE_TIME] [m/MONEY_LOW-MONEY_HIGH]` +
+e.g. `findt c/bob dt/2020-02-07`
+* *Deleting a transaction* : `delete INDEX` +
+e.g. `findt 2020-01-03` +
+`deletet 1`
+* *Clearing all transactions* : `cleart`
+* *Viewing the revenue trend in a certain period* : `revenue`
+* *Setting the low-inventory threshold* : `lowinv [p/PRODUCT_ID] t/THRESHOLD` +
+e.g. `lowinv p/001 t/20`
+* *Predicting the sales for the next month* : `predict`
+* *Exiting from the program* : `exit`
+* *help* : `help`
