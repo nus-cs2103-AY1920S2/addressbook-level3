@@ -72,13 +72,17 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.set(index, editedActivity);
     }
 
+    public Activity getActivityByIndex(Index index) {
+        return internalList.get(index.getZeroBased());
+    }
+
     public void setActivityByIndex(Index index, Activity activity) {
         requireNonNull(activity);
 
         internalList.set(index.getZeroBased(), activity);
     }
 
-    public void editActivityByIndex(Index index, Objects... args) {
+    public void editActivityByIndex(Index index, Object... args) {
         requireAllNonNull(args);
 
         Activity activity = internalList.get(index.getZeroBased());
@@ -113,6 +117,13 @@ public class UniqueActivityList implements Iterable<Activity> {
         if (!internalList.remove(toRemove)) {
             throw new ActivityNotFoundException();
         }
+    }
+
+    /**
+     * Empty all the activity inside the list.
+     */
+    public void removeAll() {
+       internalList.clear();
     }
 
     public void setActivities(UniqueActivityList replacement) {

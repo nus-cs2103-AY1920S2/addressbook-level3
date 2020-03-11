@@ -104,7 +104,7 @@ public interface ModelNasa {
     /**
      * Edit activity attributes through it's index.
      */
-    void editActivityByIndex(Module module, Index index, Objects... args);
+    void editActivityByIndex(Module module, Index index, Object... args);
 
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();

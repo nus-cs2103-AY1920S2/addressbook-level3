@@ -96,7 +96,7 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public void setModules(List<Module> modules) {
         requireAllNonNull(modules);
-        if (!activitiesAreUnique(modules)) {
+        if (!modulesAreUnique(modules)) {
             throw new DuplicateModuleException();
         }
 
@@ -106,14 +106,14 @@ public class UniqueModuleList implements Iterable<Module> {
     public void setActivityByIndex(Module module, Index index, Activity activity) {
         requireNonNull(activity);
 
-        Module moduleSelected = internalList.get(index.getZeroBased());
+        Module moduleSelected = getModule(module);
         moduleSelected.setActivityByIndex(index, activity);
     }
 
-    public void editActivityByIndex(Module module, Index index, Objects... args) {
+    public void editActivityByIndex(Module module, Index index, Object... args) {
         requireNonNull(args);
 
-        Module moduleSelected = internalList.get(index.getZeroBased());
+        Module moduleSelected = getModule(module);
         moduleSelected.editActivityByIndex(index, args);
     }
 
@@ -162,7 +162,7 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Returns true if {@code modules} contains only unique modules.
      */
-    private boolean activitiesAreUnique(List<Module> modules) {
+    private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size() - 1; i++) {
             for (int j = i + 1; j < modules.size(); j++) {
                 if (modules.get(i).equals(modules.get(j))) {

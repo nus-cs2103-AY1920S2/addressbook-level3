@@ -128,7 +128,7 @@ public class ModelManagerNasa implements ModelNasa {
     }
 
     @Override
-    public void editActivityByIndex(Module module, Index index, Objects... args) {
+    public void editActivityByIndex(Module module, Index index, Object... args) {
         nasaBook.editActivityByIndex(module, index, args);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }

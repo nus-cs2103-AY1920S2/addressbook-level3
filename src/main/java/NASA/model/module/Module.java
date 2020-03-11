@@ -82,11 +82,15 @@ public class Module {
         activityList.setActivities(activities);
     }
 
+    public Activity getActivityByIndex(Index index) {
+        return activityList.getActivityByIndex(index);
+    }
+
     public void setActivityByIndex(Index index, Activity activity) {
         activityList.setActivityByIndex(index, activity);
     }
 
-    public void editActivityByIndex(Index index, Objects... args) {
+    public void editActivityByIndex(Index index, Object... args) {
         activityList.editActivityByIndex(index, args);
     }
 
