@@ -2,8 +2,9 @@ package seedu.address.model.product;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.util.Quantity;
 import java.util.Objects;
+
+import seedu.address.model.util.Quantity;
 
 /**
  * Represents a Product in the product list.

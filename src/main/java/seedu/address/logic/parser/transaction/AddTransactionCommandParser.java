@@ -1,25 +1,31 @@
-package seedu.address.logic.parser;
-
-import seedu.address.logic.commands.AddTransactionCommand;
-import seedu.address.logic.commands.customer.AddCustomerCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.transaction.Money;
-import seedu.address.model.transaction.Transaction;
-import seedu.address.model.transaction.DateTime;
-import seedu.address.model.util.Quantity;
-
-import java.util.stream.Stream;
+package seedu.address.logic.parser.transaction;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
 
+import java.util.stream.Stream;
 
-public class AddTransactionCommandParser implements Parser<AddTransactionCommand>{
+import seedu.address.logic.commands.transaction.AddTransactionCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.transaction.DateTime;
+import seedu.address.model.transaction.Money;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Quantity;
+
+/**
+ * Parse input arguments and creates an AddTransactionCommand.
+ */
+public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
 
     @Override
     public AddTransactionCommand parse(String args) throws ParseException {
@@ -30,7 +36,8 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         if (!arePrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME, PREFIX_QUANTITY,
                 PREFIX_MONEY)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTransactionCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddTransactionCommand.MESSAGE_USAGE));
         }
 
         String customer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get());

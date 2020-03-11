@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -198,10 +197,10 @@ public class ParserUtil {
     public static String parseCustomer(String customer) throws ParseException {
         requireNonNull(customer);
         String trimmedCustomer = customer.trim();
-//        if (!Sales.isValidSales(trimmedSales)) {
-//            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
-//        }
-//        return new Sales(trimmedSales);
+        //        if (!Sales.isValidSales(trimmedSales)) {
+        //            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+        //        }
+        //        return new Sales(trimmedSales);
         return trimmedCustomer;
     }
 
@@ -214,10 +213,10 @@ public class ParserUtil {
     public static String parseProduct(String product) throws ParseException {
         requireNonNull(product);
         String trimmedProduct = product.trim();
-//        if (!Sales.isValidSales(trimmedSales)) {
-//            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
-//        }
-//        return new Sales(trimmedSales);
+        //        if (!Sales.isValidSales(trimmedSales)) {
+        //            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+        //        }
+        //        return new Sales(trimmedSales);
         return trimmedProduct;
     }
 
@@ -260,10 +259,10 @@ public class ParserUtil {
     public static String parseTransDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-//        if (!Description.isValidDescription(trimmedDescription)) {
-//            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
-//        }
-//        return new Description(trimmedDescription);
+        //        if (!Description.isValidDescription(trimmedDescription)) {
+        //            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        //        }
+        //        return new Description(trimmedDescription);
         return trimmedDescription;
     }
 

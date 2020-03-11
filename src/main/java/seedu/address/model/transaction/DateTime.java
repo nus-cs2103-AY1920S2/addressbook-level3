@@ -1,10 +1,10 @@
 package seedu.address.model.transaction;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the date time of a transaction.
@@ -12,7 +12,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class DateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in YYYY-mm-dd hh:mm format, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "DateTime should be in YYYY-mm-dd hh:mm format, "
+            + "and it should not be blank";
     public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /*
@@ -40,7 +41,7 @@ public class DateTime {
         if (!test.matches(VALIDATION_REGEX)) {
             return false;
         }
-        try{
+        try {
             LocalDateTime.parse(test, DATE_TIME_FORMAT);
         } catch (Exception e) {
             return false;

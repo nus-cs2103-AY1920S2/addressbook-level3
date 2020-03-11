@@ -1,12 +1,17 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.transaction;
 
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Transaction;
 
-import static java.util.Objects.requireNonNull;
-
-public class AddTransactionCommand extends Command{
+/**
+ * Adds a transaction to the system.
+ */
+public class AddTransactionCommand extends Command {
 
     public static final String COMMAND_WORD = "addt";
 

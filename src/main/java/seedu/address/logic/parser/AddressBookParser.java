@@ -22,7 +22,7 @@ import seedu.address.logic.commands.product.DeleteProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
-import seedu.address.logic.commands.AddTransactionCommand;
+import seedu.address.logic.commands.transaction.AddTransactionCommand;
 
 import seedu.address.logic.parser.customer.AddCustomerCommandParser;
 import seedu.address.logic.parser.customer.DeleteCustomerCommandParser;
@@ -33,6 +33,7 @@ import seedu.address.logic.parser.product.AddProductCommandParser;
 import seedu.address.logic.parser.product.DeleteProductCommandParser;
 import seedu.address.logic.parser.product.EditProductCommandParser;
 import seedu.address.logic.parser.product.FindProductCommandParser;
+import seedu.address.logic.parser.transaction.AddTransactionCommandParser;
 
 /**
  * Parses user input.

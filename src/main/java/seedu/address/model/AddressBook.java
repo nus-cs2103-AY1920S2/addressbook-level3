@@ -142,6 +142,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     ////Transaction Level operations
 
+    /**
+     * Returns true if a transaction with the same identity as {@code transaction} exists in the system.
+     * @param t transaction to be checked.
+     * @return true if a transaction with the same identity exists in the list.
+     */
     public boolean hasTransaction(Transaction t) {
         requireNonNull(t);
         return transactions.contains(t);

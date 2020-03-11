@@ -2,6 +2,10 @@ package seedu.address.model.transaction;
 
 import seedu.address.model.util.Quantity;
 
+/**
+ * Represents a Transaction in the system.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Transaction {
 
     // add dummy class
