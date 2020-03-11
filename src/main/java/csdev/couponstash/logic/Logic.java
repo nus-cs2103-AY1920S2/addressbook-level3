@@ -8,7 +8,7 @@ import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyAddressBook;
-import csdev.couponstash.model.person.Person;
+import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
 
@@ -33,7 +33,7 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ObservableList<Coupon> getFilteredPersonList();
 
     /**
      * Returns the user prefs' address book file path.

@@ -1,4 +1,4 @@
-package csdev.couponstash.model.person;
+package csdev.couponstash.model.coupon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,10 +15,10 @@ import csdev.couponstash.testutil.PersonBuilder;
 import csdev.couponstash.testutil.TypicalPersons;
 import org.junit.jupiter.api.Test;
 
-import csdev.couponstash.model.person.exceptions.DuplicatePersonException;
-import csdev.couponstash.model.person.exceptions.PersonNotFoundException;
+import csdev.couponstash.model.coupon.exceptions.DuplicatePersonException;
+import csdev.couponstash.model.coupon.exceptions.PersonNotFoundException;
 
-public class UniquePersonListTest {
+public class UniqueCouponListTest {
 
     private final UniquePersonList uniquePersonList = new UniquePersonList();
 
@@ -41,7 +41,7 @@ public class UniquePersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(TypicalPersons.ALICE);
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Coupon editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -84,7 +84,7 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(TypicalPersons.ALICE);
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+        Coupon editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         uniquePersonList.setPerson(TypicalPersons.ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
@@ -142,14 +142,14 @@ public class UniquePersonListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Person>) null));
+        Assert.assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Coupon>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniquePersonList.add(TypicalPersons.ALICE);
-        List<Person> personList = Collections.singletonList(TypicalPersons.BOB);
-        uniquePersonList.setPersons(personList);
+        List<Coupon> couponList = Collections.singletonList(TypicalPersons.BOB);
+        uniquePersonList.setPersons(couponList);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
         expectedUniquePersonList.add(TypicalPersons.BOB);
         assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -157,8 +157,8 @@ public class UniquePersonListTest {
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Person> listWithDuplicatePersons = Arrays.asList(TypicalPersons.ALICE, TypicalPersons.ALICE);
-        Assert.assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
+        List<Coupon> listWithDuplicateCoupons = Arrays.asList(TypicalPersons.ALICE, TypicalPersons.ALICE);
+        Assert.assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateCoupons));
     }
 
     @Test

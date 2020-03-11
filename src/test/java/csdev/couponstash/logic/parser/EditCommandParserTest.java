@@ -28,9 +28,9 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditPersonDescriptor;
-import csdev.couponstash.model.person.Email;
-import csdev.couponstash.model.person.Name;
-import csdev.couponstash.model.person.Phone;
+import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 
 public class EditCommandParserTest {
@@ -83,7 +83,7 @@ public class EditCommandParserTest {
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         CommandParserTestUtil.assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
+        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Coupon} being edited,
         // parsing it together with a valid tag results in error
         CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
         CommandParserTestUtil.assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);

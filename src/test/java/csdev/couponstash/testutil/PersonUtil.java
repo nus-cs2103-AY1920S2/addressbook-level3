@@ -9,30 +9,30 @@ import java.util.Set;
 
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditPersonDescriptor;
-import csdev.couponstash.model.person.Person;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Coupon.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code coupon}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Coupon coupon) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(coupon);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code coupon}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(Coupon coupon) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + coupon.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + coupon.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + coupon.getEmail().value + " ");
+        coupon.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();

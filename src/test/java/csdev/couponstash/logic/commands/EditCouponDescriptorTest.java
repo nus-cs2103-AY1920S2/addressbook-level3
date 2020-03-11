@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.EditCommand.EditPersonDescriptor;
 
-public class EditPersonDescriptorTest {
+public class EditCouponDescriptorTest {
 
     @Test
     public void equals() {

@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-import csdev.couponstash.model.person.Email;
-import csdev.couponstash.model.person.Name;
-import csdev.couponstash.model.person.Person;
-import csdev.couponstash.model.person.Phone;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -41,9 +41,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, tagList);
+        Coupon coupon = new Coupon(name, phone, email, tagList);
 
-        return new AddCommand(person);
+        return new AddCommand(coupon);
     }
 
     /**

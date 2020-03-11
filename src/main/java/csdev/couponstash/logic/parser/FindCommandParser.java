@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-import csdev.couponstash.model.person.NameContainsKeywordsPredicate;
+import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

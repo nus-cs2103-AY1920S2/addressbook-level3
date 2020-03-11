@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.testutil.*;
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +24,7 @@ import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-import csdev.couponstash.model.person.NameContainsKeywordsPredicate;
-import csdev.couponstash.model.person.Person;
+import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 import csdev.couponstash.testutil.EditPersonDescriptorBuilder;
 import csdev.couponstash.testutil.PersonBuilder;
 import csdev.couponstash.testutil.PersonUtil;
@@ -35,9 +35,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Coupon coupon = new PersonBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(coupon));
+        assertEquals(new AddCommand(coupon), command);
     }
 
     @Test
@@ -55,8 +55,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Coupon coupon = new PersonBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(coupon).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);

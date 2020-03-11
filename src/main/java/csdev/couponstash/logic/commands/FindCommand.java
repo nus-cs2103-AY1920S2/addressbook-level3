@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.person.NameContainsKeywordsPredicate;
+import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.

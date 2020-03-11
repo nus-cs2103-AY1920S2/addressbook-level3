@@ -12,13 +12,11 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
-import csdev.couponstash.model.person.Email;
-import csdev.couponstash.model.person.Name;
-import csdev.couponstash.model.person.Phone;
-import csdev.couponstash.storage.JsonAdaptedPerson;
-import csdev.couponstash.storage.JsonAdaptedTag;
+import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.Phone;
 
-public class JsonAdaptedPersonTest {
+public class JsonAdaptedCouponTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_EMAIL = "example.com";

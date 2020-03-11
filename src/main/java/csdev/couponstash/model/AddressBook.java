@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import csdev.couponstash.model.person.Person;
-import csdev.couponstash.model.person.UniquePersonList;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.UniquePersonList;
 
 import javafx.collections.ObservableList;
 
@@ -41,11 +41,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the coupon list with {@code coupons}.
+     * {@code coupons} must not contain duplicate coupons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Coupon> coupons) {
+        this.persons.setPersons(coupons);
     }
 
     /**
@@ -57,40 +57,40 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// coupon-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a coupon with the same identity as {@code coupon} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Coupon coupon) {
+        requireNonNull(coupon);
+        return persons.contains(coupon);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a coupon to the address book.
+     * The coupon must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Coupon p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given coupon {@code target} in the list with {@code editedCoupon}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(Coupon target, Coupon editedCoupon) {
+        requireNonNull(editedCoupon);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedCoupon);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Coupon key) {
         persons.remove(key);
     }
 
@@ -103,7 +103,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Coupon> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

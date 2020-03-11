@@ -9,9 +9,9 @@ import java.util.Set;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-import csdev.couponstash.model.person.Email;
-import csdev.couponstash.model.person.Name;
-import csdev.couponstash.model.person.Phone;
+import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 
 /**

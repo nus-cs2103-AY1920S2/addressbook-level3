@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.GuiSettings;
-import csdev.couponstash.model.person.NameContainsKeywordsPredicate;
+import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 import csdev.couponstash.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {

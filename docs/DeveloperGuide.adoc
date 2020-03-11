@@ -105,7 +105,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 . `Logic` uses the `AddressBookParser` class to parse the user command.
 . This results in a `Command` object which is executed by the `LogicManager`.
-. The command execution can affect the `Model` (e.g. adding a person).
+. The command execution can affect the `Model` (e.g. adding a coupon).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 . In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -182,12 +182,12 @@ The `VersionedAddressBook` will be initialized with the initial address book sta
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
+Step 2. The user executes `delete 5` command to delete the 5th coupon in the address book.
 The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person.
+Step 3. The user executes `add n/David ...` to add a new coupon.
 The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
@@ -195,7 +195,7 @@ image::UndoRedoState2.png[]
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command.
+Step 4. The user now decides that adding the coupon was a mistake, and decides to undo that action by executing the `undo` command.
 The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
@@ -243,7 +243,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the coupon being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -729,7 +729,7 @@ Terms that are italicised inline code (e.g `_operating system_`) can be found wi
 . **SoC (School of Computing)** - the School of Computing at the National University of Singapore.
 . **source code** - a set of instructions, written in a programming language that determine the final application’s internal and external behaviour.
 . **Stash** - a group of something valuable that the user would like to keep securely, ideally using our `_Coupon Stash_` application.
-. **UI (User Interface)** - a catch-all term referring to how a computer system and a person interacts, usually referring to specific elements displayed on the computer screen that the user may interact with such as buttons or text boxes, as well as areas where the computer application displays certain outputs to the user.
+. **UI (User Interface)** - a catch-all term referring to how a computer system and a coupon interacts, usually referring to specific elements displayed on the computer screen that the user may interact with such as buttons or text boxes, as well as areas where the computer application displays certain outputs to the user.
 =======
 
 [appendix]
@@ -771,17 +771,17 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a coupon
 
-. Deleting a person while all persons are listed
+. Deleting a coupon while all coupons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all coupons using the `list` command. Multiple coupons in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list.
 Details of the deleted contact shown in the status message.
 Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted.
+   Expected: No coupon is deleted.
 Error details shown in the status message.
 Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +

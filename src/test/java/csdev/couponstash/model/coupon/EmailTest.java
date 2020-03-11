@@ -1,4 +1,4 @@
-package csdev.couponstash.model.person;
+package csdev.couponstash.model.coupon;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

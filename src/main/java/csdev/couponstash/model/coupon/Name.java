@@ -1,10 +1,10 @@
-package csdev.couponstash.model.person;
+package csdev.couponstash.model.coupon;
 
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Coupon's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

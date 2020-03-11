@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.ReadOnlyAddressBook;
-import csdev.couponstash.model.person.Person;
+import csdev.couponstash.model.coupon.Coupon;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -19,7 +19,7 @@ import csdev.couponstash.model.person.Person;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate coupon(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
@@ -48,11 +48,11 @@ class JsonSerializableAddressBook {
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+            Coupon coupon = jsonAdaptedPerson.toModelType();
+            if (addressBook.hasPerson(coupon)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            addressBook.addPerson(coupon);
         }
         return addressBook;
     }

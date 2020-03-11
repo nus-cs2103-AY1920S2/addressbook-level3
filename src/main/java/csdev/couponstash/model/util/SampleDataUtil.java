@@ -6,37 +6,37 @@ import java.util.stream.Collectors;
 
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.ReadOnlyAddressBook;
-import csdev.couponstash.model.person.Email;
-import csdev.couponstash.model.person.Name;
-import csdev.couponstash.model.person.Person;
-import csdev.couponstash.model.person.Phone;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Person[] getSamplePersons() {
-        return new Person[] {
-            new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+    public static Coupon[] getSamplePersons() {
+        return new Coupon[] {
+            new Coupon(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends")),
-            new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+            new Coupon(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 getTagSet("colleagues", "friends")),
-            new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+            new Coupon(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 getTagSet("neighbours")),
-            new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+            new Coupon(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 getTagSet("family")),
-            new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
+            new Coupon(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 getTagSet("classmates")),
-            new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
+            new Coupon(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 getTagSet("colleagues"))
         };
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+        for (Coupon sampleCoupon : getSamplePersons()) {
+            sampleAb.addPerson(sampleCoupon);
         }
         return sampleAb;
     }

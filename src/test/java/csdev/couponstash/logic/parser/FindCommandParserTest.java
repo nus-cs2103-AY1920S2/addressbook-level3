@@ -7,7 +7,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.FindCommand;
-import csdev.couponstash.model.person.NameContainsKeywordsPredicate;
+import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 

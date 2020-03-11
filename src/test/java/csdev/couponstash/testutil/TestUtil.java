@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.person.Person;
+import csdev.couponstash.model.coupon.Coupon;
 
 /**
  * A utility class for test cases.
@@ -33,23 +33,23 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the coupon in the {@code model}'s coupon list.
      */
     public static Index getMidIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the coupon in the {@code model}'s coupon list.
      */
     public static Index getLastIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the coupon in the {@code model}'s coupon list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
+    public static Coupon getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
     }
 }

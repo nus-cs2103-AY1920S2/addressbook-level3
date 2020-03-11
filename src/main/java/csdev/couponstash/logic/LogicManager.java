@@ -13,7 +13,7 @@ import csdev.couponstash.logic.parser.AddressBookParser;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyAddressBook;
-import csdev.couponstash.model.person.Person;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.storage.Storage;
 
 import javafx.collections.ObservableList;
@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Coupon> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
 

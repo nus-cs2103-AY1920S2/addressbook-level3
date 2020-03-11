@@ -1,4 +1,4 @@
-package csdev.couponstash.model.person;
+package csdev.couponstash.model.coupon;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,12 +11,12 @@ import csdev.couponstash.testutil.TypicalPersons;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class PersonTest {
+public class CouponTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        Assert.assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+        Coupon coupon = new PersonBuilder().build();
+        Assert.assertThrows(UnsupportedOperationException.class, () -> coupon.getTags().remove(0));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class PersonTest {
         Assertions.assertFalse(TypicalPersons.ALICE.isSamePerson(null));
 
         // different phone and email -> returns false
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
+        Coupon editedAlice = new PersonBuilder(TypicalPersons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).withEmail(CommandTestUtil.VALID_EMAIL_BOB).build();
         Assertions.assertFalse(TypicalPersons.ALICE.isSamePerson(editedAlice));
 
         // different name -> returns false
@@ -53,7 +53,7 @@ public class PersonTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(TypicalPersons.ALICE).build();
+        Coupon aliceCopy = new PersonBuilder(TypicalPersons.ALICE).build();
         Assertions.assertTrue(TypicalPersons.ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -65,11 +65,11 @@ public class PersonTest {
         // different type -> returns false
         Assertions.assertFalse(TypicalPersons.ALICE.equals(5));
 
-        // different person -> returns false
+        // different coupon -> returns false
         Assertions.assertFalse(TypicalPersons.ALICE.equals(TypicalPersons.BOB));
 
         // different name -> returns false
-        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        Coupon editedAlice = new PersonBuilder(TypicalPersons.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
         Assertions.assertFalse(TypicalPersons.ALICE.equals(editedAlice));
 
         // different phone -> returns false

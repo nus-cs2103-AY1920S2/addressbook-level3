@@ -3,7 +3,7 @@ package csdev.couponstash.ui;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
-import csdev.couponstash.model.person.Person;
+import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,27 +19,27 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Coupon> personListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public PersonListPanel(ObservableList<Coupon> couponList) {
         super(FXML);
-        personListView.setItems(personList);
+        personListView.setItems(couponList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Coupon} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class PersonListViewCell extends ListCell<Coupon> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Coupon coupon, boolean empty) {
+            super.updateItem(coupon, empty);
 
-            if (empty || person == null) {
+            if (empty || coupon == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new PersonCard(coupon, getIndex() + 1).getRoot());
             }
         }
     }

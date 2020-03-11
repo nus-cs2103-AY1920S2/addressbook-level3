@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
-import csdev.couponstash.model.person.NameContainsKeywordsPredicate;
+import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -47,7 +47,7 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different coupon -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 

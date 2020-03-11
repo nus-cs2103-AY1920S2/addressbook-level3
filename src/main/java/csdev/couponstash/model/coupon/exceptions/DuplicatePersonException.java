@@ -1,4 +1,4 @@
-package csdev.couponstash.model.person.exceptions;
+package csdev.couponstash.model.coupon.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Persons (Persons are considered duplicates if they have the same

@@ -3,15 +3,15 @@ package csdev.couponstash.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import csdev.couponstash.model.person.Email;
-import csdev.couponstash.model.person.Name;
-import csdev.couponstash.model.person.Person;
-import csdev.couponstash.model.person.Phone;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Coupon objects.
  */
 public class PersonBuilder {
 
@@ -32,17 +32,17 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code couponToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        tags = new HashSet<>(personToCopy.getTags());
+    public PersonBuilder(Coupon couponToCopy) {
+        name = couponToCopy.getName();
+        phone = couponToCopy.getPhone();
+        email = couponToCopy.getEmail();
+        tags = new HashSet<>(couponToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Coupon} that we are building.
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
@@ -50,7 +50,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Coupon} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -58,7 +58,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Phone} of the {@code Coupon} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
@@ -66,15 +66,15 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Email} of the {@code Coupon} that we are building.
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, phone, email, tags);
+    public Coupon build() {
+        return new Coupon(name, phone, email, tags);
     }
 
 }

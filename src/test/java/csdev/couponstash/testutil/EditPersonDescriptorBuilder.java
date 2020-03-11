@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import csdev.couponstash.logic.commands.EditCommand.EditPersonDescriptor;
-import csdev.couponstash.model.person.Email;
-import csdev.couponstash.model.person.Name;
-import csdev.couponstash.model.person.Person;
-import csdev.couponstash.model.person.Phone;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -27,14 +27,14 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code coupon}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
+    public EditPersonDescriptorBuilder(Coupon coupon) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setTags(person.getTags());
+        descriptor.setName(coupon.getName());
+        descriptor.setPhone(coupon.getPhone());
+        descriptor.setEmail(coupon.getEmail());
+        descriptor.setTags(coupon.getTags());
     }
 
     /**
