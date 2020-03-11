@@ -1,7 +1,10 @@
 package csdev.couponstash.logic.parser;
 
+import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * This class contains logic for parsing a
@@ -23,6 +26,11 @@ public class SavedCommandParser implements Parser<SavedCommand> {
      */
     @Override
     public SavedCommand parse(String userInput) throws ParseException {
+        requireNonNull(userInput);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(
+                        userInput,
+                        CliSyntax.PREFIX_DATE);
         return new SavedCommand();
     }
 }

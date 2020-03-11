@@ -2,6 +2,15 @@ package csdev.couponstash.logic.commands;
 
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Coupon;
+
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
+import csdev.couponstash.model.coupon.savings.Saveable;
+import csdev.couponstash.model.coupon.savings.SavingsConverter;
+
+import javafx.collections.ObservableList;
+
+import java.util.List;
 
 /**
  * This class represents the "saved" command
@@ -29,6 +38,25 @@ public class SavedCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult("Hello", false, false);
+        ObservableList<Coupon> couponsList = model.getFilteredCouponList();
+        StringBuilder moneySaved = new StringBuilder("You have saved ");
+        moneySaved.append(model.getStashSettings().getMoneySymbol());
+        PureMonetarySavings pms = new PureMonetarySavings();
+        for (Coupon c : couponsList) {
+            // SavingsConverter.convertToPure(c.getSavings());
+        }
+        // get monetary amount
+        moneySaved.append(Double.toString(pms.getMonetaryAmountAsDouble()));
+
+        // get saveables
+        List<Saveable> saveables = pms.getListOfSaveables();
+        if (!saveables.isEmpty()) {
+            moneySaved.append(" as well as earned ");
+            for (Saveable sv : saveables) {
+                moneySaved.append(sv.toString());
+                moneySaved.append(", ");
+            }
+        }
+        return new CommandResult(moneySaved.substring(0, moneySaved.length() - 2), false, false);
     }
 }
