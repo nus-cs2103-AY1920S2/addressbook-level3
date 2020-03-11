@@ -8,7 +8,7 @@ import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Saveable;
-import csdev.couponstash.model.coupon.savings.SavingsConverter;
+import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
 
 import javafx.collections.ObservableList;
 
@@ -43,7 +43,7 @@ public class SavedCommand extends Command {
         moneySaved.append(model.getStashSettings().getMoneySymbol());
         PureMonetarySavings pms = new PureMonetarySavings();
         for (Coupon c : couponsList) {
-            // SavingsConverter.convertToPure(c.getSavings());
+            // SavingsConversionUtil.convertToPure(c.getSavings());
         }
         // get monetary amount
         moneySaved.append(pms.getMonetaryAmountAsDouble());

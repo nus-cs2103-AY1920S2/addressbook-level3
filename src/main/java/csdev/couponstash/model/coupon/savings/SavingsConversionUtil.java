@@ -7,7 +7,7 @@ package csdev.couponstash.model.coupon.savings;
  * them easier to test individually, avoiding
  * circular dependency.
  */
-public class SavingsConverter {
+public class SavingsConversionUtil {
     /**
      * Converts a Savings to a PureMonetarySavings. If
      * it does not already have a monetary amount, all
@@ -58,7 +58,7 @@ public class SavingsConverter {
                 return new PureMonetarySavings(ma);
             }
         } else {
-            return SavingsConverter.convertToPure(impureSavings);
+            return SavingsConversionUtil.convertToPure(impureSavings);
         }
     }
 }
