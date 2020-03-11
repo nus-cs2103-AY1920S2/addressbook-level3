@@ -32,6 +32,7 @@ public class FoodBuilder {
      */
     public FoodBuilder(Food foodToCopy) {
         name = foodToCopy.getName();
+        calories = foodToCopy.getCalories();
         tags = new HashSet<>(foodToCopy.getTags());
     }
 
