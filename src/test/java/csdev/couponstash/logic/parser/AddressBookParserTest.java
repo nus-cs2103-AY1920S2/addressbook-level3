@@ -10,13 +10,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.commands.ClearCommand;
 import csdev.couponstash.logic.commands.DeleteCommand;
 import csdev.couponstash.logic.commands.EditCommand;
-import csdev.couponstash.logic.commands.EditCommand.EditPersonDescriptor;
 import csdev.couponstash.logic.commands.ExitCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
@@ -24,9 +24,8 @@ import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
-import csdev.couponstash.testutil.EditPersonDescriptorBuilder;
-import csdev.couponstash.testutil.PersonBuilder;
-import csdev.couponstash.testutil.PersonUtil;
+import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
+import csdev.couponstash.testutil.CouponUtil;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 public class AddressBookParserTest {
@@ -35,8 +34,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Coupon coupon = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(coupon));
+        Coupon coupon = new CouponBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(CouponUtil.getAddCommand(coupon));
         assertEquals(new AddCommand(coupon), command);
     }
 
@@ -49,18 +48,18 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_COUPON.getOneBased());
+        assertEquals(new DeleteCommand(TypicalIndexes.INDEX_FIRST_COUPON), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Coupon coupon = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(coupon).build();
+        Coupon coupon = new CouponBuilder().build();
+        EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(coupon).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " "
-                + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
+                + TypicalIndexes.INDEX_FIRST_COUPON.getOneBased() + " "
+                + CouponUtil.getEditCouponDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor), command);
     }
 
     @Test

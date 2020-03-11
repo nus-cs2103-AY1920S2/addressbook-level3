@@ -19,16 +19,16 @@ import csdev.couponstash.model.coupon.Coupon;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate coupon(s).";
+    public static final String MESSAGE_DUPLICATE_COUPON = "Coupons list contains duplicate coupon(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedCoupon> coupons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given coupons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("coupons") List<JsonAdaptedCoupon> coupons) {
+        this.coupons.addAll(coupons);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        coupons.addAll(source.getCouponList().stream().map(JsonAdaptedCoupon::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Coupon coupon = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(coupon)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedCoupon jsonAdaptedCoupon : coupons) {
+            Coupon coupon = jsonAdaptedCoupon.toModelType();
+            if (addressBook.hasCoupon(coupon)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_COUPON);
             }
-            addressBook.addPerson(coupon);
+            addressBook.addCoupon(coupon);
         }
         return addressBook;
     }

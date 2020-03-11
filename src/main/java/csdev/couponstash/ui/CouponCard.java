@@ -12,9 +12,9 @@ import javafx.scene.layout.Region;
 /**
  * An UI component that displays information of a {@code Coupon}.
  */
-public class PersonCard extends UiPart<Region> {
+public class CouponCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "CouponListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Coupon coupon, int displayedIndex) {
+    public CouponCard(Coupon coupon, int displayedIndex) {
         super(FXML);
         this.coupon = coupon;
         id.setText(displayedIndex + ". ");
@@ -59,12 +59,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof CouponCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        CouponCard card = (CouponCard) other;
         return id.getText().equals(card.id.getText())
                 && coupon.equals(card.coupon);
     }

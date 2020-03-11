@@ -19,7 +19,7 @@ import csdev.couponstash.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Coupon}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedCoupon {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Coupon's %s field is missing!";
 
@@ -29,11 +29,12 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given coupon details.
+     * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedCoupon(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -45,7 +46,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Coupon} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Coupon source) {
+    public JsonAdaptedCoupon(Coupon source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -60,9 +61,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted coupon.
      */
     public Coupon toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> couponTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            couponTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -89,7 +90,7 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(couponTags);
         return new Coupon(modelName, modelPhone, modelEmail, modelTags);
     }
 

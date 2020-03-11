@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Coupon> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Coupon> PREDICATE_SHOW_ALL_COUPONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -56,33 +56,33 @@ public interface Model {
     /**
      * Returns true if a coupon with the same identity as {@code coupon} exists in the address book.
      */
-    boolean hasPerson(Coupon coupon);
+    boolean hasCoupon(Coupon coupon);
 
     /**
      * Deletes the given coupon.
      * The coupon must exist in the address book.
      */
-    void deletePerson(Coupon target);
+    void deleteCoupon(Coupon target);
 
     /**
      * Adds the given coupon.
      * {@code coupon} must not already exist in the address book.
      */
-    void addPerson(Coupon coupon);
+    void addCoupon(Coupon coupon);
 
     /**
      * Replaces the given coupon {@code target} with {@code editedCoupon}.
      * {@code target} must exist in the address book.
      * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the address book.
      */
-    void setPerson(Coupon target, Coupon editedCoupon);
+    void setCoupon(Coupon target, Coupon editedCoupon);
 
     /** Returns an unmodifiable view of the filtered coupon list */
-    ObservableList<Coupon> getFilteredPersonList();
+    ObservableList<Coupon> getFilteredCouponList();
 
     /**
      * Updates the filter of the filtered coupon list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Coupon> predicate);
+    void updateFilteredCouponList(Predicate<Coupon> predicate);
 }

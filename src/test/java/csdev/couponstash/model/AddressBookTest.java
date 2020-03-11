@@ -2,8 +2,8 @@ package csdev.couponstash.model;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static csdev.couponstash.testutil.Assert.assertThrows;
-import static csdev.couponstash.testutil.TypicalPersons.ALICE;
-import static csdev.couponstash.testutil.TypicalPersons.getTypicalAddressBook;
+import static csdev.couponstash.testutil.TypicalCoupons.ALICE;
+import static csdev.couponstash.testutil.TypicalCoupons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,11 +13,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.exceptions.DuplicatePersonException;
-import csdev.couponstash.testutil.PersonBuilder;
+import csdev.couponstash.model.coupon.exceptions.DuplicateCouponException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,7 +28,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getCouponList());
     }
 
     @Test
@@ -44,43 +44,43 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateCoupons_throwsDuplicateCouponException() {
         // Two coupons with the same identity fields
-        Coupon editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Coupon editedAlice = new CouponBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Coupon> newCoupons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newCoupons);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateCouponException.class, () -> addressBook.resetData(newData));
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+    public void hasCoupon_nullCoupon_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> addressBook.hasCoupon(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasCoupon_couponNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasCoupon(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void hasCoupon_couponInAddressBook_returnsTrue() {
+        addressBook.addCoupon(ALICE);
+        assertTrue(addressBook.hasCoupon(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Coupon editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+    public void hasCoupon_couponWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addCoupon(ALICE);
+        Coupon editedAlice = new CouponBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasCoupon(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+    public void getCouponList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> addressBook.getCouponList().remove(0));
     }
 
     /**
@@ -94,7 +94,7 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Coupon> getPersonList() {
+        public ObservableList<Coupon> getCouponList() {
             return coupons;
         }
     }

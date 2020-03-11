@@ -1,6 +1,6 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static csdev.couponstash.commons.core.Messages.MESSAGE_COUPONS_LISTED_OVERVIEW;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,14 +15,14 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
-import csdev.couponstash.testutil.TypicalPersons;
+import csdev.couponstash.testutil.TypicalCoupons;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -52,24 +52,24 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+    public void execute_zeroKeywords_noCouponFound() {
+        String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredCouponList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+    public void execute_multipleKeywords_multipleCouponsFound() {
+        String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredCouponList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TypicalPersons.CARL, TypicalPersons.ELLE, TypicalPersons.FIONA),
-                model.getFilteredPersonList());
+        assertEquals(Arrays.asList(TypicalCoupons.CARL, TypicalCoupons.ELLE, TypicalCoupons.FIONA),
+                model.getFilteredCouponList());
     }
 
     /**

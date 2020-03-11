@@ -8,7 +8,7 @@ import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
-import csdev.couponstash.testutil.TypicalPersons;
+import csdev.couponstash.testutil.TypicalCoupons;
 
 public class ClearCommandTest {
 
@@ -22,8 +22,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

@@ -5,17 +5,17 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.UniquePersonList;
+import csdev.couponstash.model.coupon.UniqueCouponList;
 
 import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameCoupon comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniqueCouponList coupons;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,13 +25,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        coupons = new UniqueCouponList();
     }
 
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Coupons in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -44,8 +44,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the coupon list with {@code coupons}.
      * {@code coupons} must not contain duplicate coupons.
      */
-    public void setPersons(List<Coupon> coupons) {
-        this.persons.setPersons(coupons);
+    public void setCoupons(List<Coupon> coupons) {
+        this.coupons.setCoupons(coupons);
     }
 
     /**
@@ -54,7 +54,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setCoupons(newData.getCouponList());
     }
 
     //// coupon-level operations
@@ -62,17 +62,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a coupon with the same identity as {@code coupon} exists in the address book.
      */
-    public boolean hasPerson(Coupon coupon) {
+    public boolean hasCoupon(Coupon coupon) {
         requireNonNull(coupon);
-        return persons.contains(coupon);
+        return coupons.contains(coupon);
     }
 
     /**
      * Adds a coupon to the address book.
      * The coupon must not already exist in the address book.
      */
-    public void addPerson(Coupon p) {
-        persons.add(p);
+    public void addCoupon(Coupon p) {
+        coupons.add(p);
     }
 
     /**
@@ -80,42 +80,42 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the address book.
      */
-    public void setPerson(Coupon target, Coupon editedCoupon) {
+    public void setCoupon(Coupon target, Coupon editedCoupon) {
         requireNonNull(editedCoupon);
 
-        persons.setPerson(target, editedCoupon);
+        coupons.setCoupon(target, editedCoupon);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Coupon key) {
-        persons.remove(key);
+    public void removeCoupon(Coupon key) {
+        coupons.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return coupons.asUnmodifiableObservableList().size() + " coupons";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Coupon> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Coupon> getCouponList() {
+        return coupons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && coupons.equals(((AddressBook) other).coupons));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return coupons.hashCode();
     }
 }

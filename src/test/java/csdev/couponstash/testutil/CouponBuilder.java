@@ -13,7 +13,7 @@ import csdev.couponstash.model.util.SampleDataUtil;
 /**
  * A utility class to help with building Coupon objects.
  */
-public class PersonBuilder {
+public class CouponBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -24,7 +24,7 @@ public class PersonBuilder {
     private Email email;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -32,9 +32,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code couponToCopy}.
+     * Initializes the CouponBuilder with the data of {@code couponToCopy}.
      */
-    public PersonBuilder(Coupon couponToCopy) {
+    public CouponBuilder(Coupon couponToCopy) {
         name = couponToCopy.getName();
         phone = couponToCopy.getPhone();
         email = couponToCopy.getEmail();
@@ -44,7 +44,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Coupon} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public CouponBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -52,7 +52,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Coupon} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public CouponBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -60,7 +60,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Coupon} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public CouponBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -68,7 +68,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Coupon} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public CouponBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }

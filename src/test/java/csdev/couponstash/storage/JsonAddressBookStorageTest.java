@@ -1,10 +1,10 @@
 package csdev.couponstash.storage;
 
 import static csdev.couponstash.testutil.Assert.assertThrows;
-import static csdev.couponstash.testutil.TypicalPersons.ALICE;
-import static csdev.couponstash.testutil.TypicalPersons.HOON;
-import static csdev.couponstash.testutil.TypicalPersons.IDA;
-import static csdev.couponstash.testutil.TypicalPersons.getTypicalAddressBook;
+import static csdev.couponstash.testutil.TypicalCoupons.ALICE;
+import static csdev.couponstash.testutil.TypicalCoupons.HOON;
+import static csdev.couponstash.testutil.TypicalCoupons.IDA;
+import static csdev.couponstash.testutil.TypicalCoupons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -51,13 +51,13 @@ public class JsonAddressBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidPersonAddressBook.json"));
+    public void readAddressBook_invalidCouponAddressBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidCouponAddressBook.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
+    public void readAddressBook_invalidAndValidCouponAddressBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidCouponAddressBook.json"));
     }
 
     @Test
@@ -72,14 +72,14 @@ public class JsonAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addCoupon(HOON);
+        original.removeCoupon(ALICE);
         jsonAddressBookStorage.saveAddressBook(original, filePath);
         readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addCoupon(IDA);
         jsonAddressBookStorage.saveAddressBook(original); // file path not specified
         readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
         assertEquals(original, new AddressBook(readBack));

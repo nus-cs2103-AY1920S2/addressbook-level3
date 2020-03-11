@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.GuiSettings;
@@ -20,41 +21,40 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyAddressBook;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.testutil.PersonBuilder;
 
 import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullCoupon_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Coupon validCoupon = new PersonBuilder().build();
+    public void execute_couponAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCouponAdded modelStub = new ModelStubAcceptingCouponAdded();
+        Coupon validCoupon = new CouponBuilder().build();
 
         CommandResult commandResult = new AddCommand(validCoupon).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validCoupon), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCoupon), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validCoupon), modelStub.couponsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Coupon validCoupon = new PersonBuilder().build();
+    public void execute_duplicateCoupon_throwsCommandException() {
+        Coupon validCoupon = new CouponBuilder().build();
         AddCommand addCommand = new AddCommand(validCoupon);
-        ModelStub modelStub = new ModelStubWithPerson(validCoupon);
+        ModelStub modelStub = new ModelStubWithCoupon(validCoupon);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_COUPON, () -> addCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Coupon alice = new PersonBuilder().withName("Alice").build();
-        Coupon bob = new PersonBuilder().withName("Bob").build();
+        Coupon alice = new CouponBuilder().withName("Alice").build();
+        Coupon bob = new CouponBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -110,7 +110,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Coupon coupon) {
+        public void addCoupon(Coupon coupon) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -125,27 +125,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Coupon coupon) {
+        public boolean hasCoupon(Coupon coupon) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Coupon target) {
+        public void deleteCoupon(Coupon target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Coupon target, Coupon editedCoupon) {
+        public void setCoupon(Coupon target, Coupon editedCoupon) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Coupon> getFilteredPersonList() {
+        public ObservableList<Coupon> getFilteredCouponList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Coupon> predicate) {
+        public void updateFilteredCouponList(Predicate<Coupon> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -153,37 +153,37 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single coupon.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithCoupon extends ModelStub {
         private final Coupon coupon;
 
-        ModelStubWithPerson(Coupon coupon) {
+        ModelStubWithCoupon(Coupon coupon) {
             requireNonNull(coupon);
             this.coupon = coupon;
         }
 
         @Override
-        public boolean hasPerson(Coupon coupon) {
+        public boolean hasCoupon(Coupon coupon) {
             requireNonNull(coupon);
-            return this.coupon.isSamePerson(coupon);
+            return this.coupon.isSameCoupon(coupon);
         }
     }
 
     /**
      * A Model stub that always accept the coupon being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Coupon> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCouponAdded extends ModelStub {
+        final ArrayList<Coupon> couponsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Coupon coupon) {
+        public boolean hasCoupon(Coupon coupon) {
             requireNonNull(coupon);
-            return personsAdded.stream().anyMatch(coupon::isSamePerson);
+            return couponsAdded.stream().anyMatch(coupon::isSameCoupon);
         }
 
         @Override
-        public void addPerson(Coupon coupon) {
+        public void addCoupon(Coupon coupon) {
             requireNonNull(coupon);
-            personsAdded.add(coupon);
+            couponsAdded.add(coupon);
         }
 
         @Override

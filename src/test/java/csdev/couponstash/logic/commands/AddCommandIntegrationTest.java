@@ -10,8 +10,8 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.testutil.PersonBuilder;
-import csdev.couponstash.testutil.TypicalPersons;
+import csdev.couponstash.testutil.CouponBuilder;
+import csdev.couponstash.testutil.TypicalCoupons;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -22,24 +22,24 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Coupon validCoupon = new PersonBuilder().build();
+    public void execute_newCoupon_success() {
+        Coupon validCoupon = new CouponBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validCoupon);
+        expectedModel.addCoupon(validCoupon);
 
         assertCommandSuccess(new AddCommand(validCoupon), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validCoupon), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Coupon couponInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(couponInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    public void execute_duplicateCoupon_throwsCommandException() {
+        Coupon couponInList = model.getAddressBook().getCouponList().get(0);
+        assertCommandFailure(new AddCommand(couponInList), model, AddCommand.MESSAGE_DUPLICATE_COUPON);
     }
 
 }

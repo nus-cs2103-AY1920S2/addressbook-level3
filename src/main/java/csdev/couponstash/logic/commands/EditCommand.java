@@ -39,57 +39,57 @@ public class EditCommand extends Command {
             + CliSyntax.PREFIX_PHONE + "91234567 "
             + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Coupon: %1$s";
+    public static final String MESSAGE_EDIT_COUPON_SUCCESS = "Edited Coupon: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This coupon already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditCouponDescriptor editCouponDescriptor;
 
     /**
      * @param index of the coupon in the filtered coupon list to edit
-     * @param editPersonDescriptor details to edit the coupon with
+     * @param editCouponDescriptor details to edit the coupon with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditCouponDescriptor editCouponDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editCouponDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editCouponDescriptor = new EditCouponDescriptor(editCouponDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Coupon> lastShownList = model.getFilteredPersonList();
+        List<Coupon> lastShownList = model.getFilteredCouponList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
 
         Coupon couponToEdit = lastShownList.get(index.getZeroBased());
-        Coupon editedCoupon = createEditedPerson(couponToEdit, editPersonDescriptor);
+        Coupon editedCoupon = createEditedCoupon(couponToEdit, editCouponDescriptor);
 
-        if (!couponToEdit.isSamePerson(editedCoupon) && model.hasPerson(editedCoupon)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!couponToEdit.isSameCoupon(editedCoupon) && model.hasCoupon(editedCoupon)) {
+            throw new CommandException(MESSAGE_DUPLICATE_COUPON);
         }
 
-        model.setPerson(couponToEdit, editedCoupon);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedCoupon));
+        model.setCoupon(couponToEdit, editedCoupon);
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
+        return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon));
     }
 
     /**
      * Creates and returns a {@code Coupon} with the details of {@code couponToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editCouponDescriptor}.
      */
-    private static Coupon createEditedPerson(Coupon couponToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Coupon createEditedCoupon(Coupon couponToEdit, EditCouponDescriptor editCouponDescriptor) {
         assert couponToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(couponToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(couponToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(couponToEdit.getEmail());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(couponToEdit.getTags());
+        Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
+        Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
+        Email updatedEmail = editCouponDescriptor.getEmail().orElse(couponToEdit.getEmail());
+        Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
 
         return new Coupon(updatedName, updatedPhone, updatedEmail, updatedTags);
     }
@@ -109,26 +109,26 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editCouponDescriptor.equals(e.editCouponDescriptor);
     }
 
     /**
      * Stores the details to edit the coupon with. Each non-empty field value will replace the
      * corresponding field value of the coupon.
      */
-    public static class EditPersonDescriptor {
+    public static class EditCouponDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditCouponDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditCouponDescriptor(EditCouponDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -191,12 +191,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditCouponDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditCouponDescriptor e = (EditCouponDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

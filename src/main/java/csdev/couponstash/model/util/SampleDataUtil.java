@@ -16,7 +16,7 @@ import csdev.couponstash.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Coupon[] getSamplePersons() {
+    public static Coupon[] getSampleCoupons() {
         return new Coupon[] {
             new Coupon(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 getTagSet("friends")),
@@ -35,8 +35,8 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        for (Coupon sampleCoupon : getSamplePersons()) {
-            sampleAb.addPerson(sampleCoupon);
+        for (Coupon sampleCoupon : getSampleCoupons()) {
+            sampleAb.addCoupon(sampleCoupon);
         }
         return sampleAb;
     }

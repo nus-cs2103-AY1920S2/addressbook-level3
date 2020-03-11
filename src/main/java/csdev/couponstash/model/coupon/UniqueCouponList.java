@@ -6,23 +6,23 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import csdev.couponstash.model.coupon.exceptions.DuplicatePersonException;
-import csdev.couponstash.model.coupon.exceptions.PersonNotFoundException;
+import csdev.couponstash.model.coupon.exceptions.DuplicateCouponException;
+import csdev.couponstash.model.coupon.exceptions.CouponNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A coupon is considered unique by comparing using {@code Coupon#isSamePerson(Coupon)}. As such, adding and updating of
- * persons uses Coupon#isSamePerson(Coupon) for equality so as to ensure that the coupon being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a coupon uses Coupon#equals(Object) so
+ * A list of coupons that enforces uniqueness between its elements and does not allow nulls.
+ * A coupon is considered unique by comparing using {@code Coupon#isSameCoupon(Coupon)}. As such, adding and updating of
+ * coupons uses Coupon#isSameCoupon(Coupon) for equality so as to ensure that the coupon being added or updated is
+ * unique in terms of identity in the UniqueCouponList. However, the removal of a coupon uses Coupon#equals(Object) so
  * as to ensure that the coupon with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Coupon#isSamePerson(Coupon)
+ * @see Coupon#isSameCoupon(Coupon)
  */
-public class UniquePersonList implements Iterable<Coupon> {
+public class UniqueCouponList implements Iterable<Coupon> {
 
     private final ObservableList<Coupon> internalList = FXCollections.observableArrayList();
     private final ObservableList<Coupon> internalUnmodifiableList =
@@ -33,7 +33,7 @@ public class UniquePersonList implements Iterable<Coupon> {
      */
     public boolean contains(Coupon toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameCoupon);
     }
 
     /**
@@ -43,7 +43,7 @@ public class UniquePersonList implements Iterable<Coupon> {
     public void add(Coupon toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateCouponException();
         }
         internalList.add(toAdd);
     }
@@ -53,16 +53,16 @@ public class UniquePersonList implements Iterable<Coupon> {
      * {@code target} must exist in the list.
      * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the list.
      */
-    public void setPerson(Coupon target, Coupon editedCoupon) {
+    public void setCoupon(Coupon target, Coupon editedCoupon) {
         requireAllNonNull(target, editedCoupon);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new CouponNotFoundException();
         }
 
-        if (!target.isSamePerson(editedCoupon) && contains(editedCoupon)) {
-            throw new DuplicatePersonException();
+        if (!target.isSameCoupon(editedCoupon) && contains(editedCoupon)) {
+            throw new DuplicateCouponException();
         }
 
         internalList.set(index, editedCoupon);
@@ -75,11 +75,11 @@ public class UniquePersonList implements Iterable<Coupon> {
     public void remove(Coupon toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new CouponNotFoundException();
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setCoupons(UniqueCouponList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,10 +88,10 @@ public class UniquePersonList implements Iterable<Coupon> {
      * Replaces the contents of this list with {@code coupons}.
      * {@code coupons} must not contain duplicate coupons.
      */
-    public void setPersons(List<Coupon> coupons) {
+    public void setCoupons(List<Coupon> coupons) {
         requireAllNonNull(coupons);
-        if (!personsAreUnique(coupons)) {
-            throw new DuplicatePersonException();
+        if (!couponsAreUnique(coupons)) {
+            throw new DuplicateCouponException();
         }
 
         internalList.setAll(coupons);
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Coupon> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueCouponList // instanceof handles nulls
+                        && internalList.equals(((UniqueCouponList) other).internalList));
     }
 
     @Override
@@ -124,10 +124,10 @@ public class UniquePersonList implements Iterable<Coupon> {
     /**
      * Returns true if {@code coupons} contains only unique coupons.
      */
-    private boolean personsAreUnique(List<Coupon> coupons) {
+    private boolean couponsAreUnique(List<Coupon> coupons) {
         for (int i = 0; i < coupons.size() - 1; i++) {
             for (int j = i + 1; j < coupons.size(); j++) {
-                if (coupons.get(i).isSamePerson(coupons.get(j))) {
+                if (coupons.get(i).isSameCoupon(coupons.get(j))) {
                     return false;
                 }
             }

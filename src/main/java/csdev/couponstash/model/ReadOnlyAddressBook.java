@@ -10,9 +10,9 @@ import javafx.collections.ObservableList;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the coupons list.
+     * This list will not contain any duplicate coupons.
      */
-    ObservableList<Coupon> getPersonList();
+    ObservableList<Coupon> getCouponList();
 
 }

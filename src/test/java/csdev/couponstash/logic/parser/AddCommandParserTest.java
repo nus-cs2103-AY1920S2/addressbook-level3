@@ -23,6 +23,7 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND
 import static csdev.couponstash.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static csdev.couponstash.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.AddCommand;
@@ -31,15 +32,14 @@ import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
-import csdev.couponstash.testutil.PersonBuilder;
-import csdev.couponstash.testutil.TypicalPersons;
+import csdev.couponstash.testutil.TypicalCoupons;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Coupon expectedCoupon = new PersonBuilder(TypicalPersons.BOB).withTags(VALID_TAG_FRIEND).build();
+        Coupon expectedCoupon = new CouponBuilder(TypicalCoupons.BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -58,7 +58,7 @@ public class AddCommandParserTest {
                 + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple tags - all accepted
-        Coupon expectedCouponMultipleTags = new PersonBuilder(TypicalPersons.BOB)
+        Coupon expectedCouponMultipleTags = new CouponBuilder(TypicalCoupons.BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Coupon expectedCoupon = new PersonBuilder(TypicalPersons.AMY).withTags().build();
+        Coupon expectedCoupon = new CouponBuilder(TypicalCoupons.AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,
                 new AddCommand(expectedCoupon));
     }

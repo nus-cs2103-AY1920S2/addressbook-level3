@@ -9,66 +9,66 @@ import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
-import csdev.couponstash.logic.commands.EditCommand.EditPersonDescriptor;
+import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
 import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.testutil.EditPersonDescriptorBuilder;
-import csdev.couponstash.testutil.PersonBuilder;
+import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
+import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalIndexes;
-import csdev.couponstash.testutil.TypicalPersons;
+import csdev.couponstash.testutil.TypicalCoupons;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Coupon editedCoupon = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedCoupon).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor);
+        Coupon editedCoupon = new CouponBuilder().build();
+        EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(editedCoupon).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedCoupon);
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Coupon lastCoupon = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastCoupon = Index.fromOneBased(model.getFilteredCouponList().size());
+        Coupon lastCoupon = model.getFilteredCouponList().get(indexLastCoupon.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastCoupon);
-        Coupon editedCoupon = personInList.withName(CommandTestUtil.VALID_NAME_BOB)
+        CouponBuilder couponInList = new CouponBuilder(lastCoupon);
+        Coupon editedCoupon = couponInList.withName(CommandTestUtil.VALID_NAME_BOB)
                 .withPhone(CommandTestUtil.VALID_PHONE_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
+        EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
                 .withPhone(CommandTestUtil.VALID_PHONE_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastCoupon, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(lastCoupon, editedCoupon);
+        expectedModel.setCoupon(lastCoupon, editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Coupon editedCoupon = model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, new EditCommand.EditCouponDescriptor());
+        Coupon editedCoupon = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
@@ -77,52 +77,52 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        CommandTestUtil.showPersonAtIndex(model, TypicalIndexes.INDEX_FIRST_PERSON);
+        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_FIRST_COUPON);
 
-        Coupon couponInFilteredList = model.getFilteredPersonList()
-                .get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
-        Coupon editedCoupon = new PersonBuilder(couponInFilteredList).withName(CommandTestUtil.VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
+        Coupon couponInFilteredList = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        Coupon editedCoupon = new CouponBuilder(couponInFilteredList).withName(CommandTestUtil.VALID_NAME_BOB).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
+                new EditCouponDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedCoupon);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedCoupon);
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
-        Coupon firstCoupon = model.getFilteredPersonList().get(TypicalIndexes.INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstCoupon).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_PERSON, descriptor);
+    public void execute_duplicateCouponUnfilteredList_failure() {
+        Coupon firstCoupon = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(firstCoupon).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_COUPON);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        CommandTestUtil.showPersonAtIndex(model, TypicalIndexes.INDEX_FIRST_PERSON);
+    public void execute_duplicateCouponFilteredList_failure() {
+        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_FIRST_COUPON);
 
         // edit coupon in filtered list into a duplicate in address book
-        Coupon couponInList = model.getAddressBook().getPersonList()
-                .get(TypicalIndexes.INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON,
-                new EditPersonDescriptorBuilder(couponInList).build());
+        Coupon couponInList = model.getAddressBook().getCouponList()
+                .get(TypicalIndexes.INDEX_SECOND_COUPON.getZeroBased());
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
+                new EditCouponDescriptorBuilder(couponInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_COUPON);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+    public void execute_invalidCouponIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCouponList().size() + 1);
+        EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder()
                 .withName(CommandTestUtil.VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
     }
 
     /**
@@ -130,26 +130,26 @@ public class EditCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        CommandTestUtil.showPersonAtIndex(model, TypicalIndexes.INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_PERSON;
+    public void execute_invalidCouponIndexFilteredList_failure() {
+        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_FIRST_COUPON);
+        Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_COUPON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCouponList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
+                new EditCouponDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
         final EditCommand standardCommand =
-                new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, CommandTestUtil.DESC_AMY);
+                new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, CommandTestUtil.DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(CommandTestUtil.DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, copyDescriptor);
+        EditCouponDescriptor copyDescriptor = new EditCommand.EditCouponDescriptor(CommandTestUtil.DESC_AMY);
+        EditCommand commandWithSameValues = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -163,11 +163,11 @@ public class EditCommandTest {
 
         // different index -> returns false
         assertFalse(standardCommand.equals(
-                new EditCommand(TypicalIndexes.INDEX_SECOND_PERSON, CommandTestUtil.DESC_AMY)));
+                new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, CommandTestUtil.DESC_AMY)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(
-                new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, CommandTestUtil.DESC_BOB)));
+                new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, CommandTestUtil.DESC_BOB)));
     }
 
 }

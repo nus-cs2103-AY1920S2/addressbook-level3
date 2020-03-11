@@ -35,7 +35,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCoupons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredCoupons = new FilteredList<>(this.addressBook.getCouponList());
     }
 
     public ModelManager() {
@@ -90,27 +90,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Coupon coupon) {
+    public boolean hasCoupon(Coupon coupon) {
         requireNonNull(coupon);
-        return addressBook.hasPerson(coupon);
+        return addressBook.hasCoupon(coupon);
     }
 
     @Override
-    public void deletePerson(Coupon target) {
-        addressBook.removePerson(target);
+    public void deleteCoupon(Coupon target) {
+        addressBook.removeCoupon(target);
     }
 
     @Override
-    public void addPerson(Coupon coupon) {
-        addressBook.addPerson(coupon);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addCoupon(Coupon coupon) {
+        addressBook.addCoupon(coupon);
+        updateFilteredCouponList(PREDICATE_SHOW_ALL_COUPONS);
     }
 
     @Override
-    public void setPerson(Coupon target, Coupon editedCoupon) {
+    public void setCoupon(Coupon target, Coupon editedCoupon) {
         requireAllNonNull(target, editedCoupon);
 
-        addressBook.setPerson(target, editedCoupon);
+        addressBook.setCoupon(target, editedCoupon);
     }
 
     //=========== Filtered Coupon List Accessors =============================================================
@@ -120,12 +120,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Coupon> getFilteredPersonList() {
+    public ObservableList<Coupon> getFilteredCouponList() {
         return filteredCoupons;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Coupon> predicate) {
+    public void updateFilteredCouponList(Predicate<Coupon> predicate) {
         requireNonNull(predicate);
         filteredCoupons.setPredicate(predicate);
     }
