@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.util.Quantity;
+
 /**
  * Represents a Product in the product list.
  * Guarantees: details are present and not null, field values are validated, immutable.

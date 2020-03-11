@@ -5,10 +5,13 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.UniqueCustomerList;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.UniqueProductList;
+import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.UniqueTransactionList;
 
 /**
  * Wraps all data at the address-book level
@@ -18,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueCustomerList persons;
     private final UniqueProductList products;
+    private final UniqueTransactionList transactions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -27,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        transactions = new UniqueTransactionList();
         persons = new UniqueCustomerList();
         products = new UniqueProductList();
     }
@@ -133,6 +138,22 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Customer key) {
         persons.remove(key);
+    }
+
+    ////Transaction Level operations
+
+    /**
+     * Returns true if a transaction with the same identity as {@code transaction} exists in the system.
+     * @param t transaction to be checked.
+     * @return true if a transaction with the same identity exists in the list.
+     */
+    public boolean hasTransaction(Transaction t) {
+        requireNonNull(t);
+        return transactions.contains(t);
+    }
+
+    public void addTransaction(Transaction t) {
+        transactions.add(t);
     }
 
     /**
