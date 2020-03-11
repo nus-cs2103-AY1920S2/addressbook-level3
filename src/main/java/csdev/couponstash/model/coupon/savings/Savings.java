@@ -79,7 +79,8 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(List<Saveable> saveables) {
-        isNotEmptyList(saveables);
+        checkArgument(isNotEmptyList(saveables),
+                Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.empty();
         this.percentage = Optional.empty();
         this.saveables = Optional.of(saveables);
