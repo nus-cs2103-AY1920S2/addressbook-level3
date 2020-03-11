@@ -4,11 +4,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.AddCommand;
-<<<<<<< HEAD
-import seedu.address.model.profile.Person;
-=======
 import seedu.address.model.profile.Profile;
->>>>>>> 90d899e4767de5feb6458cd9c34c6dedfafc7df9
+
 
 /**
  * A utility class for Profile.
