@@ -143,7 +143,16 @@ public interface Model {
      */
     void updateFilteredProductList(Predicate<Product> predicate);
 
+    /**
+     * Updates the filter of the filtered product list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
 
     /** Returns an unmodifiable view of the filtered product list */
     ObservableList<Product> getFilteredProductList();
+
+    /** Returns an unmodifiable view of the filtered product list */
+    ObservableList<Transaction> getFilteredTransactionList();
 }
