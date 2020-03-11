@@ -26,4 +26,12 @@ class NasaBookTest {
         nasaBook.addActivity(CS2103T, DEADLINE);
         assertTrue(nasaBook.hasActivity(CS2103T,DEADLINE));
     }
+
+    @Test
+    void removeActivity() {
+        nasaBook.addModule(CS2103T);
+        nasaBook.addActivity(CS2103T, DEADLINE);
+        nasaBook.removeActivity(CS2103T, DEADLINE);
+        assertFalse(nasaBook.hasActivity(CS2103T, DEADLINE));
+    }
 }
