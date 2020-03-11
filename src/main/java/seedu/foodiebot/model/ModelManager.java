@@ -27,7 +27,6 @@ import seedu.foodiebot.storage.JsonFoodieBotStorage;
 import seedu.foodiebot.storage.Storage;
 import seedu.foodiebot.storage.StorageManager;
 
-
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -40,7 +39,6 @@ public class ModelManager implements Model {
     private final FilteredList<Stall> filteredStalls;
 
     private final Budget budget;
-
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -157,13 +155,17 @@ public class ModelManager implements Model {
             if (newBot.equals(Optional.empty())) {
                 return Optional.empty();
             }
-            return Optional.of(newBot.get().getBudget());
+
+            Budget budget = newBot.get().getBudget();
+
+
+            return Optional.of(budget);
         } catch (DataConversionException e) {
             return Optional.empty();
         } catch (IOException e) {
             return Optional.empty();
         }
-        // return foodieBot.getBudget();
+
     }
 
     /**
