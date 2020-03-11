@@ -12,16 +12,16 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
-import static seedu.address.testutil.TypicalRecipes.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
@@ -32,7 +32,7 @@ import seedu.address.testutil.RecipeBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +42,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +63,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(lastRecipe, editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,7 +76,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,7 +92,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -112,7 +112,7 @@ public class EditCommandTest {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
 
         // edit recipe in filtered list into a duplicate in address book
-        Recipe recipeInList = model.getAddressBook().getRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
+        Recipe recipeInList = model.getRecipeBook().getRecipeList().get(INDEX_SECOND_RECIPE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE,
                 new EditRecipeDescriptorBuilder(recipeInList).build());
 
@@ -137,7 +137,7 @@ public class EditCommandTest {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
         Index outOfBoundIndex = INDEX_SECOND_RECIPE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRecipeList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB).build());

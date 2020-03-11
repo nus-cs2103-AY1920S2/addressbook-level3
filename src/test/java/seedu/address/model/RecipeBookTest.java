@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.ALICE;
-import static seedu.address.testutil.TypicalRecipes.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,25 +21,25 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.exceptions.DuplicateRecipeException;
 import seedu.address.testutil.RecipeBuilder;
 
-public class AddressBookTest {
+public class RecipeBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final RecipeBook recipeBook = new RecipeBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getRecipeList());
+        assertEquals(Collections.emptyList(), recipeBook.getRecipeList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> recipeBook.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyRecipeBook_replacesData() {
+        RecipeBook newData = getTypicalRecipeBook();
+        recipeBook.resetData(newData);
+        assertEquals(newData, recipeBook);
     }
 
     @Test
@@ -48,47 +48,47 @@ public class AddressBookTest {
         Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND)
                 .build();
         List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newRecipes);
+        RecipeBookStub newData = new RecipeBookStub(newRecipes);
 
-        assertThrows(DuplicateRecipeException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateRecipeException.class, () -> recipeBook.resetData(newData));
     }
 
     @Test
     public void hasRecipe_nullRecipe_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasRecipe(null));
+        assertThrows(NullPointerException.class, () -> recipeBook.hasRecipe(null));
     }
 
     @Test
-    public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasRecipe(ALICE));
+    public void hasRecipe_recipeNotInRecipeBook_returnsFalse() {
+        assertFalse(recipeBook.hasRecipe(ALICE));
     }
 
     @Test
-    public void hasRecipe_recipeInAddressBook_returnsTrue() {
-        addressBook.addRecipe(ALICE);
-        assertTrue(addressBook.hasRecipe(ALICE));
+    public void hasRecipe_recipeInRecipeBook_returnsTrue() {
+        recipeBook.addRecipe(ALICE);
+        assertTrue(recipeBook.hasRecipe(ALICE));
     }
 
     @Test
-    public void hasRecipe_recipeWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addRecipe(ALICE);
+    public void hasRecipe_recipeWithSameIdentityFieldsInRecipeBook_returnsTrue() {
+        recipeBook.addRecipe(ALICE);
         Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasRecipe(editedAlice));
+        assertTrue(recipeBook.hasRecipe(editedAlice));
     }
 
     @Test
     public void getRecipeList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getRecipeList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> recipeBook.getRecipeList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose recipes list can violate interface constraints.
+     * A stub ReadOnlyRecipeBook whose recipes list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class RecipeBookStub implements ReadOnlyRecipeBook {
         private final ObservableList<Recipe> recipes = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Recipe> recipes) {
+        RecipeBookStub(Collection<Recipe> recipes) {
             this.recipes.setAll(recipes);
         }
 
