@@ -13,11 +13,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.exceptions.DuplicateCouponException;
+import csdev.couponstash.testutil.CouponBuilder;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

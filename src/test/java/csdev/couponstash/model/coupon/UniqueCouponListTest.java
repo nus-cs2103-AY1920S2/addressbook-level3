@@ -9,12 +9,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.CommandTestUtil;
-import csdev.couponstash.model.coupon.exceptions.DuplicateCouponException;
 import csdev.couponstash.model.coupon.exceptions.CouponNotFoundException;
+import csdev.couponstash.model.coupon.exceptions.DuplicateCouponException;
+import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 
 public class UniqueCouponListTest {

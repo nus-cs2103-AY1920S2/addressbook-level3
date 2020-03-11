@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
-import csdev.couponstash.testutil.TypicalIndexes;
 import csdev.couponstash.testutil.TypicalCoupons;
+import csdev.couponstash.testutil.TypicalIndexes;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.

@@ -23,7 +23,6 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND
 import static csdev.couponstash.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static csdev.couponstash.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.AddCommand;
@@ -32,6 +31,7 @@ import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
+import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 
 public class AddCommandParserTest {

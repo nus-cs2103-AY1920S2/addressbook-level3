@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import csdev.couponstash.testutil.CouponBuilder;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.AddCommand;
@@ -24,8 +23,9 @@ import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
-import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
+import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.CouponUtil;
+import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 public class AddressBookParserTest {

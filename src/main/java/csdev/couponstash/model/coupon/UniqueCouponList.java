@@ -6,8 +6,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import csdev.couponstash.model.coupon.exceptions.DuplicateCouponException;
 import csdev.couponstash.model.coupon.exceptions.CouponNotFoundException;
+import csdev.couponstash.model.coupon.exceptions.DuplicateCouponException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
