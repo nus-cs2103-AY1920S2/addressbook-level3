@@ -67,7 +67,7 @@
               <padding>
                 <Insets top="10" right="10" bottom="5" left="10" />
               </padding>
-              <StackPane fx:id="deadlinePanelPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
 
             </VBox>
           </HBox>
