@@ -43,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ProfilePage profilePage;*/
     private CalendarPage calendarPage;
     private FullCalendar fullCalendar;
+    private HelpWindow helpWindow;
 
     @FXML
     private StackPane foodListPanelPlaceholder;
@@ -77,6 +78,7 @@ public class MainWindow extends UiPart<Stage> {
         logger.info("Initializing MainWindow");
         this.primaryStage = primaryStage;
         this.logic = logic;
+        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -93,11 +95,24 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(calendarPage.getRoot());
         fullCalendar = new FullCalendar(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         //setAllPageAnchor(fullCalendar.getRoot());
+
         logger.fine("All pages filled in MainWindow");
     }
 
     void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
     }
 
     /**
