@@ -16,7 +16,7 @@ endif::[]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
-image::devDiagram.png[width="300", align="left"]
+image::devDiagram.png[width="500", align="left"]
 
 [appendix]
 == Product Scope
@@ -370,7 +370,7 @@ Use case ends.
 
 1.  User requests to see a student's Progress for a certain course using UC9
 2.  User requests to view the mark a particular Progress as 'Done' using the progressID
-4.  CCX outputs a success message with the updated Progress object
+3.  CCX outputs a success message with the updated Progress object
 +
 Use case ends.
 
