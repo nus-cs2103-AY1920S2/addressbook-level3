@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import csdev.couponstash.model.ReadOnlyCouponStash;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.testutil.CouponBuilder;

@@ -6,11 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import csdev.couponstash.model.CouponStash;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.commons.util.JsonUtil;
+import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.testutil.TypicalCoupons;
 
 public class JsonSerializableCouponStashTest {

@@ -12,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import csdev.couponstash.storage.JsonCouponStashStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -27,6 +26,7 @@ import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.storage.JsonCouponStashStorage;
 import csdev.couponstash.storage.JsonUserPrefsStorage;
 import csdev.couponstash.storage.StorageManager;
 import csdev.couponstash.testutil.CouponBuilder;

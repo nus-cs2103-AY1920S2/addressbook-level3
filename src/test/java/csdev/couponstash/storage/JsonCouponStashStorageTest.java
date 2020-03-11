@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import csdev.couponstash.model.CouponStash;
-import csdev.couponstash.model.ReadOnlyCouponStash;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import csdev.couponstash.commons.exceptions.DataConversionException;
+import csdev.couponstash.model.CouponStash;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 
 public class JsonCouponStashStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCouponStashStorageTest");

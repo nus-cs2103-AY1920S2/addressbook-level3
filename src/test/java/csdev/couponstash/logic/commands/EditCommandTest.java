@@ -5,12 +5,12 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSucc
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import csdev.couponstash.model.CouponStash;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
+import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;

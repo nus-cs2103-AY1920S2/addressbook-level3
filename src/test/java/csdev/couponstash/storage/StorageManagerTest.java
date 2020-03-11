@@ -6,13 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
 
-import csdev.couponstash.model.ReadOnlyCouponStash;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.model.CouponStash;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.UserPrefs;
 
 public class StorageManagerTest {
