@@ -1,7 +1,7 @@
 package csdev.couponstash.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.model.Model;
 
 /**
  * This class represents the "saved" command

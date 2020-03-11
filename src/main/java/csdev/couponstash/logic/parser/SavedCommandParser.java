@@ -1,7 +1,7 @@
-package seedu.address.logic.parser;
+package csdev.couponstash.logic.parser;
 
-import seedu.address.logic.commands.SavedCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
+import csdev.couponstash.logic.commands.SavedCommand;
+import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
  * This class contains logic for parsing a
