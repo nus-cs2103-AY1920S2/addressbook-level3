@@ -69,4 +69,8 @@ public class ParserUtil {
         return new Course(course);
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 90d899e4767de5feb6458cd9c34c6dedfafc7df9

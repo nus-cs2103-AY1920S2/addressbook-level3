@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.Name;
 
-public class JsonAdaptedPersonTest {
+public class JsonAdaptedProfileTest {
     private static final String INVALID_NAME = "R@chel";
 
     private static final String VALID_NAME = BENSON.getName().toString();
