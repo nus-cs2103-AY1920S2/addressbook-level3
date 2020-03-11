@@ -52,13 +52,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
         int intSemester = Integer.parseInt(semester);
 
+        // Create Personal object
+        Personal personal = new Personal();
+
+        // Add grade if present
         String grade = null;
         if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
             grade = argMultimap.getValue(PREFIX_GRADE).get();
+            personal.setGrade(grade);
         }
-
-        Personal personal = new Personal();
-        personal.setGrade(grade);
 
         // From current semester, determine status
         int currentSemester = Integer.parseInt(Profile.getCurrentSemester());

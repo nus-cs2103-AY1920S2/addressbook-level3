@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
@@ -31,7 +30,7 @@ public class NewCommandParser implements Parser<NewCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE, PREFIX_CURRENT_SEMESTER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
