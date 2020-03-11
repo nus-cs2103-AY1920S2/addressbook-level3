@@ -383,7 +383,7 @@ Use case resumes at step 1.
 * 2c. The user tries to add goals that do not exist in the goals list.
 +
 [none]
-** 3c1. HealthyBaby shows an error message.
+** 2c1. HealthyBaby shows an error message.
 +
 Use case resumes at step 1.
 
@@ -464,6 +464,7 @@ Use case ends.
 +
 [none]
 ** 2a1. HealthyBaby shows an error message.
++
 Use case ends.
 
 [discrete]
@@ -473,7 +474,7 @@ Use case ends.
 
 1.  User enters the clear command
 2.  User will be prompted with a confirmation question
-3.  User inputs Y (Yes) to confirm decision
+3.  User inputs "Y" (Yes) to confirm decision
 4.  HealthyBaby clears the entire recipe list
 +
 Use case ends.
@@ -481,7 +482,7 @@ Use case ends.
 *Extensions*
 
 [none]
-* 3a. User inputs N (No) to cancel the clear command.
+* 3a. User inputs "N" (No) to cancel the clear command.
 +
 Use case ends.
 
@@ -490,7 +491,9 @@ Use case ends.
 +
 [none]
 ** 3b1. HealthyBaby shows an error message.
++
 Use case resumes at step 2.
+
 
 _{More to be added}_
 
