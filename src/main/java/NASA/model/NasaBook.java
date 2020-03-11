@@ -132,6 +132,10 @@ public class NasaBook implements ReadOnlyNasaBook {
         moduleList.setModule(target, editedActivity);
     }
 
+    public Activity getActivityByIndex(Module module, Index index) {
+        return moduleList.getModule(module).getActivityByIndex(index);
+    }
+
     public void setActivityByIndex(Module module, Index index, Activity activity) {
         requireNonNull(activity);
 
