@@ -6,21 +6,27 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+
+import seedu.address.logic.commands.customer.AddCustomerCommand;
+import seedu.address.logic.commands.customer.ClearCustomerCommand;
+import seedu.address.logic.commands.customer.DeleteCustomerCommand;
+import seedu.address.logic.commands.customer.EditCustomerCommand;
+import seedu.address.logic.commands.customer.FindCustomerCommand;
+import seedu.address.logic.commands.customer.ListCustomerCommand;
 import seedu.address.logic.commands.product.AddProductCommand;
 import seedu.address.logic.commands.product.ClearProductCommand;
 import seedu.address.logic.commands.product.DeleteProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
+
+import seedu.address.logic.parser.customer.AddCustomerCommandParser;
+import seedu.address.logic.parser.customer.DeleteCustomerCommandParser;
+import seedu.address.logic.parser.customer.EditCustomerCommandParser;
+import seedu.address.logic.parser.customer.FindCustomerCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.product.AddProductCommandParser;
 import seedu.address.logic.parser.product.DeleteProductCommandParser;
@@ -54,23 +60,23 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case AddCustomerCommand.COMMAND_WORD:
+            return new AddCustomerCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case EditCustomerCommand.COMMAND_WORD:
+            return new EditCustomerCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+        case DeleteCustomerCommand.COMMAND_WORD:
+            return new DeleteCustomerCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case ClearCustomerCommand.COMMAND_WORD:
+            return new ClearCustomerCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case FindCustomerCommand.COMMAND_WORD:
+            return new FindCustomerCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case ListCustomerCommand.COMMAND_WORD:
+            return new ListCustomerCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
