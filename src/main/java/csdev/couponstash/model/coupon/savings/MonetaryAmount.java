@@ -40,6 +40,19 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
         return monetaryAmount >= 0 && ((monetaryAmount * 100) % 1 == 0);
     }
 
+    /**
+     * Adds this MonetaryAmount to another MonetaryAmount,
+     * resulting in a new MonetaryAmount with value
+     * greater than the original two.
+     * @param ma The other MonetaryAmount to add to.
+     * @return Returns a new MonetaryAmount with
+     *     value that was obtained by adding both
+     *     original MonetaryAmounts.
+     */
+    public MonetaryAmount add(MonetaryAmount ma) {
+        return new MonetaryAmount(this.monetaryAmount + ma.monetaryAmount);
+    }
+
     @Override
     public int compareTo(MonetaryAmount m) {
         return (int) Math.signum(this.monetaryAmount - m.monetaryAmount);

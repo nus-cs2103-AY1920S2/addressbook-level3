@@ -1,7 +1,12 @@
 package csdev.couponstash.model.coupon.savings;
 
+import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+
+import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a certain amount of savings in CouponStash
@@ -24,6 +29,10 @@ import java.util.Optional;
  * <p>Guaranteed to be immutable.
  */
 public class Savings implements Comparable<Savings> {
+    public static final String EMPTY_LIST_ERROR =
+            "ERROR: Parser identified that this Savings should have"
+            + "Saveables, but no Saveables received in class Savings";
+
     // coupons could have a certain monetary value
     private final Optional<MonetaryAmount> monetaryAmount;
     // coupons could have a certain percentage value
@@ -84,7 +93,8 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(MonetaryAmount monetaryAmount, List<Saveable> saveables) {
-        isNotEmptyList(saveables);
+        checkArgument(isNotEmptyList(saveables),
+                Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.of(monetaryAmount);
         this.percentage = Optional.empty();
         this.saveables = Optional.of(saveables);
@@ -101,33 +111,139 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(PercentageAmount percentage, List<Saveable> saveables) {
-        isNotEmptyList(saveables);
+        checkArgument(isNotEmptyList(saveables),
+                Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.empty();
         this.percentage = Optional.of(percentage);
         this.saveables = Optional.of(saveables);
     }
 
+    /**
+     * Checks whether this Savings has a MonetaryAmount.
+     * @return True, if this Savings has a MonetaryAmount.
+     *     False, if it does not.
+     */
+    public boolean hasMonetaryAmount() {
+        return this.monetaryAmount.isPresent();
+    }
+
+    /**
+     * Checks whether this Savings has a PercentageAmount.
+     * @return True, if this Savings has a PercentageAmount.
+     *     False, if it does not.
+     */
+    public boolean hasPercentageAmount() {
+        return this.percentage.isPresent();
+    }
+
+    /**
+     * Checks whether this Savings has Saveables.
+     * @return True, if this Savings has Saveables.
+     *     False, if it does not.
+     */
+    public boolean hasSaveables() {
+        return this.saveables.isPresent();
+    }
+
+    public Optional<MonetaryAmount> getMonetaryAmount() {
+        return this.monetaryAmount;
+    }
+
+    public Optional<PercentageAmount> getPercentageAmount() {
+        return this.percentage;
+    }
+
+    public Optional<List<Saveable>> getSaveables() {
+        return this.saveables;
+    }
+
     @Override
     public int compareTo(Savings s) {
-        return 1;
+        if (this.hasMonetaryAmount() || s.hasMonetaryAmount()) {
+            // first, compare monetary amount
+            if (this.hasMonetaryAmount() && s.hasMonetaryAmount()) {
+                return this.monetaryAmount.get().compareTo(s.monetaryAmount.get());
+            } else {
+                // prioritise the one with actual monetary amount
+                return this.hasMonetaryAmount() ? 1 : -1;
+            }
+        } else if (this.hasPercentageAmount() || s.hasPercentageAmount()) {
+            // next, compare percentage
+            if (this.hasPercentageAmount() && s.hasPercentageAmount()) {
+                return this.percentage.get().compareTo(s.percentage.get());
+            } else {
+                // prioritise the one with percentage
+                return this.hasPercentageAmount() ? 1 : -1;
+            }
+        } else if (this.hasSaveables() || s.hasSaveables()) {
+            // last resort, compare saveables list
+            if (this.hasSaveables() && s.hasSaveables()) {
+                return this.saveables.get().size() - s.saveables.get().size();
+            } else {
+                // error, either this or s has no information at all
+                throw new InvalidSavingsException();
+            }
+        } else {
+            // error, both this or s have no information at all
+            throw new InvalidSavingsException();
+        }
     }
 
     @Override
     public boolean equals(Object o) {
-        return true;
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof Savings)) {
+            return false;
+        } else {
+            Savings s = (Savings) o;
+            return this.monetaryAmount.equals(s.monetaryAmount)
+                    && this.percentage.equals(s.percentage)
+                    && this.saveables.equals(s.saveables);
+        }
     }
 
     @Override
     public int hashCode() {
-        return 1;
+        return Objects.hash(this.monetaryAmount, this.percentage, this.saveables);
     }
 
     @Override
     public String toString() {
-        return "";
+        StringBuilder sb = new StringBuilder("You save ");
+        if (this.hasMonetaryAmount()) {
+            sb.append(this.monetaryAmount.get().toString());
+            sb.append(", ");
+        }
+        if (this.hasPercentageAmount()) {
+            sb.append(this.percentage.get().toString());
+            sb.append(", ");
+        }
+        if (this.hasSaveables()) {
+            List<Saveable> savedItems = this.saveables.get();
+            sb.append(" and you have earned ");
+            for (Saveable sv : savedItems) {
+                sb.append(sv.toString());
+                sb.append(", ");
+            }
+        }
+        // remove last comma and space (extra length 2)
+        return sb.substring(0, sb.length() - 2);
     }
 
-    private <T> void isNotEmptyList(List<T> list) {
-
+    /**
+     * Utility function used by Savings.java to check if
+     * the List&lt;Saveable&gt; is non-empty.
+     * This should never return false, as if no Saveables
+     * are given, the SavingsParser would have determined
+     * that the command did not have any Saveables and
+     * not passed a list to Savings.java in the first place.
+     * @param list The list to be checked.
+     * @param <T> Type of items stored in the list
+     * @return True, if the list is non-empty.
+     *     False if the list is empty.
+     */
+    private static <T> boolean isNotEmptyList(List<T> list) {
+        return !list.isEmpty();
     }
 }
