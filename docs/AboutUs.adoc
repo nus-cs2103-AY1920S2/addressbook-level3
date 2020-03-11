@@ -13,9 +13,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Willy Seah
 image::willyseahh.png[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/WillySeahh[homepage]] [https://github.com/WillySeahh[github]] [<<WillySeahh#, portfolio>>]
+{empty}[https://github.com/WillySeahh[github]] [<<willyseahh#, portfolio>>]
 
-Role: Project Advisor
+Role: Project Advisor +
+Responsibilities: Team Facilitation, Code Integration, Expense Splitter
 
 '''
 
