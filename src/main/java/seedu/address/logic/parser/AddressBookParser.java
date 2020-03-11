@@ -47,12 +47,9 @@ public class AddressBookParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
-<<<<<<< HEAD
-=======
         case NewCommand.COMMAND_WORD:
             return new NewCommandParser().parse(arguments);
 
->>>>>>> 90d899e4767de5feb6458cd9c34c6dedfafc7df9
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
