@@ -20,5 +20,5 @@ JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonAddressBookStorage .left.|> AddressBookStorage
 JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
 JsonSerializableAddressBookStorage .right.> JsonSerializableRecipe
-JsonSerializableRecipe .right.> JsonAdaptedTag
+JsonSerializableRecipe .right.> JsonAdaptedGoal
 @enduml
