@@ -498,19 +498,154 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use Case 17: View details for a particular student
+
+*MSS*
+
+1. User request to see a student's details
+2. CCX outputs a success message with student's detail with name, description and payment list
+
+*Extensions*
+[none]
+* 1a. studentID does not exist
+[none]
+** 1a1. CCX shows an error message
+
+[discrete]
+=== Use Case 18: Mark a student's course payment object as paid
+
+*MSS*
+
+1. User requests to see a student's payment list using UC12
+2. User requests to mark a particular unpaid payment as 'Paid' using the paymentID
+3. CCX outputs a success message with the updated payment list object +
+Use case end
+
+*Extensions*
+[none]
+* 1a. studentID does not exist
+[none]
+** 1a1. CCX shows an error message
+* 2a. no payments exists
+** 2a1. CCX shows a message saying no payment list found
+
+[discrete]
+=== Use Case 19: Edit a student info using studentID
+
+*MSS*
+
+1. User requests to see a student info using UC17
+2. User requests to edit the student's information and provide edit information
+3. CCX outputs a success message with the updated student description +
+Use case ends
+
+*Extensions*
+[none]
+* 1a. studentID does not exist
+[none]
+** 1a1. CCX shows an error message
+
+[discrete]
+=== Use Case 20: View all on going courses
+
+*MSS*
+
+1. User requests to see all on going courses
+2. CCX outputs a success message with a list of all on going courses +
+Use case ends
+
+*Extensions*
+[none]
+* 1a. No on going courses available
+[none]
+** 1a1. CCX shows an empty list of courses
+
+[discrete]
+=== Use Case 21: View all students
+
+*MSS*
+
+1. User request to see all the students
+2. CCX outputs a success message with a list of all students +
+Use case ends
+
+*Extensions*
+[none]
+* 1a. No student in the database
+** 1a1. CCX shows an empty list of students
+
+[discrete]
+=== Use Case 22: Adding a new Student
+
+*MSS*
+
+1. User request to add a new Student
+2. User input student's name and other information
+3. CCX outputs a success message with student object and studentID +
+Use case ends
+
+[discrete]
+=== Use Case 23: Adding a new Teacher
+
+*MSS*
+
+1. User request to add a new teacher
+2. User input teacher's name and other information
+3. CCX outputs a success message with teacher object and teacherID +
+Use case ends
+
+[discrete]
+=== Use Case 24: Adding a new Staff
+
+*MSS*
+
+1. User request to add a new staff
+2. User input teacher's name and other information
+3. CCX outputs a success message with staff object and staffID +
+Use case ends
+
+[discrete]
+=== Use Case 25: Adding a new course
+
+*MSS*
+
+1. User request to add a new course
+2. User input course's name and other information
+3. CCX outputs a success message with course object and courseID +
+Use case ends
+
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  The `CCX` program should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  The `CCX` program should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
+.  The `CCX` program supports one-shot command - command that are executed using only one single line of user input.
+.  User must ensure to have a free disk space of at least 100 Megabytes (MBs) in the drive to store the program.
+.  The `CCX` program should be able to run with or without internet connection.
+.  The `CCX` program should work for a single user only.
+.  The `CCX` program should not require user to make any software installments.
+.  The `CCX` program should support English language only.
+.  The `CCX` program Graphic User Interface (GUI) should support screen resolution of 1920 x 1080 or higher.
 _{More to be added}_
 
 [appendix]
 == Glossary
+
+*Student* ::
+A student that has a studentID and description
+
+*Teacher* ::
+A teacher that has a teacherID and description
+
+*Staff* ::
+A staff that has a staffID and description
+
+*Course* ::
+A course that contains a list of attended students, a teacher and a list of homework
 
 *Homework* ::
 A task that is to be done before a certain date
@@ -522,7 +657,10 @@ An object that contains a homework, a isDone boolean and is tied to student.
 Officially adds a paying student to a course
 
 *Finance* ::
-An object that contains the amount, and whether it is an earning or expense
+An object that contains payments, and whether it is an earning or expense
+
+*Payment* ::
+An object that contains the amount, a deadline to pay and pay date
 
 [appendix]
 == Product Survey
