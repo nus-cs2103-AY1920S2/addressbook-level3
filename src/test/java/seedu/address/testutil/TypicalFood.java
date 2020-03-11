@@ -1,13 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.FoodBook;
-import seedu.address.model.food.Food;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import seedu.address.model.FoodBook;
+import seedu.address.model.food.Food;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -27,10 +25,11 @@ public class TypicalFood {
     public static final Food MILKSHAKE = new FoodBuilder().withName("Chocolate Milkshake").build();
     public static final Food BAGUETTE = new FoodBuilder().withName("Baguette").build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Food AMY = new FoodBuilder().withName(VALID_NAME_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Food BOB = new FoodBuilder().withName(VALID_NAME_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+    // ADD AFTER INCORPORATING COMMANDS
+    //// Manually added - Person's details found in {@code CommandTestUtil}
+    //public static final Food AMY = new FoodBuilder().withName(VALID_NAME_AMY).withTags(VALID_TAG_FRIEND).build();
+    //public static final Food BOB = new FoodBuilder().withName(VALID_NAME_BOB)
+    //        .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_PIZZA = "pizza"; // A keyword that matches PIZZA
 

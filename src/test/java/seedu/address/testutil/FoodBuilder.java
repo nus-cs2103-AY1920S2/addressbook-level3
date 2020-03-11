@@ -1,11 +1,13 @@
 package seedu.address.testutil;
 
-import seedu.address.model.food.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.address.model.food.Calories;
+import seedu.address.model.food.Food;
+import seedu.address.model.food.Name;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Food objects.

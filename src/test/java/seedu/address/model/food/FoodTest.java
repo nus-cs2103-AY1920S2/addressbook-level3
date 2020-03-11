@@ -6,13 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalFood.PASTA;
 import static seedu.address.testutil.TypicalFood.BURGER;
+import static seedu.address.testutil.TypicalFood.PASTA;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.FoodBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class FoodTest {
 
@@ -63,12 +62,12 @@ public class FoodTest {
         assertFalse(PASTA.equals(BURGER));
 
         // IMPLEMENT AFTER ADDING COMMANDS
-//        // different name -> returns false
-//        Food editedAlice = new FoodBuilder(PASTA).withName(VALID_NAME_BURGER).build();
-//        assertFalse(PASTA.equals(editedAlice));
-//
-//        // different tags -> returns false
-//        editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-//        assertFalse(ALICE.equals(editedAlice));
+        //// different name -> returns false
+        //Food editedAlice = new FoodBuilder(PASTA).withName(VALID_NAME_BURGER).build();
+        //assertFalse(PASTA.equals(editedAlice));
+        //
+        //// different tags -> returns false
+        //editedAlice = new FoodBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        //assertFalse(ALICE.equals(editedAlice));
     }
 }
