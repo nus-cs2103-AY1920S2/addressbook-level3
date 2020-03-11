@@ -1,14 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Person;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -22,18 +26,51 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE,
+                        PREFIX_TASK, PREFIX_DEADLINE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
+        // To check if Module argument exists since it is compulsory
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_SEMESTER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        // TODO: Add tasks to tasklist
+        if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
+            String task = argMultimap.getValue(PREFIX_MODULE).get();
+            //add task to tasklist
+            if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
+                String deadline = argMultimap.getValue(PREFIX_DEADLINE).get();
+                //add deadline to task
+            }
+        }
 
-        Person person = new Person(name);
+        // Add module to list in Personal object within Module Object
+        String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
+        if (!ParserUtil.isInteger(semester)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        int intSemester = Integer.parseInt(semester);
 
-        return new AddCommand(person);
+        String grade = null;
+        if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
+            grade = argMultimap.getValue(PREFIX_GRADE).get();
+        }
+
+        Personal personal = new Personal();
+        personal.setGrade(grade);
+
+        // From current semester, determine status
+        int currentSemester = Integer.parseInt(Profile.getCurrentSemester());
+        if (intSemester < currentSemester) {
+            personal.setStatus("completed");
+        } else if (intSemester == currentSemester) {
+            personal.setStatus("in progress");
+        } else {
+            personal.setStatus("not taken");
+        }
+
+        return new AddCommand(personal);
     }
 
     /**
