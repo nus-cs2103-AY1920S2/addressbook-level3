@@ -141,6 +141,11 @@ Format: `filter [i/INGREDIENT 1, INGREDIENT 2, ...]`
 Finds recipes that are tagged with the specified goal. +
 Format: `filter [g/GOAL]`
 
+=== Filter by favourites
+
+Finds recipes that are tagged as favourites. +
+Format: `filter favourites`
+
 === Filter by preparation time
 
 Finds recipes that have preparation time less than or equals to the specified time (in minutes). +
