@@ -1,11 +1,11 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Task's name in the address book. Guarantees: immutable; is valid as declared in
+ * {@link #isValidName(String)}
  */
 public class Name {
 
@@ -31,13 +31,10 @@ public class Name {
         fullName = name;
     }
 
-    /**
-     * Returns true if a given string is a valid name.
-     */
+    /** Returns true if a given string is a valid name. */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {
@@ -48,12 +45,11 @@ public class Name {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+                        && fullName.equals(((Name) other).fullName)); // state check
     }
 
     @Override
     public int hashCode() {
         return fullName.hashCode();
     }
-
 }

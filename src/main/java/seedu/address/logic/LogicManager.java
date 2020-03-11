@@ -3,7 +3,6 @@ package seedu.address.logic;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
-
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -14,12 +13,10 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
-/**
- * The main LogicManager of the app.
- */
+/** The main LogicManager of the app. */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
@@ -57,8 +54,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
 
     @Override

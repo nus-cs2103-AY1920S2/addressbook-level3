@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -18,8 +17,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar and space where
+ * other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -31,24 +30,19 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
-    @FXML
-    private StackPane commandBoxPlaceholder;
+    @FXML private StackPane commandBoxPlaceholder;
 
-    @FXML
-    private MenuItem helpMenuItem;
+    @FXML private MenuItem helpMenuItem;
 
-    @FXML
-    private StackPane personListPanelPlaceholder;
+    @FXML private StackPane personListPanelPlaceholder;
 
-    @FXML
-    private StackPane resultDisplayPlaceholder;
+    @FXML private StackPane resultDisplayPlaceholder;
 
-    @FXML
-    private StackPane statusbarPlaceholder;
+    @FXML private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,6 +69,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -95,19 +90,21 @@ public class MainWindow extends UiPart<Stage> {
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
+        getRoot()
+                .addEventFilter(
+                        KeyEvent.KEY_PRESSED,
+                        event -> {
+                            if (event.getTarget() instanceof TextInputControl
+                                    && keyCombination.match(event)) {
+                                menuItem.getOnAction().handle(new ActionEvent());
+                                event.consume();
+                            }
+                        });
     }
 
-    /**
-     * Fills up all the placeholders of this window.
-     */
+    /** Fills up all the placeholders of this window. */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -120,9 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
+    /** Sets the default size based on {@code guiSettings}. */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
@@ -132,9 +127,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
+    /** Opens the help window or focuses on it if it's already opened. */
     @FXML
     public void handleHelp() {
         if (!helpWindow.isShowing()) {
@@ -148,19 +141,21 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
-    /**
-     * Closes the application.
-     */
+    /** Closes the application. */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        GuiSettings guiSettings =
+                new GuiSettings(
+                        primaryStage.getWidth(),
+                        primaryStage.getHeight(),
+                        (int) primaryStage.getX(),
+                        (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
+    public TaskListPanel getTaskListPanel() {
         return personListPanel;
     }
 
@@ -169,7 +164,8 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText)
+            throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
