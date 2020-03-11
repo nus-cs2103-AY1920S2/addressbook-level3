@@ -29,8 +29,8 @@ import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 public class CouponStashParserTest {
-
-    private final CouponStashParser parser = new CouponStashParser();
+    // use an arbitrary symbol as the money symbol
+    private final CouponStashParser parser = new CouponStashParser(CommandParserTestUtil.MONEY_SYMBOL_POUND);
 
     @Test
     public void parseCommand_add() throws Exception {

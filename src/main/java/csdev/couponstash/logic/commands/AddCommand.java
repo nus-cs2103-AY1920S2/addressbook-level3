@@ -1,15 +1,12 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
-
+import static csdev.couponstash.logic.parser.CliSyntax.*;
 import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.savings.PercentageAmount;
 
 /**
  * Adds a coupon to CouponStash.
@@ -23,11 +20,14 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_SAVED + "SAVED "
+            + "[" + PREFIX_SAVED + "SAVED]..."
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
+            + PREFIX_SAVED + "50" + PercentageAmount.PERCENT_SUFFIX + " "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 

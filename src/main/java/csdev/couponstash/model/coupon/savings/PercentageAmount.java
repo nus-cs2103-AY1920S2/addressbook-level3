@@ -8,8 +8,10 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
  * Immutable.
  */
 public class PercentageAmount implements Comparable<PercentageAmount> {
+    public static final String PERCENT_SUFFIX = "%";
     public static final String MESSAGE_CONSTRAINTS =
-            "Percentage should be between 0% and 100%";
+            "Percentage should be between 0" + PercentageAmount.PERCENT_SUFFIX
+            + " and 100" + PercentageAmount.PERCENT_SUFFIX;
 
     private final double percentage;
 
@@ -60,6 +62,6 @@ public class PercentageAmount implements Comparable<PercentageAmount> {
     @Override
     public String toString() {
         // rounds the double to nearest integer
-        return String.format("%.0f", this.percentage) + "%";
+        return String.format("%.0f", this.percentage) + PercentageAmount.PERCENT_SUFFIX;
     }
 }

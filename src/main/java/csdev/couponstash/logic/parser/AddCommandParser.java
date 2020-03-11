@@ -4,6 +4,7 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVED;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -15,12 +16,25 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+    private final String moneySymbol;
+
+    /**
+     * Constructor for a AddCommandParser. Requires the
+     * money symbol set in UserPrefs as this will be
+     * used as the prefix for the monetary amount
+     * in the savings field.
+     * @param moneySymbol String representing the money symbol.
+     */
+    public AddCommandParser(String moneySymbol) {
+        this.moneySymbol = moneySymbol;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -29,9 +43,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SAVED, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SAVED)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -39,6 +53,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVED), this.moneySymbol);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Coupon coupon = new Coupon(name, phone, email, tagList);

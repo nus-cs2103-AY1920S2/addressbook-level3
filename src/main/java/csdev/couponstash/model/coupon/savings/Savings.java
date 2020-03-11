@@ -29,6 +29,9 @@ import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
  * <p>Guaranteed to be immutable.
  */
 public class Savings implements Comparable<Savings> {
+    public static final String MESSAGE_CONSTRAINTS = "Savings should not be blank, "
+            + "and savings cannot have both a monetary amount and a percentage amount.";
+
     public static final String EMPTY_LIST_ERROR =
             "ERROR: Parser identified that this Savings should have"
             + "Saveables, but no Saveables received in class Savings";

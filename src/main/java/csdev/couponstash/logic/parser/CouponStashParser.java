@@ -22,6 +22,18 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
  * Parses user input.
  */
 public class CouponStashParser {
+    private final String moneySymbol;
+
+    /**
+     * Constructor for a CouponStashParser. Requires the
+     * money symbol set in UserPrefs as this will be
+     * used in the parsing of many commands like
+     * AddCommandParser and EditCommandParser.
+     * @param moneySymbol String representing the money symbol.
+     */
+    public CouponStashParser(String moneySymbol) {
+        this.moneySymbol = moneySymbol;
+    }
 
     /**
      * Used for initial separation of command word and args.
@@ -46,7 +58,7 @@ public class CouponStashParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddCommandParser(this.moneySymbol).parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
