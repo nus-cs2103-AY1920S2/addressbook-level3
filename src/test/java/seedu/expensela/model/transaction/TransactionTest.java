@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalPersons.ALICE;
 import static seedu.expensela.testutil.TypicalPersons.BOB;
 
@@ -15,12 +13,6 @@ import org.junit.jupiter.api.Test;
 import seedu.expensela.testutil.PersonBuilder;
 
 public class TransactionTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Transaction transaction = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> transaction.getTags().remove(0));
-    }
 
     @Test
     public void isSamePerson() {
@@ -40,16 +32,16 @@ public class TransactionTest {
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // same name, same email, different attributes -> returns true
         editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+                .build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
@@ -88,7 +80,7 @@ public class TransactionTest {
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new PersonBuilder(ALICE).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

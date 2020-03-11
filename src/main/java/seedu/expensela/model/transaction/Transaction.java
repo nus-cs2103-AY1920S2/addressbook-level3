@@ -2,12 +2,7 @@ package seedu.expensela.model.transaction;
 
 import static seedu.expensela.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.expensela.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -18,17 +13,15 @@ public class Transaction {
     private final Name name;
     private final Amount amount;
     private final Date date;
-    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Name name, Amount amount, Date date, Set<Tag> tags) {
-        requireAllNonNull(name, amount, date, tags);
+    public Transaction(Name name, Amount amount, Date date) {
+        requireAllNonNull(name, amount, date);
         this.name = name;
         this.amount = amount;
         this.date = date;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -41,14 +34,6 @@ public class Transaction {
 
     public Date getDate() {
         return date;
-    }
-
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -82,14 +67,13 @@ public class Transaction {
         Transaction otherTransaction = (Transaction) other;
         return otherTransaction.getName().equals(getName())
                 && otherTransaction.getAmount().equals(getAmount())
-                && otherTransaction.getDate().equals(getDate())
-                && otherTransaction.getTags().equals(getTags());
+                && otherTransaction.getDate().equals(getDate());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, date, tags);
+        return Objects.hash(name, amount, date);
     }
 
     @Override
@@ -99,9 +83,7 @@ public class Transaction {
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Date: ")
-                .append(getDate())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getDate());
         return builder.toString();
     }
 
