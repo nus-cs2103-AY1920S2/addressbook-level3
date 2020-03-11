@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalOrders.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 
 import java.nio.file.Path;
 
@@ -24,7 +24,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonOrderBookStorage addressBookStorage = new JsonOrderBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -54,15 +54,15 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        OrderBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyOrderBook retrieved = storageManager.readAddressBook().get();
+        OrderBook original = getTypicalOrderBook();
+        storageManager.saveOrderBook(original);
+        ReadOnlyOrderBook retrieved = storageManager.readOrderBook().get();
         assertEquals(original, new OrderBook(retrieved));
     }
 
     @Test
     public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getOrderBookFilePath());
     }
 
 }

@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.order.exceptions.DuplicatePersonException;
-import seedu.address.model.order.exceptions.PersonNotFoundException;
+import seedu.address.model.order.exceptions.DuplicateOrderException;
+import seedu.address.model.order.exceptions.OrderNotFoundException;
 
 /**
  * A list of orders that enforces uniqueness between its elements and does not allow nulls.
@@ -46,7 +46,7 @@ public class UniqueOrderList implements Iterable<Order> {
     public void add(Order toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateOrderException();
         }
         internalList.add(toAdd);
     }
@@ -61,11 +61,11 @@ public class UniqueOrderList implements Iterable<Order> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new OrderNotFoundException();
         }
 
         if (!target.isSameOrder(editedOrder) && contains(editedOrder)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateOrderException();
         }
 
         internalList.set(index, editedOrder);
@@ -78,7 +78,7 @@ public class UniqueOrderList implements Iterable<Order> {
     public void remove(Order toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new OrderNotFoundException();
         }
     }
 
@@ -94,7 +94,7 @@ public class UniqueOrderList implements Iterable<Order> {
     public void setOrders(List<Order> orders) {
         requireAllNonNull(orders);
         if (!ordersAreUnique(orders)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateOrderException();
         }
 
         internalList.setAll(orders);

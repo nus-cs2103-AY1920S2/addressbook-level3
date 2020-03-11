@@ -14,6 +14,7 @@ import seedu.address.model.order.Address;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -81,6 +82,21 @@ public class ParserUtil {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String timeStamp} into an {@code TimeStamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code timeStamp} is invalid.
+     */
+    public static TimeStamp parseTimeStamp(String timeStamp) throws ParseException {
+        requireNonNull(timeStamp);
+        String trimmedTimeStamp = timeStamp.trim();
+        if (!TimeStamp.isValidTimeStamp(trimmedTimeStamp)) {
+            throw new ParseException(TimeStamp.MESSAGE_CONSTRAINTS);
+        }
+        return new TimeStamp(trimmedTimeStamp);
     }
 
     /**

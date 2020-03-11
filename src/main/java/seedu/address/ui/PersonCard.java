@@ -43,6 +43,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label comment;
     @FXML
+    private Label timeStamp;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Order order, int displayedIndex) {
@@ -52,6 +54,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);
+        timeStamp.setText(order.getTimestamp().value);
         warehouse.setText(order.getWarehouse().address);
         email.setText(order.getEmail().value);
         comment.setText(order.getComment().commentMade);
