@@ -10,10 +10,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TIME = new Prefix("t/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_GOAL = new Prefix("g/");
-    public static final Prefix PREFIX_INGREDIENT_GRAIN = new Prefix("ig/");
-    public static final Prefix PREFIX_INGREDIENT_VEGE = new Prefix("iv/");
-    public static final Prefix PREFIX_INGREDIENT_PROTEIN = new Prefix("ip/");
-    public static final Prefix PREFIX_INGREDIENT_OTHER = new Prefix("io/");
-    public static final Prefix PREFIX_NEXTSTEP = new Prefix("s/");
 
 }
