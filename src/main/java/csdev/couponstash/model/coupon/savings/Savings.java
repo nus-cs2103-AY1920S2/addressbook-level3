@@ -224,7 +224,7 @@ public class Savings implements Comparable<Savings> {
         }
         if (this.hasSaveables()) {
             List<Saveable> savedItems = this.saveables.get();
-            sb.append(" and you have earned ");
+            sb.append(" and you get ");
             for (Saveable sv : savedItems) {
                 sb.append(sv.toString());
                 sb.append(", ");
