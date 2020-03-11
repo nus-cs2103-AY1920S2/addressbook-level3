@@ -21,8 +21,8 @@ import csdev.couponstash.testutil.TypicalCoupons;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
+    private Model expectedModel = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
 
     @Test
     public void equals() {

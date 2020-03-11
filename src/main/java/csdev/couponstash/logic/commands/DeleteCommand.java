@@ -11,7 +11,7 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
 
 /**
- * Deletes a coupon identified using it's displayed index from the address book.
+ * Deletes a coupon identified using it's displayed index from the CouponStash.
  */
 public class DeleteCommand extends Command {
 

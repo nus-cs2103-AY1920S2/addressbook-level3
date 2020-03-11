@@ -14,7 +14,7 @@ import java.util.List;
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
-import csdev.couponstash.model.AddressBook;
+import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
@@ -93,21 +93,21 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered coupon list and selected coupon in {@code actualModel} remain unchanged
+     * - the CouponStash, filtered coupon list and selected coupon in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        CouponStash expectedCouponStash = new CouponStash(actualModel.getCouponStash());
         List<Coupon> expectedFilteredList = new ArrayList<>(actualModel.getFilteredCouponList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedCouponStash, actualModel.getCouponStash());
         assertEquals(expectedFilteredList, actualModel.getFilteredCouponList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the coupon at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s CouponStash.
      */
     public static void showCouponAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCouponList().size());

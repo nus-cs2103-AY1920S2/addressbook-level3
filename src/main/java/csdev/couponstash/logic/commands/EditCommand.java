@@ -21,7 +21,7 @@ import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 
 /**
- * Edits the details of an existing coupon in the address book.
+ * Edits the details of an existing coupon in the CouponStash.
  */
 public class EditCommand extends Command {
 
@@ -41,7 +41,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_COUPON_SUCCESS = "Edited Coupon: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in the CouponStash.";
 
     private final Index index;
     private final EditCouponDescriptor editCouponDescriptor;

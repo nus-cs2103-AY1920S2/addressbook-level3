@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import csdev.couponstash.model.AddressBook;
+import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.coupon.Coupon;
 
 /**
@@ -57,10 +57,10 @@ public class TypicalCoupons {
     private TypicalCoupons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical coupons.
+     * Returns an {@code CouponStash} with all the typical coupons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static CouponStash getTypicalCouponStash() {
+        CouponStash ab = new CouponStash();
         for (Coupon coupon : getTypicalCoupons()) {
             ab.addCoupon(coupon);
         }

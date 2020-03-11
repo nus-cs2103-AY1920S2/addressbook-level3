@@ -9,10 +9,10 @@ import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.logic.commands.Command;
 import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
-import csdev.couponstash.logic.parser.AddressBookParser;
+import csdev.couponstash.logic.parser.CouponStashParser;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.ReadOnlyAddressBook;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.storage.Storage;
 
@@ -27,12 +27,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final CouponStashParser couponStashParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        couponStashParser = new CouponStashParser();
     }
 
     @Override
@@ -40,11 +40,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = couponStashParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveCouponStash(model.getCouponStash());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -53,8 +53,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyCouponStash getCouponStash() {
+        return model.getCouponStash();
     }
 
     @Override
@@ -63,8 +63,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getCouponStashFilePath() {
+        return model.getCouponStashFilePath();
     }
 
     @Override

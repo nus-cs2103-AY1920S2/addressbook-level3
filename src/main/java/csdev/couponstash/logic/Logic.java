@@ -7,7 +7,7 @@ import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.ReadOnlyAddressBook;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
@@ -26,19 +26,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the CouponStash.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getCouponStash()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyCouponStash getCouponStash();
 
     /** Returns an unmodifiable view of the filtered list of coupons */
     ObservableList<Coupon> getFilteredCouponList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' CouponStash file path.
      */
-    Path getAddressBookFilePath();
+    Path getCouponStashFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

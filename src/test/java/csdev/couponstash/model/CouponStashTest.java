@@ -3,7 +3,7 @@ package csdev.couponstash.model;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static csdev.couponstash.testutil.TypicalCoupons.ALICE;
-import static csdev.couponstash.testutil.TypicalCoupons.getTypicalAddressBook;
+import static csdev.couponstash.testutil.TypicalCoupons.getTypicalCouponStash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,25 +22,25 @@ import csdev.couponstash.testutil.CouponBuilder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class AddressBookTest {
+public class CouponStashTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final CouponStash couponStash = new CouponStash();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getCouponList());
+        assertEquals(Collections.emptyList(), couponStash.getCouponList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> couponStash.resetData(null));
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyCouponStash_replacesData() {
+        CouponStash newData = getTypicalCouponStash();
+        couponStash.resetData(newData);
+        assertEquals(newData, couponStash);
     }
 
     @Test
@@ -49,47 +49,47 @@ public class AddressBookTest {
         Coupon editedAlice = new CouponBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Coupon> newCoupons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newCoupons);
+        CouponStashStub newData = new CouponStashStub(newCoupons);
 
-        assertThrows(DuplicateCouponException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateCouponException.class, () -> couponStash.resetData(newData));
     }
 
     @Test
     public void hasCoupon_nullCoupon_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasCoupon(null));
+        assertThrows(NullPointerException.class, () -> couponStash.hasCoupon(null));
     }
 
     @Test
-    public void hasCoupon_couponNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasCoupon(ALICE));
+    public void hasCoupon_couponNotInCouponStash_returnsFalse() {
+        assertFalse(couponStash.hasCoupon(ALICE));
     }
 
     @Test
-    public void hasCoupon_couponInAddressBook_returnsTrue() {
-        addressBook.addCoupon(ALICE);
-        assertTrue(addressBook.hasCoupon(ALICE));
+    public void hasCoupon_couponInCouponStash_returnsTrue() {
+        couponStash.addCoupon(ALICE);
+        assertTrue(couponStash.hasCoupon(ALICE));
     }
 
     @Test
-    public void hasCoupon_couponWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addCoupon(ALICE);
+    public void hasCoupon_couponWithSameIdentityFieldsInCouponStash_returnsTrue() {
+        couponStash.addCoupon(ALICE);
         Coupon editedAlice = new CouponBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasCoupon(editedAlice));
+        assertTrue(couponStash.hasCoupon(editedAlice));
     }
 
     @Test
     public void getCouponList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getCouponList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> couponStash.getCouponList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose coupons list can violate interface constraints.
+     * A stub ReadOnlyCouponStash whose coupons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class CouponStashStub implements ReadOnlyCouponStash {
         private final ObservableList<Coupon> coupons = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Coupon> coupons) {
+        CouponStashStub(Collection<Coupon> coupons) {
             this.coupons.setAll(coupons);
         }
 

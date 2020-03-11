@@ -5,9 +5,9 @@ import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.ObservableList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a CouponStash
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyCouponStash {
 
     /**
      * Returns an unmodifiable view of the coupons list.

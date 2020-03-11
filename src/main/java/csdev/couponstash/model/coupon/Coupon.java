@@ -10,7 +10,7 @@ import java.util.Set;
 import csdev.couponstash.model.tag.Tag;
 
 /**
- * Represents a Coupon in the address book.
+ * Represents a Coupon in the CouponStash.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Coupon {

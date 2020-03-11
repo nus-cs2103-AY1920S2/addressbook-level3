@@ -13,19 +13,11 @@ import csdev.couponstash.commons.util.ConfigUtil;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.LogicManager;
-import csdev.couponstash.model.AddressBook;
-import csdev.couponstash.model.Model;
-import csdev.couponstash.model.ModelManager;
-import csdev.couponstash.model.ReadOnlyAddressBook;
-import csdev.couponstash.model.ReadOnlyUserPrefs;
-import csdev.couponstash.model.UserPrefs;
+import csdev.couponstash.model.*;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.util.SampleDataUtil;
-import csdev.couponstash.storage.AddressBookStorage;
-import csdev.couponstash.storage.JsonAddressBookStorage;
-import csdev.couponstash.storage.JsonUserPrefsStorage;
-import csdev.couponstash.storage.Storage;
-import csdev.couponstash.storage.StorageManager;
-import csdev.couponstash.storage.UserPrefsStorage;
+import csdev.couponstash.storage.*;
+import csdev.couponstash.storage.CouponStashStorage;
 import csdev.couponstash.ui.Ui;
 import csdev.couponstash.ui.UiManager;
 
@@ -49,7 +41,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing CouponStash ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -57,8 +49,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        CouponStashStorage couponStashStorage = new JsonCouponStashStorage(userPrefs.getCouponStashFilePath());
+        storage = new StorageManager(couponStashStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -70,25 +62,25 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s CouponStash and {@code userPrefs}. <br>
+     * The data from the sample CouponStash will be used instead if {@code storage}'s CouponStash is not found,
+     * or an empty CouponStash will be used instead if errors occur when reading {@code storage}'s CouponStash.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyCouponStash> couponStashOptional;
+        ReadOnlyCouponStash initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            couponStashOptional = storage.readCouponStash();
+            if (!couponStashOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample CouponStash");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = couponStashOptional.orElseGet(SampleDataUtil::getSampleCouponStash);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty CouponStash");
+            initialData = new CouponStash();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty CouponStash");
+            initialData = new CouponStash();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -152,7 +144,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty CouponStash");
             initializedPrefs = new UserPrefs();
         }
 
@@ -168,13 +160,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting CouponStash " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping CouponStash ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

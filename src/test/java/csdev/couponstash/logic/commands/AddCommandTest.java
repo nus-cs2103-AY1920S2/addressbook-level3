@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
-import csdev.couponstash.model.AddressBook;
+import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.ReadOnlyAddressBook;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.testutil.CouponBuilder;
@@ -100,12 +100,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getCouponStashFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setCouponStashFilePath(Path couponStashFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -115,12 +115,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setCouponStash(ReadOnlyCouponStash newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyCouponStash getCouponStash() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,8 +187,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyCouponStash getCouponStash() {
+            return new CouponStash();
         }
     }
 

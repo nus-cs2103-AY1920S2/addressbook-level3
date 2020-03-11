@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import csdev.couponstash.model.AddressBook;
-import csdev.couponstash.model.ReadOnlyAddressBook;
+import csdev.couponstash.model.CouponStash;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
@@ -13,7 +13,7 @@ import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code CouponStash} with sample data.
  */
 public class SampleDataUtil {
     public static Coupon[] getSampleCoupons() {
@@ -33,8 +33,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyCouponStash getSampleCouponStash() {
+        CouponStash sampleAb = new CouponStash();
         for (Coupon sampleCoupon : getSampleCoupons()) {
             sampleAb.addCoupon(sampleCoupon);
         }

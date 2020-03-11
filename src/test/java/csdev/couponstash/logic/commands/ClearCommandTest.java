@@ -4,7 +4,7 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSucc
 
 import org.junit.jupiter.api.Test;
 
-import csdev.couponstash.model.AddressBook;
+import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
@@ -13,7 +13,7 @@ import csdev.couponstash.testutil.TypicalCoupons;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyCouponStash_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
@@ -21,10 +21,10 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+    public void execute_nonEmptyCouponStash_success() {
+        Model model = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
+        Model expectedModel = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
+        expectedModel.setCouponStash(new CouponStash());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

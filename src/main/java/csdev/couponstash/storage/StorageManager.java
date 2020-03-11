@@ -7,23 +7,23 @@ import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.exceptions.DataConversionException;
-import csdev.couponstash.model.ReadOnlyAddressBook;
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of CouponStash data in local storage.
  */
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private CouponStashStorage couponStashStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(CouponStashStorage couponStashStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.couponStashStorage = couponStashStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -45,33 +45,33 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ CouponStash methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getCouponStashFilePath() {
+        return couponStashStorage.getCouponStashFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyCouponStash> readCouponStash() throws DataConversionException, IOException {
+        return readCouponStash(couponStashStorage.getCouponStashFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyCouponStash> readCouponStash(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return couponStashStorage.readCouponStash(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveCouponStash(ReadOnlyCouponStash couponStash) throws IOException {
+        saveCouponStash(couponStash, couponStashStorage.getCouponStashFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveCouponStash(ReadOnlyCouponStash couponStash, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        couponStashStorage.saveCouponStash(couponStash, filePath);
     }
 
 }

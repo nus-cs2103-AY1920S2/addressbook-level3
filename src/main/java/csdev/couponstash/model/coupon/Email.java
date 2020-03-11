@@ -5,7 +5,7 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Coupon's email in the address book.
+ * Represents a Coupon's email in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
 public class Email {

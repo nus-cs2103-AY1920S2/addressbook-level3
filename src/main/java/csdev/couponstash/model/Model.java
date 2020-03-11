@@ -36,44 +36,44 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' CouponStash file path.
      */
-    Path getAddressBookFilePath();
+    Path getCouponStashFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' CouponStash file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setCouponStashFilePath(Path couponStashFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces CouponStash data with the data in {@code couponStash}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setCouponStash(ReadOnlyCouponStash couponStash);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the CouponStash */
+    ReadOnlyCouponStash getCouponStash();
 
     /**
-     * Returns true if a coupon with the same identity as {@code coupon} exists in the address book.
+     * Returns true if a coupon with the same identity as {@code coupon} exists in the CouponStash.
      */
     boolean hasCoupon(Coupon coupon);
 
     /**
      * Deletes the given coupon.
-     * The coupon must exist in the address book.
+     * The coupon must exist in the CouponStash.
      */
     void deleteCoupon(Coupon target);
 
     /**
      * Adds the given coupon.
-     * {@code coupon} must not already exist in the address book.
+     * {@code coupon} must not already exist in the CouponStash.
      */
     void addCoupon(Coupon coupon);
 
     /**
      * Replaces the given coupon {@code target} with {@code editedCoupon}.
-     * {@code target} must exist in the address book.
-     * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the address book.
+     * {@code target} must exist in the CouponStash.
+     * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the CouponStash.
      */
     void setCoupon(Coupon target, Coupon editedCoupon);
 

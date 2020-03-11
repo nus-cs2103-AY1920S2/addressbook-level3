@@ -10,10 +10,10 @@ import csdev.couponstash.model.coupon.UniqueCouponList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the CouponStash level
  * Duplicates are not allowed (by .isSameCoupon comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class CouponStash implements ReadOnlyCouponStash {
 
     private final UniqueCouponList coupons;
 
@@ -28,12 +28,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         coupons = new UniqueCouponList();
     }
 
-    public AddressBook() {}
+    public CouponStash() {}
 
     /**
-     * Creates an AddressBook using the Coupons in the {@code toBeCopied}
+     * Creates an CouponStash using the Coupons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public CouponStash(ReadOnlyCouponStash toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -49,9 +49,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code CouponStash} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyCouponStash newData) {
         requireNonNull(newData);
 
         setCoupons(newData.getCouponList());
@@ -60,7 +60,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// coupon-level operations
 
     /**
-     * Returns true if a coupon with the same identity as {@code coupon} exists in the address book.
+     * Returns true if a coupon with the same identity as {@code coupon} exists in the CouponStash.
      */
     public boolean hasCoupon(Coupon coupon) {
         requireNonNull(coupon);
@@ -68,8 +68,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a coupon to the address book.
-     * The coupon must not already exist in the address book.
+     * Adds a coupon to the CouponStash.
+     * The coupon must not already exist in the CouponStash.
      */
     public void addCoupon(Coupon p) {
         coupons.add(p);
@@ -77,8 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given coupon {@code target} in the list with {@code editedCoupon}.
-     * {@code target} must exist in the address book.
-     * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the address book.
+     * {@code target} must exist in the CouponStash.
+     * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the CouponStash.
      */
     public void setCoupon(Coupon target, Coupon editedCoupon) {
         requireNonNull(editedCoupon);
@@ -87,8 +87,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code CouponStash}.
+     * {@code key} must exist in the CouponStash.
      */
     public void removeCoupon(Coupon key) {
         coupons.remove(key);
@@ -110,8 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && coupons.equals(((AddressBook) other).coupons));
+                || (other instanceof CouponStash // instanceof handles nulls
+                && coupons.equals(((CouponStash) other).coupons));
     }
 
     @Override

@@ -5,12 +5,12 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSucc
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import csdev.couponstash.model.CouponStash;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
-import csdev.couponstash.model.AddressBook;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
@@ -25,7 +25,7 @@ import csdev.couponstash.testutil.TypicalIndexes;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(TypicalCoupons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -35,7 +35,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
         expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -57,7 +57,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
         expectedModel.setCoupon(lastCoupon, editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -71,7 +71,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -88,7 +88,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
         expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -107,8 +107,8 @@ public class EditCommandTest {
     public void execute_duplicateCouponFilteredList_failure() {
         CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_FIRST_COUPON);
 
-        // edit coupon in filtered list into a duplicate in address book
-        Coupon couponInList = model.getAddressBook().getCouponList()
+        // edit coupon in filtered list into a duplicate in CouponStash
+        Coupon couponInList = model.getCouponStash().getCouponList()
                 .get(TypicalIndexes.INDEX_SECOND_COUPON.getZeroBased());
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
                 new EditCouponDescriptorBuilder(couponInList).build());
@@ -128,14 +128,14 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of CouponStash
      */
     @Test
     public void execute_invalidCouponIndexFilteredList_failure() {
         CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_FIRST_COUPON);
         Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_COUPON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getCouponList().size());
+        // ensures that outOfBoundIndex is still in bounds of CouponStash list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getCouponStash().getCouponList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditCouponDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB).build());

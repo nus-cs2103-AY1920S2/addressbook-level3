@@ -4,7 +4,7 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Coupon's phone number in the address book.
+ * Represents a Coupon's phone number in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

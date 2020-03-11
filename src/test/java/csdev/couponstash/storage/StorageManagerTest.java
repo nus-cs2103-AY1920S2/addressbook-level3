@@ -1,18 +1,18 @@
 package csdev.couponstash.storage;
 
-import static csdev.couponstash.testutil.TypicalCoupons.getTypicalAddressBook;
+import static csdev.couponstash.testutil.TypicalCoupons.getTypicalCouponStash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
 
+import csdev.couponstash.model.ReadOnlyCouponStash;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import csdev.couponstash.commons.core.GuiSettings;
-import csdev.couponstash.model.AddressBook;
-import csdev.couponstash.model.ReadOnlyAddressBook;
+import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -24,7 +24,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonCouponStashStorage addressBookStorage = new JsonCouponStashStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -48,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void couponStashReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonCouponStashStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonCouponStashStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        CouponStash original = getTypicalCouponStash();
+        storageManager.saveCouponStash(original);
+        ReadOnlyCouponStash retrieved = storageManager.readCouponStash().get();
+        assertEquals(original, new CouponStash(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getCouponStashFilePath() {
+        assertNotNull(storageManager.getCouponStashFilePath());
     }
 
 }

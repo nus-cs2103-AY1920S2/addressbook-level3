@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Coupon values as in TypicalCoupons#getTypicalAddressBook()",
+  "_comment": "CouponStash save file which contains the same Coupon values as in TypicalCoupons#getTypicalCouponStash()",
   "coupons" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",

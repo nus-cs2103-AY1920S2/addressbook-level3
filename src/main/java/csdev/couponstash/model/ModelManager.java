@@ -15,31 +15,31 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the CouponStash data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final CouponStash couponStash;
     private final UserPrefs userPrefs;
     private final FilteredList<Coupon> filteredCoupons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given couponStash and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyCouponStash couponStash, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(couponStash, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with CouponStash: " + couponStash + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.couponStash = new CouponStash(couponStash);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCoupons = new FilteredList<>(this.addressBook.getCouponList());
+        filteredCoupons = new FilteredList<>(this.couponStash.getCouponList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new CouponStash(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -67,42 +67,42 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getCouponStashFilePath() {
+        return userPrefs.getCouponStashFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setCouponStashFilePath(Path couponStashFilePath) {
+        requireNonNull(couponStashFilePath);
+        userPrefs.setCouponStashFilePath(couponStashFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== CouponStash ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setCouponStash(ReadOnlyCouponStash couponStash) {
+        this.couponStash.resetData(couponStash);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyCouponStash getCouponStash() {
+        return couponStash;
     }
 
     @Override
     public boolean hasCoupon(Coupon coupon) {
         requireNonNull(coupon);
-        return addressBook.hasCoupon(coupon);
+        return couponStash.hasCoupon(coupon);
     }
 
     @Override
     public void deleteCoupon(Coupon target) {
-        addressBook.removeCoupon(target);
+        couponStash.removeCoupon(target);
     }
 
     @Override
     public void addCoupon(Coupon coupon) {
-        addressBook.addCoupon(coupon);
+        couponStash.addCoupon(coupon);
         updateFilteredCouponList(PREDICATE_SHOW_ALL_COUPONS);
     }
 
@@ -110,14 +110,14 @@ public class ModelManager implements Model {
     public void setCoupon(Coupon target, Coupon editedCoupon) {
         requireAllNonNull(target, editedCoupon);
 
-        addressBook.setCoupon(target, editedCoupon);
+        couponStash.setCoupon(target, editedCoupon);
     }
 
     //=========== Filtered Coupon List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Coupon} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedCouponStash}
      */
     @Override
     public ObservableList<Coupon> getFilteredCouponList() {
@@ -144,7 +144,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return couponStash.equals(other.couponStash)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCoupons.equals(other.filteredCoupons);
     }

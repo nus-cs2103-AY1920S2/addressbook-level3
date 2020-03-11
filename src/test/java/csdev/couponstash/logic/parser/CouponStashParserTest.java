@@ -28,9 +28,9 @@ import csdev.couponstash.testutil.CouponUtil;
 import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalIndexes;
 
-public class AddressBookParserTest {
+public class CouponStashParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final CouponStashParser parser = new CouponStashParser();
 
     @Test
     public void parseCommand_add() throws Exception {

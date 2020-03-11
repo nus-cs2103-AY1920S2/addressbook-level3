@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import csdev.couponstash.model.Model;
 
 /**
- * Lists all coupons in the address book to the user.
+ * Lists all coupons in the CouponStash to the user.
  */
 public class ListCommand extends Command {
 
