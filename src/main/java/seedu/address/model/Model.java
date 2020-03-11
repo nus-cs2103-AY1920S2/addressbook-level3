@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.customer.Customer;
+import seedu.address.model.person.Person;
 import seedu.address.model.product.Product;
 
 /**
@@ -13,7 +13,7 @@ import seedu.address.model.product.Product;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Customer> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
 
     /**
@@ -65,9 +65,9 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson(Customer customer);
+    boolean hasPerson(Person person);
 
     /**
      * Returns true if a product with the same identity as {@code product} exists in the product list.
@@ -75,10 +75,10 @@ public interface Model {
     boolean hasProduct(Product product);
 
     /**
-     * Deletes the given customer.
-     * The customer must exist in the address book.
+     * Deletes the given person.
+     * The person must exist in the address book.
      */
-    void deletePerson(Customer target);
+    void deletePerson(Person target);
 
     /**
      * Deletes the given product.
@@ -87,10 +87,10 @@ public interface Model {
     void deleteProduct(Product target);
 
     /**
-     * Adds the given customer.
-     * {@code customer} must not already exist in the address book.
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
      */
-    void addPerson(Customer customer);
+    void addPerson(Person person);
 
     /**
      * Adds the given product.
@@ -99,12 +99,11 @@ public interface Model {
     void addProduct(Product product);
 
     /**
-     * Replaces the given customer {@code target} with {@code editedCustomer}.
+     * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
-     * The customer identity of {@code editedCustomer} must not be the same as another existing customer
-     * in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
-    void setPerson(Customer target, Customer editedCustomer);
+    void setPerson(Person target, Person editedPerson);
 
     /**
      * Replaces the given product {@code target} with {@code editedProduct}.
@@ -114,21 +113,20 @@ public interface Model {
      */
     void setProduct(Product target, Product editedProduct);
 
-    /** Returns an unmodifiable view of the filtered customer list */
-    ObservableList<Customer> getFilteredCustomerList();
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered customer list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredCustomerList(Predicate<Customer> predicate);
+    void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Updates the filter of the filtered product list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredProductList(Predicate<Product> predicate);
-
 
     /** Returns an unmodifiable view of the filtered product list */
     ObservableList<Product> getFilteredProductList();
