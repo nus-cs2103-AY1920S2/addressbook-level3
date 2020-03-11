@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.profile.Profile;
 
+
 /**
  * A utility class for Profile.
  */
