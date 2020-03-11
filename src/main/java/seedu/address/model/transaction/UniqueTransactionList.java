@@ -3,7 +3,6 @@ package seedu.address.model.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,7 +47,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      */
     public void setTransaction(List<Transaction> transactions) {
         requireAllNonNull(transactions);
-        if (!TransactionsAreUnique(transactions)) {
+        if (!transactionsAreUnique(transactions)) {
             throw new DuplicateTransactionException();
         }
 
@@ -58,7 +57,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     /**
      * Returns true if {@code products} contains only unique products.
      */
-    private boolean TransactionsAreUnique(List<Transaction> transactions) {
+    private boolean transactionsAreUnique(List<Transaction> transactions) {
         for (int i = 0; i < transactions.size() - 1; i++) {
             for (int j = i + 1; j < transactions.size(); j++) {
                 if (transactions.get(i).isSameTransaction(transactions.get(j))) {
