@@ -8,18 +8,14 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.expensela.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.expensela.commons.core.Messages;
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.commons.util.CollectionUtil;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Model;
-import seedu.expensela.model.tag.Tag;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
@@ -96,9 +92,8 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(transactionToEdit.getName());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = editPersonDescriptor.getDate().orElse(transactionToEdit.getDate());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(transactionToEdit.getTags());
 
-        return new Transaction(updatedName, updatedAmount, updatedDate, updatedTags);
+        return new Transaction(updatedName, updatedAmount, updatedDate);
     }
 
     @Override
@@ -127,7 +122,6 @@ public class EditCommand extends Command {
         private Name name;
         private Amount amount;
         private Date date;
-        private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 
@@ -139,14 +133,13 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
-            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, amount, date, tags);
+            return CollectionUtil.isAnyNonNull(name, amount, date);
         }
 
         public void setName(Name name) {
@@ -173,23 +166,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(date);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -207,8 +183,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getAmount().equals(e.getAmount())
-                    && getDate().equals(e.getDate())
-                    && getTags().equals(e.getTags());
+                    && getDate().equals(e.getDate());
         }
     }
 }

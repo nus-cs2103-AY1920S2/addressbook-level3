@@ -7,12 +7,10 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.tag.Tag;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
@@ -40,9 +38,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_PHONE).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Transaction transaction = new Transaction(name, amount, date, tagList);
+        Transaction transaction = new Transaction(name, amount, date);
 
         return new AddCommand(transaction);
     }

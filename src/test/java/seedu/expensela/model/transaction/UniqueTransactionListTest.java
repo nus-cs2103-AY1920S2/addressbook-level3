@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalPersons.ALICE;
 import static seedu.expensela.testutil.TypicalPersons.BOB;
@@ -42,7 +41,7 @@ public class UniqueTransactionListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueTransactionList.add(ALICE);
-        Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         assertTrue(uniqueTransactionList.contains(editedAlice));
     }
@@ -85,7 +84,7 @@ public class UniqueTransactionListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueTransactionList.add(ALICE);
-        Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         uniqueTransactionList.setPerson(ALICE, editedAlice);
         UniqueTransactionList expectedUniqueTransactionList = new UniqueTransactionList();

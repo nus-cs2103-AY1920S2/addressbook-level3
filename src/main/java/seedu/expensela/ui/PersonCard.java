@@ -1,10 +1,7 @@
 package seedu.expensela.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.expensela.model.transaction.Transaction;
@@ -36,8 +33,6 @@ public class PersonCard extends UiPart<Region> {
     private Label amount;
     @FXML
     private Label date;
-    @FXML
-    private FlowPane tags;
 
     public PersonCard(Transaction transaction, int displayedIndex) {
         super(FXML);
@@ -46,9 +41,6 @@ public class PersonCard extends UiPart<Region> {
         name.setText(transaction.getName().transactionName);
         amount.setText(transaction.getAmount().toString());
         date.setText(transaction.getDate().value);
-        transaction.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
