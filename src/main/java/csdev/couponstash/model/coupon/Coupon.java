@@ -21,16 +21,18 @@ public class Coupon {
     private final Email email;
 
     // Data fields
+    private final Usage usage;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Email email, Set<Tag> tags) {
+    public Coupon(Name name, Phone phone, Email email, Usage usage, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.usage = usage;
         this.tags.addAll(tags);
     }
 
@@ -44,6 +46,10 @@ public class Coupon {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Usage getUsage() {
+        return usage;
     }
 
     /**
@@ -86,13 +92,14 @@ public class Coupon {
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getEmail().equals(getEmail())
+                && otherCoupon.getUsage().equals(getUsage())
                 && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, phone, email, usage, tags);
     }
 
     @Override
@@ -103,6 +110,8 @@ public class Coupon {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Usage: ")
+                .append(getUsage())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

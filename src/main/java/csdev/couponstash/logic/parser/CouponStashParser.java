@@ -15,6 +15,7 @@ import csdev.couponstash.logic.commands.ExitCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
+import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
@@ -58,6 +59,9 @@ public class CouponStashParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case UsedCommand.COMMAND_WORD:
+            return new UsedCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

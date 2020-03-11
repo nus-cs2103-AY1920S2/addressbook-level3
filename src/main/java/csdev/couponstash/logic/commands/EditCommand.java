@@ -18,6 +18,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -89,9 +90,10 @@ public class EditCommand extends Command {
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
         Email updatedEmail = editCouponDescriptor.getEmail().orElse(couponToEdit.getEmail());
+        Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
 
-        return new Coupon(updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedEmail, updatedUsage, updatedTags);
     }
 
     @Override
@@ -120,6 +122,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Usage usage;
         private Set<Tag> tags;
 
         public EditCouponDescriptor() {}
@@ -132,6 +135,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setUsage(toCopy.usage);
             setTags(toCopy.tags);
         }
 
@@ -164,6 +168,14 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setUsage(Usage usage) {
+            this.usage = usage;
+        }
+
+        public Optional<Usage> getUsage() {
+            return Optional.ofNullable(usage);
         }
 
         /**
@@ -201,6 +213,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getUsage().equals(e.getUsage())
                     && getTags().equals(e.getTags());
         }
     }

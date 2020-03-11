@@ -12,6 +12,7 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -77,6 +78,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String usage} into an {@code Usage}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code usage} is invalid.
+     */
+    public static Usage parseUsage(String usage) throws ParseException {
+        requireNonNull(usage);
+        String trimmedUsage = usage.trim();
+        if (!Usage.isValidUsage(trimmedUsage)) {
+            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        }
+        return new Usage(trimmedUsage);
     }
 
     /**
