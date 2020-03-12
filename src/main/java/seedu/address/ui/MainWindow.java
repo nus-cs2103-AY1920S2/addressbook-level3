@@ -16,6 +16,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.customer.PersonListPanel;
+import seedu.address.ui.product.ProductListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,6 +34,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private ProductListPanel productListPanel;
+    private TransactionListPanel transactionListPanel;
+
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,6 +48,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane productListPanelPlaceholder;
+
+    @FXML
+    private StackPane transactionListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -109,6 +120,12 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredCustomerList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        productListPanel = new ProductListPanel(logic.getFilteredProductList());
+        productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
+
+        transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
+        TransactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
