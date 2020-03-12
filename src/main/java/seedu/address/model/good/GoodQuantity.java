@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class GoodQuantity {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Good's quantity should only contain numeric characters that is greater than or equals to zero, " +
-                    "and it should not be blank";
+            "Good's quantity should only contain numeric characters that is greater than or equals to zero, "
+                    + "and it should not be blank";
 
     public static final String VALIDATION_REGEX = "^\\d+$";
 
@@ -36,7 +36,7 @@ public class GoodQuantity {
 
     @Override
     public String toString() {
-        return ""+goodQuantity;
+        return "" + goodQuantity;
     }
 
     @Override
