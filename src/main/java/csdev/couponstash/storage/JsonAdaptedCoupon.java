@@ -42,7 +42,7 @@ class JsonAdaptedCoupon {
     public JsonAdaptedCoupon(@JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
                              @JsonProperty("savings") JsonAdaptedSavings savings,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged, 
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                              @JsonProperty("expiry date") String expiryDate) {
         this.name = name;
         this.phone = phone;
@@ -63,7 +63,6 @@ class JsonAdaptedCoupon {
         expiryDate = source.getExpiryDate().value;
 
         savings = new JsonAdaptedSavings(source.getSavings());
-      
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
