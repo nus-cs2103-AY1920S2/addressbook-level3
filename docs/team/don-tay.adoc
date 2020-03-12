@@ -9,7 +9,8 @@
 
 == Overview
 
-Nice & Amazing Student Assistant (NASA) is an application for busy university students to manage their module assignments, lessons, exams and consultations etc.
+Nice & Amazing Student Assistant (NASA) is an application for busy university students to manage their module
+assignments, lessons, exams and consultations etc.
 
 == Summary of contributions
 

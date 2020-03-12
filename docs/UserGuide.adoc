@@ -18,7 +18,11 @@ By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
 
-Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module assignments, lessons, exams and consultations etc*. More importantly, NASA is optimized for those who *prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)*. If you can type fast, NASA can keep track of your module activities faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Time to take off!
+Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module
+assignments, lessons, exams and consultations etc*. More importantly, NASA is optimized for those who *prefer to work
+with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)*. If you can
+type fast, NASA can keep track of your module activities faster than traditional GUI apps. Interested? Jump to the
+<<Quick Start>> to get started. Time to take off!
 
 == Quick Start
 
