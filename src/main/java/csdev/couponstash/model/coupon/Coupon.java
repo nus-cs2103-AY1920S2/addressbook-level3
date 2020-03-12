@@ -18,7 +18,6 @@ public class Coupon {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
     private final Usage usage;
@@ -27,13 +26,12 @@ public class Coupon {
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Email email, Usage usage, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+
+    public Coupon(Name name, Phone phone, Usage usage, Set<Tag> tags) {
+        requireAllNonNull(name, phone, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.usage = usage;
-        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -42,10 +40,6 @@ public class Coupon {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Usage getUsage() {
@@ -71,7 +65,7 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && (otherCoupon.getPhone().equals(getPhone()) || otherCoupon.getEmail().equals(getEmail()));
+                && (otherCoupon.getPhone().equals(getPhone()));
     }
 
     /**
@@ -91,7 +85,6 @@ public class Coupon {
         Coupon otherCoupon = (Coupon) other;
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
-                && otherCoupon.getEmail().equals(getEmail())
                 && otherCoupon.getUsage().equals(getUsage())
                 && otherCoupon.getTags().equals(getTags());
     }
@@ -99,7 +92,7 @@ public class Coupon {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, usage, tags);
+        return Objects.hash(name, phone, usage, tags);
     }
 
     @Override
@@ -108,13 +101,10 @@ public class Coupon {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Usage: ")
                 .append(getUsage())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

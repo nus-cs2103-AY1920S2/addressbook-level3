@@ -10,7 +10,6 @@ import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
@@ -66,10 +65,9 @@ public class UsedCommand extends Command {
     private static Coupon createUsedCoupon(Coupon couponToBeUsed) {
         Name name = couponToBeUsed.getName();
         Phone phone = couponToBeUsed.getPhone();
-        Email email = couponToBeUsed.getEmail();
         Set<Tag> tags = couponToBeUsed.getTags();
         Usage updatedUsage = couponToBeUsed.getUsage().increaseUsageByOne();
 
-        return new Coupon(name, phone, email, updatedUsage, tags);
+        return new Coupon(name, phone, updatedUsage, tags);
     }
 }
