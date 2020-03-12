@@ -51,7 +51,8 @@ public class JsonAdaptedCouponTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedCoupon coupon = new JsonAdaptedCoupon(null, VALID_PHONE, VALID_SAVINGS, VALID_EXPIRY_DATE, VALID_TAGS);
+        JsonAdaptedCoupon coupon = new JsonAdaptedCoupon(null, VALID_PHONE, VALID_SAVINGS, VALID_EXPIRY_DATE,
+                VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -66,7 +67,8 @@ public class JsonAdaptedCouponTest {
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedCoupon coupon = new JsonAdaptedCoupon(VALID_NAME, null, VALID_SAVINGS, VALID_EXPIRY_DATE, VALID_TAGS);
+        JsonAdaptedCoupon coupon = new JsonAdaptedCoupon(VALID_NAME, null, VALID_SAVINGS, VALID_EXPIRY_DATE,
+                VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
