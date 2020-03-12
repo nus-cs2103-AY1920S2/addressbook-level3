@@ -37,7 +37,7 @@ public class FoodBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Food} that we are building.
      */
     public FoodBuilder withName(String name) {
         this.name = new Name(name);
@@ -45,7 +45,7 @@ public class FoodBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Food} that we are building.
      */
     public FoodBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -53,9 +53,9 @@ public class FoodBuilder {
     }
 
     /**
-     * Builds a person.
+     * Builds a food.
      *
-     * @return a Person.
+     * @return a food.
      */
 
     public Food build() {
