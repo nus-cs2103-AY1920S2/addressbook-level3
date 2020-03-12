@@ -43,7 +43,8 @@ public class SavedCommand extends Command {
         moneySaved.append(model.getStashSettings().getMoneySymbol());
         PureMonetarySavings pms = new PureMonetarySavings();
         for (Coupon c : couponsList) {
-            // SavingsConversionUtil.convertToPure(c.getSavings());
+            PureMonetarySavings toBeAdded = SavingsConversionUtil.convertToPure(c.getSavings());
+            pms = pms.add(toBeAdded);
         }
         // get monetary amount
         moneySaved.append(pms.getMonetaryAmountAsDouble());
