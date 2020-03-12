@@ -9,6 +9,7 @@ import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -49,6 +50,14 @@ public class EditCouponDescriptorBuilder {
      */
     public EditCouponDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Usage} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withUsage(String usage) {
+        descriptor.setUsage(new Usage(usage));
         return this;
     }
 

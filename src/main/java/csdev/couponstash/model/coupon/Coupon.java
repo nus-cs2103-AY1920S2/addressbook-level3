@@ -28,10 +28,11 @@ public class Coupon {
      */
 
     public Coupon(Name name, Phone phone, Usage usage, Set<Tag> tags) {
-        requireAllNonNull(name, phone, tags);
+        requireAllNonNull(name, phone, usage, tags);
         this.name = name;
         this.phone = phone;
         this.usage = usage;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {

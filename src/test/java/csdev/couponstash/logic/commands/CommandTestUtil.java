@@ -3,6 +3,7 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,6 +31,8 @@ public class CommandTestUtil {
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_USAGE_AMY = "1";
+    public static final String VALID_USAGE_BOB = "10";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -37,10 +40,13 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String USAGE_DESC_AMY = " " + PREFIX_USAGE + VALID_USAGE_AMY;
+    public static final String USAGE_DESC_BOB = " " + PREFIX_USAGE + VALID_USAGE_BOB;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_USAGE_DESC = " " + PREFIX_USAGE + "-10"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -49,12 +55,17 @@ public class CommandTestUtil {
     public static final EditCommand.EditCouponDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditCouponDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new EditCouponDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditCouponDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withUsage(VALID_USAGE_AMY)
+                .withTags(VALID_TAG_FRIEND)
+                .build();
+        DESC_BOB = new EditCouponDescriptorBuilder()
+                .withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+                .build();
     }
 
     /**

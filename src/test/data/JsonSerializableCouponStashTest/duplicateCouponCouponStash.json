@@ -2,9 +2,11 @@
   "coupons": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
+    "usage": "1",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253"
+    "phone": "94351253",
+    "usage": "1"
   } ]
 }

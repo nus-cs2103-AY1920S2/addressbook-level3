@@ -49,7 +49,8 @@ class JsonAdaptedCoupon {
     public JsonAdaptedCoupon(Coupon source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        usage = source.getUsage().value;
+        usage = source.getUsage().maxUsage;
+
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -85,7 +86,7 @@ class JsonAdaptedCoupon {
         if (usage == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Usage.class.getSimpleName()));
         }
-        if(!Usage.isValidUsage(usage)) {
+        if (!Usage.isValidUsage(usage)) {
             throw new IllegalValueException(Usage.MESSAGE_CONSTRAINTS);
         }
         final Usage modelUsage = new Usage(usage);

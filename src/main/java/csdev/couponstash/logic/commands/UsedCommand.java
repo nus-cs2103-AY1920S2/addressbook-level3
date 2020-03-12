@@ -15,6 +15,9 @@ import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 
+/**
+ * Increases the usage of a coupon.
+ */
 public class UsedCommand extends Command {
     public static final String COMMAND_WORD = "used";
 
@@ -30,22 +33,26 @@ public class UsedCommand extends Command {
 
     private final Index targetIndex;
 
+    /**
+     * Creates a UsedCommand to increase the usage of the specified {@code Coupon}
+     */
     public UsedCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
-        if(targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
 
         Coupon couponToBeUsed = lastShownList.get(targetIndex.getZeroBased());
         Usage currentUsage = couponToBeUsed.getUsage();
 
-        if(Usage.isUsageAtLimit(currentUsage)) {
+        if (Usage.isUsageAtLimit(currentUsage)) {
             throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, currentUsage.getMaxUsage()));
         }
 
@@ -56,12 +63,16 @@ public class UsedCommand extends Command {
         return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, usedCoupon)));
     }
 
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof UsedCommand
             && targetIndex.equals(((UsedCommand) other).targetIndex));
     }
 
+    /**
+     * Creates and returns a {@code Coupon} with an increase in usage by one.
+     */
     private static Coupon createUsedCoupon(Coupon couponToBeUsed) {
         Name name = couponToBeUsed.getName();
         Phone phone = couponToBeUsed.getPhone();

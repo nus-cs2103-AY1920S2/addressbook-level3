@@ -60,7 +60,6 @@ public class Usage {
     /**
      * Returns true if a given string is a valid usage number.
      * @param test
-     * @return
      */
     public static boolean isValidUsage(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -70,7 +69,6 @@ public class Usage {
      * Returns true if {@code usage} current value is equals or greater than its {@code maxUsage}.
      *
      * @param usage The usage of the coupon.
-     * @return
      */
     public static boolean isUsageAtLimit(Usage usage) {
         Integer currentUsage = Integer.parseInt(usage.value);

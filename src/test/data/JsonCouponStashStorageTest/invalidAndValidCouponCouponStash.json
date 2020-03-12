@@ -1,7 +1,8 @@
 {
   "coupons": [ {
     "name": "Valid Coupon",
-    "phone": "9482424"
+    "phone": "9482424",
+    "usage": "1"
   }, {
     "name": "Coupon With Invalid Phone Field",
     "phone": "948asdf2424"

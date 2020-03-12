@@ -4,6 +4,7 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FO
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_USAGE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -12,6 +13,9 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPT
 import static csdev.couponstash.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static csdev.couponstash.logic.commands.CommandTestUtil.USAGE_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.USAGE_DESC_BOB;
+
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -25,6 +29,7 @@ import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
@@ -38,29 +43,29 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+                + USAGE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+                + USAGE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+                + USAGE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple tags - all accepted
         Coupon expectedCouponMultipleTags = new CouponBuilder(TypicalCoupons.BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedCouponMultipleTags));
+                + USAGE_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedCouponMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Coupon expectedCoupon = new CouponBuilder(TypicalCoupons.AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY,
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + USAGE_DESC_AMY,
                 new AddCommand(expectedCoupon));
     }
 
@@ -84,15 +89,19 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + USAGE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + USAGE_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
+        // invalid usage
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB
+                + INVALID_USAGE_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Usage.MESSAGE_CONSTRAINTS);
+
+        // invalid tag
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + USAGE_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
@@ -101,7 +110,7 @@ public class AddCommandParserTest {
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                + USAGE_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }
