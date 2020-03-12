@@ -13,6 +13,7 @@ public class ExitCommand extends Command {
 
     @Override
     public void execute(Model model) {
+        // TODO: Handle exit command execution in MainWindow.executeCommand()
     }
 
 }

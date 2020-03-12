@@ -16,5 +16,6 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute(Model model) {
+        // TODO: Handle help command execution in MainWindow.executeCommand()
     }
 }
