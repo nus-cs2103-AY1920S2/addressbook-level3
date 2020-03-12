@@ -1,6 +1,7 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.logic.commands.addcommands.AddCommand.MESSAGE_DUPLICATED_ACTIVITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 
@@ -31,7 +32,7 @@ public class AddModuleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelNasa model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (model.hasModule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);

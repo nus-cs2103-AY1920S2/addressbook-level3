@@ -33,7 +33,7 @@ public class DeleteActivityCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelNasa model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         // TODO wait for them to change the model
         return new CommandResult("");

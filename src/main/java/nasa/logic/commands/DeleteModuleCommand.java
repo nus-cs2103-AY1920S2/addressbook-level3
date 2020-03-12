@@ -1,15 +1,7 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-<<<<<<< HEAD:src/main/java/NASA/logic/commands/DeleteModuleCommand.java
-import static NASA.logic.parser.CliSyntax.PREFIX_MODULE;
-
-import NASA.logic.commands.exceptions.CommandException;
-import NASA.model.ModelNasa;
-import NASA.model.module.Module;
-=======
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
->>>>>>> aa5ea9c0f8c25c10f28b4f7a79851f3c35f2fc0f:src/main/java/nasa/logic/commands/DeleteModuleCommand.java
 
 import java.util.ArrayList;
 
@@ -41,7 +33,7 @@ public class DeleteModuleCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelNasa model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         StringBuilder msgToUser = new StringBuilder();
         for (Module module : modulesToDelete) {
