@@ -3,8 +3,6 @@ package csdev.couponstash.model.coupon;
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
-import csdev.couponstash.logic.commands.exceptions.CommandException;
-
 /**
  * Represents a Coupon's usage in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidUsage(String)}
@@ -13,7 +11,7 @@ public class Usage {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Usage should only contain numbers, and it should be at least be 0";
-    public static final String VALIDATION_REGEX = "^$|\\d$";
+    public static final String VALIDATION_REGEX = "^$|\\d+$";
     public final String value;
     public final String maxUsage;
 
