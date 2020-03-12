@@ -2,7 +2,12 @@ package seedu.address.model.food;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Food in the diet tracker of EYLAH.
@@ -15,23 +20,17 @@ public class Food {
     private final Calories calories;
 
     // Data Fields
-    private final Carb carb;
-    private final Fat fat;
-    private final Protein protein;
-    private final Sugar sugar;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present
      * name and calories fields must not be null.
      */
-    public Food(Name name, Calories calories, Carb carb, Fat fat, Protein protein, Sugar sugar) {
+    public Food(Name name, Calories calories, Set<Tag> tags) {
         requireAllNonNull(name, calories);
         this.name = name;
         this.calories = calories;
-        this.carb = carb;
-        this.fat = fat;
-        this.protein = protein;
-        this.sugar = sugar;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -42,20 +41,12 @@ public class Food {
         return calories;
     }
 
-    public Carb getCarb() {
-        return carb;
-    }
-
-    public Fat getFat() {
-        return fat;
-    }
-
-    public Protein getProtein() {
-        return protein;
-    }
-
-    public Sugar getSugar() {
-        return sugar;
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -89,16 +80,13 @@ public class Food {
         Food otherFood = (Food) other;
         return otherFood.getName().equals(getName())
                 && otherFood.getCalories().equals(getCalories())
-                && otherFood.getCarb().equals(getCarb())
-                && otherFood.getFat().equals(getFat())
-                && otherFood.getProtein().equals(getProtein())
-                && otherFood.getSugar().equals(getSugar());
+                && otherFood.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, calories, carb, fat, protein, sugar);
+        return Objects.hash(name, calories, tags);
     }
 
     @Override
@@ -107,14 +95,8 @@ public class Food {
         builder.append(getName())
                 .append(" Calories: ")
                 .append(getCalories())
-                .append(" Carb: ")
-                .append(getCarb())
-                .append(" Fat: ")
-                .append(getFat())
-                .append(" Protein: ")
-                .append(getProtein())
-                .append(" Sugar: ")
-                .append(getSugar());
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 }
