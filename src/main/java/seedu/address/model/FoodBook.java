@@ -8,14 +8,24 @@ import javafx.collections.ObservableList;
 import seedu.address.model.food.Food;
 import seedu.address.model.food.UniqueFoodList;
 
-
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameFood comparison)
  */
 public class FoodBook implements ReadOnlyFoodBook {
 
-    private final UniqueFoodList foods = new UniqueFoodList();
+    private final UniqueFoodList foods;
+
+    /*
+     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
+    {
+        foods = new UniqueFoodList();
+    }
 
     public FoodBook() {}
 

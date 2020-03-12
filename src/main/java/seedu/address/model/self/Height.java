@@ -29,7 +29,7 @@ public class Height {
     public Height(String height) {
         requireNonNull(height);
         checkArgument(isValidHeight(height), MESSAGE_CONSTRAINTS);
-        this.height = height.toString();
+        this.height = height;
         this.ht = Float.parseFloat(this.height);
     }
 

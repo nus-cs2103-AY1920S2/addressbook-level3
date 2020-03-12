@@ -29,7 +29,7 @@ public class Weight {
     public Weight(String weight) {
         requireNonNull(weight);
         checkArgument(isValidWeight(weight), MESSAGE_CONSTRAINTS);
-        this.weight = weight.toString();
+        this.weight = weight;
         this.wt = Float.parseFloat(this.weight);
     }
 
