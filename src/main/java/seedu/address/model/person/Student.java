@@ -22,19 +22,17 @@ public class Student {
     private final Matric matric;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Student(Name name, Phone phone, Email email, Matric matric, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, matric, address, tags);
+    public Student(Name name, Phone phone, Email email, Matric matric, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, matric, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.matric = matric;
-        this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -52,10 +50,6 @@ public class Student {
 
     public Matric getMatric() {
         return matric;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     /**
@@ -100,14 +94,13 @@ public class Student {
                 && otherStudent.getPhone().equals(getPhone())
                 && otherStudent.getEmail().equals(getEmail())
                 && otherStudent.getMatric().equals(getMatric())
-                && otherStudent.getAddress().equals(getAddress())
                 && otherStudent.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, matric, address, tags);
+        return Objects.hash(name, phone, email, matric, tags);
     }
 
     @Override
@@ -120,8 +113,6 @@ public class Student {
                 .append(getEmail())
                 .append(" Matric: ")
                 .append(getMatric())
-                .append(" Address: ")
-                .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -13,8 +13,7 @@ public class Matric {
             "Matric numbers should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * matric number must start with an "A" followed by 7 digits and one final capital letter
      */
     public static final String VALIDATION_REGEX = "A" + "\\d{7}" + "[A-Z]";
 
@@ -36,7 +35,6 @@ public class Matric {
      */
     public static boolean isValidMatric(String test) {
         return test.matches(VALIDATION_REGEX);
-        //return true;
     }
 
 
