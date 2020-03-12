@@ -8,8 +8,6 @@ import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.ReadOnlyAddressBook;
 
-import javafx.collections.ObservableList;
-
 /**
  * API of the Logic component
  */
@@ -31,7 +29,7 @@ public interface Logic {
     ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    void getFilteredPersonList();
 
     /**
      * Returns the user prefs' address book file path.

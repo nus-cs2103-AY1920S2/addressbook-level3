@@ -1,6 +1,5 @@
 package com.notably.storage;
 
-import static com.notably.testutil.TypicalPersons.getTypicalAddressBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import com.notably.commons.core.GuiSettings;
-import com.notably.model.AddressBook;
-import com.notably.model.ReadOnlyAddressBook;
 import com.notably.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -54,10 +51,7 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+
     }
 
     @Test

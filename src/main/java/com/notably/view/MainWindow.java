@@ -32,7 +32,6 @@ public class MainWindow extends ViewPart<Stage> {
     private Logic logic;
 
     // Independent View parts residing in this View container
-    private PersonListPanel personListPanel;
     private HelpWindow helpWindow;
 
     @FXML
@@ -40,9 +39,6 @@ public class MainWindow extends ViewPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -103,9 +99,6 @@ public class MainWindow extends ViewPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -151,10 +144,6 @@ public class MainWindow extends ViewPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**

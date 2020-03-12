@@ -7,12 +7,10 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_NAME;
 import static com.notably.logic.parser.CliSyntax.PREFIX_PHONE;
 import static com.notably.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import com.notably.logic.commands.AddCommand;
 import com.notably.logic.parser.exceptions.ParseException;
-import com.notably.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -33,15 +31,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
-
-        return new AddCommand(person);
+        return new AddCommand("");
     }
 
     /**
