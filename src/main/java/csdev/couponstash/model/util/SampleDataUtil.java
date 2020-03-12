@@ -23,21 +23,25 @@ public class SampleDataUtil {
     public static Coupon[] getSampleCoupons() {
         return new Coupon[] {
             new Coupon(new Name("Alex Yeoh"), new Phone("87438807"),
-                new Savings(new MonetaryAmount(5.50)), getTagSet("friends"), new ExpiryDate("30-12-2020")),
+                new Savings(new MonetaryAmount(5.50)), new ExpiryDate("30-12-2020"),
+                    getTagSet("friends")),
             new Coupon(new Name("Bernice Yu"), new Phone("99272758"),
-                new Savings(new PercentageAmount(25d)), getTagSet("colleagues", "friends"), new ExpiryDate("30-11-2020")),
+                new Savings(new PercentageAmount(25d)), new ExpiryDate("30-11-2020"),
+                    getTagSet("colleagues", "friends")),
             new Coupon(new Name("Charlotte Oliveiro"), new Phone("93210283"),
-                new Savings(new PercentageAmount(12.5d)), getTagSet("neighbours"), new ExpiryDate("30-10-2020")),
+                new Savings(new PercentageAmount(12.5d)), new ExpiryDate("30-10-2020"),
+                    getTagSet("neighbours")),
             new Coupon(new Name("David Li"), new Phone("91031282"),
                 new Savings(new PercentageAmount(10d),
                         Arrays.asList(new Saveable("Water Bottle"), new Saveable("Notebook"))),
-                getTagSet("family"), new ExpiryDate("30-9-2020")),
+                            new ExpiryDate("30-9-2020"), getTagSet("family")),
             new Coupon(new Name("Irfan Ibrahim"), new Phone("92492021"),
                 new Savings(new MonetaryAmount(1d),
-                        Arrays.asList(new Saveable("Brattby Bag"))),
-                getTagSet("classmates"), new ExpiryDate("1-10-2020")),
+                        Arrays.asList(new Saveable("Brattby Bag"))), new ExpiryDate("1-10-2020"),
+                            getTagSet("classmates")),
             new Coupon(new Name("Roy Balakrishnan"), new Phone("92624417"),
-                new Savings(new PercentageAmount(100d)), getTagSet("colleagues"), new ExpiryDate("11-9-2020"))
+                new Savings(new PercentageAmount(100d)), new ExpiryDate("11-9-2020"),
+                    getTagSet("colleagues"))
         };
     }
 

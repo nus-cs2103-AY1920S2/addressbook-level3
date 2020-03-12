@@ -91,7 +91,7 @@ public class CouponBuilder {
     }
 
     public Coupon build() {
-        return new Coupon(name, phone, savings, tags, expiryDate);
+        return new Coupon(name, phone, savings, expiryDate, tags);
     }
 
 }
