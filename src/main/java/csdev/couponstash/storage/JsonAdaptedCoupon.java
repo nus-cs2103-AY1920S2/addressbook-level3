@@ -91,8 +91,7 @@ class JsonAdaptedCoupon {
         final Savings modelSavings = savings.toModelType();
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
-        return new Coupon(modelName, modelPhone, modelEmail,
-                modelSavings, modelTags);
+        return new Coupon(modelName, modelPhone, modelSavings, modelTags);
     }
 
 }
