@@ -89,8 +89,8 @@ public class ParserUtil {
         PercentageAmount percentageAmount = null;
         List<Saveable> saveables = new ArrayList<Saveable>();
         for (String str : savings) {
-            if (!hasMoney && str.startsWith(moneySymbol)) {
-                // ensure only first monetary amount is taken
+            if (str.startsWith(moneySymbol)) {
+                // last monetary amount will be taken
                 hasMoney = true;
                 String trimmedMonetaryAmount = str.trim().substring(moneySymbol.length());
                 try {
@@ -98,8 +98,8 @@ public class ParserUtil {
                 } catch (NumberFormatException e) {
                     throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
                 }
-            } else if (!hasPercent && str.endsWith(PercentageAmount.PERCENT_SUFFIX)) {
-                // ensure only first percentage amount is taken
+            } else if (str.endsWith(PercentageAmount.PERCENT_SUFFIX)) {
+                // last percentage amount will be taken
                 hasPercent = true;
                 String trimmedPercentage = str.trim();
                 String rawNumber = trimmedPercentage

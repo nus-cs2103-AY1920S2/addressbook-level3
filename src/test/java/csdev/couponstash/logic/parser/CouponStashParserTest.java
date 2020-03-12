@@ -2,6 +2,7 @@ package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_MONEY_SYMBOL;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,12 +31,12 @@ import csdev.couponstash.testutil.TypicalIndexes;
 
 public class CouponStashParserTest {
     // use an arbitrary symbol as the money symbol
-    private final CouponStashParser parser = new CouponStashParser(CommandParserTestUtil.MONEY_SYMBOL_POUND);
+    private final CouponStashParser parser = new CouponStashParser(VALID_MONEY_SYMBOL);
 
     @Test
     public void parseCommand_add() throws Exception {
         Coupon coupon = new CouponBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(CouponUtil.getAddCommand(coupon));
+        AddCommand command = (AddCommand) parser.parseCommand(CouponUtil.getAddCommand(coupon, VALID_MONEY_SYMBOL));
         assertEquals(new AddCommand(coupon), command);
     }
 

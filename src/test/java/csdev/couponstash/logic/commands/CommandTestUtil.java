@@ -1,8 +1,6 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
+import static csdev.couponstash.logic.parser.CliSyntax.*;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,6 +15,9 @@ import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
+import csdev.couponstash.model.coupon.savings.MonetaryAmount;
+import csdev.couponstash.model.coupon.savings.Saveable;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 
 /**
@@ -31,16 +32,42 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_SAVEABLE_CAKE = "Cake";
+    public static final String VALID_SAVEABLE_CROISSANT = "Croissant";
+    public static final Savings VALID_SAVINGS_AMY = new Savings(
+            Arrays.asList(new Saveable(VALID_SAVEABLE_CAKE), new Saveable(VALID_SAVEABLE_CROISSANT))
+    );
+    public static final double VALID_MONETARY_AMOUNT_ONE_FIFTY = 1.5;
+    public static final double VALID_MONETARY_AMOUNT_TWO_TWENTY = 2.2;
+    public static final String VALID_SAVEABLE_COFFEE = "Coffee";
+    public static final String VALID_SAVEABLE_TEA = "Tea";
+    public static final Savings VALID_SAVINGS_BOB = new Savings(
+            new MonetaryAmount(VALID_MONETARY_AMOUNT_TWO_TWENTY),
+            Arrays.asList(new Saveable(VALID_SAVEABLE_COFFEE), new Saveable(VALID_SAVEABLE_TEA))
+    );
+
+    public static final String VALID_MONEY_SYMBOL = "RM";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String SAVINGS_DESC_AMY = " " + PREFIX_SAVED + VALID_SAVEABLE_CAKE
+            + " " + PREFIX_SAVED + VALID_SAVEABLE_CROISSANT;
+    public static final String SAVINGS_DESC_BOB = " " + PREFIX_SAVED + VALID_SAVEABLE_COFFEE
+            + " " + PREFIX_SAVED + VALID_MONEY_SYMBOL + VALID_MONETARY_AMOUNT_TWO_TWENTY
+            + " " + PREFIX_SAVED + VALID_SAVEABLE_TEA;
+    public static final String SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT = " " + PREFIX_SAVED + VALID_SAVEABLE_COFFEE
+            + " " + PREFIX_SAVED + VALID_MONEY_SYMBOL + VALID_MONETARY_AMOUNT_ONE_FIFTY
+            + " " + PREFIX_SAVED + VALID_SAVEABLE_TEA
+            + " " + PREFIX_SAVED + VALID_MONEY_SYMBOL + VALID_MONETARY_AMOUNT_TWO_TWENTY;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_SAVINGS_DESC = " " + PREFIX_SAVED; // cannot have blank savings
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

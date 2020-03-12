@@ -11,11 +11,6 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
 public class CommandParserTestUtil {
 
     /**
-     * An arbitrary money symbol for testing purposes.
-     */
-    public static final String MONEY_SYMBOL_POUND = "£";
-
-    /**
      * Asserts that the parsing of {@code userInput} by {@code parser} is successful and the command created
      * equals to {@code expectedCommand}.
      */

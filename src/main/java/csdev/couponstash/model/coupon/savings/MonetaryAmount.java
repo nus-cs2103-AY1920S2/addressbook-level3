@@ -10,6 +10,8 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 public class MonetaryAmount implements Comparable<MonetaryAmount> {
     public static final String MESSAGE_CONSTRAINTS =
             "Monetary amount should be positive, and accurate to at most 2 decimal places";
+    // to avoid floating point errors
+    private static final double THRESHHOLD = 0.0000000000001;
 
     private final double monetaryAmount;
 
@@ -37,7 +39,9 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
      */
     public static boolean isValidMonetaryAmount(double monetaryAmount) {
         // when multiplied by 100, it should be a whole number
-        return monetaryAmount >= 0 && ((monetaryAmount * 100) % 1 == 0);
+        double remainder = (monetaryAmount * 100) % 1;
+        // use THRESHHOLD to avoid floating point errors
+        return monetaryAmount >= 0 && ((remainder < THRESHHOLD) || (remainder > (1 - THRESHHOLD)));
     }
 
     /**

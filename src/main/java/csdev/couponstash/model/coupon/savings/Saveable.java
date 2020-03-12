@@ -6,6 +6,7 @@ import java.util.Objects;
  * Represents benefits (tangible and intangible) that coupons
  * may offer that are not necessarily associated with a
  * quantifiable monetary value.
+ * Guaranteed to be immutable.
  */
 public class Saveable implements Comparable<Saveable> {
     public static final String MESSAGE_CONSTRAINTS = "Saveables should not be blank "

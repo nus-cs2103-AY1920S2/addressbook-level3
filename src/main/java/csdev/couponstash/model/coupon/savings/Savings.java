@@ -2,6 +2,7 @@ package csdev.couponstash.model.coupon.savings;
 
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,8 +26,6 @@ import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
  * value and a percentage value, for example you never see
  * (50% + $1) off for a box of chicken nuggets, but you only
  * see 50% off by itself, or $1 off by itself.
- *
- * <p>Guaranteed to be immutable.
  */
 public class Savings implements Comparable<Savings> {
     public static final String MESSAGE_CONSTRAINTS = "Savings should not be blank, "
@@ -123,6 +122,22 @@ public class Savings implements Comparable<Savings> {
     }
 
     /**
+     * Cloning constructor for Savings. The internal
+     * MonetaryAmount, PercentageAmount and Saveables
+     * will not be cloned, as they are immutable. But
+     * the Saveables List will be cloned. Assumes s is a
+     * valid Savings that obeys the rules of Savings
+     * (at least one field, does not have both monetary
+     * amount and percentage amount)
+     * @param s The Savings to be cloned.
+     */
+    public Savings(Savings s) {
+        this.monetaryAmount = s.monetaryAmount;
+        this.percentage = s.percentage;
+        this.saveables = s.saveables.map(ArrayList::new);
+    }
+
+    /**
      * Checks whether this Savings has a MonetaryAmount.
      * @return True, if this Savings has a MonetaryAmount.
      *     False, if it does not.
@@ -203,6 +218,7 @@ public class Savings implements Comparable<Savings> {
             Savings s = (Savings) o;
             return this.monetaryAmount.equals(s.monetaryAmount)
                     && this.percentage.equals(s.percentage)
+                    // takes order of saveables list into account
                     && this.saveables.equals(s.saveables);
         }
     }
