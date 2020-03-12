@@ -12,19 +12,6 @@ public class Event extends Activity {
     private Date endDate;
 
     /**
-     * Initialise Event with default "deadlines".
-     * Every field must be present and not null.
-     */
-    public Event(Date startDate, Date endDate, Note note) {
-        super(new Name("event"), note);
-
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */

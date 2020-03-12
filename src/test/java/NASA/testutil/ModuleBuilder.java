@@ -11,27 +11,27 @@ public class ModuleBuilder {
 
     public static final String DEFAULT_MODULE_NAME = "SOFTWARE ENGINEERING";
     public static final String DEFAULT_MODULE_CODE = "CS2103T";
-    public static final Activity TASK_1 = new ActivityBuilder()
-            .withName("deadline")
+    public static final Activity TASK_1 = new DeadlineBuilder()
+            .withName("Homework")
             .withDate("01-04-2021 01:00")
             .withNote("Do models for project")
             .build();
-    public static final Activity TASK_2 = new ActivityBuilder()
-            .withName("deadline")
+    public static final Activity TASK_2 = new DeadlineBuilder()
+            .withName("Homework")
             .withDate("22-07-2021 01:00")
             .withNote("Do tutorials")
             .build();
-    public static final Activity TASK_3 = new ActivityBuilder()
-            .withName("deadline")
+    public static final Activity TASK_3 = new DeadlineBuilder()
+            .withName("Prepare group meeting")
             .withDate("04-04-2021 01:00")
             .withNote("Prepare for group meetings")
             .build();
-    public static final Activity TASK_4 = new ActivityBuilder()
-            .withName("deadline")
+    public static final Activity TASK_4 = new DeadlineBuilder()
+            .withName("Exam")
             .withDate("01-05-2021 01:00")
-            .withNote("Revise for exam")
+            .withNote("Chapter 1")
             .build();
-    public static final Activity TASK_5 = new ActivityBuilder()
+    public static final Activity TASK_5 = new EventBuilder()
             .withName("event")
             .withFromDate("01-04-2021 01:00")
             .withToDate("04-04-2021 01:00")
