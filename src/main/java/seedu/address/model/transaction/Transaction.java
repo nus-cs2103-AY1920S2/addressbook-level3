@@ -8,7 +8,6 @@ import seedu.address.model.util.Quantity;
  */
 public class Transaction {
 
-    // add dummy class
     private final String customer;
     private final String product;
     private final DateTime dateTime;

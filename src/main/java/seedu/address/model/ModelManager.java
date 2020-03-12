@@ -23,7 +23,6 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-
     private final UserPrefs userPrefs;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Product> filteredProducts;
@@ -149,8 +148,8 @@ public class ModelManager implements Model {
 
     @Override
     public void addTransaction(Transaction transaction) {
-        requireNonNull(transaction);
         addressBook.addTransaction(transaction);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override

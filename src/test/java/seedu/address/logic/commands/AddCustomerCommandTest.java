@@ -199,8 +199,18 @@ public class AddCustomerCommandTest {
         }
 
         @Override
+        public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+
+        }
+
+        @Override
         public ObservableList<Product> getFilteredProductList() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Transaction> getFilteredTransactionList() {
+            return null;
         }
     }
 

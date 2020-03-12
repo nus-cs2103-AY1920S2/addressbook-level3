@@ -2,23 +2,15 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.customer.*;
-import seedu.address.model.product.Description;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Quantity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 /**
- * Jackson-friendly version of {@link Customer}.
+ * Jackson-friendly version of {@link Transaction}.
  */
 class JsonAdaptedTransaction {
 
@@ -83,26 +75,28 @@ class JsonAdaptedTransaction {
         final String modelProduct = product;
 
         if (dateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DateTime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DateTime.class.getSimpleName()));
         }
         if (!DateTime.isValidDateTime(dateTime)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(DateTime.MESSAGE_CONSTRAINTS);
         }
         final DateTime modelDateTime = new DateTime(dateTime);
 
         if (quantity == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Quantity.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Quantity.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(quantity)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Quantity.isValidQuantity(quantity)) {
+            throw new IllegalValueException(Quantity.MESSAGE_CONSTRAINTS);
         }
         final Quantity modelQuantity = new Quantity(quantity);
 
         if (money == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Money.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(money)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        if (!Money.isValidMoney(money)) {
+            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS);
         }
         final Money modelMoney = new Money(money);
 

@@ -1,8 +1,10 @@
 package seedu.address.model.transaction;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +39,33 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new DuplicateTransactionException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Replaces the contents of this list with {@code transactions}.
+     * {@code transactions} must not contain duplicate products.
+     */
+    public void setTransaction(List<Transaction> transactions) {
+        requireAllNonNull(transactions);
+        if (!transactionsAreUnique(transactions)) {
+            throw new DuplicateTransactionException();
+        }
+
+        internalList.setAll(transactions);
+    }
+
+    /**
+     * Returns true if {@code transactions} contains only unique products.
+     */
+    private boolean transactionsAreUnique(List<Transaction> transactions) {
+        for (int i = 0; i < transactions.size() - 1; i++) {
+            for (int j = i + 1; j < transactions.size(); j++) {
+                if (transactions.get(i).isSameTransaction(transactions.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**

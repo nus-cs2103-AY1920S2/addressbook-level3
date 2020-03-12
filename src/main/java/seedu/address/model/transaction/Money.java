@@ -18,7 +18,7 @@ public class Money {
     public final String value;
 
     /**
-     * Constructs an {@code Sales}.
+     * Constructs an {@code Money}.
      *
      * @param sales A valid sales.
      */

@@ -65,6 +65,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the transaction list with {@code transactions}.
+     * {@code transactions} must not contain duplicate products.
+     */
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions.setTransaction(transactions);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -72,6 +80,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setProducts(newData.getProductList());
+        setTransactions(newData.getTransactionList());
     }
 
     //// customer-level operations
@@ -143,7 +152,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     ////Transaction Level operations
 
     /**
-     * Returns true if a transaction with the same identity as {@code transaction} exists in the system.
+     * Returns true if a transaction with the same identity as {@code t} exists in the system.
      * @param t transaction to be checked.
      * @return true if a transaction with the same identity exists in the list.
      */

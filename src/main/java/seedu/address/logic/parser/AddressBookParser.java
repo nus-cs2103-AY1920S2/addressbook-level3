@@ -24,6 +24,7 @@ import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
 import seedu.address.logic.commands.transaction.AddTransactionCommand;
 
+import seedu.address.logic.commands.transaction.ListTransactionCommand;
 import seedu.address.logic.parser.customer.AddCustomerCommandParser;
 import seedu.address.logic.parser.customer.DeleteCustomerCommandParser;
 import seedu.address.logic.parser.customer.EditCustomerCommandParser;
@@ -65,9 +66,6 @@ public class AddressBookParser {
         case AddCustomerCommand.COMMAND_WORD:
             return new AddCustomerCommandParser().parse(arguments);
 
-        case AddTransactionCommand.COMMAND_WORD:
-            return new AddTransactionCommandParser().parse(arguments);
-
         case EditCustomerCommand.COMMAND_WORD:
             return new EditCustomerCommandParser().parse(arguments);
 
@@ -106,6 +104,12 @@ public class AddressBookParser {
 
         case FindProductCommand.COMMAND_WORD:
             return new FindProductCommandParser().parse(arguments);
+
+        case AddTransactionCommand.COMMAND_WORD:
+            return new AddTransactionCommandParser().parse(arguments);
+
+        case ListTransactionCommand.COMMAND_WORD:
+            return new ListTransactionCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
