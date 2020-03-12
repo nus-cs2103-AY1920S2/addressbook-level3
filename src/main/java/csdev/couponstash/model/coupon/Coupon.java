@@ -18,7 +18,6 @@ public class Coupon {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
     private final ExpiryDate expiryDate;
 
     // Data fields
@@ -27,11 +26,10 @@ public class Coupon {
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Email email, Set<Tag> tags, ExpiryDate expiryDate) {
-        requireAllNonNull(name, phone, email, tags, expiryDate);
+    public Coupon(Name name, Phone phone, Set<Tag> tags, ExpiryDate expiryDate) {
+        requireAllNonNull(name, phone, tags, expiryDate);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.tags.addAll(tags);
         this.expiryDate = expiryDate;
     }
@@ -44,14 +42,9 @@ public class Coupon {
         return phone;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
     public ExpiryDate getExpiryDate() {
         return expiryDate;
     }
-
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -72,7 +65,7 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && (otherCoupon.getPhone().equals(getPhone()) || otherCoupon.getEmail().equals(getEmail()));
+                && (otherCoupon.getPhone().equals(getPhone()));
     }
 
     /**
@@ -92,7 +85,6 @@ public class Coupon {
         Coupon otherCoupon = (Coupon) other;
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
-                && otherCoupon.getEmail().equals(getEmail())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
                 && otherCoupon.getTags().equals(getTags());
     }
@@ -100,7 +92,7 @@ public class Coupon {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags, expiryDate);
+        return Objects.hash(name, phone, tags, expiryDate);
     }
 
     @Override
@@ -109,8 +101,6 @@ public class Coupon {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" ExpiryDate: ")
                 .append(getExpiryDate())
                 .append(" Tags: ");
