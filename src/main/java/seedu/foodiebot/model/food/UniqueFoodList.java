@@ -2,8 +2,10 @@ package seedu.foodiebot.model.food;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -58,6 +60,20 @@ public class UniqueFoodList implements Iterable<Food> {
         }
 
         internalList.set(index, editedFood);
+    }
+
+    /**
+     * Replaces the food {@code target} in the list with {@code editedPerson}. {@code target}
+     * must exist in the list. The food identity of {@code editedPerson} must not be the same as
+     * another existing food in the list.
+     */
+    public void setFood(List<Food> food) {
+        requireAllNonNull(food);
+        if (!foodsAreUnique(food)) {
+            throw new DuplicateCanteenException();
+        }
+
+        internalList.setAll(food);
     }
 
     /**
@@ -124,20 +140,6 @@ public class UniqueFoodList implements Iterable<Food> {
             }
         }
         return true;
-    }
-
-    /**
-     * Replaces the food {@code target} in the list with {@code editedPerson}. {@code target}
-     * must exist in the list. The food identity of {@code editedPerson} must not be the same as
-     * another existing food in the list.
-     */
-    public void setFood(List<Food> food) {
-        requireAllNonNull(food);
-        if (!foodsAreUnique(food)) {
-            throw new DuplicateCanteenException();
-        }
-
-        internalList.setAll(food);
     }
 }
 

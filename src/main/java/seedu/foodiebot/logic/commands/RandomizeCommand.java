@@ -29,4 +29,9 @@ public class RandomizeCommand extends Command {
         randomize.getSelectedCanteen(file);
         return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, randomize.selectCanteen()));
     }
+
+    @Override
+    public boolean needToSaveCommand() {
+        return false;
+    }
 }

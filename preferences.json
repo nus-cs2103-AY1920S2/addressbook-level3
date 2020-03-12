@@ -9,5 +9,6 @@
   },
   "foodieBotFilePath" : "foodiebot.json",
   "stallsFilePath" : "foodiebot-stalls.json",
-  "budgetFilePath" : "foodiebot-budget.json"
+  "budgetFilePath" : "foodiebot-budget.json",
+  "foodFilePath" : "foodiebot-food.json"
 }
