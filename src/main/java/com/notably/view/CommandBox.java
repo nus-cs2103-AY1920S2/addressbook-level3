@@ -1,6 +1,5 @@
 package com.notably.view;
 
-import com.notably.logic.commands.CommandResult;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -72,7 +71,7 @@ public class CommandBox extends ViewPart<Region> {
          *
          * @see com.notably.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        void execute(String commandText) throws CommandException, ParseException;
     }
 
 }

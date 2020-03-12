@@ -3,7 +3,6 @@ package com.notably.logic;
 import java.nio.file.Path;
 
 import com.notably.commons.core.GuiSettings;
-import com.notably.logic.commands.CommandResult;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.ReadOnlyAddressBook;
@@ -15,11 +14,10 @@ public interface Logic {
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
-     * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    void execute(String commandText) throws CommandException, ParseException;
 
     /**
      * Returns the AddressBook.

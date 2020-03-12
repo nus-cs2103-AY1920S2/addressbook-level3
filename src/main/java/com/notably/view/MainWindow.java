@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
 import com.notably.logic.Logic;
-import com.notably.logic.commands.CommandResult;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -151,20 +150,19 @@ public class MainWindow extends ViewPart<Stage> {
      *
      * @see com.notably.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private void executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
-            logger.info("Result: " + commandResult.getFeedbackToUser());
+            logic.execute(commandText);
+            // logger.info("Result: " + commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
+            // if (commandResult.isShowHelp()) {
+            //     handleHelp();
+            // }
 
-            if (commandResult.isExit()) {
-                handleExit();
-            }
+            // if (commandResult.isExit()) {
+            //     handleExit();
+            // }
 
-            return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             throw e;
