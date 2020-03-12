@@ -12,7 +12,7 @@ This app was developed as an extension to AddressBook Level 3 was developed by t
 
 === Johan Kok
 image::johankok.png[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://www.johankzk.com/[homepage]] [https://github.com/JKOK005[github]]
 
 Role: Minion
 Responsibilities: UI + Backend
@@ -21,7 +21,7 @@ Responsibilities: UI + Backend
 
 === Fu Yujian
 image::??.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+{empty}[??[github]]
 
 Role: Minion
 Responsibilities: UI + Backend
