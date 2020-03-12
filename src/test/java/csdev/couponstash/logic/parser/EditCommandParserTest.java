@@ -9,6 +9,7 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_MONEY_SYMBOL;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -34,7 +35,7 @@ public class EditCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditCommandParser parser = new EditCommandParser(VALID_MONEY_SYMBOL);
 
     @Test
     public void parse_missingParts_failure() {

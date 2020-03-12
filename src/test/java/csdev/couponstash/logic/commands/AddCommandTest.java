@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.GuiSettings;
+import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
@@ -96,6 +97,16 @@ public class AddCommandTest {
 
         @Override
         public void setGuiSettings(GuiSettings guiSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StashSettings getStashSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setStashSettings(StashSettings guiSettings) {
             throw new AssertionError("This method should not be called.");
         }
 

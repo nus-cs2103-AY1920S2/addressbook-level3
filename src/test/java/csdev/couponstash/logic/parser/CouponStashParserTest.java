@@ -2,6 +2,7 @@ package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_MONEY_SYMBOL;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,14 +30,15 @@ import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 public class CouponStashParserTest {
-
-    private final CouponStashParser parser = new CouponStashParser();
+    // use an arbitrary symbol as the money symbol
+    private final CouponStashParser parser = new CouponStashParser(VALID_MONEY_SYMBOL);
 
     @Test
     public void parseCommand_add() throws Exception {
         Coupon coupon = new CouponBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(CouponUtil.getAddCommand(coupon));
-        assertEquals(new AddCommand(coupon), command);
+        AddCommand command = (AddCommand) parser.parseCommand(CouponUtil.getAddCommand(coupon, VALID_MONEY_SYMBOL));
+        AddCommand newCommand = new AddCommand(coupon);
+        assertEquals(newCommand, command);
     }
 
     @Test
@@ -58,7 +60,7 @@ public class CouponStashParserTest {
         EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(coupon).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + TypicalIndexes.INDEX_FIRST_COUPON.getOneBased() + " "
-                + CouponUtil.getEditCouponDescriptorDetails(descriptor));
+                + CouponUtil.getEditCouponDescriptorDetails(descriptor, VALID_MONEY_SYMBOL));
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor), command);
     }
 
