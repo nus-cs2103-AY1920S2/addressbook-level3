@@ -46,11 +46,14 @@ public class CouponUtil {
 
     /**
      * Returns the part of command string for the given {@code EditCouponDescriptor}'s details.
+     * @param descriptor The EditCouponDescriptor to be converted into part of the command string.
+     * @param moneySymbol The money symbol to be used (for editing savings).
      */
-    public static String getEditCouponDescriptorDetails(EditCouponDescriptor descriptor) {
+    public static String getEditCouponDescriptorDetails(EditCouponDescriptor descriptor, String moneySymbol) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getSavings().ifPresent(sv -> sb.append(convertSavingsToCommand(sv, moneySymbol)));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
