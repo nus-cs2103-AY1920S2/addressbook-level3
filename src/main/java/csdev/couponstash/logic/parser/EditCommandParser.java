@@ -70,7 +70,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         parseSavingsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_SAVINGS))
                 .ifPresent(editCouponDescriptor::setSavings);
-      
         parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editCouponDescriptor::setTags);
 
 
