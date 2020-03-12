@@ -7,14 +7,6 @@ package nasa.model.activity;
 public class Event extends Activity {
 
     /**
-     * Initialise Event with default "deadlines".
-     * Every field must be present and not null.
-     */
-    public Event(Date date, Note note) {
-        super(new Name("event"), date, note);
-    }
-
-    /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */
@@ -22,4 +14,8 @@ public class Event extends Activity {
         super(name, date, note, status, priority);
     }
 
+    //TODO: detailed implementation of event regeneration
+    public Event regenerate() {
+        return this;
+    }
 }

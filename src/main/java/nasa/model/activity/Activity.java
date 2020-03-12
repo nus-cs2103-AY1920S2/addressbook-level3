@@ -1,20 +1,18 @@
 package nasa.model.activity;
 
+import NASA.model.Regenerable;
+
 import java.time.LocalDateTime;
 
 /**
  * Abstract class to specify fields with getter and setters for activities.
  */
-public abstract class Activity {
+public abstract class Activity implements Regenerable<Activity> {
 
     private Name name;
-
     private Date date;
-
     private Note note;
-
     private Status status;
-
     private Priority priority;
 
     /**
@@ -23,18 +21,11 @@ public abstract class Activity {
      * @param date date of the activity
      * @param note note of the activity
      */
-    public Activity(Name name, Date date, Note note) {
-        this.name = name;
-        this.date = date;
-        this.note = note;
-        this.status = Status.ONGOING;
-    }
-
     public Activity(Name name, Date date, Note note, Status status, Priority priority) {
         this.name = name;
         this.date = date;
         this.note = note;
-        this.status = status;
+        this.status = Status.ONGOING;
         this.priority = priority;
     }
 
@@ -161,4 +152,10 @@ public abstract class Activity {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
+
+    /**
+     * Regenerate activity based on set rules and logic.
+     * @return new instance of the activity, with its attributes possibly modified
+     */
+    public abstract Activity regenerate();
 }

@@ -7,14 +7,6 @@ package nasa.model.activity;
 public class Deadline extends Activity {
 
     /**
-     * Initialise Deadlines with default "deadlines".
-     * Every field must be present and not null.
-     */
-    public Deadline(Date date, Note note) {
-        super(new Name("deadlines"), date, note);
-    }
-
-    /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */
@@ -22,4 +14,8 @@ public class Deadline extends Activity {
         super(name, date, note, status, priority);
     }
 
+    //TODO: detailed implementation of deadline regeneration
+    public Deadline regenerate() {
+        return this;
+    }
 }
