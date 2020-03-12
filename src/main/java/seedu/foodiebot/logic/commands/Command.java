@@ -15,11 +15,11 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute(Model model) throws CommandException;
+    public abstract CommandResult execute(Model model) throws CommandException, IOException;
 
     public boolean needToSaveCommand() {
         return true;
     }
-    public abstract CommandResult execute(Model model) throws CommandException, IOException;
+    //public abstract CommandResult execute(Model model) throws CommandException, IOException;
 
 }
