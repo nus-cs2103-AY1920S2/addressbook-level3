@@ -15,6 +15,7 @@ import nasa.model.Model;
 import nasa.model.NasaBook;
 import nasa.logic.commands.exceptions.CommandException;
 
+// Integrated test TODO: changed name to AddModuleCommandTest
 public class AddModuleCommandTest {
 
     private Model model;
@@ -28,7 +29,7 @@ public class AddModuleCommandTest {
 
     @Test
     public void execute_newModule_success() throws Exception {
-        Module module = new Module(new ModuleCode("CS2100"), new ModuleName("Computer Organization"));
+        Module module = new Module(new ModuleCode(MODULE_CODE), new ModuleName(MODULE_NAME));
 
         Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
         expectedModel.addModule(module);
