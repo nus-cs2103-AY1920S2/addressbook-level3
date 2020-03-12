@@ -1,5 +1,6 @@
 package NASA.model;
 
+import NASA.commons.core.index.Index;
 import NASA.model.module.UniqueModuleList;
 import org.junit.jupiter.api.Test;
 
@@ -33,5 +34,14 @@ class NasaBookTest {
         nasaBook.addActivity(CS2103T, DEADLINE);
         nasaBook.removeActivity(CS2103T, DEADLINE);
         assertFalse(nasaBook.hasActivity(CS2103T, DEADLINE));
+    }
+
+    @Test
+    void removeModuleByIndex() {
+        nasaBook.addModule(CS2103T);
+        nasaBook.addModule(CS2106);
+        nasaBook.removeModuleByIndex(new Index(1));
+        assertTrue(nasaBook.hasModule(CS2103T));
+        assertFalse(nasaBook.hasModule(CS2106));
     }
 }

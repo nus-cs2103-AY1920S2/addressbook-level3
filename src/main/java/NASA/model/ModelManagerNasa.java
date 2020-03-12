@@ -103,6 +103,11 @@ public class ModelManagerNasa implements ModelNasa {
     }
 
     @Override
+    public void removeModuleByIndex(Index index) {
+        nasaBook.removeModuleByIndex(index);
+    }
+
+    @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);

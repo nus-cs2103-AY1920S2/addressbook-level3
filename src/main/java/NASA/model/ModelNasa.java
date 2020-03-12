@@ -118,4 +118,6 @@ public interface ModelNasa {
     ObservableList<Activity> getFilteredActivityList(Index index);
 
     void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
+
+    void removeModuleByIndex(Index index);
 }

@@ -95,6 +95,14 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
+     * Remove module by index.
+     * @param index must not be negative.
+     */
+    public void removeModuleByIndex(Index index) {
+        moduleList.removeByIndex(index);
+    }
+
+    /**
      * Check if it has activity {@code activity} in {@code module}
      */
     public boolean hasActivity(Module module, Activity activity) {
