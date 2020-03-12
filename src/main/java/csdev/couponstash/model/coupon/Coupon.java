@@ -19,6 +19,7 @@ public class Coupon {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final ExpiryDate expiryDate;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -26,12 +27,13 @@ public class Coupon {
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+    public Coupon(Name name, Phone phone, Email email, Set<Tag> tags, ExpiryDate expiryDate) {
+        requireAllNonNull(name, phone, email, tags, expiryDate);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.tags.addAll(tags);
+        this.expiryDate = expiryDate;
     }
 
     public Name getName() {
@@ -45,6 +47,11 @@ public class Coupon {
     public Email getEmail() {
         return email;
     }
+
+    public ExpiryDate getExpiryDate() {
+        return expiryDate;
+    }
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -86,13 +93,14 @@ public class Coupon {
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getEmail().equals(getEmail())
+                && otherCoupon.getExpiryDate().equals(getExpiryDate())
                 && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, phone, email, tags, expiryDate);
     }
 
     @Override
@@ -103,6 +111,8 @@ public class Coupon {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" ExpiryDate: ")
+                .append(getExpiryDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

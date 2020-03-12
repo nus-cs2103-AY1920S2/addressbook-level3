@@ -38,6 +38,8 @@ public class CouponCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label expiryDate;
 
     public CouponCard(Coupon coupon, int displayedIndex) {
         super(FXML);
@@ -46,6 +48,7 @@ public class CouponCard extends UiPart<Region> {
         name.setText(coupon.getName().fullName);
         phone.setText(coupon.getPhone().value);
         email.setText(coupon.getEmail().value);
+        expiryDate.setText(coupon.getExpiryDate().value);
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

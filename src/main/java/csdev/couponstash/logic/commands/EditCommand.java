@@ -16,6 +16,7 @@ import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
@@ -90,8 +91,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
         Email updatedEmail = editCouponDescriptor.getEmail().orElse(couponToEdit.getEmail());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
+        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone, updatedEmail, updatedTags);
+
+        return new Coupon(updatedName, updatedPhone, updatedEmail, updatedTags, updatedExpiryDate);
     }
 
     @Override
@@ -121,6 +124,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Set<Tag> tags;
+        private ExpiryDate expiryDate;
 
         public EditCouponDescriptor() {}
 
@@ -133,6 +137,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setTags(toCopy.tags);
+            setExpiryDate(toCopy.expiryDate);
         }
 
         /**
@@ -165,6 +170,15 @@ public class EditCommand extends Command {
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
         }
+
+        public void setExpiryDate(ExpiryDate expiryDate) {
+            this.expiryDate = expiryDate;
+        }
+
+        public Optional<ExpiryDate> getExpiryDate() {
+            return Optional.ofNullable(expiryDate);
+        }
+
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -201,7 +215,9 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getExpiryDate().equals(e.getExpiryDate())
                     && getTags().equals(e.getTags());
+
         }
     }
 }

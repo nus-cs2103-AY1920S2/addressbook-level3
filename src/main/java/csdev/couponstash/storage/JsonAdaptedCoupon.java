@@ -15,6 +15,8 @@ import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
+import csdev.couponstash.model.coupon.ExpiryDate;
+
 
 /**
  * Jackson-friendly version of {@link Coupon}.
@@ -26,6 +28,7 @@ class JsonAdaptedCoupon {
     private final String name;
     private final String phone;
     private final String email;
+    private final String expiryDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,10 +37,12 @@ class JsonAdaptedCoupon {
     @JsonCreator
     public JsonAdaptedCoupon(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email,
+                             @JsonProperty("expiryDate") String expiryDate,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.expiryDate = expiryDate;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,6 +55,7 @@ class JsonAdaptedCoupon {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        expiryDate = source.getExpiryDate().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -90,8 +96,16 @@ class JsonAdaptedCoupon {
         }
         final Email modelEmail = new Email(email);
 
+        if (expiryDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ExpiryDate.class.getSimpleName()));
+        }
+        if (!ExpiryDate.isValidExpiryDate(expiryDate)) {
+            throw new IllegalValueException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
+
         final Set<Tag> modelTags = new HashSet<>(couponTags);
-        return new Coupon(modelName, modelPhone, modelEmail, modelTags);
+        return new Coupon(modelName, modelPhone, modelEmail, modelTags, modelExpiryDate);
     }
 
 }

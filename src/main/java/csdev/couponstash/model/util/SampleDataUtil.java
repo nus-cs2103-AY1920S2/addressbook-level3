@@ -8,6 +8,7 @@ import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
@@ -19,17 +20,17 @@ public class SampleDataUtil {
     public static Coupon[] getSampleCoupons() {
         return new Coupon[] {
             new Coupon(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                getTagSet("friends")),
+                getTagSet("friends"), new ExpiryDate("30-12-2020")),
             new Coupon(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                getTagSet("colleagues", "friends")),
+                getTagSet("colleagues", "friends"), new ExpiryDate("30-11-2020")),
             new Coupon(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                getTagSet("neighbours")),
+                getTagSet("neighbours"), new ExpiryDate("30-10-2020")),
             new Coupon(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                getTagSet("family")),
+                getTagSet("family"), new ExpiryDate("30-9-2020")),
             new Coupon(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                getTagSet("classmates")),
+                getTagSet("classmates"), new ExpiryDate("1-10-2020")),
             new Coupon(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                getTagSet("colleagues"))
+                getTagSet("colleagues"), new ExpiryDate("11-9-2020"))
         };
     }
 
