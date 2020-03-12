@@ -32,12 +32,12 @@ public class FoodTest {
         //Food editedPasta = new FoodBuilder(PASTA).withName(VALID_NAME_BOB).build();
         //assertFalse(PASTA.isSameFood(editedPasta));
         //
-        //// same name, same phone, different attributes -> returns true
+        //// same name, same calories, different attributes -> returns true
         //editedPasta = new FoodBuilder(PASTA)
         //        .withTags(VALID_TAG_HUSBAND).build();
         //assertTrue(PASTA.isSameFood(editedPasta));
         //
-        //// same name, same phone, same email, different attributes -> returns true
+        //// same name, same calories, different attributes -> returns true
         //editedPasta = new FoodBuilder(PASTA).withTags(VALID_TAG_HUSBAND).build();
         //assertTrue(PASTA.isSameFood(editedPasta));
     }
@@ -57,7 +57,7 @@ public class FoodTest {
         // different type -> returns false
         assertFalse(PASTA.equals(5));
 
-        // different person -> returns false
+        // different food -> returns false
         assertFalse(PASTA.equals(BURGER));
 
         // IMPLEMENT AFTER ADDING COMMANDS

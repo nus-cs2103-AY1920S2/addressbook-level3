@@ -8,7 +8,7 @@ import seedu.address.model.FoodBook;
 import seedu.address.model.food.Food;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Food} objects to be used in tests.
  */
 public class TypicalFood {
 
@@ -26,7 +26,7 @@ public class TypicalFood {
     public static final Food BAGUETTE = new FoodBuilder().withName("Baguette").build();
 
     // ADD AFTER INCORPORATING COMMANDS
-    //// Manually added - Person's details found in {@code CommandTestUtil}
+    //// Manually added - Food's details found in {@code CommandTestUtil}
     //public static final Food AMY = new FoodBuilder().withName(VALID_NAME_AMY).withTags(VALID_TAG_FRIEND).build();
     //public static final Food BOB = new FoodBuilder().withName(VALID_NAME_BOB)
     //        .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
@@ -36,7 +36,7 @@ public class TypicalFood {
     private TypicalFood() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical food.
      */
     public static FoodBook getTypicalFoodBook() {
         FoodBook ab = new FoodBook();
