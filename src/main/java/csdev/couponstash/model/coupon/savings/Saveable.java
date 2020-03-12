@@ -1,11 +1,16 @@
 package csdev.couponstash.model.coupon.savings;
 
+import java.util.Objects;
+
 /**
  * Represents benefits (tangible and intangible) that coupons
  * may offer that are not necessarily associated with a
  * quantifiable monetary value.
  */
 public class Saveable implements Comparable<Saveable> {
+    public static final String MESSAGE_CONSTRAINTS = "Saveables should not be blank "
+            + "or null.";
+
     private final String savedItem;
 
     /**
@@ -15,6 +20,27 @@ public class Saveable implements Comparable<Saveable> {
      */
     public Saveable(String s) {
         this.savedItem = s;
+    }
+
+    /**
+     * Checks whether this String is a valid
+     * Saveable value. Used by JsonAdaptedSaveable
+     * and Savings classes.
+     * @param s The String to be checked.
+     */
+    public static boolean isValidSaveableValue(String s) {
+        return s != null && !s.isBlank();
+    }
+
+    /**
+     * Gets the value of this Saveable as a String.
+     * The difference from the toString() method is that
+     * getValue() may return null in exceptional cases,
+     * but toString() will never return null.
+     * @return String stored in the Saveable.
+     */
+    public String getValue() {
+        return this.savedItem;
     }
 
     @Override
@@ -36,6 +62,6 @@ public class Saveable implements Comparable<Saveable> {
 
     @Override
     public String toString() {
-        return this.savedItem;
+        return Objects.toString(this.savedItem);
     }
 }

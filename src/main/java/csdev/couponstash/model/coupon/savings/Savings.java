@@ -79,7 +79,7 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(List<Saveable> saveables) {
-        checkArgument(isNotEmptyList(saveables),
+        checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.empty();
         this.percentage = Optional.empty();
@@ -97,7 +97,7 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(MonetaryAmount monetaryAmount, List<Saveable> saveables) {
-        checkArgument(isNotEmptyList(saveables),
+        checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.of(monetaryAmount);
         this.percentage = Optional.empty();
@@ -115,7 +115,7 @@ public class Savings implements Comparable<Savings> {
      *                  List should have 1 item, at least.
      */
     public Savings(PercentageAmount percentage, List<Saveable> saveables) {
-        checkArgument(isNotEmptyList(saveables),
+        checkArgument(isValidSaveablesList(saveables),
                 Savings.EMPTY_LIST_ERROR);
         this.monetaryAmount = Optional.empty();
         this.percentage = Optional.of(percentage);
@@ -237,17 +237,18 @@ public class Savings implements Comparable<Savings> {
 
     /**
      * Utility function used by Savings.java to check if
-     * the List&lt;Saveable&gt; is non-empty.
+     * the List&lt;Saveable&gt; is non-empty, and none
+     * of the Saveables are empty Strings or null.
      * This should never return false, as if no Saveables
      * are given, the SavingsParser would have determined
      * that the command did not have any Saveables and
      * not passed a list to Savings.java in the first place.
      * @param list The list to be checked.
-     * @param <T> Type of items stored in the list
      * @return True, if the list is non-empty.
      *     False if the list is empty.
      */
-    private static <T> boolean isNotEmptyList(List<T> list) {
-        return !list.isEmpty();
+    private static boolean isValidSaveablesList(List<Saveable> list) {
+        return !list.isEmpty() && list.stream()
+                .allMatch(sva -> Saveable.isValidSaveableValue(sva.getValue()));
     }
 }
