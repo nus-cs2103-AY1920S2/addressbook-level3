@@ -47,7 +47,7 @@ public class SavedCommand extends Command {
             pms = pms.add(toBeAdded);
         }
         // get monetary amount
-        moneySaved.append(pms.getMonetaryAmountAsDouble());
+        moneySaved.append(String.format("%.2f", pms.getMonetaryAmountAsDouble()));
 
         // get saveables
         List<Saveable> saveables = pms.getListOfSaveables();
