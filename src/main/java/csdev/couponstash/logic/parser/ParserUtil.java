@@ -9,11 +9,7 @@ import java.util.Set;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-<<<<<<< HEAD
-import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.ExpiryDate;
-=======
->>>>>>> upstream/master
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;

@@ -8,11 +8,7 @@ public class CliSyntax {
     /* Prefix definitions */
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
-<<<<<<< HEAD
-    public static final Prefix PREFIX_EMAIL = new Prefix("m/");
-=======
->>>>>>> upstream/master
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-    public static final Prefix PREFIX_EXPIRYDATE = new Prefix("e/");
+    public static final Prefix PREFIX_EXPIRY_DATE = new Prefix("e/");
     //public static final Prefix PREFIX_STARTDATE = new Prefix("s/");
 }

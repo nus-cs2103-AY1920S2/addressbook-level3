@@ -15,11 +15,7 @@ import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
-<<<<<<< HEAD
-import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.ExpiryDate;
-=======
->>>>>>> upstream/master
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
@@ -37,6 +33,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
+            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 ";
@@ -93,12 +90,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-<<<<<<< HEAD
-
-        return new Coupon(updatedName, updatedPhone, updatedEmail, updatedTags, updatedExpiryDate);
-=======
-        return new Coupon(updatedName, updatedPhone, updatedTags);
->>>>>>> upstream/master
+        return new Coupon(updatedName, updatedPhone, updatedTags, updatedExpiryDate);
     }
 
     @Override
@@ -165,15 +157,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-<<<<<<< HEAD
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
         public void setExpiryDate(ExpiryDate expiryDate) {
             this.expiryDate = expiryDate;
         }
@@ -183,8 +166,6 @@ public class EditCommand extends Command {
         }
 
 
-=======
->>>>>>> upstream/master
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -219,11 +200,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-<<<<<<< HEAD
-                    && getEmail().equals(e.getEmail())
                     && getExpiryDate().equals(e.getExpiryDate())
-=======
->>>>>>> upstream/master
                     && getTags().equals(e.getTags());
 
         }

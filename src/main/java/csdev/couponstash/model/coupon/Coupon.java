@@ -101,7 +101,7 @@ public class Coupon {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" ExpiryDate: ")
+                .append(" Expiry Date: ")
                 .append(getExpiryDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);

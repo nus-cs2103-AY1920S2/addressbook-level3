@@ -20,7 +20,7 @@ public class JsonAdaptedCouponTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_EXPIRY_DATE = "31-12-2018";
+    private static final String INVALID_EXPIRY_DATE = "31-12-2008";
 
 
     private static final String VALID_NAME = BENSON.getName().toString();

@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
@@ -34,6 +35,7 @@ public class EditCouponDescriptorBuilder {
         descriptor.setName(coupon.getName());
         descriptor.setPhone(coupon.getPhone());
         descriptor.setTags(coupon.getTags());
+        descriptor.setExpiryDate(coupon.getExpiryDate());
     }
 
     /**
@@ -51,6 +53,15 @@ public class EditCouponDescriptorBuilder {
         descriptor.setPhone(new Phone(phone));
         return this;
     }
+
+    /**
+     * Sets the {@code ExpiryDate} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withExpiryDate(String expiryDate) {
+        descriptor.setExpiryDate(new ExpiryDate(expiryDate));
+        return this;
+    }
+
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditCouponDescriptor}

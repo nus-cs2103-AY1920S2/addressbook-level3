@@ -3,30 +3,37 @@
   "coupons" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
+    "expiry date" : "31-12-2020",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
     "phone" : "98765432",
+    "expiry date" : "31-12-2020",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
+    "expiry date" : "31-12-2020",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "9482224",
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "9482427",
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
     "phone" : "9482442",
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   } ]
 }

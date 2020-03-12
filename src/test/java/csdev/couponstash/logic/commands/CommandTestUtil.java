@@ -1,9 +1,9 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRYDATE;
 
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,14 +41,14 @@ public class CommandTestUtil {
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-    public static final String EXPIRY_DATE_DESC_AMY = " " + PREFIX_EXPIRYDATE + VALID_EXPIRY_DATE_AMY;
-    public static final String EXPIRY_DATE_DESC_BOB = " " + PREFIX_EXPIRYDATE + VALID_EXPIRY_DATE_BOB;
+    public static final String EXPIRY_DATE_DESC_AMY = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_AMY;
+    public static final String EXPIRY_DATE_DESC_BOB = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BOB;
 
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRYDATE + "2-2-22"; // year should be in yyyy
+    public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "2-2-22"; // year should be in yyyy
 
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -60,9 +60,11 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditCouponDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY)
+                .withExpiryDate(VALID_EXPIRY_DATE_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditCouponDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB)
+                .withExpiryDate(VALID_EXPIRY_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
