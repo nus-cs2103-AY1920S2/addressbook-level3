@@ -11,7 +11,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
@@ -35,9 +38,16 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        // Get module object
+        String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get();
+        ModuleCode moduleCode = new ModuleCode(moduleCodeString);
+        Module module = ModuleManager.getModule(moduleCode);
+
+        // TODO: Check for duplicate modules
+
         // TODO: Add tasks to tasklist
         if (arePrefixesPresent(argMultimap, PREFIX_TASK)) {
-            String task = argMultimap.getValue(PREFIX_MODULE).get();
+            String task = argMultimap.getValue(PREFIX_TASK).get();
             //add task to tasklist
             if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                 String deadline = argMultimap.getValue(PREFIX_DEADLINE).get();
@@ -45,7 +55,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
         }
 
-        // Add module to list in Personal object within Module Object
+        // Get Semester
         String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
         if (!ParserUtil.isInteger(semester)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -72,7 +82,13 @@ public class AddCommandParser implements Parser<AddCommand> {
             personal.setStatus("not taken");
         }
 
-        return new AddCommand(personal);
+        // Set module personal attribute
+        module.setPersonal(personal);
+
+        // Add module to Profile class
+        Profile.addModule(Integer.valueOf(semester), module);
+
+        return new AddCommand(module);
     }
 
     /**

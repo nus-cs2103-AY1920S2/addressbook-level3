@@ -35,6 +35,10 @@ public class Module {
         this.personal = new Personal();
     }
 
+    public void setPersonal(Personal personal) {
+        this.personal = personal;
+    }
+
     public ModuleCode getModuleCode() {
         return moduleCode;
     }
