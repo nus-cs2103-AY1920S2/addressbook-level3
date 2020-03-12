@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
@@ -64,6 +65,17 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public StashSettings getStashSettings() {
+        return userPrefs.getStashSettings();
+    }
+
+    @Override
+    public void setStashSettings(StashSettings ss) {
+        requireNonNull(ss);
+        userPrefs.setStashSettings(ss);
     }
 
     @Override

@@ -15,8 +15,10 @@ import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -32,6 +34,8 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
+            + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
+            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 ";
@@ -85,9 +89,11 @@ public class EditCommand extends Command {
 
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
+        Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
+        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedTags);
     }
 
     @Override
@@ -115,7 +121,9 @@ public class EditCommand extends Command {
     public static class EditCouponDescriptor {
         private Name name;
         private Phone phone;
+        private Savings savings;
         private Set<Tag> tags;
+        private ExpiryDate expiryDate;
 
         public EditCouponDescriptor() {}
 
@@ -127,13 +135,15 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setTags(toCopy.tags);
+            setSavings(toCopy.savings);
+            setExpiryDate(toCopy.expiryDate);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, tags);
         }
 
         public void setName(Name name) {
@@ -151,6 +161,35 @@ public class EditCommand extends Command {
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
         }
+
+        /**
+         * Sets the Savings field in this EditCouponDescriptor.
+         * @param sv Savings to be set in EditCouponDescriptor.
+         */
+        public void setSavings(Savings sv) {
+            this.savings = sv;
+        }
+
+        /**
+         * Gets the Savings that have been set in this
+         * EditCouponDescriptor in an Optional (if it
+         * was never set, an Optional.empty() is returned).
+         * @return Optional with Savings representing the
+         *     Savings value stored in this
+         *     EditCouponDescriptor, if any.
+         */
+        public Optional<Savings> getSavings() {
+            return Optional.ofNullable(this.savings);
+        }
+
+        public void setExpiryDate(ExpiryDate expiryDate) {
+            this.expiryDate = expiryDate;
+        }
+
+        public Optional<ExpiryDate> getExpiryDate() {
+            return Optional.ofNullable(expiryDate);
+        }
+
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -186,6 +225,8 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
+                    && getSavings().equals(e.getSavings())
+                    && getExpiryDate().equals(e.getExpiryDate())
                     && getTags().equals(e.getTags());
         }
     }
