@@ -15,6 +15,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 
@@ -27,6 +28,7 @@ class JsonAdaptedCoupon {
 
     private final String name;
     private final String phone;
+    private final JsonAdaptedSavings savings;
     private final String expiryDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -34,12 +36,16 @@ class JsonAdaptedCoupon {
      * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
      */
     @JsonCreator
-    public JsonAdaptedCoupon(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+    public JsonAdaptedCoupon(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("savings") JsonAdaptedSavings savings,
                              @JsonProperty("expiry date") String expiryDate,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged
+                             ) {
         this.name = name;
         this.phone = phone;
         this.expiryDate = expiryDate;
+        this.savings = savings;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -51,6 +57,7 @@ class JsonAdaptedCoupon {
     public JsonAdaptedCoupon(Coupon source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
+        savings = new JsonAdaptedSavings(source.getSavings());
         expiryDate = source.getExpiryDate().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -84,6 +91,12 @@ class JsonAdaptedCoupon {
         }
         final Phone modelPhone = new Phone(phone);
 
+        if (savings == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Savings.class.getSimpleName()));
+        }
+        final Savings modelSavings = savings.toModelType();
+
 
         if (expiryDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -95,7 +108,7 @@ class JsonAdaptedCoupon {
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
-        return new Coupon(modelName, modelPhone, modelTags, modelExpiryDate);
+        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelTags);
     }
 
 }

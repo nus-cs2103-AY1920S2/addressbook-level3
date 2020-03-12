@@ -1,9 +1,19 @@
 {
   "coupons": [ {
     "name": "Valid Coupon",
-    "phone": "9482424"
+    "phone": "9482424",
+    "savings" : {
+      "monetaryAmount" : 5.5,
+      "percentageAmount" : null,
+      "saveables" : null
+    }
   }, {
-    "name": "Coupon With Invalid Phone Field",
-    "phone": "948asdf2424"
+    "name": "Coupon With Invalid Savings Field",
+    "phone": "9482424",
+    "savings" : {
+      "monetaryAmount" : 7.5,
+      "percentageAmount" : 7.5,
+      "saveables" : null
+    }
   } ]
 }

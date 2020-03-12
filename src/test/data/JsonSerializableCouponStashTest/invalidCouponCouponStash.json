@@ -1,6 +1,11 @@
 {
   "coupons": [ {
     "name": "Hans Muster",
-    "phone": "invalidNumber"
+    "phone": "992929",
+    "savings" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : null,
+      "saveables" : null
+    }
   } ]
 }
