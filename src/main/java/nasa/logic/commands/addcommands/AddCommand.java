@@ -1,0 +1,48 @@
+package nasa.logic.commands.addcommands;
+
+import static java.util.Objects.requireNonNull;
+
+import nasa.logic.commands.Command;
+import nasa.logic.commands.CommandResult;
+import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.Model;
+import nasa.model.activity.Activity;
+import nasa.model.module.ModuleCode;
+
+public class AddCommand extends Command {
+
+    private final Activity toAdd;
+    private final ModuleCode moduleCode;
+
+    public static final String MESSAGE_SUCCESS = "New activity added!";
+    public static final String MESSAGE_DUPLICATED_ACTIVITY = "This activity already exist in the module's activity list!";
+
+    public AddCommand(Activity activity, ModuleCode moduleCode) {
+        requireNonNull(activity);
+        requireNonNull(moduleCode);
+        toAdd = activity;
+        this.moduleCode = moduleCode;
+    }
+
+    @Override
+    public CommandResult execute(ModelNasa model) throws CommandException {
+        requireNonNull(model);
+        /*
+         * Create a dummy moduleTask so as to add the activity to that
+         * associated module in the ModelNasa model.
+         */
+        Module moduleTask = new Module(moduleCode, new ModuleName(""));
+        if (model.hasActivity(moduleTask, toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);
+        }
+        model.addActivity(moduleTask, toAdd);
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddCommand // instanceof handles nulls
+                && toAdd.equals(((AddCommand) other).toAdd));
+    }
+}
