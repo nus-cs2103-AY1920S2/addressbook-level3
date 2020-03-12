@@ -1,0 +1,14 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 740.0,
+    "windowHeight" : 600.0,
+    "windowCoordinates" : {
+      "x" : 398,
+      "y" : 88
+    }
+  },
+  "foodieBotFilePath" : "foodiebot.json",
+  "stallsFilePath" : "foodiebot-stalls.json",
+  "budgetFilePath" : "foodiebot-budget.json",
+  "foodFilePath" : "foodiebot-food.json"
+}

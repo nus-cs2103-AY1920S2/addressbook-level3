@@ -2,7 +2,7 @@
   "canteens" : [ {
     "name" : "The Deck",
     "distance" : 800,
-    "numberOfStalls" : 5,
+    "numberOfStalls" : 2,
     "nearestBlockName" : "COM1",
     "directionsImageName" : "com1_deck.png",
     "canteenImageName" : "deck.jpg",

@@ -20,6 +20,4 @@ public abstract class Command {
     public boolean needToSaveCommand() {
         return true;
     }
-    //public abstract CommandResult execute(Model model) throws CommandException, IOException;
-
 }

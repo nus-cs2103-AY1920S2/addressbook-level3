@@ -67,9 +67,6 @@ public class SampleDataUtil {
                                 "asian",
                                 "$", 0, new ArrayList<>())));
         return new Canteen[]{
-            new Canteen(new Name("The Deck"), 5, 800, "COM1",
-                "com1_deck.png",
-                COM1_TO_DECK_DIRECTIONS, getTagSet("asian"), "deck.jpg", new ArrayList<>(deckStalls)),
             new Canteen(
                 new Name("Nus Flavors"),
                 2,

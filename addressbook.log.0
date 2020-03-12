@@ -1,0 +1,462 @@
+Feb 16, 2020 11:55:43 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 16, 2020 11:55:43 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 16, 2020 11:55:44 PM seedu.address.commons.util.JsonUtil readJsonFile
+INFO: Json file config.json not found
+Feb 16, 2020 11:55:44 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 16, 2020 11:55:44 PM seedu.address.commons.util.JsonUtil readJsonFile
+INFO: Json file preferences.json not found
+Feb 16, 2020 11:55:44 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 16, 2020 11:55:44 PM seedu.address.commons.util.JsonUtil readJsonFile
+INFO: Json file data\addressbook.json not found
+Feb 16, 2020 11:55:44 PM seedu.address.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample AddressBook
+Feb 16, 2020 11:55:44 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 16, 2020 11:55:44 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 16, 2020 11:55:51 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 17, 2020 12:09:42 AM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 17, 2020 12:09:42 AM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 17, 2020 12:09:43 AM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 17, 2020 12:09:43 AM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 17, 2020 12:09:43 AM seedu.address.commons.util.JsonUtil readJsonFile
+INFO: Json file data\addressbook.json not found
+Feb 17, 2020 12:09:43 AM seedu.address.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample AddressBook
+Feb 17, 2020 12:09:43 AM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 17, 2020 12:09:43 AM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 17, 2020 12:09:50 AM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 17, 2020 12:12:50 AM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 17, 2020 12:12:50 AM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 17, 2020 12:12:50 AM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 17, 2020 12:12:50 AM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 17, 2020 12:12:50 AM seedu.address.commons.util.JsonUtil readJsonFile
+INFO: Json file data\addressbook.json not found
+Feb 17, 2020 12:12:50 AM seedu.address.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample AddressBook
+Feb 17, 2020 12:12:50 AM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 17, 2020 12:12:50 AM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 17, 2020 12:12:56 AM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][list]
+Feb 17, 2020 12:12:57 AM seedu.address.ui.MainWindow executeCommand
+INFO: Result: Listed all persons
+Feb 17, 2020 12:12:59 AM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][add]
+Feb 17, 2020 12:12:59 AM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: add
+Feb 17, 2020 12:13:02 AM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 17, 2020 8:32:08 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 17, 2020 8:32:08 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 17, 2020 8:32:08 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 17, 2020 8:32:08 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 17, 2020 8:32:09 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 17, 2020 8:32:09 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 17, 2020 8:32:14 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark]
+Feb 17, 2020 8:32:14 PM seedu.address.ui.MainWindow executeCommand
+INFO: Result: Hello from remark
+Feb 17, 2020 8:32:17 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][bye]
+Feb 17, 2020 8:32:17 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: bye
+Feb 17, 2020 8:32:19 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][exit]
+Feb 17, 2020 8:32:19 PM seedu.address.ui.MainWindow executeCommand
+INFO: Result: Exiting Address Book as requested ...
+Feb 17, 2020 8:32:19 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 17, 2020 8:48:42 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 17, 2020 8:48:42 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 17, 2020 8:48:43 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 17, 2020 8:48:43 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 17, 2020 8:48:43 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 17, 2020 8:48:43 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 17, 2020 8:48:48 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark]
+Feb 17, 2020 8:48:48 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: remark
+Feb 17, 2020 8:48:58 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 17, 2020 9:11:57 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 17, 2020 9:11:57 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 17, 2020 9:11:58 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 17, 2020 9:11:58 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 17, 2020 9:11:58 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 17, 2020 9:11:58 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 17, 2020 9:12:02 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark]
+Feb 17, 2020 9:12:02 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: remark
+Feb 17, 2020 9:12:24 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark 1 r/ Likes to swim]
+Feb 17, 2020 9:12:24 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: remark 1 r/ Likes to swim
+Feb 17, 2020 10:43:46 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 17, 2020 10:56:22 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 17, 2020 10:56:22 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 17, 2020 10:56:22 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 17, 2020 10:56:22 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 17, 2020 10:56:23 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 17, 2020 10:56:23 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 17, 2020 10:56:29 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:15:16 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:15:16 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:15:17 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:15:17 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:15:17 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:15:17 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:15:27 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][ok]
+Feb 18, 2020 9:15:27 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: ok
+Feb 18, 2020 9:15:29 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:18:09 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:18:09 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:18:10 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:18:10 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:18:10 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:18:10 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:18:17 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:19:33 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:19:33 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:19:33 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:19:33 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:19:34 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:19:34 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:19:45 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:20:18 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:20:18 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:20:19 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:20:19 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:20:19 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:20:19 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:28:14 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:28:14 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:28:14 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:28:14 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:28:14 PM seedu.address.commons.util.JsonUtil readJsonFile
+WARNING: Error reading from jsonFile file data\addressbook.json: com.fasterxml.jackson.databind.JsonMappingException: Argument #4 of constructor [constructor for seedu.address.storage.JsonAdaptedPerson, annotations: {interface com.fasterxml.jackson.annotation.JsonCreator=@com.fasterxml.jackson.annotation.JsonCreator(mode=DEFAULT)}] has no property name annotation; must have name when multiple-parameter constructor annotated as Creator
+ at [Source: {
+  "persons" : [ {
+    "name" : "Alex Yeoh",
+    "phone" : "87438807",
+    "email" : "alexyeoh@example.com",
+    "tagged" : [ "friends" ]
+  }, {
+    "name" : "Bernice Yu",
+    "phone" : "99272758",
+    "email" : "berniceyu@example.com",
+    "tagged" : [ "colleagues", "friends" ]
+  }, {
+    "name" : "Charlotte Oliveiro",
+    "phone" : "93210283",
+    "email" : "charlotte@example.com",
+    "tagged" : [ "neighbours" ]
+  }, {
+    "name" : "David Li",
+    "phone" : "91031282",
+    "email" : "lidavid@example.com",
+    "tagged" : [ "family" ]
+  }, {
+    "name" : "Irfan Ibrahim",
+    "phone" : "92492021",
+    "email" : "irfan@example.com",
+    "tagged" : [ "classmates" ]
+  }, {
+    "name" : "Roy Balakrishnan",
+    "phone" : "92624417",
+    "email" : "royb@example.com",
+    "tagged" : [ "colleagues" ]
+  } ]
+}; line: 1, column: 1]
+Feb 18, 2020 9:28:14 PM seedu.address.MainApp initModelManager
+WARNING: Data file not in the correct format. Will be starting with an empty AddressBook
+Feb 18, 2020 9:28:15 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:28:15 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:28:20 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:29:54 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:29:55 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:29:55 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:29:55 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:29:55 PM seedu.address.commons.util.JsonUtil readJsonFile
+WARNING: Error reading from jsonFile file data\addressbook.json: com.fasterxml.jackson.databind.JsonMappingException: No content to map due to end-of-input
+ at [Source: ; line: 1, column: 0]
+Feb 18, 2020 9:29:55 PM seedu.address.MainApp initModelManager
+WARNING: Data file not in the correct format. Will be starting with an empty AddressBook
+Feb 18, 2020 9:29:55 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:29:55 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:30:04 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:31:52 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:31:52 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:31:52 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:31:52 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:31:53 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:31:53 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:32:00 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark]
+Feb 18, 2020 9:32:00 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: remark
+Feb 18, 2020 9:32:10 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark 1 r/Gay]
+Feb 18, 2020 9:32:10 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: remark 1 r/Gay
+Feb 18, 2020 9:32:14 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:32:55 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:32:55 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:32:55 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:32:55 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:32:56 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:32:56 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:33:02 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Feb 18, 2020 9:36:09 PM seedu.address.MainApp init
+INFO: =============================[ Initializing AddressBook ]===========================
+Feb 18, 2020 9:36:09 PM seedu.address.MainApp initConfig
+INFO: Using config file : config.json
+Feb 18, 2020 9:36:10 PM seedu.address.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Feb 18, 2020 9:36:10 PM seedu.address.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Feb 18, 2020 9:36:10 PM seedu.address.MainApp start
+INFO: Starting AddressBook V0.6.0ea
+Feb 18, 2020 9:36:10 PM seedu.address.ui.UiManager start
+INFO: Starting UI...
+Feb 18, 2020 9:36:19 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark 1 r/Hello]
+Feb 18, 2020 9:36:19 PM seedu.address.ui.MainWindow executeCommand
+INFO: Result: Added remark to Person: Alex Yeoh Phone: 87438807 Email: alexyeoh@example.com Tags: [friends]
+Feb 18, 2020 9:36:29 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][remark 1 r/Tutorial]
+Feb 18, 2020 9:36:29 PM seedu.address.ui.MainWindow executeCommand
+INFO: Result: Added remark to Person: Alex Yeoh Phone: 87438807 Email: alexyeoh@example.com Tags: [friends]
+Feb 18, 2020 9:36:32 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][bye]
+Feb 18, 2020 9:36:32 PM seedu.address.ui.MainWindow executeCommand
+INFO: Invalid command: bye
+Feb 18, 2020 9:36:34 PM seedu.address.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][exit]
+Feb 18, 2020 9:36:34 PM seedu.address.ui.MainWindow executeCommand
+INFO: Result: Exiting Address Book as requested ...
+Feb 18, 2020 9:36:34 PM seedu.address.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:55:24 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:55:25 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:55:25 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:55:31 PM seedu.foodiebot.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][bye]
+Mar 03, 2020 9:55:31 PM seedu.foodiebot.ui.MainWindow executeCommand
+INFO: Invalid command: bye
+Mar 03, 2020 9:55:36 PM seedu.foodiebot.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][menu all]
+Mar 03, 2020 9:55:41 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:56:11 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:56:16 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:57:45 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:57:51 PM seedu.foodiebot.logic.LogicManager execute
+INFO: ----------------[USER COMMAND][menu]
+Mar 03, 2020 9:57:56 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 03, 2020 9:58:05 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 03, 2020 9:58:05 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 03, 2020 9:58:06 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 03, 2020 9:58:11 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 04, 2020 12:06:12 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 04, 2020 12:06:12 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 04, 2020 12:06:13 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 04, 2020 12:06:16 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 04, 2020 12:23:17 PM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 04, 2020 12:23:23 PM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
+Mar 12, 2020 11:38:51 AM seedu.foodiebot.MainApp init
+INFO: =============================[ Initializing FoodieBot ]===========================
+Mar 12, 2020 11:38:51 AM seedu.foodiebot.MainApp initConfig
+INFO: Using config file : config.json
+Mar 12, 2020 11:38:52 AM seedu.foodiebot.MainApp initPrefs
+INFO: Using prefs file : preferences.json
+Mar 12, 2020 11:38:52 AM seedu.foodiebot.commons.core.LogsCenter init
+INFO: currentLogLevel: INFO
+Mar 12, 2020 11:38:52 AM seedu.foodiebot.commons.util.JsonUtil readJsonFile
+INFO: Json file foodiebot-budget.json not found
+Mar 12, 2020 11:38:52 AM seedu.foodiebot.MainApp initModelManager
+INFO: Data file not found. Will be starting with a sample FoodieBot
+Mar 12, 2020 11:38:52 AM seedu.foodiebot.MainApp start
+INFO: Starting FoodieBot V0.6.0ea
+Mar 12, 2020 11:38:52 AM seedu.foodiebot.ui.UiManager start
+INFO: Starting UI...
+Mar 12, 2020 11:38:58 AM seedu.foodiebot.MainApp stop
+INFO: ============================ [ Stopping Address Book ] =============================
