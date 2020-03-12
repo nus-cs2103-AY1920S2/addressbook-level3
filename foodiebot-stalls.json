@@ -1,0 +1,111 @@
+{
+  "stalls" : [ {
+    "name" : "Taiwanese",
+    "canteenName" : "The Deck",
+    "stallNumber" : 3,
+    "stallImageName" : "muslim.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Duck and Chicken Rice",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 3,
+    "stallImageName" : "DuckandChickenRice.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Five Grains Bee Hoon",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 5,
+    "stallImageName" : "FiveGrainsBeeHoon.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Indian Cuisine",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 3,
+    "stallImageName" : "Indian Cuisine.png",
+    "cuisine" : "Indian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Japenese and Korean",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 5,
+    "stallImageName" : "JapKor.png",
+    "cuisine" : "Fusion",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Mala Hot Pot",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 3,
+    "stallImageName" : "MalaHotPot.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Minced Meat Noodle",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 5,
+    "stallImageName" : "MincedMeatNoodle.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Mixed Veg Rice",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 3,
+    "stallImageName" : "MixedVegRice.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Taiwan Cuisine",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 5,
+    "stallImageName" : "TaiwanCuisine.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Western",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 3,
+    "stallImageName" : "Western.png",
+    "cuisine" : "Western",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Wok Fried",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 5,
+    "stallImageName" : "WokFried.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  }, {
+    "name" : "Xiao Long Bao",
+    "canteenName" : "Nus Flavors",
+    "stallNumber" : 3,
+    "stallImageName" : "XiaoLongBao.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tagged" : [ ]
+  } ]
+}

@@ -8,8 +8,9 @@ import java.util.logging.Logger;
 
 import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.commons.core.index.Index;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
-import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.canteen.Canteen;
 
 /**
  * Selects a canteen to view the food stalls.
@@ -50,19 +51,35 @@ public class EnterCanteenCommand extends Command {
         this.canteenName = Optional.of(canteenName);
     }
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        /* All the stalls are retrieved as they contain the canteen name field
+           which we filter the canteen name that specified in enter {canteenName}
+        */
         model.updateFilteredStallList(Model.PREDICATE_SHOW_ALL_STALLS);
-        List<Stall> lastShownList = model.getFilteredStallList();
         if (index.isPresent()) {
-            Stall stall = lastShownList.get(index.get().getZeroBased());
-            logger.info("Enter " + stall.getCanteenName());
-            model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(stall.getCanteenName()));
+            List<Canteen> canteenList;
+            if (model.isLocationSpecified()) {
+                canteenList = model.getFilteredCanteenListSortedByDistance();
+            } else {
+                canteenList = model.getFilteredCanteenList();
+            }
+            Canteen canteen = canteenList.get(index.get().getZeroBased());
+
+            logger.info("Enter " + canteen.getName());
+            model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(
+                    canteen.getName().toString()));
 
         } else if (canteenName.isPresent()) {
-            model.updateFilteredStallList(stall -> stall.getCanteenName().equalsIgnoreCase(canteenName.get()));
+            List<Canteen> canteens = model.getFilteredCanteenList();
+            for (Canteen c : canteens) {
+                if (c.getName().toString().equalsIgnoreCase(canteenName.get())) {
+                    ParserContext.setCanteenContext(c);
+                    model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(c.getName().toString()));
+                    break;
+                }
+            }
         }
         return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
     }

@@ -29,7 +29,6 @@ public class FoodieBotParser {
     /** Used for initial separation of command word and args. */
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     /**
      * Parses user input into command for execution.
      *
@@ -60,7 +59,11 @@ public class FoodieBotParser {
             return new GoToCanteenCommandParser().parse(arguments);
 
         case EnterCanteenCommand.COMMAND_WORD:
-            return new EnterCanteenCommandParser().parse(arguments);
+            if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                return new EnterCanteenCommandParser().parse(arguments);
+            } else {
+                return new EnterStallCommandParser().parse(arguments);
+            }
 
         case FoodMenuCommand.COMMAND_WORD:
             return new FoodMenuCommandParser().parse(arguments);
@@ -90,7 +93,7 @@ public class FoodieBotParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return new ListCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -6,17 +6,23 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.foodiebot.model.canteen.Stall;
+
+import seedu.foodiebot.model.canteen.exceptions.DuplicateCanteenException;
 import seedu.foodiebot.model.stall.exceptions.DuplicateStallException;
 import seedu.foodiebot.model.stall.exceptions.StallNotFoundException;
 
+
+
+/**
+ * List of Food Available while ensuring no duplicates
+ */
 public class UniqueFoodList implements Iterable<Food> {
     private final ObservableList<Food> internalList = FXCollections.observableArrayList();
     private final ObservableList<Food> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent canteen as the given argument.
+     * Returns true if the list contains an equivalent food as the given argument.
      */
     public boolean contains(Food toCheck) {
         requireNonNull(toCheck);
@@ -24,7 +30,7 @@ public class UniqueFoodList implements Iterable<Food> {
     }
 
     /**
-     * Adds a canteen to the list. The canteen must not already exist in the list.
+     * Adds a food to the list. The food must not already exist in the list.
      */
     public void add(Food toAdd) {
         requireNonNull(toAdd);
@@ -55,7 +61,7 @@ public class UniqueFoodList implements Iterable<Food> {
     }
 
     /**
-     * Removes the equivalent stall from the list. The stall must exist in the list.
+     * Removes the equivalent food from the list. The food must exist in the list.
      */
     public void remove(Food toRemove) {
         requireNonNull(toRemove);
@@ -70,8 +76,8 @@ public class UniqueFoodList implements Iterable<Food> {
     }
 
     /**
-     * Replaces the contents of this list with {@code stalls}. {@code stalls} must not contain
-     * duplicate stalls.
+     * Replaces the contents of this list with {@code food}. {@code food} must not contain
+     * duplicate food.
      */
     public void setFoods(List<Food> foods) {
         requireAllNonNull(foods);
@@ -107,7 +113,7 @@ public class UniqueFoodList implements Iterable<Food> {
     }
 
     /**
-     * Returns true if {@code stalls} contains only unique stalls.
+     * Returns true if {@code food} contains only unique foods.
      */
     private boolean foodsAreUnique(List<Food> foods) {
         for (int i = 0; i < foods.size() - 1; i++) {
@@ -118,6 +124,20 @@ public class UniqueFoodList implements Iterable<Food> {
             }
         }
         return true;
+    }
+
+    /**
+     * Replaces the food {@code target} in the list with {@code editedPerson}. {@code target}
+     * must exist in the list. The food identity of {@code editedPerson} must not be the same as
+     * another existing food in the list.
+     */
+    public void setFood(List<Food> food) {
+        requireAllNonNull(food);
+        if (!foodsAreUnique(food)) {
+            throw new DuplicateCanteenException();
+        }
+
+        internalList.setAll(food);
     }
 }
 

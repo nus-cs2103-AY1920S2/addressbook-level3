@@ -1,10 +1,13 @@
 package seedu.foodiebot.model;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
@@ -18,7 +21,6 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Stall> PREDICATE_SHOW_ALL_STALLS = unused -> true;
-
 
     /** Replaces user prefs data with the data in {@code userPrefs}. */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -63,14 +65,18 @@ public interface Model {
      */
     void setCanteen(Canteen target, Canteen editedCanteen);
 
-
-
     void setBudget(Budget budget);
 
     Optional<Budget> getBudget();
 
+    FileReader listOfCanteen() throws FileNotFoundException;
+
     /** Returns an unmodifiable view of the filtered canteen list */
     ObservableList<Canteen> getFilteredCanteenList();
+
+    /** Returns an unmodifiable view of the filtered canteen list sorted by distance */
+    ObservableList<Canteen> getFilteredCanteenListSortedByDistance();
+    void setLocationSpecified(boolean isLocationSpecified);
 
     /**
      * Updates the filter of the filtered canteen list to filter by the given {@code predicate}.
@@ -79,14 +85,31 @@ public interface Model {
      */
     void updateFilteredCanteenList(Predicate<Canteen> predicate);
 
+
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList();
 
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
-
     /**
      * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStallList(Predicate<Stall> predicate);
+
+    /** Returns an unmodifiable view of the filtered food list */
+    ObservableList<Food> getFilteredFoodList();
+
+    /** Returns an unmodifiable view of the filtered food list */
+    ObservableList<Food> getFilteredFoodList(boolean isInitialised);
+
+    /**
+     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFoodList(Predicate<Food> predicate);
+  
+    boolean isLocationSpecified();
 }

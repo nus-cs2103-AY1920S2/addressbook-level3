@@ -3,14 +3,18 @@ package seedu.foodiebot.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.commons.core.LogsCenter;
@@ -34,6 +38,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Canteen> filteredCanteens;
     private final FilteredList<Stall> filteredStalls;
+    private final FilteredList<Food> filteredFoods;
 
     private final Budget budget;
 
@@ -48,9 +53,9 @@ public class ModelManager implements Model {
 
         this.foodieBot = new FoodieBot(foodieBot);
         this.userPrefs = new UserPrefs(userPrefs);
-
         filteredCanteens = new FilteredList<>(this.foodieBot.getCanteenList());
         filteredStalls = new FilteredList<>(this.foodieBot.getStallList());
+        filteredFoods = new FilteredList<>(this.foodieBot.getFoodList());
         budget = this.foodieBot.getBudget();
     }
 
@@ -137,6 +142,11 @@ public class ModelManager implements Model {
         foodieBot.setBudget(budget);
     }
 
+    @Override
+    public void setLocationSpecified(boolean isLocationSpecified) {
+        foodieBot.setLocationSpecified(isLocationSpecified);
+    }
+
     /**
      * Reads the stored budget in the Json file.
      * @return The budget object stored in the Json file. If the file is not present,
@@ -152,17 +162,30 @@ public class ModelManager implements Model {
             if (newBot.equals(Optional.empty())) {
                 return Optional.empty();
             }
-            return Optional.of(newBot.get().getBudget());
+
+            Budget budget = newBot.get().getBudget();
+
+
+            return Optional.of(budget);
         } catch (DataConversionException e) {
             return Optional.empty();
         } catch (IOException e) {
             return Optional.empty();
         }
-        // return foodieBot.getBudget();
 
     }
 
-
+    /**
+     * This function return a FileReader of the jsonfile (foodiebot.json).
+     * @return FileRead of the jsonfile
+     * @throws FileNotFoundException
+     */
+    @Override
+    public FileReader listOfCanteen() throws FileNotFoundException {
+        FoodieBotStorage foodieBotStorage =
+                new JsonFoodieBotStorage(userPrefs.getFoodieBotFilePath());
+        return new FileReader(String.valueOf(foodieBotStorage.getCanteensFilePath()));
+    }
 
     // =========== Filtered Person List Accessors
     // =============================================================
@@ -176,12 +199,29 @@ public class ModelManager implements Model {
         return filteredCanteens;
     }
 
+    /**
+     * Updates the filter of the filtered canteen list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public ObservableList<Canteen> getFilteredCanteenListSortedByDistance() {
+        SortedList<Canteen> sortedCanteenList = new SortedList<>(filteredCanteens);
+        sortedCanteenList.setComparator(Comparator.comparingInt(Canteen::getDistance));
+        return sortedCanteenList;
+    }
+
     @Override
     public void updateFilteredCanteenList(Predicate<Canteen> predicate) {
         requireNonNull(predicate);
         filteredCanteens.setPredicate(predicate);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Stall} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     public ObservableList<Stall> getFilteredStallList(boolean isInitialised) {
         if (!isInitialised) {
             updateModelManagerStalls();
@@ -190,8 +230,48 @@ public class ModelManager implements Model {
         return filteredStalls;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Stall} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
     public ObservableList<Stall> getFilteredStallList() {
         return filteredStalls;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Food} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Food> getFilteredFoodList() {
+        return filteredFoods;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Food} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Food> getFilteredFoodList(boolean isInitialised) {
+        if (!isInitialised) {
+            updateModelManagerFood();
+        }
+        return filteredFoods;
+    }
+
+    /**
+     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredFoodList(Predicate<Food> predicate) {
+        requireNonNull(predicate);
+        filteredFoods.setPredicate(predicate);
+        //List<Food> filterCopy = new ArrayList<>(filteredFoods);
+        //filteredFoods.removeAll(filterCopy);
+        //filteredFoods.addAll(foods);
     }
 
 
@@ -207,6 +287,10 @@ public class ModelManager implements Model {
         filteredStalls.setPredicate(predicate);
     }
 
+    @Override
+    public boolean isLocationSpecified() {
+        return foodieBot.isLocationSpecified();
+    }
     /**
      * .
      */
@@ -217,6 +301,24 @@ public class ModelManager implements Model {
             Storage storage = new StorageManager(foodieBotStorage);
             Optional<ReadOnlyFoodieBot> newBot = storage.readFoodieBot(Stall.class.getSimpleName());
             foodieBot.setStalls(newBot.get().getStallList());
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * .
+     */
+    public void updateModelManagerFood() {
+        try {
+            FoodieBotStorage foodieBotStorage =
+                    new JsonFoodieBotStorage(
+                            userPrefs.getStallsFilePath(), userPrefs.getBudgetFilePath(), userPrefs.getFoodFilePath());
+            Storage storage = new StorageManager(foodieBotStorage);
+            Optional<ReadOnlyFoodieBot> newBot = storage.readFoodieBot(Food.class.getSimpleName());
+            foodieBot.setFood(newBot.get().getFoodList());
         } catch (DataConversionException e) {
             e.printStackTrace();
         } catch (IOException e) {

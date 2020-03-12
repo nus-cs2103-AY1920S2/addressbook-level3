@@ -22,8 +22,9 @@ import seedu.foodiebot.model.ModelManager;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.UserPrefs;
-import seedu.foodiebot.model.budget.Budget;
+// import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
+import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.util.SampleDataUtil;
 import seedu.foodiebot.storage.FoodieBotStorage;
 import seedu.foodiebot.storage.JsonFoodieBotStorage;
@@ -63,7 +64,8 @@ public class MainApp extends Application {
 
         // Loads the specified file paths into the main app.
         FoodieBotStorage foodieBotStorage =
-            new JsonFoodieBotStorage(userPrefs.getFoodieBotFilePath(), userPrefs.getBudgetFilePath());
+            new JsonFoodieBotStorage(userPrefs.getFoodieBotFilePath(),
+                    userPrefs.getStallsFilePath(), userPrefs.getFoodFilePath(), userPrefs.getBudgetFilePath());
 
         storage = new StorageManager(foodieBotStorage, userPrefsStorage);
 
@@ -89,7 +91,9 @@ public class MainApp extends Application {
         try {
             storage.readFoodieBot(Canteen.class.getSimpleName());
 
-            storage.readFoodieBot(Budget.class.getSimpleName());
+            // storage.readFoodieBot(Budget.class.getSimpleName());
+
+            storage.readFoodieBot(Food.class.getSimpleName());
 
             addressBookOptional = Optional.empty();
             if (!addressBookOptional.isPresent()) {

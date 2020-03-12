@@ -2,18 +2,105 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71e98e02-c0ff-4842-8d68-c0e22eaa40e2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/foodiebot-food.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/foodiebot-stalls.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/commons/core/date/ConceptualDate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/commons/core/date/DateFormatter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/commons/core/date/DateRange.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/commons/core/date/DateRangeStyle.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/commons/core/date/DefiniteDate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/EnterStallCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/EnterStallCommandParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ListCommandParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ParserContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/randomize/Randomize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonAdaptedFood.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonSerializableFood.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/FoodCard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/FoodListPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/DuckandChickenRice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/FiveGrainsBeeHoon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/Indian Cuisine.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/JapKor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/MalaHotPot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/MincedMeatNoodle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/MixedVegRice.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/TaiwanCuisine.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/ThaiStreetFood.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/Western.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/Western/ComboSet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/WokFried.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/Nus Flavors/XiaoLongBao.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/images/canteen/The Deck/YTF&amp;Laksa.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/FoodListCard.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/commons/core/date/DateFormatterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/commons/core/date/DateRangeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/testutil/TypicalBudgets.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/testutil/TypicalDateRanges.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.2.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/addressbook.log.0" beforeDir="false" afterPath="$PROJECT_DIR$/addressbook.log.0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/view/MainWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/resources/view/MainWindow.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/travis/check-eof-newline.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/foodiebot.json" beforeDir="false" afterPath="$PROJECT_DIR$/foodiebot.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/preferences.json" beforeDir="false" afterPath="$PROJECT_DIR$/preferences.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/FoodMenuCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/FoodMenuCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodMenuCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodMenuCommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/MainApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/commons/core/Messages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/commons/core/Messages.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/Logic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/Logic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/LogicManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/LogicManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/BudgetCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/BudgetCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/CommandResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/CommandResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/EnterCanteenCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/EnterCanteenCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/ExitCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/ExitCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/GoToCanteenCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/GoToCanteenCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/ListCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/ListCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/RandomizeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/RandomizeCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/ReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/ReportCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/TransactionsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/TransactionsCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ArgumentMultimap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ArgumentMultimap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/BudgetCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/BudgetCommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/CliSyntax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/CliSyntax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/EnterCanteenCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/EnterCanteenCommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodieBotParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodieBotParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/GoToCanteenCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/GoToCanteenCommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ParserUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ParserUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/RandomizeCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/RandomizeCommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ReportCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ReportCommandParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/TransactionsCommandParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/TransactionsCommandParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/FoodieBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/FoodieBot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/Model.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ModelManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ModelManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ReadOnlyFoodieBot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ReadOnlyFoodieBot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/UserPrefs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/UserPrefs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/budget/Budget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/budget/Budget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/Canteen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/Canteen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/Stall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/Stall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/Food.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/UniqueFoodList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/UniqueFoodList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/util/SampleDataUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/util/SampleDataUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/FoodieBotStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/FoodieBotStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonAdaptedBudget.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonAdaptedBudget.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonAdaptedCanteen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonAdaptedCanteen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonAdaptedStall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonAdaptedStall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonFoodieBotStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/JsonFoodieBotStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/StorageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/storage/StorageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/CanteenCard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/CanteenCard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/CanteenListPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/CanteenListPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/CommandBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/CommandBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/seedu/foodiebot/ui/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/CanteenListCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/CanteenListCard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/StallListCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/StallListCard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/LogicManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/LogicManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/commands/AddCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/commands/AddCommandTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/commands/CommandTestUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/commands/CommandTestUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/parser/ArgumentTokenizerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/parser/ArgumentTokenizerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/model/FoodieBotTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/model/FoodieBotTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/testutil/CanteenBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/testutil/CanteenBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/testutil/StallBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/seedu/foodiebot/testutil/StallBuilder.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -32,10 +119,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/seedu/foodiebot/model/FoodieBotTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="845">
+              <caret line="125" column="8" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/RandomizeCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/FoodieBot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="369">
+              <caret line="200" selection-start-line="200" selection-end-line="200" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/UniqueFoodList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1802">
-              <caret line="120" column="5" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
+            <state relative-caret-position="289">
+              <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,19 +158,45 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/UniqueCanteenList.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/LogicManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
+            <state relative-caret-position="646">
+              <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+              <folding>
+                <element signature="e#4985#4986#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/Model.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/Command.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
-              <caret line="76" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="221">
+              <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/randomize/Randomize.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-969">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,62 +204,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ModelManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
+            <state relative-caret-position="4029">
+              <caret line="260" selection-start-line="260" selection-end-line="260" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ReadOnlyFoodieBot.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodieBotParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/Stall.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/Canteen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1274">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/FoodMenuCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodMenuCommandParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="17" column="41" lean-forward="true" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/Food.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="680">
+              <caret line="61" column="15" selection-start-line="61" selection-start-column="15" selection-end-line="61" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -184,11 +282,12 @@
         <option value="$PROJECT_DIR$/src/test/java/seedu/address/storage/JsonAdaptedPersonTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodMenuCommandParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/FoodMenuCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/UniqueFoodList.java" />
         <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/Model.java" />
         <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ModelManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ReadOnlyFoodieBot.java" />
         <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/FoodieBot.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/UniqueFoodList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/Command.java" />
       </list>
     </option>
   </component>
@@ -203,34 +302,36 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -238,7 +339,7 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -247,7 +348,7 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -257,7 +358,7 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -267,7 +368,7 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -276,7 +377,7 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -286,7 +387,7 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -296,17 +397,17 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="foodiebot" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="stall" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -315,31 +416,66 @@
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="main" type="b2602c69:ProjectViewProjectNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="JsonSerializableFoodieBotTest" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="foodiebot" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="main" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="foodiebot" type="462c0819:PsiDirectoryNode" />
+              <item name="logic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="main" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="foodiebot" type="462c0819:PsiDirectoryNode" />
+              <item name="logic" type="462c0819:PsiDirectoryNode" />
+              <item name="commands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="main" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="foodiebot" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="main" type="b2602c69:ProjectViewProjectNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="foodiebot" type="462c0819:PsiDirectoryNode" />
+              <item name="testutil" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -502,7 +638,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23624161" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -580,13 +716,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="fixed tests" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/person/Remark.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/person/Email.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/ParserUtil.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/testutil/PersonBuilder.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/ui/PersonCard.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/person/Person.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/logic/parser/AddCommandParser.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/seedu/address/model/util/SampleDataUtil.java" />
     <entry file="file://$PROJECT_DIR$/src/test/java/seedu/address/logic/commands/EditCommandTest.java" />
     <entry file="file://$PROJECT_DIR$/data/addressbook.json">
@@ -638,8 +767,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/foodiebot.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+        <state relative-caret-position="357">
+          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -652,22 +781,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/ParserUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="1564">
+          <caret line="122" column="5" selection-start-line="122" selection-start-column="5" selection-end-line="122" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/LogicManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+        <state relative-caret-position="646">
+          <caret line="63" column="11" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+          <folding>
+            <element signature="e#4985#4986#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/parser/FoodieBotParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="64" column="29" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
+        <state relative-caret-position="680">
+          <caret line="61" column="15" selection-start-line="61" selection-start-column="15" selection-end-line="61" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -700,23 +832,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/stall/Foods.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/FoodieBot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/UniqueFoodList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1802">
-          <caret line="120" column="5" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/canteen/UniqueCanteenList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -733,8 +848,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/ModelManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="34" column="53" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="53" />
+        <state relative-caret-position="4029">
+          <caret line="260" selection-start-line="260" selection-end-line="260" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -777,6 +895,80 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="17" column="41" lean-forward="true" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/foodiebot/model/FoodieBotTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="845">
+          <caret line="125" column="8" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/RandomizeCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/seedu/foodiebot/logic/commands/AddCommandTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/FoodieBot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="200" selection-start-line="200" selection-end-line="200" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/reports/checkstyle/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/food/UniqueFoodList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/logic/commands/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-969">
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/seedu/foodiebot/model/randomize/Randomize.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

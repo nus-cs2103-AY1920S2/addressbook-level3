@@ -2,6 +2,8 @@ package seedu.foodiebot.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -17,6 +19,7 @@ import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 
 public class AddCommandTest {
 
@@ -145,6 +148,19 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Returns an unmodifiable view of the filtered canteen list sorted by distance
+         */
+        @Override
+        public ObservableList<Canteen> getFilteredCanteenListSortedByDistance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setLocationSpecified(boolean isLocationSpecified) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void updateFilteredCanteenList(Predicate<Canteen> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -170,6 +186,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public FileReader listOfCanteen() throws FileNotFoundException {
+            throw new AssertionError("This method should not be called.");
+        }
+
         /**
          * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
          *
@@ -178,6 +199,26 @@ public class AddCommandTest {
          */
         @Override
         public void updateFilteredStallList(Predicate<Stall> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isLocationSpecified() {
+            return false;
+        }
+
+        @Override
+        public ObservableList<Food> getFilteredFoodList() {
+            throw new AssertionError("This method is a placeholder");
+        }
+
+        @Override
+        public ObservableList<Food> getFilteredFoodList(boolean isInitialised) {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredFoodList(Predicate<Food> predicate) {
 
         }
     }

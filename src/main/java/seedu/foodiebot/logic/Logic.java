@@ -1,5 +1,6 @@
 package seedu.foodiebot.logic;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 
 /** API of the Logic component */
 public interface Logic {
@@ -21,7 +23,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
 
     /**
      * Returns the AddressBook.
@@ -33,6 +35,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of canteens */
     ObservableList<Canteen> getFilteredCanteenList();
 
+    /** Returns an unmodifiable view of the filtered list of canteens sorted by distance */
+    ObservableList<Canteen> getFilteredCanteenListSortedByDistance();
+
     /** Returns the user prefs' address book file path. */
     Path getFoodieBotFilePath();
 
@@ -42,5 +47,10 @@ public interface Logic {
     /** Set the user prefs' GUI settings. */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** Returns an unmodifiable view of the filtered list of Stalls */
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
+
+    /** Returns an unmodifiable view of the filtered list of Food */
+    ObservableList<Food> getFilteredFoodList(boolean isInitialised);
 }
+

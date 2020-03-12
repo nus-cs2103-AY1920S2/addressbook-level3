@@ -13,6 +13,7 @@ import seedu.foodiebot.model.canteen.Address;
 import seedu.foodiebot.model.canteen.Block;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Name;
+import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.tag.Tag;
 
 /** Contains utility methods used for parsing strings in the various *Parser classes. */
@@ -103,6 +104,22 @@ public class ParserUtil {
             throw new ParseException(Canteen.MESSAGE_CONSTRAINTS);
         }
         return trimmedCanteenName;
+    }
+
+    /**
+     * Parses a {@code String stallName} into a {@code stallName}. Leading and trailing whitespaces will
+     * be trimmed
+     *
+     * @throws ParseException if the given {@code stallName} is invalid
+     */
+    public static String parseStallName(String stallName) throws ParseException {
+        requireNonNull(stallName);
+        String trimmedStallName = stallName.trim();
+        if (!Stall.isValidStall(trimmedStallName)) {
+            throw new ParseException(Stall.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedStallName;
+
     }
 
 
