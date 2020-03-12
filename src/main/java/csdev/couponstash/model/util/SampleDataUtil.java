@@ -50,7 +50,7 @@ public class SampleDataUtil {
           
           
             new Coupon(new Name("Roy Balakrishnan"), new Phone("92624417"),
-                new Savings(new PercentageAmount(100d)), getTagSet("colleagues")), new ExpiryDate("11-9-2020"))
+                new Savings(new PercentageAmount(100d)), getTagSet("colleagues"), new ExpiryDate("11-9-2020"))
 
         };
     }
