@@ -7,7 +7,6 @@ import seedu.address.model.item.ItemPrice;
 /**
  * A utility class to help with building Item objects.
  */
-
 public class ItemBuilder {
 
     public static final String DEFAULT_NAME = "Chicken Rice";
@@ -27,6 +26,7 @@ public class ItemBuilder {
     public ItemBuilder(Item itemToCopy) {
         name = itemToCopy.getItemName();
         price = itemToCopy.getItemPrice();
+
     }
 
     /**
@@ -40,7 +40,7 @@ public class ItemBuilder {
     /**
      * Sets the {@code ItemPrice} of the {@code Item} that we are building.
      */
-    public ItemBuilder withAddress(double price) {
+    public ItemBuilder withPrice(double price) {
         this.price = new ItemPrice(price);
         return this;
     }

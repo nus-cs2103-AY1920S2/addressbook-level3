@@ -16,7 +16,7 @@ public class ItemName {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String itemName;
 
@@ -34,7 +34,7 @@ public class ItemName {
     /**
      * Returns true if a given string is a valid name.
      *
-     * @parm test whether a name is valid or not.
+     * @param test whether a name is valid or not.
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
