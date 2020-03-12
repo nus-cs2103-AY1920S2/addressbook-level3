@@ -7,6 +7,10 @@ import seedu.address.model.good.Good;
  */
 public class TypicalGoods {
 
-    public static final Good APPLE = new GoodBuilder().withGoodName("Fuji apple").build();
+    public static final Good APPLE = new GoodBuilder().withGoodName("Fuji apple")
+            .withGoodQuantity(15).build();
+
+    public static final Good BANANA = new GoodBuilder().withGoodName("Brazil banana")
+            .withGoodQuantity(10).build();
 
 }

@@ -3,9 +3,10 @@ package seedu.address.model.good;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOOD_NAME_AVOCADO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOOD_QUANTITY_ONE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalGoods.APPLE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalGoods.BANANA;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,9 @@ public class GoodTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Good(null));
+        assertThrows(NullPointerException.class, () -> new Good(null, new GoodQuantity(VALID_GOOD_QUANTITY_ONE)));
+        assertThrows(NullPointerException.class, () -> new Good(new GoodName(VALID_GOOD_NAME_AVOCADO), null));
+        assertThrows(NullPointerException.class, () -> new Good(null, null));
     }
 
     @Test
@@ -29,9 +32,13 @@ public class GoodTest {
         // null -> returns false
         assertFalse(APPLE.isSameGood(null));
 
-        // different phone and email -> returns false
+        // same good quantity, different good name -> returns false
         Good editedApple = new GoodBuilder(APPLE).withGoodName(VALID_GOOD_NAME_AVOCADO).build();
         assertFalse(APPLE.isSameGood(editedApple));
+
+        // same good name, different quantity -> returns true
+        editedApple = new GoodBuilder(APPLE).withGoodQuantity(VALID_GOOD_QUANTITY_ONE).build();
+        assertTrue(APPLE.isSameGood(editedApple));
     }
 
     @Test
@@ -49,19 +56,22 @@ public class GoodTest {
         // different type -> returns false
         assertFalse(APPLE.equals(5));
 
-        // different person -> returns false
-        assertFalse(APPLE.equals(BOB));
+        // different good -> returns false
+        assertFalse(APPLE.equals(BANANA));
 
-        // different name -> returns false
+        // different good name -> returns false
         Good editedApple = new GoodBuilder(APPLE).withGoodName(VALID_GOOD_NAME_AVOCADO).build();
         assertFalse(APPLE.equals(editedApple));
 
+        // different good quantity -> returns false
+        editedApple = new GoodBuilder(APPLE).withGoodQuantity(VALID_GOOD_QUANTITY_ONE).build();
+        assertFalse(APPLE.equals(editedApple));
     }
 
     @Test
     public void toStringTest() {
         Good testGood = new GoodBuilder().withGoodName(VALID_GOOD_NAME_AVOCADO).build();
-        assertTrue(testGood.toString().equals(VALID_GOOD_NAME_AVOCADO));
+        assertFalse(testGood.toString().equals(VALID_GOOD_NAME_AVOCADO));
     }
 
 }

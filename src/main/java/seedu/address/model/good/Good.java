@@ -1,10 +1,11 @@
 package seedu.address.model.good;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+
 /**
- * Represents a Good in the address book.
+ * Represents a Good in the inventory.
  * Guarantees: details are present and not null, field values are validated, immutable.
  * Method summary:
  * Currently, the good class works as empty object for the inventory.
@@ -14,14 +15,20 @@ public class Good {
 
     // Identity fields
     private final GoodName goodName;
+    private final GoodQuantity goodQuantity;
 
-    public Good(GoodName goodName) {
-        requireNonNull(goodName);
+    public Good(GoodName goodName, GoodQuantity goodQuantity) {
+        requireAllNonNull(goodName, goodQuantity);
         this.goodName = goodName;
+        this.goodQuantity = goodQuantity;
     }
 
     public GoodName getGoodName() {
         return goodName;
+    }
+
+    public GoodQuantity getGoodQuantity() {
+        return goodQuantity;
     }
 
     /**
@@ -47,19 +54,21 @@ public class Good {
         }
 
         Good otherGood = (Good) other;
-        return otherGood.getGoodName().equals(getGoodName());
+        return otherGood.getGoodName().equals(getGoodName())
+                && otherGood.goodQuantity.equals(getGoodQuantity());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(goodName);
+        return Objects.hash(goodName, goodQuantity);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getGoodName());
+        builder.append(getGoodName())
+                .append(goodQuantity);
         return builder.toString();
     }
 
