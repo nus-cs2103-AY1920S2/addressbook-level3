@@ -46,6 +46,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                         CliSyntax.PREFIX_PHONE,
                         CliSyntax.PREFIX_EXPIRY_DATE,
                         CliSyntax.PREFIX_SAVINGS,
+                        CliSyntax.PREFIX_USAGE,
                         CliSyntax.PREFIX_TAG);
 
         Index index;
@@ -70,6 +71,11 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(CliSyntax.PREFIX_EXPIRY_DATE).isPresent()) {
             editCouponDescriptor.setExpiryDate(ParserUtil.parseExpiryDate(argMultimap
                     .getValue(CliSyntax.PREFIX_EXPIRY_DATE).get()));
+        }
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_USAGE).isPresent()) {
+            editCouponDescriptor.setUsage(ParserUtil.parseUsage(argMultimap
+                    .getValue(CliSyntax.PREFIX_USAGE).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG))

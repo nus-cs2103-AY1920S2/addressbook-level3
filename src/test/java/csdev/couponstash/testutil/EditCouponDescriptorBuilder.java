@@ -10,6 +10,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -35,9 +36,10 @@ public class EditCouponDescriptorBuilder {
         descriptor = new EditCouponDescriptor();
         descriptor.setName(coupon.getName());
         descriptor.setPhone(coupon.getPhone());
-        descriptor.setTags(coupon.getTags());
         descriptor.setSavings(coupon.getSavings());
         descriptor.setExpiryDate(coupon.getExpiryDate());
+        descriptor.setUsage(coupon.getUsage());
+        descriptor.setTags(coupon.getTags());
     }
 
     /**
@@ -53,6 +55,14 @@ public class EditCouponDescriptorBuilder {
      */
     public EditCouponDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Usage} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withUsage(String usage) {
+        descriptor.setUsage(new Usage(usage));
         return this;
     }
 

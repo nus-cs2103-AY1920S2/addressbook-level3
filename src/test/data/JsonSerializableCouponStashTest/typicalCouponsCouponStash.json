@@ -9,6 +9,7 @@
       "saveables" : null
     },
     "expiry date" : "31-12-2020",
+    "usage": "1",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -19,6 +20,7 @@
       "saveables" : null
     },
     "expiry date" : "31-12-2020",
+    "usage": "1",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -35,6 +37,7 @@
       } ]
     },
     "expiry date" : "31-12-2020",
+    "usage":  "1",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -51,6 +54,7 @@
       } ]
     },
     "expiry date" : "31-12-2020",
+    "usage":  "1",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
@@ -67,6 +71,7 @@
       } ]
     },
     "expiry date" : "31-12-2020",
+    "usage":  "1",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -77,6 +82,7 @@
       "saveables" : null
     },
     "expiry date" : "31-12-2020",
+    "usage":  "1",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
@@ -87,6 +93,7 @@
       "saveables" : null
     },
     "expiry date" : "31-12-2020",
+    "usage":  "1",
     "tagged" : [ ]
   } ]
 }

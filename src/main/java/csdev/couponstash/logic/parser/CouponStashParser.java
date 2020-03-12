@@ -17,12 +17,14 @@ import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
+import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
 public class CouponStashParser {
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -75,6 +77,9 @@ public class CouponStashParser {
 
         case ExpiringCommand.COMMAND_WORD:
             return new ExpiringCommandParser().parse(arguments);
+
+        case UsedCommand.COMMAND_WORD:
+            return new UsedCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
