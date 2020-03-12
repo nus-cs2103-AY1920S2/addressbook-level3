@@ -77,7 +77,7 @@ public class ParserUtil {
      *                certain savings entered by the user.
      * @param moneySymbol The symbol to be used for monetary amounts,
      *                    as specified in the UserPrefs.
-     * @throws ParseException if the given {@code savings} is invalid.
+     * @throws ParseException If the given {@code savings} is invalid.
      *     (if no savings are given, or if both a monetary amount
      *     and a percentage amount is given)
      */
@@ -97,6 +97,8 @@ public class ParserUtil {
                     monetaryAmount = new MonetaryAmount(Double.parseDouble(trimmedMonetaryAmount));
                 } catch (NumberFormatException e) {
                     throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
+                } catch (IllegalArgumentException e) {
+                    throw new ParseException(e.getMessage());
                 }
             } else if (str.endsWith(PercentageAmount.PERCENT_SUFFIX)) {
                 // last percentage amount will be taken
@@ -108,6 +110,8 @@ public class ParserUtil {
                     percentageAmount = new PercentageAmount(Double.parseDouble(rawNumber));
                 } catch (NumberFormatException e) {
                     throw new ParseException(Savings.MESSAGE_CONSTRAINTS);
+                } catch (IllegalArgumentException e) {
+                    throw new ParseException(e.getMessage());
                 }
             } else {
                 String trimmedSaveable = str.trim();

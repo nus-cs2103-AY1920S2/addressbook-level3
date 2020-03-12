@@ -61,7 +61,7 @@ public class CouponStashParser {
             return new AddCommandParser(this.moneySymbol).parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditCommandParser(this.moneySymbol).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

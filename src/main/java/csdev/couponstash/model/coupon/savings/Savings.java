@@ -30,7 +30,6 @@ import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
 public class Savings implements Comparable<Savings> {
     public static final String MESSAGE_CONSTRAINTS = "Savings should not be blank, "
             + "and savings cannot have both a monetary amount and a percentage amount.";
-
     public static final String EMPTY_LIST_ERROR =
             "ERROR: Parser identified that this Savings should have"
             + "Saveables, but no Saveables received in class Savings";
@@ -230,23 +229,27 @@ public class Savings implements Comparable<Savings> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("You save ");
-        if (this.hasMonetaryAmount()) {
-            sb.append(this.monetaryAmount.get().toString());
-            sb.append(", ");
+        StringBuilder sb = new StringBuilder();
+        if (!this.hasMonetaryAmount() && !this.hasPercentageAmount()) {
+            sb.append("You get ");
+        } else {
+            sb.append("You save ");
+            this.monetaryAmount.ifPresent(ma -> {
+                sb.append(ma.toString());
+                sb.append(", ");
+            });
+            this.percentage.ifPresent(pc -> {
+                sb.append(pc.toString());
+                sb.append(", ");
+            });
+            this.saveables.ifPresent(s -> sb.append(" and you get "));
         }
-        if (this.hasPercentageAmount()) {
-            sb.append(this.percentage.get().toString());
-            sb.append(", ");
-        }
-        if (this.hasSaveables()) {
-            List<Saveable> savedItems = this.saveables.get();
-            sb.append(" and you get ");
+        this.saveables.ifPresent(savedItems -> {
             for (Saveable sv : savedItems) {
                 sb.append(sv.toString());
                 sb.append(", ");
             }
-        }
+        });
         // remove last comma and space (extra length 2)
         return sb.substring(0, sb.length() - 2);
     }
