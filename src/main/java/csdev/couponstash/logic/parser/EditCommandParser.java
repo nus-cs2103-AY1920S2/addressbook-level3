@@ -67,14 +67,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseSavingsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_SAVINGS))
                 .ifPresent(editCouponDescriptor::setSavings);
 
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG))
-                .ifPresent(editCouponDescriptor::setTags);
         if (argMultimap.getValue(CliSyntax.PREFIX_EXPIRY_DATE).isPresent()) {
             editCouponDescriptor.setExpiryDate(ParserUtil.parseExpiryDate(argMultimap
                     .getValue(CliSyntax.PREFIX_EXPIRY_DATE).get()));
         }
 
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editCouponDescriptor::setTags);
+        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG))
+                .ifPresent(editCouponDescriptor::setTags);
+
 
         if (!editCouponDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

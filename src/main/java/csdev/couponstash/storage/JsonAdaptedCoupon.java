@@ -44,8 +44,8 @@ class JsonAdaptedCoupon {
                              ) {
         this.name = name;
         this.phone = phone;
-        this.expiryDate = expiryDate;
         this.savings = savings;
+        this.expiryDate = expiryDate;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -97,7 +97,6 @@ class JsonAdaptedCoupon {
         }
         final Savings modelSavings = savings.toModelType();
 
-
         if (expiryDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ExpiryDate.class.getSimpleName()));
@@ -108,7 +107,9 @@ class JsonAdaptedCoupon {
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
+
         return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelTags);
+
     }
 
 }

@@ -93,8 +93,7 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone,
-                updatedSavings, updatedExpiryDate, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedTags);
     }
 
     @Override
