@@ -16,7 +16,7 @@ public class Module {
     private final SemesterData semesterData;
 
     // Attributes to add
-    // Personal { Status, Grade, TaskList }
+    // Personal { Status, Grade, DeadlineList }
     private Personal personal;
 
     /**
