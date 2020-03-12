@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import csdev.couponstash.commons.core.GuiSettings;
+import csdev.couponstash.commons.core.StashSettings;
 
 /**
  * Represents User's preferences.
@@ -14,6 +15,7 @@ import csdev.couponstash.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private StashSettings stashSettings = new StashSettings();
     private Path couponStashFilePath = Paths.get("data" , "couponStash.json");
 
     /**
@@ -47,6 +49,22 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    @Override
+    public StashSettings getStashSettings() {
+        return this.stashSettings;
+    }
+
+    /**
+     * Sets the new StashSettings that contains application
+     * settings that were set by the user.
+     * @param ss StashSettings that holds the application
+     *           settings set by the user.
+     */
+    public void setStashSettings(StashSettings ss) {
+        requireNonNull(ss);
+        this.stashSettings = ss;
+    }
+
     public Path getCouponStashFilePath() {
         return couponStashFilePath;
     }
@@ -68,18 +86,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
+                && stashSettings.equals(o.stashSettings)
                 && couponStashFilePath.equals(o.couponStashFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, couponStashFilePath);
+        return Objects.hash(guiSettings, stashSettings, couponStashFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("\nStash Settings : " + stashSettings);
         sb.append("\nLocal data file location : " + couponStashFilePath);
         return sb.toString();
     }
