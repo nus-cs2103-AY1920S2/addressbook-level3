@@ -3,7 +3,7 @@ package csdev.couponstash.logic.parser;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVED;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -41,7 +41,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_SAVED, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_SAVINGS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -50,7 +50,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVED), this.moneySymbol);
+        Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Coupon coupon = new Coupon(name, phone, savings, tagList);

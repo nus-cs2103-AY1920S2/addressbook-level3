@@ -2,7 +2,7 @@ package csdev.couponstash.testutil;
 
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVED;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 import static csdev.couponstash.model.coupon.savings.PercentageAmount.PERCENT_SUFFIX;
 
@@ -76,13 +76,13 @@ public class CouponUtil {
     private static String convertSavingsToCommand(Savings sv, String moneySymbol) {
         StringBuilder sb = new StringBuilder();
         sv.getMonetaryAmount().ifPresent(ma ->
-                sb.append(PREFIX_SAVED).append(moneySymbol).append(ma.getValue()).append(" ")
+                sb.append(PREFIX_SAVINGS).append(moneySymbol).append(ma.getValue()).append(" ")
         );
         sv.getPercentageAmount().ifPresent(pc ->
-                sb.append(PREFIX_SAVED).append(pc.getValue()).append(PERCENT_SUFFIX).append(" ")
+                sb.append(PREFIX_SAVINGS).append(pc.getValue()).append(PERCENT_SUFFIX).append(" ")
         );
         sv.getSaveables().ifPresent(svaList -> svaList.stream()
-                .forEach(sva -> sb.append(PREFIX_SAVED).append(sva.getValue()).append(" "))
+                .forEach(sva -> sb.append(PREFIX_SAVINGS).append(sva.getValue()).append(" "))
         );
         return sb.toString();
     }
