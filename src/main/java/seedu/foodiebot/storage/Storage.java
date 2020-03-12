@@ -1,7 +1,6 @@
 package seedu.foodiebot.storage;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.foodiebot.commons.exceptions.DataConversionException;
@@ -18,8 +17,7 @@ public interface Storage extends FoodieBotStorage, UserPrefsStorage {
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    Path getFoodieBotFilePath();
-
+    //Path getFoodieBotFilePath();
 
 
     @Override

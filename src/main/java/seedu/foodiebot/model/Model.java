@@ -1,7 +1,6 @@
 package seedu.foodiebot.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -20,7 +19,6 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Stall> PREDICATE_SHOW_ALL_STALLS = unused -> true;
-
 
     /** Replaces user prefs data with the data in {@code userPrefs}. */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -81,10 +79,11 @@ public interface Model {
      */
     void updateFilteredCanteenList(Predicate<Canteen> predicate);
 
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList();
 
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
-
     /**
      * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
      *
@@ -92,9 +91,16 @@ public interface Model {
      */
     void updateFilteredStallList(Predicate<Stall> predicate);
 
-    void updateFilteredStallList(List<Stall> list);
-
+    /** Returns an unmodifiable view of the filtered food list */
     ObservableList<Food> getFilteredFoodList();
 
-    void updateFilteredFoodList(List<Food> list);
+    /** Returns an unmodifiable view of the filtered food list */
+    ObservableList<Food> getFilteredFoodList(boolean isInitialised);
+
+    /**
+     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFoodList(Predicate<Food> predicate);
 }

@@ -10,6 +10,7 @@ import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.tag.Tag;
 
 /**
@@ -25,10 +26,50 @@ public class SampleDataUtil {
             + "2. Follow the path to Stephen Riady Centre "
             + "3. Walk straight and the canteen appears to your right";
     public static Canteen[] getSampleCanteens() {
+        ArrayList<Stall> deckStalls = new ArrayList<Stall>(
+                Arrays.asList(
+                        new Stall(new Name("Taiwanese"), "The Deck", 3, "muslim.png",
+                        "asian",
+                        "$", 0, new ArrayList<>())));
+        ArrayList<Stall> flavourStalls = new ArrayList<Stall>(
+                Arrays.asList (
+                        new Stall(new Name("Duck and Chicken Rice"), "Nus Flavors", 3, "DuckandChickenRice.png",
+                                "asian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Five Grains Bee Hoon"), "Nus Flavors", 5, "FiveGrainsBeeHoon.png",
+                                "asian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Indian Cuisine"), "Nus Flavors", 3, "Indian Cuisine.png",
+                                "Indian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Japenese and Korean"), "Nus Flavors", 5, "JapKor.png",
+                                "Fusion",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Mala Hot Pot"), "Nus Flavors", 3, "MalaHotPot.png",
+                                "asian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Minced Meat Noodle"), "Nus Flavors", 5, "MincedMeatNoodle.png",
+                                "asian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Mixed Veg Rice"), "Nus Flavors", 3, "MixedVegRice.png",
+                                "asian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Taiwan Cuisine"), "Nus Flavors", 5, "TaiwanCuisine.png",
+                                "asian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Western"), "Nus Flavors", 3, "Western.png",
+                                "Western",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Wok Fried"), "Nus Flavors", 5, "WokFried.png",
+                                "asian",
+                                "$", 0, new ArrayList<>()),
+                        new Stall(new Name("Xiao Long Bao"), "Nus Flavors", 3, "XiaoLongBao.png",
+                                "asian",
+                                "$", 0, new ArrayList<>())));
         return new Canteen[]{
-            new Canteen(new Name("The Deck"), 2, 800, "COM1",
+            new Canteen(new Name("The Deck"), 5, 800, "COM1",
                 "com1_deck.png",
-                COM1_TO_DECK_DIRECTIONS, getTagSet("asian"), "deck.jpg", new ArrayList<>()),
+                COM1_TO_DECK_DIRECTIONS, getTagSet("asian"), "deck.jpg", new ArrayList<>(deckStalls)),
             new Canteen(
                 new Name("Nus Flavors"),
                 2,
@@ -36,7 +77,7 @@ public class SampleDataUtil {
                 "COM1",
                 "utown_flavors.png",
                 COM1_TO_NUSFLAVORS_DIRECTIONS,
-                getTagSet("asian", "western", "muslim"), "utown.jpg", new ArrayList<>())
+                getTagSet("asian", "western", "muslim"), "utown.jpg", new ArrayList<>(flavourStalls))
         };
     }
 
@@ -45,10 +86,45 @@ public class SampleDataUtil {
             new Stall(new Name("Taiwanese"), "The Deck", 3, "muslim.png",
                 "asian",
                 "$", 0, new ArrayList<>()),
-            new Stall(new Name("Yong Tau Foo"), "Nus Flavors", 5, "yongtaufoo.png",
+            new Stall(new Name("Duck and Chicken Rice"), "Nus Flavors", 3, "DuckandChickenRice.png",
+                "asian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Five Grains Bee Hoon"), "Nus Flavors", 5, "FiveGrainsBeeHoon.png",
+                "asian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Indian Cuisine"), "Nus Flavors", 3, "Indian Cuisine.png",
+                "Indian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Japenese and Korean"), "Nus Flavors", 5, "JapKor.png",
+                "Fusion",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Mala Hot Pot"), "Nus Flavors", 3, "MalaHotPot.png",
+                "asian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Minced Meat Noodle"), "Nus Flavors", 5, "MincedMeatNoodle.png",
+                "asian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Mixed Veg Rice"), "Nus Flavors", 3, "MixedVegRice.png",
+                "asian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Taiwan Cuisine"), "Nus Flavors", 5, "TaiwanCuisine.png",
+                "asian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Western"), "Nus Flavors", 3, "Western.png",
+                "Western",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Wok Fried"), "Nus Flavors", 5, "WokFried.png",
+                "asian",
+                "$", 0, new ArrayList<>()),
+            new Stall(new Name("Xiao Long Bao"), "Nus Flavors", 3, "XiaoLongBao.png",
                 "asian",
                 "$", 0, new ArrayList<>()),
         };
+    }
+
+    public static Food[] getSampleFoods() {
+        return new Food[] { new Food("Combo Set", 6, "1 Meat, 1 Pasta, 2 Sides", "ComboSet.png",
+                        1, "Nus Flavors", "Western", getTagSet("1"))};
     }
 
     public static ReadOnlyFoodieBot getSampleFoodieBot() {
@@ -59,6 +135,10 @@ public class SampleDataUtil {
 
         for (Stall sampleStall : getSampleStalls()) {
             sampleAb.addStall(sampleStall);
+        }
+
+        for (Food sampleFood : getSampleFoods()) {
+            sampleAb.addFood(sampleFood);
         }
         return sampleAb;
     }

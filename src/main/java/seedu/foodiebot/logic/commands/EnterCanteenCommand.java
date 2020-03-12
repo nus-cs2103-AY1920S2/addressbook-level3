@@ -51,7 +51,6 @@ public class EnterCanteenCommand extends Command {
         this.canteenName = Optional.of(canteenName);
     }
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
@@ -60,14 +59,14 @@ public class EnterCanteenCommand extends Command {
         if (index.isPresent()) {
             Canteen canteen = model.getFilteredCanteenList().get(index.get().getZeroBased());
             logger.info("Enter " + canteen.getName());
-            model.updateFilteredStallList(canteen.getStallsList());
+            model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(canteen.getName().toString()));
 
         } else if (canteenName.isPresent()) {
             List<Canteen> canteens = model.getFilteredCanteenList();
             for (Canteen c : canteens) {
                 if (c.getName().toString().equalsIgnoreCase(canteenName.get())) {
                     ParserContext.setCanteenContext(c);
-                    model.updateFilteredStallList(c.getStallsList());
+                    model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(c.getName().toString()));
                     break;
                 }
             }

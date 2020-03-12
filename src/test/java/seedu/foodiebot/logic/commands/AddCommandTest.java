@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -183,23 +182,18 @@ public class AddCommandTest {
 
         }
 
-        /**
-         *
-         */
-        @Override
-        public void updateFilteredStallList(List<Stall> stalls) {
-
-        }
-
         @Override
         public ObservableList<Food> getFilteredFoodList() {
             throw new AssertionError("This method is a placeholder");
         }
-        /**
-         *
-         */
+
         @Override
-        public void updateFilteredFoodList(List<Food> foods) {
+        public ObservableList<Food> getFilteredFoodList(boolean isInitialised) {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredFoodList(Predicate<Food> predicate) {
 
         }
     }

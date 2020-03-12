@@ -21,8 +21,8 @@ public class EnterStallCommandParser implements Parser<EnterStallCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EnterCanteenCommand and returns a
-     * EnterCanteenCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EnterStallCommand and returns a
+     * EnterStallCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -40,8 +40,9 @@ public class EnterStallCommandParser implements Parser<EnterStallCommand> {
             index = ParserUtil.parseIndex(enteredText);
             return new EnterStallCommand(index);
         } catch (ParseException pe) {
-            String canteenName = ParserUtil.parseStallName(enteredText);
-            return new EnterStallCommand(canteenName);
+            String stallName = ParserUtil.parseStallName(enteredText);
+            return new EnterStallCommand(stallName);
         }
     }
 }
+

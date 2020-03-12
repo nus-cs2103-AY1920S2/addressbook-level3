@@ -25,6 +25,7 @@ public class JsonFoodieBotStorage implements FoodieBotStorage {
     private Path canteensFilePath;
     private Path stallsFilePath;
     private Path budgetFilePath;
+    private Path foodFilePath;
 
     public JsonFoodieBotStorage(Path filePath) {
         this.canteensFilePath = filePath;
@@ -35,6 +36,18 @@ public class JsonFoodieBotStorage implements FoodieBotStorage {
         this.budgetFilePath = budgetFilePath;
     }
 
+    public JsonFoodieBotStorage(Path stallsFilePath, Path budgetFilePath, Path foodFilePath) {
+        this.stallsFilePath = stallsFilePath;
+        this.budgetFilePath = budgetFilePath;
+        this.foodFilePath = foodFilePath;
+    }
+
+    public JsonFoodieBotStorage(Path canteensFilePath, Path stallsFilePath, Path budgetFilePath, Path foodFilePath) {
+        this.canteensFilePath = canteensFilePath;
+        this.stallsFilePath = stallsFilePath;
+        this.budgetFilePath = budgetFilePath;
+        this.foodFilePath = foodFilePath;
+    }
 
     /**
      * Returns the file path of the data file.
@@ -47,6 +60,10 @@ public class JsonFoodieBotStorage implements FoodieBotStorage {
     @Override
     public Path getStallsFilePath() {
         return stallsFilePath;
+    }
+    @Override
+    public Path getFoodFilePath() {
+        return foodFilePath;
     }
 
 
@@ -96,7 +113,19 @@ public class JsonFoodieBotStorage implements FoodieBotStorage {
                 return Optional.empty();
             }
             return Optional.of(jsonAdaptedBudget.get().toModelType());
+        case "Food":
+            Optional<JsonSerializableFood> json3 = JsonUtil.readJsonFile(filePath,
+                    JsonSerializableFood.class);
+            if (!json3.isPresent()) {
+                return Optional.empty();
+            }
 
+            try {
+                return Optional.of(json3.get().toModelType());
+            } catch (IllegalValueException ive) {
+                logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
+                throw new DataConversionException(ive);
+            }
         default:
             break;
 
@@ -115,6 +144,8 @@ public class JsonFoodieBotStorage implements FoodieBotStorage {
             return new UserPrefs().getStallsFilePath();
         case "Budget":
             return new UserPrefs().getBudgetFilePath();
+        case "Food":
+            return new UserPrefs().getFoodFilePath();
         default:
             break;
         }
@@ -164,6 +195,10 @@ public class JsonFoodieBotStorage implements FoodieBotStorage {
         case "Budget":
             requireNonNull(foodieBot);
             JsonUtil.saveJsonFile(new JsonAdaptedBudget(foodieBot), filePath);
+            break;
+        case "Food":
+            requireNonNull(foodieBot);
+            JsonUtil.saveJsonFile(new JsonSerializableFood(foodieBot), filePath);
             break;
         default:
             requireNonNull(foodieBot);

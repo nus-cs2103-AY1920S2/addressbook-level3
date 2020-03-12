@@ -17,7 +17,11 @@ import seedu.foodiebot.model.food.Food;
  * values are validated, immutable.
  */
 public class Stall {
-    public static final String[] STALLS = new String[]{"Taiwanese", "Yong Tau Foo"};
+    public static final String[] STALLS = new String[]{
+        "Duck and Chicken Rice", "Five Grains Bee Hoon", "Indian Cuisine",
+        "Japenese Korean", "Mala Hot Pot", "Minced Meat Noodle", "Mixed Veg Rice",
+        "Taiwan Cuisine", "Thai Street Food", "Western", "Wok Fried", "Xiao Long Bao",
+        "Yong Tau Foo"};
     public static final String IMAGE_FOLDER = "/images/canteen/";
     private static final Logger logger = LogsCenter.getLogger(Stall.class);
     public static final String MESSAGE_CONSTRAINTS = "Stall name should be from " + Arrays.toString(STALLS);

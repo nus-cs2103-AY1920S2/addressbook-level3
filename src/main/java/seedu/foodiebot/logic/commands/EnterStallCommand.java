@@ -58,14 +58,14 @@ public class EnterStallCommand extends Command {
         if (index.isPresent()) {
             Stall stall = model.getFilteredStallList().get(index.get().getZeroBased());
             logger.info("Enter " + stall.getName());
-            model.updateFilteredFoodList(stall.getFoodMenu());
+            model.updateFilteredFoodList(f -> f.getStallName().equalsIgnoreCase(stall.getName().toString()));
 
         } else if (stallName.isPresent()) {
             List<Stall> stalls = model.getFilteredStallList();
             for (Stall s : stalls) {
                 if (s.getName().toString().equalsIgnoreCase(stallName.get())) {
                     ParserContext.setStallContext(s);
-                    model.updateFilteredFoodList(s.getFoodMenu());
+                    model.updateFilteredFoodList(f -> f.getStallName().equalsIgnoreCase(s.getName().toString()));
                     break;
                 }
             }
@@ -73,3 +73,4 @@ public class EnterStallCommand extends Command {
         return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
     }
 }
+
