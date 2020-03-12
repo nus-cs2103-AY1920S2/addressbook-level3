@@ -36,7 +36,7 @@ public class TypicalFood {
     private TypicalFood() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical food.
+     * Returns an {@code FoodBook} with all the typical food.
      */
     public static FoodBook getTypicalFoodBook() {
         FoodBook ab = new FoodBook();
