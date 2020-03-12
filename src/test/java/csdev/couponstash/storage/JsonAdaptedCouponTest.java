@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import csdev.couponstash.model.coupon.savings.Savings;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.savings.Savings;
 
 public class JsonAdaptedCouponTest {
     private static final String INVALID_NAME = "R@chel";

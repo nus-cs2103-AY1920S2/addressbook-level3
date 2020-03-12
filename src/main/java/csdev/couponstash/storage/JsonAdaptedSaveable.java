@@ -2,9 +2,13 @@ package csdev.couponstash.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.coupon.savings.Saveable;
 
+/**
+ * Jackson-friendly version of {@link Saveable}.
+ */
 public class JsonAdaptedSaveable {
     private final String saveableDesc;
 

@@ -22,6 +22,11 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
  * Parses user input.
  */
 public class CouponStashParser {
+    /**
+     * Used for initial separation of command word and args.
+     */
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
     private final String moneySymbol;
 
     /**
@@ -34,11 +39,6 @@ public class CouponStashParser {
     public CouponStashParser(String moneySymbol) {
         this.moneySymbol = moneySymbol;
     }
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.

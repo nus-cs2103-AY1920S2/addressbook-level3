@@ -1,6 +1,9 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.logic.parser.CliSyntax.*;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVED;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

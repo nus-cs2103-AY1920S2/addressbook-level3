@@ -13,7 +13,6 @@ import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
-import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
