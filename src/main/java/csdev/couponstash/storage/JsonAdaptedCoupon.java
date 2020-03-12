@@ -107,16 +107,13 @@ class JsonAdaptedCoupon {
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
-     
         if (savings == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Savings.class.getSimpleName()));
         }
         final Savings modelSavings = savings.toModelType();
 
-        
         return new Coupon(modelName, modelPhone, modelSavings, modelTags, modelExpiryDate);
-
     }
 
 }
