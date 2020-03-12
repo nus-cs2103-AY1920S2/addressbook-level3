@@ -107,7 +107,7 @@ class JsonAdaptedCoupon {
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
-        return new Coupon(modelName, modelPhone, modelSaving, modelTags, modelExpiryDate);
+        return new Coupon(modelName, modelPhone, modelSavings, modelTags, modelExpiryDate);
 
         if (savings == null) {
             throw new IllegalValueException(
