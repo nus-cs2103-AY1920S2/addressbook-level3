@@ -54,12 +54,22 @@ public class EnterCanteenCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        //model.updateFilteredStallList(Model.PREDICATE_SHOW_ALL_STALLS);
-        //List<Stall> lastShownList = model.getFilteredStallList();
+        /* All the stalls are retrieved as they contain the canteen name field
+           which we filter the canteen name that specified in enter {canteenName}
+        */
+        model.updateFilteredStallList(Model.PREDICATE_SHOW_ALL_STALLS);
         if (index.isPresent()) {
-            Canteen canteen = model.getFilteredCanteenList().get(index.get().getZeroBased());
+            List<Canteen> canteenList;
+            if (model.isLocationSpecified()) {
+                canteenList = model.getFilteredCanteenListSortedByDistance();
+            } else {
+                canteenList = model.getFilteredCanteenList();
+            }
+            Canteen canteen = canteenList.get(index.get().getZeroBased());
+
             logger.info("Enter " + canteen.getName());
-            model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(canteen.getName().toString()));
+            model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(
+                    canteen.getName().toString()));
 
         } else if (canteenName.isPresent()) {
             List<Canteen> canteens = model.getFilteredCanteenList();

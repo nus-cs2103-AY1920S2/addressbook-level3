@@ -1,5 +1,7 @@
 package seedu.foodiebot.logic.commands;
 
+import java.io.IOException;
+
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.model.Model;
 
@@ -18,4 +20,6 @@ public abstract class Command {
     public boolean needToSaveCommand() {
         return true;
     }
+    public abstract CommandResult execute(Model model) throws CommandException, IOException;
+
 }

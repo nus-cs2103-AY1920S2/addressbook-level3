@@ -22,7 +22,7 @@ import seedu.foodiebot.model.ModelManager;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
 import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.UserPrefs;
-import seedu.foodiebot.model.budget.Budget;
+// import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.food.Food;
 import seedu.foodiebot.model.util.SampleDataUtil;
@@ -91,7 +91,7 @@ public class MainApp extends Application {
         try {
             storage.readFoodieBot(Canteen.class.getSimpleName());
 
-            storage.readFoodieBot(Budget.class.getSimpleName());
+            // storage.readFoodieBot(Budget.class.getSimpleName());
 
             storage.readFoodieBot(Food.class.getSimpleName());
 

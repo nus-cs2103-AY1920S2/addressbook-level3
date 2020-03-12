@@ -31,7 +31,10 @@
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
       </HBox>
 
-      <Label fx:id="stallNumber" styleClass="cell_small_label" text="\$stallNumber" />
+      <HBox>
+            <Label text="Stall Number :" />
+            <Label fx:id="stallNumber" styleClass="cell_small_label" text="\$stallNumber" />
+      </HBox>
         <FlowPane fx:id="tags">
       <Label fx:id="cuisine" styleClass="cell_small_label" text="\$cuisine" visible="false" />
         </FlowPane>

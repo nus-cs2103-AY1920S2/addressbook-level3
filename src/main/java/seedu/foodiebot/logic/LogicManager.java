@@ -33,6 +33,7 @@ import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.food.Food;
+import seedu.foodiebot.model.randomize.Randomize;
 import seedu.foodiebot.storage.Storage;
 
 /**
@@ -53,7 +54,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, IOException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -68,7 +69,6 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
-
         return commandResult;
     }
 
@@ -97,7 +97,8 @@ public class LogicManager implements Logic {
             //TODO Not Implemented
 
         case RandomizeCommand.COMMAND_WORD:
-            //TODO Not Implemented
+            //no storage yet.
+            return Randomize.class.getSimpleName();
 
         case FavoritesCommand.COMMAND_WORD:
             //TODO Not Implemented
@@ -134,6 +135,14 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Canteen> getFilteredCanteenList() {
         return model.getFilteredCanteenList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered list of canteens sorted by distance
+     */
+    @Override
+    public ObservableList<Canteen> getFilteredCanteenListSortedByDistance() {
+        return model.getFilteredCanteenListSortedByDistance();
     }
 
 

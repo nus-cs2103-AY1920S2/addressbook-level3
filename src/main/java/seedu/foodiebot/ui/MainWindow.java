@@ -1,5 +1,6 @@
 package seedu.foodiebot.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -124,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        canteenListPanel = new CanteenListPanel(logic.getFilteredCanteenList());
+        canteenListPanel = new CanteenListPanel(logic.getFilteredCanteenList(), false);
         listPanelPlaceholder.getChildren().add(canteenListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -175,9 +176,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills the canteenListPanel region.
      */
     @FXML
-    public void handleListCanteens() {
+    public void handleListCanteens(boolean isLocationSpecified) {
         listPanelPlaceholder.getChildren().clear();
-        listPanelPlaceholder.getChildren().add(new CanteenListPanel(logic.getFilteredCanteenList()).getRoot());
+        listPanelPlaceholder.getChildren().add(new CanteenListPanel(
+            isLocationSpecified
+                ? logic.getFilteredCanteenListSortedByDistance()
+                : logic.getFilteredCanteenList(), isLocationSpecified).getRoot());
     }
 
     /**
@@ -233,7 +237,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.foodiebot.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText)
-        throws CommandException, ParseException {
+            throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -247,7 +251,7 @@ public class MainWindow extends UiPart<Stage> {
             switch (commandResult.commandName) {
             case ListCommand.COMMAND_WORD:
                 if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
-                    handleListCanteens();
+                    handleListCanteens(commandResult.isLocationSpecified());
                 } else {
                     resultDisplay.setFeedbackToUser(ParserContext.INVALID_CONTEXT_MESSAGE);
                 }
@@ -263,7 +267,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case ExitCommand.COMMAND_WORD:
                 if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
-                    handleListCanteens();
+                    handleListCanteens(commandResult.isLocationSpecified());
                 } else if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
                     handleListStalls();
                 } else if (ParserContext.getCurrentContext().equals(ParserContext.STALL_CONTEXT)) {
@@ -280,9 +284,8 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

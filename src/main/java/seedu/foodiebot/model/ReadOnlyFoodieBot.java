@@ -18,4 +18,5 @@ public interface ReadOnlyFoodieBot {
     ObservableList<Stall> getStallList();
     ObservableList<Food> getFoodList();
     Budget getBudget();
+    boolean isLocationSpecified();
 }
