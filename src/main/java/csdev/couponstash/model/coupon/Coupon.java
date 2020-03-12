@@ -104,11 +104,11 @@ public class Coupon {
         Coupon otherCoupon = (Coupon) other;
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
-
+            
                 && otherCoupon.getSavings().equals(getSavings())
-          
+            
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
-
+            
                 && otherCoupon.getTags().equals(getTags());
     }
 
