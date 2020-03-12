@@ -15,7 +15,6 @@ import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.storage.Storage;
 
-import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.
@@ -57,8 +56,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public void getFilteredPersonList() {
     }
 
     @Override
