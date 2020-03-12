@@ -1,0 +1,118 @@
+package csdev.couponstash.logic.commands;
+
+import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import csdev.couponstash.commons.core.Messages;
+import csdev.couponstash.commons.core.index.Index;
+import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Coupon;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+
+
+public class RemindCommand extends Command{
+
+    public static final String COMMAND_WORD = "remind";
+    public static  String MESSAGE_SET_REMINDER_SUCCESS = "";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": set a reminder of a coupon, identified by the index number "
+            + "used in coupon listing. "
+            + "Existing reminder will be overwritten by the input.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_REMIND + " [Date] or [String]\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_REMIND + " 25-12-2020"
+            + "\n"   + "Example: " + COMMAND_WORD + " 2 "
+            + PREFIX_REMIND + " 2 days";
+
+    public static String MESSAGE_ARGUMENTS = "Reminder has been set on %2$s for Coupon %1$s";
+
+    private final Index index;
+    private LocalDate remindDate;
+    private String input;
+
+    /**
+     * @param index of the coupon in the coupon lists to edit
+     * @param input details to remind the coupon on
+     */
+
+    public RemindCommand(Index index, String input) {
+        requireAllNonNull(index, input);
+
+        this.index = index;
+        this.input = input;
+        this.remindDate = LocalDate.now();
+    }
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+
+        List<Coupon> lastShownList = model.getFilteredCouponList();
+
+        // index is out of range
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
+        }
+
+        Coupon couponToEdit = lastShownList.get(index.getZeroBased());
+
+        // if "days before scenario", straightaway calculate the remindDate;
+        if(input.contains("days before")){
+
+            int daysBefore = Integer.parseInt(input.replaceAll("[^0-9]", ""));
+
+            remindDate = (couponToEdit.getExpiryDate().date).minusDays(daysBefore);
+            couponToEdit.getRemind().setRemind(remindDate);
+
+            MESSAGE_SET_REMINDER_SUCCESS = "Reminder has been set to remind on "
+                    + couponToEdit.getRemind().getDate().toString()
+                    + " (" + daysBefore + " days before coupon's expiry: "
+                    + couponToEdit.getExpiryDate().value + ")";
+        }
+        else{
+            LocalDate tempDate = LocalDate.parse(input);
+
+            //check if input's date is not after the coupon's expiry date
+            if(tempDate.isAfter(couponToEdit.getExpiryDate().date)){
+                throw new CommandException(Messages.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
+            }
+            else{
+                remindDate = tempDate;
+                couponToEdit.getRemind().setRemind(remindDate);
+                MESSAGE_SET_REMINDER_SUCCESS = "Reminder has been set to remind on "
+                        + couponToEdit.getRemind().getDate().toString()
+                        + " (Coupon's expiry : "
+                        + couponToEdit.getExpiryDate().value + ")";
+            }
+        }
+        if(couponToEdit.getRemind(). getRemindFlag()){
+            return new CommandResult(MESSAGE_SET_REMINDER_SUCCESS);
+        }
+        throw new CommandException(String.format(MESSAGE_ARGUMENTS, index.getOneBased(), input));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof RemindCommand)) {
+            return false;
+        }
+
+        // state check
+        RemindCommand e = (RemindCommand) other;
+        return index.equals(e.index)
+                && input.equals(e.input);
+    }
+}

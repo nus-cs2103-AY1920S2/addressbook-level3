@@ -6,17 +6,7 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import csdev.couponstash.logic.commands.AddCommand;
-import csdev.couponstash.logic.commands.ClearCommand;
-import csdev.couponstash.logic.commands.Command;
-import csdev.couponstash.logic.commands.DeleteCommand;
-import csdev.couponstash.logic.commands.EditCommand;
-import csdev.couponstash.logic.commands.ExitCommand;
-import csdev.couponstash.logic.commands.ExpiringCommand;
-import csdev.couponstash.logic.commands.FindCommand;
-import csdev.couponstash.logic.commands.HelpCommand;
-import csdev.couponstash.logic.commands.ListCommand;
-import csdev.couponstash.logic.commands.SavedCommand;
+import csdev.couponstash.logic.commands.*;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
@@ -87,6 +77,9 @@ public class CouponStashParser {
 
         case SavedCommand.COMMAND_WORD:
             return new SavedCommandParser().parse(arguments);
+
+        case RemindCommand.COMMAND_WORD:
+            return new RemindCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
