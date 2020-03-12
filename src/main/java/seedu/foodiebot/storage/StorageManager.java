@@ -46,11 +46,11 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-    @Override
-    public Path getFoodieBotFilePath() {
-        //TODO Not Implemented
-        return null;
-    }
+    //@Override
+    //public Path getFoodieBotFilePath() {
+    //    TODO Not Implemented
+    //    return null;
+    //}
 
     // ================ AddressBook methods ==============================
     /**
@@ -65,6 +65,12 @@ public class StorageManager implements Storage {
     public Path getStallsFilePath() {
         return foodieBotStorage.getStallsFilePath();
     }
+
+    @Override
+    public Path getFoodFilePath() {
+        return foodieBotStorage.getFoodFilePath();
+    }
+
 
     @Override
     public Optional<ReadOnlyFoodieBot> readFoodieBot(String modelType) throws DataConversionException, IOException {

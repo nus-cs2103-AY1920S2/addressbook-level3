@@ -25,6 +25,7 @@ import seedu.foodiebot.logic.commands.ReportCommand;
 import seedu.foodiebot.logic.commands.TransactionsCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
 import seedu.foodiebot.logic.parser.FoodieBotParser;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.ReadOnlyFoodieBot;
@@ -60,10 +61,10 @@ public class LogicManager implements Logic {
         Command command = foodieBotParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        if (!commandText.equals("randomize")) {
+        if (command.needToSaveCommand()) {
             try {
                 storage.saveFoodieBot(model.getFoodieBot(),
-                        mapCommandToModelName(commandResult.commandName));
+                    mapCommandToModelName(commandResult.commandName));
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -81,8 +82,11 @@ public class LogicManager implements Logic {
             return Canteen.class.getSimpleName();
 
         case EnterCanteenCommand.COMMAND_WORD:
-            return Stall.class.getSimpleName();
-
+            if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                return Stall.class.getSimpleName();
+            } else {
+                return Food.class.getSimpleName();
+            }
         case FoodMenuCommand.COMMAND_WORD:
             return Food.class.getSimpleName();
 
@@ -164,5 +168,10 @@ public class LogicManager implements Logic {
 
     public ObservableList<Stall> getFilteredStallList() {
         return model.getFilteredStallList();
+    }
+
+    @Override
+    public ObservableList<Food> getFilteredFoodList(boolean isInitialised) {
+        return model.getFilteredFoodList(isInitialised);
     }
 }

@@ -18,8 +18,10 @@ import seedu.foodiebot.logic.Logic;
 import seedu.foodiebot.logic.commands.CommandResult;
 import seedu.foodiebot.logic.commands.DirectionsCommandResult;
 import seedu.foodiebot.logic.commands.EnterCanteenCommand;
+import seedu.foodiebot.logic.commands.ExitCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
 import seedu.foodiebot.logic.commands.exceptions.CommandException;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.logic.parser.exceptions.ParseException;
 
 /**
@@ -41,6 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private DirectionsToCanteenPanel directionsToCanteenPanel;
     private boolean isStallInitialised;
+    private boolean isFoodInitialised;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -192,6 +195,17 @@ public class MainWindow extends UiPart<Stage> {
         isStallInitialised = true;
     }
 
+    /**
+     * Fills the foodListPanel region.
+     */
+    @FXML
+    public void handleListFood() {
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(new FoodListPanel(logic.getFilteredFoodList(isFoodInitialised))
+                .getRoot());
+        isFoodInitialised = true;
+    }
+
 
     void show() {
         primaryStage.show();
@@ -236,10 +250,29 @@ public class MainWindow extends UiPart<Stage> {
 
             switch (commandResult.commandName) {
             case ListCommand.COMMAND_WORD:
-                handleListCanteens(commandResult.isLocationSpecified());
+                if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                    handleListCanteens(commandResult.isLocationSpecified());
+                } else {
+                    resultDisplay.setFeedbackToUser(ParserContext.INVALID_CONTEXT_MESSAGE);
+                }
                 break;
             case EnterCanteenCommand.COMMAND_WORD:
-                handleListStalls();
+                if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                    ParserContext.setCurrentContext(ParserContext.CANTEEN_CONTEXT);
+                    handleListStalls();
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
+                    ParserContext.setCurrentContext(ParserContext.STALL_CONTEXT);
+                    handleListFood();
+                }
+                break;
+            case ExitCommand.COMMAND_WORD:
+                if (ParserContext.getCurrentContext().equals(ParserContext.MAIN_CONTEXT)) {
+                    handleListCanteens(commandResult.isLocationSpecified());
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.CANTEEN_CONTEXT)) {
+                    handleListStalls();
+                } else if (ParserContext.getCurrentContext().equals(ParserContext.STALL_CONTEXT)) {
+                    handleListFood();
+                }
                 break;
             default:
                 break;

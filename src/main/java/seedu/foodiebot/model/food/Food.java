@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.scene.image.Image;
 import seedu.foodiebot.model.tag.Tag;
 
 /**
@@ -14,15 +15,19 @@ import seedu.foodiebot.model.tag.Tag;
  * are validated, immutable.
  */
 public class Food {
+    public static final String[] FOOD = new String[]{"ComboSet"};
+    public static final String IMAGE_FOLDER = "/images/canteen/";
 
     // Identity fields
     private final String name;
     private final int price;
     private final String description;
+    private final String foodImageName;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
     private final String canteen;
+    private final String stallName;
     private final int stallNo;
 
     /** Every field must be present and not null. */
@@ -30,8 +35,10 @@ public class Food {
             String name,
             int price,
             String description,
+            String foodImageName,
             int stallNo,
             String canteen,
+            String stallName,
             Set<Tag> tags) {
         requireAllNonNull(name, price, description, tags);
         this.name = name;
@@ -39,6 +46,8 @@ public class Food {
         this.description = description;
         this.stallNo = stallNo;
         this.canteen = canteen;
+        this.foodImageName = foodImageName;
+        this.stallName = stallName;
         this.tags.addAll(tags);
     }
 
@@ -56,6 +65,16 @@ public class Food {
 
     public String getCanteen() {
         return canteen;
+    }
+
+    public String getStallName() {
+        return stallName;
+    }
+
+    public Image getFoodImage() {
+        String mImageUrl = IMAGE_FOLDER + canteen + "/" + stallName + "/" + foodImageName;
+        Image image = new Image(Food.class.getResourceAsStream("/images/canteen/Nus Flavors/Western/ComboSet.png"));
+        return image;
     }
 
     public int getStallNo() {

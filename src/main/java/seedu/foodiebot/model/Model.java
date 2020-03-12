@@ -7,10 +7,12 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import seedu.foodiebot.commons.core.GuiSettings;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 
 /** The API of the Model component. */
 public interface Model {
@@ -19,7 +21,6 @@ public interface Model {
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Stall> PREDICATE_SHOW_ALL_STALLS = unused -> true;
-
 
     /** Replaces user prefs data with the data in {@code userPrefs}. */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -83,15 +84,32 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCanteenList(Predicate<Canteen> predicate);
+
+
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList();
 
+    /** Returns an unmodifiable view of the filtered stall list */
     ObservableList<Stall> getFilteredStallList(boolean isInitialised);
-
     /**
      * Updates the filter of the filtered stall list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredStallList(Predicate<Stall> predicate);
+
+    /** Returns an unmodifiable view of the filtered food list */
+    ObservableList<Food> getFilteredFoodList();
+
+    /** Returns an unmodifiable view of the filtered food list */
+    ObservableList<Food> getFilteredFoodList(boolean isInitialised);
+
+    /**
+     * Updates the filter of the filtered food list to filter by the given {@code predicate}.
+     *
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFoodList(Predicate<Food> predicate);
+  
     boolean isLocationSpecified();
 }

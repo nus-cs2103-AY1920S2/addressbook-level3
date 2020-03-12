@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import seedu.foodiebot.commons.core.LogsCenter;
 import seedu.foodiebot.commons.core.index.Index;
+import seedu.foodiebot.logic.parser.ParserContext;
 import seedu.foodiebot.model.Model;
 import seedu.foodiebot.model.canteen.Canteen;
 
@@ -50,7 +51,6 @@ public class EnterCanteenCommand extends Command {
         this.canteenName = Optional.of(canteenName);
     }
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
@@ -72,7 +72,14 @@ public class EnterCanteenCommand extends Command {
                     canteen.getName().toString()));
 
         } else if (canteenName.isPresent()) {
-            model.updateFilteredStallList(stall -> stall.getCanteenName().equalsIgnoreCase(canteenName.get()));
+            List<Canteen> canteens = model.getFilteredCanteenList();
+            for (Canteen c : canteens) {
+                if (c.getName().toString().equalsIgnoreCase(canteenName.get())) {
+                    ParserContext.setCanteenContext(c);
+                    model.updateFilteredStallList(s -> s.getCanteenName().equalsIgnoreCase(c.getName().toString()));
+                    break;
+                }
+            }
         }
         return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
     }

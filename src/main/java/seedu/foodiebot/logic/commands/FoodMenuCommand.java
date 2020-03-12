@@ -9,16 +9,9 @@ import seedu.foodiebot.model.Model;
 public class FoodMenuCommand extends Command {
     public static final String COMMAND_WORD = "menu";
 
-    public static final String MESSAGE_USAGE =
-        COMMAND_WORD
-            + "Parameters: "
-            + "KEYWORD \n"
-            + "Example: "
-            + COMMAND_WORD
-            + " "
-            + "all ";
+    public static final String MESSAGE_USAGE = "Usage :" + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "";
+    public static final String MESSAGE_SUCCESS = "Successfully Printed Menu";
 
     @Override
     public CommandResult execute(Model model) {

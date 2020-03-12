@@ -19,6 +19,7 @@ import seedu.foodiebot.model.ReadOnlyUserPrefs;
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.Stall;
+import seedu.foodiebot.model.food.Food;
 
 public class AddCommandTest {
 
@@ -204,6 +205,21 @@ public class AddCommandTest {
         @Override
         public boolean isLocationSpecified() {
             return false;
+        }
+
+        @Override
+        public ObservableList<Food> getFilteredFoodList() {
+            throw new AssertionError("This method is a placeholder");
+        }
+
+        @Override
+        public ObservableList<Food> getFilteredFoodList(boolean isInitialised) {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredFoodList(Predicate<Food> predicate) {
+
         }
     }
 

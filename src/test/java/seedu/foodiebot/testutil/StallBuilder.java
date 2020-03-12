@@ -1,5 +1,7 @@
 package seedu.foodiebot.testutil;
 
+import java.util.ArrayList;
+
 import seedu.foodiebot.model.canteen.Name;
 import seedu.foodiebot.model.canteen.Stall;
 
@@ -112,6 +114,6 @@ public class StallBuilder {
      */
     public Stall build() {
         return new Stall(name, canteenName, stallNumber, stallImageName, cuisine,
-            overallPriceRating, favorite);
+            overallPriceRating, favorite, new ArrayList<>());
     }
 }

@@ -5,6 +5,7 @@ import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -32,6 +33,7 @@ public class Canteen {
     private final String canteenImageName;
     private final String directionImageName;
     private final String directionText;
+    private final List<Stall> stallsList;
 
     // Data fields
     private final Set<Tag> cuisines = new HashSet<>();
@@ -39,8 +41,8 @@ public class Canteen {
     /** Every field must be present and not null. */
     public Canteen(
         Name name, int numberOfStalls, int distance, String blockName, String directionImageName,
-        String directionText, Set<Tag> tags, String canteenImageName) {
-        requireAllNonNull(name, numberOfStalls, tags);
+        String directionText, Set<Tag> tags, String canteenImageName, List<Stall> stallList) {
+        requireAllNonNull(name, numberOfStalls, tags, stallList);
         this.name = name;
         this.numberOfStalls = numberOfStalls;
         this.distance = distance;
@@ -48,6 +50,7 @@ public class Canteen {
         this.directionImageName = directionImageName;
         this.canteenImageName = canteenImageName;
         this.directionText = directionText;
+        this.stallsList = stallList;
         this.cuisines.addAll(tags);
     }
 
@@ -63,6 +66,10 @@ public class Canteen {
 
     public int getNumberOfStalls() {
         return numberOfStalls;
+    }
+
+    public List<Stall> getStallsList() {
+        return stallsList;
     }
 
     public int getDistance() {

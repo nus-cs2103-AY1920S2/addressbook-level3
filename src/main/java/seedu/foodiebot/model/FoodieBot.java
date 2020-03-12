@@ -2,14 +2,18 @@ package seedu.foodiebot.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
 import seedu.foodiebot.model.budget.Budget;
 import seedu.foodiebot.model.canteen.Canteen;
 import seedu.foodiebot.model.canteen.CanteenStub;
 import seedu.foodiebot.model.canteen.Stall;
 import seedu.foodiebot.model.canteen.UniqueCanteenList;
+import seedu.foodiebot.model.food.Food;
+import seedu.foodiebot.model.food.UniqueFoodList;
 import seedu.foodiebot.model.stall.UniqueStallList;
 
 /**
@@ -19,6 +23,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
 
     private final UniqueCanteenList canteens;
     private final UniqueStallList stalls;
+    private final UniqueFoodList foods;
     private Budget budget;
     private boolean isLocationSpecified;
 
@@ -32,6 +37,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     {
         canteens = new UniqueCanteenList();
         stalls = new UniqueStallList();
+        foods = new UniqueFoodList();
         budget = new Budget();
         isLocationSpecified = false;
     }
@@ -58,6 +64,10 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         this.stalls.setStalls(stalls);
     }
 
+    public void setFood(List<Food> food) {
+        this.foods.setFood(food);
+    }
+
 
     public void setBudget(Budget budget) {
         this.budget = budget;
@@ -74,6 +84,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
 
         setCanteens(newData.getCanteenList());
         setStalls(newData.getStallList());
+        setFood(newData.getFoodList());
     }
 
     //// canteen-level operations
@@ -99,7 +110,7 @@ public class FoodieBot implements ReadOnlyFoodieBot {
      */
     public void addCanteen(CanteenStub p) {
         canteens.add(new Canteen(p.getName(), 0, 0,
-            "name", "", "", p.getTags(), ""));
+            "name", "", "", p.getTags(), "", new ArrayList<>()));
     }
 
     /**
@@ -148,13 +159,21 @@ public class FoodieBot implements ReadOnlyFoodieBot {
     //// stall-level operations
 
     /**
-     * Returns true if a canteen with the same identity as {@code canteen} exists in the address
+     * Returns true if a canteen with the same identity as {@code Stall} exists in the address
      * book.
      */
-
     public boolean hasStall(Stall stall) {
         requireNonNull(stall);
         return stalls.contains(stall);
+    }
+
+    /**
+     * Returns true if a food with the same identity as {@code food} exists in the address
+     * book.
+     */
+    public boolean hasFood(Food food) {
+        requireNonNull(food);
+        return foods.contains(food);
     }
 
     public ObservableList<Stall> getStallList() {
@@ -168,6 +187,17 @@ public class FoodieBot implements ReadOnlyFoodieBot {
         stalls.add(s);
     }
 
+    public ObservableList<Food> getFoodList() {
+        return foods.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Adds a food to the foodiebot. The food must not already exist in the foodiebot
+     * @param f
+     */
+    public void addFood(Food f) {
+        foods.add(f);
+    }
 
     @Override
     public boolean equals(Object other) {

@@ -16,6 +16,8 @@ public interface FoodieBotStorage {
 
     Path getStallsFilePath();
 
+    Path getFoodFilePath();
+
     /**
      * Returns AddressBook data as a {@link ReadOnlyFoodieBot}. Returns {@code Optional.empty()} if
      * storage file is not found.
