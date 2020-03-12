@@ -44,6 +44,7 @@ public class CommandTestUtil {
     // invalid parameters with their prefixes
     public static final String INVALID_MODULE_DESC = " " + PREFIX_MODULE + "@31_+"; //only alphanumeric char
     public static final String INVALID_MODULE_NAME_DESC = " " + PREFIX_MODULE_NAME + "\t"; //only whitespaces
+    public static final String INVALID_ACTIVITY_NAME_DESC = " " + PREFIX_ACTIVITY_NAME + "\t\t"; // only whitespaces
     public static final String INVALID_NOTES_DESC = " " + PREFIX_NOTE + "        "; //only whitespaces
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "r"; //not an integer
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2020-12-31 11:00"; //not DD-MM-YYYY HH:MM format
