@@ -21,16 +21,33 @@ public class CouponListPanel extends UiPart<Region> {
     @FXML
     private ListView<Coupon> couponListView;
 
-    public CouponListPanel(ObservableList<Coupon> couponList) {
+    /**
+     * Constructor for a CouponListPanel.
+     * @param couponList The ObservableList of Coupons to be shown.
+     * @param moneySymbol The money symbol for the Savings of the Coupons.
+     */
+    public CouponListPanel(ObservableList<Coupon> couponList, String moneySymbol) {
         super(FXML);
         couponListView.setItems(couponList);
-        couponListView.setCellFactory(listView -> new CouponListViewCell());
+        couponListView.setCellFactory(listView -> new CouponListViewCell(moneySymbol));
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Coupon} using a {@code CouponCard}.
      */
     class CouponListViewCell extends ListCell<Coupon> {
+        private final String moneySymbol;
+
+        /**
+         * Constructor for a new CouponListViewCell.
+         * @param moneySymbol The String representing the
+         *                    money symbol to be displayed
+         *                    on the Coupon's Savings.
+         */
+        public CouponListViewCell(String moneySymbol) {
+            this.moneySymbol = moneySymbol;
+        }
+
         @Override
         protected void updateItem(Coupon coupon, boolean empty) {
             super.updateItem(coupon, empty);
@@ -39,7 +56,7 @@ public class CouponListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new CouponCard(coupon, getIndex() + 1).getRoot());
+                setGraphic(new CouponCard(coupon, getIndex() + 1, this.moneySymbol).getRoot());
             }
         }
     }
