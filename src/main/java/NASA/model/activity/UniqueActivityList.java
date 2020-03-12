@@ -72,6 +72,10 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.set(index, editedActivity);
     }
 
+    public ObservableList<Activity> getActivityList() {
+        return this.internalList;
+    }
+
     public Activity getActivityByIndex(Index index) {
         return internalList.get(index.getZeroBased());
     }

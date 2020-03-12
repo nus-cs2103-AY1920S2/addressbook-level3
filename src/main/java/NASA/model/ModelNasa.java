@@ -114,4 +114,8 @@ public interface ModelNasa {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
+
+    ObservableList<Activity> getFilteredActivityList(Index index);
+
+    void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
 }

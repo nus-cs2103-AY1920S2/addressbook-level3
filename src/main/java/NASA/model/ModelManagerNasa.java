@@ -163,6 +163,18 @@ public class ModelManagerNasa implements ModelNasa {
     }
 
     @Override
+    public ObservableList<Activity> getFilteredActivityList(Index index) {
+        Module module = filteredModules.get(index.getZeroBased());
+        return module.getFilteredActivityList();
+    }
+
+    @Override
+    public void updateFilteredActivityList(Index index, Predicate<Activity> predicate) {
+        Module module = filteredModules.get(index.getZeroBased());
+        module.updateFilteredActivityList(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
