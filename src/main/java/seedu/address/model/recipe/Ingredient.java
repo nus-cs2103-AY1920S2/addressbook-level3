@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Recipe's ingredients in the recipe book.
+ * Represents a Recipe's ingredient in the recipe book.
  * Guarantees: immutable; is valid as declared in {@link #isValidIngredients(String)}
  */
-public class Ingredients {
+public class Ingredient {
 
-    public static final String MESSAGE_CONSTRAINTS = "Ingredients can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Ingredient can take any values, and it should not be blank";
 
     /*
      * The first character of the ingredients must not be a whitespace,
@@ -17,17 +17,21 @@ public class Ingredients {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    public final String name;
+    public String quantity;
 
     /**
-     * Constructs an {@code Ingredients}.
+     * Constructs an {@code Ingredient}.
      *
-     * @param ingredients A valid ingredient string.
+     * @param name A valid ingredient string.
      */
-    public Ingredients(String ingredients) {
-        requireNonNull(ingredients);
-        checkArgument(isValidIngredients(ingredients), MESSAGE_CONSTRAINTS);
-        value = ingredients;
+    public Ingredient(String name, String quantity) {
+        requireNonNull(name);
+        requireNonNull(quantity);
+        checkArgument(isValidIngredients(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidIngredients(quantity), MESSAGE_CONSTRAINTS);
+        this.name = name;
+        this.quantity = quantity;
     }
 
     /**
@@ -39,19 +43,19 @@ public class Ingredients {
 
     @Override
     public String toString() {
-        return value;
+        return name + " " + quantity;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Ingredients // instanceof handles nulls
-                    && value.equals(((Ingredients) other).value)); // state check
+                || (other instanceof Ingredient // instanceof handles nulls
+                    && name.equals(((Ingredient) other).name)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return name.hashCode();
     }
 
 }
