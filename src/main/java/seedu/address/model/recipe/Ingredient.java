@@ -18,7 +18,7 @@ public class Ingredient {
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
     public final String name;
-    public String quantity;
+    private String quantity;
 
     /**
      * Constructs an {@code Ingredient}.
@@ -31,6 +31,14 @@ public class Ingredient {
         checkArgument(isValidIngredients(name), MESSAGE_CONSTRAINTS);
         checkArgument(isValidIngredients(quantity), MESSAGE_CONSTRAINTS);
         this.name = name;
+        this.quantity = quantity;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -50,7 +58,7 @@ public class Ingredient {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Ingredient // instanceof handles nulls
-                    && name.equals(((Ingredient) other).name)); // state check
+                && name.equals(((Ingredient) other).name)); // state check
     }
 
     @Override
