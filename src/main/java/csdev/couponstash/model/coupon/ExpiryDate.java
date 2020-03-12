@@ -15,7 +15,7 @@ public class ExpiryDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Expiry Dates should be a date in the D-M-YYYY format.";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
-    public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     public final LocalDate date;
     public final String value;
 
@@ -39,7 +39,7 @@ public class ExpiryDate {
     }
 
     public LocalDate getDate() {
-        return LocalDate.parse(value, dateFormatter);
+        return LocalDate.parse(value, DATE_FORMATTER);
     }
 
     @Override

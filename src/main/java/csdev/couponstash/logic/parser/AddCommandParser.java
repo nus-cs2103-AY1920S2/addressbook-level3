@@ -2,10 +2,10 @@ package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRYDATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRYDATE;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -31,7 +31,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG, PREFIX_EXPIRYDATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_TAG,
+                        PREFIX_EXPIRYDATE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_EXPIRYDATE)
                 || !argMultimap.getPreamble().isEmpty()) {

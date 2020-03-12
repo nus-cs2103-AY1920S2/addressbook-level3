@@ -5,6 +5,7 @@ import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.tag.Tag;
@@ -18,16 +19,20 @@ public class CouponBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
+
 
     private Name name;
     private Phone phone;
     private Email email;
     private Set<Tag> tags;
+    private ExpiryDate expiryDate;
 
     public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
         tags = new HashSet<>();
     }
 
@@ -38,6 +43,7 @@ public class CouponBuilder {
         name = couponToCopy.getName();
         phone = couponToCopy.getPhone();
         email = couponToCopy.getEmail();
+        expiryDate = couponToCopy.getExpiryDate();
         tags = new HashSet<>(couponToCopy.getTags());
     }
 
@@ -73,8 +79,16 @@ public class CouponBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code ExpiryDate} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withExpiryDate(String expiryDate) {
+        this.expiryDate = new ExpiryDate(expiryDate);
+        return this;
+    }
+
     public Coupon build() {
-        return new Coupon(name, phone, email, tags);
+        return new Coupon(name, phone, email, tags, expiryDate);
     }
 
 }

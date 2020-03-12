@@ -8,7 +8,7 @@ import java.util.function.Predicate;
  * Tests that a {@code Coupon}'s {@code ExpiryDate} is before the date given.
  */
 public class DateIsBeforePredicate implements Predicate<Coupon> {
-    public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+    public static final DateTimeFormatter DATEFORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     private final String date;
 
     public DateIsBeforePredicate(String date) {
@@ -18,7 +18,7 @@ public class DateIsBeforePredicate implements Predicate<Coupon> {
     @Override
     public boolean test(Coupon coupon) {
         LocalDate ed = coupon.getExpiryDate().getDate();
-        LocalDate givenDate = LocalDate.parse(date, dateFormatter);
+        LocalDate givenDate = LocalDate.parse(date, DATEFORMATTER);
         return ed.isBefore(givenDate);
     }
 
