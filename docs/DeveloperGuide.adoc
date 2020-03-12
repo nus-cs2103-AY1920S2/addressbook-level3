@@ -306,15 +306,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |user |add deadline |know when to complete tasks in todo list
+|`* * *` |user who wants to improve time management |add deadlines |know when to complete tasks in todo list
 
-|`* * *` |user |add module to module plan |see modules I need to take to fulfill degree requirements
+|`* * *` |user |add event |know when and where is the event and who will going to participate in the event
 
-|`* * *` |user |show module plan |see list of modules I need to take/have taken
+|`* * *` |NUS student|add module to module plan |see modules I need to take to fulfill degree requirements
+
+|`* * *` |NUS student|show module plan |see list of modules I need to take/have taken
+
+|`* * *` |NUS student|write and save notes for each module I have taken/am taking
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`* *` |user |add diary entry |record what I have done for the day
+|`* *` |user who likes to record daily tasks |add diary entry |record what I have done for the day
 
 |`* *` |user |delete diary entry |
 
@@ -322,15 +326,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |delete module from module plan |know which modules I have taken
 
-|`* *` |user |fetch module information |
+|`* *` |NUS student|fetch module information |
 
-|`* *` |user |know current CAP |
+|`* *` |NUS student|know current CAP |
+
+|`* *` |user who wants to improve grades |calculate target CAP |know what grades to aim for to achieve my target CAP
 
 |`* *` |user |sort deadlines |prioritize which tasks to finish first
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
 |`*` |user |create group chats |communicate with peers in the same module
+
+|`*` |user |tag my diary with that day's weather |
+
+|`*` |user |tag my diary with that day's emotion |I can filter my diaries with specific mood
 |=======================================================================
 
 _{More to be added}_
@@ -375,6 +385,7 @@ Use case resumes at step 2.
 2. AddressBook shows module plan
 3. User requests to delete a module taken
 4. AddressBook deletes module
+5. AddressBook updates module plan
 +
 Use case ends.
 
@@ -394,9 +405,9 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse (e.g. fetch module information)
 .  Should respond within 2 seconds
-.  Should be easy to use for users who are not IT-savvy
+.  Should be easy to use for users who are novice at using technology
 .  User should be a current student in NUS
 
 
