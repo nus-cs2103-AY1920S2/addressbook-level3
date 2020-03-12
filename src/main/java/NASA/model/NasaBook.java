@@ -61,6 +61,16 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
+     * Replaces current module list with another module list.
+     * @param moduleList must not be empty
+     */
+    public void setModuleList(UniqueModuleList moduleList) {
+        requireNonNull(moduleList);
+
+        this.moduleList.setModules(moduleList);
+    }
+
+    /**
      * Add a single activity to module {@moduleCode} with {@code activity}
      * {@code activity} must not contain duplicate activities.
      */

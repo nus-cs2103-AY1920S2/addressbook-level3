@@ -32,7 +32,7 @@ public class ModuleBuilder {
             .withNote("Chapter 1")
             .build();
     public static final Activity TASK_5 = new EventBuilder()
-            .withName("event")
+            .withName("MPSH")
             .withFromDate("01-04-2021 01:00")
             .withToDate("04-04-2021 01:00")
             .withNote("Booked MPSH")

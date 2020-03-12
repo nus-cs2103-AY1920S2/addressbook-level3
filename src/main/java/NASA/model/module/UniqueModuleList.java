@@ -85,6 +85,13 @@ public class UniqueModuleList implements Iterable<Module> {
         }
     }
 
+    /**
+     * Removes the Module based on index.
+     */
+    public void removeByIndex(Index index) {
+        internalList.remove(index.getZeroBased());
+    }
+
     public void setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
