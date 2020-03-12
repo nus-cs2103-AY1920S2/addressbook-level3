@@ -1,5 +1,4 @@
-<<<<<<< HEAD:src/main/java/NASA/logic/parser/addcommandparser/AddEventCommandParser.java
-package NASA.logic.parser.addcommandparser;
+package nasa.logic.parser.addcommandparser;
 
 import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.logic.parser.ArgumentMultimap;
@@ -14,14 +13,10 @@ import nasa.model.module.ModuleCode;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.*;
-=======
-package nasa.logic.parser.addcommandparser;
-
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
->>>>>>> aa5ea9c0f8c25c10f28b4f7a79851f3c35f2fc0f:src/main/java/nasa/logic/parser/addcommandparser/AddEventCommandParser.java
 
 public class AddEventCommandParser extends AddCommandParser {
 

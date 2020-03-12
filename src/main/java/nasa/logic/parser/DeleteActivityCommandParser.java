@@ -18,7 +18,7 @@ public class DeleteActivityCommandParser implements Parser<DeleteActivityCommand
     public DeleteActivityCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_MODULE);
 
         Index index;
         try {
@@ -27,7 +27,7 @@ public class DeleteActivityCommandParser implements Parser<DeleteActivityCommand
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteActivityCommand.MESSAGE_USAGE), pe);
         }
 
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
+        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(CliSyntax.PREFIX_MODULE).get());
         return new DeleteActivityCommand(index, moduleCode);
     }
 }

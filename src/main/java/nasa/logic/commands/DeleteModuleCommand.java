@@ -2,6 +2,13 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+<<<<<<< HEAD:src/main/java/nasa/logic/commands/DeleteModuleCommand.java
+=======
+
+import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.Model;
+import nasa.model.module.Module;
+>>>>>>> cf98652144e57734b46653f44f8db289a6e30a49:src/main/java/NASA/logic/commands/DeleteModuleCommand.java
 
 import java.util.ArrayList;
 

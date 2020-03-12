@@ -5,27 +5,26 @@ import java.util.function.Predicate;
 
 import nasa.commons.core.index.Index;
 import javafx.collections.ObservableList;
-
 import nasa.commons.core.GuiSettings;
-import nasa.model.activity.Activity;
 import nasa.model.module.Module;
+import nasa.model.activity.Activity;
 
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface ModelNasa {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
-    void setUserPrefsNasa(ReadOnlyUserPrefs userPrefs);
+    void setUserPrefsNasa(ReadOnlyUserPrefsNasa userPrefs);
 
     /**
      * Returns the user prefs.
      */
-    ReadOnlyUserPrefs getUserPrefs();
+    ReadOnlyUserPrefsNasa getUserPrefsNasa();
 
     /**
      * Returns the user prefs' GUI settings.

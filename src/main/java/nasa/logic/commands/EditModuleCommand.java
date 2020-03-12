@@ -4,9 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 
+<<<<<<< HEAD:src/main/java/nasa/logic/commands/EditModuleCommand.java
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
+=======
+import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.Model;
+import nasa.commons.core.index.Index;
+>>>>>>> cf98652144e57734b46653f44f8db289a6e30a49:src/main/java/NASA/logic/commands/EditModuleCommand.java
 
 public class EditModuleCommand extends Command {
 

@@ -11,8 +11,10 @@ import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.model.module.exceptions.ModuleNotFoundException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nasa.commons.util.CollectionUtil;
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
@@ -57,7 +59,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * The Module identity of {@code editedModule} must not be the same as another existing Module in the list.
      */
     public void setModule(Module target, Module editedModule) {
-        requireAllNonNull(target, editedModule);
+        CollectionUtil.requireAllNonNull(target, editedModule);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -99,7 +101,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * {@code modules} must not contain duplicate modules.
      */
     public void setModules(List<Module> modules) {
-        requireAllNonNull(modules);
+        CollectionUtil.requireAllNonNull(modules);
         if (!modulesAreUnique(modules)) {
             throw new DuplicateModuleException();
         }
@@ -132,7 +134,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * @return
      */
     public Module getModule(Module module) {
-        requireAllNonNull(module);
+        CollectionUtil.requireAllNonNull(module);
         return internalList.parallelStream()
                 .filter(x -> x.equals(module))
                 .findFirst()

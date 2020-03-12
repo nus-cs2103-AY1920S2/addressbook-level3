@@ -1,5 +1,7 @@
 package nasa.model.module;
 
+import nasa.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 
@@ -14,7 +16,7 @@ public class ModuleName {
 
     public ModuleName(String moduleName) {
         requireNonNull(moduleName);
-        checkArgument(isValidModuleName(moduleName), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidModuleName(moduleName), MESSAGE_CONSTRAINTS);
         this.moduleName = moduleName;
     }
 
