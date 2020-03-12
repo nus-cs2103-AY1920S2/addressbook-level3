@@ -1,4 +1,4 @@
-= Nice & Amazing Student Guide (nasa) - Developer Guide
+= Nice & Amazing Student Guide (NASA) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -369,9 +369,9 @@ _{More to be added}_
 === Use case: Initialisation
 *MSS*
 
-1.  nasa prompt user to key in modules taken during the semester on start-up.
+1.  NASA prompt user to key in modules taken during the semester on start-up.
 2.  User enters modules taken eg. `add modules /m CS2103T CS2106 CS2101`.
-3.  nasa confirms and display the modules entered.
+3.  NASA confirms and display the modules entered.
 4.  User can start to use the command line.
 +
 Use case ends.
@@ -391,8 +391,8 @@ Use case ends.
 
 1.  User requests to add a deadline for a particular module.
 `Tadd deadline m/CS2103T /d01-03-2019 23:59 /tHomework [/nThis are the notes.]`
-2.  nasa will provide a acknowledgement messages.
-3.  nasa will displays a list of all the items inside the modules
+2.  NASA will provide a acknowledgement messages.
+3.  NASA will displays a list of all the items inside the modules
 +
 Use case ends.
 
@@ -413,8 +413,8 @@ Use case resumes at step 1.
 
 1.  User requests to add an event for a particular module. +
 `Tadd event m/CS2103T /d01-03-2019 23:59 /tProject Work [/nThis are the notes.]`
-2.  nasa will provide a acknowledgement messages.
-3.  nasa will displays a list of all the items inside the modules
+2.  NASA will provide a acknowledgement messages.
+3.  NASA will displays a list of all the items inside the modules
 +
 Use case ends.
 
@@ -435,8 +435,8 @@ Use case resumes at step 1.
 
 1.  User requests to add an event for a particular module. +
 `Madd lesson m/CS2103T /d01-03-2019 23:59 /tTutorial [/nThis are the notes.]`
-2.  nasa will provide a acknowledgement messages.
-3.  nasa will displays a list of all the items inside the modules
+2.  NASA will provide a acknowledgement messages.
+3.  NASA will displays a list of all the items inside the modules
 +
 Use case ends.
 
@@ -457,8 +457,8 @@ Use case resumes at step 1.
 
 1.  User requests to list everything in a module by dates. +
 `list CS2103T s/date ASC`
-2.  nasa will provide a acknowledgement messages
-3.  nasa will display the module and it's items.
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display the module and it's items.
 +
 Use case ends.
 
@@ -477,8 +477,8 @@ Use case ends.
 
 1.  User requests to change the date to 01-04-2019 and set priority to the lowest 5 for a tasksID=12 under the module CS2103T. +
 `edit m/CS2103T 12 /d01-04-2019 23:59 /p5`
-2.  nasa will provide a acknowledgement messages
-3.  nasa will display the module and it's items.
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display the module and it's items.
 +
 Use case ends.
 
@@ -497,8 +497,8 @@ Use case ends.
 
 1.  User requests to delete module CS2103T and CS2106. +
 `delete CS2103T CS2106`
-2.  nasa will provide a acknowledgement messages
-3.  nasa will display remaining module.
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display remaining module.
 +
 Use case ends.
 
@@ -519,8 +519,8 @@ Use case resumes at step 1.
 
 1.  User requests to find all task that contains KEYWORD "homework". +
 `find /t homework`
-2.  nasa will provide a acknowledgement messages
-3.  nasa will display all modules that has the tasks "homework".
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display all modules that has the tasks "homework".
 +
 Use case ends.
 
@@ -541,8 +541,8 @@ Use case resumes at step 1.
 
 1.  User requests to repeat all task under CS2103T every tuesday. +
 `repeat CS2103t /d 2`
-2.  nasa will provide a acknowledgement messages
-3.  nasa will display all modules that has the tasks "homework".
+2.  NASA will provide a acknowledgement messages
+3.  NASA will display all modules that has the tasks "homework".
 +
 Use case ends.
 
@@ -563,7 +563,7 @@ Use case resumes at step 1.
 
 1.  User requests to export all task to calendar. +
 `export`
-2.  nasa will provide a acknowledgement messages
+2.  NASA will provide a acknowledgement messages
 3.  Calendar xml file will be opened to view.
 +
 Use case ends.
@@ -585,7 +585,7 @@ Use case resumes at step 1.
 
 1.  User requests to add a checklist for a particular tasks. +
 `chadd m/CS2030 12  c/Prepare script`
-2.  nasa will provide a acknowledgement messages
+2.  NASA will provide a acknowledgement messages
 3.  A checklist consisting of old and current added item will be displayed.
 +
 Use case ends.
@@ -607,7 +607,7 @@ Use case resumes at step 1.
 
 1.  User requests to delete a tasksID=12 under checklistID=2. +
 `chdel m/CS2030 12 2`
-2.  nasa will provide a acknowledgement messages
+2.  NASA will provide a acknowledgement messages
 3.  A checklist consisting of old and current added item will be displayed.
 +
 Use case ends.
@@ -631,7 +631,7 @@ Use case resumes at step 1.
 `chedit m/CS2030 12 2 c/new notes messages here`
 2.  User requests to complete a tasksID=4 under checklistID=2. +
 `chedit m/CS2030 4 2 done`
-3.  nasa will provide a acknowledgement messages.
+3.  NASA will provide a acknowledgement messages.
 4.  A checklist consisting of old and current added item will be displayed.
 +
 Use case ends.
@@ -653,7 +653,7 @@ Use case resumes at step 1.
 
 1.  User requests to clear all tasks and checklist. +
 `clear`
-2.  nasa will provide a acknowledgement messages
+2.  NASA will provide a acknowledgement messages
 3.  All modules will be emptied unless specified.
 +
 Use case ends.
@@ -675,7 +675,7 @@ Use case resumes at step 1.
 
 1.  User requests to get a motivation quotes +
 `qoute`
-2.  nasa will provide a pop-up quote.
+2.  NASA will provide a pop-up quote.
 +
 Use case ends.
 
@@ -688,7 +688,7 @@ Use case resumes at step 1.
 
 1.  User requests to change command "clear" to "c" +
 `alias c clear`
-2.  nasa will provide acknowledgment message.
+2.  NASA will provide acknowledgment message.
 +
 Use case ends.
 
@@ -706,7 +706,7 @@ Use case resumes at step 1.
 
 1.  User requests to change to a new password +
 `changepassword oldpassword newpassword`
-2.  nasa will provide acknowledgment message.
+2.  NASA will provide acknowledgment message.
 +
 Use case ends.
 
@@ -720,7 +720,7 @@ Use case resumes at step 1.
 
 1.  User requests to exit the program. +
 `exit`
-2.  nasa will provide a acknowledgement messages.
+2.  NASA will provide a acknowledgement messages.
 3.  User-interface will close.
 +
 Use case ends.
