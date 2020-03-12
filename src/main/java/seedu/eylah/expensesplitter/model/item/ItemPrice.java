@@ -5,21 +5,22 @@ import static seedu.eylah.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Item's price in Expense Splitter of EYLAH.
- * Guarantees: immutable; is valid as declared in {@link #isValidPrice(double)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(Double)}
  */
 public class ItemPrice {
 
     public static final double DOUBLE_ZERO = 0;
     public static final String MESSAGE_CONSTRAINTS =
             "Price should be greater than $0";
-    public final double itemPrice;
+    public static final String VALIDATION_REGEX = "([0-9]*)\\.([0-9]*)"; //Price must be a double, at least 1 digit long.
+    public final Double itemPrice;
 
     /**
      * Constructs a {@code ItemPrice}.
      *
      * @param price A valid price
      */
-    public ItemPrice(double price) {
+    public ItemPrice(Double price) {
         requireNonNull(price);
         checkArgument(isValidPrice(price), MESSAGE_CONSTRAINTS);
         this.itemPrice = price;
@@ -28,11 +29,14 @@ public class ItemPrice {
     /**
      * Returns true if a given price is a valid price.
      *
-     * @param test if an ItemPrice is > 0 because ItemPrice cannot be <= 0.
+     * @param test if an ItemPrice is > 0 because ItemPrice cannot be <= 0 and can only contain digit.
      */
-    public static boolean isValidPrice(double test) {
-        return test > DOUBLE_ZERO;
+    public static boolean isValidPrice(Double test) {
+        System.out.println(test.toString());
+        System.out.println(test.toString().matches(VALIDATION_REGEX));
+        return test > DOUBLE_ZERO && test.toString().matches(VALIDATION_REGEX);
     }
+
 
     @Override
     public String toString() {

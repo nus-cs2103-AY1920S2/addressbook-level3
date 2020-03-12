@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.eylah.expensesplitter.testutil.TypicalItem.BEERTOWER;
 import static seedu.eylah.expensesplitter.testutil.TypicalItem.STEAMBOAT;
+import static seedu.eylah.expensesplitter.testutil.TypicalItem.POPCORN;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +25,6 @@ public class ItemTest {
         //// different name -> returns false
         //Food editedPasta = new FoodBuilder(PASTA).withName(VALID_NAME_BOB).build();
         //assertFalse(PASTA.isSameFood(editedPasta));
-        //
-        //// same name, same phone, different attributes -> returns true
-        //editedPasta = new FoodBuilder(PASTA)
-        //        .withTags(VALID_TAG_HUSBAND).build();
-        //assertTrue(PASTA.isSameFood(editedPasta));
         //
         //// same name, same phone, same email, different attributes -> returns true
         //editedPasta = new FoodBuilder(PASTA).withTags(VALID_TAG_HUSBAND).build();
