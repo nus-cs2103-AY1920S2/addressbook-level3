@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.notably.commons.core.Messages;
 import com.notably.commons.core.index.Index;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
@@ -64,7 +63,7 @@ public class EditCommand extends Command {
         List<Object> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException("MESSAGE_INVALID_PERSON_DISPLAYED_INDEX");
         }
 
 

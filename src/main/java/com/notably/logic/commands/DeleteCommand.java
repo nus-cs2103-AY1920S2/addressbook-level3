@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import com.notably.commons.core.Messages;
 import com.notably.commons.core.index.Index;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
@@ -35,7 +34,7 @@ public class DeleteCommand extends Command {
         List<Object> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException("MESSAGE_INVALID_PERSON_DISPLAYED_INDEX");
         }
 
         Object personToDelete = lastShownList.get(targetIndex.getZeroBased());
