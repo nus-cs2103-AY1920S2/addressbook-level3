@@ -7,6 +7,8 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.savings.MonetaryAmount;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.model.util.SampleDataUtil;
 
@@ -17,10 +19,14 @@ public class CouponBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
+
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
+
+    public static final Savings DEFAULT_SAVINGS = new Savings(new MonetaryAmount(32.5));
 
     private Name name;
     private Phone phone;
+    private Savings savings;
     private Set<Tag> tags;
     private ExpiryDate expiryDate;
 
@@ -28,6 +34,7 @@ public class CouponBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
+        savings = new Savings(DEFAULT_SAVINGS);
         tags = new HashSet<>();
     }
 
@@ -38,6 +45,7 @@ public class CouponBuilder {
         name = couponToCopy.getName();
         phone = couponToCopy.getPhone();
         expiryDate = couponToCopy.getExpiryDate();
+        savings = new Savings(couponToCopy.getSavings());
         tags = new HashSet<>(couponToCopy.getTags());
     }
 
@@ -66,6 +74,7 @@ public class CouponBuilder {
     }
 
 
+
     /**
      * Sets the {@code ExpiryDate} of the {@code Coupon} that we are building.
      */
@@ -74,8 +83,21 @@ public class CouponBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Savings} of the {@code Coupon} that we are building.
+     * @param sv The Savings to set.
+     * @return This CouponBuilder (mutated).
+     */
+    public CouponBuilder withSavings(Savings sv) {
+        this.savings = sv;
+
+        return this;
+    }
+
     public Coupon build() {
-        return new Coupon(name, phone, tags, expiryDate);
+
+        return new Coupon(name, phone, savings, tags, expiryDate);
+
     }
 
 }

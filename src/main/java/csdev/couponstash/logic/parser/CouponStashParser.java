@@ -16,17 +16,30 @@ import csdev.couponstash.logic.commands.ExpiringCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
+import csdev.couponstash.logic.commands.SavedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
 public class CouponStashParser {
-
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+
+    private final String moneySymbol;
+
+    /**
+     * Constructor for a CouponStashParser. Requires the
+     * money symbol set in UserPrefs as this will be
+     * used in the parsing of many commands like
+     * AddCommandParser and EditCommandParser.
+     * @param moneySymbol String representing the money symbol.
+     */
+    public CouponStashParser(String moneySymbol) {
+        this.moneySymbol = moneySymbol;
+    }
 
     /**
      * Parses user input into command for execution.
@@ -46,10 +59,10 @@ public class CouponStashParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddCommandParser(this.moneySymbol).parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditCommandParser(this.moneySymbol).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -71,6 +84,9 @@ public class CouponStashParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case SavedCommand.COMMAND_WORD:
+            return new SavedCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

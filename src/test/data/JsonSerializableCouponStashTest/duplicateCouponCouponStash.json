@@ -2,11 +2,31 @@
   "coupons": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
+
     "expiry date": "30-08-2020",
+
+    "savings" : {
+      "monetaryAmount" : 123.0,
+      "percentageAmount" : null,
+      "saveables" : null
+    },
+
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
+
     "expiry date": "30-08-2020"
+
+    "savings" : {
+      "monetaryAmount" : 123.0,
+      "percentageAmount" :null,
+      "saveables" : [ {
+        "saveableDesc" : "Water Bottle"
+      }, {
+        "saveableDesc" : "Notebook"
+      } ]
+    }
+
   } ]
 }

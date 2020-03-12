@@ -1,6 +1,10 @@
 {
   "coupons": [ {
     "name": "Coupon with invalid name field: Ha!ns Mu@ster",
-    "phone": "9482424"
+    "savings" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : 12.5,
+      "saveables" : null
+    }
   } ]
 }

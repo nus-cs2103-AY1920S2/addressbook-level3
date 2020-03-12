@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -20,16 +21,23 @@ public class Coupon {
     private final Phone phone;
     private final ExpiryDate expiryDate;
 
+    // Savings field
+    private final Savings savings;
+
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Set<Tag> tags, ExpiryDate expiryDate) {
-        requireAllNonNull(name, phone, tags, expiryDate);
+
+
+    public Coupon(Name name, Phone phone, Savings savings, Set<Tag> tags, ExpiryDate expiryDate) {
+        requireAllNonNull(name, phone, savings, tags, expiryDate);
+
         this.name = name;
         this.phone = phone;
+        this.savings = savings;
         this.tags.addAll(tags);
         this.expiryDate = expiryDate;
     }
@@ -44,6 +52,16 @@ public class Coupon {
 
     public ExpiryDate getExpiryDate() {
         return expiryDate;
+    }
+
+    /**
+     * Gets the Savings associated with this Coupon.
+     * @return Savings representing either the monetary
+     *     amount saved, percentage amount saved, or
+     *     unquantifiable items (Saveables).
+     */
+    public Savings getSavings() {
+        return savings;
     }
 
     /**
@@ -65,7 +83,8 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && (otherCoupon.getPhone().equals(getPhone()));
+                && (otherCoupon.getPhone().equals(getPhone())
+                        || otherCoupon.getSavings().equals(getSavings()));
     }
 
     /**
@@ -85,14 +104,20 @@ public class Coupon {
         Coupon otherCoupon = (Coupon) other;
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
+
+                && otherCoupon.getSavings().equals(getSavings())
+          
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
+
                 && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, tags, expiryDate);
+
+        return Objects.hash(name, phone, savings, tags, expiryDate);
+
     }
 
     @Override
@@ -101,8 +126,13 @@ public class Coupon {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
+
                 .append(" Expiry Date: ")
                 .append(getExpiryDate())
+
+                .append(" Savings: ")
+                .append(getSavings())
+
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
