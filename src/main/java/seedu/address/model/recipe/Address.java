@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Recipe's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
- * 
+ *
  * * TODO: Delete this class and refactor all dependencies.
  */
 public class Address {
