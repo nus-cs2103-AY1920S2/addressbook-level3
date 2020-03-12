@@ -1,7 +1,6 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVED;
@@ -13,7 +12,6 @@ import java.util.stream.Stream;
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -43,16 +41,15 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SAVED, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_SAVED, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_SAVED)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVED), this.moneySymbol);
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 

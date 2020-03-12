@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
@@ -27,7 +26,6 @@ class JsonAdaptedCoupon {
 
     private final String name;
     private final String phone;
-    private final String email;
     private final JsonAdaptedSavings savings;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -35,13 +33,12 @@ class JsonAdaptedCoupon {
      * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
      */
     @JsonCreator
-    public JsonAdaptedCoupon(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email,
+    public JsonAdaptedCoupon(@JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
                              @JsonProperty("savings") JsonAdaptedSavings savings,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.savings = savings;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -54,7 +51,6 @@ class JsonAdaptedCoupon {
     public JsonAdaptedCoupon(Coupon source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        email = source.getEmail().value;
         savings = new JsonAdaptedSavings(source.getSavings());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -87,14 +83,6 @@ class JsonAdaptedCoupon {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
-
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
 
         if (savings == null) {
             throw new IllegalValueException(

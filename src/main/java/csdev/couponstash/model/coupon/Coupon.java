@@ -19,7 +19,6 @@ public class Coupon {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Savings field
     private final Savings savings;
@@ -30,11 +29,10 @@ public class Coupon {
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Email email, Savings savings, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
+    public Coupon(Name name, Phone phone, Savings savings, Set<Tag> tags) {
+        requireAllNonNull(name, phone, savings, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.savings = savings;
         this.tags.addAll(tags);
     }
@@ -45,10 +43,6 @@ public class Coupon {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     /**
@@ -80,7 +74,7 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && (otherCoupon.getPhone().equals(getPhone()) || otherCoupon.getEmail().equals(getEmail())
+                && (otherCoupon.getPhone().equals(getPhone())
                         || otherCoupon.getSavings().equals(getSavings()));
     }
 
@@ -101,7 +95,6 @@ public class Coupon {
         Coupon otherCoupon = (Coupon) other;
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
-                && otherCoupon.getEmail().equals(getEmail())
                 && otherCoupon.getSavings().equals(getSavings())
                 && otherCoupon.getTags().equals(getTags());
     }
@@ -109,7 +102,7 @@ public class Coupon {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, savings, tags);
+        return Objects.hash(name, phone, savings, tags);
     }
 
     @Override
@@ -118,8 +111,6 @@ public class Coupon {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Savings: ")
                 .append(getSavings())
                 .append(" Tags: ");
