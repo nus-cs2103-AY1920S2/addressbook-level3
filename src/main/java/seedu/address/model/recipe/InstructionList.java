@@ -7,10 +7,11 @@ import java.util.List;
  * Represents a Recipe's instructions in the recipe book.
  */
 public class InstructionList {
-    public List<Instruction> instructions = new ArrayList<>();
+
+    private List<Instruction> instructions = new ArrayList<>();
 
     /**
-     * Constructs an {@code InstructionList}.
+     * Constructs for InstructionList.
      */
     public InstructionList() {
     }
@@ -18,7 +19,7 @@ public class InstructionList {
     /**
      * Adds an instruction from the instructions list.
      *
-     * @param instruction, the instruction to be added.
+     * @param instruction the instruction to be added.
      */
     public void addInstruction(Instruction instruction) {
         instructions.add(instruction);
@@ -27,10 +28,19 @@ public class InstructionList {
     /**
      * Deletes an instruction from the instructions list.
      *
-     * @param instruction, the instruction to be deleted.
+     * @param instruction the instruction to be deleted.
      */
     public void deleteInstruction(Instruction instruction) {
         instructions.remove(instruction);
+    }
+
+    //must have accessors to avoid checkstyle failure
+    public List<Instruction> getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(List<Instruction> instructions) {
+        this.instructions = instructions;
     }
 
     /**

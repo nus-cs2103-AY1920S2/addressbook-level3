@@ -8,10 +8,10 @@ import java.util.List;
  */
 public class IngredientList {
 
-    public List<Ingredient> ingredients = new ArrayList<>();
+    private List<Ingredient> ingredients = new ArrayList<>();
 
     /**
-     * Constructs an {@code IngredientList}.
+     * Constructs for IngredientList.
      */
     public IngredientList() {
     }
@@ -19,7 +19,7 @@ public class IngredientList {
     /**
      * Adds an ingredient to the ingredients list.
      *
-     * @param ingredient, the ingredient to be added.
+     * @param ingredient the ingredient to be added.
      */
     public void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);
@@ -28,10 +28,19 @@ public class IngredientList {
     /**
      * Deletes an ingredient from the ingredients list.
      *
-     * @param ingredient, the ingredient to be deleted.
+     * @param ingredient the ingredient to be deleted.
      */
     public void deleteIngredient(Ingredient ingredient) {
         ingredients.remove(ingredient);
+    }
+
+    //must have accessors to avoid checkstyle failure
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     /**
