@@ -9,9 +9,9 @@ import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
 
 /**
- * Represents a Task in Module.
+ * Represents a Deadline in Personal.
  */
-public class Task {
+public class Deadline {
     protected String description;
     protected LocalDate date;
     protected LocalTime time;
@@ -19,7 +19,7 @@ public class Task {
     private String inputTimePattern = "HH:mm";
     private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
 
-    public Task(String description, String date, String time) throws DateTimeException {
+    public Deadline(String description, String date, String time) throws DateTimeException {
         this.description = description;
         try {
             this.date = LocalDate.parse(date);

@@ -7,12 +7,12 @@ public class Personal {
 
     private Status status;
     private Grade grade;
-    private TaskList taskList;
+    private DeadlineList deadlineList;
 
     public Personal() {
         status = new Status();
         grade = new Grade();
-        taskList = new TaskList();
+        deadlineList = new DeadlineList();
     }
 
     // Currently unusable because all the fields are private.

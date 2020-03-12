@@ -3,20 +3,20 @@ package seedu.address.model.profile.course.module.personal;
 import java.util.ArrayList;
 
 /**
- * TaskList contains the list of tasks and methods for the list.
+ * DeadlineList contains the list of deadlines and methods for the list.
  */
-public class TaskList {
-    private ArrayList<Task> list;
+public class DeadlineList {
+    private ArrayList<Deadline> list;
 
-    public TaskList() {
-        this.list = new ArrayList<Task>();
+    public DeadlineList() {
+        this.list = new ArrayList<Deadline>();
     }
 
-    public TaskList(ArrayList<Task> list) {
+    public DeadlineList(ArrayList<Deadline> list) {
         this.list = list;
     }
 
-    public ArrayList<Task> getList() {
+    public ArrayList<Deadline> getList() {
         return list;
     }
 
@@ -26,7 +26,7 @@ public class TaskList {
      * @param index Index of task in the list.
      * @return Required task.
      */
-    public Task getTask(int index) {
+    public Deadline getDeadline(int index) {
         return list.get(index);
     }
 
@@ -39,11 +39,11 @@ public class TaskList {
         return list.size();
     }
 
-    public void addTask(Task task) {
-        list.add(task);
+    public void addDeadline(Deadline deadline) {
+        list.add(deadline);
     }
 
-    public void deleteTask(Task task) {
-        list.remove(task);
+    public void deleteDeadline(Deadline deadline) {
+        list.remove(deadline);
     }
 }
