@@ -2,9 +2,12 @@ package seedu.address.model.profile;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.module.Module;
 
 /**
  * Represents a Profile in the address book.
@@ -13,10 +16,12 @@ import seedu.address.model.profile.course.Course;
 public class Profile {
 
     // Identity fields
+    private static HashMap<Integer, ArrayList<Module>> moduleHash;
     private static String currentSemester;
     private final Name name;
     private final Course course;
     private final String specialisation;
+
 
     /**
      * Every field must be present and not null.
@@ -29,6 +34,21 @@ public class Profile {
         this.course = course;
         this.currentSemester = currentSemester;
         this.specialisation = specialisation;
+        HashMap<Integer, ArrayList<Module>> moduleHash = new HashMap<Integer, ArrayList<Module>>();
+        this.moduleHash = moduleHash;
+    }
+
+    /**
+     * Adds a module to the hashmap with the key being the semester
+     */
+    public static void addModule(Integer semester, Module module) {
+        if (!moduleHash.isEmpty() && moduleHash.containsKey(semester)) {
+            moduleHash.get(semester).add(module);
+        } else {
+            ArrayList<Module> semesterList = new ArrayList<Module>();
+            semesterList.add(module);
+            moduleHash.put(semester, semesterList);
+        }
     }
 
     public Name getName() {
@@ -45,6 +65,10 @@ public class Profile {
 
     public String getSpecialisation() {
         return specialisation;
+    }
+
+    public ArrayList<Module> getModules(Integer semester) {
+        return moduleHash.get(semester);
     }
 
 

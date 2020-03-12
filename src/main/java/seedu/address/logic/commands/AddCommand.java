@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.profile.course.module.personal.Personal;
+import seedu.address.model.profile.course.module.Module;
 
 /**
  * Adds a profile to the address book.
@@ -25,14 +25,17 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
 
-    private final Personal toAdd;
+    private final Module toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Profile}
      */
-    public AddCommand(Personal personal) {
-        requireNonNull(personal);
-        toAdd = personal;
+    public AddCommand(Module module) {
+        requireNonNull(module);
+        toAdd = module;
+
+        // todo: Add module to Profile
+
     }
 
     @Override
