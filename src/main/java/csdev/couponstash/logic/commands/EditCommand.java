@@ -95,7 +95,7 @@ public class EditCommand extends Command {
 
 
         return new Coupon(updatedName, updatedPhone,
-                updatedSavings, updatedTags,updatedExpiryDate );
+                updatedSavings, updatedTags, updatedExpiryDate);
     }
 
     @Override
