@@ -17,8 +17,6 @@ public abstract class Activity implements Regenerable<Activity> {
 
     private Note note;
 
-    //private boolean isDone;
-
     private Status status;
 
     /**
@@ -35,7 +33,6 @@ public abstract class Activity implements Regenerable<Activity> {
         this.name = name;
         this.date = date;
         this.note = note;
-        //this.isDone = false;
         this.status = Status.ONGOING;
     }
 
