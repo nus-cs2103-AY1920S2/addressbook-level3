@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Recipe's instructions in the recipe book.
+ * Represents a Recipe's instruction in the recipe book.
  * Guarantees: immutable; is valid as declared in {@link #isValidInstructions(String)}
  */
-public class Instructions {
+public class Instruction {
 
-    public static final String MESSAGE_CONSTRAINTS = "Instructions can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Instruction can take any values, and it should not be blank";
 
     /*
      * The first character of the instructions must not be a whitespace,
@@ -20,14 +20,14 @@ public class Instructions {
     public final String value;
 
     /**
-     * Constructs an {@code Instructions}.
+     * Constructs an {@code Instruction}.
      *
-     * @param instructions A valid instruction string.
+     * @param instruction A valid instruction string.
      */
-    public Instructions(String instructions) {
-        requireNonNull(instructions);
-        checkArgument(isValidInstructions(instructions), MESSAGE_CONSTRAINTS);
-        value = instructions;
+    public Instruction(String instruction) {
+        requireNonNull(instruction);
+        checkArgument(isValidInstructions(instruction), MESSAGE_CONSTRAINTS);
+        value = instruction;
     }
 
     /**
@@ -45,8 +45,8 @@ public class Instructions {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Instructions // instanceof handles nulls
-                    && value.equals(((Instructions) other).value)); // state check
+                || (other instanceof Instruction // instanceof handles nulls
+                    && value.equals(((Instruction) other).value)); // state check
     }
 
     @Override
