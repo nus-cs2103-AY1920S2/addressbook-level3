@@ -42,7 +42,6 @@ public class SampleDataUtil {
             new Coupon(new Name("Roy Balakrishnan"), new Phone("92624417"),
                 new Savings(new PercentageAmount(100d)), new ExpiryDate("11-9-2020"),
                     getTagSet("colleagues"))
-
         };
     }
 
@@ -59,7 +58,6 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
-                .map(Tag::new)
-                .collect(Collectors.toSet());
+            .map(Tag::new).collect(Collectors.toSet());
     }
 }

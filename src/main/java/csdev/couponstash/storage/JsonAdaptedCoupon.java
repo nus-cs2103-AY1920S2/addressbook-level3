@@ -42,6 +42,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("expiry date") String expiryDate,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged
                              ) {
+
         this.name = name;
         this.phone = phone;
         this.savings = savings;
