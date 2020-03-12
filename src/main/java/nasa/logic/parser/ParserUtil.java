@@ -109,7 +109,7 @@ public class ParserUtil {
         requireNonNull(moduleName);
         String moduleNameTrimmed = moduleName.trim();
         if (!ModuleName.isValidModuleName(moduleNameTrimmed)) {
-            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
+            throw new ParseException(ModuleName.MESSAGE_CONSTRAINTS);
         }
         return new ModuleName(moduleNameTrimmed);
     }

@@ -31,6 +31,8 @@ public class CommandTestUtil {
     // parameters with their prefixes
     public static final String MODULE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CS2030;
     public static final String MODULE_DESC_CS1231 = " " + PREFIX_MODULE + VALID_MODULE_CS1231;
+    public static final String MODULE_NAME_DESC_CS2030 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS2030;
+    public static final String MODULE_NAME_DESC_CS1231 = " " + PREFIX_MODULE_NAME + VALID_MODULE_NAME_CS1231;
     public static final String ACTIVITY_NAME_DESC_HWK = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_HWK;
     public static final String ACTIVITY_NAME_DESC_TUTORIAL = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_TUTORIAL;
     public static final String ACTIVITY_NAME_DESC_EXAM = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_EXAM;
