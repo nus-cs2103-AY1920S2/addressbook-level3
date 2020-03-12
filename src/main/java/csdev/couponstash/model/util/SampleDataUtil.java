@@ -23,7 +23,7 @@ public class SampleDataUtil {
     public static Coupon[] getSampleCoupons() {
         return new Coupon[] {
           new Coupon(new Name("Alex Yeoh"), new Phone("87438807"),
-            new Savings(new MonetaryAmount(5.50)), getTagSet("friends"), new ExpiryDate("30-12-2020"));
+            new Savings(new MonetaryAmount(5.50)), getTagSet("friends"), new ExpiryDate("30-12-2020")),
             
           new Coupon(new Name("Bernice Yu"), new Phone("99272758"),
             new Savings(new PercentageAmount(25d)), getTagSet("colleagues", "friends"),
