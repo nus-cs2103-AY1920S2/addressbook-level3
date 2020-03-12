@@ -8,6 +8,13 @@ public class Lesson extends Activity {
     private int numOfDaysTillNextLesson = 7; // Frequency of lesson in number of days (eg. every 7 days) Default is 7.
 
     /**
+     * Initialise Lesson with default status and priority.
+     */
+    public Lesson(Name name, Date date, Note note) {
+        super(name, date, note);
+    }
+
+    /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */

@@ -1,4 +1,4 @@
-= Nice & Amazing Student Guide (NASA) - User Guide
+= Nice & Amazing Student Guide (nasa) - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,16 +18,16 @@ By: `CS2103T-T10-4`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
 
-Nice & Amazing Student Assistant (NASA) is an application for *busy university students to manage their module
-assignments, lessons, exams and consultations etc*. More importantly, NASA is optimized for those who *prefer to work
+Nice & Amazing Student Assistant (nasa) is an application for *busy university students to manage their module
+assignments, lessons, exams and consultations etc*. More importantly, nasa is optimized for those who *prefer to work
 with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI)*. If you can
-type fast, NASA can keep track of your module activities faster than traditional GUI apps. Interested? Jump to the
+type fast, nasa can keep track of your module activities faster than traditional GUI apps. Interested? Jump to the
 <<Quick Start>> to get started. Time to take off!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `NASA.jar` link:{repoURL}/releases[here].
+.  Download the latest `nasa.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -64,7 +64,7 @@ Format: `help`
 
 === Adding a module activity-list: `Madd`
 
-Adds a module activity-list into the NASA application +
+Adds a module activity-list into the nasa application +
 Format: `Madd m/MODULE_CODE n/MODULE_NAME`
 
 Examples:
@@ -116,7 +116,7 @@ Edits the notes and priority of the 3rd activity in CS2030 activity-list to `Fin
 
 === Editing a module: `Medit`
 
-Edits and existing module in the NASA application. +
+Edits and existing module in the nasa application. +
 Format: `Medit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]
 
 ****
@@ -311,7 +311,7 @@ image::export_example.png[width="300", align="middle"]
 // end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the NASA application (including module activity-lists created). +
+Clears all entries from the nasa application (including module activity-lists created). +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -321,7 +321,7 @@ Format: `exit`
 
 === Saving the data
 
-NASA data are saved in the hard disk automatically after any command that changes the data. +
+nasa data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -336,7 +336,7 @@ _{explain how the user can enable/disable data encryption}_
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains
-the data of your previous NASA folder.
+the data of your previous nasa folder.
 
 === Edit checklist item of activity
 To edit checklist item, add the new checklist item with `chadd` before deleting the old checklist item with `chdel`.

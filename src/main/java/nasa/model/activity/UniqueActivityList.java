@@ -6,11 +6,13 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import nasa.commons.core.index.Index;
+import nasa.model.activity.exceptions.ActivityNotFoundException;
+import nasa.model.activity.exceptions.DuplicateActivityException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import nasa.model.activity.exceptions.ActivityNotFoundException;
-import nasa.model.activity.exceptions.DuplicateActivityException;
 
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
@@ -70,6 +72,46 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.set(index, editedActivity);
     }
 
+    public ObservableList<Activity> getActivityList() {
+        return this.internalList;
+    }
+
+    public Activity getActivityByIndex(Index index) {
+        return internalList.get(index.getZeroBased());
+    }
+
+    public void setActivityByIndex(Index index, Activity activity) {
+        requireNonNull(activity);
+
+        internalList.set(index.getZeroBased(), activity);
+    }
+
+    public void editActivityByIndex(Index index, Object... args) {
+        requireAllNonNull(args);
+
+        Activity activity = internalList.get(index.getZeroBased());
+
+        for (Object object : args) {
+            if (object instanceof Note) {
+                Note note = (Note) object;
+                activity.setNote(note);
+            }
+
+            if (object instanceof Name) {
+                Name name = (Name) object;
+                activity.setName(name);
+            }
+
+            if (activity instanceof Deadline
+                    && object instanceof Date) {
+                Date extendDateLine = (Date) object;
+                activity.setDate(extendDateLine);
+            }
+        }
+
+        internalList.set(index.getZeroBased(), activity);
+    }
+
     /**
      * Removes the equivalent activity from the list.
      * The activity must exist in the list.
@@ -79,6 +121,13 @@ public class UniqueActivityList implements Iterable<Activity> {
         if (!internalList.remove(toRemove)) {
             throw new ActivityNotFoundException();
         }
+    }
+
+    /**
+     * Empty all the activity inside the list.
+     */
+    public void removeAll() {
+       internalList.clear();
     }
 
     public void setActivities(UniqueActivityList replacement) {

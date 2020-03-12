@@ -2,9 +2,13 @@ package nasa.model.module;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Abstract class to specify fields with getter and setters for modules.
@@ -13,6 +17,7 @@ public class Module {
 
     private ModuleCode moduleCode;
     private UniqueActivityList activityList;
+    private FilteredList<Activity> filteredActivity;
     private ModuleName moduleName;
 
     /**
@@ -21,8 +26,9 @@ public class Module {
      */
     public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
-        this.moduleName = moduleName;
         this.activityList = new UniqueActivityList();
+        this.filteredActivity = new FilteredList<>(activityList.getActivityList());
+        this.moduleName = moduleName;
     }
 
     /**
@@ -84,10 +90,29 @@ public class Module {
         activityList.setActivities(activities);
     }
 
+    public Activity getActivityByIndex(Index index) {
+        return activityList.getActivityByIndex(index);
+    }
+
+    public ObservableList<Activity> getFilteredActivityList() {
+        return filteredActivity;
+    }
+
+    public void setActivityByIndex(Index index, Activity activity) {
+        activityList.setActivityByIndex(index, activity);
+    }
+
+    public void editActivityByIndex(Index index, Object... args) {
+        activityList.editActivityByIndex(index, args);
+    }
+
     public Iterator<Activity> iterator() {
         return activityList.iterator();
     }
 
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        filteredActivity.setPredicate(predicate);
+    }
     /**
      * Returns true if both are the same module.
      * This defines a stronger notion of equality between two activities.

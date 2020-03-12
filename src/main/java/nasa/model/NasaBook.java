@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import nasa.commons.core.index.Index;
 import javafx.collections.ObservableList;
 
 import nasa.model.activity.Activity;
@@ -59,6 +60,16 @@ public class NasaBook implements ReadOnlyNasaBook {
     }
 
     /**
+     * Replaces current module list with another module list.
+     * @param moduleList must not be empty
+     */
+    public void setModuleList(UniqueModuleList moduleList) {
+        requireNonNull(moduleList);
+
+        this.moduleList.setModules(moduleList);
+    }
+
+    /**
      * Add a single activity to module {@moduleCode} with {@code activity}
      * {@code activity} must not contain duplicate activities.
      */
@@ -80,6 +91,14 @@ public class NasaBook implements ReadOnlyNasaBook {
         Module toEditModule = moduleList.getModule(module);
         toEditModule.remove(activity);
         moduleList.setModule(module, toEditModule);
+    }
+
+    /**
+     * Remove module by index.
+     * @param index must not be negative.
+     */
+    public void removeModuleByIndex(Index index) {
+        moduleList.removeByIndex(index);
     }
 
     /**
@@ -128,6 +147,22 @@ public class NasaBook implements ReadOnlyNasaBook {
         requireNonNull(editedActivity);
 
         moduleList.setModule(target, editedActivity);
+    }
+
+    public Activity getActivityByIndex(Module module, Index index) {
+        return moduleList.getModule(module).getActivityByIndex(index);
+    }
+
+    public void setActivityByIndex(Module module, Index index, Activity activity) {
+        requireNonNull(activity);
+
+        moduleList.setActivityByIndex(module, index, activity);
+    }
+
+    public void editActivityByIndex(Module module, Index index, Object... args) {
+        requireNonNull(args);
+
+        moduleList.editActivityByIndex(module, index, args);
     }
 
     /**
