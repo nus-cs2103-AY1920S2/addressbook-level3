@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 /**
  * Represents a Recipe's email in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * 
+ * * TODO: Delete this class and refactor all dependencies.
  */
 public class Email {
 
