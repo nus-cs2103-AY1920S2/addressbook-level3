@@ -26,6 +26,8 @@ public class UsedCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_USED_COUPON_SUCCESS = "Used Coupon: %1$s";
+    public static final String MESSAGE_USAGE_LIMIT_REACHED = "Coupon usage limit has been reached!\n"
+            + "You can only use it for a maximum of %d time(s).";
 
     private final Index targetIndex;
 
@@ -42,6 +44,12 @@ public class UsedCommand extends Command {
         }
 
         Coupon couponToBeUsed = lastShownList.get(targetIndex.getZeroBased());
+        Usage currentUsage = couponToBeUsed.getUsage();
+
+        if(Usage.isUsageAtLimit(currentUsage)) {
+            throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, currentUsage.getMaxUsage()));
+        }
+
         Coupon usedCoupon = createUsedCoupon(couponToBeUsed);
 
         model.setCoupon(couponToBeUsed, usedCoupon);
