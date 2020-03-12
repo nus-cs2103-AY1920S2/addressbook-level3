@@ -16,6 +16,8 @@ import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
+import nasa.model.activity.Priority;
+import nasa.model.activity.Status;
 import nasa.model.module.ModuleCode;
 
 public class AddDeadlineCommandParser extends AddCommandParser {
@@ -33,7 +35,8 @@ public class AddDeadlineCommandParser extends AddCommandParser {
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
         Note note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-        Deadline deadline = new Deadline(activityName, date, note);
+        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        Deadline deadline = new Deadline(activityName, date, note, Status.ONGOING ,priority);
         return new AddDeadlineCommand(deadline, moduleCode);
     }
 }

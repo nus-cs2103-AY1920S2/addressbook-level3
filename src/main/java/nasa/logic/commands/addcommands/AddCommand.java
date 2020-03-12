@@ -8,6 +8,8 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
+import nasa.model.module.Module;
 
 public class AddCommand extends Command {
 
@@ -25,7 +27,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelNasa model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         /*
          * Create a dummy moduleTask so as to add the activity to that
