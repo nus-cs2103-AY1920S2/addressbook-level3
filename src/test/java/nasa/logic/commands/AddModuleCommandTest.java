@@ -6,7 +6,7 @@ import nasa.model.module.ModuleName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.Assert.assertThrows;
 
 import nasa.model.ModelManager;
@@ -29,11 +29,12 @@ public class AddModuleCommandTest {
     @Test
     public void execute_newModule_success() throws Exception {
         Module module = new Module(new ModuleCode("CS2100"), new ModuleName("Computer Organization"));
+
         Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
         expectedModel.addModule(module);
+
         AddModuleCommand command = new AddModuleCommand(module);
-        command.execute(model);
-        assertEquals(expectedModel, model);
+        assertCommandSuccess(command, model, String.format(AddModuleCommand.MESSAGE_SUCCESS, module), expectedModel);
     }
 
     @Test
