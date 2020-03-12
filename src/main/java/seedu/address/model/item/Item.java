@@ -50,7 +50,8 @@ public class Item {
     /**
      * Returns true if both Items of the same name have the same price.
      * This defines a weaker notion of equality between two food.
-     * @param
+     *
+     * @param otherItem the other Item we are comparing with.
      */
     public boolean isSameItem(Item otherItem) {
         if (otherItem == this) {
@@ -62,8 +63,7 @@ public class Item {
                 && otherItem.getItemPrice().equals(getItemPrice());
     }
 
-    /* Commented out this portion regarding stronger notion of equality for now.
-    Will add back if needed in the future.
+
 
     @Override
     public boolean equals(Object other) {
@@ -71,20 +71,16 @@ public class Item {
             return true;
         }
 
-        if (!(other instanceof Food)) {
+        if (!(other instanceof Item)) {
             return false;
         }
 
-        Food otherFood = (Food) other;
-        return otherFood.getName().equals(getName())
-                && otherFood.getCalories().equals(getCalories())
-                && otherFood.getCarb().equals(getCarb())
-                && otherFood.getFat().equals(getFat())
-                && otherFood.getProtein().equals(getProtein())
-                && otherFood.getSugar().equals(getSugar());
+        Item otherItem = (Item) other;
+        return otherItem.getItemName().equals(getItemName())
+                && otherItem.getItemPrice().equals(getItemPrice());
     }
 
-     */
+
 
     @Override
     public int hashCode() {
