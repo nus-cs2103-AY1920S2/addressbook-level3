@@ -5,6 +5,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 import static csdev.couponstash.model.coupon.savings.PercentageAmount.PERCENT_SUFFIX;
 
 import java.util.Set;
@@ -40,6 +41,7 @@ public class CouponUtil {
         sb.append(PREFIX_PHONE + coupon.getPhone().value + " ");
         sb.append(PREFIX_EXPIRY_DATE + coupon.getExpiryDate().value + " ");
         sb.append(convertSavingsToCommand(coupon.getSavings(), moneySymbol));
+        sb.append(PREFIX_USAGE + coupon.getUsage().maxUsage + " ");
         coupon.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -58,6 +60,7 @@ public class CouponUtil {
         descriptor.getExpiryDate().ifPresent(expiryDate -> sb.append(PREFIX_EXPIRY_DATE).append(expiryDate.value)
                 .append(" "));
         descriptor.getSavings().ifPresent(sv -> sb.append(convertSavingsToCommand(sv, moneySymbol)));
+        descriptor.getUsage().ifPresent(usage -> sb.append(PREFIX_USAGE).append(usage.maxUsage).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

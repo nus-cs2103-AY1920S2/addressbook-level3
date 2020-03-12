@@ -12,12 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
-
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
-
 
 /**
  * Jackson-friendly version of {@link Coupon}.
@@ -30,6 +29,7 @@ class JsonAdaptedCoupon {
     private final String phone;
     private final JsonAdaptedSavings savings;
     private final String expiryDate;
+    private final String usage;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -40,13 +40,14 @@ class JsonAdaptedCoupon {
                              @JsonProperty("phone") String phone,
                              @JsonProperty("savings") JsonAdaptedSavings savings,
                              @JsonProperty("expiry date") String expiryDate,
+                             @JsonProperty("usage") String usage,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged
                              ) {
-
         this.name = name;
         this.phone = phone;
         this.savings = savings;
         this.expiryDate = expiryDate;
+        this.usage = usage;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -60,6 +61,7 @@ class JsonAdaptedCoupon {
         phone = source.getPhone().value;
         savings = new JsonAdaptedSavings(source.getSavings());
         expiryDate = source.getExpiryDate().value;
+        usage = source.getUsage().maxUsage;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -107,9 +109,17 @@ class JsonAdaptedCoupon {
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
+        if (usage == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Usage.class.getSimpleName()));
+        }
+        if (!Usage.isValidUsage(usage)) {
+            throw new IllegalValueException(Usage.MESSAGE_CONSTRAINTS);
+        }
+        final Usage modelUsage = new Usage(usage);
+
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
-        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelTags);
+        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelUsage, modelTags);
 
     }
 

@@ -37,7 +37,8 @@ public class CouponStashParserTest {
     public void parseCommand_add() throws Exception {
         Coupon coupon = new CouponBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(CouponUtil.getAddCommand(coupon, VALID_MONEY_SYMBOL));
-        assertEquals(new AddCommand(coupon), command);
+        AddCommand newCommand = new AddCommand(coupon);
+        assertEquals(newCommand, command);
     }
 
     @Test

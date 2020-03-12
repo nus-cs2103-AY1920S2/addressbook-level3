@@ -6,6 +6,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -16,6 +17,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -44,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_SAVINGS, PREFIX_EXPIRY_DATE,
-                        PREFIX_TAG);
+                        PREFIX_USAGE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PHONE, PREFIX_EXPIRY_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -56,8 +58,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE).get());
 
-        Coupon coupon = new Coupon(name, phone, savings, expiryDate, tagList);
+        Coupon coupon = new Coupon(name, phone, savings, expiryDate, usage, tagList);
 
         return new AddCommand(coupon);
     }
