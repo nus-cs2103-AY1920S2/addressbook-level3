@@ -24,7 +24,7 @@ public class DateTime {
     public final LocalDateTime value;
 
     /**
-     * Constructs an {@code Sales}.
+     * Constructs an {@code DateTime}.
      *
      * @param dateTime A valid sales.
      */

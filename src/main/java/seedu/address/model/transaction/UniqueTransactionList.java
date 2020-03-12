@@ -42,8 +42,8 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the contents of this list with {@code products}.
-     * {@code products} must not contain duplicate products.
+     * Replaces the contents of this list with {@code transactions}.
+     * {@code transactions} must not contain duplicate products.
      */
     public void setTransaction(List<Transaction> transactions) {
         requireAllNonNull(transactions);
@@ -55,7 +55,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Returns true if {@code products} contains only unique products.
+     * Returns true if {@code transactions} contains only unique products.
      */
     private boolean transactionsAreUnique(List<Transaction> transactions) {
         for (int i = 0; i < transactions.size() - 1; i++) {
