@@ -143,11 +143,7 @@ public abstract class Activity implements Regenerable<Activity> {
     public boolean isDone() {
         return status == Status.DONE;
     }
-<<<<<<< HEAD:src/main/java/NASA/model/activity/Activity.java
-    /*
-=======
 
->>>>>>> aa5ea9c0f8c25c10f28b4f7a79851f3c35f2fc0f:src/main/java/nasa/model/activity/Activity.java
     public Priority getPriority() {
         return priority;
     }

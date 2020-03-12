@@ -7,6 +7,8 @@ import nasa.model.activity.Event;
 import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
+import nasa.model.activity.Priority;
+import nasa.model.activity.Status;
 
 /**
  * A utility class to help with building Activity objects.
@@ -16,10 +18,12 @@ public class ActivityBuilder {
     public static final String DEFAULT_NAME = "deadline";
     public static final String DEFAULT_DATE = "2020-03-19";
     public static final String DEFAULT_NOTE = "Do homework";
+    public static final String DEFAULT_PRIORITY = "1";
 
     private Name name;
     private Date date;
     private Note note;
+    private Priority priority;
 
     /**
      * Initialise default name, date and note for an activity to test.
@@ -28,6 +32,7 @@ public class ActivityBuilder {
         name = new Name(DEFAULT_NAME);
         date = new Date(DEFAULT_DATE);
         note = new Note(DEFAULT_NOTE);
+        priority = new Priority(DEFAULT_PRIORITY);
     }
 
     /**
@@ -69,11 +74,11 @@ public class ActivityBuilder {
      */
     public Activity build() {
         if (name.equals(new Name("deadline"))) {
-            return new Deadline(name, date, note);
+            return new Deadline(name, date, note, Status.ONGOING ,priority);
         } else if (name.equals(new Name("event"))) {
-            return new Event(name, date, note);
+            return new Event(name, date, note, Status.ONGOING, priority);
         } else if (name.equals(new Name("lesson"))) {
-            return new Lesson(name, date, note);
+            return new Lesson(name, date, note, Status.ONGOING, priority);
         } else {
             throw new NullPointerException("Failed to execute activity build.");
 //            return new Activity(name, date, note) {
