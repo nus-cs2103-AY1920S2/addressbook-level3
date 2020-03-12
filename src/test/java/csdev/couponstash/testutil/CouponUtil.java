@@ -1,5 +1,6 @@
 package csdev.couponstash.testutil;
 
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
@@ -37,6 +38,7 @@ public class CouponUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + coupon.getName().fullName + " ");
         sb.append(PREFIX_PHONE + coupon.getPhone().value + " ");
+        sb.append(PREFIX_EXPIRY_DATE + coupon.getExpiryDate().value + " ");
         sb.append(convertSavingsToCommand(coupon.getSavings(), moneySymbol));
         coupon.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
@@ -53,6 +55,8 @@ public class CouponUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getExpiryDate().ifPresent(expiryDate -> sb.append(PREFIX_EXPIRY_DATE).append(expiryDate.value)
+                .append(" "));
         descriptor.getSavings().ifPresent(sv -> sb.append(convertSavingsToCommand(sv, moneySymbol)));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();

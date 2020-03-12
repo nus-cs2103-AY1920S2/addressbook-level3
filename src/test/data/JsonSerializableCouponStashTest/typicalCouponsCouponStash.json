@@ -8,6 +8,7 @@
       "percentageAmount" : null,
       "saveables" : null
     },
+    "expiry date" : "31-12-2020",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -17,6 +18,7 @@
       "percentageAmount" : 30.0,
       "saveables" : null
     },
+    "expiry date" : "31-12-2020",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -32,6 +34,7 @@
         "saveableDesc" : "Drink"
       } ]
     },
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
@@ -47,6 +50,7 @@
         "saveableDesc" : "Candy"
       } ]
     },
+    "expiry date" : "31-12-2020",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
@@ -62,6 +66,7 @@
         "saveableDesc" : "Doir Bag"
       } ]
     },
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -71,6 +76,7 @@
       "percentageAmount" : null,
       "saveables" : null
     },
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   }, {
     "name" : "George Best",
@@ -80,6 +86,7 @@
       "percentageAmount" : 17.0,
       "saveables" : null
     },
+    "expiry date" : "31-12-2020",
     "tagged" : [ ]
   } ]
 }

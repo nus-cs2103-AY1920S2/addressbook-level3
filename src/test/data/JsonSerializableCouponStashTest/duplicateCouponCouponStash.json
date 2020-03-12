@@ -7,6 +7,7 @@
       "percentageAmount" : null,
       "saveables" : null
     },
+    "expiry date": "30-08-2020",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
@@ -19,6 +20,8 @@
       }, {
         "saveableDesc" : "Notebook"
       } ]
-    }
+    },
+    "phone": "94351253",
+    "expiry date": "30-08-2020"
   } ]
 }

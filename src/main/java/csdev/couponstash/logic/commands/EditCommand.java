@@ -15,6 +15,7 @@ import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -34,6 +35,7 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
+            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 ";
@@ -89,9 +91,9 @@ public class EditCommand extends Command {
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
         Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
+        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone,
-                updatedSavings, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedTags);
     }
 
     @Override
@@ -121,6 +123,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Savings savings;
         private Set<Tag> tags;
+        private ExpiryDate expiryDate;
 
         public EditCouponDescriptor() {}
 
@@ -133,13 +136,14 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setTags(toCopy.tags);
             setSavings(toCopy.savings);
+            setExpiryDate(toCopy.expiryDate);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, savings, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, tags);
         }
 
         public void setName(Name name) {
@@ -178,6 +182,15 @@ public class EditCommand extends Command {
             return Optional.ofNullable(this.savings);
         }
 
+        public void setExpiryDate(ExpiryDate expiryDate) {
+            this.expiryDate = expiryDate;
+        }
+
+        public Optional<ExpiryDate> getExpiryDate() {
+            return Optional.ofNullable(expiryDate);
+        }
+
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -213,6 +226,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getSavings().equals(e.getSavings())
+                    && getExpiryDate().equals(e.getExpiryDate())
                     && getTags().equals(e.getTags());
         }
     }

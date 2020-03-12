@@ -11,6 +11,7 @@ import java.util.Set;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
@@ -167,5 +168,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String expiryDate} into an {@code ExpiryDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code expiryDate} is invalid.
+     */
+    public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
+        requireNonNull(expiryDate);
+        String trimmedDate = expiryDate.trim();
+        if (!ExpiryDate.isValidExpiryDate(trimmedDate)) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        return new ExpiryDate(trimmedDate);
     }
 }
