@@ -12,6 +12,7 @@ import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.model.coupon.Coupon;
 
+import csdev.couponstash.model.undoredo.HistoryManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final CouponStash couponStash;
     private final UserPrefs userPrefs;
     private final FilteredList<Coupon> filteredCoupons;
+    private HistoryManager history;
 
     /**
      * Initializes a ModelManager with the given couponStash and userPrefs.
@@ -37,6 +39,7 @@ public class ModelManager implements Model {
         this.couponStash = new CouponStash(couponStash);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCoupons = new FilteredList<>(this.couponStash.getCouponList());
+        history = new HistoryManager(this.couponStash.clone());
     }
 
     public ModelManager() {
@@ -94,6 +97,7 @@ public class ModelManager implements Model {
     @Override
     public void setCouponStash(ReadOnlyCouponStash couponStash) {
         this.couponStash.resetData(couponStash);
+        commitCouponStash();
     }
 
     @Override
@@ -110,12 +114,14 @@ public class ModelManager implements Model {
     @Override
     public void deleteCoupon(Coupon target) {
         couponStash.removeCoupon(target);
+        commitCouponStash();
     }
 
     @Override
     public void addCoupon(Coupon coupon) {
         couponStash.addCoupon(coupon);
         updateFilteredCouponList(PREDICATE_SHOW_ALL_COUPONS);
+        commitCouponStash();
     }
 
     @Override
@@ -123,6 +129,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCoupon);
 
         couponStash.setCoupon(target, editedCoupon);
+        commitCouponStash();
     }
 
     //=========== Filtered Coupon List Accessors =============================================================
@@ -140,6 +147,27 @@ public class ModelManager implements Model {
     public void updateFilteredCouponList(Predicate<Coupon> predicate) {
         requireNonNull(predicate);
         filteredCoupons.setPredicate(predicate);
+    }
+
+    //=========== Undo/Redo functionality =============================================================
+    @Override
+    public void commitCouponStash() {
+        history.commitState(couponStash.clone());
+    }
+
+    @Override
+    public void undoCouponStash() {
+        couponStash.resetData(history.undo());
+    }
+
+    @Override
+    public void redoCouponStash() {
+
+    }
+
+    @Override
+    public boolean canUndoCouponStash() {
+        return history.getCurrStateIndex() != 0;
     }
 
     @Override

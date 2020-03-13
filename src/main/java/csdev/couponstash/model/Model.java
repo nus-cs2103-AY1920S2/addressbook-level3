@@ -99,4 +99,25 @@ public interface Model {
      */
     void updateFilteredCouponList(Predicate<Coupon> predicate);
 
+    /**
+     * Saves current coupon stash state in its history.
+     */
+    void commitCouponStash();
+
+    /**
+     * Restores the previous coupon statsh state from its history.
+     */
+    void undoCouponStash();
+
+    /**
+     * Restores a previously undone coupon stash state from its history.
+     */
+    void redoCouponStash();
+
+    /**
+     * Check if there is a coupon stash state to undo to.
+     * @return true if there is a state to undo to, false otherwise
+     */
+    boolean canUndoCouponStash();
+
 }

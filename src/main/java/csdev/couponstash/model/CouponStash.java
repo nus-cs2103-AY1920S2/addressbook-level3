@@ -3,9 +3,13 @@ package csdev.couponstash.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.UniqueCouponList;
+import csdev.couponstash.model.tag.Tag;
 
 import javafx.collections.ObservableList;
 
@@ -23,12 +27,12 @@ public class CouponStash implements ReadOnlyCouponStash {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         coupons = new UniqueCouponList();
     }
 
-    public CouponStash() {}
+    public CouponStash() {
+    }
 
     /**
      * Creates an CouponStash using the Coupons in the {@code toBeCopied}
@@ -92,6 +96,28 @@ public class CouponStash implements ReadOnlyCouponStash {
      */
     public void removeCoupon(Coupon key) {
         coupons.remove(key);
+    }
+
+    /**
+     * Copies all the contents of this {@code CouponStash} to another {@code CouponStash}.
+     *
+     * @return A copied {@code CouponStash}
+     */
+    public CouponStash clone() {
+        CouponStash copy = new CouponStash();
+
+        for (Coupon coupon : coupons) {
+            Set<Tag> copiedTags = new HashSet<>();
+            copiedTags.addAll(coupon.getTags());
+
+            copy.addCoupon(new Coupon(
+                    coupon.getName(), coupon.getPhone(),
+                    coupon.getSavings(), coupon.getExpiryDate(),
+                    coupon.getUsage(), copiedTags
+            ));
+        }
+
+        return copy;
     }
 
     //// util methods
