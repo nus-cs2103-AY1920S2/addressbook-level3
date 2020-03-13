@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.customer.PersonListPanel;
 import seedu.address.ui.product.ProductListPanel;
+import seedu.address.ui.transaction.TransactionListPanel;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -125,7 +126,7 @@ public class MainWindow extends UiPart<Stage> {
         productListPanelPlaceholder.getChildren().add(productListPanel.getRoot());
 
         transactionListPanel = new TransactionListPanel(logic.getFilteredTransactionList());
-        TransactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
+        transactionListPanelPlaceholder.getChildren().add(transactionListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
