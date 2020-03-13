@@ -6,8 +6,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.module.*;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Grade;
 import seedu.address.model.profile.course.module.personal.Personal;
 import seedu.address.model.profile.course.module.personal.Status;
@@ -15,7 +16,6 @@ import seedu.address.model.profile.course.module.personal.Status;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 class JsonProfile {
@@ -66,22 +66,7 @@ class JsonProfile {
         for (JsonSemesterRecord record : records) {
             int semester = Integer.parseInt(record.getSemester());
             for (JsonPersonalModule module : record.getModules()) {
-
-                final ModuleCode moduleCode = new ModuleCode(module.getModuleCode());
-                final Title title = new Title(module.getTitle());
-                final Description description = new Description(module.getDescription());
-                final ModularCredits modularCredits = new ModularCredits(module.getModuleCredit());
-                final PrereqList prereqList = new PrereqList(module.getPrerequisite());
-                final SemesterData semesterData = new SemesterData(module.getSemesterData());
-                Module mod = new Module(moduleCode, title, prereqList, modularCredits, description, semesterData);
-
-                Personal personal = new Personal();
-                if (module.getGrade() != null) {
-                    personal.setGrade(module.getGrade());
-                }
-                personal.setStatus(module.getStatus());
-                // TODO: Implement functions for DeadlineList
-                mod.setPersonal(personal);
+                Module mod = module.toModelType();
                 profile.addModule(semester, mod);
             }
         }
@@ -113,18 +98,12 @@ class JsonSemesterRecord {
     }
 }
 
-class JsonPersonalModule {
-    private final String moduleCode;
-    private final String title;
-    private final String description;
-    private final String moduleCredit;
-    private final String prerequisite;
-    private final List<String> semesterData;
+class JsonPersonalModule extends JsonModule {
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
+
     private String status;
     private String grade;
     private List<JsonDeadline> deadlines;
-
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
     @JsonCreator
     public JsonPersonalModule(@JsonProperty("moduleCode") String moduleCode,
@@ -136,99 +115,42 @@ class JsonPersonalModule {
             @JsonProperty("status") String status,
             @JsonProperty("grade") String grade,
             @JsonProperty("deadlines") List<JsonDeadline> deadlines) {
-        this.moduleCode = moduleCode;
-        this.title = title;
-        this.description = description;
-        this.moduleCredit = moduleCredit;
-        this.prerequisite = prerequisite;
-        List<String> semesters = new ArrayList<>();
-        semesterData.forEach(semData -> semesters.add(semData.getSemester()));
-        this.semesterData = semesters;
+        super(moduleCode, title, description, moduleCredit, prerequisite, semesterData);
         this.status = status;
         this.grade = grade;
         this.deadlines = deadlines;
     }
 
-    public String getModuleCode() throws IllegalValueException {
-        if (moduleCode == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ModuleCode.class.getSimpleName()));
-        }
-        if (!ModuleCode.isValidCode(moduleCode)) {
-            throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
-        }
-        return moduleCode;
-    }
-
-    public String getTitle() throws IllegalValueException {
-        if (moduleCode == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Title.class.getSimpleName()));
-        }
-        return title;
-    }
-
-    public String getDescription() throws IllegalValueException {
-        if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
-        }
-        return description;
-    }
-
-    public String getModuleCredit() throws IllegalValueException {
-        if (moduleCredit == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ModularCredits.class.getSimpleName()));
-        }
-        if (!ModularCredits.isValidCredits(moduleCredit)) {
-            throw new IllegalValueException(ModularCredits.MESSAGE_CONSTRAINTS);
-        }
-        return moduleCredit;
-    }
-
-    public String getPrerequisite() {
-        return prerequisite;
-    }
-
-    public List<String> getSemesterData() throws IllegalValueException {
-        if (semesterData == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    SemesterData.class.getSimpleName()));
-        }
-        return semesterData;
-    }
-
-    public String getStatus() throws IllegalValueException {
+    @Override
+    public Module toModelType() throws IllegalValueException {
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Status.class.getSimpleName()));
         }
+
         if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
-        }
-        return status;
-    }
-
-    public String getGrade() throws IllegalValueException {
-        if (grade == null) {
-            return null;
-        }
-        if (!Grade.isValidGrade(grade)) {
+        } else if (grade != null && !Grade.isValidGrade(grade)) {
             throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
         }
-        return grade;
-    }
 
-    public List<JsonDeadline> getDeadlines() {
-        return deadlines;
+        Module module = super.toModelType();
+        Personal personal = new Personal();
+        if (grade != null) {
+            personal.setGrade(grade);
+        }
+        personal.setStatus(status);
+        if (deadlines != null) {
+            for (JsonDeadline deadline : deadlines) {
+                personal.addDeadline(deadline.toModelType());
+            }
+        }
+        module.setPersonal(personal);
+        return module;
     }
 }
 
 class JsonDeadline {
-    //private @JsonProperty("description") String description;
-    //private @JsonProperty("date") String date;
-    //private @JsonProperty("time") String time;
     private String description;
     private String date;
     private String time;
@@ -242,25 +164,19 @@ class JsonDeadline {
         this.time = time;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public String getDate() throws IllegalValueException {
+    public Deadline toModelType() throws IllegalValueException {
         try {
             LocalDate.parse(date);
-        } catch (DateTimeParseException e) {
-            throw new IllegalValueException("Deadline's date field should be a valid date in the format: YYYY-MM-DD");
-        }
-        return date;
-    }
-
-    public String getTime() throws IllegalValueException {
-        try {
             LocalTime.parse(time);
         } catch (DateTimeParseException e) {
-            throw new IllegalValueException("Deadline's time field should be a valid time in the format HH:mm");
+            throw new IllegalValueException("Deadline's date field should be a valid date in the format YYYY-MM-DD "
+                    + "and time field should be a valid time in the format HH:mm");
         }
-        return time;
+
+        try {
+            return new Deadline(description, date, time);
+        } catch (DateTimeException e) {
+            throw new IllegalValueException("Unknown error occurred");
+        }
     }
 }

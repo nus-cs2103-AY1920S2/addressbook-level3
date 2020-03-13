@@ -17,6 +17,10 @@ public class Status {
         this.status = ModuleStatus.PLANNING;
     }
 
+    public String getStatus() {
+        return status.name();
+    }
+
     public boolean isPlanning() {
         return this.status.equals(ModuleStatus.PLANNING);
     }
