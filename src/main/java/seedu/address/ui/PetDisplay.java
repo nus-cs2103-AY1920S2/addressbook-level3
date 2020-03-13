@@ -2,10 +2,11 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import javafx.fxml.FXML;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 /** An UI component that displays Pet {@code Pet}. */
 public class PetDisplay extends UiPart<Region> {
@@ -15,14 +16,24 @@ public class PetDisplay extends UiPart<Region> {
     public Path petFilepath; // mutable
     public Path accessoryFilepath; // mutable
 
+    public Path expBarFilepath; // mutable
+    public String expBarText; // mutable
+    public String levelText; // mutable
+
     @FXML private VBox petPane;
     @FXML private ImageView petPic;
+    @FXML private Label expBarView;
+    @FXML private ImageView expBarPic;
     @FXML private ImageView accessoryPic;
+    @FXML private Label levelView;
 
-    public PetDisplay(Path petFilepath, Path accessoryFilepath) {
+    public PetDisplay(Path petFilepath, String expBarText, Path expBarFilepath, Path accessoryFilepath, String levelText) {
         super(FXML);
         this.petFilepath = petFilepath;
+        this.expBarFilepath = expBarFilepath;
+        this.expBarText = expBarText;
         this.accessoryFilepath = null;
+        this.levelText = levelText;
 
         if (accessoryFilepath != null) {
             this.accessoryFilepath = accessoryFilepath;
@@ -30,9 +41,16 @@ public class PetDisplay extends UiPart<Region> {
             accessoryPic.setImage(image);
         }
 
+        expBarView.setText(expBarText);
+        levelView.setText(levelText);
+
         // set up pet image
-        Image image = new Image(String.valueOf(petFilepath));
-        petPic.setImage(image);
+        Image petImage = new Image(String.valueOf(petFilepath));
+        petPic.setImage(petImage);
+
+        // set up experience bar image
+        Image expBarImage = new Image(String.valueOf(expBarFilepath));
+        expBarPic.setImage(expBarImage);
     }
 
     @Override
