@@ -1,6 +1,12 @@
 package seedu.eylah.diettracker.logic;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
+import seedu.eylah.commons.core.GuiSettings;
+import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.commands.CommandResult;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
@@ -10,12 +16,6 @@ import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.storage.FoodBookStorage;
-import seedu.eylah.commons.core.GuiSettings;
-import seedu.eylah.commons.core.LogsCenter;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.

@@ -1,17 +1,17 @@
 package seedu.eylah.diettracker.logic.parser;
 
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
-import seedu.eylah.diettracker.model.food.Name;
-import seedu.eylah.diettracker.model.food.Calories;
-import seedu.eylah.commons.core.index.Index;
-import seedu.eylah.commons.util.StringUtil;
-import seedu.eylah.diettracker.model.tag.Tag;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
+import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.commons.util.StringUtil;
+import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
+import seedu.eylah.diettracker.model.food.Calories;
+import seedu.eylah.diettracker.model.food.Name;
+import seedu.eylah.diettracker.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

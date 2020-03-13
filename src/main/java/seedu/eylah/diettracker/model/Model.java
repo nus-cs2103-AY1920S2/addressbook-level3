@@ -1,13 +1,11 @@
 package seedu.eylah.diettracker.model;
 
-import javafx.collections.ObservableList;
-import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
-import seedu.eylah.diettracker.model.ReadOnlyUserPrefs;
-import seedu.eylah.diettracker.model.food.Food;
-import seedu.eylah.commons.core.GuiSettings;
-
 import java.nio.file.Path;
 import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
+import seedu.eylah.commons.core.GuiSettings;
+import seedu.eylah.diettracker.model.food.Food;
 
 /**
  * The API of the Model component.

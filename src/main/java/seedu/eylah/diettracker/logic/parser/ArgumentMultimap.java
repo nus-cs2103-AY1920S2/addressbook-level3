@@ -1,7 +1,5 @@
 package seedu.eylah.diettracker.logic.parser;
 
-import seedu.eylah.diettracker.logic.parser.Prefix;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

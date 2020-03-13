@@ -1,6 +1,5 @@
 package seedu.eylah.diettracker.logic.commands;
 
-import seedu.eylah.diettracker.logic.commands.CommandResult;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.Model;
 

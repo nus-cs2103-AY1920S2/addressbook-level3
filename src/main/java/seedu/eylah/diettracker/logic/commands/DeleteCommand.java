@@ -1,16 +1,14 @@
 package seedu.eylah.diettracker.logic.commands;
 
-import seedu.eylah.diettracker.logic.commands.Command;
-import seedu.eylah.diettracker.logic.commands.CommandResult;
-import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
-import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.food.Food;
-import seedu.eylah.commons.core.Messages;
-import seedu.eylah.commons.core.index.Index;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
+import seedu.eylah.commons.core.Messages;
+import seedu.eylah.commons.core.index.Index;
+import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
+import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.diettracker.model.food.Food;
 
 /**
  * Deletes a food identified using it's displayed index from the food book.

@@ -1,7 +1,5 @@
 package seedu.eylah.diettracker.logic.parser;
 
-import seedu.eylah.diettracker.logic.parser.Prefix;
-
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */

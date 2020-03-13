@@ -1,19 +1,19 @@
 package seedu.eylah.diettracker.logic.parser;
 
-import seedu.eylah.diettracker.logic.commands.AddCommand;
-import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
-import seedu.eylah.diettracker.model.food.Calories;
-import seedu.eylah.diettracker.model.food.Name;
-import seedu.eylah.diettracker.model.food.Food;
-import seedu.eylah.diettracker.model.tag.Tag;
+import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.eylah.diettracker.logic.commands.AddCommand;
+import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
+import seedu.eylah.diettracker.model.food.Calories;
+import seedu.eylah.diettracker.model.food.Food;
+import seedu.eylah.diettracker.model.food.Name;
+import seedu.eylah.diettracker.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object

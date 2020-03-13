@@ -6,15 +6,10 @@ import static seedu.eylah.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.commands.AddCommand;
-//import seedu.address.logic.commands.ClearCommand;
+import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.commands.DeleteCommand;
-//import seedu.address.logic.commands.EditCommand;
-//import seedu.address.logic.commands.ExitCommand;
-//import seedu.address.logic.commands.FindCommand;
 import seedu.eylah.diettracker.logic.commands.HelpCommand;
-//import seedu.address.logic.commands.ListCommand;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 
 /**

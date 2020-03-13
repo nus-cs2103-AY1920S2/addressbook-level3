@@ -1,10 +1,10 @@
 package seedu.eylah.diettracker.logic.parser;
 
+import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.diettracker.logic.commands.DeleteCommand;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
-import seedu.eylah.commons.core.index.Index;
-
-import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

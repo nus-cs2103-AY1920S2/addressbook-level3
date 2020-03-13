@@ -1,14 +1,14 @@
 package seedu.eylah.diettracker.logic;
 
+import java.nio.file.Path;
+
 import javafx.collections.ObservableList;
+import seedu.eylah.commons.core.GuiSettings;
 import seedu.eylah.diettracker.logic.commands.CommandResult;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
 import seedu.eylah.diettracker.model.food.Food;
-import seedu.eylah.commons.core.GuiSettings;
-
-import java.nio.file.Path;
 
 /**
  * API of the Logic component
