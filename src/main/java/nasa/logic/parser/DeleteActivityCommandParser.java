@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
+import java.util.NoSuchElementException;
+
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.DeleteActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
@@ -27,7 +29,18 @@ public class DeleteActivityCommandParser implements Parser<DeleteActivityCommand
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteActivityCommand.MESSAGE_USAGE), pe);
         }
 
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-        return new DeleteActivityCommand(index, moduleCode);
+        /*
+         * If PREFIX_MODULE exist, then return DeleteActivityCommand
+         * else throw exception
+         */
+        ModuleCode moduleCode;
+        try {
+            moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
+            return new DeleteActivityCommand(index, moduleCode);
+        } catch (NoSuchElementException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteActivityCommand.MESSAGE_USAGE));
+        } catch  (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteActivityCommand.MESSAGE_USAGE), pe);
+        }
     }
 }
