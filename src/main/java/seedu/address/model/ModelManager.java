@@ -222,7 +222,6 @@ public class ModelManager implements Model {
     teacherAddressBook.addTeacher(teacher);
     updateFilteredTeacherList(PREDICATE_SHOW_ALL_TEACHERS);
   }
-
   @Override
   public void setTeacher(Teacher target, Teacher editedTeacher) {
     requireAllNonNull(target, editedTeacher);

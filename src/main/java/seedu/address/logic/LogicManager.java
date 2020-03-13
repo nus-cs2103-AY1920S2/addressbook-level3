@@ -39,6 +39,7 @@ import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
+import seedu.address.ui.SummaryPanel;
 
 /**
  * The main LogicManager of the app.
@@ -51,6 +52,7 @@ public class LogicManager implements Logic {
   private final Model model;
   private final Storage storage;
   private final AddressBookParser addressBookParser;
+  private SummaryPanel summaryPanel;
 
   public LogicManager(Model model, Storage storage) {
     this.model = model;
@@ -95,9 +97,18 @@ public class LogicManager implements Logic {
       }
     }
 
+    // Updates summary panel
+    summaryPanel.updateTotalStudents(getFilteredStudentList().size());
+    summaryPanel.updateTotalTeachers(getFilteredTeacherList().size());
+    summaryPanel.updateTotalCourses(getFilteredCourseList().size());
+    summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
+
     return commandResult;
   }
 
+  public void setSummaryPanel(SummaryPanel summaryPanel){
+    this.summaryPanel = summaryPanel;
+  }
   ///
   @Override
   public ReadOnlyAddressBook getAddressBook() {

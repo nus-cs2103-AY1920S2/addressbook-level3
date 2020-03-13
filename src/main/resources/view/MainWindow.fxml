@@ -13,59 +13,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="600"
   minWidth="450"
-  onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8">
+  onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage"
+  xmlns="http://javafx.com/javafx/8">
   <icons>
     <Image url="@/images/address_book_32.png"/>
   </icons>
   <scene>
     <Scene>
       <VBox>
-        <HBox>
-          <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="100.0" spacing="5"
-            xmlns="http://javafx.com/javafx/8.0.171" fx:id="buttonBar">
-            <children>
-              <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent" prefHeight="80.0"
-                prefWidth="80.0" text="Students"/>
-              <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToTeacher" prefHeight="80.0"
-                prefWidth="80.0" text="Teachers"/>
-              <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="80.0"
-                prefWidth="80.0" text="Courses"/>
-              <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance" prefHeight="80.0"
-                prefWidth="80.0" text="Finances"/>
-            </children>
-          </VBox>
-
-          <VBox>
-            <StackPane VBox.vgrow="NEVER" styleClass="pane-with-border"
-              fx:id="commandBoxPlaceholder">
-              <padding>
-                <Insets bottom="5" left="10" right="10" top="5"/>
-              </padding>
-            </StackPane>
-
-            <StackPane VBox.vgrow="NEVER" maxHeight="100"
-              minHeight="100"
-              prefHeight="100" styleClass="pane-with-border" fx:id="resultDisplayPlaceholder">
-              <padding>
-                <Insets bottom="5" left="10" right="10" top="5"/>
-              </padding>
-            </StackPane>
-
-            <StackPane VBox.vgrow="NEVER" fx:id="statusbarPlaceholder"/>
-
-            <VBox SplitPane.resizableWithParent="false" minWidth="340" prefWidth="340"
-              fx:id="dataList">
-              <StackPane VBox.vgrow="ALWAYS" fx:id="dataListPanelPlaceholder"/>
-              <padding>
-                <Insets bottom="10" left="10" right="10" top="10"/>
-              </padding>
-            </VBox>
-
-          </VBox>
-        </HBox>
-
         <MenuBar VBox.vgrow="NEVER" fx:id="menuBar">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
@@ -74,7 +34,65 @@
             <MenuItem mnemonicParsing="false" onAction="#handleHelp" text="Help"
               fx:id="helpMenuItem"/>
           </Menu>
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5"/>
+          </padding>
         </MenuBar>
+
+        <HBox>
+          <StackPane VBox.vgrow="ALWAYS"
+            minHeight="100"
+            prefHeight="300" styleClass="pane-with-border" fx:id="summaryPanelPlaceholder">
+            <padding>
+              <Insets bottom="5" left="10" right="10" top="5"/>
+            </padding>
+          </StackPane>
+          <VBox>
+
+            <HBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="100.0" prefWidth="300.0" spacing="5"
+              xmlns="http://javafx.com/javafx/8.0.171" fx:id="buttonBar">
+              <children>
+                <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent"
+                  prefHeight="80.0"
+                  prefWidth="150.0" text="Students"/>
+                <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToTeacher"
+                  prefHeight="80.0"
+                  prefWidth="150.0" text="Teachers"/>
+                <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="80.0"
+                  prefWidth="150.0" text="Courses"/>
+                <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance"
+                  prefHeight="80.0"
+                  prefWidth="150.0" text="Finances"/>
+              </children>
+            </HBox>
+
+            <VBox SplitPane.resizableWithParent="true" minWidth="340" prefWidth="2000"
+              fx:id="dataList" styleClass="right-pane">
+              <StackPane VBox.vgrow="NEVER" fx:id="dataListPanelPlaceholder"/>
+              <padding>
+                <Insets bottom="10" left="10" right="10" top="10"/>
+              </padding>
+            </VBox>
+
+          </VBox>
+        </HBox>
+
+        <StackPane VBox.vgrow="NEVER" fx:id="statusbarPlaceholder"/>
+
+        <StackPane VBox.vgrow="NEVER"
+          minHeight="100"
+          prefHeight="300" styleClass="pane-with-border" fx:id="resultDisplayPlaceholder">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5"/>
+          </padding>
+        </StackPane>
+
+        <StackPane VBox.vgrow="NEVER" styleClass="pane-with-border"
+          fx:id="commandBoxPlaceholder">
+          <padding>
+            <Insets bottom="5" left="10" right="10" top="5"/>
+          </padding>
+        </StackPane>
       </VBox>
 
       <stylesheets>

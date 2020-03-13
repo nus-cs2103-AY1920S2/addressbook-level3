@@ -3,7 +3,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-  <Label text=" Students"/>
-  <ListView VBox.vgrow="ALWAYS" fx:id="studentListView"/>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <Label text=" Students" />
+  <ListView fx:id="studentListView" VBox.vgrow="ALWAYS" />
 </VBox>

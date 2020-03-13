@@ -50,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
   private StackPane commandBoxPlaceholder;
 
   @FXML
+  private StackPane summaryPanelPlaceholder;
+
+  @FXML
   private MenuItem helpMenuItem;
 
   @FXML
@@ -146,6 +149,13 @@ public class MainWindow extends UiPart<Stage> {
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+    SummaryPanel summaryPanel = new SummaryPanel();
+    summaryPanelPlaceholder.getChildren().add(summaryPanel.getRoot());
+    summaryPanel.updateTotalStudents(logic.getFilteredStudentList().size());
+    summaryPanel.updateTotalTeachers(logic.getFilteredTeacherList().size());
+    summaryPanel.updateTotalCourses(logic.getFilteredCourseList().size());
+    summaryPanel.updateTotalFinances(logic.getFilteredFinanceList().size());
+    logic.setSummaryPanel(summaryPanel);
 
     ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
   }

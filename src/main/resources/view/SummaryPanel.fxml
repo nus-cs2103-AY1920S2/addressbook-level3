@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.geometry.Insets?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" id="summaryPanel" xmlns="http://javafx.com/javafx/8" styleClass="summary-panel">
+   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../images/teacherIcon.png" />
+      </image>
+   </ImageView>
+   <Pane prefHeight="200.0" prefWidth="200.0" styleClass="summary-pane">
+      <children>
+         <Label fx:id="totalStudents" layoutX="5.0" text="Total Students: " />
+         <Label fx:id="totalTeachers" layoutX="5.0" layoutY="34.0" text="Total Teachers: " />
+         <Label fx:id="totalCourses" layoutX="5.0" layoutY="68.0" text="Total Courses: " />
+         <Label fx:id="totalFinances" layoutX="5.0" layoutY="102.0" text="Total Finances: " />
+      </children>
+   </Pane>
+
+   <padding>
+      <Insets left = "10"/>
+   </padding>
+</VBox>
+
+
