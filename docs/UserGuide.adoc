@@ -238,9 +238,8 @@ Example: +
 `paid 2`
 
 [TIP]
-===
-* When using paid
-===
+When using paid
+
 
 ==== Exiting split to go back main menu `back`
 
