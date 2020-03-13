@@ -244,10 +244,14 @@ Example: +
 When using the `paid` command, use the `listamount` command to find the index of the Person who paid you.
 
 
-==== Exiting split to go back main menu `back`
+==== Exiting split to go back to main menu `back`
 
-Exits split to go back to main menu of the application. +
+Exits split to go back to main menu of the application.
+
 Format: +
+`back`
+
+Example: +
 `back`
 
 ==== Saving the data
