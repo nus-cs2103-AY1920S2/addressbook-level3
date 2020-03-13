@@ -5,7 +5,7 @@
 :stylesDir: stylesheets
 
 
-nasa is currently in development by the https://github.com/AY1920S2-CS2103T-T10-4[AY1920S2-CS2103T-T10-4] team. +
+NASA is currently in development by the https://github.com/AY1920S2-CS2103T-T10-4[AY1920S2-CS2103T-T10-4] team. +
 {empty} +
 We are a CS2103T team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
