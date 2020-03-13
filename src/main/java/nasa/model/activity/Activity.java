@@ -23,6 +23,14 @@ public abstract class Activity implements Regenerable<Activity> {
         this.priority = new Priority("1");
     }
 
+    public Activity(Name name, Date date, Note note) {
+        this.name = name;
+        this.date = date;
+        this.note = note;
+        this.status = Status.ONGOING;
+        this.priority = new Priority("1");
+    }
+
     /**
      * Constructs a {@code activity}
      * @param name name of activity

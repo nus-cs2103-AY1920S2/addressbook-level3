@@ -12,16 +12,20 @@ public class Lesson extends Activity {
     /**
      * Initialise Lessons with default status and priority.
      */
-    public Lesson(Name name, Note note) {
+    public Lesson(Name name, Note note, Date startDate, Date endDate) {
         super(name, note);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */
-    public Lesson(Name name, Date date, Note note, Status status, Priority priority) {
+    public Lesson(Name name, Date date, Note note, Status status, Priority priority, Date startDate, Date endDate) {
         super(name, date, note, status, priority);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public int getNumOfDaysTillNextLesson() {

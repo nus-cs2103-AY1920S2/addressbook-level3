@@ -6,6 +6,10 @@ package nasa.model.activity;
  */
 public class Deadline extends Activity {
 
+    public Deadline(Name name, Date date, Note note) {
+        super(name, date, note);
+    }
+
     /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.

@@ -34,6 +34,11 @@ public class Date {
         return LocalDateTime.parse(date, formatter);
     }
 
+    public static Date now() {
+        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return new Date(now);
+    }
+
     /**
      * Checks if a given string is a valid date.
      *
@@ -50,6 +55,18 @@ public class Date {
         }
     }
 
+    public boolean isAfter(Date other) {
+        return date.isAfter(other.getDate());
+    }
+
+    public boolean isBefore(Date other) {
+        return date.isBefore(other.getDate());
+    }
+
+    public boolean isEqual(Date other) {
+        return date.isEqual(other.getDate());
+    }
+
     /**
      * Constructs a new date from the current date and number of days to add to this current date.
      * @param numOfDaysToAdd number of days from the current day
@@ -64,10 +81,6 @@ public class Date {
 
     public LocalDateTime getDate() {
         return date;
-    }
-
-    public Date now() {
-        return new Date();
     }
 
     /**
