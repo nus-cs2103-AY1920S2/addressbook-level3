@@ -70,6 +70,10 @@ public class Module {
         activityList.remove(toRemove);
     }
 
+    public void removeActivityByIndex(Index index) {
+        activityList.removeByIndex(index);
+    }
+
     public UniqueActivityList getActivities() {
         return activityList;
     }

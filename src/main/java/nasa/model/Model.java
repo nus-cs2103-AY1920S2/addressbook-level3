@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 
@@ -103,4 +104,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
+
+    void setActivityByIndex(Module module, Index index, Activity activity);
+    void editActivityByIndex(Module module, Index index, Object... args);
+    ObservableList<Activity> getFilteredActivityList(Index index);
+    void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
+    void removeModuleByIndex(Index index);
+    void removeActivityByIndex(Module module, Index index);
 }

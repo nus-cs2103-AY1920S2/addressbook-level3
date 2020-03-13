@@ -123,6 +123,15 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
+     * Removes the equivalent activity from the list by index.
+     * The activity must exist in the list.
+     */
+    public void removeByIndex(Index index) {
+        requireNonNull(index);
+        internalList.remove(index.getZeroBased());
+    }
+
+    /**
      * Empty all the activity inside the list.
      */
     public void removeAll() {

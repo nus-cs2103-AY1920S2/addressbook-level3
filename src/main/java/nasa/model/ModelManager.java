@@ -142,6 +142,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removeActivityByIndex(Module target, Index index) {
+        nasaBook.removeActivityByIndex(target, index);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
     public boolean hasActivity(Module target, Activity activity) {
         requireNonNull(activity);
         return nasaBook.hasActivity(target, activity);
