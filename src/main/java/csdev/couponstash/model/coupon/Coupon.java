@@ -26,6 +26,7 @@ public class Coupon {
     private final Savings savings;
 
     // Data fields
+    private final Usage usage;
     private final Set<Tag> tags = new HashSet<>();
 
 
@@ -33,14 +34,15 @@ public class Coupon {
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Savings savings, ExpiryDate expiryDate, Set<Tag> tags) {
-        requireAllNonNull(name, phone, savings, expiryDate, tags);
+    public Coupon(Name name, Phone phone, Savings savings, ExpiryDate expiryDate, Usage usage, Set<Tag> tags) {
+        requireAllNonNull(name, phone, savings, expiryDate, usage, tags);
         this.name = name;
         this.phone = phone;
         this.savings = savings;
-        this.tags.addAll(tags);
         this.expiryDate = expiryDate;
         this.remind = new Remind();
+        this.usage = usage;
+        this.tags.addAll(tags);
     }
 
     public Remind getRemind() { return remind; }
@@ -50,6 +52,10 @@ public class Coupon {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public Usage getUsage() {
+        return usage;
     }
 
     /**
@@ -109,13 +115,14 @@ public class Coupon {
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getSavings().equals(getSavings())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
+                && otherCoupon.getUsage().equals(getUsage())
                 && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, savings, expiryDate, tags);
+        return Objects.hash(name, phone, savings, expiryDate, usage, tags);
     }
 
     @Override
@@ -128,6 +135,8 @@ public class Coupon {
                 .append(getSavings())
                 .append(" Expiry Date: ")
                 .append(getExpiryDate())
+                .append(" Usage: ")
+                .append(getUsage())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

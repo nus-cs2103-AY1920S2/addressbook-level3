@@ -6,7 +6,9 @@
       "monetaryAmount" : 5.5,
       "percentageAmount" : null,
       "saveables" : null
-    }
+    },
+    "expiryDate": "30-10-2020",
+    "usage": "1"
   }, {
     "name": "Coupon With Invalid Savings Field",
     "phone": "9482424",

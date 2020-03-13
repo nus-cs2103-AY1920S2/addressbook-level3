@@ -18,6 +18,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -36,6 +37,7 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
             + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
+            + "[" + CliSyntax.PREFIX_USAGE + "1 "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 ";
@@ -90,10 +92,11 @@ public class EditCommand extends Command {
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
         Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
+        Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedUsage, updatedTags);
     }
 
     @Override
@@ -122,8 +125,9 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Savings savings;
-        private Set<Tag> tags;
         private ExpiryDate expiryDate;
+        private Usage usage;
+        private Set<Tag> tags;
 
         public EditCouponDescriptor() {}
 
@@ -134,6 +138,7 @@ public class EditCommand extends Command {
         public EditCouponDescriptor(EditCouponDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
+            setUsage(toCopy.usage);
             setTags(toCopy.tags);
             setSavings(toCopy.savings);
             setExpiryDate(toCopy.expiryDate);
@@ -143,7 +148,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, tags);
         }
 
         public void setName(Name name) {
@@ -191,6 +196,15 @@ public class EditCommand extends Command {
         }
 
 
+        public void setUsage(Usage usage) {
+            this.usage = usage;
+        }
+
+        public Optional<Usage> getUsage() {
+
+            return Optional.ofNullable(usage);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -227,6 +241,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getSavings().equals(e.getSavings())
                     && getExpiryDate().equals(e.getExpiryDate())
+                    && getUsage().equals(e.getUsage())
                     && getTags().equals(e.getTags());
         }
     }
