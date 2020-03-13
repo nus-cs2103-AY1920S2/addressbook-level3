@@ -20,8 +20,16 @@ import nasa.model.activity.Priority;
 import nasa.model.activity.Status;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parses input arguments and creates an AddEventCommand object.
+ */
 public class AddEventCommandParser extends AddCommandParser {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddEventCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME, PREFIX_PRIORITY, PREFIX_NOTE);

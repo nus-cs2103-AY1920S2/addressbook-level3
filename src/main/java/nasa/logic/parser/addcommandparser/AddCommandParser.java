@@ -7,6 +7,9 @@ import nasa.logic.parser.ArgumentMultimap;
 import nasa.logic.parser.Parser;
 import nasa.logic.parser.Prefix;
 
+/**
+ * Parses input arguments and creates an AddCommandParser object.
+ */
 public abstract class AddCommandParser implements Parser<AddCommand> {
 
     /**

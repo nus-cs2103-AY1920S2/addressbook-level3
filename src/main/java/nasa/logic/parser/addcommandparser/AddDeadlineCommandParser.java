@@ -20,8 +20,16 @@ import nasa.model.activity.Priority;
 import nasa.model.activity.Status;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parses input arguments and creates an AddDeadlineCommand object.
+ */
 public class AddDeadlineCommandParser extends AddCommandParser {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddDeadlineCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddDeadlineCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME, PREFIX_PRIORITY, PREFIX_NOTE);

@@ -11,9 +11,12 @@ import nasa.logic.commands.DeleteActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parses input arguments and creates a DeleteActivityCommand object.
+ */
 public class DeleteActivityCommandParser implements Parser<DeleteActivityCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
+     * Parses the given {@code String} of arguments in the context of the DeleteActivityCommand
      * and returns a DeleteCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */

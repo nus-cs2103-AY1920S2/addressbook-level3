@@ -13,6 +13,9 @@ import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 
+/**
+ * Parses input arguments and creates a DeleteModuleCommand object.
+ */
 public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteModuleCommand
