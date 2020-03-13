@@ -1,6 +1,7 @@
 package seedu.foodiebot.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.foodiebot.commons.core.Messages.MESSAGE_BUDGET_SET;
 import static seedu.foodiebot.commons.core.Messages.MESSAGE_BUDGET_VIEW;
 import static seedu.foodiebot.logic.parser.CliSyntax.PREFIX_DATE_BY_MONTH;
 
@@ -24,7 +25,8 @@ public class BudgetCommand extends Command {
             + PREFIX_DATE_BY_MONTH
             + "100 ";
 
-    public static final String MESSAGE_SUCCESS = MESSAGE_BUDGET_VIEW;
+    public static final String MESSAGE_SET = MESSAGE_BUDGET_SET;
+    public static final String MESSAGE_VIEW = MESSAGE_BUDGET_VIEW;
     public static final String MESSAGE_FAILURE = "No budget stored!";
 
     private final Budget budget;
@@ -57,10 +59,17 @@ public class BudgetCommand extends Command {
                 : new Budget();
     }
 
-    /** Helper function to hold a successful return message. */
-    public static CommandResult commandSuccess(Budget budget) {
-        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS,
-                budget.getDurationAsString(), budget.getTotalBudget(), budget.getRemainingWeeklyBudget()));
+    /** Helper function to hold a successful return message for 'budget set'. */
+    public static CommandResult commandSetSuccess(Budget budget) {
+        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SET,
+                budget.getDurationAsString(), budget.getTotalBudget(), budget.getRemainingDailyBudget()));
+    }
+
+    /** Helper function to hold a successful return message for 'budget view'. */
+    public static CommandResult commandViewSuccess(Budget budget) {
+        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_VIEW,
+                budget.getDurationAsString(), budget.getTotalBudget(), budget.getRemainingBudget(),
+                budget.getRemainingDailyBudget(), budget.getDurationAsString()));
     }
 
     @Override
@@ -69,7 +78,7 @@ public class BudgetCommand extends Command {
 
         if (action.equals("set")) {
             saveBudget(model, budget);
-            return commandSuccess(budget);
+            return commandSetSuccess(budget);
 
         } else {
             Budget savedBudget = loadBudget(model);
@@ -79,7 +88,7 @@ public class BudgetCommand extends Command {
                     savedBudget.resetRemainingBudget();
                 }
                 saveBudget(model, savedBudget);
-                return commandSuccess(savedBudget);
+                return commandViewSuccess(savedBudget);
             }
 
             return new CommandResult(COMMAND_WORD, MESSAGE_FAILURE);

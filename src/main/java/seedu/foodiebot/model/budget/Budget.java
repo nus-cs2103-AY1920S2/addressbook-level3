@@ -103,15 +103,15 @@ public class Budget {
     }
 
     /**
-     * Multiplies the remaining budget by 5 if set to daily, or divide by 4 if set to monthly,
-     * to get an average daily budget.
+     * Divides the remaining budget by 5 if set to weekly or 20 if set to monthly,
+     * to get an average daily budget for weekdays.
      * @return An average daily budget.
      */
-    public float getRemainingWeeklyBudget() {
-        if (duration.equals(DAILY)) {
-            return this.remainingBudget * 5;
+    public float getRemainingDailyBudget() {
+        if (duration.equals(WEEKLY)) {
+            return this.remainingBudget / 5;
         } else if (duration.equals(MONTHLY)) {
-            return this.remainingBudget / 4;
+            return this.remainingBudget / 20;
         } else {
             return this.remainingBudget;
         }
