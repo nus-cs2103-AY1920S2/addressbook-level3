@@ -4,15 +4,14 @@ import fithelper.model.entry.Entry;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * An UI component that displays information of a {@code Entry}.
  */
-public class SportCard extends UiPart<Region> {
+public class SportCard extends UiPart<AnchorPane> {
 
-    private static final String FXML = "SportListCard.fxml";
+    private static final String FXML = "SportCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,29 +21,52 @@ public class SportCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Entry sport;
+    public Entry sport;
 
     @FXML
-    private HBox cardPane;
+    private AnchorPane innerPane;
+
+    @FXML
+    private Label index;
     @FXML
     private Label name;
+    @FXML
+    private Label status;
     @FXML
     private Label time;
     @FXML
     private Label location;
     @FXML
     private Label calorie;
-    @FXML
-    private Label remark;
 
-    public SportCard(Entry sport, int i) {
+    public SportCard(Entry sport) {
         super(FXML);
         this.sport = sport;
         name.setText(sport.getName().toString());
         time.setText(sport.getTime().toString());
         location.setText(sport.getLocation().toString());
         calorie.setText(sport.getCalorie().toString());
-        remark.setText(sport.getRemark().value);
+    }
+
+    /**
+     * Creates a card displaying the {@code sport entry}.
+     *
+     * @param sport          to display
+     * @param displayedIndex the index of the order to show on the card
+     */
+    public SportCard(Entry sport, int displayedIndex) {
+        super(FXML);
+        this.sport = sport;
+        fillInDetails(sport, displayedIndex);
+    }
+
+    private void fillInDetails(Entry sport, int displayedIndex) {
+        index.setText(displayedIndex + ".");
+        name.setText(sport.getName().toString());
+        status.setText(sport.getStatus().toString());
+        time.setText(sport.getTime().toString());
+        location.setText(sport.getLocation().toString());
+        calorie.setText(sport.getCalorie().toString());
     }
 
     @Override
