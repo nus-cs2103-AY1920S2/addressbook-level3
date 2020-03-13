@@ -9,9 +9,9 @@ import seedu.address.model.profile.Profile;
 /**
  * An UI component that displays information of a {@code Profile}.
  */
-public class PersonCard extends UiPart<Region> {
+public class DeadlineCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "DeadlineListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -30,7 +30,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
 
-    public PersonCard(Profile profile, int displayedIndex) {
+    public DeadlineCard(Profile profile, int displayedIndex) {
         super(FXML);
         this.profile = profile;
         id.setText(displayedIndex + ". ");
@@ -45,13 +45,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof DeadlineCard)) {
             System.out.print("");
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        DeadlineCard card = (DeadlineCard) other;
         return id.getText().equals(card.id.getText())
                 && profile.equals(card.profile);
     }
