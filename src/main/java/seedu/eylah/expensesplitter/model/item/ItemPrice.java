@@ -24,6 +24,7 @@ public class ItemPrice {
     Another issue I found out is new BigDecimal("19.90") (takes in a string is correct), but if it
     new BigDecimal(19.90) (takes in a double) then is wrong. it shows 19.89999999... Perhaps this is due to how
     the class is defined. it says it should take in a string only.
+
      */
 
     public static final String MESSAGE_CONSTRAINTS =
