@@ -2,7 +2,6 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static csdev.couponstash.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
 
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.CouponStash;
@@ -43,7 +42,6 @@ class UndoCommandTest {
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
-        DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_COUPON);
         Coupon couponToDelete = model
                 .getFilteredCouponList()
                 .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
@@ -70,8 +68,6 @@ class UndoCommandTest {
         Coupon editedCoupon = new CouponBuilder().build();
         EditCommand.EditCouponDescriptor descriptor =
                 new EditCouponDescriptorBuilder(editedCoupon).build();
-        EditCommand editCommand =
-                new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor);
 
         model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
 
