@@ -33,7 +33,7 @@ public class AddCommand extends Command {
          * Create a dummy moduleTask so as to add the activity to that
          * associated module in the ModelNasa model.
          */
-        Module moduleTask = new Module(moduleCode, new ModuleName(""));
+        Module moduleTask = new Module(moduleCode);
         if (model.hasActivity(moduleTask, toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);
         }

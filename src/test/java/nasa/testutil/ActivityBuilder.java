@@ -16,7 +16,7 @@ import nasa.model.activity.Status;
 public class ActivityBuilder {
 
     public static final String DEFAULT_NAME = "deadline";
-    public static final String DEFAULT_DATE = "2020-03-19";
+    public static final String DEFAULT_DATE = "12-12-2020 23:59";
     public static final String DEFAULT_NOTE = "Do homework";
     public static final String DEFAULT_PRIORITY = "1";
 
