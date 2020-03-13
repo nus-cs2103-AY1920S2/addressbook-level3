@@ -16,7 +16,7 @@ public class ModuleName {
 
     public ModuleName(String moduleName) {
         requireNonNull(moduleName);
-        AppUtil.checkArgument(isValidModuleName(moduleName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidModuleName(moduleName), MESSAGE_CONSTRAINTS);
         this.moduleName = moduleName;
     }
 
