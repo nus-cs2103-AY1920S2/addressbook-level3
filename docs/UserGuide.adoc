@@ -1,5 +1,4 @@
-# **COOKBUDDY RECIPE MANAGER**
-= AddressBook Level 3 - User Guide
+# **CookBuddy Recipe Manager**
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -91,20 +90,23 @@ Lists out all the recipes with their respective indexes in the CookBuddy program
 === View a Recipe — `view <recipe>`
 Opens a recipe to view.
 
-=== Tagging Recipes
+=== Tagging Recipes — `tag <index> <tag_type> <tag>`
+Tags the recipe at the specified index with the tag of tag_type.
 
-==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
-Tags a recipe (and the ingredient, if specified) as containing `allergen`.
+Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the recipe at index 1. 
 
-==== Tag the serving size of a recipe — `tag serving <index> <serving size>`
-Tag the recipe with a serving size of `serving size`.
+// ==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
+// Tags a recipe (and the ingredient, if specified) as containing `allergen`.
 
-==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
-Tag the recipe as `meal type` such as breakfast/lunch/dinner
+// ==== Tag the serving size of a recipe — `tag serving <index> <serving size>`
+// Tag the recipe with a serving size of `serving size`.
 
-=== Duplicate Recipe — `dup <index>`
-Duplicates the recipe found at the specified index, and places the new recipe at `index + 1`
-Useful for users who wish to experiment with recipes while keeping a copy of the original.
+// ==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
+// Tag the recipe as `meal type` such as breakfast/lunch/dinner
+
+// === Duplicate Recipe — `dup <index>`
+// Duplicates the recipe found at the specified index, and places the new recipe at `index + 1`
+// Useful for users who wish to experiment with recipes while keeping a copy of the original.
 
 === Search
 
