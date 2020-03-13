@@ -47,6 +47,8 @@ public class TodayPage extends UiPart<AnchorPane> {
         logger.info("Initializing Today Page");
 
         initializeListView(foodList, sportList);
+
+        initializeListener(foodList, sportList);
     }
 
     /**
@@ -129,7 +131,7 @@ public class TodayPage extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FoodCard(entry).getRoot());
+                setGraphic(new FoodCard(entry, getIndex() + 1).getRoot());
             }
         }
     }
@@ -146,7 +148,7 @@ public class TodayPage extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new SportCard(sport).getRoot());
+                setGraphic(new SportCard(sport, getIndex() + 1).getRoot());
             }
         }
     }
