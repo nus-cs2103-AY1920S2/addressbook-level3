@@ -212,7 +212,8 @@ Example: +
 
 ==== List person(s) `listamount`
 
-Display all the Person(s) with the amount they owe you +
+Display all the Person(s) with the amount they owe you.
+
 Format: +
 `listamount` +
 
@@ -221,7 +222,8 @@ Example: +
 
 ==== List the current receipt `listreceipt`
 
-Display the current receipt which shows all the Items and its respective price and Person(s) involved in splitting that Item +
+Display the current receipt which shows all the Items and its respective price and Person(s) involved in splitting that Item.
+
 Format: +
 `listreceipt` +
 
@@ -230,7 +232,8 @@ Example: +
 
 ==== Paid money `paid`
 
-When a Person pays an amount, or part of the amount, they owe you. +
+When a Person pays an amount, or part of the amount, they owe you.
+
 Format: +
 `paid INDEX` +
 
@@ -238,7 +241,7 @@ Example: +
 `paid 2`
 
 [TIP]
-When using the `paid` command, key in the `listamount` command to find the index of the Person who paid you.
+When using the `paid` command, use the `listamount` command to find the index of the Person who paid you.
 
 
 ==== Exiting split to go back main menu `back`
