@@ -1,5 +1,7 @@
 package nasa.model.activity;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents Event method in Nasa Book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -25,6 +27,27 @@ public class Event extends Activity {
         super(name, date, note, status, priority);
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Date getDateFrom() {
+        return startDate;
+    }
+
+    public Date getDateTo() {
+        return endDate;
+    }
+
+    public static boolean isValidEvent(Activity activity) {
+        requireNonNull(activity);
+
+        if (activity instanceof Event) {
+            Event event = (Event) activity;
+            boolean hasNotExpired = Date.now().isBefore(event.getDateTo());
+            boolean isLogical = event.getDateFrom().isBefore(event.getDateTo());
+            return hasNotExpired && isLogical;
+        } else {
+            return false;
+        }
     }
 
     //TODO: detailed implementation of event regeneration
