@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import seedu.address.logic.commands.CalculateEarningsFinanceCommand;
 import seedu.address.logic.commands.CalculateExpensesFinanceCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -128,6 +129,9 @@ public class AddressBookParser {
 
       case CalculateExpensesFinanceCommand.COMMAND_WORD:
         return new CalculateExpensesFinanceCommand();
+
+      case CalculateEarningsFinanceCommand.COMMAND_WORD:
+        return new CalculateEarningsFinanceCommand();
 
       case ListTeacherCommand.COMMAND_WORD:
         return new ListTeacherCommand();

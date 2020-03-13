@@ -11,8 +11,9 @@ public class Amount {
 
 
   public static final String MESSAGE_CONSTRAINTS =
-      "Amount numbers should only contain numbers, and it should be at least 1 digits long";
-  public static final String VALIDATION_REGEX = "\\d{1,}";
+      "Amount numbers should only contain numbers (with negative sign in front if needed), and it should be at least 1 digits long";
+  public static final String VALIDATION_REGEX_WITH_DECIMAL = "^(-*\\s*[0-9]+\\.[0-9]+)$";
+  public static final String VALIDATION_REGEX_WITHOUT_DECIMAL = "^(-*\\s*[0-9]+)$";
   public final String value;
 
   /**
@@ -30,7 +31,7 @@ public class Amount {
    * Returns true if a given string is a valid salary number.
    */
   public static boolean isValidAmount(String test) {
-    return test.matches(VALIDATION_REGEX);
+    return test.matches(VALIDATION_REGEX_WITH_DECIMAL) || test.matches(VALIDATION_REGEX_WITHOUT_DECIMAL);
   }
 
   @Override

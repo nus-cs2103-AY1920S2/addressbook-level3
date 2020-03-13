@@ -3,20 +3,16 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.modelFinance.Finance;
-import seedu.address.model.modelFinance.FinanceNameContainsKeywordsPredicate;
-import seedu.address.model.person.Amount;
 
 /**
  * Finds and lists all finances in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class CalculateExpensesFinanceCommand extends Command {
+public class CalculateEarningsFinanceCommand extends Command {
 
-  public static final String COMMAND_WORD = "expenses";
+  public static final String COMMAND_WORD = "earnings";
 
   @Override
   public CommandResult execute(Model model) {
@@ -27,22 +23,21 @@ public class CalculateExpensesFinanceCommand extends Command {
     for (Finance finance : filteredFinances){
       String amount = finance.getAmount().toString();
       System.out.println(amount);
-      if (amount.substring(0, 1).equals("-")){
-        //Add expenses
-        amount = amount.replaceFirst("-","");
+      if (!amount.substring(0, 1).equals("-")){
+        //Add earnings
         amount = amount.trim();
-        totalAmount -= Float.parseFloat(amount);
+        totalAmount += Float.parseFloat(amount);
       }
 
-      //Ignore earnings
+      //Ignore expenses
     }
 
-    return new CommandResult("Total expenses: " + totalAmount);
+    return new CommandResult("Total earnings: " + totalAmount);
   }
 
   @Override
   public boolean equals(Object other) {
     return other == this // short circuit if same object
-        || (other instanceof CalculateExpensesFinanceCommand); // instanceof handles nulls
+        || (other instanceof CalculateEarningsFinanceCommand); // instanceof handles nulls
   }
 }
