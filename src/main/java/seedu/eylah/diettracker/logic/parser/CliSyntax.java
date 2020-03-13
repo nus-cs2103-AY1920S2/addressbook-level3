@@ -1,6 +1,6 @@
 package seedu.eylah.diettracker.logic.parser;
 
-import seedu.eylah.addressbook.logic.parser.Prefix;
+import seedu.eylah.diettracker.logic.parser.Prefix;
 
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
@@ -8,7 +8,8 @@ import seedu.eylah.addressbook.logic.parser.Prefix;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_NAME = new Prefix("-n");
+    public static final Prefix PREFIX_CALORIES = new Prefix("-c");
+    public static final Prefix PREFIX_TAG = new Prefix("-t");
 
 }
