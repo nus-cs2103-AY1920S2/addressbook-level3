@@ -3,17 +3,19 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+
 import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 class UndoCommandTest {
 
@@ -110,9 +112,6 @@ class UndoCommandTest {
         UndoCommand undoCommand = new UndoCommand();
 
         assertThrows(
-                CommandException.class,
-                UndoCommand.MESSAGE_NO_STATE_TO_UNDO_TO,
-                () -> undoCommand.execute(model)
-        );
+                CommandException.class, UndoCommand.MESSAGE_NO_STATE_TO_UNDO_TO, () -> undoCommand.execute(model));
     }
 }

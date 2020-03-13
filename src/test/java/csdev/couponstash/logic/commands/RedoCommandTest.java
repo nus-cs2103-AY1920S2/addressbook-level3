@@ -3,17 +3,19 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+
 import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
-import org.junit.jupiter.api.Test;
 
 class RedoCommandTest {
 
@@ -121,10 +123,6 @@ class RedoCommandTest {
 
         RedoCommand redoCommand = new RedoCommand();
 
-        assertThrows(
-                CommandException.class,
-                RedoCommand.MESSAGE_NO_STATE_TO_REDO_TO,
-                () -> redoCommand.execute(model)
-        );
+        assertThrows(CommandException.class, RedoCommand.MESSAGE_NO_STATE_TO_REDO_TO, () -> redoCommand.execute(model));
     }
 }
