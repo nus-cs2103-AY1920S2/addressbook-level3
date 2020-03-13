@@ -1,10 +1,10 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Person's address in the address book. Guarantees: immutable; is valid as declared in
+ * Represents a Task's address in the address book. Guarantees: immutable; is valid as declared in
  * {@link #isValidAddress(String)}
  */
 public class Description {
@@ -26,15 +26,15 @@ public class Description {
      * @param address A valid address.
      */
     public Description(String description) {
-        //requireNonNull(description);
+        // requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
     }
 
-    /** Returns true if a given string is a valid email. */
+    /** Returns true if a given string is a valid description. */
     public static boolean isValidDescription(String test) {
         return true;
-        //return test.matches(VALIDATION_REGEX);
+        // return test.matches(VALIDATION_REGEX);
     }
 
     @Override

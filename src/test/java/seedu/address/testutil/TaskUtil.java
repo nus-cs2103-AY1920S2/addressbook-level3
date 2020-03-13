@@ -1,38 +1,36 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Person;
+import seedu.address.logic.commands.EditCommand.EditTaskDescriptor;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Task;
 
 /** A utility class for Person. */
-public class PersonUtil {
+public class TaskUtil {
 
     /** Returns an add command string for adding the {@code person}. */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Task task) {
+        return AddCommand.COMMAND_WORD + " " + getTaskDetails(task);
     }
 
     /** Returns the part of command string for the given {@code person}'s details. */
-    public static String getPersonDetails(Person person) {
+    public static String getTaskDetails(Task task) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PRIORITY + person.getPriority().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_DESCRIPTION + person.getDescription().value + " ");
-        person.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
+        sb.append(PREFIX_NAME + task.getName().fullName + " ");
+        sb.append(PREFIX_PRIORITY + task.getPriority().value + " ");
+        sb.append(PREFIX_DESCRIPTION + task.getDescription().value + " ");
+        task.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " "));
         return sb.toString();
     }
 
     /** Returns the part of command string for the given {@code EditPersonDescriptor}'s details. */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditTaskDescriptorDetails(EditTaskDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor
                 .getName()
@@ -42,11 +40,9 @@ public class PersonUtil {
                 .ifPresent(
                         priority -> sb.append(PREFIX_PRIORITY).append(priority.value).append(" "));
         descriptor
-                .getEmail()
-                .ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
-        descriptor
                 .getDescription()
-                .ifPresent(address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
+                .ifPresent(
+                        address -> sb.append(PREFIX_DESCRIPTION).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

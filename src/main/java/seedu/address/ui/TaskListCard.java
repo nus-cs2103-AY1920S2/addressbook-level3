@@ -6,10 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
-/** An UI component that displays information of a {@code Person}. */
-public class PersonListCard extends UiPart<Region> {
+/** An UI component that displays information of a {@code Task}. */
+public class TaskListCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -21,25 +21,23 @@ public class PersonListCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on
      *     AddressBook level 4</a>
      */
-    public final Person person;
+    public final Task task;
 
     @FXML private HBox cardPane;
     @FXML private Label name;
     @FXML private Label id;
     @FXML private Label priority;
     @FXML private Label description;
-    @FXML private Label email;
     @FXML private FlowPane tags;
 
-    public PersonListCard(Person person, int displayedIndex) {
+    public TaskListCard(Task task, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.task = task;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        priority.setText(person.getPriority().value);
-        description.setText(person.getDescription().value);
-        email.setText(person.getEmail().value);
-        person.getTags()
+        name.setText(String.format("[%s] %s", task.getDone().toString(), task.getName().fullName));
+        priority.setText(task.getPriority().value);
+        description.setText(task.getDescription().value);
+        task.getTags()
                 .stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -53,12 +51,12 @@ public class PersonListCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonListCard)) {
+        if (!(other instanceof TaskListCard)) {
             return false;
         }
 
         // state check
-        PersonListCard card = (PersonListCard) other;
-        return id.getText().equals(card.id.getText()) && person.equals(card.person);
+        TaskListCard card = (TaskListCard) other;
+        return id.getText().equals(card.id.getText()) && task.equals(card.task);
     }
 }

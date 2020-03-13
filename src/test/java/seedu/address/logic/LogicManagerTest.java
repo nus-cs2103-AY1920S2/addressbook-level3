@@ -3,12 +3,11 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TASK1;
+import static seedu.address.logic.commands.CommandTestUtil.PRIORITY_DESC_TASK1;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalTasks.TASK1;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -24,11 +23,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TaskBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -80,21 +79,20 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand =
                 AddCommand.COMMAND_WORD
-                        + NAME_DESC_AMY
-                        + PHONE_DESC_AMY
-                        + EMAIL_DESC_AMY
-                        + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+                        + NAME_DESC_TASK1
+                        + PRIORITY_DESC_TASK1
+                        + DESCRIPTION_DESC_TASK1;
+        Task expectedTask = new TaskBuilder(TASK1).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addTask(expectedTask);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredTaskList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(
-                UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+                UnsupportedOperationException.class, () -> logic.getFilteredTaskList().remove(0));
     }
 
     /**

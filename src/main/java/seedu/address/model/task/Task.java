@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -9,27 +9,37 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book. Guarantees: details are present and not null, field
- * values are validated, immutable.
+ * Represents a Task in the task list. Guarantees: details are present and not null, field values
+ * are validated, immutable.
  */
-public class Person {
+public class Task {
 
     // Identity fields
     private final Name name;
     private final Priority priority;
-    private final Email email;
 
     // Data fields
     private final Description description;
+    private final Done done;
     private final Set<Tag> tags = new HashSet<>();
 
     /** Every field must be present and not null. */
-    public Person(Name name, Priority priority, Email email, Description description, Set<Tag> tags) {
-        requireAllNonNull(name, priority, email, description, tags);
+    public Task(Name name, Priority priority, Description description, Done done, Set<Tag> tags) {
+        requireAllNonNull(name, priority, description, tags);
         this.name = name;
         this.priority = priority;
-        this.email = email;
         this.description = description;
+        this.done = done;
+        this.tags.addAll(tags);
+    }
+
+    // without done provided
+    public Task(Name name, Priority priority, Description description, Set<Tag> tags) {
+        requireAllNonNull(name, priority, description, tags);
+        this.name = name;
+        this.priority = priority;
+        this.description = description;
+        this.done = new Done();
         this.tags.addAll(tags);
     }
 
@@ -41,12 +51,12 @@ public class Person {
         return priority;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
     public Description getDescription() {
         return description;
+    }
+
+    public Done getDone() {
+        return done;
     }
 
     /**
@@ -61,15 +71,14 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is
      * the same. This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSameTask(Task otherTask) {
+        if (otherTask == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPriority().equals(getPriority())
-                        || otherPerson.getEmail().equals(getEmail()));
+        return otherTask != null
+                && otherTask.getName().equals(getName())
+                && (otherTask.getPriority().equals(getPriority()));
     }
 
     /**
@@ -82,22 +91,21 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Task)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPriority().equals(getPriority())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getDescription().equals(getDescription())
-                && otherPerson.getTags().equals(getTags());
+        Task otherTask = (Task) other;
+        return otherTask.getName().equals(getName())
+                && otherTask.getPriority().equals(getPriority())
+                && otherTask.getDescription().equals(getDescription())
+                && otherTask.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, priority, email, description, tags);
+        return Objects.hash(name, priority, description, tags);
     }
 
     @Override
@@ -106,8 +114,6 @@ public class Person {
         builder.append(getName())
                 .append(" Priority: ")
                 .append(getPriority())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Tags: ");

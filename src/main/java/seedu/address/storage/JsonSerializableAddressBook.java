@@ -9,20 +9,20 @@ import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.task.Task;
 
 /** An Immutable AddressBook that is serializable to JSON format. */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON =
-            "Persons list contains duplicate person(s).";
+            "Tasks list contains duplicate person(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedTask> persons = new ArrayList<>();
 
     /** Constructs a {@code JsonSerializableAddressBook} with the given persons. */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedTask> persons) {
         this.persons.addAll(persons);
     }
 
@@ -34,9 +34,9 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(
-                source.getPersonList()
+                source.getTaskList()
                         .stream()
-                        .map(JsonAdaptedPerson::new)
+                        .map(JsonAdaptedTask::new)
                         .collect(Collectors.toList()));
     }
 
@@ -47,12 +47,12 @@ class JsonSerializableAddressBook {
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook addressBook = new AddressBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+        for (JsonAdaptedTask jsonAdaptedTask : persons) {
+            Task task = jsonAdaptedTask.toModelType();
+            if (addressBook.hasTask(task)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            addressBook.addTask(task);
         }
         return addressBook;
     }

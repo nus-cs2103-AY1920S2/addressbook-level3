@@ -9,18 +9,18 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalTasks;
 
 public class JsonSerializableAddressBookTest {
 
     private static final Path TEST_DATA_FOLDER =
             Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE =
-            TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
+            TEST_DATA_FOLDER.resolve("typicalTasks.json");
     private static final Path INVALID_PERSON_FILE =
-            TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
+            TEST_DATA_FOLDER.resolve("invalidTask.json");
     private static final Path DUPLICATE_PERSON_FILE =
-            TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
+            TEST_DATA_FOLDER.resolve("duplicateTask.json");
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
@@ -28,7 +28,7 @@ public class JsonSerializableAddressBookTest {
                 JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE, JsonSerializableAddressBook.class)
                         .get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
+        AddressBook typicalPersonsAddressBook = TypicalTasks.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 
