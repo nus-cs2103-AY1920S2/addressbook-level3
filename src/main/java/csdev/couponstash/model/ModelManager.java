@@ -93,6 +93,7 @@ public class ModelManager implements Model {
     }
 
     //=========== CouponStash ================================================================================
+    // Please run commitCouponStash() every time couponsStash is mutated.
 
     @Override
     public void setCouponStash(ReadOnlyCouponStash couponStash) {

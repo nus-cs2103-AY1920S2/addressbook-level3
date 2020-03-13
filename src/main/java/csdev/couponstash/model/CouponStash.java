@@ -2,9 +2,8 @@ package csdev.couponstash.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
@@ -21,13 +20,13 @@ public class CouponStash implements ReadOnlyCouponStash {
 
     private final UniqueCouponList coupons;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */ {
+    // The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+    // between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+    //
+    // note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+    // among constructors.
+
+    {
         coupons = new UniqueCouponList();
     }
 

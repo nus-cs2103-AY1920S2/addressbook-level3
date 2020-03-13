@@ -18,8 +18,8 @@ import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
-import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.commands.UndoCommand;
+import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
 /**

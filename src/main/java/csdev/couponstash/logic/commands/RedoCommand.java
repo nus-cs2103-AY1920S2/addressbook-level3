@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 
+/**
+ * Redo previously undone command.
+ */
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";

@@ -106,12 +106,23 @@ public class Coupon {
         }
 
         Coupon otherCoupon = (Coupon) other;
+
+        // Loop through the tags to check for equality
+        if (getTags().size() != otherCoupon.getTags().size()) {
+            return false;
+        } else {
+            for (Tag tag : getTags()) {
+                if (!otherCoupon.getTags().contains(tag)) {
+                    return false;
+                }
+            }
+        }
+
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getSavings().equals(getSavings())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
-                && otherCoupon.getUsage().equals(getUsage())
-                && otherCoupon.getTags().equals(getTags());
+                && otherCoupon.getUsage().equals(getUsage());
     }
 
     @Override
