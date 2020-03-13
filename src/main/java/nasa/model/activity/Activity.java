@@ -1,10 +1,8 @@
 package nasa.model.activity;
 
-import nasa.model.Regenerable;
+import NASA.model.Regenerable;
 
 import java.time.LocalDateTime;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Abstract class to specify fields with getter and setters for activities.
@@ -23,29 +21,6 @@ public abstract class Activity implements Regenerable<Activity> {
      * @param date date of the activity
      * @param note note of the activity
      */
-    public Activity(Name name, Date date, Note note) {
-        requireNonNull(name);
-        requireNonNull(note);
-        requireNonNull(date);
-
-        this.name = name;
-        this.date = date;
-        this.note = note;
-        this.status = Status.ONGOING;
-        this.priority = new Priority("1");
-    }
-
-    public Activity(Name name, Note note) {
-        requireNonNull(name);
-        requireNonNull(note);
-
-        this.name = name;
-        this.note = note;
-        this.date = Date.now();
-        this.status = Status.ONGOING;
-        this.priority = new Priority("1");
-    }
-
     public Activity(Name name, Date date, Note note, Status status, Priority priority) {
         this.name = name;
         this.date = date;

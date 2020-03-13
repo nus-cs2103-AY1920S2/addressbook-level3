@@ -7,13 +7,6 @@ package nasa.model.activity;
 public class Deadline extends Activity {
 
     /**
-     * Initialise Deadlines with default status and priority.
-     */
-    public Deadline(Name name, Date date, Note note) {
-        super(name, date, note);
-    }
-
-    /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */

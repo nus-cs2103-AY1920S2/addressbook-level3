@@ -3,7 +3,6 @@ package nasa.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import nasa.commons.core.index.Index;
 import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
@@ -96,16 +95,6 @@ public interface Model {
      */
     boolean hasActivity(Module target, Activity activity);
 
-    /**
-     * Sets activity through it's index.
-     */
-    void setActivityByIndex(Module module, Index index, Activity activity);
-
-    /**
-     * Edit activity attributes through it's index.
-     */
-    void editActivityByIndex(Module module, Index index, Object... args);
-
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();
 
@@ -114,10 +103,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
-
-    ObservableList<Activity> getFilteredActivityList(Index index);
-
-    void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
-
-    void removeModuleByIndex(Index index);
 }
