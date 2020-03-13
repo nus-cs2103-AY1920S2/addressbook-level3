@@ -51,7 +51,7 @@ public class RemindCommand extends Command {
         this.input = input;
         this.remindDate = LocalDate.now();
     }
-    //remove line
+
     /**
      * Executes the RemindCommand with a given Model representing
      * the current state of the Coupon Stash application
