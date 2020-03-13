@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -57,10 +57,10 @@ public class TypicalRecipes {
     private TypicalRecipes() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical recipes.
+     * Returns an {@code RecipeBook} with all the typical recipes.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static RecipeBook getTypicalRecipeBook() {
+        RecipeBook ab = new RecipeBook();
         for (Recipe recipe : getTypicalRecipes()) {
             ab.addRecipe(recipe);
         }

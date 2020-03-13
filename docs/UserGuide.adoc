@@ -70,8 +70,8 @@ The time taken for the meal to be cooked is measured in minutes (min).
 
 Examples:
 
-* `add n/Spicy Chicken t/30 ip/300, Chicken Wings io/50, Ketchup io/50, Garlic Chili Sauce
-* `add n/Everyday Salad Bowl t/10 iv/100, Romaine Lettuce iv/100, Cherry Tomato iv/100, Cucumber, io/30, Salad Dressing g/Herbivore
+* `add n/Spicy Chicken t/30 ip/300, Chicken Wings io/50, Ketchup io/50, Garlic Chili Sauce`
+* `add n/Everyday Salad Bowl t/10 iv/100, Romaine Lettuce iv/100, Cherry Tomato iv/100, Cucumber, io/30, Salad Dressing g/Herbivore`
 
 === Adding the steps to a recipe: `addS`
 
@@ -130,6 +130,26 @@ HYBB data are saved in the hard disk automatically after any command that change
 There is no need to save manually.
 
 == Filter Feature
+
+=== Filter by ingredients
+
+Finds recipes that contains the specified ingredients. +
+Format: `filter [i/INGREDIENT 1, INGREDIENT 2, ...]`
+
+=== Filter by goals
+
+Finds recipes that are tagged with the specified goal. +
+Format: `filter [g/GOAL]`
+
+=== Filter by favourites
+
+Finds recipes that are tagged as favourites. +
+Format: `filter favourites`
+
+=== Filter by preparation time
+
+Finds recipes that have preparation time less than or equals to the specified time (in minutes). +
+Format: `filter [t/TIME]`
 
 == Plan Feature
 
