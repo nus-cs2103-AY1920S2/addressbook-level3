@@ -120,4 +120,10 @@ public interface Model {
      */
     boolean canUndoCouponStash();
 
+    /**
+     * Check if there is a coupon stash state to redo to.
+     * @return true if there is a state to redo to, false otherwise
+     */
+    boolean canRedoCouponStash();
+
 }

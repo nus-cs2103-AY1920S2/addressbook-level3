@@ -162,12 +162,17 @@ public class ModelManager implements Model {
 
     @Override
     public void redoCouponStash() {
-
+        couponStash.resetData(history.redo());
     }
 
     @Override
     public boolean canUndoCouponStash() {
-        return history.getCurrStateIndex() != 0;
+        return history.canUndo();
+    }
+
+    @Override
+    public boolean canRedoCouponStash() {
+        return history.canRedo();
     }
 
     @Override

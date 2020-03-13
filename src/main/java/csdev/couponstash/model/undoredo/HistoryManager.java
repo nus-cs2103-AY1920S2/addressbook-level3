@@ -40,7 +40,11 @@ public class HistoryManager {
         return this.couponStashStateList.get(++currStateIndex).clone();
     }
 
-    public int getCurrStateIndex() {
-        return currStateIndex;
+    public boolean canUndo() {
+        return currStateIndex != 0;
+    }
+
+    public boolean canRedo() {
+        return currStateIndex != couponStashStateList.size() - 1;
     }
 }
