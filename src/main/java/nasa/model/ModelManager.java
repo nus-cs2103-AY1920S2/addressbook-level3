@@ -18,7 +18,7 @@ import nasa.model.module.Module;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements ModelNasa {
+public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final NasaBook nasaBook;
