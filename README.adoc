@@ -1,4 +1,4 @@
-= Nice & Amazing Student Assistant (nasa)
+= Nice & Amazing Student Assistant (NASA)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S2-CS2103T-T10-4/main[image:https://travis-ci.com/AY1920S2-CS2103T-T10-4/main.svg?branch=master[Build Status]]
@@ -13,7 +13,7 @@ https://app.codacy.com/gh/AY1920S2-CS2103T-T10-4/main/dashboard[image:https://ap
 * Do you want recommendations on what to do next?
 
 `IF YOU ANSWERED YES TO ANY QUESTIONS, THEN FRET NOT! INTRODUCING THE NICE & AMAZING
-STUDENT ASSISTANT (nasa). AN APPLICATION THAT HELPS KEEP TRACK OF EACH MODULE'S TASKS AND
+STUDENT ASSISTANT (NASA). AN APPLICATION THAT HELPS KEEP TRACK OF EACH MODULE'S TASKS AND
 PROVIDES MANY OTHER FEATURES THAT ARE SUITABLE FOR BUSY UNIVERSITY STUDENTS. THE APPLICATION
 IS DEVELOPED FOR UNIVERSITY STUDENTS BY UNIVERSITY STUDENTS!`
 
@@ -27,7 +27,7 @@ endif::[]
 
 * This is a Java application intended for University Students as a convenient mean to keep track of module tasks.
 * It is a CLI-primary application and is intended for University Students who are able to type fast (which is basically almost every student).
-* Refer to the User Guide to know how to start-up and use the nasa application. Take away on an exciting journey!
+* Refer to the User Guide to know how to start-up and use the NASA application. Take away on an exciting journey!
 
 == Site Map
 
