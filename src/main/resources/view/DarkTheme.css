@@ -100,11 +100,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #2e000d;
+    -fx-background-color: #450002;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #450002;
+    -fx-background-color: #2e000d;
 }
 
 .list-cell:filled:selected {
