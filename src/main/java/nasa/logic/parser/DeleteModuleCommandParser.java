@@ -2,8 +2,10 @@ package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import nasa.logic.commands.DeleteModuleCommand;
 import nasa.logic.parser.exceptions.ParseException;
@@ -21,9 +23,13 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
-
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-
-        return new DeleteModuleCommand(new Module(moduleCode, new ModuleName("")));
+        try {
+            ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
+            return new DeleteModuleCommand(new Module(moduleCode));
+        } catch (NoSuchElementException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE));
+        } catch (ParseException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE), e);
+        }
     }
 }

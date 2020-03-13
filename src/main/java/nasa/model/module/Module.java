@@ -25,6 +25,11 @@ public class Module {
         this.activityList = new UniqueActivityList();
     }
 
+    // to create dummy modules for checking
+    public Module(ModuleCode moduleCode) {
+        this.moduleCode = moduleCode;
+    }
+
     /**
      * Constructs a {@code module}
      * @param moduleCode module code
