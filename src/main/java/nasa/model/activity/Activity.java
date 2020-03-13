@@ -110,8 +110,7 @@ public abstract class Activity implements Regenerable<Activity> {
             return false;
         }
         Activity otherActivity = (Activity) other;
-        return otherActivity.getName().equals(getName())
-                && otherActivity.getDate().equals(getDate());
+        return otherActivity.getName().equals(getName());
     }
 
     public void updateStatus() {
