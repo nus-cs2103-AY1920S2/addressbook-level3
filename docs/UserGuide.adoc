@@ -256,7 +256,7 @@ Example: +
 
 ==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+EYLAH data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
@@ -266,6 +266,11 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Remove food* `removefood -f FOOD` +
+* *List Receipt* `listreceipt` +
 e.g. `removefood -f fries`
-* *Help* : `help`
+
+* *Paid* : `paid INDEX` +
+e.g. `paid 3`
+
+* *back* `back`
+e.g. `back`
