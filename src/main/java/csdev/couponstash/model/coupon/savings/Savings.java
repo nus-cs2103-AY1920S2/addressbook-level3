@@ -207,6 +207,43 @@ public class Savings implements Comparable<Savings> {
         }
     }
 
+    /**
+     * Given a custom money symbol, represent this
+     * Savings using that symbol, provided the savings
+     * has some MonetaryAmount that will use that
+     * custom money symbol.
+     * @param symbol String representing Savings,
+     *               with custom money symbol for
+     *               exact monetary amounts.
+     * @return Returns a String that represents this
+     *     Savings, only with a custom money symbol.
+     */
+    public String getStringWithMoneySymbol(String symbol) {
+        StringBuilder sb = new StringBuilder();
+        if (!this.hasMonetaryAmount() && !this.hasPercentageAmount()) {
+            sb.append("You get ");
+        } else {
+            sb.append("You save ");
+            this.monetaryAmount.ifPresent(ma -> {
+                sb.append(ma.getStringWithMoneySymbol(symbol));
+                sb.append(", ");
+            });
+            this.percentage.ifPresent(pc -> {
+                sb.append(pc.toString());
+                sb.append(", ");
+            });
+            this.saveables.ifPresent(s -> sb.append(" and you get "));
+        }
+        this.saveables.ifPresent(savedItems -> {
+            for (Saveable sv : savedItems) {
+                sb.append(sv.toString());
+                sb.append(", ");
+            }
+        });
+        // remove last comma and space (extra length 2)
+        return sb.substring(0, sb.length() - 2);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -229,29 +266,8 @@ public class Savings implements Comparable<Savings> {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        if (!this.hasMonetaryAmount() && !this.hasPercentageAmount()) {
-            sb.append("You get ");
-        } else {
-            sb.append("You save ");
-            this.monetaryAmount.ifPresent(ma -> {
-                sb.append(ma.toString());
-                sb.append(", ");
-            });
-            this.percentage.ifPresent(pc -> {
-                sb.append(pc.toString());
-                sb.append(", ");
-            });
-            this.saveables.ifPresent(s -> sb.append(" and you get "));
-        }
-        this.saveables.ifPresent(savedItems -> {
-            for (Saveable sv : savedItems) {
-                sb.append(sv.toString());
-                sb.append(", ");
-            }
-        });
-        // remove last comma and space (extra length 2)
-        return sb.substring(0, sb.length() - 2);
+        // use $ symbol as default
+        return this.getStringWithMoneySymbol("$");
     }
 
     /**

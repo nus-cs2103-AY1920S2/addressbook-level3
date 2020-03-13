@@ -40,7 +40,9 @@ public class SavedCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         ObservableList<Coupon> couponsList = model.getFilteredCouponList();
         StringBuilder moneySaved = new StringBuilder("You have saved ");
+        // add the custom money symbol to the String
         moneySaved.append(model.getStashSettings().getMoneySymbol());
+        // add up all the Savings to get total Savings
         PureMonetarySavings pms = new PureMonetarySavings();
         for (Coupon c : couponsList) {
             PureMonetarySavings toBeAdded = SavingsConversionUtil.convertToPure(c.getSavings());

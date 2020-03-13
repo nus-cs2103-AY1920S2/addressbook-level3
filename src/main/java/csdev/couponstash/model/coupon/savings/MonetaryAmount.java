@@ -57,6 +57,20 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
         return new MonetaryAmount(this.monetaryAmount + ma.monetaryAmount);
     }
 
+    /**
+     * Given a custom money symbol, represent this
+     * MonetaryAmount as a String using that money
+     * symbol (e.g. "$2.50", "£4.20").
+     * @param symbol String representing money symbol
+     *               to be used in the final String.
+     * @return Returns a String that has the amount
+     *     set to 2 decimal places, and prefixed by
+     *     the given money symbol in String symbol.
+     */
+    public String getStringWithMoneySymbol(String symbol) {
+        return symbol + String.format("%.2f", this.monetaryAmount);
+    }
+
     @Override
     public int compareTo(MonetaryAmount m) {
         return (int) Math.signum(this.monetaryAmount - m.monetaryAmount);
@@ -76,6 +90,7 @@ public class MonetaryAmount implements Comparable<MonetaryAmount> {
 
     @Override
     public String toString() {
-        return "$" + String.format("%.2f", this.monetaryAmount);
+        // use $ as default symbol just to denote a monetary amount
+        return this.getStringWithMoneySymbol("$");
     }
 }
