@@ -9,6 +9,9 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.Module;
 
+/**
+ * Deletes a module from the NASA book.
+ */
 public class DeleteModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "Mdelete";
@@ -27,6 +30,10 @@ public class DeleteModuleCommand extends Command {
 
     private final Module moduleToDelete;
 
+    /**
+     * Creates a DeleteModuleCommand to delete the specified {@code module}.
+     * @param module Module to be deleted
+     */
     public DeleteModuleCommand(Module module) {
         requireNonNull(module);
         moduleToDelete = module;

@@ -8,6 +8,9 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Deletes an activity from a module list.
+ */
 public class DeleteActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
@@ -26,6 +29,12 @@ public class DeleteActivityCommand extends Command {
     private final Index index;
     private final ModuleCode moduleCode;
 
+    /**
+     * Creates a DeleteActivityCommand to delete the activity at
+     * {@code index} from the specified {@code moduleCode} list.
+     * @param index index of the activity to be deleted
+     * @param moduleCode module of the activity that it is associated with
+     */
     public DeleteActivityCommand(Index index, ModuleCode moduleCode) {
         requireNonNull(index);
         this.index = index;

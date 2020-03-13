@@ -8,6 +8,9 @@ import nasa.commons.core.index.Index;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 
+/**
+ * Edits a module in the NASA book.
+ */
 public class EditModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "medit";
@@ -32,6 +35,10 @@ public class EditModuleCommand extends Command {
 
     private final Index index;
 
+    /**
+     * Creates an EditModuleCommand to edit a module at specified {@code index}
+     * @param index Index of module to be edited
+     */
     public EditModuleCommand(Index index) {
         requireNonNull(index);
         this.index = index;

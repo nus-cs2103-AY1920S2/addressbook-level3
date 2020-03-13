@@ -5,6 +5,9 @@ import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import nasa.model.Model;
 
+/**
+ * Lists the modules and their activity lists.
+ */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

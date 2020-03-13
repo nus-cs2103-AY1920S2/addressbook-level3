@@ -9,6 +9,9 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.Module;
 
+/**
+ * Adds a module to the NASA book.
+ */
 public class AddModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
@@ -26,6 +29,10 @@ public class AddModuleCommand extends Command {
 
     private Module toAdd;
 
+    /**
+     * Creates an AddModuleCommand to add the specified {@code module}
+     * @param module Module to be added
+     */
     public AddModuleCommand(Module module) {
         requireNonNull(module);
         toAdd = module;

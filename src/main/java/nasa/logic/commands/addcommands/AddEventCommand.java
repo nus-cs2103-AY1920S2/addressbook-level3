@@ -9,6 +9,9 @@ import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import nasa.model.activity.Event;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Adds an event activity to a module's list.
+ */
 public class AddEventCommand extends AddCommand {
 
     public final static String COMMAND_WORD = "event";
@@ -27,6 +30,11 @@ public class AddEventCommand extends AddCommand {
             + PREFIX_PRIORITY + "1"
             + PREFIX_NOTE + "Remember to study content before coming.";
 
+    /**
+     * Creates an AddCommand that adds {@code event} to list of {@code moduleCode}.
+     * @param event Event to be added
+     * @param moduleCode Module where the event is to be added
+     */
     public AddEventCommand(Event event, ModuleCode moduleCode) {
         super(event, moduleCode);
     }
