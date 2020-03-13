@@ -2,9 +2,11 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
-import java.time.LocalDate; //add space
+
+import java.time.LocalDate;
 import java.util.List;
-import csdev.couponstash.commons.core.Messages;// add space above
+
+import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
@@ -16,7 +18,6 @@ import csdev.couponstash.model.coupon.Coupon;
  * for a coupon. Upon the date of the reminder, Coupon Stash will
  * notify the user in a form of a pop when Coupon Stash is launched.
  */
-
 public class RemindCommand extends Command {
 
     public static final String COMMAND_WORD = "remind";
@@ -43,7 +44,6 @@ public class RemindCommand extends Command {
      * @param index of the coupon in the coupon lists to edit
      * @param input details to remind the coupon on
      */
-    // remove line 
     public RemindCommand(Index index, String input) {
         requireAllNonNull(index, input);
 

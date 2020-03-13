@@ -1,8 +1,8 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static java.util.Objects.requireNonNull;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
+import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.exceptions.IllegalValueException;
@@ -13,7 +13,6 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new RemindCommand object
  */
 public class RemindCommandParser implements Parser<RemindCommand> {
-    
     /**
      * Parses the given {@code String} of arguments in the context of the RemindCommand
      * and returns a DeleteCommand object for execution.
