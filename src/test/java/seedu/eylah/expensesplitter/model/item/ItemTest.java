@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.eylah.expensesplitter.testutil.TypicalItem.BEERTOWER;
-import static seedu.eylah.expensesplitter.testutil.TypicalItem.STEAMBOAT;
 import static seedu.eylah.expensesplitter.testutil.TypicalItem.POPCORN;
+import static seedu.eylah.expensesplitter.testutil.TypicalItem.STEAMBOAT;
 
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +47,7 @@ public class ItemTest {
         assertFalse(STEAMBOAT.equals(BEERTOWER));
 
         // different item -> returns false
-        assertFalse(STEAMBOAT.equals(BEERTOWER));
+        assertFalse(STEAMBOAT.equals(POPCORN));
 
         // IMPLEMENT AFTER ADDING COMMANDS
         //// different name -> returns false

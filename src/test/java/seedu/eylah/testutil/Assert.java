@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 
 /**
- * A set of assertion methods useful for writing tests.
+ * A set of assertions methods using for writing tests.
  */
 public class Assert {
 

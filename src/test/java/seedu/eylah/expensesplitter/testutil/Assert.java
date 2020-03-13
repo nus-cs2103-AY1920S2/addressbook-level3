@@ -3,6 +3,9 @@ package seedu.eylah.expensesplitter.testutil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 
+/**
+ * A set of assertions methods using for writing tests.
+ */
 public class Assert {
 
     /**
