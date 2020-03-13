@@ -13,14 +13,13 @@ import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.testutil.CouponBuilder;
-import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 class UndoCommandTest {
 
     @Test
-    void execute_undoAdd_success() {
+    public void execute_undoAdd_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
@@ -39,7 +38,7 @@ class UndoCommandTest {
     }
 
     @Test
-    void execute_undoDelete_success() {
+    public void execute_undoDelete_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
@@ -61,15 +60,13 @@ class UndoCommandTest {
     }
 
     @Test
-    void execute_undoEdit_success() {
+    public void execute_undoEdit_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
 
         Coupon editedCoupon = new CouponBuilder().build();
-        EditCommand.EditCouponDescriptor descriptor =
-                new EditCouponDescriptorBuilder(editedCoupon).build();
 
         model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
 
@@ -84,7 +81,7 @@ class UndoCommandTest {
     }
 
     @Test
-    void execute_undoClear_success() {
+    public void execute_undoClear_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()

@@ -20,7 +20,7 @@ import csdev.couponstash.testutil.TypicalIndexes;
 class RedoCommandTest {
 
     @Test
-    void execute_redoAdd_success() {
+    public void execute_redoAdd_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
@@ -41,7 +41,7 @@ class RedoCommandTest {
     }
 
     @Test
-    void execute_redoDelete_success() {
+    public void execute_redoDelete_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
@@ -65,7 +65,7 @@ class RedoCommandTest {
     }
 
     @Test
-    void execute_redoEdit_success() {
+    public void execute_redoEdit_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
@@ -74,8 +74,6 @@ class RedoCommandTest {
         Coupon editedCoupon = new CouponBuilder().build();
         EditCommand.EditCouponDescriptor descriptor =
                 new EditCouponDescriptorBuilder(editedCoupon).build();
-        EditCommand editCommand =
-                new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor);
 
         model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
         model.undoCouponStash();
@@ -94,7 +92,7 @@ class RedoCommandTest {
     }
 
     @Test
-    void execute_redoClear_success() {
+    public void execute_redoClear_success() {
         Model model = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
