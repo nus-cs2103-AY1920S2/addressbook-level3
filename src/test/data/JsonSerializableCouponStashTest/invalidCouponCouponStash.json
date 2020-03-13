@@ -1,7 +1,11 @@
 {
   "coupons": [ {
     "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e"
+    "phone": "992929",
+    "savings" : {
+      "monetaryAmount" : null,
+      "percentageAmount" : null,
+      "saveables" : null
+    }
   } ]
 }

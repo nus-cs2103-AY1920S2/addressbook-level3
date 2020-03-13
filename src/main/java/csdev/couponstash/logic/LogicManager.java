@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.commands.Command;
 import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
@@ -32,7 +33,7 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        couponStashParser = new CouponStashParser();
+        couponStashParser = new CouponStashParser(model.getStashSettings().getMoneySymbol());
     }
 
     @Override
@@ -75,5 +76,15 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public StashSettings getStashSettings() {
+        return model.getStashSettings();
+    }
+
+    @Override
+    public void setStashSettings(StashSettings stashSettings) {
+        model.setStashSettings(stashSettings);
     }
 }

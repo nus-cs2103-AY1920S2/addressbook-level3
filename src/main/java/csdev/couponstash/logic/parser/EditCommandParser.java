@@ -12,12 +12,25 @@ import java.util.Set;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
+    private final String moneySymbol;
+
+    /**
+     * Constructor for a EditCommandParser. Requires the
+     * money symbol set in UserPrefs as this will be
+     * used as the prefix for the monetary amount
+     * in the savings field.
+     * @param moneySymbol String representing the money symbol.
+     */
+    public EditCommandParser(String moneySymbol) {
+        this.moneySymbol = moneySymbol;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -31,7 +44,9 @@ public class EditCommandParser implements Parser<EditCommand> {
                         args,
                         CliSyntax.PREFIX_NAME,
                         CliSyntax.PREFIX_PHONE,
-                        CliSyntax.PREFIX_EMAIL,
+                        CliSyntax.PREFIX_EXPIRY_DATE,
+                        CliSyntax.PREFIX_SAVINGS,
+                        CliSyntax.PREFIX_USAGE,
                         CliSyntax.PREFIX_TAG);
 
         Index index;
@@ -49,10 +64,23 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(CliSyntax.PREFIX_PHONE).isPresent()) {
             editCouponDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_EMAIL).isPresent()) {
-            editCouponDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get()));
+
+        parseSavingsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_SAVINGS))
+                .ifPresent(editCouponDescriptor::setSavings);
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_EXPIRY_DATE).isPresent()) {
+            editCouponDescriptor.setExpiryDate(ParserUtil.parseExpiryDate(argMultimap
+                    .getValue(CliSyntax.PREFIX_EXPIRY_DATE).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG)).ifPresent(editCouponDescriptor::setTags);
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_USAGE).isPresent()) {
+            editCouponDescriptor.setUsage(ParserUtil.parseUsage(argMultimap
+                    .getValue(CliSyntax.PREFIX_USAGE).get()));
+        }
+
+        parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG))
+                .ifPresent(editCouponDescriptor::setTags);
+
 
         if (!editCouponDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -74,6 +102,27 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
+    }
+
+    /**
+     * Parses {@code Collection<String> savings} into a {@code Collection<String>} if {@code savings}
+     * is non-empty. If {@code savings} contain only elements which are empty strings, it will be
+     * parsed into an Optional.empty().
+     * @param savings The Collection of Strings to be checked.
+     * @return Returns an Optional possibly containing the
+     *     non-empty Collection of Strings.
+     * @throws ParseException If the Collection received has both
+     *     a monetary amount and an percentage amount, or has
+     *     blank Strings.
+     */
+    private Optional<Savings> parseSavingsForEdit(Collection<String> savings) throws ParseException {
+        assert savings != null;
+
+        if (savings.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(ParserUtil.parseSavings(savings, this.moneySymbol));
+        }
     }
 
 }

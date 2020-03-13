@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import csdev.couponstash.commons.core.GuiSettings;
+import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
@@ -34,6 +35,18 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' StashSettings, which
+     * are application settings set by the user
+     */
+    StashSettings getStashSettings();
+
+    /**
+     * Sets the user prefs' StashSettings, which
+     * are application settings set by the user
+     */
+    void setStashSettings(StashSettings stashSettings);
 
     /**
      * Returns the user prefs' CouponStash file path.
@@ -85,4 +98,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCouponList(Predicate<Coupon> predicate);
+
 }

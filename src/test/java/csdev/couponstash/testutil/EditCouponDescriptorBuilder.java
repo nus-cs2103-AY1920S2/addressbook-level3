@@ -7,9 +7,11 @@ import java.util.stream.Stream;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -34,7 +36,9 @@ public class EditCouponDescriptorBuilder {
         descriptor = new EditCouponDescriptor();
         descriptor.setName(coupon.getName());
         descriptor.setPhone(coupon.getPhone());
-        descriptor.setEmail(coupon.getEmail());
+        descriptor.setSavings(coupon.getSavings());
+        descriptor.setExpiryDate(coupon.getExpiryDate());
+        descriptor.setUsage(coupon.getUsage());
         descriptor.setTags(coupon.getTags());
     }
 
@@ -55,12 +59,29 @@ public class EditCouponDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditCouponDescriptor} that we are building.
+     * Sets the {@code Usage} of the {@code EditCouponDescriptor} that we are building.
      */
-    public EditCouponDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditCouponDescriptorBuilder withUsage(String usage) {
+        descriptor.setUsage(new Usage(usage));
         return this;
     }
+
+    /**
+     * Sets the {@code Savings} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withSavings(Savings sv) {
+        descriptor.setSavings(sv);
+        return this;
+    }
+
+    /**
+     * Sets the {@code ExpiryDate} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withExpiryDate(String expiryDate) {
+        descriptor.setExpiryDate(new ExpiryDate(expiryDate));
+        return this;
+    }
+
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditCouponDescriptor}

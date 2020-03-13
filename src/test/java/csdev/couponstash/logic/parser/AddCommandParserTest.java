@@ -1,21 +1,28 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static csdev.couponstash.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static csdev.couponstash.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static csdev.couponstash.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_SAVINGS_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_USAGE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static csdev.couponstash.logic.commands.CommandTestUtil.SAVINGS_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.SAVINGS_DESC_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.USAGE_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.USAGE_DESC_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_MONETARY_AMOUNT_TWO_TWENTY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_MONEY_SYMBOL;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
@@ -27,49 +34,52 @@ import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.Email;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 
 public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private AddCommandParser parser = new AddCommandParser(VALID_MONEY_SYMBOL);
 
     @Test
     public void parse_allFieldsPresent_success() {
         Coupon expectedCoupon = new CouponBuilder(TypicalCoupons.BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB
+                + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB
+                + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + SAVINGS_DESC_BOB
+                + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
-        // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+        // multiple savings monetary amount - last one accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
+                + SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + TAG_DESC_FRIEND,
+                new AddCommand(expectedCoupon));
 
         // multiple tags - all accepted
         Coupon expectedCouponMultipleTags = new CouponBuilder(TypicalCoupons.BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedCouponMultipleTags));
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB + TAG_DESC_HUSBAND
+                + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCouponMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Coupon expectedCoupon = new CouponBuilder(TypicalCoupons.AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + SAVINGS_DESC_AMY
+                        + EXPIRY_DATE_DESC_AMY + USAGE_DESC_AMY,
                 new AddCommand(expectedCoupon));
     }
 
@@ -78,47 +88,52 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB,
+        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + SAVINGS_DESC_BOB,
                 expectedMessage);
 
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB,
-                expectedMessage);
+        // missing savings prefix
+        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + VALID_MONEY_SYMBOL
+                + VALID_MONETARY_AMOUNT_TWO_TWENTY, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB,
-                expectedMessage);
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_MONEY_SYMBOL
+                + VALID_MONETARY_AMOUNT_TWO_TWENTY, expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + SAVINGS_DESC_BOB + EXPIRY_DATE_DESC_BOB
+                + USAGE_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + SAVINGS_DESC_BOB + EXPIRY_DATE_DESC_BOB
+                + USAGE_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
 
-        // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+
+        // invalid savings
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_SAVINGS_DESC
+                + EXPIRY_DATE_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND, Savings.MESSAGE_CONSTRAINTS);
+
+        // invalid usage
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB + EXPIRY_DATE_DESC_BOB
+                + INVALID_USAGE_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Usage.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB + EXPIRY_DATE_DESC_BOB
                 + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_PHONE_DESC + SAVINGS_DESC_BOB
+                        + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EXPIRY_DATE_DESC_BOB
+                + SAVINGS_DESC_BOB + USAGE_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

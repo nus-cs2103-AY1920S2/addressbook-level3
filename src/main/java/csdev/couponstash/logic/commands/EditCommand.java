@@ -15,9 +15,11 @@ import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.Email;
+import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -33,11 +35,12 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
-            + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
+            + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
+            + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
+            + "[" + CliSyntax.PREFIX_USAGE + "1 "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 "
-            + CliSyntax.PREFIX_EMAIL + "johndoe@example.com";
+            + CliSyntax.PREFIX_PHONE + "91234567 ";
 
     public static final String MESSAGE_EDIT_COUPON_SUCCESS = "Edited Coupon: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -88,10 +91,12 @@ public class EditCommand extends Command {
 
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
-        Email updatedEmail = editCouponDescriptor.getEmail().orElse(couponToEdit.getEmail());
+        Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
+        Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
+        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone, updatedEmail, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedUsage, updatedTags);
     }
 
     @Override
@@ -119,7 +124,9 @@ public class EditCommand extends Command {
     public static class EditCouponDescriptor {
         private Name name;
         private Phone phone;
-        private Email email;
+        private Savings savings;
+        private ExpiryDate expiryDate;
+        private Usage usage;
         private Set<Tag> tags;
 
         public EditCouponDescriptor() {}
@@ -131,15 +138,17 @@ public class EditCommand extends Command {
         public EditCouponDescriptor(EditCouponDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
+            setUsage(toCopy.usage);
             setTags(toCopy.tags);
+            setSavings(toCopy.savings);
+            setExpiryDate(toCopy.expiryDate);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, tags);
         }
 
         public void setName(Name name) {
@@ -158,12 +167,42 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        /**
+         * Sets the Savings field in this EditCouponDescriptor.
+         * @param sv Savings to be set in EditCouponDescriptor.
+         */
+        public void setSavings(Savings sv) {
+            this.savings = sv;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        /**
+         * Gets the Savings that have been set in this
+         * EditCouponDescriptor in an Optional (if it
+         * was never set, an Optional.empty() is returned).
+         * @return Optional with Savings representing the
+         *     Savings value stored in this
+         *     EditCouponDescriptor, if any.
+         */
+        public Optional<Savings> getSavings() {
+            return Optional.ofNullable(this.savings);
+        }
+
+        public void setExpiryDate(ExpiryDate expiryDate) {
+            this.expiryDate = expiryDate;
+        }
+
+        public Optional<ExpiryDate> getExpiryDate() {
+            return Optional.ofNullable(expiryDate);
+        }
+
+
+        public void setUsage(Usage usage) {
+            this.usage = usage;
+        }
+
+        public Optional<Usage> getUsage() {
+
+            return Optional.ofNullable(usage);
         }
 
         /**
@@ -200,7 +239,9 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
+                    && getSavings().equals(e.getSavings())
+                    && getExpiryDate().equals(e.getExpiryDate())
+                    && getUsage().equals(e.getUsage())
                     && getTags().equals(e.getTags());
         }
     }
