@@ -49,6 +49,10 @@ public enum Grade {
         return U;
     }
 
+    /**
+     * checks whether the Grade object represents a grade that has been SUed or not.
+     * @return true if the Grade object represents a grade that has been SUed or false if otherwise.
+     */
     public boolean isSued() {
         if (this.equals(S) || this.equals(U)) {
             return true;

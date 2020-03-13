@@ -6,13 +6,17 @@ import java.util.List;
  * Represents a device that can help NUS students to calculate their current CAP based on their graded modules.
  */
 public class Capulator {
-    public List<NusModule> modules;
+    private List<NusModule> modules;
 
-    public Capulator(List<NusModule> modules) {
+    private Capulator(List<NusModule> modules) {
         this.modules = modules;
     }
 
-   public double calculateCap() {
+    /**
+     * calculates the CAP based on graded NUS modules in records.
+     * @return a double represents the CAP gotten.
+     */
+    public double calculateCap() {
 
         double sumOfGradePoints = 0;
         double sumOfModularCredits = 0;
@@ -30,5 +34,5 @@ public class Capulator {
 
         double cap = sumOfGradePoints / sumOfModularCredits;
         return cap;
-   }
+    }
 }
