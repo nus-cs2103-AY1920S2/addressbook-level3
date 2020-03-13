@@ -1,19 +1,19 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STEP_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOAL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -32,7 +32,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Email;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Time;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
@@ -77,11 +77,11 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_TIME_DESC, Time.MESSAGE_CONSTRAINTS); // invalid time
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_STEP_DESC, Step.MESSAGE_CONSTRAINTS); // invalid step
         assertParseFailure(parser, "1" + INVALID_GOAL_DESC, Goal.MESSAGE_CONSTRAINTS); // invalid goal
 
-        // invalid time followed by valid email
-        assertParseFailure(parser, "1" + INVALID_TIME_DESC + EMAIL_DESC_AMY, Time.MESSAGE_CONSTRAINTS);
+        // invalid time followed by valid step
+        assertParseFailure(parser, "1" + INVALID_TIME_DESC + STEP_DESC_AMY, Time.MESSAGE_CONSTRAINTS);
 
         // valid time followed by invalid time. The test case for invalid time followed by valid time
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -94,7 +94,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + GOAL_EMPTY + GOAL_DESC_FRIEND + GOAL_DESC_HUSBAND, Goal.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_TIME_AMY,
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_STEP_DESC + VALID_TIME_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
@@ -102,10 +102,10 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_RECIPE;
         String userInput = targetIndex.getOneBased() + TIME_DESC_BOB + GOAL_DESC_HUSBAND
-                + EMAIL_DESC_AMY + NAME_DESC_AMY + GOAL_DESC_FRIEND;
+                + STEP_DESC_AMY + NAME_DESC_AMY + GOAL_DESC_FRIEND;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withTime(VALID_TIME_BOB).withEmail(VALID_EMAIL_AMY)
+                .withTime(VALID_TIME_BOB).withStep(VALID_STEP_AMY)
                 .withGoals(VALID_GOAL_HUSBAND, VALID_GOAL_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -115,10 +115,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_RECIPE;
-        String userInput = targetIndex.getOneBased() + TIME_DESC_BOB + EMAIL_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + TIME_DESC_BOB + STEP_DESC_AMY;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_BOB)
-                .withEmail(VALID_EMAIL_AMY).build();
+                .withStep(VALID_STEP_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -139,9 +139,9 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditRecipeDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
+        // step
+        userInput = targetIndex.getOneBased() + STEP_DESC_AMY;
+        descriptor = new EditRecipeDescriptorBuilder().withStep(VALID_STEP_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -155,12 +155,12 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_RECIPE;
-        String userInput = targetIndex.getOneBased() + TIME_DESC_AMY + EMAIL_DESC_AMY
-                + GOAL_DESC_FRIEND + TIME_DESC_AMY + EMAIL_DESC_AMY + GOAL_DESC_FRIEND
-                + TIME_DESC_BOB + EMAIL_DESC_BOB + GOAL_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + TIME_DESC_AMY + STEP_DESC_AMY
+                + GOAL_DESC_FRIEND + TIME_DESC_AMY + STEP_DESC_AMY + GOAL_DESC_FRIEND
+                + TIME_DESC_BOB + STEP_DESC_BOB + GOAL_DESC_HUSBAND;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_BOB)
-                .withEmail(VALID_EMAIL_BOB).withGoals(VALID_GOAL_FRIEND, VALID_GOAL_HUSBAND)
+                .withStep(VALID_STEP_BOB).withGoals(VALID_GOAL_FRIEND, VALID_GOAL_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -177,9 +177,9 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_TIME_DESC + TIME_DESC_BOB;
+        userInput = targetIndex.getOneBased() + STEP_DESC_BOB + INVALID_TIME_DESC + TIME_DESC_BOB;
 
-        descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_BOB).withEmail(VALID_EMAIL_BOB).build();
+        descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_BOB).withStep(VALID_STEP_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

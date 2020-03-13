@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -31,7 +31,7 @@ public class RecipeUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + recipe.getName().fullName + " ");
         sb.append(PREFIX_TIME + recipe.getTime().value + " ");
-        sb.append(PREFIX_EMAIL + recipe.getEmail().value + " ");
+        sb.append(PREFIX_STEP + recipe.getStep().value + " ");
         recipe.getGoals().stream().forEach(
             s -> sb.append(PREFIX_GOAL + s.goalName + " ")
         );
@@ -45,7 +45,7 @@ public class RecipeUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getTime().ifPresent(time -> sb.append(PREFIX_TIME).append(time.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getStep().ifPresent(step -> sb.append(PREFIX_STEP).append(step.value).append(" "));
         if (descriptor.getGoals().isPresent()) {
             Set<Goal> goals = descriptor.getGoals().get();
             if (goals.isEmpty()) {

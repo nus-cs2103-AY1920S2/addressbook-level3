@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Recipe's email in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Represents a Recipe's step in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidStep(String)}
  */
-public class Email {
+public class Step {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
+    public static final String MESSAGE_CONSTRAINTS = "Steps should be of the format local-part@domain "
             + "and adhere to the following constraints:\n"
             + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
             + "the parentheses, (" + SPECIAL_CHARACTERS + ") .\n"
@@ -30,20 +30,20 @@ public class Email {
     public final String value;
 
     /**
-     * Constructs an {@code Email}.
+     * Constructs an {@code Step}.
      *
-     * @param email A valid email address.
+     * @param step A valid step address.
      */
-    public Email(String email) {
-        requireNonNull(email);
-        checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
-        value = email;
+    public Step(String step) {
+        requireNonNull(step);
+        checkArgument(isValidStep(step), MESSAGE_CONSTRAINTS);
+        value = step;
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a valid step.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidStep(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -55,8 +55,8 @@ public class Email {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && value.equals(((Email) other).value)); // state check
+                || (other instanceof Step // instanceof handles nulls
+                && value.equals(((Step) other).value)); // state check
     }
 
     @Override

@@ -35,7 +35,7 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
-    private Label email;
+    private Label step;
     @FXML
     private FlowPane goals;
 
@@ -45,7 +45,7 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         time.setText(recipe.getTime().value + " min");
-        email.setText(recipe.getEmail().value);
+        step.setText(recipe.getStep().value);
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))
                 .forEach(goal -> goals.getChildren().add(new Label(goal.goalName)));

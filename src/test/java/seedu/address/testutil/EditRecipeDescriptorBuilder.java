@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Email;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Time;
@@ -33,7 +33,7 @@ public class EditRecipeDescriptorBuilder {
         descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
         descriptor.setTime(recipe.getTime());
-        descriptor.setEmail(recipe.getEmail());
+        descriptor.setStep(recipe.getStep());
         descriptor.setGoals(recipe.getGoals());
     }
 
@@ -54,10 +54,10 @@ public class EditRecipeDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditRecipeDescriptor} that we are building.
+     * Sets the {@code Step} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+    public EditRecipeDescriptorBuilder withStep(String step) {
+        descriptor.setStep(new Step(step));
         return this;
     }
 

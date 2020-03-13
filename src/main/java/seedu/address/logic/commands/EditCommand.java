@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -19,7 +19,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Email;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Time;
@@ -37,11 +37,11 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_STEP + "STEP] "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_STEP + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -92,10 +92,10 @@ public class EditCommand extends Command {
 
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
-        Email updatedEmail = editRecipeDescriptor.getEmail().orElse(recipeToEdit.getEmail());
+        Step updatedStep = editRecipeDescriptor.getStep().orElse(recipeToEdit.getStep());
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
 
-        return new Recipe(updatedName, updatedTime, updatedEmail, updatedGoals);
+        return new Recipe(updatedName, updatedTime, updatedStep, updatedGoals);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class EditCommand extends Command {
     public static class EditRecipeDescriptor {
         private Name name;
         private Time time;
-        private Email email;
+        private Step step;
         private Set<Goal> goals;
 
         public EditRecipeDescriptor() {}
@@ -135,7 +135,7 @@ public class EditCommand extends Command {
         public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
             setName(toCopy.name);
             setTime(toCopy.time);
-            setEmail(toCopy.email);
+            setStep(toCopy.step);
             setGoals(toCopy.goals);
         }
 
@@ -143,7 +143,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, time, email, goals);
+            return CollectionUtil.isAnyNonNull(name, time, step, goals);
         }
 
         public void setName(Name name) {
@@ -162,12 +162,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(time);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
+        public void setStep(Step step) {
+            this.step = step;
         }
 
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
+        public Optional<Step> getStep() {
+            return Optional.ofNullable(step);
         }
 
         /**
@@ -204,7 +204,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getTime().equals(e.getTime())
-                    && getEmail().equals(e.getEmail())
+                    && getStep().equals(e.getStep())
                     && getGoals().equals(e.getGoals());
         }
     }
