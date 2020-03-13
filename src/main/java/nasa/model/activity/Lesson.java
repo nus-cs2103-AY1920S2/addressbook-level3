@@ -6,6 +6,15 @@ package nasa.model.activity;
  */
 public class Lesson extends Activity {
     private int numOfDaysTillNextLesson = 7; // Frequency of lesson in number of days (eg. every 7 days) Default is 7.
+    private Date startDate;
+    private Date endDate;
+
+    /**
+     * Initialise Lessons with default status and priority.
+     */
+    public Lesson(Name name, Note note) {
+        super(name, note);
+    }
 
     /**
      * Initialise Deadlines with a particular unique {@code name}.

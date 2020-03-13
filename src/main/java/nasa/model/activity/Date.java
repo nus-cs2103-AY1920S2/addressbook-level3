@@ -66,6 +66,10 @@ public class Date {
         return date;
     }
 
+    public Date now() {
+        return new Date();
+    }
+
     /**
      * Returns date as a string with format MMM d yyyy.
      *

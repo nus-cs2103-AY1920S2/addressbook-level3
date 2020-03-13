@@ -96,7 +96,7 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public void setModules(List<Module> modules) {
         CollectionUtil.requireAllNonNull(modules);
-        if (!modulesAreUnique(modules)) {
+        if (!equals(modules)) {
             throw new DuplicateModuleException();
         }
 

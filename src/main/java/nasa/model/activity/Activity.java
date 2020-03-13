@@ -15,6 +15,14 @@ public abstract class Activity implements Regenerable<Activity> {
     private Status status;
     private Priority priority;
 
+    public Activity(Name name, Note note) {
+        this.name = name;
+        this.note = note;
+        this.date = Date.now();
+        this.status = Status.ONGOING;
+        this.priority = new Priority("1");
+    }
+
     /**
      * Constructs a {@code activity}
      * @param name name of activity
