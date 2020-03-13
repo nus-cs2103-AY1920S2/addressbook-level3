@@ -40,23 +40,13 @@
         </MenuBar>
 
         <HBox>
-          <VBox styleClass="left-pane">
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-              <image>
-                <Image url="@../images/teacherIcon.png" />
-              </image>
-            </ImageView>
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="summary-pane">
-              <children>
-                <Label text=" Students" />
-                <Label layoutY="34.0" text=" Students" />
-              </children>
-            </Pane>
-
+          <StackPane VBox.vgrow="ALWAYS"
+            minHeight="100"
+            prefHeight="300" styleClass="pane-with-border" fx:id="summaryPanelPlaceholder">
             <padding>
-              <Insets left = "10"/>
+              <Insets bottom="5" left="10" right="10" top="5"/>
             </padding>
-          </VBox>
+          </StackPane>
           <VBox>
 
             <HBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="100.0" prefWidth="300.0" spacing="5"
@@ -78,7 +68,7 @@
 
             <VBox SplitPane.resizableWithParent="true" minWidth="340" prefWidth="2000"
               fx:id="dataList" styleClass="right-pane">
-              <StackPane VBox.vgrow="ALWAYS" fx:id="dataListPanelPlaceholder"/>
+              <StackPane VBox.vgrow="NEVER" fx:id="dataListPanelPlaceholder"/>
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10"/>
               </padding>
@@ -87,9 +77,9 @@
           </VBox>
         </HBox>
 
-        <StackPane VBox.vgrow="ALWAYS" fx:id="statusbarPlaceholder"/>
+        <StackPane VBox.vgrow="NEVER" fx:id="statusbarPlaceholder"/>
 
-        <StackPane VBox.vgrow="ALWAYS"
+        <StackPane VBox.vgrow="NEVER"
           minHeight="100"
           prefHeight="300" styleClass="pane-with-border" fx:id="resultDisplayPlaceholder">
           <padding>

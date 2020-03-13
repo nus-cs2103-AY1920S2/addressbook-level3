@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#00b2ca, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    background-color: #00b2ca; /* Used in the default.html file */
 }
 
 .label {
@@ -153,16 +153,26 @@
      -fx-border-top-width: 1px;
 }
 
-.left-pane {
+.white-pane {
+     -fx-background-color: derive(#ffffff, 20%);
+     -fx-border-color: derive(#000000, 70%);
+     -fx-border-top-width: 1px;
+}
+
+.summary-panel {
      -fx-background-color: derive(#1d4e89, 20%);
      -fx-border-color: derive(#000000, 70%);
      -fx-border-top-width: 1px;
 }
 
 .right-pane {
-     -fx-background-color: derive(#00B2CA, 20%);
-     -fx-border-color: derive(#000000, 70%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: derive(#00b2ca, 20%);
+     -fx-border-color: derive(#00b2ca, 70%);
+     -fx-border-top-width: 5px;
+}
+
+.card-pane {
+     -fx-background-color: #00b2ca;
 }
 
 .status-bar {
@@ -248,7 +258,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #f79256;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -266,17 +276,17 @@
 }
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #1d4e89;
     -fx-text-fill: white;
 }
 
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #1d4e89;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #1d4e89;
 }
 
 .dialog-pane > *.label.content {
@@ -335,7 +345,7 @@
 #commandTextField {
     -fx-background-color: white;
     -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-color: ##00b2ca ##00b2ca ##00b2ca ##00b2ca;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
@@ -365,5 +375,5 @@
 }
 
 #buttonBar {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#1d4e89, 20%);
 }
