@@ -1,35 +1,38 @@
 package seedu.address.ui;
 
-import java.io.File;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Comparator;
 import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-
-/** An UI component that displays image of a Pet {@code Pet}. */
+/** An UI component that displays Pet {@code Pet}. */
 public class PetDisplay extends UiPart<Region> {
 
     private static final String FXML = "PetDisplay.fxml";
 
-    public Path filePath; // mutable
+    public Path petFilepath; // mutable
+    public Path accessoryFilepath; // mutable
 
-    @FXML private HBox petPane;
-    @FXML private ImageView pic;
+    @FXML private VBox petPane;
+    @FXML private ImageView petPic;
+    @FXML private ImageView accessoryPic;
 
-    public PetDisplay(Path filepath) {
+    public PetDisplay(Path petFilepath, Path accessoryFilepath) {
         super(FXML);
-        this.filePath = filepath;
+        this.petFilepath = petFilepath;
+        this.accessoryFilepath = null;
 
-        // set up image
-        Image image = new Image(String.valueOf(filePath));
+        if (accessoryFilepath != null) {
+            this.accessoryFilepath = accessoryFilepath;
+            Image image = new Image(String.valueOf(accessoryFilepath));
+            accessoryPic.setImage(image);
+        }
 
-        //javafx.scene.image.Image image = new javafx.scene.image.Image(getClass().getResource(filepath).toExternalForm());
-        pic.setImage(image);
+        // set up pet image
+        Image image = new Image(String.valueOf(petFilepath));
+        petPic.setImage(image);
     }
 
     @Override
@@ -46,7 +49,6 @@ public class PetDisplay extends UiPart<Region> {
 
         // state check
         PetDisplay card = (PetDisplay) other;
-        return pic.getImage().equals(card.pic.getImage());
+        return petPic.getImage().equals(card.petPic.getImage());
     }
-
 }
