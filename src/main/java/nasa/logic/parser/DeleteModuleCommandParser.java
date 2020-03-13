@@ -24,6 +24,6 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
 
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
 
-        return new DeleteModuleCommand(new Module(new ModuleCode("cs1231"), new ModuleName("Hellos")));
+        return new DeleteModuleCommand(new Module(moduleCode, new ModuleName("")));
     }
 }
