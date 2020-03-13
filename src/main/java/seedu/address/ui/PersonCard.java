@@ -57,7 +57,6 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.recipe = recipe;
 
-        if (displayedIndex % 2 == 0) {
             id.setText(displayedIndex + ". ");
             name.setText(recipe.getName().name);
             phone.setText(recipe.getPhone().value);
@@ -66,7 +65,6 @@ public class PersonCard extends UiPart<Region> {
             recipe.getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
                     .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-         
             id1.setText(displayedIndex + ". ");
             name1.setText(recipe.getName().name);
             phone1.setText(recipe.getPhone().value);
