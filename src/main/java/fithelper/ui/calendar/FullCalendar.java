@@ -19,7 +19,7 @@ import javafx.scene.text.Text;
  * Get the full calendar view.
  */
 public class FullCalendar extends UiPart<AnchorPane> {
-    private static final String FXML = "fullCalendar.fxml";
+    private static final String FXML = "FullCalendar.fxml";
     private ArrayList<AnchorPaneNode> allCalendarDays = new ArrayList<>(35);
     private AnchorPane view;
     private Text calendarTitle;

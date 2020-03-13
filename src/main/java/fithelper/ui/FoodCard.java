@@ -51,7 +51,7 @@ public class FoodCard extends UiPart<AnchorPane> {
     /**
      * Creates a card displaying the {@code food entry}.
      *
-     * @param food          to display
+     * @param food the list of food entries display
      * @param displayedIndex the index of the order to show on the card
      */
     public FoodCard(Entry food, int displayedIndex) {

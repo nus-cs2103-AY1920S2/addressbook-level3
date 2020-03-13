@@ -25,7 +25,6 @@ public class SportCard extends UiPart<AnchorPane> {
 
     @FXML
     private AnchorPane innerPane;
-
     @FXML
     private Label index;
     @FXML
