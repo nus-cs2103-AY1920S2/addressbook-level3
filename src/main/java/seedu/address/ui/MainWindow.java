@@ -2,14 +2,19 @@ package seedu.address.ui;
 
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -198,5 +203,27 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    @FXML
+    public static void triggerReminder(String message, long delay) {
+        Timeline timeline =
+            new Timeline(
+                new KeyFrame(
+                    Duration.seconds(delay), ae -> MainWindow.showReminder(message)));
+        timeline.play();
+    }
+
+    @FXML
+    /**
+     * Is triggered at the delayed time in Duke itself.
+     * https://thecodinginterface.com/blog/javafx-alerts-and-dialogs/#informational-alert
+     */
+    public static void showReminder(String response) {
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("reminder");
+        alert.setHeaderText("Reminder");
+        alert.setContentText(response);
+        alert.show();
     }
 }

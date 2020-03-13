@@ -1,6 +1,7 @@
 package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.address.ui.MainWindow;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -31,6 +32,8 @@ public class Task {
         this.description = description;
         this.done = done;
         this.tags.addAll(tags);
+        timedPrint(10);
+
     }
 
     // without done provided
@@ -79,6 +82,10 @@ public class Task {
         return otherTask != null
                 && otherTask.getName().equals(getName())
                 && (otherTask.getPriority().equals(getPriority()));
+    }
+
+    public void timedPrint(long delay) {
+        MainWindow.triggerReminder("reminder test", delay);
     }
 
     /**
