@@ -2,15 +2,15 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
-import csdev.couponstash.commons.core.Messages;
+import java.time.LocalDate; //add space
+import java.util.List;
+import csdev.couponstash.commons.core.Messages;// add space above
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
-import java.time.LocalDate;
-import java.util.List;
 
-/**
+/** --13
  * This class represents the remind command in Coupon Stash
  * The remind command allows the user to set date to be reminded
  * for a coupon. Upon the date of the reminder, Coupon Stash will
@@ -22,7 +22,7 @@ public class RemindCommand extends Command {
     public static final String COMMAND_WORD = "remind";
     private static String messageSuccess = "";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": set a reminder of a coupon, identified by the index number "
             + "used in coupon listing. "
             + "Existing reminder will be overwritten by the input.\n"
@@ -33,7 +33,7 @@ public class RemindCommand extends Command {
             + "\n" + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_REMIND + " 2 days";
 
-    private final static String MESSAGE_ARGUMENTS = "Reminder has been set on %2$s for Coupon %1$s";
+    private static final String MESSAGE_ARGUMENTS = "Reminder has been set on %2$s for Coupon %1$s";
 
     private final Index index;
     private LocalDate remindDate;
@@ -43,7 +43,7 @@ public class RemindCommand extends Command {
      * @param index of the coupon in the coupon lists to edit
      * @param input details to remind the coupon on
      */
-    
+    // remove line 
     public RemindCommand(Index index, String input) {
         requireAllNonNull(index, input);
 
@@ -51,7 +51,7 @@ public class RemindCommand extends Command {
         this.input = input;
         this.remindDate = LocalDate.now();
     }
-    
+    //remove line
     /**
      * Executes the RemindCommand with a given Model representing
      * the current state of the Coupon Stash application
@@ -59,9 +59,9 @@ public class RemindCommand extends Command {
      * @return Returns the CommandResult that encompasses the
      *     message that should be shown to the user, as well as
      *     any other external actions that should occur.
-     * @throws CommandException CommandException is thrown either when
-     *     the remind date is set after the coupon's expiry date or the coupon 
-     *      index is out of range. (Coupon does not exist)
+     * @throws CommandException is thrown either when
+     *     the remind date is set after the coupon's expiry date or the coupon
+     *     index is out of range (Coupon does not exist).
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
@@ -91,7 +91,7 @@ public class RemindCommand extends Command {
             LocalDate tempDate = LocalDate.parse(input);
 
             //check if input's date is not after the coupon's expiry date
-            if (tempDate.isAfter(couponToEdit.getExpiryDate().date)){
+            if (tempDate.isAfter(couponToEdit.getExpiryDate().date)) {
                 throw new CommandException(Messages.MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE);
             } else {
                 remindDate = tempDate;
