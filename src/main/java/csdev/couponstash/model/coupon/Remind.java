@@ -16,9 +16,9 @@ public class Remind {
             "Remind date should be  in the D-M-YYYY format.";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
-    public  LocalDate date;
-    public  String value;
-    public boolean remindFlag;
+    private LocalDate date;
+    private String value;
+    private boolean remindFlag;
 
     /**
      * Constructs a {@code Remind}.
@@ -29,15 +29,15 @@ public class Remind {
         remindFlag = false;
     }
 
-    public void setRemind(LocalDate date){
+    public void setRemind(LocalDate date) {
         String temp = date.format(DateTimeFormatter.ofPattern("dd-M-yyyy"));
-        if(isValidDate(temp)){
+        if (isValidDate(temp)) {
             value = temp;
             this.date = getDate();
             remindFlag = true;
         }
     }
-    public boolean getRemindFlag(){
+    public boolean getRemindFlag() {
         return this.remindFlag;
     }
     /**
