@@ -10,8 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
 /**

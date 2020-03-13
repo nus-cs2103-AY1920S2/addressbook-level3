@@ -18,7 +18,7 @@ Class ReadOnlyUserPrefs
 Package Recipe {
 Class Recipe
 Class Address
-Class Email
+Class Step
 Class Name
 Class Phone
 Class UniqueRecipeList
@@ -44,13 +44,13 @@ AddressBook *--> "1" UniqueRecipeList
 UniqueRecipeList o--> "*" Recipe
 Recipe *--> Name
 Recipe *--> Phone
-Recipe *--> Email
+Recipe *--> Step
 Recipe *--> Address
 Recipe *--> "*" Tag
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Address -[hidden]right-> Step
 
 ModelManager -->"1" Recipe : filtered list
 @enduml

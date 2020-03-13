@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_BOB;
 

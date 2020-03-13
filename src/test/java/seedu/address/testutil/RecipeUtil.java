@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.Set;

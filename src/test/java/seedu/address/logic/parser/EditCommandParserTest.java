@@ -1,22 +1,22 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_STEP_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOAL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STEP_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
@@ -32,8 +32,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
 

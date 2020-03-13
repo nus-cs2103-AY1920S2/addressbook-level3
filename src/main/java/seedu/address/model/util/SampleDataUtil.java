@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
 /**
