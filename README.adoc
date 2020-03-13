@@ -1,10 +1,9 @@
-= TATracker
+= TA-Tracker
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S2-CS2103T-W17-4/main[image:https://travis-ci.org/AY1920S2-CS2103T-W17-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/PotatoCombat/main[image:https://ci.appveyor.com/api/projects/status/hj9hoqnof01ge3pp/branch/master?svg=true[Build status]]
 https://coveralls.io/github/AY1920S2-CS2103T-W17-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S2-CS2103T-W17-4/main/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level3?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level3&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -14,8 +13,8 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop personal income and task management application for NUS Computing Teaching Assistant (TA).
-* It is intended for TA who want to be able to track and manage all of their claimable hours of teaching in NUS.
+* This is a desktop personal income and task management application for NUS Computing Teaching Assistants (TAs).
+* It is intended for TAs who want to be able to track and manage all of their claimable hours of teaching in NUS.
 
 == Site Map
 
@@ -29,5 +28,7 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* TA-Tracker is a brownfield project based on the https://github.com/nus-cs2103-AY1920S2/addressbook-level3[AddressBook-Level3]
+  project created by https://se-education.org[SE-EDU initiative].
 
 == Licence : link:LICENSE[MIT]

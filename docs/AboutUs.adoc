@@ -47,7 +47,7 @@ Responsibilities: Documentation and Code Quality
 '''
 
 === HUANG HAOYI
-image::yl_coder.jpg[width="150", align="left"]
+image::eclmist.png[width="150", align="left"]
 {empty}[https://github.com/Eclmist[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
