@@ -1,38 +1,22 @@
 package seedu.address.model.task;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class DescriptionTest {
-
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Description(null));
-    }
-
-    @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
-        String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Description(invalidAddress));
-    }
-
-    @Test
-    public void isValidAddress() {
-        // null address
-        assertThrows(NullPointerException.class, () -> Description.isValidDescription(null));
-
-        // invalid addresses
-        assertFalse(Description.isValidDescription("")); // empty string
-        assertFalse(Description.isValidDescription(" ")); // spaces only
-
-        // valid addresses
-        assertTrue(Description.isValidDescription("Blk 456, Den Road, #01-355"));
-        assertTrue(Description.isValidDescription("-")); // one character
+    public void isValidDescription() {
+        // valid descriptions
+        assertTrue(Description.isValidDescription("")); // empty string
+        assertTrue(Description.isValidDescription(" ")); // spaces only
+        assertTrue(Description.isValidDescription("^")); // only non-alphanumeric characters
         assertTrue(
-                Description.isValidDescription(
-                        "Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+                Description.isValidDescription("peter*")); // contains non-alphanumeric characters
+        assertTrue(Description.isValidDescription("peter jack")); // alphabets only
+        assertTrue(Description.isValidDescription("12345")); // numbers only
+        assertTrue(Description.isValidDescription("peter the 2nd")); // alphanumeric characters
+        assertTrue(Description.isValidDescription("Capital Tan")); // with capital letters
+        assertTrue(Description.isValidDescription("David Roger Jackson Ray Jr 2nd")); // long names
     }
 }

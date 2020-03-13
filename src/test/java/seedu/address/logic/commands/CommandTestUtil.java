@@ -46,8 +46,6 @@ public class CommandTestUtil {
             " " + PREFIX_NAME + "math&"; // '&' not allowed in names
     public static final String INVALID_PRIORITY_DESC =
             " " + PREFIX_PRIORITY + "99"; // any number not 1,2 or 3 not allowed in priority
-    public static final String INVALID_DESCRIPTION_DESC =
-            " " + PREFIX_DESCRIPTION; // empty string not allowed for description
     public static final String INVALID_TAG_DESC =
             " " + PREFIX_TAG + "tricky*"; // '*' not allowed in tags
 

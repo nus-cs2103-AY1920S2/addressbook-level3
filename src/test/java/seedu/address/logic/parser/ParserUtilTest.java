@@ -19,11 +19,10 @@ import seedu.address.model.task.Priority;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PRIORITY = "+651234";
-    private static final String INVALID_DESCRIPTION = " ";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PRIORITY = "123456";
+    private static final String VALID_PRIORITY = "2";
     private static final String VALID_DESCRIPTION = "";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
@@ -94,6 +93,7 @@ public class ParserUtilTest {
     @Test
     public void parsePriority_validValueWithWhitespace_returnsTrimmedPriority() throws Exception {
         String priorityWithWhitespace = WHITESPACE + VALID_PRIORITY + WHITESPACE;
+        System.out.println(priorityWithWhitespace);
         Priority expectedPriority = new Priority(VALID_PRIORITY);
         assertEquals(expectedPriority, ParserUtil.parsePriority(priorityWithWhitespace));
     }
@@ -101,11 +101,6 @@ public class ParserUtilTest {
     @Test
     public void parseDescription_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
-    }
-
-    @Test
-    public void parseDescription_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseDescription(INVALID_DESCRIPTION));
     }
 
     @Test
