@@ -13,4 +13,9 @@ public class Course {
     public Course(String course) {
         this.course = course;
     }
+
+    @Override
+    public String toString() {
+        return this.course;
+    }
 }

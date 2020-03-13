@@ -28,7 +28,7 @@ public class Personal {
         } else if (status.equals("in progress")) {
             this.status.setInProgress();
         } else {
-            this.status.setNotTaken();
+            this.status.setPlanning();
         }
     }
 }
