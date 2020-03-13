@@ -272,5 +272,5 @@ e.g. `removefood -f fries`
 * *Paid* : `paid INDEX` +
 e.g. `paid 3`
 
-* *back* `back`
+* *Back* `back` +
 e.g. `back`
