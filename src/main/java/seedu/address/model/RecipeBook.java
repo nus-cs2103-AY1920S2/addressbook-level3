@@ -9,8 +9,8 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.UniqueRecipeList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the recipe-book level
+ * Duplicates are not allowed (by .isSameRecipe comparison)
  */
 public class RecipeBook implements ReadOnlyRecipeBook {
 
@@ -54,7 +54,7 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     public void resetData(ReadOnlyRecipeBook newData) {
         requireNonNull(newData);
 
-        setRecipes(newData.getPersonList());
+        setRecipes(newData.getRecipeList());
     }
 
     //// recipe-level operations
@@ -90,7 +90,7 @@ public class RecipeBook implements ReadOnlyRecipeBook {
      * Removes {@code key} from this {@code RecipeBook}.
      * {@code key} must exist in the recipe book.
      */
-    public void removePerson(Recipe key) {
+    public void removeRecipe(Recipe key) {
         recipes.remove(key);
     }
 
@@ -103,7 +103,7 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     }
 
     @Override
-    public ObservableList<Recipe> getPersonList() {
+    public ObservableList<Recipe> getRecipeList() {
         return recipes.asUnmodifiableObservableList();
     }
 
