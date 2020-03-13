@@ -70,8 +70,8 @@ The time taken for the meal to be cooked is measured in minutes (min).
 
 Examples:
 
-* `add n/Spicy Chicken t/30 ip/300, Chicken Wings io/50, Ketchup io/50, Garlic Chili Sauce
-* `add n/Everyday Salad Bowl t/10 iv/100, Romaine Lettuce iv/100, Cherry Tomato iv/100, Cucumber, io/30, Salad Dressing g/Herbivore
+* `add n/Spicy Chicken t/30 ip/300, Chicken Wings io/50, Ketchup io/50, Garlic Chili Sauce`
+* `add n/Everyday Salad Bowl t/10 iv/100, Romaine Lettuce iv/100, Cherry Tomato iv/100, Cucumber, io/30, Salad Dressing g/Herbivore`
 
 === Adding the steps to a recipe: `addS`
 
@@ -131,6 +131,26 @@ There is no need to save manually.
 
 == Filter Feature
 
+=== Filter by ingredients
+
+Finds recipes that contains the specified ingredients. +
+Format: `filter [i/INGREDIENT 1, INGREDIENT 2, ...]`
+
+=== Filter by goals
+
+Finds recipes that are tagged with the specified goal. +
+Format: `filter [g/GOAL]`
+
+=== Filter by favourites
+
+Finds recipes that are tagged as favourites. +
+Format: `filter favourites`
+
+=== Filter by preparation time
+
+Finds recipes that have preparation time less than or equals to the specified time (in minutes). +
+Format: `filter [t/TIME]`
+
 == Plan Feature
 
 === Set a recipe to be cooked on a certain day: `set`
@@ -178,20 +198,20 @@ Format: `chart g/GOAL`
 
 == Achievement
 
-==== Display streak: streak
+==== Display streak: `streak`
 
 Displays number of consecutive days user has cooked a meal from the app +
 Format: streak `STREAK_NUM`
 
-=== Display motivational quote : quote
+=== Display motivational quote : `quote`
 
 Displays randomized motivational quote of the day +
 Format: quote `QUOTE_OF_DAY`
 
-=== Compares prices: compare
+=== Show image gallery: `show`
 
-Compares prices user would have used if they had delivered their food instead of cooking +
-Format: price `PRICE_NUM` vs price `PRICE_NUM`
+Displays food photos users uploads +
+Format: image `i/IMAGE`
 
 == FAQ
 
