@@ -18,7 +18,6 @@ import csdev.couponstash.model.coupon.Coupon;
  * for a coupon. Upon the date of the reminder, Coupon Stash will
  * notify the user in a form of a pop when Coupon Stash is launched.
  */
-
 public class RemindCommand extends Command {
 
     public static final String COMMAND_WORD = "remind";

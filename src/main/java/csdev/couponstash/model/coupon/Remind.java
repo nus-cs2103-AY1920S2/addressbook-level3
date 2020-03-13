@@ -13,7 +13,7 @@ public class Remind {
             "Remind date should be  in the D-M-YYYY format.";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
-    private LocalDate date;
+    //  private LocalDate date; assigned but never accessed, shall comment this out first - Nelson
     private String value;
     private boolean remindFlag;
 
@@ -22,7 +22,7 @@ public class Remind {
      */
     public Remind() {
         value = "";
-        date = null;
+        // date = null;
         remindFlag = false;
     }
 
@@ -30,7 +30,7 @@ public class Remind {
         String temp = date.format(DateTimeFormatter.ofPattern("dd-M-yyyy"));
         if (isValidDate(temp)) {
             value = temp;
-            this.date = getDate();
+            // this.date = getDate();
             remindFlag = true;
         }
     }

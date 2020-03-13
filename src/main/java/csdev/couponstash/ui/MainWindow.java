@@ -107,7 +107,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        couponListPanel = new CouponListPanel(logic.getFilteredCouponList());
+        couponListPanel = new CouponListPanel(
+                logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
