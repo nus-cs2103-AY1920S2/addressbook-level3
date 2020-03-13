@@ -31,11 +31,27 @@ public class AddDeadlineCommandParser extends AddCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDeadlineCommand.MESSAGE_USAGE));
         }
 
+        // compulsory fields
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-        Note note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-        Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+
+        // optional fields - must see if it exist, else create null
+        Note note;
+        if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
+            note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+        } else {
+            note  = null;
+        }
+
+        Priority priority;
+        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
+            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        } else {
+            priority = null;
+        }
+
+        // create deadline and return
         Deadline deadline = new Deadline(activityName, date, note, Status.ONGOING ,priority);
         return new AddDeadlineCommand(deadline, moduleCode);
     }

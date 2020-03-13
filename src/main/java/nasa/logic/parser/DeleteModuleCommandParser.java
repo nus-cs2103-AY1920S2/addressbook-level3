@@ -1,11 +1,15 @@
 package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import java.util.ArrayList;
 
 import nasa.logic.commands.DeleteModuleCommand;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
 
 public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
     /**
@@ -15,13 +19,11 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
      */
     public DeleteModuleCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        /*TODO add implementation
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
 
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
 
-         */
-        return new DeleteModuleCommand(new ArrayList<>());
+        return new DeleteModuleCommand(new Module(new ModuleCode("cs1231"), new ModuleName("Hellos")));
     }
 }
