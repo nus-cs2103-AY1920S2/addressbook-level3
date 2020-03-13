@@ -64,20 +64,20 @@
               <children>
                 <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToStudent"
                   prefHeight="80.0"
-                  prefWidth="80.0" text="Students"/>
+                  prefWidth="150.0" text="Students"/>
                 <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToTeacher"
                   prefHeight="80.0"
-                  prefWidth="80.0" text="Teachers"/>
+                  prefWidth="150.0" text="Teachers"/>
                 <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToCourse" prefHeight="80.0"
-                  prefWidth="80.0" text="Courses"/>
+                  prefWidth="150.0" text="Courses"/>
                 <Button mnemonicParsing="false" onMouseClicked="#handleSwitchToFinance"
                   prefHeight="80.0"
-                  prefWidth="80.0" text="Finances"/>
+                  prefWidth="150.0" text="Finances"/>
               </children>
             </HBox>
 
             <VBox SplitPane.resizableWithParent="true" minWidth="340" prefWidth="2000"
-              fx:id="dataList">
+              fx:id="dataList" styleClass="right-pane">
               <StackPane VBox.vgrow="ALWAYS" fx:id="dataListPanelPlaceholder"/>
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10"/>
