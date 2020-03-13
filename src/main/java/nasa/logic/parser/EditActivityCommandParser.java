@@ -9,13 +9,21 @@ import nasa.logic.commands.EditActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
-public class EditActivityCommandParser {
+/**
+ * Parses input arguments and creates a new EditActivityCommand object
+ */
+public class EditActivityCommandParser implements Parser<EditActivityCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditActivityCommand
+     * and returns an EditCommand object for execution.
+     * @throws nasa.logic.parser.exceptions.ParseException if the user input does not conform the expected format
+     */
     //TODO add implementation
     public EditActivityCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE); // stub
 
         Index index;
         try {
@@ -25,7 +33,7 @@ public class EditActivityCommandParser {
                     pe);
         }
 
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-        return new EditActivityCommand(index, moduleCode);
+        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()); // stub
+        return new EditActivityCommand(index, moduleCode); // stub
     }
 }

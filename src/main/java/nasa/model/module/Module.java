@@ -89,6 +89,20 @@ public class Module {
     }
 
     /**
+     * Returns true if both modules of the same module code.
+     * @param otherModule the module to be compared to
+     * @return true if both modules are the same instance, or both have the same module code, otherwise, false
+     */
+    public boolean isSameModule(Module otherModule) {
+        if (otherModule == this) {
+            return true;
+        }
+
+        return otherModule != null
+                && otherModule.getModuleCode().equals(getModuleCode());
+    }
+
+    /**
      * Returns true if both are the same module.
      * This defines a stronger notion of equality between two activities.
      */
