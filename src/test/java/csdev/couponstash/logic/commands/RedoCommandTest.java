@@ -13,7 +13,6 @@ import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.testutil.CouponBuilder;
-import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
 
@@ -72,8 +71,6 @@ class RedoCommandTest {
         );
 
         Coupon editedCoupon = new CouponBuilder().build();
-        EditCommand.EditCouponDescriptor descriptor =
-                new EditCouponDescriptorBuilder(editedCoupon).build();
 
         model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
         model.undoCouponStash();
