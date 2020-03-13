@@ -6,6 +6,8 @@ skinparam classAttributeIconSize 0
 
 class RecipeBook {
     -recipes : UniqueRecipeList
+    +addRecipe()
+    +deleteRecipe()
     +list()
     +duplicate()
 }
