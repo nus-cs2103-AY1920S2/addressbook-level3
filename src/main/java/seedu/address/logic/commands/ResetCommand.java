@@ -11,7 +11,7 @@ import seedu.address.model.RecipeBook;
 public class ResetCommand extends Command {
 
     public static final String COMMAND_WORD = "reset";
-    public static final String MESSAGE_SUCCESS = "Recipe book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "The recipe book has been cleared!";
 
 
     @Override
