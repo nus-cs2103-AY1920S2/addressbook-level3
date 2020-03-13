@@ -219,20 +219,28 @@ Format: +
 Example: +
 `listperson`
 
-==== List person(s) `listreceipt`
+==== List the current receipt `listreceipt`
 
-Display all the Person(s) with the amount they owe you +
+Display the current receipt which shows all the Items and its respective price and Person(s) involved in splitting that Item +
 Format: +
-`listamount` +
+`listreceipt` +
 
 Example: +
-`listperson`
+`listreceipt`
 
-==== Exiting split to go back main menu `paid`
+==== Paid money `paid`
 
-Exits split to go back to main menu of the application. +
+When a Person pays an amount, or part of the amount, they owe you. +
 Format: +
-`back`
+`paid INDEX` +
+
+Example: +
+`paid 2`
+
+[TIP]
+===
+* When using paid
+===
 
 ==== Exiting split to go back main menu `back`
 
