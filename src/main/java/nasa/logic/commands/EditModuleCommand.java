@@ -59,6 +59,7 @@ public class EditModuleCommand extends Command {
             throw new nasa.logic.commands.exceptions.CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
         }
 
+        // TODO: @kester need to discuss the logic for the line below further
         Module moduleToEdit = lastShownList.get(index.getZeroBased());
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
