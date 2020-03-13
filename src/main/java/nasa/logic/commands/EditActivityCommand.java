@@ -1,7 +1,6 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-<<<<<<< HEAD:src/main/java/nasa/logic/commands/EditActivityCommand.java
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
@@ -11,17 +10,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-=======
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
-import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
-
-import nasa.logic.commands.exceptions.CommandException;
-import nasa.model.Model;
-import nasa.commons.core.index.Index;
->>>>>>> cf98652144e57734b46653f44f8db289a6e30a49:src/main/java/NASA/logic/commands/EditActivityCommand.java
 import nasa.model.module.ModuleCode;
 
 public class EditActivityCommand extends Command {

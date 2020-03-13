@@ -1,15 +1,9 @@
 package nasa.logic.commands;
-<<<<<<< HEAD:src/main/java/nasa/logic/commands/FindCommand.java
-=======
 
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
->>>>>>> cf98652144e57734b46653f44f8db289a6e30a49:src/main/java/NASA/logic/commands/FindCommand.java
 
 import static java.util.Objects.requireNonNull;
-
-import nasa.logic.commands.exceptions.CommandException;
-import nasa.model.Model;
 
 public class FindCommand extends Command {
 

@@ -1,18 +1,10 @@
 package nasa.logic.commands.addcommands;
 
-<<<<<<< HEAD:src/main/java/nasa/logic/commands/addcommands/AddEventCommand.java
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-=======
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
-import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
->>>>>>> cf98652144e57734b46653f44f8db289a6e30a49:src/main/java/NASA/logic/commands/addcommands/AddEventCommand.java
 
 import nasa.model.activity.Event;
 import nasa.model.module.ModuleCode;
