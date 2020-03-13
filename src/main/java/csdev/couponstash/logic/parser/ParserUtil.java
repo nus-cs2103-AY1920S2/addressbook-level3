@@ -12,6 +12,7 @@ import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
@@ -145,7 +146,22 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String usage} into an {@code Usage}.
+     * Parses a {@code String expiryDate} into an {@code ExpiryDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code expiryDate} is invalid.
+     */
+    public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
+        requireNonNull(expiryDate);
+        String trimmedDate = expiryDate.trim();
+        if (!ExpiryDate.isValidExpiryDate(trimmedDate)) {
+            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
+        }
+        return new ExpiryDate(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String usage} into a {@code Usage}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code usage} is invalid.
@@ -157,6 +173,21 @@ public class ParserUtil {
             throw new ParseException(Usage.MESSAGE_CONSTRAINTS);
         }
         return new Usage(trimmedUsage);
+    }
+
+    /**
+     * Parses a {@code String limit} into a {@code Limit}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code limit} is invalid.
+     */
+    public static Limit parseLimit(String limit) throws ParseException {
+        requireNonNull(limit);
+        String trimmedLimit = limit.trim();
+        if (!Limit.isValidLimit(trimmedLimit)) {
+            throw new ParseException(Limit.MESSAGE_CONSTRAINTS);
+        }
+        return new Limit(trimmedLimit);
     }
 
     /**
@@ -184,20 +215,5 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
-    }
-
-    /**
-     * Parses a {@code String expiryDate} into an {@code ExpiryDate}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code expiryDate} is invalid.
-     */
-    public static ExpiryDate parseExpiryDate(String expiryDate) throws ParseException {
-        requireNonNull(expiryDate);
-        String trimmedDate = expiryDate.trim();
-        if (!ExpiryDate.isValidExpiryDate(trimmedDate)) {
-            throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
-        }
-        return new ExpiryDate(trimmedDate);
     }
 }

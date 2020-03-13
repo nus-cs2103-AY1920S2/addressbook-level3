@@ -16,6 +16,7 @@ import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
@@ -37,7 +38,8 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
             + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
-            + "[" + CliSyntax.PREFIX_USAGE + "1 "
+            + "[" + CliSyntax.PREFIX_USAGE + "4 "
+            + "[" + CliSyntax.PREFIX_LIMIT + "5 "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 ";
@@ -93,10 +95,12 @@ public class EditCommand extends Command {
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
         Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
         Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
+        Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedUsage, updatedTags);
+        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate,
+                updatedUsage, updatedLimit, updatedTags);
     }
 
     @Override
@@ -127,6 +131,7 @@ public class EditCommand extends Command {
         private Savings savings;
         private ExpiryDate expiryDate;
         private Usage usage;
+        private Limit limit;
         private Set<Tag> tags;
 
         public EditCouponDescriptor() {}
@@ -138,17 +143,18 @@ public class EditCommand extends Command {
         public EditCouponDescriptor(EditCouponDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setUsage(toCopy.usage);
-            setTags(toCopy.tags);
             setSavings(toCopy.savings);
             setExpiryDate(toCopy.expiryDate);
+            setUsage(toCopy.usage);
+            setLimit(toCopy.limit);
+            setTags(toCopy.tags);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, limit, tags);
         }
 
         public void setName(Name name) {
@@ -195,14 +201,20 @@ public class EditCommand extends Command {
             return Optional.ofNullable(expiryDate);
         }
 
-
         public void setUsage(Usage usage) {
             this.usage = usage;
         }
 
         public Optional<Usage> getUsage() {
-
             return Optional.ofNullable(usage);
+        }
+
+        public void setLimit(Limit limit) {
+            this.limit = limit;
+        }
+
+        public Optional<Limit> getLimit() {
+            return Optional.ofNullable(limit);
         }
 
         /**
@@ -242,6 +254,7 @@ public class EditCommand extends Command {
                     && getSavings().equals(e.getSavings())
                     && getExpiryDate().equals(e.getExpiryDate())
                     && getUsage().equals(e.getUsage())
+                    && getLimit().equals(e.getLimit())
                     && getTags().equals(e.getTags());
         }
     }

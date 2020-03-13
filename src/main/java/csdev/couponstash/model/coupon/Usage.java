@@ -4,62 +4,41 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Coupon's usage in the CouponStash.
+ * Represents a Coupon's usage in the CouponStash. im chester.
  * Guarantees: immutable; is valid as declared in {@link #isValidUsage(String)}
  */
 public class Usage {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Usage should only contain numbers, and it should be at least be 0";
-    public static final String VALIDATION_REGEX = "^$|\\d+$";
+            "Usage should only contain numbers, and it should at least be a value of 0";
+    public static final String VALIDATION_REGEX = "^(\\s*|\\d+)$";
     public final String value;
-    public final String maxUsage;
 
     /**
      * Constructs a {@code Usage}.
-     * If {@code maxUsage} is an empty string, it will default to 1.
      *
-     * @param maxUsage Maximum number of times the coupon can be used.
-     * @param currentValue Current number of times the coupon has been used.
+     * @param usage Valid usage number.
      */
-    public Usage(String maxUsage, String currentValue) {
-        requireNonNull(maxUsage);
-        requireNonNull(currentValue);
-
-        checkArgument(isValidUsage(maxUsage));
-        checkArgument(isValidUsage(currentValue));
-
-        if (maxUsage.equals("")) {
-            this.maxUsage = "0";
+    public Usage(String usage) {
+        requireNonNull(usage);
+        checkArgument(isValidUsage(usage), MESSAGE_CONSTRAINTS);
+        if(usage.equals("")){
+            value = "0";
         } else {
-            this.maxUsage = maxUsage;
+            value = usage;
         }
-
-        value = currentValue;
     }
 
     /**
-     * Constructs a {@code Usage} that defaults the current value to 0 .
-     * If {@code maxUsage} is an empty string, it will default to 1.
-     *
-     * @param maxUsage A valid limit number.
+     * Constructs a {@code Usage} that defaults the current value to 0.
      */
-    public Usage(String maxUsage) {
-        requireNonNull(maxUsage);
-        checkArgument(isValidUsage(maxUsage), MESSAGE_CONSTRAINTS);
-
-        if (maxUsage.equals("")) {
-            this.maxUsage = "1";
-        } else {
-            this.maxUsage = maxUsage;
-        }
-
-        value = "0";
+    public Usage() {
+        this("0");
     }
 
-    /**
-     * Returns true if a given string is a valid usage number.
-     * @param test
+    /** Returns true if a given string is a valid usage number.
+     *
+     * @param test String to be validated.
      */
     public static boolean isValidUsage(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -70,10 +49,10 @@ public class Usage {
      *
      * @param usage The usage of the coupon.
      */
-    public static boolean isUsageAtLimit(Usage usage) {
-        Integer currentUsage = Integer.parseInt(usage.value);
-        Integer limit = Integer.parseInt(usage.maxUsage);
-        return currentUsage >= limit;
+    public static boolean isUsageAtLimit(Usage usage, Limit limit) {
+        Double currentUsage = Double.parseDouble(usage.value);
+        Double usageLimit = limit.getParsedLimit();
+        return currentUsage >= usageLimit;
     }
 
     /**
@@ -89,24 +68,19 @@ public class Usage {
     public Usage increaseUsage(String numberOfTimes) {
         Integer currentValue = Integer.parseInt(value);
         Integer finalValue = Integer.parseInt(numberOfTimes) + currentValue;
-        return new Usage(maxUsage, finalValue.toString());
-    }
-
-    public Integer getMaxUsage() {
-        return Integer.parseInt(maxUsage);
+        return new Usage(finalValue.toString());
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        return String.format("You have used it %s time(s)", value);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof Usage
-                && value.equals(((Usage) other).value))
-                && maxUsage.equals(((Usage) other).maxUsage);
+                && value.equals(((Usage) other).value));
     }
 
     @Override

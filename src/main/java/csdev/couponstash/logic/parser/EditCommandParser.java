@@ -47,6 +47,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                         CliSyntax.PREFIX_EXPIRY_DATE,
                         CliSyntax.PREFIX_SAVINGS,
                         CliSyntax.PREFIX_USAGE,
+                        CliSyntax.PREFIX_LIMIT,
                         CliSyntax.PREFIX_TAG);
 
         Index index;
@@ -78,9 +79,13 @@ public class EditCommandParser implements Parser<EditCommand> {
                     .getValue(CliSyntax.PREFIX_USAGE).get()));
         }
 
+        if (argMultimap.getValue(CliSyntax.PREFIX_LIMIT).isPresent()) {
+            editCouponDescriptor.setLimit(ParserUtil.parseLimit(argMultimap
+                    .getValue(CliSyntax.PREFIX_LIMIT).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_TAG))
                 .ifPresent(editCouponDescriptor::setTags);
-
 
         if (!editCouponDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

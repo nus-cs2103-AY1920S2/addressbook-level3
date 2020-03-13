@@ -11,6 +11,7 @@ import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
@@ -31,7 +32,7 @@ public class UsedCommand extends Command {
 
     public static final String MESSAGE_USED_COUPON_SUCCESS = "Used Coupon: %1$s";
     public static final String MESSAGE_USAGE_LIMIT_REACHED = "Coupon usage limit has been reached!\n"
-            + "You can only use it for a maximum of %d time(s).";
+            + "You can only use it for a maximum of %s time(s).";
 
     private final Index targetIndex;
 
@@ -53,9 +54,10 @@ public class UsedCommand extends Command {
 
         Coupon couponToBeUsed = lastShownList.get(targetIndex.getZeroBased());
         Usage currentUsage = couponToBeUsed.getUsage();
+        Limit limit = couponToBeUsed.getLimit();
 
-        if (Usage.isUsageAtLimit(currentUsage)) {
-            throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, currentUsage.getMaxUsage()));
+        if (Usage.isUsageAtLimit(currentUsage, limit)) {
+            throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, limit.getLimit()));
         }
 
         Coupon usedCoupon = createUsedCoupon(couponToBeUsed);
@@ -80,9 +82,10 @@ public class UsedCommand extends Command {
         Phone phone = couponToBeUsed.getPhone();
         Savings savings = couponToBeUsed.getSavings();
         ExpiryDate expiryDate = couponToBeUsed.getExpiryDate();
+        Limit limit = couponToBeUsed.getLimit();
         Set<Tag> tags = couponToBeUsed.getTags();
         Usage updatedUsage = couponToBeUsed.getUsage().increaseUsageByOne();
 
-        return new Coupon(name, phone, savings, expiryDate, updatedUsage, tags);
+        return new Coupon(name, phone, savings, expiryDate, updatedUsage, limit, tags);
     }
 }
