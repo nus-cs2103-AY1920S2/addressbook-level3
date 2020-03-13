@@ -6,9 +6,8 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
+import nasa.commons.core.index.Index;
+import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.model.module.exceptions.ModuleNotFoundException;
@@ -16,6 +15,7 @@ import nasa.model.module.exceptions.ModuleNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nasa.commons.util.CollectionUtil;
+
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
@@ -85,6 +85,13 @@ public class UniqueModuleList implements Iterable<Module> {
         }
     }
 
+    /**
+     * Removes the Module based on index.
+     */
+    public void removeByIndex(Index index) {
+        internalList.remove(index.getZeroBased());
+    }
+
     public void setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -96,11 +103,25 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public void setModules(List<Module> modules) {
         CollectionUtil.requireAllNonNull(modules);
-        if (!equals(modules)) {
+        if (!modulesAreUnique(modules)) {
             throw new DuplicateModuleException();
         }
 
         internalList.setAll(modules);
+    }
+
+    public void setActivityByIndex(Module module, Index index, Activity activity) {
+        requireNonNull(activity);
+
+        Module moduleSelected = getModule(module);
+        moduleSelected.setActivityByIndex(index, activity);
+    }
+
+    public void editActivityByIndex(Module module, Index index, Object... args) {
+        requireNonNull(args);
+
+        Module moduleSelected = getModule(module);
+        moduleSelected.editActivityByIndex(index, args);
     }
 
     public UniqueActivityList getActivities(Module module) {
@@ -137,7 +158,7 @@ public class UniqueModuleList implements Iterable<Module> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueModuleList // instanceof handles nulls
-                        && internalList.equals(((UniqueModuleList) other).internalList));
+                && internalList.equals(((UniqueModuleList) other).internalList));
     }
 
     @Override
@@ -148,7 +169,7 @@ public class UniqueModuleList implements Iterable<Module> {
     /**
      * Returns true if {@code modules} contains only unique modules.
      */
-    private boolean activitiesAreUnique(List<Module> modules) {
+    private boolean modulesAreUnique(List<Module> modules) {
         for (int i = 0; i < modules.size() - 1; i++) {
             for (int j = i + 1; j < modules.size(); j++) {
                 if (modules.get(i).equals(modules.get(j))) {
