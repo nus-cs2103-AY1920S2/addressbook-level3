@@ -307,11 +307,13 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(white, 20%);
+    -fx-border-color: black;
+    -fx-border-width: 1;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(black, 100%);
     -fx-background-insets: 3;
 }
 
