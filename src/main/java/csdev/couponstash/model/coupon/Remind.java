@@ -3,9 +3,6 @@ package csdev.couponstash.model.coupon;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static csdev.couponstash.commons.util.AppUtil.checkArgument;
-import static java.util.Objects.requireNonNull;
-
 /**
  * Represents a Coupon's expiry date in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}

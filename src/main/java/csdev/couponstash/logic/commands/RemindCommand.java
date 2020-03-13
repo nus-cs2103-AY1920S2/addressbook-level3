@@ -2,9 +2,11 @@ package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
-import java.time.LocalDate; //add space
+
+import java.time.LocalDate;
 import java.util.List;
-import csdev.couponstash.commons.core.Messages;// add space above
+
+import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
@@ -43,7 +45,6 @@ public class RemindCommand extends Command {
      * @param index of the coupon in the coupon lists to edit
      * @param input details to remind the coupon on
      */
-    // remove line 
     public RemindCommand(Index index, String input) {
         requireAllNonNull(index, input);
 
@@ -51,7 +52,7 @@ public class RemindCommand extends Command {
         this.input = input;
         this.remindDate = LocalDate.now();
     }
-    //remove line
+
     /**
      * Executes the RemindCommand with a given Model representing
      * the current state of the Coupon Stash application

@@ -45,10 +45,10 @@ public class Coupon {
         this.tags.addAll(tags);
     }
 
-    public Remind getRemind() { 
-        return remind; 
+    public Remind getRemind() {
+        return remind;
     }
-    
+
     public Name getName() {
         return name;
     }
