@@ -6,7 +6,7 @@ package com.notably.logic.suggestion;
  */
 interface SuggestionEngine {
     /**
-     * Generate suggestions.
+     * Generates suggestions.
      * When input cannot get corrected, the "error" message will be shown in commandTextProperty.
      * @param input User's input.
      */
