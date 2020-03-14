@@ -21,7 +21,7 @@ public class SportCard extends UiPart<AnchorPane> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public Entry sport;
+    private Entry sport;
 
     @FXML
     private AnchorPane innerPane;
@@ -50,7 +50,7 @@ public class SportCard extends UiPart<AnchorPane> {
     /**
      * Creates a card displaying the {@code sport entry}.
      *
-     * @param sport          to display
+     * @param sport a list of sport entries
      * @param displayedIndex the index of the order to show on the card
      */
     public SportCard(Entry sport, int displayedIndex) {
@@ -59,6 +59,11 @@ public class SportCard extends UiPart<AnchorPane> {
         fillInDetails(sport, displayedIndex);
     }
 
+    /**
+     * Fills in details in GUI, in list view.
+     * @param sport a list of sport entries
+     * @param displayedIndex the index of the order to show on the card
+     */
     private void fillInDetails(Entry sport, int displayedIndex) {
         index.setText(displayedIndex + ".");
         name.setText(sport.getName().toString());

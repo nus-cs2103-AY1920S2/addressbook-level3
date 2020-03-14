@@ -21,7 +21,7 @@ public class FoodCard extends UiPart<AnchorPane> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public Entry food;
+    private Entry food;
 
     @FXML
     private AnchorPane innerPane;
@@ -60,6 +60,11 @@ public class FoodCard extends UiPart<AnchorPane> {
         fillInDetails(food, displayedIndex);
     }
 
+    /**
+     * Fills in details in GUI, in list view.
+     * @param food the list of food entries display
+     * @param displayedIndex the index of the order to show on the card
+     */
     private void fillInDetails(Entry food, int displayedIndex) {
         index.setText(displayedIndex + ".");
         name.setText(food.getName().toString());
