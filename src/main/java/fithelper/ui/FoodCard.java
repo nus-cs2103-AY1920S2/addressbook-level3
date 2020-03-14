@@ -35,7 +35,7 @@ public class FoodCard extends UiPart<AnchorPane> {
     @FXML
     private Label time;
     @FXML
-    private Label location;
+    private Label place;
     @FXML
     private Label calorie;
 
@@ -44,7 +44,7 @@ public class FoodCard extends UiPart<AnchorPane> {
         this.food = food;
         name.setText(food.getName().toString());
         time.setText(food.getTime().toString());
-        location.setText(food.getLocation().toString());
+        place.setText(food.getPlace().toString());
         calorie.setText(food.getCalorie().toString());
     }
 
@@ -57,20 +57,19 @@ public class FoodCard extends UiPart<AnchorPane> {
     public FoodCard(Entry food, int displayedIndex) {
         super(FXML);
         this.food = food;
-        fillInDetails(food, displayedIndex);
+        fillInDetails(displayedIndex);
     }
 
     /**
      * Fills in details in GUI, in list view.
-     * @param food the list of food entries display
      * @param displayedIndex the index of the order to show on the card
      */
-    private void fillInDetails(Entry food, int displayedIndex) {
+    private void fillInDetails(int displayedIndex) {
         index.setText(displayedIndex + ".");
         name.setText(food.getName().toString());
         status.setText(food.getStatus().toString());
         time.setText(food.getTime().toString());
-        location.setText(food.getLocation().toString());
+        place.setText(food.getPlace().toString());
         calorie.setText(food.getCalorie().toString());
     }
 

@@ -39,7 +39,7 @@
                                 <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                                     <children>
                                         <Label fx:id="time" text="time" textFill="DARKORANGE" />
-                                        <Label fx:id="location" text="location" textFill="DARKORANGE" />
+                                        <Label fx:id="place" text="place" textFill="DARKORANGE" />
                                     </children>
                                 </VBox>
                                 <Label fx:id="calorie" text="Calorie" textFill="DARKORANGE">

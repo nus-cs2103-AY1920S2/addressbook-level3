@@ -31,7 +31,7 @@ public class SportsCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
-    private Label location;
+    private Label place;
     @FXML
     private Label calorie;
     @FXML
@@ -42,7 +42,7 @@ public class SportsCard extends UiPart<Region> {
         this.sports = sports;
         name.setText(sports.getName().toString());
         time.setText(sports.getTime().toString());
-        location.setText(sports.getLocation().toString());
+        place.setText(sports.getPlace().toString());
         calorie.setText(sports.getCalorie().toString());
         remark.setText(sports.getRemark().value);
     }

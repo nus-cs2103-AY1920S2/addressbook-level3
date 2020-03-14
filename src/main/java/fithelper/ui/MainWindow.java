@@ -175,7 +175,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showCalendarPage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().addAll(calendarPage.getRoot(), fullCalendar.getView());
+        pagePane.getChildren().addAll(calendarPage.getRoot());//, fullCalendar.getView());
         currentPage.setText("Calendar");
     }
 

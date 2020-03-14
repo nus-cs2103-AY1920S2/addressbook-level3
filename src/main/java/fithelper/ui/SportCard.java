@@ -34,7 +34,7 @@ public class SportCard extends UiPart<AnchorPane> {
     @FXML
     private Label time;
     @FXML
-    private Label location;
+    private Label place;
     @FXML
     private Label calorie;
 
@@ -43,7 +43,7 @@ public class SportCard extends UiPart<AnchorPane> {
         this.sport = sport;
         name.setText(sport.getName().toString());
         time.setText(sport.getTime().toString());
-        location.setText(sport.getLocation().toString());
+        place.setText(sport.getPlace().toString());
         calorie.setText(sport.getCalorie().toString());
     }
 
@@ -69,7 +69,7 @@ public class SportCard extends UiPart<AnchorPane> {
         name.setText(sport.getName().toString());
         status.setText(sport.getStatus().toString());
         time.setText(sport.getTime().toString());
-        location.setText(sport.getLocation().toString());
+        place.setText(sport.getPlace().toString());
         calorie.setText(sport.getCalorie().toString());
     }
 
