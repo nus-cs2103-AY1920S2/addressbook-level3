@@ -1,5 +1,7 @@
 package seedu.eylah.expensesplitter.testutil;
 
+import java.math.BigDecimal;
+
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.item.ItemName;
 import seedu.eylah.expensesplitter.model.item.ItemPrice;
@@ -10,7 +12,7 @@ import seedu.eylah.expensesplitter.model.item.ItemPrice;
 public class ItemBuilder {
 
     public static final String DEFAULT_NAME = "Chicken Rice";
-    public static final double DEFAULT_PRICE = 3.50;
+    public static final BigDecimal DEFAULT_PRICE = new BigDecimal(3.50);
 
     private ItemName name;
     private ItemPrice price;
@@ -40,7 +42,7 @@ public class ItemBuilder {
     /**
      * Sets the {@code ItemPrice} of the {@code Item} that we are building.
      */
-    public ItemBuilder withPrice(double price) {
+    public ItemBuilder withPrice(BigDecimal price) {
         this.price = new ItemPrice(price);
         return this;
     }
