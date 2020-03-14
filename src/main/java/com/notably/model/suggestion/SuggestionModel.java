@@ -1,8 +1,10 @@
 package com.notably.model.suggestion;
 
+import java.util.List;
 import java.util.Optional;
 
 import javafx.beans.property.Property;
+import javafx.collections.ObservableList;
 
 /**
  * Represents the Suggestion Model instance.
