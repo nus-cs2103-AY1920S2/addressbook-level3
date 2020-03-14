@@ -43,13 +43,8 @@ public abstract class Ingredient {
         return ingredientName;
     }
 
-    /**
-     * Format state as text for storage.
-     */
     @Override
     public String toString() {
-        return "[" + ingredientName + ", " + quantity + ", " + ingredientType.value + "]";
+        return quantity + unit.toString() + " " + ingredientName;
     }
-
-    //unit.toString() + " " + ingredientName;
 }

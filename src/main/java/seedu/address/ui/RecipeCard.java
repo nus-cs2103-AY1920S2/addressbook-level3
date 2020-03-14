@@ -50,8 +50,7 @@ public class RecipeCard extends UiPart<Region> {
         time.setText(recipe.getTime().value + " min");
         ingredients.setOrientation(Orientation.VERTICAL);
         recipe.getIngredients().stream()
-                .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.getQuantity()
-                        + ", " + ingredient.ingredientName)));
+                .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.toString())));
         email.setText(recipe.getEmail().value);
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))
