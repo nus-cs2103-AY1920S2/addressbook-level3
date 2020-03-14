@@ -1,39 +1,42 @@
 {
   "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalAddressBook()",
   "recipes" : [ {
-    "name" : "Alice Pauline",
-    "time" : "94351253",
+    "name" : "Caesar Salad",
+    "time" : "30",
+    "ingredients" : ["Tomato, 100, vegetable", "Honeydew, 100, other"],
     "email" : "alice@example.com",
-    "goals" : [ "friends" ]
+    "goals" : [ "Herbivore" ]
   }, {
-    "name" : "Benson Meier",
-    "time" : "98765432",
+    "name" : "Grilled Sandwich",
+    "time" : "10",
+    "ingredients" : ["Bread, 50, grain", "Cheese, 50, other"],
     "email" : "johnd@example.com",
-    "goals" : [ "owesMoney", "friends" ]
+    "goals" : [ "Wholesome Wholemeal" ]
   }, {
-    "name" : "Carl Kurz",
-    "time" : "95352563",
+    "name" : "Boiled Chicken",
+    "time" : "10",
+    "ingredients" : ["Chicken, 100, protein"],
     "email" : "heinz@example.com",
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Chocolate Cake",
+    "time" : "120",
+    "email" : "cornelia@example.com",
     "goals" : [ ]
   }, {
-    "name" : "Daniel Meier",
-    "time" : "87652533",
-    "email" : "cornelia@example.com",
-    "goals" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "time" : "9482224",
+    "name" : "Omelet",
+    "time" : "15",
     "email" : "werner@example.com",
     "goals" : [ ]
   }, {
-    "name" : "Fiona Kunz",
-    "time" : "9482427",
+    "name" : "Steamed Egg",
+    "time" : "15",
     "email" : "lydia@example.com",
     "goals" : [ ]
   }, {
-    "name" : "George Best",
-    "time" : "9482442",
+    "name" : "Tuna Bread",
+    "time" : "60",
     "email" : "anna@example.com",
-    "goals" : [ ]
+    "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
   } ]
 }

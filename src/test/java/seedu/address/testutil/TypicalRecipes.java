@@ -39,13 +39,20 @@ public class TypicalRecipes {
             .withGoals("Bulk like the Hulk")
             .withEmail("heinz@example.com").build();
 
-    public static final Recipe CHOCOLATE_CAKE = new RecipeBuilder().withName("Chocolate Cake").withTime("120")
+    public static final Recipe CHOCOLATE_CAKE = new RecipeBuilder().withName("Chocolate Cake")
+            .withTime("120")
             .withEmail("cornelia@example.com").build();
-    public static final Recipe OMELET = new RecipeBuilder().withName("Omelet").withTime("15")
+
+    public static final Recipe OMELET = new RecipeBuilder().withName("Omelet")
+            .withTime("15")
             .withEmail("werner@example.com").build();
-    public static final Recipe STEAMED_EGG = new RecipeBuilder().withName("Steamed Egg").withTime("15")
+
+    public static final Recipe STEAMED_EGG = new RecipeBuilder().withName("Steamed Egg")
+            .withTime("15")
             .withEmail("lydia@example.com").build();
-    public static final Recipe TUNA_BREAD = new RecipeBuilder().withName("Tuna Bread").withTime("60")
+
+    public static final Recipe TUNA_BREAD = new RecipeBuilder().withName("Tuna Bread")
+            .withTime("60")
             .withGoals("Bulk like the Hulk", "Wholesome Wholemeal")
             .withEmail("anna@example.com").build();
 
