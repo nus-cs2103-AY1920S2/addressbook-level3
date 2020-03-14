@@ -73,20 +73,20 @@ public class SampleDataUtil {
             double quantity = Double.parseDouble(splitDetails[1].trim());
             String type = splitDetails[2].trim();
             switch (type) {
-                case "vegetable":
-                    ingredientSet.add(new Vegetable(name, quantity));
-                    break;
-                case "grain":
-                    ingredientSet.add(new Grain(name, quantity));
-                    break;
-                case "protein":
-                    ingredientSet.add(new Protein(name, quantity));
-                    break;
-                case "other":
-                    ingredientSet.add(new Other(name, quantity));
-                    break;
-                default:
-                    System.out.println("Error: ingredient type does not belong to oen of the defaults");
+            case "vegetable":
+                ingredientSet.add(new Vegetable(name, quantity));
+                break;
+            case "grain":
+                ingredientSet.add(new Grain(name, quantity));
+                break;
+            case "protein":
+                ingredientSet.add(new Protein(name, quantity));
+                break;
+            case "other":
+                ingredientSet.add(new Other(name, quantity));
+                break;
+            default:
+                System.out.println("Error: ingredient type does not belong to oen of the defaults");
             }
         }
         return ingredientSet;

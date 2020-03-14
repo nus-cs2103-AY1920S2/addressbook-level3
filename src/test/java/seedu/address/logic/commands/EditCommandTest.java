@@ -2,13 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
@@ -21,11 +18,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
-import seedu.address.testutil.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

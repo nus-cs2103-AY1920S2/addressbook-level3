@@ -1,13 +1,13 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_TURKEY_SANDWICH;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +63,8 @@ public class TypicalRecipes {
             .withGoals("Herbivore").withEmail("hans@example.com").build();
 
     // Manually added - Recipe's details found in {@code CommandTestUtil} todo: add ingredients
-    public static final Recipe TURKEY_SANDWICH = new RecipeBuilder().withName(VALID_NAME_TURKEY_SANDWICH).withTime(VALID_TIME_TURKEY_SANDWICH)
+    public static final Recipe TURKEY_SANDWICH = new RecipeBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
+            .withTime(VALID_TIME_TURKEY_SANDWICH)
             .withEmail(VALID_EMAIL_TURKEY_SANDWICH).withGoals(VALID_GOAL_GRAIN).build();
     public static final Recipe FISH = new RecipeBuilder().withName(VALID_NAME_FISH).withTime(VALID_TIME_FISH)
             .withEmail(VALID_EMAIL_FISH).withGoals(VALID_GOAL_PROTEIN).build();
@@ -84,6 +85,7 @@ public class TypicalRecipes {
     }
 
     public static List<Recipe> getTypicalRecipes() {
-        return new ArrayList<>(Arrays.asList(CAESAR_SALAD, GRILLED_SANDWICH, BOILED_CHICKEN, CHOCOLATE_CAKE, OMELET, STEAMED_EGG, TUNA_BREAD));
+        return new ArrayList<>(Arrays.asList(CAESAR_SALAD, GRILLED_SANDWICH, BOILED_CHICKEN, CHOCOLATE_CAKE,
+                OMELET, STEAMED_EGG, TUNA_BREAD));
     }
 }

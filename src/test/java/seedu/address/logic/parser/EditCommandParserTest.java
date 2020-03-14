@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_GRAIN;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
@@ -10,15 +10,15 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOAL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_TURKEY_SANDWICH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -129,7 +129,8 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_RECIPE;
         String userInput = targetIndex.getOneBased() + NAME_DESC_TURKEY_SANDWICH;
-        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_TURKEY_SANDWICH).build();
+        EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder()
+                .withName(VALID_NAME_TURKEY_SANDWICH).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 

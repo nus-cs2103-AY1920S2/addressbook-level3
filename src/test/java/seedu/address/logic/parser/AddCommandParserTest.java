@@ -1,40 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_GRAIN;
-import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_PROTEIN;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOAL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalRecipes.TURKEY_SANDWICH;
-import static seedu.address.testutil.TypicalRecipes.FISH;
-
-import org.junit.jupiter.api.Test;
-
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Email;
-import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.Time;
-import seedu.address.testutil.RecipeBuilder;
-
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 

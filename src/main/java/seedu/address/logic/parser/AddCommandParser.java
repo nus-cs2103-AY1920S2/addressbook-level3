@@ -3,13 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_VEGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
-
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -49,7 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Set<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOAL));
         // todo: add grain first
-        Set<Ingredient> ingredientList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE), null);
+        Set<Ingredient> ingredientList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE),
+                null);
 
         Recipe recipe = new Recipe(name, time, ingredientList, email, goalList);
 

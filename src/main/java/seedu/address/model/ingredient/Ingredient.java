@@ -9,11 +9,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public abstract class Ingredient {
 
-    public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain only alphabetical letters or spaces";
+    public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain only "
+        + "alphabetical letters or spaces";
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
-    public final String ingredientName;
-    public IngredientType ingredientType;
+    protected IngredientType ingredientType;
+    protected String ingredientName;
     protected double quantity;
     protected Unit unit;
 
@@ -33,6 +34,14 @@ public abstract class Ingredient {
 
     public double getQuantity() {
         return quantity;
+    }
+
+    public String getName() {
+        return ingredientName;
+    }
+
+    public IngredientType getType() {
+        return ingredientType;
     }
 
     public Unit getUnit() {

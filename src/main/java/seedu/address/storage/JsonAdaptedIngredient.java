@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -22,7 +21,8 @@ class JsonAdaptedIngredient {
     private final IngredientType ingredientType;
 
     /**
-     * Constructs a {@code JsonAdaptedIngredient} with the given {@code ingredientName}, {@code quantity} and {@code type}.
+     * Constructs a {@code JsonAdaptedIngredient} with the given {@code ingredientName},
+     * {@code quantity} and {@code type}.
      */
     @JsonCreator
     public JsonAdaptedIngredient(String ingredientDetails) {
@@ -31,77 +31,43 @@ class JsonAdaptedIngredient {
         this.quantity = Double.parseDouble(details[1].trim());
         String type = details[2].trim();
         switch (type) {
-            case "vegetable":
-                this.ingredientType = IngredientType.VEGETABLE;
-                break;
-            case "protein":
-                this.ingredientType = IngredientType.PROTEIN;
-                break;
-            case "grain":
-                this.ingredientType = IngredientType.GRAIN;
-                break;
-            case "other":
-                this.ingredientType = IngredientType.OTHER;
-                break;
-            default:
-                System.out.println("Error: ingredient type does not belong to one of the categories");
-                this.ingredientType = null;
+        case "vegetable":
+            this.ingredientType = IngredientType.VEGETABLE;
+            break;
+        case "protein":
+            this.ingredientType = IngredientType.PROTEIN;
+            break;
+        case "grain":
+            this.ingredientType = IngredientType.GRAIN;
+            break;
+        case "other":
+            this.ingredientType = IngredientType.OTHER;
+            break;
+        default:
+            System.out.println("Error: ingredient type does not belong to one of the categories");
+            this.ingredientType = null;
         }
 
     }
 
-
-    /*
-     @JsonCreator
-    public JsonAdaptedIngredient(@JsonProperty("grain") String grains,
-                                 @JsonProperty("vegetable") String vegetables,
-                                 @JsonProperty("protein") String proteins,
-                                 @JsonProperty("other") String others) {
-
-        if (!grains.isBlank()) {
-            String[] grainDetail = grains.split(",");
-            ingredientName = grainDetail[0].trim();
-            quantity = Double.parseDouble(grainDetail[1].trim());
-            ingredientType = IngredientType.GRAIN;
-
-        } else if (!vegetables.isBlank()) {
-            String[] vegeDetail = vegetables.split(",");
-            ingredientName = vegeDetail[0].trim();
-            quantity = Double.parseDouble(vegeDetail[1].trim());
-            ingredientType = IngredientType.VEGETABLE;
-
-        } else if (!proteins.isBlank()) {
-            String[] proteinDetail = vegetables.split(",");
-            ingredientName = proteinDetail[0].trim();
-            quantity = Double.parseDouble(proteinDetail[1].trim());
-            ingredientType = IngredientType.PROTEIN;
-
-        } else {
-            String[] otherDetail = others.split(",");
-            ingredientName = otherDetail[0].trim();
-            quantity = Double.parseDouble(otherDetail[1].trim());
-            ingredientType = IngredientType.OTHER;
-        }
-     */
     /**
      * Converts a given {@code Ingredient} into this class for Jackson use.
      */
     public JsonAdaptedIngredient(Ingredient source) {
-        ingredientName = source.ingredientName;
+        ingredientName = source.getIngredientName();
         quantity = source.getQuantity();
-        ingredientType = source.ingredientType;
+        ingredientType = source.getType();
     }
 
     @JsonValue
     public String getIngredient() {
-        return ingredientName + ",  " + quantity + ", " + ingredientType.value;
+        return ingredientName + ",  " + quantity + ", " + ingredientType.toString();
     }
 
     /**
-     * Converts this Jackson-friendly adapted goal object into the model's {@code Goal} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted goal.
-     * @return
+     * Converts this Jackson-friendly adapted goal object into the model's {@code Ingredient} object.
+     * @return Ingredient object that the adapted goal was converted into.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted ingredient.
      */
     public Ingredient toModelType() throws IllegalValueException {
         if (!Ingredient.isValidIngredientName(ingredientName)) {
