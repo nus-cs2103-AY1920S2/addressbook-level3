@@ -23,7 +23,6 @@ public class Recipe {
     private String instructions;
 
     // Data fields
-    private Address address = null; //the original code had it declared as final
     private final Set<Tag> tags = new HashSet<>();
     //private IngredientList ingredients = new IngredientList();
     //private InstructionList instructions = new InstructionList();
@@ -31,12 +30,11 @@ public class Recipe {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Recipe(Name name, Phone phone, Email email, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.address = address;
         this.tags.addAll(tags);
     }
 
@@ -58,10 +56,6 @@ public class Recipe {
         return email;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -80,8 +74,8 @@ public class Recipe {
         }
 
         return otherRecipe != null
-                && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
+            && otherRecipe.getName().equals(getName())
+            && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
     }
 
     /**
@@ -97,32 +91,28 @@ public class Recipe {
         if (!(other instanceof Recipe)) {
             return false;
         }
-
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-                && otherRecipe.getPhone().equals(getPhone())
-                && otherRecipe.getEmail().equals(getEmail())
-                && otherRecipe.getAddress().equals(getAddress())
-                && otherRecipe.getTags().equals(getTags());
+            && otherRecipe.getPhone().equals(getPhone())
+            && otherRecipe.getEmail().equals(getEmail())
+            && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
