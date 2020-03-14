@@ -11,13 +11,13 @@ import seedu.address.model.RecipeBook;
 public class ResetCommand extends Command {
 
     public static final String COMMAND_WORD = "reset";
-    public static final String MESSAGE_SUCCESS = "Recipe book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "The recipe book has been cleared!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new RecipeBook());
+        model.setRecipeBook(new RecipeBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

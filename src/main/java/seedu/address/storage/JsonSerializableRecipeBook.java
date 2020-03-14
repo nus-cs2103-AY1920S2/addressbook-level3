@@ -17,27 +17,27 @@ import seedu.address.model.recipe.Recipe;
  * An Immutable RecipeBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableRecipeBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate recipe(s).";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableRecipeBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableRecipeBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.persons.addAll(persons);
     }
 
     /**
      * Converts a given {@code ReadOnlyRecipeBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableRecipeBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyRecipeBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+    public JsonSerializableRecipeBook(ReadOnlyRecipeBook source) {
+        persons.addAll(source.getRecipeList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
@@ -46,15 +46,15 @@ class JsonSerializableAddressBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public RecipeBook toModelType() throws IllegalValueException {
-        RecipeBook addressBook = new RecipeBook();
+        RecipeBook recipeBook = new RecipeBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Recipe recipe = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasRecipe(recipe)) {
+            if (recipeBook.hasRecipe(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addRecipe(recipe);
+            recipeBook.addRecipe(recipe);
         }
-        return addressBook;
+        return recipeBook;
     }
 
 }

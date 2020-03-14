@@ -43,16 +43,16 @@ public class ModifyCommandTest {
 
         String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new RecipeBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedRecipe);
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
+        expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(modifyCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        Recipe lastRecipe = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredRecipeList().size());
+        Recipe lastRecipe = model.getFilteredRecipeList().get(indexLastPerson.getZeroBased());
 
         PersonBuilder personInList = new PersonBuilder(lastRecipe);
         Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withTags(
@@ -64,8 +64,8 @@ public class ModifyCommandTest {
 
         String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new RecipeBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(lastRecipe, editedRecipe);
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
+        expectedModel.setRecipe(lastRecipe, editedRecipe);
 
         assertCommandSuccess(modifyCommand, model, expectedMessage, expectedModel);
     }
@@ -73,11 +73,11 @@ public class ModifyCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        Recipe editedRecipe = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Recipe editedRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new RecipeBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
 
         assertCommandSuccess(modifyCommand, model, expectedMessage, expectedModel);
     }
@@ -86,22 +86,22 @@ public class ModifyCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Recipe recipeInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Recipe recipeInFilteredList = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
         Recipe editedRecipe = new PersonBuilder(recipeInFilteredList).withName(VALID_NAME_BOB).build();
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
 
-        Model expectedModel = new ModelManager(new RecipeBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedRecipe);
+        Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
+        expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(modifyCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        Recipe firstRecipe = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Recipe firstRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstRecipe).build();
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_SECOND_PERSON, descriptor);
 
@@ -113,7 +113,7 @@ public class ModifyCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit recipe in filtered list into a duplicate in address book
-        Recipe recipeInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Recipe recipeInList = model.getRecipeBook().getRecipeList().get(INDEX_SECOND_PERSON.getZeroBased());
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(recipeInList).build());
 
@@ -122,7 +122,7 @@ public class ModifyCommandTest {
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         ModifyCommand modifyCommand = new ModifyCommand(outOfBoundIndex, descriptor);
 
@@ -138,7 +138,7 @@ public class ModifyCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
         ModifyCommand modifyCommand = new ModifyCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());

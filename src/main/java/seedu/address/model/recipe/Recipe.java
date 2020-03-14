@@ -10,19 +10,23 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Recipe in the address book.
+ * Represents a Recipe in the recipe book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Recipe {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
+    private Phone phone = null; //the original code had it declared as final
+    private Email email = null; //the original code had it declared as final
+    private String ingredients;
+    private String instructions;
 
     // Data fields
-    private final Address address;
+    private Address address = null; //the original code had it declared as final
     private final Set<Tag> tags = new HashSet<>();
+    //private IngredientList ingredients = new IngredientList();
+    //private InstructionList instructions = new InstructionList();
 
     /**
      * Every field must be present and not null.
@@ -34,6 +38,12 @@ public class Recipe {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+    }
+
+    public Recipe(Name name, String ingredients, String instructions) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
     }
 
     public Name getName() {
@@ -70,8 +80,8 @@ public class Recipe {
         }
 
         return otherRecipe != null
-               && otherRecipe.getName().equals(getName())
-               && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
+                && otherRecipe.getName().equals(getName())
+                && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
     }
 
     /**
@@ -90,10 +100,10 @@ public class Recipe {
 
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
-               && otherRecipe.getPhone().equals(getPhone())
-               && otherRecipe.getEmail().equals(getEmail())
-               && otherRecipe.getAddress().equals(getAddress())
-               && otherRecipe.getTags().equals(getTags());
+                && otherRecipe.getPhone().equals(getPhone())
+                && otherRecipe.getEmail().equals(getEmail())
+                && otherRecipe.getAddress().equals(getAddress())
+                && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
