@@ -7,7 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyInventorySystem;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
@@ -26,11 +26,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the InventorySystem.
      *
      * @see seedu.address.model.Model#getAddressBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyInventorySystem getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Customer> getFilteredCustomerList();

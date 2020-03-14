@@ -8,7 +8,7 @@ import seedu.address.model.transaction.Transaction;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyInventorySystem {
 
     /**
      * Returns an unmodifiable view of the persons list and product list.
