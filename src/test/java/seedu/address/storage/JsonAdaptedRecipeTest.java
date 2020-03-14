@@ -19,7 +19,7 @@ import seedu.address.model.recipe.Time;
 public class JsonAdaptedRecipeTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TIME = "+651234";
-    private static final String INVALID_STEP = "example.com";
+    private static final String INVALID_STEP = "";
     private static final String INVALID_GOAL = "#friend";
 
     private static final String VALID_NAME = BENSON.getName().toString();

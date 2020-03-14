@@ -45,7 +45,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "911a"; // 'a' not allowed in times
-    public static final String INVALID_STEP_DESC = " " + PREFIX_STEP + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_STEP_DESC = " " + PREFIX_STEP + ""; // empty space
     public static final String INVALID_GOAL_DESC = " " + PREFIX_GOAL + "hubby*"; // '*' not allowed in goals
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

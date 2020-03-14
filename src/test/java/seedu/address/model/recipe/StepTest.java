@@ -27,30 +27,11 @@ public class StepTest {
         // blank step
         assertFalse(Step.isValidStep("")); // empty string
         assertFalse(Step.isValidStep(" ")); // spaces only
-
-        // missing parts
-        assertFalse(Step.isValidStep("@example.com")); // missing local part
-        assertFalse(Step.isValidStep("peterjackexample.com")); // missing '@' symbol
-        assertFalse(Step.isValidStep("peterjack@")); // missing domain name
-
-        // invalid parts
-        assertFalse(Step.isValidStep("peterjack@-")); // invalid domain name
-        assertFalse(Step.isValidStep("peterjack@exam_ple.com")); // underscore in domain name
-        assertFalse(Step.isValidStep("peter jack@example.com")); // spaces in local part
-        assertFalse(Step.isValidStep("peterjack@exam ple.com")); // spaces in domain name
-        assertFalse(Step.isValidStep(" peterjack@example.com")); // leading space
-        assertFalse(Step.isValidStep("peterjack@example.com ")); // trailing space
-        assertFalse(Step.isValidStep("peterjack@@example.com")); // double '@' symbol
-        assertFalse(Step.isValidStep("peter@jack@example.com")); // '@' symbol in local part
-        assertFalse(Step.isValidStep("peterjack@example@com")); // '@' symbol in domain name
-        assertFalse(Step.isValidStep("peterjack@.example.com")); // domain name starts with a period
-        assertFalse(Step.isValidStep("peterjack@example.com.")); // domain name ends with a period
-        assertFalse(Step.isValidStep("peterjack@-example.com")); // domain name starts with a hyphen
-        assertFalse(Step.isValidStep("peterjack@example.com-")); // domain name ends with a hyphen
+        assertFalse(Step.isValidStep("           ")); // spaces only
 
         // valid step
-        assertTrue(Step.isValidStep("PeterJack_1190@example.com"));
-        assertTrue(Step.isValidStep("a@bc")); // minimal
+        assertTrue(Step.isValidStep("contact PeterJack_1190@example.com for recipe"));
+        assertTrue(Step.isValidStep("a")); // minimal
         assertTrue(Step.isValidStep("test@localhost")); // alphabets only
         assertTrue(Step.isValidStep("!#$%&'*+/=?`{|}~^.-@example.org")); // special characters local part
         assertTrue(Step.isValidStep("123@145")); // numeric local part and domain name
