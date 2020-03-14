@@ -1,4 +1,7 @@
 package seedu.eylah.expensesplitter.logic;
 
-public class LogicManager implements Logic{
+/**
+ * Logic Manager for ExpenseSpliter.
+ */
+public class LogicManager{
 }
