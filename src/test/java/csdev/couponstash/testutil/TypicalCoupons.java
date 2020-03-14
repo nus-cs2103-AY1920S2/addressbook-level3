@@ -2,6 +2,8 @@ package csdev.couponstash.testutil;
 
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -58,43 +60,50 @@ public class TypicalCoupons {
             .withPhone("94351253")
             .withSavings(ALICE_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .withTags("friends").build();
     public static final Coupon BENSON = new CouponBuilder().withName("Benson Meier")
             .withPhone("98765432")
             .withSavings(BENSON_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .withTags("owesMoney", "friends").build();
     public static final Coupon CARL = new CouponBuilder().withName("Carl Kurz")
             .withPhone("95352563")
             .withSavings(CARL_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .build();
     public static final Coupon DANIEL = new CouponBuilder().withName("Daniel Meier")
             .withPhone("87652533")
             .withSavings(DANIEL_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .withTags("friends").build();
     public static final Coupon ELLE = new CouponBuilder().withName("Elle Meyer")
             .withPhone("9482224")
             .withSavings(ELLE_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .build();
     public static final Coupon FIONA = new CouponBuilder().withName("Fiona Kunz")
             .withPhone("9482427")
             .withSavings(FIONA_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .build();
     public static final Coupon GEORGE = new CouponBuilder().withName("George Best")
             .withPhone("9482442")
             .withSavings(GEORGE_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("2")
             .build();
 
     // Manually added
@@ -102,13 +111,15 @@ public class TypicalCoupons {
             .withPhone("8482424")
             .withSavings(HOON_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .build();
     public static final Coupon IDA = new CouponBuilder().withName("Ida Mueller")
             .withPhone("8482131")
             .withSavings(IDA_SAVINGS)
             .withExpiryDate("31-12-2020")
-            .withUsage("1")
+            .withUsage("0")
+            .withLimit("1")
             .build();
 
     // Manually added - Coupon's details found in {@code CommandTestUtil}
@@ -118,6 +129,7 @@ public class TypicalCoupons {
             .withSavings(VALID_SAVINGS_AMY)
             .withExpiryDate(VALID_EXPIRY_DATE_AMY)
             .withUsage(VALID_USAGE_AMY)
+            .withLimit(VALID_LIMIT_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Coupon BOB = new CouponBuilder()
             .withName(VALID_NAME_BOB)
@@ -125,6 +137,7 @@ public class TypicalCoupons {
             .withSavings(VALID_SAVINGS_BOB)
             .withExpiryDate(VALID_EXPIRY_DATE_BOB)
             .withUsage(VALID_USAGE_BOB)
+            .withLimit(VALID_LIMIT_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 

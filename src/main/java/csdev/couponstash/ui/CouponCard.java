@@ -53,8 +53,8 @@ public class CouponCard extends UiPart<Region> {
         phone.setText(coupon.getPhone().value);
         savings.setText(coupon.getSavings().toString());
         expiryDate.setText(coupon.getExpiryDate().value);
-        usage.setText(coupon.getUsage().toString());
-        limit.setText(coupon.getLimit().toString());
+        usage.setText(coupon.getUsage().toUiLabelText());
+        limit.setText(coupon.getLimit().toUiLabelText());
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

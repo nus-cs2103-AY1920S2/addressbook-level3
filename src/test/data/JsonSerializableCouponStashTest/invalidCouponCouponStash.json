@@ -6,6 +6,9 @@
       "monetaryAmount" : null,
       "percentageAmount" : null,
       "saveables" : null
-    }
+    },
+    "expiryDate": "30-08-2020",
+    "usage": "0",
+    "limit": "1"
   } ]
 }

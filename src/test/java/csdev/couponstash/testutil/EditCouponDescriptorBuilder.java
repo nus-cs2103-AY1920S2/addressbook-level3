@@ -8,6 +8,7 @@ import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
@@ -39,6 +40,7 @@ public class EditCouponDescriptorBuilder {
         descriptor.setSavings(coupon.getSavings());
         descriptor.setExpiryDate(coupon.getExpiryDate());
         descriptor.setUsage(coupon.getUsage());
+        descriptor.setLimit(coupon.getLimit());
         descriptor.setTags(coupon.getTags());
     }
 
@@ -59,14 +61,6 @@ public class EditCouponDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Usage} of the {@code EditCouponDescriptor} that we are building.
-     */
-    public EditCouponDescriptorBuilder withUsage(String usage) {
-        descriptor.setUsage(new Usage(usage));
-        return this;
-    }
-
-    /**
      * Sets the {@code Savings} of the {@code EditCouponDescriptor} that we are building.
      */
     public EditCouponDescriptorBuilder withSavings(Savings sv) {
@@ -82,6 +76,21 @@ public class EditCouponDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Usage} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withUsage(String usage) {
+        descriptor.setUsage(new Usage(usage));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Limit} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withLimit(String limit) {
+        descriptor.setLimit(new Limit(limit));
+        return this;
+    }
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditCouponDescriptor}

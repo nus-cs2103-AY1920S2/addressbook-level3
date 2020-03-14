@@ -3,6 +3,10 @@ package csdev.couponstash.model.coupon;
 import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Coupon's usage limit in the CouponStash.
+ * Guarantees: immutable; is valid as declared in {@link #isValidLimit(String)}
+ */
 public class Limit {
     public static final String MESSAGE_CONSTRAINTS =
             "Limit should only contain numbers with a minimum value of 1 "
@@ -22,9 +26,9 @@ public class Limit {
         requireNonNull(limit);
         checkArgument(isValidLimit(limit));
 
-        if(limit.equals("")) {
+        if (limit.equals("")) {
             this.value = "1";
-        } else if(limit.equals("Infinity") || Integer.parseInt(limit) <= 0) {
+        } else if (limit.equals("Infinity") || Integer.parseInt(limit) <= 0) {
             this.value = String.valueOf(Double.POSITIVE_INFINITY);
         } else {
             this.value = limit;
@@ -45,16 +49,20 @@ public class Limit {
     }
 
     public Double getParsedLimit() {
-        if(value.equals("Infinity")) {
+        if (value.equals("Infinity")) {
             return Double.POSITIVE_INFINITY;
         } else {
             return Double.parseDouble(value);
         }
     }
 
+    public String toUiLabelText() {
+        return String.format("You can only use it %s time(s).", value);
+    }
+
     @Override
     public String toString() {
-        return String.format("You can only use it %s time(s).", value) ;
+        return value;
     }
 
     @Override

@@ -4,7 +4,7 @@ import static csdev.couponstash.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Coupon's usage in the CouponStash. im chester.
+ * Represents a Coupon's usage in the CouponStash.
  * Guarantees: immutable; is valid as declared in {@link #isValidUsage(String)}
  */
 public class Usage {
@@ -22,7 +22,7 @@ public class Usage {
     public Usage(String usage) {
         requireNonNull(usage);
         checkArgument(isValidUsage(usage), MESSAGE_CONSTRAINTS);
-        if(usage.equals("")){
+        if (usage.equals("")) {
             value = "0";
         } else {
             value = usage;
@@ -71,9 +71,13 @@ public class Usage {
         return new Usage(finalValue.toString());
     }
 
+    public String toUiLabelText() {
+        return String.format("You have used it %s time(s)", value);
+    }
+
     @Override
     public String toString() {
-        return String.format("You have used it %s time(s)", value);
+        return value;
     }
 
     @Override

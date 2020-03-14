@@ -8,7 +8,8 @@
       "saveables" : null
     },
     "expiryDate": "30-10-2020",
-    "usage": "1"
+    "usage": "0",
+    "limit": "1"
   }, {
     "name": "Coupon With Invalid Savings Field",
     "phone": "9482424",
@@ -16,6 +17,9 @@
       "monetaryAmount" : 7.5,
       "percentageAmount" : 7.5,
       "saveables" : null
-    }
+    },
+    "usage": "0",
+    "limit": "1",
+    "expiryDate": "30-08-2020"
   } ]
 }
