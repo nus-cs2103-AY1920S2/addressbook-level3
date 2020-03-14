@@ -57,25 +57,22 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.recipe = recipe;
 
-        if (displayedIndex % 2 == 0) {
-            id.setText(displayedIndex + ". ");
-            name.setText(recipe.getName().name);
-            phone.setText(recipe.getPhone().value);
-            address.setText(recipe.getAddress().value);
-            email.setText(recipe.getEmail().value);
-            recipe.getTags().stream()
-                    .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        } else {
-            id1.setText(displayedIndex + ". ");
-            name1.setText(recipe.getName().name);
-            phone1.setText(recipe.getPhone().value);
-            address1.setText(recipe.getAddress().value);
-            email1.setText(recipe.getEmail().value);
-            recipe.getTags().stream()
-                    .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
-        }
+        id.setText(displayedIndex + ". ");
+        name.setText(recipe.getName().name);
+        phone.setText(recipe.getPhone().value);
+        address.setText(recipe.getAddress().value);
+        email.setText(recipe.getEmail().value);
+        recipe.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        id1.setText(displayedIndex + ". ");
+        name1.setText(recipe.getName().name);
+        phone1.setText(recipe.getPhone().value);
+        address1.setText(recipe.getAddress().value);
+        email1.setText(recipe.getEmail().value);
+        recipe.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
