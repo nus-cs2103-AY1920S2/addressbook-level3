@@ -26,9 +26,9 @@ public class Limit {
         requireNonNull(limit);
         checkArgument(isValidLimit(limit));
 
-        if (limit.equals("")) {
+        if ("".equals(limit)) {
             this.value = "1";
-        } else if (limit.equals("Infinity") || Integer.parseInt(limit) <= 0) {
+        } else if ("Infinity".equals(limit) || Integer.parseInt(limit) <= 0) {
             this.value = String.valueOf(Double.POSITIVE_INFINITY);
         } else {
             this.value = limit;
@@ -49,7 +49,7 @@ public class Limit {
     }
 
     public Double getParsedLimit() {
-        if (value.equals("Infinity")) {
+        if ("Infinity".equals(value)) {
             return Double.POSITIVE_INFINITY;
         } else {
             return Double.parseDouble(value);

@@ -22,7 +22,7 @@ public class Usage {
     public Usage(String usage) {
         requireNonNull(usage);
         checkArgument(isValidUsage(usage), MESSAGE_CONSTRAINTS);
-        if (usage.equals("")) {
+        if ("".equals(usage)) {
             value = "0";
         } else {
             value = usage;
