@@ -45,6 +45,9 @@ public class Status {
         this.status = ModuleStatus.COMPLETED;
     }
 
+    /**
+     * Returns true if the status is valid as defined in ModuleStatus.
+     */
     public static boolean isValidStatus(String status) {
         for (ModuleStatus s: ModuleStatus.values()) {
             if (s.toString().equals(status)) {

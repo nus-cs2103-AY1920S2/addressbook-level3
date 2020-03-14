@@ -1,7 +1,16 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
@@ -13,11 +22,9 @@ import seedu.address.model.profile.course.module.personal.Grade;
 import seedu.address.model.profile.course.module.personal.Personal;
 import seedu.address.model.profile.course.module.personal.Status;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-
+/**
+ * Jackson-friendly version of {@link Profile}.
+ */
 class JsonProfile {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Profile's %s field is missing!";
 
@@ -40,6 +47,25 @@ class JsonProfile {
         this.records = records;
     }
 
+    public JsonProfile(Profile source) {
+        name = source.getName().toString();
+        course = source.getCourse().toString();
+        specialisation = source.getSpecialisation();
+        semester = source.getCurrentSemester();
+        records = new ArrayList<>();
+        for (Map.Entry<Integer, ArrayList<Module>> entry: source.getMappings()) {
+            String sem = entry.getKey().toString();
+            ArrayList<Module> modules = entry.getValue();
+            records.add(new JsonSemesterRecord(
+                    sem, modules.stream().map(JsonPersonalModule::new).collect(Collectors.toList())));
+        }
+    }
+
+    /**
+     * Converts this Jackson-friendly profile object into a {@code Profile} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the profile.
+     */
     public Profile toModelType() throws IllegalValueException {
         // Handle uninitialised attributes
         // Note that some fields such as prerequisite and preclusion are optional fields and are thus omitted
@@ -56,6 +82,8 @@ class JsonProfile {
         // Handle invalid values
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        } else if (!semester.matches("\\d+")) {
+            throw new IllegalValueException("Semester number should be a positive integer");
         }
         // TODO: Validation for course - Completely alphabetical
 
@@ -75,6 +103,9 @@ class JsonProfile {
     }
 }
 
+/**
+ * Jackson-friendly version of a semester.
+ */
 class JsonSemesterRecord {
     private String semester;
     private List<JsonPersonalModule> modules;
@@ -98,6 +129,9 @@ class JsonSemesterRecord {
     }
 }
 
+/**
+ * Jackson-friendly version of {@link Module}.
+ */
 class JsonPersonalModule extends JsonModule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
@@ -119,6 +153,16 @@ class JsonPersonalModule extends JsonModule {
         this.status = status;
         this.grade = grade;
         this.deadlines = deadlines;
+    }
+
+    public JsonPersonalModule(Module module) {
+        super(module.getModuleCode().toString(), module.getTitle().toString(), module.getDescription().toString(),
+                module.getModularCredits().toString(), module.getPrereqList().toString(),
+                module.getSemesterData().getSemesters().stream()
+                        .map(JsonSemesterData::new).collect(Collectors.toList()));
+        status = module.getStatus();
+        grade = module.getGrade();
+        deadlines = module.getDeadlines().stream().map(JsonDeadline::new).collect(Collectors.toList());
     }
 
     @Override
@@ -150,6 +194,9 @@ class JsonPersonalModule extends JsonModule {
     }
 }
 
+/**
+ * Jackson-friendly version of {@link Deadline}.
+ */
 class JsonDeadline {
     private String description;
     private String date;
@@ -164,6 +211,17 @@ class JsonDeadline {
         this.time = time;
     }
 
+    public JsonDeadline(Deadline deadline) {
+        description = deadline.getDescription();
+        date = deadline.getDate().toString();
+        time = deadline.getTime().toString();
+    }
+
+    /**
+     * Converts this Jackson-friendly deadline object into a {@code Deadline} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the deadline.
+     */
     public Deadline toModelType() throws IllegalValueException {
         try {
             LocalDate.parse(date);

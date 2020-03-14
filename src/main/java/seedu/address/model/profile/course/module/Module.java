@@ -1,9 +1,9 @@
 package seedu.address.model.profile.course.module;
 
+import java.util.List;
+
 import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
-
-import java.util.List;
 
 /**
  * Represents a Module in the address book.

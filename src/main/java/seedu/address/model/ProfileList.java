@@ -1,13 +1,16 @@
 package seedu.address.model;
 
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+
+/**
+ * Creates a new ProfileList object which contains Profile objects.
+ */
 public class ProfileList {
 
     private List<Profile> profileList = new ArrayList<>();
@@ -16,6 +19,10 @@ public class ProfileList {
 
     public void addProfile(Profile profile) {
         this.profileList.add(profile);
+    }
+
+    public List<Profile> getProfileList() {
+        return profileList; // TODO: Implement read-only version of profileList, similar to address book
     }
 
     public boolean hasProfileWithName(Name name) {

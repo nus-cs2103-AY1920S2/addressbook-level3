@@ -1,10 +1,13 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Represents the in-memory model of the profile list data.
+ */
 public class ProfileManager {
 
     private ProfileList profileList;
