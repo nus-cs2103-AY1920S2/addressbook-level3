@@ -26,9 +26,23 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::???.png[]
+image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[width="65%",cols="25%,",options="header",]
+|=======================================================================
+|Class | Definition
+| UI   | What the user sees
+| Gateway | Handles all login & signin requests
+| Authenticator | Authenticates user
+| Security | Class that handles encryption & decryption of data
+| LandingPage | First display page for user
+| Search | Class that handles individual user search query
+| Model | Class that handles modelling & report generation
+| Storage | Class that handles all DAO
+| ?? | Placeholder for whatever we don't know needs to be there.
+|=======================================================================
 
 ==== Class definitions
 
