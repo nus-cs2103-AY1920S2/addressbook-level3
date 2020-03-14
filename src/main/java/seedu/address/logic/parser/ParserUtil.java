@@ -10,8 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
 /**
@@ -65,18 +65,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String step} into an {@code Step}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code step} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Step parseStep(String step) throws ParseException {
+        requireNonNull(step);
+        String trimmedStep = step.trim();
+        if (!Step.isValidStep(trimmedStep)) {
+            throw new ParseException(Step.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Step(trimmedStep);
     }
 
     /**

@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
 /**
@@ -25,7 +25,7 @@ class JsonAdaptedRecipe {
 
     private final String name;
     private final String time;
-    private final String email;
+    private final String step;
     private final List<JsonAdaptedGoal> goals = new ArrayList<>();
 
     /**
@@ -33,11 +33,11 @@ class JsonAdaptedRecipe {
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("time") String time,
-            @JsonProperty("email") String email,
+            @JsonProperty("step") String step,
             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
         this.time = time;
-        this.email = email;
+        this.step = step;
         if (goals != null) {
             this.goals.addAll(goals);
         }
@@ -49,7 +49,7 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
         time = source.getTime().value;
-        email = source.getEmail().value;
+        step = source.getStep().value;
         goals.addAll(source.getGoals().stream()
                 .map(JsonAdaptedGoal::new)
                 .collect(Collectors.toList()));
@@ -82,16 +82,16 @@ class JsonAdaptedRecipe {
         }
         final Time modelTime = new Time(time);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (step == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!Step.isValidStep(step)) {
+            throw new IllegalValueException(Step.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Step modelStep = new Step(step);
 
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
-        return new Recipe(modelName, modelTime, modelEmail, modelGoals);
+        return new Recipe(modelName, modelTime, modelStep, modelGoals);
     }
 
 }

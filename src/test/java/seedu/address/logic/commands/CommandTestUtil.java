@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -29,8 +29,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_TIME_AMY = "11111111";
     public static final String VALID_TIME_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
+    public static final String VALID_STEP_AMY = "amy@example.com";
+    public static final String VALID_STEP_BOB = "bob@example.com";
     public static final String VALID_GOAL_HUSBAND = "husband";
     public static final String VALID_GOAL_FRIEND = "friend";
 
@@ -38,14 +38,14 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String TIME_DESC_AMY = " " + PREFIX_TIME + VALID_TIME_AMY;
     public static final String TIME_DESC_BOB = " " + PREFIX_TIME + VALID_TIME_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String STEP_DESC_AMY = " " + PREFIX_STEP + VALID_STEP_AMY;
+    public static final String STEP_DESC_BOB = " " + PREFIX_STEP + VALID_STEP_BOB;
     public static final String GOAL_DESC_FRIEND = " " + PREFIX_GOAL + VALID_GOAL_FRIEND;
     public static final String GOAL_DESC_HUSBAND = " " + PREFIX_GOAL + VALID_GOAL_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "911a"; // 'a' not allowed in times
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_STEP_DESC = " " + PREFIX_STEP + ""; // empty space
     public static final String INVALID_GOAL_DESC = " " + PREFIX_GOAL + "hubby*"; // '*' not allowed in goals
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -56,10 +56,10 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditRecipeDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withTime(VALID_TIME_AMY).withEmail(VALID_EMAIL_AMY)
+                .withTime(VALID_TIME_AMY).withStep(VALID_STEP_AMY)
                 .withGoals(VALID_GOAL_FRIEND).build();
         DESC_BOB = new EditRecipeDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withTime(VALID_TIME_BOB).withEmail(VALID_EMAIL_BOB)
+                .withTime(VALID_TIME_BOB).withStep(VALID_STEP_BOB)
                 .withGoals(VALID_GOAL_HUSBAND, VALID_GOAL_FRIEND).build();
     }
 
