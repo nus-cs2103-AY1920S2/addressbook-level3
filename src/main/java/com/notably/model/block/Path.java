@@ -7,19 +7,19 @@ import java.util.List;
  * Represent a path to a @link Block.
  */
 public class Path {
-    private List<String> path;
+    private List<String> paths;
     private boolean isAbsolute;
 
     public Path(String args, Boolean isAbsolute) {
-        this.path = new ArrayList<>();
+        this.paths = new ArrayList<>();
         for (String obj : args.split("/")) {
-            path.add(obj.trim());
+            paths.add(obj.trim());
         }
         this.isAbsolute = isAbsolute;
     }
 
     public List<String> getPaths() {
-        return this.path;
+        return this.paths;
     }
 
     public boolean isAbsolute() {
