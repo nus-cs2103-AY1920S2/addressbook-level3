@@ -41,5 +41,4 @@ public class ClearCommandTest {
         assertCommandSuccess(new ClearCommand(FLAG_FORCE_CLEAR.toString()), model, ClearCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }
-
 }

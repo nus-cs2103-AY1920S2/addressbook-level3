@@ -23,6 +23,8 @@ public class ClearCommand extends Command {
         this.flag = flag;
     }
 
+    public String getFlag() { return this.flag; }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
@@ -33,5 +35,12 @@ public class ClearCommand extends Command {
 
         model.setOrderBook(new OrderBook());
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ClearCommand // instanceof handles nulls
+                && flag.equals(((ClearCommand) other).flag));
     }
 }
