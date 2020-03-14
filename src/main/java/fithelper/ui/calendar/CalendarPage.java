@@ -40,7 +40,6 @@ public class CalendarPage extends UiPart<AnchorPane> {
         calendarBorderPane.setCenter(agenda);
         calendarBorderPane.setMaxWidth(520);
         calendarBorderPane.setMaxHeight(480);
-        logger.info("Initializing Calendar Page");
     }
 
     private void initCalendar(ICalendarAgenda agenda) {

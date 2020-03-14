@@ -9,8 +9,7 @@ import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.ui.calendar.CalendarPage;
-import fithelper.ui.calendar.FullCalendar;
+import fithelper.ui.calendar.CalendarPanel;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,8 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private TodayPage todayPage;
     /*private ReportPage reportPage;
     private ProfilePage profilePage;*/
-    private CalendarPage calendarPage;
-    private FullCalendar fullCalendar;
+    private CalendarPanel calendarPanel;
     private HelpWindow helpWindow;
 
     @FXML
@@ -91,11 +89,8 @@ public class MainWindow extends UiPart<Stage> {
     public void fillInnerParts() {
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         setAllPageAnchor(todayPage.getRoot());
-        calendarPage = new CalendarPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
-        setAllPageAnchor(calendarPage.getRoot());
-        fullCalendar = new FullCalendar(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
-        //setAllPageAnchor(fullCalendar.getRoot());
-
+        calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        setAllPageAnchor(calendarPanel.getRoot());
         logger.fine("All pages filled in MainWindow");
     }
 
@@ -147,7 +142,7 @@ public class MainWindow extends UiPart<Stage> {
             showTodayPage();
             break;
         case CALENDAR:
-            showCalendarPage();
+            showCalendarPanel();
             break;
         default:
             break;
@@ -161,7 +156,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleShowCalendarPage() {
-        showCalendarPage();
+        showCalendarPanel();
     }
 
     private void showTodayPage() {
@@ -173,9 +168,9 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Shows the calendar page.
      */
-    private void showCalendarPage() {
+    private void showCalendarPanel() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(calendarPage.getRoot());
+        pagePane.getChildren().add(calendarPanel.getRoot());
         currentPage.setText("Calendar");
     }
 
