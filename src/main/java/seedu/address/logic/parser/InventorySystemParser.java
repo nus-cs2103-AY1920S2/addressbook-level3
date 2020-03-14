@@ -39,7 +39,7 @@ import seedu.address.logic.parser.transaction.AddTransactionCommandParser;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class InventorySystemParser {
 
     /**
      * Used for initial separation of command word and args.

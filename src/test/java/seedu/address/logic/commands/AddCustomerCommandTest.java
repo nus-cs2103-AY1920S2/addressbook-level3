@@ -17,9 +17,9 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.customer.AddCustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.InventorySystem;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyInventorySystem;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
@@ -114,16 +114,6 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public Path getProductListFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setProductListFilePath(Path productListFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addPerson(Customer customer) {
             throw new AssertionError("This method should not be called.");
         }
@@ -134,12 +124,12 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyInventorySystem newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyInventorySystem getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -251,8 +241,8 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyInventorySystem getAddressBook() {
+            return new InventorySystem();
         }
     }
 

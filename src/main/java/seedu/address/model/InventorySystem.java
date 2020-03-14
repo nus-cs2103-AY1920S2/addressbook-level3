@@ -17,7 +17,7 @@ import seedu.address.model.transaction.UniqueTransactionList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class InventorySystem implements ReadOnlyInventorySystem {
 
     private final UniqueCustomerList persons;
     private final UniqueProductList products;
@@ -36,12 +36,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         products = new UniqueProductList();
     }
 
-    public AddressBook() {}
+    public InventorySystem() {}
 
     /**
-     * Creates an AddressBook using the Persons and Products in the {@code toBeCopied}
+     * Creates an InventorySystem using the Persons and Products in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public InventorySystem(ReadOnlyInventorySystem toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -73,9 +73,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code InventorySystem} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyInventorySystem newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -142,7 +142,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code InventorySystem}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Customer key) {
@@ -166,7 +166,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code InventorySystem}.
      * {@code key} must exist in the product list.
      */
     public void removeProduct(Product key) {
@@ -200,8 +200,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof InventorySystem // instanceof handles nulls
+                && persons.equals(((InventorySystem) other).persons));
     }
 
     @Override
