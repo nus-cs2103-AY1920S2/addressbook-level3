@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedCourse {
 
-  public static final String MISSING_FIELD_MESSAGE_FORMAT = "Assignment's %s field is missing!";
+  public static final String MISSING_FIELD_MESSAGE_FORMAT = "Courses's %s field is missing!";
 
   private final String name;
   private final String courseID;

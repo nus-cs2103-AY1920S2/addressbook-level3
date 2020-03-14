@@ -7,31 +7,34 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<HBox xmlns:fx="http://javafx.com/fxml/1" id="cardPane" xmlns="http://javafx.com/javafx/8"
-  fx:id="cardPane">
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
-    <VBox GridPane.columnIndex="0" alignment="CENTER_LEFT" minHeight="105">
-      <FlowPane fx:id="tags"/>
+    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+      <FlowPane fx:id="tags" />
       <HBox alignment="CENTER_LEFT" spacing="5">
-        <Label styleClass="cell_big_label" fx:id="id">
+        <Label fx:id="id" styleClass="cell_big_label">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE"/>
+            <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label styleClass="cell_big_label" text="\$name" fx:id="assignmentName"/>
+        <Label fx:id="assignmentName" styleClass="cell_big_label" text="\$name" />
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label" text="\$"/>
-        <Label styleClass="cell_small_label" text="\$deadline" fx:id="assignmentDeadline"/>
+        <Label fx:id="assignmentDeadline" styleClass="cell_small_label" text="\$deadline" />
       </HBox>
       <padding>
-        <Insets bottom="5" left="15" right="5" top="5"/>
+        <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
     </VBox>
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150"/>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>

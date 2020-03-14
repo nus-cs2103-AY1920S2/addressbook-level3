@@ -356,13 +356,12 @@ public class ModelManager implements Model {
 
   @Override
   public ReadOnlyAssignmentAddressBook getAssignmentAddressBook() {
-    return null;
-    // return assignmentAddressBook;
+    return assignmentAddressBook;
   }
 
   @Override
   public void setAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook) {
-    //this.assignmentAddressBook.resetData(assignmentAddressBook);
+    this.assignmentAddressBook.resetData(assignmentAddressBook);
   }
 
 
@@ -451,16 +450,13 @@ public class ModelManager implements Model {
 
   @Override
   public ObservableList<Assignment> getFilteredAssignmentList() {
-    return null;
-    //return filteredAssignments;
+    return filteredAssignments;
   }
 
   @Override
   public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
-    /*
     requireNonNull(predicate);
     filteredAssignments.setPredicate(predicate);
-     */
   }
 
   /**

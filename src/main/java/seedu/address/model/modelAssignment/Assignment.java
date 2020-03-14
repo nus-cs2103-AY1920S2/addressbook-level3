@@ -1,5 +1,6 @@
 package seedu.address.model.modelAssignment;
 
+import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -21,13 +22,13 @@ public class Assignment {
   // Identity fields
   private final Name name;
   private final ID id;
-  private final LocalDate deadline;
+  private final Deadline deadline;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
    * Every field must be present and not null.
    */
-  public Assignment(Name name, ID id, LocalDate deadline, Set<Tag> tags) {
+  public Assignment(Name name, ID id, Deadline deadline, Set<Tag> tags) {
     requireAllNonNull(name, id, deadline, tags);
     this.name = name;
     this.id = id;
@@ -43,7 +44,7 @@ public class Assignment {
     return id;
   }
 
-  public LocalDate getDeadline() {
+  public Deadline getDeadline() {
     return deadline;
   }
 
@@ -87,13 +88,14 @@ public class Assignment {
     Assignment otherAssignment = (Assignment) other;
     return otherAssignment.getName().equals(getName())
         && otherAssignment.getId().equals(getId())
+        && otherAssignment.getDeadline().equals(getDeadline())
         && otherAssignment.getTags().equals(getTags());
   }
 
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, id, tags);
+    return Objects.hash(name, id, deadline, tags);
   }
 
   @Override

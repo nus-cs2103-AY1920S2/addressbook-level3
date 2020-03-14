@@ -21,7 +21,7 @@ public class AssignedCourse {
   public final String value;
 
   /**
-   * Constructs a {@code Assignment}.
+   * Constructs a {@code Course}.
    *
    * @param course A valid course.
    */

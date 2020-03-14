@@ -34,16 +34,16 @@ public class AssignmentCard extends UiPart<Region> {
   @FXML
   private Label id;
   @FXML
-  private Label name;
+  private Label assignmentName;
   @FXML
-  private Label deadline;
+  private Label assignmentDeadline;
 
   public AssignmentCard(Assignment assignment, int displayedIndex) {
     super(FXML);
     this.assignment = assignment;
     id.setText(displayedIndex + ". ");
-    name.setText(assignment.getName().fullName);
-    deadline.setText(assignment.getDeadline().toString());
+    assignmentName.setText(assignment.getName().fullName);
+    assignmentDeadline.setText("Deadline: " + assignment.getDeadline().toString());
   }
 
   @Override

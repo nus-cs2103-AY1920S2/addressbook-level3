@@ -104,6 +104,7 @@ public class LogicManager implements Logic {
     summaryPanel.updateTotalTeachers(getFilteredTeacherList().size());
     summaryPanel.updateTotalCourses(getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
+    summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
 
     return commandResult;
   }

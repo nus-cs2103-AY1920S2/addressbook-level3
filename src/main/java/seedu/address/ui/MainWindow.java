@@ -162,6 +162,8 @@ public class MainWindow extends UiPart<Stage> {
     summaryPanel.updateTotalTeachers(logic.getFilteredTeacherList().size());
     summaryPanel.updateTotalCourses(logic.getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(logic.getFilteredFinanceList().size());
+    summaryPanel.updateTotalAssignments(logic.getFilteredAssignmentList().size());
+
     logic.setSummaryPanel(summaryPanel);
 
     ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
