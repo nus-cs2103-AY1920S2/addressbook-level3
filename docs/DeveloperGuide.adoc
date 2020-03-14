@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 image::devDiagram.png[width="500", align="left"]
 
@@ -24,11 +24,12 @@ image::devDiagram.png[width="500", align="left"]
 
 *Target user profile (Coding camp owners)*:
 
-* need to manage a significant number of teachers, students, assignments and finances
-* assign teachers to specific assignments
+* need to manage a significant number of teachers, students, courses, assignemnts and finances
+* assign teachers to specific courses
 * assign students to suitable schedules
-* keep track of the assignments available
-* manage assignment earnings and staff spendings
+* keep track of the courses available
+* keep track of the student's progress and assignments
+* manage course earnings and staff spendings
 * ---
 * prefer desktop apps over other types
 * can type fast
@@ -38,10 +39,10 @@ image::devDiagram.png[width="500", align="left"]
 *Value proposition*:
 
 * Manage the addition and removal of students quickly
-* Manage the addition and removal of assignments quickly
-* Manage the addition and removal of homework and progress quickly
-* Check the financial status of assignments
-* Track student progress for assignments quickly
+* Manage the addition and removal of courses quickly
+* Manage the addition and removal of assignments and progress quickly
+* Check the financial status of courses
+* Track student progress for courses quickly
 
 [appendix]
 == User Stories
@@ -53,39 +54,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a homework with a deadline |
+|`* * *` |user |add a assignment with a deadline |
 
-|`* * *` |user |list all homework tasks |
+|`* * *` |user |list all assignment tasks |
 
-|`* *` |user |list all homework to be done for a assignment |
+|`* *` |user |list all assignment to be done for a course |
 
-|`* * *` |user |find a particular homework |locate the details of the homework without going through the whole list of all homeworks
+|`* * *` |user |find a particular assignment |locate the details of the assignment without going through the whole list of all assignments
 
-|`* * *` |user |edit a homework's detail |quickly change the details of the homework without creating a new entry and deleting the old one
+|`* * *` |user |edit a assignment's detail |quickly change the details of the assignment without creating a new entry and deleting the old one
 
-|`* * *` |user |assign a homework to assignment |
+|`* * *` |user |assign a assignment to course |
 
-|`* * *` |user |assign a list of homework to assignment |quickly add all homeworks to a assignment without going through them one by one
+|`* * *` |user |assign a list of assignment to course |quickly add all assignments to a course without going through them one by one
 
-|`* * *` |user |for every student added to a assignment, assign a list of progress items to them automatically based on the homework for the assignment | make it more convenient for the administrative staff to assign students to assignments
+|`* * *` |user |for every student added to a course, assign a list of progress items to them automatically based on the assignment for the course | make it more convenient for the administrative staff to assign students to courses
 
 |`* * *` |user |track the progress of an individual student | to ensure that students are caught up on study materials
 
-|`* * *` |user |track the progress of all students in a particular assignment |to get an overview understanding of all students' progress in a assignment
+|`* * *` |user |track the progress of all students in a particular course |to get an overview understanding of all students' progress in a course
 
-|`* * *` |user |mark as done the homework of a student |
+|`* * *` |user |mark as done the assignment of a student |
 
-|`* * *` |user |mark as done the homework of a few/all students for a particular week |quickly mark students' homework as done without iterating through all of the homework
+|`* * *` |user |mark as done the assignment of a few/all students for a particular week |quickly mark students' assignment as done without iterating through all of the assignment
 
-|`* *` |user |get notified if there is a student with too many undone homework |help to easily inform the teachers on the student progress
+|`* *` |user |get notified if there is a student with too many undone assignment |help to easily inform the teachers on the student progress
 
 |`* *` |user |automate the spendings of the tuition centre due to the salary of the staff |do not need to manually deduct the savings from the salary at the end of the month
 
-|`* * *` |user |automate the income generated by each of the students according to the assignment fees payable by the students |do not need to manually add the income generated at the end of the month
+|`* * *` |user |automate the income generated by each of the students according to the course fees payable by the students |do not need to manually add the income generated at the end of the month
 
 |`* * *` |user |able to know how much we are spending by adding the name and price of the items or services bought| keep track of the expenses of the tuition centre
 
-|`* * *` |user |be able to know how much we are earning by adding the various sources of income such as through students assignment fees, or miscellaneous sources like textbook sales | keep track of the earnings of the tuition centre
+|`* * *` |user |be able to know how much we are earning by adding the various sources of income such as through students course fees, or miscellaneous sources like textbook sales | keep track of the earnings of the tuition centre
 
 |`* * *` |user |tag each of the spendings of the tuition centre with the priority levels, such as “must-have”, “nice-to-have”, or “not-needed” | evaluate the necessity of the spendings of the tuition centre
 
@@ -106,12 +107,12 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Code Camp X` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use Case 1: Adding a homework
+=== Use Case 1: Adding a assignment
 
 *MSS*
 
-1.  User inputs an 'add homework' command with name and deadline
-2.  CCX adds the homework into the system
+1.  User inputs an 'add assignment' command with name and deadline
+2.  CCX adds the assignment into the system
 + Use case ends.
 
 *Extensions*
@@ -128,12 +129,12 @@ Use case ends.
 ** 1b1. CCX shows an error message.
 
 [discrete]
-=== Use Case 2: Listing all homework
+=== Use Case 2: Listing all assignment
 
 *MSS*
 
-1.  User requests to see all homework
-2.  CCX outputs all homework in its database
+1.  User requests to see all assignment
+2.  CCX outputs all assignment in its database
 +
 Use case ends.
 
@@ -144,64 +145,64 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 3: Deleting a homework
+=== Use Case 3: Deleting a assignment
 
 *MSS*
 
-1.  User sees all homework using UC2
-2.  User requests to delete homework using its respective homeworkID
-3.  CCX finds the homework using UC4
-4.  CCX removes the homework from the system
-5.  CCX outputs a success message with the details for the homework
+1.  User sees all assignment using UC2
+2.  User requests to delete assignment using its respective assignmentID
+3.  CCX finds the assignment using UC4
+4.  CCX removes the assignment from the system
+5.  CCX outputs a success message with the details for the assignment
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. homeworkID does not exist.
+* 2a. assignmentID does not exist.
 ** 2a1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
-=== Use Case 4: Finding a homework by homeworkID
+=== Use Case 4: Finding a assignment by assignmentID
 
 *MSS*
 
-1.  User sees all homework using UC2
-2.  User requests to view a homework using its respective homeworkID
-3.  CCX searches the the system for the relevant homework
-4.  CCX outputs a success message with the details for the homework
+1.  User sees all assignment using UC2
+2.  User requests to view a assignment using its respective assignmentID
+3.  CCX searches the the system for the relevant assignment
+4.  CCX outputs a success message with the details for the assignment
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. homeworkID does not exist.
+* 2a. assignmentID does not exist.
 ** 2a1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
-=== Use Case 5: Edit a homework using homeworkID
+=== Use Case 5: Edit a assignment using assignmentID
 
 *MSS*
 
-1.  User sees all homework using UC2
-2.  CCX outputs the whole list of homework
-3.  User requests to edit a homework using its respective homeworkID
-4.  CCX finds for the specific homework using UC4
-5.  CCX changes the details of the homework
-6.  CCX outputs a success message with the updated details for the homework
+1.  User sees all assignment using UC2
+2.  CCX outputs the whole list of assignment
+3.  User requests to edit a assignment using its respective assignmentID
+4.  CCX finds for the specific assignment using UC4
+5.  CCX changes the details of the assignment
+6.  CCX outputs a success message with the updated details for the assignment
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. homeworkID does not exist.
+* 3a. assignmentID does not exist.
 [none]
 ** 3a1. CCX shows an error message.
 +
@@ -220,23 +221,23 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 6: Assign a homework to a assignment
+=== Use Case 6: Assign a assignment to a course
 
 *MSS*
 
-1.  User requests to see homework using UC2
-2.  CCX outputs the whole list of homework
-3.  User requests to see all assignments using *UC??*
-4.  User requests to assign a homework to a assignment using their respective IDs
-5.  CCX adds the homeworkID into the assignment's list of homework
-6.  CCX outputs a success message with the successful addition of homework
+1.  User requests to see assignment using UC2
+2.  CCX outputs the whole list of assignment
+3.  User requests to see all courses using *UC??*
+4.  User requests to assign a assignment to a course using their respective IDs
+5.  CCX adds the assignmentID into the course's list of assignment
+6.  CCX outputs a success message with the successful addition of assignment
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 4a. homeworkID does not exist.
+* 4a. assignmentID does not exist.
 [none]
 ** 4a1. CCX shows an error message.
 +
@@ -249,23 +250,23 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 7: Assign several homework to a assignment
+=== Use Case 7: Assign several assignment to a course
 
 *MSS*
 
-1.  User requests to see homework using UC2
-2.  CCX outputs the whole list of homework
-3.  User requests to see all assignments using *UC??*
-4.  User requests to assign a list of homework to a assignment using their respective IDs
-5.  CCX adds the list of homeworkID into the assignment's list of homework
-6.  CCX outputs a success message with the successful addition of homework
+1.  User requests to see assignment using UC2
+2.  CCX outputs the whole list of assignment
+3.  User requests to see all courses using *UC??*
+4.  User requests to assign a list of assignment to a course using their respective IDs
+5.  CCX adds the list of assignmentID into the course's list of assignment
+6.  CCX outputs a success message with the successful addition of assignment
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 4a. Any one of the homeworkID does not exist.
+* 4a. Any one of the assignmentID does not exist.
 [none]
 ** 4a1. CCX shows an error message.
 +
@@ -278,16 +279,16 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 8: Signup a student to a assignment
+=== Use Case 8: Signup a student to a course
 
 *MSS*
 
 1.  User requests to see all students using *UC??*
 2.  CCX outputs the whole list of students
-3.  User requests to see all assignments using *UC??*
-4.  User requests to signup a student to a assignment using their respective IDs
-5.  CCX finds all homework assigned to the assignment
-6.  CCX creates a Progress object for each homework and ties it to the student ID
+3.  User requests to see all courses using *UC??*
+4.  User requests to signup a student to a course using their respective IDs
+5.  CCX finds all assignment assigned to the course
+6.  CCX creates a Progress object for each assignment and ties it to the student ID
 4.  CCX adds the Progress object into the system
 5.  CCX outputs a success message
 +
@@ -309,14 +310,14 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 9: View progress for a particular student, for a certain assignment
+=== Use Case 9: View progress for a particular student, for a certain course
 
 *MSS*
 
 1.  User requests to see all students using *UC??*
 2.  CCX outputs the whole list of students
-3.  User requests to see all assignments using *UC??*
-4.  User requests to view the progress for a student, for a assignment using their respective IDs
+3.  User requests to see all courses using *UC??*
+4.  User requests to view the progress for a student, for a course using their respective IDs
 5.  CCX finds all Progress objects using the courseID and studentID
 6.  CCX outputs all the respective Progress objects
 +
@@ -337,19 +338,19 @@ Use case ends.
 +
 Use case ends.
 
-* 4c. Student is not assigned to the assignment.
+* 4c. Student is not assigned to the course.
 [none]
 ** 4c1. CCX shows an error message.
 +
 Use case ends.
 
 [discrete]
-=== Use Case 10: View progress for all students, for a certain assignment
+=== Use Case 10: View progress for all students, for a certain course
 
 *MSS*
 
-1.  User requests to see all assignments using *UC??*
-2.  User requests to view the progress for all students for a assignment using their respective IDs using UC9
+1.  User requests to see all courses using *UC??*
+2.  User requests to view the progress for all students for a course using their respective IDs using UC9
 3.  CCX finds all Progress objects using the courseID and studentID
 4.  CCX outputs all the respective Progress objects
 +
@@ -369,7 +370,7 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to see a student's Progress for a certain assignment using UC9
+1.  User requests to see a student's Progress for a certain course using UC9
 2.  User requests to view the mark a particular Progress as 'Done' using the progressID
 3.  CCX outputs a success message with the updated Progress object
 +
@@ -513,7 +514,7 @@ Use case ends.
 ** 1a1. CCX shows an error message
 
 [discrete]
-=== Use Case 18: Mark a student's assignment payment object as paid
+=== Use Case 18: Mark a student's course payment object as paid
 
 *MSS*
 
@@ -547,19 +548,19 @@ Use case ends
 ** 1a1. CCX shows an error message
 
 [discrete]
-=== Use Case 20: View all on going assignments
+=== Use Case 20: View all on going courses
 
 *MSS*
 
-1. User requests to see all on going assignments
-2. CCX outputs a success message with a list of all on going assignments +
+1. User requests to see all on going courses
+2. CCX outputs a success message with a list of all on going courses +
 Use case ends
 
 *Extensions*
 [none]
-* 1a. No on going assignments available
+* 1a. No on going courses available
 [none]
-** 1a1. CCX shows an empty list of assignments
+** 1a1. CCX shows an empty list of courses
 
 [discrete]
 === Use Case 21: View all students
@@ -606,13 +607,13 @@ Use case ends
 Use case ends
 
 [discrete]
-=== Use Case 25: Adding a new assignment
+=== Use Case 25: Adding a new course
 
 *MSS*
 
-1. User request to add a new assignment
-2. User input assignment's name and other information
-3. CCX outputs a success message with assignment object and courseID +
+1. User request to add a new course
+2. User input course's name and other information
+3. CCX outputs a success message with course object and courseID +
 Use case ends
 
 _{More to be added}_
@@ -645,16 +646,16 @@ A teacher that has a teacherID and description
 A staff that has a staffID and description
 
 *Course* ::
-A assignment that contains a list of attended students, a teacher and a list of homework
+A course that contains a list of attended students, a teacher and a list of assignments
 
-*Homework* ::
+*Assignment* ::
 A task that is to be done before a certain date
 
 *Progress* ::
-An object that contains a homework, a isDone boolean and is tied to student.
+An object that contains a assignment, a isDone boolean and is tied to student.
 
 *Signup* ::
-Officially adds a paying student to a assignment
+Officially adds a paying student to a course
 
 *Finance* ::
 An object that contains payments, and whether it is an earning or expense

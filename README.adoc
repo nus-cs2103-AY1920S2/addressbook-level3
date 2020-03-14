@@ -18,7 +18,7 @@ endif::[]
 *Code Camp X*
 ****
 Code Camp X is the best management tool for you to use if you have issues managing your coding bootcamp!
-This will help you save countless of hours by making it simple for you to track the profitability of each of your assignments,
+This will help you save countless of hours by making it simple for you to track the profitability of each of your courses,
 track the progress of your students and even effectively manage the teachers that you've hired! Why wait? Try our
 application now!
 ****

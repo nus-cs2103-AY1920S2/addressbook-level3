@@ -23,62 +23,62 @@ More importantly, CCX is *optimized for those who prefer to work with a Command 
 If you can type fast, CCX can allow you to manage your camp's administrative tasks faster than traditional GUI apps.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-=== Homework
-==== Adding a homework: `add homework`
+=== Assignment
+==== Adding a Assignment: `add Assignment`
 
-Adds a homework to the list of homework +
-Format: `add homework n/NAME d/DEADLINE`
+Adds a Assignment to the list of Assignment +
+Format: `add Assignment n/NAME d/DEADLINE`
 
 * `add n/Function Programming Assignment d/2020-01-30`
 
-==== Listing all homework : `list homework`
+==== Listing all Assignment : `list Assignment`
 
-Shows a list of all homework. +
-Format: `list homework`
+Shows a list of all Assignment. +
+Format: `list Assignment`
 
-==== Listing all homework for a assignment: `list homework`
+==== Listing all Assignment for a course: `list Assignment`
 
-Shows a list of all homework assigned to a assignment. +
-Format: `list homework c/courseID`
+Shows a list of all Assignment assigned to a course. +
+Format: `list Assignment c/courseID`
 
 Examples:
 
-* `list homework c/001'
+* `list Assignment c/001'
 
-==== Editing a homework : `edit homework`
+==== Editing a Assignment : `edit Assignment`
 
 Edits an existing person in the address book. +
-Format: `edit homework HOMEWORKID [n/NAME] [d/DEADLINE]`
+Format: `edit Assignment AssignmentID [n/NAME] [d/DEADLINE]`
 
 ****
-* Edits the homework with the specified `HOMEWORKID'. The homeworkID *must exists* in the list of homework.
+* Edits the Assignment with the specified `AssignmentID'. The AssignmentID *must exists* in the list of Assignment.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
 
-* `edit homework 001 n/Machine Learning Assignment e/2020-02-30` +
-Edits the name and deadline of the homework with ID of 001 to be `Machine Learning Assignment` and `2020-02-30` respectively.
+* `edit Assignment 001 n/Machine Learning Assignment e/2020-02-30` +
+Edits the name and deadline of the Assignment with ID of 001 to be `Machine Learning Assignment` and `2020-02-30` respectively.
 
-==== Locating homework by KEYWORD/ID/DEADLINE: `find homework`
+==== Locating Assignment by KEYWORD/ID/DEADLINE: `find Assignment`
 
-Finds homework with the any of the given keywords/ID/deadline +
-Format: `find homework [k/KEYWORDS] [id/HOMEWORKID] [d/DEADLINE]
+Finds Assignment with the any of the given keywords/ID/deadline +
+Format: `find Assignment [k/KEYWORDS] [id/AssignmentID] [d/DEADLINE]
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Only 1 of the parameters can be present
-* HOMEWORKID must be valid.
+* AssignmentID must be valid.
 * DEADLINE must be properly formatted
 ****
 
 Examples:
 
-* `find homework k/Learning` +
-Returns any homework with `Learning` in its name such as - `Machine Learning Assignment`, `Reinforcement Learning Assignment`
-* `find homework d/2020-01-30` +
-Returns any homework with a deadline of `2020-01-30`
+* `find Assignment k/Learning` +
+Returns any Assignment with `Learning` in its name such as - `Machine Learning Assignment`, `Reinforcement Learning Assignment`
+* `find Assignment d/2020-01-30` +
+Returns any Assignment with a deadline of `2020-01-30`
 
 === Finance
 ==== Adding a finance: `add finance`
@@ -117,7 +117,7 @@ Format: `find finance [k/KEYWORDS] [id/FINANCEID] [a/AMOUNT]
 * Only the name is searched.
 * Only full words will be matched e.g. `NUS` will not match `NUSSU`
 * Only 1 of the parameters can be present
-* HOMEWORKID must be valid.
+* AssignmentID must be valid.
 * AMOUNT must be properly formatted
 ****
 
@@ -129,20 +129,20 @@ Returns any finance with `NUS` in its name such as - `Bought textbooks from NUS`
 Returns any finance with an amount of `200`
 
 === Course
-==== Add a assignment: `add assignment`
+==== Add a course: `add course`
 
-Add a new assignment to the list of assignment +
-Format: `add assignment n/NAME`
+Add a new course to the list of course +
+Format: `add course n/NAME`
 Example:
 
-* `add assignment n/Programming Methodology`
+* `add course n/Programming Methodology`
 
-==== List all assignments: `list assignment`
-Shows a list of all assignments
-Format: `list assignment`
+==== List all courses: `list course`
+Shows a list of all courses
+Format: `list course`
 
-==== List all students in a assignment: `list assignment student`
-Shows a list of all students in a assignment +
+==== List all students in a course: `list course student`
+Shows a list of all students in a course +
 Format: `list c/courseID --students`
 
 === Student
@@ -160,7 +160,7 @@ Format: `remove student studentID`
 
 ==== List all students: `list student`
 Shows a list of all students
-Format: `list assignment`
+Format: `list course`
 
 ==== Edit information about a student: `edit student`
 Edits an existing student in the student list
@@ -169,9 +169,9 @@ Example:
 
 * `edit A0131120E n/Aegon Targaryen d/Son of Lyanna Stark and Rhaegar Targaryen`
 
-==== Assign a student to a assignment: `assign student to assignment`
-Assign an existing student in the student list to a assignment in the assignment list
-Format: `assign student s/studentID assignment c/courseID`
+==== Assign a student to a course: `assign student to course`
+Assign an existing student in the student list to a course in the course list
+Format: `assign student s/studentID course c/courseID`
 
 === Teacher
 ==== Add a teacher: `add teacher`
@@ -193,9 +193,9 @@ Example:
 
 * `edit A0131120E n/Ned Stark d/Lord of Winterfell`
 
-==== Assign a teacher to a assignment: `assign teacher to assignment`
-Assign an existing teacher in the teacher list to a assignment in the assignment list
-Format: `assign teacher s/teacherID assignment c/courseID`
+==== Assign a teacher to a course: `assign teacher to course`
+Assign an existing teacher in the teacher list to a course in the course list
+Format: `assign teacher s/teacherID course c/courseID`
 
 === Staff
 
