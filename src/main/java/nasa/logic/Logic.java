@@ -9,6 +9,7 @@ import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.ReadOnlyNasaBook;
+import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 
 /**
@@ -31,7 +32,10 @@ public interface Logic {
      */
     ReadOnlyNasaBook getNasaBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of activities */
+    ObservableList<Activity> getFilteredActivityList();
+
+    /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();
 
     /**

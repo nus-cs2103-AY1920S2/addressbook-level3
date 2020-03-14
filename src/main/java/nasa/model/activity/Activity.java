@@ -116,6 +116,17 @@ public abstract class Activity implements Regenerable<Activity> {
                 && otherActivity.getDate().equals(getDate());
     }
 
+    /**
+     * Retrieve the status object of the activity.
+     * @return Status of the activity
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Checks if an ongoing status has exceeded its deadline, and sets status to LATE if true.
+     */
     public void updateStatus() {
         if (status == Status.ONGOING && LocalDateTime.now().isAfter(date.getDate())) {
             status = Status.LATE;
@@ -123,7 +134,7 @@ public abstract class Activity implements Regenerable<Activity> {
     }
 
     /**
-     * Retrieve the late status of the activity
+     * Retrieve the late status of the activity.
      * @return boolean, true means late, false means not
      */
     public boolean isLate() {

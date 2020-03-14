@@ -111,6 +111,12 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
+        /*
+        TODO: Implement Activity list panel to display activity of the respective module
+        Can use {@code logic.getFilteredActivityList()}
+         */
+
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

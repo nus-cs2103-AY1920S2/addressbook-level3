@@ -6,11 +6,18 @@ import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
+import nasa.commons.core.Messages;
 import nasa.commons.core.index.Index;
+import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.module.ModuleCode;
+import nasa.model.activity.*;
+import nasa.model.module.Module;
+
+import java.util.List;
+import java.util.Optional;
 
 public class EditActivityCommand extends Command {
 
@@ -34,22 +41,63 @@ public class EditActivityCommand extends Command {
 
     public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This activity already exists in the module activity list.";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the module activity list.";
 
     private final Index index;
-    private final ModuleCode moduleCode;
+    private final Module module;
+    private final EditActivityCommand.EditActivityDescriptor editActivityDescriptor;
 
-    public EditActivityCommand(Index index, ModuleCode moduleCode) {
+    public EditActivityCommand(Index index, Module module, EditActivityDescriptor editActivityDescriptor) {
         requireNonNull(index);
         this.index = index;
-        this.moduleCode = moduleCode;
+        this.module = module;
+        this.editActivityDescriptor = new EditActivityDescriptor(editActivityDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO add the necessary implementation once model is done
-        return new CommandResult("");
+        List<Activity> lastShownList = model.getFilteredActivityList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new nasa.logic.commands.exceptions.CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+        }
+
+        Activity activityToEdit = lastShownList.get(index.getZeroBased());
+        Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
+
+        assert editedActivity != null;
+
+        if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(module, editedActivity)) {
+            throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_DUPLICATE_ACTIVITY);
+        }
+
+        model.setActivity(activityToEdit, editedActivity);
+        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        return new CommandResult(String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity));
+    }
+
+    /**
+     * Creates and returns an {@code Activity} with the details of {@code activityToEdit}
+     * edited with {@code editModuleDescriptor}.
+     */
+    private static Activity createEditedActivity(Activity activityToEdit,
+                                                  EditActivityDescriptor editActivityDescriptor) {
+        assert activityToEdit != null;
+
+        Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
+        Date updatedDate = editActivityDescriptor.getDate().orElse(activityToEdit.getDate());
+        Note updatedNote = editActivityDescriptor.getNote().orElse(activityToEdit.getNote());
+        Priority updatedPriority = editActivityDescriptor.getPriority().orElse(activityToEdit.getPriority());
+        Status status = activityToEdit.getStatus(); // original module's activity list is preserved
+
+        return (activityToEdit instanceof Deadline)
+                ? new Deadline(updatedName, updatedDate, updatedNote, status, updatedPriority)
+                : (activityToEdit instanceof Event)
+                    ? new Event(updatedName, updatedDate, updatedNote, status, updatedPriority)
+                    : (activityToEdit instanceof Lesson)
+                        ? new Lesson(updatedName, updatedDate, updatedNote, status, updatedPriority)
+                        : null;
     }
 
     @Override
@@ -57,5 +105,86 @@ public class EditActivityCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof EditActivityCommand // instanceof handles nulls
                 && index.equals(((EditActivityCommand) other).index));
+    }
+
+    /**
+     * Stores the details to edit the activity with. Each non-empty field value will replace the
+     * corresponding field value of the module.
+     */
+    public static class EditActivityDescriptor {
+        private Name name;
+        private Date date;
+        private Note note;
+        private Priority priority;
+
+        public EditActivityDescriptor() {}
+
+        /**
+         * Copy constructor.
+         */
+        public EditActivityDescriptor(EditActivityCommand.EditActivityDescriptor toCopy) {
+            setName(toCopy.name);
+            setDate(toCopy.date);
+            setNote(toCopy.note);
+            setPriority(toCopy.priority);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(name, date, note, priority);
+        }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public void setNote(Note note) {
+            this.note = note;
+        }
+
+        public Optional<Note> getNote() {
+            return Optional.ofNullable(note);
+        }
+
+        public void setPriority(Priority priority) {
+            this.priority = priority;
+        }
+
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditActivityCommand.EditActivityDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditActivityCommand.EditActivityDescriptor e = (EditActivityCommand.EditActivityDescriptor) other;
+
+            return getName().equals(e.getName()) && getDate().equals(e.getDate()) && getNote().equals(e.getNote())
+                    && getPriority().equals(e.getPriority());
+        }
     }
 }

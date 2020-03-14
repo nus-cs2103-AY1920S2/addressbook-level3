@@ -117,7 +117,7 @@ Edits the notes and priority of the 3rd activity in CS2030 activity-list to `Fin
 === Editing a module: `Medit`
 
 Edits and existing module in the NASA application. +
-Format: `Medit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]
+Format: `Medit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
 
 ****
 * Edits an existing module in the application.

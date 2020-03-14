@@ -95,6 +95,22 @@ public interface Model {
      */
     boolean hasActivity(Module target, Activity activity);
 
+    /**
+     * Replaces the given activity in {@code target} with {@code editedActivity}.
+     * {@code target} must exist in the nasa book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the address book.
+     */
+    void setActivity(Activity target, Activity editedActivity);
+
+    /** Returns an unmodifiable view of the filtered activity list */
+    ObservableList<Activity> getFilteredActivityList();
+
+    /**
+     * Updates the filter of the filtered activity list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredActivityList(Predicate<Activity> predicate);
+
     /** Returns an unmodifiable view of the filtered module list */
     ObservableList<Module> getFilteredModuleList();
 
