@@ -1,5 +1,8 @@
 package seedu.address.model.profile.course.module;
 
+import java.util.List;
+
+import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.course.module.personal.Personal;
 
 /**
@@ -15,8 +18,6 @@ public class Module {
     private final Description description;
     private final SemesterData semesterData;
 
-    // Attributes to add
-    // Personal { Status, Grade, DeadlineList }
     private Personal personal;
 
     /**
@@ -61,6 +62,18 @@ public class Module {
 
     public SemesterData getSemesterData() {
         return semesterData;
+    }
+
+    public String getStatus() {
+        return personal.getStatus();
+    }
+
+    public String getGrade() {
+        return personal.getGrade();
+    }
+
+    public List<Deadline> getDeadlines() {
+        return personal.getDeadlines();
     }
 
     // To think of whether Personal stuff should have getters and setters here, since it will be largely repetition

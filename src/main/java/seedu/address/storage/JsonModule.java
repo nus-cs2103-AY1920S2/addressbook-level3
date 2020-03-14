@@ -101,7 +101,12 @@ class JsonModule {
  * Jackson-friendly version of {@link SemesterData}.
  */
 class JsonSemesterData {
-    private @JsonProperty("semester") String semester;
+    private String semester;
+
+    @JsonCreator
+    public JsonSemesterData(@JsonProperty("semester") String semester) {
+        this.semester = semester;
+    }
 
     public String getSemester() {
         return semester;

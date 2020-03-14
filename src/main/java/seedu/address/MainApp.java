@@ -20,6 +20,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
+import seedu.address.model.ProfileList;
+import seedu.address.model.ProfileManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -27,6 +29,7 @@ import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonModuleListStorage;
+import seedu.address.storage.JsonProfileListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -49,6 +52,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected ModuleManager moduleManager;
+    protected ProfileManager profileManager;
 
     @Override
     public void init() throws Exception {
@@ -72,6 +76,7 @@ public class MainApp extends Application {
         ui = new UiManager(logic);
 
         moduleManager = initModuleManager(userPrefs);
+        profileManager = initProfileManager(userPrefs);
     }
 
     /**
@@ -96,6 +101,30 @@ public class MainApp extends Application {
             moduleManager = new ModuleManager();
         }
         return moduleManager;
+    }
+
+    /**
+     * Returns a {@code ProfileManager} with the data from {@code userPrefs}. <br>
+     * An empty profile list will be used instead if the a profile list is not found at
+     * {@code userPrefs.getProfileListFilePath()} or errors occur when reading the profile list at that location.
+     */
+    private ProfileManager initProfileManager(UserPrefs userPrefs) {
+        JsonProfileListStorage profiles = new JsonProfileListStorage(userPrefs.getProfileListFilePath());
+        ProfileManager profileManager;
+        try {
+            Optional<ProfileList> profileListOptional = profiles.readProfileList();
+            if (!profileListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty ProfileList");
+                profileManager = new ProfileManager();
+            } else {
+                ProfileList profileList = profileListOptional.get();
+                profileManager = new ProfileManager(profileList);
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ProfileList");
+            profileManager = new ProfileManager();
+        }
+        return profileManager;
     }
 
     /**

@@ -1,5 +1,7 @@
 package seedu.address.model.profile.course.module.personal;
 
+import java.util.List;
+
 /**
  * A wrapper class to contain attributes of a Module specific to a particular student.
  */
@@ -23,12 +25,28 @@ public class Personal {
     }
 
     public void setStatus(String status) {
-        if (status.equals("completed")) {
+        if (status.toLowerCase().equals("completed")) {
             this.status.setCompleted();
-        } else if (status.equals("in progress")) {
+        } else if (status.replaceAll("_", " ").toLowerCase().equals("in progress")) {
             this.status.setInProgress();
         } else {
-            this.status.setNotTaken();
+            this.status.setPlanning();
         }
+    }
+
+    public void addDeadline(Deadline deadline) {
+        this.deadlineList.addDeadline(deadline);
+    }
+
+    public String getStatus() {
+        return this.status.getStatus();
+    }
+
+    public String getGrade() {
+        return this.grade.getGrade();
+    }
+
+    public List<Deadline> getDeadlines() {
+        return this.deadlineList.getList();
     }
 }

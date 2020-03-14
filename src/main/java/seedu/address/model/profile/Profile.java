@@ -4,10 +4,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * Represents a Profile in the address book.
@@ -69,6 +73,20 @@ public class Profile {
 
     public ArrayList<Module> getModules(Integer semester) {
         return moduleHash.get(semester);
+    }
+
+    public Set<Map.Entry<Integer, ArrayList<Module>>> getMappings() {
+        return moduleHash.entrySet();
+    }
+
+    public List<Deadline> getDeadlines() {
+        int sem = Integer.parseInt(currentSemester);
+        List<Module> modules = moduleHash.get(sem); // Deadlines should only be from the current semester
+        List<Deadline> deadlineList = new ArrayList<>();
+        for (Module module: modules) {
+            deadlineList.addAll(module.getDeadlines());
+        }
+        return deadlineList;
     }
 
 
