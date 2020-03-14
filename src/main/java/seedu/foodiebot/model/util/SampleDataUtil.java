@@ -75,6 +75,14 @@ public class SampleDataUtil {
                 "utown_flavors.png",
                 COM1_TO_NUSFLAVORS_DIRECTIONS,
                 getTagSet("asian", "western", "muslim"), "utown.jpg", new ArrayList<>(flavourStalls)),
+            new Canteen(
+                new Name("The Deck"),
+                3,
+                1000,
+                "COM1,",
+                "com1_deck.png",
+                COM1_TO_DECK_DIRECTIONS,
+                getTagSet("asian"), "deck.jpg", new ArrayList<>(deckStalls)),
         };
     }
 
