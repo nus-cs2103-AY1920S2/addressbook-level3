@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
@@ -30,6 +31,7 @@ class JsonAdaptedCoupon {
     private final JsonAdaptedSavings savings;
     private final String expiryDate;
     private final String usage;
+    private final String limit;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -41,6 +43,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("savings") JsonAdaptedSavings savings,
                              @JsonProperty("expiry date") String expiryDate,
                              @JsonProperty("usage") String usage,
+                             @JsonProperty("limit") String limit,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged
                              ) {
         this.name = name;
@@ -48,6 +51,7 @@ class JsonAdaptedCoupon {
         this.savings = savings;
         this.expiryDate = expiryDate;
         this.usage = usage;
+        this.limit = limit;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -61,7 +65,8 @@ class JsonAdaptedCoupon {
         phone = source.getPhone().value;
         savings = new JsonAdaptedSavings(source.getSavings());
         expiryDate = source.getExpiryDate().value;
-        usage = source.getUsage().maxUsage;
+        usage = source.getUsage().value;
+        limit = source.getLimit().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -117,9 +122,17 @@ class JsonAdaptedCoupon {
         }
         final Usage modelUsage = new Usage(usage);
 
+        if (limit == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Limit.class.getSimpleName()));
+        }
+        if (!Limit.isValidLimit(limit)) {
+            throw new IllegalValueException(Limit.MESSAGE_CONSTRAINTS);
+        }
+        final Limit modelLimit = new Limit(limit);
+
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
-        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelUsage, modelTags);
+        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelUsage, modelLimit, modelTags);
 
     }
 

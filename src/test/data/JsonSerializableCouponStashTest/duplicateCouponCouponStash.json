@@ -8,7 +8,8 @@
       "saveables" : null
     },
     "expiry date": "30-08-2020",
-    "usage": "1",
+    "usage": "0",
+    "limit": "1",
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
@@ -24,6 +25,7 @@
     },
     "phone": "94351253",
     "expiry date": "30-08-2020",
-    "usage": "1"
+    "usage": "1",
+    "limit": "0"
   } ]
 }

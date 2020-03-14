@@ -5,6 +5,7 @@ import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.Usage;
@@ -22,13 +23,15 @@ public class CouponBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final Savings DEFAULT_SAVINGS = new Savings(new MonetaryAmount(32.5));
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
-    public static final String DEFAULT_USAGE = "1";
+    public static final String DEFAULT_USAGE = "0";
+    public static final String DEFAULT_LIMIT = "1";
 
     private Name name;
     private Phone phone;
     private Savings savings;
     private ExpiryDate expiryDate;
     private Usage usage;
+    private Limit limit;
     private Set<Tag> tags;
 
     public CouponBuilder() {
@@ -37,6 +40,7 @@ public class CouponBuilder {
         savings = new Savings(DEFAULT_SAVINGS);
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
         usage = new Usage(DEFAULT_USAGE);
+        limit = new Limit(DEFAULT_LIMIT);
         tags = new HashSet<>();
     }
 
@@ -49,6 +53,7 @@ public class CouponBuilder {
         savings = new Savings(couponToCopy.getSavings());
         expiryDate = couponToCopy.getExpiryDate();
         usage = couponToCopy.getUsage();
+        limit = couponToCopy.getLimit();
         tags = new HashSet<>(couponToCopy.getTags());
     }
 
@@ -95,16 +100,23 @@ public class CouponBuilder {
     }
 
     /**
-     * Sets the {@Code Usage} of the {@code Coupon} that we are building.
-     * @return
+     * Sets the {@code Usage} of the {@code Coupon} that we are building.
      */
     public CouponBuilder withUsage(String usage) {
         this.usage = new Usage(usage);
         return this;
     }
 
+    /**
+     * Sets the {@code Limit} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withLimit(String limit) {
+        this.limit = new Limit(limit);
+        return this;
+    }
+
     public Coupon build() {
-        return new Coupon(name, phone, savings, expiryDate, usage, tags);
+        return new Coupon(name, phone, savings, expiryDate, usage, limit, tags);
     }
 
 }

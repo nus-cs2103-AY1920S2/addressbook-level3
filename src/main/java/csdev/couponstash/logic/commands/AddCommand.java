@@ -1,6 +1,7 @@
 package csdev.couponstash.logic.commands;
 
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
@@ -33,6 +34,7 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EXPIRY_DATE + "30-08-2020 "
             + PREFIX_SAVINGS + "50" + PercentageAmount.PERCENT_SUFFIX + " "
+            + PREFIX_LIMIT + "5 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 

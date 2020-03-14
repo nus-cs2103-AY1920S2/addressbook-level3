@@ -27,21 +27,22 @@ public class Coupon {
 
     // Data fields
     private final Usage usage;
+    private final Limit limit;
     private final Set<Tag> tags = new HashSet<>();
-
-
 
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Savings savings, ExpiryDate expiryDate, Usage usage, Set<Tag> tags) {
-        requireAllNonNull(name, phone, savings, expiryDate, usage, tags);
+    public Coupon(Name name, Phone phone, Savings savings, ExpiryDate expiryDate,
+                  Usage usage, Limit limit, Set<Tag> tags) {
+        requireAllNonNull(name, phone, savings, expiryDate, usage, limit, tags);
         this.name = name;
         this.phone = phone;
         this.savings = savings;
         this.expiryDate = expiryDate;
         this.remind = new Remind();
         this.usage = usage;
+        this.limit = limit;
         this.tags.addAll(tags);
     }
 
@@ -55,10 +56,6 @@ public class Coupon {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Usage getUsage() {
-        return usage;
     }
 
     /**
@@ -75,6 +72,14 @@ public class Coupon {
         return expiryDate;
     }
 
+    public Usage getUsage() {
+        return usage;
+    }
+
+    public Limit getLimit() {
+        return limit;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -84,7 +89,7 @@ public class Coupon {
     }
 
     /**
-     * Returns true if both coupons of the same name have at least one other identity field that is the same.
+     * Returns true if both coupons of the same name, savings and expiry date.
      * This defines a weaker notion of equality between two coupons.
      */
     public boolean isSameCoupon(Coupon otherCoupon) {
@@ -130,13 +135,15 @@ public class Coupon {
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getSavings().equals(getSavings())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
-                && otherCoupon.getUsage().equals(getUsage());
+                && otherCoupon.getUsage().equals(getUsage())
+                && otherCoupon.getLimit().equals(getLimit())
+                && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, savings, expiryDate, usage, tags);
+        return Objects.hash(name, phone, savings, expiryDate, usage, limit, tags);
     }
 
     @Override
@@ -151,6 +158,8 @@ public class Coupon {
                 .append(getExpiryDate())
                 .append(" Usage: ")
                 .append(getUsage())
+                .append(" Limit: ")
+                .append(getLimit())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
