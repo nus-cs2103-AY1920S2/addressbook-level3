@@ -449,8 +449,8 @@ supported in the condition.
 
 Format: `delete _tag_ [where condition]`
 
-* The `delet`e keyword is compulsory.
-** If selecting all tags, put tag as ``*''.
+* The `delete` keyword is compulsory.
+** If selecting all tags, put tag as `*`.
 * The `where` keyword is optional.
 ** If the `where` keyword is omitted, deletes all coupons with that tag.
 ** Follows syntax explained above.
