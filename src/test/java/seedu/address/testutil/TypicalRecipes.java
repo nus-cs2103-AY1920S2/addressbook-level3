@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_TURKEY_SANDWICH;
 

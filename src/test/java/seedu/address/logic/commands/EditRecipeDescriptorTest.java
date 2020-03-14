@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.commands.CommandTestUtil.DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 
 import org.junit.jupiter.api.Test;

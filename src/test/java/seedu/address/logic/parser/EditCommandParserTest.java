@@ -2,22 +2,22 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_GRAIN;
 import static seedu.address.logic.commands.CommandTestUtil.GOAL_DESC_PROTEIN;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_STEP_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOAL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_STEP_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_TURKEY_SANDWICH;
 
