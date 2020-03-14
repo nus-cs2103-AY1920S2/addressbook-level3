@@ -68,7 +68,7 @@ public class Entry {
         return name;
     }
 
-    public Location getLocation() {
+    public Location getPlace() {
         return location;
     }
 
@@ -107,7 +107,7 @@ public class Entry {
 
         return anotherEntry != null
                 && anotherEntry.getName().equals(getName())
-                && (anotherEntry.getLocation().equals(getLocation()))
+                && (anotherEntry.getPlace().equals(getPlace()))
                 && (anotherEntry.getTime().equals(getTime()));
     }
 
@@ -128,7 +128,7 @@ public class Entry {
         Entry otherEntry = (Entry) other;
         return otherEntry.getName().equals(getName())
                 && otherEntry.getType().equals(getType())
-                && otherEntry.getLocation().equals(getLocation())
+                && otherEntry.getPlace().equals(getPlace())
                 && otherEntry.getTime().equals(getTime())
                 && otherEntry.getCalorie().equals(getCalorie());
     }
@@ -146,7 +146,7 @@ public class Entry {
                 .append(" Time: ")
                 .append(getTime())
                 .append(" Location: ")
-                .append(getLocation())
+                .append(getPlace())
                 .append(" Calorie: ")
                 .append(getCalorie())
                 .append(" Status:")
