@@ -46,31 +46,48 @@ public class TodayPage extends UiPart<AnchorPane> {
 
         logger.info("Initializing Today Page");
 
-        initializeListView(foodList, sportList);
+        initializeFoodListView(foodList);
+        initializeSportListView(sportList);
+
+        initializeFoodListener(foodList);
+        initializeSportListener(sportList);
     }
 
     /**
      * Initializes the list view.
      * @param foodList an observable list of food entries
-     * @param sportList an observable list of sports entries
      */
-    private void initializeListView(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
+    private void initializeFoodListView(ObservableList<Entry> foodList) {
         foodListView.setItems(foodList);
         foodListView.setCellFactory(listView -> new FoodListViewCell());
+    }
+
+    /**
+     * Initializes the list view.
+     * @param sportList an observable list of sports entries
+     */
+    private void initializeSportListView(ObservableList<Entry> sportList) {
         sportListView.setItems(sportList);
         sportListView.setCellFactory(listView -> new SportListViewCell());
     }
 
+
     /**
      * Initializes the listeners.
      * @param foodList an observable list of food entries
-     * @param sportList an observable list of sports entries
      */
-    public void initializeListener(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
+    public void initializeFoodListener(ObservableList<Entry> foodList) {
         updateFoodStatistics(foodList);
         foodList.addListener((ListChangeListener<Entry>) change ->
                 updateFoodStatistics(foodList)
         );
+    }
+
+    /**
+     * Initializes the listeners.
+     * @param sportList an observable list of sports entries
+     */
+    public void initializeSportListener(ObservableList<Entry> sportList) {
         updateSportStatistics(sportList);
         sportList.addListener((ListChangeListener<Entry>) change ->
                 updateSportStatistics(sportList)
@@ -129,7 +146,7 @@ public class TodayPage extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FoodCard(entry).getRoot());
+                setGraphic(new FoodCard(entry, getIndex() + 1).getRoot());
             }
         }
     }
@@ -146,7 +163,7 @@ public class TodayPage extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new SportCard(sport).getRoot());
+                setGraphic(new SportCard(sport, getIndex() + 1).getRoot());
             }
         }
     }

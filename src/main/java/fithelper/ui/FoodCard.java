@@ -4,15 +4,14 @@ import fithelper.model.entry.Entry;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * An UI component that displays information of a {@code Entry}.
  */
-public class FoodCard extends UiPart<Region> {
+public class FoodCard extends UiPart<AnchorPane> {
 
-    private static final String FXML = "FoodListCard.fxml";
+    private static final String FXML = "FoodCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,20 +21,23 @@ public class FoodCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Entry food;
+    private Entry food;
 
     @FXML
-    private HBox cardPane;
+    private AnchorPane innerPane;
+
+    @FXML
+    private Label index;
     @FXML
     private Label name;
+    @FXML
+    private Label status;
     @FXML
     private Label time;
     @FXML
     private Label location;
     @FXML
     private Label calorie;
-    @FXML
-    private Label remark;
 
     public FoodCard(Entry food) {
         super(FXML);
@@ -44,7 +46,32 @@ public class FoodCard extends UiPart<Region> {
         time.setText(food.getTime().toString());
         location.setText(food.getLocation().toString());
         calorie.setText(food.getCalorie().toString());
-        remark.setText(food.getRemark().value);
+    }
+
+    /**
+     * Creates a card displaying the {@code food entry}.
+     *
+     * @param food the list of food entries display
+     * @param displayedIndex the index of the order to show on the card
+     */
+    public FoodCard(Entry food, int displayedIndex) {
+        super(FXML);
+        this.food = food;
+        fillInDetails(food, displayedIndex);
+    }
+
+    /**
+     * Fills in details in GUI, in list view.
+     * @param food the list of food entries display
+     * @param displayedIndex the index of the order to show on the card
+     */
+    private void fillInDetails(Entry food, int displayedIndex) {
+        index.setText(displayedIndex + ".");
+        name.setText(food.getName().toString());
+        status.setText(food.getStatus().toString());
+        time.setText(food.getTime().toString());
+        location.setText(food.getLocation().toString());
+        calorie.setText(food.getCalorie().toString());
     }
 
     @Override
