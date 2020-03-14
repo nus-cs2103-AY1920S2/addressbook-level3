@@ -9,15 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-/** An UI component that displays Statistics. */
+/** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {
 
     private static final String FXML = "StatisticsDisplay.fxml";
 
     public String barChartTitleText; // mutable
-    public int[][] data;
+    public int[][] data; // mutable
 
-    @FXML private VBox statisticsPane;
+    @FXML
+    private VBox statisticsPane;
     @FXML private Label barChartTitle;
     @FXML private BarChart<String, Integer> barChart;
 
@@ -46,7 +47,6 @@ public class StatisticsDisplay extends UiPart<Region> {
 
         barChart.getData().add(dataSeries1);
     }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -55,7 +55,7 @@ public class StatisticsDisplay extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PomodoroDisplay)) {
+        if (!(other instanceof StatisticsDisplay)) {
             return false;
         }
 
@@ -64,4 +64,3 @@ public class StatisticsDisplay extends UiPart<Region> {
         return barChartTitle.getText().equals(card.barChartTitle.getText());
     }
 }
-
