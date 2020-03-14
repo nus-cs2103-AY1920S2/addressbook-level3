@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private PetDisplay petDisplay;
     private PomodoroDisplay pomodoroDisplay;
+    private StatisticsDisplay statisticsDisplay;
 
     @FXML private StackPane commandBoxPlaceholder;
 
@@ -50,6 +51,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML private StackPane petPlaceholder;
 
     @FXML private StackPane pomodoroPlaceholder;
+
+    @FXML private StackPane statisticsPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -134,6 +137,9 @@ public class MainWindow extends UiPart<Stage> {
 
         pomodoroDisplay = new PomodoroDisplay("No task in progress.", "25:00");
         pomodoroPlaceholder.getChildren().add(pomodoroDisplay.getRoot());
+
+        statisticsDisplay = new StatisticsDisplay("Time spent on Pomodoro over the last 7 days", null);
+        statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
     }
 
     /** Sets the default size based on {@code guiSettings}. */
