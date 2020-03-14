@@ -33,13 +33,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label tid;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
     @FXML
     private Label warehouse;
     @FXML
-    private Label email;
+    private Label cashOnDelivery;
     @FXML
     private Label comment;
     @FXML
@@ -49,11 +51,12 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
+        tid.setText(order.getTID().tid);
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);
         warehouse.setText(order.getWarehouse().address);
-        email.setText(order.getEmail().value);
+        cashOnDelivery.setText(order.getCash().cashOnDelivery);
         comment.setText(order.getComment().commentMade);
         order.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

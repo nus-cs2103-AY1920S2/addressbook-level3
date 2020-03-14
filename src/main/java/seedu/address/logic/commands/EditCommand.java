@@ -2,11 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -23,10 +24,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
+import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.TransactionID;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -41,16 +43,17 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_TID + "TRANSACTION_ID] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
+            + "[" + PREFIX_COD + "CASH_ON_DELIVERY] "
             + "[" + PREFIX_COMMENT + "COMMENT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_TID + "A0185837Q";
 
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -99,16 +102,17 @@ public class EditCommand extends Command {
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
 
+        TransactionID updatedTID = editOrderDescriptor.getTID().orElse(orderToEdit.getTID());
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
-        Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
+        CashOnDelivery updatedCOD = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
         Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
-        return new Order(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedWarehouse,
-                updatedComment, updatedTags);
+        return new Order(updatedTID, updatedName, updatedPhone, updatedAddress, updatedWarehouse,
+                updatedCOD, updatedComment, updatedTags);
     }
 
     @Override
@@ -134,11 +138,12 @@ public class EditCommand extends Command {
      * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
+        private TransactionID tid;
         private Name name;
         private Phone phone;
-        private Email email;
         private Address address;
         private Warehouse warehouse;
+        private CashOnDelivery cod;
         private Comment comment;
         private Set<Tag> tags;
 
@@ -150,11 +155,12 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
+            setTID(toCopy.tid);
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
             setAddress(toCopy.address);
             setWarehouse(toCopy.warehouse);
+            setCash(toCopy.cod);
             setComment(toCopy.comment);
             setTags(toCopy.tags);
         }
@@ -163,7 +169,14 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, warehouse, comment, tags);
+            return CollectionUtil.isAnyNonNull(tid, name, phone, address, warehouse, cod, comment, tags);
+        }
+        public void setTID(TransactionID tid) {
+            this.tid = tid;
+        }
+
+        public Optional<TransactionID> getTID() {
+            return Optional.ofNullable(tid);
         }
 
         public void setName(Name name) {
@@ -182,14 +195,6 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
         public void setAddress(Address address) {
             this.address = address;
         }
@@ -204,6 +209,14 @@ public class EditCommand extends Command {
 
         public Optional<Warehouse> getWarehouse() {
             return Optional.ofNullable(warehouse);
+        }
+
+        public void setCash(CashOnDelivery cod) {
+            this.cod = cod;
+        }
+
+        public Optional<CashOnDelivery> getCash() {
+            return Optional.ofNullable(cod);
         }
 
         public void setComment(Comment comment) {
@@ -246,11 +259,12 @@ public class EditCommand extends Command {
             // state check
             EditOrderDescriptor e = (EditOrderDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getTID().equals(e.getTID())
+                    && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getWarehouse().equals(e.getWarehouse())
+                    && getCash().equals(e.getCash())
                     && getComment().equals(e.getComment())
                     && getTags().equals(e.getTags());
         }

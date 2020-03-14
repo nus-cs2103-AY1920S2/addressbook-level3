@@ -17,11 +17,12 @@ import seedu.address.model.tag.Tag;
 public class Order {
 
     // Identity fields
+    private final TransactionID tid;
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
+    private final CashOnDelivery cod;
     private final Address address;
     private final Warehouse warehouse;
     private final Comment comment;
@@ -30,18 +31,21 @@ public class Order {
     /**
      * Every field must be present and not null.
      */
-    public Order(Name name, Phone phone, Email email, Address address, Warehouse warehouse,
-                 Comment comment, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, warehouse, comment, tags);
+    public Order(TransactionID tid, Name name, Phone phone, Address address, Warehouse warehouse,
+                 CashOnDelivery cod, Comment comment, Set<Tag> tags) {
+        requireAllNonNull(tid, name, phone, address, warehouse, cod, comment, tags);
+        this.tid = tid;
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.address = address;
         this.warehouse = warehouse;
+        this.cod = cod;
         this.comment = comment;
         this.tags.addAll(tags);
     }
-
+    public TransactionID getTID() {
+        return tid;
+    }
     public Name getName() {
         return name;
     }
@@ -50,16 +54,16 @@ public class Order {
         return phone;
     }
 
-    public Email getEmail() {
-        return email;
-    }
-
     public Address getAddress() {
         return address;
     }
 
     public Warehouse getWarehouse() {
         return warehouse;
+    }
+
+    public CashOnDelivery getCash() {
+        return cod;
     }
 
     public Comment getComment() {
@@ -84,8 +88,9 @@ public class Order {
         }
 
         return otherOrder != null
+                && otherOrder.getTID().equals(getTID())
                 && otherOrder.getName().equals(getName())
-                && (otherOrder.getPhone().equals(getPhone()) || otherOrder.getEmail().equals(getEmail()));
+                && (otherOrder.getPhone().equals(getPhone()));
     }
 
     /**
@@ -103,33 +108,36 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getName().equals(getName())
+        return otherOrder.getTID().equals(getTID())
+                && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
-                && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
                 && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
+                && otherOrder.getCash().equals(getCash())
                 && otherOrder.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, warehouse, comment, tags);
+        return Objects.hash(tid, name, phone, address, warehouse, cod, comment, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Transaction ID: ")
+                .append(getTID())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Warehouse: ")
                 .append(getWarehouse())
+                .append(" Cash On Delivery: ")
+                .append(getCash())
                 .append(" Comment: ")
                 .append(getComment())
                 .append(" Tags: ");

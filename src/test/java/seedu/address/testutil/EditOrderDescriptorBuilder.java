@@ -8,10 +8,11 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
+import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.TransactionID;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -37,7 +38,6 @@ public class EditOrderDescriptorBuilder {
         descriptor = new EditOrderDescriptor();
         descriptor.setName(order.getName());
         descriptor.setPhone(order.getPhone());
-        descriptor.setEmail(order.getEmail());
         descriptor.setAddress(order.getAddress());
         descriptor.setWarehouse(order.getWarehouse());
         descriptor.setComment(order.getComment());
@@ -49,6 +49,14 @@ public class EditOrderDescriptorBuilder {
      */
     public EditOrderDescriptorBuilder withComment(String comment) {
         descriptor.setComment(new Comment(comment));
+        return this;
+    }
+
+    /**
+     * Sets the {@code TransactionID} of the {@code EditOrderDescriptor} that we are building.
+     */
+    public EditOrderDescriptorBuilder withTID(String tid) {
+        descriptor.setTID(new TransactionID(tid));
         return this;
     }
 
@@ -69,14 +77,6 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditOrderDescriptor} that we are building.
-     */
-    public EditOrderDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code EditOrderDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withAddress(String address) {
@@ -89,6 +89,14 @@ public class EditOrderDescriptorBuilder {
      */
     public EditOrderDescriptorBuilder withWarehouse(String warehouseLocation) {
         descriptor.setWarehouse(new Warehouse(warehouseLocation));
+        return this;
+    }
+
+    /**
+     * Sets the {@code CashOnDelivery} of the {@code EditOrderDescriptor} that we are building.
+     */
+    public EditOrderDescriptorBuilder withCash(String cash) {
+        descriptor.setCash(new CashOnDelivery(cash));
         return this;
     }
 

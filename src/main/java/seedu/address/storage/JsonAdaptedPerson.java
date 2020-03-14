@@ -12,10 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
+import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.TransactionID;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -26,11 +27,12 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Order's %s field is missing!";
 
+    private final String tid;
     private final String name;
     private final String phone;
-    private final String email;
     private final String address;
     private final String warehouse;
+    private final String cod;
     private final String comment;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -38,15 +40,16 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given order details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("warehouse") String warehouse, @JsonProperty("comment") String comment,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("tid") String tid, @JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone, @JsonProperty("address") String address,
+                             @JsonProperty("warehouse") String warehouse, @JsonProperty("cashOnDelivery") String cod,
+                             @JsonProperty("comment") String comment, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.tid = tid;
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.address = address;
         this.warehouse = warehouse;
+        this.cod = cod;
         this.comment = comment;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -57,11 +60,12 @@ class JsonAdaptedPerson {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Order source) {
+        tid = source.getTID().tid;
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        email = source.getEmail().value;
         address = source.getAddress().value;
         warehouse = source.getWarehouse().address;
+        cod = source.getCash().cashOnDelivery;
         comment = source.getComment().commentMade;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -79,6 +83,15 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
+        if (tid == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TransactionID.class.getSimpleName()));
+        }
+        if (!TransactionID.isValidTID(tid)) {
+            throw new IllegalValueException(TransactionID.MESSAGE_CONSTRAINTS);
+        }
+        final TransactionID modelTID = new TransactionID(tid);
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -94,14 +107,6 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
         final Phone modelPhone = new Phone(phone);
-
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
@@ -120,6 +125,15 @@ class JsonAdaptedPerson {
         }
         final Warehouse modelWarehouse = new Warehouse(warehouse);
 
+        if (cod == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    CashOnDelivery.class.getSimpleName()));
+        }
+        if (!CashOnDelivery.isValidCashValue(cod)) {
+            throw new IllegalValueException(CashOnDelivery.MESSAGE_CONSTRAINTS);
+        }
+        final CashOnDelivery modelCash = new CashOnDelivery(cod);
+
         final Comment modelComment;
         if (comment == null) {
             modelComment = new Comment("NIL");
@@ -131,8 +145,8 @@ class JsonAdaptedPerson {
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Order(modelName, modelPhone, modelEmail, modelAddress, modelWarehouse,
-                modelComment, modelTags);
+        return new Order(modelTID, modelName, modelPhone, modelAddress, modelWarehouse,
+                modelCash, modelComment, modelTags);
     }
 
 }

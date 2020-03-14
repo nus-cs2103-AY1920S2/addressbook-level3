@@ -1,16 +1,22 @@
 {
   "persons": [ {
+    "tid": "A0303030",
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery" : "$3",
+    "comment" : "Hello",
     "tagged": [ "friends" ]
   }, {
+    "tid": "A0303030",
     "name": "Alice Pauline",
     "phone": "94351253",
     "email": "pauline@example.com",
     "address": "4th street",
-    "warehouse": "5 Toh Guan Rd E, #02-30 S608831"
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery" : "$3",
+    "comment" : "NIL"
   } ]
 }

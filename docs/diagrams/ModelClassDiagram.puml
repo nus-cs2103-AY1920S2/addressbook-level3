@@ -17,16 +17,18 @@ Class ReadOnlyUserPrefs
 
 Package Order {
 Class Order
+Class TransactionID
 Class Address
 Class Email
 Class Name
 Class Phone
+Class CashOnDelivery
 Class UniqueOrderList
 Class Warehouse
 }
 
-Package Tag {
-Class Tag
+Package TypeOfItem {
+Class TypeOfItem
 }
 
 Package Comment {
@@ -47,11 +49,13 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 OrderBook *--> "1" UniqueOrderList
 UniqueOrderList o--> "*" Order
+Order *--> TransactionID
+Order *--> CashOnDelivery
 Order *--> Name
 Order *--> Phone
 Order *--> Email
 Order *--> Address
-Order *--> "*" Tag
+Order *--> "*" TypeOfItem
 Order *--> Warehouse
 Order *--> Comment
 
