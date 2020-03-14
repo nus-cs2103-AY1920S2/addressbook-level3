@@ -63,7 +63,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a goal set containing the list of strings given in the format (name, quantity, type).
+     * Returns an ingredient set containing the list of strings given in the format (name, quantity, type).
      */
     public static Set<Ingredient> getIngredientSet(String... ingredients) {
         Set<Ingredient> ingredientSet = new HashSet<Ingredient>();
