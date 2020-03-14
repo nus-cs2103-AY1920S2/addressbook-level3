@@ -116,7 +116,11 @@ public class MainWindow extends UiPart<Stage> {
 
         petDisplay =
                 new PetDisplay(
-                        Paths.get("images", "pet", "cyclops.png")); // hardcode: swap images here
+                        Paths.get("images", "pet", "cyclops.png"),
+                        "80 XP / 100 XP",
+                        Paths.get("images", "pet", "ProgressBar.png"),
+                        Paths.get("images", "pet", "medal.png"),
+                        "Level 1"); // hardcode: swap images here
         petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
