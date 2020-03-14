@@ -42,7 +42,7 @@ interface SuggestionModel {
     /**
      * Resets the command text when the user clears the input text field.
      */
-    void clearCommandText();
+    void clearCommandInputText();
 
     /**
      * Resets the list of suggestions.
