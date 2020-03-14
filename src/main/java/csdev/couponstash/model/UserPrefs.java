@@ -37,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
+        setStashSettings(newUserPrefs.getStashSettings());
         setCouponStashFilePath(newUserPrefs.getCouponStashFilePath());
     }
 

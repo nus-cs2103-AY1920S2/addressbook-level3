@@ -159,6 +159,31 @@ public class AddCommandTest {
         public void updateFilteredCouponList(Predicate<Coupon> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitCouponStash() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoCouponStash() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoCouponStash() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoCouponStash() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoCouponStash() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

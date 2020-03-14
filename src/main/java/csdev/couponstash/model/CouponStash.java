@@ -2,10 +2,13 @@ package csdev.couponstash.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.UniqueCouponList;
+import csdev.couponstash.model.tag.Tag;
 
 import javafx.collections.ObservableList;
 
@@ -17,18 +20,18 @@ public class CouponStash implements ReadOnlyCouponStash {
 
     private final UniqueCouponList coupons;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
+    // The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+    // between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+    //
+    // note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+    // among constructors.
+
     {
         coupons = new UniqueCouponList();
     }
 
-    public CouponStash() {}
+    public CouponStash() {
+    }
 
     /**
      * Creates an CouponStash using the Coupons in the {@code toBeCopied}
@@ -92,6 +95,32 @@ public class CouponStash implements ReadOnlyCouponStash {
      */
     public void removeCoupon(Coupon key) {
         coupons.remove(key);
+    }
+
+    /**
+     * Copies all the contents of this {@code CouponStash} to another {@code CouponStash}.
+     *
+     * @return A copied {@code CouponStash}
+     */
+    public CouponStash clone() {
+        CouponStash copy = new CouponStash();
+
+        for (Coupon coupon : coupons) {
+
+            // Copy all the tags
+            Set<Tag> copiedTags = new HashSet<>();
+            for (Tag tag : coupon.getTags()) {
+                copiedTags.add(new Tag(tag.tagName));
+            }
+
+            copy.addCoupon(new Coupon(
+                    coupon.getName(), coupon.getPhone(),
+                    coupon.getSavings(), coupon.getExpiryDate(),
+                    coupon.getUsage(), coupon.getLimit(), copiedTags
+            ));
+        }
+
+        return copy;
     }
 
     //// util methods

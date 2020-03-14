@@ -20,6 +20,7 @@ public class Coupon {
     private final Name name;
     private final Phone phone;
     private final ExpiryDate expiryDate;
+    private final Remind remind;
 
     // Savings field
     private final Savings savings;
@@ -39,9 +40,14 @@ public class Coupon {
         this.phone = phone;
         this.savings = savings;
         this.expiryDate = expiryDate;
+        this.remind = new Remind();
         this.usage = usage;
         this.limit = limit;
         this.tags.addAll(tags);
+    }
+
+    public Remind getRemind() {
+        return remind;
     }
 
     public Name getName() {
@@ -113,6 +119,18 @@ public class Coupon {
         }
 
         Coupon otherCoupon = (Coupon) other;
+
+        // Loop through the tags to check for equality
+        if (getTags().size() != otherCoupon.getTags().size()) {
+            return false;
+        } else {
+            for (Tag tag : getTags()) {
+                if (!otherCoupon.getTags().contains(tag)) {
+                    return false;
+                }
+            }
+        }
+
         return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getSavings().equals(getSavings())

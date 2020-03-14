@@ -3,6 +3,7 @@ package csdev.couponstash.logic;
 import java.nio.file.Path;
 
 import csdev.couponstash.commons.core.GuiSettings;
+import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
@@ -49,4 +50,14 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' CouponStash settings.
+     */
+    StashSettings getStashSettings();
+
+    /**
+     * Set the user prefs' CouponStash settings.
+     */
+    void setStashSettings(StashSettings stashSettings);
 }
