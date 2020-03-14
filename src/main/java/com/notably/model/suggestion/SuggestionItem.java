@@ -5,8 +5,8 @@ package com.notably.model.suggestion;
  */
 interface SuggestionItem {
     /**
-     * Gets the note path and/ or title displayed in the UI, e.g. "open -t root/cs2103".
-     * @return The note's path and/ or title.
+     * Gets a user-friendly text suggestion to be displayed to the user, e.g. "open -t root/cs2103".
+     * @return The suggestion.
      */
     String getDisplayText();
 
