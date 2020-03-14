@@ -1,4 +1,4 @@
-package seedu.eylah.testutil;
+package seedu.eylah.expensesplitter.testutil;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
@@ -27,8 +27,9 @@ public class Assert {
      * @see #assertThrows(Class, Executable)
      */
     public static void assertThrows(Class<? extends Throwable> expectedType, String expectedMessage,
-            Executable executable) {
+                                    Executable executable) {
         Throwable thrownException = Assertions.assertThrows(expectedType, executable);
         Assertions.assertEquals(expectedMessage, thrownException.getMessage());
     }
+
 }
