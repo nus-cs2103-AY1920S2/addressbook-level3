@@ -29,6 +29,7 @@
       </HBox>
       <FlowPane fx:id="goals" />
       <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
+      <FlowPane fx:id="ingredients" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
     </VBox>
   </GridPane>
