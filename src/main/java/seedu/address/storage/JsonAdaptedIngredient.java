@@ -47,8 +47,42 @@ class JsonAdaptedIngredient {
                 System.out.println("Error: ingredient type does not belong to one of the categories");
                 this.ingredientType = null;
         }
+
     }
 
+
+    /*
+     @JsonCreator
+    public JsonAdaptedIngredient(@JsonProperty("grain") String grains,
+                                 @JsonProperty("vegetable") String vegetables,
+                                 @JsonProperty("protein") String proteins,
+                                 @JsonProperty("other") String others) {
+
+        if (!grains.isBlank()) {
+            String[] grainDetail = grains.split(",");
+            ingredientName = grainDetail[0].trim();
+            quantity = Double.parseDouble(grainDetail[1].trim());
+            ingredientType = IngredientType.GRAIN;
+
+        } else if (!vegetables.isBlank()) {
+            String[] vegeDetail = vegetables.split(",");
+            ingredientName = vegeDetail[0].trim();
+            quantity = Double.parseDouble(vegeDetail[1].trim());
+            ingredientType = IngredientType.VEGETABLE;
+
+        } else if (!proteins.isBlank()) {
+            String[] proteinDetail = vegetables.split(",");
+            ingredientName = proteinDetail[0].trim();
+            quantity = Double.parseDouble(proteinDetail[1].trim());
+            ingredientType = IngredientType.PROTEIN;
+
+        } else {
+            String[] otherDetail = others.split(",");
+            ingredientName = otherDetail[0].trim();
+            quantity = Double.parseDouble(otherDetail[1].trim());
+            ingredientType = IngredientType.OTHER;
+        }
+     */
     /**
      * Converts a given {@code Ingredient} into this class for Jackson use.
      */
@@ -59,8 +93,8 @@ class JsonAdaptedIngredient {
     }
 
     @JsonValue
-    public String getIngredientName() {
-        return ingredientName;
+    public String getIngredient() {
+        return ingredientName + ",  " + quantity + ", " + ingredientType.value;
     }
 
     /**

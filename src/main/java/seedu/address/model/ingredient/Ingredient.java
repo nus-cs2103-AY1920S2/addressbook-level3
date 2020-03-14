@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public abstract class Ingredient {
 
-    public static final String MESSAGE_CONSTRAINTS = "Ingredient names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain only alphabetical letters or spaces";
+    public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
     public final String ingredientName;
     public IngredientType ingredientType;
@@ -49,11 +49,6 @@ public abstract class Ingredient {
     @Override
     public String toString() {
         return "[" + ingredientName + ", " + quantity + ", " + ingredientType.value + "]";
-    }
-
-    @Override
-    public int hashCode() {
-        return ingredientName.hashCode();
     }
 
     //unit.toString() + " " + ingredientName;

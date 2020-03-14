@@ -27,16 +27,21 @@ public class SampleDataUtil {
             new Recipe(new Name("Caesar Salad"), new Time("30"),
                     getIngredientSet("Tomato, 100, vegetable", "Honeydew, 100, other"),
                     new Email("alexyeoh@example.com"), getGoalSet("Herbivore")),
-            new Recipe(new Name("Bernice Yu"), new Time("99272758"), getIngredientSet(),
-                    new Email("berniceyu@example.com"), getGoalSet("colleagues", "friends")),
-            new Recipe(new Name("Charlotte Oliveiro"), new Time("93210283"), getIngredientSet(),
-                    new Email("charlotte@example.com"), getGoalSet("neighbours")),
-            new Recipe(new Name("David Li"), new Time("91031282"), getIngredientSet(),
-                    new Email("lidavid@example.com"), getGoalSet("family")),
-            new Recipe(new Name("Irfan Ibrahim"), new Time("92492021"), getIngredientSet(),
-                    new Email("irfan@example.com"), getGoalSet("classmates")),
-            new Recipe(new Name("Roy Balakrishnan"), new Time("92624417"), getIngredientSet(),
-                    new Email("royb@example.com"), getGoalSet("colleagues"))
+            new Recipe(new Name("Grilled Sandwich"), new Time("10"),
+                    getIngredientSet("Bread, 50, grain", "Cheese, 50, other"),
+                    new Email("berniceyu@example.com"), getGoalSet("Wholesome Wholemeal")),
+            new Recipe(new Name("Boiled Chicken"), new Time("10"),
+                    getIngredientSet("Chicken, 100, protein"),
+                    new Email("charlotte@example.com"), getGoalSet("Bulk like the Hulk")),
+            new Recipe(new Name("Chocolate Cake"), new Time("120"),
+                    getIngredientSet("Sugar, 100, other"),
+                    new Email("lidavid@example.com"), getGoalSet()),
+            new Recipe(new Name("Omelet"), new Time("15"),
+                    getIngredientSet("Egg, 100, protein"),
+                    new Email("irfan@example.com"), getGoalSet()),
+            new Recipe(new Name("Tuna Bread"), new Time("60"),
+                    getIngredientSet("Wholemeal bread, 100, grain", "Tuna, 100, protein"),
+                    new Email("royb@example.com"), getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal"))
         };
     }
 
