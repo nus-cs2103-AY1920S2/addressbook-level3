@@ -10,12 +10,16 @@ public class Path {
     private List<String> paths;
     private boolean isAbsolute;
 
-    public Path(String args, Boolean isAbsolute) {
+    public Path(String args) {
         this.paths = new ArrayList<>();
+        if (args.charAt(0) == '/') {
+            this.isAbsolute = true;
+        } else {
+            this.isAbsolute = false;
+        }
         for (String obj : args.split("/")) {
             paths.add(obj.trim());
         }
-        this.isAbsolute = isAbsolute;
     }
 
     public List<String> getPaths() {
