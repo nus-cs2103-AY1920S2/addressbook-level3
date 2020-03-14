@@ -86,5 +86,22 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+
+    /**
+     * Updates the amount the Person owes you. If amount is $0 then the Person is deleted.
+     * @param person Person who paid
+     */
+    void paidPerson(Person person);
+
+    /**
+     * Command for listing all items in that receipt.
+     */
+    void listReceipt();
+
+    /**
+     * Going back to EYLAH Main Menu.
+     */
+    void backToMainMenu();
 }
 
