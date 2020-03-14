@@ -15,10 +15,14 @@ import javafx.stage.Stage;
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<Stage> {
-
+    public static final String LIST_OF_VALID_COMMANDS = "The valid commands are as follows:\n"
+            + "addX n/NAME t/DATETIME l/LOCATION c/CALORIE es/False r/REMARK: add an entry\n"
+            + "...\n";
+    public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
+            + "please access the User Guide via the following url:\n";
     public static final String USERGUIDE_URL =
             "https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/docs/UserGuide.adoc";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String HELP_MESSAGE = LIST_OF_VALID_COMMANDS + LOOK_FOR_URL + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
