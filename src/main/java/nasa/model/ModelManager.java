@@ -14,6 +14,8 @@ import nasa.commons.core.index.Index;
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;
 import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -95,7 +97,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasModule(ModuleCode module) {
+        requireNonNull(module);
+        return nasaBook.hasModule(module);
+    }
+
+    @Override
     public void deleteModule(Module target) {
+        nasaBook.removeModule(target);
+    }
+
+    @Override
+    public void deleteModule(ModuleCode target) {
         nasaBook.removeModule(target);
     }
 
@@ -111,7 +124,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addModule(ModuleCode moduleCode, ModuleName moduleName) {
+        nasaBook.addModule(moduleCode, moduleName);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
     public void setModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        nasaBook.setModule(target, editedModule);
+    }
+
+    @Override
+    public void setModule(ModuleCode target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
@@ -124,7 +150,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addActivity(ModuleCode target, Activity activity) {
+        nasaBook.addActivity(target, activity);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
     public void setActivityByIndex(Module module, Index index, Activity activity) {
+        nasaBook.setActivityByIndex(module, index, activity);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public void setActivityByIndex(ModuleCode module, Index index, Activity activity) {
         nasaBook.setActivityByIndex(module, index, activity);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
@@ -136,7 +174,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void editActivityByIndex(ModuleCode module, Index index, Object... args) {
+        nasaBook.editActivityByIndex(module, index, args);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
     public void removeActivity(Module target, Activity activity) {
+        nasaBook.removeActivity(target, activity);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
+    public void removeActivity(ModuleCode target, Activity activity) {
         nasaBook.removeActivity(target, activity);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
@@ -148,7 +198,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void removeActivityByIndex(ModuleCode target, Index index) {
+        nasaBook.removeActivityByIndex(target, index);
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    @Override
     public boolean hasActivity(Module target, Activity activity) {
+        requireNonNull(activity);
+        return nasaBook.hasActivity(target, activity);
+    }
+
+    @Override
+    public boolean hasActivity(ModuleCode target, Activity activity) {
         requireNonNull(activity);
         return nasaBook.hasActivity(target, activity);
     }

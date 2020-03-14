@@ -12,21 +12,13 @@ public abstract class Activity implements Regenerable<Activity> {
     private Name name;
     private Date date;
     private Note note;
-    private Status status;
+    protected Status status;
     private Priority priority;
 
     public Activity(Name name, Note note) {
         this.name = name;
         this.note = note;
         this.date = Date.now();
-        this.status = Status.ONGOING;
-        this.priority = new Priority("1");
-    }
-
-    public Activity(Name name, Date date, Note note) {
-        this.name = name;
-        this.date = date;
-        this.note = note;
         this.status = Status.ONGOING;
         this.priority = new Priority("1");
     }
@@ -130,12 +122,6 @@ public abstract class Activity implements Regenerable<Activity> {
         return otherActivity.getName().equals(getName())
                 && otherActivity.getNote().equals(getNote())
                 && otherActivity.getDate().equals(getDate());
-    }
-
-    public void updateStatus() {
-        if (status == Status.ONGOING && LocalDateTime.now().isAfter(date.getDate())) {
-            status = Status.LATE;
-        }
     }
 
     /**

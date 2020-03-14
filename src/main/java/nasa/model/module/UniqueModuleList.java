@@ -43,6 +43,14 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Returns true if the list contains an equivalent ModuleCode as the given argument.
+     */
+    public boolean contains(ModuleCode toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(x -> x.getModuleCode().equals(toCheck));
+    }
+
+    /**
      * Adds a Module to the list.
      * The Module must not already exist in the list.
      */
@@ -55,14 +63,42 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Adds a ModuleCode to the list.
+     * The ModuleCode must not already exist in the list.
+     */
+    public void add(ModuleCode toAddCode, ModuleName toAddName) {
+        requireAllNonNull(toAddCode, toAddName);
+        if (contains(toAddCode)) {
+            throw new DuplicateModuleException();
+        }
+        internalList.add(new Module(toAddCode, toAddName));
+    }
+
+    /**
      * Replaces the Module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the list.
      * The Module identity of {@code editedModule} must not be the same as another existing Module in the list.
      */
     public void setModule(Module target, Module editedModule) {
-        CollectionUtil.requireAllNonNull(target, editedModule);
-
         int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new ModuleNotFoundException();
+        }
+
+        if (!target.equals(editedModule) && contains(editedModule)) {
+            throw new DuplicateModuleException();
+        }
+
+        internalList.set(index, editedModule);
+    }
+
+    /**
+     * Replaces the ModuleCode {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the list.
+     * The ModuleCode identity of {@code editedModule} must not be the same as another existing Module in the list.
+     */
+    public void setModule(ModuleCode target, Module editedModule) {
+        int index = internalList.indexOf(getModule(target));
         if (index == -1) {
             throw new ModuleNotFoundException();
         }
@@ -86,6 +122,17 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
+     * Removes the equivalent ModuleCode from the list.
+     * The ModuleCode must exist in the list.
+     */
+    public void remove(ModuleCode toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(getModule(toRemove))) {
+            throw new ModuleNotFoundException();
+        }
+    }
+
+    /**
      * Removes the Module based on index.
      */
     public void removeByIndex(Index index) {
@@ -102,7 +149,7 @@ public class UniqueModuleList implements Iterable<Module> {
      * {@code modules} must not contain duplicate modules.
      */
     public void setModules(List<Module> modules) {
-        CollectionUtil.requireAllNonNull(modules);
+        requireAllNonNull(modules);
         if (!modulesAreUnique(modules)) {
             throw new DuplicateModuleException();
         }
@@ -117,10 +164,24 @@ public class UniqueModuleList implements Iterable<Module> {
         moduleSelected.setActivityByIndex(index, activity);
     }
 
+    public void setActivityByIndex(ModuleCode moduleCode, Index index, Activity activity) {
+        requireNonNull(activity);
+
+        Module moduleSelected = getModule(moduleCode);
+        moduleSelected.setActivityByIndex(index, activity);
+    }
+
     public void editActivityByIndex(Module module, Index index, Object... args) {
         requireNonNull(args);
 
         Module moduleSelected = getModule(module);
+        moduleSelected.editActivityByIndex(index, args);
+    }
+
+    public void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args) {
+        requireNonNull(args);
+
+        Module moduleSelected = getModule(moduleCode);
         moduleSelected.editActivityByIndex(index, args);
     }
 
@@ -129,15 +190,33 @@ public class UniqueModuleList implements Iterable<Module> {
         return getModule(module).getActivities();
     }
 
+    public UniqueActivityList getActivities(ModuleCode moduleCode) {
+        requireAllNonNull(moduleCode);
+        return getModule(moduleCode).getActivities();
+    }
+
     /**
      * get a particular module from the list
      * @param module
      * @return
      */
     public Module getModule(Module module) {
-        CollectionUtil.requireAllNonNull(module);
+        requireAllNonNull(module);
         return internalList.parallelStream()
                 .filter(x -> x.equals(module))
+                .findFirst()
+                .get();
+    }
+
+    /**
+     * get a particular module from the list
+     * @param moduleCode
+     * @return
+     */
+    public Module getModule(ModuleCode moduleCode) {
+        requireAllNonNull(moduleCode);
+        return internalList.parallelStream()
+                .filter(x -> x.getModuleCode().equals(moduleCode))
                 .findFirst()
                 .get();
     }
