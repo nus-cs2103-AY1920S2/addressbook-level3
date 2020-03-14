@@ -3,12 +3,14 @@ package seedu.address.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class JsonSerializableProfileList {
+    public static final String MESSAGE_DUPLICATE_PROFILE = "Profile list contains a profile with the same name.";
 
     private List<JsonProfile> profiles = new ArrayList<>();
 
@@ -17,9 +19,15 @@ public class JsonSerializableProfileList {
         this.profiles.addAll(profiles);
     }
 
-    // To edit, probably make a ProfileList if we're dealing with multiple profiles
-    // For now, I'll assume there's just one Profile and return just one Profile object
-    public Profile toModelType() throws IllegalValueException {
-        return this.profiles.get(0).toModelType();
+    public ProfileList toModelType() throws IllegalValueException {
+        ProfileList profileList = new ProfileList();
+        for (JsonProfile jsonProfile: profiles) {
+            Profile profile = jsonProfile.toModelType();
+            if (profileList.hasProfileWithName(profile.getName())) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PROFILE);
+            }
+            profileList.addProfile(profile);
+        }
+        return profileList;
     }
 }
