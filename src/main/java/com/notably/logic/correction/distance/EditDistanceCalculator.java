@@ -1,9 +1,16 @@
 package com.notably.logic.correction.distance;
 
 /**
- * Wrapper for an algorithm that calculates the distance between two {@link String}s.
+ * Wrapper for an algorithm that calculates the edit distance of two {@link String}s.
  */
 public interface EditDistanceCalculator {
+    /**
+     * Calculates the edit distance between two {@link Strings}
+     *
+     * @param first First {@link String}
+     * @param second Second {@link String}
+     * @return The edit distance of {@code first} and {@code second}
+     */
     int calculateDistance(String first, String second);
 }
 
