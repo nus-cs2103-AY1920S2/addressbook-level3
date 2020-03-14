@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
@@ -33,6 +34,7 @@ import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.storageAssignments.JsonAssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
 import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
@@ -60,10 +62,13 @@ public class LogicManagerTest {
             new JsonFinanceAddressBookStorage(temporaryFolder.resolve("FinanceAddressBook.json"));
         JsonCourseAddressBookStorage courseAddressBookStorage =
             new JsonCourseAddressBookStorage(temporaryFolder.resolve("courseAddressBook.json"));
+        JsonAssignmentAddressBookStorage assignmentAddressBookStorage =
+                new JsonAssignmentAddressBookStorage(temporaryFolder.resolve("assignmentAddressBook.json"));
 
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
-            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, userPrefsStorage);
+            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage,
+                userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -92,11 +97,13 @@ public class LogicManagerTest {
             new JsonFinanceAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionFinanceAddressBook.json"));
         JsonCourseAddressBookIoExceptionThrowingStub courseAddressBookStorage =
             new JsonCourseAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCourseAddressBook.json"));
+        JsonAssignmentAddressBookIoExceptionThrowingStub assignmentAddressBookStorage =
+                new JsonAssignmentAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAssignmentAddressBook.json"));
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
-            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, userPrefsStorage);
+            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage,userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -152,7 +159,8 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
-            model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(), new UserPrefs());
+            model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
+                model.getAssignmentAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -235,6 +243,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveCourseAddressBook(ReadOnlyCourseAddressBook teacherAddressBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonAssignmentAddressBookIoExceptionThrowingStub extends JsonAssignmentAddressBookStorage {
+        private JsonAssignmentAddressBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

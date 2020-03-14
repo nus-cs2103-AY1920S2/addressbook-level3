@@ -42,7 +42,7 @@ public class EditCourseCommand extends Command {
           + PREFIX_NAME + "Java 101 "
           + PREFIX_COURSEID + "464 ";
 
-  public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Course: %1$s";
+  public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Assignment: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
   public static final String MESSAGE_DUPLICATE_COURSE = "This course already exists in the address book.";
 
@@ -62,7 +62,7 @@ public class EditCourseCommand extends Command {
   }
 
   /**
-   * Creates and returns a {@code Course} with the details of {@code courseToEdit} edited with
+   * Creates and returns a {@code Assignment} with the details of {@code courseToEdit} edited with
    * {@code editCourseDescriptor}.
    */
   private static Course createEditedCourse(Course courseToEdit,

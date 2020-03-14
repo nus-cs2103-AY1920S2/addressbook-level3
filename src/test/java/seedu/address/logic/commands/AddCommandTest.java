@@ -21,6 +21,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
@@ -354,6 +356,56 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredFinanceList(Predicate<Finance> predicate) {
+
+        }
+
+        @Override
+        public Path getAssignmentAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setAssignmentAddressBookFilePath(Path assignmentAddressBookFilePath) {
+
+        }
+
+        @Override
+        public ReadOnlyAssignmentAddressBook getAssignmentAddressBook() {
+            return null;
+        }
+
+        @Override
+        public void setAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook) {
+
+        }
+
+        @Override
+        public boolean hasAssignment(Assignment assignment) {
+            return false;
+        }
+
+        @Override
+        public void deleteAssignment(Assignment assignment) {
+
+        }
+
+        @Override
+        public void addAssignment(Assignment assignment) {
+
+        }
+
+        @Override
+        public void setAssignment(Assignment target, Assignment editedAssignment) {
+
+        }
+
+        @Override
+        public ObservableList<Assignment> getFilteredAssignmentList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
 
         }
     }

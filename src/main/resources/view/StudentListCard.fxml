@@ -24,7 +24,7 @@
       </HBox>
       <HBox>
         <Label styleClass="cell_small_label" text="Course Name: "/>
-        <Label styleClass="cell_small_label" text="\$course" fx:id="courseID"/>
+        <Label styleClass="cell_small_label" text="\$assignment" fx:id="courseID"/>
       </HBox>
       <padding>
         <Insets bottom="5" left="15" right="5" top="5"/>

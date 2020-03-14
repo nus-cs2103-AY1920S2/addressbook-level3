@@ -25,12 +25,17 @@ public class SummaryPanel extends UiPart<Region> {
   @FXML
   private Label totalFinances;
 
+  @FXML
+  private Label totalAssignments;
+
+
   public SummaryPanel() {
     super(FXML);
     totalStudents.setText("Total Students: ");
     totalTeachers.setText("Total Teachers: ");
     totalCourses.setText("Total Courses: ");
     totalFinances.setText("Total Finances: ");
+    totalAssignments.setText("Total Assignments: ");
   }
 
   public void updateTotalStudents(int num){
@@ -47,6 +52,10 @@ public class SummaryPanel extends UiPart<Region> {
 
   public void updateTotalFinances(int num){
     totalFinances.setText("Total Finances: " + String.valueOf(num));
+  }
+
+  public void updateTotalAssignments(int num){
+    totalAssignments.setText("Total Assignments: " + String.valueOf(num));
   }
 
 }

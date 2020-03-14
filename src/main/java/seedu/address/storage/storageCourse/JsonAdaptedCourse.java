@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
  */
 class JsonAdaptedCourse {
 
-  public static final String MISSING_FIELD_MESSAGE_FORMAT = "Course's %s field is missing!";
+  public static final String MISSING_FIELD_MESSAGE_FORMAT = "Courses's %s field is missing!";
 
   private final String name;
   private final String courseID;
@@ -41,7 +41,7 @@ class JsonAdaptedCourse {
   }
 
   /**
-   * Converts a given {@code Course} into this class for Jackson use.
+   * Converts a given {@code Assignment} into this class for Jackson use.
    */
   public JsonAdaptedCourse(Course source) {
     name = source.getName().fullName;
@@ -52,10 +52,10 @@ class JsonAdaptedCourse {
   }
 
   /**
-   * Converts this Jackson-friendly adapted Course object into the model's {@code Course} object.
+   * Converts this Jackson-friendly adapted Assignment object into the model's {@code Assignment} object.
    *
    * @throws IllegalValueException if there were any data constraints violated in the adapted
-   *                               Course.
+   *                               Assignment.
    */
   public Course toModelType() throws IllegalValueException {
     final List<Tag> CourseTags = new ArrayList<>();

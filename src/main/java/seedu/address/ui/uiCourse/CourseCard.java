@@ -10,7 +10,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Course}.
+ * An UI component that displays information of a {@code Assignment}.
  */
 public class CourseCard extends UiPart<Region> {
 

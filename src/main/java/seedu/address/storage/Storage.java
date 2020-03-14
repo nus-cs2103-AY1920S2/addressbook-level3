@@ -7,10 +7,13 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
+import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
@@ -21,7 +24,8 @@ import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
  */
 public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
     StudentAddressBookStorage,
-    FinanceAddressBookStorage, CourseAddressBookStorage, UserPrefsStorage {
+    FinanceAddressBookStorage, CourseAddressBookStorage, AssignmentAddressBookStorage,
+        UserPrefsStorage {
 
   @Override
   Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -83,5 +87,15 @@ public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
 
   @Override
   void saveCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook) throws IOException;
+
+  @Override
+  Path getAssignmentAddressBookFilePath();
+
+  @Override
+  Optional<ReadOnlyAssignmentAddressBook> readAssignmentAddressBook()
+          throws DataConversionException, IOException;
+
+  @Override
+  void saveAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook) throws IOException;
 
 }

@@ -4,6 +4,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
@@ -27,6 +29,8 @@ public interface Model {
   Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
   Predicate<Finance> PREDICATE_SHOW_ALL_FINANCES = unused -> true;
   Predicate<Course> PREDICATE_SHOW_ALL_COURSES = unused -> true;
+  Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+
 
   /**
    * Returns the user prefs.
@@ -177,7 +181,7 @@ public interface Model {
   ReadOnlyStudentAddressBook getStudentAddressBook();
 
   /**
-   * Replaces student address book data with the data in {@code teacerAddressBook}.
+   * Replaces student address book data with the data in {@code teacherAddressBook}.
    */
   void setStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook);
 
@@ -328,4 +332,59 @@ public interface Model {
    * @throws NullPointerException if {@code predicate} is null.
    */
   void updateFilteredFinanceList(Predicate<Finance> predicate);
+
+  /**
+   * Returns the user prefs' assignment address book file path.
+   */
+  Path getAssignmentAddressBookFilePath();
+
+  /**
+   * Sets the user prefs' address book file path.
+   */
+  void setAssignmentAddressBookFilePath(Path assignmentAddressBookFilePath);
+
+  /**
+   * Returns the assignmentAddressBook
+   */
+  ReadOnlyAssignmentAddressBook getAssignmentAddressBook();
+
+  /**
+   * Replaces assignment address book data with the data in {@code teacerAddressBook}.
+   */
+  void setAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook);
+
+  /**
+   * Returns true if a assignment with the same identity as {@code assignment} exists in the address
+   * book.
+   */
+  boolean hasAssignment(Assignment assignment);
+
+  /**
+   * Deletes the given finance. The finance must exist in the address book.
+   */
+  void deleteAssignment(Assignment assignment);
+
+  /**
+   * Adds the given assignment. {@code assignment} must not already exist in the address book.
+   */
+  void addAssignment(Assignment assignment);
+
+  /**
+   * Replaces the given assignment {@code target} with {@code editedAssignment}. {@code target} must exist
+   * in the address book. The assignment identity of {@code editedAssignment} must not be the same as
+   * another existing finance in the address book.
+   */
+  void setAssignment(Assignment target, Assignment editedAssignment);
+
+  /**
+   * Returns an unmodifiable view of the filtered finance list
+   */
+  ObservableList<Assignment> getFilteredAssignmentList();
+
+  /**
+   * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+   *
+   * @throws NullPointerException if {@code predicate} is null.
+   */
+  void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 }

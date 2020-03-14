@@ -10,6 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
@@ -36,6 +39,7 @@ public class ModelManager implements Model {
   private final StudentAddressBook studentAddressBook;
   private final FinanceAddressBook financeAddressBook;
   private final CourseAddressBook courseAddressBook;
+  private final AssignmentAddressBook assignmentAddressBook;
 
   private final UserPrefs userPrefs;
   private final FilteredList<Person> filteredPersons;
@@ -43,7 +47,7 @@ public class ModelManager implements Model {
   private final FilteredList<Student> filteredStudents;
   private final FilteredList<Finance> filteredFinances;
   private final FilteredList<Course> filteredCourses;
-
+  private final FilteredList<Assignment> filteredAssignments;
 
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -51,10 +55,12 @@ public class ModelManager implements Model {
   public ModelManager(ReadOnlyAddressBook addressBook,
       ReadOnlyTeacherAddressBook teacherAddressBook, ReadOnlyStudentAddressBook studentAddressBook,
       ReadOnlyFinanceAddressBook financeAddressBook, ReadOnlyCourseAddressBook courseAddressBook,
-      ReadOnlyUserPrefs userPrefs) {
+      ReadOnlyAssignmentAddressBook assignmentAddressBook,
+                      ReadOnlyUserPrefs userPrefs) {
     super();
     requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
-        userPrefs);
+            //assignmentAddressBook,
+            userPrefs);
 
     logger.fine("Initializing with address book: " + studentAddressBook
         + "Initializing with  teacher address book: " + teacherAddressBook + " and user prefs "
@@ -65,6 +71,7 @@ public class ModelManager implements Model {
     this.studentAddressBook = new StudentAddressBook(studentAddressBook);
     this.financeAddressBook = new FinanceAddressBook(financeAddressBook);
     this.courseAddressBook = new CourseAddressBook(courseAddressBook);
+    this.assignmentAddressBook = new AssignmentAddressBook(assignmentAddressBook);
 
     this.userPrefs = new UserPrefs(userPrefs);
     filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -72,12 +79,14 @@ public class ModelManager implements Model {
     filteredStudents = new FilteredList<>(this.studentAddressBook.getStudentList());
     filteredFinances = new FilteredList<>(this.financeAddressBook.getFinanceList());
     filteredCourses = new FilteredList<>(this.courseAddressBook.getCourseList());
-
+    filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getAssignmentList());
   }
 
   public ModelManager() {
     this(new AddressBook(), new TeacherAddressBook(), new StudentAddressBook(),
-        new FinanceAddressBook(), new CourseAddressBook(), new UserPrefs());
+        new FinanceAddressBook(), new CourseAddressBook(),
+            new AssignmentAddressBook(),
+            new UserPrefs());
   }
 
   //=========== UserPrefs ==================================================================================
@@ -158,6 +167,18 @@ public class ModelManager implements Model {
     requireNonNull(courseAddressBookFilePath);
     userPrefs.setCourseAddressBookFilePath(courseAddressBookFilePath);
   }
+
+  @Override
+  public Path getAssignmentAddressBookFilePath() {
+    return userPrefs.getAssignmentAddressBookFilePath();
+  }
+
+  @Override
+  public void setAssignmentAddressBookFilePath(Path assignmentAddressBookFilePath) {
+    requireNonNull(assignmentAddressBookFilePath);
+    userPrefs.setAssignmentAddressBookFilePath(assignmentAddressBookFilePath);
+  }
+
 
   @Override
   public ReadOnlyAddressBook getAddressBook() {
@@ -330,8 +351,39 @@ public class ModelManager implements Model {
   @Override
   public void setCourse(Course target, Course editedCourse) {
     requireAllNonNull(target, editedCourse);
-
     courseAddressBook.setCourse(target, editedCourse);
+  }
+
+  @Override
+  public ReadOnlyAssignmentAddressBook getAssignmentAddressBook() {
+    return assignmentAddressBook;
+  }
+
+  @Override
+  public void setAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook) {
+    this.assignmentAddressBook.resetData(assignmentAddressBook);
+  }
+
+
+  //TODO
+  @Override
+  public boolean hasAssignment(Assignment assignment) {
+    return false;
+  }
+
+  @Override
+  public void deleteAssignment(Assignment assignment) {
+
+  }
+
+  @Override
+  public void addAssignment(Assignment assignment) {
+
+  }
+
+  @Override
+  public void setAssignment(Assignment target, Assignment editedAssignment) {
+
   }
 
   //=========== Filtered List Accessors =============================================================
@@ -396,8 +448,19 @@ public class ModelManager implements Model {
     filteredFinances.setPredicate(predicate);
   }
 
+  @Override
+  public ObservableList<Assignment> getFilteredAssignmentList() {
+    return filteredAssignments;
+  }
+
+  @Override
+  public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+    requireNonNull(predicate);
+    filteredAssignments.setPredicate(predicate);
+  }
+
   /**
-   * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of
+   * Returns an unmodifiable view of the list of {@code Assignment} backed by the internal list of
    * {@code versionedCourseAddressBook}
    */
   @Override
@@ -426,9 +489,19 @@ public class ModelManager implements Model {
 
     // state check
     ModelManager other = (ModelManager) obj;
-    return teacherAddressBook.equals(other.teacherAddressBook)
-        && userPrefs.equals(other.userPrefs)
-        && filteredTeachers.equals(other.filteredTeachers);
+    return userPrefs.equals(other.userPrefs)
+        && teacherAddressBook.equals(other.teacherAddressBook)
+        && studentAddressBook.equals(other.studentAddressBook)
+        && courseAddressBook.equals(other.courseAddressBook)
+        && financeAddressBook.equals(other.financeAddressBook)
+        && assignmentAddressBook.equals(other.assignmentAddressBook)
+        && filteredTeachers.equals(other.filteredTeachers)
+        && filteredStudents.equals(other.filteredStudents)
+        && filteredCourses.equals(other.filteredCourses)
+        && filteredFinances.equals(other.filteredFinances)
+        && filteredAssignments.equals(other.filteredAssignments);
+
+
   }
 
 }

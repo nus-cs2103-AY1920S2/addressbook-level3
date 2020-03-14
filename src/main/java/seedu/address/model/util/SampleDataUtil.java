@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
@@ -17,15 +20,7 @@ import seedu.address.model.modelStudent.StudentAddressBook;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.model.modelTeacher.TeacherAddressBook;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Amount;
-import seedu.address.model.person.AssignedCourse;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.ID;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -121,6 +116,25 @@ public class SampleDataUtil {
     CourseAddressBook sampleAb = new CourseAddressBook();
     for (Course sampleCourse : getSampleCourses()) {
       sampleAb.addCourse(sampleCourse);
+    }
+    return sampleAb;
+  }
+
+  public static Assignment[] getSampleAssignments() {
+    return new Assignment[]{
+            new Assignment(new Name("Informed Search"), new ID("900"),
+                    new Deadline("2020-03-28"), getTagSet("AI", "Fun")),
+            new Assignment(new Name("Adversarial Search"), new ID("901"),
+                    new Deadline("2020-04-01"), getTagSet("AI", "Challenging")),
+            new Assignment(new Name("Reinforcement Search"), new ID("902"),
+                    new Deadline("2020-04-03"), getTagSet("AI", "Difficult"))
+    };
+  }
+
+  public static ReadOnlyAssignmentAddressBook getSampleAssignmentAddressBook() {
+    AssignmentAddressBook sampleAb = new AssignmentAddressBook();
+    for (Assignment sampleAssignment : getSampleAssignments()) {
+      sampleAb.addAssignment(sampleAssignment);
     }
     return sampleAb;
   }

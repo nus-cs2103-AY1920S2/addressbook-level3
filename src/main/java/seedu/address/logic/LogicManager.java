@@ -29,6 +29,8 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
@@ -102,6 +104,7 @@ public class LogicManager implements Logic {
     summaryPanel.updateTotalTeachers(getFilteredTeacherList().size());
     summaryPanel.updateTotalCourses(getFilteredCourseList().size());
     summaryPanel.updateTotalFinances(getFilteredFinanceList().size());
+    summaryPanel.updateTotalAssignments(getFilteredAssignmentList().size());
 
     return commandResult;
   }
@@ -189,6 +192,22 @@ public class LogicManager implements Logic {
   public Path getFinanceAddressBookFilePath() {
     return model.getFinanceAddressBookFilePath();
   }
+
+  @Override
+  public ReadOnlyAssignmentAddressBook getAssignmentAddressBook() {
+    return model.getAssignmentAddressBook();
+  }
+
+  @Override
+  public ObservableList<Assignment> getFilteredAssignmentList() {
+    return model.getFilteredAssignmentList();
+  }
+
+  @Override
+  public Path getAssignmentAddressBookFilePath() {
+    return model.getAssignmentAddressBookFilePath();
+  }
+
 
   @Override
   public GuiSettings getGuiSettings() {

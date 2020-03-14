@@ -37,7 +37,7 @@ public class CourseBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Course} that we are building.
+     * Sets the {@code Name} of the {@code Assignment} that we are building.
      */
     public CourseBuilder withName(String name) {
         this.name = new Name(name);
@@ -45,7 +45,7 @@ public class CourseBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Course} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Assignment} that we are building.
      */
     public CourseBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
@@ -53,7 +53,7 @@ public class CourseBuilder {
     }
 
     /**
-     * Sets the {@code ID} of the {@code Course} that we are building.
+     * Sets the {@code ID} of the {@code Assignment} that we are building.
      */
     public CourseBuilder withID(String id) {
         this.id = new ID(id);

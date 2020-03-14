@@ -41,7 +41,7 @@ public class TypicalCourse {
     public static final Course HOON = new CourseBuilder().withName("Hoon Meier").withID("1000").build();
     public static final Course IDA = new CourseBuilder().withName("Ida Mueller").withID("1000").build();
 
-    // Manually added - Course's details found in {@code CommandTestUtil}
+    // Manually added - Assignment's details found in {@code CommandTestUtil}
     public static final Course AMY = new CourseBuilder().withName(VALID_NAME_AMY).withID(VALID_ID_AMY).withTags(VALID_TAG_FRIEND).build();
     public static final Course BOB = new CourseBuilder().withName(VALID_NAME_BOB).withID(VALID_ID_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();

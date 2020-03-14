@@ -21,6 +21,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.FinanceAddressBook;
@@ -36,6 +38,8 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
+import seedu.address.storage.storageAssignments.JsonAssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
 import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
@@ -83,10 +87,12 @@ public class MainApp extends Application {
         userPrefs.getCourseAddressBookFilePath());
     FinanceAddressBookStorage financeAddressBookStorage = new JsonFinanceAddressBookStorage(
         userPrefs.getFinanceAddressBookFilePath());
+    AssignmentAddressBookStorage assignmentAddressBookStorage = new JsonAssignmentAddressBookStorage(
+            userPrefs.getAssignmentAddressBookFilePath());
 
     storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
         studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage,
-        userPrefsStorage);
+            assignmentAddressBookStorage, userPrefsStorage);
 
     initLogging(config);
 
@@ -198,8 +204,32 @@ public class MainApp extends Application {
       courseInitialData = new CourseAddressBook();
     }
 
+    Optional<ReadOnlyAssignmentAddressBook> assignmentAddressBookOptional;
+    ReadOnlyAssignmentAddressBook assignmentInitialData;
+
+    try {
+      assignmentAddressBookOptional = storage.readAssignmentAddressBook();
+      if (!assignmentAddressBookOptional.isPresent()) {
+        logger.info("Data file not found. Will be starting with a sample AddressBook");
+      }
+      assignmentInitialData = assignmentAddressBookOptional
+              .orElseGet(SampleDataUtil::getSampleAssignmentAddressBook);
+    } catch (DataConversionException e) {
+      logger.warning(
+              "Data file not in the correct format. Will be starting with an empty AddressBook");
+      assignmentInitialData = new AssignmentAddressBook();
+    } catch (IOException e) {
+      logger.warning(
+              "Problem while reading from the file. Will be starting with an empty AddressBook");
+      assignmentInitialData = new AssignmentAddressBook();
+    }
+
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
-        courseInitialData, userPrefs);
+        courseInitialData, assignmentInitialData, userPrefs);
+  /*
+    return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
+            courseInitialData, userPrefs);
+  */
   }
 
   private void initLogging(Config config) {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.geometry.Insets?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" id="summaryPanel" xmlns="http://javafx.com/javafx/8" styleClass="summary-panel">
+<VBox id="summaryPanel" styleClass="summary-panel" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
       <image>
          <Image url="@../images/teacherIcon.png" />
@@ -19,12 +19,11 @@
          <Label fx:id="totalTeachers" layoutX="5.0" layoutY="34.0" text="Total Teachers: " />
          <Label fx:id="totalCourses" layoutX="5.0" layoutY="68.0" text="Total Courses: " />
          <Label fx:id="totalFinances" layoutX="5.0" layoutY="102.0" text="Total Finances: " />
+         <Label fx:id="totalAssignments" layoutX="5.0" layoutY="131.0" text="Total Assigments: " />
       </children>
    </Pane>
 
    <padding>
-      <Insets left = "10"/>
+      <Insets left="10" />
    </padding>
 </VBox>
-
-
