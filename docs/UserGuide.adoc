@@ -36,9 +36,9 @@ Format: `add homework n/NAME d/DEADLINE`
 Shows a list of all homework. +
 Format: `list homework`
 
-==== Listing all homework for a course: `list homework`
+==== Listing all homework for a assignment: `list homework`
 
-Shows a list of all homework assigned to a course. +
+Shows a list of all homework assigned to a assignment. +
 Format: `list homework c/courseID`
 
 Examples:
@@ -129,20 +129,20 @@ Returns any finance with `NUS` in its name such as - `Bought textbooks from NUS`
 Returns any finance with an amount of `200`
 
 === Course
-==== Add a course: `add course`
+==== Add a assignment: `add assignment`
 
-Add a new course to the list of course +
-Format: `add course n/NAME`
+Add a new assignment to the list of assignment +
+Format: `add assignment n/NAME`
 Example:
 
-* `add course n/Programming Methodology`
+* `add assignment n/Programming Methodology`
 
-==== List all courses: `list course`
-Shows a list of all courses
-Format: `list course`
+==== List all assignments: `list assignment`
+Shows a list of all assignments
+Format: `list assignment`
 
-==== List all students in a course: `list course student`
-Shows a list of all students in a course +
+==== List all students in a assignment: `list assignment student`
+Shows a list of all students in a assignment +
 Format: `list c/courseID --students`
 
 === Student
@@ -160,7 +160,7 @@ Format: `remove student studentID`
 
 ==== List all students: `list student`
 Shows a list of all students
-Format: `list course`
+Format: `list assignment`
 
 ==== Edit information about a student: `edit student`
 Edits an existing student in the student list
@@ -169,9 +169,9 @@ Example:
 
 * `edit A0131120E n/Aegon Targaryen d/Son of Lyanna Stark and Rhaegar Targaryen`
 
-==== Assign a student to a course: `assign student to course`
-Assign an existing student in the student list to a course in the course list
-Format: `assign student s/studentID course c/courseID`
+==== Assign a student to a assignment: `assign student to assignment`
+Assign an existing student in the student list to a assignment in the assignment list
+Format: `assign student s/studentID assignment c/courseID`
 
 === Teacher
 ==== Add a teacher: `add teacher`
@@ -193,9 +193,9 @@ Example:
 
 * `edit A0131120E n/Ned Stark d/Lord of Winterfell`
 
-==== Assign a teacher to a course: `assign teacher to course`
-Assign an existing teacher in the teacher list to a course in the course list
-Format: `assign teacher s/teacherID course c/courseID`
+==== Assign a teacher to a assignment: `assign teacher to assignment`
+Assign an existing teacher in the teacher list to a assignment in the assignment list
+Format: `assign teacher s/teacherID assignment c/courseID`
 
 === Staff
 

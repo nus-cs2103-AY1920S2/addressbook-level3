@@ -18,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.uiAssignments.AssignmentListPanel;
 import seedu.address.ui.uiCourse.CourseListPanel;
 import seedu.address.ui.uiFinance.FinanceListPanel;
 import seedu.address.ui.uiStudent.StudentListPanel;
@@ -41,6 +42,8 @@ public class MainWindow extends UiPart<Stage> {
   private TeacherListPanel teacherListPanel;
   private CourseListPanel courseListPanel;
   private FinanceListPanel financeListPanel;
+  private AssignmentListPanel assignmentListPanel;
+
   private ResultDisplay resultDisplay;
   private HelpWindow helpWindow;
 
@@ -69,6 +72,9 @@ public class MainWindow extends UiPart<Stage> {
 
   @FXML
   private StackPane financeListPanelPlaceholder;
+
+  @FXML
+  private StackPane assignmentListPanelPlaceholder;
 
   @FXML
   private StackPane resultDisplayPlaceholder;
@@ -147,6 +153,7 @@ public class MainWindow extends UiPart<Stage> {
     teacherListPanel = new TeacherListPanel(logic.getFilteredTeacherList());
     courseListPanel = new CourseListPanel(logic.getFilteredCourseList());
     financeListPanel = new FinanceListPanel(logic.getFilteredFinanceList());
+    assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
 
     dataListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
     SummaryPanel summaryPanel = new SummaryPanel();
@@ -214,6 +221,14 @@ public class MainWindow extends UiPart<Stage> {
   @FXML
   private void handleSwitchToFinance() {
     switchList(financeListPanel.getRoot());
+  }
+
+  /**
+   * Switch to the Assignment view.
+   */
+  @FXML
+  private void handleSwitchToAssignment() {
+    switchList(assignmentListPanel.getRoot());
   }
 
   void show() {

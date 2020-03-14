@@ -21,6 +21,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.FinanceAddressBook;
@@ -198,8 +199,13 @@ public class MainApp extends Application {
       courseInitialData = new CourseAddressBook();
     }
 
+
+    return new ModelManager(initialData, new TeacherAddressBook(), studentInitialData, financeInitialData,
+        courseInitialData, new AssignmentAddressBook(),userPrefs);
+  /*
     return new ModelManager(initialData, teacherInitialData, studentInitialData, financeInitialData,
-        courseInitialData, userPrefs);
+            courseInitialData, userPrefs);
+  */
   }
 
   private void initLogging(Config config) {

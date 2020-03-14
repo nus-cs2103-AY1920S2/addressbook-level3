@@ -1,20 +1,22 @@
-package seedu.address.ui.uiCourse;
+package seedu.address.ui.uiAssignments;
 
-import java.util.Comparator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.modelCourse.Course;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelTeacher.Teacher;
 import seedu.address.ui.UiPart;
+
+import java.util.Comparator;
 
 /**
  * An UI component that displays information of a {@code Assignment}.
  */
-public class CourseCard extends UiPart<Region> {
+public class AssignmentCard extends UiPart<Region> {
 
-  private static final String FXML = "CourseListCard.fxml";
+  private static final String FXML = "AssignmentListCard.fxml";
 
   /**
    * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -25,28 +27,23 @@ public class CourseCard extends UiPart<Region> {
    * level 4</a>
    */
 
-  public final Course course;
+  public final Assignment assignment;
 
   @FXML
   private HBox cardPane;
   @FXML
-  private Label name;
-  @FXML
   private Label id;
   @FXML
-  private Label courseID;
+  private Label name;
   @FXML
-  private FlowPane tags;
+  private Label deadline;
 
-  public CourseCard(Course course, int displayedIndex) {
+  public AssignmentCard(Assignment assignment, int displayedIndex) {
     super(FXML);
-    this.course = course;
+    this.assignment = assignment;
     id.setText(displayedIndex + ". ");
-    name.setText(course.getName().fullName);
-    courseID.setText(course.getId().value);
-    course.getTags().stream()
-        .sorted(Comparator.comparing(tag -> tag.tagName))
-        .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    name.setText(assignment.getName().fullName);
+    deadline.setText(assignment.getDeadline().toString());
   }
 
   @Override
@@ -57,13 +54,13 @@ public class CourseCard extends UiPart<Region> {
     }
 
     // instanceof handles nulls
-    if (!(other instanceof CourseCard)) {
+    if (!(other instanceof AssignmentCard)) {
       return false;
     }
 
     // state check
-    CourseCard card = (CourseCard) other;
+    AssignmentCard card = (AssignmentCard) other;
     return id.getText().equals(card.id.getText())
-        && course.equals(card.course);
+        && assignment.equals(card.assignment);
   }
 }

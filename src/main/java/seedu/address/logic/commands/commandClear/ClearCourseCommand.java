@@ -13,7 +13,7 @@ import seedu.address.model.modelCourse.CourseAddressBook;
 public class ClearCourseCommand extends Command {
 
   public static final String COMMAND_WORD = "clear-course";
-  public static final String MESSAGE_SUCCESS = "Course Address book has been cleared!";
+  public static final String MESSAGE_SUCCESS = "Assignment Address book has been cleared!";
 
 
   @Override

@@ -7,6 +7,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.modelAssignment.Assignment;
+import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
 import seedu.address.model.modelFinance.Finance;
@@ -136,6 +138,24 @@ public interface Logic {
    * Returns the user prefs' course address book file path.
    */
   Path getCourseAddressBookFilePath();
+
+  //TODO
+  /**
+   * Returns the AssignmentAddressBook.
+   *
+   * @see seedu.address.model.Model#getCourseAddressBook()
+   */
+  ReadOnlyAssignmentAddressBook getAssignmentAddressBook();
+
+  /**
+   * Returns an unmodifiable view of the filtered list of courses
+   */
+  ObservableList<Assignment> getFilteredAssignmentList();
+
+  /**
+   * Returns the user prefs' course address book file path.
+   */
+  Path getAssignmentAddressBookFilePath();
 
   /**
    * Returns the user prefs' GUI settings.

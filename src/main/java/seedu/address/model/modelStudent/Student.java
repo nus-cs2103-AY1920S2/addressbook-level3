@@ -91,7 +91,7 @@ public class Student {
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
-        .append(" Course: ")
+        .append(" Assignment: ")
         .append(getCourse())
         .append(" Tags: ");
     getTags().forEach(builder::append);

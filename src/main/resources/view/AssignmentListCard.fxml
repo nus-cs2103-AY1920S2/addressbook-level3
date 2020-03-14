@@ -20,11 +20,11 @@
             <Region fx:constant="USE_PREF_SIZE"/>
           </minWidth>
         </Label>
-        <Label styleClass="cell_big_label" text="\$first" fx:id="name"/>
+        <Label styleClass="cell_big_label" text="\$name" fx:id="assignmentName"/>
       </HBox>
       <HBox>
-        <Label styleClass="cell_small_label" text="Course Name: "/>
-        <Label styleClass="cell_small_label" text="\$assignment" fx:id="courseID"/>
+        <Label styleClass="cell_small_label" text="\$"/>
+        <Label styleClass="cell_small_label" text="\$deadline" fx:id="assignmentDeadline"/>
       </HBox>
       <padding>
         <Insets bottom="5" left="15" right="5" top="5"/>

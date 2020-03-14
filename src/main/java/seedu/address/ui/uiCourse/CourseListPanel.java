@@ -28,7 +28,7 @@ public class CourseListPanel extends UiPart<Region> {
   }
 
   /**
-   * Custom {@code ListCell} that displays the graphics of a {@code Course} using a {@code
+   * Custom {@code ListCell} that displays the graphics of a {@code Assignment} using a {@code
    * CourseCard}.
    */
   class CourseListViewCell extends ListCell<Course> {

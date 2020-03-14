@@ -35,7 +35,7 @@ public class AddCourseCommand extends Command {
   private final Course toAdd;
 
   /**
-   * Creates an AddCommand to add the specified {@code Course}
+   * Creates an AddCommand to add the specified {@code Assignment}
    */
   public AddCourseCommand(Course course) {
     requireNonNull(course);

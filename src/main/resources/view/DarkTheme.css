@@ -347,7 +347,7 @@
 #commandTextField {
     -fx-background-color: white;
     -fx-background-insets: 0;
-    -fx-border-color: ##00b2ca ##00b2ca ##00b2ca ##00b2ca;
+    -fx-border-color: #00b2ca;
     -fx-border-insets: 0;
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
