@@ -42,7 +42,7 @@
 	-fx-background-color: #1d1d1d;
 }
 
-.tab-header-background { 
+.tab-header-background {
     -fx-background-color: #383838 ;
 }
 
@@ -51,7 +51,7 @@
     -fx-background-color: #4d4d4d;
 }
 
-.tab .tab-label { 
+.tab .tab-label {
     -fx-text-fill: white;
 }
 
