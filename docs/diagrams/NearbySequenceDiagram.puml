@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":NearbyCommandParser" as NearbyCommandParser LOGIC_COLOR
+participant "n:NearbyCommand" as NearbyCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("nearby 14")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("nearby 14")
+activate OrderBookParser
+
+create NearbyCommandParser
+OrderBookParser -> NearbyCommandParser
+activate NearbyCommandParser
+
+NearbyCommandParser --> OrderBookParser
+deactivate NearbyCommandParser
+
+OrderBookParser -> NearbyCommandParser : parse("14")
+activate NearbyCommandParser
+
+create NearbyCommand
+NearbyCommandParser -> NearbyCommand
+activate NearbyCommand
+
+NearbyCommand --> NearbyCommandParser : n
+deactivate NearbyCommand
+
+NearbyCommandParser --> OrderBookParser : n
+deactivate NearbyCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+NearbyCommandParser -[hidden]-> OrderBookParser
+destroy NearbyCommandParser
+
+OrderBookParser --> LogicManager : n
+deactivate OrderBookParser
+
+LogicManager -> NearbyCommand : execute()
+activate NearbyCommand
+
+create CommandResult
+NearbyCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> NearbyCommand
+deactivate CommandResult
+
+NearbyCommand --> LogicManager : result
+deactivate NearbyCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
