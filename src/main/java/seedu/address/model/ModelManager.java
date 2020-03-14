@@ -489,9 +489,19 @@ public class ModelManager implements Model {
 
     // state check
     ModelManager other = (ModelManager) obj;
-    return teacherAddressBook.equals(other.teacherAddressBook)
-        && userPrefs.equals(other.userPrefs)
-        && filteredTeachers.equals(other.filteredTeachers);
+    return userPrefs.equals(other.userPrefs)
+        && teacherAddressBook.equals(other.teacherAddressBook)
+        && studentAddressBook.equals(other.studentAddressBook)
+        && courseAddressBook.equals(other.courseAddressBook)
+        && financeAddressBook.equals(other.financeAddressBook)
+        && assignmentAddressBook.equals(other.assignmentAddressBook)
+        && filteredTeachers.equals(other.filteredTeachers)
+        && filteredStudents.equals(other.filteredStudents)
+        && filteredCourses.equals(other.filteredCourses)
+        && filteredFinances.equals(other.filteredFinances)
+        && filteredAssignments.equals(other.filteredAssignments);
+
+
   }
 
 }

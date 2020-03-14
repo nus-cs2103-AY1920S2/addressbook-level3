@@ -16,7 +16,7 @@ import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 
 /**
- * A utility class containing a list of {@code Assignment} objects to be used in tests.
+ * A utility class containing a list of {@code Course} objects to be used in tests.
  */
 public class TypicalCourse {
 
