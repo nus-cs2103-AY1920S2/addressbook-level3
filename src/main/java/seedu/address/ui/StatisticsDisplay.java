@@ -64,3 +64,4 @@ public class StatisticsDisplay extends UiPart<Region> {
         return barChartTitle.getText().equals(card.barChartTitle.getText());
     }
 }
+
