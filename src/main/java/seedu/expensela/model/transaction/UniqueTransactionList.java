@@ -20,7 +20,7 @@ import seedu.expensela.model.transaction.exceptions.TransactionNotFoundException
  *
  * Supports a minimal set of list operations.
  *
- * @see Transaction#isSamePerson(Transaction)
+ * @see Transaction#isSameTransaction(Transaction)
  */
 public class UniqueTransactionList implements Iterable<Transaction> {
 
@@ -33,7 +33,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
      */
     public boolean contains(Transaction toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameTransaction);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new TransactionNotFoundException();
         }
 
-        if (!target.isSamePerson(editedTransaction) && contains(editedTransaction)) {
+        if (!target.isSameTransaction(editedTransaction) && contains(editedTransaction)) {
             throw new DuplicateTransactionException();
         }
 
@@ -127,7 +127,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     private boolean personsAreUnique(List<Transaction> transactions) {
         for (int i = 0; i < transactions.size() - 1; i++) {
             for (int j = i + 1; j < transactions.size(); j++) {
-                if (transactions.get(i).isSamePerson(transactions.get(j))) {
+                if (transactions.get(i).isSameTransaction(transactions.get(j))) {
                     return false;
                 }
             }
