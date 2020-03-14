@@ -18,19 +18,35 @@ import seedu.address.model.ingredient.Vegetable;
 class JsonAdaptedIngredient {
 
     private final String ingredientName;
-    private final double quantity = 0;
+    private final double quantity;
     private final IngredientType ingredientType;
-    // todo: save quantity and type (as string?)
 
     /**
      * Constructs a {@code JsonAdaptedIngredient} with the given {@code ingredientName}, {@code quantity} and {@code type}.
      */
     @JsonCreator
-    public JsonAdaptedIngredient(String ingredientName) {//, @JsonProperty ("quantity") Double quantity,
-                                 //@JsonProperty ("type") IngredientType ingredientType) {
-        this.ingredientName = ingredientName;
-        //this.quantity = quantity;
-        this.ingredientType = IngredientType.VEGETABLE;//ingredientType;
+    public JsonAdaptedIngredient(String ingredientDetails) {
+        String[] details = ingredientDetails.split(",");
+        this.ingredientName = details[0].trim();
+        this.quantity = Double.parseDouble(details[1].trim());
+        String type = details[2].trim();
+        switch (type) {
+            case "vegetable":
+                this.ingredientType = IngredientType.VEGETABLE;
+                break;
+            case "protein":
+                this.ingredientType = IngredientType.PROTEIN;
+                break;
+            case "grain":
+                this.ingredientType = IngredientType.GRAIN;
+                break;
+            case "other":
+                this.ingredientType = IngredientType.OTHER;
+                break;
+            default:
+                System.out.println("Error: ingredient type does not belong to one of the categories");
+                this.ingredientType = null;
+        }
     }
 
     /**
@@ -38,7 +54,7 @@ class JsonAdaptedIngredient {
      */
     public JsonAdaptedIngredient(Ingredient source) {
         ingredientName = source.ingredientName;
-        //quantity = source.getQuantity();
+        quantity = source.getQuantity();
         ingredientType = source.ingredientType;
     }
 
