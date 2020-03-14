@@ -13,7 +13,7 @@ public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
         // Uses dynamic programming bottom-up approach in calculating the edit distance.
         // For each pair of i,j, distance[i][j] represents the edit distance between
         // first[0...i] and second[0...j].
-        
+
         int[][] distance = new int[first.length() + 1][second.length() + 1];
 
         for (int i = 0; i <= first.length(); i++) {
@@ -44,7 +44,7 @@ public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
 
     /**
      * Calculates the minimum value of three integers.
-     * 
+     *
      * @param a First integer
      * @param b Second integer
      * @param c Third integer
