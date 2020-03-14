@@ -1,7 +1,6 @@
 {
   "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalAddressBook()",
   "recipes" : [ {
-<<<<<<< HEAD
     "name" : "Caesar Salad",
     "time" : "30",
     "ingredients" : ["Tomato, 100, vegetable", "Honeydew, 100, other"],
