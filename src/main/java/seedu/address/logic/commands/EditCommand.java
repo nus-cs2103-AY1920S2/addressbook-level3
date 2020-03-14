@@ -97,7 +97,7 @@ public class EditCommand extends Command {
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
         Set<Ingredient> updatedIngredients = new HashSet<>(); // todo
 
-        return new Recipe(updatedName, updatedTime, updatedEmail, updatedGoals, updatedIngredients);
+        return new Recipe(updatedName, updatedTime, updatedIngredients, updatedEmail, updatedGoals);
     }
 
     @Override

@@ -24,6 +24,9 @@ public class JsonAdaptedRecipeTest {
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_TIME = BENSON.getTime().toString();
+    private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = BENSON.getIngredients().stream()
+            .map(JsonAdaptedIngredient::new)
+            .collect(Collectors.toList());
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final List<JsonAdaptedGoal> VALID_GOALS = BENSON.getGoals().stream()
             .map(JsonAdaptedGoal::new)
@@ -38,14 +41,14 @@ public class JsonAdaptedRecipeTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(INVALID_NAME, VALID_TIME, VALID_EMAIL, VALID_GOALS);
+                new JsonAdaptedRecipe(INVALID_NAME, VALID_TIME, VALID_INGREDIENTS, VALID_EMAIL, VALID_GOALS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(null, VALID_TIME, VALID_EMAIL, VALID_GOALS);
+        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(null, VALID_TIME, VALID_INGREDIENTS, VALID_EMAIL, VALID_GOALS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
@@ -53,14 +56,14 @@ public class JsonAdaptedRecipeTest {
     @Test
     public void toModelType_invalidTime_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(VALID_NAME, INVALID_TIME, VALID_EMAIL, VALID_GOALS);
+                new JsonAdaptedRecipe(VALID_NAME, INVALID_TIME, VALID_INGREDIENTS, VALID_EMAIL, VALID_GOALS);
         String expectedMessage = Time.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_nullTime_throwsIllegalValueException() {
-        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, null, VALID_EMAIL, VALID_GOALS);
+        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, null, VALID_INGREDIENTS, VALID_EMAIL, VALID_GOALS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
@@ -68,14 +71,14 @@ public class JsonAdaptedRecipeTest {
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, INVALID_EMAIL, VALID_GOALS);
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, INVALID_EMAIL, VALID_GOALS);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, null, VALID_GOALS);
+        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, null, VALID_GOALS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
@@ -85,7 +88,7 @@ public class JsonAdaptedRecipeTest {
         List<JsonAdaptedGoal> invalidGoals = new ArrayList<>(VALID_GOALS);
         invalidGoals.add(new JsonAdaptedGoal(INVALID_GOAL));
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_EMAIL, invalidGoals);
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, VALID_EMAIL, invalidGoals);
         assertThrows(IllegalValueException.class, recipe::toModelType);
     }
 

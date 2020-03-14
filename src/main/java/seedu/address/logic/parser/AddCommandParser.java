@@ -51,7 +51,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         // todo: add grain first
         Set<Ingredient> ingredientList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE), null);
 
-        Recipe recipe = new Recipe(name, time, email, goalList, ingredientList);
+        Recipe recipe = new Recipe(name, time, ingredientList, email, goalList);
 
         return new AddCommand(recipe);
     }

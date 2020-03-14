@@ -28,7 +28,7 @@ public class Recipe {
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Time time, Email email, Set<Goal> goals, Set<Ingredient> ingredients) {
+    public Recipe(Name name, Time time, Set<Ingredient> ingredients, Email email, Set<Goal> goals) {
         requireAllNonNull(name, time, email, goals);
         this.name = name;
         this.time = time;

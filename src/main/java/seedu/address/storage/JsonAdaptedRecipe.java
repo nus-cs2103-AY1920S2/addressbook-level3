@@ -106,7 +106,7 @@ class JsonAdaptedRecipe {
 
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
         final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
-        return new Recipe(modelName, modelTime, modelEmail, modelGoals, modelIngredients);
+        return new Recipe(modelName, modelTime, modelIngredients, modelEmail, modelGoals);
     }
 
 }
