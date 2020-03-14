@@ -6,8 +6,9 @@ package seedu.address.model.ingredient;
 
 public class Protein extends Ingredient {
 
-    public Protein (double quantity, String name) {
-        super(quantity, name);
+    public Protein (String name, double quantity) {
+        super(name, quantity);
         super.unit = Unit.SOLID;
+        super.ingredientType = IngredientType.PROTEIN;
     }
 }

@@ -27,6 +27,7 @@ class JsonAdaptedRecipe {
     private final String time;
     private final String email;
     private final List<JsonAdaptedGoal> goals = new ArrayList<>();
+    private final List<>
 
     /**
      * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.

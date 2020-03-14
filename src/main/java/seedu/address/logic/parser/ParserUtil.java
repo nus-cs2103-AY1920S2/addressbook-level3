@@ -126,7 +126,7 @@ public class ParserUtil {
         }
 
         double vegetableQuantity = Double.parseDouble(trimmedVegetableQuantity);
-        return new Vegetable(vegetableQuantity, trimmedVegetableName);
+        return new Vegetable(trimmedVegetableName, vegetableQuantity);
     }
 
     /**

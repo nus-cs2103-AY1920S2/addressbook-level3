@@ -1,12 +1,14 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
@@ -19,17 +21,17 @@ public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
             new Recipe(new Name("Alex Yeoh"), new Time("87438807"), new Email("alexyeoh@example.com"),
-                getGoalSet("friends")),
+                getGoalSet("friends"), getIngredientSet()),
             new Recipe(new Name("Bernice Yu"), new Time("99272758"), new Email("berniceyu@example.com"),
-                getGoalSet("colleagues", "friends")),
+                getGoalSet("colleagues", "friends"), getIngredientSet()),
             new Recipe(new Name("Charlotte Oliveiro"), new Time("93210283"), new Email("charlotte@example.com"),
-                getGoalSet("neighbours")),
+                getGoalSet("neighbours"), getIngredientSet()),
             new Recipe(new Name("David Li"), new Time("91031282"), new Email("lidavid@example.com"),
-                getGoalSet("family")),
+                getGoalSet("family"), getIngredientSet()),
             new Recipe(new Name("Irfan Ibrahim"), new Time("92492021"), new Email("irfan@example.com"),
-                getGoalSet("classmates")),
+                getGoalSet("classmates"), getIngredientSet()),
             new Recipe(new Name("Roy Balakrishnan"), new Time("92624417"), new Email("royb@example.com"),
-                getGoalSet("colleagues"))
+                getGoalSet("colleagues"), getIngredientSet())
         };
     }
 
@@ -48,6 +50,13 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Goal::new)
                 .collect(Collectors.toSet());
+    }
+
+    /**
+     * Stub for Ingredient set. todo
+     */
+    public static Set<Ingredient> getIngredientSet() {
+        return new HashSet<Ingredient>();
     }
 
 }

@@ -12,15 +12,16 @@ public abstract class Ingredient {
     public static final String MESSAGE_CONSTRAINTS = "Ingredient names should be alphanumeric";
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
-    protected String name;
+    public final String ingredientName;
+    public IngredientType ingredientType;
     protected double quantity;
     protected Unit unit;
 
-    public Ingredient(double quantity, String name) {
-        requireNonNull(quantity, name);
-        checkArgument(isValidIngredientName(name), MESSAGE_CONSTRAINTS);
+    public Ingredient(String ingredientName, double quantity) {
+        requireNonNull(quantity, ingredientName);
+        checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
         this.quantity = quantity;
-        this.name = name;
+        this.ingredientName = ingredientName;
     }
 
     /**
@@ -38,12 +39,12 @@ public abstract class Ingredient {
         return unit;
     }
 
-    public String getName() {
-        return name;
+    public String getIngredientName() {
+        return ingredientName;
     }
 
     @Override
     public String toString() {
-        return quantity + unit.toString() + " " + name;
+        return quantity + unit.toString() + " " + ingredientName;
     }
 }

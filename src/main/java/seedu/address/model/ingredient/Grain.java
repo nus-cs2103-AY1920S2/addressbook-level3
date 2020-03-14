@@ -6,8 +6,9 @@ package seedu.address.model.ingredient;
  */
 public class Grain extends Ingredient {
 
-    public Grain(double quantity, String name) {
-        super(quantity, name);
+    public Grain(String name, double quantity) {
+        super(name, quantity);
         super.unit = Unit.SOLID;
+        super.ingredientType = IngredientType.GRAIN;
     }
 }

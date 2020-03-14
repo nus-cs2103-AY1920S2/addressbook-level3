@@ -5,8 +5,9 @@ package seedu.address.model.ingredient;
  */
 public class Vegetable extends Ingredient {
 
-    public Vegetable(double quantity, String name) {
-        super(quantity, name);
+    public Vegetable(String name, double quantity) {
+        super(name, quantity);
         super.unit = Unit.SOLID;
+        super.ingredientType = IngredientType.VEGETABLE;
     }
 }
