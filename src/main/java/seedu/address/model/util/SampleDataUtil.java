@@ -8,7 +8,11 @@ import java.util.stream.Collectors;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Grain;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.Other;
+import seedu.address.model.ingredient.Protein;
+import seedu.address.model.ingredient.Vegetable;
 import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
@@ -20,8 +24,9 @@ import seedu.address.model.recipe.Time;
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
-            new Recipe(new Name("Alex Yeoh"), new Time("87438807"), getIngredientSet(),
-                    new Email("alexyeoh@example.com"), getGoalSet("friends")),
+            new Recipe(new Name("Caesar Salad"), new Time("30"),
+                    getIngredientSet("Tomato, 100, vegetable", "Honeydew, 100, other"),
+                    new Email("alexyeoh@example.com"), getGoalSet("Herbivore")),
             new Recipe(new Name("Bernice Yu"), new Time("99272758"), getIngredientSet(),
                     new Email("berniceyu@example.com"), getGoalSet("colleagues", "friends")),
             new Recipe(new Name("Charlotte Oliveiro"), new Time("93210283"), getIngredientSet(),
@@ -53,10 +58,33 @@ public class SampleDataUtil {
     }
 
     /**
-     * Stub for Ingredient set. todo
+     * Returns a goal set containing the list of strings given in the format (name, quantity, type).
      */
-    public static Set<Ingredient> getIngredientSet() {
-        return new HashSet<Ingredient>();
+    public static Set<Ingredient> getIngredientSet(String... ingredients) {
+        Set<Ingredient> ingredientSet = new HashSet<Ingredient>();
+        for (String ingredient: ingredients) {
+            String[] splitDetails = ingredient.split(",");
+            String name = splitDetails[0].trim();
+            double quantity = Double.parseDouble(splitDetails[1].trim());
+            String type = splitDetails[2].trim();
+            switch (type) {
+                case "vegetable":
+                    ingredientSet.add(new Vegetable(name, quantity));
+                    break;
+                case "grain":
+                    ingredientSet.add(new Grain(name, quantity));
+                    break;
+                case "protein":
+                    ingredientSet.add(new Protein(name, quantity));
+                    break;
+                case "other":
+                    ingredientSet.add(new Other(name, quantity));
+                    break;
+                default:
+                    System.out.println("Error: ingredient type does not belong to oen of the defaults");
+            }
+        }
+        return ingredientSet;
     }
 
 }

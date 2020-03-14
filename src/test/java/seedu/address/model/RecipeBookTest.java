@@ -3,9 +3,9 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalRecipes.ALICE;
+import static seedu.address.testutil.TypicalRecipes.CAESAR_SALAD;
 import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
 import java.util.Arrays;
@@ -45,9 +45,9 @@ public class RecipeBookTest {
     @Test
     public void resetData_withDuplicateRecipes_throwsDuplicateRecipeException() {
         // Two recipes with the same identity fields
-        Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND)
+        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
                 .build();
-        List<Recipe> newRecipes = Arrays.asList(ALICE, editedAlice);
+        List<Recipe> newRecipes = Arrays.asList(CAESAR_SALAD, editedAlice);
         RecipeBookStub newData = new RecipeBookStub(newRecipes);
 
         assertThrows(DuplicateRecipeException.class, () -> recipeBook.resetData(newData));
@@ -60,19 +60,19 @@ public class RecipeBookTest {
 
     @Test
     public void hasRecipe_recipeNotInRecipeBook_returnsFalse() {
-        assertFalse(recipeBook.hasRecipe(ALICE));
+        assertFalse(recipeBook.hasRecipe(CAESAR_SALAD));
     }
 
     @Test
     public void hasRecipe_recipeInRecipeBook_returnsTrue() {
-        recipeBook.addRecipe(ALICE);
-        assertTrue(recipeBook.hasRecipe(ALICE));
+        recipeBook.addRecipe(CAESAR_SALAD);
+        assertTrue(recipeBook.hasRecipe(CAESAR_SALAD));
     }
 
     @Test
     public void hasRecipe_recipeWithSameIdentityFieldsInRecipeBook_returnsTrue() {
-        recipeBook.addRecipe(ALICE);
-        Recipe editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND)
+        recipeBook.addRecipe(CAESAR_SALAD);
+        Recipe editedAlice = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN)
                 .build();
         assertTrue(recipeBook.hasRecipe(editedAlice));
     }

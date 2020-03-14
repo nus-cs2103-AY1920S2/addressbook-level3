@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedRecipe.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalRecipes.BENSON;
+import static seedu.address.testutil.TypicalRecipes.GRILLED_SANDWICH;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +22,20 @@ public class JsonAdaptedRecipeTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_GOAL = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_TIME = BENSON.getTime().toString();
-    private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = BENSON.getIngredients().stream()
+    private static final String VALID_NAME = GRILLED_SANDWICH.getName().toString();
+    private static final String VALID_TIME = GRILLED_SANDWICH.getTime().toString();
+    private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = GRILLED_SANDWICH.getIngredients().stream()
             .map(JsonAdaptedIngredient::new)
             .collect(Collectors.toList());
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final List<JsonAdaptedGoal> VALID_GOALS = BENSON.getGoals().stream()
+    private static final String VALID_EMAIL = GRILLED_SANDWICH.getEmail().toString();
+    private static final List<JsonAdaptedGoal> VALID_GOALS = GRILLED_SANDWICH.getGoals().stream()
             .map(JsonAdaptedGoal::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validRecipeDetails_returnsRecipe() throws Exception {
-        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(BENSON);
-        assertEquals(BENSON, recipe.toModelType());
+        JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(GRILLED_SANDWICH);
+        assertEquals(GRILLED_SANDWICH, recipe.toModelType());
     }
 
     @Test

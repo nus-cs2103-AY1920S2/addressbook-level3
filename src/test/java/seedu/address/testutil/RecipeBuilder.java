@@ -20,7 +20,7 @@ public class RecipeBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_TIME = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final Ingredient DEFAULT_INGREDIENT = new Vegetable("Tomato", 300);
+    public static final Ingredient DEFAULT_INGREDIENT = new Vegetable("Tomato", 100);
 
     private Name name;
     private Time time;
@@ -77,6 +77,14 @@ public class RecipeBuilder {
      */
     public RecipeBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Ingredient} of the {@code Recipe} that we are building.
+     */
+    public RecipeBuilder withIngredients(String ... ingredients) {
+        this.ingredients = SampleDataUtil.getIngredientSet(ingredients);
         return this;
     }
 

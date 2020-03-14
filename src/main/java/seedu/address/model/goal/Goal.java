@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Goal {
 
-    public static final String MESSAGE_CONSTRAINTS = "Goals names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Goals names should contain only alphabetical letters or spaces";
+    public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
     public final String goalName;
 

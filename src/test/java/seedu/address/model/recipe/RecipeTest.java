@@ -2,13 +2,13 @@ package seedu.address.model.recipe;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalRecipes.ALICE;
-import static seedu.address.testutil.TypicalRecipes.BOB;
+import static seedu.address.testutil.TypicalRecipes.CAESAR_SALAD;
+import static seedu.address.testutil.TypicalRecipes.FISH;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,65 +25,61 @@ public class RecipeTest {
     @Test
     public void isSameRecipe() {
         // same object -> returns true
-        assertTrue(ALICE.isSameRecipe(ALICE));
+        assertTrue(CAESAR_SALAD.isSameRecipe(CAESAR_SALAD));
 
         // null -> returns false
-        assertFalse(ALICE.isSameRecipe(null));
+        assertFalse(CAESAR_SALAD.isSameRecipe(null));
 
         // different time and email -> returns false
-        Recipe editedAlice = new RecipeBuilder(ALICE).withTime(VALID_TIME_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameRecipe(editedAlice));
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withTime(VALID_TIME_FISH).withEmail(VALID_EMAIL_FISH).build();
+        assertFalse(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // different name -> returns false
-        editedAlice = new RecipeBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameRecipe(editedAlice));
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withName(VALID_NAME_FISH).build();
+        assertFalse(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // same name, same time, different attributes -> returns true
-        editedAlice = new RecipeBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withGoals(VALID_GOAL_HUSBAND).build();
-        assertTrue(ALICE.isSameRecipe(editedAlice));
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withEmail(VALID_EMAIL_FISH).withGoals(VALID_GOAL_PROTEIN).build();
+        assertTrue(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new RecipeBuilder(ALICE).withTime(VALID_TIME_BOB).withGoals(VALID_GOAL_HUSBAND).build();
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withTime(VALID_TIME_FISH).withGoals(VALID_GOAL_PROTEIN).build();
 
-        assertTrue(ALICE.isSameRecipe(editedAlice));
+        assertTrue(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // same name, same time, same email, different attributes -> returns true
-        editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND).build();
-        assertTrue(ALICE.isSameRecipe(editedAlice));
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN).build();
+        assertTrue(CAESAR_SALAD.isSameRecipe(editedCaesar));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Recipe aliceCopy = new RecipeBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Recipe aliceCopy = new RecipeBuilder(CAESAR_SALAD).build();
+        assertTrue(CAESAR_SALAD.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(CAESAR_SALAD.equals(CAESAR_SALAD));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(CAESAR_SALAD.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(CAESAR_SALAD.equals(5));
 
         // different recipe -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(CAESAR_SALAD.equals(FISH));
 
         // different name -> returns false
-        Recipe editedAlice = new RecipeBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different time -> returns false
-        editedAlice = new RecipeBuilder(ALICE).withTime(VALID_TIME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withName(VALID_NAME_FISH).build();
+        assertFalse(CAESAR_SALAD.equals(editedCaesar));
 
         // different email -> returns false
-        editedAlice = new RecipeBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withEmail(VALID_EMAIL_FISH).build();
+        assertFalse(CAESAR_SALAD.equals(editedCaesar));
 
         // different goals -> returns false
-        editedAlice = new RecipeBuilder(ALICE).withGoals(VALID_GOAL_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withGoals(VALID_GOAL_PROTEIN).build();
+        assertFalse(CAESAR_SALAD.equals(editedCaesar));
     }
 }

@@ -43,8 +43,18 @@ public abstract class Ingredient {
         return ingredientName;
     }
 
+    /**
+     * Format state as text for storage.
+     */
     @Override
     public String toString() {
-        return quantity + unit.toString() + " " + ingredientName;
+        return "[" + ingredientName + ", " + quantity + ", " + ingredientType.value + "]";
     }
+
+    @Override
+    public int hashCode() {
+        return ingredientName.hashCode();
+    }
+
+    //unit.toString() + " " + ingredientName;
 }
