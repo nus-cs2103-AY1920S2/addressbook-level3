@@ -33,7 +33,7 @@ class ClearCommandParserTest {
     }
 
     @Test
-    public void parse_CorrectFlag_returnCorrectCommand() {
+    public void parse_correctFlag_returnCorrectCommand() {
 
         try {
             ClearCommand actualCommand = parser.parse(FLAG_FORCE_CLEAR.toString());
