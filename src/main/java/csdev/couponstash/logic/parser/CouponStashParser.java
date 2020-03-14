@@ -16,8 +16,10 @@ import csdev.couponstash.logic.commands.ExpiringCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
+import csdev.couponstash.logic.commands.RedoCommand;
 import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
+import csdev.couponstash.logic.commands.UndoCommand;
 import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
@@ -93,6 +95,12 @@ public class CouponStashParser {
 
         case SavedCommand.COMMAND_WORD:
             return new SavedCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         case RemindCommand.COMMAND_WORD:
             return new RemindCommandParser().parse(arguments);
