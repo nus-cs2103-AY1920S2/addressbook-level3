@@ -15,19 +15,19 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_TIME = "+651234";
-    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_STEP = "   ";
     private static final String INVALID_GOAL = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_TIME = "123456";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_STEP = "rachel@example.com";
     private static final String VALID_GOAL_1 = "friend";
     private static final String VALID_GOAL_2 = "neighbour";
 
@@ -100,26 +100,26 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parseStep_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStep((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    public void parseStep_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseStep(INVALID_STEP));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+    public void parseStep_validValueWithoutWhitespace_returnsStep() throws Exception {
+        Step expectedStep = new Step(VALID_STEP);
+        assertEquals(expectedStep, ParserUtil.parseStep(VALID_STEP));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parseStep_validValueWithWhitespace_returnsTrimmedStep() throws Exception {
+        String stepWithWhitespace = WHITESPACE + VALID_STEP + WHITESPACE;
+        Step expectedStep = new Step(VALID_STEP);
+        assertEquals(expectedStep, ParserUtil.parseStep(stepWithWhitespace));
     }
 
     @Test

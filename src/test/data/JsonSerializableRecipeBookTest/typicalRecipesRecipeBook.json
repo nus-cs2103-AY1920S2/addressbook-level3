@@ -1,42 +1,43 @@
 {
   "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalAddressBook()",
   "recipes" : [ {
+<<<<<<< HEAD
     "name" : "Caesar Salad",
     "time" : "30",
     "ingredients" : ["Tomato, 100, vegetable", "Honeydew, 100, other"],
-    "email" : "alice@example.com",
+    "step" : "alice@example.com",
     "goals" : [ "Herbivore" ]
   }, {
     "name" : "Grilled Sandwich",
     "time" : "10",
     "ingredients" : ["Bread, 50, grain", "Cheese, 50, other"],
-    "email" : "johnd@example.com",
+    "step" : "johnd@example.com",
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
     "name" : "Boiled Chicken",
     "time" : "10",
     "ingredients" : ["Chicken, 100, protein"],
-    "email" : "heinz@example.com",
+    "step" : "heinz@example.com",
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Chocolate Cake",
     "time" : "120",
-    "email" : "cornelia@example.com",
+    "step" : "cornelia@example.com",
     "goals" : [ ]
   }, {
     "name" : "Omelet",
     "time" : "15",
-    "email" : "werner@example.com",
+    "step" : "werner@example.com",
     "goals" : [ ]
   }, {
     "name" : "Steamed Egg",
     "time" : "15",
-    "email" : "lydia@example.com",
+    "step" : "lydia@example.com",
     "goals" : [ ]
   }, {
     "name" : "Tuna Bread",
     "time" : "60",
-    "email" : "anna@example.com",
+    "step" : "anna@example.com",
     "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
   } ]
 }

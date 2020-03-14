@@ -38,7 +38,7 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private FlowPane ingredients;
     @FXML
-    private Label email;
+    private Label step;
     @FXML
     private FlowPane goals;
 
@@ -51,7 +51,7 @@ public class RecipeCard extends UiPart<Region> {
         ingredients.setOrientation(Orientation.VERTICAL);
         recipe.getIngredients().stream()
                 .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.toString())));
-        email.setText(recipe.getEmail().value);
+        step.setText(recipe.getStep().value);
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))
                 .forEach(goal -> goals.getChildren().add(new Label(goal.goalName)));

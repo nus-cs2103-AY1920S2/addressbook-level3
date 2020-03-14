@@ -6,9 +6,9 @@ import java.util.Set;
 import seedu.address.model.goal.Goal;
 import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.ingredient.Vegetable;
-import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,13 +19,13 @@ public class RecipeBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_TIME = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_STEP = "alice@gmail.com";
     public static final Ingredient DEFAULT_INGREDIENT = new Vegetable("Tomato", 100);
 
     private Name name;
     private Time time;
     private Set<Ingredient> ingredients;
-    private Email email;
+    private Step step;
     private Set<Goal> goals;
 
     public RecipeBuilder() {
@@ -33,7 +33,7 @@ public class RecipeBuilder {
         time = new Time(DEFAULT_TIME);
         ingredients = new HashSet<>();
         ingredients.add(DEFAULT_INGREDIENT);
-        email = new Email(DEFAULT_EMAIL);
+        step = new Step(DEFAULT_STEP);
         goals = new HashSet<>();
     }
 
@@ -44,7 +44,7 @@ public class RecipeBuilder {
         name = recipeToCopy.getName();
         time = recipeToCopy.getTime();
         ingredients = recipeToCopy.getIngredients();
-        email = recipeToCopy.getEmail();
+        step = recipeToCopy.getStep();
         goals = new HashSet<>(recipeToCopy.getGoals());
     }
 
@@ -73,10 +73,10 @@ public class RecipeBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Recipe} that we are building.
+     * Sets the {@code Step} of the {@code Recipe} that we are building.
      */
-    public RecipeBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public RecipeBuilder withStep(String step) {
+        this.step = new Step(step);
         return this;
     }
 
@@ -89,7 +89,7 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(name, time, ingredients, email, goals);
+        return new Recipe(name, time, ingredients, step, goals);
     }
 
 }

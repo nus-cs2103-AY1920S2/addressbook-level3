@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -29,8 +29,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_FISH = "Steamed Fish";
     public static final String VALID_TIME_TURKEY_SANDWICH = "15";
     public static final String VALID_TIME_FISH = "40";
-    public static final String VALID_EMAIL_TURKEY_SANDWICH = "amy@example.com";
-    public static final String VALID_EMAIL_FISH = "bob@example.com";
+    public static final String VALID_STEP_TURKEY_SANDWICH = "amy@example.com";
+    public static final String VALID_STEP_FISH = "bob@example.com";
     public static final String VALID_GOAL_PROTEIN = "Bulk like the Hulk";
     public static final String VALID_GOAL_GRAIN = "Wholesome Wholemeal";
 
@@ -38,14 +38,14 @@ public class CommandTestUtil {
     public static final String NAME_DESC_FISH = " " + PREFIX_NAME + VALID_NAME_FISH;
     public static final String TIME_DESC_TURKEY_SANDWICH = " " + PREFIX_TIME + VALID_TIME_TURKEY_SANDWICH;
     public static final String TIME_DESC_FISH = " " + PREFIX_TIME + VALID_TIME_FISH;
-    public static final String EMAIL_DESC_TURKEY_SANDWICH = " " + PREFIX_EMAIL + VALID_EMAIL_TURKEY_SANDWICH;
-    public static final String EMAIL_DESC_FISH = " " + PREFIX_EMAIL + VALID_EMAIL_FISH;
+    public static final String STEP_DESC_TURKEY_SANDWICH = " " + PREFIX_STEP + VALID_STEP_TURKEY_SANDWICH;
+    public static final String STEP_DESC_FISH = " " + PREFIX_STEP + VALID_STEP_FISH;
     public static final String GOAL_DESC_GRAIN = " " + PREFIX_GOAL + VALID_GOAL_GRAIN;
     public static final String GOAL_DESC_PROTEIN = " " + PREFIX_GOAL + VALID_GOAL_PROTEIN;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "911a"; // 'a' not allowed in times
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_STEP_DESC = " " + PREFIX_STEP + ""; // empty space
     public static final String INVALID_GOAL_DESC = " " + PREFIX_GOAL + "bulking*"; // '*' not allowed in goals
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -56,10 +56,10 @@ public class CommandTestUtil {
 
     static {
         DESC_TURKEY_SANDWICH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
-                .withTime(VALID_TIME_TURKEY_SANDWICH).withEmail(VALID_EMAIL_TURKEY_SANDWICH)
+                .withTime(VALID_TIME_TURKEY_SANDWICH).withStep(VALID_STEP_TURKEY_SANDWICH)
                 .withGoals(VALID_GOAL_GRAIN).build();
         DESC_FISH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
-                .withTime(VALID_TIME_FISH).withEmail(VALID_EMAIL_FISH)
+                .withTime(VALID_TIME_FISH).withStep(VALID_STEP_FISH)
                 .withGoals(VALID_GOAL_PROTEIN).build();
     }
 

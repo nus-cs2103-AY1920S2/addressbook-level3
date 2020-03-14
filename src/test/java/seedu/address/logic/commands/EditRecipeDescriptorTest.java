@@ -2,9 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
@@ -43,8 +44,8 @@ public class EditRecipeDescriptorTest {
         editedAmy = new EditRecipeDescriptorBuilder(DESC_TURKEY_SANDWICH).withTime(VALID_TIME_FISH).build();
         assertFalse(DESC_TURKEY_SANDWICH.equals(editedAmy));
 
-        // different email -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_TURKEY_SANDWICH).withEmail(VALID_EMAIL_FISH).build();
+        // different step -> returns false
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_TURKEY_SANDWICH).withStep(VALID_STEP_FISH).build();
         assertFalse(DESC_TURKEY_SANDWICH.equals(editedAmy));
 
         // different goals -> returns false

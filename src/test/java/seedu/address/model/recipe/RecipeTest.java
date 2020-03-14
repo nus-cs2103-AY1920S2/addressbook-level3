@@ -2,9 +2,9 @@ package seedu.address.model.recipe;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_FISH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STEP_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.CAESAR_SALAD;
@@ -32,7 +32,7 @@ public class RecipeTest {
 
         // different time and email -> returns false
         Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD)
-                .withTime(VALID_TIME_FISH).withEmail(VALID_EMAIL_FISH).build();
+                .withTime(VALID_TIME_FISH).withStep(VALID_STEP_FISH).build();
         assertFalse(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // different name -> returns false
@@ -40,13 +40,12 @@ public class RecipeTest {
         assertFalse(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // same name, same time, different attributes -> returns true
-        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withEmail(VALID_EMAIL_FISH)
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withStep(VALID_STEP_FISH)
                 .withGoals(VALID_GOAL_PROTEIN).build();
         assertTrue(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // same name, same email, different attributes -> returns true
         editedCaesar = new RecipeBuilder(CAESAR_SALAD).withTime(VALID_TIME_FISH).withGoals(VALID_GOAL_PROTEIN).build();
-
         assertTrue(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // same name, same time, same email, different attributes -> returns true
@@ -76,8 +75,9 @@ public class RecipeTest {
         Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD).withName(VALID_NAME_FISH).build();
         assertFalse(CAESAR_SALAD.equals(editedCaesar));
 
+
         // different email -> returns false
-        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withEmail(VALID_EMAIL_FISH).build();
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withStep(VALID_STEP_FISH).build();
         assertFalse(CAESAR_SALAD.equals(editedCaesar));
 
         // different goals -> returns false

@@ -72,9 +72,14 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
+<<<<<<< HEAD
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH +
         //EMAIL_DESC_TURKEY_SANDWICH;
         Recipe expectedRecipe = new RecipeBuilder(TURKEY_SANDWICH).withGoals().build();
+=======
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + TIME_DESC_AMY + STEP_DESC_AMY;
+        Recipe expectedRecipe = new RecipeBuilder(AMY).withGoals().build();
+>>>>>>> master
         ModelManager expectedModel = new ModelManager();
         expectedModel.addRecipe(expectedRecipe);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

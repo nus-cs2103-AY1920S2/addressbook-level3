@@ -16,6 +16,6 @@ Recipe o-up-> "*" Tag
 
 Recipe *--> Name
 Recipe *--> Phone
-Recipe *--> Email
+Recipe *--> Step
 Recipe *--> Address
 @enduml
