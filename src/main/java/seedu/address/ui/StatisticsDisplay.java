@@ -19,7 +19,7 @@ public class StatisticsDisplay extends UiPart<Region> {
 
     @FXML private VBox statisticsPane;
     @FXML private Label barChartTitle;
-    @FXML private BarChart barChart;
+    @FXML private BarChart<String, Integer> barChart;
 
     public StatisticsDisplay(String barChartTitleText, int[][] data) {
         super(FXML);
@@ -33,16 +33,16 @@ public class StatisticsDisplay extends UiPart<Region> {
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel("Total Pomodoro Runtime");
 
-        XYChart.Series dataSeries1 = new XYChart.Series();
+        XYChart.Series<String, Integer> dataSeries1 = new XYChart.Series<>();
         dataSeries1.setName("You");
 
-        dataSeries1.getData().add(new XYChart.Data("Day 1", 20));
-        dataSeries1.getData().add(new XYChart.Data("Day 2", 40));
-        dataSeries1.getData().add(new XYChart.Data("Day 3", 60));
-        dataSeries1.getData().add(new XYChart.Data("Day 4", 40));
-        dataSeries1.getData().add(new XYChart.Data("Day 5", 20));
-        dataSeries1.getData().add(new XYChart.Data("Day 6", 40));
-        dataSeries1.getData().add(new XYChart.Data("Day 7", 80));
+        dataSeries1.getData().add(new XYChart.Data<>("Day 1", 20));
+        dataSeries1.getData().add(new XYChart.Data<>("Day 2", 40));
+        dataSeries1.getData().add(new XYChart.Data<>("Day 3", 60));
+        dataSeries1.getData().add(new XYChart.Data<>("Day 4", 40));
+        dataSeries1.getData().add(new XYChart.Data<>("Day 5", 20));
+        dataSeries1.getData().add(new XYChart.Data<>("Day 6", 40));
+        dataSeries1.getData().add(new XYChart.Data<>("Day 7", 80));
 
         barChart.getData().add(dataSeries1);
     }
