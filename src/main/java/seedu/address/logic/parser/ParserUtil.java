@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Matric;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -93,6 +94,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String matric} into an {@code Matric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code matric} is invalid.
+     */
+    public static Matric parseMatric(String matric) throws ParseException {
+        requireNonNull(matric);
+        String trimmedMatric = matric.trim();
+        if (!Matric.isValidMatric(trimmedMatric)) {
+            throw new ParseException(Matric.MESSAGE_CONSTRAINTS);
+        }
+        return new Matric(trimmedMatric);
     }
 
     /**
