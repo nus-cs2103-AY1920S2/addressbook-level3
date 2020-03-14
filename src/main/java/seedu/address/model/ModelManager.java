@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Student;
+import seedu.address.model.student.Student;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredStudents = new FilteredList<>(this.addressBook.getPersonList());
+        filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
     }
 
     public ModelManager() {
@@ -89,27 +89,27 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Student student) {
+    public boolean hasStudent(Student student) {
         requireNonNull(student);
-        return addressBook.hasPerson(student);
+        return addressBook.hasStudent(student);
     }
 
     @Override
-    public void deletePerson(Student target) {
-        addressBook.removePerson(target);
+    public void deleteStudent(Student target) {
+        addressBook.removeStudent(target);
     }
 
     @Override
-    public void addPerson(Student student) {
-        addressBook.addPerson(student);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addStudent(Student student) {
+        addressBook.addStudent(student);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
-    public void setPerson(Student target, Student editedStudent) {
+    public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
 
-        addressBook.setPerson(target, editedStudent);
+        addressBook.setStudent(target, editedStudent);
     }
 
     //=========== Filtered Student List Accessors =============================================================
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Student> getFilteredPersonList() {
+    public ObservableList<Student> getFilteredStudentList() {
         return filteredStudents;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Student> predicate) {
+    public void updateFilteredStudentList(Predicate<Student> predicate) {
         requireNonNull(predicate);
         filteredStudents.setPredicate(predicate);
     }

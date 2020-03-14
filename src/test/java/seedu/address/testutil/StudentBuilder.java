@@ -3,18 +3,18 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Matric;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Student;
+import seedu.address.model.student.Email;
+import seedu.address.model.student.Matric;
+import seedu.address.model.student.Name;
+import seedu.address.model.student.Phone;
+import seedu.address.model.student.Student;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Student objects.
  */
-public class PersonBuilder {
+public class StudentBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -27,7 +27,7 @@ public class PersonBuilder {
     private Matric matric;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public StudentBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
@@ -36,9 +36,9 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code studentToCopy}.
+     * Initializes the StudentBuilder with the data of {@code studentToCopy}.
      */
-    public PersonBuilder(Student studentToCopy) {
+    public StudentBuilder(Student studentToCopy) {
         name = studentToCopy.getName();
         phone = studentToCopy.getPhone();
         email = studentToCopy.getEmail();
@@ -49,7 +49,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Name} of the {@code Student} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public StudentBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
@@ -57,7 +57,7 @@ public class PersonBuilder {
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Student} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public StudentBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
@@ -66,7 +66,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Phone} of the {@code Student} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
+    public StudentBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
         return this;
     }
@@ -74,7 +74,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Email} of the {@code Student} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
+    public StudentBuilder withEmail(String email) {
         this.email = new Email(email);
         return this;
     }
@@ -82,7 +82,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code Matric} of the {@code Student} that we are building.
      */
-    public PersonBuilder withMatric(String matric) {
+    public StudentBuilder withMatric(String matric) {
         this.matric = new Matric(matric);
         return this;
     }
