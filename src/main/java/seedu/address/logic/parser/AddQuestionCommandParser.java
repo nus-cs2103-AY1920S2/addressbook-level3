@@ -1,13 +1,21 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.AddAttributeCommand;
 import seedu.address.logic.commands.AddQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parses input arguments and creates a new object of type AddQuestionCommand
+ */
 public class AddQuestionCommandParser {
-    public AddQuestionCommand parse(String arguments) throws ParseException {
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddIntervieweeCommand
+     * and returns an AddIntervieweeCommand object for execution.
+     *
+     * @param arguments the arguments to be parsed
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public AddQuestionCommand parse(String arguments) {
         return new AddQuestionCommand(arguments.trim());
     }
 

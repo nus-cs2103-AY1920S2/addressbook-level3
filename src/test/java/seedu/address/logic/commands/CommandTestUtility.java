@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+/**
+ * Contains helper fields for testing commands.
+ */
 public class CommandTestUtility {
     public static final String VALID_COMMAND_ADD = "add";
     public static final String VALID_COMMAND_EDIT = "edit";
@@ -15,5 +18,5 @@ public class CommandTestUtility {
 
     public static final String VALID_QUESTION_WHAT = "What is this question?";
 
-    public static final String PREAMBLE_WHITESPACE = " ";
+    public static final String WHITESPACE = " ";
 }

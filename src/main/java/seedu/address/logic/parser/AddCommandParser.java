@@ -2,32 +2,29 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.*;
 
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddAttributeCommand;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddIntervieweeCommand;
+import seedu.address.logic.commands.AddQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new object of type AddCommand
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    private static final Pattern BASIC_ADD_COMMAND_FORMAT = Pattern.compile("(?<addCommandWord>\\S+)(?<addArguments>.+)");
+    private static final Pattern BASIC_ADD_COMMAND_FORMAT =
+            Pattern.compile("(?<addCommandWord>\\S+)(?<addArguments>.+)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
+     * @param arguments the arguments to be parsed
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String arguments) throws ParseException {
