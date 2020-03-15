@@ -32,22 +32,22 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String arguments) throws ParseException {
         Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(arguments.trim());
-        final String addCommandWord = matcher.group("addCommandWord");
-        final String addArguments = matcher.group("addArguments").trim();
-
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        final String addCommandWord = matcher.group("addCommandWord");
+        final String addArguments = matcher.group("addArguments");
+
         switch (addCommandWord) {
         case AddAttributeCommand.COMMAND_WORD:
-            return new AddAttributeCommandParser().parse(addArguments);
+            return new AddAttributeCommandParser().parse(addArguments.trim());
 
         case AddIntervieweeCommand.COMMAND_WORD:
-            return new AddIntervieweeCommandParser().parse(addArguments);
+            return new AddIntervieweeCommandParser().parse(addArguments.trim());
 
         case AddQuestionCommand.COMMAND_WORD:
-            return new AddQuestionCommandParser().parse(addArguments);
+            return new AddQuestionCommandParser().parse(addArguments.trim());
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

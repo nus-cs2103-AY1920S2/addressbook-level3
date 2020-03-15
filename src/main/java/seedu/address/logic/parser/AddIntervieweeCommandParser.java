@@ -23,11 +23,8 @@ public class AddIntervieweeCommandParser {
                 ArgumentTokenizer.tokenize(arguments, PREFIX_ALIAS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ALIAS) || !argMultimap.getPreamble().isEmpty()) {
-            System.out.println("INITUH");
             return new AddIntervieweeCommand(arguments);
         } else {
-            System.out.println("APA GITU LOH");
-
             return new AddIntervieweeCommand(arguments, argMultimap.getValue(PREFIX_ALIAS).get());
         }
     }
