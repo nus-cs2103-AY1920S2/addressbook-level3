@@ -4,11 +4,15 @@ import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 
+import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
-
+/**
+ * Represents an Entry class, which is to be added to into a Receipt class.
+ * Guarantees: details are present and not nul.
+ */
 public class Entry {
     private Item item;
     private String[] persons;

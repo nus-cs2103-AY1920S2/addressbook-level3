@@ -48,7 +48,7 @@ public class ModelManager implements Model {
      *
      * @param index Index of the entry to be removed.
      */
-        @Override
+    @Override
     public void deleteEntry(int index) {
         receipt.deleteEntry(index);
     }

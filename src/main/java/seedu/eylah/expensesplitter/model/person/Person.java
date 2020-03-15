@@ -2,12 +2,13 @@ package seedu.eylah.expensesplitter.model.person;
 
 import seedu.eylah.diettracker.model.tag.Tag;
 
+import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Person in the address book.

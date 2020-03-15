@@ -3,6 +3,9 @@ package seedu.eylah.expensesplitter.model;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Represents a Receipt class in the ExpenseSplitter of EYLAH.
+ */
 public class Receipt {
 
     private ArrayList<Entry> receipt;
