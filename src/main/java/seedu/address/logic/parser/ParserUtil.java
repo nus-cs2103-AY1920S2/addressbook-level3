@@ -152,7 +152,7 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> offers} into a {@code List<Offer>}.
      */
-    public static List<Offer> parseTags(Collection<String> offers) throws ParseException {
+    public static List<Offer> parseOffers(Collection<String> offers) throws ParseException {
         requireNonNull(offers);
         final List<Offer> offerSet = new ArrayList<>();
         for (String offer : offers) {
