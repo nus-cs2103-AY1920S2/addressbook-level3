@@ -19,6 +19,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
@@ -94,8 +95,9 @@ public class EditCommand extends Command {
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
         Step updatedStep = editRecipeDescriptor.getStep().orElse(recipeToEdit.getStep());
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
+        Set<Ingredient> updatedIngredients = new HashSet<>(); // todo
 
-        return new Recipe(updatedName, updatedTime, updatedStep, updatedGoals);
+        return new Recipe(updatedName, updatedTime, updatedIngredients, updatedStep, updatedGoals);
     }
 
     @Override

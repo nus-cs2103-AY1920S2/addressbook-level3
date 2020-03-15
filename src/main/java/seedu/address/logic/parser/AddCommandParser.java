@@ -2,6 +2,10 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_VEGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -12,6 +16,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
@@ -29,7 +34,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TIME, PREFIX_STEP, PREFIX_GOAL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENT_GRAIN, PREFIX_INGREDIENT_VEGE,
+                        PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_OTHER,
+                        PREFIX_TIME, PREFIX_STEP, PREFIX_GOAL);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TIME, PREFIX_STEP)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -40,8 +47,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
         Step step = ParserUtil.parseStep(argMultimap.getValue(PREFIX_STEP).get());
         Set<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOAL));
+        // todo: add grain first
+        Set<Ingredient> ingredientList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE),
+                null);
 
-        Recipe recipe = new Recipe(name, time, step, goalList);
+        Recipe recipe = new Recipe(name, time, ingredientList, step, goalList);
 
         return new AddCommand(recipe);
     }

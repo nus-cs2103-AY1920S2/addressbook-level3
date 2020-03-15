@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
@@ -27,16 +28,21 @@ class JsonAdaptedRecipe {
     private final String time;
     private final String step;
     private final List<JsonAdaptedGoal> goals = new ArrayList<>();
+    private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("time") String time,
+            @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
             @JsonProperty("step") String step,
             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
         this.time = time;
+        if (ingredients != null) {
+            this.ingredients.addAll(ingredients);
+        }
         this.step = step;
         if (goals != null) {
             this.goals.addAll(goals);
@@ -49,6 +55,9 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
         time = source.getTime().value;
+        ingredients.addAll(source.getIngredients().stream()
+                .map(JsonAdaptedIngredient::new)
+                .collect(Collectors.toList()));
         step = source.getStep().value;
         goals.addAll(source.getGoals().stream()
                 .map(JsonAdaptedGoal::new)
@@ -64,6 +73,11 @@ class JsonAdaptedRecipe {
         final List<Goal> recipeGoals = new ArrayList<>();
         for (JsonAdaptedGoal goal : goals) {
             recipeGoals.add(goal.toModelType());
+        }
+
+        final List<Ingredient> recipeIngredients = new ArrayList<>();
+        for (JsonAdaptedIngredient ingredient : ingredients) {
+            recipeIngredients.add(ingredient.toModelType());
         }
 
         if (name == null) {
@@ -91,7 +105,8 @@ class JsonAdaptedRecipe {
         final Step modelStep = new Step(step);
 
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
-        return new Recipe(modelName, modelTime, modelStep, modelGoals);
+        final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
+        return new Recipe(modelName, modelTime, modelIngredients, modelStep, modelGoals);
     }
 
 }
