@@ -1,5 +1,7 @@
 package com.notably.logic.correction.distance;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * An implementation of the Levenshtein algorithm for calculating the edit distance of two {@link Strings}.
  * Inspired by https://web.stanford.edu/class/cs124/lec/med.pdf.
@@ -10,6 +12,9 @@ public class LevenshteinDistanceCalculator implements EditDistanceCalculator {
      */
     @Override
     public int calculateDistance(String first, String second) {
+        requireNonNull(first);
+        requireNonNull(second);
+
         // Uses dynamic programming bottom-up approach in calculating the edit distance.
         // For each pair of i,j, distance[i][j] represents the edit distance between
         // first[0...i] and second[0...j].
