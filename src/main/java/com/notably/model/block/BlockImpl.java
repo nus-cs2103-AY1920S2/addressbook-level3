@@ -94,18 +94,12 @@ public class BlockImpl implements Block {
 
     @Override
     public void addChild(Block block) {
-        if (this.children == null) {
-            this.children = new ArrayList<Block>();
-        }
         this.children.add(block);
     }
 
     @Override
     public void removeChild(Block toRemove) {
         this.children.remove(toRemove);
-        if (this.children.isEmpty()) {
-            this.children = null;
-        }
     }
 
     @Override
