@@ -57,7 +57,7 @@ class UniqueModuleListTest {
         uniqueModuleList.add(CS2103T);
         uniqueModuleList.add(GEH1001);
         //Task 2 of GEH1001 notes is "Final Essay"
-        Index index = new Index(2);
+        Index index = Index.fromOneBased(2);
         uniqueModuleList.setActivityByIndex(GEH1001, index, DEADLINE);
         assertTrue(uniqueModuleList.getModule(GEH1001).contains(DEADLINE));
     }
@@ -68,7 +68,7 @@ class UniqueModuleListTest {
         uniqueModuleList.add(GEH1001);
         //Task 2 of GEH1001 notes is "Final Essay"
         Note note = new Note("Hello world");
-        Index index = new Index(2);
+        Index index = Index.fromOneBased(2);
         uniqueModuleList.editActivityByIndex(GEH1001, index, note);
         Activity activity = uniqueModuleList.getModule(GEH1001).getActivityByIndex(index);
         assertTrue(activity.getNote().equals(note));
