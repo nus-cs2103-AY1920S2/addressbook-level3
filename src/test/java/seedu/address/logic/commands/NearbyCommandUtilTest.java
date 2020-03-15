@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -16,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 
 class NearbyCommandUtilTest {
     private static final Index INVALID_POSTAL_SECTOR = Index.fromOneBased(4000);
+    private static final Index VALID_POSTAL_SECTOR = Index.fromOneBased(14);
 
     /**
      * Used to generate location information for all sectors
@@ -179,5 +182,25 @@ class NearbyCommandUtilTest {
     void getGeneralLocation_invalidPostalSector_returnEmptyOptional() {
         Optional<String> value = NearbyCommandUtil.getGeneralLocation(INVALID_POSTAL_SECTOR);
         assertTrue(value.isEmpty());
+    }
+
+    @Test
+    void getGeneralLocation_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> NearbyCommandUtil.getGeneralLocation(null));
+    }
+
+    @Test
+    void isValidPostalSector_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> NearbyCommandUtil.isValidPostalSector(null));
+    }
+
+    @Test
+    void isValidPostalSector_invalidPostalSector_returnsFalse() {
+        assertFalse(NearbyCommandUtil.isValidPostalSector(INVALID_POSTAL_SECTOR));
+    }
+
+    @Test
+    void isValidPostalSector_validPostalSector_returnsTrue() {
+        assertTrue(NearbyCommandUtil.isValidPostalSector(VALID_POSTAL_SECTOR));
     }
 }
