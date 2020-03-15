@@ -34,6 +34,12 @@ class NearbyCommandUtilTest {
         assertEquals(expectedLocation, value.get());
     }
 
+    @ParameterizedTest
+    @MethodSource("sameLocation")
+    void sameGeneralLocation_validLocation_returnsList(String location, List<String> expectedPostalSectors) {
+        assertEquals(expectedPostalSectors, NearbyCommandUtil.sameGeneralLocation(location));
+    }
+
     @Test
     void getGeneralLocation_invalidPostalSector_returnEmptyOptional() {
         Optional<String> value = NearbyCommandUtil.getGeneralLocation(INVALID_POSTAL_SECTOR);
@@ -70,8 +76,23 @@ class NearbyCommandUtilTest {
         List<String> sector1 = new ArrayList<>(
                 Arrays.asList("S01", "S02", "S03", "S04", "S05", "S06"));
 
+        String location2 = "Anson, Tanjong Pagar";
+        List<String> sector2 = new ArrayList<>(
+                Arrays.asList("S07", "S08"));
+
+        String location3 = "Queenstown, Tiong Bahru";
+        List<String> sector3 = new ArrayList<>(
+                Arrays.asList("S14", "S15", "S16"));
+
+        String location4 = "Telok Blangah, Harbourfront";
+        List<String> sector4 = new ArrayList<>(
+                Arrays.asList("S09", "S10"));
+
         return Stream.of(
-                Arguments.of(location1, sector1)
+                Arguments.of(location1, sector1),
+                Arguments.of(location2, sector2),
+                Arguments.of(location3, sector3),
+                Arguments.of(location4, sector4)
         );
     }
 
