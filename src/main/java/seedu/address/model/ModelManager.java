@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Student;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Student> filteredStudents;
+    private final FilteredList<Module> filteredModules;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getPersonList());
+        filteredModules = new FilteredList<>(this.addressBook.getModuleList());
     }
 
     public ModelManager() {
@@ -112,6 +115,18 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedStudent);
     }
 
+    @Override
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return addressBook.hasModule(module);
+    }
+
+    @Override
+    public void addModule(Module module) {
+        requireNonNull(module);
+        addressBook.addModule(module);
+    }
+
     //=========== Filtered Student List Accessors =============================================================
 
     /**
@@ -148,4 +163,21 @@ public class ModelManager implements Model {
                 && filteredStudents.equals(other.filteredStudents);
     }
 
+    //=========== Filtered Module List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        return filteredModules;
+    }
+
+    @Override
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
+        requireNonNull(predicate);
+        filteredModules.setPredicate(predicate);
+    }
 }

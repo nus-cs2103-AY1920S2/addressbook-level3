@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Student;
 import seedu.address.testutil.PersonBuilder;
 
@@ -146,6 +147,26 @@ public class AddCommandTest {
         @Override
         public void updateFilteredPersonList(Predicate<Student> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+
+        }
+
+        @Override
+        public boolean hasModule(Module module) {
+            return false;
+        }
+
+        @Override
+        public void addModule(Module module) {
+
         }
     }
 

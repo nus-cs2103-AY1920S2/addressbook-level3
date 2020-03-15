@@ -11,6 +11,7 @@ import seedu.address.model.group.UniqueGroupList;
  */
 public class Module {
     private final String identifier;
+    private final String name;
     private final UniqueGroupList groups;
 
     /**
@@ -19,8 +20,9 @@ public class Module {
      * @param identifier identifies the module. Usually equal
      *                   to the module code.
      */
-    public Module(String identifier) {
+    public Module(String identifier, String name) {
         this.identifier = identifier;
+        this.name = name;
         groups = new UniqueGroupList();
     }
 
@@ -43,6 +45,7 @@ public class Module {
             if (group.getIdentifier().equals(identifier)) {
                 break;
             }
+            group = null;
         }
         return group;
     }
@@ -59,6 +62,13 @@ public class Module {
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Returns module name.
+     */
+    public String getName() {
+        return name;
     }
 
     /**
@@ -87,10 +97,9 @@ public class Module {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getIdentifier())
-                .append(" has ")
-                .append(groups.size())
-                .append(" groups");
+        builder.append(getName())
+                .append(" with Module Code ")
+                .append(getIdentifier());
         return builder.toString();
     }
 }

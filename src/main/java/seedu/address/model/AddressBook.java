@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueModuleList modules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        modules = new UniqueModuleList();
     }
 
     public AddressBook() {}
@@ -67,11 +71,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a module with the same module code exists in the TATracker.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    /**
      * Adds a student to the address book.
      * The student must not already exist in the address book.
      */
     public void addPerson(Student p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds a module to the TATracker.
+     */
+    public void addModule(Module module) {
+        modules.add(module);
     }
 
     /**
@@ -105,6 +124,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Student> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Module> getModuleList() {
+        return modules.asUnmodifiableObservableList();
     }
 
     @Override
