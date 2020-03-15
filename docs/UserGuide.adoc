@@ -15,11 +15,8 @@ endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-4/main/
 
 
-=TABLE OF CONTENTS
+= TABLE OF CONTENTS
 
-- [Introduction](#introduction)
-- [Quick Start](#quick-start)
-- [Features](#features)
 
 
 == Introduction
