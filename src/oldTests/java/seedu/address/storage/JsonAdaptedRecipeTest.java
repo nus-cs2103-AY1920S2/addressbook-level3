@@ -20,8 +20,7 @@ public class JsonAdaptedRecipeTest {
 
     // TODO: create tests for ingredients and instructions
 
-
-    /*private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
@@ -94,6 +93,5 @@ public class JsonAdaptedRecipeTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, invalidTags);
         assertThrows(IllegalValueException.class, person::toModelType);
-    }*/
-
+    }
 }
