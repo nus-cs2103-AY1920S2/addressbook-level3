@@ -1,0 +1,66 @@
+package seedu.expensela.model.transaction;
+
+import java.text.DecimalFormat;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.expensela.commons.util.AppUtil.checkArgument;
+
+/**
+ * Represents a Person's phone number in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
+ */
+public class Amount {
+
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Amount should only contain numbers with 2 decimal places";
+    public static final String VALIDATION_REGEX = "^(?=.*[1-9])\\d{1,9}(?:\\.\\d{0,2})?$";
+    public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
+    public final Double amount;
+    public final boolean positive;
+
+    /**
+     * Constructs a {@code Amount}.
+     *
+     * @param value A valid transaction amount.
+     */
+    public Amount(String value, boolean positive) {
+        requireNonNull(value);
+        checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
+        String[] tokens = value.split(".");
+        this.amount = Double.parseDouble(value);
+        this.positive = positive;
+    }
+
+    /**
+     * Returns true if a given string is a valid transaction amount.
+     */
+    public static boolean isValidAmount(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    @Override
+    public String toString() {
+        String printedAmount;
+        if (positive) {
+            printedAmount = "+ $";
+        } else {
+            printedAmount = "- $";
+        }
+        printedAmount += amount;
+        return printedAmount;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Amount // instanceof handles nulls
+                && amount.equals(((Amount) other).amount)); //state check
+    }
+
+    @Override
+    public int hashCode() {
+        return amount.hashCode();
+    }
+
+}
