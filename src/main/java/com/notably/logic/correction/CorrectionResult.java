@@ -15,8 +15,9 @@ interface CorrectionResult<T> {
     /**
      * Gets the corrected item.
      * If correction cannot be done, {@code Optional.empty()} will be returned.
-     * 
+     *
      * @return The corrected item, or {@code Optional.empty()} if correction fails
      */
     Optional<T> getCorrectedItem();
 }
+
