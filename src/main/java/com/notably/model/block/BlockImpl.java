@@ -36,6 +36,8 @@ public class BlockImpl implements Block {
      * Used when creating a block with additional body argument.
      */
     public BlockImpl(Block parent, Title title, Body body) {
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(body);
         this.title = title;
         this.parent = parent;
         this.body = body;
@@ -64,11 +66,13 @@ public class BlockImpl implements Block {
 
     @Override
     public void setChildren(List<Block> newChildren) {
+        Objects.requireNonNull(newChildren);
         this.children = newChildren;
     }
 
     @Override
     public Optional<Block> getChild(Title title) {
+        Objects.requireNonNull(title);
         Optional<Block> child = this.children.stream()
             .filter(block -> title.equals(block.getTitle()))
             .findAny();
@@ -77,6 +81,8 @@ public class BlockImpl implements Block {
 
     @Override
     public void setChild(Title title, Block newBlock) {
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(newBlock);
         Optional<Block> child = this.children.stream()
             .filter(block -> title.equals(block.getTitle()))
             .findAny();
