@@ -10,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -40,6 +41,19 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static Birthday parseBirthday(String birthday) throws ParseException {
+        requireNonNull(birthday);
+        if (!Birthday.isValidDate(birthday)) {
+            throw new ParseException(Birthday.MESSAGE_CONSTRAINTS);
+        }
+        return new Birthday(birthday);
+    }
+
+    /**
+     * Parses a {@code String birthday} into a {@code Birthday}.
+     *
+     * @throws ParseException if the given {@code Birthday} is invalid.
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
