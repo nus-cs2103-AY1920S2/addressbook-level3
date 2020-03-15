@@ -8,13 +8,11 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.group.DuplicateGroupException;
-import seedu.address.model.group.GroupNotFoundException;
 
 /**
  * A list of groups that enforces uniqueness between its elements and does not allow nulls.
  * A group is considered unique by comparing using {@code Group#equals(Object)}. As such, adding and updating of
- * groups uses Group#equals(Object) for equality so as to ensure that the person being added or updated is
+ * groups uses Group#equals(Object) for equality so as to ensure that the group being added or updated is
  * unique in terms of identity in the UniqueGroupList.
  *
  * Supports a minimal set of list operations.
@@ -33,6 +31,14 @@ public class UniqueGroupList implements Iterable<Group> {
     public boolean contains(Group toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
+    }
+
+    public int size() {
+        return internalList.size();
+    }
+
+    public Group get(int n) {
+        return internalList.get(n);
     }
 
     /**
@@ -68,8 +74,8 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent group from the list.
+     * The group must exist in the list.
      */
     public void remove(Group toRemove) {
         requireNonNull(toRemove);
@@ -78,14 +84,14 @@ public class UniqueGroupList implements Iterable<Group> {
         }
     }
 
-    public void setPersons(UniqueGroupList replacement) {
+    public void setGroups(UniqueGroupList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
      * Replaces the contents of this list with {@code groups}.
-     * {@code groups} must not contain duplicate persons.
+     * {@code groups} must not contain duplicate groups.
      */
     public void setGroups(List<Group> groups) {
         requireAllNonNull(groups);

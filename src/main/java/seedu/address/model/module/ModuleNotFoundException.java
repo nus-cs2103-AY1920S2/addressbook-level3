@@ -1,3 +1,6 @@
 package seedu.address.model.module;
 
-public class ModuleNotFoundException {}
+/**
+ * Signals that the operation is unable to find the specified module.
+ */
+public class ModuleNotFoundException extends RuntimeException {}

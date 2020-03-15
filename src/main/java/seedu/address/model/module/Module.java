@@ -1,17 +1,17 @@
 package seedu.address.model.module;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.UniqueGroupList;
 
 /**
  * Represents a module in the TAT.
  */
 public class Module {
     private final String identifier;
-    private final ArrayList<Group> groups;
+    private final UniqueGroupList groups;
 
     /**
      * Constructs a group object.
@@ -21,7 +21,7 @@ public class Module {
      */
     public Module(String identifier) {
         this.identifier = identifier;
-        groups = new ArrayList<Group>();
+        groups = new UniqueGroupList();
     }
 
     //TODO: the following methods
@@ -49,12 +49,12 @@ public class Module {
     /**
      * Returns the group list.
      */
-    public List<Group> getGroupList() {
-        return groups;
+    public ObservableList<Group> getGroupList() {
+        return groups.asUnmodifiableObservableList();
     }
 
     /**
-     * Returns the group identifier.
+     * Returns the module identifier.
      */
     public String getIdentifier() {
         return identifier;

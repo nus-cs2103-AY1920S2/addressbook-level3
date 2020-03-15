@@ -3,7 +3,6 @@ package seedu.address.model.group;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import seedu.address.model.person.Person;
 
 /**
  * Represents a group in TAT.
@@ -24,6 +23,7 @@ public class Group {
     private final String identifier;
     private final GroupType groupType;
     //TODO: ArrayList will contain Students
+    //have to change it to use UniqueStudentList!!!
     private final ArrayList students;
 
 
