@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ModifyCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.ModifyCommand.EditRecipeDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.RecipeBook;
@@ -38,10 +38,10 @@ public class ModifyCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Recipe editedRecipe = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedRecipe).build();
+        ModifyCommand.EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder(editedRecipe).build();
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
@@ -58,11 +58,11 @@ public class ModifyCommandTest {
         Recipe editedRecipe = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).withTags(
                 VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withPhone(
-                VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withTags(
+                VALID_TAG_HUSBAND).build();
         ModifyCommand modifyCommand = new ModifyCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(lastRecipe, editedRecipe);
@@ -72,10 +72,10 @@ public class ModifyCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON, new EditRecipeDescriptor());
         Recipe editedRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
 
@@ -91,7 +91,7 @@ public class ModifyCommandTest {
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedRecipe);
+        String expectedMessage = String.format(ModifyCommand.MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe);
 
         Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
@@ -102,10 +102,10 @@ public class ModifyCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Recipe firstRecipe = model.getFilteredRecipeList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstRecipe).build();
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder(firstRecipe).build();
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_SECOND_PERSON, descriptor);
 
-        assertCommandFailure(modifyCommand, model, ModifyCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(modifyCommand, model, ModifyCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
     @Test
@@ -117,13 +117,13 @@ public class ModifyCommandTest {
         ModifyCommand modifyCommand = new ModifyCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(recipeInList).build());
 
-        assertCommandFailure(modifyCommand, model, ModifyCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(modifyCommand, model, ModifyCommand.MESSAGE_DUPLICATE_RECIPE);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         ModifyCommand modifyCommand = new ModifyCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(modifyCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -151,7 +151,7 @@ public class ModifyCommandTest {
         final ModifyCommand standardCommand = new ModifyCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+        ModifyCommand.EditRecipeDescriptor copyDescriptor = new ModifyCommand.EditRecipeDescriptor(DESC_AMY);
         ModifyCommand commandWithSameValues = new ModifyCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

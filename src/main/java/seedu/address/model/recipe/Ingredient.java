@@ -4,15 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Recipe's ingredient in the recipe book.
- * Guarantees: immutable; is valid as declared in {@link #isValidIngredients(String)}
+ * Represents a Recipe's ingredient in its {@code IngredientList}.
+ * Guarantees: immutable; is valid as declared in {@link #isValidIngredient(String)}
  */
 public class Ingredient {
 
     public static final String MESSAGE_CONSTRAINTS = "Ingredient can take any values, and it should not be blank";
 
     /*
-     * The first character of the ingredients must not be a whitespace,
+     * The first character of the ingredient must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
@@ -28,10 +28,17 @@ public class Ingredient {
     public Ingredient(String name, String quantity) {
         requireNonNull(name);
         requireNonNull(quantity);
-        checkArgument(isValidIngredients(name), MESSAGE_CONSTRAINTS);
-        checkArgument(isValidIngredients(quantity), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidIngredient(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidIngredient(quantity), MESSAGE_CONSTRAINTS);
         this.name = name;
         this.quantity = quantity;
+    }
+
+    /**
+     * Returns true if a given string is a valid ingredient.
+     */
+    public static boolean isValidIngredient(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getQuantity() {
@@ -42,13 +49,6 @@ public class Ingredient {
         this.quantity = quantity;
     }
 
-    /**
-     * Returns true if a given string is a valid email.
-     */
-    public static boolean isValidIngredients(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
     @Override
     public String toString() {
         return name + " " + quantity;
@@ -57,8 +57,8 @@ public class Ingredient {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Ingredient // instanceof handles nulls
-                && name.equals(((Ingredient) other).name)); // state check
+               || (other instanceof Ingredient // instanceof handles nulls
+                   && name.equals(((Ingredient) other).name)); // state check
     }
 
     @Override

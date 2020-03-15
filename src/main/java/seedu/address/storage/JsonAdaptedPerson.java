@@ -10,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.recipe.Email;
+import seedu.address.model.recipe.IngredientList;
+import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 
@@ -24,20 +24,20 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Recipe's %s field is missing!";
 
     private final String name;
-    private final String phone;
-    private final String email;
+    private final String ingredients;
+    private final String instructions;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given recipe details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email,
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
+                             @JsonProperty("instructions") String instructions,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -48,8 +48,8 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Recipe source) {
         name = source.getName().name;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        ingredients = source.getIngredients().ingredientListString;
+        instructions = source.getInstructions().instructionListString;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -61,9 +61,9 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
      */
     public Recipe toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> recipeTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            recipeTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -74,24 +74,26 @@ class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (ingredients == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, IngredientList.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        if (!IngredientList.isValidIngredients(ingredients)) {
+            throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final IngredientList modelIngredients = new IngredientList(ingredients);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+        if (instructions == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, InstructionList.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!InstructionList.isValidInstructions(instructions)) {
+            throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final InstructionList modelInstructions = new InstructionList(instructions);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Recipe(modelName, modelPhone, modelEmail, modelTags);
+        final Set<Tag> modelTags = new HashSet<>(recipeTags);
+        return new Recipe(modelName, modelIngredients, modelInstructions, modelTags);
     }
 
 }

@@ -13,35 +13,30 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-<<<<<<< HEAD
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-=======
-import seedu.address.logic.commands.ResetCommand;
->>>>>>> main-kevin-newCommand
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModifyCommand;
-import seedu.address.logic.commands.ModifyCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.ModifyCommand.EditRecipeDescriptor;
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.ResetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.RecipeUtil;
 
-public class AddressBookParserTest {
+public class RecipeBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final RecipeBookParser parser = new RecipeBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
         Recipe recipe = new PersonBuilder().build();
-        NewCommand command = (NewCommand) parser.parseCommand(PersonUtil.getAddCommand(recipe));
+        NewCommand command = (NewCommand) parser.parseCommand(RecipeUtil.getAddCommand(recipe));
         assertEquals(new NewCommand(recipe), command);
     }
 
@@ -61,10 +56,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Recipe recipe = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(recipe).build();
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder(recipe).build();
         ModifyCommand command = (ModifyCommand) parser.parseCommand(
-                ModifyCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil
-                        .getEditPersonDescriptorDetails(descriptor));
+                ModifyCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " " + RecipeUtil
+                        .getEditRecipeDescriptorDetails(descriptor));
         assertEquals(new ModifyCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
