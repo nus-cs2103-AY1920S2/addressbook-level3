@@ -19,7 +19,7 @@ public interface BlockModel {
 
     /**
      * Gets the parent block of a block, if possible.
-     * Returns an {@code Optional<Empty>} if the block is the root block.
+     * Returns an {@code Optional.empty()} if the block is the root block.
      */
     Optional<BlockModel> getParent();
 
@@ -39,9 +39,9 @@ public interface BlockModel {
     Optional<BlockModel> getChild(Title title);
 
     /**
-     * Replaces a child block of a block, with a new child block.
+     * Replaces a child block of a block, that matches the title, with a new child block.
      */
-    void setChild(BlockModel oldBlock, BlockModel newBlock);
+    void setChild(Title title, BlockModel newBlock);
 
     /**
      * Adds a single new child to a block.
