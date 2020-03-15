@@ -159,8 +159,7 @@ public class ModelManager implements Model {
         } catch (IllegalValueException e) {
             throw new RuntimeException();
         }
-        //return FXCollections.observableList(List.of(i));
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(List.of(i)));
+        return FXCollections.observableList(List.of(i));
     }
 
     @Override
