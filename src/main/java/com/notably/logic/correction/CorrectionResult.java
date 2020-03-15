@@ -1,5 +1,6 @@
 package com.notably.logic.correction;
 
+import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -41,6 +42,22 @@ public class CorrectionResult<T> {
      */
     Optional<T> getCorrectedItem() {
         return Optional.ofNullable(correctedItem);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof CorrectionResult)) {
+            return false;
+        }
+
+        CorrectionResult<?> another = (CorrectionResult<?>) object;
+        return correctionStatus.equals(another.correctionStatus)
+                && correctedItem.equals(another.correctedItem);
+    }
+
+    @Override
+    public int hashCode() {
+        return hash(correctionStatus, correctedItem);
     }
 }
 
