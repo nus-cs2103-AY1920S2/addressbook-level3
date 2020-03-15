@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.model.transaction.UniqueTransactionList;
+import seedu.expensela.model.transaction.TransactionList;
 
 /**
  * Wraps all data at the address-book level
@@ -15,8 +15,8 @@ import seedu.expensela.model.transaction.UniqueTransactionList;
  */
 public class ExpenseLa implements ReadOnlyExpenseLa {
 
-    private final UniqueTransactionList persons;
     private final MonthlyData monthlyData;
+    private final TransactionList transactions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,8 +26,8 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      *   among constructors.
      */
     {
-        persons = new UniqueTransactionList();
         monthlyData = new MonthlyData(null, null, null, null);
+        transactions = new TransactionList();
     }
 
     public ExpenseLa() {}
@@ -43,11 +43,11 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code transactions}.
+     * {@code transactions} must not contain duplicate transactions.
      */
     public void setPersons(List<Transaction> transactions) {
-        this.persons.setPersons(transactions);
+        this.transactions.setTransaction(transactions);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      */
     public boolean hasPerson(Transaction transaction) {
         requireNonNull(transaction);
-        return persons.contains(transaction);
+        return transactions.contains(transaction);
     }
 
     /**
@@ -74,7 +74,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      * The person must not already exist in the address book.
      */
     public void addPerson(Transaction p) {
-        persons.add(p);
+        transactions.add(p);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     public void setPerson(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);
 
-        persons.setPerson(target, editedTransaction);
+        transactions.setTransaction(target, editedTransaction);
     }
 
     /**
@@ -93,31 +93,31 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Transaction key) {
-        persons.remove(key);
+        transactions.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return transactions.asUnmodifiableObservableList().size() + " transactions";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Transaction> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return transactions.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExpenseLa // instanceof handles nulls
-                && persons.equals(((ExpenseLa) other).persons));
+                && transactions.equals(((ExpenseLa) other).transactions));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return transactions.hashCode();
     }
 }

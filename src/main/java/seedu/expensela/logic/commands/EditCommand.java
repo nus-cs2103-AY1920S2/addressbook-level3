@@ -16,10 +16,7 @@ import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.commons.util.CollectionUtil;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Model;
-import seedu.expensela.model.transaction.Amount;
-import seedu.expensela.model.transaction.Date;
-import seedu.expensela.model.transaction.Name;
-import seedu.expensela.model.transaction.Transaction;
+import seedu.expensela.model.transaction.*;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -72,7 +69,7 @@ public class EditCommand extends Command {
         Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
         Transaction editedTransaction = createEditedPerson(transactionToEdit, editPersonDescriptor);
 
-        if (!transactionToEdit.isSamePerson(editedTransaction) && model.hasPerson(editedTransaction)) {
+        if (!transactionToEdit.isSameTransaction(editedTransaction) && model.hasPerson(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
@@ -92,8 +89,9 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(transactionToEdit.getName());
         Amount updatedAmount = editPersonDescriptor.getAmount().orElse(transactionToEdit.getAmount());
         Date updatedDate = editPersonDescriptor.getDate().orElse(transactionToEdit.getDate());
+        Remark updatedRemark = editPersonDescriptor.getRemark().orElse(transactionToEdit.getRemark());
 
-        return new Transaction(updatedName, updatedAmount, updatedDate);
+        return new Transaction(updatedName, updatedAmount, updatedDate, updatedRemark);
     }
 
     @Override
@@ -122,6 +120,7 @@ public class EditCommand extends Command {
         private Name name;
         private Amount amount;
         private Date date;
+        private Remark remark;
 
         public EditPersonDescriptor() {}
 
@@ -133,6 +132,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
+            setRemark(toCopy.remark);
         }
 
         /**
@@ -164,6 +164,14 @@ public class EditCommand extends Command {
 
         public Optional<Date> getDate() {
             return Optional.ofNullable(date);
+        }
+
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
         }
 
         @Override
