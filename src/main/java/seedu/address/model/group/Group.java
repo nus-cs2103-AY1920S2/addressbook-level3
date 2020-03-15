@@ -3,6 +3,10 @@ package seedu.address.model.group;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.person.Matric;
+import seedu.address.model.person.Student;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * Represents a group in TAT.
@@ -22,9 +26,7 @@ public class Group {
 
     private final String identifier;
     private final GroupType groupType;
-    //TODO: ArrayList will contain Students
-    //have to change it to use UniqueStudentList!!!
-    private final ArrayList students;
+    private final UniquePersonList students;
 
 
     /**
@@ -35,27 +37,36 @@ public class Group {
      */
     public Group(String identifier, GroupType groupType) {
         this.identifier = identifier;
-        students = new ArrayList<>();
+        students = new UniquePersonList();
         this.groupType = groupType;
     }
 
-    //TODO: the following methods
     /**
      * Adds student to students.
      */
-    public void addStudent() {
+    public void addStudent(Student student) {
+        students.add(student);
     }
 
     /**
      * Gets student with given matric number.
      */
-    public void getStudent() {
+    public Student getStudent(Matric matric) {
+        Student student = null;
+        for (int i = 0; i < students.size(); ++i) {
+            student = students.get(i);
+            if (student.getMatric().equals(matric)) {
+                break;
+            }
+        }
+        return student;
     }
 
     /**
      * Returns the student list.
      */
-    public void getStudentList() {
+    public ObservableList<Student> getStudentList() {
+        return students.asUnmodifiableObservableList();
     }
 
     /**
