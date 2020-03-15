@@ -16,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.person.Person;
@@ -159,6 +160,11 @@ public class ModelManager implements Model {
             throw new RuntimeException();
         }
         return FXCollections.observableList(List.of(i));
+    }
+
+    @Override
+    public IntervieweeList getIntervieweeList() {
+        return null;
     }
 
     @Override
