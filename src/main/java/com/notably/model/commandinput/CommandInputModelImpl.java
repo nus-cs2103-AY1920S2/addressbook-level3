@@ -1,4 +1,4 @@
-package com.notably.model.commandInput;
+package com.notably.model.commandinput;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
