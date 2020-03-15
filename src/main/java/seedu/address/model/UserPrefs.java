@@ -66,6 +66,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return profileListFilePath;
     }
 
+    public void setProfileListFilePath(Path profileListFilePath) {
+        requireNonNull(profileListFilePath);
+        this.profileListFilePath = profileListFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

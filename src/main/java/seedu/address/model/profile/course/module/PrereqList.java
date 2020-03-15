@@ -31,7 +31,8 @@ public class PrereqList {
     @Override
     public String toString() {
         if (prereqList.size() == 0) {
-            return "PreReqList placeholder: This module has no prereqs";
+            return null;
+            //return "PreReqList placeholder: This module has no prereqs";
         }
 
         final StringBuilder builder = new StringBuilder();

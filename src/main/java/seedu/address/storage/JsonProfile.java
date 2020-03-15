@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -25,25 +26,26 @@ import seedu.address.model.profile.course.module.personal.Status;
 /**
  * Jackson-friendly version of {@link Profile}.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class JsonProfile {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Profile's %s field is missing!";
 
     private String name;
     private String course;
     private String specialisation;
-    private String semester;
+    private String currentSemester;
     private List<JsonSemesterRecord> records;
 
     @JsonCreator
     public JsonProfile(@JsonProperty("name") String name,
             @JsonProperty("course") String course,
             @JsonProperty("specialisation") String specialisation,
-            @JsonProperty("current semester") String semester,
+            @JsonProperty("currentSemester") String semester,
             @JsonProperty("records") List<JsonSemesterRecord> records) {
         this.name = name;
         this.course = course;
         this.specialisation = specialisation;
-        this.semester = semester;
+        this.currentSemester = semester;
         this.records = records;
     }
 
@@ -51,7 +53,7 @@ class JsonProfile {
         name = source.getName().toString();
         course = source.getCourse().toString();
         specialisation = source.getSpecialisation();
-        semester = source.getCurrentSemester();
+        currentSemester = source.getCurrentSemester();
         records = new ArrayList<>();
         for (Map.Entry<Integer, ArrayList<Module>> entry: source.getMappings()) {
             String sem = entry.getKey().toString();
@@ -73,7 +75,7 @@ class JsonProfile {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         } else if (course == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Course.class.getSimpleName()));
-        } else if (semester == null) {
+        } else if (currentSemester == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "current semester"));
         } else if (records == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "records"));
@@ -82,14 +84,14 @@ class JsonProfile {
         // Handle invalid values
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        } else if (!semester.matches("\\d+")) {
+        } else if (!currentSemester.matches("\\d+")) {
             throw new IllegalValueException("Semester number should be a positive integer");
         }
         // TODO: Validation for course - Completely alphabetical
 
         Name profileName = new Name(name);
         Course profileCourse = new Course(course);
-        Profile profile = new Profile(profileName, profileCourse, semester, specialisation);
+        Profile profile = new Profile(profileName, profileCourse, currentSemester, specialisation);
 
         for (JsonSemesterRecord record : records) {
             int semester = Integer.parseInt(record.getSemester());
@@ -106,6 +108,7 @@ class JsonProfile {
 /**
  * Jackson-friendly version of a semester.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class JsonSemesterRecord {
     private String semester;
     private List<JsonPersonalModule> modules;
@@ -132,6 +135,7 @@ class JsonSemesterRecord {
 /**
  * Jackson-friendly version of {@link Module}.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class JsonPersonalModule extends JsonModule {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
 
@@ -162,7 +166,11 @@ class JsonPersonalModule extends JsonModule {
                         .map(JsonSemesterData::new).collect(Collectors.toList()));
         status = module.getStatus();
         grade = module.getGrade();
-        deadlines = module.getDeadlines().stream().map(JsonDeadline::new).collect(Collectors.toList());
+        if (module.getDeadlines().size() == 0) {
+            deadlines = null;
+        } else {
+            deadlines = module.getDeadlines().stream().map(JsonDeadline::new).collect(Collectors.toList());
+        }
     }
 
     @Override
@@ -197,6 +205,7 @@ class JsonPersonalModule extends JsonModule {
 /**
  * Jackson-friendly version of {@link Deadline}.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class JsonDeadline {
     private String description;
     private String date;
