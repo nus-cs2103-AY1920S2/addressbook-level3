@@ -55,15 +55,15 @@ public class PersonCard extends UiPart<Region> {
 
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);
-        ingredients.setText(recipe.getIngredients().ingredientListString);
-        instructions.setText(recipe.getInstructions().instructionListString);
+        ingredients.setText(recipe.getIngredients().toString());
+        instructions.setText(recipe.getInstructions().toString());
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         id1.setText(displayedIndex + ". ");
         name1.setText(recipe.getName().name);
-        ingredients1.setText(recipe.getIngredients().ingredientListString);
-        instructions1.setText(recipe.getInstructions().instructionListString);
+        ingredients1.setText(recipe.getIngredients().toString());
+        instructions1.setText(recipe.getInstructions().toString());
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));

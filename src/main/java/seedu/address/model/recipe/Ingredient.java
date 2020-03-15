@@ -1,7 +1,8 @@
 package seedu.address.model.recipe;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.model.recipe.quantity.Quantity;
 
 /**
  * Represents a Recipe's ingredient in its {@code IngredientList}.
@@ -19,6 +20,7 @@ public class Ingredient {
 
     public final String name;
     private String quantity;
+    private Quantity quantity2;
 
     /**
      * Constructs an {@code Ingredient}.
@@ -28,10 +30,11 @@ public class Ingredient {
     public Ingredient(String name, String quantity) {
         requireNonNull(name);
         requireNonNull(quantity);
-        checkArgument(isValidIngredient(name), MESSAGE_CONSTRAINTS);
-        checkArgument(isValidIngredient(quantity), MESSAGE_CONSTRAINTS);
+        // checkArgument(isValidIngredient(name), MESSAGE_CONSTRAINTS);
+        // checkArgument(isValidIngredient(quantity), MESSAGE_CONSTRAINTS);
         this.name = name;
         this.quantity = quantity;
+        this.quantity2 = new Quantity();
     }
 
     /**
@@ -51,7 +54,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return name + " " + quantity;
+        return name + ", " + quantity;
     }
 
     @Override

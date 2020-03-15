@@ -1,41 +1,44 @@
 package seedu.address.model.recipe;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import seedu.address.logic.parser.ItemListParser;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a Recipe's ingredients in the recipe book.
  */
 public class IngredientList {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Ingredients can take any values for now, and it should not be " + "blank";
+    public static final String MESSAGE_CONSTRAINTS = "Ingredients can take any values for now, and it should not be "
+            + "blank";
 
     /*
-     * The first character of the ingredients must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * The first character of the ingredients must not be a whitespace, otherwise
+     * " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final List<Ingredient> ingredients;
-
-    // TODO: change to List, for now using String to temp store ingredient list
-    public final String ingredientListString;
+    public final List<Ingredient> data;
 
     /**
      * Constructs an {@code IngredientList}.
      */
     public IngredientList(String ingredientListString) {
         requireNonNull(ingredientListString);
-        checkArgument(isValidIngredients(ingredientListString), MESSAGE_CONSTRAINTS);
+        //checkArgument(isValidIngredients(ingredientListString), MESSAGE_CONSTRAINTS);
 
-        this.ingredientListString = ingredientListString;
-
-        // TODO: Update IngredientList to use arraylist instead of raw String
-        this.ingredients = new ArrayList<Ingredient>();
+        List<Ingredient> templist;
+        try {
+            templist = ItemListParser.parseIngredientsToList(ingredientListString);
+        } catch (ParseException e) {
+            templist = new ArrayList<Ingredient>();
+        }
+        this.data = templist;
     }
 
     /**
@@ -51,7 +54,7 @@ public class IngredientList {
      * @param ingredient the ingredient to be added.
      */
     public void addIngredient(Ingredient ingredient) {
-        ingredients.add(ingredient);
+        data.add(ingredient);
     }
 
     /**
@@ -60,12 +63,14 @@ public class IngredientList {
      * @param ingredient the ingredient to be deleted.
      */
     public void deleteIngredient(Ingredient ingredient) {
-        ingredients.remove(ingredient);
+        data.remove(ingredient);
     }
 
     @Override
     public String toString() {
-        return ingredientListString;
+        return (String) this.data.stream()
+                .map(Ingredient::toString)
+                .collect(Collectors.joining(System.lineSeparator()));
     }
 
     // TODO: delete this since we are not printing to console.
@@ -74,8 +79,8 @@ public class IngredientList {
      * Prints out the ingredients list.
      */
     public void print() {
-        for (int i = 0; i < ingredients.size(); i++) {
-            System.out.print(ingredients.get(i));
+        for (int i = 0; i < data.size(); i++) {
+            System.out.print(data.get(i));
         }
     }
 }

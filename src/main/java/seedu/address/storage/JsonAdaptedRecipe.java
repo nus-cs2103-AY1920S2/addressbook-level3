@@ -48,8 +48,8 @@ class JsonAdaptedRecipe {
      */
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().name;
-        ingredients = source.getIngredients().ingredientListString;
-        instructions = source.getInstructions().instructionListString;
+        ingredients = source.getIngredients().toString();
+        instructions = source.getInstructions().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));

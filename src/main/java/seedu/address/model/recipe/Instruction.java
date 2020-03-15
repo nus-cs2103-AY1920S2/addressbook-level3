@@ -1,7 +1,6 @@
 package seedu.address.model.recipe;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Recipe's instruction in the recipe book.
@@ -26,7 +25,7 @@ public class Instruction {
      */
     public Instruction(String instruction) {
         requireNonNull(instruction);
-        checkArgument(isValidInstructions(instruction), MESSAGE_CONSTRAINTS);
+        // checkArgument(isValidInstructions(instruction), MESSAGE_CONSTRAINTS);
         value = instruction;
     }
 
