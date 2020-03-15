@@ -1,3 +1,4 @@
+/*
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
@@ -13,9 +14,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Profile;
 
+*/
 /**
  * Represents the in-memory model of the address book data.
- */
+ *//*
+
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -23,9 +26,11 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
 
-    /**
+    */
+/**
      * Initializes a ModelManager with the given addressBook and userPrefs.
-     */
+     *//*
+
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -114,10 +119,12 @@ public class ModelManager implements Model {
 
     //=========== Filtered Profile List Accessors =============================================================
 
-    /**
+    */
+/**
      * Returns an unmodifiable view of the list of {@code Profile} backed by the internal list of
      * {@code versionedAddressBook}
-     */
+     *//*
+
     @Override
     public ObservableList<Profile> getFilteredPersonList() {
         return filteredProfiles;
@@ -149,3 +156,4 @@ public class ModelManager implements Model {
     }
 
 }
+*/

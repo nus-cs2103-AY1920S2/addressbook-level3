@@ -15,22 +15,17 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonModuleListStorage;
 import seedu.address.storage.JsonProfileListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ProfileListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -64,19 +59,22 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        //AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        //storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ProfileListStorage profiles = new JsonProfileListStorage(userPrefs.getProfileListFilePath());
+        storage = new StorageManager(profiles, userPrefsStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        //model = initModelManager(storage, userPrefs);
+        model = initProfileManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
 
         moduleManager = initModuleManager(userPrefs);
-        profileManager = initProfileManager(userPrefs);
+        //profileManager = initProfileManager(userPrefs);
     }
 
     /**
@@ -108,23 +106,25 @@ public class MainApp extends Application {
      * An empty profile list will be used instead if the a profile list is not found at
      * {@code userPrefs.getProfileListFilePath()} or errors occur when reading the profile list at that location.
      */
-    private ProfileManager initProfileManager(UserPrefs userPrefs) {
-        JsonProfileListStorage profiles = new JsonProfileListStorage(userPrefs.getProfileListFilePath());
-        ProfileManager profileManager;
+    private ProfileManager initProfileManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<ProfileList> profileListOptional;
+        ProfileList initialData;
         try {
-            Optional<ProfileList> profileListOptional = profiles.readProfileList();
+            profileListOptional = storage.readProfileList();
             if (!profileListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty ProfileList");
-                profileManager = new ProfileManager();
+                initialData = new ProfileList();
             } else {
-                ProfileList profileList = profileListOptional.get();
-                profileManager = new ProfileManager(profileList);
+                initialData = profileListOptional.get();
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ProfileList");
-            profileManager = new ProfileManager();
+            initialData = new ProfileList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ProfileList");
+            initialData = new ProfileList();
         }
-        return profileManager;
+        return new ProfileManager(initialData, userPrefs);
     }
 
     /**
@@ -132,7 +132,7 @@ public class MainApp extends Application {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    /*private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
@@ -150,7 +150,7 @@ public class MainApp extends Application {
         }
 
         return new ModelManager(initialData, userPrefs);
-    }
+    }*/
 
     private void initLogging(Config config) {
         LogsCenter.init(config);

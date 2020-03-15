@@ -15,7 +15,10 @@ public class Grade {
     private ModuleGrade myGrade;
 
     public String getGrade() {
-        return this.myGrade.toString();
+        if (myGrade != null) {
+            return myGrade.toString();
+        }
+        return null;
     }
 
     public void setGrade(String grade) {

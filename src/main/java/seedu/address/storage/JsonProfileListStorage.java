@@ -15,7 +15,7 @@ import seedu.address.model.ProfileList;
 /**
  * A class to access ProfileList data stored as a json file on the hard disk.
  */
-public class JsonProfileListStorage {
+public class JsonProfileListStorage implements ProfileListStorage {
 
     private Path filePath;
 
@@ -23,7 +23,7 @@ public class JsonProfileListStorage {
         this.filePath = filePath;
     }
 
-    public Path getFilePath() {
+    public Path getProfileListFilePath() {
         return filePath;
     }
 
