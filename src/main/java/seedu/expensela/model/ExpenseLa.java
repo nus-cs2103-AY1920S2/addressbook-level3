@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.UniqueTransactionList;
 
@@ -12,9 +13,10 @@ import seedu.expensela.model.transaction.UniqueTransactionList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ExpenseLa implements ReadOnlyExpenseLa {
 
     private final UniqueTransactionList persons;
+    private final MonthlyData monthlyData;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,14 +27,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniqueTransactionList();
+        monthlyData = new MonthlyData(null, null, null, null);
     }
 
-    public AddressBook() {}
+    public ExpenseLa() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ExpenseLa using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ExpenseLa(ReadOnlyExpenseLa toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +51,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ExpenseLa} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyExpenseLa newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -86,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ExpenseLa}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Transaction key) {
@@ -109,8 +112,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof ExpenseLa // instanceof handles nulls
+                && persons.equals(((ExpenseLa) other).persons));
     }
 
     @Override

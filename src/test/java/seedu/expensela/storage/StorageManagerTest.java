@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.expensela.commons.core.GuiSettings;
-import seedu.expensela.model.AddressBook;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -54,10 +54,10 @@ public class StorageManagerTest {
          * {@link JsonAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
+        ExpenseLa original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ReadOnlyExpenseLa retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new ExpenseLa(retrieved));
     }
 
     @Test

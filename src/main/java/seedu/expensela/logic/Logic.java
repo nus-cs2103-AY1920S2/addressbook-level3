@@ -7,7 +7,7 @@ import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -24,11 +24,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the ExpenseLa.
      *
-     * @see seedu.expensela.model.Model#getAddressBook()
+     * @see seedu.expensela.model.Model#getExpenseLa()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyExpenseLa getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Transaction> getFilteredPersonList();

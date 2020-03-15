@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         Transaction validTransaction = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
         expectedModel.addPerson(validTransaction);
 
         assertCommandSuccess(new AddCommand(validTransaction), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Transaction transactionInList = model.getAddressBook().getPersonList().get(0);
+        Transaction transactionInList = model.getExpenseLa().getPersonList().get(0);
         assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

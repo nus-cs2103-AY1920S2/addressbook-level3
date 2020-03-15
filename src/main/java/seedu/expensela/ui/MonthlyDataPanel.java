@@ -15,7 +15,16 @@ public class MonthlyDataPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(MonthlyDataPanel.class);
 
     @FXML
-    private Label monthlyLabel;
+    private Label expenditureLabel;
+
+    @FXML
+    private Label budgetLabel;
+
+    @FXML
+    private Label incomeLabel;
+
+    @FXML
+    private Label balanceLabel;
 
     public MonthlyDataPanel() {
         super(FXML);
