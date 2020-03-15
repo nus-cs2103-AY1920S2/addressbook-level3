@@ -1,7 +1,6 @@
 package com.notably.logic.correction;
 
-import static java.util.Objects.requireNonNull;
-
+import java.util.Objects;
 import java.util.List;
 
 import com.notably.logic.correction.distance.EditDistanceCalculator;
@@ -21,8 +20,8 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
 
     public StringCorrectionEngine(EditDistanceCalculator editDistanceCalculator,
             List<String> options, int distanceThreshold) {
-        requireNonNull(editDistanceCalculator);
-        requireNonNull(options);
+        Objects.requireNonNull(editDistanceCalculator);
+        Objects.requireNonNull(options);
 
         if (options.isEmpty()) {
             throw new IllegalArgumentException("\"options\" must contain at least one element");
@@ -45,7 +44,7 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
      */
     @Override
     public CorrectionResult<String> correct(String uncorrected) {
-        requireNonNull(uncorrected);
+        Objects.requireNonNull(uncorrected);
 
         String closestString = null;
         int closestDistance = Integer.MAX_VALUE;
