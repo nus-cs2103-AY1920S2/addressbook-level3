@@ -36,6 +36,14 @@ public class UniquePersonList implements Iterable<Student> {
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
+    public int size() {
+        return internalList.size();
+    }
+
+    public Student get(int n) {
+        return internalList.get(n);
+    }
+
     /**
      * Adds a student to the list.
      * The student must not already exist in the list.
