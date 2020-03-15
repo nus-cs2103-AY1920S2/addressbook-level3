@@ -10,7 +10,7 @@ public class Deadline extends Activity {
 
     private Date dueDate;
 
-    public Deadline(Name name, Note note) {
+    public Deadline(Name name, Date dueDate, Note note) {
         super(name, note);
         this.dueDate = dueDate;
     }
