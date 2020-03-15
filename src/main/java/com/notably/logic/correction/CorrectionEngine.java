@@ -1,11 +1,15 @@
 package com.notably.logic.correction;
 
-import java.util.List;
-
 /**
- * Represents the correction engine instance.
- * This is the class to with when doing string corrections.
+ * Represents a correction engine.
+ * This is the class to interact with when doing corrections.
  */
-interface CorrectionEngine {
-    CorrectionResult correct(String actual, List<String> possibilities);
+interface CorrectionEngine<T> {
+    /**
+     * Corrects a given item.
+     *
+     * @param uncorrected Uncorrected input
+     * @return Result of the correction
+     */
+    CorrectionResult<T> correct(T uncorrected);
 }
