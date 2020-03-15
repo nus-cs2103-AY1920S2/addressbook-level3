@@ -96,7 +96,6 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered interviewee list */
     ObservableList<Interviewee> getFilteredIntervieweeList();
 
-
     /** Returns an IntervieweeList */
     IntervieweeList getIntervieweeList();
 
