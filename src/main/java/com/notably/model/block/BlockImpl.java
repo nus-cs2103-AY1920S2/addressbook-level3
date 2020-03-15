@@ -9,18 +9,26 @@ import java.util.Optional;
  * Represents a Block in the Notably data structure.
  */
 public class BlockImpl implements Block {
-    private List<Block> children;
+    private Block parent;
     private Title title;
     private Body body;
-    private Block parent;
+    private List<Block> children;
+
 
     /**
-     * Initializes a default block.
-     * Used when creating a root block and creating a block without the optional body argument.
+     * Initializes a root block i.e. the block has no parent.
+     * @param title
+     */
+    public BlockImpl(Title title) {
+        this(null, title, new Body(""));
+    }
+
+    /**
+     * Initializes a block without the body.
+     * Used when creating a block without the optional body argument.
      */
     public BlockImpl(Block parent, Title title) {
-        this.title = title;
-        this.parent = parent;
+        this(parent, title, new Body(""));
     }
 
     /**
@@ -31,6 +39,7 @@ public class BlockImpl implements Block {
         this.title = title;
         this.parent = parent;
         this.body = body;
+        this.children = new ArrayList<Block>();
     }
 
     @Override
