@@ -213,9 +213,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    public static void triggerReminder(Reminder reminder, long delay) {
-        String name = reminder.getName();
-        String description = reminder.getDescription();
+    public static void triggerReminder(Reminder reminder, String name, String description) {
+        long delay = reminder.getDelay();
         Timeline timeline =
             new Timeline(
                 new KeyFrame(

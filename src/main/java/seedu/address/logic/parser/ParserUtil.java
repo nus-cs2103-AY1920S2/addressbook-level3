@@ -59,10 +59,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code reminder} is invalid.
      */
-    public static Reminder parseReminder(String reminder, String processedName, String processedDescription) throws ParseException {
+    public static Reminder parseReminder(String reminder) throws ParseException {
         requireNonNull(reminder);
         String trimmedReminder = reminder.trim();
         if (!Reminder.isValidReminder(trimmedReminder)) {
+            System.out.println("print here pleaseeeeeee");
             throw new ParseException(Reminder.MESSAGE_CONSTRAINTS);
         }
         String dateString = trimmedReminder.split("@")[0];
@@ -75,7 +76,7 @@ public class ParserUtil {
         int hour = Integer.parseInt(timeArr[0]);
         int minute = Integer.parseInt(timeArr[1]);
         LocalDateTime reminderTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
-        return new Reminder(reminderTime, processedDescription, processedName);
+        return new Reminder(reminderTime);
     }
 
     /**

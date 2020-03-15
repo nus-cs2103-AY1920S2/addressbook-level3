@@ -17,11 +17,10 @@ import seedu.address.ui.MainWindow;
 public class Reminder {
 
     public static final String MESSAGE_CONSTRAINTS = "Reminder should be in format DD/MM/YY@HH:mm eg 04/11/20@10:30";
-    public static final String VALIDATION_REGEX = "(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(2[0-9])@(([0-2][0-4]):([0-5][0-9]))";
+    public static final String VALIDATION_REGEX = "(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(2[0-9])@(([0-1][0-9]|2[0-4]):([0-5][0-9]))";
     private final LocalDateTime reminderTime;
-    private final String description;
-    private final String name;
     private boolean hasFired;
+    private long delay;
 
 
     /**
@@ -31,16 +30,11 @@ public class Reminder {
      * @param Description
      * @param Name
      */
-    public Reminder(LocalDateTime reminderTime, String description, String name) {
+    public Reminder(LocalDateTime reminderTime) {
         this.reminderTime = reminderTime;
-        this.description = description;
-        this.name = name;
         this.hasFired = false;
-        setReminder();
-    }
-
-    private void timedPrint(long delay) {
-        MainWindow.triggerReminder(this, delay);
+        this.delay = Integer.MAX_VALUE;
+        setDelay();
     }
 
     private long calculateDelay(LocalDateTime reminderTime) {
@@ -50,24 +44,13 @@ public class Reminder {
         return delay;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public void setHasFired() {
         this.hasFired = true;
     }
 
     public static boolean isValidReminder(String reminderString) {
-        System.out.println(reminderString.matches(VALIDATION_REGEX));
         return reminderString.matches(VALIDATION_REGEX);
     }
-
-
 
     /**
      * Sets the reminder based on the time delay calculated. 
@@ -75,24 +58,27 @@ public class Reminder {
      * 
      * @throws InvalidReminderException if the time delay is negative and has not been fired before.
      */
-    private void setReminder() {
-        long delay = calculateDelay(reminderTime);
-        if (delay < 0) {
+    private void setDelay() {
+        long timeDelay = calculateDelay(reminderTime);
+        if (timeDelay < 0) {
             if (!hasFired) {
                 throw new InvalidReminderException();
             }
         } else {
-            timedPrint(delay);
+            this.delay = timeDelay;
         }
+    }
+
+    /**
+     * @return the delay
+     */
+    public long getDelay() {
+        return delay;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Reminder Name: ");
-        sb.append(name);
-        sb.append(", Reminder Description: ");
-        sb.append(description);
-        sb.append(", Reminder LocalDateTime: ");
+        StringBuilder sb = new StringBuilder("Reminder LocalDateTime: ");
         sb.append(reminderTime.toString());
         return sb.toString();
     }
