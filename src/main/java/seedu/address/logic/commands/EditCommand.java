@@ -8,11 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -41,7 +40,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_OFFER + "TAG]...\n"
+            + "[" + PREFIX_OFFER + "GOOD_PRICE_PAIR]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -97,7 +96,7 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Offer> updatedOffers = editPersonDescriptor.getOffers().orElse(personToEdit.getOffers());
+        List<Offer> updatedOffers = editPersonDescriptor.getOffers().orElse(personToEdit.getOffers());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedOffers);
     }
@@ -129,7 +128,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<Offer> offers;
+        private List<Offer> offers;
 
         public EditPersonDescriptor() {}
 
@@ -188,8 +187,8 @@ public class EditCommand extends Command {
          * Sets {@code offers} to this object's {@code offers}.
          * A defensive copy of {@code offers} is used internally.
          */
-        public void setOffers(Set<Offer> offers) {
-            this.offers = (offers != null) ? new HashSet<>(offers) : null;
+        public void setOffers(List<Offer> offers) {
+            this.offers = (offers != null) ? new ArrayList<>(offers) : null;
         }
 
         /**
@@ -197,8 +196,8 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code offers} is null.
          */
-        public Optional<Set<Offer>> getOffers() {
-            return (offers != null) ? Optional.of(Collections.unmodifiableSet(offers)) : Optional.empty();
+        public Optional<List<Offer>> getOffers() {
+            return (offers != null) ? Optional.of(Collections.unmodifiableList(offers)) : Optional.empty();
         }
 
         @Override
