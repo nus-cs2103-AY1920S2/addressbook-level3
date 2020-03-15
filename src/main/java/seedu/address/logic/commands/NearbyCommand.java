@@ -25,8 +25,8 @@ public class NearbyCommand extends Command {
             + NEWLINE + "A postal sector is the first two digits of a six digit Singapore postal code"
             + NEWLINE + "Example: " + COMMAND_WORD + " 14";
 
-    public static final String MESSAGE_SUCCESS = "Displayed all orders in postal sector %1$d."
-            + NEWLINE + "General Location: %2$s";
+    public static final String MESSAGE_SUCCESS = "Displayed all orders in postal sector."
+            + NEWLINE + "General Location: %1$s";
     public static final String MESSAGE_FAILURE = "Invalid postal sector given.";
 
     private final Index postalSector;
@@ -57,7 +57,7 @@ public class NearbyCommand extends Command {
                 throw new CommandException(MESSAGE_FAILURE);
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS,
-                    postalSector.getOneBased(), generalLocation.get()));
+                    generalLocation.get()));
         } else {
             throw new CommandException(MESSAGE_FAILURE);
         }
