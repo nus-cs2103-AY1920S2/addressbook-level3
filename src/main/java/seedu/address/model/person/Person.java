@@ -29,7 +29,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Birthday birthday, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Birthday birthday,
+                  Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -60,7 +61,9 @@ public class Person {
         return remark;
     }
 
-    public Birthday getBirthday() {return birthday;}
+    public Birthday getBirthday() {
+        return birthday;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -103,13 +106,14 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getBirthday().equals(getBirthday())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, birthday, tags);
     }
 
     @Override

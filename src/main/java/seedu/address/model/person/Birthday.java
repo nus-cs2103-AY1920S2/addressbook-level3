@@ -10,12 +10,16 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.Locale;
 
-public class Birthday {
 
+/**
+ * Represents a Person's Birthday in the Address Book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ */
+public class Birthday {
+    public static final String MESSAGE_CONSTRAINTS = "Birthday has to be in MM-dd format";
     private static final DateTimeFormatter inputFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
             .parseDefaulting(ChronoField.YEAR, 2020).toFormatter(Locale.ENGLISH);
     private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM");
-    public static final String MESSAGE_CONSTRAINTS = "Birthday has to be in MM-dd format";
 
     // Instance variables
     public final String birthday;
