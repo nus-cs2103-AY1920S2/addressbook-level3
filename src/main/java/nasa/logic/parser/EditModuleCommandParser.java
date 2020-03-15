@@ -20,9 +20,8 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditModuleCommand
      * and returns an EditCommand object for execution.
-     * @throws nasa.logic.parser.exceptions.ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format
      */
-    //TODO modify implementation
     public EditModuleCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
@@ -31,6 +30,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         Index index;
 
         try {
+            // TODO: change how modules are being identified, instead of using index, as index not given in user input
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE),
@@ -39,14 +39,14 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
         EditModuleDescriptor editModuleDescriptor = new EditModuleDescriptor();
         if (isModuleCodeEdited(argMultimap.getAllValues(PREFIX_MODULE))) {
-            editModuleDescriptor.setModuleCode(nasa.logic.parser.ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()));
+            editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULE_NAME).isPresent()) {
-            editModuleDescriptor.setModuleName(nasa.logic.parser.ParserUtil.parseModuleName(argMultimap.getValue(PREFIX_MODULE_NAME).get()));
+            editModuleDescriptor.setModuleName(ParserUtil.parseModuleName(argMultimap.getValue(PREFIX_MODULE_NAME).get()));
         }
 
         if (!editModuleDescriptor.isAnyFieldEdited()) {
-            throw new nasa.logic.parser.exceptions.ParseException(EditModuleCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditModuleCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditModuleCommand(index, editModuleDescriptor);
