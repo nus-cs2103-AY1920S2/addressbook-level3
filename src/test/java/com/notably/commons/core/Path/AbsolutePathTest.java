@@ -27,7 +27,8 @@ class AbsolutePathTest {
         AbsolutePath currPath = new AbsolutePath("/CS2103");
         RelativePath relativePath = new RelativePath("notes/hello");
         try {
-            assertEquals(new AbsolutePath("/CS2103/notes/hello"), AbsolutePath.fromRelativePath(relativePath, currPath));
+            AbsolutePath expectedAbsolutePath = new AbsolutePath("/CS2103/notes/hello");
+            assertEquals(expectedAbsolutePath, AbsolutePath.fromRelativePath(relativePath, currPath));
             assertEquals(new RelativePath("notes/hello"), absolutePath.toRelativePath(currPath));
         } catch (InvalidPathException ex) {
             System.out.println("Error");
