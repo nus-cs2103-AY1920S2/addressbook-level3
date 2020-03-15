@@ -69,7 +69,11 @@ public interface Model {
 
     Optional<Budget> getBudget();
 
-    FileReader listOfCanteen() throws FileNotFoundException;
+    /** Return a FileReader of the list of canteen in json file */
+    FileReader listOfCanteens() throws FileNotFoundException;
+
+    /** Return a FileReader of the list of Stalls in json file */
+    FileReader listOfStalls() throws FileNotFoundException;
 
     /** Returns an unmodifiable view of the filtered canteen list */
     ObservableList<Canteen> getFilteredCanteenList();

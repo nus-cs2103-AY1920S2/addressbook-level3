@@ -187,7 +187,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public FileReader listOfCanteen() throws FileNotFoundException {
+        public FileReader listOfCanteens() throws FileNotFoundException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FileReader listOfStalls() throws FileNotFoundException {
             throw new AssertionError("This method should not be called.");
         }
 
