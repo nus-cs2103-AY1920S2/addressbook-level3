@@ -63,6 +63,11 @@ public class InstructionList {
         instructions.remove(instruction);
     }
 
+    @Override
+    public String toString() {
+        return instructionListString;
+    }
+
     /**
      * Prints out the instructions list.
      */

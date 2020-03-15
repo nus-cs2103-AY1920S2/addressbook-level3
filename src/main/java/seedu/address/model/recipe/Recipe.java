@@ -95,8 +95,8 @@ public class Recipe {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(" Instructions: ").append(
-                getInstructions()).append(" Tags: ");
+        builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
+                " Instructions: ").append(getInstructions()).append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

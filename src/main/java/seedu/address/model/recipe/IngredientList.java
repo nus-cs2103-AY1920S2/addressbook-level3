@@ -63,6 +63,11 @@ public class IngredientList {
         ingredients.remove(ingredient);
     }
 
+    @Override
+    public String toString() {
+        return ingredientListString;
+    }
+
     // TODO: delete this since we are not printing to console.
 
     /**
