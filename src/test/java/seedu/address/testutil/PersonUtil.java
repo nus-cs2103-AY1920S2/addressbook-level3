@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFER;
 
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -35,7 +35,9 @@ public class PersonUtil {
         sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getOffers().stream().forEach(
-            s -> sb.append(PREFIX_OFFER + s.tagName + " ")
+            s -> sb.append(PREFIX_OFFER
+                    + s.getGood().toString() + " "
+                    + s.getPrice().getValue() + " " )
         );
         return sb.toString();
     }
@@ -50,11 +52,15 @@ public class PersonUtil {
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getOffers().isPresent()) {
-            Set<Offer> offers = descriptor.getOffers().get();
+            List<Offer> offers = descriptor.getOffers().get();
             if (offers.isEmpty()) {
                 sb.append(PREFIX_OFFER);
             } else {
-                offers.forEach(s -> sb.append(PREFIX_OFFER).append(s.tagName).append(" "));
+                offers.forEach(s -> sb.append(PREFIX_OFFER)
+                        .append(s.getGood().toString())
+                        .append(" ")
+                        .append(s.getPrice().getValue())
+                        .append(" "));
             }
         }
         return sb.toString();
