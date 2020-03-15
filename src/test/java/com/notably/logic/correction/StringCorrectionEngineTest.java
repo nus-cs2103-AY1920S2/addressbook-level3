@@ -49,8 +49,7 @@ public class StringCorrectionEngineTest {
         final String uncorrectedInput = "opne";
 
         final CorrectionStatus expectedCorrectedStatus = CorrectionStatus.FAILED;
-        final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
-                expectedCorrectedStatus, null);
+        final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(expectedCorrectedStatus);
 
         CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);

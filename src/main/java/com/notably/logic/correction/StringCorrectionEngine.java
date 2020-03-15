@@ -57,7 +57,7 @@ public class StringCorrectionEngine implements CorrectionEngine<String> {
         }
 
         if (closestDistance > distanceThreshold) {
-            return new CorrectionResult<>(CorrectionStatus.FAILED, null);
+            return new CorrectionResult<>(CorrectionStatus.FAILED);
         }
 
         if (closestString.equals(uncorrected)) {

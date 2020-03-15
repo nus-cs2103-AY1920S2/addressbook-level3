@@ -11,6 +11,15 @@ public class CorrectionResult<T> {
     private final T correctedItem;
 
     /**
+     * Creates a correction result without any corrected item.
+     *
+     * @param correctionStatus Status of the result
+     */
+    public CorrectionResult(CorrectionStatus correctionStatus) {
+        this(correctionStatus, null);
+    }
+
+    /**
      * Creates a correction result.
      *
      * @param correctionStatus Status of the result
