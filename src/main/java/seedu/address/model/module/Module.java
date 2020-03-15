@@ -26,14 +26,15 @@ public class Module {
 
     //TODO: the following methods
     /**
-     * Adds a group to groups.
+     * Adds a group to the list of groups.
      */
     public void addGroup(Group group) {
         groups.add(group);
     }
 
     /**
-     * Gets group with given identifier.
+     * Gets group with given group code (could be tutorial or
+     * lab code). Returns null if no such group exists.
      */
     public Group getGroup(String identifier) {
         Group group = null;

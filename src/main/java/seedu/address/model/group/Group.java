@@ -41,14 +41,15 @@ public class Group {
     }
 
     /**
-     * Adds student to students.
+     * Adds a student to the list of enrolled students.
      */
     public void addStudent(Student student) {
         students.add(student);
     }
 
     /**
-     * Gets student with given matric number.
+     * Returns the student with given matric number.
+     * It returns null if no such student exists.
      */
     public Student getStudent(Matric matric) {
         Student student = null;
