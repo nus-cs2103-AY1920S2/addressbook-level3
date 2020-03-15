@@ -33,7 +33,7 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> IngredientList
 MainWindow *-down-> StatusBarFooter
 
 PersonListPanel -down-> PersonCard
