@@ -31,9 +31,13 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid address or address field is not supplied.
      */
     public static boolean isValidAddress(String test) {
+        if (test.isEmpty()) {
+            return true;
+        }
+
         return test.matches(VALIDATION_REGEX);
     }
 

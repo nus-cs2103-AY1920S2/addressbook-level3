@@ -41,9 +41,13 @@ public class Email {
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns true if a given string is a valid email or the email field is empty.
      */
     public static boolean isValidEmail(String test) {
+        if (test.isEmpty()) {
+            return true;
+        }
+
         return test.matches(VALIDATION_REGEX);
     }
 
