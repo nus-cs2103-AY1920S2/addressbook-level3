@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
-import seedu.address.model.recipe.Email;
+import seedu.address.model.recipe.IngredientList;
+import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 
@@ -17,26 +17,21 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static Recipe[] getSamplePersons() {
+    public static Recipe[] getSampleRecipes() {
         return new Recipe[]{
-            new Recipe(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                        getTagSet("friends")),
-            new Recipe(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                        getTagSet("colleagues", "friends")),
-            new Recipe(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                        getTagSet("neighbours")),
-            new Recipe(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                        getTagSet("family")),
-            new Recipe(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                        getTagSet("classmates")),
-            new Recipe(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                        getTagSet("colleagues"))
+            new Recipe(new Name("Ham Sandwich"), new IngredientList("bread, 2 slices; ham, 1 slice"),
+                    new InstructionList("put ham between bread; serve on plate"),
+                        getTagSet("breakfast", "lunch")),
+            new Recipe(new Name("Idiot Sandwich"), new IngredientList("bread, 2 slices"),
+                        new InstructionList("put bread to opposite sides of head; Yell "
+                                            + "\"I am an idiot sandwich!\""),
+                        getTagSet("lunch", "dinner"))
         };
     }
 
-    public static ReadOnlyRecipeBook getSampleAddressBook() {
+    public static ReadOnlyRecipeBook getSampleRecipeBook() {
         RecipeBook sampleAb = new RecipeBook();
-        for (Recipe sampleRecipe : getSamplePersons()) {
+        for (Recipe sampleRecipe : getSampleRecipes()) {
             sampleAb.addRecipe(sampleRecipe);
         }
         return sampleAb;
@@ -50,5 +45,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
 }

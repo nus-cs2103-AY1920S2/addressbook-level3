@@ -17,43 +17,34 @@ public class Recipe {
 
     // Identity fields
     private final Name name;
-    private Phone phone = null; //the original code had it declared as final
-    private Email email = null; //the original code had it declared as final
-    private String ingredients;
-    private String instructions;
+    private final IngredientList ingredients;
+    private final InstructionList instructions;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
-    //private IngredientList ingredients = new IngredientList();
-    //private InstructionList instructions = new InstructionList();
+
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Phone phone, Email email, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.tags.addAll(tags);
-    }
-
-    public Recipe(Name name, String ingredients, String instructions) {
+    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Set<Tag> tags) {
+        requireAllNonNull(name, ingredients, instructions);
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public IngredientList getIngredients() {
+        return ingredients;
     }
 
-    public Email getEmail() {
-        return email;
+    public InstructionList getInstructions() {
+        return instructions;
     }
 
     /**
@@ -65,22 +56,21 @@ public class Recipe {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both recipes of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two recipes.
      */
     public boolean isSameRecipe(Recipe otherRecipe) {
         if (otherRecipe == this) {
             return true;
         }
 
-        return otherRecipe != null
-            && otherRecipe.getName().equals(getName())
-            && (otherRecipe.getPhone().equals(getPhone()) || otherRecipe.getEmail().equals(getEmail()));
+        return otherRecipe != null && otherRecipe.getName().equals(getName()) && (otherRecipe.getIngredients().equals(
+                getIngredients()) || otherRecipe.getInstructions().equals(getInstructions()));
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both recipes have the same identity and data fields.
+     * This defines a stronger notion of equality between two recipes.
      */
     @Override
     public boolean equals(Object other) {
@@ -92,29 +82,22 @@ public class Recipe {
             return false;
         }
         Recipe otherRecipe = (Recipe) other;
-        return otherRecipe.getName().equals(getName())
-            && otherRecipe.getPhone().equals(getPhone())
-            && otherRecipe.getEmail().equals(getEmail())
-            && otherRecipe.getTags().equals(getTags());
+        return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
+               && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, tags);
+        return Objects.hash(name, ingredients, instructions, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-            .append(" Phone: ")
-            .append(getPhone())
-            .append(" Email: ")
-            .append(getEmail())
-            .append(" Tags: ");
+        builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
+                " Instructions: ").append(getInstructions()).append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
