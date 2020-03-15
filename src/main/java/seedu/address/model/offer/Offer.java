@@ -1,10 +1,10 @@
-package seedu.address.model.tag;
+package seedu.address.model.offer;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Offer in the address book.
+ * Represents an Offer in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Offer {

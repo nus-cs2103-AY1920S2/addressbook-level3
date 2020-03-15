@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Offer;
+import seedu.address.model.offer.Offer;
 
 /**
- * Jackson-friendly version of {@link seedu.address.model.tag.Offer}.
+ * Jackson-friendly version of {@link seedu.address.model.offer.Offer}.
  */
 class JsonAdaptedTag {
 
