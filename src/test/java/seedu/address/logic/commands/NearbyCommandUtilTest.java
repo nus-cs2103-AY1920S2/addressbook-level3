@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -19,6 +22,58 @@ import seedu.address.commons.core.index.Index;
 class NearbyCommandUtilTest {
     private static final Index INVALID_POSTAL_SECTOR = Index.fromOneBased(4000);
     private static final Index VALID_POSTAL_SECTOR = Index.fromOneBased(14);
+
+    @ParameterizedTest
+    @MethodSource("sectorGeneralLocation")
+    void getGeneralLocation_validPostalSector_returnsGeneralLocation(Index postalSector,
+                                                                     String expectedLocation) {
+        Optional<String> value = NearbyCommandUtil.getGeneralLocation(postalSector);
+        if (value.isEmpty()) {
+            fail("Should return a general location.");
+        }
+        assertEquals(expectedLocation, value.get());
+    }
+
+    @Test
+    void getGeneralLocation_invalidPostalSector_returnEmptyOptional() {
+        Optional<String> value = NearbyCommandUtil.getGeneralLocation(INVALID_POSTAL_SECTOR);
+        assertTrue(value.isEmpty());
+    }
+
+    @Test
+    void getGeneralLocation_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> NearbyCommandUtil.getGeneralLocation(null));
+    }
+
+    @Test
+    void isValidPostalSector_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> NearbyCommandUtil.isValidPostalSector(null));
+    }
+
+    @Test
+    void isValidPostalSector_invalidPostalSector_returnsFalse() {
+        assertFalse(NearbyCommandUtil.isValidPostalSector(INVALID_POSTAL_SECTOR));
+    }
+
+    @Test
+    void isValidPostalSector_validPostalSector_returnsTrue() {
+        assertTrue(NearbyCommandUtil.isValidPostalSector(VALID_POSTAL_SECTOR));
+    }
+
+    /**
+     * Used to generate list of sectors belonging to the same general location
+     *
+     * @return Stream of arguments containing location and list of sectors
+     */
+    private static Stream<Arguments> sameLocation() {
+        String location1 = "Raffles Place, Cecil, Marina, People’s Park";
+        List<String> sector1 = new ArrayList<>(
+                Arrays.asList("S01", "S02", "S03", "S04", "S05", "S06"));
+
+        return Stream.of(
+                Arguments.of(location1, sector1)
+        );
+    }
 
     /**
      * Used to generate location information for all sectors
@@ -165,42 +220,5 @@ class NearbyCommandUtilTest {
                 Arguments.of(Index.fromOneBased(79), location28),
                 Arguments.of(Index.fromOneBased(80), location28)
         );
-    }
-
-    @ParameterizedTest
-    @MethodSource("sectorGeneralLocation")
-    void getGeneralLocation_validPostalSector_returnsGeneralLocation(Index postalSector,
-                                                                     String expectedLocation) {
-        Optional<String> value = NearbyCommandUtil.getGeneralLocation(postalSector);
-        if (value.isEmpty()) {
-            fail("Should return a general location.");
-        }
-        assertEquals(expectedLocation, value.get());
-    }
-
-    @Test
-    void getGeneralLocation_invalidPostalSector_returnEmptyOptional() {
-        Optional<String> value = NearbyCommandUtil.getGeneralLocation(INVALID_POSTAL_SECTOR);
-        assertTrue(value.isEmpty());
-    }
-
-    @Test
-    void getGeneralLocation_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> NearbyCommandUtil.getGeneralLocation(null));
-    }
-
-    @Test
-    void isValidPostalSector_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> NearbyCommandUtil.isValidPostalSector(null));
-    }
-
-    @Test
-    void isValidPostalSector_invalidPostalSector_returnsFalse() {
-        assertFalse(NearbyCommandUtil.isValidPostalSector(INVALID_POSTAL_SECTOR));
-    }
-
-    @Test
-    void isValidPostalSector_validPostalSector_returnsTrue() {
-        assertTrue(NearbyCommandUtil.isValidPostalSector(VALID_POSTAL_SECTOR));
     }
 }

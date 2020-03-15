@@ -2,7 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
@@ -39,6 +42,25 @@ public class NearbyCommandUtil {
         requireNonNull(postalSector);
         int givenPostalSector = postalSector.getOneBased();
         return Optional.ofNullable(postalSectorInfo.get(givenPostalSector));
+    }
+
+    /**
+     * Obtain a list of postal sectors with the same general location.
+     *
+     * @param location used to find all matching postal sectors
+     * @return {@code List<String>} of all postal sectors with same location
+     */
+    public static List<String> sameGeneralLocation(String location) {
+        List<String> output = new ArrayList<>();
+        for (Map.Entry<Integer, String> entry : postalSectorInfo.entrySet()) {
+            if (entry.getValue().equals(location)) {
+                Integer sector = entry.getKey();
+                String sectorStr = "S" + ((sector < 10) ? ("0" + sector)
+                        : sector);
+                output.add(sectorStr);
+            }
+        }
+        return output;
     }
 
     /**

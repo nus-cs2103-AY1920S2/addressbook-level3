@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.NearbyCommandUtil.getGeneralLocation;
 import static seedu.address.logic.commands.NearbyCommandUtil.isValidPostalSector;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -41,8 +42,16 @@ public class NearbyCommand extends Command {
      * @return {@code Predicate<Order>} used for filtering orders
      */
     private Predicate<Order> getPredicate() {
-        String sector = "S" + postalSector.getOneBased();
-        return order -> order.getAddress().toString().contains(sector);
+        String location = getGeneralLocation(postalSector).get();
+        List<String> matchingPostalSectors = NearbyCommandUtil.sameGeneralLocation(location);
+        return order -> {
+            for (String sector : matchingPostalSectors) {
+                if (order.getAddress().toString().contains(sector)) {
+                    return true;
+                }
+            }
+            return false;
+        };
     }
 
     @Override

@@ -4,11 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalOrders.ALICE;
-import static seedu.address.testutil.TypicalOrders.FIONA;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,8 +15,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.OrderBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.order.Order;
 
 /**
  * Contains integration tests (interactions with the Model) and unit test for
@@ -26,13 +25,22 @@ import seedu.address.model.UserPrefs;
 class NearbyCommandTest {
     private Model model = new ModelManager(getTypicalOrderBook(), new UserPrefs());
     private Model expectedModel;
-    private OrderBook expectedOrderBook;
     private Index invalidPostalSector;
+    private Predicate<Order> ordersInJurong;
 
     @BeforeEach
     void setUp() {
-        expectedOrderBook = new OrderBook();
         invalidPostalSector = Index.fromOneBased(4000);
+        ordersInJurong = order -> {
+            String[] postalSectors = new String[]{"S60", "S61", "S62", "S63", "S64"};
+            String orderAddress = order.getAddress().toString();
+            for (String sector : postalSectors) {
+                if (orderAddress.contains(sector)) {
+                    return true;
+                }
+            }
+            return false;
+        };
     }
 
     @Test
@@ -44,9 +52,8 @@ class NearbyCommandTest {
         }
 
         NearbyCommand nearbyCommand = new NearbyCommand(postalSector);
-        expectedOrderBook.addOrder(ALICE);
-        expectedOrderBook.addOrder(FIONA);
-        expectedModel = new ModelManager(expectedOrderBook, new UserPrefs());
+        expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
+        expectedModel.updateFilteredOrderList(ordersInJurong);
         String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS,
                 location.get());
 
