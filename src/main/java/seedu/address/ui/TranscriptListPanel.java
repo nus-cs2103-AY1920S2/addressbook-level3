@@ -42,5 +42,4 @@ public class TranscriptListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

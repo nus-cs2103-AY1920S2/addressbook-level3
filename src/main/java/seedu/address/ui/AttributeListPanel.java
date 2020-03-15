@@ -22,6 +22,7 @@ public class AttributeListPanel extends UiPart<Region> {
     public AttributeListPanel(ObservableList<Attribute> attributeList) {
         super(FXML);
         attributeListView.setItems(attributeList);
+
     }
 
 }

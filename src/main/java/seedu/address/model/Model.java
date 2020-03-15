@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.Interviewee;
+import seedu.address.model.hirelah.IntervieweeList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.Transcript;
 import seedu.address.model.person.Person;
@@ -94,6 +95,10 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered interviewee list */
     ObservableList<Interviewee> getFilteredIntervieweeList();
+
+
+    /** Returns an IntervieweeList */
+    IntervieweeList getIntervieweeList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
