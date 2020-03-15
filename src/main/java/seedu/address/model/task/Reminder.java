@@ -29,8 +29,9 @@ public class Reminder {
      * @param reminderTime
      * @param Description
      * @param Name
+     * @throws InvalidReminderException
      */
-    public Reminder(LocalDateTime reminderTime) {
+    public Reminder(LocalDateTime reminderTime) throws InvalidReminderException {
         this.reminderTime = reminderTime;
         this.hasFired = false;
         this.delay = Integer.MAX_VALUE;
@@ -58,7 +59,7 @@ public class Reminder {
      * 
      * @throws InvalidReminderException if the time delay is negative and has not been fired before.
      */
-    private void setDelay() {
+    private void setDelay() throws InvalidReminderException {
         long timeDelay = calculateDelay(reminderTime);
         if (timeDelay < 0) {
             if (!hasFired) {

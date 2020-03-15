@@ -18,17 +18,20 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.exceptions.InvalidReminderException;
 
 /** Parses input arguments and creates a new AddCommand object */
 public class AddCommandParser implements Parser<AddCommand> {
 
-    /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand and returns an
-     * AddCommand object for execution.
-     *
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public AddCommand parse(String args) throws ParseException {
+        /**
+         * Parses the given {@code String} of arguments in the context of the AddCommand
+         * and returns an AddCommand object for execution.
+         *
+         * @throws ParseException           if the user input does not conform the
+         *                                  expected format
+         * @throws InvalidReminderException
+         */
+        public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
                         args, PREFIX_NAME, PREFIX_PRIORITY, PREFIX_DESCRIPTION, PREFIX_TAG, PREFIX_REMINDER);

@@ -58,7 +58,6 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         if (argMultimap.getValue(PREFIX_REMINDER).isPresent()) {
             editTaskDescriptor.setReminder(ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()));
-            System.out.println(ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()));
         }
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))

@@ -215,7 +215,6 @@ public class EditCommand extends Command {
         }
 
         public Optional<Reminder> getReminder() {
-            System.out.println("getReminder: " + Optional.ofNullable(reminder));
             return Optional.ofNullable(reminder);
         }
 
