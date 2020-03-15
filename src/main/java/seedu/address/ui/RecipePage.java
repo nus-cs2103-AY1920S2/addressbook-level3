@@ -12,7 +12,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * An UI component that displays information of a {@code Recipe}.
  */
-public class PersonCard extends UiPart<Region> {
+public class RecipePage extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -49,7 +49,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags1;
 
-    public PersonCard(Recipe recipe, int displayedIndex) {
+    public RecipePage(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
 
@@ -77,12 +77,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof RecipePage)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        RecipePage card = (RecipePage) other;
         return id.getText().equals(card.id.getText())
                 && recipe.equals(card.recipe);
     }
