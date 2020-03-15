@@ -1,0 +1,9 @@
+{
+  "persons": [
+    {
+      "name": "Recipe with invalid name field: H@m S@ndw!ch",
+      "ingredients": "ingredient1, quantity1; ingredient2, quantity2",
+      "instructions": "instruction1; instruction2"
+    }
+  ]
+}

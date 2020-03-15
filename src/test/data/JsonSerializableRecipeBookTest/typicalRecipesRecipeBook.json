@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipe#getTypicalRecipeBook()",
   "persons": [
     {
       "name": "Alice Pauline",
