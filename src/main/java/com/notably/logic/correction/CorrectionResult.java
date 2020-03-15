@@ -1,8 +1,6 @@
 package com.notably.logic.correction;
 
-import static java.util.Objects.hash;
-import static java.util.Objects.requireNonNull;
-
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -19,7 +17,7 @@ public class CorrectionResult<T> {
      * @param correctedItem Item after correction
      */
     public CorrectionResult(CorrectionStatus correctionStatus, T correctedItem) {
-        requireNonNull(correctionStatus);
+        Objects.requireNonNull(correctionStatus);
 
         this.correctionStatus = correctionStatus;
         this.correctedItem = correctedItem;
@@ -51,13 +49,13 @@ public class CorrectionResult<T> {
         }
 
         CorrectionResult<?> another = (CorrectionResult<?>) object;
-        return correctionStatus.equals(another.correctionStatus)
-                && correctedItem.equals(another.correctedItem);
+        return Objects.equals(correctionStatus, another.correctionStatus)
+                && Objects.equals(correctedItem, another.correctedItem);
     }
 
     @Override
     public int hashCode() {
-        return hash(correctionStatus, correctedItem);
+        return Objects.hash(correctionStatus, correctedItem);
     }
 }
 
