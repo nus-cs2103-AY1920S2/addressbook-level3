@@ -32,6 +32,10 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddIntervieweeCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.model.hirelah.Attribute;
+import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -43,8 +47,29 @@ import seedu.address.testutil.PersonBuilder;
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
+
     @Test
     public void parse_allFieldsPresent_success() {
+
+        assertParseSuccess(parser, "add interviewee Jone Doe",
+                new AddIntervieweeCommand("Jone Doe"));
+
+        assertParseSuccess(parser, "add attribute persistence",
+                new AddIntervieweeCommand("persistence"));
+
+        assertParseSuccess(parser, "add question What is your age",
+                new AddIntervieweeCommand("What is your age"));
+    }
+
+    @Test
+    public void parse_compulsoryFieldMissing_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, "add interviewee", expectedMessage);
+        assertParseFailure(parser, "add attribute", expectedMessage);
+        assertParseFailure(parser, "add question", expectedMessage);
+    }
+    /*public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
@@ -73,7 +98,6 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
     }
-
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
@@ -137,5 +161,5 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-    }
+    }*/
 }

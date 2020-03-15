@@ -21,5 +21,5 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 @FunctionalInterface
 public interface CommandSupplier {
-    Command getCommand(String... args) throws ParseException;
+    Command getCommand(String args) throws ParseException;
 }
