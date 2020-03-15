@@ -7,10 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.recipe.Recipe;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Recipe}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -21,37 +21,52 @@ public class PersonCard extends UiPart<Region> {
      * As a consequence, UI elements' variable names cannot be set to such keywords
      * or an exception will be thrown by JavaFX during runtime.
      *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on RecipeBook level 4</a>
      */
 
-    public final Person person;
+    public final Recipe recipe;
 
     @FXML
     private HBox cardPane;
     @FXML
     private Label name;
     @FXML
+    private Label name1;
+    @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label id1;
     @FXML
-    private Label address;
+    private Label ingredients;
     @FXML
-    private Label email;
+    private Label ingredients1;
+    @FXML
+    private Label instructions;
+    @FXML
+    private Label instructions1;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane tags1;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(Recipe recipe, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.recipe = recipe;
+
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
+        name.setText(recipe.getName().name);
+        ingredients.setText(recipe.getIngredients().ingredientListString);
+        instructions.setText(recipe.getInstructions().instructionListString);
+        recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        id1.setText(displayedIndex + ". ");
+        name1.setText(recipe.getName().name);
+        ingredients1.setText(recipe.getIngredients().ingredientListString);
+        instructions1.setText(recipe.getInstructions().instructionListString);
+        recipe.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -69,6 +84,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && recipe.equals(card.recipe);
     }
 }
