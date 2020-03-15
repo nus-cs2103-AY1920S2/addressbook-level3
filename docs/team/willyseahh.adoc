@@ -76,3 +76,9 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 ---
 
 _{Optionally, you may include other projects in your portfolio.}_
+
+Questions to ask: +
+1. is BigDecimal the best way to represent currency? +
+2. under ItemPriceTest, instead of assertFalse can I assertThrows because BigDecimal
+will throw an exception? Because in AB3 everything there is assertFalse +
+3.

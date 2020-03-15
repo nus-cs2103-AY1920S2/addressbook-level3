@@ -18,7 +18,12 @@ By: `AY1920S2-CS2103T-W13-1`      Since: `Mar 2020`
 
 == Introduction
 
-Ease Your Life At Halls (EYLAH) is for those who *prefer to use a desktop app to solve issues related to Halls of Residences in National University of Singapore (NUS)*. More importantly, EYLAH is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs and splitting the cost after each outing or late-night party session. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+Ease Your Life At Halls (EYLAH) is for those who *prefer to use a desktop app to solve issues related to Halls of
+Residences in National University of Singapore (NUS)*. More importantly, EYLAH is *optimized for those who prefer to
+work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, EYLAH can solve your problems in halls by tracking your diet after those unhealthy supper runs
+and splitting the cost after each outing or late-night party session. Interested?
+Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -46,9 +51,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addperson -n NAME`, `NAME` is a parameter which can be used as `addperson -n John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `additem -i ITEM -p PRICE -n NAME`. `NAME`, `ITEM` and
+`PRICE` are a parameters which can decided by the user `additem -i beer tower -p 19.90 -n charlotte`.
 * Items in square brackets are optional e.g `-n NAME [-r ROOM]` can be used as `-n John Doe -r D411` or as `-n John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[-n NAME]...` can be used as `{nbsp}` (i.e. 0 times), `-n John Doe`, `-n John Doe -n Daniel` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[-n NAME]...` can be used as `{nbsp}`
+(i.e. 0 times), `-n John Doe`, `-n John Doe -n Daniel` etc.
+* Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable
 ====
 
 === Viewing help : `help`
@@ -180,19 +188,11 @@ BMI is calculated based off the stored height and weight in this instance.
 Calculate BMI based on the input height and weight values.
 
 === Expense Splitter : `split`
-Splitting the food cost with friends. Add person and item, then calculate.
+Splitting the Items' cost with friends. All you have to do is add the items and the names involved in splitting that item and
+EYLAH will calculate the rest for you!
 
-==== Add person `person`
-Add new person to the list of people involved in the splitting.
-
-Format: +
-`addperson -n NAME [-r ROOM] [-t TELEGRAM] [-p PHONE]` +
-Example: +
-`addperson -n john -r D411 -t @john -p 91234567`  +
-`addperson -daniel`
-
-==== Add food `addfood`
-Add food and the person involved in the splitting.
+==== Add item `additem`
+Add item and the person involved in the splitting.
 
 Format: +
 `addfood -f FOOD -c COST -n ALL` +
@@ -201,19 +201,8 @@ Example: +
 `addfood -f pizza -c 30 -n all` +
 `addfood -f pasta -c 6 -n john -n bob -n daniel`
 
-==== Calculate cost `calculate`
-Calculate the total cost for each person or display cost owed for a particular person.
-
-Format: +
-`calculate [-n NAME]. . .` +
-
-Example: +
-`calculate` +
-`calculate -n john` +
-`calculate -n john -alice`
-
-==== List food(s) items  `listfood`
-Display the food(s) in a list:
+==== Delete item  `deleteitem`
+Delete the item(s) in a receipt:
 
 Format: +
 `listfood` +
@@ -221,44 +210,53 @@ Format: +
 Example: +
 `listfood`
 
-==== List person(s) `listperson`
+==== List person(s) `listamount`
 
-Display the person(s) in the list +
+Display all the Person(s) with the amount they owe you.
+
 Format: +
-`listperson` +
+`listamount` +
 
 Example: +
 `listperson`
 
-==== Remove person(s) `removeperson`
+==== List the current receipt `listreceipt`
 
-Remove person(s) from the list of persons. +
+Display the current receipt which shows all the Items and its respective price and Person(s) involved in splitting that Item.
+
 Format: +
-`removeperson -n NAME [-n NAME]...` +
+`listreceipt` +
 
 Example: +
-`removeperson -n john` +
-`removeperson -n john -n bob`
+`listreceipt`
 
-==== Remove food(s) `removefood`
+==== Paid money `paid`
 
-Remove food(s) from the list of foods. +
+When a Person pays an amount, or part of the amount, they owe you.
+
 Format: +
-`removefood -f FOOD [-f FOOD]...`
+`paid INDEX` +
 
 Example: +
-`removefood -f fries` +
-`removefood -f pizza -f pasta`
+`paid 2`
 
-==== Exiting the program `exit`
+[TIP]
+When using the `paid` command, use the `listamount` command to find the index of the Person who paid you.
 
-Exits the program. +
+
+==== Exiting split to go back to main menu `back`
+
+Exits split to go back to main menu of the application.
+
 Format: +
-`exit`
+`back`
+
+Example: +
+`back`
 
 ==== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+EYLAH data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
@@ -268,6 +266,11 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Remove food* `removefood -f FOOD` +
+* *List Receipt* `listreceipt` +
 e.g. `removefood -f fries`
-* *Help* : `help`
+
+* *Paid* : `paid INDEX` +
+e.g. `paid 3`
+
+* *Back* `back` +
+e.g. `back`
