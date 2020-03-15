@@ -17,6 +17,8 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private final ToggleView toggleView;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +26,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.toggleView = ToggleView.INT; // Dummy code
     }
 
     /**
@@ -44,6 +47,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public ToggleView getToggleView() {
+        return toggleView;
     }
 
     @Override
