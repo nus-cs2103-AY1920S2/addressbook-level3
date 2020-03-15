@@ -9,13 +9,13 @@ public class LevenshteinDistanceCalculatorTest {
 
     @Test
     public void calculateDistance() {
-        final String FIRST = "intention";
-        final String SECOND = "execution";
-        final int EXPECTED_DISTANCE = 8;
+        final String first = "intention";
+        final String second = "execution";
+        final int expectedDistance = 8;
 
-        int distance = calculator.calculateDistance(FIRST, SECOND);
+        int distance = calculator.calculateDistance(first, second);
 
-        assertEquals(EXPECTED_DISTANCE, distance);
+        assertEquals(expectedDistance, distance);
     }
 }
 
