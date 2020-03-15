@@ -94,5 +94,4 @@ public class QuestionList {
     private boolean isDuplicate(Question question) {
         return questions.stream().anyMatch(question::equals);
     }
-
 }
