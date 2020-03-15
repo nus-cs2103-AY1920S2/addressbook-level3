@@ -19,7 +19,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Recipe}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedRecipe {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Recipe's %s field is missing!";
 
@@ -29,10 +29,10 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given recipe details.
+     * Constructs a {@code JsonAdaptedRecipe} with the given recipe details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
+    public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
                              @JsonProperty("instructions") String instructions,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
@@ -46,7 +46,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Recipe} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Recipe source) {
+    public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().name;
         ingredients = source.getIngredients().ingredientListString;
         instructions = source.getInstructions().instructionListString;
