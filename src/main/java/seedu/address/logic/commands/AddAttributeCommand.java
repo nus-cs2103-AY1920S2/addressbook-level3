@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.Attribute;
  * client wants to add an attribute to the list.
  */
 
-public class AddAttributeCommand extends Command {
+public class AddAttributeCommand extends AddCommand {
     public static final String COMMAND_WORD = "attribute";
     public static final String MESSAGE_DUPLICATE_ATTRIBUTE = "The attribute already exists.";
     public static final String MESSAGE_SUCCESS = "New attribute added: %1$s";

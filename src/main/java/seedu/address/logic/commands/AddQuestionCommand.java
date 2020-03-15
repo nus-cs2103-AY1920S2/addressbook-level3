@@ -14,7 +14,7 @@ import seedu.address.model.hirelah.Question;
  * client wants to add a question to the list.
  */
 
-public class AddQuestionCommand extends Command {
+public class AddQuestionCommand extends AddCommand {
     public static final String COMMAND_WORD = "question";
     public static final String MESSAGE_DUPLICATE_QUESTION = "The question already exists.";
     public static final String MESSAGE_SUCCESS = "New question added: %1$s";

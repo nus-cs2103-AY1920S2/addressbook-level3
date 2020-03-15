@@ -1,60 +1,54 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.Set;
-import java.util.stream.Stream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddAttributeCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddIntervieweeCommand;
+import seedu.address.logic.commands.AddQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new object of type AddCommand
  */
 public class AddCommandParser implements Parser<AddCommand> {
+
+    private static final Pattern BASIC_ADD_COMMAND_FORMAT =
+            Pattern.compile("(?<addCommandWord>\\S+)(?<addArguments>.+)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
+     * @param arguments the arguments to be parsed
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
+    public AddCommand parse(String arguments) throws ParseException {
+        Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(arguments.trim());
+        if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        final String addCommandWord = matcher.group("addCommandWord");
+        final String addArguments = matcher.group("addArguments");
 
-        Person person = new Person(name, phone, email, address, tagList);
+        switch (addCommandWord) {
+        case AddAttributeCommand.COMMAND_WORD:
+            return new AddAttributeCommandParser().parse(addArguments.trim());
 
-        return new AddCommand(person);
-    }
+        case AddIntervieweeCommand.COMMAND_WORD:
+            return new AddIntervieweeCommandParser().parse(addArguments.trim());
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+        case AddQuestionCommand.COMMAND_WORD:
+            return new AddQuestionCommandParser().parse(addArguments.trim());
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
     }
 
 }
