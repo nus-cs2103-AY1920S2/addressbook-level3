@@ -9,22 +9,22 @@ import seedu.address.model.offer.Offer;
 /**
  * Jackson-friendly version of {@link seedu.address.model.offer.Offer}.
  */
-class JsonAdaptedTag {
+class JsonAdaptedOffer {
 
     private final String tagName;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedOffer} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(String tagName) {
+    public JsonAdaptedOffer(String tagName) {
         this.tagName = tagName;
     }
 
     /**
      * Converts a given {@code Offer} into this class for Jackson use.
      */
-    public JsonAdaptedTag(Offer source) {
+    public JsonAdaptedOffer(Offer source) {
         tagName = source.tagName;
     }
 
