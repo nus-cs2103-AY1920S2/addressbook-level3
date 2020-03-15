@@ -19,6 +19,7 @@ public class CorrectionResult<T> {
      */
     public CorrectionResult(CorrectionStatus correctionStatus, T correctedItem) {
         requireNonNull(correctionStatus);
+
         this.correctionStatus = correctionStatus;
         this.correctedItem = correctedItem;
     }
