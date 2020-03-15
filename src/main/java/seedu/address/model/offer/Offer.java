@@ -30,6 +30,11 @@ public class Offer {
     }
 
     @Override
+    public String toString() {
+        return "Good: " + good + " | Price: " + price;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
