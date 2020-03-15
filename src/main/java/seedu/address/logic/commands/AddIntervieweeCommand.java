@@ -35,7 +35,7 @@ public class AddIntervieweeCommand extends AddCommand {
      */
     public AddIntervieweeCommand(String fullname, String... optionalAlias) {
         this.fullname = fullname;
-        if (optionalAlias.length == 0) {
+        if (optionalAlias.length != 0) {
             this.alias = optionalAlias[0];
         } else {
             this.alias = "";
