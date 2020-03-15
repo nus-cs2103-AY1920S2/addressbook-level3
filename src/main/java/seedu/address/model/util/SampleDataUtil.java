@@ -57,24 +57,8 @@ public class SampleDataUtil {
     public static List<Offer> getOfferList(String... strings) {
         return Arrays.stream(strings)
                 .map(ParserUtil::splitOnLastWhitespace)
-                .map(SampleDataUtil::getGoodPricePair)
+                .map(ParserUtil::getGoodPricePair)
                 .map(x -> new Offer((Good) x[0], (Price) x[1]))
                 .collect(Collectors.toList());
     }
-
-    /**
-     * Returns an Object array containing a Good and a Price in indices 0 and 1 respectively. 
-     * It is still subject to the same validation as the class constructors, but assumes that all input is valid.
-     * The {@code Good} and {@code Price} corresponds to the one specified in the string.
-     * 
-     * @param goodAndPrice the string representation of the good and price pair
-     * @return an {@code Object} array containing the {@code Good} and {@code Price}
-     */
-    private static Object[] getGoodPricePair(String[] goodAndPrice) {
-        Object result[] = new Object[2];
-        result[0] = new Good(goodAndPrice[0]);
-        result[1] = new Price(goodAndPrice[1]);
-        return result;
-    }
-
 }
