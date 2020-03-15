@@ -14,7 +14,7 @@ public class NearbyCommandUtil {
     private static HashMap<Integer, String> postalSectorInfo = new HashMap<>();
 
     static {
-        initializePostalSectorInfo();
+        initialize();
     }
 
     /**
@@ -44,7 +44,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information to HashMap {@code postalSectorInfo}.
      */
-    private static void initializePostalSectorInfo() {
+    private static void initialize() {
         postalSectorInfo.put(1, "Raffles Place, Cecil, Marina, People’s Park");
         postalSectorInfo.put(2, "Raffles Place, Cecil, Marina, People’s Park");
         postalSectorInfo.put(3, "Raffles Place, Cecil, Marina, People’s Park");
@@ -116,10 +116,10 @@ public class NearbyCommandUtil {
         postalSectorInfo.put(51, "Tampines, Pasir Ris");
         postalSectorInfo.put(52, "Tampines, Pasir Ris");
 
-        postalSectorInfo.put(53, "Serangoon Garden, Hougang, Ponggol");
-        postalSectorInfo.put(54, "Serangoon Garden, Hougang, Ponggol");
-        postalSectorInfo.put(55, "Serangoon Garden, Hougang, Ponggol");
-        postalSectorInfo.put(82, "Serangoon Garden, Hougang, Ponggol");
+        postalSectorInfo.put(53, "Serangoon Garden, Hougang, Punggol");
+        postalSectorInfo.put(54, "Serangoon Garden, Hougang, Punggol");
+        postalSectorInfo.put(55, "Serangoon Garden, Hougang, Punggol");
+        postalSectorInfo.put(82, "Serangoon Garden, Hougang, Punggol");
 
         postalSectorInfo.put(56, "Bishan, Ang Mo Kio");
         postalSectorInfo.put(57, "Bishan, Ang Mo Kio");
