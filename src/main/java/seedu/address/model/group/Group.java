@@ -1,6 +1,9 @@
 package seedu.address.model.group;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import seedu.address.model.person.Person;
 
 /**
  * Represents a group in TAT.
@@ -60,5 +63,36 @@ public class Group {
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Returns true if both groups have the same identifiers.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Group)) {
+            return false;
+        }
+
+        Group otherGroup = (Group) other;
+        return otherGroup.getIdentifier().equals(this.getIdentifier());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(identifier);
+    }
+
+    //TODO: edit once Student is made
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getIdentifier());
+        return builder.toString();
     }
 }

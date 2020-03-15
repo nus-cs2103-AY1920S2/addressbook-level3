@@ -2,6 +2,7 @@ package seedu.address.model.module;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.model.group.Group;
 
@@ -57,5 +58,38 @@ public class Module {
      */
     public String getIdentifier() {
         return identifier;
+    }
+
+    /**
+     * Returns true if both modules have the same identifiers.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Module)) {
+            return false;
+        }
+
+        Module otherModule = (Module) other;
+        return otherModule.getIdentifier().equals(this.getIdentifier());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(identifier);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getIdentifier())
+                .append(" has ")
+                .append(groups.size())
+                .append(" groups");
+        return builder.toString();
     }
 }
