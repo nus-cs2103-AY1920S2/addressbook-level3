@@ -13,20 +13,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ALIAS;
 
 public class AddIntervieweeCommandParser {
     public AddIntervieweeCommand parse(String arguments) throws ParseException {
-        String argumentBeforePrefix;
+        /*String argumentBeforePrefix;
         try {
             argumentBeforePrefix = ParserUtil.parseArgumentsBeforePrefix(arguments);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddIntervieweeCommand.MESSAGE_USAGE), pe);
-        }
-
+        }*/
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(arguments, PREFIX_ALIAS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ALIAS) || !argMultimap.getPreamble().isEmpty()) {
-            return new AddIntervieweeCommand(argumentBeforePrefix);
+            System.out.println("INITUH");
+            return new AddIntervieweeCommand(arguments);
         } else {
-            return new AddIntervieweeCommand(argumentBeforePrefix, argMultimap.getValue(PREFIX_ALIAS).get());
+            System.out.println("APA GITU LOH");
+
+            return new AddIntervieweeCommand(arguments, argMultimap.getValue(PREFIX_ALIAS).get());
         }
     }
 

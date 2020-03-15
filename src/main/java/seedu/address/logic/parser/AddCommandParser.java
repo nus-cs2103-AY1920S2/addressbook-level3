@@ -33,7 +33,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String arguments) throws ParseException {
         Matcher matcher = BASIC_ADD_COMMAND_FORMAT.matcher(arguments.trim());
         final String addCommandWord = matcher.group("addCommandWord");
-        final String addArguments = matcher.group("addArguments");
+        final String addArguments = matcher.group("addArguments").trim();
 
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
