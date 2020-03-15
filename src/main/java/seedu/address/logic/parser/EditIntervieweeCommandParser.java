@@ -10,7 +10,7 @@ public class EditIntervieweeCommandParser {
 
     public EditAttributeCommand parse(String arguments) throws ParseException {
         String oldName = ParserUtil.parseArgumentsBeforePrefix(arguments);
-        String newName = ParserUtil.parseArgumentsBeforePrefix(arguments);
+        String newName = ParserUtil.parseArgumentsAfterPrefix(arguments);
         return new EditAttributeCommand(oldName.trim(), newName.trim());
     }
 }
