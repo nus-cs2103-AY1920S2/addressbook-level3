@@ -6,16 +6,12 @@ import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
-import com.notably.logic.commands.Command;
-import com.notably.logic.commands.CommandResult;
 import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.logic.parser.AddressBookParser;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
 import com.notably.storage.Storage;
 
-import javafx.collections.ObservableList;
 
 /**
  * The main LogicManager of the app.
@@ -26,29 +22,26 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+//    private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+//        addressBookParser = new AddressBookParser();
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public void execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+//        Command command = addressBookParser.parseCommand(commandText);
+        //command.execute(model);
 
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-
-        return commandResult;
     }
 
     @Override
@@ -57,8 +50,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public void getFilteredPersonList() {
     }
 
     @Override

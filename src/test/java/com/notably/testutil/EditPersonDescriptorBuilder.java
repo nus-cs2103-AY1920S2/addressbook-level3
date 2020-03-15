@@ -25,45 +25,32 @@ public class EditPersonDescriptorBuilder {
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
-        descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getName());
-        descriptor.setPhone(person.getPhone());
-        descriptor.setEmail(person.getEmail());
-        descriptor.setAddress(person.getAddress());
-        descriptor.setTags(person.getTags());
+    public EditPersonDescriptorBuilder(Object person) {
+
     }
 
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
-        return this;
+    public void withName(String name) {
     }
 
     /**
      * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
-        return this;
+    public void withPhone(String phone) {
     }
 
     /**
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
-        return this;
+    public void withEmail(String email) {
     }
 
     /**
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
-        return this;
+    public void withAddress(String address) {
     }
 
     /**
