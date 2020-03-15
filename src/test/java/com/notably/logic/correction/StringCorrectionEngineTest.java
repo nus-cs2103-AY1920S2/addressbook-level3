@@ -66,7 +66,7 @@ public class StringCorrectionEngineTest {
         final CorrectionResult<String> expectedCorrectionResult = new CorrectionResult<>(
                 expectedCorrectionStatus, expectedCorrectedItem);
 
-        CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput); 
+        CorrectionResult<String> correctionResult = correctionEngine.correct(uncorrectedInput);
         assertEquals(expectedCorrectionResult, correctionResult);
     }
 }
