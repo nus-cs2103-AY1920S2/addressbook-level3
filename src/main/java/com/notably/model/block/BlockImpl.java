@@ -45,7 +45,7 @@ public class BlockImpl implements Block {
 
     @Override
     public Optional<Block> getParent() {
-        return Optional.of(parent);
+        return Optional.ofNullable(parent);
     }
 
     @Override
@@ -87,9 +87,7 @@ public class BlockImpl implements Block {
 
     @Override
     public void removeChild(Block toRemove) {
-        if (this.children.remove(toRemove) == false) {
-
-        }
+        this.children.remove(toRemove);
         if (this.children.isEmpty()) {
             this.children = null;
         }
