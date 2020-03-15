@@ -21,38 +21,38 @@ public interface BlockModel {
      * Gets the parent block of a block, if possible.
      * Returns an {@code Optional<Empty>} if the block is the root block.
      */
-    Optional<Block> getParent();
+    Optional<BlockModel> getParent();
 
     /**
      * Gets a list of children blocks of a block.
      */
-    List<Block> getChildren();
+    List<BlockModel> getChildren();
 
     /**
      * Replaces all the children of the block with a new list of children
      */
-    void setChildren(List<Block> newChildren);
+    void setChildren(List<BlockModel> newChildren);
 
     /**
      * Finds a child block of a block, with the given input.
      */
-    Optional<Block> getChild(Title title);
+    Optional<BlockModel> getChild(Title title);
 
     /**
      * Replaces a child block of a block, with a new child block.
      */
-    void setChild(Block oldBlock, Block newBlock);
+    void setChild(BlockModel oldBlock, BlockModel newBlock);
 
     /**
      * Adds a single new child to a block.
      */
-    void addChild(Block newBlock);
+    void addChild(BlockModel newBlock);
 
     /**
      * Removes a specified child block from a block.
      * @param toRemove
      */
-    void removeChild(Block toRemove);
+    void removeChild(BlockModel toRemove);
 
     /**
      * Checks if a block is a root block.
