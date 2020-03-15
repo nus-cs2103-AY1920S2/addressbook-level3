@@ -12,6 +12,11 @@ public class TypicalActivities {
             .withDueDate("19-02-2020 06:00")
             .withNote("pay attention to qns2").build();
 
+    public static final Activity DEADLINE_LATE = new DeadlineBuilder().withName("Homework")
+            .withDate("11-01-2020 06:00")
+            .withDueDate("12-01-2020 06:00")
+            .withNote("pay attention to qns2").build();
+
     public static final Activity WRONG_EVENT = new EventBuilder().withName("BasketBall MPSH")
             .withFromDate("02-02-2020 06:00")
             .withToDate("01-01-2020 06:00").build();

@@ -28,6 +28,11 @@ public class Deadline extends Activity {
         return dueDate;
     }
 
+    public void setDateLine(Date date) {
+        this.dueDate = date;
+        updateStatus();
+    }
+
     public void updateStatus() {
         if (status == Status.ONGOING && LocalDateTime.now().isAfter(getDateline().getDate())) {
             status = Status.LATE;
