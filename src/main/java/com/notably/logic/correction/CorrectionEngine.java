@@ -5,5 +5,11 @@ package com.notably.logic.correction;
  * This is the class to interact with when doing corrections.
  */
 interface CorrectionEngine<T> {
-    CorrectionResult<T> correct(T actual);
+    /**
+     * Corrects a given item.
+     *
+     * @param uncorrected Uncorrected input
+     * @return Result of the correction
+     */
+    CorrectionResult<T> correct(T uncorrected);
 }
