@@ -39,7 +39,7 @@ class NasaBookTest {
     void removeModuleByIndex() {
         nasaBook.addModule(CS2103T);
         nasaBook.addModule(CS2106);
-        nasaBook.removeModuleByIndex(Index.fromOneBased(1));
+        nasaBook.removeModuleByIndex(Index.fromZeroBased(1));
         assertTrue(nasaBook.hasModule(CS2103T));
         assertFalse(nasaBook.hasModule(CS2106));
     }

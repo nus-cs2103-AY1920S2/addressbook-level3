@@ -15,11 +15,6 @@ import org.junit.jupiter.api.Test;
 class EventTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Event(null, null, null,null));
-    }
-
-    @Test
     void isValidEvent() {
 
         //invalid date sequence

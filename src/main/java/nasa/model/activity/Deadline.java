@@ -1,6 +1,7 @@
 package nasa.model.activity;
 
-import java.time.LocalDateTime;
+import static nasa.commons.util.AppUtil.checkArgument;
+import nasa.logic.parser.exceptions.ParseException;
 
 /**
  * Represents Deadlines method in Nasa Book.
@@ -8,10 +9,14 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Activity {
 
+    public static final String DUE_DATE_CONSTRAINTS =
+            "Deadline should be after date of creation.";
+
     private Date dueDate;
 
     public Deadline(Name name, Date dueDate, Note note) {
         super(name, note);
+        checkArgument(isValidDueDate(dueDate), DUE_DATE_CONSTRAINTS);
         this.dueDate = dueDate;
     }
 
@@ -34,9 +39,13 @@ public class Deadline extends Activity {
     }
 
     public void updateStatus() {
-        if (status == Status.ONGOING && LocalDateTime.now().isAfter(getDateline().getDate())) {
+        if (status == Status.ONGOING && Date.now().isAfter(getDateline())) {
             status = Status.LATE;
         }
+    }
+
+    public static boolean isValidDueDate(Date date) {
+        return date.isAfter(Date.now());
     }
 
     //TODO: detailed implementation of deadline regeneration
