@@ -1,14 +1,14 @@
 package com.notably.model.block;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Represents a Block in the Notably data structure.
  */
-public class BlockImpl implements Block{
+public class BlockImpl implements Block {
     private List<Block> children;
     private Title title;
     private Body body;
@@ -34,14 +34,14 @@ public class BlockImpl implements Block{
     }
 
     @Override
-	public Title getTitle() {
-		return this.title;
+    public Title getTitle() {
+        return this.title;
     }
 
     @Override
-	public Body getBody() {
-		return this.body;
-	}
+    public Body getBody() {
+        return this.body;
+    }
 
     @Override
     public Optional<Block> getParent() {
@@ -102,7 +102,7 @@ public class BlockImpl implements Block{
     }
 
     @Override
-	public boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
