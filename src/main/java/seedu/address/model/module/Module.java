@@ -31,13 +31,11 @@ public class Module {
         groups.add(group);
     }
 
-    //TODO: deal with no such group
     /**
      * Gets group with given identifier.
      */
     public Group getGroup(String identifier) {
-        //temporary
-        Group group = new Group(identifier, "lab");
+        Group group = null;
         for (int i = 0; i < groups.size(); ++i) {
             group = groups.get(i);
             if (group.getIdentifier().equals(identifier)) {

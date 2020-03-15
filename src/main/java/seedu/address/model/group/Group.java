@@ -30,15 +30,10 @@ public class Group {
      * @param identifier identifies the group. For example,
      *                   the tutorial code for a tutorial, etc.
      */
-    public Group(String identifier, String type) {
+    public Group(String identifier, GroupType groupType) {
         this.identifier = identifier;
         students = new ArrayList<>();
-        type.toLowerCase();
-        if (type.equals("lab")) {
-            groupType = GroupType.LAB;
-        } else {
-            groupType = GroupType.TUTORIAL;
-        }
+        this.groupType = groupType;
     }
 
     //TODO: the following methods
