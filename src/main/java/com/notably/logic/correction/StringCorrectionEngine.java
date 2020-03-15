@@ -1,7 +1,7 @@
 package com.notably.logic.correction;
 
-import java.util.Objects;
 import java.util.List;
+import java.util.Objects;
 
 import com.notably.logic.correction.distance.EditDistanceCalculator;
 import com.notably.logic.correction.distance.LevenshteinDistanceCalculator;
