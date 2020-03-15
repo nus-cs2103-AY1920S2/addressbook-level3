@@ -13,21 +13,25 @@ public class ModuleBuilder {
     public static final Activity TASK_1 = new DeadlineBuilder()
             .withName("Homework")
             .withDate("01-04-2021 01:00")
+            .withDueDate("06-04-2021 01:00")
             .withNote("Do models for project")
             .build();
     public static final Activity TASK_2 = new DeadlineBuilder()
             .withName("Homework")
             .withDate("22-07-2021 01:00")
+            .withDueDate("02-08-2021 01:00")
             .withNote("Do tutorials")
             .build();
     public static final Activity TASK_3 = new DeadlineBuilder()
             .withName("Prepare group meeting")
             .withDate("04-04-2021 01:00")
+            .withDueDate("22-04-2021 01:00")
             .withNote("Prepare for group meetings")
             .build();
     public static final Activity TASK_4 = new DeadlineBuilder()
             .withName("Exam")
             .withDate("01-05-2021 01:00")
+            .withDueDate("13-05-2021 01:00")
             .withNote("Chapter 1")
             .build();
     public static final Activity TASK_5 = new EventBuilder()
