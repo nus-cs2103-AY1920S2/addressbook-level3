@@ -5,7 +5,7 @@ import javafx.beans.property.StringProperty;
 /**
  * API for the CommandInputModel component.
  *
- * The CommandInputModel represents the data that the user sees as text within the text field of the CommandInputView
+ * Represents the data that the user sees as text within the text field of the CommandInputView
  * as well as some supporting operations.
  */
 public interface CommandInputModel {
