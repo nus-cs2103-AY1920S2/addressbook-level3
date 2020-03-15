@@ -17,10 +17,9 @@ public class BlockImpl implements Block {
 
     /**
      * Initializes a root block i.e. the block has no parent.
-     * @param title
      */
-    public BlockImpl(Title title) {
-        this(null, title, new Body(""));
+    public BlockImpl() {
+        this(null, new Title("Root"), new Body(""));
     }
 
     /**
@@ -104,7 +103,7 @@ public class BlockImpl implements Block {
 
     @Override
     public boolean isRoot() {
-        return this.title.getText().equals("root")
+        return this.title.getText().equals("Root")
             && this.parent == null;
     }
 
