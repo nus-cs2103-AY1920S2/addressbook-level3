@@ -40,6 +40,7 @@ class JsonSerializableAddressBook {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
+
     /**
      * Converts this address book into the model's {@code AddressBook} object.
      *
