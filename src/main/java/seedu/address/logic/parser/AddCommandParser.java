@@ -5,7 +5,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
@@ -14,6 +16,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
 import seedu.address.model.task.Task;
 
 /** Parses input arguments and creates a new AddCommand object */
@@ -28,7 +31,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PRIORITY, PREFIX_DESCRIPTION, PREFIX_TAG);
+                        args, PREFIX_NAME, PREFIX_PRIORITY, PREFIX_DESCRIPTION, PREFIX_TAG, PREFIX_REMINDER);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
@@ -57,7 +60,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Task task = new Task(name, priority, description, tagList);
+        Optional<Reminder> optionalReminder = (argMultimap.getValue(PREFIX_REMINDER).isEmpty()) 
+                                ? Optional.empty()
+                                : Optional.of(ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get(), name.toString(), description.toString()));
+
+        Task task = new Task(name, priority, description, tagList, optionalReminder);
 
         return new AddCommand(task);
     }

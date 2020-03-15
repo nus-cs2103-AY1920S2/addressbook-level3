@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +13,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Reminder;
 
 /** Contains utility methods used for parsing strings in the various *Parser classes. */
 public class ParserUtil {
@@ -49,6 +51,31 @@ public class ParserUtil {
             indexes[i] = Index.fromOneBased(Integer.parseInt(splitIndices[i]));
         }
         return indexes;
+    }
+
+    /**
+     * Parses a {@code String reminder} into a {@code Reminder}. Leading and trailing whitespaces
+     * will be trimmed. Format to receive is DD/MM/YY@HH:mm eg 04/11/20@10:30
+     *
+     * @throws ParseException if the given {@code reminder} is invalid.
+     */
+    public static Reminder parseReminder(String reminder, String processedName, String processedDescription) throws ParseException {
+        requireNonNull(reminder);
+        String trimmedReminder = reminder.trim();
+        if (!Reminder.isValidReminder(trimmedReminder)) {
+            throw new ParseException(Reminder.MESSAGE_CONSTRAINTS);
+        }
+        String dateString = trimmedReminder.split("@")[0];
+        String timeString = trimmedReminder.split("@")[1];
+        String[] dateArr = dateString.split("/");
+        String[] timeArr = timeString.split(":");
+        int dayOfMonth = Integer.parseInt(dateArr[0]);
+        int month = Integer.parseInt(dateArr[1]);
+        int year = Integer.parseInt(dateArr[2]) + 2000;
+        int hour = Integer.parseInt(timeArr[0]);
+        int minute = Integer.parseInt(timeArr[1]);
+        LocalDateTime reminderTime = LocalDateTime.of(year, month, dayOfMonth, hour, minute);
+        return new Reminder(reminderTime, processedDescription, processedName);
     }
 
     /**

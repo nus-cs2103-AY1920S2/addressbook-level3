@@ -21,6 +21,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.task.Reminder;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -212,11 +213,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
-    public static void triggerReminder(String message, long delay) {
+    public static void triggerReminder(Reminder reminder, long delay) {
+        String name = reminder.getName();
+        String description = reminder.getDescription();
         Timeline timeline =
             new Timeline(
                 new KeyFrame(
-                    Duration.seconds(delay), ae -> MainWindow.showReminder(message)));
+                    Duration.seconds(delay), ae -> {
+                        MainWindow.showReminder(name, description);
+                        reminder.setHasFired();
+                    }));
         timeline.play();
     }
 
@@ -225,11 +231,11 @@ public class MainWindow extends UiPart<Stage> {
      * Is triggered at the delayed time in Duke itself.
      * https://thecodinginterface.com/blog/javafx-alerts-and-dialogs/#informational-alert
      */
-    public static void showReminder(String response) {
+    public static void showReminder(String name, String description) {
         var alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("reminder");
-        alert.setHeaderText("Reminder");
-        alert.setContentText(response);
+        alert.setTitle("Reminder");
+        alert.setHeaderText(name);
+        alert.setContentText(description);
         alert.show();
     }
 }

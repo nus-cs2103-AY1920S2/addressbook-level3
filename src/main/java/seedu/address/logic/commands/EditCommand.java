@@ -109,7 +109,7 @@ public class EditCommand extends Command {
         Done updatedDone = editTaskDescriptor.getDone().orElse(taskToEdit.getDone());
         Set<Tag> updatedTags = editTaskDescriptor.getTags().orElse(taskToEdit.getTags());
 
-        return new Task(updatedName, updatedPriority, updatedDescription, updatedDone, updatedTags);
+        return new Task(updatedName, updatedPriority, updatedDescription, updatedDone, updatedTags, Optional.empty());
     }
 
     @Override

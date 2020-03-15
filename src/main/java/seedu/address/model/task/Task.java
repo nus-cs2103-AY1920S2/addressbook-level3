@@ -1,11 +1,11 @@
 package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import seedu.address.ui.MainWindow;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import seedu.address.model.tag.Tag;
 
@@ -19,12 +19,24 @@ public class Task {
     private final Name name;
     private final Priority priority;
 
-    // Data fields
+    // Data fields'
     private final Description description;
     private final Done done;
     private final Set<Tag> tags = new HashSet<>();
+    private final Optional<Reminder> optionalReminder;
 
     /** Every field must be present and not null. */
+    public Task(Name name, Priority priority, Description description, Done done, Set<Tag> tags, Optional<Reminder> optionalReminder) {
+        requireAllNonNull(name, priority, description, tags);
+        this.name = name;
+        this.priority = priority;
+        this.description = description;
+        this.done = done;
+        this.tags.addAll(tags);
+        this.optionalReminder = optionalReminder;
+    }
+
+    /** With done and no reminder */
     public Task(Name name, Priority priority, Description description, Done done, Set<Tag> tags) {
         requireAllNonNull(name, priority, description, tags);
         this.name = name;
@@ -32,19 +44,31 @@ public class Task {
         this.description = description;
         this.done = done;
         this.tags.addAll(tags);
-        timedPrint(10);
-
+        this.optionalReminder = Optional.empty();
     }
 
     // without done provided
+    public Task(Name name, Priority priority, Description description, Set<Tag> tags, Optional<Reminder> optionalReminder) {
+        requireAllNonNull(name, priority, description, tags);
+        this.name = name;
+        this.priority = priority;
+        this.description = description;
+        this.done = new Done();
+        this.optionalReminder = optionalReminder;
+        this.tags.addAll(tags);
+    }
+
+    // without Reminder or done provided
     public Task(Name name, Priority priority, Description description, Set<Tag> tags) {
         requireAllNonNull(name, priority, description, tags);
         this.name = name;
         this.priority = priority;
         this.description = description;
         this.done = new Done();
+        this.optionalReminder = Optional.empty();
         this.tags.addAll(tags);
     }
+
 
     public Name getName() {
         return name;
@@ -82,10 +106,6 @@ public class Task {
         return otherTask != null
                 && otherTask.getName().equals(getName())
                 && (otherTask.getPriority().equals(getPriority()));
-    }
-
-    public void timedPrint(long delay) {
-        MainWindow.triggerReminder("reminder test", delay);
     }
 
     /**
