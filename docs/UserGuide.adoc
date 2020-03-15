@@ -196,12 +196,22 @@ Format: `cooked n/NAME g/GOAL`
 Shows weekly progress of respective goal through graph. +
 Format: `chart g/GOAL`
 
-== Motivation Feature
+== Achievement
 
-=== Suggest a recipe based on current goal: `suggest`
+==== Display streak: `streak`
 
-Gives you a random recipe which falls under the goal you have chosen. +
-Format: suggest
+Displays number of consecutive days user has cooked a meal from the app +
+Format: streak `STREAK_NUM`
+
+=== Display motivational quote : `quote`
+
+Displays randomized motivational quote of the day +
+Format: quote `QUOTE_OF_DAY`
+
+=== Show image gallery: `show`
+
+Displays food photos users uploads +
+Format: image `i/IMAGE`
 
 == FAQ
 

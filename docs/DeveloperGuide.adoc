@@ -317,6 +317,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |unmotivated user |choose a goal for myself |cook more meals and be motivated by my progress
 
+|`* * *` |unmotivated user |track my streak of healthy meals |motivated to keep eating healthy
+
+|`* * *` |defeatist user |look at daily quotes to remind myself |remember why I wanted to continue to be healthy
+
 |`* *` |user who dislikes food wastage |see what ingredients I need to buy when I grocery shop |only buy ingredients that I will use
 
 |`* *` |busy student |get a list of the ingredients I need for the week in one go |save time and not make wasted trips
@@ -337,11 +341,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user who prefers hard-copy materials |save my favourite recipes locally |print them out
 
-|`*` |frequent party host | scale up the amount of ingredients needed |make the correct amount of food
+|`*` |frequent party host |scale up the amount of ingredients needed |make the correct amount of food
 
 |`*` |student on budget |choose recipes that require lower cost |save money
 
 |`*` |adventurous user |ask for suggested recipes |choose a random recipe and start cooking
+
+|`*` |adventurous user |mix up recipes |try something completely new
+
+|`*` |motivational user |add custom quotes to app online |motivate other users with different quotes
 
 |=======================================================================
 
@@ -493,6 +501,42 @@ Use case ends.
 ** 3b1. HealthyBaby shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Compare prices
+
+*MSS*
+
+1.  User requests to compare prices
+2.  HealthyBaby shows price of food delivery vs user cooking the food themselves with the specified name
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The name/time/ingredients fields are empty.
++
+[none]
+** 2a1. HealthyBaby shows an error message.
++
+Use case resumes at step 2.
+
+
+[none]
+* 2b. The given food does not exists in database.
++
+[none]
+** 2b1. HealthyBaby shows an error message.
++
+Use case resumes at step 2.
+
+* 2c. The given food is not available in delivery services.
++
+[none]
+** 2c1. HealthyBaby shows an error message.
++
+Use case resumes at step 1.
 
 
 _{More to be added}_
