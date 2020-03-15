@@ -14,16 +14,26 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103-W14-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Naggy Joel`      Since: `Jan 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Does the name Naggy Joel sound like a very boring application? Fret not, it is actually the exact opposite! It helps you
+maximise your time to get as much fun as you can amidst your hectic work schedule. In fact, it aims to help you be the
+best friend that you can ever be!
+
+Naggy Joel is for those who *prefer to use a desktop app for managing their social life*. It is an application that
+allows a user to manage all aspects of their social life, ranging from their different social circles and contacts,
+to their events and deadlines, as well as, places to hang out and potential practical gifts that will be very much
+appreciated by the recipient.  More importantly, Naggy Joel is *optimized for those who prefer to work with a Command
+Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Naggy
+Joel can get social life managed faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started.
+Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:https://github.com/AY1920S2-CS2103-W14-3/main/releases[here].
+.  Download the latest `naggyjoel.jar` link:https://github.com/AY1920S2-CS2103-W14-3/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -46,7 +56,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `(ab)add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -56,28 +66,28 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `ab add`
+=== Adding a person: `(ab)add`
 
 Adds a person to the address book +
-Format: `ab add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
+Format: `(ab)add n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
 
 [TIP]
 A person can have any number of tags (including 0)
-BIRTHDAY must be written in a MM-DD format.
+BIRTHDAY must be written in a MM-dd format.
 Fields inside square brackets are optional.
 
 Examples:
 
-* `ab add n/Akshay`
-* `ab add n/Joel HH e/joel@yahoo.com.sg p/12345678 o/NUS a/Pasir Ris St. 71, Blk 123, #01-79`
-* `ab add n/Aisyle Nat e/aisyle@gmail.com p/87654321 o/NUS b/02-12`
-* `ab add n/ Benjamin t/CS2103`
+* `(ab)add n/Akshay`
+* `(ab)add n/Joel HH e/joel@yahoo.com.sg p/12345678 o/NUS a/Pasir Ris St. 71, Blk 123, #01-79`
+* `(ab)add n/Aisyle Nat e/aisyle@gmail.com p/87654321 b/02-12 o/NUS`
+* `(ab)add n/ Benjamin t/CS2103`
 
 
-=== Listing all persons : `ab list`
+=== Listing all persons : `(ab)list`
 
 Lists out all your contacts in the address book. Each contact will have a displayed index. Only lists the name, phone number and tags (if present) +
-Format: `ab list [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
+Format: `(ab)list [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
 
 ****
 * If more than 1 switches are indicated, it will be treated as a conjunction of filters
@@ -87,13 +97,13 @@ Format: `ab list [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
 ****
 
 Examples:
-* `ab list -g/NUS -n/Lim` +
+* `(ab)list -g/NUS -n/Lim` +
 List all contacts that is in group “NUS” and have the word “Lim” in its name
 
-=== Editing a person : `ab edit`
+=== Editing a person : `(ab)edit`
 
 Edits an existing person in the address book. +
-Format: `ab edit INDEX n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
+Format: `(ab)edit INDEX n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/ORGANIZATION] [b/BIRTHDAY]`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -106,15 +116,15 @@ Format: `ab edit INDEX n/NAME p/PHONE_NUMBER [e/EMAIL] [a/ADDRESS] [t/TAG] [o/OR
 
 Examples:
 
-* `ab edit 37 a/2 Cactus Road, S903281` +
+* `(ab)edit 37 a/2 Cactus Road, S903281` +
 Changes the 37th person’s address to 2 Cactus Road, S903281.
-* `ab edit 2 n/Elysia Tan o/Comp Club` +
+* `(ab)edit 2 n/Elysia Tan o/Comp Club` +
 Changes the second person’s name to Elysia Tan, and organization to Comp Club.
 
-=== Adding tags to a person : `ab addtag`
+=== Adding tags to a person : `(ab)addtag`
 
 Allows you to add additional tags to your contacts. +
-Format: `ab addtag INDEX [t/TAG]`
+Format: `(ab)addtag INDEX [t/TAG]`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
@@ -125,13 +135,13 @@ Format: `ab addtag INDEX [t/TAG]`
 
 Examples:
 
-* `ab addtag 37 t/noob`
+* `(ab)addtag 37 t/noob`
 Adds the tag “noob” to the person at index 37
 
-=== Adding tags to a person : `ab rmtag`
+=== Adding tags to a person : `(ab)rmtag`
 
 Allows you to add additional tags to your contacts. +
-Format: `ab rmtag INDEX [t/TAG]`
+Format: `(ab)rmtag INDEX [t/TAG]`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
@@ -140,10 +150,10 @@ Format: `ab rmtag INDEX [t/TAG]`
 
 Examples:
 
-* `ab rmtag 37 t/noob` +
+* `(ab)rmtag 37 t/noob` +
 Removes the tag “noob” from the person at index 37
 
-=== Sort contacts: `ab sort`
+=== Sort contacts: `(ab)sort`
 
 Displays the list of contacts in a certain sorted order +
 Format: `ab sort [-f] [-o] [-b]`
@@ -156,7 +166,7 @@ Format: `ab sort [-f] [-o] [-b]`
 ****
 
 Examples:
-* `ab sort -a` +
+* `(ab)sort -a` +
 Lists all contacts alphabetically
 
 === Undo and redo commands: `undo/redo`
@@ -164,28 +174,28 @@ Lists all contacts alphabetically
 Undoes and redoes the last command. +
 Format: `undo/redo`
 
-=== List everything about a contact in field: `ab get`
-Format: `ab get INDEX`
+=== List everything about a contact in field: `(ab)get`
+Format: `(ab)get INDEX`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
 * Displays all information relating to a contact at index INDEX
 ****
 
-=== Store additional information about contacts using the Note Taker: `ab addnote`
+=== Store additional information about contacts using the Note Taker: `(ab)addnote`
 
 Store additional information about contacts using the Note Taker +
-Format: `ab addnote INDEX i/INFO1 i/INFO2 ...`
+Format: `(ab)addnote INDEX i/INFO1 i/INFO2 ...`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
 * There should be at least one i/INFO
 ****
 
-=== Edit additional information about contacts: `ab editnote`
+=== Edit additional information about contacts: `(ab)editnote`
 
 Edit additional information about contacts using the Note Taker +
-Format: `ab editnote INDEX [-l/LINE_NUMBER] i/INFO`
+Format: `(ab)editnote INDEX [-l/LINE_NUMBER] i/INFO`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
@@ -193,10 +203,10 @@ Format: `ab editnote INDEX [-l/LINE_NUMBER] i/INFO`
 * [-l] Line number of information to be replaced
 ****
 
-=== Delete additional information about contacts: `ab deletenote`
+=== Delete additional information about contacts: `(ab)deletenote`
 
 Delete additional information about contacts using the Note Taker +
-Format: `ab deletenote INDEX [-l/LINE_NUMBER]`
+Format: `(ab)deletenote INDEX [-l/LINE_NUMBER]`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the LIST function (see 2.4).
@@ -207,10 +217,10 @@ Format: `ab deletenote INDEX [-l/LINE_NUMBER]`
 
 === Obtain gift suggestions for a particular contact using the Birthday Tracker `(coming in v2.0)`
 
-=== Adds a new restaurant: `rt add`
+=== Adds a new restaurant: `(rt)add`
 
 Adds a new restaurant +
-Format: `rt add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISINE]`
+Format: `(rt)add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISINE]`
 
 ****
 * OPERATING_HOURS is 8 digits
@@ -218,13 +228,13 @@ Format: `rt add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISI
 
 Examples:
 
-* `rt add rubbish o/0900:2300 p/$$` +
+* `(rt)add rubbish o/0900:2300 p/$$` +
 Adds a new restaurant called rubbish with 2 dollar signs price point and opens from 9am to 11pm
 
-=== Search: `rt search`
+=== Search: `(rt)search`
 
 Search for restaurants based on a number of criteria. +
-Format: `rt search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
+Format: `(rt)search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
 
 ****
 * At least one search criteria must be filled in.
@@ -236,30 +246,30 @@ Format: `rt search [k/KEYWORD] [l/LOCATION] [p/PRICE_POINT] [o/OPERATING_HOURS]`
 
 Examples:
 
-* `rt search k/no signboard p/$$` +
+* `(rt)search k/no signboard p/$$` +
 Searches for restaurants with the keyword no signboard which is at a medium price point.
-* `rt search l/bedok p/$` +
+* `(rt)search l/bedok p/$` +
 Searches for restaurants in the bedok area at a low price point.
 
-=== Deletes a restaurant: `rt delete`
+=== Deletes a restaurant: `(rt)delete`
 
 Deletes a restaurant from the list +
-Format: `rt delete n/NAME`
+Format: `(rt)delete n/NAME`
 
-=== Add notes to a restaurant: `rt notes`
+=== Add notes to a restaurant: `(rt)notes`
 
 Adds a new restaurant +
-Format: `rt notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
+Format: `(rt)notes n/NAME [r/RECOMMENDED_FOOD] [g/GOOD_FOOD] [b/BAD_FOOD]`
 
 Examples:
 
-* `rt notes rubbish r/chicken chop g/truffle fries b/risotto` +
+* `(rt)notes rubbish r/chicken chop g/truffle fries b/risotto` +
 Adds a notes to an existing restaurant in the list called rubbish with recommended food Chicken Chop, good food Truffle Fries, and bad food Risotto.
 
-=== Add new assignment to the Schoolwork Tracker: `st add`
+=== Add new assignment to the Schoolwork Tracker: `(st)add`
 
 Adds a new assignment to your list of assignments and projects. +
-Format: `st add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
+Format: `(st)add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 ****
 * DEADLINE must be entered in a yyyymmdd HHMM format.
@@ -269,14 +279,14 @@ Format: `st add t/TITLE d/DEADLINE e/ESTIMATED_COMPLETION_TIME`
 
 Examples:
 
-* `st add t/CS2103 post lecture quiz d/20200211 2359 e/1` +
+* `(st)add t/CS2103 post lecture quiz d/20200211 2359 e/1` +
 Adds an assignment titled CS2103 post lecture quiz to the Schoolwork Tracker, due 11-02-2020 23:59 and which takes an estimated one hour to complete.
 
 
-=== List current assignments: `st list`
+=== List current assignments: `(st)list`
 
 Sorts the user’s list of assignments and displays them. This helps the user choose which assignment to do first. By default, it sorts the list in alphabetical order. +
-Format: `st list [-d] [-e]`
+Format: `(st)list [-d] [-e]`
 
 ****
 * Exactly 1 of [-d] or [-e] can be entered, to change the sorting criteria
@@ -284,28 +294,28 @@ Format: `st list [-d] [-e]`
 * [-e] = Estimated completion time
 ****
 
-=== Mark as completed: `st done`
+=== Mark as completed: `(st)done`
 
 Marks an assignment as completed. +
-Format: `st done INDEX`
+Format: `(st)done INDEX`
 
 ****
 * INDEX must be a positive integer. It corresponds to the rank of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function (see above).
 ****
 
-=== Delete assignment: `st delete`
+=== Delete assignment: `(st)delete`
 
 Deletes an assignment. +
-Format: `st delete INDEX`
+Format: `(st)delete INDEX`
 
 ****
 * INDEX must be a positive integer. It corresponds to the rank of the assignment as shown when you list all assignments in the Schoolwork Tracker using the list function (see above) sorted by alphabetical order.
 ****
 
-=== Add person to assignment: `st addmem`
+=== Add person to assignment: `(st)addmem`
 
 Adds a group mate to an assignment. +
-Format: `st addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
+Format: `(st)addmem INDEX p/INDEX_1 p/INDEX_2 p/INDEX_3`
 
 ****
 * INDEX must be a positive integer. It corresponds to the rank of the assignment shown
@@ -322,7 +332,6 @@ Format: `schedule`
 
 // tag::delete[]
 
-
 === Create a new social event: `event`
 
 Creates a social event. +
@@ -333,10 +342,10 @@ Format: `event d/DATE t/TIME`
 * `TIME` must be in a HH:MM format.
 ****
 
-=== Deleting a person : `ab delete`
+=== Deleting a person : `(ab)delete`
 
 Deletes the contact at index INDEX +
-Format: `ab delete INDEX`
+Format: `(ab)delete INDEX`
 
 ****
 * INDEX must be a positive integer. It refers to the index of the respective contact as displayed in the last sorted LIST function (see 2.4).
@@ -344,7 +353,7 @@ Format: `ab delete INDEX`
 
 Examples:
 
-* `delete 2` +
+* `(ab)delete 2` +
 Deletes the 2nd person in the address book.
 
 // end::delete[]
