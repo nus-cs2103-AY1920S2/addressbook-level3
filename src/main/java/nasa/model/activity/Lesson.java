@@ -28,6 +28,14 @@ public class Lesson extends Activity {
         this.endDate = endDate;
     }
 
+    public Date getDateFrom() {
+        return startDate;
+    }
+
+    public Date getDateTo() {
+        return endDate;
+    }
+
     public int getNumOfDaysTillNextLesson() {
         return numOfDaysTillNextLesson;
     }

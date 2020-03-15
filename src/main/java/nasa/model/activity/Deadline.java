@@ -19,8 +19,9 @@ public class Deadline extends Activity {
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
      */
-    public Deadline(Name name, Date date, Note note, Status status, Priority priority) {
+    public Deadline(Name name, Date date, Note note, Status status, Priority priority, Date dueDate) {
         super(name, date, note, status, priority);
+        this.dueDate = dueDate;
     }
 
     public Date getDateline() {

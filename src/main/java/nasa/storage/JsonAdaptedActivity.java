@@ -27,6 +27,9 @@ class JsonAdaptedActivity {
     private final String note;
     private final String status;
     private final String priority;
+    private final String dueDate;
+    private final String startDate;
+    private final String endDate;
 
 
     /**
@@ -36,13 +39,20 @@ class JsonAdaptedActivity {
     public JsonAdaptedActivity(@JsonProperty("type") String type, @JsonProperty("name") String name,
                                @JsonProperty("date") String date, @JsonProperty("note") String note,
                                @JsonProperty("status") String status,
-                               @JsonProperty("priority") String priority) {
+                               @JsonProperty("priority") String priority,
+                               @JsonProperty("dueDate") String dueDate,
+                               @JsonProperty("startDate") String startDate,
+                               @JsonProperty("endDate") String endDate) {
         this.type = type;
         this.name = name;
         this.date = date;
         this.note = note;
         this.status = status;
         this.priority = priority;
+        this.dueDate = dueDate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+
     }
 
     /**
@@ -54,12 +64,25 @@ class JsonAdaptedActivity {
         note = source.getNote().toString();
         status = Boolean.toString(source.isDone());
         priority = source.getPriority().toString();
+
         if (source instanceof Deadline) {
             type = "deadline";
+            Deadline temp = (Deadline) source;
+            dueDate = temp.getDateline().toString();
+            startDate = "";
+            endDate = "";
         } else if (source instanceof Event) {
             type = "event";
+            Event temp = (Event) source;
+            dueDate = "";
+            startDate = temp.getDateFrom().toString();
+            endDate = temp.getDateTo().toString();
         } else {
             type = "lesson";
+            Lesson temp = (Lesson) source;
+            dueDate = "";
+            startDate = temp.getDateFrom().toString();
+            endDate = temp.getDateTo().toString();
         }
     }
 
@@ -109,6 +132,30 @@ class JsonAdaptedActivity {
                     Status.class.getSimpleName()));
         }
 
+        if (dueDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(dueDate)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
+        final Date modelDueDate = new Date(dueDate);
+
+        if (startDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(startDate)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
+        final Date modelStartDate = new Date(startDate);
+
+        if (endDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+        }
+        if (!Date.isValidDate(endDate)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+        }
+        final Date modelEndDate = new Date(endDate);
+
         //TODO check validity
         /*
         if (!Status.(priority)) {
@@ -121,13 +168,13 @@ class JsonAdaptedActivity {
         Activity activity = null;
         switch (type) {
         case "deadline":
-            activity = new Deadline(modelName, modelDate, modelNote, modelStatus, modelPriority);
+            activity = new Deadline(modelName, modelDate, modelNote, modelStatus, modelPriority, modelDueDate);
             break;
         case "event":
-            activity = new Event(modelName, modelDate, modelNote, modelStatus, modelPriority);
+            activity = new Event(modelName, modelDate, modelNote, modelStatus, modelPriority, modelStartDate, modelEndDate);
             break;
         case "lesson":
-            activity = new Lesson(modelName, modelDate, modelNote, modelStatus, modelPriority);
+            activity = new Lesson(modelName, modelDate, modelNote, modelStatus, modelPriority, modelStartDate, modelEndDate);
             break;
         default:
             throw new IllegalValueException("");
