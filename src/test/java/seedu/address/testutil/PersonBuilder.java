@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -25,14 +25,14 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Offer> offers;
+    private List<Offer> offers;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        offers = new HashSet<>();
+        offers = new ArrayList<>();
     }
 
     /**
@@ -43,7 +43,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        offers = new HashSet<>(personToCopy.getOffers());
+        offers = new ArrayList<>(personToCopy.getOffers());
     }
 
     /**
@@ -57,8 +57,8 @@ public class PersonBuilder {
     /**
      * Parses the {@code offers} into a {@code Set<Offer>} and set it to the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
-        this.offers = SampleDataUtil.getTagSet(tags);
+    public PersonBuilder withOffers(String ... offers) {
+        this.offers = SampleDataUtil.getOfferList(offers);
         return this;
     }
 
