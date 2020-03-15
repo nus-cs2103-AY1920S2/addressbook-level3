@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
     final long centValue;
 
-    public static final String PRICE_CONSTRAINTS = "Price should only be\n"
+    public static final String MESSAGE_CONSTRAINTS = "Price should only be\n"
             + "1. a positive number with\n"
             + "2. at most 2 digits after the decimal point and\n"
             + "3. at most 10 digits before the decimal point and\n"
@@ -19,7 +19,7 @@ public class Price {
      */
     public Price(String dollars) {
         requireNonNull(dollars);
-        checkArgument(isValidPrice(dollars), PRICE_CONSTRAINTS);
+        checkArgument(isValidPrice(dollars), MESSAGE_CONSTRAINTS);
         centValue = parseCents(dollars);
     }
 
@@ -36,6 +36,10 @@ public class Price {
 
     public long getCentValue() {
         return centValue;
+    }
+
+    public String getValue() {
+        return String.format("%d.%02d", centValue / 100, centValue % 100);
     }
 
     /**

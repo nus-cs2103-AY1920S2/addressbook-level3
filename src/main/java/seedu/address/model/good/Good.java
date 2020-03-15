@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Good {
     private final String name;
 
-    public static final String NAME_CONSTRAINTS =
+    public static final String MESSAGE_CONSTRAINTS =
             "Dummy constraint message.";
 
     /**

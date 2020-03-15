@@ -110,7 +110,7 @@ public class ParserUtil {
 
         String goodPricePair[] = splitOnLastWhitespace(trimmedOffer);
         if (goodPricePair.length != 2) {
-            throw new ParseException(Offer.OFFER_CONSTRAINTS);
+            throw new ParseException(Offer.MESSAGE_CONSTRAINTS);
         }
 
         String good = goodPricePair[0];
@@ -128,7 +128,7 @@ public class ParserUtil {
         requireNonNull(good);
         String trimmedGood = good.trim();
         if (!Good.isValidGoodName(trimmedGood)) {
-            throw new ParseException(Good.NAME_CONSTRAINTS);
+            throw new ParseException(Good.MESSAGE_CONSTRAINTS);
         }
         return new Good(trimmedGood);
     }
@@ -143,7 +143,7 @@ public class ParserUtil {
         requireNonNull(price);
         String trimmedPrice = price.trim();
         if (!Price.isValidPrice(trimmedPrice)) {
-            throw new ParseException(Price.PRICE_CONSTRAINTS);
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
         }
 
         return new Price(trimmedPrice);
