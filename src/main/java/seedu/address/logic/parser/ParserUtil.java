@@ -44,10 +44,11 @@ public class ParserUtil {
      */
     public static Birthday parseBirthday(String birthday) throws ParseException {
         requireNonNull(birthday);
-        if (!Birthday.isValidDate(birthday)) {
+        String trimmedBirthday = birthday.trim();
+        if (!Birthday.isValidDate(trimmedBirthday)) {
             throw new ParseException(Birthday.MESSAGE_CONSTRAINTS);
         }
-        return new Birthday(birthday);
+        return new Birthday(trimmedBirthday);
     }
 
     /**
