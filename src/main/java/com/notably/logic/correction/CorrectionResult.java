@@ -1,23 +1,45 @@
 package com.notably.logic.correction;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Optional;
 
 /**
  * Represents the result of a correction.
  */
-interface CorrectionResult<T> {
+public class CorrectionResult<T> {
+    private final CorrectionStatus correctionStatus;
+    private final T correctedItem;
+
+    /**
+     * Creates a correction result.
+     *
+     * @param correctionStatus Status of the result
+     * @param correctedItem Item after correction
+     */
+    public CorrectionResult(CorrectionStatus correctionStatus, T correctedItem) {
+        requireNonNull(correctionStatus);
+        this.correctionStatus = correctionStatus;
+        this.correctedItem = correctedItem;
+    }
+
     /**
      * Gets the status of the correction.
      *
-     * @return The status of the correction
+     * @return Status of the correction
      */
-    CorrectionStatus getCorrectionStatus();
+    public CorrectionStatus getCorrectionStatus() {
+        return correctionStatus;
+    }
+
     /**
      * Gets the corrected item.
-     * If correction cannot be done, {@code Optional.empty()} will be returned.
+     * If no corrected item, {@code Optional.empty()} will be returned.
      *
-     * @return The corrected item, or {@code Optional.empty()} if correction fails
+     * @return Corrected item, or {@code Optional.empty()} if there is none
      */
-    Optional<T> getCorrectedItem();
+    Optional<T> getCorrectedItem() {
+        return Optional.ofNullable(correctedItem);
+    }
 }
 
