@@ -45,12 +45,9 @@ public class NearbyCommand extends Command {
         String location = getGeneralLocation(postalSector).get();
         List<String> matchingPostalSectors = NearbyCommandUtil.sameGeneralLocation(location);
         return order -> {
-            for (String sector : matchingPostalSectors) {
-                if (order.getAddress().toString().contains(sector)) {
-                    return true;
-                }
-            }
-            return false;
+            String orderAddress = order.getAddress().toString();
+            return matchingPostalSectors.stream()
+                    .anyMatch(orderAddress::contains);
         };
     }
 
