@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Ingredient;
 
 /**
  * Represents a Recipe in the address book.
@@ -18,20 +19,22 @@ public class Recipe {
     // Identity fields
     private final Name name;
     private final Time time;
-    private final Email email;
+    private final Step step;
 
     // Data fields
     private final Set<Goal> goals = new HashSet<>();
+    private final Set<Ingredient> ingredients = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Time time, Email email, Set<Goal> goals) {
-        requireAllNonNull(name, time, email, goals);
+    public Recipe(Name name, Time time, Set<Ingredient> ingredients, Step step, Set<Goal> goals) {
+        requireAllNonNull(name, time, step, goals);
         this.name = name;
         this.time = time;
-        this.email = email;
+        this.step = step;
         this.goals.addAll(goals);
+        this.ingredients.addAll(ingredients);
     }
 
     public Name getName() {
@@ -42,8 +45,8 @@ public class Recipe {
         return time;
     }
 
-    public Email getEmail() {
-        return email;
+    public Step getStep() {
+        return step;
     }
 
     /**
@@ -52,6 +55,15 @@ public class Recipe {
      */
     public Set<Goal> getGoals() {
         return Collections.unmodifiableSet(goals);
+    }
+
+    // todo: double check ingredients get
+    /**
+     * Returns an immutable ingredient set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Ingredient> getIngredients() {
+        return Collections.unmodifiableSet(ingredients);
     }
 
     /**
@@ -65,7 +77,7 @@ public class Recipe {
 
         return otherRecipe != null
                 && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getTime().equals(getTime()) || otherRecipe.getEmail().equals(getEmail()));
+                && (otherRecipe.getTime().equals(getTime()) || otherRecipe.getStep().equals(getStep()));
     }
 
     /**
@@ -85,14 +97,14 @@ public class Recipe {
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
                 && otherRecipe.getTime().equals(getTime())
-                && otherRecipe.getEmail().equals(getEmail())
+                && otherRecipe.getStep().equals(getStep())
                 && otherRecipe.getGoals().equals(getGoals());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, time, email, goals);
+        return Objects.hash(name, time, step, goals);
     }
 
     @Override
@@ -101,8 +113,10 @@ public class Recipe {
         builder.append(getName())
                 .append(" Time: ")
                 .append(getTime())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Ingredients: ");
+        getIngredients().forEach(builder::append);
+        builder.append(" Step: ")
+                .append(getStep())
                 .append(" Goals: ");
         getGoals().forEach(builder::append);
         return builder.toString();

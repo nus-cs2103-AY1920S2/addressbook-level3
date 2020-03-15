@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -35,7 +36,9 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
-    private Label email;
+    private FlowPane ingredients;
+    @FXML
+    private Label step;
     @FXML
     private FlowPane goals;
 
@@ -45,7 +48,10 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         time.setText(recipe.getTime().value + " min");
-        email.setText(recipe.getEmail().value);
+        ingredients.setOrientation(Orientation.VERTICAL);
+        recipe.getIngredients().stream()
+                .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.toString())));
+        step.setText(recipe.getStep().value);
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))
                 .forEach(goal -> goals.getChildren().add(new Label(goal.goalName)));

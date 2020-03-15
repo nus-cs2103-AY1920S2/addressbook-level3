@@ -2,10 +2,10 @@
   "recipes": [ {
     "name": "Valid Recipe",
     "time": "9482424",
-    "email": "hans@example.com"
+    "step": "fry eggs"
   }, {
     "name": "Recipe With Invalid Time Field",
     "time": "948asdf2424",
-    "email": "hans@example.com"
+    "step": "a"
   } ]
 }
