@@ -2,10 +2,13 @@ package com.notably.model.suggestion;
 
 import com.notably.commons.core.path.Path;
 
+/**
+ * Implementation class for Suggestion Item.
+ */
 public class SuggestionItemImpl implements SuggestionItem {
-    Path path;
-    String displayText;
-    Runnable action;
+    private Path path;
+    private String displayText;
+    private Runnable action;
 
     public SuggestionItemImpl(Path path) {
         this.path = path;
