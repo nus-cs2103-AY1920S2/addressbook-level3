@@ -1,10 +1,13 @@
 package seedu.address.testutil;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.good.Good;
+import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -72,12 +75,16 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Offer>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code offer} into a {@code List<Offer>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
-        Set<Offer> offerSet = Stream.of(tags).map(Offer::new).collect(Collectors.toSet());
-        descriptor.setOffers(offerSet);
+    public EditPersonDescriptorBuilder withOffers(String... tags) {
+        List<Offer> offerList = Stream.of(tags)
+                .map(ParserUtil::splitOnLastWhitespace)
+                .map(ParserUtil::getGoodPricePair)
+                .map(x -> new Offer((Good) x[0], (Price) x[1]))
+                .collect(Collectors.toList());
+        descriptor.setOffers(offerList);
         return this;
     }
 
