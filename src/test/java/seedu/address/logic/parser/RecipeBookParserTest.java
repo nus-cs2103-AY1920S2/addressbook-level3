@@ -19,7 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModifyCommand;
-import seedu.address.logic.commands.ModifyCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.ModifyCommand.EditRecipeDescriptor;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.ResetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,7 +27,7 @@ import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.RecipeUtil;
 
 public class RecipeBookParserTest {
 
@@ -36,7 +36,7 @@ public class RecipeBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Recipe recipe = new PersonBuilder().build();
-        NewCommand command = (NewCommand) parser.parseCommand(PersonUtil.getAddCommand(recipe));
+        NewCommand command = (NewCommand) parser.parseCommand(RecipeUtil.getAddCommand(recipe));
         assertEquals(new NewCommand(recipe), command);
     }
 
@@ -56,10 +56,10 @@ public class RecipeBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Recipe recipe = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(recipe).build();
+        EditRecipeDescriptor descriptor = new EditPersonDescriptorBuilder(recipe).build();
         ModifyCommand command = (ModifyCommand) parser.parseCommand(
-                ModifyCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil
-                        .getEditPersonDescriptorDetails(descriptor));
+                ModifyCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " " + RecipeUtil
+                        .getEditRecipeDescriptorDetails(descriptor));
         assertEquals(new ModifyCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

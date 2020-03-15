@@ -37,13 +37,13 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id1;
     @FXML
-    private Label phone;
+    private Label ingredients;
     @FXML
-    private Label phone1;
+    private Label ingredients1;
     @FXML
-    private Label email;
+    private Label instructions;
     @FXML
-    private Label email1;
+    private Label instructions1;
     @FXML
     private FlowPane tags;
     @FXML
@@ -55,15 +55,15 @@ public class PersonCard extends UiPart<Region> {
 
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().name);
-        phone.setText(recipe.getPhone().value);
-        email.setText(recipe.getEmail().value);
+        ingredients.setText(recipe.getIngredients().ingredientListString);
+        instructions.setText(recipe.getInstructions().instructionListString);
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         id1.setText(displayedIndex + ". ");
         name1.setText(recipe.getName().name);
-        phone1.setText(recipe.getPhone().value);
-        email1.setText(recipe.getEmail().value);
+        ingredients1.setText(recipe.getIngredients().ingredientListString);
+        instructions1.setText(recipe.getInstructions().instructionListString);
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));
