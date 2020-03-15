@@ -5,7 +5,7 @@ import java.util.Optional;
 /**
  * Represents the result of a correction.
  */
-interface CorrectionResult {
+interface CorrectionResult<T> {
     CorrectionStatus getCorrectionStatus();
-    Optional<String> getCorrectedItem();
+    Optional<T> getCorrectedItem();
 }
