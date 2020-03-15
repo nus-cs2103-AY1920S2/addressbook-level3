@@ -168,7 +168,7 @@ public class ParserUtil {
      * @param string the {@code String} to be split
      * @return the {@code String} array containing the split result
      */
-    private static String[] splitOnLastWhitespace(String string) {
+    public static String[] splitOnLastWhitespace(String string) {
         String words[] = string.split(" ");
         String result[] = new String[2];
 
