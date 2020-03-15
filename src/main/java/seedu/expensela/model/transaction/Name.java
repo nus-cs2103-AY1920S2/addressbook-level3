@@ -5,14 +5,22 @@ import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Transaction's name.
- * Guarantees: immutable.
+ * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Names should only contain alphanumeric characters, spaces, \":+-()'\", and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
+    public static final String VALIDATION_REGEX;
+
+    static {
+        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}:+-()' ]*";
+    }
 
     public final String transactionName;
 
@@ -23,9 +31,16 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
+        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         transactionName = name;
     }
 
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
 
 
     @Override

@@ -26,6 +26,14 @@ public class Transaction {
         this.remark = remark;
     }
 
+    public Transaction(Name name, Amount amount, Date date) {
+        requireAllNonNull(name, amount, date);
+        this.name = name;
+        this.amount = amount;
+        this.date = date;
+        this.remark = new Remark("");
+    }
+
     public Name getName() {
         return name;
     }

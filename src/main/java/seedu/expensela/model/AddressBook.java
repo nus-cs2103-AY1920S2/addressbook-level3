@@ -6,7 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.model.transaction.UniqueTransactionList;
+import seedu.expensela.model.transaction.TransactionList;
 
 /**
  * Wraps all data at the address-book level
@@ -14,7 +14,7 @@ import seedu.expensela.model.transaction.UniqueTransactionList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueTransactionList persons;
+    private final TransactionList persons;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueTransactionList();
+        persons = new TransactionList();
     }
 
     public AddressBook() {}
@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Transaction> transactions) {
-        this.persons.setPersons(transactions);
+        this.persons.setTransaction(transactions);
     }
 
     /**
@@ -82,7 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);
 
-        persons.setPerson(target, editedTransaction);
+        persons.setTransaction(target, editedTransaction);
     }
 
     /**
