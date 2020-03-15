@@ -1,54 +1,50 @@
 package seedu.address.model.offer;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
+import seedu.address.model.good.Good;
 
-/**
- * Represents an Offer in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
- */
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
+
 public class Offer {
-
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
-
-    public final String tagName;
+    private final Good good;
+    private final Price price;
 
     /**
-     * Constructs a {@code Offer}.
-     *
-     * @param tagName A valid tag name.
+     * Constructs an {@code Offer}.
+     * @param good the good to be offered
+     * @param price the price of the good in the offer
      */
-    public Offer(String tagName) {
-        requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+    public Offer(Good good, Price price) {
+        requireAllNonNull(good, price);
+        this.good = good;
+        this.price = price;
     }
 
-    /**
-     * Returns true if a given string is a valid tag name.
-     */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public Good getGood() {
+        return good;
+    }
+
+    public Price getPrice() {
+        return price;
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Offer // instanceof handles nulls
-                && tagName.equals(((Offer) other).tagName)); // state check
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Offer offer = (Offer) o;
+        return getGood().equals(offer.getGood());
     }
 
     @Override
     public int hashCode() {
-        return tagName.hashCode();
+        return Objects.hash(getGood());
     }
-
-    /**
-     * Format state as text for viewing.
-     */
-    public String toString() {
-        return '[' + tagName + ']';
-    }
-
 }
