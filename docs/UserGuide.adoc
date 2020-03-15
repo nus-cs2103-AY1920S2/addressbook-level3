@@ -79,7 +79,8 @@ aliases, or assigned ID.
 *Command*
 
 ....
-new interviewee <fullname> [-a <alias>]
+add interviewee <fullname> [-a <alias>]
+edit interviewee <old full name> - <new full name>
 delete interviewee <interviewee>
 list interviewee
 ....
@@ -88,8 +89,9 @@ list interviewee
 
 ....
 > new interviewee Jane Doe -a Doe
-> list interviewee
+> edit interviewee Jane Doe - Janice Doe
 > delete interviewee Doe
+> list interviewee
 ....
 
 _Action:_ Interviewee Jane Doe with alias of Doe is first created and
@@ -108,13 +110,13 @@ The following interviewee has been deleted:
   1. Jane Doe (alias: Doe)
 ....
 
-==== Add, Update and Delete Attributes
+==== Add, Edit and Delete Attributes
 
 *Command*
 
 ....
 > new attribute <attribute>
-> update attribute <attribute> <new attribute>
+> edit attribute <attribute> <new attribute>
 > delete attribute <attribute>
 > list attribute
 ....
@@ -124,12 +126,12 @@ The following interviewee has been deleted:
 ....
 > new attribute teamwork
 > new attribute leadership
-> update attribute leadership leadership
+> edit attribute leadership leadership
 > list attribute
 > delete attribute teamwork
 ....
 
-_Action:_ teamwork and leadership is first added. Leadership is updated
+_Action:_ teamwork and leadership is first added. Leadership is edited
 to leadership, and then teamwork is deleted.
 
 _Output:_
@@ -148,7 +150,7 @@ These are the current attributes:
 Attribute “teamwork” removed. You have now 1 attribute for your interview.
 ....
 
-==== Add, Update and Delete Interview Questions
+==== Add, Edit and Delete Interview Questions
 
 Before the interview process, the interviewer may one to review the
 questions. During review process, the interviewer may wants to add more
@@ -159,7 +161,7 @@ questions.
 
 ....
 new question <question>
-update question <question number> <updated question>
+edit question <question number> <edited question>
 list question
 delete question <question number>
 ....
@@ -168,8 +170,8 @@ delete question <question number>
 
 ....
 > new question What are your relevant experiences?
-> update question 1 What do you hope to accomplish in 5 years?
-> update question 2 How can you add value to the company?
+> edit question 1 What do you hope to accomplish in 5 years?
+> edit question 2 How can you add value to the company?
 > list question
 > delete question 1
 ....
@@ -180,9 +182,9 @@ _Output:_
 The following question has been added:
   2. What are your relevant experiences?
 
-Question 1 updated
+Question 1 edited
 
-Question 2 updated
+Question 2 edited
 
 These are the current questions:
   1. What do you hope to accomplish in 5 years?
@@ -480,15 +482,15 @@ e.g. `delete interviewee Doe`
 * `list interviewee`
 * `new attribute <attributes>` +
 e.g. `new attribute teamwork`
-* `update attribute <attributes>` +
-e.g. `update attribute leadership`
+* `edit attribute <attributes>` +
+e.g. `edit attribute leadership`
 * `delete attribute <attributes>` +
 e.g. `delete attribute productivity`
 * `list attribute`
 * `add question <question>` +
 e.g. `add question What are your relevant experiences?`
-* `update question <interviewee number> <updated question>` +
-e.g. `update question 1 What do you hope to accomplish in 5 years?`
+* `edit question <question number> <edited question>` +
+e.g. `edit question 1 What do you hope to accomplish in 5 years?`
 * `list question`
 * `delete question <question number>` +
 e.g. `delete question 1`
