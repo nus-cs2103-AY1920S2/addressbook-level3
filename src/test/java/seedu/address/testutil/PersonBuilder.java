@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,7 +28,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Remark remark;
+    private ArrayList<Remark> remark;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -35,7 +36,8 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        remark = new Remark(DEFAULT_REMARK);
+        remark = new ArrayList<>();
+        remark.add(new Remark(DEFAULT_REMARK));
         tags = new HashSet<>();
     }
 
@@ -95,7 +97,7 @@ public class PersonBuilder {
      * Sets the {@code Remark} of the {@code Person} that we are building.
      */
     public PersonBuilder withRemark(String remark) {
-        this.remark = new Remark(remark);
+        this.remark.add(new Remark(remark));
         return this;
     }
 

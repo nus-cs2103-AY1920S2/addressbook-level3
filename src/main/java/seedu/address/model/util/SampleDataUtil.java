@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,7 +20,7 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-    public static final Remark EMPTY_REMARK = new Remark("");
+    public static final ArrayList<Remark> EMPTY_REMARK = new ArrayList<>();
 
     public static Person[] getSamplePersons() {
         return new Person[] {
