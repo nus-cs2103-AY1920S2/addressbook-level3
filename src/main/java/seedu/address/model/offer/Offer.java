@@ -7,8 +7,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 public class Offer {
+
     private final Good good;
     private final Price price;
+
+    public static final String OFFER_CONSTRAINTS = "Offer must consist of a valid good name and a valid price, separated by a whitespace";
 
     /**
      * Constructs an {@code Offer}.

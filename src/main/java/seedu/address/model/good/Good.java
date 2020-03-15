@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Good {
     private final String name;
 
-    public static final String GOOD_CONSTRAINTS =
+    public static final String NAME_CONSTRAINTS =
             "Dummy constraint message.";
 
     /**
@@ -20,7 +20,7 @@ public class Good {
     /**
      * Returns true if a given string is a valid good name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidGoodName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

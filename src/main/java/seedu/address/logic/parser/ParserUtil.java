@@ -2,13 +2,16 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.good.Good;
+import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -96,29 +99,82 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Offer}.
+     * Parses a {@code String offer} into a {@code Offer}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code offer} or its constituent is invalid.
      */
-    public static Offer parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Offer.isValidTagName(trimmedTag)) {
-            throw new ParseException(Offer.MESSAGE_CONSTRAINTS);
+    public static Offer parseOffer(String offer) throws ParseException {
+        requireNonNull(offer);
+        String trimmedOffer = offer.trim();
+
+        String goodPricePair[] = splitOnLastWhitespace(trimmedOffer);
+        if (goodPricePair.length != 2) {
+            throw new ParseException(Offer.OFFER_CONSTRAINTS);
         }
-        return new Offer(trimmedTag);
+
+        String good = goodPricePair[0];
+        String price = goodPricePair[1];
+        return new Offer(parseGood(good), parsePrice(price));
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Offer>}.
+     * Parses a {@code String good} into a {@code Good}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code good} is invalid.
      */
-    public static Set<Offer> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Offer> offerSet = new HashSet<>();
-        for (String tagName : tags) {
-            offerSet.add(parseTag(tagName));
+    public static Good parseGood(String good) throws ParseException {
+        requireNonNull(good);
+        String trimmedGood = good.trim();
+        if (!Good.isValidGoodName(trimmedGood)) {
+            throw new ParseException(Good.NAME_CONSTRAINTS);
+        }
+        return new Good(trimmedGood);
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code price}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.PRICE_CONSTRAINTS);
+        }
+
+        return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses {@code Collection<String> offers} into a {@code List<Offer>}.
+     */
+    public static List<Offer> parseTags(Collection<String> offers) throws ParseException {
+        requireNonNull(offers);
+        final List<Offer> offerSet = new ArrayList<>();
+        for (String offer : offers) {
+            offerSet.add(parseOffer(offer));
         }
         return offerSet;
+    }
+
+    /**
+     * Returns a {@code String} array as if {@code String.split()} is called only on its last whitespace.
+     * Assumes: the {@code String} is already stripped of trailing and leading whitespaces.
+     *
+     * @param string the {@code String} to be split
+     * @return the {@code String} array containing the split result
+     */
+    private static String[] splitOnLastWhitespace(String string) {
+        String words[] = string.split(" ");
+        String result[] = new String[2];
+
+        result[0] = String.join(" ", Arrays.copyOfRange(words, 0, words.length - 1));
+        result[1] = words[words.length - 1];
+
+        return result;
     }
 }
