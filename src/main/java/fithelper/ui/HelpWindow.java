@@ -1,17 +1,14 @@
 package fithelper.ui;
 
-import java.util.logging.Logger;
-
 import fithelper.commons.core.LogsCenter;
-
-import fithelper.ui.calendar.CalendarPanel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+
+import java.util.logging.Logger;
 
 /**
  * Controller for a help page

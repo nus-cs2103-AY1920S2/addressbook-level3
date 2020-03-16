@@ -145,6 +145,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case HELP:
             showHelpPage();
+            break;
         default:
             break;
         }
