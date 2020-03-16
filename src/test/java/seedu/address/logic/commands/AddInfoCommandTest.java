@@ -36,7 +36,7 @@ class AddInfoCommandTest {
         Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
 
         int size = editedPerson.getRemark().size();
-        AddInfoCommand addInfoCommand = new AddInfoCommand(INDEX_FIRST_PERSON, editedPerson.getRemark().get(size-1));
+        AddInfoCommand addInfoCommand = new AddInfoCommand(INDEX_FIRST_PERSON, editedPerson.getRemark().get(size - 1));
 
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 
@@ -54,7 +54,7 @@ class AddInfoCommandTest {
         Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
                 .withRemark(REMARK_STUB).build();
         int size = editedPerson.getRemark().size();
-        AddInfoCommand addInfoCommand = new AddInfoCommand(INDEX_FIRST_PERSON, editedPerson.getRemark().get(size-1));
+        AddInfoCommand addInfoCommand = new AddInfoCommand(INDEX_FIRST_PERSON, editedPerson.getRemark().get(size - 1));
 
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 

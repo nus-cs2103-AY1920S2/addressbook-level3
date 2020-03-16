@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.logic.commands.EditInfoCommand;
 import seedu.address.model.person.Remark;
 
@@ -24,7 +23,8 @@ public class EditInfoCommandParserTest {
     public void parse_indexSpecified_success() {
         // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_LINE_NUMBER + lineNum + " " + PREFIX_REMARK + nonEmptyRemark;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_LINE_NUMBER
+                + lineNum + " " + PREFIX_REMARK + nonEmptyRemark;
         EditInfoCommand expectedCommand = new EditInfoCommand(INDEX_FIRST_PERSON, 1, new Remark(nonEmptyRemark));
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -42,6 +42,7 @@ public class EditInfoCommandParserTest {
         assertParseFailure(parser, EditInfoCommand.COMMAND_WORD, expectedMessage);
 
         // no index
-        assertParseFailure(parser, EditInfoCommand.COMMAND_WORD + " " + PREFIX_LINE_NUMBER + lineNum + " " + nonEmptyRemark, expectedMessage);
+        assertParseFailure(parser, EditInfoCommand.COMMAND_WORD + " "
+                + PREFIX_LINE_NUMBER + lineNum + " " + nonEmptyRemark, expectedMessage);
     }
 }

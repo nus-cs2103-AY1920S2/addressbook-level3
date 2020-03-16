@@ -36,7 +36,8 @@ class EditInfoCommandTest {
         Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
         int size = editedPerson.getRemark().size();
 
-        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON, size-1, editedPerson.getRemark().get(size-1));
+        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON,
+                size - 1, editedPerson.getRemark().get(size - 1));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
@@ -55,7 +56,8 @@ class EditInfoCommandTest {
                 .withRemark(REMARK_STUB).build();
         editedPerson.getRemark().set(0, new Remark("New remark"));
         int size = editedPerson.getRemark().size();
-        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON, size-1, editedPerson.getRemark().get(size-1));
+        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON,
+                size - 1, editedPerson.getRemark().get(size - 1));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
@@ -114,7 +116,7 @@ class EditInfoCommandTest {
                 new Remark(VALID_REMARK_AMY))));
 
         // different remark -> returns false
-        assertFalse(standardCommand.equals(new EditInfoCommand(INDEX_FIRST_PERSON,  1,
+        assertFalse(standardCommand.equals(new EditInfoCommand(INDEX_FIRST_PERSON, 1,
                 new Remark(VALID_REMARK_BOB))));
     }
 }
