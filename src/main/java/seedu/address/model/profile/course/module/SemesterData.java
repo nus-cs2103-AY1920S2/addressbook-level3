@@ -2,6 +2,7 @@ package seedu.address.model.profile.course.module;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a Module's semester data in the address book.
@@ -21,6 +22,10 @@ public class SemesterData {
         // checkArgument() // to be implemented
         this.semesters = new ArrayList<>();
         semesters.forEach(sem -> this.semesters.add(Integer.parseInt(sem)));
+    }
+
+    public List<String> getSemesters() {
+        return this.semesters.stream().map(x->x.toString()).collect(Collectors.toList());
     }
 
     @Override
