@@ -37,11 +37,11 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 
 * *Minor enhancement*: [In Process]
-** Drew Expense Spliter portion of UML Class diagram.
-
+** *Drew Expense Spliter portion of UML Class diagram*
++
 image::expense_splitter_uml_class_diagram.png[]
 (Excluding the Height Class)
-
++
 ** *Added tests for ItemTest, ItemName, ItemPrice*
 
 ** *Assisted in downscaling of AddressBook3 by removing Email object*
