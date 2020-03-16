@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.notably.model.block.exceptions.DuplicateBlockException;
+import com.notably.model.block.exceptions.NoSuchBlockException;
+
 /**
  * Represents a Block in the Notably data structure.
  */
@@ -78,7 +81,7 @@ public class BlockImpl implements Block {
     }
 
     @Override
-    public void setChild(Title title, Block newBlock) {
+    public void setChild(Title title, Block newBlock) throws NoSuchBlockException {
         Objects.requireNonNull(title);
         Objects.requireNonNull(newBlock);
         Optional<Block> child = this.children.stream()
@@ -87,12 +90,20 @@ public class BlockImpl implements Block {
         if (child.isPresent()) {
             int childIndex = this.children.indexOf(child.get());
             this.children.set(childIndex, newBlock);
+        } else {
+            throw new NoSuchBlockException(title.getText());
         }
     }
 
     @Override
-    public void addChild(Block block) {
-        this.children.add(block);
+    public void addChild(Block block) throws DuplicateBlockException {
+        boolean hasMatchingChild = this.children.stream()
+            .anyMatch(child -> this.title.equals(child.getTitle()));
+        if (hasMatchingChild) {
+            throw new DuplicateBlockException();
+        } else {
+            this.children.add(block);
+        }
     }
 
     @Override
