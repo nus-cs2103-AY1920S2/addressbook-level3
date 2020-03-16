@@ -40,7 +40,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
