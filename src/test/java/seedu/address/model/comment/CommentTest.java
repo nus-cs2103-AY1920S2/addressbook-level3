@@ -39,6 +39,6 @@ class CommentTest {
         String testComment = "test";
         Comment expectedComment = new Comment(testComment);
 
-        assertEquals(new Comment("test").hashCode(),expectedComment.hashCode());
+        assertEquals(new Comment("test").hashCode(), expectedComment.hashCode());
     }
 }
