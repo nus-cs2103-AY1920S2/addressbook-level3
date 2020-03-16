@@ -1,23 +1,15 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
-import static seedu.address.model.profile.Profile.getModules;
+import seedu.address.logic.commands.ShowCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.profile.course.module.Module;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.ShowCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.personal.Personal;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.model.profile.Profile.getModules;
 
 /**
  * Parses input arguments and creates a new ShowCommand object

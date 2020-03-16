@@ -2,11 +2,9 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -24,7 +22,7 @@ public class ShowCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_SEMESTER + "4";
 
-    public static final String MESSAGE_SUCCESS = "All modules taken in this semester are shown.";
+    public static final String MESSAGE_SUCCESS = "All modules taken in this semester are shown: \n %1$s";
 
     private final ArrayList<Module> toShow;
 
