@@ -15,5 +15,5 @@ interface SuggestionItem {
      * The action will be different depending on the type of SuggestionCommand.
      * @return The action taken after the suggestion item is chosen.
      */
-    Runnable run();
+    Runnable getAction();
 }
