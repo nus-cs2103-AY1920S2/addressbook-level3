@@ -1,9 +1,9 @@
 package seedu.eylah.expensesplitter.model;
 
+import java.util.logging.Logger;
+
 import seedu.eylah.addressbook.model.person.Person;
 import seedu.eylah.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 //import static java.util.Objects.requireNonNull;
 //import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
