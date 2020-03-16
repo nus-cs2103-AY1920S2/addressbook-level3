@@ -6,11 +6,10 @@ import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import seedu.eylah.expensesplitter.model.person.exceptions.DuplicatePersonException;
-import seedu.eylah.expensesplitter.model.person.exceptions.PersonNotFoundException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.eylah.expensesplitter.model.person.exceptions.DuplicatePersonException;
+import seedu.eylah.expensesplitter.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
