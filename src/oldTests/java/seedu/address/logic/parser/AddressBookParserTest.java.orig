@@ -30,8 +30,8 @@ import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.EditRecipeDescriptorBuilder;
+import seedu.address.testutil.RecipeBuilder;
 import seedu.address.testutil.RecipeUtil;
 
 public class AddressBookParserTest {

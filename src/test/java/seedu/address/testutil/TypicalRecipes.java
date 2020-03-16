@@ -19,7 +19,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * A utility class containing a list of {@code Recipe} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalRecipes {
 
     public static final Recipe ALICE = new PersonBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
@@ -54,7 +54,7 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {
+    private TypicalRecipes() {
     } // prevents instantiation
 
     /**

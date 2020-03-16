@@ -6,33 +6,31 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ModifyCommand;
 import seedu.address.logic.commands.ModifyCommand.EditRecipeDescriptor;
-import seedu.address.model.recipe.Email;
 import seedu.address.model.recipe.IngredientList;
 import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Phone;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditRecipeDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditRecipeDescriptorBuilder {
 
     private ModifyCommand.EditRecipeDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
+    public EditRecipeDescriptorBuilder() {
         descriptor = new ModifyCommand.EditRecipeDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(ModifyCommand.EditRecipeDescriptor descriptor) {
+    public EditRecipeDescriptorBuilder(ModifyCommand.EditRecipeDescriptor descriptor) {
         this.descriptor = new EditRecipeDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditRecipeDescriptor} with fields containing {@code recipe}'s details
      */
-    public EditPersonDescriptorBuilder(Recipe recipe) {
+    public EditRecipeDescriptorBuilder(Recipe recipe) {
         descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
         descriptor.setIngredients(recipe.getIngredients());
@@ -43,7 +41,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
+    public EditRecipeDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
@@ -51,7 +49,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code IngredientList} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withIngredients(String ingredients) {
+    public EditRecipeDescriptorBuilder withIngredients(String ingredients) {
         descriptor.setIngredients(new IngredientList(ingredients));
         return this;
     }
@@ -59,7 +57,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code InstructionList} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withInstructions(String instructions) {
+    public EditRecipeDescriptorBuilder withInstructions(String instructions) {
         descriptor.setInstructions(new InstructionList(instructions));
         return this;
     }
@@ -68,7 +66,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditRecipeDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditRecipeDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;
