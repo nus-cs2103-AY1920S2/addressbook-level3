@@ -2,16 +2,14 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.good.Good;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
-import seedu.address.model.person.Phone;
 
 /**
- * Jackson-friendly version of {@link seedu.address.model.offer.Offer}.
+ * Jackson-friendly version of {@link Offer}.
  */
 class JsonAdaptedOffer {
 
@@ -37,15 +35,10 @@ class JsonAdaptedOffer {
         price = source.getPrice().getValue();
     }
 
-    @JsonValue
-    public String getGood() {
-        return good;
-    }
-
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Offer} object.
+     * Converts this Jackson-friendly adapted offer object into the model's {@code Offer} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted offer.
      */
     public Offer toModelType() throws IllegalValueException {
         if (good == null) {
