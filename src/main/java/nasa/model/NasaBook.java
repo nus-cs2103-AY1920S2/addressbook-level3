@@ -110,7 +110,6 @@ public class NasaBook implements ReadOnlyNasaBook {
 
         Module toEditModule = moduleList.getModule(moduleCode);
         toEditModule.add(activity);
-        moduleList.setModule(moduleCode, toEditModule);
     }
 
     /**

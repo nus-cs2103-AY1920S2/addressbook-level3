@@ -1,9 +1,13 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import nasa.model.Model;
 
+/**
+ * Lists the modules and their activity lists.
+ */
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
@@ -13,7 +17,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        // TODO add the necessary implementation once model is done
-        return new CommandResult("");
+        model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

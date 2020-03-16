@@ -5,7 +5,11 @@ import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new FindCommand object.
+ */
 public class FindCommandParser implements Parser<FindCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.

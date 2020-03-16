@@ -8,9 +8,16 @@ import nasa.commons.core.index.Index;
 import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates an EditModuleCommand object.
+ */
 public class EditModuleCommandParser {
 
-    //TODO modify implementation
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditModuleCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public EditModuleCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
