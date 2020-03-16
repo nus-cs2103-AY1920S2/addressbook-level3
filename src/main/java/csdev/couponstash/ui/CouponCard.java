@@ -39,6 +39,8 @@ public class CouponCard extends UiPart<Region> {
     @FXML
     private Label expiryDate;
     @FXML
+    private Label startDate;
+    @FXML
     private Label usage;
     @FXML
     private Label limit;
@@ -63,7 +65,8 @@ public class CouponCard extends UiPart<Region> {
         name.setText(coupon.getName().fullName);
         phone.setText(coupon.getPhone().value);
         savings.setText(coupon.getSavings().getStringWithMoneySymbol(moneySymbol));
-        expiryDate.setText(coupon.getExpiryDate().value);
+        expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
+        startDate.setText("Start Date: " + coupon.getStartDate().value);
         usage.setText(coupon.getUsage().toUiLabelText());
         limit.setText(coupon.getLimit().toUiLabelText());
         coupon.getTags().stream()

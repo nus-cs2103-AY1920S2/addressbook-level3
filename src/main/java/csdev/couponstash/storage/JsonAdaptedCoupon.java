@@ -15,6 +15,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -30,6 +31,7 @@ class JsonAdaptedCoupon {
     private final String phone;
     private final JsonAdaptedSavings savings;
     private final String expiryDate;
+    private final String startDate;
     private final String usage;
     private final String limit;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -42,6 +44,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("phone") String phone,
                              @JsonProperty("savings") JsonAdaptedSavings savings,
                              @JsonProperty("expiry date") String expiryDate,
+                             @JsonProperty("start date") String startDate,
                              @JsonProperty("usage") String usage,
                              @JsonProperty("limit") String limit,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged
@@ -50,6 +53,7 @@ class JsonAdaptedCoupon {
         this.phone = phone;
         this.savings = savings;
         this.expiryDate = expiryDate;
+        this.startDate = startDate;
         this.usage = usage;
         this.limit = limit;
         if (tagged != null) {
@@ -65,6 +69,7 @@ class JsonAdaptedCoupon {
         phone = source.getPhone().value;
         savings = new JsonAdaptedSavings(source.getSavings());
         expiryDate = source.getExpiryDate().value;
+        startDate = source.getStartDate().value;
         usage = source.getUsage().value;
         limit = source.getLimit().value;
         tagged.addAll(source.getTags().stream()
@@ -114,6 +119,15 @@ class JsonAdaptedCoupon {
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
+        if (startDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    StartDate.class.getSimpleName()));
+        }
+        if (!StartDate.isValidStartDate(startDate)) {
+            throw new IllegalValueException(StartDate.MESSAGE_CONSTRAINTS);
+        }
+        final StartDate modelStartDate = new StartDate(startDate);
+
         if (usage == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Usage.class.getSimpleName()));
         }
@@ -132,7 +146,8 @@ class JsonAdaptedCoupon {
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
-        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelUsage, modelLimit, modelTags);
+        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelStartDate, modelUsage, modelLimit,
+                modelTags);
 
     }
 
