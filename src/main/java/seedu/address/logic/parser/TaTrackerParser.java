@@ -24,8 +24,6 @@ public class TaTrackerParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final String UNIMPLEMENTED_CODE_FORMAT = "%s not yet implemented!";
-
     /**
      * Parses user input into command for execution.
      *
@@ -44,20 +42,16 @@ public class TaTrackerParser {
         switch (commandWord) {
 
         case CommandWords.STUDENT:
-            // return new StudentCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Student commands"));
+            return new StudentCommandParser().parseCommand(arguments);
 
         case CommandWords.MODULE:
-            // return new ModuleCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Module commands"));
+            return new ModuleCommandParser().parseCommand(arguments);
 
         case CommandWords.GROUP:
-            // return new GroupCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Group commands"));
+            return new GroupCommandParser().parseCommand(arguments);
 
         case CommandWords.SESSION:
-            // return new SessionCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Session commands"));
+            return new SessionCommandParser().parseCommand(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
