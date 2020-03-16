@@ -18,8 +18,8 @@ public class Weight {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
 
-    public final String weight;
-    public final Float wt;
+    private final String weight;
+    private final Float wt;
 
     /**
      * Constructs a {@code Weight}.
@@ -40,6 +40,9 @@ public class Weight {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public float getWt() {
+        return this.wt;
+    }
 
     @Override
     public String toString() {

@@ -18,8 +18,8 @@ public class Height {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
 
-    public final String height;
-    public final Float ht;
+    private final String height;
+    private final Float ht;
 
     /**
      * Constructs a {@code Height}.
@@ -40,6 +40,9 @@ public class Height {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public float getHt() {
+        return this.ht;
+    }
 
     @Override
     public String toString() {

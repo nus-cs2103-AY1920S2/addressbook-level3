@@ -33,8 +33,8 @@ public class Bmi {
         checkArgument(isValidHeight(height.toString()), MESSAGE_CONSTRAINTS);
         checkArgument(isValidWeight(weight.toString()), MESSAGE_CONSTRAINTS);
 
-        this.height = height.ht;
-        this.weight = weight.wt;
+        this.height = height.getHt();
+        this.weight = weight.getWt();
         this.bmiFloat = calcBmi();
         this.bmi = this.bmiFloat.toString();
     }
@@ -58,10 +58,14 @@ public class Bmi {
      * Weight (in kilograms) divided by Height^2 (in metres^2).
      * @return Float of the BMI value.
      */
-    public Float calcBmi() {
+    private Float calcBmi() {
         // Weight/Height^2
         float result = (float) (this.weight / Math.pow(this.height / 100, 2));
         return result;
+    }
+
+    public float getBmi() {
+        return this.bmiFloat;
     }
 
     @Override
