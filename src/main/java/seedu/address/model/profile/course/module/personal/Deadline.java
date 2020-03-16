@@ -29,6 +29,18 @@ public class Deadline {
         }
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
     public DateTimeFormatter getInputTimeFormatter() {
         return inputTimeFormatter;
     }

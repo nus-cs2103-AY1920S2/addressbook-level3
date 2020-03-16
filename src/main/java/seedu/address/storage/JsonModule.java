@@ -28,7 +28,7 @@ class JsonModule {
     private final String moduleCredit;
     private final String prerequisite;
     //private final String preclusion;
-    private final List<String> semesterData;
+    private final List<JsonSemesterData> semesterData;
 
     @JsonCreator
     public JsonModule(@JsonProperty("moduleCode") String moduleCode,
@@ -44,9 +44,7 @@ class JsonModule {
         this.moduleCredit = moduleCredit;
         this.prerequisite = prerequisite;
         //this.preclusion = preclusion;
-        List<String> semesters = new ArrayList<>();
-        semesterData.forEach(semData -> semesters.add(semData.getSemester()));
-        this.semesterData = semesters;
+        this.semesterData = semesterData;
     }
 
     /**
@@ -89,7 +87,9 @@ class JsonModule {
         final ModularCredits modelModuleCredit = new ModularCredits(moduleCredit);
         final PrereqList modelPrerequisite = new PrereqList(prerequisite);
         //final Preclusion modelPreclusion = new Preclusion(preclusion);
-        final SemesterData modelSemesterData = new SemesterData(semesterData);
+        List<String> semesters = new ArrayList<>();
+        semesterData.forEach(semData -> semesters.add(semData.getSemester()));
+        final SemesterData modelSemesterData = new SemesterData(semesters);
 
         return new Module(modelModuleCode, modelTitle, modelPrerequisite,
                 modelModuleCredit, modelDescription, modelSemesterData);
@@ -101,7 +101,12 @@ class JsonModule {
  * Jackson-friendly version of {@link SemesterData}.
  */
 class JsonSemesterData {
-    private @JsonProperty("semester") String semester;
+    private String semester;
+
+    @JsonCreator
+    public JsonSemesterData(@JsonProperty("semester") String semester) {
+        this.semester = semester;
+    }
 
     public String getSemester() {
         return semester;

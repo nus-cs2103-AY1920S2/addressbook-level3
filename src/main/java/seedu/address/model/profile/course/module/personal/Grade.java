@@ -1,16 +1,24 @@
 package seedu.address.model.profile.course.module.personal;
 
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Stores the grade of a profile's Module object.
  */
 public class Grade {
 
+    public static final String MESSAGE_CONSTRAINTS = "Module's grade field should contain only one of these values: "
+            + Stream.of(ModuleGrade.values()).map(ModuleGrade::toString).collect(Collectors.toList()).toString();
+
     private ModuleGrade myGrade;
 
     public String getGrade() {
-        return this.myGrade.toString();
+        if (myGrade != null) {
+            return myGrade.toString();
+        }
+        return null;
     }
 
     public void setGrade(String grade) {
@@ -21,5 +29,9 @@ public class Grade {
             }
         }
         throw new NoSuchElementException("Grade " + grade + " does not exist");
+    }
+
+    public static boolean isValidGrade(String grade) {
+        return Stream.of(ModuleGrade.values()).map(ModuleGrade::toString).anyMatch(x -> x.equals(grade));
     }
 }
