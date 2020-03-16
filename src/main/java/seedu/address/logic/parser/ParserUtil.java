@@ -11,11 +11,10 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
+import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -38,21 +37,6 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
-    }
-
-    /**
-     * Parses a {@code String tid} into a {@code TransactionID}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tid} is invalid.
-     */
-    public static TransactionId parseTid(String tid) throws ParseException {
-        requireNonNull(tid);
-        String trimmedTid = tid.trim();
-        if (!TransactionId.isValidTId(trimmedTid)) {
-            throw new ParseException(TransactionId.MESSAGE_CONSTRAINTS);
-        }
-        return new TransactionId(trimmedTid);
     }
 
     /**
@@ -131,18 +115,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String cod} into a {@code CashOnDelivery}.
+     * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code cod} is invalid.
+     * @throws ParseException if the given {@code email} is invalid.
      */
-    public static CashOnDelivery parseCash(String cod) throws ParseException {
-        requireNonNull(cod);
-        String trimmedCash = cod.trim();
-        if (!CashOnDelivery.isValidCashValue(trimmedCash)) {
-            throw new ParseException(CashOnDelivery.MESSAGE_CONSTRAINTS);
+    public static Email parseEmail(String email) throws ParseException {
+        requireNonNull(email);
+        String trimmedEmail = email.trim();
+        if (!Email.isValidEmail(trimmedEmail)) {
+            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
-        return new CashOnDelivery(trimmedCash);
+        return new Email(trimmedEmail);
     }
 
     /**
