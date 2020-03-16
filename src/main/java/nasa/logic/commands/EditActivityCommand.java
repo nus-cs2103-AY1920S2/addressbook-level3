@@ -12,6 +12,9 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Edits a specific activity in the module's list.
+ */
 public class EditActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -39,6 +42,12 @@ public class EditActivityCommand extends Command {
     private final Index index;
     private final ModuleCode moduleCode;
 
+    /**
+     * Creates an EditActivityCommand to edit an activity
+     * with specified {@code index} from {@code moduleCode} list.
+     * @param index
+     * @param moduleCode
+     */
     public EditActivityCommand(Index index, ModuleCode moduleCode) {
         requireNonNull(index);
         this.index = index;

@@ -9,9 +9,16 @@ import nasa.logic.commands.EditActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parses input arguments and creates an EditActivityCommand object.
+ */
 public class EditActivityCommandParser {
 
-    //TODO add implementation
+    /**
+     * Parses the given {@code String} of arguments in the context of the EditActivityCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public EditActivityCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =

@@ -18,13 +18,23 @@ import nasa.model.activity.Date;
 import nasa.model.activity.Event;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
+import nasa.model.activity.Priority;
+import nasa.model.activity.Status;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Parses input arguments and creates an AddEventCommand object.
+ */
 public class AddEventCommandParser extends AddCommandParser {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddEventCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
                         PREFIX_END_DATE, PREFIX_PRIORITY, PREFIX_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME,
@@ -33,15 +43,27 @@ public class AddEventCommandParser extends AddCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-        Note note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
         Date startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_START_DATE).get());
         Date endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get());
 
-        Event event = new Event(activityName, note, startDate, endDate);
+        // optional fields - must see if it exist, else create null
+        Note note;
+        if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
+            note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+        } else {
+            note  = null;
+        }
 
+        Priority priority;
+        if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
+            priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
+        } else {
+            priority = null;
+        }
+
+        Event event = new Event(activityName, note, priority, startDate, endDate);
         return new AddEventCommand(event, moduleCode);
     }
 }

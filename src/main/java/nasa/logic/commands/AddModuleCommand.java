@@ -1,6 +1,7 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.logic.commands.addcommands.AddCommand.MESSAGE_DUPLICATED_ACTIVITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 
@@ -8,6 +9,9 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.Module;
 
+/**
+ * Adds a module to the NASA book.
+ */
 public class AddModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
@@ -21,10 +25,14 @@ public class AddModuleCommand extends Command {
             + PREFIX_MODULE_NAME + "Competitive Programming";
 
     public static final String MESSAGE_SUCCESS = "New module added!";
-    public static final String MESSAGE_DUPLICATED_ACTIVITY = "This module already exist!";
+    public static final String MESSAGE_DUPLICATED_MODULE = "This module already exist!";
 
     private Module toAdd;
 
+    /**
+     * Creates an AddModuleCommand to add the specified {@code module}
+     * @param module Module to be added
+     */
     public AddModuleCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
@@ -33,8 +41,6 @@ public class AddModuleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO add the necessary implementation once model is done
-
         if (model.hasModule(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);
         }

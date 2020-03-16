@@ -9,6 +9,9 @@ import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import nasa.model.activity.Deadline;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Adds a deadline task to a module's list.
+ */
 public class AddDeadlineCommand extends AddCommand {
 
     public static final String COMMAND_WORD = "deadline";
@@ -27,6 +30,11 @@ public class AddDeadlineCommand extends AddCommand {
             + PREFIX_PRIORITY + "1"
             + PREFIX_NOTE + "Focus on computational geometry and DP.";
 
+    /**
+     * Creates an AddCommand that adds {@code deadline} to list of {@code moduleCode}.
+     * @param deadline Deadline task to be added
+     * @param moduleCode Module where deadline is to be added.
+     */
     public AddDeadlineCommand(Deadline deadline, ModuleCode moduleCode) {
        super(deadline, moduleCode);
     }
