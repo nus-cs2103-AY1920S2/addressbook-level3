@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
-    private ToggleView toggleView = ToggleView.INT;
+    private ToggleView toggleView = ToggleView.INTERVIEWEE;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -157,15 +157,15 @@ public class MainWindow extends UiPart<Stage> {
 
         listPanelStackPane.getChildren().removeAll();
         switch (toggleView) {
-        case ATT: // attribute
+        case ATTRIBUTE: // attribute
             listPanelStackPane.getChildren().add(attributeListPanel.getRoot());
             break;
 
-        case QNS: // questions
+        case QUESTION: // questions
             listPanelStackPane.getChildren().add(questionListPanel.getRoot());
             break;
 
-        case TRP: // transcript
+        case TRANSCRIPT: // transcript
             transcriptListPanel = new TranscriptListPanel(logic.getTranscriptList(new Interviewee("Test name",
                     10086)));
             detailedIntervieweeCard = new DetailedIntervieweeCard(new Interviewee("Test name",
@@ -174,7 +174,7 @@ public class MainWindow extends UiPart<Stage> {
             StackPane.setAlignment(detailedIntervieweeCard.getRoot(), Pos.TOP_CENTER);
             break;
 
-        case INT: // interviewee
+        case INTERVIEWEE: // interviewee
             listPanelStackPane.getChildren().add(intervieweeListPanel.getRoot());
             break;
 

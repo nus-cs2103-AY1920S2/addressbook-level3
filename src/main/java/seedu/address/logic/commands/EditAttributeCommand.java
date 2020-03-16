@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.Attribute;
  * client wants to update an attribute from the list.
  */
 
-public class EditAttributeCommand extends Command {
+public class EditAttributeCommand extends EditCommand {
     public static final String COMMAND_WORD = "attribute";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -41,7 +41,7 @@ public class EditAttributeCommand extends Command {
         Attribute updated = new Attribute(updatedAttribute);
         int index = attributes.indexOf(attribute);
         attributes.set(index, updated);
-        return new CommandResult(String.format(MESSAGE_EDIT_ATTRIBUTE_SUCCESS, attribute, updated), ToggleView.ATT);
+        return new CommandResult(String.format(MESSAGE_EDIT_ATTRIBUTE_SUCCESS, attribute, updated), ToggleView.ATTRIBUTE);
     }
 
     @Override

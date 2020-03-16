@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.Question;
  * client wants to delete a question from the list.
  */
 
-public class DeleteQuestionCommand extends Command {
+public class DeleteQuestionCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "question";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -44,7 +44,7 @@ public class DeleteQuestionCommand extends Command {
 
             Question question = questions.get(index - 1);
             questions.remove(question);
-            return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionIndex), ToggleView.QNS);
+            return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionIndex), ToggleView.QUESTION);
         } catch (NumberFormatException e) {
             throw new CommandException(String.format(MESSAGE_DELETE_INDEX_NOT_A_NUMBER, questionIndex));
         }

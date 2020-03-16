@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.Attribute;
  * client wants to delete an attribute from the list.
  */
 
-public class DeleteAttributeCommand extends Command {
+public class DeleteAttributeCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "attribute";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -37,7 +37,7 @@ public class DeleteAttributeCommand extends Command {
         ObservableList<Attribute> attributes = model.getAttributeList();
         Attribute attribute = find(attributes);
         attributes.remove(attribute);
-        return new CommandResult(String.format(MESSAGE_DELETE_ATTRIBUTE_SUCCESS, attribute), ToggleView.ATT);
+        return new CommandResult(String.format(MESSAGE_DELETE_ATTRIBUTE_SUCCESS, attribute), ToggleView.ATTRIBUTE);
     }
 
     @Override

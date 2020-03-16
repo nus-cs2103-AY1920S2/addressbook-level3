@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.exceptions.IllegalActionException;
  * client wants to add an interviewee to the list.
  */
 
-public class AddIntervieweeCommand extends Command {
+public class AddIntervieweeCommand extends AddCommand {
     public static final String PREFIX_ALIAS = "-a";
 
     public static final String COMMAND_WORD = "interviewee";
@@ -35,7 +35,7 @@ public class AddIntervieweeCommand extends Command {
      */
     public AddIntervieweeCommand(String fullname, String... optionalAlias) {
         this.fullname = fullname;
-        if (optionalAlias.length == 0) {
+        if (optionalAlias.length != 0) {
             this.alias = optionalAlias[0];
         } else {
             this.alias = "";
@@ -57,7 +57,7 @@ public class AddIntervieweeCommand extends Command {
             throw new CommandException(e.getMessage());
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fullname), ToggleView.INT);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fullname), ToggleView.INTERVIEWEE);
     }
 
     @Override

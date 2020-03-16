@@ -13,7 +13,7 @@ import seedu.address.model.hirelah.Question;
  * client wants to update a question from the list.
  */
 
-public class EditQuestionCommand extends Command {
+public class EditQuestionCommand extends EditCommand {
     public static final String COMMAND_WORD = "question";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -48,7 +48,7 @@ public class EditQuestionCommand extends Command {
             Question updated = new Question(updatedDescription);
             questions.set(index - 1, updated);
             return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, questionIndex, updated),
-                    ToggleView.QNS);
+                    ToggleView.QUESTION);
         } catch (NumberFormatException e) {
             throw new CommandException(String.format(MESSAGE_EDIT_INDEX_NOT_A_NUMBER, questionIndex));
         }

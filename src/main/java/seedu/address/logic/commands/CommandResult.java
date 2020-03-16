@@ -26,7 +26,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.toggleView = ToggleView.INT;
+        this.toggleView = ToggleView.INTERVIEWEE;
     }
 
     /**
@@ -44,7 +44,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, ToggleView.INT);
+        this(feedbackToUser, false, false, ToggleView.INTERVIEWEE);
     }
 
     /**

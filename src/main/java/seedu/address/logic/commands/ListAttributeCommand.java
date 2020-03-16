@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  * client wants to list the attributes.
  */
 
-public class ListAttributeCommand extends Command {
+public class ListAttributeCommand extends ListCommand {
     public static final String COMMAND_WORD = "attribute";
     public static final String MESSAGE_SUCCESS = "Here is the list of attributes:";
     public static final String MESSAGE_USAGE = "list " + COMMAND_WORD + ": List the attribute from the Attribute list. "
@@ -26,7 +26,7 @@ public class ListAttributeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS, ToggleView.ATT);
+        return new CommandResult(MESSAGE_SUCCESS, ToggleView.ATTRIBUTE);
     }
 
     @Override
