@@ -23,6 +23,7 @@ public class ModelManager implements Model {
     private final ExpenseLa expenseLa;
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
+    private final MonthlyData monthlyData;
 
     /**
      * Initializes a ModelManager with the given expenseLa and userPrefs.
@@ -36,6 +37,7 @@ public class ModelManager implements Model {
         this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTransactions = new FilteredList<>(this.expenseLa.getPersonList());
+        monthlyData = this.expenseLa.getMonthlyData();
     }
 
     public ModelManager() {
@@ -149,4 +151,12 @@ public class ModelManager implements Model {
                 && filteredTransactions.equals(other.filteredTransactions);
     }
 
+    //=========== Monthly Data Accessors =============================================================
+    /**
+     * Returns monthly data object
+     */
+    @Override
+    public MonthlyData getMonthlyData() {
+        return monthlyData;
+    }
 }

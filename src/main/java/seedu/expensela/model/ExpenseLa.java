@@ -46,8 +46,14 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      * Replaces the contents of the person list with {@code transactions}.
      * {@code transactions} must not contain duplicate transactions.
      */
-    public void setPersons(List<Transaction> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions.setTransaction(transactions);
+    }
+
+    public void setMonthlyData(MonthlyData monthlyData) {
+        this.monthlyData.setBudget(monthlyData.getBudget());
+        this.monthlyData.setExpense(monthlyData.getExpense());
+        this.monthlyData.setIncome(monthlyData.getIncome());
     }
 
     /**
@@ -56,7 +62,8 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     public void resetData(ReadOnlyExpenseLa newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setTransactions(newData.getPersonList());
+        setMonthlyData(newData.getMonthlyData());
     }
 
     //// person-level operations
@@ -107,6 +114,11 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     @Override
     public ObservableList<Transaction> getPersonList() {
         return transactions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public MonthlyData getMonthlyData() {
+        return this.monthlyData;
     }
 
     @Override

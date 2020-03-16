@@ -8,6 +8,7 @@ import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -28,10 +29,12 @@ public interface Logic {
      *
      * @see seedu.expensela.model.Model#getExpenseLa()
      */
-    ReadOnlyExpenseLa getAddressBook();
+    ReadOnlyExpenseLa getExpenseLa();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Transaction> getFilteredPersonList();
+
+    MonthlyData getMonthlyData();
 
     /**
      * Returns the user prefs' address book file path.

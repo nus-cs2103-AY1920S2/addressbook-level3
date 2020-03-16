@@ -21,6 +21,7 @@ import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.UserPrefs;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.util.SampleDataUtil;
 import seedu.expensela.storage.AddressBookStorage;
 import seedu.expensela.storage.JsonAddressBookStorage;
@@ -74,14 +75,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyExpenseLa> addressBookOptional;
+        Optional<ReadOnlyExpenseLa> expenseLaOptional;
         ReadOnlyExpenseLa initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            expenseLaOptional = storage.readAddressBook();
+            if (!expenseLaOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExpenseLa");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = expenseLaOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExpenseLa");
             initialData = new ExpenseLa();

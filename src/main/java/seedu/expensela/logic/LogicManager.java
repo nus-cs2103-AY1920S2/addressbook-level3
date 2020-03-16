@@ -14,6 +14,7 @@ import seedu.expensela.logic.parser.AddressBookParser;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.storage.Storage;
 
@@ -52,13 +53,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyExpenseLa getAddressBook() {
+    public ReadOnlyExpenseLa getExpenseLa() {
         return model.getExpenseLa();
     }
 
     @Override
     public ObservableList<Transaction> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public MonthlyData getMonthlyData() {
+        return model.getMonthlyData();
     }
 
     @Override
