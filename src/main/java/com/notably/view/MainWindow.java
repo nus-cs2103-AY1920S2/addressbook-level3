@@ -32,6 +32,8 @@ public class MainWindow extends ViewPart<Stage> {
 
     // Independent View parts residing in this View container
     private HelpWindow helpWindow;
+    private SideBarTreeViewImpl sidebarTreeView;
+    private BlockContentViewImpl blockcontentView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -40,7 +42,13 @@ public class MainWindow extends ViewPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private StackPane sideBarPlaceholder;
+
+    @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane textFieldPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -103,6 +111,12 @@ public class MainWindow extends ViewPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        sidebarTreeView = new SideBarTreeViewImpl();
+        sideBarPlaceholder.getChildren().add(sidebarTreeView.getRoot());
+
+        blockcontentView = new BlockContentViewImpl();
+        textFieldPlaceholder.getChildren().add(blockcontentView.getRoot());
     }
 
     /**
