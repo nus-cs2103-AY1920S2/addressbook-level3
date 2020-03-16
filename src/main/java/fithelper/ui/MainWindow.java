@@ -97,6 +97,8 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(todayPage.getRoot());
         calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         setAllPageAnchor(calendarPanel.getRoot());
+        helpWindow = new HelpWindow();
+        setAllPageAnchor(helpWindow.getRoot());
         logger.fine("All pages filled in MainWindow");
     }
 
@@ -148,12 +150,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void showHelpPage() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
+    @FXML
+    public void handleShowHelpPage() {
+        showHelpPage();
     }
 
     @FXML
@@ -180,7 +179,13 @@ public class MainWindow extends UiPart<Stage> {
     private void showDashBoard() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(dashBoard.getRoot());
-        currentPage.setText("DashBoard");
+        currentPage.setText("Today");
+    }
+
+    private void showHelpPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(helpWindow.getRoot());
+        currentPage.setText("Help");
     }
 
     /**
