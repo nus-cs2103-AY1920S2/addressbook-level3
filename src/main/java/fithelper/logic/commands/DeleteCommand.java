@@ -1,5 +1,6 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_INDEX;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
@@ -24,9 +25,9 @@ public class DeleteCommand extends Command {
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
             + "INDEX (must be a positive integer) "
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "food "
-            + "1";
+            + PREFIX_INDEX + "1";
 
     public static final String MESSAGE_DELETE_ENTRY_SUCCESS = "Deleted Entry: %1$s";
 
