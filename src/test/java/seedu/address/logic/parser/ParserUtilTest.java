@@ -17,26 +17,30 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
+    private static final String INVALID_TID = " ";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_COMMENT = " ";
+    private static final String INVALID_COD = "AAA";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_WAREHOUSE_ADDRESS = "";
+    private static final String INVALID_DELIVERY_TIMESTAMP = "2019-02-29 1350";
 
+    private static final String VALID_TID = "A94848484";
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_DELIVERY_TIMESTAMP = "2020-02-29 1350";
     private static final String VALID_WAREHOUSE_ADDRESS = "Goose Road, #01-93";
-    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_COD = "$4";
     private static final String VALID_COMMENT = "Leave at outside";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
@@ -133,6 +137,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseTimeStamp_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTimeStamp((String) null));
+    }
+
+    @Test
+    public void parseTimeStamp_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(INVALID_DELIVERY_TIMESTAMP));
+    }
+
+    @Test
+    public void parseTimeStamp_validValueWithoutWhitespace_returnsTimeStamp() throws Exception {
+        TimeStamp expectedTimeStamp = new TimeStamp(VALID_DELIVERY_TIMESTAMP);
+        assertEquals(expectedTimeStamp, ParserUtil.parseTimeStamp(VALID_DELIVERY_TIMESTAMP));
+    }
+
+    @Test
+    public void parseTimeStamp_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
+        String timeStampWithWhitespace = WHITESPACE + VALID_DELIVERY_TIMESTAMP + WHITESPACE;
+        TimeStamp expectedTimeStamp = new TimeStamp(VALID_DELIVERY_TIMESTAMP);
+        assertEquals(expectedTimeStamp, ParserUtil.parseTimeStamp(timeStampWithWhitespace));
+    }
+
+    @Test
     public void parseWarehouse_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseWarehouse(null));
     }
@@ -164,26 +191,23 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+    public void parseTid_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTid((String) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+    public void parseTid_invalidValue_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTid(INVALID_TID));
     }
 
     @Test
-    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+    public void parseCOD_null_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCash((String) null));
     }
 
     @Test
-    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
-        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    public void parseCOD_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCash(INVALID_COD));
     }
 
     @Test

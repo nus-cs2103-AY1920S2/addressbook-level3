@@ -5,10 +5,11 @@ import java.util.Set;
 
 import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
+import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
+import seedu.address.model.order.TransactionID;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
@@ -19,30 +20,33 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class OrderBuilder {
 
+    public static final String DEFAULT_TID = "A98765431";
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TIMESTAMP = "2020-02-20 1500";
     public static final String DEFAULT_WAREHOUSE = "5 Toh Guan Rd E, #02-30 S608831";
+    public static final String DEFAULT_COD = "$3";
     public static final String DEFAULT_COMMENT = "NIL";
 
+    private TransactionID tid;
     private Name name;
     private Phone phone;
-    private Email email;
     private Address address;
     private TimeStamp timeStamp;
     private Warehouse warehouse;
+    private CashOnDelivery cod;
     private Comment comment;
     private Set<Tag> tags;
 
     public OrderBuilder() {
+        tid = new TransactionID(DEFAULT_TID);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         timeStamp = new TimeStamp(DEFAULT_TIMESTAMP);
         warehouse = new Warehouse(DEFAULT_WAREHOUSE);
+        cod = new CashOnDelivery(DEFAULT_COD);
         comment = new Comment(DEFAULT_COMMENT);
         tags = new HashSet<>();
     }
@@ -51,14 +55,31 @@ public class OrderBuilder {
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
     public OrderBuilder(Order orderToCopy) {
+        tid = orderToCopy.getTid();
         name = orderToCopy.getName();
         phone = orderToCopy.getPhone();
-        email = orderToCopy.getEmail();
         address = orderToCopy.getAddress();
         timeStamp = orderToCopy.getTimestamp();
         warehouse = orderToCopy.getWarehouse();
+        cod = orderToCopy.getCash();
         comment = orderToCopy.getComment();
         tags = new HashSet<>(orderToCopy.getTags());
+    }
+
+    /**
+     * Sets the {@code TransactionID} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withCash(String cod) {
+        this.cod = new CashOnDelivery(cod);
+        return this;
+    }
+
+    /**
+     * Sets the {@code TransactionID} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withTID(String tid) {
+        this.tid = new TransactionID(tid);
+        return this;
     }
 
     /**
@@ -110,14 +131,6 @@ public class OrderBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Order} that we are building.
-     */
-    public OrderBuilder withEmail(String email) {
-        this.email = new Email(email);
-        return this;
-    }
-
-    /**
      * Sets the {@code Comment} of the {@code Order} that we are building.
      */
     public OrderBuilder withComment(String comment) {
@@ -126,7 +139,7 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(name, phone, email, address, timeStamp, warehouse, comment, tags);
+        return new Order(tid, name, phone, address, timeStamp, warehouse, cod, comment, tags);
     }
 
 }
