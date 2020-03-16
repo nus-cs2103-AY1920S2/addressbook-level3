@@ -18,6 +18,12 @@ public class Lesson extends Activity {
         this.endDate = endDate;
     }
 
+    public Lesson(Name name, Note note, Priority priority, Date startDate, Date endDate) {
+        super(name, note, priority);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     /**
      * Initialise Deadlines with a particular unique {@code name}.
      * Every field must be present and not null.
