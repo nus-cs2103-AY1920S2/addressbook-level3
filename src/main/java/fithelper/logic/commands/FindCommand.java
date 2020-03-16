@@ -1,5 +1,6 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.commands.CommandResult.DisplayedPage.HOME;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.Messages;
@@ -32,7 +33,7 @@ public class FindCommand extends Command {
         String feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW, model.getFilteredFoodEntryList().size())
                 + " "
                 + String.format(Messages.MESSAGE_SPORTS_LISTED_OVERVIEW, model.getFilteredSportsEntryList().size());
-        return new CommandResult(feedback);
+        return new CommandResult(feedback, HOME, false);
     }
 
     @Override

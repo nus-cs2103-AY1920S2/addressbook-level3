@@ -90,7 +90,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        dashBoard = new DashBoard(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList(), logic.getFilteredReminderEntryList());
+        dashBoard = new DashBoard(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList(),
+                logic.getFilteredReminderEntryList());
         setAllPageAnchor(dashBoard.getRoot());
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         setAllPageAnchor(todayPage.getRoot());
@@ -143,8 +144,9 @@ public class MainWindow extends UiPart<Stage> {
     private void showPage(CommandResult commandResult) {
         CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
         switch (toDisplay) {
-        case DASH:
+        case HOME:
             showDashBoard();
+            break;
         case TODAY:
             showTodayPage();
             break;

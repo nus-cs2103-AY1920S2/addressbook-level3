@@ -71,6 +71,12 @@ public class FitHelperParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case HomeCommand.COMMAND_WORD:
+            return new HomeCommand();
+
+        case ReminderCommand.COMMAND_WORD:
+            return new ReminderCommand();
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
