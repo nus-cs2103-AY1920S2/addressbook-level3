@@ -2,8 +2,9 @@ package seedu.eylah.expensesplitter.logic.parser;
 
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
+import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses input arguments and creates a new ListReceiptCommand object
