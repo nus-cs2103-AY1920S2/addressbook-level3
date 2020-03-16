@@ -108,14 +108,17 @@ public class ParserUtil {
         requireNonNull(offer);
         String trimmedOffer = offer.trim();
 
-        String goodPricePair[] = splitOnLastWhitespace(trimmedOffer);
-        if (goodPricePair.length != 2) {
+        if (!trimmedOffer.contains(" ")) {
             throw new ParseException(Offer.MESSAGE_CONSTRAINTS);
         }
 
-        String good = goodPricePair[0];
-        String price = goodPricePair[1];
-        return new Offer(parseGood(good), parsePrice(price));
+        String goodPricePair[] = splitOnLastWhitespace(trimmedOffer);
+
+        String goodString = goodPricePair[0];
+        String priceString = goodPricePair[1];
+        Good good = parseGood(goodString);
+        Price price = parsePrice(priceString);
+        return new Offer(good, price);
     }
 
     /**
@@ -163,7 +166,7 @@ public class ParserUtil {
 
     /**
      * Returns a {@code String} array as if {@code String.split()} is called only on its last whitespace.
-     * Assumes: the {@code String} is already stripped of trailing and leading whitespaces.
+     * Assumes: the {@code String} is already stripped of trailing and leading whitespaces, and contains at least one whitespace.
      *
      * @param string the {@code String} to be split
      * @return the {@code String} array containing the split result
