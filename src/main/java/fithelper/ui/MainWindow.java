@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private FoodListPanel foodListPanel;
     private SportsListPanel sportsListPanel;
 
+    private DashBoard dashBoard;
     private TodayPage todayPage;
     /*private ReportPage reportPage;
     private ProfilePage profilePage;*/
@@ -60,6 +61,8 @@ public class MainWindow extends UiPart<Stage> {
     private TextField userInput;
 
     //Sidebar
+    @FXML
+    private Button dashBoardButton;
     @FXML
     private Button todayButton;
     @FXML
@@ -87,6 +90,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
+        dashBoard = new DashBoard(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList(), logic.getFilteredReminderEntryList());
+        setAllPageAnchor(dashBoard.getRoot());
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         setAllPageAnchor(todayPage.getRoot());
         calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
@@ -138,6 +143,8 @@ public class MainWindow extends UiPart<Stage> {
     private void showPage(CommandResult commandResult) {
         CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
         switch (toDisplay) {
+        case DASH:
+            showDashBoard();
         case TODAY:
             showTodayPage();
             break;
@@ -147,6 +154,11 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+    }
+
+    @FXML
+    public void handleShowDashBoard() {
+        showDashBoard();
     }
 
     @FXML
@@ -163,6 +175,12 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(todayPage.getRoot());
         currentPage.setText("Today");
+    }
+
+    private void showDashBoard() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(dashBoard.getRoot());
+        currentPage.setText("DashBoard");
     }
 
     /**

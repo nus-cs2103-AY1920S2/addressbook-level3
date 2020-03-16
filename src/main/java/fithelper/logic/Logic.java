@@ -38,4 +38,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of sports entries*/
     ObservableList<Entry> getFilteredSportsEntryList();
 
+    /** Returns an unmodifiable view of the filtered list of sports entries*/
+    ObservableList<Entry> getFilteredReminderEntryList();
+
 }

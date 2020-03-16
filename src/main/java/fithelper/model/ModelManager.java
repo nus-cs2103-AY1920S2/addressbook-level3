@@ -22,6 +22,7 @@ public class ModelManager implements Model {
     private final FitHelper fitHelper;
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
+    private final FilteredList<Entry> filteredReminderEntries;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
         this.fitHelper = new FitHelper(fitHelper);
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
+        filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
     }
 
     public ModelManager() {
@@ -108,6 +110,15 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Entry> getFilteredSportsEntryList() {
         return filteredSportsEntries;
+    }
+
+    /**
+     * Returns an unmodifiable view of the reminder list of {@code Entry} backed by the internal list of
+     * {@code versionedFitHelper}
+     */
+    @Override
+    public ObservableList<Entry> getFilteredReminderEntryList() {
+        return filteredReminderEntries;
     }
 
     /**

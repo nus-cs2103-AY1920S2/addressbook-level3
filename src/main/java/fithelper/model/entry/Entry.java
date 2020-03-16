@@ -96,6 +96,14 @@ public class Entry {
         return this.type.getValue().equals("food");
     }
 
+    public boolean isDone() {
+        return this.getStatus().value.equalsIgnoreCase("Done");
+    }
+
+    public boolean isUndone() {
+        return !this.isDone();
+    }
+
     /**
      * Returns true if both Entry of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two entries.

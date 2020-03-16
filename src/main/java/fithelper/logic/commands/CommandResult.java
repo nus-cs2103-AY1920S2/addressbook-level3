@@ -98,6 +98,7 @@ public class CommandResult {
      * The page shown to the user.
      */
     public enum DisplayedPage {
+        DASH,
         TODAY,
         CALENDAR,
         REPORT,

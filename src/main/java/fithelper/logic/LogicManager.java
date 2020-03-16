@@ -67,6 +67,11 @@ public class LogicManager implements Logic {
         return model.getFilteredSportsEntryList();
     }
 
+    @Override
+    public ObservableList<Entry> getFilteredReminderEntryList() {
+        return model.getFilteredReminderEntryList();
+    }
+
    /* @Override
     public ObservableList<VEvent> getVFoodList() {
         return model.getVFoodList();
