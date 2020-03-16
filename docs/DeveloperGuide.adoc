@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a new order).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -127,7 +127,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Order` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -173,18 +173,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th order in the list. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `insert n/David ...` to add a new order delivery details. The `insert` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the order was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -206,7 +206,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `insert n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -222,7 +222,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the order being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -307,7 +307,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |courier |edit information in delivery orders |rectify any errors in delivery orders
 
-|`* * *` |courier |sort delivery orders |see the list of orders based on preference/need
+|`* * *` |courier |view delivery orders based on a given postal sector |easily find delivery orders in the same general location
 
 |`* * *` |courier |see the warehouse details of the orders |know where to get the packages from
 
@@ -350,6 +350,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |forgetful courier |have visual cues or notification if my order is an urgent delivery |prioritize on which order to deliver first
 
 |`* *` |curious and helpful courier |see how others are doing with their orders |help them if they have any difficulties delivering all of their parcels by the deadline
+
+|`*` |mindful courier |know about the weather of the day |plan ahead for any changes to my deliveries
+
+|`*` |courier |look at the current time |revise my delivery routes if necessary
 |=======================================================================
 
 [appendix]
@@ -358,12 +362,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `Delino` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01 - Add an order
+=== Use case: UC01 - Insert an order
 
 *MSS*
 
 1.  User key in the order details.
-2.  Delino add the order details.
+2.  Delino inserts the order details.
 3.  Delino displays order added.
 +
 Use case ends.
@@ -625,13 +629,13 @@ Use case ends.
 
 
 [discrete]
-=== Use case: UC12 - Sort orders
+=== Use case: UC12 - Obtain orders in a postal sector
 
 *MSS*
 
-1.  User requests to sort the orders
-2.  Delino sort the orders
-3.  Delino display the sorted list
+1.  User requests to obtain orders in a specified postal sector
+2.  Delino obtains all orders located in the postal sector
+3.  Delino display the list of orders
 +
 Use case ends.
 
@@ -714,52 +718,44 @@ Refers to the display field showing the results of an executed command
 
 |tid/
 |Transaction ID
-|Add, Return
+|Insert, Return
 
 |n/
-|Name
-|Add
+|Customer Name
+|Insert
 
 |a/
 |Address
-|Add
+|Insert
 
 |p/
 |Phone Number
-|Add
+|Insert
 
 |ts/
 |Delivery Date And Time
-|Add
+|Insert
 
 |w/
 |Warehouse Location
-|Add
+|Insert
 
-|pm/
-|Payment Method
-|Add
+|cod/
+|Cash On Delivery
+|Insert
 
 |c/
 |Comments by Customer
-|Add, Return
+|Insert, Return
 
 |type/
 |Type of Item
-|Add
+|Insert
 |===
 
 .Possible Command Flags
 |===
 |Command |Flag |Meaning
-
-|Sort
-|-a
-|Sort in *ascending* order
-
-|Sort
-|-d
-|Sort in *descending* order
 
 |Clear
 |-f
@@ -808,18 +804,20 @@ These instructions only provide a starting point for testers to work on; testers
 .. Copy the jar file to the folder you would like to use as a home address for Delino application
    Expected: Shows the GUI of the Delino App. The window size may not be optimum
 
-=== Adding an order
+=== Inserting an order
 
-. Add a minimum of 2 orders
+. Insert a minimum of 2 orders
 
-.. Add command format: `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+.. Insert command format: `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
-.. Test case: `add` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `pm/Cash` +
-   Expected: An order with the above details will be added to the list and displayed on the GUI
-.. Test case: `add` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `pm/Nets` `c/Leave it at the riser` `type/glass`
-   Expected: The order is added to the list, including the item type and the order comment
-.. Test case: Invalid Syntax
-   Expected: No order is added. Error details shown in the response message. A help message displayed for user to add accordingly. Status bar remain unchanged
+.. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `cod/$4` +
+   Expected: Inserts an order with the above details to the list and displayed on the GUI
+.. Test case: `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass` +
+   Expected: Inserts the order to the list, including the item type and the order comment
+.. Test case: Invalid Syntax +
+   Expected: No order is added. Error details shown in the response message. A help message displayed for user to insert accordingly. Status bar remain unchanged
+.. Test case: Insert order with existing Transaction ID in list +
+   Expected: An error will occur and a message will be displayed, stating that order with duplicate ID cannot be inserted into the list
 
 === Deleting an order
 
@@ -862,7 +860,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Import command format: `import` `NAME_OF_FILE.csv`
 
-.. Prerequisites : The import file must be a .csv file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
+.. Prerequisites :
+The import file must be a `.csv file` and the `csv file` should be inside `data` folder which is the same directory as the JAR file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
 .. Test case: `import` `customers_20_02_2020.csv` +
    Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders
 
@@ -885,7 +884,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Find command format: `find` `FLAG` `KEYWORD`
 
-.. Prerequisite: Call the list command before calling the sort command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a find command, the orders from the output list is based on the list of completed orders
+.. Prerequisite: Call the list command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a find command, the orders from the output list is based on the list of completed orders
 .. Test case: `list` `done` +
    `find` `-t` `A18512357Z` +
    Expected: Specifically find the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
@@ -935,23 +934,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: Invalid syntax
    Expected: An error will occur and the response box will show an error message
 
-=== Sort orders
+=== Obtain all nearby orders based on postal sector
 
-. Sort the orders based on the attributes input by the user. There are some things which we can sort by : Name of person, Transaction ID or Timestamp. The user will also input flags to indicate ascending order (-a) or descending order (-d)
+. Obtain all orders located in the same postal sector. +
+The postal sector to search for is given by the user. +
+A *postal sector* is the first *two* digits of a six digit Singapore postal code. +
+The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
 
-.. Sort command format: `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX`
+.. Nearby command format: `nearby` `POSTAL_SECTOR`
 
-.. Prerequisites: Should call a list command before calling sort. The sort command will sort based on the current list
-.. Test case: `sort` `-a` `n/` +
-   Expected: Sort all orders in ascending order based on the customer names
-.. Test case: `sort` `-d` `tid/` +
-   Expected: Sort all orders in descending order based on transaction ID
-.. Test case: `sort` `-a` `ts/` +
-   Expected: Sort all orders in ascending order based on timestamp
-.. Test case: `sort` `n/` +
-   Expected: By default, if there is no flag, it will sort all orders in ascending order based the on customer names
-.. Test case: `sort` +
-   Expected: Error will occur as it is an invalid syntax
+.. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
+.. Test case: `nearby` `79` +
+   Expected: Obtain all orders located in postal sector 79 (Seletar)
+.. Test case: `nearby` `07` +
+   Expected: Obtain all orders located in postal sector 07 (Anson, Tanjong Pagar)
+.. Test case: `nearby` `99` +
+   Expected: An error will occur as the given postal sector is invalid
+.. Test case: `nearby` `600` +
+   Expected: An error will occur as the given postal sector is invalid
+.. Test case: `nearby` +
+   Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
 
 === Undo previous action
 

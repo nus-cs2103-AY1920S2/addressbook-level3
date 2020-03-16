@@ -29,8 +29,8 @@ Have a delightful journey using Delino!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `Delino.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Delino.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -39,12 +39,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all delivery orders
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd delivery order shown in the current list
-* *`exit`* : exits the app
+* <<list, `list`>> : lists all orders to be delivered.
+* <<insert, `insert`>> `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser type/glass` : adds an order where the receiver name is `Amos Cheong` into Delino.
+* <<delete, `delete`>> `3` : deletes the 3rd delivery order shown in the current list
+* <<exit, `exit`>> : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for a more detailed explanation of each command.
 
 [[Features]]
 == Features
@@ -52,30 +52,37 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `insert n/CUSTOMER_NAME`, `CUSTOMER_NAME` is a parameter which can be used as `insert n/John Doe`.
+* Items in square brackets are optional e.g `n/CUSTOMER_NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/CUSTOMER_NAME` is also acceptable.
 ====
 
-=== Adding a person: `add`
+[[insert]]
+=== Inserting an order: `insert`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Description
+* Inserts a new order to the list of orders based on their order attributes.
+
+==== Format
+* `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 [TIP]
-A person can have any number of tags (including 0)
+====
+* List of order attribute prefixes can be found <<command_prefix, here>>.
+====
 
-Examples:
+==== Examples
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `dts/2020-02-20 1300` `w/Yishun` `cod/$4`
+* `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 
+[[clear]]
 === Clearing all entries : `clear`
 
 ==== Description
 * You can use this command to clear all existing orders. By default, the command will ask you for confirmation.
-If an additional flag is given -f, no user confirmation will be requested.
+* If an additional flag is given -f, no user confirmation will be requested.
 
 ==== Format:
 * `clear` `[FLAG]`
@@ -84,11 +91,10 @@ If an additional flag is given -f, no user confirmation will be requested.
 * `clear`
 * `clear` `-f`
 
-// tag::delete[]
 [[delete]]
 === Deleting an order : `delete`
 ==== Description
-You can use this command to delete a particular order from the current list of orders based on its index. +
+* You can use this command to delete a particular order from the current list of orders based on its index. +
 
 ==== Format:
 `delete` `INDEX`
@@ -106,36 +112,14 @@ You can use this command to delete a particular order from the current list of o
 Deletes the 2nd order.
 * `find` `-n` `Betsy` +
 `delete` `1` +
-Deletes the 1st order in the results of the `find` command (find all orders with name `Betsy`).
-
-// end::delete[]
-=== Editing an order : `edit`
-
-==== Description
-[none]
-* You can edit the details of the delivery order by providing the order transaction id, the field you want to change followed by the updated value.
-
-==== Format
-[none]
-* `edit *TRANSACTION_ID* *FIELD_TO_CHANGE* *VALUE*`
-
-****
-* Edits the order at the specified `TRANSACTION_ID`. The transaction id is alphanumeric and is used to identify each order.
-* Existing values in the `FIELD_TO_CHANGE` will be updated to the input `VALUE`.
-****
-
-==== Examples
-[none]
-* 1. `edit 0123456789 n/Xuan En`
-* 2. `edit 00k0i9ih34 p/9999 4444`
-* 3. `edit 000012348a a/Blk 123 Pasir Ris Street 51 #12-21 S510123`
+Deletes the 1st order in the results of the `find` command (find all orders with customer's name `Betsy`).
 
 [[done]]
 === Mark order as done: `done`
 ==== Description
-Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
-The order that is marked as done will be moved to another list that contains all the orders that are completed.
-The completed list can be seen by calling the list command:`list` `done`.
+* Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
+* The order that is marked as done will be moved to another list that contains all the orders that are completed.
+* The completed list can be seen by calling the list command: `list` `done`.
 
 ==== Format
 `done` `INDEX`
@@ -146,55 +130,145 @@ The order at the first index of the list is marked as done.
 * `done` `2` +
 The order at the second index of the list is marked as done.
 
+[[edit]]
+=== Editing an order : `edit`
+
+==== Description
+
+* You can edit the details of the delivery order by providing the index of it shown on the status bar, followed by the field you want to change and lastly the updated value.
+
+==== Format
+
+[TIP]
+====
+* Use the <<list, `list`>> command to see which delivery order you want to edit.
+* List of order attribute prefixes can be found <<command_prefix, here>>.
+====
+
+* `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[MORE_ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
+
+[WARNING]
+====
+* The `INDEX` *must be a positive integer*, e.g: 1, 2, 3, ...
+* The `INDEX` *must be in range* of the number of displayed orders
+* Only can be used when there is at least an order displayed.
+====
+
+
+****
+* Edits the order at the specified `INDEX`.
+* Existing value that corresponds to the `PREFIX` will be updated to the input `NEW_VALUE`.
+****
+
+==== Examples
+
+* `edit` `1` `n/Xuan En` +
+The index `1` customer's name is changed to `Xuan En`.
+* `edit` `2` `p/9999 4444` +
+The index `2` customer's phone number is changed to `9999 4444`.
+* `edit` `1` `a/Blk 123 Pasir Ris Street 51 #12-21 S510123` +
+The index `1` customer's address is changed to `Blk 123 Pasir Ris Street 51 #12-21 S510123`.
+* `edit` `3` `n/Mr Tan` `p/0123 4567` `a/Blk 141 Yishun st 71 #09-09 S760141` +
+The index `3` customer's name, phone and address are changed accordingly to the prefix.
+
+[[exit]]
 === Exiting the program : `exit`
 
 ==== Description
-* You can exit the application using exit command.
+* You can exit the application using the exit command.
 
 ==== Format:
 * `exit`
 
-=== Locating persons by name: `find`
+[[find]]
+=== Locating orders by name or transaction ID: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Description
+
+* You can find all orders that contain a given keyword. The orders will be searched by a given flag of two specific types (`-n` or `-t`).
+* If the flag is `-n`, the orders will be searched by *name*.
+* If the flag is `-t`, the orders will be searched by their *transaction ID*.
+* The list of orders returned will not be sorted by default.
+
+==== Format
+* `find` `FLAG` `KEYWORD` `[MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
+* The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The delivery orders can only be searched by either name of receiver or transaction ID of the order.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Orders matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
-Examples:
+==== Examples
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find` `-n` `Jeremy Loh` +
+Possibly return `jeremy` or `Jeremy Loh` or `loh` or any of the above as long as keyword appears in name.
+* `find` `-t` `asj2od3943` +
+Return delivery order with transaction ID of `asj2od3943`
+* `find` `-t` `920392844` +
+Return delivery order with transaction ID of `920392844`
 
+[[help]]
 === Viewing help : `help`
 
-Format: `help`
+==== Description
+* You can use the help command to display all commands that are available to be used
+so that you can navigate the application easily.
+
+==== Format:
+* `help`
+
+==== Examples:
+* `help` +
+Returns a list of all commands available.
 
 [[import]]
 === Importing a list of orders : `import`
 ==== Description
-You will be able to import orders via csv file that are given to you by your company.
-The CSV file will include all relevant and important details of the parcels; such as the customers’ names,
-transaction id of the parcels and the address of the customers, etc. +
+* You will be able to import orders via csv file that are given to you by your company.
+* The CSV file will include all relevant and important details of the parcels; such as the customers’ names,
+transaction id of the parcels and the address of the customers, etc.
 
 ==== Format
 * `import` `FILE_NAME`
 
-****
+[WARNING]
+====
 * Only csv file could be imported.
 * Only *one* csv file can be imported at one time.
-* The FILE_NAME should include the extension. For example: *orders.csv*.
+* The `FILE_NAME` should include the extension. For example: `*orders.csv*`.
 * The folder, *data*, which the csv files are stored should be at the same directory as the JAR file.
-* Import the specific csv with the FILE_NAME in *data* folder to the application.
-****
+* Import the specific csv with the `FILE_NAME` in *data* folder to the application.
+====
+
+* The data in the `csv file` should be written in the following format:
+
+[format=csv]
+.Order data format
+|===
+ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, dts/DELIVERY_DATE_&_TIME, w/WAREHOUSE_LOCATION, cod/CASH_ON_DELIVERY, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+|===
+* Examples:
+** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`, +
+`dts/2020-03-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
+
+[format=csv]
+.Return data format
+|===
+ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+|===
+
+* Examples:
+** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, +
+`rts/12-12-2020 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
+
+* Note:
+** Commas `,` are required in between of the different fields.
+** Prefixes are required before any value for that field.
+** `ORDER_TYPE` can only be either `order` or `return`.
+** Only `COMMENTS_BY_CUSTOMER` and `TYPE_OF_ITEM` are optional.
 
 ==== Examples
 
@@ -205,66 +279,113 @@ Import the contents of the csv file, `orders.csv`, to Delino.
 === Listing orders : `list`
 
 ==== Description
-* You can request to list the delivery order to see.
-The done status of the delivery order will be used to list the delivery orders which have the same status.
-There are three types of list commands that are shown in the examples below.
+* You can view the list of delivery orders using the `list` command.
+* The list command can be used with different `KEYWORD` to display all the orders with the specific status (done or undone).
+* There are three types of list commands that are shown in the examples below.
 
 ==== Format
-`list` `[DONE/UNDONE]` +
+`list` `[KEYWORD]`
 
-=== Examples
+[IMPORTANT]
+====
+* `KEYWORD` can only be either `done` or `undone`.
+====
+
+==== Examples
 * `list` +
-List down all the orders, regardless of whether its completed or uncompleted.
+List down all the orders, regardless of whether its completed or incomplete.
 * `list` `done` +
 List down all the orders that are completed.
 * `list` `undone` +
 List down all the orders that are uncompleted.
 
-[[sort]]
-=== Sorting orders: `sort`
+[[return]]
+=== Returning an order: `return`
 ==== Description
-You can sort the orders based on their attributes *(given in prefix form)*.
-An additional flag can be provided *(-a or -d)* can be used to sort the delivery
-orders in ascending/descending order. +
-If no additional flag is provided, the orders will be sorted in *ascending order*.
+* Adds a particular order as a return parcel into a new list.
 
 ==== Format
-`sort` `[ORDER FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
+`return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION`
+ `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+[TIP]
+====
+* List of order attribute prefixes can be found <<command_prefix, here>>.
+====
+
+==== Examples:
+* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1300` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass` +
+Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
+
+* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `rts/12-12-2020 1400` `w/Jurong Warehouse` `pm/visa` `c/Leave it at the lobby` `type/metal` +
+Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
+
+[[nearby]]
+=== View orders located at the same postal sector: `nearby`
+==== Description
+[NOTE]
+====
+A *postal sector* refers to the first *two* digits of a six digit Singapore postal code.
+====
+* You can view the orders at a specified Singapore *postal sector*.
+* The general location for the order will be identified if a valid postal sector is given.
+* The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
+
+.Postal Sectors in Singapore
+|===
+|Postal Sector |General Location
+
+|01, 02, 03, 04, 05, 06 |Raffles Place, Cecil, Marina, People's Park
+|07, 08 |Anson, Tanjong Pagar
+|14, 15, 16 |Queenstown, Tiong Bahru
+|09, 10 |Telok Blangah, Harbourfront
+|11, 12, 13 |Pasir Panjang, Hong Leong Garden, Clementi New Town
+|17 |High Street, Beach Road (part)
+|18, 19 |Middle Road, Golden Mile
+|20, 21 |Little India
+|22, 23 |Orchard, Cairnhill, River Valley
+|24, 25, 26, 27 |Ardmore, Bukit Timah, Holland Road, Tanglin
+|28, 29, 30 |Watten Estate, Novena, Thomson
+|31, 32, 33 |Balestier, Toa Payoh, Serangoon
+|34, 35, 36, 37 |Macpherson, Braddell
+|38, 39, 40, 41 |Geylang, Eunos
+|42, 43, 44, 45 |Katong, Joo Chiat, Amber Road
+|46, 47, 48 |Bedok, Upper East Coast, Eastwood, Kew Drive
+|49, 50, 81 |Loyang, Changi
+|51, 52 |Tampines, Pasir Ris
+|53, 54, 55, 82 |Serangoon Garden, Hougang, Ponggol
+|56, 57 |Bishan, Ang Mo Kio
+|58, 59 |Upper Bukit Timah, Clementi Park, Ulu Pandan
+|60, 61, 62, 63, 64 |Jurong
+|65, 66, 67, 68 |Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang
+|69, 70, 71 |Lim Chu Kang, Tengah
+|72, 73 |Kranji, Woodgrove
+|77, 78 |Upper Thomson, Springleaf
+|75, 76 |Yishun, Sembawang
+|79, 80 |Seletar
+|===
+
+==== Format
+`nearby` `POSTAL_SECTOR` +
 
 [IMPORTANT]
 ====
-`ORDER_ATTRIBUTE_PREFIX` *must* be one of the following:
-
-* `a/` - Address
-* `n/` - Name
-* `p/` - Phone Number
-* `pm/` - Payment Method
-* `tid/` - Transaction ID
-* `ts/` - Timestamp
-* `w/` - Warehouse Location
+`POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
 ====
 
-****
-*ORDER FLAG*  can be either +
-*-d* (descending order) or +
-*-a* (ascending order).
-****
-
 ==== Examples
-* `sort` `ts/` +
-You will sort the orders in ascending order based on the timestamp of the orders.
-* `sort` `-a` `n/` +
-You will sort the orders in ascending order based on the names of the customers.
-* `sort` `-d` `ts/` +
-You will sort the orders in descending order based on the timestamp of the orders.
-* `sort` `-d` `tid/` +
-You will sort the orders in descending order based on the transaction id of the orders.
+* `nearby` `14` +
+You will view all orders located in the general location of `Queenstown, Tiong Bahru`.
+* `nearby` `04` +
+You will view all orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
 
 [[undo]]
 === Undo the previous action: `undo`
 ==== Description
-You can use the `undo` command to revert the most recent action that was previously executed.
-For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
+* You can use the `undo` command to revert the most recent action that was previously executed.
+* For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
 back to the list of orders.
 
 ==== Format
@@ -279,8 +400,8 @@ The list will be reverted back to the state after the second command `delete` `1
 
 === Saving the data
 ==== Description
-* Data is saved in the hard disk automatically after any command that changes data that is present. +
-There is no need to save manually.
+* Data is saved in the hard disk automatically after any command that changes data that is present.
+* There is no need to save manually.
 
 === Export order list `[coming in v2.0]`
 _{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
@@ -294,6 +415,10 @@ _{explain how the user can reschedule their orders when customers notify them th
 === Keeping track of work schedule `[coming in v2.0]`
 _{explain how the user can keep track of their work schedule}_
 
+=== Statistics for completed orders `[coming in v2.0]`
+_{explain how the user can view statistics such as on-time rates (difference between actual and expected
+delivery), number of deliveries completed in a day}_
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -301,15 +426,15 @@ _{explain how the user can keep track of their work schedule}_
 
 == Command Summary
 
-* <<add, *Add*>> : `add` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `add` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `ts/2020-02-20 1300` `w/Yishun industry` `pm/cash` `c/please knock the door three times :D` `type/heavy`
+* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
 * <<clear, *Clear*>> : `clear` `[FLAG]` +
 e.g. `clear` `-f`
 * <<delete, *Delete*>> : `delete` `INDEX` +
 e.g. `delete` `2`
 * <<done, *Done*>> : `done` `INDEX` +
 e.g. `done` `2`
-* <<edit, *Edit*>> : `edit` `INDEX` `PREFIX/VALUE` +
+* <<edit, *Edit*>> : `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
 e.g. `edit` `2` `n/Xuan En`
 * <<exit, *Exit*>> : `exit`
 * <<find, *Find*>> : `find` `flag` `KEYWORD` +
@@ -319,8 +444,78 @@ e.g. `find` `-t` `ac1e345x7s`
 e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +
 e.g. `list` `done`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
-e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `ts/12-12-2020` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass`
-* <<sort, *Sort*>> : `sort` `[ORDER_FLAG]` `ORDER_ATTRIBUTE_PREFIX` +
-e.g. `sort` `-d` `ts/`
+* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `pm/PAYMENT_METHOD` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `pm/visa` `c/NIL` `type/glass`
+* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` +
+e.g. `nearby` `14`
 * <<undo, *Undo*>> : `undo`
+
+== Appendix A: Glossary
+
+[[command_prefix]]
+.Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|ot/
+|Order Type
+|<<import, Import>>
+
+|tid/
+|Transaction ID
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|n/
+|Customer Name
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|a/
+|Address
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|p/
+|Phone Number
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|dts/
+|Delivery Date And Time
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
+
+|rts/
+|Return Date and Time
+|<<return, Return>>
+
+|w/
+|Warehouse Location
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|cod/
+|Cash On Delivery
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|c/
+|Comments by Customer
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
+
+|type/
+|Type of Item
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
+|===
+
+[[command_flags]]
+.Possible Command Flags
+|===
+|Flag |Meaning |Used in the following Command(s)
+
+|-f
+|Force clear, no user confirmation will be requested
+|<<clear, Clear>>
+
+|-n
+|Search using Customer Name
+|<<find, Find>>
+
+|-t
+|Search using Transaction ID
+|<<find, Find>>
+|===
