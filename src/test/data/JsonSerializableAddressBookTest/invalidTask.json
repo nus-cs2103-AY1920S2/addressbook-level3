@@ -1,9 +1,0 @@
-{
-  "persons": [
-    {
-      "name": "Buy Milk",
-      "priority": "important",
-      "description": "Lorem ipsum description"
-    }
-  ]
-}
