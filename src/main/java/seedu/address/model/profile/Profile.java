@@ -71,7 +71,7 @@ public class Profile {
         return specialisation;
     }
 
-    public ArrayList<Module> getModules(Integer semester) {
+    public static ArrayList<Module> getModules(Integer semester) {
         return moduleHash.get(semester);
     }
 
