@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
+import seedu.address.model.session.Session;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -109,11 +110,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setAddressBook(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -125,6 +121,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -147,6 +148,54 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasSession(Session session) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addSession(Session session) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteSession(Session target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSession(Session target, Session editedSession) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Session> getFilteredSessionList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredSessionList(Predicate<Session> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A Model stub that contains a single session.
+     */
+    private class ModelStubWithSession extends ModelStub {
+        private final Session session;
+
+        ModelStubWithSession(Session session) {
+            requireNonNull(session);
+            this.session = session;
+        }
+
+        @Override
+        public boolean hasSession(Session session) {
+            requireNonNull(session);
+            return this.session.isSameSession(session);
+        }
     }
 
     /**
@@ -164,6 +213,30 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return this.person.isSamePerson(person);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the session being added.
+     */
+    private class ModelStubAcceptingSessionAdded extends ModelStub {
+        final ArrayList<Session> sessionsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasSession(Session session) {
+            requireNonNull(session);
+            return sessionsAdded.stream().anyMatch(session::isSameSession);
+        }
+
+        @Override
+        public void addSession(Session session) {
+            requireNonNull(session);
+            sessionsAdded.add(session);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
         }
     }
 
@@ -190,5 +263,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }

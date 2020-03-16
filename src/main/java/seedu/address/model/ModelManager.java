@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.session.Session;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Session> filteredSessions;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +37,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredSessions = new FilteredList<>(this.addressBook.getSessionList());
     }
 
     public ModelManager() {
@@ -88,6 +91,8 @@ public class ModelManager implements Model {
         return addressBook;
     }
 
+    //=========== Person List Methods ================================================================================
+
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -95,14 +100,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void deletePerson(Person target) {
+        addressBook.removePerson(target);
     }
 
     @Override
@@ -129,6 +134,51 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Session List Methods ================================================================================
+
+    @Override
+    public boolean hasSession(Session session) {
+        requireNonNull(session);
+        return addressBook.hasSession(session);
+    }
+
+    @Override
+    public void addSession(Session session) {
+        addressBook.addSession(session);
+        updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
+    }
+
+    @Override
+    public void deleteSession(Session target) {
+        addressBook.removeSession(target);
+    }
+
+    @Override
+    public void setSession(Session target, Session editedSession) {
+        requireAllNonNull(target, editedSession);
+
+        addressBook.setSession(target, editedSession);
+    }
+
+    //=========== Filtered Session List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Session} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Session> getFilteredSessionList() {
+        return filteredSessions;
+    }
+
+    @Override
+    public void updateFilteredSessionList(Predicate<Session> predicate) {
+        requireNonNull(predicate);
+        filteredSessions.setPredicate(predicate);
+    }
+
+    //=========== Others =============================================================
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -147,5 +197,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
-
 }
