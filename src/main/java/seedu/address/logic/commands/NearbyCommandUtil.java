@@ -68,40 +68,40 @@ public class NearbyCommandUtil {
      * Add postal sector information to HashMap {@code postalSectorInfo}.
      */
     private static void initialize() {
-        addSector1();
-        addSector7();
-        addSector14();
-        addSector9();
-        addSector11();
-        addSector17();
-        addSector18();
-        addSector20();
-        addSector22();
-        addSector24();
-        addSector28();
-        addSector31();
-        addSector34();
-        addSector38();
-        addSector42();
-        addSector46();
-        addSector49();
-        addSector51();
-        addSector53();
-        addSector56();
-        addSector58();
-        addSector60();
-        addSector65();
-        addSector69();
-        addSector72();
-        addSector77();
-        addSector75();
-        addSector79();
+        addLocation1();
+        addLocation2();
+        addLocation3();
+        addLocation4();
+        addLocation5();
+        addLocation6();
+        addLocation7();
+        addLocation8();
+        addLocation9();
+        addLocation10();
+        addLocation11();
+        addLocation12();
+        addLocation13();
+        addLocation14();
+        addLocation15();
+        addLocation16();
+        addLocation17();
+        addLocation18();
+        addLocation19();
+        addLocation20();
+        addLocation21();
+        addLocation22();
+        addLocation23();
+        addLocation24();
+        addLocation25();
+        addLocation26();
+        addLocation27();
+        addLocation28();
     }
 
     /**
      * Add postal sector information for 79,80.
      */
-    private static void addSector79() {
+    private static void addLocation28() {
         String generalLocation = "Seletar";
         postalSectorInfo.put(79, generalLocation);
         postalSectorInfo.put(80, generalLocation);
@@ -110,7 +110,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 75,76.
      */
-    private static void addSector75() {
+    private static void addLocation27() {
         String generalLocation = "Yishun, Sembawang";
         postalSectorInfo.put(75, generalLocation);
         postalSectorInfo.put(76, generalLocation);
@@ -119,7 +119,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 77,78.
      */
-    private static void addSector77() {
+    private static void addLocation26() {
         String generalLocation = "Upper Thomson, Springleaf";
         postalSectorInfo.put(77, generalLocation);
         postalSectorInfo.put(78, generalLocation);
@@ -128,7 +128,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 72,73.
      */
-    private static void addSector72() {
+    private static void addLocation25() {
         String generalLocation = "Kranji, Woodgrove";
         postalSectorInfo.put(72, generalLocation);
         postalSectorInfo.put(73, generalLocation);
@@ -137,7 +137,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 69,70,71.
      */
-    private static void addSector69() {
+    private static void addLocation24() {
         String generalLocation = "Lim Chu Kang, Tengah";
         postalSectorInfo.put(69, generalLocation);
         postalSectorInfo.put(70, generalLocation);
@@ -147,7 +147,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 65,66,67,68.
      */
-    private static void addSector65() {
+    private static void addLocation23() {
         String generalLocation = "Hillview, Dairy Farm, Bukit Panjang, Choa Chu Kang";
         postalSectorInfo.put(65, generalLocation);
         postalSectorInfo.put(66, generalLocation);
@@ -158,7 +158,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 60,61,62,63,64.
      */
-    private static void addSector60() {
+    private static void addLocation22() {
         String generalLocation = "Jurong";
         postalSectorInfo.put(60, generalLocation);
         postalSectorInfo.put(61, generalLocation);
@@ -170,7 +170,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 58,59.
      */
-    private static void addSector58() {
+    private static void addLocation21() {
         String generalLocation = "Upper Bukit Timah, Clementi Park, Ulu Pandan";
         postalSectorInfo.put(58, generalLocation);
         postalSectorInfo.put(59, generalLocation);
@@ -179,7 +179,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 56,57.
      */
-    private static void addSector56() {
+    private static void addLocation20() {
         String generalLocation = "Bishan, Ang Mo Kio";
         postalSectorInfo.put(56, generalLocation);
         postalSectorInfo.put(57, generalLocation);
@@ -188,7 +188,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 53,54,55,82.
      */
-    private static void addSector53() {
+    private static void addLocation19() {
         String generalLocation = "Serangoon Garden, Hougang, Punggol";
         postalSectorInfo.put(53, generalLocation);
         postalSectorInfo.put(54, generalLocation);
@@ -199,7 +199,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 51,52.
      */
-    private static void addSector51() {
+    private static void addLocation18() {
         String generalLocation = "Tampines, Pasir Ris";
         postalSectorInfo.put(51, generalLocation);
         postalSectorInfo.put(52, generalLocation);
@@ -208,7 +208,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 49,50,81.
      */
-    private static void addSector49() {
+    private static void addLocation17() {
         String generalLocation = "Loyang, Changi";
         postalSectorInfo.put(49, generalLocation);
         postalSectorInfo.put(50, generalLocation);
@@ -218,7 +218,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 46,47,48.
      */
-    private static void addSector46() {
+    private static void addLocation16() {
         String generalLocation = "Bedok, Upper East Coast, Eastwood, Kew Drive";
         postalSectorInfo.put(46, generalLocation);
         postalSectorInfo.put(47, generalLocation);
@@ -228,7 +228,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 42,43,44,45.
      */
-    private static void addSector42() {
+    private static void addLocation15() {
         String generalLocation = "Katong, Joo Chiat, Amber Road";
         postalSectorInfo.put(42, generalLocation);
         postalSectorInfo.put(43, generalLocation);
@@ -239,7 +239,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 38,39,40,41.
      */
-    private static void addSector38() {
+    private static void addLocation14() {
         String generalLocation = "Geylang, Eunos";
         postalSectorInfo.put(38, generalLocation);
         postalSectorInfo.put(39, generalLocation);
@@ -250,7 +250,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 34,35,36,37.
      */
-    private static void addSector34() {
+    private static void addLocation13() {
         String generalLocation = "Macpherson, Braddell";
         postalSectorInfo.put(34, generalLocation);
         postalSectorInfo.put(35, generalLocation);
@@ -259,43 +259,9 @@ public class NearbyCommandUtil {
     }
 
     /**
-     * Add postal sector information for 22,23.
-     */
-    private static void addSector22() {
-        String generalLocation = "Orchard, Cairnhill, River Valley";
-        postalSectorInfo.put(22, generalLocation);
-        postalSectorInfo.put(23, generalLocation);
-    }
-
-    /**
-     * Add postal sector information for 20,21.
-     */
-    private static void addSector20() {
-        String generalLocation = "Little India";
-        postalSectorInfo.put(20, generalLocation);
-        postalSectorInfo.put(21, generalLocation);
-    }
-
-    /**
-     * Add postal sector information for 18,19.
-     */
-    private static void addSector18() {
-        String generalLocation = "Middle Road, Golden Mile";
-        postalSectorInfo.put(18, generalLocation);
-        postalSectorInfo.put(19, generalLocation);
-    }
-
-    /**
-     * Add postal sector information for 17.
-     */
-    private static void addSector17() {
-        postalSectorInfo.put(17, "High Street, Beach Road (part)");
-    }
-
-    /**
      * Add postal sector information for 31,32,33.
      */
-    private static void addSector31() {
+    private static void addLocation12() {
         String generalLocation = "Balestier, Toa Payoh, Serangoon";
         postalSectorInfo.put(31, generalLocation);
         postalSectorInfo.put(32, generalLocation);
@@ -305,7 +271,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 28,29,30.
      */
-    private static void addSector28() {
+    private static void addLocation11() {
         String generalLocation = "Watten Estate, Novena, Thomson";
         postalSectorInfo.put(28, generalLocation);
         postalSectorInfo.put(29, generalLocation);
@@ -315,7 +281,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 24,25,26,27.
      */
-    private static void addSector24() {
+    private static void addLocation10() {
         String generalLocation = "Ardmore, Bukit Timah, Holland Road, Tanglin";
         postalSectorInfo.put(24, generalLocation);
         postalSectorInfo.put(25, generalLocation);
@@ -324,9 +290,43 @@ public class NearbyCommandUtil {
     }
 
     /**
+     * Add postal sector information for 22,23.
+     */
+    private static void addLocation9() {
+        String generalLocation = "Orchard, Cairnhill, River Valley";
+        postalSectorInfo.put(22, generalLocation);
+        postalSectorInfo.put(23, generalLocation);
+    }
+
+    /**
+     * Add postal sector information for 20,21.
+     */
+    private static void addLocation8() {
+        String generalLocation = "Little India";
+        postalSectorInfo.put(20, generalLocation);
+        postalSectorInfo.put(21, generalLocation);
+    }
+
+    /**
+     * Add postal sector information for 18,19.
+     */
+    private static void addLocation7() {
+        String generalLocation = "Middle Road, Golden Mile";
+        postalSectorInfo.put(18, generalLocation);
+        postalSectorInfo.put(19, generalLocation);
+    }
+
+    /**
+     * Add postal sector information for 17.
+     */
+    private static void addLocation6() {
+        postalSectorInfo.put(17, "High Street, Beach Road (part)");
+    }
+
+    /**
      * Add postal sector information for 11,12,13.
      */
-    private static void addSector11() {
+    private static void addLocation5() {
         String generalLocation = "Pasir Panjang, Hong Leong Garden, Clementi New Town";
         postalSectorInfo.put(11, generalLocation);
         postalSectorInfo.put(12, generalLocation);
@@ -336,7 +336,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 9,10.
      */
-    private static void addSector9() {
+    private static void addLocation4() {
         String generalLocation = "Telok Blangah, Harbourfront";
         postalSectorInfo.put(9, generalLocation);
         postalSectorInfo.put(10, generalLocation);
@@ -345,7 +345,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 14,15,16.
      */
-    private static void addSector14() {
+    private static void addLocation3() {
         String generalLocation = "Queenstown, Tiong Bahru";
         postalSectorInfo.put(14, generalLocation);
         postalSectorInfo.put(15, generalLocation);
@@ -355,7 +355,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 7,8.
      */
-    private static void addSector7() {
+    private static void addLocation2() {
         String generalLocation = "Anson, Tanjong Pagar";
         postalSectorInfo.put(7, generalLocation);
         postalSectorInfo.put(8, generalLocation);
@@ -364,7 +364,7 @@ public class NearbyCommandUtil {
     /**
      * Add postal sector information for 1,2,3,4,5,6.
      */
-    private static void addSector1() {
+    private static void addLocation1() {
         String generalLocation = "Raffles Place, Cecil, Marina, People’s Park";
         postalSectorInfo.put(1, generalLocation);
         postalSectorInfo.put(2, generalLocation);
