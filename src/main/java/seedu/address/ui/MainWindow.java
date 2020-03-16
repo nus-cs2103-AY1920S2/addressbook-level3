@@ -36,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private IntervieweeListPanel intervieweeListPanel;
-    private TranscriptListPanel transcriptListPanel;
+    private RemarkListPanel remarkListPanel;
     private AttributeListPanel attributeListPanel;
     private QuestionListPanel questionListPanel;
     private DetailedIntervieweeCard detailedIntervieweeCard;
@@ -167,11 +167,10 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case TRANSCRIPT: // transcript
-            transcriptListPanel = new TranscriptListPanel(logic.getTranscriptList(new Interviewee("Test name",
-                    10086)));
+            remarkListPanel = new RemarkListPanel(null);
             detailedIntervieweeCard = new DetailedIntervieweeCard(new Interviewee("Test name",
                     10086));
-            listPanelStackPane.getChildren().addAll(transcriptListPanel.getRoot(), detailedIntervieweeCard.getRoot());
+            listPanelStackPane.getChildren().addAll(remarkListPanel.getRoot(), detailedIntervieweeCard.getRoot());
             StackPane.setAlignment(detailedIntervieweeCard.getRoot(), Pos.TOP_CENTER);
             break;
 

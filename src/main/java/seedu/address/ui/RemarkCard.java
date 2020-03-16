@@ -5,12 +5,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.hirelah.Transcript;
+import seedu.address.model.hirelah.Remark;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class TranscriptCard extends UiPart<Region> {
+public class RemarkCard extends UiPart<Region> {
 
     private static final String FXML = "TranscriptListCard.fxml";
 
@@ -22,7 +22,7 @@ public class TranscriptCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Transcript transcript;
+    public final Remark remark;
 
     @FXML
     private HBox cardPane;
@@ -34,13 +34,13 @@ public class TranscriptCard extends UiPart<Region> {
     private FlowPane questionTags;
 
     /**
-     * Constructs a transcript card based on the data stored in a Transcript object. Implementation may change?
+     * Constructs a remark card based on the data stored in a Remark object. Implementation may change?
      *
-     * @param transcript transcript object to take information from.
+     * @param remark remark object to take information from.
      */
-    public TranscriptCard(Transcript transcript) {
+    public RemarkCard(Remark remark) {
         super(FXML);
-        this.transcript = transcript;
+        this.remark = remark;
 
     }
 
