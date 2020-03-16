@@ -100,7 +100,7 @@ public abstract class Activity implements Regenerable<Activity> {
 
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
-                && otherActivity.getNote().equals(getNote())
+                //&& otherActivity.getNote().equals(getNote())
                 && otherActivity.getDate().equals(getDate());
     }
 
