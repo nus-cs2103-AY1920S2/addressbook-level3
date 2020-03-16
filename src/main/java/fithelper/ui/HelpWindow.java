@@ -15,7 +15,13 @@ import javafx.scene.layout.AnchorPane;
  */
 public class HelpWindow extends UiPart<AnchorPane> {
     public static final String LIST_OF_VALID_COMMANDS = "The valid commands are as follows:\n"
-            + "addX n/NAME t/DATETIME l/LOCATION c/CALORIE es/False r/REMARK: add an entry\n"
+            + "add x/TYPE n/NAME t/YYYY-MM-DD-HH:MM l/LOCATION c/CALORIE: add a food or exercise entry\n"
+            + "list (x/TYPE) (d/YYYY-MM-DD): list entries (of food/sport in a given day)\n"
+            + "reminder (x/TYPE) (d/YYYY-MM-DD): list all entries (of food/sport) not marked as done (in a given day)\n"
+            + "edit x/TYPE (d/YYYY-MM-DD) i/INDEX s/Done: Mark an entry as done\n"
+            + "edit x/TYPE (d/YYYY-MM-DD) i/INDEX s/Undone: Mark an entry as not done\n"
+            + "Edit x/TYPE i/INDEX [n/NAME] [t/yyyy-mm-dd-24:60] [l/LOCATION] [c/CALORIE] [r/REMARK]: "
+            + "edit the information of an entry\n"
             + "...\n";
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
             + "please access the User Guide via the following url:\n";
@@ -24,7 +30,7 @@ public class HelpWindow extends UiPart<AnchorPane> {
     public static final String HELP_MESSAGE = LIST_OF_VALID_COMMANDS + LOOK_FOR_URL + USERGUIDE_URL;
     private static final String FXML = "HelpWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    
+
     @FXML
     private AnchorPane helpPage;
 
