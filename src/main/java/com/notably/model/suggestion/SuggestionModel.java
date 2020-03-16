@@ -33,9 +33,9 @@ public interface SuggestionModel {
 
     /**
      * Sets the command text.
-     * @param commandText The "command" that the user inputs, e.g. open, search, etc.
+     * @param commandInputText The "command" that the user inputs, e.g. open, search, etc.
      */
-    void setCommandInputText(String commandText);
+    void setCommandInputText(String commandInputText);
 
     String getCommandInputText();
 

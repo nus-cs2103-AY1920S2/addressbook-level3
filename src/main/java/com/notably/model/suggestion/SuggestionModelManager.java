@@ -42,8 +42,8 @@ public class SuggestionModelManager implements SuggestionModel {
     }
 
     @Override
-    public void setCommandInputText(String commandText) {
-        commandInputText = commandText;
+    public void setCommandInputText(String commandInputText) {
+        this.commandInputText = commandInputText;
     }
 
     @Override
