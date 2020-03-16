@@ -3,14 +3,14 @@ package seedu.eylah.expensesplitter.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.Iterator;
 import java.util.List;
 
 import seedu.eylah.expensesplitter.model.person.exceptions.DuplicatePersonException;
 import seedu.eylah.expensesplitter.model.person.exceptions.PersonNotFoundException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
