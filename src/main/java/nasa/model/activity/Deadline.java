@@ -3,7 +3,6 @@ package nasa.model.activity;
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
-import nasa.logic.parser.exceptions.ParseException;
 
 /**
  * Represents Deadlines method in Nasa Book.
@@ -19,7 +18,7 @@ public class Deadline extends Activity {
     public Deadline(Name name, Date dueDate, Note note) {
         super(name, note);
         requireNonNull(dueDate);
-        checkArgument(isValidDueDate(dueDate), DUE_DATE_CONSTRAINTS);
+        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
         this.dueDate = dueDate;
     }
 
@@ -54,7 +53,7 @@ public class Deadline extends Activity {
         }
     }
 
-    public static boolean isValidDueDate(Date date) {
+    public static boolean isExpiredDueDate(Date date) {
         return date.isAfter(Date.now());
     }
 
