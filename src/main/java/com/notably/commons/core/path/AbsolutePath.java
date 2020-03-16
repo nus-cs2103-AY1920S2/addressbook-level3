@@ -14,7 +14,6 @@ public class AbsolutePath implements Path {
     public static final String VALIDATION_REGEX = "(\\/(\\p{Alnum}+))+\\/?";
     private final List<String> paths;
 
-
     private AbsolutePath(String absolutePathString) {
         this.paths = new ArrayList<>();
         for (String obj : absolutePathString.split("/")) {
@@ -25,7 +24,7 @@ public class AbsolutePath implements Path {
     }
 
     public AbsolutePath(List<String> absolutePathList) {
-        this.paths =  absolutePathList;
+        this.paths = absolutePathList;
     }
 
     /**

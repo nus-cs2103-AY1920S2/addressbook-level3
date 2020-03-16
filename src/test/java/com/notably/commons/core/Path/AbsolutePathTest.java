@@ -57,13 +57,13 @@ class AbsolutePathTest {
     @Test
     public void createAbsolutePathFromRelativePath_validInput_convertedAbsolutePath() {
         try {
-            final RelativePath inputRelativePath = RelativePath.fromString("/../../hello");
+            final RelativePath inputRelPath = RelativePath.fromString("/../../hello");
             final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103/filler");
 
             List<String> expectedPaths = new ArrayList<>();
             expectedPaths.add("hello");
 
-            assertEquals(expectedPaths, AbsolutePath.fromRelativePath(inputRelativePath,inputCurrPath).getComponents());
+            assertEquals(expectedPaths, AbsolutePath.fromRelativePath(inputRelPath, inputCurrPath).getComponents());
         } catch (InvalidPathException ex) {
             ex.getMessage();
         }
@@ -72,9 +72,9 @@ class AbsolutePathTest {
     @Test
     public void createAbsolutePathFromRelativePath_invalidInput_exceptionThrown() {
         try {
-            final RelativePath inputRelativePath = RelativePath.fromString("/../../hello");
+            final RelativePath inputRelPath = RelativePath.fromString("/../../hello");
             final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
-            assertThrows(InvalidPathException.class, () -> AbsolutePath.fromRelativePath(inputRelativePath,inputCurrPath));
+            assertThrows(InvalidPathException.class, () -> AbsolutePath.fromRelativePath(inputRelPath, inputCurrPath));
         } catch (InvalidPathException ex) {
             ex.getMessage();
         }
