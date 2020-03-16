@@ -2,9 +2,13 @@ package nasa.model.module;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Abstract class to specify fields with getter and setters for modules.
@@ -13,32 +17,21 @@ public class Module {
 
     private ModuleCode moduleCode;
     private UniqueActivityList activityList;
+    private FilteredList<Activity> filteredActivity;
     private ModuleName moduleName;
-
-    /**
-     * Constructs a {@code module} and initialises the activity list.
-     * @param moduleCode module code
-     */
-    public Module(ModuleCode moduleCode, ModuleName moduleName) {
-        this.moduleCode = moduleCode;
-        this.moduleName = moduleName;
-        this.activityList = new UniqueActivityList();
-    }
-
-    // to create dummy modules for checking
-    public Module(ModuleCode moduleCode) {
-        this.moduleCode = moduleCode;
-    }
 
     /**
      * Constructs a {@code module}
      * @param moduleCode module code
      */
-    public Module(ModuleCode moduleCode, ModuleName moduleName, UniqueActivityList uniqueActivityList) {
+    public Module(ModuleCode moduleCode, ModuleName moduleName) {
         this.moduleCode = moduleCode;
+        this.activityList = new UniqueActivityList();
+        this.filteredActivity = new FilteredList<>(activityList.getActivityList());
         this.moduleName = moduleName;
-        this.activityList = uniqueActivityList;
     }
+
+    //Priority priority;
 
     /**
      * Retrieve the moduleCode of the module.
@@ -69,8 +62,16 @@ public class Module {
         activityList.setActivity(target, editedActivity);
     }
 
+    public ModuleName getModuleName() {
+        return moduleName;
+    }
+
     public void remove(Activity toRemove) {
         activityList.remove(toRemove);
+    }
+
+    public void removeActivityByIndex(Index index) {
+        activityList.removeByIndex(index);
     }
 
     public UniqueActivityList getActivities() {
@@ -89,10 +90,29 @@ public class Module {
         activityList.setActivities(activities);
     }
 
+    public Activity getActivityByIndex(Index index) {
+        return activityList.getActivityByIndex(index);
+    }
+
+    public ObservableList<Activity> getFilteredActivityList() {
+        return filteredActivity;
+    }
+
+    public void setActivityByIndex(Index index, Activity activity) {
+        activityList.setActivityByIndex(index, activity);
+    }
+
+    public void editActivityByIndex(Index index, Object... args) {
+        activityList.editActivityByIndex(index, args);
+    }
+
     public Iterator<Activity> iterator() {
         return activityList.iterator();
     }
 
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        filteredActivity.setPredicate(predicate);
+    }
     /**
      * Returns true if both are the same module.
      * This defines a stronger notion of equality between two activities.
@@ -109,13 +129,5 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getModuleCode().equals(getModuleCode());
-    }
-
-    public ModuleName getModuleName() {
-        return moduleName;
-    }
-
-    public void setModuleName(ModuleName moduleName) {
-        this.moduleName = moduleName;
     }
 }

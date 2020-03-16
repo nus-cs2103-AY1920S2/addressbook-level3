@@ -11,6 +11,7 @@ public class PriorityTest {
     public void isValidPriorityValue() {
         // valid priority
         assertEquals(true, Priority.isValidPriorityValue("3"));
+        assertEquals(true, Priority.isValidPriorityValue("1"));
 
         // invalid priority
         assertEquals(false, Priority.isValidPriorityValue("2.0"));
