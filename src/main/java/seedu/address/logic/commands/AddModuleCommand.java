@@ -14,11 +14,12 @@ import seedu.address.model.module.Module;
 public class AddModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "module";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module to the TATracker. "
+    public static final String ADD_MODEL = "add";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + ADD_MODEL + ": Adds a module to the TATracker. "
             + "Parameters: "
             + PREFIX_NAME + "MODULE NAME "
             + PREFIX_MODULE + "MODULE CODE "
-            + "Example: " + COMMAND_WORD + " "
+            + "Example: " + COMMAND_WORD + " " + ADD_MODEL + " "
             + PREFIX_NAME + "Introduction to AI "
             + PREFIX_MODULE + "CS3243 ";
 
