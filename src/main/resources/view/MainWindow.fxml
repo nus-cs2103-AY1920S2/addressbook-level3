@@ -52,6 +52,11 @@
                                  <Font size="18.0" />
                               </font>
                            </Label>
+                           <Button fx:id="dashBoardButton" mnemonicParsing="false" onAction="#handleShowDashBoard" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FF8C00; -fx-border-color: white;" text="Dashboard" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
                            <Button fx:id="todayButton" mnemonicParsing="false" onAction="#handleShowTodayPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #FF8C00; -fx-border-color: white;" text="Today" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
@@ -76,7 +81,7 @@
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <Label fx:id="result" alignment="CENTER" contentDisplay="CENTER" prefHeight="211.0" prefWidth="200.0" style="-fx-background-color: white;" text="FitHelper is ready for helping you~" textAlignment="CENTER" textFill="DARKORANGE" wrapText="true" />
+                           <Label fx:id="result" alignment="CENTER" contentDisplay="CENTER" prefHeight="157.0" prefWidth="200.0" style="-fx-background-color: white;" text="FitHelper is ready for helping you~" textAlignment="CENTER" textFill="DARKORANGE" wrapText="true" />
                         </children>
                      </VBox>
                   </children></AnchorPane>
