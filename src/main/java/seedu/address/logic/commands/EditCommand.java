@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -29,6 +30,7 @@ import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -47,6 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DELIVERY_TIMESTAMP + "DELIVERY_DATE_&_TIME] "
             + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
             + "[" + PREFIX_COD + "CASH_ON_DELIVERY] "
             + "[" + PREFIX_COMMENT + "COMMENT] "
@@ -77,7 +80,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredPersonList();
+        List<Order> lastShownList = model.getFilteredOrderList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
@@ -86,12 +89,12 @@ public class EditCommand extends Command {
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
-        if (!orderToEdit.isSameOrder(editedOrder) && model.hasPerson(editedOrder)) {
+        if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
             throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
 
-        model.setPerson(orderToEdit, editedOrder);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setOrder(orderToEdit, editedOrder);
+        model.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS, editedOrder));
     }
 
@@ -106,12 +109,13 @@ public class EditCommand extends Command {
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
+        TimeStamp updateTimeStamp = editOrderDescriptor.getTimeStamp().orElse(orderToEdit.getTimestamp());
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
         CashOnDelivery updatedCOD = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
         Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
-        return new Order(updatedTID, updatedName, updatedPhone, updatedAddress, updatedWarehouse,
+        return new Order(updatedTID, updatedName, updatedPhone, updatedAddress, updateTimeStamp, updatedWarehouse,
                 updatedCOD, updatedComment, updatedTags);
     }
 
@@ -142,6 +146,7 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Address address;
+        private TimeStamp timeStamp;
         private Warehouse warehouse;
         private CashOnDelivery cod;
         private Comment comment;
@@ -159,6 +164,7 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setAddress(toCopy.address);
+            setTimeStamp(toCopy.timeStamp);
             setWarehouse(toCopy.warehouse);
             setCash(toCopy.cod);
             setComment(toCopy.comment);
@@ -169,7 +175,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(tid, name, phone, address, warehouse, cod, comment, tags);
+            return CollectionUtil.isAnyNonNull(tid, name, phone, address, timeStamp, warehouse, cod, comment, tags);
         }
         public void setTID(TransactionID tid) {
             this.tid = tid;
@@ -201,6 +207,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setTimeStamp(TimeStamp timeStamp) {
+            this.timeStamp = timeStamp;
+        }
+
+        public Optional<TimeStamp> getTimeStamp() {
+            return Optional.ofNullable(timeStamp);
         }
 
         public void setWarehouse(Warehouse warehouse) {
@@ -263,6 +277,7 @@ public class EditCommand extends Command {
                     && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getAddress().equals(e.getAddress())
+                    && getTimeStamp().equals(e.getTimeStamp())
                     && getWarehouse().equals(e.getWarehouse())
                     && getCash().equals(e.getCash())
                     && getComment().equals(e.getComment())

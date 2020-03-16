@@ -7,7 +7,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents the value to earn from this order in the order book.
  * Guarantees: immutable; item is valid as declared in {@link #isValidCashValue(String)}}
  */
-
 public class CashOnDelivery {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -48,7 +47,7 @@ public class CashOnDelivery {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
+                || (other instanceof CashOnDelivery // instanceof handles nulls
                 && cashOnDelivery.equals(((CashOnDelivery) other).cashOnDelivery)); // state check
     }
 

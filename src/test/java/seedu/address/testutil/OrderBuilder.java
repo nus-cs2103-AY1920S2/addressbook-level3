@@ -10,6 +10,7 @@ import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -23,6 +24,7 @@ public class OrderBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_TIMESTAMP = "2020-02-20 1500";
     public static final String DEFAULT_WAREHOUSE = "5 Toh Guan Rd E, #02-30 S608831";
     public static final String DEFAULT_COD = "$3";
     public static final String DEFAULT_COMMENT = "NIL";
@@ -31,6 +33,7 @@ public class OrderBuilder {
     private Name name;
     private Phone phone;
     private Address address;
+    private TimeStamp timeStamp;
     private Warehouse warehouse;
     private CashOnDelivery cod;
     private Comment comment;
@@ -41,6 +44,7 @@ public class OrderBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         address = new Address(DEFAULT_ADDRESS);
+        timeStamp = new TimeStamp(DEFAULT_TIMESTAMP);
         warehouse = new Warehouse(DEFAULT_WAREHOUSE);
         cod = new CashOnDelivery(DEFAULT_COD);
         comment = new Comment(DEFAULT_COMMENT);
@@ -55,6 +59,7 @@ public class OrderBuilder {
         name = orderToCopy.getName();
         phone = orderToCopy.getPhone();
         address = orderToCopy.getAddress();
+        timeStamp = orderToCopy.getTimestamp();
         warehouse = orderToCopy.getWarehouse();
         cod = orderToCopy.getCash();
         comment = orderToCopy.getComment();
@@ -102,6 +107,14 @@ public class OrderBuilder {
     }
 
     /**
+     * Sets the {@code TimeStamp} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withTimeStamp(String timeStamp) {
+        this.timeStamp = new TimeStamp(timeStamp);
+        return this;
+    }
+
+    /**
      * Sets the {@code Warehouse} of the {@code Order} that we are building.
      */
     public OrderBuilder withWarehouse(String warehouseLocation) {
@@ -126,7 +139,7 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(tid, name, phone, address, warehouse, cod, comment, tags);
+        return new Order(tid, name, phone, address, timeStamp, warehouse, cod, comment, tags);
     }
 
 }

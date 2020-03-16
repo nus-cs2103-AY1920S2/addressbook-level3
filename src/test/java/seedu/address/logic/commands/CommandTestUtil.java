@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -35,8 +36,12 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_EMAIL_AMY = "amy@example.com";
+    public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_TIMESTAMP_AMY = "2020-01-13 2200";
+    public static final String VALID_TIMESTAMP_BOB = "2019-12-02 1500";
     public static final String VALID_WAREHOUSE_AMY = "5 Toh Guan Rd E, #02-30 S608831";
     public static final String VALID_WAREHOUSE_BOB = "5 Toh Guan Rd E, #02-30 S608831";
     public static final String VALID_COD_AMY = "$4";
@@ -52,8 +57,12 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
+    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String DELIVERY_TIMESTAMP_DESC_AMY = " " + PREFIX_DELIVERY_TIMESTAMP + VALID_TIMESTAMP_AMY;
+    public static final String DELIVERY_TIMESTAMP_DESC_BOB = " " + PREFIX_DELIVERY_TIMESTAMP + VALID_TIMESTAMP_BOB;
     public static final String WAREHOUSE_DESC_AMY = " " + PREFIX_WAREHOUSE + VALID_WAREHOUSE_AMY;
     public static final String WAREHOUSE_DESC_BOB = " " + PREFIX_WAREHOUSE + VALID_WAREHOUSE_BOB;
     public static final String COD_DESC_AMY = " " + PREFIX_TID + VALID_COD_AMY;
@@ -66,7 +75,17 @@ public class CommandTestUtil {
     public static final String INVALID_TID_DESC = " " + PREFIX_TID + ""; // empty strings not allowed
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    // Required valid date and time, date or time only will not be accepted for timestamp
+    // Date only
+    public static final String INVALID_DELIVERY_TIMESTAMP_DATE_ONLY = " " + PREFIX_DELIVERY_TIMESTAMP + "2019-10-02";
+    // Time only
+    public static final String INVALID_DELIVERY_TIMESTAMP_TIME_ONLY = " " + PREFIX_DELIVERY_TIMESTAMP + "2315";
+    // Invalid Date - 2019 is not a leap year
+    public static final String INVALID_DELIVERY_TIMESTAMP_DATE = " " + PREFIX_DELIVERY_TIMESTAMP + "2019-02-32 1500";
+    // Invalid Time
+    public static final String INVALID_DELIVERY_TIMESTAMP_TIME = " " + PREFIX_DELIVERY_TIMESTAMP + "2019-10-02 2401";
     public static final String INVALID_WAREHOUSE_DESC = " " + PREFIX_WAREHOUSE + ""; // empty string not allowed
     public static final String INVALID_COD_DESC = " " + PREFIX_TID + "3"; // empty '$' not allowed
     public static final String INVALID_COMMENT_DESC = " " + PREFIX_COMMENT; // empty string not allowed for comment
@@ -81,13 +100,13 @@ public class CommandTestUtil {
     static {
         DESC_AMY = new EditOrderDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withTID(VALID_TID_AMY).withPhone(VALID_PHONE_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withWarehouse(VALID_WAREHOUSE_AMY)
+                .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_AMY)
                 .withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withTID(VALID_TID_BOB).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withWarehouse(VALID_WAREHOUSE_BOB)
+                .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_BOB)
                 .withCash(VALID_COD_BOB)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
@@ -128,12 +147,12 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        OrderBook expectedAddressBook = new OrderBook(actualModel.getAddressBook());
-        List<Order> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        OrderBook expectedAddressBook = new OrderBook(actualModel.getOrderBook());
+        List<Order> expectedFilteredList = new ArrayList<>(actualModel.getFilteredOrderList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedAddressBook, actualModel.getOrderBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredOrderList());
     }
 
     /**
@@ -141,13 +160,13 @@ public class CommandTestUtil {
      * {@code model}'s order book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
 
-        Order order = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());
         final String[] splitName = order.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredOrderList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredOrderList().size());
     }
 
 }

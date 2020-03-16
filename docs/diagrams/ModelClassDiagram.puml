@@ -25,6 +25,7 @@ Class Phone
 Class CashOnDelivery
 Class UniqueOrderList
 Class Warehouse
+Class TimeStamp
 }
 
 Package TypeOfItem {
@@ -58,11 +59,13 @@ Order *--> Address
 Order *--> "*" TypeOfItem
 Order *--> Warehouse
 Order *--> Comment
+Order *--> TimeStamp
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 Order -[hidden]left-> Comment
+TimeStamp -[hidden]right-> Warehouse
 
 ModelManager -->"1" Order : filtered list
 @enduml

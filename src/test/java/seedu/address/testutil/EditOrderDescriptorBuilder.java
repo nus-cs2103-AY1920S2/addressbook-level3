@@ -13,6 +13,7 @@ import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -39,6 +40,7 @@ public class EditOrderDescriptorBuilder {
         descriptor.setName(order.getName());
         descriptor.setPhone(order.getPhone());
         descriptor.setAddress(order.getAddress());
+        descriptor.setTimeStamp(order.getTimestamp());
         descriptor.setWarehouse(order.getWarehouse());
         descriptor.setComment(order.getComment());
         descriptor.setTags(order.getTags());
@@ -81,6 +83,14 @@ public class EditOrderDescriptorBuilder {
      */
     public EditOrderDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
+        return this;
+    }
+
+    /**
+     * Sets the {@code TimeStamp} of the {@code EditOrderDescriptor} that we are building.
+     */
+    public EditOrderDescriptorBuilder withTimeStamp(String timeStamp) {
+        descriptor.setTimeStamp(new TimeStamp(timeStamp));
         return this;
     }
 
