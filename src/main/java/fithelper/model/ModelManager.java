@@ -134,6 +134,30 @@ public class ModelManager implements Model {
         filteredSportsEntries.setPredicate(predicate);
     }
 
+    /**
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredFoodEntryList(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
+        filteredFoodEntries.setPredicate(predicate);
+    }
+
+    /**
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredSportEntryList(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
+        filteredSportsEntries.setPredicate(predicate);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

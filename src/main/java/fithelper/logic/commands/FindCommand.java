@@ -6,6 +6,7 @@ import static java.util.Objects.requireNonNull;
 import fithelper.commons.core.Messages;
 import fithelper.model.Model;
 import fithelper.model.entry.NameContainsKeywordsPredicate;
+import fithelper.model.entry.Type;
 
 /**
  * Finds and lists all entries in fitHelper whose name contains any of the argument keywords.
@@ -21,18 +22,41 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + "apple banana";
 
     private final NameContainsKeywordsPredicate predicate;
+    private final NameContainsKeywordsPredicate vaguePredicate = NameContainsKeywordsPredicate.getVaguePredicate();
+    private final Type findType;
 
     public FindCommand(NameContainsKeywordsPredicate predicate) {
+        this.findType = null;
+        this.predicate = predicate;
+    }
+
+    public FindCommand(Type findType, NameContainsKeywordsPredicate predicate) {
+        this.findType = findType;
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredEntryList(predicate);
-        String feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW, model.getFilteredFoodEntryList().size())
-                + " "
-                + String.format(Messages.MESSAGE_SPORTS_LISTED_OVERVIEW, model.getFilteredSportsEntryList().size());
+        String feedback = "";
+        if (this.findType == null) {
+            model.updateFilteredEntryList(predicate);
+            feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW, model.getFilteredFoodEntryList().size())
+                    + " "
+                    + String.format(Messages.MESSAGE_SPORTS_LISTED_OVERVIEW, model.getFilteredSportsEntryList().size());
+        } else {
+            if (this.findType.value.equalsIgnoreCase("food")) {
+                model.updateFilteredFoodEntryList(predicate);
+                model.updateFilteredSportEntryList(vaguePredicate);
+                feedback = String.format(Messages.MESSAGE_FOOD_LISTED_OVERVIEW,
+                        model.getFilteredFoodEntryList().size());
+            } else {
+                model.updateFilteredSportEntryList(predicate);
+                model.updateFilteredFoodEntryList(vaguePredicate);
+                feedback = String.format(Messages.MESSAGE_SPORTS_LISTED_OVERVIEW,
+                        model.getFilteredSportsEntryList().size());
+            }
+        }
         return new CommandResult(feedback, HOME, false);
     }
 

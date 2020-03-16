@@ -1,5 +1,6 @@
 package fithelper.model.entry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -10,9 +11,16 @@ import fithelper.commons.util.StringUtil;
  */
 public class NameContainsKeywordsPredicate implements Predicate<Entry> {
     private final List<String> keywords;
+    private static List<String> nullWords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+        this.nullWords = new ArrayList<String>();
+        this.nullWords.add("wugc2iuegv98yquy>%$wvjugf398ywiugd");
+    }
+
+    public static NameContainsKeywordsPredicate getVaguePredicate() {
+        return new NameContainsKeywordsPredicate(nullWords);
     }
 
     @Override

@@ -63,6 +63,18 @@ public interface Model {
      */
     void updateFilteredEntryList(Predicate<Entry> predicate);
 
+    /**
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredFoodEntryList(Predicate<Entry> predicate);
+
+    /**
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredSportEntryList(Predicate<Entry> predicate);
+
    /* ObservableList<VEvent> getVFoodList();
     ObservableList<VEvent> getVSportsList();*/
 }
