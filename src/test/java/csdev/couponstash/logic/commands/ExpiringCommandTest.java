@@ -12,7 +12,6 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
