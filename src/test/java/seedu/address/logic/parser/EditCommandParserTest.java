@@ -165,7 +165,7 @@ public class EditCommandParserTest {
                 + TIME_DESC_FISH + STEP_DESC_FISH + GOAL_DESC_PROTEIN;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_FISH)
-                .withGoals(VALID_GOAL_GRAIN, VALID_GOAL_PROTEIN).withSteps(VALID_STEP_FISH)
+                .withGoals(VALID_GOAL_GRAIN, VALID_GOAL_PROTEIN).withSteps(VALID_STEP_TURKEY_SANDWICH, VALID_STEP_FISH)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 

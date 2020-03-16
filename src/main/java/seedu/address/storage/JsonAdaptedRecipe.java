@@ -45,7 +45,7 @@ class JsonAdaptedRecipe {
         }
         if (steps != null) {
             this.steps.addAll(steps);
-            }
+        }
         if (goals != null) {
             this.goals.addAll(goals);
         }
@@ -84,6 +84,9 @@ class JsonAdaptedRecipe {
         }
 
         final List<Step> recipeSteps = new ArrayList<>();
+        if (steps.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName()));
+        }
         for (JsonAdaptedStep step : steps) {
             recipeSteps.add(step.toModelType());
         }

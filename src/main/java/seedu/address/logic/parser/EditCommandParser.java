@@ -51,9 +51,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
             editRecipeDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
         }
-//        if (argMultimap.getValue(PREFIX_STEP).isPresent()) {
-//            editRecipeDescriptor.setSteps(ParserUtil.parseStep(argMultimap.getValue(PREFIX_STEP).get()));
-//        }
 
         parseStepsForEdit(argMultimap.getAllValues(PREFIX_STEP)).ifPresent(editRecipeDescriptor::setSteps);
 
@@ -90,8 +87,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (steps.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> stepsList = steps.size() == 1 && steps.contains("") ? Collections.emptyList() : steps;
-        return Optional.of(ParserUtil.parseSteps(stepsList));
+        return Optional.of(ParserUtil.parseSteps(steps));
     }
 
 }

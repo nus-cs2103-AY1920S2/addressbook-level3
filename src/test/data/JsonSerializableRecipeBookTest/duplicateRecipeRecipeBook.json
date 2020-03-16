@@ -2,11 +2,11 @@
   "recipes": [ {
     "name": "Alice Pauline",
     "time": "94351253",
-    "step": "alice@example.com",
+    "steps": ["alice@example.com"],
     "goals": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "time": "94351253",
-    "step": "pauline@example.com"
+    "steps": ["pauline@example.com"]
   } ]
 }

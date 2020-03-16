@@ -88,9 +88,15 @@ public class ParserUtil {
      */
     public static List<Step> parseSteps(Collection<String> steps) throws ParseException {
         requireNonNull(steps);
+        if (steps.contains("")) {
+            throw new ParseException(Step.MESSAGE_CONSTRAINTS);
+        }
         final List<Step> stepsList = new ArrayList<>();
         for (String step : steps) {
-            stepsList.add(parseStep(step));
+            Step nextStep = parseStep(step);
+            if (!stepsList.contains(nextStep)) {
+                stepsList.add(nextStep);
+            }
         }
         return stepsList;
     }

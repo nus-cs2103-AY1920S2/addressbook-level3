@@ -42,8 +42,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_STEP + "STEP] "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TIME + "91234567 "
-            + PREFIX_STEP + "johndoe@example.com";
+            + PREFIX_TIME + "10 "
+            + PREFIX_STEP + "Insert new step here";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -165,10 +165,19 @@ public class EditCommand extends Command {
             return Optional.ofNullable(time);
         }
 
+        /**
+         * Sets {@code steps} to this object's {@code steps}.
+         * A defensive copy of {@code steps} is used internally.
+         */
         public void setSteps(List<Step> steps) {
             this.steps = (steps != null) ? new ArrayList<>(steps) : null;
         }
 
+        /**
+         * Returns an unmodifiable steps list, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code steps} is null.
+         */
         public Optional<List<Step>> getSteps() {
             return (steps != null) ? Optional.of(Collections.unmodifiableList(steps)) : Optional.empty();
         }

@@ -19,9 +19,9 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class RecipeBuilder {
 
-    public static final String DEFAULT_NAME = "Caesar Salad";
+    public static final String DEFAULT_NAME = "Egg Tomato Stir Fry";
     public static final String DEFAULT_TIME = "10";
-    public static final Step DEFAULT_STEP = new Step("Cut tomatoes");
+    public static final Step DEFAULT_STEP = new Step("Cut tomatoes into crescent shaped slices");
     public static final Ingredient DEFAULT_INGREDIENT = new Vegetable("Tomato", 100);
 
     private Name name;

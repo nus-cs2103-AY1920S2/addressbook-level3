@@ -57,7 +57,7 @@ public class EditRecipeDescriptorBuilder {
     /**
      * Sets the {@code Step} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withSteps(String steps) {
+    public EditRecipeDescriptorBuilder withSteps(String ... steps) {
         List<Step> stepsList = Stream.of(steps).map(Step::new).collect(Collectors.toList());
         descriptor.setSteps(stepsList);
         return this;

@@ -5,12 +5,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Step;
 
 /**
  * A utility class for Recipe.
@@ -29,12 +31,10 @@ public class RecipeUtil {
      */
     public static String getRecipeDetails(Recipe recipe) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + recipe.getName().fullName + " ");
-        sb.append(PREFIX_TIME + recipe.getTime().value + " ");
-        sb.append(PREFIX_STEP + recipe.getStep().value + " ");
-        recipe.getGoals().stream().forEach(
-            s -> sb.append(PREFIX_GOAL + s.goalName + " ")
-        );
+        sb.append(PREFIX_NAME).append(recipe.getName().fullName).append(" ");
+        sb.append(PREFIX_TIME).append(recipe.getTime().value).append(" ");
+        recipe.getSteps().forEach(step -> sb.append(PREFIX_STEP).append(step.value).append(" "));
+        recipe.getGoals().forEach(s -> sb.append(PREFIX_GOAL).append(s.goalName).append(" "));
         return sb.toString();
     }
 
@@ -45,7 +45,14 @@ public class RecipeUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getTime().ifPresent(time -> sb.append(PREFIX_TIME).append(time.value).append(" "));
-        descriptor.getStep().ifPresent(step -> sb.append(PREFIX_STEP).append(step.value).append(" "));
+        if (descriptor.getSteps().isPresent()) {
+            List<Step> steps = descriptor.getSteps().get();
+            if (steps.isEmpty()) {
+                sb.append(PREFIX_STEP);
+            } else {
+                steps.forEach(step -> sb.append(PREFIX_STEP).append(step.value).append(" "));
+            }
+        }
         if (descriptor.getGoals().isPresent()) {
             Set<Goal> goals = descriptor.getGoals().get();
             if (goals.isEmpty()) {
