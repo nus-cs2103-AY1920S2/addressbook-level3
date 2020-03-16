@@ -32,7 +32,8 @@ public class ProfileTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Profile aliceCopy = new PersonBuilder(ALICE).withCourseName("Computer Science").withCurrentSemester("1").build();
+        Profile aliceCopy = new PersonBuilder(ALICE).withCourseName("Computer Science")
+                .withCurrentSemester("1").build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true

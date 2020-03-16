@@ -38,8 +38,10 @@ public class TypicalPersons {
             .withCourseName("Computer Science").build();
 
     // Manually added - Profile's details found in {@code CommandTestUtil}
-    public static final Profile AMY = new PersonBuilder().withName(VALID_NAME_AMY).withCourseName(VALID_COURSE_CS).build();
-    public static final Profile BOB = new PersonBuilder().withName(VALID_NAME_BOB).withCourseName(VALID_COURSE_CS).build();
+    public static final Profile AMY = new PersonBuilder().withName(VALID_NAME_AMY)
+            .withCourseName(VALID_COURSE_CS).build();
+    public static final Profile BOB = new PersonBuilder().withName(VALID_NAME_BOB)
+            .withCourseName(VALID_COURSE_CS).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
