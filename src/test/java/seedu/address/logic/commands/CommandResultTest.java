@@ -39,6 +39,27 @@ public class CommandResultTest {
     }
 
     @Test
+    public void initOnlyWithFeedback_isExitResult_returnFalse() {
+        CommandResult commandResult = new CommandResult("feedback");
+
+        assertFalse(commandResult.isExit());
+    }
+
+    @Test
+    public void initOnlyWithFeedback_isShowHelpResult_returnFalse() {
+        CommandResult commandResult = new CommandResult("feedback");
+
+        assertFalse(commandResult.isShowHelp());
+    }
+
+    @Test
+    public void initOnlyWithFeedback_isClearListResult_returnFalse() {
+        CommandResult commandResult = new CommandResult("feedback");
+
+        assertFalse(commandResult.isClearList());
+    }
+
+    @Test
     public void hashcode() {
         CommandResult commandResult = new CommandResult("feedback");
 
