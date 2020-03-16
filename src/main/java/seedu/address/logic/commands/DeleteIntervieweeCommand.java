@@ -42,7 +42,7 @@ public class DeleteIntervieweeCommand extends DeleteCommand {
             throw new CommandException(e.getMessage());
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, identifier), ToggleView.INT);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, identifier), ToggleView.INTERVIEWEE);
     }
 
     @Override

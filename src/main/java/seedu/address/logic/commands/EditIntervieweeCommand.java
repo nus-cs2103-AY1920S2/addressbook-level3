@@ -42,7 +42,7 @@ public class EditIntervieweeCommand extends EditCommand {
             throw new CommandException(e.getMessage());
         }
         return new CommandResult(String.format(MESSAGE_EDIT_INTERVIEWEE_SUCCESS, identifier, updatedName),
-                ToggleView.INT);
+                ToggleView.INTERVIEWEE);
     }
 
     @Override

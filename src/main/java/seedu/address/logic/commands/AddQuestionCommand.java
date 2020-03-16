@@ -43,7 +43,7 @@ public class AddQuestionCommand extends AddCommand {
         }
 
         questions.add(question);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ToggleView.QNS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ToggleView.QUESTION);
     }
 
     @Override

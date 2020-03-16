@@ -48,7 +48,7 @@ public class EditQuestionCommand extends EditCommand {
             Question updated = new Question(updatedDescription);
             questions.set(index - 1, updated);
             return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, questionIndex, updated),
-                    ToggleView.QNS);
+                    ToggleView.QUESTION);
         } catch (NumberFormatException e) {
             throw new CommandException(String.format(MESSAGE_EDIT_INDEX_NOT_A_NUMBER, questionIndex));
         }
