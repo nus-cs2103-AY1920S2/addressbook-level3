@@ -40,7 +40,7 @@
         "saveableDesc" : "Drink"
       } ]
     },
-    "expiry date" : "31-12-2020",
+    "expiry date" : "30-8-2020",
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
@@ -78,7 +78,7 @@
         "saveableDesc" : "Doir Bag"
       } ]
     },
-    "expiry date" : "31-12-2020",
+    "expiry date" : "30-8-2020",
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
@@ -91,7 +91,7 @@
       "percentageAmount" : null,
       "saveables" : null
     },
-    "expiry date" : "31-12-2020",
+    "expiry date" : "30-8-2020",
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",

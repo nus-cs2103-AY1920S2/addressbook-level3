@@ -16,7 +16,6 @@ public class ExpiringCommand extends Command {
             + "the specified dates (in D-M-YYYY format) and displays them as a list with index numbers.\n"
             + "Parameters: Future date in D-M-YYYY format\n"
             + "Example: " + COMMAND_WORD + " 31-12-2020";
-    public static final String MESSAGE_SUCCESS = "Coupon(s) expiring before %s:";
 
     private final DateIsBeforePredicate predicate;
     private final String date;
@@ -30,9 +29,15 @@ public class ExpiringCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCouponList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, model.getFilteredCouponList().size())
-                        + " " + String.format(MESSAGE_SUCCESS, date));
+        int filteredListSize = model.getFilteredCouponList().size();
+        if (filteredListSize > 0) {
+            return new CommandResult(
+                    String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, filteredListSize)
+                            + " " + String.format(Messages.MESSAGE_COUPONS_EXPIRING_BEFORE_DATE, date));
+        } else { //Empty list
+            return new CommandResult(String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, filteredListSize)
+                    + " Try a later date!");
+        }
     }
 
 

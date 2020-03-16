@@ -44,7 +44,7 @@ public class StartDate {
         if (test.matches(VALIDATION_REGEX)) {
             testDate = LocalDate.parse(test, DATE_FORMATTER);
         }
-        return (test.matches(VALIDATION_REGEX) && testDate.isAfter(yesterday)) || test.equals("");
+        return test.equals("") || (test.matches(VALIDATION_REGEX) && testDate.isAfter(yesterday));
     }
 
     /**
