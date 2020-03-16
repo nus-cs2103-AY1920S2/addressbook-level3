@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
+    private static final int EDIT_MODULE_CODE = 2; // Number of modules to trigger an edit
     /**
      * Parses the given {@code String} of arguments in the context of the EditModuleCommand
      * and returns an EditCommand object for execution.
@@ -59,7 +60,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      * @return true if exactly 2 module codes provided, otherwise false
      */
     private boolean isModuleCodeEdited(List<String> moduleCodes) {
-        if (moduleCodes.size() == 2) {
+        if (moduleCodes.size() == EDIT_MODULE_CODE) {
             return true;
         }
         return false;

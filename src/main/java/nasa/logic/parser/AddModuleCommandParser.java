@@ -12,9 +12,16 @@ import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 
+/**
+ * Parses input arguments and creates an AddModuleCommand object.
+ */
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
-    @Override
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddModuleCommand
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddModuleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_MODULE_NAME);

@@ -5,10 +5,12 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
+import javafx.collections.ObservableList;
 import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
+import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
@@ -17,6 +19,9 @@ import nasa.commons.core.Messages;
 
 import java.util.*;
 
+/**
+ * Edits a module in the NASA book.
+ */
 public class EditModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "medit";
@@ -42,6 +47,10 @@ public class EditModuleCommand extends Command {
     private final Index index;
     private final EditModuleCommand.EditModuleDescriptor editModuleDescriptor;
 
+    /**
+     * Creates an EditModuleCommand to edit a module at specified {@code index}
+     * @param index Index of module to be edited
+     */
     public EditModuleCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
         requireNonNull(index);
         requireNonNull(editModuleDescriptor);
@@ -69,6 +78,7 @@ public class EditModuleCommand extends Command {
 
         model.setModule(moduleToEdit, editedModule);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
     }
 
@@ -82,8 +92,14 @@ public class EditModuleCommand extends Command {
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
         ModuleName updatedModuleName = editModuleDescriptor.getModuleName().orElse(moduleToEdit.getModuleName());
         UniqueActivityList activityList = moduleToEdit.getActivities(); // original module's activity list is preserved
+        ObservableList<Activity> filteredActivityList = moduleToEdit.getFilteredActivityList();
 
-        return new Module(updatedModuleCode, updatedModuleName, activityList);
+        Module newModule = new Module(updatedModuleCode, updatedModuleName);
+
+        newModule.setActivities(activityList);
+        newModule.setActivities(filteredActivityList);
+
+        return newModule;
     }
 
     @Override

@@ -19,7 +19,6 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
      * and returns an EditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    //TODO add implementation
     public EditActivityCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =

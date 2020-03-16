@@ -19,6 +19,9 @@ import nasa.model.module.Module;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Edits a specific activity in the module's list.
+ */
 public class EditActivityCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -47,6 +50,13 @@ public class EditActivityCommand extends Command {
     private final Module module;
     private final EditActivityCommand.EditActivityDescriptor editActivityDescriptor;
 
+    /**
+     * Creates an EditActivityCommand to edit an activity
+     * with specified {@code index} from {@code moduleCode} list.
+     * @param index
+     * @param module
+     * @param editActivityDescriptor
+     */
     public EditActivityCommand(Index index, Module module, EditActivityDescriptor editActivityDescriptor) {
         requireNonNull(index);
         this.index = index;
@@ -66,7 +76,7 @@ public class EditActivityCommand extends Command {
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
         Activity editedActivity = createEditedActivity(activityToEdit, editActivityDescriptor);
 
-        assert editedActivity != null;
+        requireNonNull(editedActivity);
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(module, editedActivity)) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_DUPLICATE_ACTIVITY);
@@ -91,13 +101,22 @@ public class EditActivityCommand extends Command {
         Priority updatedPriority = editActivityDescriptor.getPriority().orElse(activityToEdit.getPriority());
         Status status = activityToEdit.getStatus(); // original module's activity list is preserved
 
-        return (activityToEdit instanceof Deadline)
-                ? new Deadline(updatedName, updatedDate, updatedNote, status, updatedPriority)
-                : (activityToEdit instanceof Event)
-                    ? new Event(updatedName, updatedDate, updatedNote, status, updatedPriority)
-                    : (activityToEdit instanceof Lesson)
-                        ? new Lesson(updatedName, updatedDate, updatedNote, status, updatedPriority)
-                        : null;
+        if (activityToEdit instanceof Deadline) {
+            Date dueDate = ((Deadline) activityToEdit).getDueDate();
+            return new Deadline(updatedName, updatedDate, updatedNote, status, updatedPriority, dueDate);
+        } else if (activityToEdit instanceof Event) {
+            Date startDate = ((Event) activityToEdit).getDateFrom();
+            Date endDate = ((Event) activityToEdit).getDateTo();
+            return new Event(updatedName, updatedDate, updatedNote, status, updatedPriority,
+                    startDate, endDate);
+        } else if (activityToEdit instanceof Lesson) {
+            Date startDate = ((Lesson) activityToEdit).getDateFrom();
+            Date endDate = ((Lesson) activityToEdit).getDateTo();
+            return new Event(updatedName, updatedDate, updatedNote, status, updatedPriority,
+                    startDate, endDate);
+        } else {
+            return null;
+        }
     }
 
     @Override

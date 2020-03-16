@@ -9,6 +9,9 @@ import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import nasa.model.activity.Lesson;
 import nasa.model.module.ModuleCode;
 
+/**
+ * Adds a lesson to a module's list.
+ */
 public class AddLessonCommand extends AddCommand {
 
     public static final String COMMAND_WORD = "lesson";
@@ -27,6 +30,11 @@ public class AddLessonCommand extends AddCommand {
             + PREFIX_PRIORITY + "1"
             + PREFIX_NOTE + "Remember to study content before coming.";
 
+    /**
+     * Creates an AddCommand that adds {@code lesson} to list of {@code moduleCode}.
+     * @param lesson Lesson to be added
+     * @param moduleCode Module where the lesson is to be added
+     */
     public AddLessonCommand(Lesson lesson, ModuleCode moduleCode) {
         super(lesson, moduleCode);
     }
