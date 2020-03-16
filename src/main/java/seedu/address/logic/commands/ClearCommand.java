@@ -23,7 +23,9 @@ public class ClearCommand extends Command {
         this.flag = flag;
     }
 
-    public String getFlag() { return this.flag; }
+    public String getFlag() {
+        return this.flag;
+    }
 
     @Override
     public CommandResult execute(Model model) {

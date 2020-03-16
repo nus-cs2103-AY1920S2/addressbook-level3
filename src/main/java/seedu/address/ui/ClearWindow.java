@@ -19,9 +19,10 @@ public class ClearWindow extends UiPart<Stage> {
     public static final String WARNING_MESSAGE = "Are you sure you want to clear the order book list ?";
 
     private static final Logger logger = LogsCenter.getLogger(ClearWindow.class);
-    private Logic logic;
-    private static ResultDisplay resultDisplay;
     private static final String FXML = "ClearWindow.fxml";
+    private static ResultDisplay resultDisplay;
+
+    private Logic logic;
 
     @FXML
     private Button yesButton;
