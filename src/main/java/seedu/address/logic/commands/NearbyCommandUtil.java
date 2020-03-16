@@ -51,9 +51,10 @@ public class NearbyCommandUtil {
      * @return {@code List<String>} of all postal sectors with same location
      */
     public static List<String> sameGeneralLocation(String location) {
+        requireNonNull(location);
         List<String> output = new ArrayList<>();
         for (Map.Entry<Integer, String> entry : postalSectorInfo.entrySet()) {
-            if (entry.getValue().equals(location)) {
+            if (location.equals(entry.getValue())) {
                 Integer sector = entry.getKey();
                 String sectorStr = "S" + ((sector < 10) ? ("0" + sector)
                         : sector);
