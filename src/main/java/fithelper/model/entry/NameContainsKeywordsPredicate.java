@@ -11,13 +11,12 @@ import fithelper.commons.util.StringUtil;
  */
 public class NameContainsKeywordsPredicate implements Predicate<Entry> {
 
-    private static List<String> nullWords;
+    private static List<String> nullWords = new ArrayList<String>();
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
-        this.nullWords = new ArrayList<String>();
-        this.nullWords.add("wugc2iuegv98yquy>%$wvjugf398ywiugd");
+        nullWords.add("wugc2iuegv98yquy>%$wvjugf398ywiugd");
     }
 
     public static NameContainsKeywordsPredicate getVaguePredicate() {

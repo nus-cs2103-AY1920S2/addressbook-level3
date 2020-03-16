@@ -41,13 +41,15 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        Index index;
+
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
+
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
 
         editEntryDescriptor = new EditEntryDescriptor();
         editEntryDescriptor.setType(ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get()));
