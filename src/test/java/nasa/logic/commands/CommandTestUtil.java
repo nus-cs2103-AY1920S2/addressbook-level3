@@ -6,6 +6,8 @@ import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
+import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import nasa.logic.commands.exceptions.CommandException;
@@ -27,6 +29,7 @@ public class CommandTestUtil {
     public static final String VALID_PRIORITY_HIGH = "1";
     public static final String VALID_PRIORITY_LOW = "5";
     public static final String VALID_DATE_TEST = "12-12-2020 23:59";
+    public static final String VALID_DATE_TEST_2 = "14-12-2020 23:59";
 
     // parameters with their prefixes
     public static final String MODULE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CS2030;
@@ -40,6 +43,8 @@ public class CommandTestUtil {
     public static final String PRIORITY_DESC_HIGH = " " + PREFIX_PRIORITY + VALID_PRIORITY_HIGH;
     public static final String PRIORITY_DESC_LOW = " " + PREFIX_PRIORITY + VALID_PRIORITY_LOW;
     public static final String DATE_DESC_TEST = " " + PREFIX_DATE + VALID_DATE_TEST;
+    public static final String DATE_DESC_TEST_FROM = " " + PREFIX_START_DATE + VALID_DATE_TEST;
+    public static final String DATE_DESC_TEST_TO = " " + PREFIX_END_DATE + VALID_DATE_TEST_2;
 
     // invalid parameters with their prefixes
     public static final String INVALID_MODULE_DESC = " " + PREFIX_MODULE + "@31_+"; //only alphanumeric char
@@ -48,6 +53,8 @@ public class CommandTestUtil {
     public static final String INVALID_NOTES_DESC = " " + PREFIX_NOTE + "        "; //only whitespaces
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "r"; //not an integer
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2020-12-31 11:00"; //not DD-MM-YYYY HH:MM format
+    public static final String INVALID_DATE_FROM_DESC = " " + PREFIX_START_DATE + "2020-12-31 11:00"; // not DD-MM-YYYY HH:MM format
+    public static final String INVALID_DATE_TO_DESC = " " + PREFIX_END_DATE + "2020-12-31 11:00"; // not DD-MM-YYYY HH:MM format
 
     //extra test strings
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

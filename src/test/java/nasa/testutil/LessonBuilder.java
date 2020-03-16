@@ -1,14 +1,19 @@
 package nasa.testutil;
 
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_TUTORIAL;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
+
 import nasa.model.activity.*;
 
 public class LessonBuilder {
 
-    public static final String DEFAULT_NAME = "CS2103T Lesson";
+    public static final String DEFAULT_NAME = VALID_ACTIVITY_NAME_TUTORIAL;
     public static final String DEFAULT_DATE = "19-10-2020 03:00";
-    public static final String DEFAULT_NOTE = "Sit with Kester";
-    public static final String DEFAULT_START_DATE = "19-10-2020 03:00";
-    public static final String DEFAULT_END_DATE = "19-12-2020 03:00";
+    public static final String DEFAULT_NOTE = VALID_NOTES_TEST;
+    public static final String DEFAULT_START_DATE = VALID_DATE_TEST;
+    public static final String DEFAULT_END_DATE = VALID_DATE_TEST_2;
 
 
     private Name name;
@@ -81,7 +86,7 @@ public class LessonBuilder {
     /**
      * Build an activity accordingly.
      */
-    public Activity build() {
+    public Lesson build() {
         return new Lesson(name, note, startDate, endDate);
     }
 }

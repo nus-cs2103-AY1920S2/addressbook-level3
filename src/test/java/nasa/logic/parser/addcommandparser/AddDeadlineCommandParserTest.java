@@ -1,7 +1,22 @@
 package nasa.logic.parser.addcommandparser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static nasa.logic.commands.CommandTestUtil.*;
+import static nasa.logic.commands.CommandTestUtil.INVALID_ACTIVITY_NAME_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_NOTES_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
+import static nasa.logic.commands.CommandTestUtil.MODULE_DESC_CS1231;
+import static nasa.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.ACTIVITY_NAME_DESC_HWK;
+import static nasa.logic.commands.CommandTestUtil.DATE_DESC_TEST;
+import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_HIGH;
+import static nasa.logic.commands.CommandTestUtil.NOTES_DESC_TEST;
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_HWK;
+import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
+import static nasa.logic.commands.CommandTestUtil.VALID_PRIORITY_HIGH;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -27,7 +42,7 @@ public class AddDeadlineCommandParserTest {
     }
 
     @Test
-    public void parse_compulsoryFieldMissing_failure() {
+    public void parse_compulsoryFieldsMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDeadlineCommand.MESSAGE_USAGE);
 
         // missing moduleCode
