@@ -305,7 +305,7 @@ List down all the orders that are uncompleted.
 * Adds a particular order as a return parcel into a new list.
 
 ==== Format
-`return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 [TIP]
 ====
@@ -443,7 +443,7 @@ e.g. `find` `-t` `ac1e345x7s`
 e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +
 e.g. `list` `done`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
 e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
 * <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` +
 e.g. `nearby` `14`
