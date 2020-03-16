@@ -121,4 +121,16 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    public static String parseModuleName(String name) {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        return trimmedName;
+    }
+
+    public static String parseModuleCode(String code) {
+        requireNonNull(code);
+        String trimmedCode = code.trim();
+        return trimmedCode;
+    }
 }
