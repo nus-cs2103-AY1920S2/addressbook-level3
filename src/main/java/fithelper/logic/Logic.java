@@ -7,7 +7,7 @@ import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
 import javafx.collections.ObservableList;
 
-import jfxtras.icalendarfx.components.VEvent;
+//import jfxtras.icalendarfx.components.VEvent;
 
 /**
  * API of the Logic component
@@ -29,8 +29,8 @@ public interface Logic {
      */
     ReadOnlyFitHelper getFitHelper();
 
-    ObservableList<VEvent> getVFoodList();
-    ObservableList<VEvent> getVSportsList();
+    /*ObservableList<VEvent> getVFoodList();
+    ObservableList<VEvent> getVSportsList();*/
 
     /** Returns an unmodifiable view of the filtered list of food entries*/
     ObservableList<Entry> getFilteredFoodEntryList();

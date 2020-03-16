@@ -11,7 +11,7 @@ import fithelper.model.entry.Entry;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import jfxtras.icalendarfx.components.VEvent;
+//import jfxtras.icalendarfx.components.VEvent;
 
 /**
  * Represents the in-memory model of the FitHelper data.
@@ -142,7 +142,7 @@ public class ModelManager implements Model {
                 && filteredSportsEntries.equals(other.filteredSportsEntries);
     }
 
-    @Override
+    /*@Override
     public ObservableList<VEvent> getVFoodList() {
         return null;
     }
@@ -151,5 +151,5 @@ public class ModelManager implements Model {
     public ObservableList<VEvent> getVSportsList() {
         return null;
         //return entry.getVSportsList();
-    }
+    }*/
 }
