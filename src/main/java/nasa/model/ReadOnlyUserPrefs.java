@@ -13,5 +13,4 @@ public interface ReadOnlyUserPrefs {
 
     Path getNasaBookFilePath();
 
-
 }

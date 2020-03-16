@@ -1,5 +1,7 @@
 package nasa.model.module;
 
+import nasa.commons.util.AppUtil;
+
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
 

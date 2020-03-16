@@ -3,6 +3,7 @@ package nasa.model.activity;
 import NASA.model.Regenerable;
 
 import java.time.LocalDateTime;
+import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Abstract class to specify fields with getter and setters for activities.
@@ -12,8 +13,26 @@ public abstract class Activity implements Regenerable<Activity> {
     private Name name;
     private Date date;
     private Note note;
-    private Status status;
+    protected Status status;
     private Priority priority;
+
+    public Activity(Name name, Note note) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.note = note;
+        this.date = Date.now();
+        this.status = Status.ONGOING;
+        this.priority = new Priority("1");
+    }
+
+    public Activity(Name name, Note note, Priority priority) {
+        requireAllNonNull(name, priority);
+        this.name = name;
+        this.note = note;
+        this.date = Date.now();
+        this.priority = priority;
+        this.status = Status.ONGOING;
+    }
 
     /**
      * Constructs a {@code activity}
@@ -22,6 +41,7 @@ public abstract class Activity implements Regenerable<Activity> {
      * @param note note of the activity
      */
     public Activity(Name name, Date date, Note note, Status status, Priority priority) {
+        requireAllNonNull(name, date, note, status, priority);
         this.name = name;
         this.date = date;
         this.note = note;
@@ -92,7 +112,7 @@ public abstract class Activity implements Regenerable<Activity> {
 
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
-                && otherActivity.getNote().equals(getNote())
+                //&& otherActivity.getNote().equals(getNote())
                 && otherActivity.getDate().equals(getDate());
     }
 
@@ -114,12 +134,6 @@ public abstract class Activity implements Regenerable<Activity> {
         return otherActivity.getName().equals(getName())
                 && otherActivity.getNote().equals(getNote())
                 && otherActivity.getDate().equals(getDate());
-    }
-
-    public void updateStatus() {
-        if (status == Status.ONGOING && LocalDateTime.now().isAfter(date.getDate())) {
-            status = Status.LATE;
-        }
     }
 
     /**
@@ -158,4 +172,6 @@ public abstract class Activity implements Regenerable<Activity> {
      * @return new instance of the activity, with its attributes possibly modified
      */
     public abstract Activity regenerate();
+
+    public void updateStatus() {}
 }

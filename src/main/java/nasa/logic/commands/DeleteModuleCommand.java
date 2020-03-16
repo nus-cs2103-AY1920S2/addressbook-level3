@@ -3,11 +3,11 @@ package nasa.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
-import java.util.ArrayList;
-
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.Module;
+
+import java.util.ArrayList;
 
 public class DeleteModuleCommand extends Command {
 
