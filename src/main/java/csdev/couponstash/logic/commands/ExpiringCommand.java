@@ -6,8 +6,10 @@ import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.DateIsBeforePredicate;
 
+
 /**
- * Lists all expiring coupons before the specified date in the CouponStash to the user.
+ * This class represents the "expiring" command in Coupon Stash. It shows the user all expiring coupons before the
+ * specified date in the CouponStash.
  */
 public class ExpiringCommand extends Command {
 
@@ -25,6 +27,12 @@ public class ExpiringCommand extends Command {
         this.date = predicate.getDate();
     }
 
+    /**
+     * Executes the ExpiringCommand with a given Model representing the current state of the Coupon Stash application
+     * @param model {@code Model} which the command should operate on.
+     * @return Returns the CommandResult that encompasses the message that is shown to the user, and any
+     * external actions that should occur.
+     */
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

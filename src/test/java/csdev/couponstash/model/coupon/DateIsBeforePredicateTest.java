@@ -28,7 +28,7 @@ public class DateIsBeforePredicateTest {
         assertFalse(firstPredicate.equals(1));
 
         // null -> returns false
-        assertFalse(firstPredicate.equals(null));
+        assertFalse(firstPredicate == null);
 
         // different coupon -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));

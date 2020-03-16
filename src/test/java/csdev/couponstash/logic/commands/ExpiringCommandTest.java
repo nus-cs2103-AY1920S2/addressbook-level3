@@ -47,7 +47,7 @@ public class ExpiringCommandTest {
         assertFalse(expiringFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(expiringFirstCommand.equals(null));
+        assertFalse(expiringFirstCommand == null);
 
         // different coupon -> returns false
         assertFalse(expiringFirstCommand.equals(expiringSecondCommand));
@@ -67,7 +67,7 @@ public class ExpiringCommandTest {
     @Test
     public void execute_multipleCouponsFound() {
         String inputDate = "1-12-2020";
-        String expectedMessage = String.format(Messages.MESSAGE_COUPONS_LISTED_OVERVIEW, 3)
+        String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 3)
                 + " " + String.format(MESSAGE_COUPONS_EXPIRING_BEFORE_DATE, inputDate);
         DateIsBeforePredicate predicate = preparePredicate(inputDate);
         ExpiringCommand command = new ExpiringCommand(predicate);
