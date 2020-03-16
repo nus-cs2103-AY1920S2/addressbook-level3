@@ -69,6 +69,13 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
+[discrete]
+==== EYLAH comprehensive class diagram for both Diet Tracker and Expense Spliter
+
+image::eylah_overall_class_diagram.png[]
+
+
+
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -491,36 +498,7 @@ Use case ends.
 === Expense Splitter Use Cases
 
 [discrete]
-=== Use case: UC01 - Add person
-
-*MSS*
-
-1.  User keys in the Person(s) name followed by some additional details, such as Telegram username and room number.
-2.  EYLAH adds Person(s) to the PersonList.
-3.  EYLAH displays the added person.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. EYLAH detects empty string in place of name.
-+
-[none]
-** 1a1. EYLAH shows an error message informing user that a Person's name cannot be empty.
-+
-Use case ends.
-
-[none]
-* 1b. Eylah detects invalid <<syntax,syntax>> in person's details.
-+
-[none]
-** 1b1. EYLAH shows an error message informing the user about the incorrect name format.
-+
-Use case ends.
-
-[discrete]
-=== Use case: UC02 - Add food
+=== Use case: UC01 - Add item
 
 *MSS*
 
@@ -550,7 +528,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC03 - Calculate cost
+=== Use case: UC02 - Delete item
 
 *MSS*
 
@@ -561,22 +539,23 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC04 - Listing food items
+=== Use case: UC03 - Listing Receipt
 
 *MSS*
 
-1.  User requests to list the food items.
-2.  EYLAH displays the list of food items.
+1.  User requests to list receipt containing Item(s) in the current Receipt
+2.  EYLAH displays the list of Item(s) in the current Receipt, its ItemPrice and Person(s) involved in spliting that Item.
+
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. EYLAH detects an empty list.
+* 1a. EYLAH detects an empty Receipt.
 +
 [none]
-** 1a1. EYLAH displays an error message.
+** 1a1. EYLAH displays an error message, saying that the Receipt has 0 Item.
 +
 Use case ends.
 
@@ -589,22 +568,22 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC05 - Listing the persons
+=== Use case: UC04 - Listing the Person(s) and their Amount
 
 *MSS*
 
-1.  User requests to list the persons.
-2.  EYLAH displays the list of persons.
+1.  User requests to list the Person(s) and the Amount they owe the user.
+2.  EYLAH displays the list of Person and its associated Amount.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. EYLAH detects an empty list.
+* 1a. EYLAH detects an empty Person list.
 +
 [none]
-** 1a1. EYLAH displays an error message.
+** 1a1. EYLAH displays an error message, informing user that there are no Person in the list.
 +
 Use case ends.
 
@@ -617,13 +596,13 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC06 - Removing food
+=== Use case: UC05 - Amount paid
 
 *MSS*
 
-1.  User requests to remove food from the list.
-2.  EYLAH removes the food from the list.
-3.  EYLAH displays the list of food.
+1.  User requests to reduce the Person's Amount when he/she has paid the user.
+2.  EYLAH searches for the Person and reduces the Amount they owe the user, if Amount = $0 the Person is removed from the list.
+3.  EYLAH then displays the new Amount owed by the Person
 +
 Use case ends.
 
@@ -633,7 +612,7 @@ Use case ends.
 * 1a. EYLAH detects an empty list.
 +
 [none]
-** 1a1. EYLAH displays an error message.
+** 1a1. EYLAH displays an error message, saying that there is no Person in the list.
 
 [none]
 * 1b. EYLAH detects invalid <<syntax,syntax>>.
@@ -643,46 +622,24 @@ Use case ends.
 +
 
 [none]
-* 1c. EYLAH detects that the food does not exist in the list.
+* 1c. EYLAH detects that the Person does not exist in the list.
 +
 [none]
-** 1c1. EYLAH displays an error message.
+** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person.
 +
 Use case ends.
 
 [discrete]
-=== Use case: UC07 - Removing person
+=== Use case: UC06 - Back to Main Menu
 
 *MSS*
 
-1.  User requests to remove a person from the list.
-2.  EYLAH removes the person from the list.
-3.  EYLAH displays the list of persons.
+1.  User requests to exit Expense Splitter and go back to Main Menu of EYLAH.
+2.  EYLAH exits Expense Splitter and goes back to Main Menu
 +
 Use case ends.
 
 *Extensions*
-
-[none]
-* 1a. EYLAH detects an empty list.
-+
-[none]
-** 1a1. EYLAH displays an error message.
-
-[none]
-* 1b. EYLAH detects invalid <<syntax,syntax>>.
-+
-[none]
-** 1b1. EYLAH displays an error message.
-+
-
-[none]
-* 1c. EYLAH detects that the person does not exist in the list.
-+
-[none]
-** 1c1. EYLAH displays an error message.
-+
-Use case ends.
 
 [appendix]
 == Non Functional Requirements
