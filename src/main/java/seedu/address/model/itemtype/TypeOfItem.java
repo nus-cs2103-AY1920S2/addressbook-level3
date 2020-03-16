@@ -1,9 +1,10 @@
-package seedu.address.model.ItemType;
-
-import seedu.address.model.order.TransactionID;
+package seedu.address.model.itemtype;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.model.order.TransactionID;
 
 /**
  * Represents the type of item in the order book.
@@ -21,17 +22,17 @@ public class TypeOfItem {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final String ItemType;
+    public final String itemType;
 
     /**
      * Constructs a {@code Name}.
      *
-     * @param ItemType A valid monetary value.
+     * @param itemType A valid monetary value.
      */
-    public TypeOfItem(String ItemType) {
-        requireNonNull(ItemType);
-        checkArgument(isValidItemName(ItemType), MESSAGE_CONSTRAINTS);
-        this.ItemType = ItemType;
+    public TypeOfItem(String itemType) {
+        requireNonNull(itemType);
+        checkArgument(isValidItemName(itemType), MESSAGE_CONSTRAINTS);
+        this.itemType = itemType;
     }
 
     /**
@@ -43,18 +44,18 @@ public class TypeOfItem {
 
     @Override
     public int hashCode() {
-        return ItemType.hashCode();
+        return itemType.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
                 || (obj instanceof TransactionID // instanceof handles nulls
-                && ItemType.equals(((TypeOfItem) obj).ItemType)); // state check
+                && itemType.equals(((TypeOfItem) obj).itemType)); // state check
     }
 
     @Override
     public String toString() {
-        return ItemType;
+        return itemType;
     }
 }

@@ -29,8 +29,8 @@ import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
-import seedu.address.model.order.TransactionID;
 import seedu.address.model.order.TimeStamp;
+import seedu.address.model.order.TransactionID;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -105,18 +105,18 @@ public class EditCommand extends Command {
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
 
-        TransactionID updatedTID = editOrderDescriptor.getTID().orElse(orderToEdit.getTID());
+        TransactionID updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         TimeStamp updateTimeStamp = editOrderDescriptor.getTimeStamp().orElse(orderToEdit.getTimestamp());
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
-        CashOnDelivery updatedCOD = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
+        CashOnDelivery updatedCod = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
         Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
-        return new Order(updatedTID, updatedName, updatedPhone, updatedAddress, updateTimeStamp, updatedWarehouse,
-                updatedCOD, updatedComment, updatedTags);
+        return new Order(updatedTid, updatedName, updatedPhone, updatedAddress, updateTimeStamp, updatedWarehouse,
+                updatedCod, updatedComment, updatedTags);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
-            setTID(toCopy.tid);
+            setTid(toCopy.tid);
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setAddress(toCopy.address);
@@ -177,11 +177,11 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(tid, name, phone, address, timeStamp, warehouse, cod, comment, tags);
         }
-        public void setTID(TransactionID tid) {
+        public void setTid(TransactionID tid) {
             this.tid = tid;
         }
 
-        public Optional<TransactionID> getTID() {
+        public Optional<TransactionID> getTid() {
             return Optional.ofNullable(tid);
         }
 
@@ -273,7 +273,7 @@ public class EditCommand extends Command {
             // state check
             EditOrderDescriptor e = (EditOrderDescriptor) other;
 
-            return getTID().equals(e.getTID())
+            return getTid().equals(e.getTid())
                     && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getAddress().equals(e.getAddress())

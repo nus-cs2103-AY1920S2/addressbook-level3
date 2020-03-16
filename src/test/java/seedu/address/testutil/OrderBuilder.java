@@ -55,7 +55,7 @@ public class OrderBuilder {
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
     public OrderBuilder(Order orderToCopy) {
-        tid = orderToCopy.getTID();
+        tid = orderToCopy.getTid();
         name = orderToCopy.getName();
         phone = orderToCopy.getPhone();
         address = orderToCopy.getAddress();

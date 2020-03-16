@@ -45,7 +45,7 @@ public class Order {
         this.comment = comment;
         this.tags.addAll(tags);
     }
-    public TransactionID getTID() {
+    public TransactionID getTid() {
         return tid;
     }
     public Name getName() {
@@ -94,7 +94,7 @@ public class Order {
         }
 
         return otherOrder != null
-                && otherOrder.getTID().equals(getTID())
+                && otherOrder.getTid().equals(getTid())
                 && otherOrder.getName().equals(getName())
                 && (otherOrder.getPhone().equals(getPhone()));
     }
@@ -114,7 +114,7 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getTID().equals(getTID())
+        return otherOrder.getTid().equals(getTid())
                 && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getAddress().equals(getAddress())
@@ -136,7 +136,7 @@ public class Order {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Transaction ID: ")
-                .append(getTID())
+                .append(getTid())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Address: ")

@@ -35,7 +35,7 @@ public class OrderUtil {
      */
     public static String getOrderDetails(Order order) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_TID + order.getTID().tid + " ");
+        sb.append(PREFIX_TID + order.getTid().tid + " ");
         sb.append(PREFIX_NAME + order.getName().fullName + " ");
         sb.append(PREFIX_PHONE + order.getPhone().value + " ");
         sb.append(PREFIX_ADDRESS + order.getAddress().value + " ");
@@ -55,7 +55,7 @@ public class OrderUtil {
      */
     public static String getEditOrderDescriptorDetails(EditCommand.EditOrderDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getTID().ifPresent(transid -> sb.append(PREFIX_TID).append(transid.tid).append(" "));
+        descriptor.getTid().ifPresent(transid -> sb.append(PREFIX_TID).append(transid.tid).append(" "));
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));

@@ -30,7 +30,7 @@ public class JsonAdaptedOrderTest {
     private static final String INVALID_COMMENT = " ";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_TID = BENSON.getTID().toString();
+    private static final String VALID_TID = BENSON.getTid().toString();
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();

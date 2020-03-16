@@ -191,13 +191,13 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTID_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTID((String) null));
+    public void parseTid_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTid((String) null));
     }
 
     @Test
-    public void parseTID_invalidValue_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTID(INVALID_TID));
+    public void parseTid_invalidValue_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTid(INVALID_TID));
     }
 
     @Test

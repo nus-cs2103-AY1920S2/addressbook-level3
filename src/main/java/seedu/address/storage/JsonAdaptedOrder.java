@@ -43,10 +43,11 @@ class JsonAdaptedOrder {
      */
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("tid") String tid, @JsonProperty("name") String name,
-                             @JsonProperty("phone") String phone, @JsonProperty("address") String address,
-                             @JsonProperty("timestamp") String timeStamp,
-                             @JsonProperty("warehouse") String warehouse, @JsonProperty("cashOnDelivery") String cod,
-                             @JsonProperty("comment") String comment, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                            @JsonProperty("phone") String phone, @JsonProperty("address") String address,
+                            @JsonProperty("timestamp") String timeStamp,
+                            @JsonProperty("warehouse") String warehouse, @JsonProperty("cashOnDelivery") String cod,
+                            @JsonProperty("comment") String comment,
+                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.tid = tid;
         this.name = name;
         this.phone = phone;
@@ -64,7 +65,7 @@ class JsonAdaptedOrder {
      * Converts a given {@code Order} into this class for Jackson use.
      */
     public JsonAdaptedOrder(Order source) {
-        tid = source.getTID().tid;
+        tid = source.getTid().tid;
         name = source.getName().fullName;
         phone = source.getPhone().value;
         address = source.getAddress().value;

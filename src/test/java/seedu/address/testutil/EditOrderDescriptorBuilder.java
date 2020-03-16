@@ -58,7 +58,7 @@ public class EditOrderDescriptorBuilder {
      * Sets the {@code TransactionID} of the {@code EditOrderDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withTID(String tid) {
-        descriptor.setTID(new TransactionID(tid));
+        descriptor.setTid(new TransactionID(tid));
         return this;
     }
 

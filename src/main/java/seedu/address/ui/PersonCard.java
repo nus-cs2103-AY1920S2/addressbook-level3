@@ -53,7 +53,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
-        tid.setText(order.getTID().tid);
+        tid.setText(order.getTid().tid);
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);

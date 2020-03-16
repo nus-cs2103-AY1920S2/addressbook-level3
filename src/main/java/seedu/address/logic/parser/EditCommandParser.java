@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -50,7 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditOrderDescriptor editOrderDescriptor = new EditOrderDescriptor();
         if (argMultimap.getValue(PREFIX_TID).isPresent()) {
-            editOrderDescriptor.setTID(ParserUtil.parseTID(argMultimap.getValue(PREFIX_TID).get()));
+            editOrderDescriptor.setTid(ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editOrderDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
