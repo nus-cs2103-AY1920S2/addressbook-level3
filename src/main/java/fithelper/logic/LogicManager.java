@@ -15,7 +15,7 @@ import fithelper.model.entry.Entry;
 import fithelper.storage.FitHelperStorage;
 
 import javafx.collections.ObservableList;
-//import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.components.VEvent;
 
 /**
  * The main LogicManager of the app.
@@ -72,14 +72,9 @@ public class LogicManager implements Logic {
         return model.getFilteredReminderEntryList();
     }
 
-    /* @Override
-    public ObservableList<VEvent> getVFoodList() {
-        return model.getVFoodList();
-    }
-
     @Override
-    public ObservableList<VEvent> getVSportsList() {
-        return model.getVSportsList();
-    }*/
+    public ObservableList<VEvent> getVEvents() {
+        return model.getVEvents();
+    }
 }
 

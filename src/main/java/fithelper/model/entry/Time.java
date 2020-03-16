@@ -4,6 +4,7 @@ import static fithelper.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,6 +20,7 @@ public class Time {
 
     public final LocalDate date;
     public final LocalTime time;
+    public final LocalDateTime dateTime;
     public final String value;
 
     /**
@@ -31,6 +33,7 @@ public class Time {
         checkArgument(isValidTime(timeStr), MESSAGE_CONSTRAINTS);
         time = LocalTime.parse(timeStr, PARSEFORMAT);
         date = LocalDate.parse(timeStr, PARSEFORMAT);
+        dateTime = LocalDateTime.parse(timeStr, PARSEFORMAT);
         value = concat(time, date);
     }
 

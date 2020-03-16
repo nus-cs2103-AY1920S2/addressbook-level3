@@ -8,10 +8,11 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.VEventList;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-//import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.components.VEvent;
 
 /**
  * Represents the in-memory model of the FitHelper data.
@@ -23,6 +24,7 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
     private final FilteredList<Entry> filteredReminderEntries;
+    private final VEventList vEventList;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
@@ -37,6 +39,7 @@ public class ModelManager implements Model {
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
+        vEventList = new VEventList(filteredFoodEntries, filteredSportsEntries);
     }
 
     public ModelManager() {
@@ -177,14 +180,8 @@ public class ModelManager implements Model {
                 && filteredSportsEntries.equals(other.filteredSportsEntries);
     }
 
-    /*@Override
-    public ObservableList<VEvent> getVFoodList() {
-        return null;
-    }
-
     @Override
-    public ObservableList<VEvent> getVSportsList() {
-        return null;
-        //return entry.getVSportsList();
-    }*/
+    public ObservableList<VEvent> getVEvents() {
+        return vEventList.getVEvents();
+    }
 }

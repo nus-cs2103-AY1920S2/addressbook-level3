@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import fithelper.model.entry.Entry;
 
 import javafx.collections.ObservableList;
-//import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.components.VEvent;
 
 /**
  * The API of the Model component.
@@ -75,7 +75,6 @@ public interface Model {
      */
     void updateFilteredSportEntryList(Predicate<Entry> predicate);
 
-    /* ObservableList<VEvent> getVFoodList();
-    ObservableList<VEvent> getVSportsList();*/
+    ObservableList<VEvent> getVEvents();
 }
 

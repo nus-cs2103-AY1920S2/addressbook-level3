@@ -3,6 +3,7 @@ package fithelper.model.entry;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.time.LocalDateTime;
 
 /**
  * Represents a Entry in the FitHelper.
@@ -75,6 +76,8 @@ public class Entry {
     public Time getTime() {
         return time;
     }
+
+    public LocalDateTime getDateTime() {return time.dateTime; };
 
     public Calorie getCalorie() {
         return calorie;
