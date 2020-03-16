@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 /**
  * The implementation class of SuggestionModel.
  */
-public class SuggestionModelManager implements SuggestionModel {
+public class SuggestionModelImpl implements SuggestionModel {
     private ObservableList<SuggestionItem> suggestions;
     private String commandInputText;
     private Property<Optional<String>> commandTextProperty;
