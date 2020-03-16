@@ -18,7 +18,7 @@ public class SuggestionItemImpl implements SuggestionItem {
     }
 
     @Override
-    public Runnable run() {
+    public Runnable getAction() {
         return action;
     }
 }
