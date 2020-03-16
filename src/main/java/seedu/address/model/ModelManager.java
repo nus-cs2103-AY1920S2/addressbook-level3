@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
+import seedu.address.ui.PetDisplayHandler;
 
 // TODO Set Pet attributes via ModelManager
 
@@ -20,6 +21,7 @@ public class ModelManager implements Model {
 
     private final TaskList taskList;
     private final Pet pet;
+    private final PetDisplayHandler petDisplayHandler;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
 
@@ -32,6 +34,7 @@ public class ModelManager implements Model {
 
         this.taskList = new TaskList(taskList);
         this.pet = new Pet(pet); // initialize a pet as a model
+        this.petDisplayHandler = new PetDisplayHandler(this.pet);
         logger.info(String.format("Initializing with Pet: %s", this.pet.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
@@ -119,8 +122,8 @@ public class ModelManager implements Model {
     // =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
-     * {@code versionedTaskList}
+     * Returns an unmodifiable view of the list of {@code Task} backed by the
+     * internal list of {@code versionedTaskList}
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
@@ -147,18 +150,34 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return taskList.equals(other.taskList)
-                && userPrefs.equals(other.userPrefs)
+        return taskList.equals(other.taskList) && userPrefs.equals(other.userPrefs)
                 && filteredTasks.equals(other.filteredTasks);
     }
 
     // TODO Add a manager for pets
-
+    @Override
     public ReadOnlyPet getPet() {
         return pet;
     }
 
+    @Override
     public void setPetName(String name) {
         this.pet.setName(name);
     }
+
+    @Override
+    public void incrementExp() {
+        this.pet.incrementExp();
+    }
+
+    @Override
+    public PetDisplayHandler getPetDisplayHandler() {
+        return petDisplayHandler;
+    }
+
+    @Override
+    public void updatePetDisplayHandler() {
+        this.petDisplayHandler.updatePetDisplay();
+    }
+
 }
