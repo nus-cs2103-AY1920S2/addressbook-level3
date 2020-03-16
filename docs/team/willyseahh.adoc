@@ -42,9 +42,9 @@ them track their diet. The user interacts with it using a CLI and it is programm
 image::expense_splitter_uml_class_diagram.png[]
 (Excluding the Height Class)
 
-** Added tests for ItemTest, ItemName, ItemPrice
+** *Added tests for ItemTest, ItemName, ItemPrice*
 
-** Assisted in downscaling of AddressBook3 by removing Email object
+** *Assisted in downscaling of AddressBook3 by removing Email object*
 
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
