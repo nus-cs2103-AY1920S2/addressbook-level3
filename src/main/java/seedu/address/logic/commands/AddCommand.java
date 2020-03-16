@@ -21,14 +21,14 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_TIME + "TIME "
-            + PREFIX_STEP + "STEP "
+            + "[" + PREFIX_STEP + "STEP]... "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_TIME + "98765432 "
-            + PREFIX_STEP + "johnd@example.com "
-            + PREFIX_GOAL + "friends "
-            + PREFIX_GOAL + "owesMoney";
+            + PREFIX_NAME + "Caesar Salad "
+            + PREFIX_TIME + "10 "
+            + PREFIX_STEP + "Cut tomatoes "
+            + PREFIX_STEP + "Remove honeydew skin "
+            + PREFIX_GOAL + "Herbivore ";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";
     public static final String MESSAGE_DUPLICATE_RECIPE = "This recipe already exists in the address book";

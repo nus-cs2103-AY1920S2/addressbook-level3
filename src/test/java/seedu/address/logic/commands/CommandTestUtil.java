@@ -30,8 +30,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_FISH = "Steamed Fish";
     public static final String VALID_TIME_TURKEY_SANDWICH = "15";
     public static final String VALID_TIME_FISH = "40";
-    public static final String VALID_STEP_TURKEY_SANDWICH = "amy@example.com";
-    public static final String VALID_STEP_FISH = "bob@example.com";
+    public static final String VALID_STEP_TURKEY_SANDWICH = "Slice the turkey";
+    public static final String VALID_STEP_FISH = "Remove fish stomach";
     public static final String VALID_GOAL_PROTEIN = "Bulk like the Hulk";
     public static final String VALID_GOAL_GRAIN = "Wholesome Wholemeal";
 
@@ -57,10 +57,10 @@ public class CommandTestUtil {
 
     static {
         DESC_TURKEY_SANDWICH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
-                .withTime(VALID_TIME_TURKEY_SANDWICH).withStep(VALID_STEP_TURKEY_SANDWICH)
+                .withTime(VALID_TIME_TURKEY_SANDWICH).withSteps(VALID_STEP_TURKEY_SANDWICH)
                 .withGoals(VALID_GOAL_GRAIN).build();
         DESC_FISH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
-                .withTime(VALID_TIME_FISH).withStep(VALID_STEP_FISH)
+                .withTime(VALID_TIME_FISH).withSteps(VALID_STEP_FISH)
                 .withGoals(VALID_GOAL_PROTEIN).build();
     }
 

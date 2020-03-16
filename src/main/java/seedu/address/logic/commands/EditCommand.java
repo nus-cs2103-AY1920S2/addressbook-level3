@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -93,7 +94,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
-        Step updatedStep = editRecipeDescriptor.getStep().orElse(recipeToEdit.getStep());
+        List<Step> updatedStep = editRecipeDescriptor.getSteps().orElse(recipeToEdit.getSteps());
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
         Set<Ingredient> updatedIngredients = new HashSet<>(); // todo
 
@@ -125,7 +126,7 @@ public class EditCommand extends Command {
     public static class EditRecipeDescriptor {
         private Name name;
         private Time time;
-        private Step step;
+        private List<Step> steps;
         private Set<Goal> goals;
 
         public EditRecipeDescriptor() {}
@@ -137,7 +138,7 @@ public class EditCommand extends Command {
         public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
             setName(toCopy.name);
             setTime(toCopy.time);
-            setStep(toCopy.step);
+            setSteps(toCopy.steps);
             setGoals(toCopy.goals);
         }
 
@@ -145,7 +146,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, time, step, goals);
+            return CollectionUtil.isAnyNonNull(name, time, steps, goals);
         }
 
         public void setName(Name name) {
@@ -164,12 +165,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(time);
         }
 
-        public void setStep(Step step) {
-            this.step = step;
+        public void setSteps(List<Step> steps) {
+            this.steps = (steps != null) ? new ArrayList<>(steps) : null;
         }
 
-        public Optional<Step> getStep() {
-            return Optional.ofNullable(step);
+        public Optional<List<Step>> getSteps() {
+            return (steps != null) ? Optional.of(Collections.unmodifiableList(steps)) : Optional.empty();
         }
 
         /**
@@ -206,7 +207,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getTime().equals(e.getTime())
-                    && getStep().equals(e.getStep())
+                    && getSteps().equals(e.getSteps())
                     && getGoals().equals(e.getGoals());
         }
     }

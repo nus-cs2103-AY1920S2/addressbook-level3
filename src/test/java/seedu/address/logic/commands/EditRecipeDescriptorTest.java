@@ -45,7 +45,7 @@ public class EditRecipeDescriptorTest {
         assertFalse(DESC_TURKEY_SANDWICH.equals(editedAmy));
 
         // different step -> returns false
-        editedAmy = new EditRecipeDescriptorBuilder(DESC_TURKEY_SANDWICH).withStep(VALID_STEP_FISH).build();
+        editedAmy = new EditRecipeDescriptorBuilder(DESC_TURKEY_SANDWICH).withSteps(VALID_STEP_FISH).build();
         assertFalse(DESC_TURKEY_SANDWICH.equals(editedAmy));
 
         // different goals -> returns false

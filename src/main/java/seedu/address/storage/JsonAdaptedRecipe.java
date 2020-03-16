@@ -26,7 +26,7 @@ class JsonAdaptedRecipe {
 
     private final String name;
     private final String time;
-    private final String step;
+    private final List<JsonAdaptedStep> steps = new ArrayList<>();
     private final List<JsonAdaptedGoal> goals = new ArrayList<>();
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
 
@@ -36,14 +36,16 @@ class JsonAdaptedRecipe {
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("time") String time,
             @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
-            @JsonProperty("step") String step,
+            @JsonProperty("steps") List<JsonAdaptedStep> steps,
             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
         this.time = time;
         if (ingredients != null) {
             this.ingredients.addAll(ingredients);
         }
-        this.step = step;
+        if (steps != null) {
+            this.steps.addAll(steps);
+            }
         if (goals != null) {
             this.goals.addAll(goals);
         }
@@ -58,7 +60,8 @@ class JsonAdaptedRecipe {
         ingredients.addAll(source.getIngredients().stream()
                 .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));
-        step = source.getStep().value;
+        steps.addAll(source.getSteps().stream()
+                .map(JsonAdaptedStep::new).collect(Collectors.toList()));
         goals.addAll(source.getGoals().stream()
                 .map(JsonAdaptedGoal::new)
                 .collect(Collectors.toList()));
@@ -80,6 +83,11 @@ class JsonAdaptedRecipe {
             recipeIngredients.add(ingredient.toModelType());
         }
 
+        final List<Step> recipeSteps = new ArrayList<>();
+        for (JsonAdaptedStep step : steps) {
+            recipeSteps.add(step.toModelType());
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -96,17 +104,10 @@ class JsonAdaptedRecipe {
         }
         final Time modelTime = new Time(time);
 
-        if (step == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName()));
-        }
-        if (!Step.isValidStep(step)) {
-            throw new IllegalValueException(Step.MESSAGE_CONSTRAINTS);
-        }
-        final Step modelStep = new Step(step);
-
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
         final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
-        return new Recipe(modelName, modelTime, modelIngredients, modelStep, modelGoals);
+        final ArrayList<Step> modelSteps = new ArrayList<>(recipeSteps);
+        return new Recipe(modelName, modelTime, modelIngredients, modelSteps, modelGoals);
     }
 
 }

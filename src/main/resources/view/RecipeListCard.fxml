@@ -30,7 +30,7 @@
       <FlowPane fx:id="goals" />
       <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
       <FlowPane fx:id="ingredients" />
-      <Label fx:id="step" styleClass="cell_small_label" text="\$step" />
+      <VBox fx:id="steps" />
     </VBox>
   </GridPane>
 </HBox>
