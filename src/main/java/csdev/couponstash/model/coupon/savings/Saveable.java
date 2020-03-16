@@ -90,6 +90,31 @@ public class Saveable implements Comparable<Saveable> {
         return new Saveable(this.savedItem, this.count + increment);
     }
 
+    /**
+     * Given a Saveable that represents the same
+     * saved item (same String value when getValue()
+     * is executed), adds the counts of both Saveables
+     * together and returns a new Saveable with the
+     * combined count value (with the same String
+     * value representing Saveable item).
+     *
+     * <p>If the Saveable does not represent the same
+     * saved item, this instance of Saveable will
+     * be returned instead, with no changes.
+     * @param s The Saveable that represents the
+     *          same item, to be "combined" with
+     *          this Saveable.
+     * @return Returns a new Saveable with modified
+     *     count, or returns this.
+     */
+    public Saveable increaseCount(Saveable s) {
+        if (!this.savedItem.equals(s.savedItem)) {
+            return this;
+        } else {
+            return this.increaseCount(s.count);
+        }
+    }
+
     @Override
     public int compareTo(Saveable p) {
         // compare count first, before comparing length of string
