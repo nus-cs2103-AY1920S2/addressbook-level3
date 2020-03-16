@@ -9,7 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
+
+import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -66,21 +67,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -120,5 +106,22 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String NotesOperation, @code String path} into a {@code Notes}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @param notesOperation operation done, to check if it is either open, create or delete.
+     * @param path path and filename to be created
+     * @return a new note object.
+     * @throws ParseException when the given {@code notesoperation} is invalid.
+     */
+    public static Notes parseNotesOperation(String notesOperation, String path) throws ParseException {
+        requireNonNull(notesOperation);
+        String trimmedOperation = notesOperation.trim();
+        if (!Notes.isValidOperation(trimmedOperation)) {
+            throw new ParseException(Notes.MESSAGE_CONSTRAINTS);
+        }
+        return new Notes(notesOperation, path);
     }
 }
