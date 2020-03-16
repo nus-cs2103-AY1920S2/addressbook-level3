@@ -36,6 +36,9 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
+    private StackPane timeFilterWindow;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
