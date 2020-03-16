@@ -100,7 +100,7 @@ Examples:
 
 * `lists`
 
-=== View Reminders : `reminders (optional)DATE`
+=== View Reminder : `reminder (optional)DATE`
 
 Shows a list of all undone tasks in the fitness log book. +
 Format: `reminders (optional)DATE`
@@ -109,13 +109,13 @@ If the field `DATE` is null, FitHelper will displays the undone tasks for the co
 
 Examples:
 
-* `reminders`
-* `reminders 2019-11-28`
+* `reminder`
+* `reminder 2019-11-28`
 
 === Editing an entry : `edit`
 
 Edits an existing entry in the fitness log book. +
-Format: `edit DATE INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK]...`
+Format: `edit DATE [i/INDEX] [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK]...`
 
 ****
 * Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding faily entry list. The index *must be a positive integer* 1, 2, 3, ...
@@ -127,25 +127,25 @@ Format: `edit DATE INDEX [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK]..
 
 Examples:
 
-* `edit 2020-03-02 1 t/Friday 4pm l/PGP gym` +
+* `edit 2020-03-02 i/1 t/Friday 4pm l/PGP gym` +
 Edits the time and email location of the 1st entry to be `Friday 4pm` and `PGP gym` respectively.
-* `edit 2020-04-18 2 n/Fries r/` +
+* `edit 2020-04-18 i/2 n/Fries r/` +
 Edits the name of the 2nd entry to be `Fries` and clears all existing remarks.
 
 ==== Mark an entry as done
 
 Users can mark an entry as done, either a meal or sports, where the calories intake and consumption will be taken in to consideration.
-Format: `edit DATE INDEX es/TRUE`
+Format: `edit DATE [i/INDEX] es/TRUE`
 
 ==== Mark an entry as undone
 
 Similar to the previous command, marking an entry as undone edits the `es/` field and modify it as `False`.
-Format: `edit DATE INDEX es/False`
+Format: `edit DATE [i/INDEX] es/False`
 
 === Locating entries by name: `find`
 
 Finds entries whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find (optional) [x/TYPE] [k/ONE OR MOREKEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `apples` will match `Apples`
@@ -159,14 +159,14 @@ Examples:
 
 * `find running` +
 Returns `running` and `slow running`
-* `find Juice Apple` +
+* `find x/food Juice Apple` +
 Returns any entry having names `Juice`,  or `Apple`
 
 // remark::delete[]
 === Deleting an entry : `delete`
 
 Deletes the specified entry from the fitness log book. +
-Format: `deleteX INDEX`
+Format: `delete [x/type] [i/INDEX]`
 
 ****
 * Deletes the entry at the specified `INDEX`.
@@ -176,7 +176,7 @@ Format: `deleteX INDEX`
 
 Examples:
 
-* `deletes 2020-03-02 2`
+* `delete [x/sports] 2020-03-02 [index/2]`
 Deletes the 2nd sports entry in the `2020-03-02` daily file in the fitness log book.
 
 === Sort the entries
