@@ -21,12 +21,17 @@ public class ModelManager implements Model {
 
     private final TaskList taskList;
     private final Pet pet;
+    private final Pomodoro pomodoro;
     private final PetDisplayHandler petDisplayHandler;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
 
     /** Initializes a ModelManager with the given taskList and userPrefs. */
-    public ModelManager(ReadOnlyTaskList taskList, ReadOnlyPet pet, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(
+            ReadOnlyTaskList taskList,
+            ReadOnlyPet pet,
+            ReadOnlyPomodoro pomodoro,
+            ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(taskList, userPrefs);
 
@@ -34,15 +39,17 @@ public class ModelManager implements Model {
 
         this.taskList = new TaskList(taskList);
         this.pet = new Pet(pet); // initialize a pet as a model
+        this.pomodoro = new Pomodoro(pomodoro); // initialize a pet as a model
         this.petDisplayHandler = new PetDisplayHandler(this.pet);
         logger.info(String.format("Initializing with Pet: %s", this.pet.toString()));
+        logger.info(String.format("Initializing with Pomodoro: %s", this.pomodoro.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
     }
 
     public ModelManager() {
-        this(new TaskList(), new Pet(), new UserPrefs());
+        this(new TaskList(), new Pet(), new Pomodoro(), new UserPrefs());
     }
 
     // =========== UserPrefs
@@ -122,8 +129,8 @@ public class ModelManager implements Model {
     // =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Task} backed by the
-     * internal list of {@code versionedTaskList}
+     * Returns an unmodifiable view of the list of {@code Task} backed by the internal list of
+     * {@code versionedTaskList}
      */
     @Override
     public ObservableList<Task> getFilteredTaskList() {
@@ -150,7 +157,8 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return taskList.equals(other.taskList) && userPrefs.equals(other.userPrefs)
+        return taskList.equals(other.taskList)
+                && userPrefs.equals(other.userPrefs)
                 && filteredTasks.equals(other.filteredTasks);
     }
 
@@ -165,9 +173,9 @@ public class ModelManager implements Model {
         this.pet.setName(name);
     }
 
-    @Override
-    public void incrementExp() {
-        this.pet.incrementExp();
+    // TODO add a manager for pomodoro
+    public ReadOnlyPomodoro getPomodoro() {
+        return pomodoro;
     }
 
     @Override
@@ -180,4 +188,14 @@ public class ModelManager implements Model {
         this.petDisplayHandler.updatePetDisplay();
     }
 
+    // ============================ Pomodoro Manager
+
+    public void setPomodoroTask(Task task) {
+        this.pomodoro.setTask(task);
+    }
+
+    @Override
+    public void incrementExp() {
+        this.pet.incrementExp();
+    }
 }
