@@ -11,6 +11,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -39,6 +40,7 @@ public class EditCouponDescriptorBuilder {
         descriptor.setPhone(coupon.getPhone());
         descriptor.setSavings(coupon.getSavings());
         descriptor.setExpiryDate(coupon.getExpiryDate());
+        descriptor.setStartDate(coupon.getStartDate());
         descriptor.setUsage(coupon.getUsage());
         descriptor.setLimit(coupon.getLimit());
         descriptor.setTags(coupon.getTags());
@@ -73,6 +75,14 @@ public class EditCouponDescriptorBuilder {
      */
     public EditCouponDescriptorBuilder withExpiryDate(String expiryDate) {
         descriptor.setExpiryDate(new ExpiryDate(expiryDate));
+        return this;
+    }
+
+    /**
+     * Sets the {@code StartDate} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withStartDate(String startDate) {
+        descriptor.setStartDate(new StartDate(startDate));
         return this;
     }
 

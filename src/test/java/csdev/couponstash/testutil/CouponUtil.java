@@ -5,6 +5,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 import static csdev.couponstash.model.coupon.savings.PercentageAmount.PERCENT_SUFFIX;
@@ -41,6 +42,7 @@ public class CouponUtil {
         sb.append(PREFIX_NAME + coupon.getName().fullName + " ");
         sb.append(PREFIX_PHONE + coupon.getPhone().value + " ");
         sb.append(PREFIX_EXPIRY_DATE + coupon.getExpiryDate().value + " ");
+        sb.append(PREFIX_START_DATE + coupon.getStartDate().value + " ");
         sb.append(convertSavingsToCommand(coupon.getSavings(), moneySymbol));
         sb.append(PREFIX_USAGE + coupon.getUsage().value + " ");
         sb.append(PREFIX_LIMIT + coupon.getLimit().value + " ");
@@ -60,6 +62,8 @@ public class CouponUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getExpiryDate().ifPresent(expiryDate -> sb.append(PREFIX_EXPIRY_DATE).append(expiryDate.value)
+                .append(" "));
+        descriptor.getStartDate().ifPresent(startDate -> sb.append(PREFIX_START_DATE).append(startDate.value)
                 .append(" "));
         descriptor.getSavings().ifPresent(sv -> sb.append(convertSavingsToCommand(sv, moneySymbol)));
         descriptor.getUsage().ifPresent(usage -> sb.append(PREFIX_USAGE).append(usage.value).append(" "));

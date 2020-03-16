@@ -14,6 +14,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_USAGE = new Prefix("u/");
     public static final Prefix PREFIX_LIMIT = new Prefix("l/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-    //public static final Prefix PREFIX_STARTDATE = new Prefix("s/");
+    public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
     public static final Prefix PREFIX_REMIND = new Prefix("r/");
 }
