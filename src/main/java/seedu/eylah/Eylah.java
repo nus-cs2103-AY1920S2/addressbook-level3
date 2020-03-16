@@ -34,6 +34,8 @@ public class Eylah {
     /**
      * Main method to run the application.
      * For now just ignore these messy code, this is a temporary code for testing purpose.
+     * After start the app, only can choose to run in diet or splitter mode,
+     * the way to exit the app just simply close the app in terminal.
      *
      */
     public void run() {
