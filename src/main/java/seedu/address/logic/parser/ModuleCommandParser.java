@@ -41,8 +41,7 @@ public class ModuleCommandParser {
         switch (commandWord) {
 
         case CommandWords.ADD_MODEL:
-            // return new AddGroupCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Add group commands"));
+            return new AddModuleCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
             // return new DeleteGroupCommandParser().parse(arguments);

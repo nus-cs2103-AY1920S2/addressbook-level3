@@ -122,12 +122,18 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses and returns the module name.
+     */
     public static String parseModuleName(String name) {
         requireNonNull(name);
         String trimmedName = name.trim();
         return trimmedName;
     }
 
+    /**
+     * Parses and returns the module code to serve as an identifier.
+     */
     public static String parseModuleCode(String code) {
         requireNonNull(code);
         String trimmedCode = code.trim();
