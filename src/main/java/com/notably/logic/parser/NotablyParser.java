@@ -13,15 +13,8 @@ public class NotablyParser<T extends Command> {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-//    public boolean checkArgument(String string) {
-//        String[] temp = string.split("/");
-//        for(String object: temp) {
-//        }`
-//    }
-
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-//        CorrectionEngineStub correctionEngineStub = new CorrectionEngineStub();
         if (!matcher.matches()) {
             throw new ParseException(String.format("Invalid Command"));
         }

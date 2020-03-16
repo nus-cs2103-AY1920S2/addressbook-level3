@@ -12,7 +12,6 @@ public class OpenCommandParser implements CommandParser {
     public OpenCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
-
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid input"));
