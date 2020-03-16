@@ -13,7 +13,7 @@ public class Priority {
     /**
      * Valid integers that cannot start with the digit '0', and within range of 1 to 5.
      */
-    public static final String VALID_INTEGER_REGEX = "([0-5]\\d{0})";
+    public static final String VALID_INTEGER_REGEX = "([1-5]\\d{0})";
 
     /**
      * Priority level set to 1 as default value if not specified.
