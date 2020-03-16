@@ -21,14 +21,15 @@ public class EditInfoCommand extends Command {
             + ": Edit the information of the person identified "
             + "by the index number used in the last person listing. "
             + "If there is existing information at the line number, "
-            + "it will be overwritten with the input indicated.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "it will be overwritten with the input indicated."
+            + "If note is empty, the input will be added as new note.\n"
+            + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
             + "[" + PREFIX_LINE_NUMBER + "LINE_NUMBER] " + "[" + PREFIX_REMARK + "INFO]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_LINE_NUMBER + " 2 " + PREFIX_REMARK + " Likes to swim.";
 
     public static final String MESSAGE_EDIT_REMARK_SUCCESS = "Edited remark for Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_EMPTY = "No remark edited for Person: %1$s";
 
     private final Index index;
     private final int line;
@@ -56,13 +57,15 @@ public class EditInfoCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        if (personToEdit.getRemark().get(0).equals("")) {
+        if (personToEdit.getRemark().size() == 0) {
             throw new CommandException(Messages.MESSAGE_NO_INFO);
         }
-        if (line > personToEdit.getRemark().size() || line < 0) {
+        if (line > personToEdit.getRemark().size() && personToEdit.getRemark().size() != 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER);
         }
-        personToEdit.getRemark().set(line-1, remark);
+        if(!remark.value.isEmpty()) {
+            personToEdit.getRemark().set(line - 1, remark);
+        }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getTags());
 
@@ -77,7 +80,7 @@ public class EditInfoCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !remark.value.isEmpty() ? MESSAGE_EDIT_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        String message = !remark.value.isEmpty() ? MESSAGE_EDIT_REMARK_SUCCESS : MESSAGE_EMPTY;
         return String.format(message, personToEdit);
     }
 

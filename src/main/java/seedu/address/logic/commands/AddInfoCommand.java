@@ -1,11 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -34,7 +31,7 @@ public class AddInfoCommand extends Command {
             + PREFIX_REMARK + "Likes to swim.";
 
     public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
-    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+    public static final String MESSAGE_EMPTY = "No remark added to Person: %1$s";
 
     private final Index index;
     private final Remark remark;
@@ -59,7 +56,9 @@ public class AddInfoCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        personToEdit.getRemark().add(remark);
+        if (!remark.value.isEmpty()) {
+            personToEdit.getRemark().add(remark);
+        }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getTags());
 
@@ -74,7 +73,7 @@ public class AddInfoCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_EMPTY;
         return String.format(message, personToEdit);
     }
 

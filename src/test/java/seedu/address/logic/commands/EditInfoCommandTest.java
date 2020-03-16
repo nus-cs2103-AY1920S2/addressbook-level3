@@ -34,27 +34,11 @@ class EditInfoCommandTest {
     public void execute_editInfoUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
-        editedPerson.getRemark().set(0, new Remark("New remark"));
+        int size = editedPerson.getRemark().size();
 
-        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON, 0, new Remark(editedPerson.getRemark().get(0).toString()));
+        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON, size-1, editedPerson.getRemark().get(size-1));
 
-        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
-
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(firstPerson, editedPerson);
-
-        assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_deleteRemarkUnfilteredList_success() {
-        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(firstPerson).withRemark("").build();
-
-        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON, 0,
-                new Remark(""));
-
-        String expectedMessage = String.format(EditInfoCommand.MESSAGE_DELETE_REMARK_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -69,10 +53,11 @@ class EditInfoCommandTest {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
                 .withRemark(REMARK_STUB).build();
+        editedPerson.getRemark().set(0, new Remark("New remark"));
+        int size = editedPerson.getRemark().size();
+        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON, size-1, editedPerson.getRemark().get(size-1));
 
-        EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON, 0, new Remark(REMARK_STUB));
-
-        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
@@ -83,7 +68,7 @@ class EditInfoCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        EditInfoCommand editInfoCommand = new EditInfoCommand(outOfBoundIndex, 0, new Remark(VALID_REMARK_BOB));
+        EditInfoCommand editInfoCommand = new EditInfoCommand(outOfBoundIndex, 1, new Remark(VALID_REMARK_BOB));
 
         assertCommandFailure(editInfoCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -99,7 +84,7 @@ class EditInfoCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        EditInfoCommand editInfoCommand = new EditInfoCommand(outOfBoundIndex, 0, new Remark(VALID_REMARK_BOB));
+        EditInfoCommand editInfoCommand = new EditInfoCommand(outOfBoundIndex, 1, new Remark(VALID_REMARK_BOB));
 
 
         assertCommandFailure(editInfoCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -107,11 +92,11 @@ class EditInfoCommandTest {
 
     @Test
     public void equals() {
-        final EditInfoCommand standardCommand = new EditInfoCommand(INDEX_FIRST_PERSON, 0,
+        final EditInfoCommand standardCommand = new EditInfoCommand(INDEX_FIRST_PERSON, 1,
                 new Remark(VALID_REMARK_AMY));
 
         // same values -> returns true
-        EditInfoCommand commandWithSameValues = new EditInfoCommand(INDEX_FIRST_PERSON, 0,
+        EditInfoCommand commandWithSameValues = new EditInfoCommand(INDEX_FIRST_PERSON, 1,
                 new Remark(VALID_REMARK_AMY));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -125,11 +110,11 @@ class EditInfoCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditInfoCommand(INDEX_SECOND_PERSON, 0,
+        assertFalse(standardCommand.equals(new EditInfoCommand(INDEX_SECOND_PERSON, 1,
                 new Remark(VALID_REMARK_AMY))));
 
         // different remark -> returns false
-        assertFalse(standardCommand.equals(new EditInfoCommand(INDEX_FIRST_PERSON,  0,
+        assertFalse(standardCommand.equals(new EditInfoCommand(INDEX_FIRST_PERSON,  1,
                 new Remark(VALID_REMARK_BOB))));
     }
 }

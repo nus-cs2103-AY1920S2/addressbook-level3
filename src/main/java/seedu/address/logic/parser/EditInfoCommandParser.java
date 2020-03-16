@@ -33,6 +33,7 @@ public class EditInfoCommandParser implements Parser<EditInfoCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditInfoCommand.MESSAGE_USAGE), ive);
         }
+
         int line = Integer.parseInt(argMultimap.getAllValues(PREFIX_LINE_NUMBER).get(0));
         String remark = argMultimap.getValue(PREFIX_REMARK).orElse("");
 

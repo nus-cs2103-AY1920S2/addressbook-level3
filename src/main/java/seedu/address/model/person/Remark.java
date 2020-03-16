@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -9,7 +11,7 @@ import static java.util.Objects.requireNonNull;
 public class Remark {
     public final String value;
 
-    public Remark(String remark) {
+    public Remark(@JsonProperty("remark")String remark) {
         requireNonNull(remark);
         value = remark;
     }
