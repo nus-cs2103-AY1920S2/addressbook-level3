@@ -6,14 +6,16 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.good.Good;
+import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -31,8 +33,12 @@ public class ParserUtilTest {
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_GOOD_1 = "potato";
+    private static final String VALID_GOOD_2 = "chicken";
+    private static final String VALID_PRICE_1 = "6.0";
+    private static final String VALID_PRICE_2 = "4";
+    private static final String VALID_OFFER_1 = VALID_GOOD_1 + " " + VALID_PRICE_1;
+    private static final String VALID_OFFER_2 = VALID_GOOD_2 + " " + VALID_PRICE_2;
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -149,48 +155,49 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTag(null));
+    public void parseOffer_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseOffer(null));
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTag(INVALID_TAG));
+    public void parseOffer_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOffer(INVALID_TAG));
     }
 
     @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Offer expectedOffer = new Offer(VALID_TAG_1);
-        assertEquals(expectedOffer, ParserUtil.parseTag(VALID_TAG_1));
+    public void parseOffer_validValueWithoutWhitespace_returnsTag() throws Exception {
+        Offer expectedOffer = new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1));
+        assertEquals(expectedOffer, ParserUtil.parseOffer(VALID_OFFER_1));
     }
 
     @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Offer expectedOffer = new Offer(VALID_TAG_1);
-        assertEquals(expectedOffer, ParserUtil.parseTag(tagWithWhitespace));
+    public void parseOffer_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
+        String tagWithWhitespace = WHITESPACE + VALID_OFFER_1 + WHITESPACE;
+        Offer expectedOffer = new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1));
+        assertEquals(expectedOffer, ParserUtil.parseOffer(tagWithWhitespace));
     }
 
     @Test
-    public void parseTags_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
+    public void parseOffers_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseOffers(null));
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG)));
+    public void parseOffers_collectionWithInvalidTags_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, INVALID_TAG)));
     }
 
     @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+    public void parseOffers_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseOffers(Collections.emptyList()).isEmpty());
     }
 
     @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Offer> actualOfferSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Offer> expectedOfferSet = new HashSet<Offer>(Arrays.asList(new Offer(VALID_TAG_1), new Offer(VALID_TAG_2)));
+    public void parseOffers_collectionWithValidTags_returnsTagSet() throws Exception {
+        List<Offer> actualOfferList = ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, VALID_OFFER_2));
+        List<Offer> expectedOfferList = new ArrayList<>(Arrays.asList(new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1)),
+                new Offer(new Good(VALID_GOOD_2), new Price(VALID_PRICE_2))));
 
-        assertEquals(expectedOfferSet, actualOfferSet);
+        assertEquals(actualOfferList, expectedOfferList);
     }
 }
