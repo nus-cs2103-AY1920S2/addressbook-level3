@@ -24,7 +24,7 @@ public class Entry {
      *
      * @param item,persons Represents the compulsory fields of an Entry object.
      */
-    Entry(Item item, String ... persons) {
+    public Entry(Item item, String ... persons) {
         requireAllNonNull(item, persons);
         this.item = item;
         this.persons = persons;
