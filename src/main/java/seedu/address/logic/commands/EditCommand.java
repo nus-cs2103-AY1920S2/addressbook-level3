@@ -2,10 +2,14 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
@@ -19,87 +23,100 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.comment.Comment;
+import seedu.address.model.order.Address;
+import seedu.address.model.order.CashOnDelivery;
+import seedu.address.model.order.Name;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.Phone;
+import seedu.address.model.order.TimeStamp;
+import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing order in the order book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the order identified "
+            + "by the index number used in the displayed order list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_TID + "TRANSACTION_ID] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
-            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DELIVERY_TIMESTAMP + "DELIVERY_DATE_&_TIME] "
+            + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
+            + "[" + PREFIX_COD + "CASH_ON_DELIVERY] "
+            + "[" + PREFIX_COMMENT + "COMMENT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_EMAIL + "johndoe@example.com";
+            + PREFIX_TID + "A0185837Q";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the order book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditOrderDescriptor editOrderDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index                of the order in the filtered order list to edit
+     * @param editOrderDescriptor details to edit the order with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditOrderDescriptor editOrderDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editOrderDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editOrderDescriptor = new EditOrderDescriptor(editOrderDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Order> lastShownList = model.getFilteredOrderList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Order orderToEdit = lastShownList.get(index.getZeroBased());
+        Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!orderToEdit.isSameOrder(editedOrder) && model.hasOrder(editedOrder)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ORDER);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setOrder(orderToEdit, editedOrder);
+        model.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS, editedOrder));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
+        assert orderToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        TransactionID updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
+        Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
+        Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
+        Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
+        TimeStamp updateTimeStamp = editOrderDescriptor.getTimeStamp().orElse(orderToEdit.getTimestamp());
+        Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
+        CashOnDelivery updatedCod = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
+        Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
+        Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Order(updatedTid, updatedName, updatedPhone, updatedAddress, updateTimeStamp, updatedWarehouse,
+                updatedCod, updatedComment, updatedTags);
     }
 
     @Override
@@ -117,31 +134,40 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editOrderDescriptor.equals(e.editOrderDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the order with. Each non-empty field value will replace the
+     * corresponding field value of the order.
      */
-    public static class EditPersonDescriptor {
+    public static class EditOrderDescriptor {
+        private TransactionID tid;
         private Name name;
         private Phone phone;
-        private Email email;
         private Address address;
+        private TimeStamp timeStamp;
+        private Warehouse warehouse;
+        private CashOnDelivery cod;
+        private Comment comment;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditOrderDescriptor() {
+        }
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditOrderDescriptor(EditOrderDescriptor toCopy) {
+            setTid(toCopy.tid);
             setName(toCopy.name);
             setPhone(toCopy.phone);
-            setEmail(toCopy.email);
             setAddress(toCopy.address);
+            setTimeStamp(toCopy.timeStamp);
+            setWarehouse(toCopy.warehouse);
+            setCash(toCopy.cod);
+            setComment(toCopy.comment);
             setTags(toCopy.tags);
         }
 
@@ -149,7 +175,14 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(tid, name, phone, address, timeStamp, warehouse, cod, comment, tags);
+        }
+        public void setTid(TransactionID tid) {
+            this.tid = tid;
+        }
+
+        public Optional<TransactionID> getTid() {
+            return Optional.ofNullable(tid);
         }
 
         public void setName(Name name) {
@@ -168,20 +201,44 @@ public class EditCommand extends Command {
             return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
         public void setAddress(Address address) {
             this.address = address;
         }
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setTimeStamp(TimeStamp timeStamp) {
+            this.timeStamp = timeStamp;
+        }
+
+        public Optional<TimeStamp> getTimeStamp() {
+            return Optional.ofNullable(timeStamp);
+        }
+
+        public void setWarehouse(Warehouse warehouse) {
+            this.warehouse = warehouse;
+        }
+
+        public Optional<Warehouse> getWarehouse() {
+            return Optional.ofNullable(warehouse);
+        }
+
+        public void setCash(CashOnDelivery cod) {
+            this.cod = cod;
+        }
+
+        public Optional<CashOnDelivery> getCash() {
+            return Optional.ofNullable(cod);
+        }
+
+        public void setComment(Comment comment) {
+            this.comment = comment;
+        }
+
+        public Optional<Comment> getComment() {
+            return Optional.ofNullable(comment);
         }
 
         /**
@@ -209,17 +266,21 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditOrderDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditOrderDescriptor e = (EditOrderDescriptor) other;
 
-            return getName().equals(e.getName())
+            return getTid().equals(e.getTid())
+                    && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
+                    && getTimeStamp().equals(e.getTimeStamp())
+                    && getWarehouse().equals(e.getWarehouse())
+                    && getCash().equals(e.getCash())
+                    && getComment().equals(e.getComment())
                     && getTags().equals(e.getTags());
         }
     }
