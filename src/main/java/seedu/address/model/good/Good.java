@@ -8,10 +8,6 @@ public class Good {
     public static final String MESSAGE_CONSTRAINTS =
             "Dummy constraint message.";
 
-    /**
-     * Permits everything.
-     */
-    public static final String VALIDATION_REGEX = "[\\s\\S]+";
 
     public Good(String good) {
         this.name = good;
@@ -21,7 +17,7 @@ public class Good {
      * Returns true if a given string is a valid good name.
      */
     public static boolean isValidGoodName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return true;
     }
 
     @Override
