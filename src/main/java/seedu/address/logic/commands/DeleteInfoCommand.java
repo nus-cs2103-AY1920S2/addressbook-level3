@@ -1,16 +1,20 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import java.util.List;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-
+/**
+ * Deletes a remark of an existing person in the address book.
+ */
 public class DeleteInfoCommand extends Command {
 
     public static final String COMMAND_WORD = "ab_deletenote";
@@ -57,8 +61,7 @@ public class DeleteInfoCommand extends Command {
 
         if (line > personToEdit.getRemark().size() || line < 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER);
-        }
-        else {
+        } else {
             personToEdit.getRemark().remove(line - 1);
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
@@ -75,7 +78,8 @@ public class DeleteInfoCommand extends Command {
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        String message = (line > personToEdit.getRemark().size() || line < 0) ? MESSAGE_REMOVE_REMARK_SUCCESS : MESSAGE_NO_DELETE_REMARK;
+        String message = (line > personToEdit.getRemark().size() || line < 0)
+                ? MESSAGE_REMOVE_REMARK_SUCCESS : MESSAGE_NO_DELETE_REMARK;
         return String.format(message, personToEdit);
     }
 

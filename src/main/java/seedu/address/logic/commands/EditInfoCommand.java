@@ -6,6 +6,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
+
 import java.util.List;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -13,6 +14,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LINE_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+/**
+ * Edit a remark of an existing person in the address book.
+ */
 public class EditInfoCommand extends Command {
 
     public static final String COMMAND_WORD = "ab_editnote";
@@ -63,7 +67,7 @@ public class EditInfoCommand extends Command {
         if (line > personToEdit.getRemark().size() && personToEdit.getRemark().size() != 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_LINE_NUMBER);
         }
-        if(!remark.value.isEmpty()) {
+        if (!remark.value.isEmpty()) {
             personToEdit.getRemark().set(line - 1, remark);
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),

@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import static java.util.Objects.requireNonNull;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Represents a Person's remark in the address book.
