@@ -1,7 +1,5 @@
 package fithelper.ui.calendar;
 
-import java.time.LocalDate;
-
 import fithelper.model.entry.Entry;
 import fithelper.ui.UiPart;
 
@@ -22,7 +20,6 @@ public class UpcomingList extends UiPart<AnchorPane> {
 
     public UpcomingList(ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
         super(FXML);
-        LocalDate currentDate = LocalDate.now();
         getList(foodList, sportsList);
     }
 
@@ -30,7 +27,6 @@ public class UpcomingList extends UiPart<AnchorPane> {
      * Updates the upcoming tasks.
      */
     public void getList(ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
-        int index = 0;
         upcomingList.getChildren().clear();
         findList(foodList);
         findList(sportsList);
