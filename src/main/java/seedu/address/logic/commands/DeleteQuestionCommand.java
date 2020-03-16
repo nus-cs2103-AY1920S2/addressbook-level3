@@ -44,7 +44,8 @@ public class DeleteQuestionCommand extends DeleteCommand {
 
             Question question = questions.get(index - 1);
             questions.remove(question);
-            return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionIndex), ToggleView.QUESTION);
+            return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionIndex),
+                    ToggleView.QUESTION);
         } catch (NumberFormatException e) {
             throw new CommandException(String.format(MESSAGE_DELETE_INDEX_NOT_A_NUMBER, questionIndex));
         }

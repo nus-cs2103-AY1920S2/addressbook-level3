@@ -2,10 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListAttributeCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListIntervieweeCommand;
 import seedu.address.logic.commands.ListQuestionCommand;
+import seedu.address.logic.commands.ListSessionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -25,17 +26,20 @@ public class ListCommandParser implements Parser<ListCommand> {
         final String listCommandWord = commandWord.trim().toLowerCase();
 
         switch (listCommandWord) {
-            case ListAttributeCommand.COMMAND_WORD:
-                return new ListAttributeCommand();
+        case ListAttributeCommand.COMMAND_WORD:
+            return new ListAttributeCommand();
 
-            case ListIntervieweeCommand.COMMAND_WORD:
-                return new ListIntervieweeCommand();
+        case ListIntervieweeCommand.COMMAND_WORD:
+            return new ListIntervieweeCommand();
 
-            case ListQuestionCommand.COMMAND_WORD:
-                return new ListQuestionCommand();
+        case ListQuestionCommand.COMMAND_WORD:
+            return new ListQuestionCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        case ListSessionCommand.COMMAND_WORD:
+            return new ListSessionCommand();
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

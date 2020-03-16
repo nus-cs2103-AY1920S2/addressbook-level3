@@ -146,6 +146,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets what is displayed in the listPanelStackPane based on the toggle.
+     *
      * @param toggleView enum representing what should be displayed
      */
     @FXML
@@ -155,7 +156,7 @@ public class MainWindow extends UiPart<Stage> {
         }
         this.toggleView = toggleView;
 
-        listPanelStackPane.getChildren().removeAll();
+        listPanelStackPane.getChildren().clear();
         switch (toggleView) {
         case ATTRIBUTE: // attribute
             listPanelStackPane.getChildren().add(attributeListPanel.getRoot());
