@@ -10,18 +10,20 @@ import seedu.address.model.order.NameContainsKeywordsPredicate;
  * Finds and lists all orders in order book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindCommand extends Command {
+public class SearchCommand extends Command {
 
-    public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD = "search";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all orders whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Default, search command searches for all orders "
+            + "that contain any of the specified keywords (case-insensitive) "
+            + "and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + COMMAND_WORD + " alice bob charlie\n"
+            + "If a Prefix tid/ is given, order pertaining that transaction id will be displayed.\n";
 
     private final NameContainsKeywordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public SearchCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -36,7 +38,7 @@ public class FindCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                || (other instanceof SearchCommand // instanceof handles nulls
+                && predicate.equals(((SearchCommand) other).predicate)); // state check
     }
 }
