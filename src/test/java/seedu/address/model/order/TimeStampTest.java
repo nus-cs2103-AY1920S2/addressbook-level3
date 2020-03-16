@@ -17,7 +17,7 @@ class TimeStampTest {
     public void constructor_invalidTimeStamp_throwsIllegalArgumentException() {
         String invalidDateOnly = "2019-20-02";
         String invalidTimeOnly = "0213";
-        String invalidDate = "2020-02-32 2000";
+        String invalidDate = "2019-02-29 2000";
         String invalidTime = "2020-02-20 2512";
         assertThrows(IllegalArgumentException.class, () -> new TimeStamp(invalidDateOnly));
         assertThrows(IllegalArgumentException.class, () -> new TimeStamp(invalidTimeOnly));
@@ -29,7 +29,7 @@ class TimeStampTest {
     public void isValidTimeStamp() {
         String invalidDateOnly = "2019-20-02";
         String invalidTimeOnly = "0213";
-        String invalidDate = "2020-02-32 2000";
+        String invalidDate = "2019-02-29 2000";
         String invalidTime = "2020-02-20 2512";
 
         // null timeStamp
