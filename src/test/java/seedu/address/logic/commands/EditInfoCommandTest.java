@@ -54,10 +54,9 @@ class EditInfoCommandTest {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))
                 .withRemark(REMARK_STUB).build();
-        editedPerson.getRemark().set(0, new Remark("New remark"));
         int size = editedPerson.getRemark().size();
         EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON,
-                size - 1, editedPerson.getRemark().get(size - 1));
+                1, editedPerson.getRemark().get(0));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
