@@ -9,10 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.profile.course.module.Module;
 
-
-
-
-
 /**
  * Displays details requested by user.
  */
@@ -31,14 +27,12 @@ public class ShowCommand extends Command {
     private final ArrayList<Module> toShow;
 
     /**
-     * Creates an ShowCommand to show the specified {@code Profile}
+     * Creates an ShowCommand to show the specified {@code Modules}
      * @param modules
      */
     public ShowCommand(ArrayList<Module> modules) {
         requireNonNull(modules);
         toShow = modules;
-
-
     }
 
     @Override

@@ -11,10 +11,6 @@ import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.Module;
 
-
-
-
-
 /**
  * Parses input arguments and creates a new ShowCommand object
  */
@@ -39,7 +35,6 @@ public class ShowCommandParser implements Parser<ShowCommand> {
 
         return new ShowCommand(modulesList);
     }
-
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
