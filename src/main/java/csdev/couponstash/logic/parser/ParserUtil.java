@@ -191,6 +191,26 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String monetaryAmount} into a {@code MonetaryAmount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code originalAmount} is invalid.
+     */
+    public static MonetaryAmount parseMonetaryAmount(String monetaryAmount) throws ParseException {
+        requireNonNull(monetaryAmount);
+        String trimmedMonetaryAmount = monetaryAmount.trim();
+        try {
+            Double convertedMonetaryAmount = Double.parseDouble(trimmedMonetaryAmount);
+            if (!MonetaryAmount.isValidMonetaryAmount(convertedMonetaryAmount)) {
+                throw new ParseException(MonetaryAmount.MESSAGE_CONSTRAINTS);
+            }
+            return new MonetaryAmount(convertedMonetaryAmount);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(MonetaryAmount.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
