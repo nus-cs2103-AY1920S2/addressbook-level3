@@ -32,7 +32,8 @@ public class DashBoard extends UiPart<AnchorPane> {
     /**
      * Creates an order page displaying entries from {@code entryList}.
      */
-    public DashBoard(ObservableList<Entry> foodList, ObservableList<Entry> sportList, ObservableList<Entry> reminderList) {
+    public DashBoard(ObservableList<Entry> foodList, ObservableList<Entry> sportList,
+                     ObservableList<Entry> reminderList) {
         super(FXML);
 
         logger.info("Initializing Dash Board");

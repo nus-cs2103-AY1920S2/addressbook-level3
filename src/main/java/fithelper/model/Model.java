@@ -75,7 +75,7 @@ public interface Model {
      */
     void updateFilteredSportEntryList(Predicate<Entry> predicate);
 
-   /* ObservableList<VEvent> getVFoodList();
+    /* ObservableList<VEvent> getVFoodList();
     ObservableList<VEvent> getVSportsList();*/
 }
 

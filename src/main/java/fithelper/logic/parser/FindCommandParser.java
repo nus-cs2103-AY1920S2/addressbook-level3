@@ -1,13 +1,13 @@
 package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static fithelper.logic.parser.CliSyntaxUtil.*;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import fithelper.logic.commands.DeleteCommand;
 import fithelper.logic.commands.FindCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.entry.NameContainsKeywordsPredicate;
@@ -35,7 +35,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        if(!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
             return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
         } else {
             Type findType = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());

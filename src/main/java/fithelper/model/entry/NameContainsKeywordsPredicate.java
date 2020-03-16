@@ -10,8 +10,9 @@ import fithelper.commons.util.StringUtil;
  * Tests that a {@code Entry}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Entry> {
-    private final List<String> keywords;
+
     private static List<String> nullWords;
+    private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;

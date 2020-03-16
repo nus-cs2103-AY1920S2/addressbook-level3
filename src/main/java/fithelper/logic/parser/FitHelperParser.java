@@ -6,7 +6,22 @@ import static fithelper.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import fithelper.logic.commands.*;
+import fithelper.logic.commands.AddCommand;
+import fithelper.logic.commands.CalendarCommand;
+import fithelper.logic.commands.ClearCommand;
+import fithelper.logic.commands.Command;
+import fithelper.logic.commands.DeleteCommand;
+import fithelper.logic.commands.EditCommand;
+import fithelper.logic.commands.ExitCommand;
+import fithelper.logic.commands.FindCommand;
+import fithelper.logic.commands.HelpCommand;
+import fithelper.logic.commands.HomeCommand;
+import fithelper.logic.commands.ListCommand;
+import fithelper.logic.commands.ProfileCommand;
+import fithelper.logic.commands.ReminderCommand;
+import fithelper.logic.commands.ReportCommand;
+import fithelper.logic.commands.TodayCommand;
+
 import fithelper.logic.parser.exceptions.ParseException;
 
 /**

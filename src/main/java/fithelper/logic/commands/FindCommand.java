@@ -1,7 +1,8 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.HOME;
-import static fithelper.logic.parser.CliSyntaxUtil.*;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.Messages;

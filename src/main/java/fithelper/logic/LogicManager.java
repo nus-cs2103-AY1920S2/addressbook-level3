@@ -72,7 +72,7 @@ public class LogicManager implements Logic {
         return model.getFilteredReminderEntryList();
     }
 
-   /* @Override
+    /* @Override
     public ObservableList<VEvent> getVFoodList() {
         return model.getVFoodList();
     }
