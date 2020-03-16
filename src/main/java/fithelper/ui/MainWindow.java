@@ -105,18 +105,6 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
-    /**
      * Handles the user inputs.
      */
     @FXML
@@ -139,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Shows the page of FitHelper according to the command keyword.
-     * @param commandResult the result ofe executing a command
+     * @param commandResult the result of executing a command
      */
     private void showPage(CommandResult commandResult) {
         CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
@@ -153,8 +141,18 @@ public class MainWindow extends UiPart<Stage> {
         case CALENDAR:
             showCalendarPanel();
             break;
+        case HELP:
+            showHelpPage();
         default:
             break;
+        }
+    }
+
+    private void showHelpPage() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
         }
     }
 
