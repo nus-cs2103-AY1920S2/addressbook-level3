@@ -69,7 +69,7 @@ public class DeadlineBuilder {
     /**
      * Build an activity accordingly.
      */
-    public Activity build() {
+    public Deadline build() {
         return new Deadline(name, dueDate, note);
     }
 
