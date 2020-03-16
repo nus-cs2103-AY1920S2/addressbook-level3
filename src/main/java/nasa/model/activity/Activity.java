@@ -172,4 +172,6 @@ public abstract class Activity implements Regenerable<Activity> {
      * @return new instance of the activity, with its attributes possibly modified
      */
     public abstract Activity regenerate();
+
+    public void updateStatus() {}
 }

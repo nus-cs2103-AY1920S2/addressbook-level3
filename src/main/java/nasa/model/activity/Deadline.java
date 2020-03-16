@@ -42,7 +42,8 @@ public class Deadline extends Activity {
         this.dueDate = date;
         updateStatus();
     }
-
+    
+    @Override
     public void updateStatus() {
         if (status == Status.ONGOING && Date.now().isAfter(getDateline())) {
             status = Status.LATE;
