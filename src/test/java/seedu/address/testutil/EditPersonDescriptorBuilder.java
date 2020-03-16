@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -75,16 +75,16 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code offers} into a {@code List<Offer>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code offers} into a {@code Set<Offer>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
     public EditPersonDescriptorBuilder withOffers(String... offers) {
-        List<Offer> offerList = Stream.of(offers)
+        Set<Offer> offerSet = Stream.of(offers)
                 .map(ParserUtil::splitOnLastWhitespace)
                 .map(ParserUtil::getGoodPricePair)
                 .map(x -> new Offer((Good) x[0], (Price) x[1]))
-                .collect(Collectors.toList());
-        descriptor.setOffers(offerList);
+                .collect(Collectors.toSet());
+        descriptor.setOffers(offerSet);
         return this;
     }
 

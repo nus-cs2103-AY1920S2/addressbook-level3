@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -153,11 +155,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> offers} into a {@code List<Offer>}.
+     * Parses {@code Collection<String> offers} into a {@code Set<Offer>}.
      */
-    public static List<Offer> parseOffers(Collection<String> offers) throws ParseException {
+    public static Set<Offer> parseOffers(Collection<String> offers) throws ParseException {
         requireNonNull(offers);
-        final List<Offer> offerSet = new ArrayList<>();
+        final Set<Offer> offerSet = new HashSet<>();
         for (String offer : offers) {
             offerSet.add(parseOffer(offer));
         }

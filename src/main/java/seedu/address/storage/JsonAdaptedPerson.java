@@ -1,8 +1,6 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,7 +26,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final List<JsonAdaptedOffer> offers = new ArrayList<>();
+    private final Set<JsonAdaptedOffer> offers = new HashSet<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -36,7 +34,7 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("offers") List<JsonAdaptedOffer> offers) {
+            @JsonProperty("offers") Set<JsonAdaptedOffer> offers) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -56,7 +54,7 @@ class JsonAdaptedPerson {
         address = source.getAddress().value;
         offers.addAll(source.getOffers().stream()
                 .map(JsonAdaptedOffer::new)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toSet()));
     }
 
     /**
@@ -65,7 +63,7 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Offer> personOffers = new ArrayList<>();
+        final Set<Offer> personOffers = new HashSet<>();
         for (JsonAdaptedOffer offer : offers) {
             personOffers.add(offer.toModelType());
         }
@@ -102,7 +100,7 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        final List<Offer> modelOffers = new ArrayList<>(personOffers);
+        final Set<Offer> modelOffers = new HashSet<>(personOffers);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelOffers);
     }
 

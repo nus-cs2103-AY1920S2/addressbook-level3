@@ -5,8 +5,8 @@ import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORM
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -29,9 +29,9 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<JsonAdaptedOffer> VALID_OFFERS = BENSON.getOffers().stream()
+    private static final Set<JsonAdaptedOffer> VALID_OFFERS = BENSON.getOffers().stream()
             .map(JsonAdaptedOffer::new)
-            .collect(Collectors.toList());
+            .collect(Collectors.toSet());
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
@@ -101,7 +101,7 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidOffers_throwsIllegalValueException() {
-        List<JsonAdaptedOffer> invalidOffers = new ArrayList<>(VALID_OFFERS);
+        Set<JsonAdaptedOffer> invalidOffers = new HashSet<>(VALID_OFFERS);
         invalidOffers.add(new JsonAdaptedOffer(VALID_GOOD, INVALID_PRICE));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidOffers);

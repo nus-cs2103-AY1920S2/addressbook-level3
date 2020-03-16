@@ -10,8 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFER;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -65,11 +65,11 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> offers} into a {@code List<Offer>} if {@code offers} is non-empty.
+     * Parses {@code Collection<String> offers} into a {@code Set<Offer>} if {@code offers} is non-empty.
      * If {@code offers} contain only one element which is an empty string, it will be parsed into a
-     * {@code List<Offer>} containing zero offers.
+     * {@code Set<Offer>} containing zero offers.
      */
-    private Optional<List<Offer>> parseOffersForEdit(Collection<String> offers) throws ParseException {
+    private Optional<Set<Offer>> parseOffersForEdit(Collection<String> offers) throws ParseException {
         assert offers != null;
 
         if (offers.isEmpty()) {

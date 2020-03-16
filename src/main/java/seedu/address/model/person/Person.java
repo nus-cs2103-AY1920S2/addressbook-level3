@@ -2,10 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.offer.Offer;
 
@@ -22,12 +22,12 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final List<Offer> offers = new ArrayList<>();
+    private final Set<Offer> offers = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, List<Offer> offers) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Offer> offers) {
         requireAllNonNull(name, phone, email, address, offers);
         this.name = name;
         this.phone = phone;
@@ -53,11 +53,11 @@ public class Person {
     }
 
     /**
-     * Returns an immutable offer list, which throws {@code UnsupportedOperationException}
+     * Returns an immutable offer set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<Offer> getOffers() {
-        return Collections.unmodifiableList(offers);
+    public Set<Offer> getOffers() {
+        return Collections.unmodifiableSet(offers);
     }
 
     /**

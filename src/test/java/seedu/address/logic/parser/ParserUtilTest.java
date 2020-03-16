@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -193,11 +193,11 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseOffers_collectionWithValidOffers_returnsOfferList() throws Exception {
-        List<Offer> actualOfferList = ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, VALID_OFFER_2));
-        List<Offer> expectedOfferList = new ArrayList<>(Arrays.asList(new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1)),
+    public void parseOffers_collectionWithValidOffers_returnsOfferSet() throws Exception {
+        Set<Offer> actualOfferSet = ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, VALID_OFFER_2));
+        Set<Offer> expectedOfferSet = new HashSet<>(Arrays.asList(new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1)),
                 new Offer(new Good(VALID_GOOD_2), new Price(VALID_PRICE_2))));
 
-        assertEquals(actualOfferList, expectedOfferList);
+        assertEquals(actualOfferSet, expectedOfferSet);
     }
 }
