@@ -18,7 +18,6 @@ import jfxtras.icalendarfx.components.VEvent;
 public class CalendarPanel extends UiPart<AnchorPane> {
     private static final String FXML = "CalendarPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
-    private final CalendarPage calendarPage;
 
     @FXML
     private StackPane calendarPagePlaceholder;
@@ -36,7 +35,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
                          ObservableList<VEvent> events) {
         super(FXML);
         logger.info("Initializing Calendar Page");
-        calendarPage = new CalendarPage(events);
+        CalendarPage calendarPage = new CalendarPage(events);
         calendarPage.updateScheduler();
         calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
         fullCalendarPlaceholder.getChildren().add(new FullCalendar(foodList, sportList).getView());

@@ -25,7 +25,6 @@ import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 public class CalendarPage extends UiPart<AnchorPane> {
     private static final Locale UK_LOCALE = Locale.UK;
     private static final String FXML = "CalendarPanel.fxml";
-    private VCalendar vCalendar;
     private ICalendarAgenda agenda;
 
     @FXML
@@ -33,9 +32,9 @@ public class CalendarPage extends UiPart<AnchorPane> {
 
     public CalendarPage(ObservableList<VEvent> events) {
         super(FXML);
-        this.vCalendar = new VCalendar();
+        VCalendar vCalendar = new VCalendar();
         vCalendar.setVEvents(events);
-        this.agenda = new ICalendarAgenda(this.vCalendar);
+        this.agenda = new ICalendarAgenda(vCalendar);
         initCalendar(this.agenda);
         calendarBorderPane.setCenter(agenda);
         calendarBorderPane.setMaxWidth(500);
