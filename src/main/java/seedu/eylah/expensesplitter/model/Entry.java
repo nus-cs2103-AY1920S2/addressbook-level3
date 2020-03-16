@@ -2,10 +2,12 @@ package seedu.eylah.expensesplitter.model;
 
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import seedu.eylah.expensesplitter.model.item.Item;
+import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 
@@ -38,7 +40,7 @@ public class Entry {
      * @return a Person object initialised with the name;
      */
     private Person createPerson(String name) {
-        return new Person(new Name(name), null);
+        return new Person(new Name(name), new Amount(new BigDecimal(0)), null);
     }
 
     /**
