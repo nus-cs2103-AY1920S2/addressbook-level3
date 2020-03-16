@@ -1,22 +1,21 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.customer;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.product.ListProductCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListProductCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListCustomerCommand.
  */
-public class ListProductCommandTest {
+public class ListCustomerCommandTest {
 
     private Model model;
     private Model expectedModel;
@@ -29,12 +28,12 @@ public class ListProductCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListProductCommand(), model, ListProductCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCustomerCommand(), model, ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_PRODUCT);
-        assertCommandSuccess(new ListProductCommand(), model, ListProductCommand.MESSAGE_SUCCESS, expectedModel);
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        assertCommandSuccess(new ListCustomerCommand(), model, ListCustomerCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

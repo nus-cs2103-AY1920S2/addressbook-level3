@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.product;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,8 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.product.ClearProductCommand;
-import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import seedu.address.model.InventorySystem;
 import seedu.address.model.Model;

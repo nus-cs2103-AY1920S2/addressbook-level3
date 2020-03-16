@@ -1,11 +1,10 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.customer;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.customer.ClearCustomerCommand;
 import seedu.address.model.InventorySystem;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
