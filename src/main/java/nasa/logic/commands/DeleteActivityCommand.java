@@ -26,6 +26,8 @@ public class DeleteActivityCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = " are deleted successfully!";
 
+    public static final String MESSAGE_FAILURE = "Activity indicated all does not exist!";
+
     private final Index index;
     private final ModuleCode moduleCode;
 
@@ -44,8 +46,12 @@ public class DeleteActivityCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO wait for them to change the model
-        return new CommandResult("");
+        try {
+            model.removeActivityByIndex(moduleCode, index);
+            return new CommandResult(index.toString() + MESSAGE_SUCCESS);
+        } catch (Exception e) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
     }
 
     @Override
