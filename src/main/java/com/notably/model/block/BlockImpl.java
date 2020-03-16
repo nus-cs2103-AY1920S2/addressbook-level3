@@ -14,17 +14,9 @@ public class BlockImpl implements Block {
     private Body body;
     private List<Block> children;
 
-
-    /**
-     * Initializes a root block i.e. the block has no parent.
-     */
-    public BlockImpl() {
-        this(null, new Title("Root"), new Body(""));
-    }
-
     /**
      * Initializes a block without the body.
-     * Used when creating a block without the optional body argument.
+     * Used when creating a root block or a block without the optional body argument.
      */
     public BlockImpl(Block parent, Title title) {
         this(parent, title, new Body(""));
@@ -41,6 +33,13 @@ public class BlockImpl implements Block {
         this.parent = parent;
         this.body = body;
         this.children = new ArrayList<Block>();
+    }
+
+    /**
+     * Static method to create and return a root block
+     */
+    public static Block createRootBlock() {
+        return new BlockImpl(null, new Title("Root"));
     }
 
     @Override
