@@ -19,7 +19,7 @@ public class Name {
     public static final String VALIDATION_REGEX;
 
     static {
-        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}:+-()' ]*";
+        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}:+-()']*";
     }
 
     public final String transactionName;

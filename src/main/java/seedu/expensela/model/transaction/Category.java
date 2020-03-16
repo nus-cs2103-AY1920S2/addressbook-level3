@@ -5,7 +5,7 @@ import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Transaction's category.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {
 
@@ -22,7 +22,7 @@ public class Category {
         VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}:+-()' ]*";
     }
 
-    public final String transactionName;
+    public final String transactionCategory;
 
     /**
      * Constructs a {@code Category}.
@@ -31,33 +31,33 @@ public class Category {
      */
     public Category(String category) {
         requireNonNull(category);
-        checkArgument(isValidName(category), MESSAGE_CONSTRAINTS);
-        transactionName = category;
+        checkArgument(isValidCategory(category), MESSAGE_CONSTRAINTS);
+        transactionCategory = category;
     }
 
     /**
      * Returns true if a given string is a valid category.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidCategory(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
 
     @Override
     public String toString() {
-        return transactionName;
+        return transactionCategory;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && transactionName.equals(((Category) other).transactionName)); // state check
+                && transactionCategory.equals(((Category) other).transactionCategory)); // state check
     }
 
     @Override
     public int hashCode() {
-        return transactionName.hashCode();
+        return transactionCategory.hashCode();
     }
 
 }

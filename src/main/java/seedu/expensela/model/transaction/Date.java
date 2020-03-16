@@ -17,7 +17,7 @@ public class Date {
      */
     public static final String VALIDATION_REGEX = "[\\d]{4}[\\d]{2}[\\d]{2}";
 
-    public final String value;
+    public final String transactionDate;
 
     /**
      * Constructs an {@code Date}.
@@ -27,7 +27,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        value = date;
+        transactionDate = date;
     }
 
     /**
@@ -39,19 +39,19 @@ public class Date {
 
     @Override
     public String toString() {
-        return value;
+        return transactionDate;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && value.equals(((Date) other).value)); // state check
+                && transactionDate.equals(((Date) other).transactionDate)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return transactionDate.hashCode();
     }
 
 }

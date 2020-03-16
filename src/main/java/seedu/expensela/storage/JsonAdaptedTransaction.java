@@ -9,35 +9,39 @@ import seedu.expensela.model.transaction.*;
 /**
  * Jackson-friendly version of {@link Transaction}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedTransaction {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction %s field is missing!";
 
     private final String name;
     private final String amount;
     private final String date;
     private final String remark;
+    private final String category;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedTransaction} with the given transaction details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
-            @JsonProperty("date") String date, @JsonProperty("remark") String remark) {
+    public JsonAdaptedTransaction(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
+                                  @JsonProperty("date") String date, @JsonProperty("remark") String remark,
+                                  @JsonProperty("category") String category) {
         this.name = name;
         this.amount = amount;
         this.date = date;
         this.remark = remark;
+        this.category = category;
     }
 
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Transaction source) {
+    public JsonAdaptedTransaction(Transaction source) {
         name = source.getName().transactionName;
         amount = source.getAmount().toString().substring(3);
-        date = source.getDate().value;
-        remark = source.getRemark().value;
+        date = source.getDate().transactionDate;
+        remark = source.getRemark().transactionRemark;
+        category = source.getCategory().transactionCategory;
     }
 
     /**
@@ -73,7 +77,12 @@ class JsonAdaptedPerson {
         }
         final Remark modelRemark = new Remark(remark);
 
-        return new Transaction(modelName, modelAmount, modelDate, modelRemark);
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
+        }
+        final Category modelCategory = new Category(category);
+
+        return new Transaction(modelName, modelAmount, modelDate, modelRemark, modelCategory);
     }
 
 }

@@ -5,10 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.commons.util.StringUtil;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.transaction.Amount;
-import seedu.expensela.model.transaction.Date;
-import seedu.expensela.model.transaction.Name;
-import seedu.expensela.model.transaction.Remark;
+import seedu.expensela.model.transaction.*;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -73,7 +70,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into an {@code Remark}.
+     * Parses a {@code String remark} into an {@code Remark}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code remark} is invalid.
@@ -85,5 +82,22 @@ public class ParserUtil {
             throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
         }
         return new Remark(trimmedRemark);
+    }
+
+    /**
+     * Parses a {@code String category} into an {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code category} is invalid.
+     */
+
+
+    public static Category parseCategory(String category) throws ParseException {
+        requireNonNull(category);
+        String trimmedCategory = category.trim();
+        if (!Category.isValidCategory(trimmedCategory)) {
+            throw new ParseException(Category.MESSAGE_CONSTRAINTS);
+        }
+        return new Category(trimmedCategory);
     }
 }

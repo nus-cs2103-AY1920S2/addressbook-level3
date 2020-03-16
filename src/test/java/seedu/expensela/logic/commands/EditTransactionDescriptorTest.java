@@ -10,7 +10,7 @@ import static seedu.expensela.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.expensela.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.expensela.logic.commands.EditCommand.editTransaction;
 import seedu.expensela.testutil.EditPersonDescriptorBuilder;
 
 public class EditTransactionDescriptorTest {
@@ -18,7 +18,7 @@ public class EditTransactionDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+        editTransaction descriptorWithSameValues = new editTransaction(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -34,7 +34,7 @@ public class EditTransactionDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
+        editTransaction editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
