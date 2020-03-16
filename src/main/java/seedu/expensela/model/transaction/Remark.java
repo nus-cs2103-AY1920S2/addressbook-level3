@@ -10,10 +10,28 @@ public class Remark {
 
     public final String value;
 
+    public static final String VALIDATION_REGEX;
+
+    public static final String MESSAGE_CONSTRAINTS =
+            "Remarks should only contain alphanumeric characters, spaces, \":+-()'\", may or may not be blank";
+
+
+    static {
+        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}:+-()' ]*";
+    }
+
     public Remark(String remark) {
         requireNonNull(remark);
         value = remark;
     }
+
+    /**
+     * Returns true if a given string is a valid email.
+     */
+    public static boolean isValidRemark(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
 
     @Override
     public String toString() {

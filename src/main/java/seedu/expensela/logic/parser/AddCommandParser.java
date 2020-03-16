@@ -6,15 +6,13 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
 
 import java.util.stream.Stream;
 
 import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.transaction.Amount;
-import seedu.expensela.model.transaction.Date;
-import seedu.expensela.model.transaction.Name;
-import seedu.expensela.model.transaction.Transaction;
+import seedu.expensela.model.transaction.*;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -38,8 +36,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_PHONE).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
 
-        Transaction transaction = new Transaction(name, amount, date);
+        Transaction transaction = new Transaction(name, amount, date, remark);
 
         return new AddCommand(transaction);
     }
