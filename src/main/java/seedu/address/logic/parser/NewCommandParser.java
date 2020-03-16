@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CURRENT_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
@@ -12,7 +12,7 @@ import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
 
 /**
  * Parses input arguments and creates a new Profile Object.
@@ -26,15 +26,15 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE, PREFIX_CURRENT_SEMESTER, PREFIX_SPEC);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER, PREFIX_SPEC);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE, PREFIX_CURRENT_SEMESTER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Course course = ParserUtil.parseCourse(argMultimap.getValue(PREFIX_COURSE).get());
+        CourseName courseName = ParserUtil.parseCourseName(argMultimap.getValue(PREFIX_COURSE_NAME).get());
         String currentSemester = argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get();
 
         String specialisation = null;
@@ -42,7 +42,7 @@ public class NewCommandParser implements Parser<NewCommand> {
             specialisation = argMultimap.getValue(PREFIX_SPEC).get();
         }
 
-        Profile profile = new Profile(name, course, currentSemester, specialisation);
+        Profile profile = new Profile(name, courseName, currentSemester, specialisation);
 
         return new NewCommand(profile);
 

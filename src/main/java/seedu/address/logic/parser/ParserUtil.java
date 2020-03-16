@@ -6,7 +6,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -59,14 +59,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String courseName} into a {@code CourseName}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static Course parseCourse(String course) throws ParseException {
-        requireNonNull(course);
-        String trimmedSemester = course.trim();
-        return new Course(course);
+    public static CourseName parseCourseName(String courseName) throws ParseException {
+        requireNonNull(courseName);
+        String trimmedSemester = courseName.trim();
+        return new CourseName(courseName);
     }
 }

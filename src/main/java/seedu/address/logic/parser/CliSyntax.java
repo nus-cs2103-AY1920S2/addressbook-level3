@@ -13,7 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_DEADLINE = new Prefix("d/");
 
     public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_COURSE = new Prefix("c/");
+    public static final Prefix PREFIX_COURSE_NAME = new Prefix("c/");
     public static final Prefix PREFIX_CURRENT_SEMESTER = new Prefix("cs/");
     public static final Prefix PREFIX_SPEC = new Prefix("s/");
 
