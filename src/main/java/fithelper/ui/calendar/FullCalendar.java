@@ -8,8 +8,11 @@ import fithelper.model.entry.Entry;
 import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -19,10 +22,13 @@ import javafx.scene.text.Text;
  */
 public class FullCalendar extends UiPart<AnchorPane> {
     private static final String FXML = "FullCalendar.fxml";
-    private ArrayList<AnchorPaneNode> allCalendarDays = new ArrayList<>(35);
+    private ArrayList<AnchorPaneNode> allCalendarDays = new ArrayList<>(42);
     private AnchorPane view;
-    private Text calendarTitle;
     private YearMonth currentYearMonth;
+
+    @FXML
+    private Label monthYearTitle;
+
     /**
      * Create a calendar view
      */
@@ -32,39 +38,35 @@ public class FullCalendar extends UiPart<AnchorPane> {
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
         calendar.setPrefSize(60, 40);
-        calendar.setGridLinesVisible(true);
+        calendar.setGridLinesVisible(false);
+        Label monthYearTitle = new Label();
+        monthYearTitle.setText(currentYearMonth.getMonth().toString() + " " + String.valueOf(currentYearMonth.getYear()));
+
+        // Days of the week labels
+        Text[] dayNames = new Text[]{new Text("S"), new Text("M"), new Text("T"),
+        new Text("W"), new Text("T"), new Text("F"), new Text("S")};
+
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 7; j++) {
                 AnchorPaneNode ap = new AnchorPaneNode();
                 ap.setPrefSize(20, 20);
+                ap.setStyle("-fx-border-color:white;");
                 calendar.add(ap, j, i);
-                if (i != 0) {
+                if (i == 0) {
+                    ap.setTopAnchor(dayNames[j], 8.0);
+                    ap.setLeftAnchor(dayNames[j], 8.0);
+                    ap.getChildren().add(dayNames[j]);
+                } else {
                     allCalendarDays.add(ap);
                 }
             }
         }
-        // Days of the week labels
-        Text[] dayNames = new Text[]{new Text("S"), new Text("M"), new Text("T"),
-            new Text("W"), new Text("T"), new Text("F"), new Text("S")};
-        GridPane dayLabels = new GridPane();
-        dayLabels.setPrefWidth(60);
-        Integer col = 0;
-        for (Text txt: dayNames) {
-            AnchorPane ap = new AnchorPane();
-            ap.setPrefSize(20, 20);
-            ap.setBottomAnchor(txt, 0.5);
-            ap.getChildren().add(txt);
-            dayLabels.add(ap, col++, 0);
-        }
-        // Create calendarTitle and buttons to change current month
-        calendarTitle = new Text();
-        HBox titleBar = new HBox(calendarTitle);
-        titleBar.setAlignment(Pos.BASELINE_CENTER);
+
         // Populate calendar with the appropriate day numbers
         populateCalendar(YearMonth.now());
         // Create the calendar view
-        view = new AnchorPane(dayLabels, calendar);
+        view = new AnchorPane(monthYearTitle, calendar);
     }
 
     /**
@@ -85,13 +87,11 @@ public class FullCalendar extends UiPart<AnchorPane> {
             }
             Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
             ap.setDate(calendarDate);
-            ap.setTopAnchor(txt, 8.0);
-            ap.setLeftAnchor(txt, 8.0);
+            AnchorPane.setTopAnchor(txt, 8.0);
+            AnchorPane.setLeftAnchor(txt, 8.0);
             ap.getChildren().add(txt);
             calendarDate = calendarDate.plusDays(1);
         }
-        // Change the title of the calendar
-        calendarTitle.setText(yearMonth.getMonth().toString() + " " + String.valueOf(yearMonth.getYear()));
     }
 
     public AnchorPane getView() {

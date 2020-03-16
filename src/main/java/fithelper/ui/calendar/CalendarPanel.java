@@ -26,6 +26,9 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     @FXML
     private AnchorPane fullCalendarPlaceholder;
 
+    @FXML
+    private StackPane upcomingListPlaceholder;
+
     /**
      * Creates a calendar page displaying two components from {@code }.
      */
@@ -36,5 +39,6 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         calendarPage.updateScheduler();
         calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
         fullCalendarPlaceholder.getChildren().add(new FullCalendar(foodList, sportList).getView());
+        upcomingListPlaceholder.getChildren().add(new UpcomingList(foodList, sportList).getRoot());
     }
 }

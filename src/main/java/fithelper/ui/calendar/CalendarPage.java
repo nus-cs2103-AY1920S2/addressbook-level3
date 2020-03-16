@@ -6,6 +6,7 @@ import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -35,7 +36,7 @@ public class CalendarPage extends UiPart<AnchorPane> {
         this.agenda = new ICalendarAgenda(this.vCalendar);
         initCalendar(this.agenda);
         calendarBorderPane.setCenter(agenda);
-        calendarBorderPane.setMaxWidth(520);
+        calendarBorderPane.setMaxWidth(500);
         calendarBorderPane.setMaxHeight(480);
     }
 
