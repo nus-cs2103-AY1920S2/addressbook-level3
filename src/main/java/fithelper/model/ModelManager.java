@@ -22,6 +22,7 @@ public class ModelManager implements Model {
     private final FitHelper fitHelper;
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
+    private final FilteredList<Entry> filteredReminderEntries;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
         this.fitHelper = new FitHelper(fitHelper);
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
+        filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
     }
 
     public ModelManager() {
@@ -111,6 +113,15 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Returns an unmodifiable view of the reminder list of {@code Entry} backed by the internal list of
+     * {@code versionedFitHelper}
+     */
+    @Override
+    public ObservableList<Entry> getFilteredReminderEntryList() {
+        return filteredReminderEntries;
+    }
+
+    /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
      *
      * @param predicate
@@ -120,6 +131,30 @@ public class ModelManager implements Model {
     public void updateFilteredEntryList(Predicate<Entry> predicate) {
         requireNonNull(predicate);
         filteredFoodEntries.setPredicate(predicate);
+        filteredSportsEntries.setPredicate(predicate);
+    }
+
+    /**
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredFoodEntryList(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
+        filteredFoodEntries.setPredicate(predicate);
+    }
+
+    /**
+     * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredSportEntryList(Predicate<Entry> predicate) {
+        requireNonNull(predicate);
         filteredSportsEntries.setPredicate(predicate);
     }
 

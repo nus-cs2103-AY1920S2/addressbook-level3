@@ -3,6 +3,7 @@ package fithelper.model.entry;
 import static fithelper.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,17 +17,21 @@ public class Time {
 
     public static final DateTimeFormatter PARSEFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
 
-    public final LocalTime value;
+    public final LocalDate date;
+    public final LocalTime time;
+    public final String value;
 
     /**
      * Constructs an {@code Time}.
      *
-     * @param time A valid time.
+     * @param timeStr A valid time.
      */
-    public Time(String time) {
-        requireNonNull(time);
-        checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
-        value = LocalTime.parse(time, PARSEFORMAT);
+    public Time(String timeStr) {
+        requireNonNull(timeStr);
+        checkArgument(isValidTime(timeStr), MESSAGE_CONSTRAINTS);
+        time = LocalTime.parse(timeStr, PARSEFORMAT);
+        date = LocalDate.parse(timeStr, PARSEFORMAT);
+        value = concat(time, date);
     }
 
     /**
@@ -35,15 +40,20 @@ public class Time {
     public static boolean isValidTime(String test) {
         try {
             LocalTime.parse(test, PARSEFORMAT);
+            LocalDate.parse(test, PARSEFORMAT);
         } catch (Exception e) {
             return false;
         }
         return true;
     }
 
+    public String concat(LocalTime time, LocalDate date) {
+        return date + "-" + time;
+    }
+
     @Override
     public String toString() {
-        return value.toString();
+        return this.value;
     }
 
     @Override

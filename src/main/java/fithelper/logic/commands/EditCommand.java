@@ -1,6 +1,7 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_CALORIE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_INDEX;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_NAME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_REMARK;
@@ -48,7 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_REMARK + "REMARK]...\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_TYPE + "sports "
-            + "1 "
+            + PREFIX_INDEX + "1 "
             + PREFIX_NAME + "running "
             + PREFIX_STATUS + "Done";
 

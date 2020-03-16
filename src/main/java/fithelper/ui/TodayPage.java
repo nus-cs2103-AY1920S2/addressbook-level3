@@ -13,7 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * Controller class for order page.
+ * Controller class for today page.
  * An order page contains order cards and a statistics bar.
  */
 public class TodayPage extends UiPart<AnchorPane> {
@@ -103,10 +103,10 @@ public class TodayPage extends UiPart<AnchorPane> {
         int doneCount = 0;
 
         for (Entry entry : foodList) {
-            if (entry.getStatus().value.equalsIgnoreCase("false")) {
-                undoneCount++;
-            } else {
+            if (entry.getStatus().value.equalsIgnoreCase("Done")) {
                 doneCount++;
+            } else {
+                undoneCount++;
             }
         }
 
@@ -123,7 +123,7 @@ public class TodayPage extends UiPart<AnchorPane> {
         int doneCount = 0;
 
         for (Entry entry : sportList) {
-            if (entry.getStatus().value.equalsIgnoreCase("false")) {
+            if (entry.getStatus().value.equalsIgnoreCase("Undone")) {
                 undoneCount++;
             } else {
                 doneCount++;

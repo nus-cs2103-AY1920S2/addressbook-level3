@@ -12,19 +12,19 @@
             <children>
                 <VBox prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="3.0" style="-fx-background-color: #ff8c00; -fx-border-color: #ff8c00;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" spacing="3.0" style="-fx-background-color: #ff4500; -fx-border-color: #ff4500;">
                             <children>
-                                <Label fx:id="index" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ff8c00;" text="1" textFill="WHITE">
+                                <Label fx:id="index" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #ff4500;" text="1" textFill="WHITE">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="name" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ff8c00;" text="name" textFill="WHITE">
+                                <Label fx:id="name" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ff4500;" text="name" textFill="WHITE">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ff8c00;" text="undone" textFill="WHITE">
+                                <Label fx:id="status" alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #ff4500;" text="undone" textFill="WHITE">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
@@ -34,15 +34,15 @@
                                 <Insets left="5.0" />
                             </padding>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #ff8c00;">
+                        <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #ff4500;">
                             <children>
                                 <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="130.0">
                                     <children>
-                                        <Label fx:id="time" prefHeight="15.0" prefWidth="130.0" text="time" textFill="DARKORANGE" />
-                                        <Label fx:id="place" prefHeight="15.0" prefWidth="130.0" text="place" textFill="DARKORANGE" />
+                                        <Label fx:id="time" prefHeight="15.0" prefWidth="130.0" text="time" textFill="ORANGERED" />
+                                        <Label fx:id="place" prefHeight="15.0" prefWidth="130.0" text="place" textFill="ORANGERED" />
                                     </children>
                                 </VBox>
-                                <Label fx:id="calorie" alignment="CENTER" prefHeight="40.0" prefWidth="70.0" text="Calorie" textFill="DARKORANGE">
+                                <Label fx:id="calorie" alignment="CENTER" prefHeight="40.0" prefWidth="70.0" text="Calorie" textFill="ORANGERED">
                                     <graphic>
                                         <ImageView fitHeight="20.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                                             <image>

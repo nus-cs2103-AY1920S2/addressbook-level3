@@ -1,5 +1,6 @@
 package fithelper.model.entry;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -9,10 +10,18 @@ import fithelper.commons.util.StringUtil;
  * Tests that a {@code Entry}'s {@code Name} matches any of the keywords given.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Entry> {
+
+    private static List<String> nullWords;
     private final List<String> keywords;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+        this.nullWords = new ArrayList<String>();
+        this.nullWords.add("wugc2iuegv98yquy>%$wvjugf398ywiugd");
+    }
+
+    public static NameContainsKeywordsPredicate getVaguePredicate() {
+        return new NameContainsKeywordsPredicate(nullWords);
     }
 
     @Override

@@ -57,7 +57,7 @@ class JsonAdaptedEntry {
     public JsonAdaptedEntry(Entry source) {
         type = source.getType().value;
         name = source.getName().value;
-        time = source.getTime().toString();
+        time = source.getTime().value;
         location = source.getPlace().value;
         calorie = source.getCalorie().toString();
         status = source.getStatus().value;

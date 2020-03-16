@@ -19,5 +19,11 @@ public interface ReadOnlyFitHelper {
      * This list will not contain any duplicate entries.
      */
     ObservableList<Entry> getSportsList();
+
+    /**
+     * Returns an unmodifiable view of the sports entry list.
+     * This list will not contain any duplicate entries.
+     */
+    ObservableList<Entry> getReminderList();
 }
 

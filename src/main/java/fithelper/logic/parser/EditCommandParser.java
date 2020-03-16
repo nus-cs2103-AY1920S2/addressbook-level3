@@ -1,14 +1,15 @@
 package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_CALORIE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_INDEX;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_NAME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_REMARK;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_STATUS;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Stream;
@@ -34,17 +35,16 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
-                        PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK);
+                        PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK, PREFIX_INDEX);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
@@ -63,6 +63,44 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         return new EditCommand(index, editEntryDescriptor);
+    }
+
+    /**
+     * For debugging purpose, should remove after fully configured.
+     * @param args user input string
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public void parsePrint(String args) throws ParseException {
+        requireNonNull(args);
+        argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
+                PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK, PREFIX_INDEX);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        }
+
+        editEntryDescriptor = new EditEntryDescriptor();
+        editEntryDescriptor.setType(ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get()));
+        setName();
+        setTime();
+        setLocation();
+        setCalorie();
+        setStatus();
+        setRemark();
+
+        if (!editEntryDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
+        //return new EditCommand(index, editEntryDescriptor);
     }
 
     public void setName() throws ParseException {
