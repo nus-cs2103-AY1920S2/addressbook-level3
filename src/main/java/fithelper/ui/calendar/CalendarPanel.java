@@ -30,7 +30,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     public CalendarPanel(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         super(FXML);
         logger.info("Initializing Calendar Page");
-        calendarPagePlaceholder.getChildren().add(new CalendarPage(foodList, sportList).getRoot());
+        //calendarPagePlaceholder.getChildren().add(new CalendarPage(foodList, sportList).getRoot());
         fullCalendarPlaceholder.getChildren().add(new FullCalendar(foodList, sportList).getView());
     }
 }

@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fithelper.logic.commands.AddCommand;
+import fithelper.logic.commands.CalendarCommand;
 import fithelper.logic.commands.ClearCommand;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.DeleteCommand;
@@ -14,7 +15,13 @@ import fithelper.logic.commands.EditCommand;
 import fithelper.logic.commands.ExitCommand;
 import fithelper.logic.commands.FindCommand;
 import fithelper.logic.commands.HelpCommand;
+import fithelper.logic.commands.HomeCommand;
 import fithelper.logic.commands.ListCommand;
+import fithelper.logic.commands.ProfileCommand;
+import fithelper.logic.commands.ReminderCommand;
+import fithelper.logic.commands.ReportCommand;
+import fithelper.logic.commands.TodayCommand;
+
 import fithelper.logic.parser.exceptions.ParseException;
 
 /**
@@ -64,8 +71,26 @@ public class FitHelperParser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case TodayCommand.COMMAND_WORD:
+            return new TodayCommand();
+
+        case CalendarCommand.COMMAND_WORD:
+            return new CalendarCommand();
+
+        case ReportCommand.COMMAND_WORD:
+            return new ReportCommand();
+
+        case ProfileCommand.COMMAND_WORD:
+            return new ProfileCommand();
+
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case HomeCommand.COMMAND_WORD:
+            return new HomeCommand();
+
+        case ReminderCommand.COMMAND_WORD:
+            return new ReminderCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

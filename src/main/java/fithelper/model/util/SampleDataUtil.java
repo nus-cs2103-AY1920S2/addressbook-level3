@@ -25,6 +25,14 @@ public class SampleDataUtil {
                     new Location("Utown gym"), new Calorie("300")),
             new Entry(new Type("s"), new Name("Swimming"), new Time("2020-03-01-20:20"),
                     new Location("Sports Center"), new Calorie("450.5"), new Remark("Very tired.")),
+            new Entry(new Type("f"), new Name("Ice-cream"), new Time("2020-03-31-14:30"),
+                    new Location("YIH 711"), new Calorie("700"), new Remark("Not healthy")),
+            new Entry(new Type("food"), new Name("Chicken Rice"), new Time("2020-03-01-11:30"),
+                    new Location("Utown FineFood"), new Calorie("200")),
+            new Entry(new Type("sports"), new Name("Football"), new Time("2019-12-01-14:00"),
+                    new Location("Utown towngreen"), new Calorie("400")),
+            new Entry(new Type("s"), new Name("Walking"), new Time("2020-02-01-19:20"),
+                    new Location("PGP"), new Calorie("450.5"), new Remark("Feels good")),
         };
     }
 

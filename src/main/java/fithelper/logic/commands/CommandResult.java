@@ -1,6 +1,6 @@
 package fithelper.logic.commands;
 
-import static fithelper.logic.commands.CommandResult.DisplayedPage.TODAY;
+import static fithelper.logic.commands.CommandResult.DisplayedPage.HOME;
 import static java.util.Objects.requireNonNull;
 import static javafx.application.Platform.exit;
 
@@ -12,7 +12,7 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
-    private DisplayedPage displayedPage = TODAY;
+    private DisplayedPage displayedPage = HOME;
     /** The application should exit. */
     private final boolean exit;
 
@@ -42,6 +42,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.displayedPage = HOME;
         this.exit = exit;
         if (this.exit) {
             exit();
@@ -53,7 +54,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, TODAY, false);
+        this(feedbackToUser, HOME, false);
     }
 
     public String getFeedbackToUser() {
@@ -98,6 +99,7 @@ public class CommandResult {
      * The page shown to the user.
      */
     public enum DisplayedPage {
+        HOME,
         TODAY,
         CALENDAR,
         REPORT,

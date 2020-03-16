@@ -17,6 +17,7 @@ public class FitHelper implements ReadOnlyFitHelper {
 
     private final UniqueEntryList foodEntries = new UniqueEntryList();
     private final UniqueEntryList sportsEntries = new UniqueEntryList();
+    private final UniqueEntryList reminderEntries = new UniqueEntryList();
 
     public FitHelper() {}
 
@@ -37,20 +38,26 @@ public class FitHelper implements ReadOnlyFitHelper {
     public void setEntries(List<Entry> entries) {
         List<Entry> foodList = new ArrayList<>();
         List<Entry> sportsList = new ArrayList<>();
+        List<Entry> reminderList = new ArrayList<>();
         for (Entry entry : entries) {
             if (entry.isFood()) {
                 foodList.add(entry);
             } else {
                 sportsList.add(entry);
             }
+            if (entry.getStatus().value.equalsIgnoreCase("Undone")) {
+                reminderList.add(entry);
+            }
         }
         this.foodEntries.setEntries(foodList);
         this.sportsEntries.setEntries(sportsList);
+        this.reminderEntries.setEntries(reminderList);
     }
 
-    public void setEntries(List<Entry> foods, List<Entry> sports) {
+    public void setEntries(List<Entry> foods, List<Entry> sports, List<Entry> reminders) {
         this.foodEntries.setEntries(foods);
         this.sportsEntries.setEntries(sports);
+        this.reminderEntries.setEntries(reminders);
     }
 
     /**
@@ -65,6 +72,9 @@ public class FitHelper implements ReadOnlyFitHelper {
         } else {
             sportsEntries.setEntry(target, editedEntry);
         }
+        if (!editedEntry.isDone()) {
+            reminderEntries.setEntry(target, editedEntry);
+        }
     }
 
     /**
@@ -72,7 +82,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     public void resetData(ReadOnlyFitHelper newData) {
         requireNonNull(newData);
-        setEntries(newData.getFoodList(), newData.getSportsList());
+        setEntries(newData.getFoodList(), newData.getSportsList(), newData.getReminderList());
     }
 
     //// entry-level operations
@@ -99,6 +109,9 @@ public class FitHelper implements ReadOnlyFitHelper {
         } else {
             sportsEntries.add(entry);
         }
+        if (!entry.isDone()) {
+            reminderEntries.add(entry);
+        }
     }
 
     /**
@@ -110,6 +123,9 @@ public class FitHelper implements ReadOnlyFitHelper {
             foodEntries.remove(key);
         } else {
             sportsEntries.remove(key);
+        }
+        if (!key.isDone()) {
+            reminderEntries.remove(key);
         }
     }
 
@@ -123,6 +139,9 @@ public class FitHelper implements ReadOnlyFitHelper {
                 .append("\n")
                 .append("Sports ")
                 .append(sportsEntries.asUnmodifiableObservableList().size())
+                .append("\n")
+                .append("Reminders ")
+                .append(reminderEntries.asUnmodifiableObservableList().size())
                 .append("\n");
         return builder.toString();
     }
@@ -145,12 +164,22 @@ public class FitHelper implements ReadOnlyFitHelper {
         return sportsEntries.asUnmodifiableObservableList();
     }
 
+    /**
+     * Returns an unmodifiable view of the sports entry list.
+     * This list will not contain any duplicate entries.
+     */
+    @Override
+    public ObservableList<Entry> getReminderList() {
+        return reminderEntries.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FitHelper // instanceof handles nulls
                 && foodEntries.equals(((FitHelper) other).foodEntries)
-                && sportsEntries.equals(((FitHelper) other).sportsEntries));
+                && sportsEntries.equals(((FitHelper) other).sportsEntries)
+                && reminderEntries.equals(((FitHelper) other).reminderEntries));
     }
 
     @Override
@@ -158,6 +187,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         List<UniqueEntryList> allList = new ArrayList<>();
         allList.add(foodEntries);
         allList.add(sportsEntries);
+        allList.add(reminderEntries);
         return allList.hashCode();
     }
 }
