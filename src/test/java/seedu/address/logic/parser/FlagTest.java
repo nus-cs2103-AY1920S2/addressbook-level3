@@ -21,13 +21,13 @@ class FlagTest {
     }
 
     @Test
-    public void checkIsPrefixClass_ReturnFalse_Success() {
+    public void checkIsPrefixClass_returnFalse_success() {
         Flag checkFlag = new Flag(testFlag);
         assertFalse(checkFlag.equals(Prefix.class));
     }
 
     @Test
-    public void checkSameFlagObject_ReturnTrue_Success() {
+    public void checkSameFlagObject_returnTrue_success() {
         Flag checkFlag = new Flag(testFlag);
         assertTrue(checkFlag.equals(checkFlag));
     }
