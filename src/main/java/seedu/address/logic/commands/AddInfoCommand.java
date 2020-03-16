@@ -60,7 +60,7 @@ public class AddInfoCommand extends Command {
             personToEdit.getRemark().add(remark);
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
-                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getRemark(), 
+                personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getRemark(),
                 personToEdit.getBirthday(), personToEdit.getTags());
 
         model.setPerson(personToEdit, editedPerson);
