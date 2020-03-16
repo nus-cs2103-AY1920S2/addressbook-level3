@@ -76,6 +76,20 @@ public class Saveable implements Comparable<Saveable> {
         return this.count;
     }
 
+    /**
+     * Returns a new Saveable representing the same
+     * saved item, just with the count increased by
+     * increment (new count = old count + increment).
+     * @param increment Int representing the amount to
+     *                  increase the count by.
+     * @return Returns a new Saveable with the modified
+     *     count obtained by adding the old count
+     *     and the increment provided.
+     */
+    public Saveable increaseCount(int increment) {
+        return new Saveable(this.savedItem, this.count + increment);
+    }
+
     @Override
     public int compareTo(Saveable p) {
         // compare count first, before comparing length of string
