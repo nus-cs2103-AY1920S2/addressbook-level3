@@ -3,6 +3,7 @@ package nasa.model.activity;
 import NASA.model.Regenerable;
 
 import java.time.LocalDateTime;
+import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Abstract class to specify fields with getter and setters for activities.
@@ -16,6 +17,7 @@ public abstract class Activity implements Regenerable<Activity> {
     private Priority priority;
 
     public Activity(Name name, Note note) {
+        requireAllNonNull(name, note);
         this.name = name;
         this.note = note;
         this.date = Date.now();
@@ -24,6 +26,7 @@ public abstract class Activity implements Regenerable<Activity> {
     }
 
     public Activity(Name name, Note note, Priority priority) {
+        requireAllNonNull(name, note, priority);
         this.name = name;
         this.note = note;
         this.date = Date.now();
@@ -38,6 +41,7 @@ public abstract class Activity implements Regenerable<Activity> {
      * @param note note of the activity
      */
     public Activity(Name name, Date date, Note note, Status status, Priority priority) {
+        requireAllNonNull(name, date, note, status, priority);
         this.name = name;
         this.date = date;
         this.note = note;
