@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 
 /**
  * Represents the type of item in the order book.
@@ -50,7 +50,7 @@ public class TypeOfItem {
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
-                || (obj instanceof TransactionID // instanceof handles nulls
+                || (obj instanceof TransactionId // instanceof handles nulls
                 && itemType.equals(((TypeOfItem) obj).itemType)); // state check
     }
 

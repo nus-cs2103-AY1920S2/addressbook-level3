@@ -15,7 +15,7 @@ import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -46,13 +46,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code tid} is invalid.
      */
-    public static TransactionID parseTid(String tid) throws ParseException {
+    public static TransactionId parseTid(String tid) throws ParseException {
         requireNonNull(tid);
         String trimmedTid = tid.trim();
-        if (!TransactionID.isValidTID(trimmedTid)) {
-            throw new ParseException(TransactionID.MESSAGE_CONSTRAINTS);
+        if (!TransactionId.isValidTId(trimmedTid)) {
+            throw new ParseException(TransactionId.MESSAGE_CONSTRAINTS);
         }
-        return new TransactionID(trimmedTid);
+        return new TransactionId(trimmedTid);
     }
 
     /**

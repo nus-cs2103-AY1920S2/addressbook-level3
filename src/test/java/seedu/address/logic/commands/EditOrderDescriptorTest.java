@@ -10,7 +10,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
 
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,7 @@ public class EditOrderDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different TID -> returns false
-        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withWarehouse(VALID_TID_BOB).build();
+        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withTID(VALID_TID_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false

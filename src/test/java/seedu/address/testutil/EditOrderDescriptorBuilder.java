@@ -12,7 +12,7 @@ import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
@@ -58,7 +58,7 @@ public class EditOrderDescriptorBuilder {
      * Sets the {@code TransactionID} of the {@code EditOrderDescriptor} that we are building.
      */
     public EditOrderDescriptorBuilder withTID(String tid) {
-        descriptor.setTid(new TransactionID(tid));
+        descriptor.setTid(new TransactionId(tid));
         return this;
     }
 

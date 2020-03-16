@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Order's Transaction ID in the Order List.
- * Guarantees: immutable; is valid as declared in {@link #isValidTID(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTId(String)}
  */
-public class TransactionID {
+public class TransactionId {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Transaction ID should not be empty.";
@@ -24,16 +24,16 @@ public class TransactionID {
      *
      * @param tid A valid transaction ID.
      */
-    public TransactionID(String tid) {
+    public TransactionId(String tid) {
         requireNonNull(tid);
-        checkArgument(isValidTID(tid), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTId(tid), MESSAGE_CONSTRAINTS);
         this.tid = tid;
     }
 
     /**
      * Returns true if a given string is a valid transaction ID.
      */
-    public static boolean isValidTID(String test) {
+    public static boolean isValidTId(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -45,8 +45,8 @@ public class TransactionID {
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
-                || (obj instanceof TransactionID // instanceof handles nulls
-                && tid.equals(((TransactionID) obj).tid)); // state check
+                || (obj instanceof TransactionId // instanceof handles nulls
+                && tid.equals(((TransactionId) obj).tid)); // state check
     }
 
     @Override

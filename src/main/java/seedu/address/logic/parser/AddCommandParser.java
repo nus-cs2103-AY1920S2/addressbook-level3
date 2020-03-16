@@ -24,7 +24,7 @@ import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -52,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        TransactionID tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
+        TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());

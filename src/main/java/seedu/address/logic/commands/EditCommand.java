@@ -30,7 +30,7 @@ import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -105,7 +105,7 @@ public class EditCommand extends Command {
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
 
-        TransactionID updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
+        TransactionId updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
@@ -142,7 +142,7 @@ public class EditCommand extends Command {
      * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
-        private TransactionID tid;
+        private TransactionId tid;
         private Name name;
         private Phone phone;
         private Address address;
@@ -177,11 +177,11 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(tid, name, phone, address, timeStamp, warehouse, cod, comment, tags);
         }
-        public void setTid(TransactionID tid) {
+        public void setTid(TransactionId tid) {
             this.tid = tid;
         }
 
-        public Optional<TransactionID> getTid() {
+        public Optional<TransactionId> getTid() {
             return Optional.ofNullable(tid);
         }
 

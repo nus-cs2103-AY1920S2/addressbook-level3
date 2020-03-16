@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 public class Order {
 
     // Identity fields
-    private final TransactionID tid;
+    private final TransactionId tid;
     private final Name name;
     private final Phone phone;
 
@@ -32,7 +32,7 @@ public class Order {
     /**
      * Every field must be present and not null.
      */
-    public Order(TransactionID tid, Name name, Phone phone, Address address, TimeStamp timestamp, Warehouse warehouse,
+    public Order(TransactionId tid, Name name, Phone phone, Address address, TimeStamp timestamp, Warehouse warehouse,
                  CashOnDelivery cod, Comment comment, Set<Tag> tags) {
         requireAllNonNull(tid, name, phone, address, timestamp, warehouse, cod, comment, tags);
         this.tid = tid;
@@ -45,7 +45,7 @@ public class Order {
         this.comment = comment;
         this.tags.addAll(tags);
     }
-    public TransactionID getTid() {
+    public TransactionId getTid() {
         return tid;
     }
     public Name getName() {

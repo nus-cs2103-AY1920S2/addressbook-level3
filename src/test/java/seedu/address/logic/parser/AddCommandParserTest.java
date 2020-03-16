@@ -37,8 +37,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.WAREHOUSE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.WAREHOUSE_DESC_BOB;
@@ -68,29 +68,29 @@ public class AddCommandParserTest {
         Order expectedOrder = new OrderBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + TID_DESC_BOB +NAME_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrder));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
+                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL
+                + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple TIDs - last TID accepted
         assertParseSuccess(parser, TID_DESC_AMY + TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL
-                        + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
+                        + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
+                        + COMMENT_DESC_NIL + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrder));
+                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
+                + COMMENT_DESC_NIL + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
-                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrder));
+                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
+                + COMMENT_DESC_NIL + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrder));
+                + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
+                + COMMENT_DESC_NIL + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple timeStamps - last timeStamp accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
@@ -99,26 +99,25 @@ public class AddCommandParserTest {
 
         // multiple warehouses - last warehouse accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                + WAREHOUSE_DESC_AMY + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrder));
+                + WAREHOUSE_DESC_AMY + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB
+                + COD_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple cashOnDeliveries - last cashOnDelivery accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
-                        + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_AMY + COD_DESC_BOB +
-                        COMMENT_DESC_NIL + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrder));
+                        + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_AMY
+                        + COD_DESC_BOB + COMMENT_DESC_NIL + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple comment - last comment accepted
-        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB
-                        + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_INSTRUCTION + COMMENT_DESC_NIL + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrder));
+        assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+                        + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_INSTRUCTION
+                        + COMMENT_DESC_NIL + TAG_DESC_FRIEND, new AddCommand(expectedOrder));
 
         // multiple tags - all accepted
         Order expectedOrderMultipleTags = new OrderBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddCommand(expectedOrderMultipleTags));
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedOrderMultipleTags));
     }
 
     @Test
@@ -156,12 +155,12 @@ public class AddCommandParserTest {
                 + VALID_TIMESTAMP_BOB + WAREHOUSE_DESC_BOB, expectedMessage);
 
         // missing warehouse prefix
-        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB +
-                        DELIVERY_TIMESTAMP_DESC_BOB + COD_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + COD_DESC_BOB, expectedMessage);
 
         // missing cashOnDelivery prefix
-        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB +
-                DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB, expectedMessage);
 
         // all prefixes missing
         assertParseFailure(parser, VALID_TID_BOB + VALID_NAME_BOB + VALID_PHONE_BOB + VALID_ADDRESS_BOB
@@ -241,7 +240,7 @@ public class AddCommandParserTest {
                 + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + TID_DESC_BOB +  NAME_DESC_BOB + PHONE_DESC_BOB
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
                 + COMMENT_DESC_NIL + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

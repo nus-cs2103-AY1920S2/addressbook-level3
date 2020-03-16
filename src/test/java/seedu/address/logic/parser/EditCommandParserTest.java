@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COD_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COD_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COMMENT_DESC_INSTRUCTION;
+import static seedu.address.logic.commands.CommandTestUtil.COMMENT_DESC_NIL;
 import static seedu.address.logic.commands.CommandTestUtil.DELIVERY_TIMESTAMP_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DELIVERY_TIMESTAMP_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -13,7 +14,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_DELIVERY_TIME
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DELIVERY_TIMESTAMP_DATE_ONLY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DELIVERY_TIMESTAMP_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DELIVERY_TIMESTAMP_TIME_ONLY;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_COD_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -23,26 +23,25 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.TID_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_INSTRUCTION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_NIL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.WAREHOUSE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.WAREHOUSE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -57,7 +56,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
@@ -227,14 +225,15 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_ORDER;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + TID_DESC_AMY
-                + VALID_COMMENT_NIL + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + WAREHOUSE_DESC_AMY
-                + TAG_DESC_FRIEND + COMMENT_DESC_INSTRUCTION + PHONE_DESC_BOB + ADDRESS_DESC_BOB
-                + COD_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + TID_DESC_AMY + TID_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
+                + COMMENT_DESC_NIL + COMMENT_DESC_INSTRUCTION + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB
+                + DELIVERY_TIMESTAMP_DESC_BOB + DELIVERY_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + WAREHOUSE_DESC_BOB
+                + TAG_DESC_FRIEND + COD_DESC_AMY + COD_DESC_BOB + TAG_DESC_HUSBAND;
 
         EditCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder()
-                .withPhone(VALID_PHONE_BOB).withCash(VALID_COD_BOB)
-                .withTimeStamp(VALID_TIMESTAMP_BOB).withAddress(VALID_ADDRESS_BOB).withComment(VALID_COMMENT_INSTRUCTION)
+                .withTID(VALID_TID_BOB).withPhone(VALID_PHONE_BOB).withCash(VALID_COD_BOB)
+                .withTimeStamp(VALID_TIMESTAMP_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withComment(VALID_COMMENT_INSTRUCTION).withWarehouse(VALID_WAREHOUSE_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);

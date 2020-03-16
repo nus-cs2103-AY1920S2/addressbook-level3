@@ -9,7 +9,7 @@ import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
@@ -29,7 +29,7 @@ public class OrderBuilder {
     public static final String DEFAULT_COD = "$3";
     public static final String DEFAULT_COMMENT = "NIL";
 
-    private TransactionID tid;
+    private TransactionId tid;
     private Name name;
     private Phone phone;
     private Address address;
@@ -40,7 +40,7 @@ public class OrderBuilder {
     private Set<Tag> tags;
 
     public OrderBuilder() {
-        tid = new TransactionID(DEFAULT_TID);
+        tid = new TransactionId(DEFAULT_TID);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         address = new Address(DEFAULT_ADDRESS);
@@ -78,7 +78,7 @@ public class OrderBuilder {
      * Sets the {@code TransactionID} of the {@code Order} that we are building.
      */
     public OrderBuilder withTID(String tid) {
-        this.tid = new TransactionID(tid);
+        this.tid = new TransactionId(tid);
         return this;
     }
 

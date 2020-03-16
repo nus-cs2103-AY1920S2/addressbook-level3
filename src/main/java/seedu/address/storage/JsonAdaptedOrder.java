@@ -17,7 +17,7 @@ import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
@@ -91,12 +91,12 @@ class JsonAdaptedOrder {
 
         if (tid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    TransactionID.class.getSimpleName()));
+                    TransactionId.class.getSimpleName()));
         }
-        if (!TransactionID.isValidTID(tid)) {
-            throw new IllegalValueException(TransactionID.MESSAGE_CONSTRAINTS);
+        if (!TransactionId.isValidTId(tid)) {
+            throw new IllegalValueException(TransactionId.MESSAGE_CONSTRAINTS);
         }
-        final TransactionID modelTID = new TransactionID(tid);
+        final TransactionId modelTId = new TransactionId(tid);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -160,7 +160,7 @@ class JsonAdaptedOrder {
         }
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Order(modelTID, modelName, modelPhone, modelAddress, modelTimeStamp, modelWarehouse,
+        return new Order(modelTId, modelName, modelPhone, modelAddress, modelTimeStamp, modelWarehouse,
                 modelCash, modelComment, modelTags);
     }
 
