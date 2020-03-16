@@ -67,14 +67,12 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[] +
 
 [discrete]
 ==== EYLAH comprehensive class diagram for both Diet Tracker and Expense Spliter
 
-image::eylah_overall_class_diagram.png[]
-
-
+image::eylah_overall_class_diagram.png[] +
 
 The sections below give more details of each component.
 
