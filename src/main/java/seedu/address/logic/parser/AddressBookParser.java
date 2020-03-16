@@ -69,7 +69,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case NotesCommand.COMMAND_WORD:
-            return new NotesCommand();
+            return new NotesCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
