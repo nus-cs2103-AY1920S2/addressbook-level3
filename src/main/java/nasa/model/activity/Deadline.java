@@ -24,7 +24,7 @@ public class Deadline extends Activity {
 
     public Deadline(Name name, Note note, Priority priority, Date dueDate) {
         super(name, note, priority);
-        requireAllNonNull(name, priority, dueDate);
+        requireAllNonNull(name, dueDate);
         this.dueDate = dueDate;
     }
 

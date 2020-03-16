@@ -34,7 +34,7 @@ public class AddEventCommandParser extends AddCommandParser {
      */
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
                         PREFIX_END_DATE, PREFIX_PRIORITY, PREFIX_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME,
@@ -63,11 +63,7 @@ public class AddEventCommandParser extends AddCommandParser {
             priority = null;
         }
 
-        /*
-        Event event = new Event(activityName, date, note, Status.ONGOING, priority);
+        Event event = new Event(activityName, note, priority, startDate, endDate);
         return new AddEventCommand(event, moduleCode);
-        TODO create updated event class
-         */
-        return null;
     }
 }

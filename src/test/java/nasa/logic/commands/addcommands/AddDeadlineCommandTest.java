@@ -13,7 +13,7 @@ import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-import nasa.testutil.ActivityBuilder;
+import nasa.testutil.DeadlineBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -35,10 +35,10 @@ public class AddDeadlineCommandTest {
 
     @Test
     public void execute_newDeadline_success() {
-        Activity deadline = new ActivityBuilder().build();
+        Activity deadline = new DeadlineBuilder().build();
 
         Model expectedModel = new ModelManager(new NasaBook(), new UserPrefs());
-        expectedModel.addModule(new Module(new ModuleCode(VALID_MODULE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231)));
+        expectedModel.addModule(new ModuleCode(VALID_MODULE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         expectedModel.addActivity(module, deadline);
 
         AddDeadlineCommand command = new AddDeadlineCommand((Deadline)deadline, new ModuleCode(VALID_MODULE_CS1231));
@@ -47,7 +47,7 @@ public class AddDeadlineCommandTest {
 
     @Test
     public void execute_duplicateDeadline_failure() {
-        Activity deadline = new ActivityBuilder().build();
+        Activity deadline = new DeadlineBuilder().build();
         Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
         AddDeadlineCommand command = new AddDeadlineCommand((Deadline) deadline, new ModuleCode(VALID_MODULE_CS1231));
 
@@ -62,7 +62,7 @@ public class AddDeadlineCommandTest {
 
     @Test
     public void constructor_nullModuleCode_throwsNullPointerException() {
-        Deadline deadline = (Deadline)(new ActivityBuilder().build());
+        Deadline deadline = (Deadline)(new DeadlineBuilder().build());
         assertThrows(NullPointerException.class, () -> new AddDeadlineCommand(deadline, null));
     }
 }

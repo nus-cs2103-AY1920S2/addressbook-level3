@@ -7,6 +7,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
+import java.time.LocalDateTime;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 
 import nasa.logic.parser.ArgumentMultimap;
@@ -42,7 +43,7 @@ public class AddDeadlineCommandParser extends AddCommandParser {
         }
 
         // compulsory fields
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        Date dueDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
 
@@ -61,8 +62,7 @@ public class AddDeadlineCommandParser extends AddCommandParser {
             priority = null;
         }
 
-        // create deadline and return
-        Deadline deadline = new Deadline(activityName, date, note, Status.ONGOING ,priority);
+        Deadline deadline = new Deadline(activityName, note, priority, dueDate);
         return new AddDeadlineCommand(deadline, moduleCode);
     }
 }

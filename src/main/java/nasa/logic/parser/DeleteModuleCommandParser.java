@@ -28,7 +28,7 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE);
         try {
             ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
-            return new DeleteModuleCommand(new Module(moduleCode));
+            return new DeleteModuleCommand(moduleCode);
         } catch (NoSuchElementException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE));
         } catch (ParseException e) {

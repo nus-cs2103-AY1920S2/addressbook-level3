@@ -11,7 +11,6 @@ import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
-import nasa.model.activity.Status;
 import nasa.model.module.ModuleCode;
 import org.junit.jupiter.api.Test;
 
@@ -81,10 +80,10 @@ public class AddDeadlineCommandParserTest {
 }
 
 class DeadlineBuilder {
-    public static Deadline allFieldsPresent = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), new Date(VALID_DATE_TEST),
-            new Note(VALID_NOTES_TEST), Status.ONGOING ,new Priority(VALID_PRIORITY_HIGH));
-    public static Deadline noteFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), new Date(VALID_DATE_TEST),
-            null, Status.ONGOING ,new Priority(VALID_PRIORITY_HIGH));
-    public static Deadline priorityFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), new Date(VALID_DATE_TEST),
-            new Note(VALID_NOTES_TEST), Status.ONGOING , null);
+    public static Deadline allFieldsPresent = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), new Note(VALID_NOTES_TEST),
+        new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST));
+    public static Deadline noteFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), null ,
+        new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST));
+    public static Deadline priorityFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+            new Note(VALID_NOTES_TEST), null, new Date(VALID_DATE_TEST));
 }

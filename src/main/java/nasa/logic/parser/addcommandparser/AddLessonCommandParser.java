@@ -34,7 +34,7 @@ public class AddLessonCommandParser extends AddCommandParser {
      */
     public AddLessonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
                         PREFIX_END_DATE, PREFIX_PRIORITY, PREFIX_NOTE);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME,
@@ -65,11 +65,7 @@ public class AddLessonCommandParser extends AddCommandParser {
             priority = null;
         }
 
-        /*
-        Lesson lesson = new Lesson(activityName, date, note, Status.ONGOING, priority);
+        Lesson lesson = new Lesson(activityName, note, priority, startDate, endDate);
         return new AddLessonCommand(lesson, moduleCode);
-        TODO Create lesson class
-         */
-        return null;
     }
 }

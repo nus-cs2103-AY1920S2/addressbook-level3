@@ -17,11 +17,11 @@ import nasa.logic.commands.DeleteModuleCommand;
 public class DeleteModuleCommandParserTest {
 
     private DeleteModuleCommandParser parser = new DeleteModuleCommandParser();
-    private Module module = new Module(new ModuleCode(VALID_MODULE_CS1231)); // dummy module
+    private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CS1231); // dummy module
 
     @Test
     public void parse_validArgs_returnsDeleteModuleCommand() {
-        assertParseSuccess(parser, MODULE_DESC_CS1231, new DeleteModuleCommand(module));
+        assertParseSuccess(parser, MODULE_DESC_CS1231, new DeleteModuleCommand(moduleCode));
     }
 
     @Test

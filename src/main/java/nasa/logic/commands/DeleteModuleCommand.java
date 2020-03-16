@@ -6,6 +6,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
 
 /**
  * Deletes a module from the NASA book.
@@ -27,15 +28,15 @@ public class DeleteModuleCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Module indicated all does not exist!";
 
-    private final Module moduleToDelete;
+    private final ModuleCode moduleToDelete;
 
     /**
      * Creates a DeleteModuleCommand to delete the specified {@code module}.
-     * @param module Module to be deleted
+     * @param moduleCode Module to be deleted
      */
-    public DeleteModuleCommand(Module module) {
-        requireNonNull(module);
-        moduleToDelete = module;
+    public DeleteModuleCommand(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        moduleToDelete = moduleCode;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class DeleteModuleCommand extends Command {
         requireNonNull(model);
         if (model.hasModule(moduleToDelete)) {
             model.deleteModule(moduleToDelete);
-            return new CommandResult(moduleToDelete.getModuleCode().toString() + MESSAGE_SUCCESS);
+            return new CommandResult(moduleToDelete.toString() + MESSAGE_SUCCESS);
         } else {
             throw new CommandException(MESSAGE_FAILURE);
         }
