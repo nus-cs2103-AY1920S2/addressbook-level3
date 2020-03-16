@@ -1,8 +1,10 @@
 package fithelper.logic.parser;
 
-import fithelper.logic.commands.EditCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 
+/**
+ * This class is for testing and debugging only.
+ */
 public class ParserMain {
     public static void main(String[] args) throws ParseException {
         EditCommandParser tryECP =  new EditCommandParser();
