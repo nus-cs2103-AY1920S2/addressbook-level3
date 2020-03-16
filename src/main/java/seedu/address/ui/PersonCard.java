@@ -53,8 +53,17 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        remark.setText(person.getRemark().value);
         birthday.setText(person.getBirthday().toString());
+        String remarkValue = "";
+        int i = 0;
+        while (i < person.getRemark().size()) {
+            remarkValue += person.getRemark().get(i).value;
+            if (i != person.getRemark().size() - 1) {
+                remarkValue += "\n";
+            }
+            i++;
+        }
+        remark.setText(remarkValue);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

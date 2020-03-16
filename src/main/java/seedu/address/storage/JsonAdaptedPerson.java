@@ -30,7 +30,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
-    private final String remark;
+    private final ArrayList<JsonAdaptedRemark> remark = new ArrayList<>();
     private final String birthday;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -40,14 +40,16 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("remark") String remark, @JsonProperty("birthday") String birthday,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("remark") ArrayList<JsonAdaptedRemark> remark, @JsonProperty("birthday") String birthday,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.remark = remark;
         this.birthday = birthday;
+        if (remark != null) {
+            this.remark.addAll(remark);
+        }
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -61,8 +63,10 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        remark = source.getRemark().value;
         birthday = source.getBirthday().birthday;
+        remark.addAll(source.getRemark().stream()
+                .map(JsonAdaptedRemark::new)
+                .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -111,10 +115,10 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
-        if (remark == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Remark.class.getSimpleName()));
+        final ArrayList<Remark> modelRemark = new ArrayList<>();
+        for (JsonAdaptedRemark r : remark) {
+            modelRemark.add(r.toModelType());
         }
-        final Remark modelRemark = new Remark(remark);
 
         if (birthday == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
