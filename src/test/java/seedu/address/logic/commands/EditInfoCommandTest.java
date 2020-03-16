@@ -37,7 +37,7 @@ class EditInfoCommandTest {
         int size = editedPerson.getRemark().size();
 
         EditInfoCommand editInfoCommand = new EditInfoCommand(INDEX_FIRST_PERSON,
-                size - 1, editedPerson.getRemark().get(size - 1));
+                1, editedPerson.getRemark().get(0));
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
