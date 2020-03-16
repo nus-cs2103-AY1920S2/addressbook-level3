@@ -11,25 +11,33 @@ import java.util.Objects;
 public class Self {
 
     // Data fields
-    private final Height height;
-    private final Weight weight;
+    private static Height height;
+    private static Weight weight;
 
     /**
      * Every field must be present
      * height and weight fields must not be null.
      */
-    public Self(Height height, Weight weight) {
-        requireAllNonNull(height, weight);
-        this.height = height;
-        this.weight = weight;
+    public Self(Height ht, Weight wt) {
+        requireAllNonNull(ht, wt);
+        this.height = ht;
+        this.weight = wt;
     }
 
-    public Height getHeight() {
+    public static Height getHeight() {
         return height;
     }
 
-    public Weight getWeight() {
+    public static Weight getWeight() {
         return weight;
+    }
+
+    public static void setHeight(Height ht) {
+        height = ht;
+    }
+
+    public static void setWeight(Weight wt) {
+        weight = wt;
     }
 
     @Override
