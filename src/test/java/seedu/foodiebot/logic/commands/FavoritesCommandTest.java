@@ -23,8 +23,8 @@ class FavoritesCommandTest {
     }
 
     @Test
-    void execute_success() {
+    void execute_viewFavorite_success() {
         assertCommandSuccess(new FavoritesCommand(), FavoritesCommand.COMMAND_WORD, model,
-                FavoritesCommand.MESSAGE_SUCCESS, expectedModel);
+                FavoritesCommand.MESSAGE_VIEW_SUCCESS, expectedModel);
     }
 }

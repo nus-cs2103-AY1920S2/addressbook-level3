@@ -145,6 +145,7 @@ public class Budget {
         return this.cycleRange;
     }
 
+    /** . */
     public void subtractFromRemainingBudget(float expenses) {
         this.remainingBudget -= expenses;
         if (this.remainingBudget < 0) {
@@ -152,6 +153,7 @@ public class Budget {
         }
     }
 
+    /** . */
     public void addToRemainingBudget(float expenses) {
         this.remainingBudget += expenses;
         if (this.remainingBudget > this.totalBudget) {
