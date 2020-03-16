@@ -65,7 +65,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> offers} into a {@code List<Offer>} if {@code tags} is non-empty.
+     * Parses {@code Collection<String> offers} into a {@code List<Offer>} if {@code offers} is non-empty.
      * If {@code offers} contain only one element which is an empty string, it will be parsed into a
      * {@code List<Offer>} containing zero offers.
      */

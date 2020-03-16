@@ -97,8 +97,8 @@ public class EditCommandParserTest {
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
-        // parsing it together with a valid tag results in error
+        // while parsing {@code PREFIX_OFFER} alone will reset the offers of the {@code Person} being edited,
+        // parsing it together with a valid offer results in error
         assertParseFailure(parser, "1" + OFFER_DESC_APPLE + OFFER_DESC_BANANA + OFFER_EMPTY, Offer.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + OFFER_DESC_APPLE + OFFER_EMPTY + OFFER_DESC_BANANA, Offer.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + OFFER_EMPTY + OFFER_DESC_APPLE + OFFER_DESC_BANANA, Offer.MESSAGE_CONSTRAINTS);
@@ -161,7 +161,7 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // tags
+        // offers
         userInput = targetIndex.getOneBased() + OFFER_DESC_APPLE;
         descriptor = new EditPersonDescriptorBuilder().withOffers(VALID_OFFER_APPLE).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -203,7 +203,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_resetTags_success() {
+    public void parse_resetOffers_success() {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + OFFER_EMPTY;
 

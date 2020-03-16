@@ -75,11 +75,11 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code offer} into a {@code List<Offer>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code offers} into a {@code List<Offer>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withOffers(String... tags) {
-        List<Offer> offerList = Stream.of(tags)
+    public EditPersonDescriptorBuilder withOffers(String... offers) {
+        List<Offer> offerList = Stream.of(offers)
                 .map(ParserUtil::splitOnLastWhitespace)
                 .map(ParserUtil::getGoodPricePair)
                 .map(x -> new Offer((Good) x[0], (Price) x[1]))

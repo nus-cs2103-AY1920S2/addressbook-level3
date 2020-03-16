@@ -69,7 +69,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
                 + ADDRESS_DESC_BOB + OFFER_DESC_APPLE, new AddCommand(expectedPerson));
 
-        // multiple tags - all accepted
+        // multiple offers - all accepted
         Person expectedPersonMultipleOffers = new PersonBuilder(BOB).withOffers(VALID_OFFER_APPLE, VALID_OFFER_BANANA)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -78,7 +78,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // zero offers
         Person expectedPerson = new PersonBuilder(AMY).withOffers().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));

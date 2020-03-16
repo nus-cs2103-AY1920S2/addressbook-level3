@@ -27,7 +27,7 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_OFFER = "nospace420";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -161,20 +161,20 @@ public class ParserUtilTest {
 
     @Test
     public void parseOffer_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseOffer(INVALID_TAG));
+        assertThrows(ParseException.class, () -> ParserUtil.parseOffer(INVALID_OFFER));
     }
 
     @Test
-    public void parseOffer_validValueWithoutWhitespace_returnsTag() throws Exception {
+    public void parseOffer_validValueWithoutWhitespace_returnsOffer() throws Exception {
         Offer expectedOffer = new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1));
         assertEquals(expectedOffer, ParserUtil.parseOffer(VALID_OFFER_1));
     }
 
     @Test
-    public void parseOffer_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_OFFER_1 + WHITESPACE;
+    public void parseOffer_validValueWithWhitespace_returnsTrimmedOffer() throws Exception {
+        String offerWithWhitespace = WHITESPACE + VALID_OFFER_1 + WHITESPACE;
         Offer expectedOffer = new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1));
-        assertEquals(expectedOffer, ParserUtil.parseOffer(tagWithWhitespace));
+        assertEquals(expectedOffer, ParserUtil.parseOffer(offerWithWhitespace));
     }
 
     @Test
@@ -183,8 +183,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseOffers_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, INVALID_TAG)));
+    public void parseOffers_collectionWithInvalidOffers_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, INVALID_OFFER)));
     }
 
     @Test
@@ -193,7 +193,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseOffers_collectionWithValidTags_returnsTagSet() throws Exception {
+    public void parseOffers_collectionWithValidOffers_returnsOfferList() throws Exception {
         List<Offer> actualOfferList = ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, VALID_OFFER_2));
         List<Offer> expectedOfferList = new ArrayList<>(Arrays.asList(new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1)),
                 new Offer(new Good(VALID_GOOD_2), new Price(VALID_PRICE_2))));

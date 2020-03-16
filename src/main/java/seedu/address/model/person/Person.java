@@ -53,7 +53,7 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable offer list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public List<Offer> getOffers() {

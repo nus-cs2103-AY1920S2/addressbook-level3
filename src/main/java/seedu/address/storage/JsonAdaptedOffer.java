@@ -19,7 +19,7 @@ class JsonAdaptedOffer {
     private final String price;
 
     /**
-     * Constructs a {@code JsonAdaptedOffer} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedOffer} with the given {@code good} and {@price}.
      */
     @JsonCreator
     public JsonAdaptedOffer(@JsonProperty("good") String good, @JsonProperty("price") String price) {

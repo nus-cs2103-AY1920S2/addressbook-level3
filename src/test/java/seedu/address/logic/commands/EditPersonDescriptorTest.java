@@ -51,7 +51,7 @@ public class EditPersonDescriptorTest {
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
+        // different offers -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withOffers(VALID_OFFER_BANANA).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
