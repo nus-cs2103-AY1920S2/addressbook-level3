@@ -16,7 +16,7 @@ public class DeleteModuleCommand extends Command {
     public static final String DELETE_MODEL = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + DELETE_MODEL
-            + ": Deletes the student identified by the index number used in the displayed student list.\n"
+            + ": Deletes the module identified by the module code.\n"
             + "Parameters: " + PREFIX_MODULE + " MODULE_CODE\n"
             + "Example: " + COMMAND_WORD + " " + DELETE_MODEL + " CS2013T";
 
