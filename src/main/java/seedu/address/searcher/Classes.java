@@ -1,6 +1,11 @@
-package seedu.address.moduleSearch;
+package seedu.address.searcher;
 
-public class schedule {
+/**
+ * <h1>Classes Class</h1>
+ *
+ * A class to hold information about each class timetable slot
+ */
+public class Classes {
     private String classNo;
     private String startTime;
     private String endTime;
@@ -9,7 +14,7 @@ public class schedule {
     private String day;
     private String lessonType;
 
-    public schedule(String input) {
+    public Classes(String input) {
         this.classNo = input.substring(3, input.indexOf("startTime") - 3);
         this.startTime = input.substring(input.indexOf("startTime") + 12, input.indexOf("endTime") - 3);
         this.endTime = input.substring(input.indexOf("endTime") + 10, input.indexOf("weeks") - 3);
@@ -26,7 +31,7 @@ public class schedule {
     @Override
     public String toString() {
         String output = "";
-        output = output + "Class ID: " + this.classNo + " " + this.lessonType +"\n";
+        output = output + "Class ID: " + this.classNo + " " + this.lessonType + "\n";
         output = output + "Start Time: " + this.startTime + " End Time: " + this.endTime + " " + this.day + "\n";
         output = output + "Size: " + this.size + "\n";
         output = output + "Venue: " + this.venue + "\n";

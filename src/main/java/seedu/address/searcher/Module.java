@@ -1,8 +1,13 @@
-package seedu.address.moduleSearch;
+package seedu.address.searcher;
 
 import java.util.ArrayList;
 
-public class module {
+/**
+ * <h1>Module Class</h1>
+ *
+ * A simple class to hold module information
+ */
+public class Module {
     private String title;
     private String code;
     private String department;
@@ -11,10 +16,10 @@ public class module {
     private String workload;
     private String preclusion;
     private int credits;
-    private String sem1_exam = "";
-    private String sem2_exam = "";
-    private ArrayList<schedule> sem1_Classes = new ArrayList<>();
-    private ArrayList<schedule> sem2_Classes = new ArrayList<>();
+    private String sem1Exam = "";
+    private String sem2Exam = "";
+    private ArrayList<Classes> sem1Classes = new ArrayList<>();
+    private ArrayList<Classes> sem2Classes = new ArrayList<>();
 
     /**
      * Constructor for module class
@@ -22,18 +27,19 @@ public class module {
      * access information easily by using class functions
      * @param input this is raw HTTP data to be parsed
      */
-    public module(String input) {
+    public Module(String input) {
         this.preclusion = input.substring(input.indexOf("preclusion") + 13, input.indexOf("description") - 3);
         this.description = input.substring(input.indexOf("description") + 14, input.indexOf("title\":") - 3);
         this.title = input.substring(input.indexOf("title") + 8, input.indexOf("department") - 3);
         this.department = input.substring(input.indexOf("department") + 13, input.indexOf("faculty") - 3);
         this.faculty = input.substring(input.indexOf("faculty") + 10, input.indexOf("workload") - 3);
         this.workload = input.substring(input.indexOf("workload") + 10, input.indexOf("moduleCredit") - 2);
-        this.credits = Integer.parseInt(input.substring(input.indexOf("moduleCredit") + 15, input.indexOf("moduleCode") - 3));
+        this.credits = Integer.parseInt(input.substring(input.indexOf("moduleCredit") + 15,
+                input.indexOf("moduleCode") - 3));
 
         try {
             this.code = input.substring(input.indexOf("moduleCode") + 13, input.indexOf("attributes") - 3);
-        } catch(StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             this.code = input.substring(input.indexOf("moduleCode") + 13, input.indexOf("semesterData") - 3);
         }
 
@@ -44,14 +50,18 @@ public class module {
             if (input.indexOf("semester\":2") <= 0) {
                 semester2 = "";
             } else {
-                semester2 = input.substring(input.indexOf("semester\":2") + 13, input.indexOf("fulfillRequirements") - 4);
+                semester2 = input.substring(input.indexOf("semester\":2") + 13,
+                        input.indexOf("fulfillRequirements") - 4);
             }
         } else {
             if (input.indexOf("semester\":2") <= 0) {
-                semester1 = input.substring(input.indexOf("semester\":1") + 13, input.indexOf("fulfillRequirements") - 4);
+                semester1 = input.substring(input.indexOf("semester\":1") + 13,
+                        input.indexOf("fulfillRequirements") - 4);
             } else {
-                semester1 = input.substring(input.indexOf("semester\":1") + 13, input.indexOf("semester\":2") - 4);
-                semester2 = input.substring(input.indexOf("semester\":2") + 13, input.indexOf("fulfillRequirements") - 4);
+                semester1 = input.substring(input.indexOf("semester\":1") + 13,
+                        input.indexOf("semester\":2") - 4);
+                semester2 = input.substring(input.indexOf("semester\":2") + 13,
+                        input.indexOf("fulfillRequirements") - 4);
             }
         }
 
@@ -63,7 +73,7 @@ public class module {
 
             temp = temp.substring(temp.indexOf("examDate") + 11, temp.indexOf("examDuration") - 3);
             temp = temp.split("T")[0];
-            this.sem1_exam = temp;
+            this.sem1Exam = temp;
         }
 
         if (sem2Temp.length > 1) {
@@ -71,19 +81,19 @@ public class module {
 
             temp = temp.substring(temp.indexOf("examDate") + 11, temp.indexOf("examDuration") - 3);
             temp = temp.split("T")[0];
-            this.sem2_exam = temp;
+            this.sem2Exam = temp;
         }
 
         for (int i = 1; i < sem1Temp.length; i++) {
             String temp = sem1Temp[i];
-            schedule myClass = new schedule(temp);
-            sem1_Classes.add(myClass);
+            Classes myClass = new Classes(temp);
+            sem1Classes.add(myClass);
         }
 
         for (int i = 1; i < sem2Temp.length; i++) {
             String temp = sem2Temp[i];
-            schedule myClass = new schedule(temp);
-            sem2_Classes.add(myClass);
+            Classes myClass = new Classes(temp);
+            sem2Classes.add(myClass);
         }
     }
 
@@ -99,20 +109,20 @@ public class module {
         return this.description;
     }
 
-    public ArrayList<schedule> getSem1Classes() {
-        return sem1_Classes;
+    public ArrayList<Classes> getSem1Classes() {
+        return sem1Classes;
     }
 
     public String getSem1_exam() {
-        return sem1_exam;
+        return sem1Exam;
     }
 
-    public ArrayList<schedule> getSem2Classes() {
-        return sem2_Classes;
+    public ArrayList<Classes> getSem2Classes() {
+        return sem2Classes;
     }
 
     public String getSem2_exam() {
-        return sem2_exam;
+        return sem2Exam;
     }
 
     @Override
@@ -126,12 +136,12 @@ public class module {
         output = output + "Workload: " + this.workload + "\n";
         output = output + this.description + "\n";
 
-        if (!sem1_exam.equals("")) {
-            output = output + "Semester 1 Exam: " + sem1_exam + "\n";
+        if (!sem1Exam.equals("")) {
+            output = output + "Semester 1 Exam: " + sem1Exam + "\n";
         }
 
-        if (!sem2_exam.equals("")) {
-            output = output + "Semester 2 Exam: " + sem2_exam + "\n";
+        if (!sem2Exam.equals("")) {
+            output = output + "Semester 2 Exam: " + sem2Exam + "\n";
         }
         return output;
     }
