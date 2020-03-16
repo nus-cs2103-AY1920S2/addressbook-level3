@@ -38,6 +38,15 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_DESCRIPTION_WATCH = "Black watch";
+    public static final String VALID_DESCRIPTION_BAG = "Black bag";
+    public static final String VALID_PRICE_WATCH = "11";
+    public static final String VALID_PRICE_BAG = "22";
+    public static final String VALID_QUANTITY_WATCH = "1";
+    public static final String VALID_QUANTITY_BAG = "2";
+    public static final String VALID_SALES_WATCH = "22";
+    public static final String VALID_SALES_BAG = "44";
+
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
