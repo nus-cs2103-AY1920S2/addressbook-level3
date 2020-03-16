@@ -51,18 +51,16 @@ public class Saveable implements Comparable<Saveable> {
     }
 
     /**
-     * Gets the value of this Saveable as a String.
-     * The difference from the toString() method is that
-     * getValue() may return null in exceptional cases,
-     * but toString() will never return null.
+     * Gets the value of this Saveable as a String. The
+     * main difference from the toString() method is that
+     * getValue() may return null in exceptional cases, and
+     * getValue() will not change depending on the count,
+     * but toString() will never return null, and will
+     * change depending on the count of the item.
      * @return String stored in the Saveable.
      */
     public String getValue() {
-        if (this.savedItem == null) {
-            return null;
-        } else {
-            return this.count + "x " + this.savedItem;
-        }
+        return this.savedItem;
     }
 
     /**
