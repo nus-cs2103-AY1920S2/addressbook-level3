@@ -17,29 +17,29 @@ import seedu.address.model.profile.Profile;
 public class TypicalPersons {
 
     public static final Profile ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
     public static final Profile BENSON = new PersonBuilder().withName("Benson Meier")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
     public static final Profile CARL = new PersonBuilder().withName("Carl Kurz")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
     public static final Profile DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
     public static final Profile ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
     public static final Profile FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
     public static final Profile GEORGE = new PersonBuilder().withName("George Best")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
 
     // Manually added
     public static final Profile HOON = new PersonBuilder().withName("Hoon Meier")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
     public static final Profile IDA = new PersonBuilder().withName("Ida Mueller")
-            .withCourse("Computer Science").build();
+            .withCourseName("Computer Science").build();
 
     // Manually added - Profile's details found in {@code CommandTestUtil}
-    public static final Profile AMY = new PersonBuilder().withName(VALID_NAME_AMY).withCourse(VALID_COURSE_CS).build();
-    public static final Profile BOB = new PersonBuilder().withName(VALID_NAME_BOB).withCourse(VALID_COURSE_CS).build();
+    public static final Profile AMY = new PersonBuilder().withName(VALID_NAME_AMY).withCourseName(VALID_COURSE_CS).build();
+    public static final Profile BOB = new PersonBuilder().withName(VALID_NAME_BOB).withCourseName(VALID_COURSE_CS).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

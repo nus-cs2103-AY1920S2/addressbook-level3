@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
 
 /**
  * A utility class to help with building Profile objects.
@@ -10,18 +10,18 @@ import seedu.address.model.profile.course.Course;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_COURSE = "Computer Science";
+    public static final String DEFAULT_COURSE_NAME = "Computer Science";
     public static final String DEFAULT_CURRENT_SEMESTER = "1";
     public static final String DEFAULT_SPEC = "Software Engineering";
 
     private Name name;
-    private Course course;
+    private CourseName courseName;
     private String currentSemester;
     private String specialisation;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        course = new Course(DEFAULT_COURSE);
+        courseName = new CourseName(DEFAULT_COURSE_NAME);
         currentSemester = DEFAULT_CURRENT_SEMESTER;
         specialisation = DEFAULT_SPEC;
     }
@@ -44,8 +44,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Course} of the {@code Profile} that we are building.
      */
-    public PersonBuilder withCourse(String course) {
-        this.course = new Course(course);
+    public PersonBuilder withCourseName(String courseName) {
+        this.courseName = new CourseName(courseName);
         return this;
     }
 
@@ -58,7 +58,7 @@ public class PersonBuilder {
     }
 
     public Profile build() {
-        return new Profile(name, course, currentSemester, specialisation);
+        return new Profile(name, courseName, currentSemester, specialisation);
     }
 
 }
