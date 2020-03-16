@@ -1,11 +1,11 @@
 package fithelper.logic.parser;
 
+import fithelper.logic.commands.EditCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 
 public class ParserMain {
     public static void main(String[] args) throws ParseException {
-        DeleteCommandParser tryDCP =  new DeleteCommandParser();
-        tryDCP.parsePrint("delete x/f i/1");
-
+        EditCommandParser tryECP =  new EditCommandParser();
+        tryECP.parsePrint("edit x/food i/1 n/waffles");
     }
 }
