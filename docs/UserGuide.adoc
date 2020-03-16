@@ -45,10 +45,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 == Common Fields and Keywords
 * *n/* entry name
+* *x/* entry type
 * *t/* entry time
 * *l/* entry location
 * *c/* entry calorie
 * *r/* remark
+* *i/* index
+* *k/* keyword (in `find`)
 * *[DATE]* a date in the fixed format of yyyy-mm-dd
 * *[TIME]* a time in the fixed format of yyyy-mm-dd-hh-mm
 * *[INDEX]* a positive integer indicating the position of an entry in the list
