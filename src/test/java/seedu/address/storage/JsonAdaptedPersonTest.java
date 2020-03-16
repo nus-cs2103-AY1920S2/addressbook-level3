@@ -38,8 +38,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, remarks, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
@@ -48,8 +48,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, remarks, VALID_TAGS);
 
@@ -59,8 +59,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, remarks, VALID_TAGS);
         String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
@@ -69,8 +69,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, remarks, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
@@ -79,8 +79,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, remarks, VALID_TAGS);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
@@ -89,8 +89,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, remarks, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
@@ -99,8 +99,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, remarks, VALID_TAGS);
         String expectedMessage = Address.MESSAGE_CONSTRAINTS;
@@ -109,8 +109,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, remarks, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
@@ -119,8 +119,8 @@ public class JsonAdaptedPersonTest {
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
-        ArrayList<Remark> remarks = new ArrayList<>();
-        remarks.add(new Remark(VALID_REMARK));
+        ArrayList<JsonAdaptedRemark> remarks = new ArrayList<>();
+        remarks.add(new JsonAdaptedRemark(VALID_REMARK));
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedPerson person =

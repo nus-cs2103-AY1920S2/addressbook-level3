@@ -16,9 +16,11 @@ public class Remark {
         value = remark;
     }
 
-    @Override
+    /**
+     * Format state as text for viewing.
+     */
     public String toString() {
-        return value;
+        return '[' + value + ']';
     }
 
     @Override
