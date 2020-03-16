@@ -490,7 +490,7 @@ e.g. `nearby` `14`
 
 |cod/
 |Cash On Delivery
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
 
 |c/
 |Comments by Customer
