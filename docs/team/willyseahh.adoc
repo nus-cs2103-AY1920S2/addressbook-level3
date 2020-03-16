@@ -16,7 +16,7 @@ them track their diet. The user interacts with it using a CLI and it is programm
 
 == Summary of contributions
 
-* *Major enhancement*: [Coming soon]
+* *Major enhancement*: [In Process]
 ** What it does:
 ** Justification:
 ** Highlights:
@@ -34,7 +34,9 @@ them track their diet. The user interacts with it using a CLI and it is programm
 *** Highlights:
 *** Credits:
 
-* *Minor enhancement*: [Coming soon]
+
+
+* *Minor enhancement*: [In Process]
 ** Drew Expense Spliter portion of UML Class diagram.
 
 image::expense_splitter_uml_class_diagram.png[]
