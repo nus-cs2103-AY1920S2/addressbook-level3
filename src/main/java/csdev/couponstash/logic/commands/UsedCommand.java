@@ -1,5 +1,6 @@
 package csdev.couponstash.logic.commands;
 
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -28,9 +29,11 @@ public class UsedCommand extends Command {
             + "identified by the index number used in the displayed coupon list. "
             + "This increases the value of its usage by one. "
             + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_SAVINGS + "Original amount of purchase (optional)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_USED_COUPON_SUCCESS = "Used Coupon: %1$s";
+//    public static final String MESSAGE_USED_COUPON_SUCCESS_WITH_SAVINGS = "Used Coupon: %1$s ";
     public static final String MESSAGE_USAGE_LIMIT_REACHED = "Coupon usage limit has been reached!\n"
             + "You can only use it for a maximum of %s time(s).";
 
@@ -64,7 +67,7 @@ public class UsedCommand extends Command {
 
         model.setCoupon(couponToBeUsed, usedCoupon);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
-        return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, usedCoupon)));
+        return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, usedCoupon.getName())));
     }
 
     @Override
