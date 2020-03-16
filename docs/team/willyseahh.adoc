@@ -28,11 +28,21 @@ them track their diet. The user interacts with it using a CLI and it is programm
 *** Highlights: Implementing the ItemPrice was a little tricky because Double should not be used to hold Currency as it will lead to rounding errors. Upon further research on Stack Overflow, I decided that BigDecimal will be a better type to hold currency
 *** Credits: Online links where I researched on: "https://stackoverflow.com/questions/1359817/using-bigdecimal-to-work-with-currencies"
 
+** *Adding of PaidCommand, ListReceipt Command and BackCommand for the Expense Splitter portion of EYLAH*
+*** What it does: These commands are essential for Expense Splitter of EYLAH
+*** Justifcation:
+*** Highlights:
+*** Credits:
 
 * *Minor enhancement*: [Coming soon]
 ** Drew Expense Spliter portion of UML Class diagram.
+
 image::expense_splitter_uml_class_diagram.png[]
-image::ArchitectureSequenceDiagram.png[]
+(Excluding the Height Class)
+
+** Added tests for ItemTest, ItemName, ItemPrice
+
+** Assisted in downscaling of AddressBook3 by removing Email object
 
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
@@ -43,9 +53,8 @@ image::ArchitectureSequenceDiagram.png[]
 ** Project management:
 *** In charge of team facilitation and code integration.
 *** Participated in planning the project timeline for EYLAH.
-+
-image::Ui.png[width="790"]
-+
+
+
 ** Enhancements to existing features:
 *** Adapted the given Address Book UI into EYLAH's first draft UI. https://github.com/
 
