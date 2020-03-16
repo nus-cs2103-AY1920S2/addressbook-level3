@@ -1,6 +1,8 @@
 package nasa.model.activity;
 
+import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.AppUtil.checkArgument;
+import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import nasa.logic.parser.exceptions.ParseException;
 
 /**
@@ -16,12 +18,14 @@ public class Deadline extends Activity {
 
     public Deadline(Name name, Date dueDate, Note note) {
         super(name, note);
+        requireNonNull(dueDate);
         checkArgument(isValidDueDate(dueDate), DUE_DATE_CONSTRAINTS);
         this.dueDate = dueDate;
     }
 
     public Deadline(Name name, Note note, Priority priority, Date dueDate) {
         super(name, note, priority);
+        requireAllNonNull(name, priority, dueDate);
         this.dueDate = dueDate;
     }
 
@@ -42,7 +46,7 @@ public class Deadline extends Activity {
         this.dueDate = date;
         updateStatus();
     }
-    
+
     @Override
     public void updateStatus() {
         if (status == Status.ONGOING && Date.now().isAfter(getDateline())) {

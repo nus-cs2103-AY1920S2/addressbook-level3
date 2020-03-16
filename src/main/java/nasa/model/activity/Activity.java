@@ -17,7 +17,7 @@ public abstract class Activity implements Regenerable<Activity> {
     private Priority priority;
 
     public Activity(Name name, Note note) {
-        requireAllNonNull(name, note);
+        requireAllNonNull(name);
         this.name = name;
         this.note = note;
         this.date = Date.now();
@@ -26,7 +26,7 @@ public abstract class Activity implements Regenerable<Activity> {
     }
 
     public Activity(Name name, Note note, Priority priority) {
-        requireAllNonNull(name, note, priority);
+        requireAllNonNull(name, priority);
         this.name = name;
         this.note = note;
         this.date = Date.now();

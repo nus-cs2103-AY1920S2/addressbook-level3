@@ -1,5 +1,7 @@
 package nasa.model.activity;
 
+import static nasa.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents Lesson method in Nasa book. New lesson re-instantiates itself after the current lesson's status is DONE.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -14,12 +16,14 @@ public class Lesson extends Activity {
      */
     public Lesson(Name name, Note note, Date startDate, Date endDate) {
         super(name, note);
+        requireAllNonNull(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public Lesson(Name name, Note note, Priority priority, Date startDate, Date endDate) {
         super(name, note, priority);
+        requireAllNonNull(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
     }

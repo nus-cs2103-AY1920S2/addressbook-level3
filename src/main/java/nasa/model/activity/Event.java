@@ -1,6 +1,7 @@
 package nasa.model.activity;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents Event method in Nasa Book.
@@ -15,12 +16,14 @@ public class Event extends Activity {
      */
     public Event(Name name, Note note, Date startDate, Date endDate) {
         super(name, note);
+        requireAllNonNull(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public Event(Name name, Note note, Priority priority, Date startDate, Date endDate) {
         super(name, note, priority);
+        requireAllNonNull(startDate, endDate);
         this.startDate = startDate;
         this.endDate = endDate;
     }

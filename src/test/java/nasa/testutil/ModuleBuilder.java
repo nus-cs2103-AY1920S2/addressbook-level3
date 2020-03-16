@@ -17,7 +17,7 @@ public class ModuleBuilder {
             .withNote("Do models for project")
             .build();
     public static final Activity TASK_2 = new DeadlineBuilder()
-            .withName("Homework")
+            .withName("Test")
             .withDate("22-07-2021 01:00")
             .withDueDate("02-08-2021 01:00")
             .withNote("Do tutorials")

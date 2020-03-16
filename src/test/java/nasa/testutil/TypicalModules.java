@@ -12,18 +12,18 @@ public class TypicalModules {
     public static final Module CS2106 =  new ModuleBuilder().withCode("CS2106")
             .withName("Operating System")
             .withRemoveAll()
-            .withAddActivity(new DeadlineBuilder().withName("Lab Assignment").withNote("Lab1 IPC").build())
-            .withAddActivity(new DeadlineBuilder().withName("Lab Assignment").withNote("Lab2 Processes").build())
-            .withAddActivity(new DeadlineBuilder().withName("Lab Assignment").withNote("Lab3 Synchronization").build())
+            .withAddActivity(new DeadlineBuilder().withName("Lab Assignment 1").withNote("Lab1 IPC").build())
+            .withAddActivity(new DeadlineBuilder().withName("Lab Assignment 2").withNote("Lab2 Processes").build())
+            .withAddActivity(new DeadlineBuilder().withName("Lab Assignment 3").withNote("Lab3 Synchronization").build())
             .build();
     public static final Module GEH1001 = new ModuleBuilder().withCode("GEH1001")
             .withName("Globalization and new media")
             .withRemoveAll()
             .withAddActivity(new DeadlineBuilder().withName("Midterm").withNote("Midterm Essay").build())
             .withAddActivity(new DeadlineBuilder().withName("Finals").withNote("Final Essay").build())
-            .withAddActivity(new DeadlineBuilder().withName("Quiz").withNote("Quiz1").build())
-            .withAddActivity(new DeadlineBuilder().withName("Quiz").withNote("Quiz2").build())
-            .withAddActivity(new DeadlineBuilder().withName("Quiz").withNote("Quiz3").build())
+            .withAddActivity(new DeadlineBuilder().withName("Quiz 1").withNote("Quiz1").build())
+            .withAddActivity(new DeadlineBuilder().withName("Quiz 2").withNote("Quiz2").build())
+            .withAddActivity(new DeadlineBuilder().withName("Quiz 3").withNote("Quiz3").build())
             .build();
 
     private TypicalModules() {} // prevents instantiation
