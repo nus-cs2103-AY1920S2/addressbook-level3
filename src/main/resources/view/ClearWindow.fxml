@@ -21,12 +21,12 @@
                             <Insets right="5.0" />
                         </HBox.margin>
                     </Label>
-                    <Button fx:id="Yes" mnemonicParsing="false" onAction="#agreeToClearOrderBookList" text="Yes">
+                    <Button fx:id="yesButton" mnemonicParsing="false" onAction="#agreeToClearOrderBookList" text="Yes">
                         <HBox.margin>
                             <Insets left="5.0" />
                         </HBox.margin>
                     </Button>
-                    <Button fx:id="No" mnemonicParsing="false" onAction="#disagreeToClearOrderBookList" text="No">
+                    <Button fx:id="noButton" mnemonicParsing="false" onAction="#disagreeToClearOrderBookList" text="No">
                         <HBox.margin>
                             <Insets left="5.0" />
                         </HBox.margin>

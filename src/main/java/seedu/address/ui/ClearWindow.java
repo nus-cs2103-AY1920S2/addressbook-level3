@@ -23,7 +23,7 @@ public class ClearWindow extends UiPart<Stage> {
     private static ResultDisplay resultDisplay;
     private static final String FXML = "ClearWindow.fxml";
 
-    @javafx.fxml.FXML
+    @FXML
     private Button yesButton;
     private Button noButton;
 
