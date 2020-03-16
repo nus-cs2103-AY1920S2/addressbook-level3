@@ -15,6 +15,8 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.model.CourseList;
+import seedu.address.model.CourseManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
 import seedu.address.model.ModuleManager;
@@ -22,6 +24,7 @@ import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.JsonCourseListStorage;
 import seedu.address.storage.JsonModuleListStorage;
 import seedu.address.storage.JsonProfileListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -29,6 +32,7 @@ import seedu.address.storage.ProfileListStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -46,6 +50,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
+    protected CourseManager courseManager;
     protected ModuleManager moduleManager;
     protected ProfileManager profileManager;
 
@@ -75,11 +80,13 @@ public class MainApp extends Application {
 
         moduleManager = initModuleManager(userPrefs);
         //profileManager = initProfileManager(userPrefs);
+
+        courseManager = initCourseManager(userPrefs);
     }
 
     /**
-     * Returns a {@code ModuleManager} with the data from {@code userPrefs}. <br>
-     * An empty module list will be used instead if the a module list is not found at
+     * Returns a {@code CourseManager} with the data from {@code userPrefs}. <br>
+     * An empty course list will be used instead if a course list is not found at
      * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
      */
     private ModuleManager initModuleManager(UserPrefs userPrefs) {
@@ -102,8 +109,32 @@ public class MainApp extends Application {
     }
 
     /**
+     * Returns a {@code ModuleManager} with the data from {@code userPrefs}. <br>
+     * An empty module list will be used instead if a module list is not found at
+     * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
+     */
+    private CourseManager initCourseManager(UserPrefs userPrefs) {
+        JsonCourseListStorage modules = new JsonCourseListStorage(userPrefs.getModuleListFilePath());
+        CourseManager courseManager;
+        try {
+            Optional<CourseList> courseListOptional = modules.readCourseList();
+            if (!courseListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty CourseList");
+                courseManager = new CourseManager();
+            } else {
+                CourseList courseList = courseListOptional.get();
+                courseManager = new CourseManager(courseList);
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
+            courseManager = new CourseManager();
+        }
+        return courseManager;
+    }
+
+    /**
      * Returns a {@code ProfileManager} with the data from {@code userPrefs}. <br>
-     * An empty profile list will be used instead if the a profile list is not found at
+     * An empty profile list will be used instead if a profile list is not found at
      * {@code userPrefs.getProfileListFilePath()} or errors occur when reading the profile list at that location.
      */
     private ProfileManager initProfileManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
