@@ -1,7 +1,6 @@
 package com.notably.commons.core.path;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,11 +10,12 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
  * TODO: Add Javadoc
  */
 public class AbsolutePath implements Path {
-    public static final String INVALIDABSOLUTEPATH = "Invalid absolute path";
+    public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
+    public static final String VALIDATION_REGEX = "(\\/(\\p{Alnum}+))+\\/?";
     private final List<String> paths;
 
 
-    public AbsolutePath(String absolutePathString) {
+    private AbsolutePath(String absolutePathString) {
         this.paths = new ArrayList<>();
         for (String obj : absolutePathString.split("/")) {
             if (!obj.trim().equals("")) {
@@ -24,20 +24,17 @@ public class AbsolutePath implements Path {
         }
     }
 
+    public AbsolutePath(List<String> absolutePathList) {
+        this.paths =  absolutePathList;
+    }
+
     /**
-     * Check if string is a ValidAbsolutePath
+     * Check if a supplied string is a ValidAbsolutePath
      * @param absolutePathString
      * @return
      */
     public static boolean isValidAbsolutePath(String absolutePathString) {
-        if (absolutePathString.charAt(0) == '/') {
-            if (absolutePathString.contains("../")) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
+        return absolutePathString.matches(VALIDATION_REGEX);
     }
 
     /**
@@ -50,9 +47,10 @@ public class AbsolutePath implements Path {
         if (isValidAbsolutePath(absolutePathString)) {
             return new AbsolutePath(absolutePathString);
         } else {
-            throw new InvalidPathException(INVALIDABSOLUTEPATH);
+            throw new InvalidPathException(INVALID_ABSOLUTE_PATH);
         }
     }
+
 
     /**
      * Convert from relative path to absolute path.
@@ -65,8 +63,18 @@ public class AbsolutePath implements Path {
             AbsolutePath currentWorkingPath) throws InvalidPathException {
         List<String> temp = new ArrayList<>(relativePath.getComponents());
         List<String> temp2 = new ArrayList<>(currentWorkingPath.getComponents());
-        temp2.addAll((temp));
-        return new AbsolutePath(String.join("/", temp2));
+        for (String obj : temp) {
+            if (obj.equals("..")) {
+                if (temp.remove(temp2.size() - 1) == null) {
+                    throw new InvalidPathException("Empty directory");
+                }
+            } else if (obj.equals(".")) {
+                //Do nothing
+            } else {
+                temp.add(obj);
+            }
+        }
+        return new AbsolutePath(temp);
     }
 
     /**
@@ -74,12 +82,14 @@ public class AbsolutePath implements Path {
      * @param currentWorkingPath of the current working directory.
      * @return the converted RelativePath
      */
-    public RelativePath toRelativePath(AbsolutePath currentWorkingPath) {
-        // TODO: Add implementation
+    public RelativePath toRelativePath(AbsolutePath currentWorkingPath) throws InvalidPathException {
         int sizeOfCurrent = currentWorkingPath.getComponents().size();
+        if (sizeOfCurrent < this.getComponents().size()) {
+            throw new InvalidPathException("Current working path bigger than AbsolutePath");
+        }
         List<String> temp = this.paths.subList(sizeOfCurrent, this.paths.size());
         String relativePathString = String.join("/", temp);
-        return new RelativePath(relativePathString);
+        return RelativePath.fromString(relativePathString);
     }
 
     /**
@@ -100,6 +110,7 @@ public class AbsolutePath implements Path {
         List<String> temp = another.getComponents();
         return this.paths.equals(temp);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(this.paths);
@@ -107,7 +118,7 @@ public class AbsolutePath implements Path {
 
     @Override
     public String toString() {
-        return (Arrays.toString(this.paths.toArray()));
+        return "/" + String.join("/", this.paths);
     }
 }
 

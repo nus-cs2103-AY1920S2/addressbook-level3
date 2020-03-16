@@ -1,7 +1,6 @@
 package com.notably.commons.core.path;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,8 +10,10 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
  * TODO: Add Javadoc
  */
 public class RelativePath implements Path {
+    public static final String INVALID_RELATIVE_PATH = "Invalid relative path";
+    public static final String VALIDATION_REGEX = "((\\.|\\..|\\p{Alnum}+))+\\/?";
     private final List<String> paths;
-    public RelativePath(String relativePathString) {
+    private RelativePath(String relativePathString) {
         this.paths = new ArrayList<>();
         for (String obj : relativePathString.split("/")) {
             if (!obj.trim().equals("")) {
@@ -27,10 +28,7 @@ public class RelativePath implements Path {
      * @return returns true if String is a valid relative Path.
      */
     public static boolean isValidRelativePath(String relativePathString) {
-        if (relativePathString.charAt(0) != '/') {
-            return true;
-        }
-        return false;
+        return relativePathString.matches(VALIDATION_REGEX);
     }
 
     /**
@@ -40,11 +38,11 @@ public class RelativePath implements Path {
      * @throws InvalidPathException if the String is invalid (Not relative path).
      */
     public static RelativePath fromString(String relativePathString) throws InvalidPathException {
-        if (isValidRelativePath(relativePathString)) {
-            return new RelativePath(relativePathString);
-        } else {
+        if (!isValidRelativePath(relativePathString)) {
             throw new InvalidPathException("Not a relative path");
         }
+        return new RelativePath(relativePathString);
+
     }
 
     /**
@@ -57,6 +55,7 @@ public class RelativePath implements Path {
     public static RelativePath fromAbsolutePath(AbsolutePath absolutePath,
             AbsolutePath currentWorkingPath) throws InvalidPathException {
         return absolutePath.toRelativePath(currentWorkingPath);
+
     }
 
     /**
@@ -64,11 +63,21 @@ public class RelativePath implements Path {
      * @param currentWorkingPath of the current working directory.
      * @return the absolute path of the relative path.
      */
-    public AbsolutePath toAbsolutePath(AbsolutePath currentWorkingPath) {
+    public AbsolutePath toAbsolutePath(AbsolutePath currentWorkingPath) throws InvalidPathException {
         List<String> temp = new ArrayList<>(this.paths);
         List<String> temp2 = new ArrayList<>(currentWorkingPath.getComponents());
-        temp2.addAll((temp));
-        return new AbsolutePath(String.join("/", temp2));
+        for (String obj : temp) {
+            if (obj.equals("..")) {
+                if (temp2.remove(temp2.size() - 1) == null) {
+                    throw new InvalidPathException("Root block does not have a parent");
+                }
+            } else if (obj.equals(".")) {
+                // Do nothing
+            } else {
+                temp2.add(obj);
+            }
+        }
+        return new AbsolutePath(temp2);
     }
 
     /**
@@ -89,6 +98,7 @@ public class RelativePath implements Path {
         List<String> temp = another.getComponents();
         return this.paths.equals(temp);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(this.paths);
@@ -96,7 +106,7 @@ public class RelativePath implements Path {
 
     @Override
     public String toString() {
-        return (Arrays.toString(this.paths.toArray()));
+        return String.join("/", this.paths);
     }
 }
 
