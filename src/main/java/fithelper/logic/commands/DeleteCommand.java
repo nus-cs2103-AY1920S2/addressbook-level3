@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
             + ": Deletes the entry identified by the index number used in the displayed entry list.\n"
             + "Parameters: "
             + PREFIX_TYPE + "TYPE "
-            + "INDEX (must be a positive integer) "
+            + PREFIX_INDEX + "INDEX (must be a positive integer) "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "food "
             + PREFIX_INDEX + "1";

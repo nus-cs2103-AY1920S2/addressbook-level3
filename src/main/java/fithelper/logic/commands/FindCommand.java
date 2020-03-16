@@ -1,6 +1,7 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.HOME;
+import static fithelper.logic.parser.CliSyntaxUtil.*;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.Messages;
@@ -18,8 +19,12 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all entries whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + "apple banana";
+            + "Parameters: "
+            + PREFIX_TYPE + "TYPE (optional)"
+            + PREFIX_KEYWORD + "[keyword list]"
+            + "Example: " + COMMAND_WORD
+            + PREFIX_TYPE + "sports "
+            + PREFIX_KEYWORD + "noodles ";
 
     private final NameContainsKeywordsPredicate predicate;
     private final NameContainsKeywordsPredicate vaguePredicate = NameContainsKeywordsPredicate.getVaguePredicate();
