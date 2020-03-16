@@ -24,7 +24,8 @@ public class NearbyCommandParser implements Parser<NearbyCommand> {
             Index postalSector = ParserUtil.parseIndex(args);
             return new NearbyCommand(postalSector);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NearbyCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    NearbyCommand.MESSAGE_USAGE), pe);
         }
     }
 }
