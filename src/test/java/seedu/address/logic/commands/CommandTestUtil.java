@@ -3,9 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SALES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -16,11 +20,15 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.customer.EditCustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.model.InventorySystem;
 import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
+import seedu.address.model.product.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.product.Product;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditProductDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -58,17 +66,34 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String DESCRIPTION_DESC_BAG = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_BAG;
+    public static final String DESCRIPTION_DESC_WATCH = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_WATCH;
+    public static final String PRICE_DESC_BAG = " " + PREFIX_PRICE + VALID_PRICE_BAG;
+    public static final String PRICE_DESC_WATCH = " " + PREFIX_PRICE + VALID_PRICE_WATCH;
+    public static final String QUANTITY_DESC_BAG = " " + PREFIX_QUANTITY + VALID_QUANTITY_BAG;
+    public static final String QUANTITY_DESC_WATCH = " " + PREFIX_QUANTITY + VALID_QUANTITY_WATCH;
+    public static final String SALES_DESC_BAG = " " + PREFIX_SALES + VALID_SALES_BAG;
+    public static final String SALES_DESC_WATCH = " " + PREFIX_SALES + VALID_SALES_WATCH;
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String INVALID_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION + "";
+    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "911a";
+    public static final String INVALID_QUANTITY_DESC = " " + PREFIX_QUANTITY + "bob!yahoo";
+    public static final String INVALID_SALES_DESC = " " + PREFIX_SALES;
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCustomerCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCustomerCommand.EditPersonDescriptor DESC_BOB;
+
+    public static final EditProductCommand.EditProductDescriptor DESC_BAG;
+    public static final EditProductCommand.EditProductDescriptor DESC_WATCH;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -77,6 +102,10 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        DESC_BAG = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_BAG)
+                .withPrice(VALID_PRICE_BAG).withQuantity(VALID_QUANTITY_BAG).withSales(VALID_SALES_BAG).build();
+        DESC_WATCH = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_WATCH)
+                .withPrice(VALID_PRICE_WATCH).withQuantity(VALID_QUANTITY_WATCH).withSales(VALID_SALES_WATCH).build();
     }
 
     /**
@@ -133,6 +162,20 @@ public class CommandTestUtil {
         model.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCustomerList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the product at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showProductAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredProductList().size());
+
+        Product product = model.getFilteredProductList().get(targetIndex.getZeroBased());
+        final String[] splitName = product.getDescription().value.split("\\s+");
+        model.updateFilteredProductList(new DescriptionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredProductList().size());
     }
 
 }

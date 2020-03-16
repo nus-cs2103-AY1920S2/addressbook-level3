@@ -15,7 +15,6 @@ import seedu.address.model.util.Quantity;
 import seedu.address.storage.product.JsonAdaptedProduct;
 
 public class JsonAdaptedProductTest {
-    private static final String INVALID_DESCRIPTION = "";
     private static final String INVALID_PRICE = "+651234";
     private static final String INVALID_QUANTITY = " ";
     private static final String INVALID_SALES = "example.com";
@@ -29,14 +28,6 @@ public class JsonAdaptedProductTest {
     public void toModelType_validProductDetails_returnsProduct() throws Exception {
         JsonAdaptedProduct person = new JsonAdaptedProduct(BAG);
         assertEquals(BAG, person.toModelType());
-    }
-
-    @Test
-    public void toModelType_invalidDescription_throwsIllegalValueException() {
-        JsonAdaptedProduct product =
-                new JsonAdaptedProduct(INVALID_DESCRIPTION, VALID_PRICE, VALID_QUANTITY, VALID_SALES);
-        String expectedMessage = Description.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 
     @Test
