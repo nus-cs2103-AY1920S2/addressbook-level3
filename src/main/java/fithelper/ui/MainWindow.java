@@ -98,23 +98,13 @@ public class MainWindow extends UiPart<Stage> {
         calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
             logic.getFilteredSportsEntryList(), logic.getVEvents());
         setAllPageAnchor(calendarPanel.getRoot());
+        helpWindow = new HelpWindow();
+        setAllPageAnchor(helpWindow.getRoot());
         logger.fine("All pages filled in MainWindow");
     }
 
     void show() {
         primaryStage.show();
-    }
-
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
     }
 
     /**
@@ -140,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Shows the page of FitHelper according to the command keyword.
-     * @param commandResult the result ofe executing a command
+     * @param commandResult the result of executing a command
      */
     private void showPage(CommandResult commandResult) {
         CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
@@ -154,9 +144,17 @@ public class MainWindow extends UiPart<Stage> {
         case CALENDAR:
             showCalendarPanel();
             break;
+        case HELP:
+            showHelpPage();
+            break;
         default:
             break;
         }
+    }
+
+    @FXML
+    public void handleShowHelpPage() {
+        showHelpPage();
     }
 
     @FXML
@@ -184,7 +182,13 @@ public class MainWindow extends UiPart<Stage> {
     private void showDashBoard() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(dashBoard.getRoot());
-        currentPage.setText("DashBoard");
+        currentPage.setText("Today");
+    }
+
+    private void showHelpPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(helpWindow.getRoot());
+        currentPage.setText("Help");
     }
 
     /**
