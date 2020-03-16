@@ -95,7 +95,8 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(dashBoard.getRoot());
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         setAllPageAnchor(todayPage.getRoot());
-        calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList(), logic.getVEvents());
+        calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
+            logic.getFilteredSportsEntryList(), logic.getVEvents());
         setAllPageAnchor(calendarPanel.getRoot());
         logger.fine("All pages filled in MainWindow");
     }

@@ -9,12 +9,9 @@ import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 /**
@@ -40,11 +37,12 @@ public class FullCalendar extends UiPart<AnchorPane> {
         calendar.setPrefSize(60, 40);
         calendar.setGridLinesVisible(false);
         Label monthYearTitle = new Label();
-        monthYearTitle.setText(currentYearMonth.getMonth().toString() + " " + String.valueOf(currentYearMonth.getYear()));
+        monthYearTitle.setText(currentYearMonth.getMonth().toString() + " "
+            + String.valueOf(currentYearMonth.getYear()));
 
         // Days of the week labels
         Text[] dayNames = new Text[]{new Text("S"), new Text("M"), new Text("T"),
-        new Text("W"), new Text("T"), new Text("F"), new Text("S")};
+            new Text("W"), new Text("T"), new Text("F"), new Text("S")};
 
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 6; i++) {

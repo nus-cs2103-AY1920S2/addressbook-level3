@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
-import fithelper.model.entry.VEventList;
+import fithelper.model.entry.VeventList;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -24,7 +24,7 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
     private final FilteredList<Entry> filteredReminderEntries;
-    private final VEventList vEventList;
+    private final VeventList vEventList;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
@@ -39,7 +39,7 @@ public class ModelManager implements Model {
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
-        vEventList = new VEventList(filteredFoodEntries, filteredSportsEntries);
+        vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
     }
 
     public ModelManager() {

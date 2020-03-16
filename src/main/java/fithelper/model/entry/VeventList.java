@@ -1,27 +1,30 @@
 package fithelper.model.entry;
-import fithelper.commons.core.LogsCenter;
-import fithelper.ui.calendar.CalendarPage;
-import java.util.ArrayList;
-import static java.util.Objects.requireNonNull;
+
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.logging.Logger;
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
 
-public class VEventList {
+/**
+ *  A list of VEvents.
+ */
+public class VeventList {
     private final ObservableList<VEvent> vEvents = FXCollections.observableArrayList();
     private final ObservableList<VEvent> vEventUnmodifiableList =
-    FXCollections.unmodifiableObservableList(vEvents);
+        FXCollections.unmodifiableObservableList(vEvents);
 
-    public VEventList() {
+    public VeventList() {
     }
     /**
      * Generates a new list of events based on two lists
      */
-    public VEventList(FilteredList<Entry> filteredFoodEntries, FilteredList<Entry> filteredSportsEntries) {
+    public VeventList(FilteredList<Entry> filteredFoodEntries, FilteredList<Entry> filteredSportsEntries) {
         this();
         refreshedList(filteredFoodEntries, filteredSportsEntries);
     }
@@ -41,16 +44,19 @@ public class VEventList {
      * Maps events to VEvents
      */
     private ArrayList<VEvent> entriesToVEvents(FilteredList<Entry> foodEntries, FilteredList<Entry> sportsEntries) {
-        ArrayList<VEvent> VEventList = new ArrayList();
+        ArrayList<VEvent> veventList = new ArrayList();
         for (Entry entry: foodEntries) {
-            VEventList.add(entryToVEvent(entry));
+            veventList.add(entryToVEvent(entry));
         }
         for (Entry entry: sportsEntries) {
-            VEventList.add(entryToVEvent(entry));
+            veventList.add(entryToVEvent(entry));
         }
-        return VEventList;
+        return veventList;
     }
 
+    /**
+     * Maps event to VEvent
+     */
     private VEvent entryToVEvent(Entry entry) {
         VEvent vEvent = new VEvent();
         vEvent.setDateTimeStart(entry.getDateTime());

@@ -32,7 +32,8 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     /**
      * Creates a calendar page displaying two components from {@code }.
      */
-    public CalendarPanel(ObservableList<Entry> foodList, ObservableList<Entry> sportList, ObservableList<VEvent> events) {
+    public CalendarPanel(ObservableList<Entry> foodList, ObservableList<Entry> sportList,
+                         ObservableList<VEvent> events) {
         super(FXML);
         logger.info("Initializing Calendar Page");
         calendarPage = new CalendarPage(events);

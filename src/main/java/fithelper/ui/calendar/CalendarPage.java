@@ -2,19 +2,21 @@ package fithelper.ui.calendar;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+
 import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import jfxtras.icalendarfx.VCalendar;
+import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
-import jfxtras.icalendarfx.components.VEvent;
+
 
 /**
  * Displays all food/sports items on calendar.
@@ -46,33 +48,29 @@ public class CalendarPage extends UiPart<AnchorPane> {
         disableMouseClick(this.agenda);
     }
 
-/**
- * Change the EventSchedulePanel to show the time interval including this targetDateTime. If in daily skin,
- * simply show the date. If in weekly skin, show the week, with start day defined as in locale, including
- * @param targetDateTime
- * @param targetDateTime the desired dateTime to be viewed.
- */
-
+    /**
+     * Change the EventSchedulePanel to show the time interval including this targetDateTime. If in daily skin,
+     * simply show the date. If in weekly skin, show the week, with start day defined as in locale, including
+     * @param targetDateTime
+     * @param targetDateTime the desired dateTime to be viewed.
+     */
     public void setDisplayedDateTime(LocalDateTime targetDateTime) {
         this.agenda.setDisplayedLocalDateTime(targetDateTime);
     }
 
-/**
- * Method to set locale of ICalendarAgenda. Note that the locale decides the starting day of a week.
- * @param agenda ICalendarAgenda to be set
- * @param locale desired locale to be set
- */
-
-
+    /**
+     * Method to set locale of ICalendarAgenda. Note that the locale decides the starting day of a week.
+     * @param agenda ICalendarAgenda to be set
+     * @param locale desired locale to be set
+     */
     private void setLocale(ICalendarAgenda agenda, Locale locale) {
         agenda.setLocale(locale);
     }
 
-/**
- * Disables all mouse click related actions. Scrolling is still allowed
- * @param agenda ICalendarAgenda to be disabled
- */
-
+    /**
+     * Disables all mouse click related actions. Scrolling is still allowed
+     * @param agenda ICalendarAgenda to be disabled
+     */
     private void disableMouseClick(ICalendarAgenda agenda) {
         agenda.setAllowDragging(false);
         agenda.setAllowResize(false);
@@ -87,28 +85,25 @@ public class CalendarPage extends UiPart<AnchorPane> {
         agenda.setOnTouchPressed(null);
     }
 
-/**
- * Sets the calendar to week format.
- */
-
+    /**
+     * Sets the calendar to week format.
+     */
     public void setWeeklySkin() {
         AgendaWeekSkin weekSkin = new AgendaWeekSkin(this.agenda);
         agenda.setSkin(weekSkin);
     }
 
-/**
- * Sets the calendar to daily format.
- */
-
+    /**
+     * Sets the calendar to daily format.
+     */
     public void setDailySkin() {
         AgendaDaySkin dailySkin = new AgendaDaySkin(this.agenda);
         agenda.setSkin(dailySkin);
     }
 
-/**
- * Updates the scheduler to be reflected on UI
- */
-
+    /**
+     * Updates the scheduler to be reflected on UI
+     */
     public void updateScheduler() {
         this.agenda.updateAppointments();
     }
