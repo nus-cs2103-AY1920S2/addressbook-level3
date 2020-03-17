@@ -47,6 +47,15 @@ public class ItemPrice {
     }
 
     /**
+     * Returns the itemPrice as a BigDecimal object.
+     *
+     * @return the itemPrice as a BigDecimal object.
+     */
+    public BigDecimal getItemPrice() {
+        return this.itemPrice;
+    }
+
+    /**
      * Returns true if a given price is a valid price.
      *
      * @param test if an ItemPrice is > 0 because ItemPrice cannot be <= 0 and can only contain digit.

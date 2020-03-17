@@ -2,13 +2,10 @@ package seedu.eylah.expensesplitter.model;
 
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import seedu.eylah.expensesplitter.model.item.Item;
-import seedu.eylah.expensesplitter.model.person.Amount;
-import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -17,8 +14,7 @@ import seedu.eylah.expensesplitter.model.person.Person;
  */
 public class Entry {
     private Item item;
-    private String[] persons;
-    private ArrayList<Person> personsList;
+    private ArrayList<Person> persons;
 
     /**
      * Every field must be present.
@@ -26,37 +22,10 @@ public class Entry {
      *
      * @param item,persons Represents the compulsory fields of an Entry object.
      */
-    public Entry(Item item, String ... persons) {
+    public Entry(Item item, ArrayList<Person> persons) {
         requireAllNonNull(item, persons);
         this.item = item;
         this.persons = persons;
-        this.personsList = createPersonsList(persons);
-    }
-
-    /**
-     * Creates a Person object.
-     *
-     * @param name Name of the person.
-     * @return a Person object initialised with the name;
-     */
-    private Person createPerson(String name) {
-        return new Person(new Name(name), new Amount(new BigDecimal(0)), null);
-    }
-
-    /**
-     * This method essentially converts a String array of person names
-     * to an ArrayList of Person objects.
-     *
-     * @param persons String array of person names.
-     * @return An ArrayList of Person objects associated with the Item.
-     */
-    private ArrayList<Person> createPersonsList(String ... persons) {
-        ArrayList<Person> personsList = new ArrayList<>();
-        for (String name : persons) {
-            Person person = createPerson(name);
-            personsList.add(person);
-        }
-        return personsList;
     }
 
     /**
@@ -74,7 +43,7 @@ public class Entry {
      * @return the ArrayList of Persons associated with the Item.
      */
     private ArrayList<Person> getPersonsList() {
-        return this.personsList;
+        return this.persons;
     }
 
     @Override
@@ -101,7 +70,7 @@ public class Entry {
     @Override
     public String toString() {
         final StringBuilder personsFormatted = new StringBuilder();
-        for (Person person : personsList) {
+        for (Person person : persons) {
             personsFormatted.append(person);
         }
         return item + "   " + personsFormatted.toString();

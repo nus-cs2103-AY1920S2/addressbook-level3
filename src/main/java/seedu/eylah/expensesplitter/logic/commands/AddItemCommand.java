@@ -2,12 +2,17 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_ITEM;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.eylah.expensesplitter.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.ArrayList;
+
+import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
 import seedu.eylah.expensesplitter.model.Entry;
 import seedu.eylah.expensesplitter.model.Model;
 import seedu.eylah.expensesplitter.model.item.Item;
-
 
 /**
  * Used to add items to the receipt.
@@ -15,6 +20,12 @@ import seedu.eylah.expensesplitter.model.item.Item;
 public class AddItemCommand extends Command {
 
     public static final String COMMAND_WORD = "additem";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an item to the receipt. "
+            + "Parameters: "
+            + PREFIX_ITEM + "ITEM NAME "
+            + PREFIX_PRICE + "PRICE "
+            + PREFIX_NAME + "PERSON NAME";
 
     public static final String MESSAGE_SUCCESS = "The item %1$s has been added.";
 
@@ -26,7 +37,7 @@ public class AddItemCommand extends Command {
      * @param item Item to be added.
      * @param persons String array of persons to be added.
      */
-    public AddItemCommand(Item item, String ... persons) {
+    public AddItemCommand(Item item, ArrayList<Person> persons) {
         requireAllNonNull(item, persons);
         toBeAdded = new Entry(item, persons);
     }
