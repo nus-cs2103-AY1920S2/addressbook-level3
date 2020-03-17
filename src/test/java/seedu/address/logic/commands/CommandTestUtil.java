@@ -20,8 +20,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
-import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
 /**
@@ -88,13 +88,13 @@ public class CommandTestUtil {
 
     static {
         DESC_AMY = new EditOrderDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_AMY)
-                .withComment(VALID_COMMENT_INSTRUCTION).withTags(VALID_TAG_FRIEND).build();
+            .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_AMY)
+            .withComment(VALID_COMMENT_INSTRUCTION).withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTimeStamp(VALID_TIMESTAMP_BOB).withWarehouse(VALID_WAREHOUSE_BOB)
-                .withComment(VALID_COMMENT_INSTRUCTION).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withTimeStamp(VALID_TIMESTAMP_BOB).withWarehouse(VALID_WAREHOUSE_BOB)
+            .withComment(VALID_COMMENT_INSTRUCTION).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
     /**

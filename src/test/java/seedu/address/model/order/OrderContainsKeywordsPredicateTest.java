@@ -25,7 +25,8 @@ public class OrderContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        OrderContainsKeywordsPredicate firstPredicateCopy = new OrderContainsKeywordsPredicate(firstPredicateKeywordList);
+        OrderContainsKeywordsPredicate firstPredicateCopy =
+            new OrderContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -61,7 +62,8 @@ public class OrderContainsKeywordsPredicateTest {
     @Test
     public void test_addressContainsKeywordGeneralSearch_returnsTrue() {
         // One keyword
-        OrderContainsKeywordsPredicate predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"));
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"));
         assertTrue(predicate.test(new OrderBuilder().withAddress("Lorong 10 Geylang st 10").build()));
 
         // Multiple keywords
@@ -80,7 +82,8 @@ public class OrderContainsKeywordsPredicateTest {
     @Test
     public void test_phoneContainsKeywordGeneralSearch_returnsTrue() {
         // One keyword
-        OrderContainsKeywordsPredicate predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("97555838"));
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("97555838"));
         assertTrue(predicate.test(new OrderBuilder().withPhone("97555838").build()));
 
         // Only one matching keyword
