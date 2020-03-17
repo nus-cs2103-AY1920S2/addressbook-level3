@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.CommandWords.ADD_MODEL;
+import static seedu.address.logic.commands.CommandWords.MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -13,9 +15,8 @@ import seedu.address.model.module.Module;
  */
 public class AddModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "module";
-    public static final String ADD_MODEL = "add";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + ADD_MODEL + ": Adds a module to the TATracker. "
+    public static final String COMMAND_WORD = MODULE;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + ADD_MODEL + ": Adds a module to the TA-Tracker. "
             + "Parameters: "
             + PREFIX_NAME + "MODULE NAME "
             + PREFIX_MODULE + "MODULE CODE "
@@ -29,7 +30,7 @@ public class AddModuleCommand extends Command {
     private final Module toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Session}
+     * Creates an AddCommand to add the specified {@code Module}
      */
     public AddModuleCommand(Module module) {
         requireNonNull(module);
