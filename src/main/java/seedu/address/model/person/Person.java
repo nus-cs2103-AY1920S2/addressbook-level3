@@ -2,11 +2,16 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ModelManager;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -14,6 +19,8 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    // for sarah's use
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     // Identity fields
     private final Name name;
@@ -22,22 +29,22 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final Remark remark;
     private final Birthday birthday;
+    private final ArrayList<Remark> remark = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Remark remark, Birthday birthday,
-                  Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address, ArrayList<Remark> remark,
+                Birthday birthday, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.remark = remark;
         this.birthday = birthday;
+        this.remark.addAll(remark);
         this.tags.addAll(tags);
     }
 
@@ -57,7 +64,7 @@ public class Person {
         return address;
     }
 
-    public Remark getRemark() {
+    public ArrayList<Remark> getRemark() {
         return remark;
     }
 
@@ -71,6 +78,22 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Concatenates all the Person's tags together into one string.
+     * This is to be used by the TagsContainsKeywordsPredicate class
+     * @return String of all concatenated tags
+     */
+    public String getTagsForPredicate() {
+        String concatenatedTags = "";
+
+        for (Iterator<Tag> it = tags.iterator(); it.hasNext(); ) {
+            Tag t = it.next();
+            concatenatedTags = concatenatedTags + t.toString();
+        }
+
+        return concatenatedTags;
     }
 
     /**

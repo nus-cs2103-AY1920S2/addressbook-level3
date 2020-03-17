@@ -84,10 +84,10 @@ Examples:
 * `(ab)add n/ Benjamin t/CS2103`
 
 
-=== Listing all persons : `(ab)list`
+=== Finding a specific contact/a specific set of contacts: `(ab)find`
 
-Lists out all your contacts in the address book. Each contact will have a displayed index. Only lists the name, phone number and tags (if present) +
-Format: `(ab)list [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
+Lists out all your contacts in the address book which match a certain criteria. Each contact will have a displayed index. Only lists the name, phone number and tags (if present) +
+Format: `(ab)find [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
 
 ****
 * If more than 1 switches are indicated, it will be treated as a conjunction of filters
@@ -97,8 +97,8 @@ Format: `(ab)list [-g/GROUPNAME] [-n/WORD] [-t/TAG]`
 ****
 
 Examples:
-* `(ab)list -g/NUS -n/Lim` +
-List all contacts that is in group “NUS” and have the word “Lim” in its name
+* `(ab)find -g/NUS -n/Lim` +
+Finds and lists all contacts that is in group “NUS” and have the word “Lim” in its name
 
 === Editing a person : `(ab)edit`
 

@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Represents a Person's remark in the address book.
  * Guarantees: immutable; is always valid
@@ -9,14 +11,16 @@ import static java.util.Objects.requireNonNull;
 public class Remark {
     public final String value;
 
-    public Remark(String remark) {
+    public Remark(@JsonProperty("remark")String remark) {
         requireNonNull(remark);
         value = remark;
     }
 
-    @Override
+    /**
+     * Format state as text for viewing.
+     */
     public String toString() {
-        return value;
+        return '[' + value + ']';
     }
 
     @Override
