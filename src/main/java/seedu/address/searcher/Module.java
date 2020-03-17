@@ -27,7 +27,7 @@ public class Module {
      * access information easily by using class functions
      * @param input this is raw HTTP data to be parsed
      */
-    public Module(String input) {
+    public Module(String input) throws StringIndexOutOfBoundsException {
         this.preclusion = input.substring(input.indexOf("preclusion") + 13, input.indexOf("description") - 3);
         this.description = input.substring(input.indexOf("description") + 14, input.indexOf("title\":") - 3);
         this.title = input.substring(input.indexOf("title") + 8, input.indexOf("department") - 3);
@@ -123,6 +123,10 @@ public class Module {
 
     public String getSem2_exam() {
         return sem2Exam;
+    }
+
+    public int getCredits() {
+        return this.credits;
     }
 
     @Override
