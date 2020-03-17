@@ -33,8 +33,8 @@ public class DiaryEntry {
     public String toString() {
         String dairyDisplay = "";
         dairyDisplay += " DATE: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "\n";
-        dairyDisplay += "WEATHER: " + weather.isPresent() ? weather.get() : "N.A." + "\n";
-        dairyDisplay += "MOOD: " + mood.isPresent() ? mood.get() : "N.A." + "\n";
+        dairyDisplay += "WEATHER: " + (weather.isPresent() ? weather.get().toString() : "N.A.") + "\n";
+        dairyDisplay += "MOOD: " + (mood.isPresent() ? mood.get().toString() : "N.A.") + "\n";
         dairyDisplay += "_".repeat(50) + "\n";
         dairyDisplay += entryContent + "\n";
         return dairyDisplay;
