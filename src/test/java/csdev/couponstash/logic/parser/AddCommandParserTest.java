@@ -69,9 +69,19 @@ public class AddCommandParserTest {
                 new AddCommand(expectedCoupon));
 
         // multiple savings monetary amount - last one accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
-                + SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + LIMIT_DESC_BOB
-                        + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT
+                + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + LIMIT_DESC_BOB  + TAG_DESC_FRIEND,
+                new AddCommand(expectedCoupon));
+
+        // multiple usages - last usage accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB
+                + EXPIRY_DATE_DESC_BOB + USAGE_DESC_AMY + USAGE_DESC_BOB + LIMIT_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+
+        // multiple limits - last limit accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB
+                + EXPIRY_DATE_DESC_BOB + USAGE_DESC_BOB + LIMIT_DESC_AMY + LIMIT_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple tags - all accepted
         Coupon expectedCouponMultipleTags = new CouponBuilder(TypicalCoupons.BOB)
@@ -89,6 +99,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + SAVINGS_DESC_AMY
                         + EXPIRY_DATE_DESC_AMY + USAGE_DESC_AMY + LIMIT_DESC_AMY,
                 new AddCommand(expectedCoupon));
+
     }
 
     @Test
