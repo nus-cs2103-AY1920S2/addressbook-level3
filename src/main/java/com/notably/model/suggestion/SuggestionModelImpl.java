@@ -35,7 +35,7 @@ public class SuggestionModelImpl implements SuggestionModel {
     }
 
     @Override
-    public void clearResponseText() {
+    public void clearResponseTextProperty() {
         responseTextProperty.setValue(Optional.of(""));
     }
 

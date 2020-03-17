@@ -40,7 +40,7 @@ public interface SuggestionModel {
     /**
      * Resets the command text when the user clears the input text field.
      */
-    void clearResponseText();
+    void clearResponseTextProperty();
 
     /**
      * Resets the list of suggestions.
