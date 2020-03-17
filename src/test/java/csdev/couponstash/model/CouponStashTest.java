@@ -1,5 +1,6 @@
 package csdev.couponstash.model;
 
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_START_DATE_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static csdev.couponstash.testutil.TypicalCoupons.ALICE;
@@ -46,7 +47,7 @@ public class CouponStashTest {
     @Test
     public void resetData_withDuplicateCoupons_throwsDuplicateCouponException() {
         // Two coupons with the same identity fields
-        Coupon editedAlice = new CouponBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Coupon editedAlice = new CouponBuilder(ALICE).withTags(VALID_TAG_HUSBAND).withStartDate(VALID_START_DATE_BOB)
                 .build();
         List<Coupon> newCoupons = Arrays.asList(ALICE, editedAlice);
         CouponStashStub newData = new CouponStashStub(newCoupons);

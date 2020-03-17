@@ -61,7 +61,7 @@ public class TypicalCoupons {
     public static final Coupon ALICE = new CouponBuilder().withName("Alice Pauline")
             .withPhone("94351253")
             .withSavings(ALICE_SAVINGS)
-            .withExpiryDate("31-12-2020")
+            .withExpiryDate("2-12-2020")
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")

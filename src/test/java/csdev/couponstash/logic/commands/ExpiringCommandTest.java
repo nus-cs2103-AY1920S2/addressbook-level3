@@ -53,7 +53,7 @@ public class ExpiringCommandTest {
     }
 
     @Test
-    public void execute_noCouponsFound() {
+    public void execute_noCouponsFound_success() {
         String inputDate = "1-6-2020";
         String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 0) + " Try a later date!";
         DateIsBeforePredicate predicate = preparePredicate(inputDate);
@@ -64,7 +64,7 @@ public class ExpiringCommandTest {
     }
 
     @Test
-    public void execute_multipleCouponsFound() {
+    public void execute_multipleCouponsFound_success() {
         String inputDate = "1-12-2020";
         String expectedMessage = String.format(MESSAGE_COUPONS_LISTED_OVERVIEW, 3)
                 + " " + String.format(MESSAGE_COUPONS_EXPIRING_BEFORE_DATE, inputDate);

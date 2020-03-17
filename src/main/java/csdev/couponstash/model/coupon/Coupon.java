@@ -20,8 +20,6 @@ public class Coupon {
     private final Name name;
     private final Phone phone;
     private final ExpiryDate expiryDate;
-    private final StartDate startDate;
-    private final Remind remind;
 
     // Savings field
     private final Savings savings;
@@ -29,6 +27,8 @@ public class Coupon {
     // Data fields
     private final Usage usage;
     private final Limit limit;
+    private final Remind remind;
+    private final StartDate startDate;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -95,7 +95,7 @@ public class Coupon {
     }
 
     /**
-     * Returns true if both coupons of the same name, savings and expiry date.
+     * Returns true if both coupons of the same name, expiry date, either savings or phone.
      * This defines a weaker notion of equality between two coupons.
      */
     public boolean isSameCoupon(Coupon otherCoupon) {
@@ -105,10 +105,9 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && (otherCoupon.getPhone().equals(getPhone())
-                        || otherCoupon.getSavings().equals(getSavings())
-                        || otherCoupon.getExpiryDate().equals(getExpiryDate())
-                        || otherCoupon.getStartDate().equals(getStartDate()));
+                && otherCoupon.getPhone().equals(getPhone())
+                && otherCoupon.getExpiryDate().equals(getExpiryDate())
+                && otherCoupon.getSavings().equals(getSavings());
     }
 
     /**
