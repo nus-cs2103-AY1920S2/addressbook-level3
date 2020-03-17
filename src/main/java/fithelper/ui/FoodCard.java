@@ -44,7 +44,7 @@ public class FoodCard extends UiPart<AnchorPane> {
         this.food = food;
         name.setText(food.getName().toString());
         time.setText(food.getTime().toString());
-        place.setText(food.getPlace().toString());
+        place.setText(food.getLocation().toString());
         calorie.setText(food.getCalorie().toString());
     }
 
@@ -69,7 +69,7 @@ public class FoodCard extends UiPart<AnchorPane> {
         name.setText(food.getName().toString());
         status.setText(food.getStatus().toString());
         time.setText(food.getTime().toString());
-        place.setText(food.getPlace().toString());
+        place.setText(food.getLocation().toString());
         calorie.setText(food.getCalorie().toString());
     }
 

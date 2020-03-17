@@ -21,6 +21,7 @@ import fithelper.logic.commands.ProfileCommand;
 import fithelper.logic.commands.ReminderCommand;
 import fithelper.logic.commands.ReportCommand;
 import fithelper.logic.commands.TodayCommand;
+import fithelper.logic.commands.WeightCommand;
 
 import fithelper.logic.parser.exceptions.ParseException;
 
@@ -82,6 +83,9 @@ public class FitHelperParser {
 
         case ProfileCommand.COMMAND_WORD:
             return new ProfileCommand();
+
+        case WeightCommand.COMMAND_WORD:
+            return new WeightCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

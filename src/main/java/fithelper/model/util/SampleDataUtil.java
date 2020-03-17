@@ -15,6 +15,12 @@ import fithelper.model.entry.Type;
  * Contains utility methods for populating {@code FitHelper} with sample data.
  */
 public class SampleDataUtil {
+
+    /**
+     * Gets sample food and sports entries.
+     *
+     * @return An array of food and sports entries.
+     */
     public static Entry[] getSampleEntries() {
         return new Entry[]{
             new Entry(new Type("food"), new Name("Noodles"), new Time("2020-03-01-15:30"),
@@ -36,12 +42,17 @@ public class SampleDataUtil {
         };
     }
 
+    /**
+     * Gets sample FitHelper.
+     *
+     * @return A FitHelper only with the sample entries.
+     */
     public static ReadOnlyFitHelper getSampleFitHelper() {
-        FitHelper sampleAb = new FitHelper();
+        FitHelper sampleFitHelper = new FitHelper();
         for (Entry sampleEntry : getSampleEntries()) {
-            sampleAb.addEntry(sampleEntry);
+            sampleFitHelper.addEntry(sampleEntry);
         }
-        return sampleAb;
+        return sampleFitHelper;
     }
 
 }
