@@ -69,7 +69,7 @@ public class Time {
         DateGroup dateGroup = (DateGroup) groups.get(0);
         if (dateGroup.getDates().size() <= 0) {
             return false;
-        };
+        }
         return true;
     }
 

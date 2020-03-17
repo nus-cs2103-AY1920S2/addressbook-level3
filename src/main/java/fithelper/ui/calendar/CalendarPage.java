@@ -1,9 +1,9 @@
 package fithelper.ui.calendar;
 
-import fithelper.model.entry.Entry;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
+import fithelper.model.entry.Entry;
 import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
@@ -17,7 +17,6 @@ import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
-
 
 /**
  * Displays all food/sports items on calendar.

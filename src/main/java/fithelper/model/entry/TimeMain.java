@@ -1,7 +1,5 @@
 package fithelper.model.entry;
 
-import fithelper.commons.exceptions.IllegalValueException;
-
 /**
  * This main class is for testing and debugging only.
  */

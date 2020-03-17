@@ -3,11 +3,11 @@ package fithelper.model;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
-import fithelper.commons.exceptions.IllegalValueException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.VeventList;
 

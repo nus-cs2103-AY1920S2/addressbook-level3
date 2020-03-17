@@ -4,13 +4,16 @@ import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import static java.util.Objects.requireNonNull;
 
-import fithelper.commons.exceptions.IllegalValueException;
 import java.util.ArrayList;
+
+import fithelper.commons.exceptions.IllegalValueException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
+
+
 
 /**
  *  A list of VEvents.
@@ -110,11 +113,14 @@ public class VeventList {
         return vEvents.stream().anyMatch(vEvent -> equals(vEvent, event));
     }
 
+    /**
+     * Returns true if the two parameters are equal.
+     */
     private boolean equals(VEvent vEvent, VEvent event) {
         if (!vEvent.getSummary().equals(event.getSummary())
-        || !vEvent.getDateTimeEnd().equals(event.getDateTimeEnd())
-        || !vEvent.getDateTimeStart().equals(event.getDateTimeStart())
-        || !vEvent.getCategories().equals(event.getCategories())) {
+            || !vEvent.getDateTimeEnd().equals(event.getDateTimeEnd())
+            || !vEvent.getDateTimeStart().equals(event.getDateTimeStart())
+            || !vEvent.getCategories().equals(event.getCategories())) {
             return false;
         } else {
             return true;

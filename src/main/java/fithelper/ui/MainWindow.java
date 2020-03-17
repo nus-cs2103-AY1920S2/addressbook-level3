@@ -1,11 +1,11 @@
 package fithelper.ui;
 
-import fithelper.commons.exceptions.IllegalValueException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;

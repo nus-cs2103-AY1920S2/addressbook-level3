@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.DataConversionException;
-import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.FileUtil;
 import fithelper.commons.util.JsonUtil;
 import fithelper.model.ReadOnlyFitHelper;

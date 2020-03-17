@@ -1,12 +1,14 @@
 package fithelper.model;
 
-import fithelper.commons.exceptions.IllegalValueException;
 import java.util.function.Predicate;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.entry.Entry;
 
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
+
+
 
 /**
  * The API of the Model component.
