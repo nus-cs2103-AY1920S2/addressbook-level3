@@ -8,9 +8,9 @@ import static seedu.address.testutil.TypicalTasks.getTypicalTaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.Pet;
 import seedu.address.model.Pomodoro;
-import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /** Contains integration tests (interaction with the Model) and unit tests for ListCommand. */
@@ -21,8 +21,14 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalTaskList(),  new Pet(), new Pomodoro(), new UserPrefs()); // Should we shift these to ModelManager
-        expectedModel = new ModelManager(model.getTaskList(),  new Pet(), new Pomodoro(), new UserPrefs());
+        model =
+                new ModelManager(
+                        getTypicalTaskList(),
+                        new Pet(),
+                        new Pomodoro(),
+                        new UserPrefs()); // Should we shift these to ModelManager
+        expectedModel =
+                new ModelManager(model.getTaskList(), new Pet(), new Pomodoro(), new UserPrefs());
     }
 
     @Test

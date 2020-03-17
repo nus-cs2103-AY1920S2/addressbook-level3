@@ -43,13 +43,13 @@ public class LogicManagerTest {
     public void setUp() {
         JsonTaskListStorage taskListStorage =
                 new JsonTaskListStorage(temporaryFolder.resolve("taskList.json"));
-        JsonPetStorage petStorage =
-                new JsonPetStorage(temporaryFolder.resolve("pet.json"));
+        JsonPetStorage petStorage = new JsonPetStorage(temporaryFolder.resolve("pet.json"));
         JsonPomodoroStorage pomodoroStorage =
                 new JsonPomodoroStorage(temporaryFolder.resolve("pomodoro.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(taskListStorage, petStorage, pomodoroStorage, userPrefsStorage);
+        StorageManager storage =
+                new StorageManager(taskListStorage, petStorage, pomodoroStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -76,13 +76,13 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonTaskListIoExceptionThrowingStub
         JsonTaskListStorage taskListStorage =
                 new JsonTaskListStorage(temporaryFolder.resolve("taskList.json"));
-        JsonPetStorage petStorage =
-                new JsonPetStorage(temporaryFolder.resolve("pet.json"));
+        JsonPetStorage petStorage = new JsonPetStorage(temporaryFolder.resolve("pet.json"));
         JsonPomodoroStorage pomodoroStorage =
                 new JsonPomodoroStorage(temporaryFolder.resolve("pomodoro.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(taskListStorage, petStorage, pomodoroStorage, userPrefsStorage);
+        StorageManager storage =
+                new StorageManager(taskListStorage, petStorage, pomodoroStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -149,7 +149,9 @@ public class LogicManagerTest {
             String inputCommand,
             Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getTaskList(), model.getPet(), model.getPomodoro(), new UserPrefs());
+        Model expectedModel =
+                new ModelManager(
+                        model.getTaskList(), model.getPet(), model.getPomodoro(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
