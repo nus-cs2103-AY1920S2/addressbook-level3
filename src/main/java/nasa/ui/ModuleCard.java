@@ -4,8 +4,9 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 
 import nasa.model.activity.Activity;
@@ -29,22 +30,16 @@ public class ModuleCard extends UiPart<Region> {
     public final Module module;
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
     @FXML
     private Label code;
-    @FXML
-    private Label name;
-    @FXML
-    private Label id;
     @FXML
     private FlowPane activities;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);
         this.module = module;
-        id.setText(displayedIndex + ". ");
-        code.setText(module.getModuleCode().moduleCode);
-        name.setText(module.getModuleName().toString());
+        code.setText(module.getModuleCode().toString());
         module.getActivities().asUnmodifiableObservableList().stream()
                 .sorted(Comparator.comparing(activity -> activity.getName().toString()))
                 .forEach(activity -> activities.getChildren().add(
@@ -65,7 +60,7 @@ public class ModuleCard extends UiPart<Region> {
 
         // state check
         ModuleCard card = (ModuleCard) other;
-        return id.getText().equals(card.id.getText())
+        return code.getText().equals(card.code.getText())
                 && module.equals(card.module);
     }
 }
