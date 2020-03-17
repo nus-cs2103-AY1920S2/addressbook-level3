@@ -8,7 +8,6 @@ import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Saveable;
-import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
 
 import javafx.collections.ObservableList;
 
@@ -45,7 +44,7 @@ public class SavedCommand extends Command {
         // add up all the Savings to get total Savings
         PureMonetarySavings pms = new PureMonetarySavings();
         for (Coupon c : couponsList) {
-            PureMonetarySavings toBeAdded = SavingsConversionUtil.convertToPure(c.getSavings());
+            PureMonetarySavings toBeAdded = c.getTotalSavings();
             pms = pms.add(toBeAdded);
         }
         // get monetary amount
@@ -56,10 +55,12 @@ public class SavedCommand extends Command {
         if (!saveables.isEmpty()) {
             moneySaved.append(" as well as earned ");
             for (Saveable sv : saveables) {
-                moneySaved.append(sv.toString());
-                moneySaved.append(", ");
+                moneySaved.append(sv.toString()).append(", ");
             }
+            return new CommandResult(
+                    moneySaved.substring(0, moneySaved.length() - 2) + ".", false, false);
+        } else {
+            return new CommandResult(moneySaved.append(".").toString(), false, false);
         }
-        return new CommandResult(moneySaved.substring(0, moneySaved.length() - 2), false, false);
     }
 }

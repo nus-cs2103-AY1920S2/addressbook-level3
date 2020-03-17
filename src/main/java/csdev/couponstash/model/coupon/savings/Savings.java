@@ -284,6 +284,6 @@ public class Savings implements Comparable<Savings> {
      */
     private static boolean isValidSaveablesList(List<Saveable> list) {
         return !list.isEmpty() && list.stream()
-                .allMatch(sva -> Saveable.isValidSaveableValue(sva.getValue()));
+                .allMatch(sva -> Saveable.isValidSaveableValue(sva.getValue(), sva.getCount()));
     }
 }

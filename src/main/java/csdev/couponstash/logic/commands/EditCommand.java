@@ -95,7 +95,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
-        Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
+        Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavingsForEachUse());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
         StartDate updatedStartDate = editCouponDescriptor.getStartDate().orElse(couponToEdit.getStartDate());
         Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
@@ -103,7 +103,11 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
 
         return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedStartDate,
-                updatedUsage, updatedLimit, updatedTags);
+                updatedUsage, updatedLimit, updatedTags,
+                // avoid changing the cached total savings value
+                couponToEdit.getTotalSavings(),
+                // avoid changing the reminder
+                couponToEdit.getRemind());
     }
 
     @Override

@@ -4,23 +4,17 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Set;
 
 import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
-import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
-import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
-import csdev.couponstash.model.coupon.savings.Savings;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
-import csdev.couponstash.model.tag.Tag;
 
 /**
  * Increases the usage of a coupon.
@@ -75,7 +69,7 @@ public class UsedCommand extends Command {
         Coupon couponToBeUsed = lastShownList.get(targetIndex.getZeroBased());
         Usage currentUsage = couponToBeUsed.getUsage();
         Limit limit = couponToBeUsed.getLimit();
-        boolean hasPercentageSavings = couponToBeUsed.getSavings().hasPercentageAmount();
+        boolean hasPercentageSavings = couponToBeUsed.getSavingsForEachUse().hasPercentageAmount();
 
         if (Usage.isUsageAtLimit(currentUsage, limit)) {
             throw new CommandException(String.format(MESSAGE_USAGE_LIMIT_REACHED, limit.getLimit()));
@@ -89,10 +83,9 @@ public class UsedCommand extends Command {
 
         Coupon newUsedCoupon;
         if (hasPercentageSavings) {
-            Savings newSavings = SavingsConversionUtil.convertToPure(couponToBeUsed.getSavings(), originalAmount);
-            newUsedCoupon = createUsedCouponWithSavings(couponToBeUsed, newSavings);
+            newUsedCoupon = createUsedCouponPercentageValue(couponToBeUsed, originalAmount);
         } else {
-            newUsedCoupon = createUsedCoupon(couponToBeUsed);
+            newUsedCoupon = createUsedCouponMonetaryValue(couponToBeUsed);
         }
 
         model.setCoupon(couponToBeUsed, newUsedCoupon);
@@ -109,25 +102,27 @@ public class UsedCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Coupon} with an increase in usage by one,
-     * and also add the savings accompanied by the usage of this coupon.
+     * Creates and returns a {@code Coupon} with an increase in usage by one.
+     * To be used for a Coupon with PercentageAmount savings (requires
+     * the original price of the item bought as a MonetaryAmount).
      */
-    private static Coupon createUsedCouponWithSavings(Coupon couponToBeUsed, Savings newSavings) {
-        Name name = couponToBeUsed.getName();
-        Phone phone = couponToBeUsed.getPhone();
-        ExpiryDate expiryDate = couponToBeUsed.getExpiryDate();
-        StartDate startDate = couponToBeUsed.getStartDate();
-        Limit limit = couponToBeUsed.getLimit();
-        Set<Tag> tags = couponToBeUsed.getTags();
-        Usage updatedUsage = couponToBeUsed.getUsage().increaseUsageByOne();
+    private static Coupon createUsedCouponPercentageValue(Coupon couponToBeUsed,
+                                                          MonetaryAmount originalAmount) {
 
-        return new Coupon(name, phone, newSavings, expiryDate, startDate, updatedUsage, limit, tags);
+        PureMonetarySavings newTotalSavings = SavingsConversionUtil
+                .convertToPure(couponToBeUsed.getSavingsForEachUse(), originalAmount);
+        return couponToBeUsed.addToTotalSavings(newTotalSavings)
+                .increaseUsageByOne();
     }
 
     /**
      * Creates and returns a {@code Coupon} with an increase in usage by one.
+     * To be used for a Coupon with concrete MonetaryAmount savings.
      */
-    private static Coupon createUsedCoupon(Coupon couponToBeUsed) {
-        return createUsedCouponWithSavings(couponToBeUsed, couponToBeUsed.getSavings());
+    private static Coupon createUsedCouponMonetaryValue(Coupon couponToBeUsed) {
+        PureMonetarySavings newTotalSavings = SavingsConversionUtil
+                .convertToPure(couponToBeUsed.getSavingsForEachUse());
+        return couponToBeUsed.addToTotalSavings(newTotalSavings)
+                .increaseUsageByOne();
     }
 }

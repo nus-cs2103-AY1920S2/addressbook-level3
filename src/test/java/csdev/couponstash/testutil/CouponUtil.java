@@ -43,7 +43,7 @@ public class CouponUtil {
         sb.append(PREFIX_PHONE + coupon.getPhone().value + " ");
         sb.append(PREFIX_EXPIRY_DATE + coupon.getExpiryDate().value + " ");
         sb.append(PREFIX_START_DATE + coupon.getStartDate().value + " ");
-        sb.append(convertSavingsToCommand(coupon.getSavings(), moneySymbol));
+        sb.append(convertSavingsToCommand(coupon.getSavingsForEachUse(), moneySymbol));
         sb.append(PREFIX_USAGE + coupon.getUsage().value + " ");
         sb.append(PREFIX_LIMIT + coupon.getLimit().value + " ");
         coupon.getTags().stream().forEach(
