@@ -15,7 +15,7 @@ import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
- * Used to add items to the receipt.
+ * Used to add entries to the receipt.
  */
 public class AddItemCommand extends Command {
 
@@ -27,7 +27,7 @@ public class AddItemCommand extends Command {
             + PREFIX_PRICE + "PRICE "
             + PREFIX_NAME + "PERSON NAME";
 
-    public static final String MESSAGE_SUCCESS = "The item %1$s has been added.";
+    public static final String MESSAGE_SUCCESS = "The entry: \n  -> %1$s\nhas been added.";
 
     private Entry toBeAdded;
 

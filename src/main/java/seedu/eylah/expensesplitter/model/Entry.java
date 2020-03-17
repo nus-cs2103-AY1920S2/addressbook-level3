@@ -70,9 +70,14 @@ public class Entry {
     @Override
     public String toString() {
         final StringBuilder personsFormatted = new StringBuilder();
-        for (Person person : persons) {
-            personsFormatted.append(person);
+        for (int i = 0; i < persons.size(); i++) {
+            if (i != persons.size() - 1 ) {
+                personsFormatted.append(persons.get(i))
+                        .append(", ");
+            } else { //last person in list
+                personsFormatted.append(persons.get(i));
+            }
         }
-        return item + "   " + personsFormatted.toString();
+        return "Item: " + item + " | " + personsFormatted.toString();
     }
 }
