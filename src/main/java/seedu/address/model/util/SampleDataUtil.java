@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
+import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.IngredientList;
 import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
@@ -21,11 +22,11 @@ public class SampleDataUtil {
         return new Recipe[]{
             new Recipe(new Name("Ham Sandwich"), new IngredientList("bread, 2 slices; ham, 1 slice"),
                     new InstructionList("put ham between bread; serve on plate"),
-                        getTagSet("breakfast", "lunch")),
+                new Calorie("169"), getTagSet("breakfast", "lunch")),
             new Recipe(new Name("Idiot Sandwich"), new IngredientList("bread, 2 slices"),
                         new InstructionList("put bread to opposite sides of head; Yell "
                                             + "\"I am an idiot sandwich!\""),
-                        getTagSet("lunch", "dinner"))
+                       new Calorie("0"), getTagSet("lunch", "dinner"))
         };
     }
 

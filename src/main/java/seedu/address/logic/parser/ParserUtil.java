@@ -9,6 +9,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.IngredientList;
 import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
@@ -78,6 +79,21 @@ public class ParserUtil {
             throw new ParseException(InstructionList.MESSAGE_CONSTRAINTS);
         }
         return new InstructionList(trimmedInstructions);
+    }
+
+    /**
+     * Parses a {@code String calorie} into a {@code Calorie}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code calorie} is invalid.
+     */
+    public static Calorie parseCalorie(String calorie) throws ParseException {
+        requireNonNull(calorie);
+        String trimmedCalorie = calorie.trim();
+        if (!Calorie.isValidCalorieAmount(trimmedCalorie)) {
+            throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
+        }
+        return new Calorie(trimmedCalorie);
     }
 
     /**
