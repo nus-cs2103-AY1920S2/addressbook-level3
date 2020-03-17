@@ -35,9 +35,9 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENT_GRAIN, PREFIX_INGREDIENT_VEGE,
-                        PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_OTHER,
-                        PREFIX_TIME, PREFIX_STEP, PREFIX_GOAL);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TIME, PREFIX_INGREDIENT_GRAIN,
+                        PREFIX_INGREDIENT_VEGE, PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_OTHER,
+                        PREFIX_STEP, PREFIX_GOAL);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_TIME, PREFIX_STEP)
                 || !argMultimap.getPreamble().isEmpty()) {

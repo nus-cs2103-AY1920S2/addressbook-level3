@@ -131,6 +131,44 @@ public class ParserUtil {
         return goalSet;
     }
 
+    /**
+     * Parses a {@code String grain} into a {@code Grain}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code grain} is invalid.
+     */
+    public static Grain parseGrain(String grain) throws ParseException {
+        requireNonNull(grain);
+        String[] splitFields = grain.split(",");
+
+        if (splitFields.length != 2) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+        String trimmedGrainName = splitFields[1].trim();
+        String trimmedGrainQuantity = splitFields[0].trim();
+
+        if (!Ingredient.isValidIngredientName(trimmedGrainName)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+        }
+
+        double grainQuantity = Double.parseDouble(trimmedGrainQuantity);
+        return new Grain(trimmedGrainName, grainQuantity);
+    }
+
+    /**
+     * Parses {@code Collection<String> grains} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     */
+    public static Set<Ingredient> parseGrains(Collection<String> grains, Set<Ingredient> ingredientSet)
+            throws ParseException {
+        if (ingredientSet == null || ingredientSet.isEmpty()) {
+            ingredientSet = new HashSet<>();
+        }
+        requireNonNull(grains);
+        for (String grain : grains) {
+            ingredientSet.add(parseGrain(grain));
+        }
+        return ingredientSet;
+    }
 
     /**
      * Parses a {@code String vegetable} into a {@code Vegetable}.
@@ -167,45 +205,6 @@ public class ParserUtil {
         requireNonNull(vegetables);
         for (String vegetable : vegetables) {
             ingredientSet.add(parseVegetable(vegetable));
-        }
-        return ingredientSet;
-    }
-
-    /**
-     * Parses a {@code String grain} into a {@code Grain}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code grain} is invalid.
-     */
-    public static Grain parseGrain(String grain) throws ParseException {
-        requireNonNull(grain);
-        String[] splitFields = grain.split(",");
-
-        if (splitFields.length != 2) {
-            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
-        }
-        String trimmedGrainName = splitFields[1].trim();
-        String trimmedGrainQuantity = splitFields[0].trim();
-
-        if (!Ingredient.isValidIngredientName(trimmedGrainName)) {
-            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
-        }
-
-        double grainQuantity = Double.parseDouble(trimmedGrainQuantity);
-        return new Grain(trimmedGrainName, grainQuantity);
-    }
-
-    /**
-     * Parses {@code Collection<String> grains} and adds them to the {@code Set<Ingredient>} ingredientSet.
-     */
-    public static Set<Ingredient> parseGrains(Collection<String> grains, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new HashSet<>();
-        }
-        requireNonNull(grains);
-        for (String grain : grains) {
-            ingredientSet.add(parseGrain(grain));
         }
         return ingredientSet;
     }
