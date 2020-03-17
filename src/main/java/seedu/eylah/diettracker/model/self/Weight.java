@@ -18,19 +18,19 @@ public class Weight {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
 
-    public final String weight;
-    public final Float wt;
+    private final String weightString;
+    private final Float weightFloat;
 
     /**
      * Constructs a {@code Weight}.
      *
-     * @param weight A valid weight.
+     * @param weightString A valid weight.
      */
-    public Weight(String weight) {
-        requireNonNull(weight);
-        checkArgument(isValidWeight(weight), MESSAGE_CONSTRAINTS);
-        this.weight = weight;
-        this.wt = Float.parseFloat(this.weight);
+    public Weight(String weightString) {
+        requireNonNull(weightString);
+        checkArgument(isValidWeight(weightString), MESSAGE_CONSTRAINTS);
+        this.weightString = weightString;
+        this.weightFloat = Float.parseFloat(this.weightString);
     }
 
     /**
@@ -40,22 +40,25 @@ public class Weight {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public float getWeightFloat() {
+        return this.weightFloat;
+    }
 
     @Override
     public String toString() {
-        return weight;
+        return weightString;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Weight // instanceof handles nulls
-                && weight.equals(((Weight) other).weight)); // state check
+                && weightString.equals(((Weight) other).weightString)); // state check
     }
 
     @Override
     public int hashCode() {
-        return weight.hashCode();
+        return weightString.hashCode();
     }
 
 }
