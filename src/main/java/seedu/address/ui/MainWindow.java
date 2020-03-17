@@ -32,9 +32,13 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private ProfileListPanel profileListPanel;
     private ProfileListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    // Ui parts in the main panel (dynamic)
+    private WelcomeView welcomeViewPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -52,7 +56,11 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane deadlinePanelPlaceholder;
+    private StackPane deadlineListPanelPlaceholder;
+
+    @FXML
+    private StackPane mainPanelPlaceholder;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -112,8 +120,14 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        deadlineListPanel = new ProfileListPanel(logic.getFilteredPersonList());
-        profileListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
+        welcomeViewPanel = new WelcomeView();
+        mainPanelPlaceholder.getChildren().add(welcomeViewPanel.getRoot());
+
+        profileListPanel = new ProfileListPanel(logic.getFilteredPersonList());
+        profileListPanelPlaceholder.getChildren().add(profileListPanel.getRoot());
+
+//        deadlineListPanel = new DeadlineListPanel(logic.getFilteredDeadlineList());
+//        deadlineListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -163,10 +177,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public ProfileListPanel getDeadlineListPanel() {
-        return deadlineListPanel;
     }
 
     /**

@@ -82,6 +82,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
-
 }
