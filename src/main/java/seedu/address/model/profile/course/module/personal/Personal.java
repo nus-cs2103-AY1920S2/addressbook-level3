@@ -10,6 +10,7 @@ public class Personal {
     private Status status;
     private Grade grade;
     private DeadlineList deadlineList;
+    private int semester;
 
     public Personal() {
         status = new Status();
@@ -22,6 +23,10 @@ public class Personal {
 
     public void setGrade(String grade) {
         this.grade.setGrade(grade);
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 
     public void setStatus(String status) {
@@ -44,6 +49,14 @@ public class Personal {
 
     public String getGrade() {
         return this.grade.getGrade();
+    }
+
+    public int getSemester() {
+        return this.semester;
+    }
+
+    public DeadlineList getDeadlineList() {
+        return this.deadlineList;
     }
 
     public List<Deadline> getDeadlines() {

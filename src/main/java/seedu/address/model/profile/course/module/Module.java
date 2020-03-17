@@ -40,6 +40,10 @@ public class Module {
         this.personal = personal;
     }
 
+    public Personal getPersonal() {
+        return personal;
+    }
+
     public ModuleCode getModuleCode() {
         return moduleCode;
     }
@@ -97,12 +101,17 @@ public class Module {
         return builder.toString();
     }
 
-    @Override
-    public boolean equals(Object other) {
+    /**
+     * Checks for same module code
+     * TODO: Check semester too
+     */
+    public boolean isSameModule(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Module // instanceof handles nulls
                 && moduleCode.equals(((Module) other).moduleCode)); // state check
     }
+    // && (personal.getSemester() == ((Module) other).getPersonal().getSemester())
+
     // methods to be implemented
     // isSameModule()
     // hashCode()

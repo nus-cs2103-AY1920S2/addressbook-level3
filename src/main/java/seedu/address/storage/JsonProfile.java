@@ -223,8 +223,17 @@ class JsonDeadline {
 
     public JsonDeadline(Deadline deadline) {
         description = deadline.getDescription();
-        date = deadline.getDate().toString();
-        time = deadline.getTime().toString();
+        if (deadline.getDate() == null) {
+            date = null;
+        } else {
+            date = deadline.getDate().toString();
+
+        }
+        if (deadline.getTime() == null) {
+            time = null;
+        } else {
+            time = deadline.getTime().toString();
+        }
     }
 
     /**
@@ -236,7 +245,7 @@ class JsonDeadline {
         try {
             LocalDate.parse(date);
             LocalTime.parse(time);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | NullPointerException e) {
             throw new IllegalValueException("Deadline's date field should be a valid date in the format YYYY-MM-DD "
                     + "and time field should be a valid time in the format HH:mm");
         }
