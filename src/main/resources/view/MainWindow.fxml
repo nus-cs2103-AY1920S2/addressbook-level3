@@ -33,11 +33,11 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane fx:id="mainContentSplitPane" VBox.vgrow="ALWAYS">
+        <SplitPane VBox.vgrow="ALWAYS">
           <StackPane fx:id="sideBarPlaceholder" VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false"
                      minWidth="180"/>
           <VBox>
-            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" >
+            <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border" minWidth="180">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
