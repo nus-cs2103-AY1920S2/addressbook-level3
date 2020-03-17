@@ -101,7 +101,7 @@ public class ParserUtil {
     public static Height parseHeight(String height) throws ParseException {
         requireNonNull(height);
         String trimmedHeight = height.trim();
-        if (!Name.isValidName(trimmedHeight)) {
+        if (!Height.isValidHeight(trimmedHeight)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Height(trimmedHeight);
@@ -116,7 +116,7 @@ public class ParserUtil {
     public static Weight parseWeight(String weight) throws ParseException {
         requireNonNull(weight);
         String trimmedWeight = weight.trim();
-        if (!Name.isValidName(trimmedWeight)) {
+        if (!Weight.isValidWeight(trimmedWeight)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Weight(trimmedWeight);
