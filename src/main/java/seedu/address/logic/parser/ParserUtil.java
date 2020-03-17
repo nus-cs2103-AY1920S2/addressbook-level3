@@ -13,14 +13,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Step;
+import seedu.address.model.recipe.Time;
+
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
 import seedu.address.model.recipe.ingredient.Vegetable;
-import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Step;
-import seedu.address.model.recipe.Time;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

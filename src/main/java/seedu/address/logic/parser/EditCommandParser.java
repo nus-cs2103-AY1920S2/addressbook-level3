@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
@@ -23,9 +24,9 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.Step;
 
+import seedu.address.model.recipe.ingredient.Ingredient;
 /**
  * Parses input arguments and creates a new EditCommand object
  */
