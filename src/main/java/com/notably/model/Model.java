@@ -3,9 +3,9 @@ package com.notably.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
-
 import com.notably.commons.core.GuiSettings;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.

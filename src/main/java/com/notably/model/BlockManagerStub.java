@@ -6,6 +6,9 @@ import com.notably.model.block.BlockImpl;
 import com.notably.model.block.Body;
 import com.notably.model.block.Title;
 
+/**
+ * BlockManagerStub
+ */
 public class BlockManagerStub implements BlockManager {
     public boolean hasBlock(Block b) {
         return false;

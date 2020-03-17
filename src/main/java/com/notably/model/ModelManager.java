@@ -7,11 +7,11 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
+
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Represents the in-memory model of the address book data.

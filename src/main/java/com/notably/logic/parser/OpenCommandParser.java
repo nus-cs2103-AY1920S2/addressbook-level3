@@ -29,7 +29,7 @@ public class OpenCommandParser implements CommandParser {
             throw new ParseException(String.format("Invalid input"));
         }
 
-        String titles= argMultimap.getValue(PREFIX_TITLE).get();
+        String titles = argMultimap.getValue(PREFIX_TITLE).get();
 
         try {
             Path path = RelativePath.fromString(titles);
