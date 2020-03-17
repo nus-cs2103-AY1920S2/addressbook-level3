@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
 public class SuggestionModelImpl implements SuggestionModel {
     private ObservableList<SuggestionItem> suggestions;
     private String commandInputText;
-    private Property<Optional<String>> commandTextProperty;
+    private Property<Optional<String>> responseTextProperty;
 
     @Override
     public ObservableList<SuggestionItem> getSuggestions() {
@@ -27,18 +27,8 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     // TODO: update commands
     @Override
-    public Property<Optional<String>> commandTextProperty() {
-        if (commandInputText.startsWith("open")) {
-            commandTextProperty.setValue(Optional.of("Open a note"));
-        } else if (commandInputText.startsWith("search")) {
-            commandTextProperty.setValue(Optional.of("Search a note"));
-        } else if (commandInputText.isEmpty()) {
-            commandTextProperty.setValue(Optional.empty());
-        } else {
-            commandTextProperty.setValue(Optional.of("TODO"));
-        }
-
-        return commandTextProperty;
+    public Property<Optional<String>> responseTextProperty() {
+        return responseTextProperty;
     }
 
     @Override
