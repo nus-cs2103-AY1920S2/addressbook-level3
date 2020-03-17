@@ -9,6 +9,8 @@ import nasa.logic.commands.EditActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
 
+import java.util.NoSuchElementException;
+
 /**
  * Parses input arguments and creates a new EditActivityCommand object
  */
@@ -25,11 +27,17 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_NOTE, PREFIX_PRIORITY, PREFIX_ACTIVITY_NAME);
 
         Index index;
+        ModuleCode moduleCode;
         try {
              index = ParserUtil.parseIndex(argMultimap.getPreamble());
+             moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
+
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
                     pe);
+        } catch (NoSuchElementException ne) { // case when no module code is provided
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
+                    ne);
         }
 
         EditActivityCommand.EditActivityDescriptor editActivityDescriptor = new EditActivityCommand.EditActivityDescriptor();
@@ -50,7 +58,6 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
             throw new ParseException(EditActivityCommand.MESSAGE_NOT_EDITED);
         }
 
-        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
         return new EditActivityCommand(index, moduleCode, editActivityDescriptor);
     }
 }

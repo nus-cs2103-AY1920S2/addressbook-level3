@@ -24,9 +24,11 @@ public class CommandTestUtil {
     public static final String VALID_ACTIVITY_NAME_TUTORIAL = "Weekly Tutorial";
     public static final String VALID_ACTIVITY_NAME_EXAM = "Final Paper";
     public static final String VALID_NOTES_TEST = "This is merely a testing of the notes";
+    public static final String VALID_NOTES_TEST_2 = "Notes test two";
     public static final String VALID_PRIORITY_HIGH = "1";
     public static final String VALID_PRIORITY_LOW = "5";
     public static final String VALID_DATE_TEST = "12-12-2020 23:59";
+    public static final String VALID_DATE_TEST_2 = "29-02-2020 12:00";
 
     // parameters with their prefixes
     public static final String MODULE_DESC_CS2030 = " " + PREFIX_MODULE + VALID_MODULE_CS2030;
@@ -37,9 +39,11 @@ public class CommandTestUtil {
     public static final String ACTIVITY_NAME_DESC_TUTORIAL = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_TUTORIAL;
     public static final String ACTIVITY_NAME_DESC_EXAM = " " + PREFIX_ACTIVITY_NAME + VALID_ACTIVITY_NAME_EXAM;
     public static final String NOTES_DESC_TEST = " " + PREFIX_NOTE + VALID_NOTES_TEST;
+    public static final String NOTES_DESC_TEST_2 = " " + PREFIX_NOTE + VALID_NOTES_TEST_2;
     public static final String PRIORITY_DESC_HIGH = " " + PREFIX_PRIORITY + VALID_PRIORITY_HIGH;
     public static final String PRIORITY_DESC_LOW = " " + PREFIX_PRIORITY + VALID_PRIORITY_LOW;
     public static final String DATE_DESC_TEST = " " + PREFIX_DATE + VALID_DATE_TEST;
+    public static final String DATE_DESC_TEST_2 = " " + PREFIX_DATE + VALID_DATE_TEST_2;
 
     // invalid parameters with their prefixes
     public static final String INVALID_MODULE_DESC = " " + PREFIX_MODULE + "@31_+"; //only alphanumeric char

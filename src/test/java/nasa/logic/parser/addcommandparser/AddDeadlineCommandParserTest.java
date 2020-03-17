@@ -75,7 +75,7 @@ public class AddDeadlineCommandParserTest {
 
         // invalid Priority
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK + DATE_DESC_TEST + NOTES_DESC_TEST
-                + INVALID_PRIORITY_DESC, Priority.PRIORITY_RANGE_CONSTRAINTS);
+                + INVALID_PRIORITY_DESC, Priority.MESSAGE_CONSTRAINTS);
     }
 }
 
