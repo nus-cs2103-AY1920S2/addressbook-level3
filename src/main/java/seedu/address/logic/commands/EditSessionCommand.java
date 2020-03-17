@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -103,6 +104,17 @@ public class EditSessionCommand extends Command {
         Session.SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
         String description = editSessionDescriptor.getDescription().orElse(sessionToEdit.getDescription());
 
+        // If date is not updated, reset the date to the original date.
+        // We need to do this because EditSessionCommandParser is not able to know that is the original date
+        // to use as default value, so an arbitrary default date is used.
+        if (!editSessionDescriptor.getIsDateChanged()) {
+            LocalDate originalDate = sessionToEdit.getDate();
+            startTime = LocalDateTime.of(originalDate.getYear(), originalDate.getMonth(), originalDate.getDayOfMonth(),
+                    startTime.getHour(), startTime.getMinute(), startTime.getSecond());
+            endTime = LocalDateTime.of(originalDate.getYear(), originalDate.getMonth(), originalDate.getDayOfMonth(),
+                    endTime.getHour(), endTime.getMinute(), endTime.getSecond());
+        }
+
         return new Session(startTime, endTime, type, isRecurring, moduleCode, description);
     }
 
@@ -131,6 +143,7 @@ public class EditSessionCommand extends Command {
     public static class EditSessionDescriptor {
         private LocalDateTime newStartTime;
         private LocalDateTime newEndTime;
+        private boolean isDateChanged;
         private boolean isRecurring;
         private String moduleCode;
         private Session.SessionType newSessionType;
@@ -150,6 +163,7 @@ public class EditSessionCommand extends Command {
             setModuleCode(toCopy.moduleCode);
             setSessionType(toCopy.newSessionType);
             setDescription(toCopy.newDescription);
+            this.isDateChanged = toCopy.isDateChanged;
         }
 
         /**
@@ -181,6 +195,14 @@ public class EditSessionCommand extends Command {
 
         public boolean getIsRecurring() {
             return this.isRecurring;
+        }
+
+        public void setIsDateChanged(boolean isChanged) {
+            this.isDateChanged = isChanged;
+        }
+
+        public boolean getIsDateChanged() {
+            return this.isDateChanged;
         }
 
         public void setModuleCode(String moduleCode) {
