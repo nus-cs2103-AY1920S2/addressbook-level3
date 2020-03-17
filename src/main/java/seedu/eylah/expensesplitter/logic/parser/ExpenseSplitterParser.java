@@ -7,7 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.eylah.addressbook.logic.commands.HelpCommand;
+import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
+import seedu.eylah.expensesplitter.logic.commands.BackCommand;
 import seedu.eylah.expensesplitter.logic.commands.Command;
+import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
+import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
 import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 
 /**
@@ -18,7 +22,7 @@ public class ExpenseSplitterParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -29,15 +33,30 @@ public class ExpenseSplitterParser {
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
+
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
         // New Command need to add to here!!!
         switch(commandWord) {
+        case ListReceiptCommand.COMMAND_WORD:
+            return new ListReceiptCommand(); // No Args so no need to Parse.
+
+        case BackCommand.COMMAND_WORD:
+            return new BackCommand(); // No Args so no need to Parse.
+
+        case PaidCommand.COMMAND_WORD:
+            return new PaidCommandParser().parse(arguments);
+
+        case AddItemCommand.COMMAND_WORD:
+            return new AddItemCommandParser().parse(arguments);
+
+
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

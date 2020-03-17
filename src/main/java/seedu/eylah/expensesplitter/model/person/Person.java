@@ -2,12 +2,7 @@ package seedu.eylah.expensesplitter.model.person;
 
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import seedu.eylah.diettracker.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -20,16 +15,16 @@ public class Person {
 
     // Data fields
     private final Amount amount;
-    private final Set<Tag> tags = new HashSet<>();
+
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Amount amount, Set<Tag> tags) {
-        requireAllNonNull(name, tags);
+    public Person(Name name, Amount amount) {
+        requireAllNonNull(name);
         this.name = name;
         this.amount = amount;
-        this.tags.addAll(tags);
+
     }
 
     public Name getName() {
@@ -40,13 +35,7 @@ public class Person {
         return amount;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
+
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
@@ -77,14 +66,14 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getAmount().equals(getAmount())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getAmount().equals(getAmount());
+
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, tags);
+        return Objects.hash(name, amount);
     }
 
     @Override
@@ -94,7 +83,6 @@ public class Person {
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Tags: ");
-        getTags().forEach(builder::append);
         return builder.toString();
     }
 

@@ -1,6 +1,6 @@
 package seedu.eylah.expensesplitter.model;
 
-import seedu.eylah.addressbook.model.person.Person;
+import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
  * The API of the Model component.
@@ -21,12 +21,8 @@ public interface Model {
      */
     void deleteEntry(int index);
 
-    /**
-     * Updates the amount the Person owes you. If amount is $0 then the Person is deleted.
-     *
-     * @param person Person who paid
-     */
-    void paidPerson(Person person);
+    void paidPerson(Person p);
+
 
     /**
      * Command for listing all items in that receipt.

@@ -2,8 +2,8 @@ package seedu.eylah.expensesplitter.model;
 
 import java.util.logging.Logger;
 
-import seedu.eylah.addressbook.model.person.Person;
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.expensesplitter.model.person.Person;
 
 //import static java.util.Objects.requireNonNull;
 //import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
@@ -53,16 +53,7 @@ public class ModelManager implements Model {
         receipt.deleteEntry(index);
     }
 
-    /**
-     * Intentionally left empty.
-     * To be implemented later.
-     *
-     * @param person Person who paid
-     */
-    @Override
-    public void paidPerson(Person person) {
 
-    }
 
     /**
      * Intentionally left empty.
@@ -70,6 +61,11 @@ public class ModelManager implements Model {
      */
     @Override
     public void listReceipt() {
+
+    }
+
+    @Override
+    public void paidPerson(Person p) {
 
     }
 
