@@ -6,6 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 
 public class OfferTest {

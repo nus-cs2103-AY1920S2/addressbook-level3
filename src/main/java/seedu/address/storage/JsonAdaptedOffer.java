@@ -32,7 +32,7 @@ class JsonAdaptedOffer {
      * Converts a given {@code Offer} into this class for Jackson use.
      */
     public JsonAdaptedOffer(Offer source) {
-        good = source.getGood().toString();
+        good = source.getGood().fullGoodName;
         price = source.getPrice().getValue();
     }
 
@@ -43,7 +43,7 @@ class JsonAdaptedOffer {
      */
     public Offer toModelType() throws IllegalValueException {
         if (good == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Good.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, GoodName.class.getSimpleName()));
         }
         if (!GoodName.isValidGoodName(good)) {
             throw new IllegalValueException(GoodName.MESSAGE_CONSTRAINTS);
