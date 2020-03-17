@@ -24,9 +24,9 @@ public class NewCommand extends Command {
             + PREFIX_INSTRUCTIONS + "INSTRUCTION 1, INSTRUCTION 2 "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_INGREDIENTS + "bread,2;ham,1 "
-            + PREFIX_INSTRUCTIONS + "put ham on bread; put other bread on ham "
+            + PREFIX_NAME + "Ham Sandwich "
+            + PREFIX_INGREDIENTS + "bread, 2 slices; ham, 1 slice "
+            + PREFIX_INSTRUCTIONS + "put ham between bread; eat sandwich "
             + PREFIX_TAG + "breakfast";
 
     public static final String MESSAGE_SUCCESS = "New recipe added: %1$s";

@@ -16,18 +16,18 @@ import seedu.address.model.recipe.Recipe;
 /**
  * An Immutable RecipeBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "recipebook")
 class JsonSerializableRecipeBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate recipe(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedRecipe> persons = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableRecipeBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableRecipeBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableRecipeBook(@JsonProperty("persons") List<JsonAdaptedRecipe> persons) {
         this.persons.addAll(persons);
     }
 
@@ -37,7 +37,7 @@ class JsonSerializableRecipeBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableRecipeBook}.
      */
     public JsonSerializableRecipeBook(ReadOnlyRecipeBook source) {
-        persons.addAll(source.getRecipeList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getRecipeList().stream().map(JsonAdaptedRecipe::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,8 +47,8 @@ class JsonSerializableRecipeBook {
      */
     public RecipeBook toModelType() throws IllegalValueException {
         RecipeBook recipeBook = new RecipeBook();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Recipe recipe = jsonAdaptedPerson.toModelType();
+        for (JsonAdaptedRecipe jsonAdaptedRecipe : persons) {
+            Recipe recipe = jsonAdaptedRecipe.toModelType();
             if (recipeBook.hasRecipe(recipe)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }

@@ -19,9 +19,13 @@ public class SampleDataUtil {
 
     public static Recipe[] getSampleRecipes() {
         return new Recipe[]{
-            new Recipe(new Name("Ham Sandwich"), new IngredientList("bread, 2; ham, 1 slice"),
-                    new InstructionList("put ham on bread; put bread on ham"),
-                        getTagSet("breakfast"))
+            new Recipe(new Name("Ham Sandwich"), new IngredientList("bread, 2 slices; ham, 1 slice"),
+                    new InstructionList("put ham between bread; serve on plate"),
+                        getTagSet("breakfast", "lunch")),
+            new Recipe(new Name("Idiot Sandwich"), new IngredientList("bread, 2 slices"),
+                        new InstructionList("put bread to opposite sides of head; Yell "
+                                            + "\"I am an idiot sandwich!\""),
+                        getTagSet("lunch", "dinner"))
         };
     }
 
