@@ -1,5 +1,6 @@
 package fithelper.logic;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -35,7 +36,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, IllegalValueException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;

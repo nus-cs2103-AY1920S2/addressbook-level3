@@ -53,7 +53,7 @@ public class JsonFitHelperStorage implements FitHelperStorage {
 
         try {
             return Optional.of(jsonFitHelper.get().toModelType());
-        } catch (IllegalValueException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
             throw new DataConversionException(e);
         } catch (Exception i) {

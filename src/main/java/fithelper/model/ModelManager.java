@@ -3,6 +3,7 @@ package fithelper.model;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -183,5 +184,10 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<VEvent> getVEvents() {
         return vEventList.getVEvents();
+    }
+
+    @Override
+    public void addVEvent(Entry entry) throws IllegalValueException {
+        vEventList.addVEvent(entry);
     }
 }

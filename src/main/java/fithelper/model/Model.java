@@ -1,5 +1,6 @@
 package fithelper.model;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import java.util.function.Predicate;
 
 import fithelper.model.entry.Entry;
@@ -40,6 +41,8 @@ public interface Model {
      * {@code entry} must not already exist in the log book.
      */
     void addEntry(Entry entry);
+
+    void addVEvent(Entry entry) throws IllegalValueException;
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
