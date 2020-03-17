@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ModelManager;
 
 /**
@@ -37,7 +36,7 @@ public class TagsContainsKeywordsPredicate implements Predicate<Person> {
         */
 
         //return keywords.stream()
-                //.anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTagsForPredicate(), keyword));
+        //.anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getTagsForPredicate(), keyword));
         return keywords.stream().anyMatch(keyword -> person.getTagsForPredicate().contains(keyword));
     }
 

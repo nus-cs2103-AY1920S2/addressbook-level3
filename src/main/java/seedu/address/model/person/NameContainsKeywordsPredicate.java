@@ -2,11 +2,8 @@ package seedu.address.model.person;
 
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.ModelManager;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.

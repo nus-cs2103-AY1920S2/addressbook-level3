@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
@@ -10,13 +12,16 @@ import seedu.address.model.person.GroupContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.TagsContainsKeywordsPredicate;
 
-import java.util.logging.Logger;
-
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
+
+    private final GroupContainsKeywordsPredicate groupnamePredicate;
+    private final NameContainsKeywordsPredicate wordPredicate;
+    private final TagsContainsKeywordsPredicate tagPredicate;
+
     // for sarah's use:
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
@@ -32,10 +37,6 @@ public class FindCommand extends Command {
 
     //private final NameContainsKeywordsPredicate predicate;
 
-    private final GroupContainsKeywordsPredicate groupnamePredicate;
-    private final NameContainsKeywordsPredicate wordPredicate;
-    private final TagsContainsKeywordsPredicate tagPredicate;
-
     public FindCommand(GroupContainsKeywordsPredicate groupnamePredicate, NameContainsKeywordsPredicate wordPredicate,
                        TagsContainsKeywordsPredicate tagPredicate) {
         // we split the different keywords into different predicates
@@ -48,11 +49,10 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // NOTE TO SELF may have to update the "updateFilteredPersonList" command to search thru the groupnames and tags respectively
         // when you do it with one person alone it works
         // need to implement a new predicate for each of these!
-        //model.updateFilteredPersonList(wordPredicate); // apply word filter
-        //model.updateFilteredPersonList(groupnamePredicate); // apply groupname filter
+        model.updateFilteredPersonList(wordPredicate); // apply word filter
+        model.updateFilteredPersonList(groupnamePredicate); // apply groupname filter
         model.updateFilteredPersonList(tagPredicate); // tag predicate
 
         return new CommandResult(

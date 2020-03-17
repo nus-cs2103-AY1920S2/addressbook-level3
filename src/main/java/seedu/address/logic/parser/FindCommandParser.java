@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModelManager;
@@ -45,7 +44,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         for (int i = 0; i < nameKeywords.length; i++) {
             if (nameKeywords[i].contains("-g/")) {
                 nameKeywords[i] = nameKeywords[i].substring(3);
-                while (!nameKeywords[i].contains("-n/") && !nameKeywords[i].contains("-t/") && i != nameKeywords.length) {
+                while (!nameKeywords[i].contains("-n/") && !nameKeywords[i].contains("-t/")
+                        && i != nameKeywords.length) {
                     groupnameKeywords.add(nameKeywords[i]);
                     i++;
                     if (i == nameKeywords.length) {
@@ -59,7 +59,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         for (int i = 0; i < nameKeywords.length; i++) {
             if (nameKeywords[i].contains("-n/")) {
                 nameKeywords[i] = nameKeywords[i].substring(3);
-                while (!nameKeywords[i].contains("-g/") && !nameKeywords[i].contains("-t/") && i != nameKeywords.length) {
+                while (!nameKeywords[i].contains("-g/") && !nameKeywords[i].contains("-t/")
+                        && i != nameKeywords.length) {
                     wordKeywords.add(nameKeywords[i]);
                     i++;
                     if (i == nameKeywords.length) {
@@ -73,7 +74,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         for (int i = 0; i < nameKeywords.length; i++) {
             if (nameKeywords[i].contains("-t/")) {
                 nameKeywords[i] = nameKeywords[i].substring(3);
-                while (!nameKeywords[i].contains("-g/") && !nameKeywords[i].contains("-n/") && i != nameKeywords.length) {
+                while (!nameKeywords[i].contains("-g/") && !nameKeywords[i].contains("-n/")
+                        && i != nameKeywords.length) {
                     tagKeywords.add(nameKeywords[i]);
                     i++;
                     if (i == nameKeywords.length) {
@@ -113,7 +115,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             tagKeywordsArray[i] = tagKeywords.get(i);
         }
 
-        GroupContainsKeywordsPredicate groupnamePredicate = new GroupContainsKeywordsPredicate(Arrays.asList(groupnameKeywordsArray));
+        GroupContainsKeywordsPredicate groupnamePredicate
+                = new GroupContainsKeywordsPredicate(Arrays.asList(groupnameKeywordsArray));
         NameContainsKeywordsPredicate wordPredicate = new NameContainsKeywordsPredicate(Arrays.asList(wordKeywordsArray));
         TagsContainsKeywordsPredicate tagPredicate = new TagsContainsKeywordsPredicate(Arrays.asList(tagKeywordsArray));
 
