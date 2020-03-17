@@ -8,6 +8,7 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TIME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.entry.Entry;
@@ -30,7 +31,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "food"
             + PREFIX_NAME + "noodles"
-            + PREFIX_TIME + "2020-03-01-15:30"
+            + PREFIX_TIME + "2020-03-01 15:30"
             + PREFIX_LOCATION + "Utown canteen"
             + PREFIX_CALORIE + "100.5"
             + PREFIX_REMARK + "too expensive";
@@ -49,7 +50,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model) throws CommandException, IllegalValueException {
         requireNonNull(model);
 
         if (model.hasEntry(toAdd)) {
@@ -57,6 +58,7 @@ public class AddCommand extends Command {
         }
 
         model.addEntry(toAdd);
+        model.addVEvent(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

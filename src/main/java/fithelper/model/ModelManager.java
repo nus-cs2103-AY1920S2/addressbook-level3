@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.VeventList;
 
@@ -183,5 +184,10 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<VEvent> getVEvents() {
         return vEventList.getVEvents();
+    }
+
+    @Override
+    public void addVEvent(Entry entry) throws IllegalValueException {
+        vEventList.addVEvent(entry);
     }
 }

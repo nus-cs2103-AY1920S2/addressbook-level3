@@ -70,6 +70,8 @@ dependencies {
     compile group: 'org.jfxtras', name: 'jfxtras-agenda', version: '9.0-r1'
     compile group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '8.0-r6'
     compile group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '10.0-r1'
+
+    compile "com.joestelmach:natty:0.12"
 }
 
 shadowJar {

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
@@ -111,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
      * Handles the user inputs.
      */
     @FXML
-    public void handleUserInput() {
+    public void handleUserInput() throws IllegalValueException {
         String input = userInput.getText();
 
         inputHistory.add(input);
@@ -196,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showCalendarPanel() {
         pagePane.getChildren().clear();
+        calendarPanel.updateScheduler();
         pagePane.getChildren().add(calendarPanel.getRoot());
         currentPage.setText("Calendar");
     }
@@ -234,7 +236,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see fithelper.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    /*private CommandResult executeCommand(String commandText) throws CommandException, IllegalValueException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -248,5 +250,5 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             throw e;
         }
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
 package fithelper.logic;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
@@ -20,7 +21,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    CommandResult execute(String commandText) throws CommandException, IllegalValueException;
 
     /**
      * Returns the FitHelper.

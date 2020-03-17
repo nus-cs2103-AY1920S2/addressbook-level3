@@ -6,10 +6,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import fithelper.commons.exceptions.IllegalValueException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
+
+
 
 /**
  *  A list of VEvents.
@@ -85,5 +89,41 @@ public class VeventList {
         tmp.append("-");
         tmp.append(entry.getDateTime().plusMinutes(30));
         return tmp.toString();
+    }
+
+    /**
+     * Add a new vEvent to the vEvents list.
+     *
+     * @param entry to add to the list after converted to VEvent.
+     */
+    public void addVEvent(Entry entry) throws IllegalValueException {
+        VEvent vEvent = entryToVEvent(entry);
+        requireNonNull(vEvent);
+        if (contains(vEvent)) {
+            throw new IllegalValueException("Duplicated VEvents cannot be added");
+        }
+        vEvents.add(vEvent);
+    }
+
+    /**
+     * Returns true if the list contains an equivalent VEvent as the given argument.
+     */
+    public boolean contains(VEvent event) {
+        requireNonNull(event);
+        return vEvents.stream().anyMatch(vEvent -> equals(vEvent, event));
+    }
+
+    /**
+     * Returns true if the two parameters are equal.
+     */
+    private boolean equals(VEvent vEvent, VEvent event) {
+        boolean isEqual = true;
+        if (!vEvent.getSummary().equals(event.getSummary())
+            || !vEvent.getDateTimeEnd().equals(event.getDateTimeEnd())
+            || !vEvent.getDateTimeStart().equals(event.getDateTimeStart())
+            || !vEvent.getCategories().equals(event.getCategories())) {
+            isEqual = false;
+        }
+        return isEqual;
     }
 }

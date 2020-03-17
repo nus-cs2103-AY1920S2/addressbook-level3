@@ -2,10 +2,13 @@ package fithelper.model;
 
 import java.util.function.Predicate;
 
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.entry.Entry;
 
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
+
+
 
 /**
  * The API of the Model component.
@@ -40,6 +43,8 @@ public interface Model {
      * {@code entry} must not already exist in the log book.
      */
     void addEntry(Entry entry);
+
+    void addVEvent(Entry entry) throws IllegalValueException;
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
