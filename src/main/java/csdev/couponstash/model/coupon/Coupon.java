@@ -36,7 +36,19 @@ public class Coupon {
     private final PureMonetarySavings totalSavings;
 
     /**
+     * Standard constructor for a new Coupon (when
+     * a Coupon is added for the first time, with 0
+     * total savings and no reminder).
      * Every field must be present and not null.
+     * @param name The Name of this Coupon.
+     * @param phone Phone number for this Coupon.
+     * @param savingsForEachUse How much Savings saved
+     *                          when this Coupon is used.
+     * @param expiryDate The ExpiryDate for this Coupon.
+     * @param startDate The StartDate for this Coupon.
+     * @param usage The Usage for this Coupon.
+     * @param limit The usage Limit for this Coupon.
+     * @param tags The List of tags for this Coupon.
      */
     public Coupon(Name name, Phone phone, Savings savingsForEachUse, ExpiryDate expiryDate, StartDate startDate,
                   Usage usage, Limit limit, Set<Tag> tags) {
@@ -46,7 +58,7 @@ public class Coupon {
     }
 
     /**
-     * Constructor for a Coupon, given the required fields.
+     * Constructor for a Coupon, given every required field.
      * Each field should not be null, otherwise a
      * NullPointerException will be thrown!
      * @param name The Name of this Coupon.
@@ -63,7 +75,7 @@ public class Coupon {
      * @param remind Remind representing a reminder for
      *               this Coupon.
      */
-    private Coupon(
+    public Coupon(
             Name name,
             Phone phone,
             Savings savingsForEachUse,
