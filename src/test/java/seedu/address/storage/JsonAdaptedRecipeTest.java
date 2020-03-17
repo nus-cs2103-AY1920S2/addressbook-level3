@@ -31,6 +31,8 @@ public class JsonAdaptedRecipeTest {
     private static final List<JsonAdaptedGoal> VALID_GOALS = GRILLED_SANDWICH.getGoals().stream()
             .map(JsonAdaptedGoal::new)
             .collect(Collectors.toList());
+    private static final List<JsonAdaptedStep> INVALID_STEPS = new ArrayList<>(VALID_STEP);
+    private static final List<JsonAdaptedGoal> INVALID_GOALS = new ArrayList<>(VALID_GOALS);
 
     @Test
     public void toModelType_validRecipeDetails_returnsRecipe() throws Exception {
@@ -70,10 +72,9 @@ public class JsonAdaptedRecipeTest {
 
     @Test
     public void toModelType_invalidStep_throwsIllegalValueException() {
-        List<JsonAdaptedStep> invalidSteps = new ArrayList<>(VALID_STEP);
-        invalidSteps.add(new JsonAdaptedStep(INVALID_STEP));
+        INVALID_STEPS.add(new JsonAdaptedStep(INVALID_STEP));
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, invalidSteps, VALID_GOALS);
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, INVALID_STEPS, VALID_GOALS);
         String expectedMessage = Step.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
     }
@@ -87,10 +88,9 @@ public class JsonAdaptedRecipeTest {
 
     @Test
     public void toModelType_invalidGoals_throwsIllegalValueException() {
-        List<JsonAdaptedGoal> invalidGoals = new ArrayList<>(VALID_GOALS);
-        invalidGoals.add(new JsonAdaptedGoal(INVALID_GOAL));
+        INVALID_GOALS.add(new JsonAdaptedGoal(INVALID_GOAL));
         JsonAdaptedRecipe recipe =
-                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, VALID_STEP, invalidGoals);
+                new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, VALID_INGREDIENTS, VALID_STEP, INVALID_GOALS);
         assertThrows(IllegalValueException.class, recipe::toModelType);
     }
 
