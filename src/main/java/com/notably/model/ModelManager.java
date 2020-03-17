@@ -167,8 +167,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Property<Optional<String>> commandTextProperty() {
-        return suggestionModel.commandTextProperty();
+    public Property<Optional<String>> getCommandTextProperty() {
+        return suggestionModel.getCommandTextProperty();
     }
 
     @Override
