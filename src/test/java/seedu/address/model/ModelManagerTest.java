@@ -94,7 +94,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasOrder_OrderInOrderBook_returnsTrue() {
+    public void hasOrder_orderInOrderBook_returnsTrue() {
         modelManager.addOrder(ALICE);
         assertTrue(modelManager.hasOrder(ALICE));
 

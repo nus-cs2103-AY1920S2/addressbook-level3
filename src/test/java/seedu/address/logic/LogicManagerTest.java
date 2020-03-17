@@ -56,18 +56,18 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getOrderBook_returnCorrectOrderBook_Success() {
+    public void getOrderBook_returnCorrectOrderBook_success() {
         assertEquals(new OrderBook(), logic.getOrderBook());
         assertEquals(new OrderBook(), logic.getReturnOrderBook());
     }
 
     @Test
-    public void getOrderBookPath_returnDeliveryOrderBookPath_Success() {
+    public void getOrderBookPath_returnDeliveryOrderBookPath_success() {
         assertEquals(new UserPrefs().getOrderBookFilePath(), logic.getOrderBookFilePath());
     }
 
     @Test
-    public void getReturnOrderBookPath_returnReturnOrderBookPath_Success() {
+    public void getReturnOrderBookPath_returnReturnOrderBookPath_success() {
         assertEquals(new UserPrefs().getReturnOrderBookFilePath(), logic.getReturnOrderBookFilePath());
     }
 

@@ -25,9 +25,9 @@ public class JsonSerializableDeliveryOrderBookTest {
     public void toModelType_typicalOrdersFile_success() throws Exception {
         JsonSerializableDeliveryOrderBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_ORDER_FILE,
                 JsonSerializableDeliveryOrderBook.class).get();
-        OrderBook DeliveryOrderBookFromFile = dataFromFile.toModelType();
+        OrderBook deliveryOrderBookFromFile = dataFromFile.toModelType();
         OrderBook typicalDeliveryOrderBook = TypicalOrders.getTypicalOrderBook();
-        assertEquals(DeliveryOrderBookFromFile, typicalDeliveryOrderBook);
+        assertEquals(deliveryOrderBookFromFile, typicalDeliveryOrderBook);
     }
 
     @Test

@@ -62,8 +62,9 @@ public class JsonOrderBookStorageTest {
     @Test
     public void readOrderBook_invalidOrderDeliveryOrderBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, () -> readOrderBook("invalidOrderDeliveryOrderBook.json"));
-        assertThrows(DataConversionException.class,
-                () -> readReturnOrderBook("invalidOrderReturnOrderBook.json"));
+        assertThrows(DataConversionException.class, () ->
+                readReturnOrderBook("invalidOrderReturnOrderBook.json")
+        );
     }
 
     @Test

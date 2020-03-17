@@ -37,9 +37,9 @@ public interface Storage extends OrderBookStorage, UserPrefsStorage {
 
     Optional<ReadOnlyOrderBook> readReturnOrderBook() throws DataConversionException, IOException;
 
+    Optional<ReadOnlyOrderBook> readReturnOrderBook(Path filePath) throws DataConversionException, IOException;
+
     void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook) throws IOException;
 
     void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook, Path filePath) throws IOException;
-
-    Optional<ReadOnlyOrderBook> readReturnOrderBook(Path filePath) throws DataConversionException, IOException;
 }
