@@ -70,6 +70,6 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     @Override
     public int compareTo(Ingredient other) {
-        return ingredientName.compareTo(other.ingredientName);
+        return ingredientName.compareTo(other.ingredientName); // ingredients are sorted alphabetically
     }
 }
