@@ -13,23 +13,23 @@ import seedu.address.model.exercise.Exercise;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class ExerciseListPanel extends UiPart<Region> {
+    private static final String FXML = "ExerciseListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ExerciseListPanel.class);
 
     @FXML
     private ListView<Exercise> personListView;
 
-    public PersonListPanel(ObservableList<Exercise> exerciseList) {
+    public ExerciseListPanel(ObservableList<Exercise> exerciseList) {
         super(FXML);
         personListView.setItems(exerciseList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new ExerciseListViewCell());
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Exercise} using a {@code ExerciseCard}.
      */
-    class PersonListViewCell extends ListCell<Exercise> {
+    class ExerciseListViewCell extends ListCell<Exercise> {
         @Override
         protected void updateItem(Exercise exercise, boolean empty) {
             super.updateItem(exercise, empty);
