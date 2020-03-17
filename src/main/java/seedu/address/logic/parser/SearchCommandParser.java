@@ -91,13 +91,16 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     }
 
     /**
-     * Add keywords tagged to the {@param prefix} given by the user to a list.
-     * Returns a list with all the keywords tagged to the {@param prefix} appended to the given list in
+     * Add keywords tagged to the prefix given by the user to a list.
+     * Returns a list with all the keywords tagged to the prefix appended to the given list in
      * {@param givenListOfString}.
-     *
+     * @param givenListOfString Existing list of keywords.
+     * @param argumentMultimap An {@code ArgumentMultimap} object.
+     * @param prefix Keywords of this prefix will be added into the output list.
+     * @return A list of string of the updated keywords.
      */
-    private static List<String> addPrefixKeywordsToList(List<String> givenListOfString, ArgumentMultimap argumentMultimap,
-                                                        Prefix prefix) {
+    private static List<String> addPrefixKeywordsToList(List<String> givenListOfString,
+                                                        ArgumentMultimap argumentMultimap, Prefix prefix) {
         List<String> copyKeywordsList = givenListOfString;
         List<String> currentPrefixListOfKeywords = (argumentMultimap.getAllValues(prefix));
         currentPrefixListOfKeywords

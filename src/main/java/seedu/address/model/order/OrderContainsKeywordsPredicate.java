@@ -23,8 +23,9 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
         this.keywords = keywords;
     }
 
-    public OrderContainsKeywordsPredicate(List<String> keywords, boolean hasName, boolean hasAddress, boolean hasComment,
-                                          boolean hasPhone, boolean hasTimeStamp, boolean hasWarehouse) {
+    public OrderContainsKeywordsPredicate(List<String> keywords, boolean hasName, boolean hasAddress,
+                                          boolean hasComment, boolean hasPhone, boolean hasTimeStamp,
+                                          boolean hasWarehouse) {
         this.keywords = keywords;
         this.hasName = hasName;
         this.hasAddress = hasAddress;
@@ -49,13 +50,13 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
                 );
         }
         return keywords.stream()
-            .anyMatch(keyword ->
-                    (hasName && StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword))
-                        || (hasAddress && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
-                        || (hasComment && StringUtil.containsWordIgnoreCase(order.getComment().commentMade, keyword))
-                        || (hasPhone && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
-                        || (hasTimeStamp && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
-                        || (hasWarehouse && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
+            .anyMatch(keyword -> (
+                hasName && StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword))
+                || (hasAddress && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
+                || (hasComment && StringUtil.containsWordIgnoreCase(order.getComment().commentMade, keyword))
+                || (hasPhone && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
+                || (hasTimeStamp && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
+                || (hasWarehouse && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
             );
     }
 
