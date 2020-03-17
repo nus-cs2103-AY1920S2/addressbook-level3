@@ -115,9 +115,10 @@ public class FindCommandParser implements Parser<FindCommand> {
             tagKeywordsArray[i] = tagKeywords.get(i);
         }
 
-        GroupContainsKeywordsPredicate groupnamePredicate
-                = new GroupContainsKeywordsPredicate(Arrays.asList(groupnameKeywordsArray));
-        NameContainsKeywordsPredicate wordPredicate = new NameContainsKeywordsPredicate(Arrays.asList(wordKeywordsArray));
+        GroupContainsKeywordsPredicate groupnamePredicate =
+                new GroupContainsKeywordsPredicate(Arrays.asList(groupnameKeywordsArray));
+        NameContainsKeywordsPredicate wordPredicate =
+                new NameContainsKeywordsPredicate(Arrays.asList(wordKeywordsArray));
         TagsContainsKeywordsPredicate tagPredicate = new TagsContainsKeywordsPredicate(Arrays.asList(tagKeywordsArray));
 
         //return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));

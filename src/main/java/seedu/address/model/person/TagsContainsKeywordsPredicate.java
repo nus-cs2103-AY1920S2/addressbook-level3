@@ -11,10 +11,10 @@ import seedu.address.model.ModelManager;
  * Tests that a {@code Person}'s {@code Tag}s matches any of the keywords given.
  */
 public class TagsContainsKeywordsPredicate implements Predicate<Person> {
-    private final List<String> keywords;
-
     // for sarah's use
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private final List<String> keywords;
 
     public TagsContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;

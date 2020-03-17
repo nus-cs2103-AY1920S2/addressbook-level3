@@ -18,13 +18,6 @@ import seedu.address.model.person.TagsContainsKeywordsPredicate;
  */
 public class FindCommand extends Command {
 
-    private final GroupContainsKeywordsPredicate groupnamePredicate;
-    private final NameContainsKeywordsPredicate wordPredicate;
-    private final TagsContainsKeywordsPredicate tagPredicate;
-
-    // for sarah's use:
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
     public static final String COMMAND_WORD = "(ab)find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
@@ -34,6 +27,13 @@ public class FindCommand extends Command {
 
     public static final String FIND_SUCCESSFUL = "We found the following contacts: ";
     public static final String FIND_UNSUCCESSFUL = "No contacts were found with the keyword(s) specified.";
+
+    // for sarah's use:
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    
+    private final GroupContainsKeywordsPredicate groupnamePredicate;
+    private final NameContainsKeywordsPredicate wordPredicate;
+    private final TagsContainsKeywordsPredicate tagPredicate;
 
     //private final NameContainsKeywordsPredicate predicate;
 
