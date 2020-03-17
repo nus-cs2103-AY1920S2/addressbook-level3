@@ -1,0 +1,33 @@
+{
+  "recipes" : [ {
+    "name" : "Chicken Rice",
+    "time" : "15",
+    "ingredients" : [ ],
+    "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Duck Brown Rice",
+    "time" : "20",
+    "ingredients" : [ ],
+    "steps" : [ "Braise the duck and eggs", "Steam brown rice with herbs", "Serve while hot" ],
+    "goals" : [ "Wholesome Wholegrains", "Bulk like the Hulk" ]
+  }, {
+    "name" : "Final Recipe",
+    "time" : "33",
+    "ingredients" : [ ],
+    "steps" : [ "No empty steps allowed" ],
+    "goals" : [ "Test" ]
+  }, {
+    "name" : "Raisin Bread",
+    "time" : "30",
+    "ingredients" : [ ],
+    "steps" : [ "Knead dough and mix in raisins", "Preheat oven to 180 degrees", "Bake for 30mins" ],
+    "goals" : [ "Wholesome Wholegrains" ]
+  }, {
+    "name" : "Test for super long steps",
+    "time" : "17",
+    "ingredients" : [ ],
+    "steps" : [ "This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 1111111111111111111111 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 2222222222222222222222222 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 333333333333333333333333 This is a super long step This is a super long step This is a super long step This is a super long step 44444444444444This is a super long step This is a super long step This is a super long step END OF STEP" ],
+    "goals" : [ "Herbivore" ]
+  } ]
+}
