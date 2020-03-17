@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalRecipes.EGGS_ON_TOAST;
+import static seedu.address.testutil.TypicalRecipes.HAM_SANDWICH;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -61,47 +61,47 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setRecipeBookFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setRecipeBookFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setRecipeBookFilePath_validPath_setsRecipeBookFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setRecipeBookFilePath(path);
         assertEquals(path, modelManager.getRecipeBookFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasRecipe_nullRecipe_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasRecipe(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasRecipe(ALICE));
+    public void hasRecipe_recipeNotInRecipeBook_returnsFalse() {
+        assertFalse(modelManager.hasRecipe(HAM_SANDWICH));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addRecipe(ALICE);
-        assertTrue(modelManager.hasRecipe(ALICE));
+    public void hasRecipe_recipeInRecipeBook_returnsTrue() {
+        modelManager.addRecipe(HAM_SANDWICH);
+        assertTrue(modelManager.hasRecipe(HAM_SANDWICH));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredRecipeList().remove(0));
     }
 
     @Test
     public void equals() {
-        RecipeBook addressBook = new RecipeBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        RecipeBook recipeBook = new RecipeBookBuilder().withRecipe(HAM_SANDWICH).withRecipe(EGGS_ON_TOAST).build();
         RecipeBook differentAddressBook = new RecipeBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(recipeBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(recipeBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,13 +113,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different recipeBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().name.split("\\s+");
+        String[] keywords = HAM_SANDWICH.getName().name.split("\\s+");
         modelManager.updateFilteredRecipeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
@@ -127,6 +127,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(recipeBook, differentUserPrefs)));
     }
 }
