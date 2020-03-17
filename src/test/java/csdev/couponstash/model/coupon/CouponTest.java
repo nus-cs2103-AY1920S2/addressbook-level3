@@ -86,7 +86,7 @@ public class CouponTest {
         // different limit -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withLimit(CommandTestUtil.VALID_LIMIT_BOB).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
-      
+        
         // different expiry date -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withExpiryDate(CommandTestUtil.VALID_EXPIRY_DATE_BOB)
                 .build();
