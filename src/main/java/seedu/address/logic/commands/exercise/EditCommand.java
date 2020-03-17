@@ -7,11 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
+// import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.address.commons.core.Messages;
+// import seedu.address.commons.core.Messages;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
@@ -19,9 +20,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.ExerciseSet;
 import seedu.address.model.exercise.Name;
 import seedu.address.model.exercise.NumReps;
-import seedu.address.model.exercise.ExerciseSet;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -86,12 +87,17 @@ public class EditCommand extends Command {
      * Creates and returns an {@code Exercise} with the details of {@code exerciseToEdit}
      * edited with {@code editExerciseDescriptor}.
      */
-    private static Exercise createEditedExercise(Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
+    private static Exercise createEditedExercise(Exercise exerciseToEdit,
+            EditExerciseDescriptor editExerciseDescriptor) {
         assert exerciseToEdit != null;
 
         // Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
-        // NumReps updatedNumReps = editExerciseDescriptor.getNumReps().orElse(exerciseToEdit.getNumReps());
-        // ExerciseSet updatedExerciseSet = editExerciseDescriptor.getExerciseSet().orElse(exerciseToEdit.getExerciseSet());
+        // NumReps updatedNumReps = editExerciseDescriptor
+            // .getNumReps()
+            // .orElse(exerciseToEdit.getNumReps());
+        // ExerciseSet updatedExerciseSet = editExerciseDescriptor
+            // .getExerciseSet()
+            // .orElse(exerciseToEdit.getExerciseSet());
         // Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
 
         Name updatedName = new Name("placeholder");

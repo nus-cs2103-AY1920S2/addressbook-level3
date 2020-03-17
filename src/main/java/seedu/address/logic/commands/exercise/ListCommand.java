@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
+// import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
