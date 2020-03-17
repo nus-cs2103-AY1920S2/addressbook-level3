@@ -29,6 +29,12 @@ public class Deadline {
         }
     }
 
+    public Deadline(String description) {
+        this.description = description;
+        this.date = null;
+        this.time = null;
+    }
+
     public String getDescription() {
         return description;
     }
