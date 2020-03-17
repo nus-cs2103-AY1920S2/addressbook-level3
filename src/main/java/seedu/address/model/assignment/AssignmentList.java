@@ -1,8 +1,6 @@
 package seedu.address.model.assignment;
 
-
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,8 +11,11 @@ public class AssignmentList {
        this.assignments = new ArrayList<Assignment>();
     }
 
-    public void setAssignments(List<Assignment> assignments) {
+    public void setAssignments(ArrayList<Assignment> replacement) {
+        requireNonNull(replacement);
+        assignments.addAll(replacement);
 
+        System.out.println(assignments.get(0));
     }
 
     /**
@@ -23,8 +24,6 @@ public class AssignmentList {
     public void add(Assignment toAdd) {
         requireNonNull(toAdd);
         assignments.add(toAdd);
-
-        System.out.println("Successfully added");
     }
 
     /**
@@ -33,5 +32,12 @@ public class AssignmentList {
     public boolean contains(Assignment toCheck) {
         requireNonNull(toCheck);
         return assignments.stream().anyMatch(toCheck::isSameAssignment);
+    }
+
+    /**
+     * Returns assignment list.
+     */
+    public ArrayList<Assignment> getAssignments() {
+        return assignments;
     }
 }

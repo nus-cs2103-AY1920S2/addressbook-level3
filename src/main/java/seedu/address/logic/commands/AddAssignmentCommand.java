@@ -51,4 +51,9 @@ public class AddAssignmentCommand extends Command {
         model.addAssignment(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
+    }
 }

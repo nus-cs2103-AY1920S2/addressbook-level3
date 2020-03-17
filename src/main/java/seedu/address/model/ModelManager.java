@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,25 +21,27 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final Scheduler scheduler;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyScheduler scheduler, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, scheduler, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
+        this.scheduler = new Scheduler(scheduler);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new Scheduler(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -110,6 +113,32 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    //========== Schoolwork Tracker ==========================================================================
+    @Override
+    public void setScheduler(ReadOnlyScheduler scheduler) {
+        this.scheduler.resetData(scheduler);
+    }
+
+    @Override
+    public ReadOnlyScheduler getScheduler() {
+        return scheduler;
+    }
+
+    @Override
+    public void addAssignment(Assignment assignment) {
+        scheduler.addAssignment(assignment);
+    }
+
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return scheduler.hasAssignment(assignment);
+    }
+
+    @Override
+    public ReadOnlyScheduler getAssignmentList() {
+        return scheduler;
     }
 
     //=========== Filtered Person List Accessors =============================================================

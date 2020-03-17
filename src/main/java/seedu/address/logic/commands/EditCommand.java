@@ -240,6 +240,10 @@ public class EditCommand extends Command {
                     && getBirthday().equals(e.getBirthday())
                     && getTags().equals(e.getTags());
         }
+    }
 
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
     }
 }

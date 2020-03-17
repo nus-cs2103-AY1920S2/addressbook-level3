@@ -44,4 +44,9 @@ public class Title {
                 || (other instanceof Title // instanceof handles nulls
                 && title.equals(((Title) other).title)); // state check
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

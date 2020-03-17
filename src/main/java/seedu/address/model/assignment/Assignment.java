@@ -27,8 +27,27 @@ public class Assignment {
         this.title = title;
         this.deadline = deadline;
         this.estHours = estHours;
-        this.status = new Status("X");
+        this.status = new Status("Not completed");
     }
+
+    /**
+     * Constructor to be used when loading saved assignments.
+     * Every field must be present and not null.
+     *
+     * @param title The description of the assignment to be completed.
+     * @param deadline The deadline by when the assignment needs to be completed.
+     * @param estHours The estimated hours required to complete the assignment.
+     * @param status The status of the assignment.
+     */
+    public Assignment(Title title, Deadline deadline, Workload estHours, Status status) {
+        requireAllNonNull(title, deadline, estHours);
+        this.title = title;
+        this.deadline = deadline;
+        this.estHours = estHours;
+        this.status = status;
+    }
+
+
 
     public Title getTitle() {
         return title;
@@ -55,7 +74,7 @@ public class Assignment {
                 .append(getDeadline())
                 .append("\nEstimated work hours: ")
                 .append(getWorkload())
-                .append("Status: ")
+                .append("\nStatus: ")
                 .append(getStatus())
                 .append("\n");
         return builder.toString();
