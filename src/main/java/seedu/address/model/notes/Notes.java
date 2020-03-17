@@ -48,7 +48,7 @@ public class Notes {
     }
 
     public static ObservableList<Notes> getAllFilesInFolder(String path) {
-        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        String pathName = HOME_DIRECTORY + File.separatorChar + path;
 
         File myFile = new File(pathName);
         ArrayList<Notes> filesArrayList = new ArrayList<>();
