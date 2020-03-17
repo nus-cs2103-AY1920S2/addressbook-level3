@@ -59,7 +59,7 @@ public class HelpCommand extends Command {
         commands.add("7. " + DeleteInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("8. " + ClearCommand.MESSAGE_USAGE + "\n");
         commands.add("9. " + FindCommand.MESSAGE_USAGE + "\n");
-        commands.add("10. " + ExitCommand.MESSAGE_USAGE  + "\n");
+        commands.add("10. " + ExitCommand.MESSAGE_USAGE + "\n");
         commands.add("11. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;

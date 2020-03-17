@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HELP;
 
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new {@code AddInfoCommand} object
