@@ -60,10 +60,14 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         Optional<Set<Ingredient>> optionalIngredients = Optional.empty();
-        optionalIngredients = parseGrainsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN), optionalIngredients);
-        optionalIngredients = parseVegetablesForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE), optionalIngredients);
-        optionalIngredients = parseProteinsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN), optionalIngredients);
-        optionalIngredients = parseOthersForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER), optionalIngredients);
+        optionalIngredients = parseGrainsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN),
+                optionalIngredients);
+        optionalIngredients = parseVegetablesForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE),
+                optionalIngredients);
+        optionalIngredients = parseProteinsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN),
+                optionalIngredients);
+        optionalIngredients = parseOthersForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER),
+                optionalIngredients);
 
         optionalIngredients.ifPresent(editRecipeDescriptor::setIngredients);
 
@@ -83,7 +87,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code grains} contain only one element which is an empty string, no additional ingredient will be
      * added into the {@code Set<Ingredient>} .
      */
-    private Optional<Set<Ingredient>> parseGrainsForEdit(Collection<String> grains, Optional<Set<Ingredient>> ingredientSet)
+    private Optional<Set<Ingredient>> parseGrainsForEdit(Collection<String> grains,
+                                                         Optional<Set<Ingredient>> ingredientSet)
             throws ParseException {
         assert grains != null;
 
@@ -103,10 +108,11 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Parses and adds the {@code Collection<String> vegetables} into the {@code Set<Ingredient>}
      * If {@code vegetables} contain only one element which is an empty string, no additional ingredient will be
-     * added into the {@code Set<Ingredient>} .
+     * added into the {@code Set<Ingredient>}.
      */
-    private Optional<Set<Ingredient>> parseVegetablesForEdit(Collection<String> vegetables
-            , Optional<Set<Ingredient>> ingredientSet) throws ParseException {
+    private Optional<Set<Ingredient>> parseVegetablesForEdit(Collection<String> vegetables,
+                                                             Optional<Set<Ingredient>> ingredientSet)
+            throws ParseException {
         assert vegetables != null;
 
         if (vegetables.isEmpty()) {
@@ -128,7 +134,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code proteins} contain only one element which is an empty string, no additional ingredient will be
      * added into the {@code Set<Ingredient>} .
      */
-    private Optional<Set<Ingredient>> parseProteinsForEdit(Collection<String> proteins, Optional<Set<Ingredient>> ingredientSet)
+    private Optional<Set<Ingredient>> parseProteinsForEdit(Collection<String> proteins,
+                                                           Optional<Set<Ingredient>> ingredientSet)
             throws ParseException {
         assert proteins != null;
 
@@ -136,7 +143,9 @@ public class EditCommandParser implements Parser<EditCommand> {
             return ingredientSet;
         }
 
-        Collection<String> proteinSet = proteins.size() == 1 && proteins.contains("") ? Collections.emptySet() : proteins;
+        Collection<String> proteinSet = proteins.size() == 1 && proteins.contains("")
+                ? Collections.emptySet()
+                : proteins;
 
         if (ingredientSet.isPresent()) {
             return Optional.of(ParserUtil.parseGrains(proteinSet, ingredientSet.get()));
@@ -150,7 +159,8 @@ public class EditCommandParser implements Parser<EditCommand> {
      * If {@code others} contain only one element which is an empty string, no additional ingredient will be
      * added into the {@code Set<Ingredient>} .
      */
-    private Optional<Set<Ingredient>> parseOthersForEdit(Collection<String> others, Optional<Set<Ingredient>> ingredientSet)
+    private Optional<Set<Ingredient>> parseOthersForEdit(Collection<String> others,
+                                                         Optional<Set<Ingredient>> ingredientSet)
             throws ParseException {
         assert others != null;
 
@@ -164,7 +174,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         } else {
             return Optional.of(ParserUtil.parseGrains(otherSet, null));
         }
-        }
+    }
 
     /**
      * Parses {@code Collection<String> goals} into a {@code Set<Goal>} if {@code goals} is non-empty.
