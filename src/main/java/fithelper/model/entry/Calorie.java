@@ -15,7 +15,7 @@ public class Calorie {
     public final double value;
 
     /**
-     * Constructs an {@code Type}.
+     * Constructs an {@code Calorie}.
      *
      * @param calorie A valid calorie of entry.
      */

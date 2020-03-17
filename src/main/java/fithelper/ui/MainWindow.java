@@ -183,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showDashBoard() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(dashBoard.getRoot());
-        currentPage.setText("Today");
+        currentPage.setText("Home");
     }
 
     private void showHelpPage() {
