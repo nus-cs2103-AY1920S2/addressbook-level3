@@ -1,4 +1,4 @@
-package NASA.model.activity;
+package nasa.model.activity;
 
 /**
  * Represents Event method in Nasa Book.

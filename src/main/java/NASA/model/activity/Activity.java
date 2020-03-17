@@ -1,4 +1,4 @@
-package NASA.model.activity;
+package nasa.model.activity;
 
 import java.time.LocalDateTime;
 
@@ -9,15 +9,15 @@ public abstract class Activity {
 
     private Name name;
 
-    private Date date;
+    private NASA.model.activity.Date date;
 
-    private Note note;
+    private NASA.model.activity.Note note;
 
     private boolean isDone;
 
-    private Status status;
+    private NASA.model.activity.Status status;
 
-    private Priority priority;
+    private NASA.model.activity.Priority priority;
 
     /**
      * Constructs a {@code activity}
@@ -39,7 +39,7 @@ public abstract class Activity {
      * Retrieve the name of the activity.
      * @return String name
      */
-    public Name getName() {
+    public NASA.model.activity.Name getName() {
         return name;
     }
 
@@ -48,7 +48,7 @@ public abstract class Activity {
      * Used for editing activities.
      * @param name of the activity
      */
-    public void setName(Name name) {
+    public void setName(NASA.model.activity.Name name) {
         this.name = name;
     }
 
@@ -56,7 +56,7 @@ public abstract class Activity {
      * Retrieve the date of the activity.
      * @return Date object representing when it is going to occur
      */
-    public Date getDate() {
+    public NASA.model.activity.Date getDate() {
         return date;
     }
 
@@ -65,7 +65,7 @@ public abstract class Activity {
      * Used for editing activities.
      * @param date of the activity
      */
-    public void setDate(Date date) {
+    public void setDate(NASA.model.activity.Date date) {
         this.date = date;
     }
 
@@ -123,8 +123,8 @@ public abstract class Activity {
     }
 
     public void updateStatus() {
-        if (status == Status.ONGOING && LocalDateTime.now().isAfter(date.getDate())) {
-            status = Status.LATE;
+        if (status == NASA.model.activity.Status.ONGOING && LocalDateTime.now().isAfter(date.getDate())) {
+            status = NASA.model.activity.Status.LATE;
         }
     }
 
@@ -133,7 +133,7 @@ public abstract class Activity {
      * @return boolean, true means late, false means not
      */
     public boolean isLate() {
-        return status == Status.LATE;
+        return status == NASA.model.activity.Status.LATE;
     }
 
     /**

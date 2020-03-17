@@ -1,4 +1,4 @@
-package NASA.model;
+package nasa.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -17,7 +17,7 @@ import NASA.model.activity.Activity;
 /**
  * Represents the in-memory model of the address book data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements NASA.model.Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final NasaBook nasaBook;

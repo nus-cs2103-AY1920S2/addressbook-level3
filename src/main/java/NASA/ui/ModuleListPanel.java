@@ -39,9 +39,9 @@ public class ModuleListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
-
             //Fit modules to screen
             prefWidthProperty().bind(moduleListView.widthProperty().divide(moduleListView.getItems().size()));
+            //minWidthProperty().set(200);
             //setMaxWidth(Control.USE_PREF_SIZE);
 
             if (empty || module == null) {

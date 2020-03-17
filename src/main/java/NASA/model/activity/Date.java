@@ -1,4 +1,4 @@
-package NASA.model.activity;
+package nasa.model.activity;
 
 import static java.util.Objects.requireNonNull;
 import static NASA.commons.util.AppUtil.checkArgument;
