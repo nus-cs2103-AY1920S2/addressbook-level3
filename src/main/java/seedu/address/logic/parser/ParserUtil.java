@@ -2,23 +2,21 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.good.Good;
+import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.offer.Offer;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -114,7 +112,7 @@ public class ParserUtil {
             throw new ParseException(Offer.MESSAGE_CONSTRAINTS);
         }
 
-        String goodPricePair[] = splitOnLastWhitespace(trimmedOffer);
+        String[] goodPricePair = splitOnLastWhitespace(trimmedOffer);
 
         String goodString = goodPricePair[0];
         String priceString = goodPricePair[1];
@@ -168,14 +166,15 @@ public class ParserUtil {
 
     /**
      * Returns a {@code String} array as if {@code String.split()} is called only on its last whitespace.
-     * Assumes: the {@code String} is already stripped of trailing and leading whitespaces, and contains at least one whitespace.
+     * Assumes: the {@code String} is already stripped of trailing and leading whitespaces,
+     * and contains at least one whitespace.
      *
      * @param string the {@code String} to be split
      * @return the {@code String} array containing the split result
      */
     public static String[] splitOnLastWhitespace(String string) {
-        String words[] = string.split(" ");
-        String result[] = new String[2];
+        String[] words = string.split(" ");
+        String[] result = new String[2];
 
         result[0] = String.join(" ", Arrays.copyOfRange(words, 0, words.length - 1));
         result[1] = words[words.length - 1];
@@ -192,7 +191,7 @@ public class ParserUtil {
      * @return an {@code Object} array containing the {@code Good} and {@code Price}
      */
     public static Object[] getGoodPricePair(String[] goodAndPrice) {
-        Object result[] = new Object[2];
+        Object[] result = new Object[2];
         result[0] = new Good(goodAndPrice[0]);
         result[1] = new Price(goodAndPrice[1]);
         return result;

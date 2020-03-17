@@ -3,8 +3,11 @@ package seedu.address.model.offer;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a price for a {@code Good} in buying or selling of goods.
+ * Guarantees: immutable; is valid as declared in {@link #isValidPrice(String)}
+ */
 public class Price {
-    final long centValue;
 
     public static final String MESSAGE_CONSTRAINTS = "Price should only be\n"
             + "1. a positive number with\n"
@@ -12,6 +15,8 @@ public class Price {
             + "3. at most 10 digits before the decimal point and\n"
             + "4. no special characters, including the dollar sign.";
     public static final String VALIDATION_REGEX = "^\\d{1,10}(\\.(\\d{0,2})?)?$";
+
+    final long centValue;
 
     /**
      * Constructs a {@code Price}
@@ -34,6 +39,10 @@ public class Price {
         return Math.round(dollarValue * 100);
     }
 
+    /**
+     * Returns the value of the price in cents for accurate calculations.
+     * @return
+     */
     public long getCentValue() {
         return centValue;
     }

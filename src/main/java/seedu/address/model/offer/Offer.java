@@ -1,17 +1,21 @@
 package seedu.address.model.offer;
 
-import seedu.address.model.good.Good;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.good.Good;
+
+/**
+ * Represents an offer given by a supplier for supplying a certain good at a certain price.
+ */
 public class Offer {
+
+    public static final String MESSAGE_CONSTRAINTS = "Offer must consist of a valid good name and a valid price, "
+            + "separated by a whitespace";
 
     private final Good good;
     private final Price price;
-
-    public static final String MESSAGE_CONSTRAINTS = "Offer must consist of a valid good name and a valid price, separated by a whitespace";
 
     /**
      * Constructs an {@code Offer}.

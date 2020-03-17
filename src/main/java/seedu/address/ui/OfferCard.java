@@ -1,13 +1,16 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import seedu.address.model.offer.Offer;
 
-import java.io.IOException;
-
+/**
+ * A box containing the details of an offer.
+ */
 public class OfferCard extends VBox {
 
     private static final String FXML = "/view/OfferCard.fxml";
