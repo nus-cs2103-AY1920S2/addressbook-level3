@@ -3,10 +3,12 @@ package csdev.couponstash.logic;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX;
 import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.LIMIT_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.SAVINGS_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.START_DATE_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.USAGE_DESC_AMY;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static csdev.couponstash.testutil.TypicalCoupons.AMY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,7 +83,7 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + SAVINGS_DESC_AMY
-                + EXPIRY_DATE_DESC_AMY + START_DATE_DESC_AMY;
+                + EXPIRY_DATE_DESC_AMY + START_DATE_DESC_AMY + USAGE_DESC_AMY + LIMIT_DESC_AMY;
         Coupon expectedCoupon = new CouponBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addCoupon(expectedCoupon);

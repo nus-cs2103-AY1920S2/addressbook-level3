@@ -75,9 +75,19 @@ public class AddCommandParserTest {
                 new AddCommand(expectedCoupon));
 
         // multiple savings monetary amount - last one accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
-                + SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + USAGE_DESC_BOB
-                + LIMIT_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB_TWO_MONETARY_AMOUNT
+                + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + USAGE_DESC_BOB + LIMIT_DESC_BOB + TAG_DESC_FRIEND,
+                new AddCommand(expectedCoupon));
+
+        // multiple usages - last usage accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB
+                + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + USAGE_DESC_AMY + USAGE_DESC_BOB + LIMIT_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
+
+        // multiple limits - last limit accepted
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB
+                + EXPIRY_DATE_DESC_BOB + START_DATE_DESC_BOB + USAGE_DESC_BOB + LIMIT_DESC_AMY + LIMIT_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedCoupon));
 
         // multiple tags - all accepted
         Coupon expectedCouponMultipleTags = new CouponBuilder(TypicalCoupons.BOB)
@@ -96,11 +106,23 @@ public class AddCommandParserTest {
                         + EXPIRY_DATE_DESC_AMY + START_DATE_DESC_AMY + USAGE_DESC_AMY + LIMIT_DESC_AMY,
                 new AddCommand(expectedCoupon));
 
-        //No Start Date
+        // no start date
         Coupon expectedCouponNoStartDate = new CouponBuilder(TypicalCoupons.AMY).withStartDate().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + SAVINGS_DESC_AMY
                         + EXPIRY_DATE_DESC_AMY + USAGE_DESC_AMY + LIMIT_DESC_AMY + TAG_DESC_FRIEND,
                 new AddCommand(expectedCouponNoStartDate));
+
+        // no usages
+        Coupon expectedCouponNoUsages = new CouponBuilder(TypicalCoupons.AMY).build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + SAVINGS_DESC_AMY
+                        + EXPIRY_DATE_DESC_AMY + START_DATE_DESC_AMY + LIMIT_DESC_AMY + TAG_DESC_FRIEND,
+                new AddCommand(expectedCouponNoUsages));
+
+        // no limit
+        Coupon expectedCouponNoLimit = new CouponBuilder(TypicalCoupons.AMY).build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + SAVINGS_DESC_AMY
+                        + EXPIRY_DATE_DESC_AMY + START_DATE_DESC_AMY + USAGE_DESC_AMY + TAG_DESC_FRIEND,
+                new AddCommand(expectedCouponNoLimit));
     }
 
     @Test
@@ -142,7 +164,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + SAVINGS_DESC_BOB + EXPIRY_DATE_DESC_BOB
                 + INVALID_START_DATE_DESC + USAGE_DESC_BOB + LIMIT_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 StartDate.MESSAGE_CONSTRAINTS);
-
 
         // invalid savings
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_SAVINGS_DESC

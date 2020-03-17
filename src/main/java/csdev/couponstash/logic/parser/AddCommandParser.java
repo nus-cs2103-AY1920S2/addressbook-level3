@@ -61,9 +61,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Savings savings = ParserUtil.parseSavings(argMultimap.getAllValues(PREFIX_SAVINGS), this.moneySymbol);
         ExpiryDate expiryDate = ParserUtil.parseExpiryDate(argMultimap.getValue(PREFIX_EXPIRY_DATE).get());
-        StartDate startDate = ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE).get());
-        Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE).get());
-        Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT).get());
+        StartDate startDate =
+                ParserUtil.parseStartDate(argMultimap.getValueForOptionalField(PREFIX_START_DATE, "").get());
+        Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE, "0").get());
+        Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Coupon coupon = new Coupon(name, phone, savings, expiryDate, startDate, usage, limit, tagList);

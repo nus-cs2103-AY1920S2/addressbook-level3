@@ -34,8 +34,11 @@ import csdev.couponstash.model.coupon.savings.Savings;
  */
 public class TypicalCoupons {
 
-    public static final Savings ALICE_SAVINGS = new Savings(new MonetaryAmount(0.5));
-    public static final Savings BENSON_SAVINGS = new Savings(new PercentageAmount(30.0));
+    public static final MonetaryAmount ALICE_MONETARY_AMOUNT = new MonetaryAmount(0.5);
+    public static final PercentageAmount BENSON_PERCENTAGE_AMOUNT = new PercentageAmount(30.0);
+
+    public static final Savings ALICE_SAVINGS = new Savings(ALICE_MONETARY_AMOUNT);
+    public static final Savings BENSON_SAVINGS = new Savings(BENSON_PERCENTAGE_AMOUNT);
     public static final Savings CARL_SAVINGS = new Savings(
             new MonetaryAmount(20.0),
             Arrays.asList(new Saveable("Spa"), new Saveable("Door Gift"), new Saveable("Drink"))
@@ -64,8 +67,8 @@ public class TypicalCoupons {
     public static final Coupon ALICE = new CouponBuilder().withName("Alice Pauline")
             .withPhone("94351253")
             .withSavings(ALICE_SAVINGS)
+            .withExpiryDate("2-12-2020")
             .withTotalSavings(NO_TOTAL_SAVINGS)
-            .withExpiryDate("31-12-2020")
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")

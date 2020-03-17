@@ -174,7 +174,7 @@ public class Coupon {
     }
 
     /**
-     * Returns true if both coupons have the same name, and at least one
+     * Returns true if both coupons have the same name, and all
      * of the fields of phone, savings for each use, expiry date or
      * start date is the same.
      * This defines a weaker notion of equality between two coupons.
@@ -186,10 +186,9 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && (otherCoupon.getPhone().equals(getPhone())
-                        || otherCoupon.getSavingsForEachUse().equals(getSavingsForEachUse())
-                        || otherCoupon.getExpiryDate().equals(getExpiryDate())
-                        || otherCoupon.getStartDate().equals(getStartDate()));
+                && otherCoupon.getPhone().equals(getPhone())
+                && otherCoupon.getExpiryDate().equals(getExpiryDate())
+                && otherCoupon.getSavingsForEachUse().equals(getSavingsForEachUse());
     }
 
     /**

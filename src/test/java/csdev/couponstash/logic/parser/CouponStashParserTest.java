@@ -21,6 +21,7 @@ import csdev.couponstash.logic.commands.ExitCommand;
 import csdev.couponstash.logic.commands.FindCommand;
 import csdev.couponstash.logic.commands.HelpCommand;
 import csdev.couponstash.logic.commands.ListCommand;
+import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
@@ -88,6 +89,13 @@ public class CouponStashParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_used() throws Exception {
+        UsedCommand command = (UsedCommand) parser.parseCommand(
+                UsedCommand.COMMAND_WORD + " " + TypicalIndexes.INDEX_FIRST_COUPON.getOneBased());
+        assertEquals(new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON), command);
     }
 
     @Test
