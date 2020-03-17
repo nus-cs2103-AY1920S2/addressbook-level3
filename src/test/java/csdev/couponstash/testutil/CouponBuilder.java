@@ -167,6 +167,11 @@ public class CouponBuilder {
         return this;
     }
 
+
+    /**
+     * Builds the Coupon from the provided fields.
+     * @return A new Coupon.
+     */
     public Coupon build() {
         return new Coupon(name, phone, savings, expiryDate, startDate,
                 usage, limit, tags, totalSavings, remind);
