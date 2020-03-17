@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static nasa.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
 //import static nasa.testutil.TypicalActivities.getTypicalNasaBook;
 
+import nasa.model.activity.Deadline;
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.Messages;
@@ -27,7 +28,7 @@ import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
 import nasa.model.activity.Activity;
 //import nasa.testutil.EditActivityDescriptorBuilder;
-import nasa.testutil.ActivityBuilder;
+import nasa.testutil.DeadlineBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditActivityCommand.
@@ -38,7 +39,7 @@ public class EditActivityCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Activity editedActivity = new ActivityBuilder().build();
+        Activity editedActivity = new DeadlineBuilder().build();
         /*
         EditActivityDescriptor descriptor = new EditActivityDescriptorBuilder(editedActivity).build();
         EditActivityCommand editActivityCommand = new EditActivityCommand(INDEX_FIRST_ACTIVITY, descriptor);
