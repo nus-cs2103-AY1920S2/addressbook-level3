@@ -28,9 +28,7 @@ public class FindCommand extends Command {
     public static final String FIND_SUCCESSFUL = "We found the following contacts: ";
     public static final String FIND_UNSUCCESSFUL = "No contacts were found with the keyword(s) specified.";
 
-    // for sarah's use:
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class); // for sarah's use
     private final GroupContainsKeywordsPredicate groupnamePredicate;
     private final NameContainsKeywordsPredicate wordPredicate;
     private final TagsContainsKeywordsPredicate tagPredicate;
