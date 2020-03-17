@@ -3,42 +3,42 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ExerciseListParser" as ExerciseListParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":VersionedExerciseList" as VersionedExerciseList MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> ExerciseListParser : parseCommand(undo)
+activate ExerciseListParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+ExerciseListParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> ExerciseListParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+ExerciseListParser --> LogicManager : u
+deactivate ExerciseListParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoExerciseList()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> VersionedExerciseList : undo()
+activate VersionedExerciseList
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+VersionedExerciseList -> VersionedExerciseList :resetData(ReadOnlyExerciseList)
+VersionedExerciseList --> Model :
+deactivate VersionedExerciseList
 
 Model --> UndoCommand
 deactivate Model
