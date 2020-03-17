@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
+import nasa.testutil.EditActivityDescriptorBuilder;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class CommandTestUtil {
 
@@ -56,6 +59,18 @@ public class CommandTestUtil {
     //extra test strings
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final EditActivityCommand.EditActivityDescriptor DESC_EXAM;
+    public static final EditActivityCommand.EditActivityDescriptor DESC_HWK;
+
+    static {
+        DESC_EXAM = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_EXAM)
+                .withDate(VALID_DATE_TEST).withNote(VALID_NOTES_TEST).withPriority(VALID_PRIORITY_HIGH)
+                .build();
+        DESC_HWK = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_HWK)
+                .withDate(VALID_DATE_TEST_2).withNote(VALID_NOTES_TEST_2).withPriority(VALID_PRIORITY_LOW)
+                .build();
+    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
