@@ -68,7 +68,7 @@ public class EditCommand extends Command {
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
         Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
