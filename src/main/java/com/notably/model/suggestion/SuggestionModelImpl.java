@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.beans.property.Property;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -27,7 +26,7 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     @Override
     public void setSuggestions(List<SuggestionItem> suggestions) {
-        this.suggestions = FXCollections.observableArrayList(suggestions);
+        this.suggestions.setAll(suggestions);
     }
 
     @Override
