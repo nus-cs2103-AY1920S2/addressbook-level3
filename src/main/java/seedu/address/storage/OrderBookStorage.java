@@ -13,13 +13,14 @@ import seedu.address.model.ReadOnlyOrderBook;
  */
 public interface OrderBookStorage {
 
+    // ================ Order Book methods ==============================
     /**
      * Returns the file path of the data file.
      */
     Path getOrderBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyOrderBook}.
+     * Returns OrderBook data as a {@link ReadOnlyOrderBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -33,14 +34,30 @@ public interface OrderBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyOrderBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param orderBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveOrderBook(ReadOnlyOrderBook addressBook) throws IOException;
+    void saveOrderBook(ReadOnlyOrderBook orderBook) throws IOException;
 
     /**
      * @see #saveOrderBook(ReadOnlyOrderBook)
      */
-    void saveOrderBook(ReadOnlyOrderBook addressBook, Path filePath) throws IOException;
+    void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException;
+
+    // ================ Return Order Book methods ==============================
+
+    /**
+     * Read the order book in the file path and return ReadOnlyOrderBook.
+     * @param filePath path that the file stored.
+     * @return ReadOnlyOrderBook which the orders get from the file.
+     * @throws DataConversionException if there are problem converting the json to order object.
+     * @throws IOException if there was any problem reading the file.
+     */
+    Optional<ReadOnlyOrderBook> readReturnOrderBook(Path filePath) throws DataConversionException, IOException;
+
+    /**
+     * @see #saveOrderBook(ReadOnlyOrderBook)
+     */
+    void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook, Path filePath) throws IOException;
 
 }

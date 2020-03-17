@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing Delino ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +56,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        OrderBookStorage returnOrderBookStorage = new JsonOrderBookStorage(userPrefs.getReturnOrderBookFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(orderBookStorage, userPrefsStorage);
+        storage = new StorageManager(orderBookStorage, returnOrderBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,28 +70,44 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s order book and {@code userPrefs}. <br>
+     * The data from the sample order book will be used instead if {@code storage}'s order book is not found,
+     * or an empty order book will be used instead if errors occur when reading {@code storage}'s order book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyOrderBook> addressBookOptional;
+        Optional<ReadOnlyOrderBook> orderBookOptional;
+        Optional<ReadOnlyOrderBook> returnOrderBookOptional;
         ReadOnlyOrderBook initialData;
+        ReadOnlyOrderBook initialReturnData;
         try {
-            addressBookOptional = storage.readOrderBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            orderBookOptional = storage.readOrderBook();
+            if (orderBookOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample OrderBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
+            initialData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
             initialData = new OrderBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
             initialData = new OrderBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            returnOrderBookOptional = storage.readReturnOrderBook();
+            if (returnOrderBookOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample ReturnOrderBook");
+            }
+            initialReturnData = returnOrderBookOptional.orElseGet(SampleDataUtil::getSampleReturnOrderBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ReturnOrderBook");
+            initialReturnData = new OrderBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ReturnOrderBook");
+            initialReturnData = new OrderBook();
+        }
+
+        return new ModelManager(initialData, initialReturnData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -167,13 +184,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Delino " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Delino ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

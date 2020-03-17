@@ -31,7 +31,7 @@ class JsonAdaptedOrder {
     private final String phone;
     private final String email;
     private final String address;
-    private final String timeStamp;
+    private final String timestamp;
     private final String warehouse;
     private final String comment;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -40,16 +40,16 @@ class JsonAdaptedOrder {
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
-    public JsonAdaptedOrder(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                            @JsonProperty("email") String email, @JsonProperty("address") String address,
-                            @JsonProperty("timestamp") String timeStamp, @JsonProperty("warehouse") String warehouse,
-                            @JsonProperty("comment") String comment,
+    public JsonAdaptedOrder(@JsonProperty("name") String name,
+                            @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+                            @JsonProperty("address") String address, @JsonProperty("timestamp") String timestamp,
+                            @JsonProperty("warehouse") String warehouse, @JsonProperty("comment") String comment,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.timeStamp = timeStamp;
+        this.timestamp = timestamp;
         this.warehouse = warehouse;
         this.comment = comment;
         if (tagged != null) {
@@ -65,7 +65,7 @@ class JsonAdaptedOrder {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        timeStamp = source.getTimestamp().value;
+        timestamp = source.getTimestamp().value;
         warehouse = source.getWarehouse().address;
         comment = source.getComment().commentMade;
         tagged.addAll(source.getTags().stream()
@@ -116,14 +116,14 @@ class JsonAdaptedOrder {
         }
         final Address modelAddress = new Address(address);
 
-        if (timeStamp == null) {
+        if (timestamp == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TimeStamp.class.getSimpleName()));
         }
-        if (!TimeStamp.isValidTimeStamp(timeStamp)) {
+        if (!TimeStamp.isValidTimeStamp(timestamp)) {
             throw new IllegalValueException(TimeStamp.MESSAGE_CONSTRAINTS);
         }
-        final TimeStamp modelTimeStamp = new TimeStamp(timeStamp);
+        final TimeStamp modelTimeStamp = new TimeStamp(timestamp);
 
         if (warehouse == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
