@@ -187,7 +187,7 @@ professor’s contact associated with the module.
 
 - Format:
 
-a.	`diary log {Limit}: Shows the most recent diary entry IDs. The number of entry IDs is capped at limit. If no limit
+a.	`diary log {Limit}`: Shows the most recent diary entry IDs. The number of entry IDs is capped at limit. If no limit
         is given, shows the most recent 10 diary entry IDs.
 b.  `diary show {ENTRY ID}` : Shows the diary entry for the specified entry ID.
 c.	`diary show {DD-MM-YYYY}` : Shows the diary entry at the specified date if there is any
