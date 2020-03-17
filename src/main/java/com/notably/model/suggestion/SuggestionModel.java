@@ -35,12 +35,12 @@ public interface SuggestionModel {
      * Updates the responseTextProperty.
      * @param responseText The meaning of the "command" that the user inputs.
      */
-    void setResponseTextProperty(String responseText);
+    void setResponseText(String responseText);
 
     /**
      * Resets the command text when the user clears the input text field.
      */
-    void clearResponseTextProperty();
+    void clearResponseText();
 
     /**
      * Resets the list of suggestions.

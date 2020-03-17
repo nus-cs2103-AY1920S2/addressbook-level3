@@ -38,13 +38,13 @@ public class SuggestionModelImpl implements SuggestionModel {
     }
 
     @Override
-    public void setResponseTextProperty(String responseText) {
+    public void setResponseText(String responseText) {
         Objects.requireNonNull(responseText);
         responseTextProperty.setValue(Optional.of(responseText));
     }
 
     @Override
-    public void clearResponseTextProperty() {
+    public void clearResponseText() {
         responseTextProperty.setValue(Optional.empty());
     }
 
