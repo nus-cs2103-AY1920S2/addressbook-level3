@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMINDER;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -32,13 +33,15 @@ public class AddCommand extends Command {
                     + COMMAND_WORD
                     + " "
                     + PREFIX_NAME
-                    + "Math Homework"
+                    + "Math Homework "
                     + PREFIX_PRIORITY
                     + "1 "
                     + PREFIX_DESCRIPTION
                     + "Chapter 5, Pages 1 - 3 "
                     + PREFIX_TAG
-                    + "for school ";
+                    + "for school "
+                    + PREFIX_REMINDER
+                    + "15/04/20@10:30";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON =
@@ -54,6 +57,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        // not sure if Model is needed, why not just use ModelManager class rather than interface
         requireNonNull(model);
 
         if (model.hasTask(toAdd)) {
@@ -61,7 +65,10 @@ public class AddCommand extends Command {
         }
 
         model.addTask(toAdd);
+        // ^ Sample use of model to adjust objects
         // model.setPetName("Jeff");
+        // model.setPomodoroTask(toAdd);
+
         // DONE Setting values on model in recorded in storage and reflected in json
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
