@@ -146,6 +146,8 @@ public interface Model {
      */
     ObservableList<Activity> getFilteredActivityList(Index index);
 
+    // TODO: Implement getFilteredActivityList by moduleCode
+
     /**
      * Updates the filter of the filtered activity list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

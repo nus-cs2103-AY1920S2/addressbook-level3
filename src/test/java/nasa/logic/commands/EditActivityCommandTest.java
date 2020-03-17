@@ -1,5 +1,7 @@
 package nasa.logic.commands;
 
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
+import static nasa.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static nasa.logic.commands.CommandTestUtil.DESC_AMY;
@@ -8,13 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static nasa.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 //import static nasa.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static nasa.logic.commands.CommandTestUtil.showActivityAtIndex;
 //import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 //import static nasa.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
-//import static nasa.testutil.TypicalActivities.getTypicalNasaBook;
+import static nasa.testutil.TypicalNasaBook.NASABOOK_TYPE_1;
 
 import nasa.model.activity.Deadline;
+import nasa.model.module.ModuleCode;
+import nasa.testutil.EditActivityDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.Messages;
@@ -27,22 +31,24 @@ import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
 import nasa.model.activity.Activity;
-//import nasa.testutil.EditActivityDescriptorBuilder;
+import nasa.testutil.EditActivityDescriptorBuilder;
 import nasa.testutil.DeadlineBuilder;
 
+// TODO: Implement {@code getFilteredActivityList} by accepting moduleCode as parameter in {@interface Model}
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditActivityCommand.
  */
 public class EditActivityCommandTest {
 
-    // private Model model = new ModelManager(getTypicalNasaBook(), new UserPrefs());
+     private Model model = new ModelManager(NASABOOK_TYPE_1, new UserPrefs());
+     private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CS2030);
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Activity editedActivity = new DeadlineBuilder().build();
         /*
+        Activity editedActivity = new DeadlineBuilder().build();
         EditActivityDescriptor descriptor = new EditActivityDescriptorBuilder(editedActivity).build();
-        EditActivityCommand editActivityCommand = new EditActivityCommand(INDEX_FIRST_ACTIVITY, descriptor);
+        EditActivityCommand editActivityCommand = new EditActivityCommand(INDEX_FIRST_PERSON, moduleCode, descriptor);
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
@@ -50,8 +56,7 @@ public class EditActivityCommandTest {
         expectedModel.setActivity(model.getFilteredActivityList().get(0), editedActivity);
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
-
-         */
+        */
     }
 
     @Test
@@ -81,16 +86,15 @@ public class EditActivityCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         /*
-        EditActivityCommand editActivityCommand = new EditActivityCommand(INDEX_FIRST_ACTIVITY, new EditActivityDescriptor());
-        Activity editedActivity = model.getFilteredActivityList().get(INDEX_FIRST_ACTIVITY.getZeroBased());
+        EditActivityCommand editActivityCommand = new EditActivityCommand(INDEX_FIRST_PERSON, new EditActivityDescriptor());
+        Activity editedActivity = model.getFilteredActivityList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 
         Model expectedModel = new ModelManager(new NasaBook(model.getNasaBook()), new UserPrefs());
 
         assertCommandSuccess(editActivityCommand, model, expectedMessage, expectedModel);
-
-         */
+        */
     }
 
     @Test
