@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,13 @@ import seedu.address.model.Model;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
-    public static final String COMMAND_FUNCTION = "Shows program usage instructions.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String COMMAND_FUNCTION1 = "Shows program usage instructions";
+    public static final String COMMAND_FUNCTION2 = "Shows a command in detail.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION1 + ".\n"
+            + "Example: " + COMMAND_WORD
+            + COMMAND_WORD + ": " + COMMAND_FUNCTION2 + "\n"
+            + "Parameters: [" + PREFIX_NAME + "NAME] "
+            + "Example: " + COMMAND_WORD + PREFIX_HELP + "3 ";
 
     public static final String MESSAGE = "Here are the list of commands: \n"
             + "1. " + AddCommand.COMMAND_WORD + ": " + AddCommand.COMMAND_FUNCTION + "\n"
@@ -28,8 +33,10 @@ public class HelpCommand extends Command {
             + "8. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
             + "9. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
             + "10. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "11. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION + "\n"
-            + "\nYou can find out more on how a command works by specifying the command index.\n"
+            + "11. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
+            + "\nYou can find out more on how a command works by typing the command help, and "
+            + "specifying the command index.\n"
             + "Example: For (ab)delete - " + COMMAND_WORD + " h/ 3";
     public static final ArrayList<String> LIST_OF_COMMANDS = commandList();
 

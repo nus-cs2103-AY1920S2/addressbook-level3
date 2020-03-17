@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -59,7 +60,7 @@ public class PersonCard extends UiPart<Region> {
         while (i < person.getRemark().size()) {
             remarkValue += person.getRemark().get(i).value;
             if (i != person.getRemark().size() - 1) {
-                remarkValue += "\n";
+                remarkValue += ", ";
             }
             i++;
         }
@@ -86,4 +87,5 @@ public class PersonCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
+
 }
