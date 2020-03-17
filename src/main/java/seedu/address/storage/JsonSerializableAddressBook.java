@@ -19,7 +19,7 @@ import seedu.address.model.exercise.Exercise;
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
 
-    public static final String MESSAGE_DUPLICATE_EXERCISE = "Persons list contains duplicate exercise(s).";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "Exercises list contains duplicate exercise(s).";
 
     private final List<JsonAdaptedExercise> persons = new ArrayList<>();
 
@@ -27,8 +27,8 @@ class JsonSerializableAddressBook {
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedExercise> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedExercise> exercises) {
+        this.persons.addAll(exercises);
     }
 
     /**

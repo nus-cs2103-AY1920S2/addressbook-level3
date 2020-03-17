@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.exercise.Exercise;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of exercises.
  */
 public class ExerciseListPanel extends UiPart<Region> {
     private static final String FXML = "ExerciseListPanel.fxml";
