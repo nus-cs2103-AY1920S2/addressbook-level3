@@ -44,8 +44,7 @@ public class TaTrackerParser {
         switch (commandWord) {
 
         case CommandWords.STUDENT:
-            // return new StudentCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Student commands"));
+            return new StudentCommandParser().parseCommand(arguments);
 
         case CommandWords.MODULE:
             return new ModuleCommandParser().parseCommand(arguments);
