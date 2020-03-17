@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -18,46 +18,60 @@ import seedu.address.model.Model;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditRecipeDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    // _HAM_SANDWICH
+    // _EGGS_ON_TOAST
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String VALID_NAME_HAM_SANDWICH = "Ham Sandwich";
+    public static final String VALID_NAME_EGGS_ON_TOAST = "Eggs on Toast";
+    public static final String VALID_INGREDIENTS_HAM_SANDWICH = "bread, 2 slices; ham, 1 slice; cheese spread, 10g";
+    public static final String VALID_INGREDIENTS_EGGS_ON_TOAST = "bread, 2 slices; egg, 1; pepper, 1/16 tsp";
+    public static final String VALID_INSTRUCTIONS_HAM_SANDWICH = "spread cheese on both slices of bread; put the "
+                                                                 + "slice of ham between bread; serve on plate";
+    public static final String VALID_INSTRUCTIONS_EGGS_ON_TOAST = "toast the 2 slices of bread; scramble the eggs "
+                                                                  + "with the pepper; put egg between bread; serve on"
+                                                                  + " plate";
+    public static final String VALID_TAG_BREAKFAST = "breakfast";
+    public static final String VALID_TAG_LUNCH = "lunch";
+    public static final String VALID_TAG_DINNER = "dinner";
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    public static final String NAME_DESC_HAM_SANDWICH = " " + PREFIX_NAME + VALID_NAME_HAM_SANDWICH;
+    public static final String NAME_DESC_EGGS_ON_TOAST = " " + PREFIX_NAME + VALID_NAME_EGGS_ON_TOAST;
+    public static final String INGREDIENTS_DESC_HAM_SANDWICH =
+            " " + PREFIX_INGREDIENTS + VALID_INGREDIENTS_HAM_SANDWICH;
+    public static final String INGREDIENTS_DESC_EGGS_ON_TOAST =
+            " " + PREFIX_INGREDIENTS + VALID_INGREDIENTS_EGGS_ON_TOAST;
+    public static final String INSTRUCTIONS_DESC_HAM_SANDWICH =
+            " " + PREFIX_INSTRUCTIONS + VALID_INSTRUCTIONS_HAM_SANDWICH;
+    public static final String INSTRUCTIONS_DESC_EGGS_ON_TOAST =
+            " " + PREFIX_INSTRUCTIONS + VALID_INSTRUCTIONS_EGGS_ON_TOAST;
+    public static final String TAG_DESC_BREAKFAST = " " + PREFIX_TAG + VALID_TAG_BREAKFAST;
+    public static final String TAG_DESC_LUNCH = " " + PREFIX_TAG + VALID_TAG_LUNCH;
+    public static final String TAG_DESC_DINNER = " " + PREFIX_TAG + VALID_TAG_DINNER;
+
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Ham Sandwich&"; // '&' not allowed in names
+    public static final String INVALID_INGREDIENTS_DESC = " " + PREFIX_INGREDIENTS + " "; // ingredients can't be blank
+    public static final String INVALID_INSTRUCTIONS_DESC = " " + PREFIX_INSTRUCTIONS + " "; // ingredients can't be " "
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "lunch*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final ModifyCommand.EditRecipeDescriptor DESC_AMY;
-    public static final ModifyCommand.EditRecipeDescriptor DESC_BOB;
+    public static final ModifyCommand.EditRecipeDescriptor DESC_HAM_SANDWICH;
+    public static final ModifyCommand.EditRecipeDescriptor DESC_EGGS_ON_TOAST;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withTags(VALID_TAG_HUSBAND,
-                VALID_TAG_FRIEND).build();
+        DESC_HAM_SANDWICH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_HAM_SANDWICH).withTags(
+                VALID_TAG_LUNCH).build();
+        DESC_EGGS_ON_TOAST = new EditRecipeDescriptorBuilder().withName(VALID_NAME_EGGS_ON_TOAST).withTags(
+                VALID_TAG_BREAKFAST, VALID_TAG_LUNCH).build();
     }
 
     /**
@@ -90,24 +104,24 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered recipe list and selected recipe in {@code actualModel} remain unchanged
+     * - the recipe book, filtered recipe list and selected recipe in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        RecipeBook expectedAddressBook = new RecipeBook(actualModel.getRecipeBook());
+        RecipeBook expectedRecipeBook = new RecipeBook(actualModel.getRecipeBook());
         List<Recipe> expectedFilteredList = new ArrayList<>(actualModel.getFilteredRecipeList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getRecipeBook());
+        assertEquals(expectedRecipeBook, actualModel.getRecipeBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredRecipeList());
     }
 
     /**
      * Updates {@code model}'s filtered list to show only the recipe at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s recipe book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showRecipeAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredRecipeList().size());
 
         Recipe recipe = model.getFilteredRecipeList().get(targetIndex.getZeroBased());
