@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
-
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.hirelah.Question;
+import seedu.address.model.hirelah.QuestionList;
 
 
 /**
@@ -36,13 +35,13 @@ public class AddQuestionCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ObservableList<Question> questions = model.getQuestionList();
-        Question question = new Question(toAdd);
-        if (questions.contains(question)) {
-            throw new CommandException(MESSAGE_DUPLICATE_QUESTION);
+        QuestionList questions = model.getQuestionList();
+        try {
+            questions.add(toAdd);
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
         }
 
-        questions.add(question);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ToggleView.QUESTION);
     }
 

@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
-
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.hirelah.Question;
+import seedu.address.model.hirelah.QuestionList;
 
 /**
  * DeleteQuestionCommand describes the behavior when the
@@ -34,20 +33,12 @@ public class DeleteQuestionCommand extends DeleteCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ObservableList<Question> questions = model.getQuestionList();
+        QuestionList questions = model.getQuestionList();
         try {
-            int index = Integer.parseInt(questionIndex);
-
-            if (index > questions.size() || index <= 0) {
-                throw new CommandException(String.format(MESSAGE_DELETE_INDEX_OUT_OF_BOUND, questionIndex));
-            }
-
-            Question question = questions.get(index - 1);
-            questions.remove(question);
-            return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questionIndex),
+            return new CommandResult(String.format(MESSAGE_DELETE_QUESTION_SUCCESS, questions.delete(questionIndex)),
                     ToggleView.QUESTION);
-        } catch (NumberFormatException e) {
-            throw new CommandException(String.format(MESSAGE_DELETE_INDEX_NOT_A_NUMBER, questionIndex));
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
         }
     }
 

@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.EditAttributeCommand;
 import seedu.address.logic.commands.EditQuestionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -23,7 +22,7 @@ public class EditQuestionCommandParser {
      * @param arguments the arguments to be parsed
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditAttributeCommand parse(String arguments) throws ParseException {
+    public EditQuestionCommand parse(String arguments) throws ParseException {
         Matcher matcher = BASIC_EDIT_QUESTION_COMMAND_FORMAT.matcher(arguments.trim());
 
         if (!matcher.matches()) {
@@ -32,6 +31,6 @@ public class EditQuestionCommandParser {
         final String questionNumber = matcher.group("questionNumber");
         final String newQuestion = matcher.group("newQuestion");
 
-        return new EditAttributeCommand(questionNumber.trim(), newQuestion.trim());
+        return new EditQuestionCommand(questionNumber.trim(), newQuestion.trim());
     }
 }

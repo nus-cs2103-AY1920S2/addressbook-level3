@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
-
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Attribute;
+import seedu.address.model.hirelah.AttributeList;
 
 /**
  * EditAttributeCommand describes the behavior when the
@@ -21,7 +21,7 @@ public class EditAttributeCommand extends EditCommand {
             + "Parameters: PREFIX NEW_ATTRIBUTE\n"
             + "Example: update " + COMMAND_WORD + " lea tenacity";
 
-    public static final String MESSAGE_EDIT_ATTRIBUTE_SUCCESS = "Successfully edited Attribute: %1$s to %1$s";
+    public static final String MESSAGE_EDIT_ATTRIBUTE_SUCCESS = "Successfully edited Attribute with prefix: %s to %s";
     public static final String MESSAGE_EDIT_DUPLICATE_PREFIX = "There are multiple attributes with prefix: %s";
     public static final String MESSAGE_EDIT_NO_PREFIX_FOUND = "There is no attribute with the given prefix: %s";
 
@@ -36,13 +36,14 @@ public class EditAttributeCommand extends EditCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ObservableList<Attribute> attributes = model.getAttributeList();
-        Attribute attribute = find(attributes);
-        Attribute updated = new Attribute(updatedAttribute);
-        int index = attributes.indexOf(attribute);
-        attributes.set(index, updated);
-        return new CommandResult(String.format(MESSAGE_EDIT_ATTRIBUTE_SUCCESS, attribute, updated),
-                ToggleView.ATTRIBUTE);
+        AttributeList attributes = model.getAttributeList();
+        try {
+            Attribute attribute = attributes.edit(attributePrefix, updatedAttribute);
+            return new CommandResult(String.format(MESSAGE_EDIT_ATTRIBUTE_SUCCESS, attribute, updatedAttribute),
+                    ToggleView.ATTRIBUTE);
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
+        }
     }
 
     @Override
@@ -51,37 +52,5 @@ public class EditAttributeCommand extends EditCommand {
                 || (other instanceof EditAttributeCommand // instanceof handles nulls
                 && attributePrefix.equals(((EditAttributeCommand) other).attributePrefix)
                 && updatedAttribute.equals(((EditAttributeCommand) other).updatedAttribute)); // state check
-    }
-
-    /**
-     * Find the attribute based on its prefix.
-     * @param attributes The list of attributes.
-     * @return The corresponding Attribute instance.
-     * @throws CommandException if the prefix can be multi-interpreted or no such Attribute found.
-     */
-
-    private Attribute find(ObservableList<Attribute> attributes) throws CommandException {
-        checkPrefix(attributes);
-        return attributes.stream().filter(attribute -> attribute.toString().startsWith(attributePrefix))
-                .findFirst()
-                .get();
-    }
-
-    /**
-     * Checks the number of attributes that starts with the prefix.
-     * @param attributes The list of the attributes
-     * @throws CommandException if the prefix can be multi-interpreted or no such Attribute found.
-     */
-    private void checkPrefix(ObservableList<Attribute> attributes) throws CommandException {
-        long startWithPrefix = attributes.stream()
-                .filter(attribute -> attribute.toString().startsWith(attributePrefix))
-                .count();
-
-        if (startWithPrefix > 1) {
-            throw new CommandException(String.format(MESSAGE_EDIT_DUPLICATE_PREFIX, attributePrefix));
-        } else if (startWithPrefix == 0) {
-            throw new CommandException(String.format(MESSAGE_EDIT_NO_PREFIX_FOUND, attributePrefix));
-
-        }
     }
 }

@@ -1,7 +1,10 @@
 package seedu.address.model.hirelah;
 
+import java.util.Optional;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /*
@@ -62,22 +65,49 @@ public class AttributeList {
      * @return The corresponding Attribute instance.
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
+
     public Attribute find(String attributePrefix) throws IllegalValueException {
-        checkPrefix(attributePrefix);
-        return attributes.stream().filter(attribute -> attribute.toString().startsWith(attributePrefix))
-                                  .findFirst()
-                                  .get();
+        Optional<Attribute> exactAttribute = attributes.stream().filter(attribute -> attribute.toString()
+                                                                                              .equals(attributePrefix))
+                                                                .findFirst();
+
+        if (exactAttribute.isEmpty()) {
+            checkPrefix(attributePrefix);
+            return attributes.stream().filter(attribute -> attribute.toString().startsWith(attributePrefix))
+                    .findFirst()
+                    .get();
+        } else {
+            return exactAttribute.get();
+        }
+    }
+
+    /**
+     * Edits the attribute based on its prefix.
+     * @param attributePrefix The prefix of the attribute.
+     * @param updatedAttribute The name of the updated attribute.
+     * @return The edited attribute.
+     * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
+     */
+
+    public Attribute edit(String attributePrefix, String updatedAttribute) throws IllegalValueException {
+        Attribute currentAttribute = find(attributePrefix);
+        int index = attributes.indexOf(currentAttribute);
+        attributes.set(index, new Attribute(updatedAttribute));
+        return currentAttribute;
     }
 
     /**
      * Deletes the attribute by its prefix.
      *
      * @param attributePrefix The prefix of the attribute.
+     * @return The deleted attribute
      * @throws IllegalValueException if the prefix can be multi-interpreted or no such Attribute found.
      */
-    public void delete(String attributePrefix) throws IllegalValueException {
+    public Attribute delete(String attributePrefix) throws IllegalValueException {
         Attribute attribute = find(attributePrefix);
         attributes.remove(attribute);
+        return attribute;
+
     }
 
     /**

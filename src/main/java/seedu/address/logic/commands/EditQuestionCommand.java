@@ -2,11 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.collections.ObservableList;
-
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.hirelah.Question;
+import seedu.address.model.hirelah.QuestionList;
 
 /**
  * EditQuestionCommand describes the behavior when the
@@ -22,8 +22,6 @@ public class EditQuestionCommand extends EditCommand {
             + "Example: update " + COMMAND_WORD + " 1 what the heck is this question?";
 
     public static final String MESSAGE_EDIT_QUESTION_SUCCESS = "Successfully edited question: %s to %s";
-    public static final String MESSAGE_EDIT_INDEX_OUT_OF_BOUND = "The index is out of bound: %s";
-    public static final String MESSAGE_EDIT_INDEX_NOT_A_NUMBER = "The index is not a number: %s";
 
     private final String questionIndex;
     private final String updatedDescription;
@@ -36,21 +34,14 @@ public class EditQuestionCommand extends EditCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ObservableList<Question> questions = model.getQuestionList();
+        QuestionList questions = model.getQuestionList();
+
         try {
-            int index = Integer.parseInt(questionIndex);
-
-            if (index > questions.size() || index <= 0) {
-                throw new CommandException(String.format(MESSAGE_EDIT_INDEX_OUT_OF_BOUND, questionIndex));
-            }
-
-            Question question = questions.get(index - 1);
-            Question updated = new Question(updatedDescription);
-            questions.set(index - 1, updated);
-            return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, questionIndex, updated),
+            Question question = questions.edit(questionIndex, updatedDescription);
+            return new CommandResult(String.format(MESSAGE_EDIT_QUESTION_SUCCESS, question, updatedDescription),
                     ToggleView.QUESTION);
-        } catch (NumberFormatException e) {
-            throw new CommandException(String.format(MESSAGE_EDIT_INDEX_NOT_A_NUMBER, questionIndex));
+        } catch (IllegalValueException e) {
+            throw new CommandException(e.getMessage());
         }
     }
 
