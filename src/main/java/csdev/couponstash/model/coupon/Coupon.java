@@ -95,7 +95,7 @@ public class Coupon {
     }
 
     /**
-     * Returns true if both coupons of the same name, expiry date, either savings or phone.
+     * Returns true if both coupons of the same name, expiry date, savings and phone.
      * This defines a weaker notion of equality between two coupons.
      */
     public boolean isSameCoupon(Coupon otherCoupon) {
