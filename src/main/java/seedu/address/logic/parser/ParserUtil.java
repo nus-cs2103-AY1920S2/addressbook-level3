@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -161,7 +162,7 @@ public class ParserUtil {
     public static Set<Ingredient> parseGrains(Collection<String> grains, Set<Ingredient> ingredientSet)
             throws ParseException {
         if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new HashSet<>();
+            ingredientSet = new TreeSet<>();
         }
         requireNonNull(grains);
         for (String grain : grains) {
@@ -200,7 +201,7 @@ public class ParserUtil {
     public static Set<Ingredient> parseVegetables(Collection<String> vegetables, Set<Ingredient> ingredientSet)
             throws ParseException {
         if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new HashSet<>();
+            ingredientSet = new TreeSet<>();
         }
         requireNonNull(vegetables);
         for (String vegetable : vegetables) {
@@ -239,7 +240,7 @@ public class ParserUtil {
     public static Set<Ingredient> parseProteins(Collection<String> proteins, Set<Ingredient> ingredientSet)
             throws ParseException {
         if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new HashSet<>();
+            ingredientSet = new TreeSet<>();
         }
         requireNonNull(proteins);
         for (String protein : proteins) {
@@ -278,7 +279,7 @@ public class ParserUtil {
     public static Set<Ingredient> parseOthers(Collection<String> others, Set<Ingredient> ingredientSet)
             throws ParseException {
         if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new HashSet<>();
+            ingredientSet = new TreeSet<>();
         }
         requireNonNull(others);
         for (String other : others) {

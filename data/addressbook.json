@@ -1,14 +1,8 @@
 {
   "recipes" : [ {
-    "name" : "Chicken Rice",
-    "time" : "15",
-    "ingredients" : [ ],
-    "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
-    "goals" : [ "Bulk like the Hulk" ]
-  }, {
     "name" : "Duck Brown Rice",
     "time" : "20",
-    "ingredients" : [ ],
+    "ingredients" : [ "other,  20.0, grain", "protein,  20.0, grain" ],
     "steps" : [ "Braise the duck and eggs", "Steam brown rice with herbs", "Serve while hot" ],
     "goals" : [ "Wholesome Wholegrains", "Bulk like the Hulk" ]
   }, {
@@ -29,5 +23,29 @@
     "ingredients" : [ ],
     "steps" : [ "This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 1111111111111111111111 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 2222222222222222222222222 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 333333333333333333333333 This is a super long step This is a super long step This is a super long step This is a super long step 44444444444444This is a super long step This is a super long step This is a super long step END OF STEP" ],
     "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "Hi",
+    "time" : "15",
+    "ingredients" : [ "Tomato,  50.0, vegetable" ],
+    "steps" : [ "Step 1 abc" ],
+    "goals" : [ ]
+  }, {
+    "name" : "Mayonnaise",
+    "time" : "20",
+    "ingredients" : [ "pickles,  20.0, vegetable", "Jar of mayo,  20.0, vegetable" ],
+    "steps" : [ "step one" ],
+    "goals" : [ ]
+  }, {
+    "name" : "potato salad",
+    "time" : "20",
+    "ingredients" : [ "tomato,  20.0, vegetable" ],
+    "steps" : [ "mix" ],
+    "goals" : [ ]
+  }, {
+    "name" : "hihi",
+    "time" : "20",
+    "ingredients" : [ "vege,  20.0, vegetable", "other,  20.0, protein", "giraffe,  9999.9, protein" ],
+    "steps" : [ "one" ],
+    "goals" : [ ]
   } ]
 }

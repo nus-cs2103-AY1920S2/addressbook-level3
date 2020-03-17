@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
 import seedu.address.model.ingredient.Ingredient;
@@ -33,7 +34,7 @@ public class RecipeBuilder {
     public RecipeBuilder() {
         name = new Name(DEFAULT_NAME);
         time = new Time(DEFAULT_TIME);
-        ingredients = new HashSet<>();
+        ingredients = new TreeSet<>();
         ingredients.add(DEFAULT_INGREDIENT);
         steps = new ArrayList<>();
         steps.add(DEFAULT_STEP);

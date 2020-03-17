@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -184,7 +185,7 @@ public class EditCommand extends Command {
          * A defensive copy of {@code ingredients} is used internally.
          */
         public void setIngredients(Set<Ingredient> ingredients) {
-            this.ingredients = (ingredients != null) ? new HashSet<>(ingredients) : null;
+            this.ingredients = (ingredients != null) ? new TreeSet<>(ingredients) : null;
         }
 
         /**
@@ -244,9 +245,10 @@ public class EditCommand extends Command {
 
             // state check
             EditRecipeDescriptor e = (EditRecipeDescriptor) other;
-
+            System.out.println("Ingredients test: " + getIngredients().equals(e.getIngredients()));
             return getName().equals(e.getName())
                     && getTime().equals(e.getTime())
+                    && getIngredients().equals(e.getIngredients())
                     && getSteps().equals(e.getSteps())
                     && getGoals().equals(e.getGoals());
         }

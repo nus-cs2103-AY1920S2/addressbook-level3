@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyRecipeBook;
@@ -68,7 +69,7 @@ public class SampleDataUtil {
      * Returns an ingredient set containing the list of strings given in the format (name, quantity, type).
      */
     public static Set<Ingredient> getIngredientSet(String... ingredients) {
-        Set<Ingredient> ingredientSet = new HashSet<Ingredient>();
+        Set<Ingredient> ingredientSet = new TreeSet<Ingredient>();
         for (String ingredient: ingredients) {
             String[] splitDetails = ingredient.split(",");
             String name = splitDetails[0].trim();

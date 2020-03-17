@@ -3,11 +3,13 @@ package seedu.address.model.ingredient;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.recipe.Step;
+
 /**
  * Represents an Ingredient in the recipe book.
  */
 
-public abstract class Ingredient {
+public abstract class Ingredient implements Comparable<Ingredient>{
 
     public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain only "
             + "alphabetical letters or spaces";
@@ -58,5 +60,18 @@ public abstract class Ingredient {
     @Override
     public String toString() {
         return quantity + unit.toString() + " " + ingredientName;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Ingredient // instanceof handles nulls
+                && ingredientName.equals(((Ingredient) other).getIngredientName()) // state check
+                && quantity == ((Ingredient) other).getQuantity()); // state check
+    }
+
+    @Override
+    public int compareTo(Ingredient other) {
+        return ingredientName.compareTo(other.ingredientName);
     }
 }

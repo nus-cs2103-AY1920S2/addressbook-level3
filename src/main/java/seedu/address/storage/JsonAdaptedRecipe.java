@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -108,7 +109,7 @@ class JsonAdaptedRecipe {
         final Time modelTime = new Time(time);
 
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
-        final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
+        final Set<Ingredient> modelIngredients = new TreeSet<>(recipeIngredients);
         final ArrayList<Step> modelSteps = new ArrayList<>(recipeSteps);
         return new Recipe(modelName, modelTime, modelIngredients, modelSteps, modelGoals);
     }
