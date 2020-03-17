@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
@@ -23,19 +23,19 @@ public class Profile {
     private static HashMap<Integer, ArrayList<Module>> moduleHash;
     private static String currentSemester;
     private final Name name;
-    private final Course course;
+    private final CourseName courseName;
     private final String specialisation;
 
 
     /**
      * Every field must be present and not null.
      */
-    public Profile(Name name, Course course, String currentSemester, String specialisation) {
+    public Profile(Name name, CourseName courseName, String currentSemester, String specialisation) {
         requireAllNonNull(name);
-        requireAllNonNull(course);
+        requireAllNonNull(courseName);
         requireAllNonNull(currentSemester);
         this.name = name;
-        this.course = course;
+        this.courseName = courseName;
         this.currentSemester = currentSemester;
         this.specialisation = specialisation;
         HashMap<Integer, ArrayList<Module>> moduleHash = new HashMap<Integer, ArrayList<Module>>();
@@ -59,8 +59,8 @@ public class Profile {
         return name;
     }
 
-    public Course getCourse() {
-        return course;
+    public CourseName getCourseName() {
+        return courseName;
     }
 
     public static String getCurrentSemester() {
