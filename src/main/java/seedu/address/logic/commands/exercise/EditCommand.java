@@ -93,11 +93,10 @@ public class EditCommand extends Command {
 
         // Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
         // NumReps updatedNumReps = editExerciseDescriptor
-            // .getNumReps()
-            // .orElse(exerciseToEdit.getNumReps());
+        //     .getNumReps()
+        //     .orElse(exerciseToEdit.getNumReps());
         // ExerciseSet updatedExerciseSet = editExerciseDescriptor
-            // .getExerciseSet()
-            // .orElse(exerciseToEdit.getExerciseSet());
+        //     .getExerciseSet().orElse(exerciseToEdit.getExerciseSet());
         // Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
 
         Name updatedName = new Name("placeholder");
