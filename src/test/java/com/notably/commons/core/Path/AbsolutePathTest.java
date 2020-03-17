@@ -14,19 +14,14 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
 class AbsolutePathTest {
 
     @Test
-    public void createAbsolutePath_validInputString_generateAbsolutePath() {
-        try {
-            final AbsolutePath testInput = AbsolutePath.fromString("/CS2103/notes");
+    public void createAbsolutePath_validInputString_generateAbsolutePath() throws InvalidPathException {
+        final AbsolutePath testInput = AbsolutePath.fromString("/CS2103/notes");
 
-            List<String> paths = new ArrayList<>();
-            paths.add("CS2103");
-            paths.add("notes");
+        List<String> paths = new ArrayList<>();
+        paths.add("CS2103");
+        paths.add("notes");
 
-            assertEquals(paths, testInput.getComponents());
-        } catch (InvalidPathException ex) {
-            ex.getMessage();
-        }
-
+        assertEquals(paths, testInput.getComponents());
     }
 
     @Test
@@ -61,7 +56,7 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void createAbsolutePathFromRelativePath_invalidInput_exceptionThrown() throws InvalidPathException{
+    public void createAbsolutePathFromRelativePath_invalidInput_exceptionThrown() throws InvalidPathException {
         final RelativePath inputRelPath = RelativePath.fromString("../../hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
         assertThrows(InvalidPathException.class, () -> AbsolutePath.fromRelativePath(inputRelPath, inputCurrPath));
