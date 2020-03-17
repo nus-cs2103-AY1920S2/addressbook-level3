@@ -18,7 +18,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.ExerciseList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
@@ -74,8 +74,8 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<readOnlyExerciseList> exerciseListOptional;
-        readOnlyExerciseList initialData;
+        Optional<ReadOnlyExerciseList> exerciseListOptional;
+        ReadOnlyExerciseList initialData;
         try {
             exerciseListOptional = storage.readExerciseList();
             if (!exerciseListOptional.isPresent()) {

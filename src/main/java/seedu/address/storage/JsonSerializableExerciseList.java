@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExerciseList;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.person.Person;
 
 /**
@@ -36,7 +36,7 @@ class JsonSerializableExerciseList {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableExerciseList}.
      */
-    public JsonSerializableExerciseList(readOnlyExerciseList source) {
+    public JsonSerializableExerciseList(ReadOnlyExerciseList source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 

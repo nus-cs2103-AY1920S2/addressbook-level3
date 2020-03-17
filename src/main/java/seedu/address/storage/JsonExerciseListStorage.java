@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 
 /**
  * A class to access ExerciseList data stored as a json file on the hard disk.
@@ -32,7 +32,7 @@ public class JsonExerciseListStorage implements ExerciseListStorage {
     }
 
     @Override
-    public Optional<readOnlyExerciseList> readExerciseList() throws DataConversionException {
+    public Optional<ReadOnlyExerciseList> readExerciseList() throws DataConversionException {
         return readExerciseList(filePath);
     }
 
@@ -42,7 +42,7 @@ public class JsonExerciseListStorage implements ExerciseListStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<readOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableExerciseList> jsonExerciseList = JsonUtil.readJsonFile(
@@ -60,16 +60,16 @@ public class JsonExerciseListStorage implements ExerciseListStorage {
     }
 
     @Override
-    public void saveExerciseList(readOnlyExerciseList exerciseList) throws IOException {
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException {
         saveExerciseList(exerciseList, filePath);
     }
 
     /**
-     * Similar to {@link #saveExerciseList(readOnlyExerciseList)}.
+     * Similar to {@link #saveExerciseList(ReadOnlyExerciseList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveExerciseList(readOnlyExerciseList exerciseList, Path filePath) throws IOException {
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
         requireNonNull(exerciseList);
         requireNonNull(filePath);
 

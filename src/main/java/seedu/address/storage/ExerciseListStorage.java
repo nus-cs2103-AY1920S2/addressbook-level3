@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ExerciseList;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 
 /**
  * Represents a storage for {@link ExerciseList}.
@@ -19,28 +19,28 @@ public interface ExerciseListStorage {
     Path getExerciseListFilePath();
 
     /**
-     * Returns ExerciseList data as a {@link readOnlyExerciseList}.
+     * Returns ExerciseList data as a {@link ReadOnlyExerciseList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<readOnlyExerciseList> readExerciseList() throws DataConversionException, IOException;
+    Optional<ReadOnlyExerciseList> readExerciseList() throws DataConversionException, IOException;
 
     /**
      * @see #getExerciseListFilePath()
      */
-    Optional<readOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link readOnlyExerciseList} to the storage.
+     * Saves the given {@link ReadOnlyExerciseList} to the storage.
      * @param exerciseList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveExerciseList(readOnlyExerciseList exerciseList) throws IOException;
+    void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException;
 
     /**
-     * @see #saveExerciseList(readOnlyExerciseList)
+     * @see #saveExerciseList(ReadOnlyExerciseList)
      */
-    void saveExerciseList(readOnlyExerciseList exerciseList, Path filePath) throws IOException;
+    void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException;
 
 }

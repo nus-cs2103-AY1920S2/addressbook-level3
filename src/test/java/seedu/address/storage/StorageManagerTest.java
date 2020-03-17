@@ -12,7 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ExerciseList;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
@@ -56,7 +56,7 @@ public class StorageManagerTest {
          */
         ExerciseList original = getTypicalExerciseList();
         storageManager.saveExerciseList(original);
-        readOnlyExerciseList retrieved = storageManager.readExerciseList().get();
+        ReadOnlyExerciseList retrieved = storageManager.readExerciseList().get();
         assertEquals(original, new ExerciseList(retrieved));
     }
 

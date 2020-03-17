@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -24,9 +24,9 @@ public interface Storage extends ExerciseListStorage, UserPrefsStorage {
     Path getExerciseListFilePath();
 
     @Override
-    Optional<readOnlyExerciseList> readExerciseList() throws DataConversionException, IOException;
+    Optional<ReadOnlyExerciseList> readExerciseList() throws DataConversionException, IOException;
 
     @Override
-    void saveExerciseList(readOnlyExerciseList exerciseList) throws IOException;
+    void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException;
 
 }

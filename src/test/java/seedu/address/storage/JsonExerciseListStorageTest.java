@@ -17,7 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ExerciseList;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 
 public class JsonExerciseListStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonExerciseListStorageTest");
@@ -30,7 +30,7 @@ public class JsonExerciseListStorageTest {
         assertThrows(NullPointerException.class, () -> readExerciseList(null));
     }
 
-    private java.util.Optional<readOnlyExerciseList> readExerciseList(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyExerciseList> readExerciseList(String filePath) throws Exception {
         return new JsonExerciseListStorage(Paths.get(filePath)).readExerciseList(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -68,7 +68,7 @@ public class JsonExerciseListStorageTest {
 
         // Save in new file and read back
         jsonExerciseListStorage.saveExerciseList(original, filePath);
-        readOnlyExerciseList readBack = jsonExerciseListStorage.readExerciseList(filePath).get();
+        ReadOnlyExerciseList readBack = jsonExerciseListStorage.readExerciseList(filePath).get();
         assertEquals(original, new ExerciseList(readBack));
 
         // Modify data, overwrite exiting file, and read back
@@ -94,7 +94,7 @@ public class JsonExerciseListStorageTest {
     /**
      * Saves {@code exerciseList} at the specified {@code filePath}.
      */
-    private void saveExerciseList(readOnlyExerciseList exerciseList, String filePath) {
+    private void saveExerciseList(ReadOnlyExerciseList exerciseList, String filePath) {
         try {
             new JsonExerciseListStorage(Paths.get(filePath))
                     .saveExerciseList(exerciseList, addToTestDataPathIfNotNull(filePath));

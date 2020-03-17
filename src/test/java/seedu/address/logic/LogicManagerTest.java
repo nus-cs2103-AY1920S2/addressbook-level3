@@ -24,7 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonExerciseListStorage;
@@ -155,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveExerciseList(readOnlyExerciseList exerciseList, Path filePath) throws IOException {
+        public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

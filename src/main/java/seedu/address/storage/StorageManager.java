@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -53,23 +53,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<readOnlyExerciseList> readExerciseList() throws DataConversionException, IOException {
+    public Optional<ReadOnlyExerciseList> readExerciseList() throws DataConversionException, IOException {
         return readExerciseList(exerciseListStorage.getExerciseListFilePath());
     }
 
     @Override
-    public Optional<readOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return exerciseListStorage.readExerciseList(filePath);
     }
 
     @Override
-    public void saveExerciseList(readOnlyExerciseList exerciseList) throws IOException {
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException {
         saveExerciseList(exerciseList, exerciseListStorage.getExerciseListFilePath());
     }
 
     @Override
-    public void saveExerciseList(readOnlyExerciseList exerciseList, Path filePath) throws IOException {
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         exerciseListStorage.saveExerciseList(exerciseList, filePath);
     }

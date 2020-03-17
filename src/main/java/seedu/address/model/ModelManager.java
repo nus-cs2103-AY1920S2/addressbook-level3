@@ -26,7 +26,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
      */
-    public ModelManager(readOnlyExerciseList exerciseList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExerciseList exerciseList, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(exerciseList, userPrefs);
 
@@ -79,12 +79,12 @@ public class ModelManager implements Model {
     //=========== ExerciseList ================================================================================
 
     @Override
-    public void setExerciseList(readOnlyExerciseList exerciseList) {
+    public void setExerciseList(ReadOnlyExerciseList exerciseList) {
         this.exerciseList.resetData(exerciseList);
     }
 
     @Override
-    public readOnlyExerciseList getExerciseList() {
+    public ReadOnlyExerciseList getExerciseList() {
         return exerciseList;
     }
 

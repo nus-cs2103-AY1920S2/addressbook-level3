@@ -47,10 +47,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code exerciseList}.
      */
-    void setExerciseList(readOnlyExerciseList exerciseList);
+    void setExerciseList(ReadOnlyExerciseList exerciseList);
 
     /** Returns the ExerciseList */
-    readOnlyExerciseList getExerciseList();
+    ReadOnlyExerciseList getExerciseList();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.

@@ -18,7 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExerciseList;
 import seedu.address.model.Model;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setExerciseList(readOnlyExerciseList newData) {
+        public void setExerciseList(ReadOnlyExerciseList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public readOnlyExerciseList getExerciseList() {
+        public ReadOnlyExerciseList getExerciseList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,7 +186,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public readOnlyExerciseList getExerciseList() {
+        public ReadOnlyExerciseList getExerciseList() {
             return new ExerciseList();
         }
     }

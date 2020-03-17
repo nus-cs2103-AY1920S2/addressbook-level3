@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ExerciseList;
-import seedu.address.model.readOnlyExerciseList;
+import seedu.address.model.ReadOnlyExerciseList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static readOnlyExerciseList getSampleExerciseList() {
+    public static ReadOnlyExerciseList getSampleExerciseList() {
         ExerciseList sampleAb = new ExerciseList();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);

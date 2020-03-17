@@ -6,7 +6,7 @@ import seedu.address.model.person.Person;
 /**
  * Unmodifiable view of an exercise list
  */
-public interface readOnlyExerciseList {
+public interface ReadOnlyExerciseList {
 
     /**
      * Returns an unmodifiable view of the persons list.
