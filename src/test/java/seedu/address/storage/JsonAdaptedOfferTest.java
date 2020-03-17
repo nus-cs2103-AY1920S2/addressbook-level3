@@ -20,7 +20,8 @@ public class JsonAdaptedOfferTest {
     public void toModelType_anyNull_throwsIllegalValueException() {
         // if both null, GoodName takes precedence
         JsonAdaptedOffer offer = new JsonAdaptedOffer(null, null);
-        String expectedMessage = String.format(JsonAdaptedOffer.MISSING_FIELD_MESSAGE_FORMAT, GoodName.class.getSimpleName());
+        String expectedMessage = String.format(JsonAdaptedOffer.MISSING_FIELD_MESSAGE_FORMAT,
+                GoodName.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, offer::toModelType);
 
         // null good name

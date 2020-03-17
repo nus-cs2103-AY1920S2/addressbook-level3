@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
@@ -43,7 +42,8 @@ class JsonAdaptedOffer {
      */
     public Offer toModelType() throws IllegalValueException {
         if (good == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, GoodName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    GoodName.class.getSimpleName()));
         }
         if (!GoodName.isValidGoodName(good)) {
             throw new IllegalValueException(GoodName.MESSAGE_CONSTRAINTS);
