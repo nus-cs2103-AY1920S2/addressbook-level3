@@ -64,13 +64,13 @@ public class TypicalExercises {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Exercise exercise : getTypicalPersons()) {
+        for (Exercise exercise : getTypicalExercises()) {
             ab.addPerson(exercise);
         }
         return ab;
     }
 
-    public static List<Exercise> getTypicalPersons() {
+    public static List<Exercise> getTypicalExercises() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }
