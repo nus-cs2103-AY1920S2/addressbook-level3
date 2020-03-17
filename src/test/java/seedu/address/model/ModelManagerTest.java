@@ -73,23 +73,23 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasExercise_nullExercise_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasExercise(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasExercise_exerciseNotInAddressBook_returnsFalse() {
         assertFalse(modelManager.hasExercise(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasExercise_exerciseInAddressBook_returnsTrue() {
         modelManager.addExercise(ALICE);
         assertTrue(modelManager.hasExercise(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredExerciseList().remove(0));
     }
 

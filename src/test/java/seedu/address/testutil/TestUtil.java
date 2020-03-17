@@ -49,7 +49,7 @@ public class TestUtil {
     /**
      * Returns the exercise in the {@code model}'s exercise list at {@code index}.
      */
-    public static Exercise getPerson(Model model, Index index) {
+    public static Exercise getExercise(Model model, Index index) {
         return model.getFilteredExerciseList().get(index.getZeroBased());
     }
 }
