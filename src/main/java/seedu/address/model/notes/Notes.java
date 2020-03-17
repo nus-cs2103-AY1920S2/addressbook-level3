@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +48,7 @@ public class Notes {
         return VALID_OPERATIONS.contains(operation.toLowerCase());
     }
 
-    public static ObservableList<Notes> getAllFilesInFolder(String path) {
+    public static ObservableList<Notes> getAllFilesInFolder() {
         String pathName = HOME_DIRECTORY;
 
         File myFile = new File(pathName);
@@ -55,7 +56,7 @@ public class Notes {
 
         File[] allFiles = myFile.listFiles();
         for (File f : allFiles) {
-            String[] allFileName = f.toString().split(File.separator);
+            String[] allFileName = f.toString().split(Pattern.quote(File.separator));
             String fileName = allFileName[allFileName.length - 1];
             if (fileName.charAt(0) == ('.')) {
                 continue;
