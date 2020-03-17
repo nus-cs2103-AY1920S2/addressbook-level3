@@ -42,6 +42,13 @@ public class Email {
   }
 
   /**
+   * Returns if email is not unknown
+   */
+  public boolean isKnown() {
+    return (!value.equalsIgnoreCase("Unknown"));
+  }
+
+  /**
    * Returns if a given string is a valid email.
    */
   public static boolean isValidEmail(String test) {
@@ -54,7 +61,11 @@ public class Email {
 
   @Override
   public String toString() {
-    return value;
+    if (value.equalsIgnoreCase("Unknown")) {
+      return "";
+    } else {
+      return value;
+    }
   }
 
   @Override

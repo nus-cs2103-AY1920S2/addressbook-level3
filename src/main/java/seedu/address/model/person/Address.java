@@ -31,7 +31,14 @@ public class Address {
   }
 
   /**
-   * Returns true if a given string is a valid email.
+   * Returns if address is not unknown
+   */
+  public boolean isKnown() {
+    return (!value.equalsIgnoreCase("Unknown"));
+  }
+
+  /**
+   * Returns true if a given string is a valid address.
    */
   public static boolean isValidAddress(String test) {
     if (test.equalsIgnoreCase("Unknown")) {
@@ -43,7 +50,11 @@ public class Address {
 
   @Override
   public String toString() {
-    return value;
+    if (value.equalsIgnoreCase("Unknown")) {
+      return "";
+    } else {
+      return value;
+    }
   }
 
   @Override
