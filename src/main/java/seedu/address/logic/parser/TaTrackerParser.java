@@ -13,6 +13,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.session.SessionCommandParser;
 
 /**
  * Parses user input.
@@ -54,8 +55,7 @@ public class TaTrackerParser {
             throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Group commands"));
 
         case CommandWords.SESSION:
-            // return new SessionCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Session commands"));
+            return new SessionCommandParser().parseCommand(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
