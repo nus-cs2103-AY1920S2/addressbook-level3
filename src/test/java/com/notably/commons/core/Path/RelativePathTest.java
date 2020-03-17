@@ -46,4 +46,12 @@ class RelativePathTest {
 
         assertThrows(InvalidPathException.class, () -> inputRelativePath.toAbsolutePath(inputCurrPath));
     }
+
+    @Test
+    public void equalsRelativePath_similarPath_pathAreEqual() throws InvalidPathException {
+        final RelativePath inputRelativePath1 = RelativePath.fromString("CS2103/../CS2103");
+        final RelativePath inputRelativePath2 = RelativePath.fromString("CS2103");
+
+        assertEquals(inputRelativePath2, inputRelativePath1);
+    }
 }

@@ -102,10 +102,32 @@ public class RelativePath implements Path {
         if (!(object instanceof Path)) {
             return false;
         }
-
         Path another = (Path) object;
-        List<String> temp = another.getComponents();
-        return this.components.equals(temp);
+        List<String> temp = new ArrayList<>();
+        List<String> anotherTemp = new ArrayList<>();
+        for (String obj: this.getComponents()) {
+            if (obj.equals("..")) {
+                if (temp.size() == 0) {
+                    temp.add(obj);
+                } else {
+                    temp.remove(temp.size() - 1);
+                }
+            } else if (!obj.equals(".")) {
+                temp.add(obj);
+            }
+        }
+        for (String obj: another.getComponents()) {
+            if (obj.equals("..")) {
+                if (anotherTemp.size() == 0) {
+                    anotherTemp.add(obj);
+                } else {
+                    anotherTemp.remove(temp.size() - 1);
+                }
+            } else if (!obj.equals(".")) {
+                anotherTemp.add(obj);
+            }
+        }
+        return temp.equals(anotherTemp);
     }
 
     @Override
