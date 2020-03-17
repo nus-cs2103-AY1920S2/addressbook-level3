@@ -11,5 +11,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_INSTRUCTIONS = new Prefix("ins/");
     public static final Prefix PREFIX_CALORIE = new Prefix("cal/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-
 }

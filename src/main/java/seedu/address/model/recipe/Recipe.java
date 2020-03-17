@@ -103,8 +103,8 @@ public class Recipe {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
-            " Instructions: ").append(getInstructions()).append(" Calories: ").append(getCalorie()).append(" Tags" +
-            ": ");
+            " Instructions: ").append(getInstructions()).append(" Calories: ").append(getCalorie()).append(" Tags"
+            + ": ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
