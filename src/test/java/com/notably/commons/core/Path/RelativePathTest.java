@@ -16,7 +16,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
 class RelativePathTest {
 
     @Test
-    public void createRelativePath_validInputString_generateAbsolutePath() throws InvalidPathException {
+    public void fromString_validInputString_generateAbsolutePath() throws InvalidPathException {
         final RelativePath testInput = RelativePath.fromString("CS2103/notes");
         List<String> paths = new ArrayList<>();
         paths.add("CS2103");
@@ -25,12 +25,12 @@ class RelativePathTest {
     }
 
     @Test
-    public void createAbsolutePath_invalidInputString_exceptionThrown() {
+    public void fromString_invalidInputString_exceptionThrown() {
         assertThrows(InvalidPathException.class, () -> RelativePath.fromString("/CS2103/notes"));
     }
 
     @Test
-    public void convertRelativeToAbsolutePath_validInput_correctedPath() throws InvalidPathException {
+    public void toAbsolutePath_validInput_correctedPath() throws InvalidPathException {
         final RelativePath inputRelativePath = RelativePath.fromString("CS2103/notes/hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
 
@@ -40,7 +40,7 @@ class RelativePathTest {
     }
 
     @Test
-    public void convertRelativePath_invalidInput_exceptionThrown() throws InvalidPathException {
+    public void toAbsolutePath_invalidInput_exceptionThrown() throws InvalidPathException {
         final RelativePath inputRelativePath = RelativePath.fromString("../../notes/hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
 
@@ -48,7 +48,7 @@ class RelativePathTest {
     }
 
     @Test
-    public void equalsRelativePath_similarPath_pathAreEqual() throws InvalidPathException {
+    public void equals_similarPath_pathAreEqual() throws InvalidPathException {
         final RelativePath inputRelativePath1 = RelativePath.fromString("CS2103/../CS2103");
         final RelativePath inputRelativePath2 = RelativePath.fromString("CS2103");
 
