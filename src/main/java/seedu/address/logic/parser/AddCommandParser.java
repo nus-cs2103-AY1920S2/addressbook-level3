@@ -63,7 +63,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Optional<Reminder> optionalReminder = (argMultimap.getValue(PREFIX_REMINDER).isEmpty()) 
+        Optional<Reminder> optionalReminder = (argMultimap.getValue(PREFIX_REMINDER).isEmpty())
                                 ? Optional.empty()
                                 : Optional.of(ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()));
 
