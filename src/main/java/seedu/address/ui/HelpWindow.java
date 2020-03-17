@@ -57,7 +57,8 @@ public class HelpWindow extends UiPart<Stage> {
             + "         Eg. return tid/ac17s2a n/Bobby Tan a/123 Delta Road #03-333, Singapore 123456"
             + " p/91230456 rts/12-12-2020 1300 w/Jurong Warehouse c/NIL type/glass \n"
 
-            + "\n 12. View orders at a specified Singapore postal sector (i.e. the first two digits of the postal code)\n"
+            + "\n 12. View orders at a specified Singapore postal sector "
+            + "(i.e. the first two digits of the postal code)\n"
             + "         Eg. nearby 14 (View all orders located in the general location of Queenstown & Tiong Bahru)\n"
             + "        Please refer to the User Guide for the respective postal sectors in Singapore. \n"
 
