@@ -113,11 +113,11 @@ public class TypicalOrders {
      * Returns an {@code OrderBook} with all the typical orders.
      */
     public static OrderBook getTypicalOrderBook() {
-        OrderBook ab = new OrderBook();
+        OrderBook ob = new OrderBook();
         for (Order order : getTypicalOrders()) {
-            ab.addOrder(order);
+            ob.addOrder(order);
         }
-        return ab;
+        return ob;
     }
 
     public static List<Order> getTypicalOrders() {
