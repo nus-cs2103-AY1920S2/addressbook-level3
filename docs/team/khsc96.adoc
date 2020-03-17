@@ -1,0 +1,69 @@
+= Kenny Ho - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Delino
+
+---
+
+== Overview
+
+Delino is a desktop application for couriers to manage delivery tasks. The user
+interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: [Coming soon]
+** What it does:
+** Justification:
+** Highlights:
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: [Coming soon]
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** In charge of both code integration and testing.
+** Enhancements to existing features:
+*** To be added
+** Documentation:
+*** To be added
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W12-1/main/pull/66[#66]
+*** Contributed to forum discussions https://www.youtube.com/watch?v=dQw4w9WgXcQ[#1]
+*** Reported bugs and suggestions for other teams in the class https://www.youtube.com/watch?v=dQw4w9WgXcQ[#1]
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Travis) to the project (https://github.com/AY1920S2-CS2103T-W12-1/main/commit/8f78de044b27b80a9ca893234a11ca184e114f50[#8f78de0])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

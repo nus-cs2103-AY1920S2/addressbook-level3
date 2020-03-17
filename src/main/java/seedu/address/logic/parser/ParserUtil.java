@@ -9,10 +9,13 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.comment.Comment;
+import seedu.address.model.order.Address;
+import seedu.address.model.order.Email;
+import seedu.address.model.order.Name;
+import seedu.address.model.order.Phone;
+import seedu.address.model.order.TimeStamp;
+import seedu.address.model.order.Warehouse;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,6 +28,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -81,6 +85,36 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String timeStamp} into an {@code TimeStamp}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code timeStamp} is invalid.
+     */
+    public static TimeStamp parseTimeStamp(String timeStamp) throws ParseException {
+        requireNonNull(timeStamp);
+        String trimmedTimeStamp = timeStamp.trim();
+        if (!TimeStamp.isValidTimeStamp(trimmedTimeStamp)) {
+            throw new ParseException(TimeStamp.MESSAGE_CONSTRAINTS);
+        }
+        return new TimeStamp(trimmedTimeStamp);
+    }
+
+    /**
+     * Parses a {@code String address} into an {@code Warehouse}.
+     * Leading and trailing whitespace will be removed.
+     *
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Warehouse parseWarehouse(String address) throws ParseException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        if (!Warehouse.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Warehouse.MESSAGE_CONSTRAINTS);
+        }
+        return new Warehouse(trimmedAddress);
+    }
+
+    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -93,6 +127,21 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String comment} into a {@code Comment}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code comment} is invalid.
+     */
+    public static Comment parseComment(String comment) throws ParseException {
+        requireNonNull(comment);
+        String trimmedComment = comment.trim();
+        if (!Comment.isValidComment(trimmedComment)) {
+            throw new ParseException(Comment.MESSAGE_CONSTRAINTS);
+        }
+        return new Comment(trimmedComment);
     }
 
     /**

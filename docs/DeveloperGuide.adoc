@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Delino - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-W12-01`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -100,7 +100,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a new order).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -127,7 +127,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Address Book`, which `Order` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -173,18 +173,18 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th order in the list. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `insert n/David ...` to add a new order delivery details. The `insert` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the order was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
@@ -206,7 +206,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `insert n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -222,7 +222,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the order being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -279,13 +279,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage his or her delivery orders conveniently
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage their deliveries faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,62 +295,407 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new courier |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |courier |import a list of orders |refer to the list of orders to be delivered
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |courier |see a list of orders that are yet to be delivered |gauge how long I need to complete my orders
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |courier |find an order by name/transaction ID/timestamp |locate details of an order without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |courier |recover any deletion of orders |recover any accidental deletions
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |courier |edit information in delivery orders |rectify any errors in delivery orders
+
+|`* * *` |courier |view delivery orders based on a given postal sector |easily find delivery orders in the same general location
+
+|`* * *` |courier |see the warehouse details of the orders |know where to get the packages from
+
+|`* * *` |courier |see my delivery orders without internet access |continue with deliveries as per normal
+
+|`* * *` |courier |know the delivery location of the parcels |plan my delivery route better
+
+|`* * *` |courier |be able to navigate the application easily |minimize the downtime in using the App
+
+|`* * *` |courier |mark my deliveries as done upon completion |keep track of orders better
+
+|`* * *` |courier |know customers' payment methods |be prepared to collect any payment upon delivery
+
+|`* *` |courier |know the nearest popstation/pick-up location for returned parcels |plan my route to pick up parcels to be returned
+
+|`* *` |advanced courier |use shorter versions of a command |type a command faster
+
+|`* *` |courier |keep track of the amount I have received for the day’s orders and the change I should give back |know whether the cash balance is correct at the end of the day
+
+|`* *` |caring courier |generate CSV based on what order I select |send the list of orders to my colleagues
+
+|`* *` |courier |report areas of traffic congestion to my colleagues |help my colleagues reduce their delivery times. (Requires Internet Connection)
+
+|`* *` |courier |keep track of areas with traffic congestion |speed up my delivery time
+
+|`* *` |courier |let the customer acknowledge when I have delivered the package |provide proof that the customer has received the package
+
+|`* *` |courier |know the nearest customer to me |reduce the time spent and distance travelled
+
+|`* *` |busy courier |let another courier handle one of my orders |request my colleagues to help me when I cannot complete the orders by today
+
+|`* *` |courier |contact my colleagues easily |ask for help if I am not able to deliver the packages
+
+|`* *` |courier |change the colour scheme of the application to better suit my eyes such as dark mode or a custom colour scheme |customize my user experience
+
+|`* *` |courier |filter all the deliveries to a particular region |arrange to deliver all packages in that region
+
+|`* *` |courier |be able to notify the customer when I am on my way |let the customer know when I am delivering the package to their location
+
+|`* *` |forgetful courier |have visual cues or notification if my order is an urgent delivery |prioritize on which order to deliver first
+
+|`* *` |curious and helpful courier |see how others are doing with their orders |help them if they have any difficulties delivering all of their parcels by the deadline
+
+|`*` |mindful courier |know about the weather of the day |plan ahead for any changes to my deliveries
+
+|`*` |courier |look at the current time |revise my delivery routes if necessary
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Delino` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Insert an order
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User key in the order details.
+2.  Delino inserts the order details.
+3.  Delino displays order added.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: UC02 - Clear all orders
+
+*MSS*
+
+1.  User requests to clear all orders.
+2.  Delino clear all existing orders.
+3.  Delino displays order cleared message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino detects no orders.
+[none]
+** 1b1. Delino shows no order to be cleared message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 - Delete an order
+
+*MSS*
+
+1.  User requests to [.underline]#list orders (UC10).#
+2.  User requests to delete a specific order in the list.
+3.  Delino deletes the order.
+4.  Delino displays order deleted.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Delino detects invalid syntax.
+[none]
+** 3a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 3b. Delino unable to detect any order with the transaction id.
+[none]
+** 3b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 - Mark order as done
+
+*MSS*
+
+1.  User request to mark order as done.
+2.  Delino changes order status to done.
+3.  Delino display marked order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino unable to detect any order with the transaction id.
+[none]
+** 1b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - Editing order details
+
+*MSS*
+
+1.  User request to edit order details.
+2.  Delino edit the order details
+3.  Delino display changes made.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino unable to detect any order with the transaction id.
+[none]
+** 1b1. Delino shows no order found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 - Exit the program
+
+*Precondition: User keys in correct exit command syntax.*
+
+*MSS*
+
+1.  User request to exit the program.
+2.  Delino displays goodbye message.
+3.  Delino closes the application window.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Search an order
+
+*MSS*
+
+1.  User request to search specific order by transaction id
+2.  Delino display the requested order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 1b. Delino unable to find order with the transaction id.
+[none]
+** 1b1. Delino display order not found message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 - Request for help
+
+*MSS*
+
+1.  User request for help to navigate around application.
+2.  Delino shows help message.
++
+Use case ends.
+
+[discrete]
+
+=== Use case: UC09 -  Importing order details
+
+*MSS*
+
+1.  User requests to import orders from an external file.
+2.  Delino checks for file existence.
+3.  Delino imports all orders from the external file.
+4.  Delino displays all orders imported.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 1a1. Delino shows an error message.
 +
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+[none]
+* 2a. Delino detects invalid file path.
++
+[none]
+** 2a1. Delino shows the invalid file path error message
++
+Use case ends.
+
+[none]
+* 3a. Delino is unable to open the file.
++
+[none]
+** 3a1. Delino shows permission denied error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC10 - Listing all orders
+
+*MSS*
+
+1.  User requests to view the list of orders.
+2.  Delino display list of orders.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects no orders.
++
+[none]
+** 2a1. Delino shows empty order list message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC11 - Order returns
+
+*MSS*
+
+1.  User requests to add order return.
+2.  Delino add order return.
+3.  Delino display order return added.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+
+[discrete]
+=== Use case: UC12 - Obtain orders in a postal sector
+
+*MSS*
+
+1.  User requests to obtain orders in a specified postal sector
+2.  Delino obtains all orders located in the postal sector
+3.  Delino display the list of orders
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects no orders.
++
+[none]
+** 2a1. Delino shows empty order list message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC13 - Undo previous command
+
+*MSS*
+
+1.  User request to undo current command
+2.  Delino revert back to the previous state.
+3.  Delino displays undo message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Delino detects invalid syntax.
++
+[none]
+** 1a1. Delino shows an error message.
++
+Use case ends.
+
+[none]
+* 2a. Delino detects nothing to be undo.
++
+[none]
+** 2a1. Delino shows nothing to be undone message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 350 orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should be able to respond within three seconds.
+.  The system should be able to work without internet access.
+.  A user should be able to get all the information he/she needs within four commands.
+.  A user should be able to familiarise himself/herself within an hour of usage.
 
 [appendix]
 == Glossary
@@ -358,8 +703,72 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[returns]] Returns::
+An order that is rejected and needs to be returned to the warehouse
+
+[[invalid-syntax]] Invalid syntax::
+Any syntax used that does not correspond to the required format
+
+[[status-bar]] Status Bar::
+Refers to the display field showing the results of an executed command
+
+.Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|tid/
+|Transaction ID
+|Insert, Return
+
+|n/
+|Customer Name
+|Insert
+
+|a/
+|Address
+|Insert
+
+|p/
+|Phone Number
+|Insert
+
+|ts/
+|Delivery Date And Time
+|Insert
+
+|w/
+|Warehouse Location
+|Insert
+
+|cod/
+|Cash On Delivery
+|Insert
+
+|c/
+|Comments by Customer
+|Insert, Return
+
+|type/
+|Type of Item
+|Insert
+|===
+
+.Possible Command Flags
+|===
+|Command |Flag |Meaning
+
+|Clear
+|-f
+|Force clear, no user confirmation will be requested
+
+|Search
+|-n
+|Search using Name
+
+|Search
+|-t
+|Search using Transaction ID
+|===
 
 [appendix]
 == Product Survey
@@ -386,40 +795,186 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch Delino
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Ensure that you have Java 11 installed in your computer
+.. Download the latest Delino.jar
+.. Copy the jar file to the folder you would like to use as a home address for Delino application
+   Expected: Shows the GUI of the Delino App. The window size may not be optimum
 
-. Saving window preferences
+=== Inserting an order
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Insert a minimum of 2 orders
 
-_{ more test cases ... }_
+.. Insert command format: `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
-=== Deleting a person
+.. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `cod/$4` +
+   Expected: Inserts an order with the above details to the list and displayed on the GUI
+.. Test case: `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass` +
+   Expected: Inserts the order to the list, including the item type and the order comment
+.. Test case: Invalid Syntax +
+   Expected: No order is added. Error details shown in the response message. A help message displayed for user to insert accordingly. Status bar remain unchanged
+.. Test case: Insert order with existing Transaction ID in list +
+   Expected: An error will occur and a message will be displayed, stating that order with duplicate ID cannot be inserted into the list
 
-. Deleting a person while all persons are listed
+=== Deleting an order
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Deleting an order with respect to the current list displayed
 
-_{ more test cases ... }_
+.. Delete command format: `delete` `INDEX`
+
+.. Prerequisites: List all orders using the `list` command. Multiple orders in the list
+.. Test case: `delete` `1` +
+   Expected: The first order item in the current list will be removed. Details of the deleted order will be displayed in the response box
+.. Test case: `delete` `2` +
+   Expected: The second item in the current list will be removed. Details of the deleted order will be displayed in the response box
+.. Test case: Invalid Syntax +
+   Expected: No order is deleted. An error message will be displayed in the response box
+.. Test case: `delete` `INVALID_INDEX` +
+   Expected: No order is deleted. An error message will be displayed in the response box, indicating that the index cannot be found in the list
+
+=== Edit orders
+
+. You can edit the details of the delivery order by specifying the transaction id, the field you want to change and the value that is required to update
+
+.. Edit command format: `edit` `INDEX` `PREFIX/NEW_VALUE`
+
+.. Test case: `edit` `1` `n/Xuan En` +
+   Expected: The first index customer's name is changed to Xuan En
+.. Test case: `edit` `2` `p/99521654` +
+   Expected: The second index phone number is changed to 9952 1654
+.. Test case: `edit` `1` `a/Blk 123 Pasir Ris street 51 #12-23 S510123` +
+   Expected: The first index is edited where the address of the customer of the order will be changed to Blk 123 Pasir Ris Street 51 #12-23 S510123
+.. Test case: `edit` `2` `n/Mr Tan` `p/98776655` `a/Blk 888 Jurong East street 2 #01-02 S521731` +
+   Expected: The first index of the list is edited. The name is changed to Mr Tan, phone number changed to 98776655 and address will be changed to Blk 888 Jurong East street 2 #01-02 S521731
+.. Test case: `edit` `1` `ts/09/08/2020` +
+   Expected: The delivery date of the first index of the customer will be rescheduled to 09/08/2020
+.. Test case: `edit` `1` `ts/02/02/2020` (Assuming this date has passed) +
+   Expected: The response box will display an error message as it is impossible to put a date that is already passed
+
+=== Import orders
+
+. Import a new list of orders from a .csv file given by the company
+
+.. Import command format: `import` `NAME_OF_FILE.csv`
+
+.. Prerequisites :
+The import file must be a `.csv file` and the `csv file` should be inside `data` folder which is the same directory as the JAR file. Otherwise, it will cause the app to raise an exception and print the error message. Should not import a file that is non-existent
+.. Test case: `import` `customers_20_02_2020.csv` +
+   Expected: In the response box, a message will appear to indicate that the import is successful. At the same time, the contents of the .csv file will be shown to the user in the form of a list of orders
+
+=== List orders
+
+. List all the delivery orders for the user. The type of orders to be listed is dependent on the command input from the user
+
+.. Test case: `list` +
+   Expected: List all the delivery orders, showing all completed and uncompleted orders.
+.. Test case: `list` `done` +
+   Expected: List all completed delivery orders.
+.. Test case: `list` `undone` +
+   Expected: List all uncompleted delivery orders.
+.. Test case: `list` `ANY_WORD_OTHER_THAN_UNDONE_AND_DONE` +
+   Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
+
+=== Search an order
+
+. Search an order based on either the person’s Name or by the Transaction ID
+
+.. Search command format: `search` `FLAG` `KEYWORD`
+
+.. Prerequisite: Call the list command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a `search` command, the orders from the output list is based on the list of completed orders
+.. Test case: `list` `done` +
+   `search` `-t` `A18512357Z` +
+   Expected: Specifically search the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
+.. Test case: `list` `undone` +
+   `search` `-n` `Amos` +
+   Expected: Print all uncompleted delivery orders with any person that has the name ‘Amos’ in it. It will not print out completed delivery orders with a person named ‘Amos’ despite having the same keyword
+.. Test case: `list` +
+   `search` `-n` `Amos` +
+   Expected: The program will look up all the delivery orders, regardless of completed or uncompleted orders and print out all orders in a list with the word ‘Amos’ in the name
+.. Test case: `list` +
+   `search` +
+   Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself
+
+=== Mark order as Done
+
+. Mark order as done whenever an order transaction is completed
+
+.. Done command format: `done` `INDEX`
+
+.. Prerequisite: Ensure that your list has more than or equals to two orders
+.. Test case: `done` `1` +
+   Expected: The first order in the currently displayed list will be marked as done
+.. Test case: `done` `2` +
+   Expected: The second order in the currently displayed list will be marked as done
+.. Test case: Invalid syntax
+   Expected: No order is marked as done. The error message will be displayed on the error response box describing the error
+
+=== Clear orders
+
+. Clear all orders while all orders are listed
+
+.. Clear command format: `clear` `[FLAG]`
+
+.. Test case: `clear` +
+   Expected: Confirmation message will display in status message. If reply ‘Y’, the order list will be cleared. If reply ‘N’, no order is deleted
+.. Test case: `clear` `-f` +
+   Expected: Order list will be cleared. Notify the user that the order list has been cleared in the status message.
+.. Test case: Invalid syntax
+   Expected: No order is cleared. Error details shown in the response message. A help message displayed for the user to type the correct command. Status bar remains unchanged
+
+=== Help
+
+. Display a list of available commands to user
+
+.. Test case: `help` +
+   Expected: A list of commands will be displayed and the response box will indicate a successful command.
+.. Test case: Invalid syntax
+   Expected: An error will occur and the response box will show an error message
+
+=== Obtain all nearby orders based on postal sector
+
+. Obtain all orders located in the same postal sector. +
+The postal sector to search for is given by the user. +
+A *postal sector* is the first *two* digits of a six digit Singapore postal code. +
+The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[here].
+
+.. Nearby command format: `nearby` `POSTAL_SECTOR`
+
+.. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
+.. Test case: `nearby` `79` +
+   Expected: Obtain all orders located in postal sector 79 (Seletar)
+.. Test case: `nearby` `07` +
+   Expected: Obtain all orders located in postal sector 07 (Anson, Tanjong Pagar)
+.. Test case: `nearby` `99` +
+   Expected: An error will occur as the given postal sector is invalid
+.. Test case: `nearby` `600` +
+   Expected: An error will occur as the given postal sector is invalid
+.. Test case: `nearby` +
+   Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
+
+=== Undo previous action
+
+. Undo the user’s previous action and revert back to the previous state. Usually in the case where the user has accidentally deleted an order
+
+.. Prerequisites : Execute any valid command that edits the list before calling the `undo` command
+.. Test case: `undo` +
+   Expected: The original list will be replaced with the current new list. The previous state will be restored
+.. Test case: `undo` `INVALID_SYNTAX` +
+   Expected: Error message displayed in the response box
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Manual Saving is not required as data is already saved in the hard disk after any commands that change the data
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Exit
 
-_{ more test cases ... }_
+. Exits the Delino App using the `exit` command
+
+.. Test case: `exit` +
+   Expected: The GUI window will be closed
+.. Test case: Adding any other words as the second argument of the `exit` command
+   Expected: The response box will display an invalid command message
