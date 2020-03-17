@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -17,7 +18,7 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     public SuggestionModelImpl() {
         suggestions = FXCollections.observableArrayList();
-        responseTextProperty.setValue(Optional.empty());
+        responseTextProperty = new SimpleObjectProperty(Optional.empty());
     }
 
     @Override
