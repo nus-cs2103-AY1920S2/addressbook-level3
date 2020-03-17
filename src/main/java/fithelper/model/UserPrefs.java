@@ -15,6 +15,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path fitHelperFilePath = Paths.get("data" , "fithelper.json");
+    private Path userProfilePath = Paths.get("data", "userprofile.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -56,6 +57,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.fitHelperFilePath = fitHelperFilePath;
     }
 
+    public Path getUserProfilePath() {
+        return userProfilePath;
+    }
+
+    public void setUserProfilePath(Path userProfilePath) {
+        requireNonNull(userProfilePath);
+        this.userProfilePath = userProfilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -68,19 +78,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && fitHelperFilePath.equals(o.fitHelperFilePath);
+                && fitHelperFilePath.equals(o.fitHelperFilePath)
+                && userProfilePath.equals(o.userProfilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, fitHelperFilePath);
+        return Objects.hash(guiSettings, fitHelperFilePath, userProfilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + fitHelperFilePath);
+        sb.append("\nEntry data file location : " + fitHelperFilePath);
+        sb.append("\nUser Profile data file location : " + userProfilePath);
         return sb.toString();
     }
 
