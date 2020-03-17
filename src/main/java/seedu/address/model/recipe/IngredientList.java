@@ -38,6 +38,13 @@ public class IngredientList {
         this.ingredients = new ArrayList<Ingredient>();
     }
 
+    /*
+    public IngredientList(List<Ingredient> ingredients) {
+        this.ingredientListString = "";
+        this.ingredients = ingredients;
+    }
+     */
+
     /**
      * Returns true if a given string is a valid ingredient list.
      */

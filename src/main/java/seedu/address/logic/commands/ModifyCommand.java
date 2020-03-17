@@ -96,6 +96,7 @@ public class ModifyCommand extends Command {
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedTags);
     }
 
+    /*
     private static Recipe scaleRecipe(Recipe recipeToScale, List<String> newQuantities) {
         List<Ingredient> ingredients = recipeToScale.getIngredients().ingredients;
         for (int i = 0; i < ingredients.size(); i++) {
@@ -104,6 +105,7 @@ public class ModifyCommand extends Command {
         return new Recipe(recipeToScale.getName(), new IngredientList(ingredients),
                 recipeToScale.getInstructions(), recipeToScale.getTags());
     }
+     */
 
     @Override
     public boolean equals(Object other) {
