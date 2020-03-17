@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
 
+import com.notably.model.commandinput.CommandInputModel;
+
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionModel;
 
 import javafx.beans.property.Property;
-
-import com.notably.model.commandinput.CommandInputModel;
 
 import javafx.beans.property.StringProperty;
 
@@ -31,11 +31,12 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
-    private final UserPrefs userPrefs;
-    private final FilteredList<Object> filteredPersons;
-    private final SuggestionModel suggestionModel;
-    private final CommandInputModel commandInputModel;
+    private AddressBook addressBook;
+    private UserPrefs userPrefs;
+    private FilteredList<Object> filteredPersons;
+    // TODO: set the model variables to final after removing the AB3 attributes.
+    private SuggestionModel suggestionModel;
+    private CommandInputModel commandInputModel;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -175,28 +176,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Property<Optional<String>> getCommandTextProperty() {
-        return suggestionModel.getCommandTextProperty();
+    public Property<Optional<String>> responseTextProperty() {
+        return suggestionModel.responseTextProperty();
     }
 
     @Override
-    public void setCommandInputText(String commandInputText) {
-        suggestionModel.setCommandInputText(commandInputText);
+    public void setResponseText(String responseText) {
+        suggestionModel.setResponseText(responseText);
     }
 
     @Override
-    public String getCommandInputText() {
-        return suggestionModel.getCommandInputText();
-    }
-
-    @Override
-    public void clearCommandInputText() {
-        suggestionModel.clearCommandInputText();
+    public void clearResponseText() {
+        suggestionModel.clearResponseText();
     }
 
     @Override
     public void clearSuggestions() {
         suggestionModel.clearSuggestions();
+    }
 
     //========= CommandInputModel==================================================================
 
