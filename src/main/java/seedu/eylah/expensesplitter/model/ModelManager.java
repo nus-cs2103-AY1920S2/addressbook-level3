@@ -5,9 +5,6 @@ import java.util.logging.Logger;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.expensesplitter.model.person.Person;
 
-//import static java.util.Objects.requireNonNull;
-//import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -64,6 +61,18 @@ public class ModelManager implements Model {
 
     }
 
+    /**
+     * Command for listing all person with their amount.
+     */
+    @Override
+    public void listAmount() {
+
+    }
+
+    /**
+     * Intentionally left empty.
+     * To be implemented later.
+     */
     @Override
     public void paidPerson(Person p) {
 

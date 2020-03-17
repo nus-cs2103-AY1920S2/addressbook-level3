@@ -45,7 +45,6 @@ public class AddItemCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
         model.addEntry(toBeAdded);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));
     }
