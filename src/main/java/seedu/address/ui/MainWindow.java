@@ -1,14 +1,19 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -18,6 +23,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.task.Reminder;
+import seedu.address.logic.PomodoroManager;
+import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -279,6 +287,32 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    public static void triggerReminder(Reminder reminder, String name, String description) {
+        long delay = reminder.getDelay();
+        Timeline timeline =
+            new Timeline(
+                new KeyFrame(
+                    Duration.seconds(delay), ae -> {
+                        MainWindow.showReminder(name, description);
+                        reminder.setHasFired();
+                    }));
+        timeline.play();
+    }
+
+    @FXML
+    /**
+     * Is triggered at the delayed time in Duke itself.
+     * https://thecodinginterface.com/blog/javafx-alerts-and-dialogs/#informational-alert
+     */
+    public static void showReminder(String name, String description) {
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Reminder");
+        alert.setHeaderText(name);
+        alert.setContentText(description);
+        alert.show();
+    }
+    
     private PetDisplayHandler getPetDisplayHandler() {
         return logic.getPetDisplayHandler();
     }
