@@ -12,7 +12,7 @@ public class ListReceiptCommand extends Command {
 
     public static final String COMMAND_WORD = "listreceipt";
     public static final String MESSAGE_USAGE = "listreceipt is entered as `listreceipt`";
-    public static final String MESSAGE_SUCCESS = "Listed current receipt containing all Items and Person(s) involved"
+    public static final String MESSAGE_SUCCESS = "Listed current receipt containing all Items and Person(s) involved "
             + "in splitting it.";
 
     @Override

@@ -2,11 +2,8 @@ package seedu.eylah.expensesplitter.model;
 
 import java.util.logging.Logger;
 
-import seedu.eylah.addressbook.model.person.Person;
 import seedu.eylah.commons.core.LogsCenter;
-
-//import static java.util.Objects.requireNonNull;
-//import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -53,14 +50,14 @@ public class ModelManager implements Model {
         receipt.deleteEntry(index);
     }
 
+
+
     /**
      * Intentionally left empty.
      * To be implemented later.
-     *
-     * @param person Person who paid
      */
     @Override
-    public void paidPerson(Person person) {
+    public void listReceipt() {
 
     }
 
@@ -77,7 +74,7 @@ public class ModelManager implements Model {
      * To be implemented later.
      */
     @Override
-    public void listReceipt() {
+    public void paidPerson(Person p) {
 
     }
 
