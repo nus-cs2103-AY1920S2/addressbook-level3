@@ -10,7 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public abstract class Ingredient {
 
     public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain only "
-        + "alphabetical letters or spaces";
+            + "alphabetical letters or spaces";
+    public static final String MESSAGE_MISSING_FIELD = "Ingredients require a quantity and name written in the format: "
+            + "Tag/Quantity, Name\n"
+            + "For example, to enter 50g of Broccoli, the format is iv/50 Broccoli";
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
     protected IngredientType ingredientType;

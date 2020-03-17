@@ -12,7 +12,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.ingredient.Grain;
 import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.ingredient.Other;
+import seedu.address.model.ingredient.Protein;
 import seedu.address.model.ingredient.Vegetable;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Step;
@@ -138,11 +141,15 @@ public class ParserUtil {
     public static Vegetable parseVegetable(String vegetable) throws ParseException {
         requireNonNull(vegetable);
         String[] splitFields = vegetable.split(",");
+        if (splitFields.length != 2) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+
         String trimmedVegetableName = splitFields[1].trim();
         String trimmedVegetableQuantity = splitFields[0].trim();
 
-        if (!Vegetable.isValidIngredientName(trimmedVegetableName)) {
-            throw new ParseException(Vegetable.MESSAGE_CONSTRAINTS);
+        if (!Ingredient.isValidIngredientName(trimmedVegetableName)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
         double vegetableQuantity = Double.parseDouble(trimmedVegetableQuantity);
@@ -164,6 +171,121 @@ public class ParserUtil {
         return ingredientSet;
     }
 
+    /**
+     * Parses a {@code String grain} into a {@code Grain}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code grain} is invalid.
+     */
+    public static Grain parseGrain(String grain) throws ParseException {
+        requireNonNull(grain);
+        String[] splitFields = grain.split(",");
 
+        if (splitFields.length != 2) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+        String trimmedGrainName = splitFields[1].trim();
+        String trimmedGrainQuantity = splitFields[0].trim();
+
+        if (!Ingredient.isValidIngredientName(trimmedGrainName)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+        }
+
+        double grainQuantity = Double.parseDouble(trimmedGrainQuantity);
+        return new Grain(trimmedGrainName, grainQuantity);
+    }
+
+    /**
+     * Parses {@code Collection<String> grains} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     */
+    public static Set<Ingredient> parseGrains(Collection<String> grains, Set<Ingredient> ingredientSet)
+            throws ParseException {
+        if (ingredientSet == null || ingredientSet.isEmpty()) {
+            ingredientSet = new HashSet<>();
+        }
+        requireNonNull(grains);
+        for (String grain : grains) {
+            ingredientSet.add(parseGrain(grain));
+        }
+        return ingredientSet;
+    }
+
+    /**
+     * Parses a {@code String protein} into a {@code Protein}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code protein} is invalid.
+     */
+    public static Protein parseProtein(String protein) throws ParseException {
+        requireNonNull(protein);
+        String[] splitFields = protein.split(",");
+
+        if (splitFields.length != 2) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+        String trimmedProteinName = splitFields[1].trim();
+        String trimmedProteinQuantity = splitFields[0].trim();
+
+        if (!Ingredient.isValidIngredientName(trimmedProteinName)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+        }
+
+        double proteinQuantity = Double.parseDouble(trimmedProteinQuantity);
+        return new Protein(trimmedProteinName, proteinQuantity);
+    }
+
+    /**
+     * Parses {@code Collection<String> proteins} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     */
+    public static Set<Ingredient> parseProteins(Collection<String> proteins, Set<Ingredient> ingredientSet)
+            throws ParseException {
+        if (ingredientSet == null || ingredientSet.isEmpty()) {
+            ingredientSet = new HashSet<>();
+        }
+        requireNonNull(proteins);
+        for (String protein : proteins) {
+            ingredientSet.add(parseProtein(protein));
+        }
+        return ingredientSet;
+    }
+
+    /**
+     * Parses a {@code String other} into a {@code Other}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code other} is invalid.
+     */
+    public static Other parseOther(String other) throws ParseException {
+        requireNonNull(other);
+        String[] splitFields = other.split(",");
+
+        if (splitFields.length != 2) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+        String trimmedOtherName = splitFields[1].trim();
+        String trimmedOtherQuantity = splitFields[0].trim();
+
+        if (!Ingredient.isValidIngredientName(trimmedOtherName)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+        }
+
+        double otherQuantity = Double.parseDouble(trimmedOtherQuantity);
+        return new Other(trimmedOtherName, otherQuantity);
+    }
+
+    /**
+     * Parses {@code Collection<String> others} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     */
+    public static Set<Ingredient> parseOthers(Collection<String> others, Set<Ingredient> ingredientSet)
+            throws ParseException {
+        if (ingredientSet == null || ingredientSet.isEmpty()) {
+            ingredientSet = new HashSet<>();
+        }
+        requireNonNull(others);
+        for (String other : others) {
+            ingredientSet.add(parseProtein(other));
+        }
+        return ingredientSet;
+    }
 
 }
