@@ -6,8 +6,12 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import java.nio.file.Path;
 
 /** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {
@@ -15,17 +19,35 @@ public class StatisticsDisplay extends UiPart<Region> {
     private static final String FXML = "StatisticsDisplay.fxml";
 
     public String barChartTitleText; // mutable
-    public int[][] data; // mutable
+    public int[][] data; //
+    public Path progressBarDailyFilepath;
+    public String progressDailyText;
+    public String medalsText;
 
-    @FXML
-    private VBox statisticsPane;
+    @FXML private VBox statisticsPane;
     @FXML private Label barChartTitle;
     @FXML private BarChart<String, Integer> barChart;
 
-    public StatisticsDisplay(String barChartTitleText, int[][] data) {
+    @FXML private Label progressDaily;
+    @FXML private ImageView progressBarDaily;
+    @FXML private Label medals;
+
+
+    public StatisticsDisplay(String barChartTitleText, int[][] data,
+                             Path progressBarDailyFilepath,
+                             String progressDailyText,
+                             String medalsText) {
         super(FXML);
         this.barChartTitleText = barChartTitleText;
         this.data = data;
+        this.progressBarDailyFilepath = progressBarDailyFilepath;
+        this.progressDailyText = progressDailyText;
+        this.medalsText = medalsText;
+
+        progressDaily.setText(progressDailyText);
+        Image progressBarDailyImage = new Image(String.valueOf(progressBarDailyFilepath));
+        progressBarDaily.setImage(progressBarDailyImage);
+        medals.setText(medalsText);
 
         barChartTitle.setText(barChartTitleText);
 
@@ -46,7 +68,9 @@ public class StatisticsDisplay extends UiPart<Region> {
         dataSeries1.getData().add(new XYChart.Data<>("Day 7", 80));
 
         barChart.getData().add(dataSeries1);
+
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

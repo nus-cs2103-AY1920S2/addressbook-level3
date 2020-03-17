@@ -138,7 +138,12 @@ public class MainWindow extends UiPart<Stage> {
         pomodoroDisplay = new PomodoroDisplay("No task in progress.", "25:00");
         pomodoroPlaceholder.getChildren().add(pomodoroDisplay.getRoot());
 
-        statisticsDisplay = new StatisticsDisplay("Time spent on Pomodoro over the last 7 days", null);
+        statisticsDisplay =
+                new StatisticsDisplay("Time spent on Pomodoro over the last 7 days",
+                        null,
+                        Paths.get("images", "statistics", "progressBarDaily50%.png"),
+                        "50 mins / 100 mins",
+                        "Medals earned: 0");
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
     }
 
