@@ -41,17 +41,19 @@ public class Eylah {
     public void run() {
         boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
-        logger.info("Enter mode (diet/splitting): ");
+        System.out.println("Enter mode (diet/splitting): ");
         String input = scanner.nextLine();
         if (input.equals("diet")) {
+            // Diet mode
             logger.info("Entering Diet MODE.");
             dietModel = new ModelManager();
             dietLogic = new LogicManager(dietModel, null);
             while (!isExit) {
-                logger.info("Enter Diet Command: ");
+                System.out.println("Enter Diet Command: ");
                 input = scanner.nextLine();
                 try {
                     CommandResult commandResult = dietLogic.execute(input);
+                    // Here will print out the respond to user
                     System.out.println(commandResult.getFeedbackToUser());
                 } catch (CommandException | ParseException e) {
                     e.printStackTrace();
@@ -59,15 +61,17 @@ public class Eylah {
                 }
             }
         } else {
-            logger.info("Entering Splitting MODE.");
+            // Splitting mode
+            System.out.println("Entering Splitting MODE.");
             splitterModel = new seedu.eylah.expensesplitter.model.ModelManager();
             splitterLogic = new seedu.eylah.expensesplitter.logic.LogicManager(splitterModel, null);
             while (!isExit) {
-                logger.info("Enter Splitting Command: ");
+                System.out.println("Enter Splitting Command: ");
                 input = scanner.nextLine();
                 try {
                     seedu.eylah.expensesplitter.logic.commands.CommandResult commandResult =
                             splitterLogic.execute(input);
+                    // Here will print out the respond to user
                     System.out.println(commandResult.getFeedbackToUser());
                 } catch (seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException
                         | seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException e) {
