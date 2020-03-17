@@ -38,7 +38,7 @@ public class EditCouponDescriptorBuilder {
         descriptor = new EditCouponDescriptor();
         descriptor.setName(coupon.getName());
         descriptor.setPhone(coupon.getPhone());
-        descriptor.setSavings(coupon.getSavings());
+        descriptor.setSavings(coupon.getSavingsForEachUse());
         descriptor.setExpiryDate(coupon.getExpiryDate());
         descriptor.setStartDate(coupon.getStartDate());
         descriptor.setUsage(coupon.getUsage());

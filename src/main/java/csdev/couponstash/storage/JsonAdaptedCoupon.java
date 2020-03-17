@@ -15,8 +15,10 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Remind;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -29,12 +31,13 @@ class JsonAdaptedCoupon {
 
     private final String name;
     private final String phone;
-    private final JsonAdaptedSavings savings;
+    private final JsonAdaptedSavings savingsPerUse;
     private final String expiryDate;
     private final String startDate;
     private final String usage;
     private final String limit;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final JsonAdaptedPureMonetarySavings totalSaved;
 
     /**
      * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
@@ -42,20 +45,22 @@ class JsonAdaptedCoupon {
     @JsonCreator
     public JsonAdaptedCoupon(@JsonProperty("name") String name,
                              @JsonProperty("phone") String phone,
-                             @JsonProperty("savings") JsonAdaptedSavings savings,
+                             @JsonProperty("savingsPerUse") JsonAdaptedSavings savingsPerUse,
                              @JsonProperty("expiry date") String expiryDate,
                              @JsonProperty("start date") String startDate,
                              @JsonProperty("usage") String usage,
                              @JsonProperty("limit") String limit,
+                             @JsonProperty("totalSaved") JsonAdaptedPureMonetarySavings totalSaved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged
                              ) {
         this.name = name;
         this.phone = phone;
-        this.savings = savings;
+        this.savingsPerUse = savingsPerUse;
         this.expiryDate = expiryDate;
         this.startDate = startDate;
         this.usage = usage;
         this.limit = limit;
+        this.totalSaved = totalSaved;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -67,11 +72,12 @@ class JsonAdaptedCoupon {
     public JsonAdaptedCoupon(Coupon source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        savings = new JsonAdaptedSavings(source.getSavings());
+        savingsPerUse = new JsonAdaptedSavings(source.getSavingsForEachUse());
         expiryDate = source.getExpiryDate().value;
         startDate = source.getStartDate().value;
         usage = source.getUsage().value;
         limit = source.getLimit().value;
+        totalSaved = new JsonAdaptedPureMonetarySavings(source.getTotalSavings());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -104,11 +110,11 @@ class JsonAdaptedCoupon {
         }
         final Phone modelPhone = new Phone(phone);
 
-        if (savings == null) {
+        if (savingsPerUse == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Savings.class.getSimpleName()));
         }
-        final Savings modelSavings = savings.toModelType();
+        final Savings modelSavings = savingsPerUse.toModelType();
 
         if (expiryDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -144,10 +150,22 @@ class JsonAdaptedCoupon {
         }
         final Limit modelLimit = new Limit(limit);
 
+        final PureMonetarySavings modelTotalSaved;
+        if (totalSaved == null) {
+            // could not find totalSaved data
+            // just set total savings to 0
+            modelTotalSaved = new PureMonetarySavings();
+        } else {
+            modelTotalSaved = totalSaved.toModelType();
+        }
+
+        // TODO: change this when reminders can be saved properly
+        final Remind modelRemind = new Remind();
+
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
         return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelStartDate, modelUsage, modelLimit,
-                modelTags);
+                modelTags, modelTotalSaved, modelRemind);
 
     }
 

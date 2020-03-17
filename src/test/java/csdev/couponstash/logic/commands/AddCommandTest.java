@@ -3,8 +3,8 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -60,20 +60,20 @@ public class AddCommandTest {
         AddCommand addBobCommand = new AddCommand(bob);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertEquals(addAliceCommand, addAliceCommand);
 
         // same values -> returns true
         AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        assertEquals(addAliceCommand, addAliceCommandCopy);
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertNotEquals(1, addAliceCommand);
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertNotNull(addAliceCommand);
 
         // different coupon -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertNotEquals(addAliceCommand, addBobCommand);
     }
 
     /**
