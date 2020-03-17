@@ -18,9 +18,6 @@ public abstract class InMemoryStorage<T> implements AppStorage<T> {
     protected ArrayList<T> fakeStorage;
 
     @Override
-    public abstract void init();
-
-    @Override
     public void delete(T templateClass) {
         // TODO: Write some code here
     }
@@ -42,6 +39,7 @@ public abstract class InMemoryStorage<T> implements AppStorage<T> {
                                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    @Override
     public ArrayList<T> search() {
         Conditions<T> cond = new LiterallyNoConditions<T>();
         return this.search(cond);

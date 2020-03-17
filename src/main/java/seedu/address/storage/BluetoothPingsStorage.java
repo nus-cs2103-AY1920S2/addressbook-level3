@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class BluetoothPingsStorage extends InMemoryStorage<BluetoothPings> {
     public BluetoothPingsStorage() {
         super();
+        this.init();
     }
 
     /**
@@ -25,7 +26,6 @@ public class BluetoothPingsStorage extends InMemoryStorage<BluetoothPings> {
         return fakePings;
     }
 
-    @Override
     public void init() {
         this.fakeStorage = this.genFakeData();
     }

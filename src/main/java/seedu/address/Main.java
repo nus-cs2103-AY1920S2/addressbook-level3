@@ -1,6 +1,7 @@
 package seedu.address;
 
 import javafx.application.Application;
+import seedu.address.ui.ContactTracingMainApp;
 
 /**
  * The main entry point to the application.
@@ -20,6 +21,6 @@ import javafx.application.Application;
  */
 public class Main {
     public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
+        Application.launch(ContactTracingMainApp.class, args);
     }
 }
