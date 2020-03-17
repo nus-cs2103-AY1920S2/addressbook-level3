@@ -12,6 +12,7 @@ import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.model.util.SampleDataUtil;
@@ -24,14 +25,17 @@ public class CouponBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final Savings DEFAULT_SAVINGS = new Savings(new MonetaryAmount(32.5));
+    public static final PureMonetarySavings DEFAULT_TOTAL_SAVINGS =
+            new PureMonetarySavings(new MonetaryAmount(97.5));
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
     public static final String DEFAULT_START_DATE = LocalDate.now().format(StartDate.DATE_FORMATTER);
-    public static final String DEFAULT_USAGE = "0";
-    public static final String DEFAULT_LIMIT = "1";
+    public static final String DEFAULT_USAGE = "3";
+    public static final String DEFAULT_LIMIT = "7";
 
     private Name name;
     private Phone phone;
     private Savings savings;
+    private PureMonetarySavings totalSavings;
     private ExpiryDate expiryDate;
     private StartDate startDate;
     private Usage usage;
@@ -42,6 +46,7 @@ public class CouponBuilder {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         savings = new Savings(DEFAULT_SAVINGS);
+        totalSavings = DEFAULT_TOTAL_SAVINGS;
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
         startDate = new StartDate(DEFAULT_START_DATE);
         usage = new Usage(DEFAULT_USAGE);
@@ -56,6 +61,7 @@ public class CouponBuilder {
         name = couponToCopy.getName();
         phone = couponToCopy.getPhone();
         savings = new Savings(couponToCopy.getSavingsForEachUse());
+        totalSavings = new PureMonetarySavings(couponToCopy.getTotalSavings());
         expiryDate = couponToCopy.getExpiryDate();
         startDate = couponToCopy.getStartDate();
         usage = couponToCopy.getUsage();
@@ -94,6 +100,17 @@ public class CouponBuilder {
      */
     public CouponBuilder withSavings(Savings sv) {
         this.savings = sv;
+        return this;
+    }
+
+    /**
+     * Sets the {@code PureMonetarySavings} of the {@code Coupon} that we are building.
+     * PureMonetarySavings represents the total savings earned from using the Coupon.
+     * @param pms The PureMonetarySavings to set.
+     * @return This CouponBuilder (mutated).
+     */
+    public CouponBuilder withTotalSavings(PureMonetarySavings pms) {
+        this.totalSavings = pms;
         return this;
     }
 

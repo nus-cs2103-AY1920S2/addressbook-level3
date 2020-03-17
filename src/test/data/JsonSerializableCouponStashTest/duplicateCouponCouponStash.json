@@ -2,7 +2,7 @@
   "coupons": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "savings" : {
+    "savingsPerUse" : {
       "monetaryAmount" : 123.0,
       "percentageAmount" : null,
       "saveables" : null
@@ -15,7 +15,7 @@
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "savings" : {
+    "savingsPerUse" : {
       "monetaryAmount" : 123.0,
       "percentageAmount" :null,
       "saveables" : [ {

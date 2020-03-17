@@ -53,6 +53,17 @@ public class PureMonetarySavings extends Savings {
     }
 
     /**
+     * Cloning constructor for PureMonetarySavings. The internal
+     * MonetaryAmount and Saveables will not be cloned, as they
+     * are immutable. But the Saveables List will be cloned.
+     * Assumes pms is a valid PureMonetarySavings.
+     * @param pms The PureMonetarySavings to be cloned.
+     */
+    public PureMonetarySavings(PureMonetarySavings pms) {
+        super(pms);
+    }
+
+    /**
      * Combines two PureMonetarySavings, giving a new
      * PureMonetarySavings that takes into account
      * monetary amounts in both PureMonetarySavings,

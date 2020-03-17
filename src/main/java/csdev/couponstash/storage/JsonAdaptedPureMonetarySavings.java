@@ -67,8 +67,10 @@ public class JsonAdaptedPureMonetarySavings {
         }
 
         List<Saveable> modelSaveables = new ArrayList<Saveable>();
-        for (JsonAdaptedSaveable jsv : saveables) {
-            modelSaveables.add(jsv.toModelType());
+        if (saveables != null) {
+            for (JsonAdaptedSaveable jsv : saveables) {
+                modelSaveables.add(jsv.toModelType());
+            }
         }
 
         if (modelSaveables.isEmpty()) {
