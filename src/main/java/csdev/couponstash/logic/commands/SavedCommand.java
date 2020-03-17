@@ -45,7 +45,7 @@ public class SavedCommand extends Command {
         // add up all the Savings to get total Savings
         PureMonetarySavings pms = new PureMonetarySavings();
         for (Coupon c : couponsList) {
-            PureMonetarySavings toBeAdded = SavingsConversionUtil.convertToPure(c.getSavingsForEachUse());
+            PureMonetarySavings toBeAdded = SavingsConversionUtil.convertToPure(c.getTotalSavings());
             pms = pms.add(toBeAdded);
         }
         // get monetary amount
