@@ -1,25 +1,30 @@
 package com.notably.commons.core.path;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 
 /**
- * TODO: Add Javadoc
+ * Represents a path to the block relative to the current directory.
  */
 public class RelativePath implements Path {
     public static final String INVALID_RELATIVE_PATH = "Invalid relative path";
-    public static final String VALIDATION_REGEX = "((\\.|\\..|\\p{Alnum}+))+\\/?";
-    private final List<String> paths;
+    public static final String VALIDATION_REGEX = "(\\.|\\..|\\p{Alnum}+)(/(\\.|\\..|\\p{Alnum}+))*\\/?";
+    private final List<String> components;
     private RelativePath(String relativePathString) {
-        this.paths = new ArrayList<>();
+        this.components = new ArrayList<>();
         for (String obj : relativePathString.split("/")) {
             if (!obj.trim().equals("")) {
-                this.paths.add(obj.trim());
+                this.components.add(obj.trim());
             }
         }
+    }
+
+    private RelativePath(List<String> components) {
+        this.components = components;
     }
 
     /**
@@ -46,6 +51,16 @@ public class RelativePath implements Path {
     }
 
     /**
+     * Instantiate a relativePath from components.
+     * @param components to create a relativePath.
+     * @return a relativePath object.
+     */
+    public static RelativePath fromComponents(List<String> components) {
+        return new RelativePath(components);
+
+    }
+
+    /**
      * Convert from absolute path to relative path.
      * @param absolutePath to convert to relative path.
      * @param currentWorkingPath of the current working directory.
@@ -53,9 +68,16 @@ public class RelativePath implements Path {
      * @throws InvalidPathException
      */
     public static RelativePath fromAbsolutePath(AbsolutePath absolutePath,
-            AbsolutePath currentWorkingPath) throws InvalidPathException {
-        return absolutePath.toRelativePath(currentWorkingPath);
-
+            AbsolutePath currentWorkingPath) {
+        int sizeOfCurrent = currentWorkingPath.getComponents().size();
+        int sizeOfAbsolute = absolutePath.getComponents().size();
+        List<String> componentsToRelative;
+        if (sizeOfCurrent > sizeOfAbsolute) {
+            componentsToRelative = Collections.nCopies(sizeOfAbsolute - sizeOfCurrent, "..");
+        } else {
+            componentsToRelative = absolutePath.getComponents().subList(sizeOfCurrent, sizeOfAbsolute);
+        }
+        return fromComponents(componentsToRelative);
     }
 
     /**
@@ -64,20 +86,7 @@ public class RelativePath implements Path {
      * @return the absolute path of the relative path.
      */
     public AbsolutePath toAbsolutePath(AbsolutePath currentWorkingPath) throws InvalidPathException {
-        List<String> temp = new ArrayList<>(this.paths);
-        List<String> temp2 = new ArrayList<>(currentWorkingPath.getComponents());
-        for (String obj : temp) {
-            if (obj.equals("..")) {
-                if (temp2.remove(temp2.size() - 1) == null) {
-                    throw new InvalidPathException("Root block does not have a parent");
-                }
-            } else if (obj.equals(".")) {
-                // Do nothing
-            } else {
-                temp2.add(obj);
-            }
-        }
-        return new AbsolutePath(temp2);
+        return AbsolutePath.fromRelativePath(this, currentWorkingPath);
     }
 
     /**
@@ -85,7 +94,7 @@ public class RelativePath implements Path {
      */
     @Override
     public List<String> getComponents() {
-        return this.paths;
+        return this.components;
     }
 
     @Override
@@ -96,17 +105,17 @@ public class RelativePath implements Path {
 
         Path another = (Path) object;
         List<String> temp = another.getComponents();
-        return this.paths.equals(temp);
+        return this.components.equals(temp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.paths);
+        return Objects.hash(this.components);
     }
 
     @Override
     public String toString() {
-        return String.join("/", this.paths);
+        return String.join("/", this.components);
     }
 }
 

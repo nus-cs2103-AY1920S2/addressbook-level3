@@ -34,28 +34,20 @@ class RelativePathTest {
     }
 
     @Test
-    public void convertRelativeToAbsolutePath_validInput_correctedPath() {
-        try {
-            final RelativePath inputRelativePath = RelativePath.fromString("CS2103/notes/hello");
-            final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
+    public void convertRelativeToAbsolutePath_validInput_correctedPath() throws InvalidPathException {
+        final RelativePath inputRelativePath = RelativePath.fromString("CS2103/notes/hello");
+        final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
 
-            final AbsolutePath expectedOutput = AbsolutePath.fromString("/notes/hello");
+        final AbsolutePath expectedOutput = AbsolutePath.fromString("/notes/hello");
 
-            assertEquals(expectedOutput, inputRelativePath.toAbsolutePath(inputCurrPath));
-        } catch (InvalidPathException ex) {
-            ex.getMessage();
-        }
+        assertEquals(expectedOutput, inputRelativePath.toAbsolutePath(inputCurrPath));
     }
 
     @Test
-    public void convertRelativePath_invalidInput_exceptionThrown() {
-        try {
+    public void convertRelativePath_invalidInput_exceptionThrown() throws InvalidPathException {
             final RelativePath inputRelativePath = RelativePath.fromString("../../notes/hello");
             final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
 
             assertThrows(InvalidPathException.class, () -> inputRelativePath.toAbsolutePath(inputCurrPath));
-        } catch (InvalidPathException ex) {
-            ex.getMessage();
-        }
     }
 }

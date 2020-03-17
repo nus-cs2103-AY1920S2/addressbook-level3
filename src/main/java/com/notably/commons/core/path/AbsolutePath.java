@@ -7,24 +7,24 @@ import java.util.Objects;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 
 /**
- * TODO: Add Javadoc
+ * Represents a Path to the block that take reference from the Root node.
  */
 public class AbsolutePath implements Path {
     public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
     public static final String VALIDATION_REGEX = "(\\/(\\p{Alnum}+))+\\/?";
-    private final List<String> paths;
+    private final List<String> components;
 
     private AbsolutePath(String absolutePathString) {
-        this.paths = new ArrayList<>();
+        this.components = new ArrayList<>();
         for (String obj : absolutePathString.split("/")) {
             if (!obj.trim().equals("")) {
-                this.paths.add(obj.trim());
+                this.components.add(obj.trim());
             }
         }
     }
 
     public AbsolutePath(List<String> absolutePathList) {
-        this.paths = absolutePathList;
+        this.components = absolutePathList;
     }
 
     /**
@@ -43,11 +43,20 @@ public class AbsolutePath implements Path {
      * @throws InvalidPathException if String provided is not a valid absolutePath.
      */
     public static AbsolutePath fromString(String absolutePathString) throws InvalidPathException {
-        if (isValidAbsolutePath(absolutePathString)) {
-            return new AbsolutePath(absolutePathString);
-        } else {
+        if (!isValidAbsolutePath(absolutePathString)) {
             throw new InvalidPathException(INVALID_ABSOLUTE_PATH);
         }
+        return new AbsolutePath(absolutePathString);
+    }
+
+    /**
+     * Creates an absolute path from a list of components.
+     * @param absoluteComponents used to create an absolutePath.
+     * @return Absolute Path.
+     * @throws InvalidPathException if String provided is not a valid absolutePath.
+     */
+    public static AbsolutePath fromComponent(List<String> absoluteComponents) {
+        return new AbsolutePath(absoluteComponents);
     }
 
 
@@ -64,16 +73,17 @@ public class AbsolutePath implements Path {
         List<String> temp2 = new ArrayList<>(currentWorkingPath.getComponents());
         for (String obj : temp) {
             if (obj.equals("..")) {
-                if (temp.remove(temp2.size() - 1) == null) {
+                if (temp2.size() == 0) {
                     throw new InvalidPathException("Empty directory");
                 }
+                temp2.remove(temp2.size() - 1);
             } else if (obj.equals(".")) {
                 //Do nothing
             } else {
-                temp.add(obj);
+                temp2.add(obj);
             }
         }
-        return new AbsolutePath(temp);
+        return new AbsolutePath(temp2);
     }
 
     /**
@@ -81,14 +91,8 @@ public class AbsolutePath implements Path {
      * @param currentWorkingPath of the current working directory.
      * @return the converted RelativePath
      */
-    public RelativePath toRelativePath(AbsolutePath currentWorkingPath) throws InvalidPathException {
-        int sizeOfCurrent = currentWorkingPath.getComponents().size();
-        if (sizeOfCurrent < this.getComponents().size()) {
-            throw new InvalidPathException("Current working path bigger than AbsolutePath");
-        }
-        List<String> temp = this.paths.subList(sizeOfCurrent, this.paths.size());
-        String relativePathString = String.join("/", temp);
-        return RelativePath.fromString(relativePathString);
+    public RelativePath toRelativePath(AbsolutePath currentWorkingPath) {
+        return RelativePath.fromAbsolutePath(this, currentWorkingPath);
     }
 
     /**
@@ -96,7 +100,7 @@ public class AbsolutePath implements Path {
      */
     @Override
     public List<String> getComponents() {
-        return this.paths;
+        return this.components;
     }
 
     @Override
@@ -107,17 +111,17 @@ public class AbsolutePath implements Path {
 
         Path another = (Path) object;
         List<String> temp = another.getComponents();
-        return this.paths.equals(temp);
+        return this.components.equals(temp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.paths);
+        return Objects.hash(this.components);
     }
 
     @Override
     public String toString() {
-        return "/" + String.join("/", this.paths);
+        return "/" + String.join("/", this.components);
     }
 }
 
