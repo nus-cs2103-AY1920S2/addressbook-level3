@@ -8,7 +8,7 @@ import java.util.List;
 public class Capulator {
     private List<NusModule> modules;
 
-    private Capulator(List<NusModule> modules) {
+    public Capulator(List<NusModule> modules) {
         this.modules = modules;
     }
 
@@ -32,7 +32,6 @@ public class Capulator {
             return 0;
         }
 
-        double cap = sumOfGradePoints / sumOfModularCredits;
-        return cap;
+        return sumOfGradePoints / sumOfModularCredits;
     }
 }
