@@ -37,7 +37,7 @@ public class ActivityListPanel extends UiPart<Region> {
         protected void updateItem(Activity activity, boolean empty) {
             super.updateItem(activity, empty);
             //Fit modules to screen
-            prefWidthProperty().bind(activityListView.widthProperty().divide(activityListView.getItems().size()));
+            //prefWidthProperty().bind(activityListView.widthProperty().divide(activityListView.getItems().size()));
             //minWidthProperty().set(200);
             //setMaxWidth(Control.USE_PREF_SIZE);
 

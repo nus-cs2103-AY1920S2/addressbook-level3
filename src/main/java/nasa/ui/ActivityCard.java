@@ -31,6 +31,13 @@ public class ActivityCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label date;
+    @FXML
+    private Label note;
+    @FXML
+    private Label status;
+    @FXML
+    private Label priority;
+
 
 
     public ActivityCard(Activity activity, int displayedIndex) {
@@ -38,7 +45,9 @@ public class ActivityCard extends UiPart<Region> {
         this.activity = activity;
         name.setText(activity.getName().toString());
         date.setText(activity.getDate().toString());
-
+        note.setText(activity.getNote().toString());
+        status.setText(activity.getStatus().toString());
+        priority.setText(activity.getPriority().toString());
     }
 
     @Override
@@ -55,7 +64,6 @@ public class ActivityCard extends UiPart<Region> {
 
         // state check
         ActivityCard card = (ActivityCard) other;
-        return name.getText().equals(card.name.getText())
-                && date.equals(card.date);
+        return name.getText().equals(card.name.getText());
     }
 }
