@@ -1,6 +1,7 @@
 package seedu.address.model.session;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -101,11 +102,11 @@ public class Session {
     @Override
     public boolean equals(Object other) {
         if (other == this) {
-          return true;
+            return true;
         }
 
         if (!(other instanceof Session)) {
-          return false;
+            return false;
         }
 
         Session otherSession = (Session) other;
