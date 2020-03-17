@@ -119,8 +119,21 @@ public class ParserUtil {
         final ArrayList<Person> persons = new ArrayList<>();
         Amount pricePerPerson = parseAmount(price, names.size());
         for (Name name : names) {
-            persons.add(new Person(name, pricePerPerson, null));
+            persons.add(new Person(name, pricePerPerson));
         }
         return persons;
     }
+
+    /**
+     * Parses a {@code String priceInString} into a {@code ItemPrice}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code priceInString} is invalid.
+     */
+    public static Integer parseIndexV2(String i) {
+        requireNonNull(i);
+        return Integer.valueOf(i);
+    }
+
+
 }

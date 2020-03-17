@@ -7,11 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.eylah.addressbook.logic.commands.HelpCommand;
+import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
+import seedu.eylah.expensesplitter.logic.commands.BackCommand;
 import seedu.eylah.expensesplitter.logic.commands.Command;
-import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
-import seedu.eylah.expensesplitter.logic.commands.BackCommand;
+import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input for ExpenseSplitter.
@@ -43,12 +44,18 @@ public class ExpenseSplitterParser {
 
         // New Command need to add to here!!!
         switch(commandWord) {
+        case ListReceiptCommand.COMMAND_WORD:
+            return new ListReceiptCommand(); // No Args so no need to Parse.
 
-            case ListReceiptCommand.COMMAND_WORD:
-                return new ListReceiptCommand(); // No Args so no need to Parse.
+        case BackCommand.COMMAND_WORD:
+            return new BackCommand(); // No Args so no need to Parse.
 
-            case BackCommand.COMMAND_WORD:
-                return new BackCommand(); // No Args so no need to Parse.
+        case PaidCommand.COMMAND_WORD:
+            return new PaidCommandParser().parse(arguments);
+
+        case AddItemCommand.COMMAND_WORD:
+            return new AddItemCommandParser().parse(arguments);
+
 
 
         default:
