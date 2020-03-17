@@ -2,12 +2,13 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_OPERATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES_PATH;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_NOTES;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.notes.Notes;
 
@@ -38,6 +39,11 @@ public class NotesCommand extends Command {
     private static final String MESSAGE_NOTHING_HAPPENED = "Nothing Happened ";
     private static final String MESSAGE_MAKEDIR_SUCCESSFUL = "Directory is successfully created ";
     private static final String MESSAGE_MAKEDIR_UNSUCCESSFUL = "Directory is unable to be created ";
+
+    private static final String MESSAGE_LISTED_DIR = "Listed Directory at";
+    private static final String MESSAGE_LISTED_DIR_FAIL = "Unable to list directory at ";
+    private static final String DUMMY_TEST = "Dummy test ";
+
 
 
     private String notesOperation;
@@ -82,11 +88,12 @@ public class NotesCommand extends Command {
      * @return a CommandResult based on whether the operation succeed or failed.
      */
     public CommandResult createDoc(String path) {
-
+        String currentDirectory = path.split("/")[0];
         String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
         File myFile = new File(pathName);
         try {
             myFile.createNewFile();
+            Notes.setList(listfilesArray(currentDirectory));
             return new CommandResult(MESSAGE_CREATE_SUCCESS + pathName);
         } catch (IOException ex) {
             return new CommandResult(MESSAGE_CREATE_FAIL + pathName);
@@ -105,6 +112,7 @@ public class NotesCommand extends Command {
         File myFile = new File(pathName);
 
         if (myFile.mkdir()) { // return true if directory is created
+            Notes.setList(listfilesArray(path));
             return new CommandResult(MESSAGE_MAKEDIR_SUCCESSFUL + pathName);
         } else {
             return new CommandResult(MESSAGE_MAKEDIR_UNSUCCESSFUL + pathName);
@@ -112,8 +120,63 @@ public class NotesCommand extends Command {
 
     }
 
+    /**
+     * Tentative, may remove this function.
+     * @param path dummy
+     * @return dummy
+     */
+    public CommandResult listFiles(String path) {
+        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        File myFile = new File(pathName);
+        ArrayList<Notes> filesArrayList = new ArrayList<>();
+
+        File[] allFiles = myFile.listFiles();
+        for (File f : allFiles) {
+            String[] allFileName = f.toString().split(File.separator);
+            String filename = allFileName[allFileName.length - 1];
+            if (filename.charAt(0) == ('.')) {
+                continue;
+            }
+            Notes note = new Notes(filename);
+            filesArrayList.add(note);
+            System.out.println(filename);
+        }
+        Notes.setList(filesArrayList);
+        return new CommandResult(MESSAGE_LISTED_DIR + pathName);
+    }
+
+    /**
+     * Tentative, to be updated.
+     * @param path dummy
+     * @return dummy
+     */
+    private ArrayList<Notes> listfilesArray(String path) {
+
+        String pathName = HOME_DIRECTORY + File.separatorChar + "Desktop" + File.separatorChar + path;
+        File myFile = new File(pathName);
+        ArrayList<Notes> filesArrayList = new ArrayList<>();
+
+        File[] allFiles = myFile.listFiles();
+        for (File f : allFiles) {
+            String[] allFileName = f.toString().split(File.separator);
+            String filename = allFileName[allFileName.length - 1];
+            if (filename.charAt(0) == ('.')) {
+                continue;
+            }
+            Notes note = new Notes(filename);
+            filesArrayList.add(note);
+            System.out.println(filename);
+        }
+        return filesArrayList;
+
+    }
+
+
+
     @Override
     public CommandResult execute(Model model) {
+
+        model.updateNotesList(PREDICATE_SHOW_ALL_NOTES);
 
         if (this.notesOperation.equals("open")) {
             return openDoc(this.path);
@@ -121,7 +184,10 @@ public class NotesCommand extends Command {
             return createDoc(this.path);
         } else if (this.notesOperation.equals("createfolder")) {
             return createFolder(this.path);
+        } else if (this.notesOperation.equals("list")) {
+            return listFiles(this.path);
         }
+
         return new CommandResult(MESSAGE_NOTHING_HAPPENED);
     }
 

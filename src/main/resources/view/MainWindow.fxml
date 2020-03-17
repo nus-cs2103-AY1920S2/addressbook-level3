@@ -44,7 +44,10 @@
                      </content>
                   </Tab>
                   <Tab fx:id="calenderTab" text="Calender" />
-                  <Tab fx:id="notesTab" text="Notes" />
+                  <Tab fx:id="notesTab" text="Notes">
+                     <content>
+                        <StackPane fx:id="notesListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                     </content></Tab>
                   <Tab fx:id="profileTab" text="Profile" />
               </tabs>
             </TabPane>
@@ -60,7 +63,7 @@
           </padding>
         </StackPane>
 
-        <StackPane fx:id="statusbarPlaceholder" styleClass="pane-with-border" maxHeight="10" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" maxHeight="10" styleClass="pane-with-border" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>
