@@ -71,5 +71,4 @@ public class Good {
                 .append(goodQuantity);
         return builder.toString();
     }
-
 }
