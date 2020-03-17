@@ -159,4 +159,12 @@ public class ModelManager implements Model {
     public MonthlyData getMonthlyData() {
         return monthlyData;
     }
+
+    /**
+     * Update monthly data object
+     */
+    @Override
+    public void updateMonthlyData(MonthlyData monthlyData) {
+        expenseLa.setMonthlyData(monthlyData);
+    }
 }
