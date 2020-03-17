@@ -1,5 +1,9 @@
 package seedu.address.todolist;
 
+/**
+ * Returns an extended type of Task, Deadline, where tasks have to be completed by a set date
+ */
+
 public class Deadline extends Task {
 
     protected String by;
