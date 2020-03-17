@@ -22,13 +22,13 @@ public class ExerciseUtil {
      * Returns an add command string for adding the {@code exercise}.
      */
     public static String getAddCommand(Exercise exercise) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(exercise);
+        return AddCommand.COMMAND_WORD + " " + getExerciseDetails(exercise);
     }
 
     /**
      * Returns the part of command string for the given {@code exercise}'s details.
      */
-    public static String getPersonDetails(Exercise exercise) {
+    public static String getExerciseDetails(Exercise exercise) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + exercise.getName().fullName + " ");
         sb.append(PREFIX_PHONE + exercise.getPhone().value + " ");
@@ -43,7 +43,7 @@ public class ExerciseUtil {
     /**
      * Returns the part of command string for the given {@code EditExerciseDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.EditExerciseDescriptor descriptor) {
+    public static String getEditExerciseDescriptorDetails(EditCommand.EditExerciseDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

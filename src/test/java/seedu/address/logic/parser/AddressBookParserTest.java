@@ -57,7 +57,7 @@ public class AddressBookParserTest {
         Exercise exercise = new ExerciseBuilder().build();
         EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(exercise).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_EXERCISE.getOneBased() + " " + ExerciseUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_EXERCISE.getOneBased() + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_EXERCISE, descriptor), command);
     }
 

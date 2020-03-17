@@ -24,7 +24,7 @@ public class ExerciseTest {
     }
 
     @Test
-    public void isSamePerson() {
+    public void isSameExercise() {
         // same object -> returns true
         assertTrue(ALICE.isSameExercise(ALICE));
 
