@@ -63,10 +63,18 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
 
-    public static final String INVALID_PRICE_OFFER_DESC = " " + PREFIX_OFFER + "invalid -1.0"; // invalid price
-    public static final String INVALID_FORMAT_OFFER_DESC = " " + PREFIX_OFFER + "invalid3.45"; // no space separator
-
-    public static final String INVALID_GOOD_NAME_APRICOT = "Asia apricot&";
+    // no space separator
+    public static final String INVALID_FORMAT_OFFER_DESC = " " + PREFIX_OFFER + "invalid3.45";
+    //invalid good name
+    public static final String INVALID_GOOD_OFFER_DESC = " " + PREFIX_OFFER + "inv@lid 404";
+    //invalid good name and price
+    public static final String INVALID_GOOD_AND_PRICE_OFFER_DESC = " " + PREFIX_OFFER + "inv@lid -404";
+    //invalid good name and format
+    public static final String INVALID_GOOD_AND_FORMAT_OFFER_DESC = " " + PREFIX_OFFER + "inv@lid404";
+    // invalid price
+    public static final String INVALID_PRICE_OFFER_DESC = " " + PREFIX_OFFER + "invalid -1.0";
+    // invalid price and format
+    public static final String INVALID_PRICE_AND_FORMAT_OFFER_DESC = " " + PREFIX_OFFER + "invalid-1.0";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

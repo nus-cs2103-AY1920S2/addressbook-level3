@@ -8,8 +8,12 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FORMAT_OFFER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOOD_AND_FORMAT_OFFER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOOD_AND_PRICE_OFFER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOOD_OFFER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_AND_FORMAT_OFFER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_OFFER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -33,6 +37,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
@@ -127,6 +132,10 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
                 + OFFER_DESC_BANANA + OFFER_DESC_APPLE, Address.MESSAGE_CONSTRAINTS);
 
+        // invalid good name in offer
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_GOOD_OFFER_DESC + OFFER_DESC_APPLE, GoodName.MESSAGE_CONSTRAINTS);
+
         // invalid price in offer
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_PRICE_OFFER_DESC + OFFER_DESC_APPLE, Price.MESSAGE_CONSTRAINTS);
@@ -134,6 +143,18 @@ public class AddCommandParserTest {
         // invalid format in offer
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + INVALID_FORMAT_OFFER_DESC + OFFER_DESC_APPLE, Offer.MESSAGE_CONSTRAINTS);
+
+        // invalid good name precedes invalid price in offer
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_GOOD_AND_PRICE_OFFER_DESC + OFFER_DESC_APPLE, GoodName.MESSAGE_CONSTRAINTS);
+
+        // invalid format precedes invalid good name in offer
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_GOOD_AND_FORMAT_OFFER_DESC + OFFER_DESC_APPLE, Offer.MESSAGE_CONSTRAINTS);
+
+        // invalid format precedes invalid price in offer
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                + INVALID_PRICE_AND_FORMAT_OFFER_DESC + OFFER_DESC_APPLE, Offer.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,

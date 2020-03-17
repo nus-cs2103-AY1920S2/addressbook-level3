@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FORMAT_OFFER_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_GOOD_OFFER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_OFFER_DESC;
@@ -37,6 +38,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
@@ -87,6 +89,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_GOOD_OFFER_DESC, GoodName.MESSAGE_CONSTRAINTS); // invalid good name
         assertParseFailure(parser, "1" + INVALID_PRICE_OFFER_DESC, Price.MESSAGE_CONSTRAINTS); // invalid offer price
         assertParseFailure(parser, "1" + INVALID_FORMAT_OFFER_DESC, Offer.MESSAGE_CONSTRAINTS); // invalid offer price
 
