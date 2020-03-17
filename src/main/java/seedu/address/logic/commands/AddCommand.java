@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,12 +20,17 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal to the module. "
             + "Parameters: "
             + PREFIX_MODULE + "MODULE "
-            + PREFIX_SEMESTER + "SEMESTER" + "\n"
+            + PREFIX_SEMESTER + "SEMESTER "
+            + "(" + PREFIX_TASK + "TASK) "
+            + "(" + PREFIX_DEADLINE + "DEADLINE) "
+            + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULE + "CS2103 "
-            + PREFIX_SEMESTER + "4";
+            + PREFIX_SEMESTER + "4"
+            + "(" + PREFIX_TASK + "assignment) "
+            + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
-    public static final String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
+    private static String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
 
     private final Module toAdd;
 
@@ -33,9 +40,12 @@ public class AddCommand extends Command {
     public AddCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
+    }
 
-        // todo: Add module to Profile
-
+    public AddCommand(Module module, boolean isUpdated) {
+        requireNonNull(module);
+        toAdd = module;
+        MESSAGE_SUCCESS = "Existing module updated: %1$s";
     }
 
     @Override

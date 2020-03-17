@@ -15,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.storage.Storage;
 
 /**
@@ -35,7 +36,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, ParseException, DateTimeException {
         //logging, safe to ignore
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 

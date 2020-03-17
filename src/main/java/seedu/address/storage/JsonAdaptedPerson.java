@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
 
 /**
  * Jackson-friendly version of {@link Profile}.
@@ -45,9 +45,9 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
-        final Course modelCourse = new Course("Computer Science");
+        final CourseName modelCourseName = new CourseName("Computer Science");
 
-        return new Profile(modelName, modelCourse, "1", null);
+        return new Profile(modelName, modelCourseName, "1", null);
     }
 
 }

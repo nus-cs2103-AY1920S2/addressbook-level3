@@ -25,14 +25,15 @@ public class ProfileTest {
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // same name -> returns true
-        editedAlice = new PersonBuilder(ALICE).withCourse("Computer Science").withCurrentSemester("1").build();
+        editedAlice = new PersonBuilder(ALICE).withCourseName("Computer Science").withCurrentSemester("1").build();
         assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Profile aliceCopy = new PersonBuilder(ALICE).withCourse("Computer Science").withCurrentSemester("1").build();
+        Profile aliceCopy = new PersonBuilder(ALICE).withCourseName("Computer Science")
+                .withCurrentSemester("1").build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true

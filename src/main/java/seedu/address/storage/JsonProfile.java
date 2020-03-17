@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -31,19 +31,19 @@ class JsonProfile {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Profile's %s field is missing!";
 
     private String name;
-    private String course;
+    private String courseName;
     private String specialisation;
     private String currentSemester;
     private List<JsonSemesterRecord> records;
 
     @JsonCreator
     public JsonProfile(@JsonProperty("name") String name,
-            @JsonProperty("course") String course,
+            @JsonProperty("courseName") String courseName,
             @JsonProperty("specialisation") String specialisation,
             @JsonProperty("currentSemester") String currentSemester,
             @JsonProperty("records") List<JsonSemesterRecord> records) {
         this.name = name;
-        this.course = course;
+        this.courseName = courseName;
         this.specialisation = specialisation;
         this.currentSemester = currentSemester;
         this.records = records;
@@ -51,7 +51,7 @@ class JsonProfile {
 
     public JsonProfile(Profile source) {
         name = source.getName().toString();
-        course = source.getCourse().toString();
+        courseName = source.getCourseName().toString();
         specialisation = source.getSpecialisation();
         currentSemester = source.getCurrentSemester();
         records = new ArrayList<>();
@@ -73,8 +73,9 @@ class JsonProfile {
         // Note that some fields such as prerequisite and preclusion are optional fields and are thus omitted
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        } else if (course == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Course.class.getSimpleName()));
+        } else if (courseName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    CourseName.class.getSimpleName()));
         } else if (currentSemester == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "current semester"));
         } else if (records == null) {
@@ -90,7 +91,7 @@ class JsonProfile {
         // TODO: Validation for course - Completely alphabetical
 
         Name profileName = new Name(name);
-        Course profileCourse = new Course(course);
+        CourseName profileCourse = new CourseName(courseName);
         Profile profile = new Profile(profileName, profileCourse, currentSemester, specialisation);
 
         for (JsonSemesterRecord record : records) {
@@ -222,8 +223,17 @@ class JsonDeadline {
 
     public JsonDeadline(Deadline deadline) {
         description = deadline.getDescription();
-        date = deadline.getDate().toString();
-        time = deadline.getTime().toString();
+        if (deadline.getDate() == null) {
+            date = null;
+        } else {
+            date = deadline.getDate().toString();
+
+        }
+        if (deadline.getTime() == null) {
+            time = null;
+        } else {
+            time = deadline.getTime().toString();
+        }
     }
 
     /**
@@ -235,7 +245,7 @@ class JsonDeadline {
         try {
             LocalDate.parse(date);
             LocalTime.parse(time);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | NullPointerException e) {
             throw new IllegalValueException("Deadline's date field should be a valid date in the format YYYY-MM-DD "
                     + "and time field should be a valid time in the format HH:mm");
         }

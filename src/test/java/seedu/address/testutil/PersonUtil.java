@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.logic.commands.AddCommand;
@@ -26,7 +26,7 @@ public class PersonUtil {
     public static String getPersonDetails(Profile profile) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + profile.getName().fullName + " ");
-        sb.append(PREFIX_COURSE + profile.getCourse().toString() + " ");
+        sb.append(PREFIX_COURSE_NAME + profile.getCourseName().toString() + " ");
         return sb.toString();
     }
 

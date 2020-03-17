@@ -4,7 +4,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseName;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -12,17 +12,17 @@ import seedu.address.model.profile.course.Course;
 public class SampleDataUtil {
     public static Profile[] getSamplePersons() {
         return new Profile[] {
-            new Profile(new Name("Alex Yeoh"), new Course("Computer Science"), "1",
+            new Profile(new Name("Alex Yeoh"), new CourseName("Computer Science"), "1",
                     null),
-            new Profile(new Name("Bernice Yu"), new Course("Business Analytics"), "1",
+            new Profile(new Name("Bernice Yu"), new CourseName("Business Analytics"), "1",
                     null),
-            new Profile(new Name("Charlotte Oliveiro"), new Course("Information Security"), "1",
+            new Profile(new Name("Charlotte Oliveiro"), new CourseName("Information Security"), "1",
                     null),
-            new Profile(new Name("David Li"), new Course("Information Systems"), "1",
+            new Profile(new Name("David Li"), new CourseName("Information Systems"), "1",
                     null),
-            new Profile(new Name("Irfan Ibrahim"), new Course("Computer Science"), "1",
+            new Profile(new Name("Irfan Ibrahim"), new CourseName("Computer Science"), "1",
                     null),
-            new Profile(new Name("Roy Balakrishnan"), new Course("Business Analytics"), "1",
+            new Profile(new Name("Roy Balakrishnan"), new CourseName("Business Analytics"), "1",
                     null)
         };
     }
