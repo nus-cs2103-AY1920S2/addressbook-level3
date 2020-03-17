@@ -8,8 +8,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  * Guarantees: immutable; is valid as declared in {@link #isValidDuration(String)}
  */
 public class Workload {
-    public static final String MESSAGE_CONSTRAINTS = "Estimated workload cannot be left empty, " +
-            "if no estimates can be made enter '0'. Round off estimates to the nearest hour.";
+    public static final String MESSAGE_CONSTRAINTS = "Estimated workload cannot be left empty, "
+            + "if no estimates can be made enter '0'. Round off estimates to the nearest hour.";
     public static final String VALIDATION_REGEX = "\\d{1,}";
 
     // Instance fields

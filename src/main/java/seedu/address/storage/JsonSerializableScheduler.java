@@ -1,17 +1,21 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.Scheduler;
 import seedu.address.model.assignment.Assignment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * An unmodifiable scheduler that is serializable in JSON format.
+ */
 @JsonRootName(value = "scheduler")
 public class JsonSerializableScheduler {
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "Assignment list contains duplicate assignments.";

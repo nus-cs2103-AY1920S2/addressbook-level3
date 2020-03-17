@@ -1,14 +1,13 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.assignment.Assignment;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.assignment.Assignment;
 
 /**
  * Adds a new assignment to the Schoolwork Tracker.
@@ -16,7 +15,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 public class AddAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "(st)add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an  to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assignment to the scheduler. "
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_DEADLINE + "DEADLINE "
@@ -27,8 +26,8 @@ public class AddAssignmentCommand extends Command {
             + PREFIX_ESTHOURS + "180";
 
     public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment has already been recorded. " +
-            "Congratulations, you don't have a new assignment!! (=";
+    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment has already been recorded. "
+            + "Congratulations, you don't have a new assignment!! (=";
 
     private final Assignment toAdd;
 

@@ -1,18 +1,18 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.Deadline;
 import seedu.address.model.assignment.Title;
 import seedu.address.model.assignment.Workload;
-
-import java.util.stream.Stream;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object.

@@ -1,12 +1,16 @@
 package seedu.address.model;
 
-import seedu.address.model.assignment.Assignment;
-import seedu.address.model.assignment.AssignmentList;
+import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import static java.util.Objects.requireNonNull;
+import seedu.address.model.assignment.Assignment;
+import seedu.address.model.assignment.AssignmentList;
 
+/**
+ * Wraps all data at the scheduler level.
+ * Duplicates are not allowed (by .isSameAssignment comparison)
+ */
 public class Scheduler implements ReadOnlyScheduler {
     private final AssignmentList assignments;
 

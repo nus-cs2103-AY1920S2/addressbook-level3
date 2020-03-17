@@ -1,21 +1,27 @@
 package seedu.address.model.assignment;
 
-import java.util.ArrayList;
-
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
+/**
+ * A list of assignments that enforces uniqueness between its elements and does not allow nulls.
+ * An assignment is considered unique by comparing using {@code Assignment#isSameAssignment(Assignment)}.
+ * As such, adding and updating of assignments uses Assignment#isSameAssignment(Assignment) for equality so as to
+ * ensure that the assignment being added or updated is unique in terms of identity in the AssignmentList.
+ *
+ * @see Assignment#isSameAssignment(Assignment)
+ */
 public class AssignmentList {
     private final ArrayList<Assignment> assignments;
 
     public AssignmentList() {
-       this.assignments = new ArrayList<Assignment>();
+        this.assignments = new ArrayList<Assignment>();
     }
 
     public void setAssignments(ArrayList<Assignment> replacement) {
         requireNonNull(replacement);
         assignments.addAll(replacement);
-
-        System.out.println(assignments.get(0));
     }
 
     /**

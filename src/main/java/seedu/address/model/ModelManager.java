@@ -131,6 +131,7 @@ public class ModelManager implements Model {
         scheduler.addAssignment(assignment);
     }
 
+    @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
         return scheduler.hasAssignment(assignment);

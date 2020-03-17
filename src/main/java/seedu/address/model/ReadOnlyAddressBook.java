@@ -4,7 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 
 /**
- * Unmodifiable view of the scheduler.
+ * Unmodifiable view of the address book.
  */
 public interface ReadOnlyAddressBook {
 

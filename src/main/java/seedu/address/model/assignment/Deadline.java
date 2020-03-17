@@ -1,5 +1,8 @@
 package seedu.address.model.assignment;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -7,15 +10,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
  * Represents an Assignment's Deadline in the Schoolwork Tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)} and {@link #isValidTime(String)}
  */
 public class Deadline {
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
             "Deadline cannot be empty and has to be in MM-dd HH:mm (24-hour clock) format";
     private static final DateTimeFormatter inputDateFormat = new DateTimeFormatterBuilder().appendPattern("MM-dd")
             .parseDefaulting(ChronoField.YEAR, 2020).toFormatter();
@@ -30,8 +30,8 @@ public class Deadline {
 
     /**
      * Constructs a {@code Deadline}
-     * 
-     * @param date The due date of the assignment. 
+     *
+     * @param date The due date of the assignment.
      * @param time The time by which the assignment needs to be submitted on the due date.
      */
     public Deadline(String date, String time) {
@@ -45,8 +45,8 @@ public class Deadline {
 
     /**
      * @param test The input date to be tested.
-     *             
-     * Returns true if date is not an empty string and follows the required format. 
+     *
+     * Returns true if date is not an empty string and follows the required format.
      */
     public static boolean isValidDate(String test) {
         try {
@@ -59,8 +59,8 @@ public class Deadline {
 
     /**
      * @param test The input time to be tested.
-     *             
-     * Returns true if time is not an empty string and requires the required format. 
+     *
+     * Returns true if time is not an empty string and requires the required format.
      */
     public static boolean isValidTime(String test) {
         try {
@@ -70,12 +70,11 @@ public class Deadline {
             return false;
         }
     }
-    
+
     @Override
     public String toString() {
         LocalDate parsedDate = LocalDate.parse(date, inputDateFormat);
         LocalTime parsedTime = LocalTime.parse(time, inputTimeFormat);
-        
         return parsedDate.format(outputDateFormat) + " " + parsedTime.format(outputTimeFormat);
     }
 
