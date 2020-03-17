@@ -48,7 +48,7 @@ public class EditCouponDescriptorTest {
                 .withLimit(CommandTestUtil.VALID_LIMIT_BOB).build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
-      // different start date -> returns false
+        // different start date -> returns false
         editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
                 .withStartDate(CommandTestUtil.VALID_EXPIRY_DATE_BOB).build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
