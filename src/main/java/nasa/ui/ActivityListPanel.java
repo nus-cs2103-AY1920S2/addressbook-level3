@@ -29,6 +29,10 @@ public class ActivityListPanel extends UiPart<Region> {
         activityListView.setCellFactory(listView -> new ActivityListViewCell());
     }
 
+    public void setWidth(double width) {
+        activityListView.setPrefWidth(width);
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
      */
@@ -36,10 +40,6 @@ public class ActivityListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Activity activity, boolean empty) {
             super.updateItem(activity, empty);
-            //Fit modules to screen
-            //prefWidthProperty().bind(activityListView.widthProperty().divide(activityListView.getItems().size()));
-            //minWidthProperty().set(200);
-            //setMaxWidth(Control.USE_PREF_SIZE);
 
             if (empty || activity == null) {
                 setGraphic(null);

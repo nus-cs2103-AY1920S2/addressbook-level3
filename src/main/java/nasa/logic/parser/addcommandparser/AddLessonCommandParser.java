@@ -8,6 +8,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
+import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.logic.parser.ArgumentMultimap;
 import nasa.logic.parser.ArgumentTokenizer;
@@ -37,13 +38,12 @@ public class AddLessonCommandParser extends AddCommandParser {
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_ACTIVITY_NAME, PREFIX_START_DATE,
                         PREFIX_END_DATE, PREFIX_PRIORITY, PREFIX_NOTE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME,
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_ACTIVITY_NAME,
                 PREFIX_START_DATE, PREFIX_END_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
         }
 
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
 
