@@ -104,6 +104,7 @@ public class CommandResult {
         CALENDAR,
         REPORT,
         PROFILE,
+        WEIGHT,
         HELP
     }
 
