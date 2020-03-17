@@ -6,8 +6,12 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
+import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
@@ -17,7 +21,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code AddressBook} and {@code Inventory} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -43,12 +47,37 @@ public class SampleDataUtil {
         };
     }
 
+    public static Good[] getSampleGoods() {
+        return new Good[] {
+            new Good(new GoodName("Fuji apple"), new GoodQuantity(15)),
+            new Good(new GoodName("Cavendish banana"), new GoodQuantity(150)),
+            new Good(new GoodName("Brazil citrus"), new GoodQuantity(20)),
+            new Good(new GoodName("Malaysia durian"), new GoodQuantity(11)),
+            new Good(new GoodName("Indonesia entawak"), new GoodQuantity(0)),
+            new Good(new GoodName("India fig"), new GoodQuantity(10)),
+            new Good(new GoodName("Spain grape"), new GoodQuantity(20)),
+            new Good(new GoodName("Turkey hazelnut"), new GoodQuantity(20)),
+            new Good(new GoodName("Africa imbe"), new GoodQuantity(20)),
+            new Good(new GoodName("Philippines jackfruit"), new GoodQuantity(20)),
+            new Good(new GoodName("New Zealand kiwi"), new GoodQuantity(20)),
+            new Good(new GoodName("Mexico lemon"), new GoodQuantity(90))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyInventory getSampleInventory() {
+        Inventory sampleInventory = new Inventory();
+        for (Good sampleGood : getSampleGoods()) {
+            sampleInventory.addGood(sampleGood);
+        }
+        return sampleInventory;
     }
 
     /**
