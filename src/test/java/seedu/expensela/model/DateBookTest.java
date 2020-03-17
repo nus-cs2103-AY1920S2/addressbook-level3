@@ -23,23 +23,23 @@ import seedu.expensela.testutil.PersonBuilder;
 
 public class DateBookTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ExpenseLa expenseLa = new ExpenseLa();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), expenseLa.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> expenseLa.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        ExpenseLa newData = getTypicalAddressBook();
+        expenseLa.resetData(newData);
+        assertEquals(newData, expenseLa);
     }
 
     @Test
@@ -48,47 +48,47 @@ public class DateBookTest {
         Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         List<Transaction> newTransactions = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newTransactions);
+        ExpenseLaStub newData = new ExpenseLaStub(newTransactions);
 
-        assertThrows(DuplicateTransactionException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateTransactionException.class, () -> expenseLa.resetData(newData));
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
+        assertThrows(NullPointerException.class, () -> expenseLa.hasPerson(null));
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(expenseLa.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        expenseLa.addPerson(ALICE);
+        assertTrue(expenseLa.hasPerson(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+        expenseLa.addPerson(ALICE);
         Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(expenseLa.hasPerson(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> expenseLa.getPersonList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyExpenseLa whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ExpenseLaStub implements ReadOnlyExpenseLa {
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Transaction> transactions) {
+        ExpenseLaStub(Collection<Transaction> transactions) {
             this.transactions.setAll(transactions);
         }
 

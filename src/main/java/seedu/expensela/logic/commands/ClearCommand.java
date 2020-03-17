@@ -2,7 +2,7 @@ package seedu.expensela.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.expensela.model.AddressBook;
+import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setExpenseLa(new ExpenseLa());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

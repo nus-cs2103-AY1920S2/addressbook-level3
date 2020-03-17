@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.logic.commands.exceptions.CommandException;
-import seedu.expensela.model.AddressBook;
+import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.PersonBuilder;
@@ -114,17 +114,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setExpenseLa(ReadOnlyExpenseLa newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyExpenseLa getExpenseLa() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Transaction transaction) {
+        public boolean hasTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -161,9 +161,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Transaction transaction) {
+        public boolean hasTransaction(Transaction transaction) {
             requireNonNull(transaction);
-            return this.transaction.isSamePerson(transaction);
+            return this.transaction.isSameTransaction(transaction);
         }
     }
 
@@ -174,9 +174,9 @@ public class AddCommandTest {
         final ArrayList<Transaction> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Transaction transaction) {
+        public boolean hasTransaction(Transaction transaction) {
             requireNonNull(transaction);
-            return personsAdded.stream().anyMatch(transaction::isSamePerson);
+            return personsAdded.stream().anyMatch(transaction::isSameTransaction);
         }
 
         @Override
@@ -186,8 +186,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyExpenseLa getExpenseLa() {
+            return new ExpenseLa();
         }
     }
 

@@ -6,8 +6,12 @@ import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Transaction;
+<<<<<<< HEAD
 import seedu.expensela.model.transaction.Type;
 import seedu.expensela.model.transaction.Remark;
+=======
+import seedu.expensela.model.transaction.*;
+>>>>>>> 27d97e7fec796f2b553eef875187febf3a2528e7
 
 /**
  * Contains utility methods for populating {@code ExpenseLa} with sample data.
@@ -15,6 +19,7 @@ import seedu.expensela.model.transaction.Remark;
 public class SampleDataUtil {
     public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
+<<<<<<< HEAD
             new Transaction(new TransactionID("12345678"), new Name("Domino's Pizza"),
                     new Amount("25", false), new Date("2019-12-10"),
                     new Type("Food"), new Remark("Treat friends")),
@@ -40,6 +45,21 @@ public class SampleDataUtil {
         ExpenseLa sampleEL = new ExpenseLa();
         for (Transaction sampleTransaction : getSampleTransactions()) {
             sampleEL.addTransaction(sampleTransaction);
+=======
+            new Transaction(new Name("Apple AirPods"), new Amount("188", true),
+                new Date("2020-02-14"), new Remark("On discount for valentine's"), new Category("SHOPPING")),
+            new Transaction(new Name("Sushi"), new Amount("6", true),
+                new Date("2020-02-06"), new Remark("Snack after lunch"), new Category("FOOD")),
+            new Transaction(new Name("Dominoes Pizza"), new Amount("34", true),
+                new Date("2020-02-02"), new Remark("Party with friends"), new Category("FOOD"))
+        };
+    }
+
+    public static ReadOnlyExpenseLa getSampleAddressBook() {
+        ExpenseLa sampleAb = new ExpenseLa();
+        for (Transaction sampleTransaction : getSamplePersons()) {
+            sampleAb.addPerson(sampleTransaction);
+>>>>>>> 27d97e7fec796f2b553eef875187febf3a2528e7
         }
         return sampleEL;
     }

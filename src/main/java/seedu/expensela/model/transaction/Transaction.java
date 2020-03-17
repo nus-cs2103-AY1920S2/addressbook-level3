@@ -13,15 +13,19 @@ public class Transaction {
     private final Name name;
     private final Amount amount;
     private final Date date;
+    private final Remark remark;
+    private final Category category;
 
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Name name, Amount amount, Date date) {
+    public Transaction(Name name, Amount amount, Date date, Remark remark, Category category) {
         requireAllNonNull(name, amount, date);
         this.name = name;
         this.amount = amount;
         this.date = date;
+        this.remark = remark;
+        this.category = category;
     }
 
     public Name getName() {
@@ -36,18 +40,25 @@ public class Transaction {
         return date;
     }
 
+    public Remark getRemark() { return remark; }
+
+    public Category getCategory() { return category; }
+
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Transaction otherTransaction) {
+    public boolean isSameTransaction(Transaction otherTransaction) {
         if (otherTransaction == this) {
             return true;
         }
 
         return otherTransaction != null
                 && otherTransaction.getName().equals(getName())
-                && (otherTransaction.getAmount().equals(getAmount()));
+                && otherTransaction.getAmount().equals(getAmount())
+                && otherTransaction.getDate().equals(getDate())
+                && otherTransaction.getRemark().equals(getRemark())
+                && otherTransaction.getCategory().equals(getCategory());
     }
 
     /**
@@ -67,13 +78,15 @@ public class Transaction {
         Transaction otherTransaction = (Transaction) other;
         return otherTransaction.getName().equals(getName())
                 && otherTransaction.getAmount().equals(getAmount())
-                && otherTransaction.getDate().equals(getDate());
+                && otherTransaction.getDate().equals(getDate())
+                && otherTransaction.getRemark().equals(getRemark())
+                && otherTransaction.getCategory().equals(getCategory());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, date);
+        return Objects.hash(name, amount, date, remark, category);
     }
 
     @Override
@@ -83,7 +96,11 @@ public class Transaction {
                 .append(" Amount: ")
                 .append(getAmount())
                 .append(" Date: ")
-                .append(getDate());
+                .append(getDate())
+                .append(" Remarks: ")
+                .append(getRemark())
+                .append(" Category: ")
+                .append(getCategory());
         return builder.toString();
     }
 

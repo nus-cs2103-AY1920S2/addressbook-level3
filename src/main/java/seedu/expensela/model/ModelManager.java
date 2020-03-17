@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.commons.core.LogsCenter;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -19,26 +20,28 @@ import seedu.expensela.model.transaction.Transaction;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ExpenseLa expenseLa;
     private final UserPrefs userPrefs;
     private final FilteredList<Transaction> filteredTransactions;
+    private final MonthlyData monthlyData;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given expenseLa and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpenseLa expenseLa, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(expenseLa, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with expenseLa: " + expenseLa + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTransactions = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTransactions = new FilteredList<>(this.expenseLa.getPersonList());
+        monthlyData = this.expenseLa.getMonthlyData();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ExpenseLa(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -76,40 +79,40 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ExpenseLa ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setExpenseLa(ReadOnlyExpenseLa expenseLa) {
+        this.expenseLa.resetData(expenseLa);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyExpenseLa getExpenseLa() {
+        return expenseLa;
     }
 
     @Override
-    public boolean hasPerson(Transaction transaction) {
+    public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
-        return addressBook.hasPerson(transaction);
+        return expenseLa.hasPerson(transaction);
     }
 
     @Override
-    public void deletePerson(Transaction target) {
-        addressBook.removePerson(target);
+    public void deleteTransaction(Transaction target) {
+        expenseLa.removePerson(target);
     }
 
     @Override
-    public void addPerson(Transaction transaction) {
-        addressBook.addPerson(transaction);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addTransaction(Transaction transaction) {
+        expenseLa.addPerson(transaction);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
-    public void setPerson(Transaction target, Transaction editedTransaction) {
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
-        addressBook.setPerson(target, editedTransaction);
+        expenseLa.setPerson(target, editedTransaction);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -119,12 +122,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Transaction> getFilteredPersonList() {
+    public ObservableList<Transaction> getFilteredTransactionList() {
         return filteredTransactions;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Transaction> predicate) {
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
     }
@@ -143,9 +146,17 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return expenseLa.equals(other.expenseLa)
                 && userPrefs.equals(other.userPrefs)
                 && filteredTransactions.equals(other.filteredTransactions);
     }
 
+    //=========== Monthly Data Accessors =============================================================
+    /**
+     * Returns monthly data object
+     */
+    @Override
+    public MonthlyData getMonthlyData() {
+        return monthlyData;
+    }
 }

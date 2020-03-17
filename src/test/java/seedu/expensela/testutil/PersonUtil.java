@@ -5,7 +5,7 @@ import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.expensela.logic.commands.AddCommand;
-import seedu.expensela.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.expensela.logic.commands.EditCommand;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -32,9 +32,9 @@ public class PersonUtil {
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code editTransaction}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditPersonDescriptorDetails(EditCommand.editTransaction descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.transactionName).append(" "));
         descriptor.getAmount().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.toString()).append(" "));

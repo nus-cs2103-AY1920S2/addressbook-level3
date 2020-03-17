@@ -5,16 +5,18 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.model.transaction.UniqueTransactionList;
+import seedu.expensela.model.transaction.TransactionList;
 
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ExpenseLa implements ReadOnlyExpenseLa {
 
-    private final UniqueTransactionList persons;
+    private final MonthlyData monthlyData;
+    private final TransactionList transactions;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,15 +26,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueTransactionList();
+        monthlyData = new MonthlyData(null, null, null, null);
+        transactions = new TransactionList();
     }
 
-    public AddressBook() {}
+    public ExpenseLa() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ExpenseLa using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ExpenseLa(ReadOnlyExpenseLa toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -40,20 +43,27 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code transactions}.
+     * {@code transactions} must not contain duplicate transactions.
      */
-    public void setPersons(List<Transaction> transactions) {
-        this.persons.setPersons(transactions);
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions.setTransaction(transactions);
+    }
+
+    public void setMonthlyData(MonthlyData monthlyData) {
+        this.monthlyData.setBudget(monthlyData.getBudget());
+        this.monthlyData.setExpense(monthlyData.getExpense());
+        this.monthlyData.setIncome(monthlyData.getIncome());
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ExpenseLa} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyExpenseLa newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setTransactions(newData.getPersonList());
+        setMonthlyData(newData.getMonthlyData());
     }
 
     //// person-level operations
@@ -63,7 +73,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Transaction transaction) {
         requireNonNull(transaction);
-        return persons.contains(transaction);
+        return transactions.contains(transaction);
     }
 
     /**
@@ -71,7 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person must not already exist in the address book.
      */
     public void addPerson(Transaction p) {
-        persons.add(p);
+        transactions.add(p);
     }
 
     /**
@@ -82,39 +92,44 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);
 
-        persons.setPerson(target, editedTransaction);
+        transactions.setTransaction(target, editedTransaction);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ExpenseLa}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Transaction key) {
-        persons.remove(key);
+        transactions.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return transactions.asUnmodifiableObservableList().size() + " transactions";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Transaction> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return transactions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public MonthlyData getMonthlyData() {
+        return this.monthlyData;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                || (other instanceof ExpenseLa // instanceof handles nulls
+                && transactions.equals(((ExpenseLa) other).transactions));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return transactions.hashCode();
     }
 }

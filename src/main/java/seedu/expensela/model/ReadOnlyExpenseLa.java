@@ -1,6 +1,7 @@
 package seedu.expensela.model;
 
 import javafx.collections.ObservableList;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -14,4 +15,5 @@ public interface ReadOnlyExpenseLa {
      */
     ObservableList<Transaction> getTransactionList();
 
+    MonthlyData getMonthlyData();
 }

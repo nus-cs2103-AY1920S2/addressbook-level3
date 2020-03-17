@@ -24,9 +24,5 @@ public interface Storage extends ExpenseLaStorage, UserPrefsStorage {
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyExpenseLa> readExpenseLa() throws DataConversionException, IOException;
-
-    @Override
     void saveExpenseLa(ReadOnlyExpenseLa expenseLa) throws IOException;
-
 }

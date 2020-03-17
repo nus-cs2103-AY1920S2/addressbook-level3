@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.expensela.model.AddressBook;
+import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -56,10 +56,10 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code ExpenseLa} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ExpenseLa getTypicalAddressBook() {
+        ExpenseLa ab = new ExpenseLa();
         for (Transaction transaction : getTypicalPersons()) {
             ab.addPerson(transaction);
         }
