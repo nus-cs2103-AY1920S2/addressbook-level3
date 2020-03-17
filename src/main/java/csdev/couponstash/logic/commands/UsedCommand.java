@@ -51,7 +51,7 @@ public class UsedCommand extends Command {
      */
     public UsedCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        this.originalAmount = null;
+        this.originalAmount = new MonetaryAmount(0.0);
     }
 
     /**
@@ -82,7 +82,8 @@ public class UsedCommand extends Command {
         }
 
         // checks if original amount of purchase is provided if the type of Savings is of percentage amount
-        if (hasPercentageSavings && (originalAmount == null)) {
+        if (hasPercentageSavings && (originalAmount.equals(new MonetaryAmount(0.0)))) {
+
             throw new CommandException(String.format(MESSAGE_MISSING_ORIGINAL_AMOUNT));
         }
 
@@ -103,7 +104,8 @@ public class UsedCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof UsedCommand
-            && targetIndex.equals(((UsedCommand) other).targetIndex));
+            && targetIndex.equals(((UsedCommand) other).targetIndex))
+            && originalAmount.equals(((UsedCommand) other).originalAmount);
     }
 
     /**
