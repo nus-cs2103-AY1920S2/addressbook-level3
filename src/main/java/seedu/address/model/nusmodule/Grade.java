@@ -23,7 +23,7 @@ public enum Grade {
     private final boolean isPassed;
     private final boolean isSatisfactory;
 
-    private Grade(double point, String text, boolean isPassed, boolean isSatisfactory) {
+    Grade(double point, String text, boolean isPassed, boolean isSatisfactory) {
         this.point = point;
         this.text = text;
         this.isPassed = isPassed;
@@ -31,7 +31,7 @@ public enum Grade {
     }
 
     public static Grade getGrade(String text) {
-        Grade grade = F;
+        Grade grade = null;
         for (Grade g : values()) {
             if (g.text.equals(text)) {
                 grade = g;
