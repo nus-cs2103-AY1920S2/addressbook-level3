@@ -18,10 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.recipe.IngredientList;
-import seedu.address.model.recipe.InstructionList;
-import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.*;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -97,6 +94,15 @@ public class ModifyCommand extends Command {
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedTags);
+    }
+
+    private static Recipe scaleRecipe(Recipe recipeToScale, List<String> newQuantities) {
+        List<Ingredient> ingredients = recipeToScale.getIngredients().ingredients;
+        for (int i = 0; i < ingredients.size(); i++) {
+            ingredients.get(i).setQuantity(newQuantities.get(i));
+        }
+        return new Recipe(recipeToScale.getName(), new IngredientList(ingredients),
+                recipeToScale.getInstructions(), recipeToScale.getTags());
     }
 
     @Override
