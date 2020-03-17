@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -23,7 +24,7 @@ import seedu.address.model.order.Order;
  * {@code NearbyCommand}.
  */
 class NearbyCommandTest {
-    private Model model = new ModelManager(getTypicalOrderBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
     private Model expectedModel;
     private Index invalidPostalSector;
     private Predicate<Order> ordersInJurong;
@@ -52,7 +53,7 @@ class NearbyCommandTest {
         }
 
         NearbyCommand nearbyCommand = new NearbyCommand(postalSector);
-        expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         expectedModel.updateFilteredOrderList(ordersInJurong);
         String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS,
                 location.get());
@@ -71,7 +72,7 @@ class NearbyCommandTest {
         String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS,
                 location.get());
         NearbyCommand nearbyCommand = new NearbyCommand(postalSector);
-        expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         showNoOrder(expectedModel);
 
         assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);
