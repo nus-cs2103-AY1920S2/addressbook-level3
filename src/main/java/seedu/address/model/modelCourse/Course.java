@@ -19,6 +19,8 @@ public class Course {
   // Identity fields
   private final Name name;
   private final ID id;
+  // TODO: Create CourseTeacherTab along with CourseStudentTab
+  private ID teacher_id;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
@@ -37,6 +39,14 @@ public class Course {
 
   public ID getId() {
     return id;
+  }
+
+  public ID getTeacherID() {
+    return this.teacher_id;
+  }
+
+  public void setTeacherID(ID teacher_id) {
+    this.teacher_id = teacher_id;
   }
 
   /**
