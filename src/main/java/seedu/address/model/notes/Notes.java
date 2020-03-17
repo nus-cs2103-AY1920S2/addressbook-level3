@@ -10,9 +10,9 @@ import java.util.HashSet;
 public class Notes {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "operation should contain open, create and delete only and it should not be left blank.";
+            "operation should contain open, create, createfolder and delete only and it should not be left blank.";
 
-    private static final String[] validOperationsDummy = {"open", "create", "delete"};
+    private static final String[] validOperationsDummy = {"open", "create", "delete", "createfolder"};
 
     public static final HashSet<String> VALID_OPERATIONS = new HashSet<>(Arrays.asList(validOperationsDummy));
 
