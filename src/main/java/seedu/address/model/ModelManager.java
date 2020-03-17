@@ -89,24 +89,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Exercise exercise) {
+    public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
         return addressBook.hasPerson(exercise);
     }
 
     @Override
-    public void deletePerson(Exercise target) {
+    public void deleteExercise(Exercise target) {
         addressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Exercise exercise) {
+    public void addExercise(Exercise exercise) {
         addressBook.addPerson(exercise);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredExerciseList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Exercise target, Exercise editedExercise) {
+    public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
 
         addressBook.setPerson(target, editedExercise);
@@ -119,12 +119,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Exercise> getFilteredPersonList() {
+    public ObservableList<Exercise> getFilteredExerciseList() {
         return filteredExercises;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Exercise> predicate) {
+    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
         filteredExercises.setPredicate(predicate);
     }

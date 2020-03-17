@@ -55,33 +55,33 @@ public interface Model {
     /**
      * Returns true if a exercise with the same identity as {@code exercise} exists in the address book.
      */
-    boolean hasPerson(Exercise exercise);
+    boolean hasExercise(Exercise exercise);
 
     /**
      * Deletes the given exercise.
      * The exercise must exist in the address book.
      */
-    void deletePerson(Exercise target);
+    void deleteExercise(Exercise target);
 
     /**
      * Adds the given exercise.
      * {@code exercise} must not already exist in the address book.
      */
-    void addPerson(Exercise exercise);
+    void addExercise(Exercise exercise);
 
     /**
      * Replaces the given exercise {@code target} with {@code editedExercise}.
      * {@code target} must exist in the address book.
      * The exercise identity of {@code editedExercise} must not be the same as another existing exercise in the address book.
      */
-    void setPerson(Exercise target, Exercise editedExercise);
+    void setExercise(Exercise target, Exercise editedExercise);
 
     /** Returns an unmodifiable view of the filtered exercise list */
-    ObservableList<Exercise> getFilteredPersonList();
+    ObservableList<Exercise> getFilteredExerciseList();
 
     /**
      * Updates the filter of the filtered exercise list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Exercise> predicate);
+    void updateFilteredExerciseList(Predicate<Exercise> predicate);
 }

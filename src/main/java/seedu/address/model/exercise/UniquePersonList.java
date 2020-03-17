@@ -13,14 +13,14 @@ import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A exercise is considered unique by comparing using {@code Exercise#isSamePerson(Exercise)}. As such, adding and updating of
- * persons uses Exercise#isSamePerson(Exercise) for equality so as to ensure that the exercise being added or updated is
+ * A exercise is considered unique by comparing using {@code Exercise#isSameExercise(Exercise)}. As such, adding and updating of
+ * persons uses Exercise#isSameExercise(Exercise) for equality so as to ensure that the exercise being added or updated is
  * unique in terms of identity in the UniquePersonList. However, the removal of a exercise uses Exercise#equals(Object) so
  * as to ensure that the exercise with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Exercise#isSamePerson(Exercise)
+ * @see Exercise#isSameExercise(Exercise)
  */
 public class UniquePersonList implements Iterable<Exercise> {
 
@@ -33,7 +33,7 @@ public class UniquePersonList implements Iterable<Exercise> {
      */
     public boolean contains(Exercise toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameExercise);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniquePersonList implements Iterable<Exercise> {
             throw new ExerciseNotFoundException();
         }
 
-        if (!target.isSamePerson(editedExercise) && contains(editedExercise)) {
+        if (!target.isSameExercise(editedExercise) && contains(editedExercise)) {
             throw new DuplicatePersonException();
         }
 
@@ -127,7 +127,7 @@ public class UniquePersonList implements Iterable<Exercise> {
     private boolean personsAreUnique(List<Exercise> exercises) {
         for (int i = 0; i < exercises.size() - 1; i++) {
             for (int j = i + 1; j < exercises.size(); j++) {
-                if (exercises.get(i).isSamePerson(exercises.get(j))) {
+                if (exercises.get(i).isSameExercise(exercises.get(j))) {
                     return false;
                 }
             }

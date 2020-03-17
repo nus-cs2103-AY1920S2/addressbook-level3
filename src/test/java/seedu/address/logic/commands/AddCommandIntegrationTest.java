@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
         Exercise validExercise = new ExerciseBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validExercise);
+        expectedModel.addExercise(validExercise);
 
         assertCommandSuccess(new AddCommand(validExercise), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validExercise), expectedModel);
@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Exercise exerciseInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(exerciseInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(exerciseInList), model, AddCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
 }

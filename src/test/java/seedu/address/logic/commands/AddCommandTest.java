@@ -26,28 +26,28 @@ import seedu.address.testutil.ExerciseBuilder;
 public class AddCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullExercise_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_exerciseAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingExerciseAdded modelStub = new ModelStubAcceptingExerciseAdded();
         Exercise validExercise = new ExerciseBuilder().build();
 
         CommandResult commandResult = new AddCommand(validExercise).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExercise), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validExercise), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validExercise), modelStub.exercisesAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicateExercise_throwsCommandException() {
         Exercise validExercise = new ExerciseBuilder().build();
         AddCommand addCommand = new AddCommand(validExercise);
-        ModelStub modelStub = new ModelStubWithPerson(validExercise);
+        ModelStub modelStub = new ModelStubWithExercise(validExercise);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXERCISE, () -> addCommand.execute(modelStub));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Exercise exercise) {
+        public void addExercise(Exercise exercise) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -124,27 +124,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Exercise exercise) {
+        public boolean hasExercise(Exercise exercise) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Exercise target) {
+        public void deleteExercise(Exercise target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Exercise target, Exercise editedExercise) {
+        public void setExercise(Exercise target, Exercise editedExercise) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Exercise> getFilteredPersonList() {
+        public ObservableList<Exercise> getFilteredExerciseList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Exercise> predicate) {
+        public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -152,37 +152,37 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single exercise.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithExercise extends ModelStub {
         private final Exercise exercise;
 
-        ModelStubWithPerson(Exercise exercise) {
+        ModelStubWithExercise(Exercise exercise) {
             requireNonNull(exercise);
             this.exercise = exercise;
         }
 
         @Override
-        public boolean hasPerson(Exercise exercise) {
+        public boolean hasExercise(Exercise exercise) {
             requireNonNull(exercise);
-            return this.exercise.isSamePerson(exercise);
+            return this.exercise.isSameExercise(exercise);
         }
     }
 
     /**
      * A Model stub that always accept the exercise being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Exercise> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingExerciseAdded extends ModelStub {
+        final ArrayList<Exercise> exercisesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Exercise exercise) {
+        public boolean hasExercise(Exercise exercise) {
             requireNonNull(exercise);
-            return personsAdded.stream().anyMatch(exercise::isSamePerson);
+            return exercisesAdded.stream().anyMatch(exercise::isSameExercise);
         }
 
         @Override
-        public void addPerson(Exercise exercise) {
+        public void addExercise(Exercise exercise) {
             requireNonNull(exercise);
-            personsAdded.add(exercise);
+            exercisesAdded.add(exercise);
         }
 
         @Override
