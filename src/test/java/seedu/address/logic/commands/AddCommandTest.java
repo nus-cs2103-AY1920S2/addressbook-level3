@@ -21,7 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.exercise.Exercise;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ExerciseBuilder;
 
 public class AddCommandTest {
 
@@ -33,7 +33,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Exercise validExercise = new PersonBuilder().build();
+        Exercise validExercise = new ExerciseBuilder().build();
 
         CommandResult commandResult = new AddCommand(validExercise).execute(modelStub);
 
@@ -43,7 +43,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Exercise validExercise = new PersonBuilder().build();
+        Exercise validExercise = new ExerciseBuilder().build();
         AddCommand addCommand = new AddCommand(validExercise);
         ModelStub modelStub = new ModelStubWithPerson(validExercise);
 
@@ -52,8 +52,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Exercise alice = new PersonBuilder().withName("Alice").build();
-        Exercise bob = new PersonBuilder().withName("Bob").build();
+        Exercise alice = new ExerciseBuilder().withName("Alice").build();
+        Exercise bob = new ExerciseBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
