@@ -353,7 +353,7 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 |46, 47, 48 |Bedok, Upper East Coast, Eastwood, Kew Drive
 |49, 50, 81 |Loyang, Changi
 |51, 52 |Tampines, Pasir Ris
-|53, 54, 55, 82 |Serangoon Garden, Hougang, Ponggol
+|53, 54, 55, 82 |Serangoon Garden, Hougang, Punggol
 |56, 57 |Bishan, Ang Mo Kio
 |58, 59 |Upper Bukit Timah, Clementi Park, Ulu Pandan
 |60, 61, 62, 63, 64 |Jurong
