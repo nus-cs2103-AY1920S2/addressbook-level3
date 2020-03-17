@@ -41,7 +41,6 @@ public class EditCouponDescriptorBuilder {
         descriptor.setSavings(coupon.getSavingsForEachUse());
         descriptor.setExpiryDate(coupon.getExpiryDate());
         descriptor.setStartDate(coupon.getStartDate());
-        descriptor.setUsage(coupon.getUsage());
         descriptor.setLimit(coupon.getLimit());
         descriptor.setTags(coupon.getTags());
     }
