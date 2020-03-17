@@ -159,7 +159,8 @@ public class UniqueExerciseListTest {
     @Test
     public void setExercises_listWithDuplicateExercises_throwsDuplicateExerciseException() {
         List<Exercise> listWithDuplicateExercises = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicateExerciseException.class, () -> uniqueExerciseList.setExercises(listWithDuplicateExercises));
+        assertThrows(
+                DuplicateExerciseException.class, () -> uniqueExerciseList.setExercises(listWithDuplicateExercises));
     }
 
     @Test

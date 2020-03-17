@@ -77,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given exercise {@code target} in the list with {@code editedExercise}.
      * {@code target} must exist in the address book.
-     * The exercise identity of {@code editedExercise} must not be the same as another existing exercise in the address book.
+     * The exercise identity of {@code editedExercise} must not be the same as another existing exercise in the address
+     * book.
      */
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);

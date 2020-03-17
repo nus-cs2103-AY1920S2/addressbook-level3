@@ -121,7 +121,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidExerciseIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExerciseList().size() + 1);
-        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditExerciseDescriptor descriptor =
+                new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);

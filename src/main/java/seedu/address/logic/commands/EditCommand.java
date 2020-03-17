@@ -19,8 +19,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.exercise.*;
+import seedu.address.model.exercise.Address;
+import seedu.address.model.exercise.Email;
 import seedu.address.model.exercise.Exercise;
+import seedu.address.model.exercise.Name;
+import seedu.address.model.exercise.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -87,7 +90,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Exercise} with the details of {@code exerciseToEdit}
      * edited with {@code editExerciseDescriptor}.
      */
-    private static Exercise createEditedExercise(Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
+    private static Exercise createEditedExercise(
+            Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
         assert exerciseToEdit != null;
 
         Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());

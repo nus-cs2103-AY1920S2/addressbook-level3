@@ -185,7 +185,8 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_EXERCISE;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        EditCommand.EditExerciseDescriptor descriptor =
+                new EditExerciseDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
