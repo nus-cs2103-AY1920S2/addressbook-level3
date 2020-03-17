@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LUNCH;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalRecipes.EGGS_ON_TOAST;
 import static seedu.address.testutil.TypicalRecipes.HAM_SANDWICH;
 import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
 
@@ -72,8 +71,7 @@ public class RecipeBookTest {
     @Test
     public void hasRecipe_recipeWithSameIdentityFieldsInRecipeBook_returnsTrue() {
         recipeBook.addRecipe(HAM_SANDWICH);
-        Recipe editedAlice = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_LUNCH)
-                .build();
+        Recipe editedAlice = new RecipeBuilder(HAM_SANDWICH).withTags(VALID_TAG_LUNCH).build();
         assertTrue(recipeBook.hasRecipe(editedAlice));
     }
 
