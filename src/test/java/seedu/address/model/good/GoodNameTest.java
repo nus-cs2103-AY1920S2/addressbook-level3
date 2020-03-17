@@ -43,7 +43,7 @@ public class GoodNameTest {
     }
 
     @Test
-    public void equals() {
+    public void equalsTest() {
         GoodName sampleGoodName = new GoodName(VALID_GOOD_NAME_AVOCADO);
         assertFalse(sampleGoodName.equals(new GoodName(VALID_GOOD_NAME_BLUEBERRY)));
 
