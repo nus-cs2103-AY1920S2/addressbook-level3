@@ -18,12 +18,12 @@ public class ExerciseListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ExerciseListPanel.class);
 
     @FXML
-    private ListView<Exercise> personListView;
+    private ListView<Exercise> exerciseListView;
 
     public ExerciseListPanel(ObservableList<Exercise> exerciseList) {
         super(FXML);
-        personListView.setItems(exerciseList);
-        personListView.setCellFactory(listView -> new ExerciseListViewCell());
+        exerciseListView.setItems(exerciseList);
+        exerciseListView.setCellFactory(listView -> new ExerciseListViewCell());
     }
 
     /**
