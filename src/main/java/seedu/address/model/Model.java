@@ -88,15 +88,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Student> predicate);
 
-    /** Returns an unmodifiable view of the filtered student list */
-    ObservableList<Module> getFilteredModuleList();
-
-    /**
-     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredModuleList(Predicate<Module> predicate);
-
     /**
      * Checks whether given module exists already.
      * @param module module to check for.
@@ -109,5 +100,14 @@ public interface Model {
      * @param module module to be added.
      */
     void addModule(Module module);
+
+    /** Returns an unmodifiable view of the filtered student list */
+    ObservableList<Module> getFilteredModuleList();
+
+    /**
+     * Updates the filter of the filtered student list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredModuleList(Predicate<Module> predicate);
 
 }

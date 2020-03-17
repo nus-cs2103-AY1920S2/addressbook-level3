@@ -123,20 +123,12 @@ public class ParserUtil {
     }
 
     /**
-     * Parses and returns the module name.
+     * Parses and returns the given value.
      */
-    public static String parseModuleName(String name) {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        return trimmedName;
+    public static String parseValue(String value) {
+        requireNonNull(value);
+        String trimmedValue = value.trim();
+        return trimmedValue;
     }
 
-    /**
-     * Parses and returns the module code to serve as an identifier.
-     */
-    public static String parseModuleCode(String code) {
-        requireNonNull(code);
-        String trimmedCode = code.trim();
-        return trimmedCode;
-    }
 }
