@@ -55,7 +55,7 @@ public class CouponBuilder {
     public CouponBuilder(Coupon couponToCopy) {
         name = couponToCopy.getName();
         phone = couponToCopy.getPhone();
-        savings = new Savings(couponToCopy.getSavings());
+        savings = new Savings(couponToCopy.getSavingsForEachUse());
         expiryDate = couponToCopy.getExpiryDate();
         startDate = couponToCopy.getStartDate();
         usage = couponToCopy.getUsage();

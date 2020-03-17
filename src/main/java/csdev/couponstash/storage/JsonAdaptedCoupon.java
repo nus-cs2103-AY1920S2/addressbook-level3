@@ -67,7 +67,7 @@ class JsonAdaptedCoupon {
     public JsonAdaptedCoupon(Coupon source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
-        savings = new JsonAdaptedSavings(source.getSavings());
+        savings = new JsonAdaptedSavings(source.getSavingsForEachUse());
         expiryDate = source.getExpiryDate().value;
         startDate = source.getStartDate().value;
         usage = source.getUsage().value;

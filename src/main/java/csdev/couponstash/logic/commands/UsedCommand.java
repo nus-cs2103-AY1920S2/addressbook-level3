@@ -81,7 +81,7 @@ public class UsedCommand extends Command {
     private static Coupon createUsedCoupon(Coupon couponToBeUsed) {
         Name name = couponToBeUsed.getName();
         Phone phone = couponToBeUsed.getPhone();
-        Savings savings = couponToBeUsed.getSavings();
+        Savings savings = couponToBeUsed.getSavingsForEachUse();
         ExpiryDate expiryDate = couponToBeUsed.getExpiryDate();
         StartDate startDate = couponToBeUsed.getStartDate();
         Limit limit = couponToBeUsed.getLimit();

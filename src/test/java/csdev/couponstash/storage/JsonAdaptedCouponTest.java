@@ -34,7 +34,7 @@ public class JsonAdaptedCouponTest {
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final JsonAdaptedSavings VALID_SAVINGS =
-            new JsonAdaptedSavings(BENSON.getSavings());
+            new JsonAdaptedSavings(BENSON.getSavingsForEachUse());
     private static final String VALID_EXPIRY_DATE = BENSON.getExpiryDate().toString();
     private static final String VALID_START_DATE = BENSON.getStartDate().toString();
     private static final String VALID_USAGE = BENSON.getUsage().toString();

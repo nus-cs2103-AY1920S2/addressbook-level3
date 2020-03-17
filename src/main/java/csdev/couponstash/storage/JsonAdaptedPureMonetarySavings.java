@@ -1,16 +1,17 @@
 package csdev.couponstash.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import csdev.couponstash.commons.exceptions.IllegalValueException;
-import csdev.couponstash.model.coupon.savings.MonetaryAmount;
-import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
-import csdev.couponstash.model.coupon.savings.Saveable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import csdev.couponstash.commons.exceptions.IllegalValueException;
+import csdev.couponstash.model.coupon.savings.MonetaryAmount;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
+import csdev.couponstash.model.coupon.savings.Saveable;
 
 /**
  * Jackson-friendly version of {@link PureMonetarySavings}.
@@ -47,9 +48,9 @@ public class JsonAdaptedPureMonetarySavings {
     public JsonAdaptedPureMonetarySavings(PureMonetarySavings pms) {
         this.monetaryAmount = pms.getMonetaryAmount().map(MonetaryAmount::getValue).orElse(null);
         Function<List<Saveable>, List<JsonAdaptedSaveable>> mapToJson =
-                svaList -> svaList.stream()
-                        .map(JsonAdaptedSaveable::new)
-                        .collect(Collectors.toList());
+            svaList -> svaList.stream()
+                    .map(JsonAdaptedSaveable::new)
+                    .collect(Collectors.toList());
         this.saveables = pms.getSaveables().map(mapToJson).orElse(null);
     }
 
