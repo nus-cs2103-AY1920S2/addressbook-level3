@@ -22,7 +22,7 @@ import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.NameContainsKeywordsPredicate;
+import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
@@ -72,7 +72,7 @@ public class OrderBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new SearchCommand(new OrderContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
