@@ -81,6 +81,11 @@
                                  <Font size="14.0" />
                               </font>
                            </Button>
+                           <Button fx:id="helpButton1" mnemonicParsing="false" onAction="#handleShowHelpPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Weight Records" textFill="WHITE">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
                            <Button fx:id="helpButton" mnemonicParsing="false" onAction="#handleShowHelpPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Help" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
