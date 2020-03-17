@@ -11,10 +11,16 @@ import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
+
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionModel;
 
 import javafx.beans.property.Property;
+
+import com.notably.model.commandinput.CommandInputModel;
+
+import javafx.beans.property.StringProperty;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -25,10 +31,11 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private AddressBook addressBook;
-    private UserPrefs userPrefs;
-    private FilteredList<Object> filteredPersons;
-    private SuggestionModel suggestionModel;
+    private final AddressBook addressBook;
+    private final UserPrefs userPrefs;
+    private final FilteredList<Object> filteredPersons;
+    private final SuggestionModel suggestionModel;
+    private final CommandInputModel commandInputModel;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,8 +56,9 @@ public class ModelManager implements Model {
     }
 
     // TODO: to update constructor according to our Model classes.
-    public ModelManager(SuggestionModel suggestionModel) {
+    public ModelManager(SuggestionModel suggestionModel, CommandInputModel commandInputModel) {
         this.suggestionModel = suggestionModel;
+        this.commandInputModel = commandInputModel;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -189,5 +197,21 @@ public class ModelManager implements Model {
     @Override
     public void clearSuggestions() {
         suggestionModel.clearSuggestions();
+
+    //========= CommandInputModel==================================================================
+
+    @Override
+    public StringProperty inputProperty() {
+        return commandInputModel.inputProperty();
+    }
+
+    @Override
+    public String getInput() {
+        return commandInputModel.getInput();
+    }
+
+    @Override
+    public void setInput(String input) {
+        commandInputModel.setInput(input);
     }
 }

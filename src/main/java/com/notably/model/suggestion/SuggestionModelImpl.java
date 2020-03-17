@@ -1,9 +1,11 @@
 package com.notably.model.suggestion;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,8 +14,12 @@ import javafx.collections.ObservableList;
  */
 public class SuggestionModelImpl implements SuggestionModel {
     private ObservableList<SuggestionItem> suggestions;
-    private String commandInputText;
-    private Property<Optional<String>> commandTextProperty;
+    private Property<Optional<String>> responseTextProperty;
+
+    public SuggestionModelImpl() {
+        suggestions = FXCollections.observableArrayList();
+        responseTextProperty = new SimpleObjectProperty(Optional.empty());
+    }
 
     @Override
     public ObservableList<SuggestionItem> getSuggestions() {
@@ -22,38 +28,24 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     @Override
     public void setSuggestions(List<SuggestionItem> suggestions) {
-        this.suggestions = FXCollections.observableArrayList(suggestions);
-    }
-
-    // TODO: update commands
-    @Override
-    public Property<Optional<String>> getCommandTextProperty() {
-        if (commandInputText.startsWith("open")) {
-            commandTextProperty.setValue(Optional.of("Open a note"));
-        } else if (commandInputText.startsWith("search")) {
-            commandTextProperty.setValue(Optional.of("Search a note"));
-        } else if (commandInputText.isEmpty()) {
-            commandTextProperty.setValue(Optional.empty());
-        } else {
-            commandTextProperty.setValue(Optional.of("TODO"));
-        }
-
-        return commandTextProperty;
+        Objects.requireNonNull(suggestions);
+        this.suggestions.setAll(suggestions);
     }
 
     @Override
-    public void setCommandInputText(String commandInputText) {
-        this.commandInputText = commandInputText;
+    public Property<Optional<String>> responseTextProperty() {
+        return responseTextProperty;
     }
 
     @Override
-    public String getCommandInputText() {
-        return commandInputText;
+    public void setResponseText(String responseText) {
+        Objects.requireNonNull(responseText);
+        responseTextProperty.setValue(Optional.of(responseText));
     }
 
     @Override
-    public void clearCommandInputText() {
-        commandInputText = "";
+    public void clearResponseText() {
+        responseTextProperty.setValue(Optional.empty());
     }
 
     @Override
