@@ -44,7 +44,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code exercises} must not contain duplicate exercises.
      */
     public void setPersons(List<Exercise> exercises) {
-        this.persons.setPersons(exercises);
+        this.persons.setExercises(exercises);
     }
 
     /**
@@ -82,7 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
 
-        persons.setPerson(target, editedExercise);
+        persons.setExercise(target, editedExercise);
     }
 
     /**

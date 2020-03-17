@@ -12,9 +12,9 @@ import seedu.address.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of exercises that enforces uniqueness between its elements and does not allow nulls.
  * A exercise is considered unique by comparing using {@code Exercise#isSameExercise(Exercise)}. As such, adding and updating of
- * persons uses Exercise#isSameExercise(Exercise) for equality so as to ensure that the exercise being added or updated is
+ * exercises uses Exercise#isSameExercise(Exercise) for equality so as to ensure that the exercise being added or updated is
  * unique in terms of identity in the UniqueExerciseList. However, the removal of a exercise uses Exercise#equals(Object) so
  * as to ensure that the exercise with exactly the same fields will be removed.
  *
@@ -53,7 +53,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
      * {@code target} must exist in the list.
      * The exercise identity of {@code editedExercise} must not be the same as another existing exercise in the list.
      */
-    public void setPerson(Exercise target, Exercise editedExercise) {
+    public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
 
         int index = internalList.indexOf(target);
@@ -79,7 +79,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
         }
     }
 
-    public void setPersons(UniqueExerciseList replacement) {
+    public void setExercises(UniqueExerciseList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -88,9 +88,9 @@ public class UniqueExerciseList implements Iterable<Exercise> {
      * Replaces the contents of this list with {@code exercises}.
      * {@code exercises} must not contain duplicate exercises.
      */
-    public void setPersons(List<Exercise> exercises) {
+    public void setExercises(List<Exercise> exercises) {
         requireAllNonNull(exercises);
-        if (!personsAreUnique(exercises)) {
+        if (!exercisesAreUnique(exercises)) {
             throw new DuplicateExerciseException();
         }
 
@@ -124,7 +124,7 @@ public class UniqueExerciseList implements Iterable<Exercise> {
     /**
      * Returns true if {@code exercises} contains only unique exercises.
      */
-    private boolean personsAreUnique(List<Exercise> exercises) {
+    private boolean exercisesAreUnique(List<Exercise> exercises) {
         for (int i = 0; i < exercises.size() - 1; i++) {
             for (int j = i + 1; j < exercises.size(); j++) {
                 if (exercises.get(i).isSameExercise(exercises.get(j))) {
