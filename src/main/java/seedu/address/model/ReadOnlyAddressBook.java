@@ -10,8 +10,10 @@ import seedu.address.model.person.Student;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons and modules list.
-     * This list will not contain any duplicate persons or modules.
+     * Returns an unmodifiable view of the persons.
+     * This list will not contain any duplicate persons.
+     * Also returns an unmodifiable view of the modules.
+     * This list will not conatin any duplicate modules.
      */
     ObservableList<Student> getPersonList();
     ObservableList<Module> getModuleList();

@@ -70,13 +70,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(student);
     }
 
-    /**
-     * Returns true if a module with the same module code exists in the TATracker.
-     */
-    public boolean hasModule(Module module) {
-        requireNonNull(module);
-        return modules.contains(module);
-    }
 
     /**
      * Adds a student to the address book.
@@ -84,13 +77,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Student p) {
         persons.add(p);
-    }
-
-    /**
-     * Adds a module to the TATracker.
-     */
-    public void addModule(Module module) {
-        modules.add(module);
     }
 
     /**
@@ -111,6 +97,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Student key) {
         persons.remove(key);
+    }
+
+    /**
+     * Returns true if a module with the same module code exists in the TATracker.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    /**
+     * Adds a module to the TATracker.
+     */
+    public void addModule(Module module) {
+        modules.add(module);
     }
 
     //// util methods
