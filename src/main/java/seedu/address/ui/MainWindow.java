@@ -31,9 +31,10 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private OrderListPanel orderListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ClearWindow clearWindow;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +43,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private MenuItem ExitAppItem;
+
+    @FXML
+    private StackPane orderListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -63,6 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        clearWindow = new ClearWindow(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -70,7 +75,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(ExitAppItem, KeyCombination.valueOf("F1"));
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -107,8 +113,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredOrderList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -144,6 +150,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the clear warning window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleClearWarning() {
+        if (!clearWindow.isShowing()) {
+            clearWindow.show();
+        } else {
+            clearWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -157,11 +175,12 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        clearWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public OrderListPanel getOrderListPanel() {
+        return orderListPanel;
     }
 
     /**
@@ -177,6 +196,11 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            }
+
+            if (commandResult.isClearList()) {
+                handleClearWarning();
+                clearWindow.setComponent(resultDisplay);
             }
 
             if (commandResult.isExit()) {
