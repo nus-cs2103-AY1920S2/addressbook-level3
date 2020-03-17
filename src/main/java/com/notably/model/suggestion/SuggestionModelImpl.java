@@ -14,6 +14,12 @@ public class SuggestionModelImpl implements SuggestionModel {
     private ObservableList<SuggestionItem> suggestions;
     private Property<Optional<String>> responseTextProperty;
 
+    public SuggestionModelImpl(ObservableList<SuggestionItem> suggestions,
+                               Property<Optional<String>> responseTextProperty) {
+        this.suggestions = suggestions;
+        this.responseTextProperty = responseTextProperty;
+    }
+
     @Override
     public ObservableList<SuggestionItem> getSuggestions() {
         return suggestions;
