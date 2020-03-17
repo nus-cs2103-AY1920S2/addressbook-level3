@@ -12,8 +12,10 @@ public class InvalidStartEndTimeTest {
 
     @Test
     public void constructor_invalidTime_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new Session(LocalTime.now(),
-                LocalTime.now().minus(1, ChronoUnit.HOURS), LocalDate.now(),
+        LocalTime startTime = LocalTime.of(14, 00, 00);
+        LocalTime endTime = startTime.minus(1, ChronoUnit.HOURS);
+        LocalDate startDate = LocalDate.of(2020, 01, 01);
+        assertThrows(IllegalArgumentException.class, () -> new Session(startTime, endTime, startDate,
                 Session.SessionType.SESSION_TYPE_OTHER, ""));
     }
 }
