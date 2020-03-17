@@ -165,6 +165,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         modules.add(module);
     }
 
+    /**
+     * Replaces the given module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the address book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the address
+     * book.
+     */
+    public void setModule(Module target, Module editedModule) {
+        requireNonNull(editedModule);
+
+        modules.setModule(target, editedModule);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeModule(Module key) {
+        modules.remove(key);
+    }
+
     //// util methods
 
     @Override

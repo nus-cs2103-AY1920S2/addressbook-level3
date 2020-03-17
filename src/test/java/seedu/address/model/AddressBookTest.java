@@ -89,7 +89,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Session> sessions = FXCollections.observableArrayList();
-        private final ObservableList<Student> modules = FXCollections.observableArrayList();
+        private final ObservableList<Module> modules = FXCollections.observableArrayList();
         private final ObservableList<Student> students = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Student> students) {
