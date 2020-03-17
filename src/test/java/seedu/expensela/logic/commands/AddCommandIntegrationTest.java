@@ -2,7 +2,7 @@ package seedu.expensela.logic.commands;
 
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.testutil.PersonBuilder;
+import seedu.expensela.testutil.TransactionBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -26,20 +26,20 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_newPerson_success() {
-        Transaction validTransaction = new PersonBuilder().build();
+    public void execute_newTransaction_success() {
+        Transaction validTransaction = new TransactionBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validTransaction);
+        expectedModel.addTransaction(validTransaction);
 
         assertCommandSuccess(new AddCommand(validTransaction), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validTransaction), expectedModel);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Transaction transactionInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    public void execute_duplicateTransaction_throwsCommandException() {
+        Transaction transactionInList = model.getAddressBook().getTransactionList().get(0);
+        assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_Transaction);
     }
 
 }

@@ -1,7 +1,7 @@
 package seedu.expensela.logic.commands;
 
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
