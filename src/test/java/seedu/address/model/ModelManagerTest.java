@@ -14,6 +14,8 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.task.NameContainsKeywordsPredicate;
+import seedu.address.model.Pomodoro;
+import seedu.address.model.Pet;
 import seedu.address.testutil.TaskListBuilder;
 
 public class ModelManagerTest {
@@ -100,8 +102,8 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(taskList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(taskList, userPrefs);
+        modelManager = new ModelManager(taskList,  new Pet(), new Pomodoro(), userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(taskList,  new Pet(), new Pomodoro(), userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,13 +116,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different taskList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentTaskList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentTaskList, new Pet(), new Pomodoro(),  userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = HOMEWORK10.getName().fullName.split("\\s+");
         modelManager.updateFilteredTaskList(
                 new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(taskList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(taskList, new Pet(), new Pomodoro(),  userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredTaskList(PREDICATE_SHOW_ALL_PERSONS);
@@ -128,6 +130,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setTaskListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(taskList, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(taskList, new Pet(), new Pomodoro(),  differentUserPrefs)));
     }
 }

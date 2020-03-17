@@ -18,8 +18,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TaskList;
+import seedu.address.model.ReadOnlyPet;
+import seedu.address.model.ReadOnlyPomodoro;
+import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Task;
 import seedu.address.testutil.TaskBuilder;
+import seedu.address.ui.PetDisplayHandler;
 
 public class AddCommandTest {
 
@@ -146,6 +150,35 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTaskList(Predicate<Task> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyPet getPet() {
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setPetName(String name){
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void incrementExp(){
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public PetDisplayHandler getPetDisplayHandler(){
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void updatePetDisplayHandler(){
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public ReadOnlyPomodoro getPomodoro(){
+            throw new AssertionError("This method should not be called.");
+        }
+        @Override
+        public void setPomodoroTask(Task task){
             throw new AssertionError("This method should not be called.");
         }
     }
