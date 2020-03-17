@@ -45,7 +45,7 @@
                       </padding>
                     </StackPane>
                   </VBox>
-                     <TabPane>
+                     <TabPane tabClosingPolicy="UNAVAILABLE">
                         <tabs>
                            <Tab text="Tasks">
                               <content>
