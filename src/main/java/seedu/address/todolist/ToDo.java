@@ -7,6 +7,10 @@ package seedu.address.todolist;
 
 public class ToDo extends Task {
 
+    /**
+     * Constructor for to do class
+     * @param description describes content of to do
+     */
     public ToDo(String description) {
         super(description);
     }

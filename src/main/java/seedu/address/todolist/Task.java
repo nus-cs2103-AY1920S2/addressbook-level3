@@ -11,11 +11,20 @@ public class Task {
     private String description;
     private boolean isDone;
 
+    /**
+     * Constructor for task class
+     * @param description describes content of task
+     */
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     *
+     * @return icon for status (tick or cross) to display if task is completed or not
+     */
     public String getStatusIcon() {
         if (isDone) {
             return "\u2713";
@@ -24,10 +33,18 @@ public class Task {
         }
     }
 
+    /**
+     *
+     * @return description of task
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     *
+     * @return status icon of tick as task is marked as done
+     */
     public String markAsDone() {
         isDone = true;
         return getStatusIcon();
