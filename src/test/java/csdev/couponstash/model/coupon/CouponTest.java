@@ -78,6 +78,14 @@ public class CouponTest {
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
+        // different usage -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withUsage(CommandTestUtil.VALID_USAGE_BOB).build();
+        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
+
+        // different limit -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withLimit(CommandTestUtil.VALID_LIMIT_BOB).build();
+        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
+
         // different expiry date -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withExpiryDate(CommandTestUtil.VALID_EXPIRY_DATE_BOB)
                 .build();
@@ -86,14 +94,6 @@ public class CouponTest {
         // different start date -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withStartDate(CommandTestUtil.VALID_START_DATE_BOB)
                 .build();
-        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
-
-        // different usage -> returns false
-        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withUsage(CommandTestUtil.VALID_USAGE_BOB).build();
-        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
-
-        // different limit -> returns false
-        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withLimit(CommandTestUtil.VALID_LIMIT_BOB).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
         // different tags -> returns false

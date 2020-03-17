@@ -1,6 +1,7 @@
 package csdev.couponstash.logic.parser;
 
 import static csdev.couponstash.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static csdev.couponstash.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_EXPIRY_DATE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_LIMIT_DESC;
@@ -88,14 +89,14 @@ public class EditCommandParserTest {
                 Name.MESSAGE_CONSTRAINTS); // invalid name
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_EXPIRY_DATE_DESC,
-                ExpiryDate.MESSAGE_CONSTRAINTS); // invalid expiry date
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_START_DATE_DESC,
-                StartDate.MESSAGE_CONSTRAINTS); // invalid start date
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_USAGE_DESC,
                 Usage.MESSAGE_CONSTRAINTS); // invalid usage
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_LIMIT_DESC,
                 Limit.MESSAGE_CONSTRAINTS); // invalid limit
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_EXPIRY_DATE_DESC,
+                ExpiryDate.MESSAGE_CONSTRAINTS); // invalid expiry date
+        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_START_DATE_DESC,
+                StartDate.MESSAGE_CONSTRAINTS); // invalid start date
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
@@ -163,18 +164,6 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
-        // expiry date
-        userInput = targetIndex.getOneBased() + EXPIRY_DATE_DESC_AMY;
-        descriptor = new EditCouponDescriptorBuilder().withExpiryDate(VALID_EXPIRY_DATE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
-
-        // start date
-        userInput = targetIndex.getOneBased() + START_DATE_DESC_AMY;
-        descriptor = new EditCouponDescriptorBuilder().withStartDate(VALID_START_DATE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
-
         // usages
         userInput = targetIndex.getOneBased() + USAGE_DESC_AMY;
         descriptor = new EditCouponDescriptorBuilder().withUsage(VALID_USAGE_AMY).build();
@@ -184,6 +173,18 @@ public class EditCommandParserTest {
         // limit
         userInput = targetIndex.getOneBased() + LIMIT_DESC_AMY;
         descriptor = new EditCouponDescriptorBuilder().withLimit(VALID_LIMIT_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+
+        // expiry date
+        userInput = targetIndex.getOneBased() + EXPIRY_DATE_DESC_AMY;
+        descriptor = new EditCouponDescriptorBuilder().withExpiryDate(VALID_EXPIRY_DATE_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+
+        // start date
+        userInput = targetIndex.getOneBased() + START_DATE_DESC_AMY;
+        descriptor = new EditCouponDescriptorBuilder().withStartDate(VALID_START_DATE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 

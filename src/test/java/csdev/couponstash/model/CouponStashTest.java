@@ -55,6 +55,7 @@ public class CouponStashTest {
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND)
                 .build();
+
         List<Coupon> newCoupons = Arrays.asList(ALICE, editedAlice);
         CouponStashStub newData = new CouponStashStub(newCoupons);
 
