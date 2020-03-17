@@ -34,7 +34,7 @@ public class WeightCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (weight.getWt() <= 0) {
+        if (weight.getWeightFloat() <= 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 

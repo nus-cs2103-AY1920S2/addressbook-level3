@@ -34,7 +34,7 @@ public class HeightCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (height.getHt() <= 0) {
+        if (height.getHeightFloat() <= 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
