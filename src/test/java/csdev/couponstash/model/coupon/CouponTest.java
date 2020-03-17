@@ -30,7 +30,20 @@ public class CouponTest {
         Coupon editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
         assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        //different phone -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+        assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
+
+        //different expiry date -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withExpiryDate(CommandTestUtil.VALID_EXPIRY_DATE_BOB)
+                .build();
+        assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
+
+        //different savings -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withSavings(CommandTestUtil.VALID_SAVINGS_BOB).build();
+        assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
+
+        //different tags -> returns true
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE)
                 .withUsage(CommandTestUtil.VALID_USAGE_AMY)
                 .withLimit(CommandTestUtil.VALID_USAGE_BOB)
@@ -63,6 +76,16 @@ public class CouponTest {
 
         // different phone -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
+
+        // different expiry date -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withExpiryDate(CommandTestUtil.VALID_EXPIRY_DATE_BOB)
+                .build();
+        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
+
+        // different start date -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withStartDate(CommandTestUtil.VALID_START_DATE_BOB)
+                .build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
         // different usage -> returns false
