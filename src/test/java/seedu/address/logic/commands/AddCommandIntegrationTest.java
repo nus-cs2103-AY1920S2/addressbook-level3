@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrders;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +24,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalOrderBook(), new UserPrefs());
+        model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newOrder_success() {
         Order validOrder = new OrderBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
         expectedModel.addOrder(validOrder);
 
         assertCommandSuccess(new AddCommand(validOrder), model,

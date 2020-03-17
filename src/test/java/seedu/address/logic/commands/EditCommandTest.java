@@ -9,10 +9,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ORDER;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ import seedu.address.testutil.OrderBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalOrderBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +43,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
-        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
+                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -63,7 +65,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
-        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
+                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
         expectedModel.setOrder(lastOrder, editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -76,14 +79,15 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
-        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
+                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_ORDER);
+        showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order editedOrder = new OrderBuilder(orderInFilteredList).withName(VALID_NAME_BOB).build();
@@ -92,7 +96,8 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
-        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
+                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -109,7 +114,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateOrderFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_ORDER);
+        showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         // edit person in filtered list into a duplicate in address book
         Order orderInList = model.getOrderBook().getOrderList().get(INDEX_SECOND_ORDER.getZeroBased());
@@ -134,7 +139,7 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidOrderIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_ORDER);
+        showOrderAtIndex(model, INDEX_FIRST_ORDER);
         Index outOfBoundIndex = INDEX_SECOND_ORDER;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getOrderBook().getOrderList().size());
