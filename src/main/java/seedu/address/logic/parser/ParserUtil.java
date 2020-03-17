@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.session.Session;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Matric;
 import seedu.address.model.student.Name;
@@ -28,6 +28,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -150,5 +151,28 @@ public class ParserUtil {
         requireNonNull(time);
         String trimmedTime = time.trim();
         return LocalTime.parse(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String sessionType} into a {@code Session.SessionType}
+     */
+    public static Session.SessionType parseSessionType(String sessionType) {
+        requireNonNull(sessionType);
+        String trimmedType = sessionType.trim();
+        assert (trimmedType.equals(trimmedType.toLowerCase()));
+        switch (trimmedType) {
+        case "tutorial":
+            return Session.SessionType.SESSION_TYPE_TUTORIAL;
+        case "lab":
+            return Session.SessionType.SESSION_TYPE_LAB;
+        case "consultation":
+            return Session.SessionType.SESSION_TYPE_CONSULTATION;
+        case "grading":
+            return Session.SessionType.SESSION_TYPE_GRADING;
+        case "preparation":
+            return Session.SessionType.SESSION_TYPE_PREPARATION;
+        default:
+            return Session.SessionType.SESSION_TYPE_OTHER;
+        }
     }
 }
