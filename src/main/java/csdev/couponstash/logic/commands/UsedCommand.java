@@ -9,14 +9,10 @@ import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.ExpiryDate;
-import csdev.couponstash.model.coupon.Limit;
-import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
-import csdev.couponstash.model.coupon.StartDate;
-import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.*;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Savings;
+import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
 import csdev.couponstash.model.tag.Tag;
 
 /**
@@ -87,7 +83,12 @@ public class UsedCommand extends Command {
         Limit limit = couponToBeUsed.getLimit();
         Set<Tag> tags = couponToBeUsed.getTags();
         Usage updatedUsage = couponToBeUsed.getUsage().increaseUsageByOne();
+        PureMonetarySavings totalSavings = couponToBeUsed.getTotalSavings().add(
+                SavingsConversionUtil.convertToPure(savings)
+        );
+        Remind remind = couponToBeUsed.getRemind();
 
-        return new Coupon(name, phone, savings, expiryDate, startDate, updatedUsage, limit, tags);
+        return new Coupon(name, phone, savings, expiryDate, startDate, updatedUsage,
+                limit, tags, totalSavings, remind);
     }
 }
