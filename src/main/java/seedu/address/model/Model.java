@@ -97,4 +97,6 @@ public interface Model {
      * {@code module} must not already exist in the address book.
      */
     void addModule(NusModule module);
+
+    double getCap();
 }

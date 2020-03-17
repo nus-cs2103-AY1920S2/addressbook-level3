@@ -26,7 +26,6 @@ public class AddModuleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Module added";
 
     private final NusModule toAdd;
-    //public static final String MESSAGE_DELETE_SUCCESS = "Module deleted";
 
     /**
      * Creates an AddModuleCommand to add the specified {@code NusModule}
