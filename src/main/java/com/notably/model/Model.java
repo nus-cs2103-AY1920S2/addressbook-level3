@@ -4,9 +4,8 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import com.notably.commons.core.GuiSettings;
-import com.notably.model.suggestion.SuggestionModel;
-
 import com.notably.model.commandinput.CommandInputModel;
+import com.notably.model.suggestion.SuggestionModel;
 
 import javafx.collections.ObservableList;
 
