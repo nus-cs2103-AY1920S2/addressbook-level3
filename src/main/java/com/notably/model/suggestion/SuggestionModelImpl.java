@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
  */
 public class SuggestionModelImpl implements SuggestionModel {
     private ObservableList<SuggestionItem> suggestions;
-    private String commandInputText;
     private Property<Optional<String>> responseTextProperty;
 
     @Override
@@ -25,7 +24,6 @@ public class SuggestionModelImpl implements SuggestionModel {
         this.suggestions = FXCollections.observableArrayList(suggestions);
     }
 
-    // TODO: update commands
     @Override
     public Property<Optional<String>> responseTextProperty() {
         return responseTextProperty;
