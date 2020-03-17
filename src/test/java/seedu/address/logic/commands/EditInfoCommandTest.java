@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
@@ -28,7 +29,7 @@ class EditInfoCommandTest {
 
     private static final String REMARK_STUB = "Some remark";
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new Scheduler(), new UserPrefs());
 
     @Test
     public void execute_editInfoUnfilteredList_success() {
@@ -41,7 +42,8 @@ class EditInfoCommandTest {
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel =
+                new ModelManager(new AddressBook(model.getAddressBook()), new Scheduler(), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
@@ -60,7 +62,8 @@ class EditInfoCommandTest {
 
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel =
+                new ModelManager(new AddressBook(model.getAddressBook()), new Scheduler(), new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
@@ -83,7 +86,7 @@ class EditInfoCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonsList().size());
 
         EditInfoCommand editInfoCommand = new EditInfoCommand(outOfBoundIndex, 1, new Remark(VALID_REMARK_BOB));
 

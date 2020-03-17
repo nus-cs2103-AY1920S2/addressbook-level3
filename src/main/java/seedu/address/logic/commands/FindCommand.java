@@ -48,23 +48,17 @@ public class FindCommand extends Command {
         // we don't do anything for 000
         if (groupnamePredicate.size() == 0 && wordPredicate.size() == 0 && tagPredicate.size() != 0) {
             model.updateFilteredPersonList(tagPredicate); // 001
-        }
-        else if (groupnamePredicate.size() == 0 && wordPredicate.size() != 0 && tagPredicate.size() == 0) {
+        } else if (groupnamePredicate.size() == 0 && wordPredicate.size() != 0 && tagPredicate.size() == 0) {
             model.updateFilteredPersonList(wordPredicate); // 010
-        }
-        else if (groupnamePredicate.size() == 0 && wordPredicate.size() != 0 && tagPredicate.size() != 0) {
+        } else if (groupnamePredicate.size() == 0 && wordPredicate.size() != 0 && tagPredicate.size() != 0) {
             model.updateFilteredPersonList(wordPredicate.and(tagPredicate)); // 011
-        }
-        else if (groupnamePredicate.size() != 0 && wordPredicate.size() == 0 && tagPredicate.size() == 0) {
+        } else if (groupnamePredicate.size() != 0 && wordPredicate.size() == 0 && tagPredicate.size() == 0) {
             model.updateFilteredPersonList(groupnamePredicate); // 100
-        }
-        else if (groupnamePredicate.size() != 0 && wordPredicate.size() == 0 && tagPredicate.size() != 0) {
+        } else if (groupnamePredicate.size() != 0 && wordPredicate.size() == 0 && tagPredicate.size() != 0) {
             model.updateFilteredPersonList(groupnamePredicate.and(tagPredicate)); // 101
-        }
-        else if (groupnamePredicate.size() != 0 && wordPredicate.size() != 0 && tagPredicate.size() == 0) {
+        } else if (groupnamePredicate.size() != 0 && wordPredicate.size() != 0 && tagPredicate.size() == 0) {
             model.updateFilteredPersonList(groupnamePredicate.and(wordPredicate)); // 110
-        }
-        else if (groupnamePredicate.size() != 0 && wordPredicate.size() != 0 && tagPredicate.size() != 0) {
+        } else if (groupnamePredicate.size() != 0 && wordPredicate.size() != 0 && tagPredicate.size() != 0) {
             model.updateFilteredPersonList(groupnamePredicate.and(wordPredicate).and(tagPredicate));
         }
 

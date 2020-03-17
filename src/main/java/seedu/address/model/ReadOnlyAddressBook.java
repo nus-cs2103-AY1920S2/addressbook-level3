@@ -4,14 +4,13 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of the address book.
  */
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
+     * Returns an unmodifiable view of the address book.
      * This list will not contain any duplicate persons.
      */
-    ObservableList<Person> getPersonList();
-
+    ObservableList<Person> getPersonsList();
 }

@@ -138,6 +138,7 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Birthday birthday;
+        private ArrayList<Remark> remarks;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -241,6 +242,10 @@ public class EditCommand extends Command {
                     && getBirthday().equals(e.getBirthday())
                     && getTags().equals(e.getTags());
         }
+    }
 
+    @Override
+    public String toString() {
+        return COMMAND_WORD;
     }
 }
