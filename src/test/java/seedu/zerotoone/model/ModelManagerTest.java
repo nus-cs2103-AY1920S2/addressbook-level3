@@ -3,7 +3,7 @@ package seedu.zerotoone.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.TypicalPersons.ALICE;
 import static seedu.zerotoone.testutil.TypicalPersons.BENSON;
@@ -122,7 +122,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(exerciseList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_EXERCISES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

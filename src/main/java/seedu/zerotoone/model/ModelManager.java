@@ -102,7 +102,7 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         exerciseList.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_EXERCISES);
     }
 
     @Override
