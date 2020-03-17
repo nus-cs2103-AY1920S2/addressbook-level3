@@ -30,8 +30,8 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Exercise> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of exercises */
+    ObservableList<Exercise> getFilteredExerciseList();
 
     /**
      * Returns the user prefs' address book file path.

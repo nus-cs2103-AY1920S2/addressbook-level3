@@ -107,7 +107,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        exerciseListPanel = new ExerciseListPanel(logic.getFilteredPersonList());
+        exerciseListPanel = new ExerciseListPanel(logic.getFilteredExerciseList());
         personListPanelPlaceholder.getChildren().add(exerciseListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
