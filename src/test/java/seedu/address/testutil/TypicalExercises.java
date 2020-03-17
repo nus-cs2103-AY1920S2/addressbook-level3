@@ -21,7 +21,7 @@ import seedu.address.model.exercise.Exercise;
 /**
  * A utility class containing a list of {@code Exercise} objects to be used in tests.
  */
-public class TypicalPersons {
+public class TypicalExercises {
 
     public static final Exercise ALICE = new ExerciseBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
@@ -57,7 +57,7 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    private TypicalExercises() {} // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.

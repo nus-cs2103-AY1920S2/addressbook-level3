@@ -15,14 +15,14 @@ import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  * A exercise is considered unique by comparing using {@code Exercise#isSameExercise(Exercise)}. As such, adding and updating of
  * persons uses Exercise#isSameExercise(Exercise) for equality so as to ensure that the exercise being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a exercise uses Exercise#equals(Object) so
+ * unique in terms of identity in the UniqueExerciseList. However, the removal of a exercise uses Exercise#equals(Object) so
  * as to ensure that the exercise with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
  * @see Exercise#isSameExercise(Exercise)
  */
-public class UniquePersonList implements Iterable<Exercise> {
+public class UniqueExerciseList implements Iterable<Exercise> {
 
     private final ObservableList<Exercise> internalList = FXCollections.observableArrayList();
     private final ObservableList<Exercise> internalUnmodifiableList =
@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<Exercise> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPersons(UniqueExerciseList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Exercise> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueExerciseList // instanceof handles nulls
+                        && internalList.equals(((UniqueExerciseList) other).internalList));
     }
 
     @Override
