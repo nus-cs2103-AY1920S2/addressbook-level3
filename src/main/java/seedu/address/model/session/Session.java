@@ -46,6 +46,21 @@ public class Session {
     }
 
     /**
+     * Returns true if both sessions of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two sessions.
+     */
+    public boolean isSameSession(Session s) {
+        return false;
+    }
+
+    /**
+     * Returns the date when the session will take place.
+     */
+    public LocalDate getDate() {
+        return this.startDateTime.toLocalDate();
+    }
+
+    /**
      * Returns the start time of the session.
      */
     public LocalDateTime getStartDateTime() {
@@ -78,5 +93,22 @@ public class Session {
      */
     public Duration getSessionDuration() {
         return Duration.between(this.startDateTime, this.endDateTime);
+    }
+
+    /**
+     * Returns true if both sessions have the same identity and data fields.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+          return true;
+        }
+
+        if (!(other instanceof Session)) {
+          return false;
+        }
+
+        Session otherSession = (Session) other;
+        return isSameSession(otherSession);
     }
 }
