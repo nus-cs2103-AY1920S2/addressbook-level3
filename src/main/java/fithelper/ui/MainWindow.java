@@ -95,7 +95,8 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(dashBoard.getRoot());
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         setAllPageAnchor(todayPage.getRoot());
-        calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
+            logic.getFilteredSportsEntryList(), logic.getVEvents());
         setAllPageAnchor(calendarPanel.getRoot());
         helpWindow = new HelpWindow();
         setAllPageAnchor(helpWindow.getRoot());
@@ -170,6 +171,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleShowCalendarPage() {
         showCalendarPanel();
     }
+
 
     private void showTodayPage() {
         pagePane.getChildren().clear();

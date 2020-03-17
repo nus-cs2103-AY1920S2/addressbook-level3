@@ -2,7 +2,9 @@ package fithelper.model.entry;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
+
 
 /**
  * Represents a Entry in the FitHelper.
@@ -36,6 +38,7 @@ public class Entry {
      * Every field must be present and not null.
      */
     public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Remark remark) {
+
         requireAllNonNull(type, name, location, time, calorie);
         this.type = type;
         this.name = name;
@@ -74,6 +77,10 @@ public class Entry {
 
     public Time getTime() {
         return time;
+    }
+
+    public LocalDateTime getDateTime() {
+        return time.dateTime;
     }
 
     public Calorie getCalorie() {
