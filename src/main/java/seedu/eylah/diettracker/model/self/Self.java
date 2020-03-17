@@ -11,8 +11,8 @@ import java.util.Objects;
 public class Self {
 
     // Data fields
-    private final Height height;
-    private final Weight weight;
+    private static Height height;
+    private static Weight weight;
 
     /**
      * Every field must be present
@@ -24,12 +24,20 @@ public class Self {
         this.weight = weight;
     }
 
-    public Height getHeight() {
+    public static Height getHeight() {
         return height;
     }
 
-    public Weight getWeight() {
+    public static Weight getWeight() {
         return weight;
+    }
+
+    public static void setHeight(Height height) {
+        height = height;
+    }
+
+    public static void setWeight(Weight weight) {
+        weight = weight;
     }
 
     @Override

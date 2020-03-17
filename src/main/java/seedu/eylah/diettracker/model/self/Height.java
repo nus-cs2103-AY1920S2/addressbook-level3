@@ -18,19 +18,19 @@ public class Height {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}]*";
 
-    public final String height;
-    public final Float ht;
+    private final String heightString;
+    private final Float heightFloat;
 
     /**
      * Constructs a {@code Height}.
      *
-     * @param height A valid height.
+     * @param heightString A valid height.
      */
-    public Height(String height) {
-        requireNonNull(height);
-        checkArgument(isValidHeight(height), MESSAGE_CONSTRAINTS);
-        this.height = height;
-        this.ht = Float.parseFloat(this.height);
+    public Height(String heightString) {
+        requireNonNull(heightString);
+        checkArgument(isValidHeight(heightString), MESSAGE_CONSTRAINTS);
+        this.heightString = heightString;
+        this.heightFloat = Float.parseFloat(this.heightString);
     }
 
     /**
@@ -40,22 +40,25 @@ public class Height {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public float getHeightFloat() {
+        return this.heightFloat;
+    }
 
     @Override
     public String toString() {
-        return "" + height;
+        return "" + heightString;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Height // instanceof handles nulls
-                && height.equals(((Height) other).height)); // state check
+                && heightString.equals(((Height) other).heightString)); // state check
     }
 
     @Override
     public int hashCode() {
-        return height.hashCode();
+        return heightString.hashCode();
     }
 
 }

@@ -7,9 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.eylah.diettracker.logic.commands.AddCommand;
+import seedu.eylah.diettracker.logic.commands.BmiCommand;
 import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.commands.DeleteCommand;
+import seedu.eylah.diettracker.logic.commands.HeightCommand;
 import seedu.eylah.diettracker.logic.commands.HelpCommand;
+import seedu.eylah.diettracker.logic.commands.WeightCommand;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 
 /**
@@ -44,6 +47,12 @@ public class FoodBookParser {
             return new AddCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+        case HeightCommand.COMMAND_WORD:
+            return new HeightCommandParser().parse(arguments);
+        case WeightCommand.COMMAND_WORD:
+            return new WeightCommandParser().parse(arguments);
+        case BmiCommand.COMMAND_WORD:
+            return new BmiCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

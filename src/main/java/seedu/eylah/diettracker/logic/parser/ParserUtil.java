@@ -11,6 +11,8 @@ import seedu.eylah.commons.util.StringUtil;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Name;
+import seedu.eylah.diettracker.model.self.Height;
+import seedu.eylah.diettracker.model.self.Weight;
 import seedu.eylah.diettracker.model.tag.Tag;
 
 /**
@@ -88,5 +90,35 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code height} is invalid.
+     */
+    public static Height parseHeight(String height) throws ParseException {
+        requireNonNull(height);
+        String trimmedHeight = height.trim();
+        if (!Name.isValidName(trimmedHeight)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Height(trimmedHeight);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
+    public static Weight parseWeight(String weight) throws ParseException {
+        requireNonNull(weight);
+        String trimmedWeight = weight.trim();
+        if (!Name.isValidName(trimmedWeight)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Weight(trimmedWeight);
     }
 }
