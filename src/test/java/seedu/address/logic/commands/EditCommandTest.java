@@ -111,7 +111,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_EXERCISE);
 
         // edit exercise in filtered list into a duplicate in address book
-        Exercise exerciseInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_EXERCISE.getZeroBased());
+        Exercise exerciseInList = model.getAddressBook().getExerciseList().get(INDEX_SECOND_EXERCISE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
                 new EditExerciseDescriptorBuilder(exerciseInList).build());
 
@@ -136,7 +136,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_EXERCISE);
         Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getExerciseList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB).build());
