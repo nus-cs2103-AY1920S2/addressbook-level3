@@ -54,11 +54,11 @@ public class Time {
         boolean isValid = true;
         String delims = " ";
         String[] tokens = test.split(delims);
-        if (tokens.length != 2) {
+        if (tokens.length < 2) {
             isValid = false;
         } else {
             delims = ":";
-            String[] time = tokens[1].split(delims);
+            String[] time = tokens[tokens.length - 1].split(delims);
             if (time.length != 2) {
                 isValid = false;
             } else {
