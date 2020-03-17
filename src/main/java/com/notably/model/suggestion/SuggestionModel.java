@@ -32,10 +32,10 @@ public interface SuggestionModel {
     Property<Optional<String>> responseTextProperty();
 
     /**
-     * Sets the command text.
-     * @param commandInputText The "command" that the user inputs, e.g. open, search, etc.
+     * Updates the responseTextProperty.
+     * @param responseText The meaning of the "command" that the user inputs.
      */
-    void setCommandInputText(String commandInputText);
+    void setResponseTextProperty(String responseText);
 
     String getCommandInputText();
 

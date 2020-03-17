@@ -32,8 +32,8 @@ public class SuggestionModelImpl implements SuggestionModel {
     }
 
     @Override
-    public void setCommandInputText(String commandInputText) {
-        this.commandInputText = commandInputText;
+    public void setResponseTextProperty(String responseText) {
+        responseTextProperty.setValue(Optional.ofNullable(responseText));
     }
 
     @Override
