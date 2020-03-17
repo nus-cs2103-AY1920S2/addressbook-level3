@@ -1,6 +1,7 @@
 package seedu.address.todolist;
 
 /**
+ * <h1> To Do Class </h1>
  * Returns an extended type of Task, To Dos, where general tasks are added
  */
 

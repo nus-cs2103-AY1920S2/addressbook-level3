@@ -1,8 +1,9 @@
 package seedu.address.todolist;
 
 /**
+ * <h1> Task Class </h1>
  * Represents general Task class such that it can be extended into more specific classes (Deadlines, To Dos)
- * description must specify a task
+ *  description must specify a task
  */
 public class Task {
     private String description;
