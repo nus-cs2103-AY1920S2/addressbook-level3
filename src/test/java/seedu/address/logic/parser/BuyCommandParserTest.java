@@ -1,14 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -16,12 +9,10 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.exceptions.BuyCommand;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
-import seedu.address.model.person.Name;
 
 class BuyCommandParserTest {
     private static final String VALID_GOOD_NAME = "Durian";
@@ -57,12 +48,12 @@ class BuyCommandParserTest {
                 new BuyCommand(validGood));
 
         // multiple goodNames, only last one accepted
-        assertParseSuccess(parser, VALID_GOOD_NAME_EXTRA_DESC + VALID_GOOD_NAME_DESC +
-                        VALID_GOOD_QUANTITY_DESC, new BuyCommand(validGood));
+        assertParseSuccess(parser, VALID_GOOD_NAME_EXTRA_DESC + VALID_GOOD_NAME_DESC
+                + VALID_GOOD_QUANTITY_DESC, new BuyCommand(validGood));
 
         // multiple quantities, only last one accepted
-        assertParseSuccess(parser, VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_EXTRA_DESC +
-                VALID_GOOD_QUANTITY_DESC, new BuyCommand(validGood));
+        assertParseSuccess(parser, VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_EXTRA_DESC
+                + VALID_GOOD_QUANTITY_DESC, new BuyCommand(validGood));
     }
 
     @Test
@@ -79,7 +70,7 @@ class BuyCommandParserTest {
     }
 
     @Test
-    void parse_InvalidValue_failure() {
+    void parse_invalidValue_failure() {
         // invalid good name
         assertParseFailure(parser, INVALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC,
                 GoodName.MESSAGE_CONSTRAINTS);
@@ -88,7 +79,7 @@ class BuyCommandParserTest {
         assertParseFailure(parser, VALID_GOOD_NAME_DESC + INVALID_GOOD_QUANTITY_NEGATIVE_DESC,
                 GoodQuantity.MESSAGE_CONSTRAINTS);
         /*
-        TODO: discuss with group mates how to solve int overflow problem. 
+        TODO: discuss with group mates how to solve int overflow problem.
         assertParseFailure(parser, VALID_GOOD_NAME_DESC + INVALID_GOOD_QUANTITY_OVERFLOW_INT_DESC,
                 GoodQuantity.MESSAGE_CONSTRAINTS);
          */

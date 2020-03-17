@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.exceptions;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOOD_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
