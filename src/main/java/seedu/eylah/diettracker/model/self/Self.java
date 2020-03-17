@@ -18,10 +18,10 @@ public class Self {
      * Every field must be present
      * height and weight fields must not be null.
      */
-    public Self(Height ht, Weight wt) {
-        requireAllNonNull(ht, wt);
-        this.height = ht;
-        this.weight = wt;
+    public Self(Height height, Weight weight) {
+        requireAllNonNull(height, weight);
+        this.height = height;
+        this.weight = weight;
     }
 
     public static Height getHeight() {
@@ -32,12 +32,12 @@ public class Self {
         return weight;
     }
 
-    public static void setHeight(Height ht) {
-        height = ht;
+    public static void setHeight(Height height) {
+        height = height;
     }
 
-    public static void setWeight(Weight wt) {
-        weight = wt;
+    public static void setWeight(Weight weight) {
+        weight = weight;
     }
 
     @Override

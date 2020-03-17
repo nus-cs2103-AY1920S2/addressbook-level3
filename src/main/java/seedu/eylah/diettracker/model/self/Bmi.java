@@ -33,8 +33,8 @@ public class Bmi {
         checkArgument(isValidHeight(height.toString()), MESSAGE_CONSTRAINTS);
         checkArgument(isValidWeight(weight.toString()), MESSAGE_CONSTRAINTS);
 
-        this.height = height.getHt();
-        this.weight = weight.getWt();
+        this.height = height.getHeightFloat();
+        this.weight = weight.getWeightFloat();
         this.bmiFloat = calcBmi();
         this.bmi = this.bmiFloat.toString();
     }
@@ -55,7 +55,7 @@ public class Bmi {
 
     /**
      * Method to calculate BMI. Formula used to calculate BMI is
-     * Weight (in kilograms) divided by Height^2 (in metres^2).
+     * Weight (in kilograms) divided by Height squared (in metres^2).
      * @return Float of the BMI value.
      */
     private Float calcBmi() {
