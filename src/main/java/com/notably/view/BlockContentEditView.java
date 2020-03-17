@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 /**
  *
  */
-public class BlockContentViewImpl extends ViewPart<Region> {
+public class BlockContentEditView extends ViewPart<Region> {
 
     private static final String sampleText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod "
             + "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation "
@@ -24,12 +24,12 @@ public class BlockContentViewImpl extends ViewPart<Region> {
             + "cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa "
             + "qui officia deserunt mollit anim id est laborum.";
 
-    private static final String FXML = "BlockContentView.fxml";
+    private static final String FXML = "BlockContentEditView.fxml";
 
     @FXML
     private TextArea blockContentTextArea;
 
-    public BlockContentViewImpl() {
+    public BlockContentEditView() {
         super(FXML);
         initializeBlockContent();
     }

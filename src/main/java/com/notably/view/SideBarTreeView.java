@@ -8,14 +8,14 @@ import javafx.scene.layout.Region;
 /**
  *
  */
-public class SideBarTreeViewImpl extends ViewPart<Region> {
+public class SideBarTreeView extends ViewPart<Region> {
 
     private static final String FXML = "SideBarTreeView.fxml";
 
     @FXML
     private TreeView<String> sideBarTreeViewRoot;
 
-    public SideBarTreeViewImpl() {
+    public SideBarTreeView() {
         super(FXML);
         loadTreeItems();
     }
