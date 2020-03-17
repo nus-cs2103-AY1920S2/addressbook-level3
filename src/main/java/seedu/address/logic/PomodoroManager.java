@@ -1,30 +1,28 @@
 package seedu.address.logic;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
 import java.util.List;
 import java.util.Set;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Done;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
+import seedu.address.model.task.Task;
 import seedu.address.ui.ResultDisplay;
 
 public class PomodoroManager {
 
     private Integer startTime;
-    private Integer restTime = 5; //5 * 60;
+    private Integer restTime = 5; // 5 * 60;
     private Timeline timeline;
     private Label timerLabel;
     private ResultDisplay resultDisplay;
@@ -34,14 +32,17 @@ public class PomodoroManager {
     private int taskIndex;
 
     public enum PROMPT_STATE {
-        NONE, CHECK_DONE, CHECK_TAKE_BREAK;
+        NONE,
+        CHECK_DONE,
+        CHECK_TAKE_BREAK;
     }
 
-    public final String CHECK_DONE_MESSAGE = "Did you manage to finish the last task?\n"
-        + "(Y) - Task will be set to done. (N) - No changes.";
+    public final String CHECK_DONE_MESSAGE =
+            "Did you manage to finish the last task?\n"
+                    + "(Y) - Task will be set to done. (N) - No changes.";
 
-    public final String CHECK_TAKE_BREAK_MESSAGE = "Shall we take a 5-min break?\n"
-        + "(Y) - 5-min timer begins. (N) - App goes neutral.";
+    public final String CHECK_TAKE_BREAK_MESSAGE =
+            "Shall we take a 5-min break?\n" + "(Y) - 5-min timer begins. (N) - App goes neutral.";
 
     private PROMPT_STATE promptState;
 
@@ -58,7 +59,7 @@ public class PomodoroManager {
     }
 
     public void start(float timeInMinutes) {
-        startTime = (int)(timeInMinutes * 60);
+        startTime = (int) (timeInMinutes * 60);
         timeSeconds = new SimpleIntegerProperty(startTime);
         configureUi();
         configureTimer();
@@ -81,16 +82,22 @@ public class PomodoroManager {
     }
 
     private void configureUi() {
-        timerLabel.textProperty().bind(Bindings.createStringBinding(() -> {
-            if (timeSeconds.getValue() == null) {
-                return "";
-            } else {
-                int secondsRemaining = timeSeconds.get();
-                int minutePortion = secondsRemaining / 60;
-                int secondPortion = secondsRemaining % 60;
-                return String.format("%02d:%02d", minutePortion, secondPortion);
-            }
-        }, timeSeconds));
+        timerLabel
+                .textProperty()
+                .bind(
+                        Bindings.createStringBinding(
+                                () -> {
+                                    if (timeSeconds.getValue() == null) {
+                                        return "";
+                                    } else {
+                                        int secondsRemaining = timeSeconds.get();
+                                        int minutePortion = secondsRemaining / 60;
+                                        int secondPortion = secondsRemaining % 60;
+                                        return String.format(
+                                                "%02d:%02d", minutePortion, secondPortion);
+                                    }
+                                },
+                                timeSeconds));
     }
 
     private void configureTimer() {
@@ -99,14 +106,14 @@ public class PomodoroManager {
         }
         timeSeconds.set(startTime);
         timeline = new Timeline();
-        timeline.getKeyFrames().add(
-            new KeyFrame(Duration.seconds(startTime + 1),
-            new KeyValue(timeSeconds, 0)));
+        timeline.getKeyFrames()
+                .add(new KeyFrame(Duration.seconds(startTime + 1), new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
-        timeline.setOnFinished(event -> {
-            this.setPromptState(PROMPT_STATE.CHECK_DONE);
-            resultDisplay.setFeedbackToUser(CHECK_DONE_MESSAGE);
-        });
+        timeline.setOnFinished(
+                event -> {
+                    this.setPromptState(PROMPT_STATE.CHECK_DONE);
+                    resultDisplay.setFeedbackToUser(CHECK_DONE_MESSAGE);
+                });
     }
 
     public PROMPT_STATE getPromptState() {
@@ -127,14 +134,14 @@ public class PomodoroManager {
         }
         timeSeconds.set(restTime);
         timeline = new Timeline();
-        timeline.getKeyFrames().add(
-            new KeyFrame(Duration.seconds(restTime + 1),
-            new KeyValue(timeSeconds, 0)));
+        timeline.getKeyFrames()
+                .add(new KeyFrame(Duration.seconds(restTime + 1), new KeyValue(timeSeconds, 0)));
         timeline.playFromStart();
-        timeline.setOnFinished(event -> {
-            resultDisplay.setFeedbackToUser("Breaks over! What shall we do next?");
-            this.setPromptState(PROMPT_STATE.NONE); // App back to neutral
-        });
+        timeline.setOnFinished(
+                event -> {
+                    resultDisplay.setFeedbackToUser("Breaks over! What shall we do next?");
+                    this.setPromptState(PROMPT_STATE.NONE); // App back to neutral
+                });
     }
 
     public void setDoneParams(Model model, List<Task> originList, int taskIndex) {
@@ -155,8 +162,13 @@ public class PomodoroManager {
         Priority updatedPriority = taskToEdit.getPriority();
         Description updatedDescription = taskToEdit.getDescription();
         Set<Tag> updatedTags = taskToEdit.getTags();
-        Task editedTask = new Task(
-                updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
+        Task editedTask =
+                new Task(
+                        updatedName,
+                        updatedPriority,
+                        updatedDescription,
+                        new Done("Y"),
+                        updatedTags);
         model.setTask(taskToEdit, editedTask);
         clearDoneParams();
     }

@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMER;
 
 import java.util.Optional;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.PomCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -12,14 +11,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class PomCommandParser implements Parser<PomCommand> {
 
     public PomCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(
-                args, PREFIX_TIMER);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TIMER);
 
         Optional<String> optTimerString = argMultimap.getValue(PREFIX_TIMER);
-        float timerAmount = optTimerString.isEmpty()
-            ? PomCommand.DEFAULT_TIMER
-            : Float.parseFloat(optTimerString.get());
+        float timerAmount =
+                optTimerString.isEmpty()
+                        ? PomCommand.DEFAULT_TIMER
+                        : Float.parseFloat(optTimerString.get());
 
         try {
             String preamble = argMultimap.getPreamble();

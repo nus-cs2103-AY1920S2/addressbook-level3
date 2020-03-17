@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-
 import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
@@ -24,8 +23,15 @@ public class PomCommandResult extends CommandResult {
     private List<Task> originList;
 
     /** Constructs a {@code PomCommandResult} with the specified fields. */
-    public PomCommandResult(String feedbackToUser, String pommedTask, float timerAmount,
-        Model model, int taskIndex, List<Task> originList, boolean isPause, boolean isContinue) {
+    public PomCommandResult(
+            String feedbackToUser,
+            String pommedTask,
+            float timerAmount,
+            Model model,
+            int taskIndex,
+            List<Task> originList,
+            boolean isPause,
+            boolean isContinue) {
         super(requireNonNull(feedbackToUser), false, false);
         this.pommedTask = pommedTask;
         this.timerAmount = timerAmount;
