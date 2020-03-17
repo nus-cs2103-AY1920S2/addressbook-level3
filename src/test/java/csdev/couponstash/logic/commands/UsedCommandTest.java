@@ -41,7 +41,8 @@ class UsedCommandTest {
         assertCommandSuccess(usedCommand, model, expectedMessage, expectedModel);
     }
 
-    @Test void execute_validIndexUnfilteredListWithOriginalAmount_success() {
+    @Test
+    public void execute_validIndexUnfilteredListWithOriginalAmount_success() {
         Coupon couponToBeUsed = model.getFilteredCouponList().get(TypicalIndexes.INDEX_SECOND_COUPON.getZeroBased());
         MonetaryAmount originalAmount = new MonetaryAmount(10.0);
         UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_SECOND_COUPON, originalAmount);
@@ -136,7 +137,7 @@ class UsedCommandTest {
         assertFalse(usedFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(usedFirstCommand.equals(null));
+        assertFalse(usedFirstCommand == null);
 
         // different command -> returns false
         assertFalse(usedFirstCommand.equals(usedSecondCommand));
