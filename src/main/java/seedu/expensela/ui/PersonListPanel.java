@@ -27,7 +27,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code TransactionCard}.
      */
     class PersonListViewCell extends ListCell<Transaction> {
         @Override
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(transaction, getIndex() + 1).getRoot());
+                setGraphic(new TransactionCard(transaction, getIndex() + 1).getRoot());
             }
         }
     }
