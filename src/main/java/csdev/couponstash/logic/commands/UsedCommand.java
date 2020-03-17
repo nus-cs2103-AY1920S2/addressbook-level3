@@ -15,6 +15,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -113,11 +114,12 @@ public class UsedCommand extends Command {
         Name name = couponToBeUsed.getName();
         Phone phone = couponToBeUsed.getPhone();
         ExpiryDate expiryDate = couponToBeUsed.getExpiryDate();
+        StartDate startDate = couponToBeUsed.getStartDate();
         Limit limit = couponToBeUsed.getLimit();
         Set<Tag> tags = couponToBeUsed.getTags();
         Usage updatedUsage = couponToBeUsed.getUsage().increaseUsageByOne();
 
-        return new Coupon(name, phone, newSavings, expiryDate, updatedUsage, limit, tags);
+        return new Coupon(name, phone, newSavings, expiryDate, startDate, updatedUsage, limit, tags);
     }
 
     /**

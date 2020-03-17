@@ -5,6 +5,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
 import static java.util.Objects.requireNonNull;
@@ -27,16 +28,18 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EXPIRY_DATE + "EXPIRY DATE "
             + PREFIX_SAVINGS + "SAVINGS "
+            + "[" + PREFIX_START_DATE + "START DATE]"
             + "[" + PREFIX_SAVINGS + "SAVINGS]..."
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "The Deck Chicken Rice "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EXPIRY_DATE + "30-08-2020 "
             + PREFIX_SAVINGS + "50" + PercentageAmount.PERCENT_SUFFIX + " "
+            + PREFIX_START_DATE + "1-8-2020 "
             + PREFIX_LIMIT + "5 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "Value "
+            + PREFIX_TAG + "ChickenRice";
 
     public static final String MESSAGE_SUCCESS = "New coupon added: %1$s";
     public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in CouponStash";

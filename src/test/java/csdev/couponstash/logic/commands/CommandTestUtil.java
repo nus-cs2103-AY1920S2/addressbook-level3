@@ -5,6 +5,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 import static csdev.couponstash.testutil.Assert.assertThrows;
@@ -39,6 +40,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_EXPIRY_DATE_AMY = "30-12-2020";
     public static final String VALID_EXPIRY_DATE_BOB = "31-12-2020";
+    public static final String VALID_START_DATE_AMY = "1-12-2020";
+    public static final String VALID_START_DATE_BOB = "2-12-2020";
     public static final String VALID_SAVEABLE_CAKE = "Cake";
     public static final String VALID_SAVEABLE_CROISSANT = "Croissant";
     public static final Savings VALID_SAVINGS_AMY = new Savings(
@@ -74,6 +77,8 @@ public class CommandTestUtil {
             + " " + PREFIX_SAVINGS + VALID_MONEY_SYMBOL + VALID_MONETARY_AMOUNT_TWO_TWENTY;
     public static final String EXPIRY_DATE_DESC_AMY = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_AMY;
     public static final String EXPIRY_DATE_DESC_BOB = " " + PREFIX_EXPIRY_DATE + VALID_EXPIRY_DATE_BOB;
+    public static final String START_DATE_DESC_AMY = " " + PREFIX_START_DATE + VALID_START_DATE_AMY;
+    public static final String START_DATE_DESC_BOB = " " + PREFIX_START_DATE + VALID_START_DATE_BOB;
     public static final String USAGE_DESC_AMY = " " + PREFIX_USAGE + VALID_USAGE_AMY;
     public static final String USAGE_DESC_BOB = " " + PREFIX_USAGE + VALID_USAGE_BOB;
     public static final String LIMIT_DESC_AMY = " " + PREFIX_LIMIT + VALID_LIMIT_AMY;
@@ -85,6 +90,7 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_SAVINGS_DESC = " " + PREFIX_SAVINGS; // cannot have blank savings
     public static final String INVALID_EXPIRY_DATE_DESC = " " + PREFIX_EXPIRY_DATE + "2-2-22"; // year should be in yyyy
+    public static final String INVALID_START_DATE_DESC = " " + PREFIX_START_DATE + "2-2-22"; // year should be in yyyy
     public static final String INVALID_USAGE_DESC = " " + PREFIX_USAGE + "-10"; // '*' not allowed in tags
     public static final String INVALID_LIMIT_DESC = " " + PREFIX_LIMIT + "3c"; // '*' not allowed in tags
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -101,6 +107,7 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_AMY)
                 .withSavings(VALID_SAVINGS_AMY)
                 .withExpiryDate(VALID_EXPIRY_DATE_AMY)
+                .withStartDate(VALID_START_DATE_AMY)
                 .withUsage(VALID_USAGE_AMY)
                 .withLimit(VALID_LIMIT_AMY)
                 .withTags(VALID_TAG_FRIEND)
@@ -110,6 +117,7 @@ public class CommandTestUtil {
                 .withPhone(VALID_PHONE_BOB)
                 .withSavings(VALID_SAVINGS_BOB)
                 .withExpiryDate(VALID_EXPIRY_DATE_BOB)
+                .withStartDate(VALID_START_DATE_BOB)
                 .withUsage(VALID_USAGE_BOB)
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)

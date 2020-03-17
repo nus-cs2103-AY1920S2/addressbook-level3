@@ -19,6 +19,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -38,6 +39,7 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
             + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
+            + "[" + CliSyntax.PREFIX_START_DATE + "1-08-2020] "
             + "[" + CliSyntax.PREFIX_USAGE + "4 "
             + "[" + CliSyntax.PREFIX_LIMIT + "5 "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
@@ -94,12 +96,13 @@ public class EditCommand extends Command {
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
         Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
         Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
+        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
+        StartDate updatedStartDate = editCouponDescriptor.getStartDate().orElse(couponToEdit.getStartDate());
         Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
-        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
 
-        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate,
+        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedStartDate,
                 updatedUsage, updatedLimit, updatedTags);
     }
 
@@ -130,6 +133,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Savings savings;
         private ExpiryDate expiryDate;
+        private StartDate startDate;
         private Usage usage;
         private Limit limit;
         private Set<Tag> tags;
@@ -145,6 +149,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setSavings(toCopy.savings);
             setExpiryDate(toCopy.expiryDate);
+            setStartDate(toCopy.startDate);
             setUsage(toCopy.usage);
             setLimit(toCopy.limit);
             setTags(toCopy.tags);
@@ -154,7 +159,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, limit, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, startDate, usage, limit, tags);
         }
 
         public void setName(Name name) {
@@ -199,6 +204,14 @@ public class EditCommand extends Command {
 
         public Optional<ExpiryDate> getExpiryDate() {
             return Optional.ofNullable(expiryDate);
+        }
+
+        public void setStartDate(StartDate startDate) {
+            this.startDate = startDate;
+        }
+
+        public Optional<StartDate> getStartDate() {
+            return Optional.ofNullable(startDate);
         }
 
         public void setUsage(Usage usage) {
@@ -253,6 +266,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getSavings().equals(e.getSavings())
                     && getExpiryDate().equals(e.getExpiryDate())
+                    && getStartDate().equals(e.getStartDate())
                     && getUsage().equals(e.getUsage())
                     && getLimit().equals(e.getLimit())
                     && getTags().equals(e.getTags());

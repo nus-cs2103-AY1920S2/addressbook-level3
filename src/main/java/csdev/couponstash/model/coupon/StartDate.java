@@ -7,46 +7,49 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Coupon's expiry date in the CouponStash.
- * Guarantees: immutable; is valid as declared in {@link #isValidExpiryDate(String)}
+ * Represents a Coupon's start date in the CouponStash.
+ * Guarantees: immutable; is valid as declared in {@link #isValidStartDate(String)}
  */
-public class ExpiryDate {
+public class StartDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Expiry Dates should be a date in the D-M-YYYY format.";
+            "Start Dates should be a date in the D-M-YYYY format.";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     public final LocalDate date;
     public final String value;
 
     /**
-     * Constructs a {@code ExpiryDate}.
+     * Constructs a {@code startDate}.
      *
-     * @param expiryDate A valid expiry date.
+     * @param startDate A valid start date.
      */
-    public ExpiryDate(String expiryDate) {
-        requireNonNull(expiryDate);
-        checkArgument(isValidExpiryDate(expiryDate), MESSAGE_CONSTRAINTS);
-        value = expiryDate;
+    public StartDate(String startDate) {
+        requireNonNull(startDate);
+        checkArgument(isValidStartDate(startDate), MESSAGE_CONSTRAINTS);
+        if ("".equals(startDate)) {
+            value = LocalDate.now().format(DATE_FORMATTER);
+        } else {
+            value = startDate;
+        }
         date = getDate();
     }
 
     /**
-     * Returns true if a given string is a valid expiry date.
+     * Returns true if a given string is a valid start date.
      */
-    public static boolean isValidExpiryDate(String test) {
+    public static boolean isValidStartDate(String test) {
         LocalDate testDate = LocalDate.now();
         LocalDate yesterday = LocalDate.now().minusDays(1);
-
         if (test.matches(VALIDATION_REGEX)) {
             testDate = LocalDate.parse(test, DATE_FORMATTER);
         }
-        return test.matches(VALIDATION_REGEX) && testDate.isAfter(yesterday);
+        return ("").equals(test) || (test.matches(VALIDATION_REGEX) && testDate.isAfter(yesterday));
     }
 
     /**
-     * Returns the expiry date as a LocalDate.
-     * @return Expiry Date as a LocalDate
+     * Returns the start date as a LocalDate.
+     * @return Start Date as a LocalDate
      */
     public LocalDate getDate() {
         return LocalDate.parse(value, DATE_FORMATTER);
@@ -60,8 +63,8 @@ public class ExpiryDate {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ExpiryDate// instanceof handles nulls
-                && value.equals(((ExpiryDate) other).value)); // state check
+                || (other instanceof StartDate// instanceof handles nulls
+                && value.equals(((StartDate) other).value)); // state check
     }
 
     @Override

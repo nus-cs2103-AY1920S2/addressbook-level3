@@ -1,5 +1,6 @@
 package csdev.couponstash.testutil;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -23,6 +25,7 @@ public class CouponBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final Savings DEFAULT_SAVINGS = new Savings(new MonetaryAmount(32.5));
     public static final String DEFAULT_EXPIRY_DATE = "30-08-2020";
+    public static final String DEFAULT_START_DATE = LocalDate.now().format(StartDate.DATE_FORMATTER);
     public static final String DEFAULT_USAGE = "0";
     public static final String DEFAULT_LIMIT = "1";
 
@@ -30,6 +33,7 @@ public class CouponBuilder {
     private Phone phone;
     private Savings savings;
     private ExpiryDate expiryDate;
+    private StartDate startDate;
     private Usage usage;
     private Limit limit;
     private Set<Tag> tags;
@@ -39,6 +43,7 @@ public class CouponBuilder {
         phone = new Phone(DEFAULT_PHONE);
         savings = new Savings(DEFAULT_SAVINGS);
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
+        startDate = new StartDate(DEFAULT_START_DATE);
         usage = new Usage(DEFAULT_USAGE);
         limit = new Limit(DEFAULT_LIMIT);
         tags = new HashSet<>();
@@ -52,6 +57,7 @@ public class CouponBuilder {
         phone = couponToCopy.getPhone();
         savings = new Savings(couponToCopy.getSavings());
         expiryDate = couponToCopy.getExpiryDate();
+        startDate = couponToCopy.getStartDate();
         usage = couponToCopy.getUsage();
         limit = couponToCopy.getLimit();
         tags = new HashSet<>(couponToCopy.getTags());
@@ -100,6 +106,22 @@ public class CouponBuilder {
     }
 
     /**
+     * Sets the {@code StartDate} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withStartDate(String startDate) {
+        this.startDate = new StartDate(startDate);
+        return this;
+    }
+
+    /**
+     * Sets the {@code StartDate} of the {@code Coupon} that we are building. For empty arguments.
+     */
+    public CouponBuilder withStartDate() {
+        this.startDate = new StartDate("");
+        return this;
+    }
+
+    /**
      * Sets the {@code Usage} of the {@code Coupon} that we are building.
      */
     public CouponBuilder withUsage(String usage) {
@@ -116,7 +138,7 @@ public class CouponBuilder {
     }
 
     public Coupon build() {
-        return new Coupon(name, phone, savings, expiryDate, usage, limit, tags);
+        return new Coupon(name, phone, savings, expiryDate, startDate, usage, limit, tags);
     }
 
 }
