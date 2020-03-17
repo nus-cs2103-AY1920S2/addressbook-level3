@@ -23,11 +23,5 @@
     "ingredients" : [ ],
     "steps" : [ "Knead dough and mix in raisins", "Preheat oven to 180 degrees", "Bake for 30mins" ],
     "goals" : [ "Wholesome Wholegrains" ]
-  }, {
-    "name" : "Test for super long steps",
-    "time" : "17",
-    "ingredients" : [ ],
-    "steps" : [ "This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 1111111111111111111111 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 2222222222222222222222222 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 333333333333333333333333 This is a super long step This is a super long step This is a super long step This is a super long step 44444444444444This is a super long step This is a super long step This is a super long step END OF STEP" ],
-    "goals" : [ "Herbivore" ]
   } ]
 }

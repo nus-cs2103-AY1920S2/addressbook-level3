@@ -21,12 +21,12 @@ public class Recipe {
     // Identity fields
     private final Name name;
     private final Time time;
-    //private final Step step;
 
     // Data fields
     private final List<Step> steps = new ArrayList<>();
     private final Set<Goal> goals = new HashSet<>();
     private final Set<Ingredient> ingredients = new HashSet<>();
+    private boolean isFavourite = false;
 
     /**
      * Every field must be present and not null.
@@ -38,6 +38,14 @@ public class Recipe {
         this.steps.addAll(steps);
         this.goals.addAll(goals);
         this.ingredients.addAll(ingredients);
+    }
+
+    public void markAsFavourite() {
+        isFavourite = true;
+    }
+
+    public void unmarkAsFavourite() {
+        isFavourite = false;
     }
 
     public Name getName() {
