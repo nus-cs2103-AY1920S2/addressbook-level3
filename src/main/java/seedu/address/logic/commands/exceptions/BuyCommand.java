@@ -10,6 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION_DATE;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
+import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
+import seedu.address.model.good.GoodQuantity;
 
 /**
  * Buys the stated quantity of the good stated from the given supplier on the provided transaction date.
@@ -37,7 +40,6 @@ public class BuyCommand extends Command {
             + PREFIX_TRANSACTION_DATE + "2020-01-01";
 
     public static final String MESSAGE_SUCCESS = "Bought %1$d %2$ss from %3$s on %4$s, expiring on %5$s";
-    public static final String MESSAGE_ARGUMENTS = "HEARD: Bought %1$d %2$ss from %3$s on %4$s, expiring on %5$s";
 
     private String supplierName;
     private String goodName;
@@ -59,8 +61,35 @@ public class BuyCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(String.format(MESSAGE_ARGUMENTS, quantity,
-                goodName, supplierName, transactionDate, expiryDate));
+        Good newGood = new Good(new GoodName(goodName),
+                new GoodQuantity(quantity));
+
+        if (model.hasGood(newGood)) {
+            increaseQuantity(model, newGood);
+        } else {
+            model.addGood(newGood);
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                quantity, goodName, supplierName, transactionDate, expiryDate));
+    }
+
+    /**
+     * Increases the quantity of an existing good in inventory with the same name as {@code newGood}
+     * by the quantity in {@code newGood}
+     * @param model underlying model to make modifications in
+     * @param newGood contains the good name and quantity to increase by
+     */
+    private void increaseQuantity(Model model, Good newGood) {
+        int oldGoodIndex = model.indexOfGood(newGood);
+        Good oldGood = model.getFilteredGoodList().get(oldGoodIndex);
+
+        int updatedQuantity = oldGood.getGoodQuantity().value() + newGood.getGoodQuantity().value();
+
+        Good updatedGood = new Good(new GoodName(newGood.getGoodName().toString()),
+                new GoodQuantity(updatedQuantity));
+
+        model.setGood(oldGood, updatedGood);
     }
 
     @Override

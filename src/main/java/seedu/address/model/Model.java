@@ -125,6 +125,13 @@ public interface Model {
     void addGood(Good good);
 
     /**
+     * Returns the zero-based index of the first occurance of good if found, -1 otherwise.
+     * @param good to be found
+     * @return zero based index of good to be found
+     */
+    int indexOfGood(Good good);
+
+    /**
      * Replaces the given good {@code target} with {@code editedGood}.
      * {@code target} must exist in the inventory.
      * The good identity of {@code editedGood} must not be the same as another existing good in the inventory.
@@ -139,4 +146,11 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredGoodList(Predicate<Good> predicate);
+
+    /**
+     * Returns the good at the zero based {@code index}
+     * @param index index of good to return
+     * @return good at the specified index
+     */
+    Good getGood(int index);
 }

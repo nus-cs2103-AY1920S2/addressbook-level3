@@ -160,11 +160,18 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public int indexOfGood(Good good) {
+        return inventory.index(good);
+    }
+
+    @Override
     public void setGood(Good target, Good editedGood) {
         requireAllNonNull(target, editedGood);
 
         inventory.setGood(target, editedGood);
     }
+
+
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -198,6 +205,11 @@ public class ModelManager implements Model {
     public void updateFilteredGoodList(Predicate<Good> predicate) {
         requireNonNull(predicate);
         filteredGoods.setPredicate(predicate);
+    }
+
+    @Override
+    public Good getGood(int index) {
+        return inventory.getGoodList().get(index);
     }
 
     @Override

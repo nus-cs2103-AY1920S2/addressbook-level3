@@ -34,6 +34,13 @@ public class GoodQuantity {
         return String.valueOf(test).matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the {@code goodQuantity} as in integer.
+     * @return underlying value wrapped by goodQuantity.
+     */
+    public int value() {
+        return goodQuantity;
+    }
 
     @Override
     public String toString() {
