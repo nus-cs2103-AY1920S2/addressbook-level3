@@ -86,7 +86,7 @@ class UsedCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredListWithOriginalAmount_success() {
+    public void execute_validIndexFilteredListWithValidOriginalAmount_success() {
         showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
 
         Coupon couponToBeUsed = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());

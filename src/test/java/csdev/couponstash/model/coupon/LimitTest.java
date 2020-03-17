@@ -25,6 +25,7 @@ public class LimitTest {
         assertThrows(NullPointerException.class, () -> Limit.isValidLimit(null));
 
         // invalid limit
+        assertFalse(Limit.isValidLimit("")); // empty string
         assertFalse(Limit.isValidLimit(" ")); // spaces only
         assertFalse(Limit.isValidLimit("^")); // only non-alphanumeric characters
         assertFalse(Limit.isValidLimit("peter*")); // contains non-alphanumeric characters
@@ -32,7 +33,6 @@ public class LimitTest {
         // valid limit
         assertTrue(Limit.isValidLimit("12345")); // positive numbers only
         assertTrue(Limit.isValidLimit("-12345")); // negative numbers only
-        assertTrue(Limit.isValidLimit("")); // empty string
         assertTrue(Limit.isValidLimit("Infinity")); // Infinity
     }
 }

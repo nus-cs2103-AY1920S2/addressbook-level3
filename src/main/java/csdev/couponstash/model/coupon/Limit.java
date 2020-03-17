@@ -11,7 +11,7 @@ public class Limit {
     public static final String MESSAGE_CONSTRAINTS =
             "Limit should only contain numbers with a minimum value of 1 "
             + "or a number less than 1 to indicate unlimited usage";
-    public static final String VALIDATION_REGEX = "^$|(\\+|-)?\\d+$|Infinity";
+    public static final String VALIDATION_REGEX = "^(\\+|-)?\\d+$|Infinity";
     public final String value;
 
     /**
@@ -26,9 +26,7 @@ public class Limit {
         requireNonNull(limit);
         checkArgument(isValidLimit(limit));
 
-        if ("".equals(limit)) {
-            this.value = "1";
-        } else if ("Infinity".equals(limit) || Integer.parseInt(limit) <= 0) {
+        if ("Infinity".equals(limit) || Integer.parseInt(limit) <= 0) {
             this.value = String.valueOf(Double.POSITIVE_INFINITY);
         } else {
             this.value = limit;

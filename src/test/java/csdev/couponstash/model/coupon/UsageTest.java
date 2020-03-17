@@ -25,11 +25,11 @@ public class UsageTest {
 
         // invalid usage
         assertFalse(Usage.isValidUsage(" ")); // spaces only
+        assertFalse(Usage.isValidUsage("")); // empty string
         assertFalse(Usage.isValidUsage("^")); // only non-alphanumeric characters
         assertFalse(Usage.isValidUsage("peter*")); // contains non-alphanumeric characters
 
         // valid usage
         assertTrue(Usage.isValidUsage("12345")); // numbers only
-        assertTrue(Usage.isValidUsage("")); // empty string
     }
 }
