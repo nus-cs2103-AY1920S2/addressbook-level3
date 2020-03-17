@@ -83,7 +83,7 @@ Allows user to input their height.
 Format: `height HEIGHT` +
 Example: `height 172`
 
-NOTE: Height in centimetres (cm), rounded to nearest centimetre
+NOTE: Height in centimetres (cm)
 
 ==== Store Weight `weight`
 Allows user to input their weight.
@@ -91,7 +91,7 @@ Allows user to input their weight.
 Format: `weight WEIGHT` +
 Example: `weight 65.7`
 
-NOTE: Weight in kilograms (kg), rounded to nearest kilogram
+NOTE: Weight in kilograms (kg)
 
 
 ==== Add food `add`
@@ -164,17 +164,15 @@ Format: `calc`
 Allows the user to calculate their BMI based on the height and weight stored in the program. +
 It will display the following data: +
 
-* Height
-* Weight
 * BMI value
-* BMI category
 
-Format: `bmi [-w WEIGHT] [-h HEIGHT]`
+Format: `bmi [-h HEIGHT] [-w WEIGHT]`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* There are 2 ways to use `bmi`.
+* The first is if there is no input height and weight. This will use
+the height and weight that is stored in the Self object.
+* The second is to calculate bmi with an input height and weight.
 ****
 
 Examples:
@@ -184,7 +182,7 @@ Examples:
 `bmi` +
 Change your height and your weight to your current measurements before calculating your BMI.
 BMI is calculated based off the stored height and weight in this instance.
-* `bmi 65 172` +
+* `bmi -h 172 -w 65.5` +
 Calculate BMI based on the input height and weight values.
 
 === Expense Splitter : `split`
