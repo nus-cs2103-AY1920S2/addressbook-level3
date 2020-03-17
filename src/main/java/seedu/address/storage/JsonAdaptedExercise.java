@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Jackson-friendly version of {@link Exercise}.
  */
-class JsonAdaptedPerson {
+class JsonAdaptedExercise {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Exercise's %s field is missing!";
 
@@ -28,12 +28,12 @@ class JsonAdaptedPerson {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given exercise details.
+     * Constructs a {@code JsonAdaptedExercise} with the given exercise details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExercise(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                               @JsonProperty("email") String email, @JsonProperty("address") String address,
+                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -46,7 +46,7 @@ class JsonAdaptedPerson {
     /**
      * Converts a given {@code Exercise} into this class for Jackson use.
      */
-    public JsonAdaptedPerson(Exercise source) {
+    public JsonAdaptedExercise(Exercise source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
