@@ -17,7 +17,7 @@ public class Remark {
 
 
     static {
-        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}:+-()' ]*";
+        VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
     }
 
     public Remark(String remark) {

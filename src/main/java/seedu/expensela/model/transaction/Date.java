@@ -15,7 +15,8 @@ public class Date {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\d]{4}[\\d]{2}[\\d]{2}";
+//    public static final String VALIDATION_REGEX = "[\\d]{4}[\\d]{2}[\\d]{2}";
+    public static final String VALIDATION_REGEX = "\\.*";
 
     public final String transactionDate;
 
@@ -34,7 +35,8 @@ public class Date {
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return true;
+//        return test.matches(VALIDATION_REGEX);
     }
 
     @Override
