@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
@@ -82,7 +83,7 @@ public class EditPersonDescriptorBuilder {
         Set<Offer> offerSet = Stream.of(offers)
                 .map(ParserUtil::splitOnLastWhitespace)
                 .map(ParserUtil::getGoodPricePair)
-                .map(x -> new Offer((Good) x[0], (Price) x[1]))
+                .map(x -> new Offer((GoodName) x[0], (Price) x[1]))
                 .collect(Collectors.toSet());
         descriptor.setOffers(offerSet);
         return this;

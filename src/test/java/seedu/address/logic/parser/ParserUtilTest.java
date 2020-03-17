@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
@@ -166,14 +167,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseOffer_validValueWithoutWhitespace_returnsOffer() throws Exception {
-        Offer expectedOffer = new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1));
+        Offer expectedOffer = new Offer(new GoodName(VALID_GOOD_1), new Price(VALID_PRICE_1));
         assertEquals(expectedOffer, ParserUtil.parseOffer(VALID_OFFER_1));
     }
 
     @Test
     public void parseOffer_validValueWithWhitespace_returnsTrimmedOffer() throws Exception {
         String offerWithWhitespace = WHITESPACE + VALID_OFFER_1 + WHITESPACE;
-        Offer expectedOffer = new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1));
+        Offer expectedOffer = new Offer(new GoodName(VALID_GOOD_1), new Price(VALID_PRICE_1));
         assertEquals(expectedOffer, ParserUtil.parseOffer(offerWithWhitespace));
     }
 
@@ -196,8 +197,8 @@ public class ParserUtilTest {
     public void parseOffers_collectionWithValidOffers_returnsOfferSet() throws Exception {
         Set<Offer> actualOfferSet = ParserUtil.parseOffers(Arrays.asList(VALID_OFFER_1, VALID_OFFER_2));
         Set<Offer> expectedOfferSet = new HashSet<>(Arrays.asList(
-                new Offer(new Good(VALID_GOOD_1), new Price(VALID_PRICE_1)),
-                new Offer(new Good(VALID_GOOD_2), new Price(VALID_PRICE_2))
+                new Offer(new GoodName(VALID_GOOD_1), new Price(VALID_PRICE_1)),
+                new Offer(new GoodName(VALID_GOOD_2), new Price(VALID_PRICE_2))
         ));
 
         assertEquals(actualOfferSet, expectedOfferSet);

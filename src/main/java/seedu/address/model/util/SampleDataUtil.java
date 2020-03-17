@@ -87,7 +87,7 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(ParserUtil::splitOnLastWhitespace)
                 .map(ParserUtil::getGoodPricePair)
-                .map(x -> new Offer((Good) x[0], (Price) x[1]))
+                .map(x -> new Offer((GoodName) x[0], (Price) x[1]))
                 .collect(Collectors.toSet());
     }
 }

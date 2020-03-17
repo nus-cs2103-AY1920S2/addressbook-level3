@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
 import seedu.address.model.offer.Price;
 import seedu.address.model.person.Address;
@@ -116,7 +116,7 @@ public class ParserUtil {
 
         String goodString = goodPricePair[0];
         String priceString = goodPricePair[1];
-        Good good = parseGood(goodString);
+        GoodName good = parseGood(goodString);
         Price price = parsePrice(priceString);
         return new Offer(good, price);
     }
@@ -127,13 +127,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code good} is invalid.
      */
-    public static Good parseGood(String good) throws ParseException {
+    public static GoodName parseGood(String good) throws ParseException {
         requireNonNull(good);
         String trimmedGood = good.trim();
-        if (!Good.isValidGoodName(trimmedGood)) {
-            throw new ParseException(Good.MESSAGE_CONSTRAINTS);
+        if (!GoodName.isValidGoodName(trimmedGood)) {
+            throw new ParseException(GoodName.MESSAGE_CONSTRAINTS);
         }
-        return new Good(trimmedGood);
+        return new GoodName(trimmedGood);
     }
 
     /**
@@ -192,7 +192,7 @@ public class ParserUtil {
      */
     public static Object[] getGoodPricePair(String[] goodAndPrice) {
         Object[] result = new Object[2];
-        result[0] = new Good(goodAndPrice[0]);
+        result[0] = new GoodName(goodAndPrice[0]);
         result[1] = new Price(goodAndPrice[1]);
         return result;
     }

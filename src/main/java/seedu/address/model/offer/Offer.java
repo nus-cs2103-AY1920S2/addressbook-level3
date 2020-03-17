@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.good.Good;
+import seedu.address.model.good.GoodName;
 
 /**
  * Represents an offer given by a supplier for supplying a certain good at a certain price.
@@ -14,7 +14,7 @@ public class Offer {
     public static final String MESSAGE_CONSTRAINTS = "Offer must consist of a valid good name and a valid price, "
             + "separated by a whitespace";
 
-    private final Good good;
+    private final GoodName good;
     private final Price price;
 
     /**
@@ -22,13 +22,13 @@ public class Offer {
      * @param good the good to be offered
      * @param price the price of the good in the offer
      */
-    public Offer(Good good, Price price) {
+    public Offer(GoodName good, Price price) {
         requireAllNonNull(good, price);
         this.good = good;
         this.price = price;
     }
 
-    public Good getGood() {
+    public GoodName getGood() {
         return good;
     }
 
