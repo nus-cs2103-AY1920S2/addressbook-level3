@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.expensela.commons.core.GuiSettings;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -47,10 +48,10 @@ public interface Model {
     /**
      * Replaces transaction list data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setExpenseLa(ReadOnlyExpenseLa expenseLa);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the ExpenseLa */
+    ReadOnlyExpenseLa getExpenseLa();
 
     /**
      * Returns true if a transaction with the same identity as {@code transaction} exists in the transaction list.
@@ -84,4 +85,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredTransactionList(Predicate<Transaction> predicate);
+
+    /** Returns a view of monthly data object */
+    MonthlyData getMonthlyData();
 }

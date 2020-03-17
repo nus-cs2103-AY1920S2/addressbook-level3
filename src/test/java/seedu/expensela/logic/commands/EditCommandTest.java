@@ -17,8 +17,13 @@ import org.junit.jupiter.api.Test;
 
 import seedu.expensela.commons.core.Messages;
 import seedu.expensela.commons.core.index.Index;
+<<<<<<< HEAD
+import seedu.expensela.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.expensela.model.ExpenseLa;
+=======
 import seedu.expensela.logic.commands.EditCommand.editTransaction;
 import seedu.expensela.model.AddressBook;
+>>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -41,8 +46,13 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
+<<<<<<< HEAD
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedTransaction);
+=======
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredTransactionList().get(0), editedTransaction);
+>>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -62,7 +72,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
         expectedModel.setPerson(lastTransaction, editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -75,7 +85,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -91,8 +101,13 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
+<<<<<<< HEAD
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedTransaction);
+=======
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredTransactionList().get(0), editedTransaction);
+>>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -111,8 +126,13 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_TRANSACTION);
 
         // edit person in filtered list into a duplicate in address book
+<<<<<<< HEAD
+        Transaction transactionInList = model.getExpenseLa().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+=======
         Transaction transactionInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_TRANSACTION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
+>>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
                 new EditPersonDescriptorBuilder(transactionInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
@@ -136,7 +156,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_TRANSACTION);
         Index outOfBoundIndex = INDEX_SECOND_TRANSACTION;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseLa().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());

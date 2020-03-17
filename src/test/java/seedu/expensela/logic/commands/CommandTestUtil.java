@@ -11,7 +11,7 @@ import java.util.List;
 
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.exceptions.CommandException;
-import seedu.expensela.model.AddressBook;
+import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 import seedu.expensela.model.transaction.Transaction;
@@ -100,12 +100,21 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
+<<<<<<< HEAD
+        ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
+        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+=======
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
+>>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the

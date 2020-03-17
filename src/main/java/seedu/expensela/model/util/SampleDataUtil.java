@@ -1,11 +1,15 @@
 package seedu.expensela.model.util;
 
-import seedu.expensela.model.AddressBook;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Date;
+import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.*;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ExpenseLa} with sample data.
  */
 public class SampleDataUtil {
     public static Transaction[] getSamplePersons() {
@@ -19,8 +23,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyExpenseLa getSampleAddressBook() {
+        ExpenseLa sampleAb = new ExpenseLa();
         for (Transaction sampleTransaction : getSamplePersons()) {
             sampleAb.addPerson(sampleTransaction);
         }

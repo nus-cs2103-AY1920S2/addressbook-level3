@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.expensela.commons.exceptions.IllegalValueException;
-import seedu.expensela.model.AddressBook;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable ExpenseLa that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
 class JsonSerializableAddressBook {
@@ -32,29 +32,29 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyExpenseLa} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableAddressBook(ReadOnlyExpenseLa source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedTransaction::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code ExpenseLa} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public ExpenseLa toModelType() throws IllegalValueException {
+        ExpenseLa expenseLa = new ExpenseLa();
         for (JsonAdaptedTransaction jsonAdaptedTransaction : persons) {
             Transaction transaction = jsonAdaptedTransaction.toModelType();
-            if (addressBook.hasPerson(transaction)) {
+            if (expenseLa.hasPerson(transaction)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(transaction);
+            expenseLa.addPerson(transaction);
         }
-        return addressBook;
+        return expenseLa;
     }
 
 }

@@ -1,34 +1,34 @@
 package seedu.expensela.testutil;
 
-import seedu.expensela.model.AddressBook;
+import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code ExpenseLa ab = new AddressBookBuilder().withPerson("John", "Doe").build();}
  */
 public class AddressBookBuilder {
 
-    private AddressBook addressBook;
+    private ExpenseLa expenseLa;
 
     public AddressBookBuilder() {
-        addressBook = new AddressBook();
+        expenseLa = new ExpenseLa();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
-        this.addressBook = addressBook;
+    public AddressBookBuilder(ExpenseLa expenseLa) {
+        this.expenseLa = expenseLa;
     }
 
     /**
-     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Person} to the {@code ExpenseLa} that we are building.
      */
     public AddressBookBuilder withPerson(Transaction transaction) {
-        addressBook.addPerson(transaction);
+        expenseLa.addPerson(transaction);
         return this;
     }
 
-    public AddressBook build() {
-        return addressBook;
+    public ExpenseLa build() {
+        return expenseLa;
     }
 }

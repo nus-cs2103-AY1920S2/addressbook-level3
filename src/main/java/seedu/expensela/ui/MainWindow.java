@@ -112,7 +112,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredTransactionList());
-        monthlyDataPanel = new MonthlyDataPanel();
+        monthlyDataPanel = new MonthlyDataPanel(logic.getMonthlyData());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         monthlyDataPlaceholder.getChildren().add(monthlyDataPanel.getRoot());
 
