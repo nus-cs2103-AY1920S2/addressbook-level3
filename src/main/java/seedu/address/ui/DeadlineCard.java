@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -37,9 +36,9 @@ public class DeadlineCard extends UiPart<Region> {
     public DeadlineCard(Deadline deadline) {
         super(FXML);
         this.deadline = deadline;
-//        module.setText();
-//        assignment.setText();
-//        dateTime.setText();
+        //module.setText();
+        //assignment.setText();
+        //dateTime.setText();
     }
 
     @Override
