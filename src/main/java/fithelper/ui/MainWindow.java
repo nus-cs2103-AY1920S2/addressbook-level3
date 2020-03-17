@@ -11,6 +11,8 @@ import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.ui.calendar.CalendarPanel;
+import fithelper.ui.profile.ProfilePage;
+import fithelper.ui.weight.WeightPage;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,8 +42,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private DashBoard dashBoard;
     private TodayPage todayPage;
-    /*private ReportPage reportPage;
-    private ProfilePage profilePage;*/
+    //private ReportPage reportPage;
+    private ProfilePage profilePage;
+    private WeightPage weightPage;
     private CalendarPanel calendarPanel;
     private HelpWindow helpWindow;
 
@@ -73,6 +76,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Button profileButton;
     @FXML
+    private Button weightButton;
+    @FXML
     private Button helpButton;
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -101,6 +106,10 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(calendarPanel.getRoot());
         helpWindow = new HelpWindow();
         setAllPageAnchor(helpWindow.getRoot());
+        profilePage = new ProfilePage();
+        setAllPageAnchor(profilePage.getRoot());
+        weightPage = new WeightPage();
+        setAllPageAnchor(weightPage.getRoot());
         logger.fine("All pages filled in MainWindow");
     }
 
@@ -148,6 +157,12 @@ public class MainWindow extends UiPart<Stage> {
         case HELP:
             showHelpPage();
             break;
+        case PROFILE:
+            showProfilePage();
+            break;
+        case WEIGHT:
+            showWeightPage();
+            break;
         default:
             break;
         }
@@ -173,6 +188,16 @@ public class MainWindow extends UiPart<Stage> {
         showCalendarPanel();
     }
 
+    @FXML
+    public void handleShowProfilePage() {
+        showProfilePage();
+    }
+
+    @FXML
+    public void handleShowWeightPage() {
+        showWeightPage();
+    }
+
 
     private void showTodayPage() {
         pagePane.getChildren().clear();
@@ -183,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showDashBoard() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(dashBoard.getRoot());
-        currentPage.setText("Home");
+        currentPage.setText("Dash Board");
     }
 
     private void showHelpPage() {
@@ -200,6 +225,24 @@ public class MainWindow extends UiPart<Stage> {
         calendarPanel.updateScheduler();
         pagePane.getChildren().add(calendarPanel.getRoot());
         currentPage.setText("Calendar");
+    }
+
+    /**
+     * Shows the user profile page.
+     */
+    private void showProfilePage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(profilePage.getRoot());
+        currentPage.setText("Profile");
+    }
+
+    /**
+     * Shows the user weight records.
+     */
+    private void showWeightPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(weightPage.getRoot());
+        currentPage.setText("Weight Records");
     }
 
     private void showResultMessage(String message) {

@@ -76,12 +76,12 @@
                               <font>
                                  <Font size="14.0" />
                               </font></Button>
-                           <Button fx:id="profileButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="User Profile" textFill="WHITE">
+                           <Button fx:id="profileButton" mnemonicParsing="false" onAction="#handleShowProfilePage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="User Profile" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <Button fx:id="helpButton1" mnemonicParsing="false" onAction="#handleShowHelpPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Weight Records" textFill="WHITE">
+                           <Button fx:id="weightButton" mnemonicParsing="false" onAction="#handleShowWeightPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Weight Records" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font>
