@@ -14,6 +14,7 @@ import seedu.eylah.diettracker.model.food.Food;
  * API of the Logic component
  */
 public interface Logic {
+
     /**
      * Executes the command and returns the result.
      * @param commandText The command as entered by the user.
