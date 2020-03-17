@@ -99,7 +99,7 @@ Format: `list [m/MODULE_CODE....]`
 === Editing a activity : `edit`
 
 Edits an existing activity in the module's activity-list. +
-Format: `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
+Format: `edit INDEX m/MODULE_CODE [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAME]`
 
 ****
 * Edits the activity at the specified `INDEX` in the specified `MODULE_CODE` activity-list. The index refers to the index number shown in the module activity-list. The index *must be a positive integer* 1, 2, 3, ...
@@ -109,9 +109,9 @@ Format: `edit m/MODULE_CODE INDEX [d/DATE] [n/NOTES] [p/PRIORITY] [t/ACTIVITYNAM
 
 Examples:
 
-* `edit m/CS2103T 2 d/12-12-2020 23:59` +
+* `edit 2 m/CS2103T d/12-12-2020 23:59` +
 Edits the 2nd activity in CS2013T activity-list date to be `12-12-2020 23:59`.
-* `edit m/CS2030 3 n/Finish LAB level 3 with Generics p/2` +
+* `edit 3 m/CS2030 n/Finish LAB level 3 with Generics p/2` +
 Edits the notes and priority of the 3rd activity in CS2030 activity-list to `Finish LAB level 3 with Generics` and `2` respectively.
 
 === Editing a module: `Medit`

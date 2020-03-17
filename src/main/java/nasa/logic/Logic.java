@@ -32,8 +32,9 @@ public interface Logic {
      */
     ReadOnlyNasaBook getNasaBook();
 
-    /** Returns an unmodifiable view of the filtered list of activities */
-    ObservableList<Activity> getFilteredActivityList();
+//    TODO: Implement {@code getFilteredActivityList} with {@code Index index} as input parameters
+//    /** Returns an unmodifiable view of the filtered list of activities */
+//    ObservableList<Activity> getFilteredActivityList();
 
     /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();

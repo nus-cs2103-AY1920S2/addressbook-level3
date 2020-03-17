@@ -58,10 +58,11 @@ public class LogicManager implements Logic {
         return model.getNasaBook();
     }
 
-    @Override
-    public ObservableList<Activity> getFilteredActivityList() {
-        return model.getFilteredActivityList();
-    }
+//    TODO: Implement getFilteredActivityList which accepts index as params (see Logic interface)
+//    @Override
+//    public ObservableList<Activity> getFilteredActivityList() {
+//        return model.getFilteredActivityList();
+//    }
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {

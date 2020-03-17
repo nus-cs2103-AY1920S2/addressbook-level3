@@ -204,14 +204,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasActivity(Module target, Activity activity) {
-        requireNonNull(activity);
-        return nasaBook.hasActivity(target, activity);
-    }
-
-    @Override
     public boolean hasActivity(ModuleCode target, Activity activity) {
-        requireNonNull(activity);
+        requireAllNonNull(target, activity);
         return nasaBook.hasActivity(target, activity);
     }
 

@@ -7,7 +7,7 @@ import static nasa.logic.parser.CliSyntax.*;
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.EditActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
-import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
 
 /**
  * Parses input arguments and creates a new EditActivityCommand object
@@ -26,7 +26,6 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
 
         Index index;
         try {
-            // TODO: de-conflict input format for edit command before changing how its parsed
              index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
@@ -51,12 +50,7 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
             throw new ParseException(EditActivityCommand.MESSAGE_NOT_EDITED);
         }
 
-        // TODO: get module by moduleCode
-        Module module = new Module(
-                ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()),
-                    ParserUtil.parseModuleName(argMultimap.getValue(PREFIX_MODULE_NAME).get()));
-        // stub
-        // Module module = ParserUtil.parseModule(argMultimap.getValue(PREFIX_MODULE).get()); // stub
-        return new EditActivityCommand(index, module, editActivityDescriptor); // stub
+        ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
+        return new EditActivityCommand(index, moduleCode, editActivityDescriptor);
     }
 }

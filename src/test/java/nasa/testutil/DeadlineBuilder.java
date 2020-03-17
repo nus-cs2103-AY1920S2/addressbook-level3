@@ -31,7 +31,7 @@ public class DeadlineBuilder {
         name = activity.getName();
         date = activity.getDate();
         note = activity.getNote();
-        dueDate = activity.getDateline();
+        dueDate = activity.getDueDate();
     }
 
     /**
