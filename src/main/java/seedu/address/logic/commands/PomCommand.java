@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMER;
 
 import java.util.List;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMER;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -17,15 +17,15 @@ public class PomCommand extends Command {
     public static final String COMMAND_WORD = "pom";
 
     public static final String MESSAGE_USAGE =
-        COMMAND_WORD
-            + ": Starts the pomodoro timer, focusing on "
-            + "the task identified by the index number used in the displayed task list.\n"
-            + "Parameters: 1-INDEXed (must be a positive integer)\n"
-            + "Example: "
-            + COMMAND_WORD
-            + " 1 "
-            + PREFIX_TIMER
-            + " 10";
+            COMMAND_WORD
+                    + ": Starts the pomodoro timer, focusing on "
+                    + "the task identified by the index number used in the displayed task list.\n"
+                    + "Parameters: 1-INDEXed (must be a positive integer)\n"
+                    + "Example: "
+                    + COMMAND_WORD
+                    + " 1 "
+                    + PREFIX_TIMER
+                    + " 10";
 
     public static final String PAUSE_MESSAGE = "Pomodoro paused.";
 
@@ -54,13 +54,13 @@ public class PomCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (isPause) {
-            return new PomCommandResult(PAUSE_MESSAGE, null, 0,
-                model, -1, null, isPause, isContinue);
+            return new PomCommandResult(
+                    PAUSE_MESSAGE, null, 0, model, -1, null, isPause, isContinue);
         }
 
         if (isContinue) {
-            return new PomCommandResult(COMMAND_WORD, null, 0,
-                model, -1, null, isPause, isContinue);
+            return new PomCommandResult(
+                    COMMAND_WORD, null, 0, model, -1, null, isPause, isContinue);
         }
 
         List<Task> lastShownList = model.getFilteredTaskList();
@@ -71,13 +71,14 @@ public class PomCommand extends Command {
 
         Task taskToPom = lastShownList.get(index);
 
-        return new PomCommandResult("Pomming task: " + taskToPom.toString(),
-            taskToPom.getName().toString(),
-            timerAmount,
-            model,
-            index,
-            lastShownList,
-            isPause,
-            isContinue);
+        return new PomCommandResult(
+                "Pomming task: " + taskToPom.toString(),
+                taskToPom.getName().toString(),
+                timerAmount,
+                model,
+                index,
+                lastShownList,
+                isPause,
+                isContinue);
     }
 }
