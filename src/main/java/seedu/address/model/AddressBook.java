@@ -9,13 +9,16 @@ import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.person.Student;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.session.Session;
+import seedu.address.model.session.UniqueSessionList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSame comparisons implemented in each model type)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private final UniqueSessionList sessions;
     private final UniquePersonList persons;
     private final UniqueModuleList modules;
 
@@ -27,6 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
+        sessions = new UniqueSessionList();
         persons = new UniquePersonList();
         modules = new UniqueModuleList();
     }
@@ -52,12 +56,60 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the session list with {@code sessions}.
+     * {@code sessions} must not contain duplicate sessions.
+     */
+    public void setSessions(List<Session> sessions) {
+        this.sessions.setSessions(sessions);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setSessions(newData.getSessionList());
+    }
+
+    //// session-level operations
+
+    /**
+     * Returns true if a session with the same identity as {@code session} exists in the address book.
+     */
+    public boolean hasSession(Session session) {
+        requireNonNull(session);
+        return sessions.contains(session);
+    }
+
+    /**
+     * Adds a session to the address book.
+     * The session must not already exist in the address book.
+     */
+    public void addSession(Session s) {
+        sessions.add(s);
+    }
+
+    /**
+     * Replaces the given session {@code target} in the list with {@code editedSession}.
+     * {@code target} must exist in the address book.
+     * The session identity of {@code editedSession} must not be the same as another
+     * existing session in the address book.
+     */
+    public void setSession(Session target, Session editedSession) {
+        requireNonNull(editedSession);
+
+        sessions.setSession(target, editedSession);
+    }
+
+    /**
+     * Returns true if a session with the same identity as {@code session} exists in the address book.
+     * Removes {@code session} from this {@code AddressBook}.
+     * {@code session} must exist in the address book.
+     */
+    public void removeSession(Session session) {
+        sessions.remove(session);
     }
 
     //// student-level operations
@@ -69,7 +121,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(student);
         return persons.contains(student);
     }
-
 
     /**
      * Adds a student to the address book.
@@ -125,6 +176,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Student> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Session> getSessionList() {
+        return sessions.asUnmodifiableObservableList();
     }
 
     @Override

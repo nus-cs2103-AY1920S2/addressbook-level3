@@ -7,14 +7,17 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Student;
+import seedu.address.model.session.Session;
+
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /** {@code Predicates} that always evaluate to true */
     Predicate<Student> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
+    Predicate<Session> PREDICATE_SHOW_ALL_SESSIONS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -89,6 +92,40 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Student> predicate);
 
     /**
+     * Returns true if a session with the same identity as {@code session} exists in the address book.
+     */
+    boolean hasSession(Session session);
+
+    /**
+     * Adds the given session.
+     * {@code session} must not already exist in the address book.
+     */
+    void addSession(Session session);
+
+    /**
+     * Deletes the given session.
+     * The session must exist in the address book.
+     */
+    void deleteSession(Session target);
+
+    /**
+     * Replaces the given session {@code target} with {@code editedSession}.
+     * {@code target} must exist in the address book.
+     * The session identity of {@code editedSession} must not be the same as another existing session in the address
+     * book.
+     */
+    void setSession(Session target, Session editedSession);
+
+    /** Returns an unmodifiable view of the filtered session list */
+    ObservableList<Session> getFilteredSessionList();
+
+    /**
+     * Updates the filter of the filtered session list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredSessionList(Predicate<Session> predicate);
+
+    /**
      * Checks whether given module exists already.
      * @param module module to check for.
      * @return boolean value.
@@ -109,5 +146,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
-
 }
