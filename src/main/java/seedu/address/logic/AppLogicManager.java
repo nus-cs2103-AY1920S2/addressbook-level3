@@ -5,7 +5,7 @@ import seedu.address.logic.conditions.Conditions;
 import seedu.address.storage.AppStorage;
 
 public class AppLogicManager<T, M> implements AppLogic<T> {
-    private AppStorage dao;
+    private AppStorage<T> dao;
 
     /**
      * Asserts that the user must always declare type M which is subclass of {@code AppStorage}
@@ -13,10 +13,9 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
      * @param   dao        Data access object implementation
      * @throws  Exception
      */
-    public AppLogicManager(Class<M> dao) throws Exception {
-        M tmpObj = dao.getDeclaredConstructor().newInstance();
-        assert (tmpObj instanceof AppStorage);
-        this.dao = (AppStorage) tmpObj;
+    public AppLogicManager(M dao) throws Exception {
+        assert (dao instanceof AppStorage);
+        this.dao = (AppStorage) dao;
     }
 
     /**
@@ -25,7 +24,7 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
      * @return  ObservableList<T>   List of all pings for rendering to UI
      */
     @Override
-    public ObservableList<T> getPings() {
+    public ObservableList<T> getAll() {
         return null;
     }
 
@@ -36,7 +35,7 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
      * @return  ObservableList<T>   List of all pings in condition for rendering to UI
      */
     @Override
-    public ObservableList<T> filterPings(Conditions<T> cond) {
+    public ObservableList<T> filterBy(Conditions<T> cond) {
         return null;
     }
 }

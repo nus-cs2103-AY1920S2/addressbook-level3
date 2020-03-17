@@ -11,11 +11,11 @@ public interface AppLogic<T> {
      * Fetches all pings stored in model
      * @return
      */
-    public ObservableList<T> getPings();
+    public ObservableList<T> getAll();
 
     /**
      * Same as {@code AppLogic} but returns pings on filter condition
      * @return
      */
-    public ObservableList<T> filterPings(Conditions<T> cond);
+    public ObservableList<T> filterBy(Conditions<T> cond);
 }
