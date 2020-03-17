@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
