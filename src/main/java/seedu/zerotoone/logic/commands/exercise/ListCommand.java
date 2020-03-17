@@ -1,11 +1,11 @@
-package seedu.address.logic.commands.exercise;
+package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-// import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
+// import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.Model;
+import seedu.zerotoone.logic.commands.Command;
+import seedu.zerotoone.logic.commands.CommandResult;
+import seedu.zerotoone.model.Model;
 
 /**
  * Lists all exercises in the exercise list to the user.

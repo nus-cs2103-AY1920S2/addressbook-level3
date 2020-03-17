@@ -1,21 +1,21 @@
-package seedu.address.logic.commands.exercise;
+package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-// import static seedu.address.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NEW_EXERCISE_NAME;
-// import static seedu.address.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
-// import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVAL;
-// import static seedu.address.logic.parser.CliSyntax.PREFIX_FREQUENCY;
-// import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NEW_EXERCISE_NAME;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_INTERVAL;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_FREQUENCY;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_DATETIME;
 
-// import seedu.address.logic.commands.Command;
+// import seedu.zerotoone.logic.commands.Command;
 
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.exercise.Exercise;
+import seedu.zerotoone.logic.commands.CommandResult;
+import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.model.Model;
+import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * Adds an exercise to the exercise list.

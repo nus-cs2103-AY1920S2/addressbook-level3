@@ -1,8 +1,8 @@
-package seedu.address.logic.commands.exercise;
+package seedu.zerotoone.logic.commands.exercise;
 
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
+import seedu.zerotoone.logic.commands.CommandResult;
+import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

@@ -1,9 +1,9 @@
-package seedu.address.logic.commands.exercise;
+package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,19 +11,19 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-// import seedu.address.commons.core.Messages;
+// import seedu.zerotoone.commons.core.Messages;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.exercise.Exercise;
-import seedu.address.model.exercise.ExerciseSet;
-import seedu.address.model.exercise.Name;
-import seedu.address.model.exercise.NumReps;
-import seedu.address.model.tag.Tag;
+import seedu.zerotoone.commons.core.index.Index;
+import seedu.zerotoone.commons.util.CollectionUtil;
+import seedu.zerotoone.logic.commands.Command;
+import seedu.zerotoone.logic.commands.CommandResult;
+import seedu.zerotoone.logic.commands.exceptions.CommandException;
+import seedu.zerotoone.model.Model;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseSet;
+import seedu.zerotoone.model.exercise.Name;
+import seedu.zerotoone.model.exercise.NumReps;
+import seedu.zerotoone.model.tag.Tag;
 
 /**
  * Edits the details of an existing exercise in the address book.
