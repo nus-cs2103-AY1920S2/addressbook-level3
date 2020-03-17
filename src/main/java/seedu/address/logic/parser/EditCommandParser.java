@@ -23,7 +23,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.Step;
 
 /**

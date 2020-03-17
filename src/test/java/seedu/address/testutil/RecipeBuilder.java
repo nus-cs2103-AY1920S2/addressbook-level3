@@ -7,8 +7,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.Vegetable;
+import seedu.address.model.recipe.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Vegetable;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;

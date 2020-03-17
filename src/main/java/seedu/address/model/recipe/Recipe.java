@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Ingredient;
 
 /**
  * Represents a Recipe in the address book.

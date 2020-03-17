@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ingredient.Grain;
-import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.IngredientType;
-import seedu.address.model.ingredient.Other;
-import seedu.address.model.ingredient.Protein;
-import seedu.address.model.ingredient.Vegetable;
+import seedu.address.model.recipe.ingredient.Grain;
+import seedu.address.model.recipe.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.IngredientType;
+import seedu.address.model.recipe.ingredient.Other;
+import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
  * Jackson-friendly version of {@link Ingredient}.
