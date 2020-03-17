@@ -7,7 +7,9 @@ import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.commons.util.StringUtil;
 import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 
-
+/**
+ * Contains utility methods used for parsing strings in the various *Parser classes.
+ */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
