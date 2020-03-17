@@ -32,6 +32,16 @@ public class Event extends Activity {
      * Initialise Event with a particular unique {@code name}.
      * Every field must be present and not null.
      */
+    public Event(Name name, Note note, Status status, Priority priority, Date startDate, Date endDate) {
+        super(name, Date.now(), note, status, priority);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    /**
+     * Initialise Event with a particular unique {@code name}.
+     * Every field must be present and not null.
+     */
     public Event(Name name, Date date, Note note, Status status, Priority priority, Date startDate, Date endDate) {
         super(name, date, note, status, priority);
         this.startDate = startDate;

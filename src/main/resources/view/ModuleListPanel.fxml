@@ -5,11 +5,5 @@
 <?import javafx.scene.layout.HBox?>
 
 <HBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="moduleListView" minWidth="-Infinity" orientation="HORIZONTAL" HBox.hgrow="ALWAYS">
-      <opaqueInsets>
-         <Insets top="10.0" />
-      </opaqueInsets>
-      <HBox.margin>
-         <Insets />
-      </HBox.margin></ListView>
+    <ListView fx:id="moduleListView" minWidth="-Infinity" orientation="HORIZONTAL" HBox.hgrow="ALWAYS"/>
 </HBox>
