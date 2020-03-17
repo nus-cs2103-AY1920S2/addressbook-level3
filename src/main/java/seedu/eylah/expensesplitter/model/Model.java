@@ -29,6 +29,11 @@ public interface Model {
     void paidPerson(Person person);
 
     /**
+     * Command for listing all person with their amount.
+     */
+    void listAmount();
+
+    /**
      * Command for listing all items in that receipt.
      */
     void listReceipt();

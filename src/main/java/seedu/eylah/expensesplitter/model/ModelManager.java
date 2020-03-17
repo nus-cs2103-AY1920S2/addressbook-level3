@@ -65,6 +65,14 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Command for listing all person with their amount.
+     */
+    @Override
+    public void listAmount() {
+
+    }
+
+    /**
      * Intentionally left empty.
      * To be implemented later.
      */
