@@ -171,5 +171,4 @@ public class ParserUtil {
 
         return new TypeOfItem(itemTypeTrimmed);
     }
-
 }

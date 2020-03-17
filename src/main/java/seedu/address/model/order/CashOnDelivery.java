@@ -4,26 +4,24 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the value to earn from this order in the order book.
- * Guarantees: immutable; item is valid as declared in {@link #isValidCashValue(String)}}
+ * Represents the cash to be earned by courier for this order in the order list.
+ * Guarantees: immutable; is valid as declared in {@link #isValidCashValue(String)}
  */
 public class CashOnDelivery {
-
     public static final String MESSAGE_CONSTRAINTS =
-            "Invalid Cash Amount. Add a '$' sign followed by the amount of money";
+            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Must have a $ sign followed by the value
      */
     public static final String VALIDATION_REGEX = "\\$\\d+(?:.(\\d+))?";
 
     public final String cashOnDelivery;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code CashOnDelivery}.
      *
-     * @param cashOnDelivery A valid monetary value.
+     * @param cashOnDelivery A valid cash value.
      */
     public CashOnDelivery(String cashOnDelivery) {
         requireNonNull(cashOnDelivery);
@@ -32,12 +30,11 @@ public class CashOnDelivery {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid cash value.
      */
     public static boolean isValidCashValue(String test) {
         return test.matches(VALIDATION_REGEX);
     }
-
 
     @Override
     public String toString() {

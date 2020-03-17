@@ -40,7 +40,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.WAREHOUSE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.WAREHOUSE_DESC_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
@@ -61,7 +60,6 @@ import seedu.address.testutil.EditOrderDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TYPE_EMPTY = " " + PREFIX_TYPE;
     private static final String COMMENT_EMPTY = " " + PREFIX_COMMENT;
 
     private static final String MESSAGE_INVALID_FORMAT =
