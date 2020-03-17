@@ -11,7 +11,7 @@ public class Usage {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Usage should only contain numbers, and it should at least be a value of 0";
-    public static final String VALIDATION_REGEX = "^(\\s*|\\d+)$";
+    public static final String VALIDATION_REGEX = "^(\\s{0}|\\d+)$";
     public final String value;
 
     /**

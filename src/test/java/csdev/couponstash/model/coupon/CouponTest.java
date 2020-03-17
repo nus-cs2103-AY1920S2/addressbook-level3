@@ -32,11 +32,10 @@ public class CouponTest {
 
         // same name, same phone, different attributes -> returns true
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE)
-                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
-        assertTrue(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
-
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+                .withUsage(CommandTestUtil.VALID_USAGE_AMY)
+                .withLimit(CommandTestUtil.VALID_USAGE_BOB)
+                .withTags(CommandTestUtil.VALID_TAG_HUSBAND)
+                .build();
         assertTrue(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
     }
 
@@ -64,6 +63,14 @@ public class CouponTest {
 
         // different phone -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
+
+        // different usage -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withUsage(CommandTestUtil.VALID_USAGE_BOB).build();
+        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
+
+        // different limit -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withLimit(CommandTestUtil.VALID_LIMIT_BOB).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
         // different tags -> returns false
