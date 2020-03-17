@@ -20,6 +20,8 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
+    // to be re-written by Sarah
+    /*
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
@@ -30,5 +32,6 @@ public class FindCommandParserTest {
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
     }
+    */
 
 }
