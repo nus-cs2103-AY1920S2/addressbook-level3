@@ -31,7 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private DeadlineListPanel deadlineListPanel;
+    private ProfileListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -42,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane profileListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -111,8 +111,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        deadlineListPanel = new DeadlineListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
+        deadlineListPanel = new ProfileListPanel(logic.getFilteredPersonList());
+        profileListPanelPlaceholder.getChildren().add(deadlineListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -164,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public DeadlineListPanel getDeadlineListPanel() {
+    public ProfileListPanel getDeadlineListPanel() {
         return deadlineListPanel;
     }
 

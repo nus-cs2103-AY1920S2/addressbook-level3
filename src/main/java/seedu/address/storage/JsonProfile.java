@@ -40,12 +40,12 @@ class JsonProfile {
     public JsonProfile(@JsonProperty("name") String name,
             @JsonProperty("course") String course,
             @JsonProperty("specialisation") String specialisation,
-            @JsonProperty("currentSemester") String semester,
+            @JsonProperty("currentSemester") String currentSemester,
             @JsonProperty("records") List<JsonSemesterRecord> records) {
         this.name = name;
         this.course = course;
         this.specialisation = specialisation;
-        this.currentSemester = semester;
+        this.currentSemester = currentSemester;
         this.records = records;
     }
 
