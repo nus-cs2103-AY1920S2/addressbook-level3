@@ -146,11 +146,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredGoodList(Predicate<Good> predicate);
-
-    /**
-     * Returns the good at the zero based {@code index}
-     * @param index index of good to return
-     * @return good at the specified index
-     */
-    Good getGood(int index);
 }

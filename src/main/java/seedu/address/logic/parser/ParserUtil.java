@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.good.GoodName;
+import seedu.address.model.good.GoodQuantity;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -48,6 +50,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String goodName} into a {@code goodName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code goodName} is invalid.
+     */
+    public static GoodName parseGoodName(String goodName) throws ParseException {
+        requireNonNull(goodName);
+        String trimmedName = goodName.trim();
+        if (!GoodName.isValidGoodName(trimmedName)) {
+            throw new ParseException(GoodName.MESSAGE_CONSTRAINTS);
+        }
+        return new GoodName(trimmedName);
     }
 
     /**
@@ -120,5 +137,20 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String goodQuantity} into a {@code goodQuantity}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code goodQuantity} is invalid.
+     */
+    public static GoodQuantity parseGoodQuantity(String goodQuantity) throws ParseException {
+        requireNonNull(goodQuantity);
+        String trimmedQuantity = goodQuantity.trim();
+        if (!GoodQuantity.isValidGoodQuantity(trimmedQuantity)) {
+            throw new ParseException(GoodQuantity.MESSAGE_CONSTRAINTS);
+        }
+        return new GoodQuantity(trimmedQuantity);
     }
 }

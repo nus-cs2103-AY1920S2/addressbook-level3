@@ -27,7 +27,6 @@ public class GoodName {
      */
     public GoodName(String name) {
         requireNonNull(name);
-        checkArgument(isValidGoodName(name), MESSAGE_CONSTRAINTS);
         fullGoodName = name;
     }
 

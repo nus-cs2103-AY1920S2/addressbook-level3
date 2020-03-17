@@ -4,7 +4,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Good's quantity in the inventory.
- * Guarantees: immutable; is valid as declared in {@link #isValidGoodQuantity(int)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidGoodQuantity(String)}
  */
 public class GoodQuantity {
 
@@ -18,28 +18,30 @@ public class GoodQuantity {
     public final int goodQuantity;
 
     /**
-     * Constructs a {@code GoodQuantity}.
+     * Constructs a {@code GoodQuantity} from an int.
      *
      * @param quantity A valid quantity.
      */
     public GoodQuantity(int quantity) {
-        checkArgument(isValidGoodQuantity(quantity), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidGoodQuantity(String.valueOf(quantity)), MESSAGE_CONSTRAINTS);
         goodQuantity = quantity;
     }
 
     /**
-     * Returns true if a given string is a valid good quantity.
+     * Constructs a {@code GoodQuantity} from a string.
+     * @param quantity
      */
-    public static boolean isValidGoodQuantity(int test) {
-        return String.valueOf(test).matches(VALIDATION_REGEX);
+    public GoodQuantity(String quantity) {
+        checkArgument(isValidGoodQuantity(quantity), MESSAGE_CONSTRAINTS);
+        goodQuantity = Integer.parseInt(quantity);
     }
 
     /**
-     * Returns the {@code goodQuantity} as in integer.
-     * @return underlying value wrapped by goodQuantity.
+     * Returns true if a given string is a valid good quantity.
+     * @param test
      */
-    public int value() {
-        return goodQuantity;
+    public static boolean isValidGoodQuantity(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

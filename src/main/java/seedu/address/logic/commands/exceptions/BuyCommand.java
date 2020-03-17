@@ -39,52 +39,39 @@ public class BuyCommand extends Command {
             + PREFIX_EXPIRY_DATE + "2020-02-02 "
             + PREFIX_TRANSACTION_DATE + "2020-01-01";
 
-    public static final String MESSAGE_SUCCESS = "Bought %1$d %2$ss from %3$s on %4$s, expiring on %5$s";
+    public static final String MESSAGE_SUCCESS = "Bought %1$d %2$ss";
 
-    private String supplierName;
-    private String goodName;
-    // TODO: change these 2 to DateTime objects
-    private String expiryDate;
-    private String transactionDate;
-    private int quantity;
+    private Good boughtGood;
 
-    public BuyCommand(String supplierName, String goodName, int quantity,
-                      String expiryDate, String transactionDate) {
-        requireAllNonNull(supplierName, goodName, expiryDate, transactionDate);
-        this.supplierName = supplierName;
-        this.goodName = goodName;
-        this.quantity = quantity;
-        this.expiryDate = expiryDate;
-        this.transactionDate = transactionDate;
+    public BuyCommand(Good boughtGood) {
+        this.boughtGood = boughtGood;
     }
 
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        Good newGood = new Good(new GoodName(goodName),
-                new GoodQuantity(quantity));
-
-        if (model.hasGood(newGood)) {
-            increaseQuantity(model, newGood);
+        if (model.hasGood(boughtGood)) {
+            increaseQuantity(model, boughtGood);
         } else {
-            model.addGood(newGood);
+            model.addGood(boughtGood);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,
-                quantity, goodName, supplierName, transactionDate, expiryDate));
+                boughtGood.getGoodQuantity().goodQuantity, boughtGood.getGoodName().fullGoodName));
     }
 
     /**
      * Increases the quantity of an existing good in inventory with the same name as {@code newGood}
      * by the quantity in {@code newGood}
-     * @param model underlying model to make modifications in
+     *
+     * @param model   underlying model to make modifications in
      * @param newGood contains the good name and quantity to increase by
      */
     private void increaseQuantity(Model model, Good newGood) {
         int oldGoodIndex = model.indexOfGood(newGood);
         Good oldGood = model.getFilteredGoodList().get(oldGoodIndex);
 
-        int updatedQuantity = oldGood.getGoodQuantity().value() + newGood.getGoodQuantity().value();
+        int updatedQuantity = oldGood.getGoodQuantity().goodQuantity + newGood.getGoodQuantity().goodQuantity;
 
         Good updatedGood = new Good(new GoodName(newGood.getGoodName().toString()),
                 new GoodQuantity(updatedQuantity));
@@ -106,30 +93,10 @@ public class BuyCommand extends Command {
 
         // state check
         BuyCommand e = (BuyCommand) other;
-        return quantity == e.getQuantity()
-                && supplierName.equals(e.getSupplierName())
-                && goodName.equals(e.getGoodName())
-                && expiryDate.equals(e.getExpiryDate())
-                && transactionDate.equals(e.getTransactionDate());
+        return boughtGood.equals(e.getGood());
     }
 
-    public String getSupplierName() {
-        return supplierName;
-    }
-
-    public String getGoodName() {
-        return goodName;
-    }
-
-    public String getExpiryDate() {
-        return expiryDate;
-    }
-
-    public String getTransactionDate() {
-        return transactionDate;
-    }
-
-    public int getQuantity() {
-        return quantity;
+    private Good getGood() {
+        return boughtGood;
     }
 }
