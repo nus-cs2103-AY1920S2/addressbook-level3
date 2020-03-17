@@ -40,10 +40,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private MenuItem exitAppItem;
 
     @FXML
-    private MenuItem ExitAppItem;
+    private MenuItem helpMenuItem;
 
     @FXML
     private StackPane orderListPanelPlaceholder;
@@ -75,7 +75,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(ExitAppItem, KeyCombination.valueOf("F1"));
+        setAccelerator(exitAppItem, KeyCombination.valueOf("F1"));
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F2"));
     }
 
