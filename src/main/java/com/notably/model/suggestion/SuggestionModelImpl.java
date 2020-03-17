@@ -1,6 +1,7 @@
 package com.notably.model.suggestion;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.beans.property.Property;
@@ -26,6 +27,7 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     @Override
     public void setSuggestions(List<SuggestionItem> suggestions) {
+        Objects.requireNonNull(suggestions);
         this.suggestions.setAll(suggestions);
     }
 
@@ -36,7 +38,8 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     @Override
     public void setResponseTextProperty(String responseText) {
-        responseTextProperty.setValue(Optional.ofNullable(responseText));
+        Objects.requireNonNull(responseText);
+        responseTextProperty.setValue(Optional.of(responseText));
     }
 
     @Override
