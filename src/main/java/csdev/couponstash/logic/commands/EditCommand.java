@@ -49,6 +49,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_COUPON_SUCCESS = "Edited Coupon: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in the CouponStash.";
+    public static final String MESSAGE_CANNOT_EDIT_USAGE = "The usage of the coupon cannot be edited, "
+            + "due to changes in the concrete savings.";
 
     private final Index index;
     private final EditCouponDescriptor editCouponDescriptor;
