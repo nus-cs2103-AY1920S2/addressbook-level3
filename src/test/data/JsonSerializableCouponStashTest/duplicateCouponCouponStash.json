@@ -4,8 +4,12 @@
     "phone": "94351253",
     "savings" : {
       "monetaryAmount" : 123.0,
-      "percentageAmount" : null,
-      "saveables" : null
+      "percentageAmount" :null,
+      "saveables" : [ {
+        "saveableDesc" : "Water Bottle"
+      }, {
+        "saveableDesc" : "Notebook"
+      } ]
     },
     "expiry date": "30-08-2020",
     "start date": "1-08-2020",
