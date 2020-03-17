@@ -20,7 +20,8 @@ public class Course {
   private final Name name;
   private final ID id;
   // TODO: Create CourseTeacherTab along with CourseStudentTab
-  private ID teacher_id;
+  // TODO: Remove dummy teacher_id
+  private ID teacher_id = new ID("123");
   private final Set<Tag> tags = new HashSet<>();
 
   /**
@@ -67,7 +68,7 @@ public class Course {
     }
 
     return otherCourse != null
-        && otherCourse.getName().equals(getName())
+//        && otherCourse.getName().equals(getName())
         && otherCourse.getId().equals(getId());
   }
 

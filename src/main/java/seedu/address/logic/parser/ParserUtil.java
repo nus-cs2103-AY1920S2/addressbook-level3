@@ -75,13 +75,13 @@ public class ParserUtil {
    *
    * @throws ParseException if the given {@code courseID} is invalid.
    */
-  public static ID parseCourseID(String courseID) throws ParseException {
-    requireNonNull(courseID);
-    String trimmedCourseID = courseID.trim();
-    if (!ID.isValidId(trimmedCourseID)) {
+  public static ID parseID(String StringID) throws ParseException {
+    requireNonNull(StringID);
+    String trimmedID = StringID.trim();
+    if (!ID.isValidId(trimmedID)) {
       throw new ParseException(ID.MESSAGE_CONSTRAINTS);
     }
-    return new ID(trimmedCourseID);
+    return new ID(trimmedID);
   }
 
   /**

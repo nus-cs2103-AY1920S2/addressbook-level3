@@ -12,6 +12,7 @@ import seedu.address.logic.commands.commandAdd.AddCourseCommand;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
 import seedu.address.logic.commands.commandAdd.AddStudentCommand;
 import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
+import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
 import seedu.address.logic.commands.commandClear.ClearCourseCommand;
 import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
 import seedu.address.logic.commands.commandClear.ClearStudentCommand;
@@ -84,7 +85,8 @@ public class LogicManager implements Logic {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
     } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand
-        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand) {
+        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand
+        || command instanceof AssignTeacherToCourseCommand) {
       try {
         storage.saveCourseAddressBook(model.getCourseAddressBook());
       } catch (IOException ioe) {

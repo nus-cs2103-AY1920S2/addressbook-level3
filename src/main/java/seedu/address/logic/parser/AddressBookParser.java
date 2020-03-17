@@ -10,6 +10,7 @@ import seedu.address.logic.commands.CalculateExpensesFinanceCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.commandAssign.AssignCommandBase;
 import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.commands.commandAdd.AddCourseCommand;
 import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
@@ -90,6 +91,9 @@ public class AddressBookParser {
     final String commandWord = matcher.group("commandWord");
     final String arguments = matcher.group("arguments");
     switch (commandWord) {
+
+      case AssignCommandBase.COMMAND_WORD:
+        return new AssignCommandParser().parse(arguments);
 
       case AddTeacherCommand.COMMAND_WORD:
         return new AddTeacherCommandParser().parse(arguments);
