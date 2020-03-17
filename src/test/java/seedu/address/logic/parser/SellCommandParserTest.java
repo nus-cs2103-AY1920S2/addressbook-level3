@@ -9,12 +9,12 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.BuyCommand;
+import seedu.address.logic.commands.SellCommand;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
 
-class BuyCommandParserTest {
+class SellCommandParserTest {
     private static final String VALID_GOOD_NAME = "Durian";
     private static final String VALID_GOOD_NAME_EXTRA = "Durian123";
     private static final String INVALID_GOOD_NAME = "Dur@_an";
@@ -33,32 +33,32 @@ class BuyCommandParserTest {
     private static final String INVALID_GOOD_QUANTITY_OVERFLOW_INT_DESC =
             " " + PREFIX_QUANTITY + INVALID_GOOD_QUANTITY_OVERFLOW_INT;
 
-    private BuyCommandParser parser = new BuyCommandParser();
+    private SellCommandParser parser = new SellCommandParser();
     private Good validGood = new Good(new GoodName(VALID_GOOD_NAME), new GoodQuantity(VALID_GOOD_QUANTITY));
 
     @Test
     void parse_allFieldsPresent_success() {
-        BuyCommand expectedCommand = new BuyCommand(validGood);
+        SellCommand expectedCommand = new SellCommand(validGood);
         // Happy case
         assertParseSuccess(parser, VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC,
-                new BuyCommand(validGood));
+                new SellCommand(validGood));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_DESC,
-                new BuyCommand(validGood));
+                new SellCommand(validGood));
 
         // multiple goodNames, only last one accepted
         assertParseSuccess(parser, VALID_GOOD_NAME_EXTRA_DESC + VALID_GOOD_NAME_DESC
-                + VALID_GOOD_QUANTITY_DESC, new BuyCommand(validGood));
+                + VALID_GOOD_QUANTITY_DESC, new SellCommand(validGood));
 
         // multiple quantities, only last one accepted
         assertParseSuccess(parser, VALID_GOOD_NAME_DESC + VALID_GOOD_QUANTITY_EXTRA_DESC
-                + VALID_GOOD_QUANTITY_DESC, new BuyCommand(validGood));
+                + VALID_GOOD_QUANTITY_DESC, new SellCommand(validGood));
     }
 
     @Test
     void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, BuyCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SellCommand.MESSAGE_USAGE);
 
         // missing good name
         assertParseFailure(parser, VALID_GOOD_QUANTITY_DESC,
@@ -82,3 +82,4 @@ class BuyCommandParserTest {
                 GoodQuantity.MESSAGE_CONSTRAINTS);
     }
 }
+
