@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -156,7 +157,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> offers} into a {@code Set<Offer>}.
      */
     public static Set<Offer> parseOffers(Collection<String> offers) throws ParseException {
-        requireNonNull(offers);
+        requireAllNonNull(offers);
         final Set<Offer> offerSet = new HashSet<>();
         for (String offer : offers) {
             offerSet.add(parseOffer(offer));
@@ -173,11 +174,12 @@ public class ParserUtil {
      * @return the {@code String} array containing the split result
      */
     public static String[] splitOnLastWhitespace(String string) {
+        requireNonNull(string);
         String[] words = string.split(" ");
         String[] result = new String[2];
 
         result[0] = String.join(" ", Arrays.copyOfRange(words, 0, words.length - 1));
-        result[1] = words[words.length - 1].trim();
+        result[1] = words[words.length - 1];
 
         return result;
     }
@@ -191,6 +193,7 @@ public class ParserUtil {
      * @return an {@code Object} array containing the {@code Good} and {@code Price}
      */
     public static Object[] getGoodPricePair(String[] goodAndPrice) {
+        requireAllNonNull(goodAndPrice);
         Object[] result = new Object[2];
         result[0] = new GoodName(goodAndPrice[0]);
         result[1] = new Price(goodAndPrice[1]);
