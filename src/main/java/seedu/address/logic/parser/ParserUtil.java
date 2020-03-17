@@ -183,7 +183,7 @@ public class ParserUtil {
         requireNonNull(sales);
         String trimmedSales = sales.trim();
         if (!Sales.isValidSales(trimmedSales)) {
-            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Sales.MESSAGE_CONSTRAINTS);
         }
         return new Sales(trimmedSales);
     }

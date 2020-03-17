@@ -68,6 +68,6 @@ public class TypicalProducts {
     }
 
     public static List<Product> getTypicalProducts() {
-        return new ArrayList<>(Arrays.asList(ABACUS, BOOK, CAMERA, DISC, EGG, FAN, GAME));
+        return new ArrayList<>(Arrays.asList(ABACUS, BAG, BOOK, CAMERA, DISC, EGG, FAN, GAME));
     }
 }

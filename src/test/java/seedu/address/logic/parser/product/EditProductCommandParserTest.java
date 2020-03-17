@@ -2,10 +2,10 @@ package seedu.address.logic.parser.product;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BAG;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_SALES_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SALES_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.QUANTITY_DESC_BAG;
@@ -30,9 +30,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
-import seedu.address.model.product.Sales;
 import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
+import seedu.address.model.product.Sales;
 import seedu.address.model.util.Quantity;
 import seedu.address.testutil.EditProductDescriptorBuilder;
 
@@ -72,10 +72,11 @@ public class EditProductCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_SALES_DESC, Sales.MESSAGE_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC,
+                Description.MESSAGE_CONSTRAINTS); // invalid description
+        assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS); // invalid price
+        assertParseFailure(parser, "1" + INVALID_QUANTITY_DESC, Quantity.MESSAGE_CONSTRAINTS); // invalid quantity
+        assertParseFailure(parser, "1" + INVALID_SALES_DESC, Sales.MESSAGE_CONSTRAINTS); // invalid sales
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC + QUANTITY_DESC_BAG, Price.MESSAGE_CONSTRAINTS);
@@ -85,7 +86,8 @@ public class EditProductCommandParserTest {
         assertParseFailure(parser, "1" + PRICE_DESC_WATCH + INVALID_PRICE_DESC, Price.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC + INVALID_QUANTITY_DESC + VALID_SALES_BAG + VALID_PRICE_BAG,
+        assertParseFailure(parser, "1" + INVALID_DESCRIPTION_DESC
+                        + INVALID_QUANTITY_DESC + VALID_SALES_BAG + VALID_PRICE_BAG,
                 Description.MESSAGE_CONSTRAINTS);
     }
 
@@ -120,7 +122,8 @@ public class EditProductCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + DESCRIPTION_DESC_BAG;
-        EditProductDescriptor descriptor = new EditProductDescriptorBuilder().withDescription(VALID_DESCRIPTION_BAG).build();
+        EditProductDescriptor descriptor = new EditProductDescriptorBuilder()
+                .withDescription(VALID_DESCRIPTION_BAG).build();
         EditProductCommand expectedCommand = new EditProductCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -173,17 +176,6 @@ public class EditProductCommandParserTest {
         descriptor = new EditProductDescriptorBuilder().withPrice(VALID_PRICE_WATCH).withQuantity(VALID_QUANTITY_WATCH)
                 .withSales(VALID_SALES_WATCH).build();
         expectedCommand = new EditProductCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + "";
-
-        EditProductDescriptor descriptor = new EditProductDescriptorBuilder().build();
-        EditProductCommand expectedCommand = new EditProductCommand(targetIndex, descriptor);
-
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }
