@@ -1,5 +1,7 @@
 package fithelper.ui.weight;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.ui.UiPart;
 
@@ -7,8 +9,6 @@ import fithelper.ui.UiPart;
 //import javafx.scene.control.Button;
 //import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.logging.Logger;
 
 /**
  * Controller for a user profile page.

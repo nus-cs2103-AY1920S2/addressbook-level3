@@ -48,11 +48,11 @@ public class SampleDataUtil {
      * @return A FitHelper only with the sample entries.
      */
     public static ReadOnlyFitHelper getSampleFitHelper() {
-        FitHelper sampleFH = new FitHelper();
+        FitHelper sampleFitHelper = new FitHelper();
         for (Entry sampleEntry : getSampleEntries()) {
-            sampleFH.addEntry(sampleEntry);
+            sampleFitHelper.addEntry(sampleEntry);
         }
-        return sampleFH;
+        return sampleFitHelper;
     }
 
 }

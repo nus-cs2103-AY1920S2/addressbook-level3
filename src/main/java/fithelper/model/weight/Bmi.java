@@ -6,12 +6,12 @@ import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import fithelper.model.profile.Height;
 
 /**
- * Represents a User's BMI in one weight record.
- * Guarantees: immutable; is valid as declared in {@link #isValidBMI(Height, WeightValue)}
+ * Represents a User's Bmi in one weight record.
+ * Guarantees: immutable; is valid as declared in {@link #isValidBmi(Height, WeightValue)}
  */
 public class Bmi {
 
-    public static final String MESSAGE_CONSTRAINTS = "BMI should be computed by both height and weight.";
+    public static final String MESSAGE_CONSTRAINTS = "Bmi should be computed by both height and weight.";
     public static final double T = 0.0001; // tolerance for double comparision.
 
     public final Height height;
@@ -20,23 +20,23 @@ public class Bmi {
     public final double value;
 
     /**
-     * Constructs an {@code BMI}.
+     * Constructs an {@code Bmi}.
      *
      * @param height A valid height of user.
      * @param weightValue A valid weight of user
      */
     public Bmi(Height height, WeightValue weightValue) {
         requireAllNonNull(height, weightValue);
-        checkArgument(isValidBMI(height, weightValue), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidBmi(height, weightValue), MESSAGE_CONSTRAINTS);
         this.height = height;
         this.weightValue = weightValue;
         value = weightValue.value / (height.value * height.value);
     }
 
     /**
-     * Returns true if a given string is a valid BMI.
+     * Returns true if a given string is a valid Bmi.
      */
-    public static boolean isValidBMI(Height testHeight, WeightValue testWeight) {
+    public static boolean isValidBmi(Height testHeight, WeightValue testWeight) {
         return testHeight.value != 0 && testWeight.value != 0;
     }
 

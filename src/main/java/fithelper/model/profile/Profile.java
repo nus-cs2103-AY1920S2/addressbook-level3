@@ -1,9 +1,8 @@
 package fithelper.model.profile;
 
-import java.util.Objects;
-
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
 
 /**
  * Represents the user profile in the FitHelper.

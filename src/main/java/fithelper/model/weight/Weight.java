@@ -1,9 +1,8 @@
 package fithelper.model.weight;
 
-import java.util.Objects;
-
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
 
 /**
  * Represents a Weight record in the FitHelper.

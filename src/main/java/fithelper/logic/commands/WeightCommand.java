@@ -1,9 +1,9 @@
 package fithelper.logic.commands;
 
-import fithelper.model.Model;
-
 import static fithelper.logic.commands.CommandResult.DisplayedPage.WEIGHT;
 import static java.util.Objects.requireNonNull;
+
+import fithelper.model.Model;
 
 /**
  * Adds a entry to FitHelper.

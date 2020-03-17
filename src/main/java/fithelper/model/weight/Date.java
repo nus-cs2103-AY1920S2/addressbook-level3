@@ -1,10 +1,10 @@
 package fithelper.model.weight;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import static fithelper.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Weight's recording time in one weight record.
@@ -14,7 +14,7 @@ public class Date {
 
     public static final String MESSAGE_CONSTRAINTS = "Date should be in format: yyyy-mm-dd";
 
-    public static final DateTimeFormatter parseFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public final LocalTime value;
     /**
@@ -25,7 +25,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        value = LocalTime.parse(date, parseFormat);
+        value = LocalTime.parse(date, PARSE_FORMAT);
     }
 
     /**
@@ -33,7 +33,7 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
-            LocalTime.parse(test, parseFormat);
+            LocalTime.parse(test, PARSE_FORMAT);
         } catch (Exception e) {
             return false;
         }
