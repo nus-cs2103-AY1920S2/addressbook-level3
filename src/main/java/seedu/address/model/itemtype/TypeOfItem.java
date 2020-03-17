@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.order.TransactionID;
-
 /**
  * Represents the type of item in the order book.
  * Guarantees: immutable; item is valid as declared in {@link #isValidItemName(String)}}
@@ -14,13 +12,13 @@ import seedu.address.model.order.TransactionID;
 public class TypeOfItem {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Type should not be Blank";
+            "Type Of Item should be alphanumeric";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String itemType;
 
@@ -50,7 +48,7 @@ public class TypeOfItem {
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
-                || (obj instanceof TransactionID // instanceof handles nulls
+                || (obj instanceof TypeOfItem // instanceof handles nulls
                 && itemType.equals(((TypeOfItem) obj).itemType)); // state check
     }
 

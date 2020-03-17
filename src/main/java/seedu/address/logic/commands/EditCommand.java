@@ -7,16 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -24,15 +21,15 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.comment.Comment;
+import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
-import seedu.address.model.order.TransactionID;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing order in the order book.
@@ -53,7 +50,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
             + "[" + PREFIX_COD + "CASH_ON_DELIVERY] "
             + "[" + PREFIX_COMMENT + "COMMENT] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_TYPE + "TYPE_OF_ITEM] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_TID + "A0185837Q";
@@ -105,7 +102,7 @@ public class EditCommand extends Command {
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
         assert orderToEdit != null;
 
-        TransactionID updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
+        TransactionId updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
@@ -113,10 +110,12 @@ public class EditCommand extends Command {
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
         CashOnDelivery updatedCod = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
-        Set<Tag> updatedTags = editOrderDescriptor.getTags().orElse(orderToEdit.getTags());
+        TypeOfItem updatedType = editOrderDescriptor.getItemType().orElse(orderToEdit.getItemType());
 
         return new Order(updatedTid, updatedName, updatedPhone, updatedAddress, updateTimeStamp, updatedWarehouse,
-                updatedCod, updatedComment, updatedTags);
+                updatedCod, updatedComment, updatedType);
+
+
     }
 
     @Override
@@ -142,7 +141,7 @@ public class EditCommand extends Command {
      * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
-        private TransactionID tid;
+        private TransactionId tid;
         private Name name;
         private Phone phone;
         private Address address;
@@ -150,14 +149,13 @@ public class EditCommand extends Command {
         private Warehouse warehouse;
         private CashOnDelivery cod;
         private Comment comment;
-        private Set<Tag> tags;
+        private TypeOfItem itemType;
 
         public EditOrderDescriptor() {
         }
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
             setTid(toCopy.tid);
@@ -168,20 +166,21 @@ public class EditCommand extends Command {
             setWarehouse(toCopy.warehouse);
             setCash(toCopy.cod);
             setComment(toCopy.comment);
-            setTags(toCopy.tags);
+            setItemType(toCopy.itemType);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(tid, name, phone, address, timeStamp, warehouse, cod, comment, tags);
+            return CollectionUtil.isAnyNonNull(tid, name, phone, address, timeStamp, warehouse,
+                    cod, comment, itemType);
         }
-        public void setTid(TransactionID tid) {
+        public void setTid(TransactionId tid) {
             this.tid = tid;
         }
 
-        public Optional<TransactionID> getTid() {
+        public Optional<TransactionId> getTid() {
             return Optional.ofNullable(tid);
         }
 
@@ -241,21 +240,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(comment);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
+        public void setItemType(TypeOfItem itemType) {
+            this.itemType = itemType;
         }
 
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        public Optional<TypeOfItem> getItemType() {
+            return Optional.ofNullable(itemType);
         }
 
         @Override
@@ -281,7 +271,7 @@ public class EditCommand extends Command {
                     && getWarehouse().equals(e.getWarehouse())
                     && getCash().equals(e.getCash())
                     && getComment().equals(e.getComment())
-                    && getTags().equals(e.getTags());
+                    && getItemType().equals(e.getItemType());
         }
     }
 }

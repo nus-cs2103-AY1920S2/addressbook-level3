@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.ALICE;
 import static seedu.address.testutil.TypicalOrders.BOB;
@@ -42,7 +42,7 @@ public class UniqueOrderListTest {
     @Test
     public void contains_orderWithSameIdentityFieldsInList_returnsTrue() {
         uniqueOrderList.add(ALICE);
-        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withItemType(VALID_TYPE_PLASTIC)
                 .build();
         assertTrue(uniqueOrderList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniqueOrderListTest {
     @Test
     public void setOrder_editedOrderHasSameIdentity_success() {
         uniqueOrderList.add(ALICE);
-        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withItemType(VALID_TYPE_PLASTIC)
                 .build();
         uniqueOrderList.setOrder(ALICE, editedAlice);
         UniqueOrderList expectedUniqueOrderList = new UniqueOrderList();

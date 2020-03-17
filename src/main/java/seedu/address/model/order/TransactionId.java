@@ -5,13 +5,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents an Order's Transaction ID in the Order List.
- * Guarantees: immutable; is valid as declared in {@link #isValidTID(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTid(String)}
  */
-public class TransactionID {
+public class TransactionId {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Transaction ID should not be empty.";
-    /*
+    /**
      * Check if first character of given input is whitespace.
      * Otherwise " " (a blank string) becomes a valid input.
      */
@@ -20,20 +20,20 @@ public class TransactionID {
     public final String tid;
 
     /**
-     * Constructs an {@code TransactionID}.
+     * Constructs an {@code TransactionId}.
      *
      * @param tid A valid transaction ID.
      */
-    public TransactionID(String tid) {
+    public TransactionId(String tid) {
         requireNonNull(tid);
-        checkArgument(isValidTID(tid), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTid(tid), MESSAGE_CONSTRAINTS);
         this.tid = tid;
     }
 
     /**
      * Returns true if a given string is a valid transaction ID.
      */
-    public static boolean isValidTID(String test) {
+    public static boolean isValidTid(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -45,8 +45,8 @@ public class TransactionID {
     @Override
     public boolean equals(Object obj) {
         return obj == this // short circuit if same object
-                || (obj instanceof TransactionID // instanceof handles nulls
-                && tid.equals(((TransactionID) obj).tid)); // state check
+                || (obj instanceof TransactionId // instanceof handles nulls
+                && tid.equals(((TransactionId) obj).tid)); // state check
     }
 
     @Override

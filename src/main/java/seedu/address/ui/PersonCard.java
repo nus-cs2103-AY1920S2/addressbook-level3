@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -47,7 +45,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label timeStamp;
     @FXML
-    private FlowPane tags;
+    private FlowPane itemType;
 
     public PersonCard(Order order, int displayedIndex) {
         super(FXML);
@@ -61,9 +59,10 @@ public class PersonCard extends UiPart<Region> {
         warehouse.setText(order.getWarehouse().address);
         cashOnDelivery.setText(order.getCash().cashOnDelivery);
         comment.setText(order.getComment().commentMade);
-        order.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        if (!(order.getItemType().itemType).equals("NIL")) {
+            itemType.getChildren().add(new Label(order.getItemType().itemType));
+        }
     }
 
     @Override

@@ -8,10 +8,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_NIL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TIMESTAMP_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 
 import org.junit.jupiter.api.Test;
 
@@ -62,8 +61,8 @@ public class EditOrderDescriptorTest {
         editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withAddress(VALID_COMMENT_NIL).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
-        // different tags -> returns false
-        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
+        // different Item Types -> returns false
+        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withItemType(VALID_TYPE_PLASTIC).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

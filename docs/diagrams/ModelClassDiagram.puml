@@ -17,9 +17,8 @@ Class ReadOnlyUserPrefs
 
 Package Order {
 Class Order
-Class TransactionID
+Class TransactionId
 Class Address
-Class Email
 Class Name
 Class Phone
 Class CashOnDelivery
@@ -50,22 +49,23 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 OrderBook *--> "1" UniqueOrderList
 UniqueOrderList o--> "*" Order
-Order *--> TransactionID
+Order *--> TransactionId
 Order *--> CashOnDelivery
 Order *--> Name
 Order *--> Phone
-Order *--> Email
 Order *--> Address
-Order *--> "*" TypeOfItem
+Order *--> TypeOfItem
 Order *--> Warehouse
 Order *--> Comment
 Order *--> TimeStamp
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Address -[hidden]right-> TimeStamp
 Order -[hidden]left-> Comment
 TimeStamp -[hidden]right-> Warehouse
+Warehouse -[hidden]right-> TransactionId
+TransactionId -[hidden]right-> CashOnDelivery
 
 ModelManager -->"1" Order : filtered list
 @enduml

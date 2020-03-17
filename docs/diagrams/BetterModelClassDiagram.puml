@@ -5,16 +5,12 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniqueOrderList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniqueOrderList
-UniqueTagList -[hidden]down- UniqueOrderList
 
-UniqueTagList *-right-> "*" Tag
 UniqueOrderList o-right-> Order
 
 Order o-up-> "*" Tag
 
-Order *--> TransactionID
+Order *--> TransactionId
 Order *--> Name
 Order *--> Phone
 Order *--> Warehouse
