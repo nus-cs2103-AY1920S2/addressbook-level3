@@ -11,6 +11,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.Grade;
+import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -123,5 +125,23 @@ public class ParserUtil {
             throw new ParseException(Notes.MESSAGE_CONSTRAINTS);
         }
         return new Notes(notesOperation, path);
+    }
+
+    public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
+        requireNonNull(moduleCode);
+        String trimmedModuleCode = moduleCode.trim();
+        if (!ModuleCode.isValidModuleCode(trimmedModuleCode)) {
+            throw new ParseException(ModuleCode.MESSAGE_CONSTRAINTS);
+        }
+        return new ModuleCode(trimmedModuleCode);
+    }
+
+    public static Grade parseGrade(String grade) throws ParseException {
+        requireNonNull(grade);
+        String trimmedGrade = grade.trim();
+        if (!Grade.isValidGrade(trimmedGrade)) {
+            throw new ParseException(Grade.MESSAGE_CONSTRAINTS);
+        }
+        return Grade.getGrade(trimmedGrade);
     }
 }

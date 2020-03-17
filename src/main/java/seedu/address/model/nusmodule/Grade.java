@@ -18,6 +18,8 @@ public enum Grade {
     S(0.0, "S", true, true),
     U(0.0, "U", false, false);
 
+    public static final String MESSAGE_CONSTRAINTS = "placeholder";
+
     private final double point;
     private final String text;
     private final boolean isPassed;
@@ -66,5 +68,10 @@ public enum Grade {
 
     public String getText() {
         return this.text;
+    }
+
+    public static boolean isValidGrade(String test) {
+        //placeholder, implements later
+        return true;
     }
 }

@@ -2,9 +2,11 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    public List<NusModule> modules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        modules = new ArrayList<>();
     }
 
     public AddressBook() {}
@@ -91,6 +95,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    public boolean hasModule(NusModule module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    public void addModule(NusModule module) {
+        modules.add(module);
     }
 
     //// util methods
