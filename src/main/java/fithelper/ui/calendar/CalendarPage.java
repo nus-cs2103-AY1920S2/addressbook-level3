@@ -3,7 +3,6 @@ package fithelper.ui.calendar;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-import fithelper.model.entry.Entry;
 import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
@@ -30,7 +29,7 @@ public class CalendarPage extends UiPart<AnchorPane> {
     @FXML
     private BorderPane calendarBorderPane;
 
-    public CalendarPage(ObservableList<VEvent> events, ObservableList<Entry>foodList, ObservableList<Entry> sportList) {
+    public CalendarPage(ObservableList<VEvent> events) {
         super(FXML);
         VCalendar vCalendar = new VCalendar();
         vCalendar.setVEvents(events);

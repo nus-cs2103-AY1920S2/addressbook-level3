@@ -51,26 +51,30 @@ public class Time {
      * Returns true if a given string is a valid time.
      */
     public static boolean isValidTime(String test) {
+        boolean isValid = true;
         String delims = " ";
         String[] tokens = test.split(delims);
         if (tokens.length != 2) {
-            return false;
+            isValid = false;
+        } else {
+            delims = ":";
+            String[] time = tokens[1].split(delims);
+            if (time.length != 2) {
+                isValid = false;
+            } else {
+                com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
+                List groups = parser.parse(test);
+                if (groups.size() <= 0) {
+                    isValid = false;
+                } else {
+                    DateGroup dateGroup = (DateGroup) groups.get(0);
+                    if (dateGroup.getDates().size() <= 0) {
+                        isValid = false;
+                    }
+                }
+            }
         }
-        delims = ":";
-        String[] time = tokens[1].split(delims);
-        if (time.length != 2) {
-            return false;
-        }
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        List groups = parser.parse(test);
-        if (groups.size() <= 0) {
-            return false;
-        }
-        DateGroup dateGroup = (DateGroup) groups.get(0);
-        if (dateGroup.getDates().size() <= 0) {
-            return false;
-        }
-        return true;
+        return isValid;
     }
 
     public String concat(String time, LocalDate date) {

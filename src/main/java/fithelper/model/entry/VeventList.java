@@ -117,13 +117,13 @@ public class VeventList {
      * Returns true if the two parameters are equal.
      */
     private boolean equals(VEvent vEvent, VEvent event) {
+        boolean isEqual = true;
         if (!vEvent.getSummary().equals(event.getSummary())
             || !vEvent.getDateTimeEnd().equals(event.getDateTimeEnd())
             || !vEvent.getDateTimeStart().equals(event.getDateTimeStart())
             || !vEvent.getCategories().equals(event.getCategories())) {
-            return false;
-        } else {
-            return true;
+            isEqual = false;
         }
+        return isEqual;
     }
 }

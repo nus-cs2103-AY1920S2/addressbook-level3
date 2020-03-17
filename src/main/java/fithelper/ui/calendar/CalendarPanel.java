@@ -36,7 +36,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
                          ObservableList<VEvent> events) {
         super(FXML);
         logger.info("Initializing Calendar Page");
-        calendarPage = new CalendarPage(events, foodList, sportList);
+        calendarPage = new CalendarPage(events);
         calendarPage.updateScheduler();
         calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
         fullCalendarPlaceholder.getChildren().add(new FullCalendar(foodList, sportList).getView());
