@@ -38,7 +38,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder(File.pathSeparator));
+        filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder(""));
     }
 
     public ModelManager() {
