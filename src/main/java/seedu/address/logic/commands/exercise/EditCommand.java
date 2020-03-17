@@ -20,8 +20,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exercise.Exercise;
 import seedu.address.model.exercise.Name;
-import seedu.address.model.exercise.Reps;
-import seedu.address.model.exercise.Sets;
+import seedu.address.model.exercise.NumReps;
+import seedu.address.model.exercise.ExerciseSet;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -63,22 +63,23 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Exercise> lastShownList = model.getFilteredExerciseList();
+        // List<Exercise> lastShownList = model.getFilteredExerciseList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
-        }
+        // if (index.getZeroBased() >= lastShownList.size()) {
+        //     throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        // }
 
-        Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
-        Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
+        // Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
+        // Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
-        if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
-        }
+        // if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
+        //     throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
+        // }
 
-        model.setExercise(exerciseToEdit, editedExercise);
-        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
+        // model.setExercise(exerciseToEdit, editedExercise);
+        // model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+        // return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
+        return new CommandResult(MESSAGE_EDIT_EXERCISE_SUCCESS);
     }
 
     /**
@@ -88,12 +89,15 @@ public class EditCommand extends Command {
     private static Exercise createEditedExercise(Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
         assert exerciseToEdit != null;
 
-        Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
-        Reps updatedReps = editExerciseDescriptor.getReps().orElse(exerciseToEdit.getReps());
-        Sets updatedSets = editExerciseDescriptor.getSets().orElse(exerciseToEdit.getSets());
-        Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
+        // Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
+        // NumReps updatedNumReps = editExerciseDescriptor.getNumReps().orElse(exerciseToEdit.getNumReps());
+        // ExerciseSet updatedExerciseSet = editExerciseDescriptor.getExerciseSet().orElse(exerciseToEdit.getExerciseSet());
+        // Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
 
-        return new Exercise(updatedName, updatedReps, updatedSets, updatedTags);
+        Name updatedName = new Name("placeholder");
+        ExerciseSet updatedExerciseSet = new ExerciseSet(null, null, null);
+
+        return new Exercise(updatedName, updatedExerciseSet);
     }
 
     @Override
@@ -120,8 +124,8 @@ public class EditCommand extends Command {
      */
     public static class EditExerciseDescriptor {
         private Name name;
-        private Reps reps;
-        private Sets sets;
+        private NumReps reps;
+        private ExerciseSet sets;
         private Set<Tag> tags;
 
         public EditExerciseDescriptor() {}
@@ -132,8 +136,8 @@ public class EditCommand extends Command {
          */
         public EditExerciseDescriptor(EditExerciseDescriptor toCopy) {
             setName(toCopy.name);
-            setReps(toCopy.reps);
-            setSets(toCopy.sets);
+            // setNumReps(gratoCopy.reps);
+            setExerciseSet(toCopy.sets);
             setTags(toCopy.tags);
         }
 
@@ -152,26 +156,24 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Reps reps) {
+        public void setPhone(NumReps reps) {
             this.reps = reps;
         }
 
-        public Optional<Reps> getPhone() {
+        public Optional<NumReps> getPhone() {
             return Optional.ofNullable(reps);
         }
 
-        public void setSets(Sets sets) {
+        public void setExerciseSet(ExerciseSet sets) {
             this.sets = sets;
         }
 
-        public Optional<Sets> getEmail() {
+        public Optional<ExerciseSet> getEmail() {
             return Optional.ofNullable(sets);
         }
 
-        }
-
         /**
-         * Sets {@code tags} to this object's {@code tags}.
+         * ExerciseSet {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
@@ -202,10 +204,11 @@ public class EditCommand extends Command {
             // state check
             EditExerciseDescriptor e = (EditExerciseDescriptor) other;
 
-            return getName().equals(e.getName())
-                    && getReps().equals(e.getReps())
-                    && getSets().equals(e.getSets())
-                    && getTags().equals(e.getTags());
+            // return getName().equals(e.getName())
+            //         && getNumReps().equals(e.getNumReps())
+            //         && getExerciseSet().equals(e.getExerciseSet())
+            //         && getTags().equals(e.getTags());
+            return true;
         }
     }
 }
