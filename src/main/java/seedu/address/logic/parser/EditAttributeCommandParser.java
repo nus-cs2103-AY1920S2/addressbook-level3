@@ -14,7 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class EditAttributeCommandParser {
 
     private static final Pattern BASIC_EDIT_ATTRIBUTE_COMMAND_FORMAT =
-            Pattern.compile("(?<oldAttribute>\\S+)(?<newAttribute>)");
+            Pattern.compile("(?<oldAttribute>\\S+) (?<newAttribute>\\S+)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditAttributeCommand
@@ -31,7 +31,6 @@ public class EditAttributeCommandParser {
         }
         final String oldAttribute = matcher.group("oldAttribute");
         final String newAttribute = matcher.group("newAttribute");
-
         return new EditAttributeCommand(oldAttribute.trim(), newAttribute.trim());
     }
 }

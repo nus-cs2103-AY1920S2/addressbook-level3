@@ -75,17 +75,45 @@ public class QuestionList {
      * string entered is a valid integer string.
      *
      * @param questionIndex The string index.
+     * @return The deleted question.
      * @throws IllegalValueException If the questionIndex is not a number or the index is out of bound.
      */
-    public void delete(String questionIndex) throws IllegalValueException {
+    public Question delete(String questionIndex) throws IllegalValueException {
         try {
             int index = Integer.parseInt(questionIndex);
 
             if (index > questions.size() || index <= 0) {
                 throw new IllegalValueException("The index is out of bound");
             }
-
+            Question question = questions.get(index - 1);
             questions.remove(index - 1);
+            return question;
+        } catch (NumberFormatException e) {
+            throw new IllegalValueException("The input is not a number.");
+        }
+    }
+
+    /**
+     * Edits the question based on its index with a new description,
+     * if the index string entered is a valid integer string.
+     *
+     * @param questionIndex The string index.
+     * @param description The updated description of the question.
+     * @return The corresponding question.
+     * @throws IllegalValueException If the questionIndex is not a number or the index is out of bound.
+     */
+
+    public Question edit(String questionIndex, String description) throws IllegalValueException {
+        try {
+            int index = Integer.parseInt(questionIndex);
+
+            if (index > questions.size() || index <= 0) {
+                throw new IllegalValueException("The index is out of bound");
+            }
+            Question current = questions.get(index - 1);
+            Question question = new Question(description);
+            questions.set(index - 1, question);
+            return current;
         } catch (NumberFormatException e) {
             throw new IllegalValueException("The input is not a number.");
         }
