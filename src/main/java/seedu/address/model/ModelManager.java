@@ -42,7 +42,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
-        this.appPhase = AppPhase.PreSession;
+        this.appPhase = AppPhase.PRE_SESSION;
 
         this.intervieweeList = new IntervieweeList();
         this.attributeList = new AttributeList();

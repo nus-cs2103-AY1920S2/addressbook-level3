@@ -10,7 +10,7 @@ package seedu.address.model.hirelah;
  * </ul>
  */
 public enum AppPhase {
-    PreSession,
-    Normal,
-    Interview
+    PRE_SESSION,
+    NORMAL,
+    INTERVIEW
 }
