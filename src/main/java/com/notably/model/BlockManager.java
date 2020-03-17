@@ -1,6 +1,6 @@
 package com.notably.model;
 
-import com.notably.model.block.Path;
+import com.notably.commons.core.path.Path;
 import com.notably.model.block.Block;
 
 public interface BlockManager {

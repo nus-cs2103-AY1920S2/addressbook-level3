@@ -6,9 +6,9 @@ package com.notably.logic.parser;
 public class CliSyntax {
 
     /* Prefix definitions */
-    public static final Prefix PREFIX_TITLE= new Prefix("-t");
-    public static final Prefix PREFIX_BODY= new Prefix("-b");
-    public static final Prefix PREFIX_SEARCH= new Prefix("-s");
+    public static final Prefix PREFIX_TITLE = new Prefix("-t");
+    public static final Prefix PREFIX_BODY = new Prefix("-b");
+    public static final Prefix PREFIX_SEARCH = new Prefix("-s");
     public static final Prefix PREFIX_JUMP = new Prefix("-o");
 
 }

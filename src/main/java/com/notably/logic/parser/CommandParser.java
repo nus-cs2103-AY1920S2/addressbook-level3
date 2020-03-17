@@ -8,6 +8,5 @@ import com.notably.logic.parser.exceptions.ParseException;
  * @param <T> returns a Command.
  */
 public interface CommandParser<T extends Command> {
-
     T parse(String userInput) throws ParseException;
 }

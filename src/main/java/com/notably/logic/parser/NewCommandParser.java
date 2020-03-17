@@ -9,9 +9,21 @@ import java.util.stream.Stream;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.block.Block;
-import com.notably.model.block.BlockStub;
+import com.notably.model.block.BlockImpl;
+import com.notably.model.block.Body;
+import com.notably.model.block.Title;
 
-public class NewCommandParser implements CommandParser<NewCommand>{
+/**
+ * Represents a Parser for New Command.
+ */
+public class NewCommandParser implements CommandParser<NewCommand> {
+
+    /**
+     * Parse input and create NewCommand.
+     * @param args userInput used to create block.
+     * @return NewCommand
+     * @throws ParseException when input is invalid.
+     */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
@@ -21,10 +33,10 @@ public class NewCommandParser implements CommandParser<NewCommand>{
             throw new ParseException(String.format("Invalid Command"));
         }
 
-        String title= argMultimap.getValue(PREFIX_TITLE).get();
-        String phone = argMultimap.getValue(PREFIX_BODY).get();
+        String title = argMultimap.getValue(PREFIX_TITLE).get();
+        String body = argMultimap.getValue(PREFIX_BODY).get();
 
-        Block block = new BlockStub(title, phone);
+        Block block = new BlockImpl(new Title(title), new Body(body));
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
             return new NewCommand(block, true);

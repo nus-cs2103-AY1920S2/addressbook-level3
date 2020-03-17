@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import com.notably.logic.commands.NewCommand;
-import com.notably.model.block.BlockStub;
 
 public class NotablyParserTest {
     private final NotablyParser parser = new NotablyParser();

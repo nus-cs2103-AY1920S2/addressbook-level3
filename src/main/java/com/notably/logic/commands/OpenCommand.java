@@ -1,9 +1,12 @@
 package com.notably.logic.commands;
 
+import com.notably.commons.core.path.Path;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.BlockManager;
-import com.notably.model.block.Path;
 
+/**
+ * Represents a command that opens a path.
+ */
 public class OpenCommand extends Command {
     public static final String COMMAND_WORD = "open";
 

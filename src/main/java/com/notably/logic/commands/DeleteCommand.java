@@ -2,9 +2,9 @@ package com.notably.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import com.notably.commons.core.path.Path;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.BlockManager;
-import com.notably.model.block.Path;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
     private final Path targetPath;
 
     public DeleteCommand(Path targetPath) {
-        this.targetPath= targetPath;
+        this.targetPath = targetPath;
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.notably.model;
 
-import com.notably.model.block.Path;
+import com.notably.commons.core.path.Path;
 import com.notably.model.block.Block;
-import com.notably.model.block.BlockStub;
+import com.notably.model.block.BlockImpl;
+import com.notably.model.block.Body;
+import com.notably.model.block.Title;
 
 public class BlockManagerStub implements BlockManager {
     public boolean hasBlock(Block b) {
@@ -18,6 +20,6 @@ public class BlockManagerStub implements BlockManager {
     }
 
     public Block openBlock(Path p) {
-        return new BlockStub("Path", "path");
+        return new BlockImpl(new Title("Path"), new Body("path"));
     }
 }

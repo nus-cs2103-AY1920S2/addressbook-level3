@@ -1,11 +1,5 @@
 package com.notably.model.block;
 
-<<<<<<< HEAD
-public interface Block {
-
-
-    String getTitle();
-=======
 import java.util.List;
 import java.util.Optional;
 
@@ -64,5 +58,4 @@ public interface Block {
      * Checks if a block is a root block.
      */
     boolean isRoot();
->>>>>>> master
 }
