@@ -177,7 +177,7 @@ public class ParserUtil {
         String[] result = new String[2];
 
         result[0] = String.join(" ", Arrays.copyOfRange(words, 0, words.length - 1));
-        result[1] = words[words.length - 1];
+        result[1] = words[words.length - 1].trim();
 
         return result;
     }
