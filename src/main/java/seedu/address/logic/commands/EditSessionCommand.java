@@ -182,7 +182,7 @@ public class EditSessionCommand extends Command {
         }
 
         public void setEndTime(LocalDateTime endTime) {
-            this.newEndTime = newEndTime;
+            this.newEndTime = endTime;
         }
 
         public Optional<LocalDateTime> getEndTime() {
