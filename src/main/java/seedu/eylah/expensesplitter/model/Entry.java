@@ -71,7 +71,7 @@ public class Entry {
     public String toString() {
         final StringBuilder personsFormatted = new StringBuilder();
         for (int i = 0; i < persons.size(); i++) {
-            if (i != persons.size() - 1 ) {
+            if (i != persons.size() - 1) {
                 personsFormatted.append(persons.get(i))
                         .append(", ");
             } else { //last person in list

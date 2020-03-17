@@ -91,7 +91,7 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        String formattedItemName = getItemName().toString().substring(0,1).toUpperCase()
+        String formattedItemName = getItemName().toString().substring(0, 1).toUpperCase()
                 + getItemName().toString().substring(1).toLowerCase();
         builder.append(formattedItemName)
                 .append(" | Price: $")
