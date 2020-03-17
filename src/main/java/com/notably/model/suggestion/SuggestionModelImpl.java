@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.beans.property.Property;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -13,10 +14,9 @@ public class SuggestionModelImpl implements SuggestionModel {
     private ObservableList<SuggestionItem> suggestions;
     private Property<Optional<String>> responseTextProperty;
 
-    public SuggestionModelImpl(ObservableList<SuggestionItem> suggestions,
-                               Property<Optional<String>> responseTextProperty) {
-        this.suggestions = suggestions;
-        this.responseTextProperty = responseTextProperty;
+    public SuggestionModelImpl() {
+        suggestions = FXCollections.observableArrayList();
+        responseTextProperty.setValue(Optional.empty());
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     @Override
     public void clearResponseTextProperty() {
-        responseTextProperty.setValue(Optional.of(""));
+        responseTextProperty.setValue(Optional.empty());
     }
 
     @Override
