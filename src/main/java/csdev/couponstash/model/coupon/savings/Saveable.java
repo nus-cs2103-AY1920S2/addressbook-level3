@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class Saveable implements Comparable<Saveable> {
     public static final String MESSAGE_CONSTRAINTS = "Saveables should not be blank "
-            + "or null.";
+            + "or null, and must have a non-negative count field.";
 
     private final String savedItem;
     private final int count;

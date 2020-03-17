@@ -9,6 +9,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.Remind;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
@@ -31,6 +32,7 @@ public class CouponBuilder {
     public static final String DEFAULT_START_DATE = LocalDate.now().format(StartDate.DATE_FORMATTER);
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
+    public static final Remind DEFAULT_REMIND = new Remind();
 
     private Name name;
     private Phone phone;
@@ -40,6 +42,7 @@ public class CouponBuilder {
     private StartDate startDate;
     private Usage usage;
     private Limit limit;
+    private Remind remind;
     private Set<Tag> tags;
 
     public CouponBuilder() {
@@ -51,6 +54,7 @@ public class CouponBuilder {
         startDate = new StartDate(DEFAULT_START_DATE);
         usage = new Usage(DEFAULT_USAGE);
         limit = new Limit(DEFAULT_LIMIT);
+        remind = DEFAULT_REMIND;
         tags = new HashSet<>();
     }
 
@@ -66,6 +70,7 @@ public class CouponBuilder {
         startDate = couponToCopy.getStartDate();
         usage = couponToCopy.getUsage();
         limit = couponToCopy.getLimit();
+        remind = couponToCopy.getRemind();
         tags = new HashSet<>(couponToCopy.getTags());
     }
 
@@ -154,8 +159,17 @@ public class CouponBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Remind} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withRemind(Remind remind) {
+        this.remind = remind;
+        return this;
+    }
+
     public Coupon build() {
-        return new Coupon(name, phone, savings, expiryDate, startDate, usage, limit, tags);
+        return new Coupon(name, phone, savings, expiryDate, startDate,
+                usage, limit, tags, totalSavings, remind);
     }
 
 }

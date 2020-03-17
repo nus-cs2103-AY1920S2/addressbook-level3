@@ -204,6 +204,11 @@ public class Coupon {
     /**
      * Returns true if both coupons have the same identity and data fields.
      * This defines a stronger notion of equality between two coupons.
+     *
+     * <p>However, total savings is ignored as this field is just used to
+     * cache an amount representing how much the Coupon was used to save,
+     * and two Coupons with different total savings recorded
+     * does not necessarily translate to different Coupons.
      */
     @Override
     public boolean equals(Object other) {
@@ -235,8 +240,7 @@ public class Coupon {
                 && otherCoupon.getStartDate().equals(getStartDate())
                 && otherCoupon.getUsage().equals(getUsage())
                 && otherCoupon.getLimit().equals(getLimit())
-                && otherCoupon.getTags().equals(getTags())
-                && otherCoupon.getTotalSavings().equals(getTotalSavings());
+                && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
@@ -253,8 +257,6 @@ public class Coupon {
                 .append(getPhone())
                 .append(" Savings: ")
                 .append(getSavingsForEachUse())
-                .append(" Total Savings: ")
-                .append(getTotalSavings())
                 .append(" Expiry Date: ")
                 .append(getExpiryDate())
                 .append(" Start Date: ")

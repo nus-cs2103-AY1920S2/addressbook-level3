@@ -103,7 +103,11 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
 
         return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedStartDate,
-                updatedUsage, updatedLimit, updatedTags);
+                updatedUsage, updatedLimit, updatedTags,
+                // avoid changing the cached total savings value
+                couponToEdit.getTotalSavings(),
+                // avoid changing the reminder
+                couponToEdit.getRemind());
     }
 
     @Override
