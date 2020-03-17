@@ -15,10 +15,10 @@ import seedu.expensela.testutil.TypicalPersons;
 
 public class JsonSerializableDateBookTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalTransactionsAddressBook.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidTransactionAddressBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateTransactionAddressBook.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableExpenseLaTest");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalTransactionsExpenseLa.json");
+    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidTransactionExpenseLa.json");
+    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateTransactionExpenseLa.json");
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {

@@ -1,39 +1,47 @@
 package seedu.expensela.model.util;
 
-import seedu.expensela.model.AddressBook;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Transaction;
+import seedu.expensela.model.transaction.Type;
+import seedu.expensela.model.transaction.Remark;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ExpenseLa} with sample data.
  */
 public class SampleDataUtil {
-    public static Transaction[] getSamplePersons() {
+    public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
-            new Transaction(new Name("Alex Yeoh"), new Amount("87438807", true),
-                new Date("Blk 30 Geylang Street 29, #06-40")),
-            new Transaction(new Name("Bernice Yu"), new Amount("99272758", true),
-                new Date("Blk 30 Lorong 3 Serangoon Gardens, #07-18")),
-            new Transaction(new Name("Charlotte Oliveiro"), new Amount("93210283", true),
-                new Date("Blk 11 Ang Mo Kio Street 74, #11-04")),
-            new Transaction(new Name("David Li"), new Amount("91031282", true),
-                new Date("Blk 436 Serangoon Gardens Street 26, #16-43")),
-            new Transaction(new Name("Irfan Ibrahim"), new Amount("92492021", true),
-                new Date("Blk 47 Tampines Street 20, #17-35")),
-            new Transaction(new Name("Roy Balakrishnan"), new Amount("92624417", true),
-                new Date("Blk 45 Aljunied Street 85, #11-31"))
+            new Transaction(new TransactionID("12345678"), new Name("Domino's Pizza"),
+                    new Amount("25", false), new Date("2019-12-10"),
+                    new Type("Food"), new Remark("Treat friends")),
+            new Transaction(new TransactionID("12345679"), new Name("Grab to work"),
+                    new Amount("15", false), new Date("2019-12-23"),
+                    new Type("Transport"), new Remark("Split with Mark")),
+            new Transaction(new TransactionID("12345680"), new Name("Angpao Money"),
+                new Amount("200", true), new Date("2020-01-25"),
+                new Type("Others"), new Remark("GONG XI FA CAI")),
+            new Transaction(new TransactionID("12345681"), new Name("CS1231 Textbook"),
+                    new Amount("56", false), new Date("2020-01-30"),
+                    new Type("Others"), new Remark(null)),
+            new Transaction(new TransactionID("12345682"), new Name("BlueSG GF back"),
+                new Amount("12", false), new Date("2020-02-12"),
+                new Type("Transport"), new Remark("Claim coupon")),
+            new Transaction(new TransactionID("12345683"), new Name("Bedok 88 BCM"),
+                    new Amount("4.50", false), new Date("2020-02-25",
+                    new Type("Food"), new Remark("BEST SOUP BCM")))
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
-        for (Transaction sampleTransaction : getSamplePersons()) {
-            sampleAb.addPerson(sampleTransaction);
+    public static ReadOnlyExpenseLa getSampleExpenseLa() {
+        ExpenseLa sampleEL = new ExpenseLa();
+        for (Transaction sampleTransaction : getSampleTransactions()) {
+            sampleEL.addTransaction(sampleTransaction);
         }
-        return sampleAb;
+        return sampleEL;
     }
 
 }

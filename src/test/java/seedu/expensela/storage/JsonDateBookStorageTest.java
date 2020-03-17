@@ -31,8 +31,8 @@ public class JsonDateBookStorageTest {
         assertThrows(NullPointerException.class, () -> readAddressBook(null));
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyExpenseLa> readExpenseLa(String filePath) throws Exception {
+        return new JsonExpenseLaStorage(Paths.get(filePath)).readExpenseLa(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -48,19 +48,19 @@ public class JsonDateBookStorageTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatExpenseLa.json"));
     }
 
     @Test
     public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, (
-        ) -> readAddressBook("invalidTransactionAddressBook.json"));
+        ) -> readAddressBook("invalidTransactionExpenseLa.json"));
     }
 
     @Test
     public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
         assertThrows(DataConversionException.class, (
-        ) -> readAddressBook("invalidAndValidTransactionAddressBook.json"));
+        ) -> readAddressBook("invalidAndValidTransactionExpenseLa.json"));
     }
 
     @Test

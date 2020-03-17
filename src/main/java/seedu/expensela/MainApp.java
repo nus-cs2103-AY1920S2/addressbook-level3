@@ -18,12 +18,12 @@ import seedu.expensela.logic.LogicManager;
 import seedu.expensela.model.AddressBook;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.util.SampleDataUtil;
-import seedu.expensela.storage.AddressBookStorage;
-import seedu.expensela.storage.JsonAddressBookStorage;
+import seedu.expensela.storage.ExpenseLaStorage;
+import seedu.expensela.storage.JsonExpenseLa;
 import seedu.expensela.storage.JsonUserPrefsStorage;
 import seedu.expensela.storage.Storage;
 import seedu.expensela.storage.StorageManager;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ExpenseLa expenseLaStorage = new JsonExpenseLAStorage(userPrefs.getexpenseLaFilePath());
+        storage = new StorageManager(expenseLaStorage, userPrefsStorage);
 
         initLogging(config);
 
