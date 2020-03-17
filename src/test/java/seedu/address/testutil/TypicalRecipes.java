@@ -70,7 +70,7 @@ public class TypicalRecipes {
             .withIngredients("Tomato sauce, 100, other", "Dough, 300, grain", "Capsicum, 100, vegetable")
             .withGoals("Herbivore").withSteps("Roll dough until stretchy and thin").build();
 
-    // Manually added - Recipe's details found in {@code CommandTestUtil} todo: add ingredients
+    // Manually added - Recipe's details found in {@code CommandTestUtil}
     public static final Recipe TURKEY_SANDWICH = new RecipeBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
             .withTime(VALID_TIME_TURKEY_SANDWICH)
             .withIngredients(VALID_INGREDIENT_TURKEY_SANDWICH)

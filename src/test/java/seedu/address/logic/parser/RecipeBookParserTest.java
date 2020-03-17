@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -32,8 +33,8 @@ public class RecipeBookParserTest {
 
     private final RecipeBookParser parser = new RecipeBookParser();
 
-    /* todo: resolve after refactoring add command
-    @Test
+    // todo: resolve after refactoring add command
+    /*@Test
     public void parseCommand_add() throws Exception {
         Recipe recipe = new RecipeBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(RecipeUtil.getAddCommand(recipe));
