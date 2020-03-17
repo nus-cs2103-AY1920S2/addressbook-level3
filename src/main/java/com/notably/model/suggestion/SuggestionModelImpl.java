@@ -27,7 +27,7 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     // TODO: update commands
     @Override
-    public Property<Optional<String>> commandTextProperty() {
+    public Property<Optional<String>> getCommandTextProperty() {
         if (commandInputText.startsWith("open")) {
             commandTextProperty.setValue(Optional.of("Open a note"));
         } else if (commandInputText.startsWith("search")) {
