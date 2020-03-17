@@ -14,4 +14,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_WAREHOUSE = new Prefix("w/");
     public static final Prefix PREFIX_COMMENT = new Prefix("c/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+
+    /* Flag definitions */
+    public static final Flag FLAG_FORCE_CLEAR = new Flag("-f");
 }
