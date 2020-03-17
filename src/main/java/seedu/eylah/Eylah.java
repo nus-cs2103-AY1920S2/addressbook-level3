@@ -54,13 +54,16 @@ public class Eylah {
             while (!isExit) {
                 System.out.println("Enter Diet Command: ");
                 input = ui.readCommand();
+                if (input.equals("exit")) {
+                    ui.showExit();
+                    break;
+                }
                 try {
                     CommandResult commandResult = dietLogic.execute(input);
                     // Here will print out the respond to user
-                    System.out.println(commandResult.getFeedbackToUser());
+                    ui.showResult(commandResult.getFeedbackToUser());
                 } catch (CommandException | ParseException e) {
-                    e.printStackTrace();
-                    break;
+                    ui.showError(e.getMessage());
                 }
             }
         } else {
@@ -71,15 +74,18 @@ public class Eylah {
             while (!isExit) {
                 System.out.println("Enter Splitting Command: ");
                 input = ui.readCommand();
+                if (input.equals("exit")) {
+                    ui.showExit();
+                    break;
+                }
                 try {
                     seedu.eylah.expensesplitter.logic.commands.CommandResult commandResult =
                             splitterLogic.execute(input);
                     // Here will print out the respond to user
-                    System.out.println(commandResult.getFeedbackToUser());
+                    ui.showResult(commandResult.getFeedbackToUser());
                 } catch (seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException
                         | seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException e) {
-                    e.printStackTrace();
-                    break;
+                    ui.showError(e.getMessage());
                 }
             }
         }
