@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class for Exercise.
  */
-public class PersonUtil {
+public class ExerciseUtil {
 
     /**
      * Returns an add command string for adding the {@code exercise}.

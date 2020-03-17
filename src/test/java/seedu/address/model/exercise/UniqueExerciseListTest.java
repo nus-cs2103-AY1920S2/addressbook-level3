@@ -16,7 +16,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.exercise.exceptions.DuplicatePersonException;
-import seedu.address.model.exercise.exceptions.PersonNotFoundException;
+import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
 import seedu.address.testutil.ExerciseBuilder;
 
 public class UniqueExerciseListTest {
@@ -70,7 +70,7 @@ public class UniqueExerciseListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
+        assertThrows(ExerciseNotFoundException.class, () -> uniquePersonList.setPerson(ALICE, ALICE));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class UniqueExerciseListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniquePersonList.remove(ALICE));
+        assertThrows(ExerciseNotFoundException.class, () -> uniquePersonList.remove(ALICE));
     }
 
     @Test
