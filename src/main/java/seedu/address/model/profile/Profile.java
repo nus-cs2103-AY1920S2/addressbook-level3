@@ -79,6 +79,10 @@ public class Profile {
         return moduleHash.entrySet();
     }
 
+    public static HashMap<Integer, ArrayList<Module>> getHashMap() {
+        return moduleHash;
+    }
+
     public List<Deadline> getDeadlines() {
         int sem = Integer.parseInt(currentSemester);
         List<Module> modules = moduleHash.get(sem); // Deadlines should only be from the current semester
