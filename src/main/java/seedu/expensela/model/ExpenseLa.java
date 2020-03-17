@@ -62,7 +62,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     public void resetData(ReadOnlyExpenseLa newData) {
         requireNonNull(newData);
 
-        setTransactions(newData.getPersonList());
+        setTransactions(newData.getTransactionList());
         setMonthlyData(newData.getMonthlyData());
     }
 
@@ -71,7 +71,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    public boolean hasPerson(Transaction transaction) {
+    public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
         return transactions.contains(transaction);
     }
@@ -80,7 +80,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
-    public void addPerson(Transaction p) {
+    public void addTransaction(Transaction p) {
         transactions.add(p);
     }
 
@@ -112,7 +112,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     }
 
     @Override
-    public ObservableList<Transaction> getPersonList() {
+    public ObservableList<Transaction> getTransactionList() {
         return transactions.asUnmodifiableObservableList();
     }
 

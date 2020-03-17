@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTransactions = new FilteredList<>(this.expenseLa.getPersonList());
+        filteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         monthlyData = this.expenseLa.getMonthlyData();
     }
 
@@ -70,13 +70,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getExpenseLaFilePath();
     }
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setExpenseLaFilePath(addressBookFilePath);
     }
 
     //=========== ExpenseLa ================================================================================
@@ -94,7 +94,7 @@ public class ModelManager implements Model {
     @Override
     public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
-        return expenseLa.hasPerson(transaction);
+        return expenseLa.hasTransaction(transaction);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addTransaction(Transaction transaction) {
-        expenseLa.addPerson(transaction);
+        expenseLa.addTransaction(transaction);
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 

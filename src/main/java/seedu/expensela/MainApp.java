@@ -24,7 +24,7 @@ import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.util.SampleDataUtil;
 import seedu.expensela.storage.ExpenseLaStorage;
-import seedu.expensela.storage.JsonExpenseLa;
+import seedu.expensela.storage.JsonExpenseLaStorage;
 import seedu.expensela.storage.JsonUserPrefsStorage;
 import seedu.expensela.storage.Storage;
 import seedu.expensela.storage.StorageManager;
@@ -57,7 +57,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ExpenseLa expenseLaStorage = new JsonExpenseLAStorage(userPrefs.getexpenseLaFilePath());
+        ExpenseLaStorage expenseLaStorage = new JsonExpenseLaStorage(userPrefs.getExpenseLaFilePath());
         storage = new StorageManager(expenseLaStorage, userPrefsStorage);
 
         initLogging(config);
@@ -78,7 +78,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyExpenseLa> expenseLaOptional;
         ReadOnlyExpenseLa initialData;
         try {
-            expenseLaOptional = storage.readAddressBook();
+            expenseLaOptional = storage.readExpenseLa();
             if (!expenseLaOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExpenseLa");
             }

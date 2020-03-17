@@ -21,7 +21,7 @@ public interface Storage extends ExpenseLaStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getExpenseLaFilePath();
 
     @Override
     void saveExpenseLa(ReadOnlyExpenseLa expenseLa) throws IOException;

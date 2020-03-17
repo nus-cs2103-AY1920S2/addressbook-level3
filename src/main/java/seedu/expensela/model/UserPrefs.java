@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setExepnseLaFilePath(newUserPrefs.getExpenseLaFilePath());
+        setExpenseLaFilePath(newUserPrefs.getExpenseLaFilePath());
     }
 
     public GuiSettings getGuiSettings() {

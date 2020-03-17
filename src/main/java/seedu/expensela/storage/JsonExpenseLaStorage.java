@@ -71,15 +71,6 @@ public class JsonExpenseLaStorage implements ExpenseLaStorage {
      */
     public void saveExpenseLa(ReadOnlyExpenseLa expenseLa, Path filePath) throws IOException {
         requireNonNull(expenseLa);
-    }
-
-    /**
-     * Similar to {@link #saveExpenseLa(ReadOnlyExpenseLa)}.
-     *
-     * @param filePath location of the data. Cannot be null.
-     */
-    public void saveAddressBook(ReadOnlyExpenseLa addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);

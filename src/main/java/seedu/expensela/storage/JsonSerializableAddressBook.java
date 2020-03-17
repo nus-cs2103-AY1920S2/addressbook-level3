@@ -49,10 +49,10 @@ class JsonSerializableAddressBook {
         ExpenseLa expenseLa = new ExpenseLa();
         for (JsonAdaptedTransaction jsonAdaptedTransaction : persons) {
             Transaction transaction = jsonAdaptedTransaction.toModelType();
-            if (expenseLa.hasPerson(transaction)) {
+            if (expenseLa.hasTransaction(transaction)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            expenseLa.addPerson(transaction);
+            expenseLa.addTransaction(transaction);
         }
         return expenseLa;
     }
