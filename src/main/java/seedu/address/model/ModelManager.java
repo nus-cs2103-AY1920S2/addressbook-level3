@@ -91,17 +91,17 @@ public class ModelManager implements Model {
     @Override
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
-        return addressBook.hasPerson(exercise);
+        return addressBook.hasExercise(exercise);
     }
 
     @Override
     public void deleteExercise(Exercise target) {
-        addressBook.removePerson(target);
+        addressBook.removeExercise(target);
     }
 
     @Override
     public void addExercise(Exercise exercise) {
-        addressBook.addPerson(exercise);
+        addressBook.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
 
-        addressBook.setPerson(target, editedExercise);
+        addressBook.setExercise(target, editedExercise);
     }
 
     //=========== Filtered Exercise List Accessors =============================================================

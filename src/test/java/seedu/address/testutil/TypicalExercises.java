@@ -65,7 +65,7 @@ public class TypicalExercises {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Exercise exercise : getTypicalExercises()) {
-            ab.addPerson(exercise);
+            ab.addExercise(exercise);
         }
         return ab;
     }

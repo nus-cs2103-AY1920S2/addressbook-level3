@@ -30,7 +30,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Exercises in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a exercise with the same identity as {@code exercise} exists in the address book.
      */
-    public boolean hasPerson(Exercise exercise) {
+    public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
         return exercises.contains(exercise);
     }
@@ -70,7 +70,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a exercise to the address book.
      * The exercise must not already exist in the address book.
      */
-    public void addPerson(Exercise p) {
+    public void addExercise(Exercise p) {
         exercises.add(p);
     }
 
@@ -79,7 +79,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code target} must exist in the address book.
      * The exercise identity of {@code editedExercise} must not be the same as another existing exercise in the address book.
      */
-    public void setPerson(Exercise target, Exercise editedExercise) {
+    public void setExercise(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
 
         exercises.setExercise(target, editedExercise);
@@ -89,7 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Exercise key) {
+    public void removeExercise(Exercise key) {
         exercises.remove(key);
     }
 
@@ -97,7 +97,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return exercises.asUnmodifiableObservableList().size() + " persons";
+        return exercises.asUnmodifiableObservableList().size() + " exercises";
         // TODO: refine later
     }
 
