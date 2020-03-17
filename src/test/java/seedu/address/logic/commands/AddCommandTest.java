@@ -151,22 +151,22 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Module> getFilteredModuleList() {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredModuleList(Predicate<Module> predicate) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasModule(Module module) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void addModule(Module module) {
-
+            throw new AssertionError("This method should not be called.");
         }
     }
 
