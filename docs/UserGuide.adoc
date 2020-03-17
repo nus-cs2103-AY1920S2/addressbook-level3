@@ -110,9 +110,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `list` +
 `delete` `2` +
 Deletes the 2nd order.
-* `find` `-n` `Betsy` +
+* `search` `-n` `Betsy` +
 `delete` `1` +
-Deletes the 1st order in the results of the `find` command (find all orders with customer's name `Betsy`).
+Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Betsy`).
 
 [[done]]
 === Mark order as done: `done`
@@ -180,18 +180,18 @@ The index `3` customer's name, phone and address are changed accordingly to the 
 ==== Format:
 * `exit`
 
-[[find]]
-=== Locating orders by name or transaction ID: `find`
+[[search]]
+=== Locating orders by name or transaction ID: `search`
 
 ==== Description
 
-* You can find all orders that contain a given keyword. The orders will be searched by a given flag of two specific types (`-n` or `-t`).
+* You can search all orders that contain a given keyword. The orders will be searched by a given flag of two specific types (`-n` or `-t`).
 * If the flag is `-n`, the orders will be searched by *name*.
 * If the flag is `-t`, the orders will be searched by their *transaction ID*.
 * The list of orders returned will not be sorted by default.
 
 ==== Format
-* `find` `FLAG` `KEYWORD` `[MORE_KEYWORDS]...`
+* `search` `FLAG` `KEYWORD` `[MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -203,11 +203,11 @@ The index `3` customer's name, phone and address are changed accordingly to the 
 
 ==== Examples
 
-* `find` `-n` `Jeremy Loh` +
+* `search` `-n` `Jeremy Loh` +
 Possibly return `jeremy` or `Jeremy Loh` or `loh` or any of the above as long as keyword appears in name.
-* `find` `-t` `asj2od3943` +
+* `search` `-t` `asj2od3943` +
 Return delivery order with transaction ID of `asj2od3943`
-* `find` `-t` `920392844` +
+* `search` `-t` `920392844` +
 Return delivery order with transaction ID of `920392844`
 
 [[help]]
@@ -353,7 +353,7 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 |46, 47, 48 |Bedok, Upper East Coast, Eastwood, Kew Drive
 |49, 50, 81 |Loyang, Changi
 |51, 52 |Tampines, Pasir Ris
-|53, 54, 55, 82 |Serangoon Garden, Hougang, Ponggol
+|53, 54, 55, 82 |Serangoon Garden, Hougang, Punggol
 |56, 57 |Bishan, Ang Mo Kio
 |58, 59 |Upper Bukit Timah, Clementi Park, Ulu Pandan
 |60, 61, 62, 63, 64 |Jurong
@@ -436,8 +436,8 @@ e.g. `done` `2`
 * <<edit, *Edit*>> : `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
 e.g. `edit` `2` `n/Xuan En`
 * <<exit, *Exit*>> : `exit`
-* <<find, *Find*>> : `find` `flag` `KEYWORD` +
-e.g. `find` `-t` `ac1e345x7s`
+* <<search, *Search*>> : `search` `flag` `KEYWORD` +
+e.g. `search` `-t` `ac1e345x7s`
 * <<help, *Help*>> : `help`
 * <<import, *Import*>> : `import` `FILE_NAME` +
 e.g. `import` `orders.csv`
@@ -512,9 +512,9 @@ e.g. `nearby` `14`
 
 |-n
 |Search using Customer Name
-|<<find, Find>>
+|<<search, Search>>
 
 |-t
 |Search using Transaction ID
-|<<find, Find>>
+|<<search, Search>>
 |===

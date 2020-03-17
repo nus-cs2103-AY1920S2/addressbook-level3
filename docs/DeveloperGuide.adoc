@@ -402,9 +402,21 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. Delino detects no orders.
+* 1b. Delino detects no flag `-f`.
 [none]
-** 1b1. Delino shows no order to be cleared message.
+** 1b1. Delino trigger pop-up message.
+[None]
+*** 1b2a. User select `yes` button.
+[None]
+**** 1b2a1. Return to step 2.
+*** 1b2b. User select `no` button.
+[None]
+**** 1b2b1. Use case ends.
+
+[none]
+* 1c. Delino detects no orders.
+[none]
+** 1c1. Delino shows no order to be cleared message.
 +
 Use case ends.
 

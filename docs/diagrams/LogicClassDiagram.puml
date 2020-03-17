@@ -15,6 +15,7 @@ Class ParserUtil
 Class ArgumentMultimap
 Class ArgumentTokenizer
 Class Prefix
+Class Flag
 }
 
 package Command {
@@ -45,6 +46,7 @@ XYZCommandParser ..> ArgumentTokenizer
 ArgumentTokenizer .left.> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
+CliSyntax ..> Flag
 XYZCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix

@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.stage.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="Delino" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -31,13 +35,13 @@
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
+            <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
 
         <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
+            <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
 
@@ -45,7 +49,7 @@
           <padding>
             <Insets bottom="10" left="10" right="10" top="10" />
           </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+          <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
