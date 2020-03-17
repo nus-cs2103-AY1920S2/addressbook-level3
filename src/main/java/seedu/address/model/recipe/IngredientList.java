@@ -38,11 +38,11 @@ public class IngredientList {
         this.ingredients = new ArrayList<Ingredient>();
     }
 
-    /*
-    public IngredientList(List<Ingredient> ingredients) {
-        this.ingredientListString = "";
-        this.ingredients = ingredients;
-    }
+    /**
+     * public IngredientList(List<Ingredient> ingredients) {
+     *  this.ingredientListString = "";
+     *   this.ingredients = ingredients;
+     * }
      */
 
     /**
