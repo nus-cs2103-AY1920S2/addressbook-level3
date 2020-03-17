@@ -2,22 +2,20 @@ package seedu.address.model.person;
 
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.ModelManager;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s {@code Group} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class GroupContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public GroupContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
+    // this one need to edit when you have implemented Group
     @Override
     public boolean test(Person person) {
         return keywords.stream()
@@ -27,8 +25,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof GroupContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((GroupContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

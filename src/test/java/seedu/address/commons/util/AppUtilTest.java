@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import javafx.scene.image.Image;
 import org.junit.jupiter.api.Test;
 
 public class AppUtilTest {

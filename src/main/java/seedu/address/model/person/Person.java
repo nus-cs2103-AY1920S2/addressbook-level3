@@ -2,12 +2,11 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ModelManager;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -15,6 +14,8 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
+    // for sarah's use
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     // Identity fields
     private final Name name;
@@ -72,6 +73,22 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Concatenates all the Person's tags together into one string.
+     * This is to be used by the TagsContainsKeywordsPredicate class
+     * @return String of all concatenated tags
+     */
+    public String getTagsForPredicate() {
+        String concatenatedTags = "";
+
+        for (Iterator<Tag> it = tags.iterator(); it.hasNext(); ) {
+            Tag t = it.next();
+            concatenatedTags = concatenatedTags + t.toString();
+        }
+
+        return concatenatedTags;
     }
 
     /**
