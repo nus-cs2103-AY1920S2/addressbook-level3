@@ -174,6 +174,16 @@ public class Coupon {
     }
 
     /**
+     * Returns a new Coupon with total usage increased by one.
+     * @return A new Coupon with total usage increased by one.
+     */
+    public Coupon increaseUsageByOne() {
+        return new Coupon(this.name, this.phone, this.savingsForEachUse,
+                this.expiryDate, this.startDate, this.usage.increaseUsageByOne(),
+                this.limit, this.tags, this.totalSavings, this.remind);
+    }
+
+    /**
      * Returns true if both coupons have the same name, and all
      * of the fields of phone, savings for each use, expiry date or
      * start date is the same.
@@ -243,6 +253,8 @@ public class Coupon {
                 .append(getPhone())
                 .append(" Savings: ")
                 .append(getSavingsForEachUse())
+                .append(" Total Savings: ")
+                .append(getTotalSavings())
                 .append(" Expiry Date: ")
                 .append(getExpiryDate())
                 .append(" Start Date: ")
