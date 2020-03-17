@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= ZeroToOne - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/se-edu/exerciseList-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S2 W16-2`      Since: `Feb 2020`
 
 == Setting up
 
@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ExerciseListParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -147,7 +147,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.exerciseList.commons` package.
 
 == Implementation
 
@@ -157,39 +157,39 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedExerciseList`.
+It extends `ExerciseList` with an undo/redo history, stored internally as an `ExerciseListStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedExerciseList#commit()` -- Saves the current address book state in its history.
+* `VersionedExerciseList#undo()` -- Restores the previous address book state from its history.
+* `VersionedExerciseList#redo()` -- Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitExerciseList()`, `Model#undoExerciseList()` and `Model#redoExerciseList()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedExerciseList` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitExerciseList()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `ExerciseListStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitExerciseList()`, causing another modified address book state to be saved into the `ExerciseListStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitExerciseList()`, so the address book state will not be saved into the `ExerciseListStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoExerciseList()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoExerciseList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +197,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoExerciseList()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `ExerciseListStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoExerciseList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitExerciseList()`, `Model#undoExerciseList()` or `Model#redoExerciseList()`. Thus, the `ExerciseListStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitExerciseList()`. Since the `currentStatePointer` is not pointing at the end of the `ExerciseListStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -229,7 +229,7 @@ image::CommitActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedExerciseList`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -279,13 +279,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Enjoys exercising and does it regularly
+* Has a need to manage a significant number of workouts
+* Prefers desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+Manage workouts faster than a typical mouse/GUI-driven app
 
 [appendix]
 == User Stories
@@ -295,88 +297,155 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |User with many different workouts |Keep track of all my workouts |Stay organised
 
-|`* * *` |user |add a new person |
+|`* * *` |User that is busy with multiple commitments |Keep on schedule for my exercise regime |Stay disciplined and keep exercising regularly
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |User who has exercise goals |See or track my current progress |Check if I am reaching my goals
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |User who has exercise goals |Set and adjust goals accordingly |Make plans to reach my goals, and improve upon those plans as I see fit
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |User who wants to track live progress while exercising |Have a timer for each part of my workout |Stay on schedule for each workout session I do
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |User who does exercises in sets |Keep track of how many repetitions per exercise |Know the details of each exercise
+
+|`* *` |User who has a regular workout schedule, but likes to schedule one-off sessions |Some way to keep track of both regular and one-off workouts |Differentiate between the workouts and manage them both simultaneously
+
+|`* *` |User who loses motivation over a long period of time |Something to help me stay motivated |Keep going and not give up halfway
+
+|`* *` |User who lacks self discipline at times |Something to help me maintain the discipline to stay on track |Stick to a regular exercise schedule and regime
+
+|`* *` |User who needs some inspiration or a change of pace |Have sample workout routines to follow |Get more ideas and ways to structure my workouts and find new exercises
+
+|`* *` |User who enjoys graphical displays |Have a graphical overview of various health statistics |Easily comprehend and view my statistics
+
+|`* *` |User who enjoys exercising and discussing it |Share my workout routines with my friends  |Help each other out by sharing new exercise regimes
+
+|`* *` |User who has many different types of workouts |To categorize the different types of workout  |Achieve better organisation
+
+|`* *` |User who has many different workouts and exercises |To have an overview of all my workout related information |Achieve better organisation
+
+|`*` |New user who is not familiar with setting up exercise regimes |To have a way to consult with fitness trainers or professionals |Gain better knowledge and understanding of exercise regimes
+
+|`*` |User who is sociable and largely influenced by my peers |To see my friends’ progress and achievements |Motivate myself to work harder and help each other out
+
+|`*` |User who sometimes gets a little bored when working out |To have a way to entertain or distract myself when working out  |Keep myself on the task at hand by giving an extra motivation boost
+
+|`*` |User who enjoys exercising to music that matches the exercise |To have music tailored to my current workout |Have even more fun with my workouts
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ZeroToOne` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use Case 1: Adding Exercises to Workout
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests for the existing exercises in the workout
+2. System shows a list of the existing exercises
+3. User requests to add an exercise to the workout
+4. System adds the exercise to the workout
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The requested workout does not exist
+** 2a1. Use case ends
++
+
+* 2b. There are no exercises in the workout
+** 2b1. System shows a message to inform the user
++
+Use case resumes at step 2
+
+* 3a. User request format is invalid
+** 3a1. System shows an error message
++
+Use case resumes at step 3
+
+[discrete]
+=== Use Case 2: Deleting Workouts
+
+*MSS*
+
+1. User requests to list workouts
+2. System shows a list of all workouts
+3. User requests to delete a specific workout
+4. System deletes the workout
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+[none]
+* 2a. The list is empty
++
+Use case ends
+
+* 3a. The given user index is invalid
+** 3a1. System shows an error message
++
+Use case resumes at step 2
+
+[discrete]
+=== Use Case 3: Find Past Workout by Keyword
+
+*MSS*
+
+1. User requests a log of past workouts
+2. System shows a list of all past logged workouts
+3. User requests to find a past workout by keyword
+4. System shows the past workouts that match the keyword
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. The log is empty
++
+Use case ends
+
+* 3a. The keyword does not match any past workouts
+** 3a1. System shows an error message
++
+Use case ends
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 100 workouts a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Should not depend on a remote server, so that a user can exercise in any condition or environment.
 
 [appendix]
 == Glossary
 
+[[cli]]CLI::
+Stands for Command Line Interface, which processes commands to a computer program in the form of lines of text.
+
+[[exercise]]Exercise::
+A single type of exercise, for example push ups or crunches.
+GUI
+Stands for Graphical User Interface, which is a form of user interface that allows users to interact with electronic devices through graphical means, not textual means.
+
+[[instance]]Instance::
+A specific instantiation of an object.
+
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[schedule]]Schedule::
+A workout that has been planned to be carried out on a specific date or dates.
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[workout]]Workout::
+A set of exercises to be done together, in a certain order and time frame.
 
 [appendix]
 == Instructions for Manual Testing

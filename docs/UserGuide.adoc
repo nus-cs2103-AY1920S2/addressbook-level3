@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ZeroToOne - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,20 +12,21 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W16-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W16-2`      Since: `Feb 2020`      Licence: `NUS`
 
 == Introduction
+ZeroToOne is an application for managing your exercise regimes. It allows you to transform from a round ‘0’ shape, to a fitter and healthier ‘1’ shape!
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ZeroToOne is for those who *prefer to use a desktop app for managing their exercise and fitness regimes*. More importantly, ZeroToOne is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ZeroToOne can get your exercise management tasks done faster than traditional GUI apps. Interested in the magnificent transformation from 0 to 1? Jump to Section 2, <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Download the latest `zerotoone.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your ZeroToOne.
+.  Double-click the file to start the app. The program should start in a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -33,9 +34,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all workouts in the app
+* *`log`* : shows a log of past workouts
+* *`start <workout>`* : starts a new workout
+* *`stop <workout>`* : stops the workout
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,132 +48,305 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Words in `<arrow brackets>` are the parameters to be supplied by the user e.g. in `start <workout>`, `workout` is a parameter which can be used as `start MorningWorkout`.
+* Items in square brackets are optional e.g `start <workout> <sets> [interval]` can be used as `start Morning 2 100` or as `start Morning 2`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters must be in the specified order.
 ====
 
-=== Viewing help : `help`
+=== General Commands
+==== List all workout plans : `list`
+
+Format: `list`
+
+Shows a list of all workout plans in ZeroToOne.
+
+==== Get help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+Shows a list of all available commands in ZeroToOne.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+==== Exit the program: `exit`
+
+Closes the program.
+
+=== Workout Commands
+
+==== Create a workout plan: `create`
+
+Creates a new workout plan.
+
+Format: `create <workout>`
 
 [TIP]
-A person can have any number of tags (including 0)
+The workout field must be a string
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `create MorningWorkout`
+* `create NightWorkout`
 
-=== Listing all persons : `list`
+==== Delete a workout plan : `delete`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Deletes the specified workout and its associated exercises.
 
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `delete <workout>`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `delete MorningWorkout`
 
-=== Locating persons by name: `find`
+[TIP]
+The workout name is case-sensitive.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== List exercises in workout plan : `list <workout>`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Shows a list of all existing exercises in the workout plan
+
+Format: `list <workout>`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `list MorningWorkout` +
+Returns `"BENCH_PRESS, OVERHEAD_PRESS"`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+==== Export a workout plan: `export`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Exports a specified workout plan in a .txt format and saves it to the user’s computer.
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+Format: `export <workout>`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `export NightWorkout`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Import a workout plan: `export`
 
-Clears all entries from the address book. +
-Format: `clear`
+Imports a workout plan in .txt format from the user’s computer into the application.
 
-=== Exiting the program : `exit`
+Format: `import <file_path> <workout>`
 
-Exits the program. +
-Format: `exit`
+Examples:
+
+* `import ./src/MyFriendsWorkout.txt MyFriendsWorkout`
+
+=== Exercise Commands
+
+==== Add an exercise to workout
+
+Format: `add <workout> <exercise> <repetitions> <interval>`
+
+Examples:
+
+* `add Push BENCH_PRESS_60KG 5 180`
+* `add Push OVERHEAD_PRESS_20KG 20 120`
+
+[TIP]
+The workout name is case-sensitive. +
+`repetitions` and `interval` must be positive integers. +
+`interval` is in seconds.
+
+==== Edit an exercise in a workout
+
+Edits the details of an exercise in a particular workout, such as the number of repetitions or interval.
+
+Format: `edit <workout> <exercise> <new_repetitions> <new_interval>`
+
+Examples:
+
+* `edit Push BENCH_PRESS_60KG 6 200`
+* `edit Push OVERHEAD_PRESS_20KG 25 140`
+
+[TIP]
+The workout name is case-sensitive. +
+`new_repetitions` and `new_interval` must be positive integers. +
+`new_interval` is in seconds.
+
+==== Delete an exercise from a workout plan
+Deletes an exercise from a specified workout plan.
+
+Format: `delete <workout> <exercise>`
+
+Examples:
+
+* `delete Push BENCH_PRESS_60KG`
+* `delete Push OVERHEAD_PRESS_20KG`
+
+[TIP]
+The workout name is case-sensitive.
+
+=== Carrying Out Workouts
+
+==== Start a new workout
+ZeroToOne starts bringing you through each of the exercises in your workout, for the specified number of sets.
+
+Format:
+`start <workout> <sets> [interval]`
+
+Examples:
+
+* `start Push 5 100`
+* `start Pull 6 110`
+
+==== Stop a workout
+Stops the current workout, effectively resetting it.
+
+Format:
+`stop <workout>`
+
+Examples:
+
+* `stop Push`
+* `stop Pull`
+
+[TIP]
+The specified workout must be one that the user is currently running.
+
+==== Pause a workout
+Pauses the current workout, but keeping track of the current progress.
+
+Format:
+`pause <workout>`
+
+Examples:
+
+* `pause Push`
+* `pause Pull`
+
+[TIP]
+The specified workout must be one that the user is currently running.
+
+==== Resume a workout
+Resumes the specified workout, from where the user previously left off.
+
+Format:
+`resume <workout>`
+
+Examples:
+
+* `resume Push`
+* `resume Pull`
+
+[TIP]
+The specified workout must be one that the user is currently running.
+
+==== Skip
+Skips the current exercise or rest and moves on to the next exercise in the workout.
+
+Format: `skip`
+
+=== Scheduling Workouts
+==== Schedule a single workout session
+Schedules a single workout session on a specified date and time.
+
+Format:
+
+`schedule single <workout> <date>`
+
+Examples:
+
+* `schedule single Push 2020-03-14T0800`
+* `schedule single Pull 2020-03-05T2200`
+
+[TIP]
+date must be in the format {yyyy}-{mm}-{dd}T{2359}.
+
+==== Schedule a recurring workout session
+Schedules a recurring workout session from specified date and time, with a frequency of the recurrence.
+
+Format:
+
+`schedule recurring  <workout> <date>`
+
+Examples:
+
+* `schedule recurring Push 2020-03-14T0800`
+* `schedule recurring Pull 2020-03-05T2200`
+
+==== Delete a workout session
+Deletes a specified single workout session from the user’s schedule for the specified date.
+
+Format:
+
+`schedule single delete <workout> <date>`
+
+Examples:
+
+* `schedule single delete Push 2020-03-14T0800`
+* `schedule single delete Pull 2020-03-05T2200`
+
+==== Delete a recurring workout session
+Deletes a recurring workout session, clearing all of the future recurring sessions from the user’s whole schedule.
+
+Format:
+
+`schedule recurring delete <workout>`
+
+Examples:
+
+* `schedule recurring delete Push`
+* `schedule recurring delete Pull`
+
+==== List your schedule
+Displays a list of the user’s schedule, sorted in chronological order.
+
+Format: `schedule list`
+
+=== Logging Workouts
+
+==== Show log of workouts
+Displays an indexed log of the user’s past workouts, sorted in chronological order.
+
+Format: `log`
+
+==== Delete log of past workout
+Deletes the log information at the specified log_index.
+The index refers to the index number displayed on the log list.
+
+Format: `log delete <log_index>`
+
+[TIP]
+The index must be a positive integer i.e. 1, 2, 3…
+
+
+==== Find a past workout
+Finds a past workout by date or keyword. Query types: DATE, EXERCISE, WORKOUT, SCHEDULE.
+
+Format: `log find <query_type> <params>`
+
+Examples:
+
+* `log find DATE 2020-02-18T1600`
+* `log find EXERCISE BENCH_PRESS_60KG`
+
+[TIP]
+The search is case-sensitive for the params.
+Only full words will be matched.
+
+==== Show a graphical progress chart
+Displays a line graph of the past workouts progress.
+
+Format: `chart`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+ZeroToOne data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ZeroToOne folder.
+
+*Q*: I do not see the GUI. +
+*A*: Ensure that you have Java 11 installed on your computer. You can check your current Java version by opening up a Command Prompt or Terminal, and entering java -version. Do install Java 11 if it is not installed. If installing Java 11  does not work, then try installing JavaFX 11 Dependencies on your computer.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* List: list
+* Log: log
+* Start: start <workout>
+* Stop: stop <workout>
+* Pause: pause
+* Exit: exit
