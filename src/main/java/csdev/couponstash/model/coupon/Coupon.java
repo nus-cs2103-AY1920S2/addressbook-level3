@@ -20,6 +20,7 @@ public class Coupon {
     private final Name name;
     private final Phone phone;
     private final ExpiryDate expiryDate;
+    private final StartDate startDate;
     private final Remind remind;
 
     // Savings field
@@ -33,13 +34,14 @@ public class Coupon {
     /**
      * Every field must be present and not null.
      */
-    public Coupon(Name name, Phone phone, Savings savings, ExpiryDate expiryDate,
+    public Coupon(Name name, Phone phone, Savings savings, ExpiryDate expiryDate, StartDate startDate,
                   Usage usage, Limit limit, Set<Tag> tags) {
         requireAllNonNull(name, phone, savings, expiryDate, usage, limit, tags);
         this.name = name;
         this.phone = phone;
         this.savings = savings;
         this.expiryDate = expiryDate;
+        this.startDate = startDate;
         this.remind = new Remind();
         this.usage = usage;
         this.limit = limit;
@@ -72,6 +74,10 @@ public class Coupon {
         return expiryDate;
     }
 
+    public StartDate getStartDate() {
+        return startDate;
+    }
+
     public Usage getUsage() {
         return usage;
     }
@@ -101,7 +107,8 @@ public class Coupon {
                 && otherCoupon.getName().equals(getName())
                 && (otherCoupon.getPhone().equals(getPhone())
                         || otherCoupon.getSavings().equals(getSavings())
-                        || otherCoupon.getExpiryDate().equals(getExpiryDate()));
+                        || otherCoupon.getExpiryDate().equals(getExpiryDate())
+                        || otherCoupon.getStartDate().equals(getStartDate()));
     }
 
     /**
@@ -135,6 +142,7 @@ public class Coupon {
                 && otherCoupon.getPhone().equals(getPhone())
                 && otherCoupon.getSavings().equals(getSavings())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
+                && otherCoupon.getStartDate().equals(getStartDate())
                 && otherCoupon.getUsage().equals(getUsage())
                 && otherCoupon.getLimit().equals(getLimit())
                 && otherCoupon.getTags().equals(getTags());
@@ -143,7 +151,7 @@ public class Coupon {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, savings, expiryDate, usage, limit, tags);
+        return Objects.hash(name, phone, savings, expiryDate, startDate, usage, limit, tags);
     }
 
     @Override
@@ -156,6 +164,8 @@ public class Coupon {
                 .append(getSavings())
                 .append(" Expiry Date: ")
                 .append(getExpiryDate())
+                .append(" Start Date: ")
+                .append(getStartDate())
                 .append(" Usage: ")
                 .append(getUsage())
                 .append(" Limit: ")
