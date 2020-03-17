@@ -5,6 +5,9 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Region;
 
+/**
+ *
+ */
 public class SideBarTreeViewImpl extends ViewPart<Region> {
 
     private static final String FXML = "SideBarTreeView.fxml";
@@ -17,6 +20,9 @@ public class SideBarTreeViewImpl extends ViewPart<Region> {
         loadTreeItems();
     }
 
+    /**
+     *
+     */
     private void loadTreeItems() {
         TreeItem<String> root = new TreeItem<>("Root");
         root.setExpanded(true);
