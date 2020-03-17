@@ -7,13 +7,13 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import seedu.eylah.expensesplitter.model.person.Amount;
-import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.commons.util.StringUtil;
 import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 import seedu.eylah.expensesplitter.model.item.ItemName;
 import seedu.eylah.expensesplitter.model.item.ItemPrice;
+import seedu.eylah.expensesplitter.model.person.Amount;
+import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -36,6 +36,12 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses a {@code String itemName} into a {@code ItemName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code itemName} is invalid.
+     */
     public static ItemName parseItemName(String itemName) throws ParseException {
         requireNonNull(itemName);
         String trimmedItemName = itemName.trim();
@@ -45,6 +51,12 @@ public class ParserUtil {
         return new ItemName(trimmedItemName);
     }
 
+    /**
+     * Parses a {@code String priceInString} into a {@code ItemPrice}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code priceInString} is invalid.
+     */
     public static ItemPrice parseItemPrice(String priceInString) throws ParseException {
         requireNonNull(priceInString);
         String trimmedPrice = priceInString.trim();
@@ -55,6 +67,12 @@ public class ParserUtil {
         return new ItemPrice(bigDecimalPrice);
     }
 
+    /**
+     * Parses {@code ItemPrice price}, {@code int numPersons} into a {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code price}, {@code numPersons} is invalid.
+     */
     public static Amount parseAmount(ItemPrice price, int numPersons) throws ParseException {
         requireAllNonNull(price, numPersons);
         BigDecimal bigDecimalNumPersons = new BigDecimal(numPersons);
@@ -77,6 +95,11 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    /**
+     * Parses {@code Collection<String> names} into a {@code ArrayList<Name>}.
+     *
+     * @throws ParseException if the given {@code Collection<String> names} is invalid.
+     */
     public static ArrayList<Name> parseNames(Collection<String> names) throws ParseException {
         requireNonNull(names);
         final ArrayList<Name> nameList = new ArrayList<>();
@@ -86,6 +109,11 @@ public class ParserUtil {
         return nameList;
     }
 
+    /**
+     * Parses {@code ArrayList<Name> names}, {@code ItemPrice price} into a {@code ArrayList<Person>}.
+     *
+     * @throws ParseException if the given {@code ArrayList<Name> names}, {@code ItemPrice price} is invalid.
+     */
     public static ArrayList<Person> parsePersons(ArrayList<Name> names, ItemPrice price) throws ParseException {
         requireNonNull(names);
         final ArrayList<Person> persons = new ArrayList<>();
