@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
+// import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+        // model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
