@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.module.Module;
 import seedu.address.model.session.Session;
 import seedu.address.model.student.Student;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Session> filteredSessions;
     private final FilteredList<Student> filteredStudents;
+    private final FilteredList<Module> filteredModules;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
         filteredSessions = new FilteredList<>(this.addressBook.getSessionList());
+        filteredModules = new FilteredList<>(this.addressBook.getModuleList());
     }
 
     public ModelManager() {
@@ -113,8 +116,32 @@ public class ModelManager implements Model {
     @Override
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
-
         addressBook.setStudent(target, editedStudent);
+    }
+
+
+    @Override
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return addressBook.hasModule(module);
+    }
+
+    @Override
+    public void addModule(Module module) {
+        requireNonNull(module);
+        addressBook.addModule(module);
+    }
+
+    @Override
+    public void deleteModule(Module target) {
+        addressBook.removeModule(target);
+    }
+
+    @Override
+    public void setModule(Module target, Module editedModule) {
+        requireAllNonNull(target, editedModule);
+
+        addressBook.setModule(target, editedModule);
     }
 
     //=========== Filtered Student List Accessors =============================================================
@@ -196,5 +223,23 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudents.equals(other.filteredStudents);
+    }
+
+    //=========== Filtered Module List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+
+    @Override
+    public ObservableList<Module> getFilteredModuleList() {
+        return filteredModules;
+    }
+
+    @Override
+    public void updateFilteredModuleList(Predicate<Module> predicate) {
+        requireNonNull(predicate);
+        filteredModules.setPredicate(predicate);
     }
 }

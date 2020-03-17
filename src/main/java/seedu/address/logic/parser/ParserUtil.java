@@ -121,4 +121,14 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses and returns the given value.
+     */
+    public static String parseValue(String value) {
+        requireNonNull(value);
+        String trimmedValue = value.trim();
+        return trimmedValue;
+    }
+
 }

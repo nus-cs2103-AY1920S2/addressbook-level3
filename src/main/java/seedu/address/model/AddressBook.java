@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.session.Session;
 import seedu.address.model.session.UniqueSessionList;
 import seedu.address.model.student.Student;
@@ -19,6 +21,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueStudentList students;
     private final UniqueSessionList sessions;
+    private final UniqueModuleList modules;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -30,6 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         students = new UniqueStudentList();
         sessions = new UniqueSessionList();
+        modules = new UniqueModuleList();
     }
 
     public AddressBook() {}
@@ -94,7 +98,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The session identity of {@code editedSession} must not be the same as another
      * existing session in the address book.
      */
-
     public void setSession(Session target, Session editedSession) {
         requireNonNull(editedSession);
 
@@ -148,6 +151,41 @@ public class AddressBook implements ReadOnlyAddressBook {
         students.remove(key);
     }
 
+    /**
+     * Returns true if a module with the same module code exists in the TATracker.
+     */
+    public boolean hasModule(Module module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    /**
+     * Adds a module to the TATracker.
+     */
+    public void addModule(Module module) {
+        modules.add(module);
+    }
+
+    /**
+     * Replaces the given module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the address book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the address
+     * book.
+     */
+    public void setModule(Module target, Module editedModule) {
+        requireNonNull(editedModule);
+
+        modules.setModule(target, editedModule);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeModule(Module key) {
+        modules.remove(key);
+    }
+
     //// util methods
 
     @Override
@@ -164,6 +202,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Session> getSessionList() {
         return sessions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Module> getModuleList() {
+        return modules.asUnmodifiableObservableList();
     }
 
     @Override

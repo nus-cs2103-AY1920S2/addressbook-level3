@@ -18,4 +18,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_MOD_CODE = new Prefix("m/");
     public static final Prefix PREFIX_SESSION_TYPE = new Prefix("t/");
     public static final Prefix PREFIX_NOTES = new Prefix("n/");
+    public static final Prefix PREFIX_MODULE = new Prefix("m/");
+
 }

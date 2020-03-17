@@ -8,16 +8,13 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandWords;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input.
+ * Parses user input into commands that interact with Module models.
  */
-public class TaTrackerParser {
+public class ModuleCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -43,32 +40,16 @@ public class TaTrackerParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case CommandWords.STUDENT:
-            // return new StudentCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Student commands"));
+        case CommandWords.ADD_MODEL:
+            return new AddModuleCommandParser().parse(arguments);
 
-        case CommandWords.MODULE:
-            return new ModuleCommandParser().parseCommand(arguments);
+        case CommandWords.DELETE_MODEL:
+            // return new DeleteGroupCommandParser().parse(arguments);
+            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Delete group commands"));
 
-        case CommandWords.GROUP:
-            // return new GroupCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Group commands"));
-
-        case CommandWords.SESSION:
-            // return new SessionCommandParser().parseCommand(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Session commands"));
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+        case CommandWords.EDIT_MODEL:
+            // return new EditGroupCommandParser().parse(arguments);
+            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit group commands"));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
