@@ -14,8 +14,16 @@ import seedu.address.model.nusmodule.Grade;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 
+/**
+ * Parses input arguments and creates a new AddModuleCommand object
+ */
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddModuleCommand
+     * and returns an AddModuleCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public AddModuleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE_CODE, PREFIX_MODULE_CREDIT, PREFIX_GRADE);

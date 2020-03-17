@@ -26,7 +26,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    public List<NusModule> modules;
+    private List<NusModule> modules;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.

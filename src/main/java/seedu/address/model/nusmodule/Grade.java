@@ -70,6 +70,9 @@ public enum Grade {
         return this.text;
     }
 
+    /**
+     * Returns if a given string is a valid grade.
+     */
     public static boolean isValidGrade(String test) {
         //placeholder, implements later
         return true;

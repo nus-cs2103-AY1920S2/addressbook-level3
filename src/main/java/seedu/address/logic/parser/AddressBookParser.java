@@ -75,7 +75,7 @@ public class AddressBookParser {
 
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
-            
+
         case CapCommand.COMMAND_WORD:
             return new CapCommand();
 

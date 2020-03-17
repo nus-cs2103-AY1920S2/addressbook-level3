@@ -9,7 +9,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.nusmodule.Capulator;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -151,14 +149,17 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public boolean hasModule(NusModule module) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public void addModule(NusModule module) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
         public double getCap() {
             throw new AssertionError("This method should not be called.");
         }

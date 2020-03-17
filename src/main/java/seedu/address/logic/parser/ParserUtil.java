@@ -127,6 +127,12 @@ public class ParserUtil {
         return new Notes(notesOperation, path);
     }
 
+    /**
+     * Parses a {@code String moduleCode} into an {@code ModuleCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code moduleCode} is invalid.
+     */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();
@@ -136,6 +142,12 @@ public class ParserUtil {
         return new ModuleCode(trimmedModuleCode);
     }
 
+    /**
+     * Parses a {@code String grade} into an {@code Grade}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code grade} is invalid.
+     */
     public static Grade parseGrade(String grade) throws ParseException {
         requireNonNull(grade);
         String trimmedGrade = grade.trim();
