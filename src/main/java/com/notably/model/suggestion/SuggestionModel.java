@@ -29,7 +29,7 @@ public interface SuggestionModel {
      * TODO: add logo.
      * @return The meaning of the user input.
      */
-    Property<Optional<String>> getCommandTextProperty();
+    Property<Optional<String>> commandTextProperty();
 
     /**
      * Sets the command text.
