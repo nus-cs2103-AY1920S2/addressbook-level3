@@ -31,8 +31,8 @@ public interface Logic {
      */
     ReadOnlyExpenseLa getExpenseLa();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Transaction> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of transaction */
+    ObservableList<Transaction> getFilteredTransactionList();
 
     MonthlyData getMonthlyData();
 

@@ -92,24 +92,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Transaction transaction) {
+    public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
         return expenseLa.hasPerson(transaction);
     }
 
     @Override
-    public void deletePerson(Transaction target) {
+    public void deleteTransaction(Transaction target) {
         expenseLa.removePerson(target);
     }
 
     @Override
-    public void addPerson(Transaction transaction) {
+    public void addTransaction(Transaction transaction) {
         expenseLa.addPerson(transaction);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
-    public void setPerson(Transaction target, Transaction editedTransaction) {
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
         expenseLa.setPerson(target, editedTransaction);
@@ -122,12 +122,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Transaction> getFilteredPersonList() {
+    public ObservableList<Transaction> getFilteredTransactionList() {
         return filteredTransactions;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Transaction> predicate) {
+    public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
         requireNonNull(predicate);
         filteredTransactions.setPredicate(predicate);
     }

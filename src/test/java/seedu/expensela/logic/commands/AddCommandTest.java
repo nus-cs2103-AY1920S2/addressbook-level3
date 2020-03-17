@@ -124,7 +124,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Transaction transaction) {
+        public boolean hasTransaction(Transaction transaction) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Transaction transaction) {
+        public boolean hasTransaction(Transaction transaction) {
             requireNonNull(transaction);
             return this.transaction.isSameTransaction(transaction);
         }
@@ -174,7 +174,7 @@ public class AddCommandTest {
         final ArrayList<Transaction> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Transaction transaction) {
+        public boolean hasTransaction(Transaction transaction) {
             requireNonNull(transaction);
             return personsAdded.stream().anyMatch(transaction::isSameTransaction);
         }

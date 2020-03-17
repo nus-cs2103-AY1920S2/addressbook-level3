@@ -9,7 +9,7 @@ import seedu.expensela.model.transaction.Transaction;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class TransactionCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -33,14 +33,20 @@ public class PersonCard extends UiPart<Region> {
     private Label amount;
     @FXML
     private Label date;
+    @FXML
+    private Label remark;
+    @FXML
+    private Label category;
 
-    public PersonCard(Transaction transaction, int displayedIndex) {
+    public TransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
         this.transaction = transaction;
         id.setText(displayedIndex + ". ");
         name.setText(transaction.getName().transactionName);
         amount.setText(transaction.getAmount().toString());
-        date.setText(transaction.getDate().value);
+        date.setText(transaction.getDate().transactionDate);
+        remark.setText(transaction.getRemark().transactionRemark);
+        category.setText(transaction.getCategory().transactionCategory);
     }
 
     @Override
@@ -51,12 +57,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof TransactionCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        TransactionCard card = (TransactionCard) other;
         return id.getText().equals(card.id.getText())
                 && transaction.equals(card.transaction);
     }

@@ -6,6 +6,7 @@ import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Transaction;
+import seedu.expensela.model.transaction.*;
 
 /**
  * Contains utility methods for populating {@code ExpenseLa} with sample data.
@@ -13,18 +14,12 @@ import seedu.expensela.model.transaction.Transaction;
 public class SampleDataUtil {
     public static Transaction[] getSamplePersons() {
         return new Transaction[] {
-            new Transaction(new Name("Alex Yeoh"), new Amount("87438807", true),
-                new Date("Blk 30 Geylang Street 29, #06-40")),
-            new Transaction(new Name("Bernice Yu"), new Amount("99272758", true),
-                new Date("Blk 30 Lorong 3 Serangoon Gardens, #07-18")),
-            new Transaction(new Name("Charlotte Oliveiro"), new Amount("93210283", true),
-                new Date("Blk 11 Ang Mo Kio Street 74, #11-04")),
-            new Transaction(new Name("David Li"), new Amount("91031282", true),
-                new Date("Blk 436 Serangoon Gardens Street 26, #16-43")),
-            new Transaction(new Name("Irfan Ibrahim"), new Amount("92492021", true),
-                new Date("Blk 47 Tampines Street 20, #17-35")),
-            new Transaction(new Name("Roy Balakrishnan"), new Amount("92624417", true),
-                new Date("Blk 45 Aljunied Street 85, #11-31"))
+            new Transaction(new Name("Apple AirPods"), new Amount("188", true),
+                new Date("2020-02-14"), new Remark("On discount for valentine's"), new Category("SHOPPING")),
+            new Transaction(new Name("Sushi"), new Amount("6", true),
+                new Date("2020-02-06"), new Remark("Snack after lunch"), new Category("FOOD")),
+            new Transaction(new Name("Dominoes Pizza"), new Amount("34", true),
+                new Date("2020-02-02"), new Remark("Party with friends"), new Category("FOOD"))
         };
     }
 
