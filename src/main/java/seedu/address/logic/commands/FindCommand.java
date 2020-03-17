@@ -26,15 +26,10 @@ public class FindCommand extends Command {
             + "Parameters: " + COMMAND_WORD + " [-g/GROUPNAME] [-n/WORD] [-t/TAG]\n"
             + "Example: " + COMMAND_WORD + " -g/NUS -n/Lim";
 
-    public static final String FIND_SUCCESSFUL = "We found the following contacts: ";
-    public static final String FIND_UNSUCCESSFUL = "No contacts were found with the keyword(s) specified.";
-
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class); // for sarah's use
     private final GroupContainsKeywordsPredicate groupnamePredicate;
     private final NameContainsKeywordsPredicate wordPredicate;
     private final TagsContainsKeywordsPredicate tagPredicate;
-
-    //private final NameContainsKeywordsPredicate predicate;
 
     public FindCommand(GroupContainsKeywordsPredicate groupnamePredicate, NameContainsKeywordsPredicate wordPredicate,
                        TagsContainsKeywordsPredicate tagPredicate) {
@@ -48,10 +43,9 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        // when you do it with one person alone it works
-
         // check for emptiness. possible options are 000, 001, 010, 011, 100, 101, 110, 111
         // groupname, word, and tag IN THIS SPECIFIC ORDER
+        // we don't do anything for 000
         if (groupnamePredicate.size() == 0 && wordPredicate.size() == 0 && tagPredicate.size() != 0) {
             model.updateFilteredPersonList(tagPredicate); // 001
         }
@@ -73,8 +67,6 @@ public class FindCommand extends Command {
         else if (groupnamePredicate.size() != 0 && wordPredicate.size() != 0 && tagPredicate.size() != 0) {
             model.updateFilteredPersonList(groupnamePredicate.and(wordPredicate).and(tagPredicate));
         }
-
-        // we don't do anything for case 000
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
