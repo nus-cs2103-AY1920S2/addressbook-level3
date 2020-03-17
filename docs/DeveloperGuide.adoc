@@ -402,9 +402,21 @@ Use case ends.
 Use case ends.
 
 [none]
-* 1b. Delino detects no orders.
+* 1b. Delino detects no flag `-f`.
 [none]
-** 1b1. Delino shows no order to be cleared message.
+** 1b1. Delino trigger pop-up message.
+[None]
+*** 1b2a. User select `yes` button.
+[None]
+**** 1b2a1. Return to step 2.
+*** 1b2b. User select `no` button.
+[None]
+**** 1b2b1. Use case ends.
+
+[none]
+* 1c. Delino detects no orders.
+[none]
+** 1c1. Delino shows no order to be cleared message.
 +
 Use case ends.
 
@@ -504,11 +516,11 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC07 - Find an order
+=== Use case: UC07 - Search an order
 
 *MSS*
 
-1.  User request to find specific order by transaction id
+1.  User request to search specific order by transaction id
 2.  Delino display the requested order.
 +
 Use case ends.
@@ -761,11 +773,11 @@ Refers to the display field showing the results of an executed command
 |-f
 |Force clear, no user confirmation will be requested
 
-|Find
+|Search
 |-n
 |Search using Name
 
-|Find
+|Search
 |-t
 |Search using Transaction ID
 |===
@@ -878,24 +890,24 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 .. Test case: `list` `ANY_WORD_OTHER_THAN_UNDONE_AND_DONE` +
    Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
 
-=== Find an order
+=== Search an order
 
-. Find an order based on either the person’s Name or by the Transaction ID
+. Search an order based on either the person’s Name or by the Transaction ID
 
-.. Find command format: `find` `FLAG` `KEYWORD`
+.. Search command format: `search` `FLAG` `KEYWORD`
 
-.. Prerequisite: Call the list command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a find command, the orders from the output list is based on the list of completed orders
+.. Prerequisite: Call the list command. The orders found are dependent on what orders are listed before. For example, if the user calls a `list done` and then calls a `search` command, the orders from the output list is based on the list of completed orders
 .. Test case: `list` `done` +
-   `find` `-t` `A18512357Z` +
-   Expected: Specifically find the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
+   `search` `-t` `A18512357Z` +
+   Expected: Specifically search the order that has the transaction ID of A18512357Z from a list of completed delivery orders and print it to the user.
 .. Test case: `list` `undone` +
-   `find` `-n` `Amos` +
+   `search` `-n` `Amos` +
    Expected: Print all uncompleted delivery orders with any person that has the name ‘Amos’ in it. It will not print out completed delivery orders with a person named ‘Amos’ despite having the same keyword
 .. Test case: `list` +
-   `find` `-n` `Amos` +
+   `search` `-n` `Amos` +
    Expected: The program will look up all the delivery orders, regardless of completed or uncompleted orders and print out all orders in a list with the word ‘Amos’ in the name
 .. Test case: `list` +
-   `find` +
+   `search` +
    Expected: An error message will appear in the response box, stating that the argument cannot be empty and there are no changes to the list itself
 
 === Mark order as Done

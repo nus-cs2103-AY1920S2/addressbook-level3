@@ -28,15 +28,15 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getOrderBook()
      */
-    ReadOnlyOrderBook getAddressBook();
+    ReadOnlyOrderBook getOrderBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Order> getFilteredPersonList();
+    ObservableList<Order> getFilteredOrderList();
 
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getOrderBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

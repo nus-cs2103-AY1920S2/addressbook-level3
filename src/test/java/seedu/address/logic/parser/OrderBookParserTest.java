@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NearbyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
@@ -42,7 +44,7 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " -f") instanceof ClearCommand);
     }
 
     @Test
@@ -88,9 +90,17 @@ public class OrderBookParserTest {
     }
 
     @Test
+    public void parseCommand_nearby() throws Exception {
+        NearbyCommand nearbyCommand = (NearbyCommand) parser.parseCommand(
+                NearbyCommand.COMMAND_WORD + " " + "1"
+        );
+        assertEquals(new NearbyCommand(Index.fromOneBased(1)), nearbyCommand);
+    }
+
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
