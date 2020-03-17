@@ -1,5 +1,6 @@
 package seedu.address.model.comment;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -19,7 +20,7 @@ class CommentTest {
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidComment() {
         // null address
         assertThrows(NullPointerException.class, () -> Comment.isValidComment(null));
 
@@ -31,5 +32,13 @@ class CommentTest {
         assertTrue(Comment.isValidComment("Leave at the riser"));
         assertTrue(Comment.isValidComment("-")); // one character
         assertTrue(Comment.isValidComment("Please give my neighbour! Her contact is 94561546.")); // long address
+    }
+
+    @Test
+    public void usingSameCommentString_generateSameHashCode_success() {
+        String testComment = "test";
+        Comment expectedComment = new Comment(testComment);
+
+        assertEquals(new Comment("test").hashCode(), expectedComment.hashCode());
     }
 }
