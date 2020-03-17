@@ -105,7 +105,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setExerciseListFilePath(Path addressBookFilePath) {
+        public void setExerciseListFilePath(Path exerciseListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

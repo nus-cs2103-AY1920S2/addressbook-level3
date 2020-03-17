@@ -95,13 +95,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ExerciseList addressBook = new ExerciseListBuilder().withExercise(ALICE).withExercise(BENSON).build();
+        ExerciseList exerciseList = new ExerciseListBuilder().withExercise(ALICE).withExercise(BENSON).build();
         ExerciseList differentExerciseList = new ExerciseList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(exerciseList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(exerciseList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,13 +113,13 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different exerciseList -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentExerciseList, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(exerciseList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
@@ -127,6 +127,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExerciseListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(exerciseList, differentUserPrefs)));
     }
 }

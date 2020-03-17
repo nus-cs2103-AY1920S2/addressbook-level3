@@ -19,22 +19,22 @@ import seedu.zerotoone.model.exercise.Exercise;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final ExerciseList addressBook;
+    private final ExerciseList exerciseList;
     private final UserPrefs userPrefs;
     private final FilteredList<Exercise> filteredExercises;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given exerciseList and userPrefs.
      */
-    public ModelManager(ReadOnlyExerciseList addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExerciseList exerciseList, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(exerciseList, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + exerciseList + " and user prefs " + userPrefs);
 
-        this.addressBook = new ExerciseList(addressBook);
+        this.exerciseList = new ExerciseList(exerciseList);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredExercises = new FilteredList<>(this.addressBook.getExerciseList());
+        filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
     }
 
     public ModelManager() {
@@ -71,37 +71,37 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setExerciseListFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setExerciseListFilePath(addressBookFilePath);
+    public void setExerciseListFilePath(Path exerciseListFilePath) {
+        requireNonNull(exerciseListFilePath);
+        userPrefs.setExerciseListFilePath(exerciseListFilePath);
     }
 
     //=========== ExerciseList ================================================================================
 
     @Override
-    public void setExerciseList(ReadOnlyExerciseList addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setExerciseList(ReadOnlyExerciseList exerciseList) {
+        this.exerciseList.resetData(exerciseList);
     }
 
     @Override
     public ReadOnlyExerciseList getExerciseList() {
-        return addressBook;
+        return exerciseList;
     }
 
     @Override
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
-        return addressBook.hasExercise(exercise);
+        return exerciseList.hasExercise(exercise);
     }
 
     @Override
     public void deleteExercise(Exercise target) {
-        addressBook.removeExercise(target);
+        exerciseList.removeExercise(target);
     }
 
     @Override
     public void addExercise(Exercise exercise) {
-        addressBook.addExercise(exercise);
+        exerciseList.addExercise(exercise);
         updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
 
-        addressBook.setExercise(target, editedExercise);
+        exerciseList.setExercise(target, editedExercise);
     }
 
     //=========== Filtered Exercise List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises);
     }

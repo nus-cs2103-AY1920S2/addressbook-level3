@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ExerciseListStorage addressBookStorage = new JsonExerciseListStorage(userPrefs.getExerciseListFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ExerciseListStorage exerciseListStorage = new JsonExerciseListStorage(userPrefs.getExerciseListFilePath());
+        storage = new StorageManager(exerciseListStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,14 +74,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyExerciseList> addressBookOptional;
+        Optional<ReadOnlyExerciseList> exerciseListOptional;
         ReadOnlyExerciseList initialData;
         try {
-            addressBookOptional = storage.readExerciseList();
-            if (!addressBookOptional.isPresent()) {
+            exerciseListOptional = storage.readExerciseList();
+            if (!exerciseListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExerciseList");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleExerciseList);
+            initialData = exerciseListOptional.orElseGet(SampleDataUtil::getSampleExerciseList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseList");
             initialData = new ExerciseList();

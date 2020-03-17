@@ -24,9 +24,9 @@ public class JsonSerializableExerciseListTest {
     public void toModelType_typicalExercisesFile_success() throws Exception {
         JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXERCISES_FILE,
                 JsonSerializableExerciseList.class).get();
-        ExerciseList addressBookFromFile = dataFromFile.toModelType();
+        ExerciseList exerciseListFromFile = dataFromFile.toModelType();
         ExerciseList typicalExercisesExerciseList = TypicalExercises.getTypicalExerciseList();
-        assertEquals(addressBookFromFile, typicalExercisesExerciseList);
+        assertEquals(exerciseListFromFile, typicalExercisesExerciseList);
     }
 
     @Test

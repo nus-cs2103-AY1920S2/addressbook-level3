@@ -10,25 +10,25 @@ import seedu.zerotoone.model.exercise.Exercise;
  */
 public class ExerciseListBuilder {
 
-    private ExerciseList addressBook;
+    private ExerciseList exerciseList;
 
     public ExerciseListBuilder() {
-        addressBook = new ExerciseList();
+        exerciseList = new ExerciseList();
     }
 
-    public ExerciseListBuilder(ExerciseList addressBook) {
-        this.addressBook = addressBook;
+    public ExerciseListBuilder(ExerciseList exerciseList) {
+        this.exerciseList = exerciseList;
     }
 
     /**
      * Adds a new {@code Exercise} to the {@code ExerciseList} that we are building.
      */
     public ExerciseListBuilder withExercise(Exercise exercise) {
-        addressBook.addExercise(exercise);
+        exerciseList.addExercise(exercise);
         return this;
     }
 
     public ExerciseList build() {
-        return addressBook;
+        return exerciseList;
     }
 }

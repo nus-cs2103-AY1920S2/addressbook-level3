@@ -60,8 +60,8 @@ public class JsonExerciseListStorage implements ExerciseListStorage {
     }
 
     @Override
-    public void saveExerciseList(ReadOnlyExerciseList addressBook) throws IOException {
-        saveExerciseList(addressBook, filePath);
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException {
+        saveExerciseList(exerciseList, filePath);
     }
 
     /**
@@ -69,12 +69,12 @@ public class JsonExerciseListStorage implements ExerciseListStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveExerciseList(ReadOnlyExerciseList addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
+        requireNonNull(exerciseList);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableExerciseList(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableExerciseList(exerciseList), filePath);
     }
 
 }

@@ -27,6 +27,6 @@ public interface Storage extends ExerciseListStorage, UserPrefsStorage {
     Optional<ReadOnlyExerciseList> readExerciseList() throws DataConversionException, IOException;
 
     @Override
-    void saveExerciseList(ReadOnlyExerciseList addressBook) throws IOException;
+    void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException;
 
 }

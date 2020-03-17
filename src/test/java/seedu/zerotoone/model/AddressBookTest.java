@@ -24,23 +24,23 @@ import seedu.zerotoone.testutil.ExerciseBuilder;
 
 public class ExerciseListTest {
 
-    private final ExerciseList addressBook = new ExerciseList();
+    private final ExerciseList exerciseList = new ExerciseList();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getExerciseList());
+        assertEquals(Collections.emptyList(), exerciseList.getExerciseList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> exerciseList.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyExerciseList_replacesData() {
         ExerciseList newData = getTypicalExerciseList();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        exerciseList.resetData(newData);
+        assertEquals(newData, exerciseList);
     }
 
     @Test
@@ -51,36 +51,36 @@ public class ExerciseListTest {
         List<Exercise> newExercises = Arrays.asList(ALICE, editedAlice);
         ExerciseListStub newData = new ExerciseListStub(newExercises);
 
-        assertThrows(DuplicateExerciseException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateExerciseException.class, () -> exerciseList.resetData(newData));
     }
 
     @Test
     public void hasExercise_nullExercise_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasExercise(null));
+        assertThrows(NullPointerException.class, () -> exerciseList.hasExercise(null));
     }
 
     @Test
     public void hasExercise_exerciseNotInExerciseList_returnsFalse() {
-        assertFalse(addressBook.hasExercise(ALICE));
+        assertFalse(exerciseList.hasExercise(ALICE));
     }
 
     @Test
     public void hasExercise_exerciseInExerciseList_returnsTrue() {
-        addressBook.addExercise(ALICE);
-        assertTrue(addressBook.hasExercise(ALICE));
+        exerciseList.addExercise(ALICE);
+        assertTrue(exerciseList.hasExercise(ALICE));
     }
 
     @Test
     public void hasExercise_exerciseWithSameIdentityFieldsInExerciseList_returnsTrue() {
-        addressBook.addExercise(ALICE);
+        exerciseList.addExercise(ALICE);
         Exercise editedAlice = new ExerciseBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasExercise(editedAlice));
+        assertTrue(exerciseList.hasExercise(editedAlice));
     }
 
     @Test
     public void getExerciseList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getExerciseList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> exerciseList.getExerciseList().remove(0));
     }
 
     /**

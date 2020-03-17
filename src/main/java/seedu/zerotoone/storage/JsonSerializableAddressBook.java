@@ -46,15 +46,15 @@ class JsonSerializableExerciseList {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public ExerciseList toModelType() throws IllegalValueException {
-        ExerciseList addressBook = new ExerciseList();
+        ExerciseList exerciseList = new ExerciseList();
         for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
-            if (addressBook.hasExercise(exercise)) {
+            if (exerciseList.hasExercise(exercise)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXERCISE);
             }
-            addressBook.addExercise(exercise);
+            exerciseList.addExercise(exercise);
         }
-        return addressBook;
+        return exerciseList;
     }
 
 }

@@ -17,13 +17,13 @@ import seedu.zerotoone.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ExerciseListStorage addressBookStorage;
+    private ExerciseListStorage exerciseListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(ExerciseListStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExerciseListStorage exerciseListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.exerciseListStorage = exerciseListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -49,29 +49,29 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getExerciseListFilePath() {
-        return addressBookStorage.getExerciseListFilePath();
+        return exerciseListStorage.getExerciseListFilePath();
     }
 
     @Override
     public Optional<ReadOnlyExerciseList> readExerciseList() throws DataConversionException, IOException {
-        return readExerciseList(addressBookStorage.getExerciseListFilePath());
+        return readExerciseList(exerciseListStorage.getExerciseListFilePath());
     }
 
     @Override
     public Optional<ReadOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readExerciseList(filePath);
+        return exerciseListStorage.readExerciseList(filePath);
     }
 
     @Override
-    public void saveExerciseList(ReadOnlyExerciseList addressBook) throws IOException {
-        saveExerciseList(addressBook, addressBookStorage.getExerciseListFilePath());
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException {
+        saveExerciseList(exerciseList, exerciseListStorage.getExerciseListFilePath());
     }
 
     @Override
-    public void saveExerciseList(ReadOnlyExerciseList addressBook, Path filePath) throws IOException {
+    public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveExerciseList(addressBook, filePath);
+        exerciseListStorage.saveExerciseList(exerciseList, filePath);
     }
 
 }

@@ -42,12 +42,12 @@ public interface Model {
     /**
      * Sets the user prefs' address book file path.
      */
-    void setExerciseListFilePath(Path addressBookFilePath);
+    void setExerciseListFilePath(Path exerciseListFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code exerciseList}.
      */
-    void setExerciseList(ReadOnlyExerciseList addressBook);
+    void setExerciseList(ReadOnlyExerciseList exerciseList);
 
     /** Returns the ExerciseList */
     ReadOnlyExerciseList getExerciseList();

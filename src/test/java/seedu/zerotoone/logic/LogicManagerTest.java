@@ -43,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonExerciseListStorage addressBookStorage =
-                new JsonExerciseListStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonExerciseListStorage exerciseListStorage =
+                new JsonExerciseListStorage(temporaryFolder.resolve("exerciseList.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(exerciseListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -71,11 +71,11 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonExerciseListIoExceptionThrowingStub
-        JsonExerciseListStorage addressBookStorage =
+        JsonExerciseListStorage exerciseListStorage =
                 new JsonExerciseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseList.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(exerciseListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -155,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveExerciseList(ReadOnlyExerciseList addressBook, Path filePath) throws IOException {
+        public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

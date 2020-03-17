@@ -14,7 +14,7 @@ import seedu.zerotoone.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path exerciseListFilePath = Paths.get("data" , "addressbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -48,12 +48,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getExerciseListFilePath() {
-        return addressBookFilePath;
+        return exerciseListFilePath;
     }
 
-    public void setExerciseListFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setExerciseListFilePath(Path exerciseListFilePath) {
+        requireNonNull(exerciseListFilePath);
+        this.exerciseListFilePath = exerciseListFilePath;
     }
 
     @Override
@@ -68,19 +68,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && exerciseListFilePath.equals(o.exerciseListFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, exerciseListFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + exerciseListFilePath);
         return sb.toString();
     }
 
