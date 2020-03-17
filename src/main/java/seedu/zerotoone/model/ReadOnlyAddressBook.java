@@ -6,7 +6,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyExerciseList {
 
     /**
      * Returns an unmodifiable view of the exercises list.

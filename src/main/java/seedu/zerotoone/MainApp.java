@@ -15,15 +15,15 @@ import seedu.zerotoone.commons.util.ConfigUtil;
 import seedu.zerotoone.commons.util.StringUtil;
 import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.LogicManager;
-import seedu.zerotoone.model.AddressBook;
+import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
-import seedu.zerotoone.model.ReadOnlyAddressBook;
+import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.UserPrefs;
 import seedu.zerotoone.model.util.SampleDataUtil;
-import seedu.zerotoone.storage.AddressBookStorage;
-import seedu.zerotoone.storage.JsonAddressBookStorage;
+import seedu.zerotoone.storage.ExerciseListStorage;
+import seedu.zerotoone.storage.JsonExerciseListStorage;
 import seedu.zerotoone.storage.JsonUserPrefsStorage;
 import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ExerciseList ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        ExerciseListStorage addressBookStorage = new JsonExerciseListStorage(userPrefs.getExerciseListFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -74,20 +74,20 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyExerciseList> addressBookOptional;
+        ReadOnlyExerciseList initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readExerciseList();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample ExerciseList");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleExerciseList);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseList");
+            initialData = new ExerciseList();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseList");
+            initialData = new ExerciseList();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseList");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ExerciseList " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

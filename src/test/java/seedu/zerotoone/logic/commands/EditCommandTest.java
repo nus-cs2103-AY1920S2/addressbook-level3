@@ -10,7 +10,7 @@ import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalAddressBook;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
 
@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
-import seedu.zerotoone.model.AddressBook;
+import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.UserPrefs;
@@ -31,7 +31,7 @@ import seedu.zerotoone.testutil.ExerciseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -41,7 +41,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -62,7 +62,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
         expectedModel.setExercise(lastExercise, editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -75,7 +75,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -91,7 +91,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
         expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -111,7 +111,7 @@ public class EditCommandTest {
         showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
 
         // edit exercise in filtered list into a duplicate in address book
-        Exercise exerciseInList = model.getAddressBook().getExerciseList().get(INDEX_SECOND_EXERCISE.getZeroBased());
+        Exercise exerciseInList = model.getExerciseList().getExerciseList().get(INDEX_SECOND_EXERCISE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
                 new EditExerciseDescriptorBuilder(exerciseInList).build());
 
@@ -137,7 +137,7 @@ public class EditCommandTest {
         showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
         Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseList().getExerciseList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB).build());

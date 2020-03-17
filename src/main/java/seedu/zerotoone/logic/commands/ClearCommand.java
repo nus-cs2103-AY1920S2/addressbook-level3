@@ -2,7 +2,7 @@ package seedu.zerotoone.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.zerotoone.model.AddressBook;
+import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 
 /**
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setExerciseList(new ExerciseList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

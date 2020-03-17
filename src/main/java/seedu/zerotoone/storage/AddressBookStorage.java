@@ -5,41 +5,41 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.zerotoone.commons.exceptions.DataConversionException;
-import seedu.zerotoone.model.ReadOnlyAddressBook;
+import seedu.zerotoone.model.ReadOnlyExerciseList;
 
 /**
- * Represents a storage for {@link seedu.zerotoone.model.AddressBook}.
+ * Represents a storage for {@link seedu.zerotoone.model.ExerciseList}.
  */
-public interface AddressBookStorage {
+public interface ExerciseListStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getExerciseListFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns ExerciseList data as a {@link ReadOnlyExerciseList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyExerciseList> readExerciseList() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getExerciseListFilePath()
      */
-    Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyAddressBook} to the storage.
+     * Saves the given {@link ReadOnlyExerciseList} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveExerciseList(ReadOnlyExerciseList addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyAddressBook)
+     * @see #saveExerciseList(ReadOnlyExerciseList)
      */
-    void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+    void saveExerciseList(ReadOnlyExerciseList addressBook, Path filePath) throws IOException;
 
 }

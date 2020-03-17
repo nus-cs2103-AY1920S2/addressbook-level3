@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalAddressBook;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
 
@@ -24,7 +24,7 @@ import seedu.zerotoone.model.exercise.Exercise;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
 
@@ -69,7 +69,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseList().getExerciseList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

@@ -28,9 +28,9 @@ import seedu.zerotoone.testutil.EditExerciseDescriptorBuilder;
 import seedu.zerotoone.testutil.ExerciseBuilder;
 import seedu.zerotoone.testutil.ExerciseUtil;
 
-public class AddressBookParserTest {
+public class ExerciseListParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ExerciseListParser parser = new ExerciseListParser();
 
     @Test
     public void parseCommand_add() throws Exception {

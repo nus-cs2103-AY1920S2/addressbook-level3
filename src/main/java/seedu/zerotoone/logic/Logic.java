@@ -7,7 +7,7 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.ReadOnlyAddressBook;
+import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.Exercise;
 
 /**
@@ -24,11 +24,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the ExerciseList.
      *
-     * @see seedu.zerotoone.model.Model#getAddressBook()
+     * @see seedu.zerotoone.model.Model#getExerciseList()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyExerciseList getExerciseList();
 
     /** Returns an unmodifiable view of the filtered list of exercises */
     ObservableList<Exercise> getFilteredExerciseList();
@@ -36,7 +36,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getExerciseListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

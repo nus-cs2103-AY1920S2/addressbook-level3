@@ -12,7 +12,7 @@ import seedu.zerotoone.model.exercise.UniqueExerciseList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameExercise comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ExerciseList implements ReadOnlyExerciseList {
 
     private final UniqueExerciseList exercises;
 
@@ -27,12 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         exercises = new UniqueExerciseList();
     }
 
-    public AddressBook() {}
+    public ExerciseList() {}
 
     /**
-     * Creates an AddressBook using the Exercises in the {@code toBeCopied}
+     * Creates an ExerciseList using the Exercises in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ExerciseList(ReadOnlyExerciseList toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -48,9 +48,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ExerciseList} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyExerciseList newData) {
         requireNonNull(newData);
 
         setExercises(newData.getExerciseList());
@@ -87,7 +87,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ExerciseList}.
      * {@code key} must exist in the address book.
      */
     public void removeExercise(Exercise key) {
@@ -110,8 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && exercises.equals(((AddressBook) other).exercises));
+                || (other instanceof ExerciseList // instanceof handles nulls
+                && exercises.equals(((ExerciseList) other).exercises));
     }
 
     @Override

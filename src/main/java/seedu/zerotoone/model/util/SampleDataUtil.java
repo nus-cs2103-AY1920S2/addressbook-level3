@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.zerotoone.model.AddressBook;
-import seedu.zerotoone.model.ReadOnlyAddressBook;
+import seedu.zerotoone.model.ExerciseList;
+import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.Address;
 import seedu.zerotoone.model.exercise.Email;
 import seedu.zerotoone.model.exercise.Exercise;
@@ -14,7 +14,7 @@ import seedu.zerotoone.model.exercise.Phone;
 import seedu.zerotoone.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ExerciseList} with sample data.
  */
 public class SampleDataUtil {
     public static Exercise[] getSampleExercises() {
@@ -40,8 +40,8 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyExerciseList getSampleExerciseList() {
+        ExerciseList sampleAb = new ExerciseList();
         for (Exercise sampleExercise : getSampleExercises()) {
             sampleAb.addExercise(sampleExercise);
         }

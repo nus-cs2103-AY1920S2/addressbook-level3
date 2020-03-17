@@ -8,7 +8,7 @@ import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.zerotoone.testutil.TypicalExercises.CARL;
 import static seedu.zerotoone.testutil.TypicalExercises.ELLE;
 import static seedu.zerotoone.testutil.TypicalExercises.FIONA;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalAddressBook;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalExerciseList(), new UserPrefs());
 
     @Test
     public void equals() {

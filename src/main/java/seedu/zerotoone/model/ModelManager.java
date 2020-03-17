@@ -19,26 +19,26 @@ import seedu.zerotoone.model.exercise.Exercise;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ExerciseList addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Exercise> filteredExercises;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExerciseList addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new ExerciseList(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.addressBook.getExerciseList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ExerciseList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,25 +66,25 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getExerciseListFilePath() {
+        return userPrefs.getExerciseListFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setExerciseListFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setExerciseListFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ExerciseList ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setExerciseList(ReadOnlyExerciseList addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyExerciseList getExerciseList() {
         return addressBook;
     }
 
@@ -116,7 +116,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedExerciseList}
      */
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {

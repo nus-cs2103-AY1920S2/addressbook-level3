@@ -7,7 +7,7 @@ import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.TypicalExercises.ALICE;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalAddressBook;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,9 +22,9 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.zerotoone.testutil.ExerciseBuilder;
 
-public class AddressBookTest {
+public class ExerciseListTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final ExerciseList addressBook = new ExerciseList();
 
     @Test
     public void constructor() {
@@ -37,8 +37,8 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyExerciseList_replacesData() {
+        ExerciseList newData = getTypicalExerciseList();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -49,7 +49,7 @@ public class AddressBookTest {
         Exercise editedAlice = new ExerciseBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Exercise> newExercises = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newExercises);
+        ExerciseListStub newData = new ExerciseListStub(newExercises);
 
         assertThrows(DuplicateExerciseException.class, () -> addressBook.resetData(newData));
     }
@@ -60,18 +60,18 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasExercise_exerciseNotInAddressBook_returnsFalse() {
+    public void hasExercise_exerciseNotInExerciseList_returnsFalse() {
         assertFalse(addressBook.hasExercise(ALICE));
     }
 
     @Test
-    public void hasExercise_exerciseInAddressBook_returnsTrue() {
+    public void hasExercise_exerciseInExerciseList_returnsTrue() {
         addressBook.addExercise(ALICE);
         assertTrue(addressBook.hasExercise(ALICE));
     }
 
     @Test
-    public void hasExercise_exerciseWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasExercise_exerciseWithSameIdentityFieldsInExerciseList_returnsTrue() {
         addressBook.addExercise(ALICE);
         Exercise editedAlice = new ExerciseBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
@@ -84,12 +84,12 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose exercises list can violate interface constraints.
+     * A stub ReadOnlyExerciseList whose exercises list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class ExerciseListStub implements ReadOnlyExerciseList {
         private final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Exercise> exercises) {
+        ExerciseListStub(Collection<Exercise> exercises) {
             this.exercises.setAll(exercises);
         }
 

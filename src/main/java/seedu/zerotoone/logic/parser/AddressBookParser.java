@@ -20,7 +20,7 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ExerciseListParser {
 
     /**
      * Used for initial separation of command word and args.

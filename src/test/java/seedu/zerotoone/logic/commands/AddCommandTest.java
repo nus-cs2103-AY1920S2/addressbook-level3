@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.model.AddressBook;
+import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.ReadOnlyAddressBook;
+import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.testutil.ExerciseBuilder;
@@ -100,12 +100,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getExerciseListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setExerciseListFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -115,12 +115,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setExerciseList(ReadOnlyExerciseList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyExerciseList getExerciseList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,8 +187,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyExerciseList getExerciseList() {
+            return new ExerciseList();
         }
     }
 

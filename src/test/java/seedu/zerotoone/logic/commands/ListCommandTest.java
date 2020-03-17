@@ -2,7 +2,7 @@ package seedu.zerotoone.logic.commands;
 
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalAddressBook;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,8 +22,8 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
     }
 
     @Test

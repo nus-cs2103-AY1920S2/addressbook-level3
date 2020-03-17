@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.zerotoone.model.AddressBook;
+import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.exercise.Exercise;
 
 /**
@@ -60,10 +60,10 @@ public class TypicalExercises {
     private TypicalExercises() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical exercises.
+     * Returns an {@code ExerciseList} with all the typical exercises.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static ExerciseList getTypicalExerciseList() {
+        ExerciseList ab = new ExerciseList();
         for (Exercise exercise : getTypicalExercises()) {
             ab.addExercise(exercise);
         }

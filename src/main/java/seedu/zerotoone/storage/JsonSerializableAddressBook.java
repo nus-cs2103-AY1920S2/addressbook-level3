@@ -9,44 +9,44 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
-import seedu.zerotoone.model.AddressBook;
-import seedu.zerotoone.model.ReadOnlyAddressBook;
+import seedu.zerotoone.model.ExerciseList;
+import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.Exercise;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable ExerciseList that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+class JsonSerializableExerciseList {
 
     public static final String MESSAGE_DUPLICATE_EXERCISE = "Exercises list contains duplicate exercise(s).";
 
     private final List<JsonAdaptedExercise> exercises = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given exercises.
+     * Constructs a {@code JsonSerializableExerciseList} with the given exercises.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("exercises") List<JsonAdaptedExercise> exercises) {
+    public JsonSerializableExerciseList(@JsonProperty("exercises") List<JsonAdaptedExercise> exercises) {
         this.exercises.addAll(exercises);
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyExerciseList} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableExerciseList}.
      */
-    public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
+    public JsonSerializableExerciseList(ReadOnlyExerciseList source) {
         exercises.addAll(source.getExerciseList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code ExerciseList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public ExerciseList toModelType() throws IllegalValueException {
+        ExerciseList addressBook = new ExerciseList();
         for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
             if (addressBook.hasExercise(exercise)) {

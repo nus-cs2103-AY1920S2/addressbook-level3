@@ -1,34 +1,34 @@
 package seedu.zerotoone.testutil;
 
-import seedu.zerotoone.model.AddressBook;
+import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withExercise("John", "Doe").build();}
+ *     {@code ExerciseList ab = new ExerciseListBuilder().withExercise("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class ExerciseListBuilder {
 
-    private AddressBook addressBook;
+    private ExerciseList addressBook;
 
-    public AddressBookBuilder() {
-        addressBook = new AddressBook();
+    public ExerciseListBuilder() {
+        addressBook = new ExerciseList();
     }
 
-    public AddressBookBuilder(AddressBook addressBook) {
+    public ExerciseListBuilder(ExerciseList addressBook) {
         this.addressBook = addressBook;
     }
 
     /**
-     * Adds a new {@code Exercise} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Exercise} to the {@code ExerciseList} that we are building.
      */
-    public AddressBookBuilder withExercise(Exercise exercise) {
+    public ExerciseListBuilder withExercise(Exercise exercise) {
         addressBook.addExercise(exercise);
         return this;
     }
 
-    public AddressBook build() {
+    public ExerciseList build() {
         return addressBook;
     }
 }

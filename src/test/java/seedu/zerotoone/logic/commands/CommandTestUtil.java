@@ -15,7 +15,7 @@ import java.util.List;
 
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.model.AddressBook;
+import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
@@ -104,11 +104,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        ExerciseList expectedExerciseList = new ExerciseList(actualModel.getExerciseList());
         List<Exercise> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExerciseList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedExerciseList, actualModel.getExerciseList());
         assertEquals(expectedFilteredList, actualModel.getFilteredExerciseList());
     }
     /**
