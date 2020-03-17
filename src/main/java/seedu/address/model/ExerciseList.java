@@ -30,7 +30,7 @@ public class ExerciseList implements readOnlyExerciseList {
     public ExerciseList() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an ExerciseList using the Persons in the {@code toBeCopied}
      */
     public ExerciseList(readOnlyExerciseList toBeCopied) {
         this();
@@ -48,7 +48,7 @@ public class ExerciseList implements readOnlyExerciseList {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code ExerciseList} with {@code newData}.
      */
     public void resetData(readOnlyExerciseList newData) {
         requireNonNull(newData);
@@ -86,7 +86,7 @@ public class ExerciseList implements readOnlyExerciseList {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code ExerciseList}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {

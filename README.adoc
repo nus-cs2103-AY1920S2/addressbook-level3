@@ -29,7 +29,7 @@ Start using ZeroToOne *today* to make your fitness level go from zero to one!
 
 == Acknowledgements
 
-* This application is adapted from https://se-education.org/[AddressBook-Level-3] created by SE-EDU initiative
+* This application is adapted from https://se-education.org/[ExerciseList-Level-3] created by SE-EDU initiative
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]

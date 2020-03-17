@@ -84,7 +84,7 @@ public class ExerciseListTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyExerciseList whose persons list can violate interface constraints.
      */
     private static class ExerciseListStub implements readOnlyExerciseList {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();

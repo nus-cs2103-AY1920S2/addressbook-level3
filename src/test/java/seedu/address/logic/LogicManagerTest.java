@@ -44,7 +44,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonExerciseListStorage exerciseListStorage =
-                new JsonExerciseListStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonExerciseListStorage(temporaryFolder.resolve("exerciseList.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(exerciseListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);

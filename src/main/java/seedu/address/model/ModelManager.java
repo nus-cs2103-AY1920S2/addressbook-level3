@@ -24,7 +24,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given exerciseList and userPrefs.
      */
     public ModelManager(readOnlyExerciseList exerciseList, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -76,7 +76,7 @@ public class ModelManager implements Model {
         userPrefs.setExerciseListFilePath(exerciseListFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ExerciseList ================================================================================
 
     @Override
     public void setExerciseList(readOnlyExerciseList exerciseList) {
@@ -116,7 +116,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedExerciseList}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {

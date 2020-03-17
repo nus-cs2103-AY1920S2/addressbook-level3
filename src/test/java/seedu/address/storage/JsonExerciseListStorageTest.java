@@ -92,7 +92,7 @@ public class JsonExerciseListStorageTest {
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code exerciseList} at the specified {@code filePath}.
      */
     private void saveExerciseList(readOnlyExerciseList exerciseList, String filePath) {
         try {

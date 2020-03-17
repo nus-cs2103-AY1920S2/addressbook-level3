@@ -19,7 +19,7 @@ public interface ExerciseListStorage {
     Path getExerciseListFilePath();
 
     /**
-     * Returns AddressBook data as a {@link readOnlyExerciseList}.
+     * Returns ExerciseList data as a {@link readOnlyExerciseList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -33,14 +33,14 @@ public interface ExerciseListStorage {
 
     /**
      * Saves the given {@link readOnlyExerciseList} to the storage.
-     * @param addressBook cannot be null.
+     * @param exerciseList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveExerciseList(readOnlyExerciseList addressBook) throws IOException;
+    void saveExerciseList(readOnlyExerciseList exerciseList) throws IOException;
 
     /**
      * @see #saveExerciseList(readOnlyExerciseList)
      */
-    void saveExerciseList(readOnlyExerciseList addressBook, Path filePath) throws IOException;
+    void saveExerciseList(readOnlyExerciseList exerciseList, Path filePath) throws IOException;
 
 }

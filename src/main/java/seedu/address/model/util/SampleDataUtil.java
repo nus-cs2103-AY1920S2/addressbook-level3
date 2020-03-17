@@ -14,7 +14,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code ExerciseList} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static readOnlyExerciseList getSampleAddressBook() {
+    public static readOnlyExerciseList getSampleExerciseList() {
         ExerciseList sampleAb = new ExerciseList();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);

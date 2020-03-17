@@ -51,8 +51,8 @@ public class StorageManagerTest {
     public void exerciseListStorageReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonExerciseListStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonExerciseListStorageTest} class.
          */
         ExerciseList original = getTypicalExerciseList();
         storageManager.saveExerciseList(original);
@@ -61,7 +61,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getExerciseListFilePath() {
         assertNotNull(storageManager.getExerciseListFilePath());
     }
 
