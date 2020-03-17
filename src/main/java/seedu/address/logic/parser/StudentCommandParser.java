@@ -41,8 +41,7 @@ public class StudentCommandParser {
         switch (commandWord) {
 
         case CommandWords.ADD_MODEL:
-            // return new AddStudentCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Add student commands"));
+            return new AddStudentCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
             // return new DeleteStudentCommandParser().parse(arguments);
