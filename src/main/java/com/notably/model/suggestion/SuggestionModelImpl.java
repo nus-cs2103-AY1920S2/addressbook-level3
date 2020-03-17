@@ -37,11 +37,6 @@ public class SuggestionModelImpl implements SuggestionModel {
     }
 
     @Override
-    public String getCommandInputText() {
-        return commandInputText;
-    }
-
-    @Override
     public void clearCommandInputText() {
         commandInputText = "";
     }

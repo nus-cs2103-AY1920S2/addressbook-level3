@@ -37,8 +37,6 @@ public interface SuggestionModel {
      */
     void setResponseTextProperty(String responseText);
 
-    String getCommandInputText();
-
     /**
      * Resets the command text when the user clears the input text field.
      */
