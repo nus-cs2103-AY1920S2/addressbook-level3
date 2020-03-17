@@ -16,9 +16,10 @@ import seedu.address.model.person.Person;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "(ab)delete";
-
+    public static final String COMMAND_FUNCTION = "Deletes the person identified by the "
+            + "index number used in the displayed person list.";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

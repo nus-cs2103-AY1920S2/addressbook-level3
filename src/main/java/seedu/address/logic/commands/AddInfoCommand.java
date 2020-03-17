@@ -19,12 +19,12 @@ import seedu.address.model.person.Remark;
 public class AddInfoCommand extends Command {
 
     public static final String COMMAND_WORD = "ab_addnote";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Store the additional information of the person identified "
+    public static final String COMMAND_FUNCTION = "Store the additional information of the person identified"
             + "by the index number used in the last person listing. "
             + "If there is existing information, input will be added as new information "
-            + "on new line.\n"
+            + "on new line.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_REMARK + " [INFO]\n"
             + "Example: " + COMMAND_WORD + " 1 "

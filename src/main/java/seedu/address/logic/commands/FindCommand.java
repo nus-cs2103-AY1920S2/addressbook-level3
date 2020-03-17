@@ -19,7 +19,8 @@ import seedu.address.model.person.TagsContainsKeywordsPredicate;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "(ab)find";
-
+    public static final String COMMAND_FUNCTION = "Finds all persons whose names contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: " + COMMAND_WORD + " [-g/GROUPNAME] [-n/WORD] [-t/TAG]\n"
