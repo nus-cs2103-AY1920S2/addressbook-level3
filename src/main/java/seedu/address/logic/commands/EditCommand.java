@@ -48,18 +48,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This exercise already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditExerciseDescriptor editExerciseDescriptor;
 
     /**
      * @param index of the exercise in the filtered exercise list to edit
-     * @param editPersonDescriptor details to edit the exercise with
+     * @param editExerciseDescriptor details to edit the exercise with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditExerciseDescriptor editExerciseDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editExerciseDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editExerciseDescriptor = new EditExerciseDescriptor(editExerciseDescriptor);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class EditCommand extends Command {
         }
 
         Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
-        Exercise editedExercise = createEditedPerson(exerciseToEdit, editPersonDescriptor);
+        Exercise editedExercise = createEditedPerson(exerciseToEdit, editExerciseDescriptor);
 
         if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -85,16 +85,16 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Exercise} with the details of {@code exerciseToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editExerciseDescriptor}.
      */
-    private static Exercise createEditedPerson(Exercise exerciseToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Exercise createEditedPerson(Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
         assert exerciseToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(exerciseToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(exerciseToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(exerciseToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(exerciseToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(exerciseToEdit.getTags());
+        Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
+        Phone updatedPhone = editExerciseDescriptor.getPhone().orElse(exerciseToEdit.getPhone());
+        Email updatedEmail = editExerciseDescriptor.getEmail().orElse(exerciseToEdit.getEmail());
+        Address updatedAddress = editExerciseDescriptor.getAddress().orElse(exerciseToEdit.getAddress());
+        Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
 
         return new Exercise(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -114,27 +114,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editExerciseDescriptor.equals(e.editExerciseDescriptor);
     }
 
     /**
      * Stores the details to edit the exercise with. Each non-empty field value will replace the
      * corresponding field value of the exercise.
      */
-    public static class EditPersonDescriptor {
+    public static class EditExerciseDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditExerciseDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditExerciseDescriptor(EditExerciseDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -206,12 +206,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditExerciseDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditExerciseDescriptor e = (EditExerciseDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

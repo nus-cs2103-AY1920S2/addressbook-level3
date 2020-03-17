@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.exercise.exceptions.DuplicatePersonException;
+import seedu.address.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
 import seedu.address.testutil.ExerciseBuilder;
 
@@ -55,7 +55,7 @@ public class UniqueExerciseListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.add(ALICE));
+        assertThrows(DuplicateExerciseException.class, () -> uniquePersonList.add(ALICE));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class UniqueExerciseListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniquePersonList.add(ALICE);
         uniquePersonList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
+        assertThrows(DuplicateExerciseException.class, () -> uniquePersonList.setPerson(ALICE, BOB));
     }
 
     @Test
@@ -159,7 +159,7 @@ public class UniqueExerciseListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<Exercise> listWithDuplicateExercises = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateExercises));
+        assertThrows(DuplicateExerciseException.class, () -> uniquePersonList.setPersons(listWithDuplicateExercises));
     }
 
     @Test

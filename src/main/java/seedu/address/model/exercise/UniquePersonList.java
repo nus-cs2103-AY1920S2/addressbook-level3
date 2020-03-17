@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.exercise.exceptions.DuplicatePersonException;
+import seedu.address.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.address.model.exercise.exceptions.ExerciseNotFoundException;
 
 /**
@@ -43,7 +43,7 @@ public class UniquePersonList implements Iterable<Exercise> {
     public void add(Exercise toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExerciseException();
         }
         internalList.add(toAdd);
     }
@@ -62,7 +62,7 @@ public class UniquePersonList implements Iterable<Exercise> {
         }
 
         if (!target.isSameExercise(editedExercise) && contains(editedExercise)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExerciseException();
         }
 
         internalList.set(index, editedExercise);
@@ -91,7 +91,7 @@ public class UniquePersonList implements Iterable<Exercise> {
     public void setPersons(List<Exercise> exercises) {
         requireAllNonNull(exercises);
         if (!personsAreUnique(exercises)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateExerciseException();
         }
 
         internalList.setAll(exercises);
