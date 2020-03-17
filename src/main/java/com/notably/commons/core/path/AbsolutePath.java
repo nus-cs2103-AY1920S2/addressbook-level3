@@ -7,7 +7,7 @@ import java.util.Objects;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 
 /**
- * Represents a Path to the block that take reference from the Root node.
+ * Represents the Path to a Block, starting from the Root node.
  */
 public class AbsolutePath implements Path {
     public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
