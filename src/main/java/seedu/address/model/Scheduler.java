@@ -64,4 +64,10 @@ public class Scheduler implements ReadOnlyScheduler {
         requireNonNull(assignment);
         return assignments.contains(assignment);
     }
+
+    public void setAssignment(Assignment target, Assignment markedAssignment) {
+        requireNonNull(markedAssignment);
+
+        assignments.setAssignment(target, markedAssignment);
+    }
 }

@@ -1,8 +1,11 @@
 package seedu.address.model.assignment;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+
+import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 
 /**
  * A list of assignments that enforces uniqueness between its elements and does not allow nulls.
@@ -45,5 +48,16 @@ public class AssignmentList {
      */
     public ArrayList<Assignment> getAssignments() {
         return assignments;
+    }
+
+    public void setAssignment(Assignment target, Assignment markedAssignment) {
+        requireAllNonNull(target, markedAssignment);
+
+        int index = assignments.indexOf(target);
+        if (index == -1) {
+            throw new AssignmentNotFoundException();
+        }
+
+        assignments.set(index, markedAssignment);
     }
 }

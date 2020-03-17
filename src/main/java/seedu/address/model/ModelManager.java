@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ public class ModelManager implements Model {
     private final Scheduler scheduler;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ArrayList<Assignment> assignments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +40,7 @@ public class ModelManager implements Model {
         this.scheduler = new Scheduler(scheduler);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
+        assignments = this.scheduler.getAssignmentsList();
     }
 
     public ModelManager() {
@@ -122,11 +125,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyScheduler getScheduler() {
-        return scheduler;
-    }
-
-    @Override
     public void addAssignment(Assignment assignment) {
         scheduler.addAssignment(assignment);
     }
@@ -138,9 +136,23 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyScheduler getAssignmentList() {
+    public ReadOnlyScheduler getScheduler() {
         return scheduler;
     }
+
+    @Override
+    public void setAssignment(Assignment target, Assignment markedAssignment) {
+        requireAllNonNull(target, markedAssignment);
+
+        scheduler.setAssignment(target, markedAssignment);
+    }
+
+    @Override
+    public ArrayList<Assignment> getAssignmentList() {
+        return assignments;
+    }
+
+    //
 
     //=========== Filtered Person List Accessors =============================================================
 

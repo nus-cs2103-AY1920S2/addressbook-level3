@@ -27,7 +27,7 @@ public class Assignment {
         this.title = title;
         this.deadline = deadline;
         this.estHours = estHours;
-        this.status = new Status("Not completed");
+        this.status = new Status(Status.ASSIGNMENT_OUTSTANDING);
     }
 
     /**

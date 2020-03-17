@@ -5,6 +5,10 @@ package seedu.address.model.assignment;
  * Guarantees: immutable;
  */
 public class Status {
+    public static final String ASSIGNMENT_DONE = "Completed";
+    public static final String ASSIGNMENT_OUTSTANDING = "Not completed";
+
+    // Instance variable
     public final String status;
 
     public Status(String status) {

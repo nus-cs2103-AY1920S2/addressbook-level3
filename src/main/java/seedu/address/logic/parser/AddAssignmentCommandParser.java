@@ -17,7 +17,7 @@ import seedu.address.model.assignment.Workload;
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object.
  */
-public class AddAssignmentCommandParser {
+public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.

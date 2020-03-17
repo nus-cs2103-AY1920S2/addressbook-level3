@@ -141,7 +141,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyScheduler getAssignmentList() {
+        public ReadOnlyScheduler getScheduler() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -161,7 +161,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyScheduler getScheduler() {
+        public ArrayList<Assignment> getAssignmentList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -172,6 +172,11 @@ public class AddCommandTest {
 
         @Override
         public boolean hasAssignment(Assignment toAdd) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment) {
             throw new AssertionError("This method should not be called.");
         }
     }
