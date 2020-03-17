@@ -10,6 +10,8 @@ import seedu.eylah.addressbook.logic.commands.HelpCommand;
 import seedu.eylah.expensesplitter.logic.commands.AddItemCommand;
 import seedu.eylah.expensesplitter.logic.commands.BackCommand;
 import seedu.eylah.expensesplitter.logic.commands.Command;
+import seedu.eylah.expensesplitter.logic.commands.DeleteItemCommand;
+import seedu.eylah.expensesplitter.logic.commands.ListAmountCommand;
 import seedu.eylah.expensesplitter.logic.commands.ListReceiptCommand;
 import seedu.eylah.expensesplitter.logic.commands.PaidCommand;
 import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
@@ -56,7 +58,11 @@ public class ExpenseSplitterParser {
         case AddItemCommand.COMMAND_WORD:
             return new AddItemCommandParser().parse(arguments);
 
+        case DeleteItemCommand.COMMAND_WORD:
+            return new DeleteItemCommandParser().parse(arguments);
 
+        case ListAmountCommand.COMMAND_WORD:
+            return new ListAmountCommand(); // No Args so no need to Parse.
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
