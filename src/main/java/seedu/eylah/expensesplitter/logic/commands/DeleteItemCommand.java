@@ -11,7 +11,7 @@ import seedu.eylah.expensesplitter.model.Model;
  */
 public class DeleteItemCommand extends Command {
 
-    public static final String COMMAND_WORD = "deleteItem";
+    public static final String COMMAND_WORD = "deleteitem";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the displayed item list.\n"
@@ -29,7 +29,7 @@ public class DeleteItemCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.deleteEntry(targetIndex.getZeroBased());
+        //model.deleteEntry(targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetIndex.getOneBased()));
     }
 
