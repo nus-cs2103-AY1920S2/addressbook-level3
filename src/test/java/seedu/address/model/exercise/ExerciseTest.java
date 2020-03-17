@@ -2,11 +2,11 @@ package seedu.address.model.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+// import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+// import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+// import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+// import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+// import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExercises.BENCH_PRESS;
 import static seedu.address.testutil.TypicalExercises.CRUNCHES;
@@ -43,11 +43,6 @@ public class ExerciseTest {
         editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Bench Press")
                 .withExerciseSet("30", "3", "180").build();
         assertTrue(BENCH_PRESS.isSameExercise(editedBenchPress));
-
-        // same name, different attributes -> returns false
-        editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Bench Press")
-                .withExerciseSet("20", "4", "120").build();
-        assertFalse(BENCH_PRESS.isSameExercise(editedBenchPress));
     }
 
     @Test

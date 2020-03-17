@@ -1,15 +1,15 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
+// import java.util.HashSet;
+// import java.util.Set;
 
 import seedu.address.model.exercise.Exercise;
-import seedu.address.model.exercise.Name;
 import seedu.address.model.exercise.ExerciseSet;
-import seedu.address.model.exercise.Weight;
-import seedu.address.model.exercise.NumReps;
 import seedu.address.model.exercise.Interval;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.exercise.Name;
+import seedu.address.model.exercise.NumReps;
+import seedu.address.model.exercise.Weight;
+// import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Exercise objects.
