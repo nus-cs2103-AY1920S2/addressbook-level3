@@ -20,13 +20,13 @@ import seedu.address.model.person.Remark;
 public class EditInfoCommand extends Command {
 
     public static final String COMMAND_WORD = "ab_editnote";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edit the information of the person identified "
+    public static final String COMMAND_FUNCTION = "Edit the information of the person identified "
             + "by the index number used in the last person listing. "
             + "If there is existing information at the line number, "
-            + "it will be overwritten with the input indicated."
-            + "If note is empty, the input will be added as new note.\n"
+            + "it will be overwritten with the input indicated. "
+            + "If note is empty, the input will be added as new note.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX and LINE_NUMBER (must be a positive integer) "
             + "[" + PREFIX_LINE_NUMBER + "LINE_NUMBER] " + "[" + PREFIX_REMARK + "INFO]\n"
             + "Example: " + COMMAND_WORD + " 1 "
