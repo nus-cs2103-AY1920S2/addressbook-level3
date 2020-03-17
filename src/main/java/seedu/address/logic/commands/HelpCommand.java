@@ -29,6 +29,7 @@ public class HelpCommand extends Command {
             + "9. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
             + "10. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
             + "11. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION + "\n"
+            + "12. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
             + "\nYou can find out more on how a command works by specifying the command index.\n"
             + "Example: For (ab)delete - " + COMMAND_WORD + " h/ 3";
     public static final ArrayList<String> LIST_OF_COMMANDS = commandList();
