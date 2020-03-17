@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import com.notably.commons.core.GuiSettings;
 
 import com.notably.model.commandinput.CommandInputModel;
+
 import javafx.collections.ObservableList;
 
 /**

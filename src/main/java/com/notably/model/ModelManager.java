@@ -9,9 +9,8 @@ import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
-
-import com.notably.logic.commands.Command;
 import com.notably.model.commandinput.CommandInputModel;
+
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
