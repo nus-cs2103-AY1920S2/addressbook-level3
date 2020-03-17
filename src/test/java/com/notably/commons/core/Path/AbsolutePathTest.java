@@ -14,7 +14,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
 class AbsolutePathTest {
 
     @Test
-    public void createAbsolutePath_validInputString_generateAbsolutePath() throws InvalidPathException {
+    public void fromString_validInputString_generateAbsolutePath() throws InvalidPathException {
         final AbsolutePath testInput = AbsolutePath.fromString("/CS2103/notes");
 
         List<String> paths = new ArrayList<>();
@@ -25,17 +25,17 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void createAbsolutePath_invalidInputString1_exceptionThrown() {
+    public void fromString_invalidInputString1_exceptionThrown() {
         assertThrows(InvalidPathException.class, () -> AbsolutePath.fromString("CS2103/notes"));
     }
 
     @Test
-    public void createAbsolutePath_invalidInputString2_exceptionThrown() {
+    public void fromString_invalidInputString2_exceptionThrown() {
         assertThrows(InvalidPathException.class, () -> AbsolutePath.fromString("/../CS2103/notes"));
     }
 
     @Test
-    public void convertAbsoluteToRelativePath_validInput_correctedPath() throws InvalidPathException {
+    public void toRelativePath_validInput_correctedPath() throws InvalidPathException {
         final AbsolutePath inputAbsolutePath = AbsolutePath.fromString("/CS2103/notes/hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
 
@@ -45,7 +45,7 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void createAbsolutePathFromRelativePath_validInput_convertedAbsolutePath() throws InvalidPathException {
+    public void fromRelativePath_validInput_convertedAbsolutePath() throws InvalidPathException {
         final RelativePath inputRelPath = RelativePath.fromString("../../hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103/filler");
 
@@ -56,7 +56,7 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void createAbsolutePathFromRelativePath_invalidInput_exceptionThrown() throws InvalidPathException {
+    public void fromRelativePath_invalidInput_exceptionThrown() throws InvalidPathException {
         final RelativePath inputRelPath = RelativePath.fromString("../../hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
         assertThrows(InvalidPathException.class, () -> AbsolutePath.fromRelativePath(inputRelPath, inputCurrPath));
