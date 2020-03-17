@@ -1,16 +1,16 @@
-= Liu Chao - Project Portfolio
+= Pang Jia Da - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: Inventory Manager
 
- ---
+---
 
- == Overview
+== Overview
 
 
- == Summary of contributions
+== Summary of contributions
 
 * *Major enhancement*: added *<insert ability here>*
 ** What it does:
@@ -30,24 +30,24 @@
 ** Community:
 ** Tools:
 
- _{you can add/remove categories in the list above}_
+_{you can add/remove categories in the list above}_
 
- == Contributions to the User Guide
-
-
- |===
- |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
- |===
-
- == Contributions to the Developer Guide
-
- |===
- |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
- |===
+== Contributions to the User Guide
 
 
- == PROJECT: PowerPointLabs
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
 
- ---
+== Contributions to the Developer Guide
 
- _{Optionally, you may include other projects in your portfolio.}_
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
