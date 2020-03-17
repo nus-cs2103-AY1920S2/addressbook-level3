@@ -14,8 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
-    private Path productListFilePath = Paths.get("data" , "productlist.json");
+    private Path addressBookFilePath = Paths.get("data" , "inventorysystem.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -37,7 +36,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
-        setProductListFilePath(newUserPrefs.getProductListFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -52,19 +50,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
-    public Path getProductListFilePath() {
-        return productListFilePath;
-    }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public void setProductListFilePath(Path productListFilePath) {
-        requireNonNull(productListFilePath);
-        this.productListFilePath = productListFilePath;
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -78,13 +69,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath)
-                && productListFilePath.equals(o.productListFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath, productListFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath);
     }
 
     @Override
@@ -92,7 +82,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nLocal product list data file location : " + productListFilePath);
         return sb.toString();
     }
 

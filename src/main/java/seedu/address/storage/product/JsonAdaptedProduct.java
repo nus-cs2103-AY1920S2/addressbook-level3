@@ -14,7 +14,7 @@ import seedu.address.model.util.Quantity;
 /**
  * Jackson-friendly version of {@link Product}.
  */
-class JsonAdaptedProduct {
+public class JsonAdaptedProduct {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Product's %s field is missing!";
 

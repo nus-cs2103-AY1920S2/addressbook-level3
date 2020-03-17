@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.transaction;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import seedu.address.model.util.Quantity;
 /**
  * Jackson-friendly version of {@link Transaction}.
  */
-class JsonAdaptedTransaction {
+public class JsonAdaptedTransaction {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
@@ -28,7 +28,7 @@ class JsonAdaptedTransaction {
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("customer") String customer, @JsonProperty("product") String product,
-                               @JsonProperty("email") String dateTime, @JsonProperty("quantity") String quantity,
+                               @JsonProperty("dateTime") String dateTime, @JsonProperty("quantity") String quantity,
                                @JsonProperty("money") String money, @JsonProperty("description") String description) {
         this.customer = customer;
         this.product = product;

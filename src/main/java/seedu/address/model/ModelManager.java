@@ -22,7 +22,7 @@ import seedu.address.model.transaction.Transaction;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final InventorySystem addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Product> filteredProducts;
@@ -31,13 +31,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyInventorySystem addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new InventorySystem(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCustomers = new FilteredList<>(this.addressBook.getPersonList());
         filteredProducts = new FilteredList<>(this.addressBook.getProductList());
@@ -45,7 +45,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new InventorySystem(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -83,26 +83,15 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    @Override
-    public Path getProductListFilePath() {
-        return userPrefs.getProductListFilePath();
-    }
+    //=========== InventorySystem ================================================================================
 
     @Override
-    public void setProductListFilePath(Path productListFilePath) {
-        requireNonNull(productListFilePath);
-        userPrefs.setProductListFilePath(productListFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyInventorySystem addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyInventorySystem getAddressBook() {
         return addressBook;
     }
 
@@ -222,7 +211,8 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCustomers.equals(other.filteredCustomers)
-                && filteredProducts.equals(other.filteredProducts);
+                && filteredProducts.equals(other.filteredProducts)
+                && filteredTransactions.equals(other.filteredTransactions);
     }
 
 }

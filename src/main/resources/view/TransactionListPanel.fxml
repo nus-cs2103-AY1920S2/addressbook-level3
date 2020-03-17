@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label text="Customers">
+   <Label text="Transactions">
       <VBox.margin>
          <Insets bottom="5.0" left="5.0" right="5.0" />
       </VBox.margin>
    </Label>
-  <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="transactionListView" VBox.vgrow="ALWAYS" />
 </VBox>

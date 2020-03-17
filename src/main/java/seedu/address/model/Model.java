@@ -50,22 +50,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Returns the user prefs' product list file path.
-     */
-    Path getProductListFilePath();
-
-    /**
-     * Sets the user prefs' product list file path.
-     */
-    void setProductListFilePath(Path productListFilePath);
-
-    /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyInventorySystem addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the InventorySystem */
+    ReadOnlyInventorySystem getAddressBook();
 
     /**
      * Returns true if a customer with the same identity as {@code customer} exists in the address book.
