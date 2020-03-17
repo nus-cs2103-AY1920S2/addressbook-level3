@@ -37,8 +37,8 @@ public class SuggestionModelImpl implements SuggestionModel {
     }
 
     @Override
-    public void clearCommandInputText() {
-        commandInputText = "";
+    public void clearResponseText() {
+        responseTextProperty.setValue(Optional.of(""));
     }
 
     @Override
