@@ -14,7 +14,7 @@ import seedu.address.model.exercise.UniqueExerciseList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueExerciseList persons;
+    private final UniqueExerciseList exercises;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniqueExerciseList();
+        exercises = new UniqueExerciseList();
     }
 
     public AddressBook() {}
@@ -43,8 +43,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the contents of the exercise list with {@code exercises}.
      * {@code exercises} must not contain duplicate exercises.
      */
-    public void setPersons(List<Exercise> exercises) {
-        this.persons.setExercises(exercises);
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises.setExercises(exercises);
     }
 
     /**
@@ -53,7 +53,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setExercises(newData.getPersonList());
     }
 
     //// exercise-level operations
@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPerson(Exercise exercise) {
         requireNonNull(exercise);
-        return persons.contains(exercise);
+        return exercises.contains(exercise);
     }
 
     /**
@@ -71,7 +71,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The exercise must not already exist in the address book.
      */
     public void addPerson(Exercise p) {
-        persons.add(p);
+        exercises.add(p);
     }
 
     /**
@@ -82,7 +82,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void setPerson(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
 
-        persons.setExercise(target, editedExercise);
+        exercises.setExercise(target, editedExercise);
     }
 
     /**
@@ -90,31 +90,31 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Exercise key) {
-        persons.remove(key);
+        exercises.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return exercises.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Exercise> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return exercises.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && exercises.equals(((AddressBook) other).exercises));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return exercises.hashCode();
     }
 }
