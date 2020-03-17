@@ -20,6 +20,9 @@ import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
  * while Savings is used for individual Coupons.
  */
 public class PureMonetarySavings extends Savings {
+    public static final String MESSAGE_CONSTRAINTS = "PureMonetarySavings "
+            + "must have a double representing MonetaryAmount.";
+
     /**
      * Constructor for a PureMonetarySavings that
      * represents no money saved (MonetaryAmount
