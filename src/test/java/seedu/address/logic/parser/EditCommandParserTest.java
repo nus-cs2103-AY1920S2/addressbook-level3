@@ -107,7 +107,7 @@ public class EditCommandParserTest {
                 + STEP_DESC_TURKEY_SANDWICH + NAME_DESC_TURKEY_SANDWICH + GOAL_DESC_GRAIN;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
-                .withTime(VALID_TIME_FISH).withStep(VALID_STEP_TURKEY_SANDWICH)
+                .withTime(VALID_TIME_FISH).withSteps(VALID_STEP_TURKEY_SANDWICH)
                 .withGoals(VALID_GOAL_PROTEIN, VALID_GOAL_GRAIN).build();
 
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -121,7 +121,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + TIME_DESC_FISH + STEP_DESC_TURKEY_SANDWICH;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_FISH)
-                .withStep(VALID_STEP_TURKEY_SANDWICH).build();
+                .withSteps(VALID_STEP_TURKEY_SANDWICH).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -145,7 +145,7 @@ public class EditCommandParserTest {
 
         // step
         userInput = targetIndex.getOneBased() + STEP_DESC_TURKEY_SANDWICH;
-        descriptor = new EditRecipeDescriptorBuilder().withStep(VALID_STEP_TURKEY_SANDWICH).build();
+        descriptor = new EditRecipeDescriptorBuilder().withSteps(VALID_STEP_TURKEY_SANDWICH).build();
 
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -165,7 +165,7 @@ public class EditCommandParserTest {
                 + TIME_DESC_FISH + STEP_DESC_FISH + GOAL_DESC_PROTEIN;
 
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_FISH)
-                .withStep(VALID_STEP_FISH).withGoals(VALID_GOAL_GRAIN, VALID_GOAL_PROTEIN)
+                .withGoals(VALID_GOAL_GRAIN, VALID_GOAL_PROTEIN).withSteps(VALID_STEP_TURKEY_SANDWICH, VALID_STEP_FISH)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -183,7 +183,7 @@ public class EditCommandParserTest {
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + STEP_DESC_FISH + INVALID_TIME_DESC + TIME_DESC_FISH;
-        descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_FISH).withStep(VALID_STEP_FISH).build();
+        descriptor = new EditRecipeDescriptorBuilder().withTime(VALID_TIME_FISH).withSteps(VALID_STEP_FISH).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

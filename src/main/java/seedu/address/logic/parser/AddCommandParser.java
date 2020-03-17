@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -45,13 +46,13 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-        Step step = ParserUtil.parseStep(argMultimap.getValue(PREFIX_STEP).get());
+        List<Step> steps = ParserUtil.parseSteps(argMultimap.getAllValues(PREFIX_STEP));
         Set<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOAL));
         // todo: add grain first
         Set<Ingredient> ingredientList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE),
                 null);
 
-        Recipe recipe = new Recipe(name, time, ingredientList, step, goalList);
+        Recipe recipe = new Recipe(name, time, ingredientList, steps, goalList);
 
         return new AddCommand(recipe);
     }

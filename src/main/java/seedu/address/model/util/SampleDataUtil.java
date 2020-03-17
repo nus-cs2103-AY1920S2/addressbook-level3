@@ -2,6 +2,7 @@ package seedu.address.model.util;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,24 +25,25 @@ import seedu.address.model.recipe.Time;
 public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
-            new Recipe(new Name("Caesar Salad"), new Time("30"),
+            new Recipe(new Name("Caesar Salad"), new Time("10"),
                     getIngredientSet("Tomato, 100, vegetable", "Honeydew, 100, other"),
-                    new Step("alexyeoh@example.com"), getGoalSet("Herbivore")),
+                    getStepsList("Cut tomatoes", "Remove honeydew skin"), getGoalSet("Herbivore")),
             new Recipe(new Name("Grilled Sandwich"), new Time("10"),
                     getIngredientSet("Bread, 50, grain", "Cheese, 50, other"),
-                    new Step("berniceyu@example.com"), getGoalSet("Wholesome Wholemeal")),
+                    getStepsList("Spread butter on bread", "Heat pan to medium heat"),
+                    getGoalSet("Wholesome Wholemeal")),
             new Recipe(new Name("Boiled Chicken"), new Time("10"),
                     getIngredientSet("Chicken, 100, protein"),
-                    new Step("charlotte@example.com"), getGoalSet("Bulk like the Hulk")),
+                    getStepsList("Dice chicken"), getGoalSet("Bulk like the Hulk")),
             new Recipe(new Name("Chocolate Cake"), new Time("120"),
                     getIngredientSet("Sugar, 100, other"),
-                    new Step("lidavid@example.com"), getGoalSet()),
+                    getStepsList("Caramelize sugar"), getGoalSet()),
             new Recipe(new Name("Omelet"), new Time("15"),
                     getIngredientSet("Egg, 100, protein"),
-                    new Step("irfan@example.com"), getGoalSet()),
+                    getStepsList("Crack and beat eggs"), getGoalSet()),
             new Recipe(new Name("Tuna Bread"), new Time("60"),
                     getIngredientSet("Wholemeal bread, 100, grain", "Tuna, 100, protein"),
-                    new Step("royb@example.com"), getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal"))
+                    getStepsList("Slice tuna"), getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal"))
         };
     }
 
@@ -56,8 +58,8 @@ public class SampleDataUtil {
     /**
      * Returns a goal set containing the list of strings given.
      */
-    public static Set<Goal> getGoalSet(String... strings) {
-        return Arrays.stream(strings)
+    public static Set<Goal> getGoalSet(String... goals) {
+        return Arrays.stream(goals)
                 .map(Goal::new)
                 .collect(Collectors.toSet());
     }
@@ -86,10 +88,19 @@ public class SampleDataUtil {
                 ingredientSet.add(new Other(name, quantity));
                 break;
             default:
-                System.out.println("Error: ingredient type does not belong to oen of the defaults");
+                System.out.println("Error: ingredient type does not belong to one of the defaults");
             }
         }
         return ingredientSet;
+    }
+
+    /**
+     * Returns a steps list containing the list of steps given.
+     */
+    public static List<Step> getStepsList(String ... steps) {
+        return Arrays.stream(steps)
+                .map(Step::new)
+                .collect(Collectors.toList());
     }
 
 }

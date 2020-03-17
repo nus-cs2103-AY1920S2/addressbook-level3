@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.util.Comparator;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
@@ -8,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -38,7 +40,7 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private FlowPane ingredients;
     @FXML
-    private Label step;
+    private VBox steps;
     @FXML
     private FlowPane goals;
 
@@ -48,10 +50,19 @@ public class RecipeCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
         time.setText(recipe.getTime().value + " min");
+
         ingredients.setOrientation(Orientation.VERTICAL);
         recipe.getIngredients().stream()
                 .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.toString())));
-        step.setText(recipe.getStep().value);
+
+        AtomicInteger stepNumber = new AtomicInteger(1);
+        recipe.getSteps().forEach(step -> {
+            Label stepLabel = new Label("Step " + stepNumber.getAndIncrement() + ": " + step.value);
+            stepLabel.setWrapText(true);
+            stepLabel.prefWidthProperty().bind(getRoot().widthProperty());
+            steps.getChildren().add(stepLabel);
+        });
+
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))
                 .forEach(goal -> goals.getChildren().add(new Label(goal.goalName)));

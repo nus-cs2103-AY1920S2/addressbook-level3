@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -33,7 +34,7 @@ public class EditRecipeDescriptorBuilder {
         descriptor = new EditRecipeDescriptor();
         descriptor.setName(recipe.getName());
         descriptor.setTime(recipe.getTime());
-        descriptor.setStep(recipe.getStep());
+        descriptor.setSteps(recipe.getSteps());
         descriptor.setGoals(recipe.getGoals());
     }
 
@@ -56,8 +57,9 @@ public class EditRecipeDescriptorBuilder {
     /**
      * Sets the {@code Step} of the {@code EditRecipeDescriptor} that we are building.
      */
-    public EditRecipeDescriptorBuilder withStep(String step) {
-        descriptor.setStep(new Step(step));
+    public EditRecipeDescriptorBuilder withSteps(String ... steps) {
+        List<Step> stepsList = Stream.of(steps).map(Step::new).collect(Collectors.toList());
+        descriptor.setSteps(stepsList);
         return this;
     }
 

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -41,8 +42,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_STEP + "STEP] "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_TIME + "91234567 "
-            + PREFIX_STEP + "johndoe@example.com";
+            + PREFIX_TIME + "10 "
+            + PREFIX_STEP + "Insert new step here";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -93,7 +94,7 @@ public class EditCommand extends Command {
 
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
-        Step updatedStep = editRecipeDescriptor.getStep().orElse(recipeToEdit.getStep());
+        List<Step> updatedStep = editRecipeDescriptor.getSteps().orElse(recipeToEdit.getSteps());
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
         Set<Ingredient> updatedIngredients = new HashSet<>(); // todo
 
@@ -125,7 +126,7 @@ public class EditCommand extends Command {
     public static class EditRecipeDescriptor {
         private Name name;
         private Time time;
-        private Step step;
+        private List<Step> steps;
         private Set<Goal> goals;
 
         public EditRecipeDescriptor() {}
@@ -137,7 +138,7 @@ public class EditCommand extends Command {
         public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
             setName(toCopy.name);
             setTime(toCopy.time);
-            setStep(toCopy.step);
+            setSteps(toCopy.steps);
             setGoals(toCopy.goals);
         }
 
@@ -145,7 +146,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, time, step, goals);
+            return CollectionUtil.isAnyNonNull(name, time, steps, goals);
         }
 
         public void setName(Name name) {
@@ -164,12 +165,21 @@ public class EditCommand extends Command {
             return Optional.ofNullable(time);
         }
 
-        public void setStep(Step step) {
-            this.step = step;
+        /**
+         * Sets {@code steps} to this object's {@code steps}.
+         * A defensive copy of {@code steps} is used internally.
+         */
+        public void setSteps(List<Step> steps) {
+            this.steps = (steps != null) ? new ArrayList<>(steps) : null;
         }
 
-        public Optional<Step> getStep() {
-            return Optional.ofNullable(step);
+        /**
+         * Returns an unmodifiable steps list, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code steps} is null.
+         */
+        public Optional<List<Step>> getSteps() {
+            return (steps != null) ? Optional.of(Collections.unmodifiableList(steps)) : Optional.empty();
         }
 
         /**
@@ -206,7 +216,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getTime().equals(e.getTime())
-                    && getStep().equals(e.getStep())
+                    && getSteps().equals(e.getSteps())
                     && getGoals().equals(e.getGoals());
         }
     }

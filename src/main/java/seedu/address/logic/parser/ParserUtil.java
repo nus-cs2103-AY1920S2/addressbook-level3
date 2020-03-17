@@ -2,8 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -79,6 +81,24 @@ public class ParserUtil {
             throw new ParseException(Step.MESSAGE_CONSTRAINTS);
         }
         return new Step(trimmedStep);
+    }
+
+    /**
+     * Parses {@code Collection<String> steps} into a {@code List<Step>}.
+     */
+    public static List<Step> parseSteps(Collection<String> steps) throws ParseException {
+        requireNonNull(steps);
+        if (steps.contains("")) {
+            throw new ParseException(Step.MESSAGE_CONSTRAINTS);
+        }
+        final List<Step> stepsList = new ArrayList<>();
+        for (String step : steps) {
+            Step nextStep = parseStep(step);
+            if (!stepsList.contains(nextStep)) {
+                stepsList.add(nextStep);
+            }
+        }
+        return stepsList;
     }
 
     /**
