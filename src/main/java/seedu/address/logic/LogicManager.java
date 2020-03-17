@@ -52,17 +52,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyOrderBook getAddressBook() {
+    public ReadOnlyOrderBook getOrderBook() {
         return model.getOrderBook();
     }
 
     @Override
-    public ObservableList<Order> getFilteredPersonList() {
+    public ObservableList<Order> getFilteredOrderList() {
         return model.getFilteredOrderList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getOrderBookFilePath() {
         return model.getOrderBookFilePath();
     }
 
