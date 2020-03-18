@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.AppCommandResult;
 import seedu.address.logic.conditions.Conditions;
 import seedu.address.storage.AppStorage;
 
@@ -42,6 +43,11 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
     public ObservableList<T> filterBy(Conditions<T> cond) {
         ArrayList<T> results = this.dao.search(cond);
         return FXCollections.observableArrayList(results);
+    }
+
+    @Override
+    public AppCommandResult execute(String command) {
+        return null;
     }
 }
 

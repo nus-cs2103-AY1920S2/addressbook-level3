@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.AppCommandResult;
 import seedu.address.logic.conditions.Conditions;
 
 /**
@@ -18,4 +19,6 @@ public interface AppLogic<T> {
      * @return
      */
     public ObservableList<T> filterBy(Conditions<T> cond);
+
+    public AppCommandResult execute(String command);
 }

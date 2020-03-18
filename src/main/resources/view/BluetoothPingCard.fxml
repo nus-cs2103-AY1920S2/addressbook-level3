@@ -18,8 +18,9 @@
                 <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
             <FlowPane fx:id="tags" />
-            <Label fx:id="timestamp" styleClass="cell_small_label" text="\$phone" />
-            <Label fx:id="contacts" styleClass="cell_small_label" text="\$address" />
+            <Label text="Time recorded: " /> <Label fx:id="timestamp" styleClass="cell_small_label" text="\$phone" />
+            <Label text="" />
+            <Label text="Contacts" /> <Label fx:id="contacts" styleClass="cell_small_label" text="\$address" />
         </VBox>
     </GridPane>
 </HBox>
