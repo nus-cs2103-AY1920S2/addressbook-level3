@@ -34,10 +34,10 @@ public class EditExerciseDescriptorBuilder {
     public EditExerciseDescriptorBuilder(Exercise exercise) {
         descriptor = new EditCommand.EditExerciseDescriptor();
         descriptor.setName(exercise.getName());
-        descriptor.setPhone(exercise.getPhone());
-        descriptor.setEmail(exercise.getEmail());
-        descriptor.setAddress(exercise.getAddress());
-        descriptor.setTags(exercise.getTags());
+        // descriptor.setPhone(exercise.getPhone());
+        // descriptor.setEmail(exercise.getEmail());
+        // descriptor.setAddress(exercise.getAddress());
+        // descriptor.setTags(exercise.getTags());
     }
 
     /**

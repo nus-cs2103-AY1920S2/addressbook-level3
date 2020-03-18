@@ -40,10 +40,10 @@ public class ExerciseBuilder {
      */
     public ExerciseBuilder(Exercise exerciseToCopy) {
         name = exerciseToCopy.getName();
-        phone = exerciseToCopy.getPhone();
-        email = exerciseToCopy.getEmail();
-        address = exerciseToCopy.getAddress();
-        tags = new HashSet<>(exerciseToCopy.getTags());
+        // phone = exerciseToCopy.getPhone();
+        // email = exerciseToCopy.getEmail();
+        // address = exerciseToCopy.getAddress();
+        // tags = new HashSet<>(exerciseToCopy.getTags());
     }
 
     /**
@@ -87,7 +87,8 @@ public class ExerciseBuilder {
     }
 
     public Exercise build() {
-        return new Exercise(name, phone, email, address, tags);
+        // return new Exercise(name, phone, email, address, tags);
+        return new Exercise(null, null);
     }
 
 }

@@ -31,12 +31,12 @@ public class ExerciseUtil {
     public static String getExerciseDetails(Exercise exercise) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + exercise.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + exercise.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + exercise.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + exercise.getAddress().value + " ");
-        exercise.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        // sb.append(PREFIX_PHONE + exercise.getPhone().value + " ");
+        // sb.append(PREFIX_EMAIL + exercise.getEmail().value + " ");
+        // sb.append(PREFIX_ADDRESS + exercise.getAddress().value + " ");
+        // exercise.getTags().stream().forEach(
+        //     s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        // );
         return sb.toString();
     }
 

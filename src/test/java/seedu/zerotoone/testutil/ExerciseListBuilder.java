@@ -1,12 +1,12 @@
 package seedu.zerotoone.testutil;
 
 import seedu.zerotoone.model.ExerciseList;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * A utility class to help with building ExerciseList objects.
  * Example usage: <br>
- *     {@code ExerciseList ab = new ExerciseListBuilder().withPerson("John", "Doe").build();}
+ *     {@code ExerciseList ab = new ExerciseListBuilder().withExercise("John", "Doe").build();}
  */
 public class ExerciseListBuilder {
 
@@ -21,10 +21,10 @@ public class ExerciseListBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code ExerciseList} that we are building.
+     * Adds a new {@code Exercise} to the {@code ExerciseList} that we are building.
      */
-    public ExerciseListBuilder withPerson(Person person) {
-        exerciseList.addPerson(person);
+    public ExerciseListBuilder withExercise(Exercise exercise) {
+        exerciseList.addExercise(exercise);
         return this;
     }
 
