@@ -47,6 +47,7 @@ public class InventorySystem implements ReadOnlyInventorySystem {
         this();
         resetData(toBeCopied, ClearCustomerCommand.COMMAND_WORD);
         resetData(toBeCopied, ClearProductCommand.COMMAND_WORD);
+//        resetData(toBeCopied, ClearTransactionCommand.COMMAND_WORD);
     }
 
     //// list overwrite operations
@@ -157,8 +158,6 @@ public class InventorySystem implements ReadOnlyInventorySystem {
         transactions.setTransaction(target, editedTransaction);
     }
 
-
-
     /**
      * Removes {@code key} from this {@code InventorySystem}.
      * {@code key} must exist in the address book.
@@ -181,6 +180,14 @@ public class InventorySystem implements ReadOnlyInventorySystem {
 
     public void addTransaction(Transaction t) {
         transactions.add(t);
+    }
+
+    /**
+     * Removes {@code key} from this {@code InventorySystem}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeTransaction(Transaction t) {
+        transactions.remove(t);
     }
 
     /**
