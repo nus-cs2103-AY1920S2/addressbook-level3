@@ -2,14 +2,18 @@ package seedu.address.logic;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AppCommandResult;
 import seedu.address.logic.conditions.Conditions;
+import seedu.address.logic.parser.CommandRouter;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
-
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class AppLogicManager<T, M> implements AppLogic<T> {
     private AppStorage<T> dao;
+    private final Logger logger = LogsCenter.getLogger(AppLogicManager.class);
 
     /**
      * Asserts that the user must always declare type M which is subclass of {@code AppStorage}
@@ -46,8 +50,11 @@ public class AppLogicManager<T, M> implements AppLogic<T> {
     }
 
     @Override
-    public AppCommandResult execute(String command) {
-        return null;
+    public AppCommandResult execute(String command) throws ParseException {
+        logger.info("----------------[USER COMMAND][" + command + "]");
+
+        AppCommandResult result = new CommandRouter().parse(command);
+        return result;
     }
 }
 

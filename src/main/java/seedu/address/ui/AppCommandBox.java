@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.AppCommandResult;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class AppCommandBox  extends UiPart<Region> {
     public static final String ERROR_STYLE_CLASS = "error";
@@ -26,7 +27,7 @@ public class AppCommandBox  extends UiPart<Region> {
      * Handles the Enter button pressed event.
      */
     @FXML
-    private void handleCommandEntered() {
+    private void handleCommandEntered() throws ParseException {
         commandExecutor.execute(commandTextField.getText());
         commandTextField.setText("");
     }
@@ -61,6 +62,6 @@ public class AppCommandBox  extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        AppCommandResult execute(String commandText);
+        AppCommandResult execute(String commandText) throws ParseException;
     }
 }

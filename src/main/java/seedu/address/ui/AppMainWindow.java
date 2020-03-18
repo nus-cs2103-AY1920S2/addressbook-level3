@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.AppLogic;
 import seedu.address.logic.commands.AppCommandResult;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -79,14 +80,20 @@ public class AppMainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private AppCommandResult executeCommand(String commandText) {
-        AppCommandResult commandResult = logic.execute(commandText);
-        logger.info("Result: " + commandResult.getFeedbackToUser());
-        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    private AppCommandResult executeCommand(String commandText) throws ParseException {
+        try {
+            AppCommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-        if (commandResult.isExit()) {
-            handleExit();
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+            return commandResult;
+        } catch (ParseException e) {
+            logger.warning("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
         }
-        return commandResult;
     }
 }
