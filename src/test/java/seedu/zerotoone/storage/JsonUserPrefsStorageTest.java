@@ -15,7 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.userprefs.UserPrefs;
-import seedu.zerotoone.storage.userprefs.JsonUserPrefsStorage;
+import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 
 public class JsonUserPrefsStorageTest {
 
@@ -31,7 +31,7 @@ public class JsonUserPrefsStorageTest {
 
     private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
         Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
-        return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
+        return new UserPrefsStorageManager(prefsFilePath).readUserPrefs(prefsFilePath);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class JsonUserPrefsStorageTest {
      */
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
-            new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
+            new UserPrefsStorageManager(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
                     .saveUserPrefs(userPrefs);
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file", ioe);
@@ -107,7 +107,7 @@ public class JsonUserPrefsStorageTest {
         original.setGuiSettings(new GuiSettings(1200, 200, 0, 2));
 
         Path pefsFilePath = testFolder.resolve("TempPrefs.json");
-        JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
+        UserPrefsStorageManager jsonUserPrefsStorage = new UserPrefsStorageManager(pefsFilePath);
 
         //Try writing when the file doesn't exist
         jsonUserPrefsStorage.saveUserPrefs(original);

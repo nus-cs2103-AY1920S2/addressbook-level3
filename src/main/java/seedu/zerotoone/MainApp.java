@@ -26,7 +26,7 @@ import seedu.zerotoone.storage.ExerciseListStorage;
 import seedu.zerotoone.storage.JsonExerciseListStorage;
 import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
-import seedu.zerotoone.storage.userprefs.JsonUserPrefsStorage;
+import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 import seedu.zerotoone.ui.Ui;
 import seedu.zerotoone.ui.UiManager;
@@ -54,7 +54,7 @@ public class MainApp extends Application {
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
 
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = new UserPrefsStorageManager(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ExerciseListStorage exerciseListStorage = new JsonExerciseListStorage(userPrefs.getExerciseListFilePath());
         storage = new StorageManager(exerciseListStorage, userPrefsStorage);

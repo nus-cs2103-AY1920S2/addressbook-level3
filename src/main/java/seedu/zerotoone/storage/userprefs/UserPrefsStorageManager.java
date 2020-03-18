@@ -12,11 +12,11 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage {
+public class UserPrefsStorageManager implements UserPrefsStorage {
 
     private Path filePath;
 
-    public JsonUserPrefsStorage(Path filePath) {
+    public UserPrefsStorageManager(Path filePath) {
         this.filePath = filePath;
     }
 
