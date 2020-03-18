@@ -17,8 +17,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
-import seedu.zerotoone.model.UserPrefs;
 import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
+import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

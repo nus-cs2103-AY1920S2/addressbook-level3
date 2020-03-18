@@ -6,8 +6,8 @@ import java.util.Optional;
 
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.commons.util.JsonUtil;
-import seedu.zerotoone.model.ReadOnlyUserPrefs;
-import seedu.zerotoone.model.UserPrefs;
+import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
+import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

@@ -15,8 +15,8 @@ import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
-import seedu.zerotoone.model.UserPrefs;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for

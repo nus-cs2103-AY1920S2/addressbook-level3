@@ -7,9 +7,9 @@ import java.util.logging.Logger;
 
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
-import seedu.zerotoone.model.ReadOnlyUserPrefs;
-import seedu.zerotoone.model.UserPrefs;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
+import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
  * Manages storage of ExerciseList data in local storage.

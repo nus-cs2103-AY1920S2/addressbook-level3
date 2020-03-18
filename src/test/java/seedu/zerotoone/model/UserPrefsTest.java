@@ -4,6 +4,8 @@ import static seedu.zerotoone.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.zerotoone.model.userprefs.UserPrefs;
+
 public class UserPrefsTest {
 
     @Test

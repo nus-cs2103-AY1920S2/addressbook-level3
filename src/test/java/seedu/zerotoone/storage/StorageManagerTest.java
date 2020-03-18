@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.zerotoone.commons.core.GuiSettings;
-import seedu.zerotoone.model.UserPrefs;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.userprefs.UserPrefs;
 
 public class StorageManagerTest {
 

@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.zerotoone.commons.exceptions.DataConversionException;
-import seedu.zerotoone.model.ReadOnlyUserPrefs;
-import seedu.zerotoone.model.UserPrefs;
+import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
+import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
- * Represents a storage for {@link seedu.zerotoone.model.UserPrefs}.
+ * Represents a storage for {@link seedu.zerotoone.model.userprefs.UserPrefs}.
  */
 public interface UserPrefsStorage {
 
@@ -27,7 +27,7 @@ public interface UserPrefsStorage {
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link seedu.zerotoone.model.ReadOnlyUserPrefs} to the storage.
+     * Saves the given {@link seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs} to the storage.
      * @param userPrefs cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */

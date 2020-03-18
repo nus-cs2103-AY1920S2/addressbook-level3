@@ -1,4 +1,4 @@
-package seedu.zerotoone.model;
+package seedu.zerotoone.model.userprefs;
 
 import static java.util.Objects.requireNonNull;
 
