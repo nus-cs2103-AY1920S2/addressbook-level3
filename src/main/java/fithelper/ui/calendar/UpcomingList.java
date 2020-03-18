@@ -1,5 +1,7 @@
 package fithelper.ui.calendar;
 
+import java.time.LocalDateTime;
+
 import fithelper.model.entry.Entry;
 import fithelper.ui.FoodCard;
 import fithelper.ui.SportCard;
@@ -10,9 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.time.LocalDateTime;
-
 
 /**
  * A section which displays upcoming tasks.
@@ -53,7 +52,7 @@ public class UpcomingList extends UiPart<AnchorPane> {
                     FoodCard foodCard = new FoodCard(entry);
                     upcomingList.getChildren().add(foodCard.getRoot());
                 } else {
-                    SportCard sportCard= new SportCard(entry);
+                    SportCard sportCard = new SportCard(entry);
                     upcomingList.getChildren().add(sportCard.getRoot());
                 }
             }
