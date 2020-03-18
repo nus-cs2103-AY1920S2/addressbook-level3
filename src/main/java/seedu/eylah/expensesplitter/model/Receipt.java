@@ -67,11 +67,14 @@ public class Receipt {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
+        builder.append("Receipt:\n");
         for (Entry entry : receipt) {
-            int index = receipt.indexOf(entry);
-            builder.append(index)
+            int index = receipt.indexOf(entry) + 1;
+            builder.append("    ")
+                    .append(index)
                     .append(". ")
-                    .append(entry);
+                    .append(entry)
+                    .append("\n");
         }
         return builder.toString();
     }
