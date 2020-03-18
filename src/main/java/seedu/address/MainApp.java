@@ -67,7 +67,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        RestaurantBookStorage restaurantBookStorage = new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
+        RestaurantBookStorage restaurantBookStorage =
+                new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
         SchedulerStorage schedulerStorage = new JsonSchedulerStorage(userPrefs.getSchedulerFilePath());
         storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage, userPrefsStorage);
 
