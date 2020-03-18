@@ -48,7 +48,7 @@ public class Calorie {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + calorie + ']';
+        return '[' + calorie + " kcal]";
     }
 
 }
