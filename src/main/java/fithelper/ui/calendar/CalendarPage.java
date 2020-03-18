@@ -1,4 +1,3 @@
-/*
 package fithelper.ui.calendar;
 
 import java.time.LocalDateTime;
@@ -20,7 +19,6 @@ import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.icalendar.ICalendarAgenda;
 
 
-*/
 /**
  * Displays all food/sports items on calendar.
  *//*
