@@ -43,7 +43,6 @@ public class InventorySystem implements ReadOnlyInventorySystem {
      */
     public InventorySystem(ReadOnlyInventorySystem toBeCopied) {
         this();
-        resetData(toBeCopied);
     }
 
     //// list overwrite operations
@@ -75,12 +74,16 @@ public class InventorySystem implements ReadOnlyInventorySystem {
     /**
      * Resets the existing data of this {@code InventorySystem} with {@code newData}.
      */
-    public void resetData(ReadOnlyInventorySystem newData) {
+    public void resetData(ReadOnlyInventorySystem newData, String commandWord) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
-        setProducts(newData.getProductList());
-        setTransactions(newData.getTransactionList());
+        if (commandWord.equals("clearc")) {
+            setPersons(newData.getPersonList());
+        } else if (commandWord.equals("clearp")) {
+            setProducts(newData.getProductList());
+        } else if (commandWord.equals("cleart")) {
+            setTransactions(newData.getTransactionList());
+        }
     }
 
     //// customer-level operations
