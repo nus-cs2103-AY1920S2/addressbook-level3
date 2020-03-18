@@ -16,7 +16,7 @@ import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
 /**
  * Parses user input.
  */
-public class ExerciseListParser {
+public class ParserManager {
 
     /**
      * Used for initial separation of command word and args.

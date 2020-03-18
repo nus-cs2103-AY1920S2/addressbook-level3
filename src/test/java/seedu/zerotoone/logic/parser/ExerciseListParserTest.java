@@ -32,7 +32,7 @@ import seedu.zerotoone.testutil.ExerciseUtil;
 
 public class ExerciseListParserTest {
 
-    private final ExerciseListParser parser = new ExerciseListParser();
+    private final ParserManager parser = new ParserManager();
 
     @Test
     public void parseCommand_add() throws Exception {
