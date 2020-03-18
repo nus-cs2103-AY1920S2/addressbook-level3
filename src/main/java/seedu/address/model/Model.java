@@ -64,6 +64,18 @@ public interface Model {
     void deleteRecipe(Recipe target);
 
     /**
+     * Favourites the given recipe.
+     * The recipe must exist in the recipe book.
+     */
+    void favouriteRecipe(Recipe target);
+
+    /**
+     * Unfavourites the given recipe.
+     * The recipe must exist in the recipe book.
+     */
+    void unfavouriteRecipe(Recipe target);
+
+    /**
      * Adds the given recipe.
      * {@code recipe} must not already exist in the recipe book.
      */

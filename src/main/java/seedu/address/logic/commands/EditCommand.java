@@ -108,12 +108,13 @@ public class EditCommand extends Command {
 
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
+        boolean isFavourite = editRecipeDescriptor.getFavourite();
         List<Step> updatedStep = editRecipeDescriptor.getSteps().orElse(recipeToEdit.getSteps());
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
         Set<Ingredient> updatedIngredients = editRecipeDescriptor.getIngredients()
                 .orElse(recipeToEdit.getIngredients());
 
-        return new Recipe(updatedName, updatedTime, updatedIngredients, updatedStep, updatedGoals);
+        return new Recipe(updatedName, updatedTime, updatedIngredients, updatedStep, updatedGoals, isFavourite);
     }
 
     @Override
@@ -141,6 +142,7 @@ public class EditCommand extends Command {
     public static class EditRecipeDescriptor {
         private Name name;
         private Time time;
+        private boolean isFavourite;
         private List<Step> steps;
         private Set<Goal> goals;
         private Set<Ingredient> ingredients;
@@ -154,6 +156,7 @@ public class EditCommand extends Command {
         public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
             setName(toCopy.name);
             setTime(toCopy.time);
+            setFavourite(toCopy.isFavourite);
             setSteps(toCopy.steps);
             setGoals(toCopy.goals);
             setIngredients(toCopy.ingredients);
@@ -180,6 +183,14 @@ public class EditCommand extends Command {
 
         public Optional<Time> getTime() {
             return Optional.ofNullable(time);
+        }
+
+        public void setFavourite(boolean isFavourite) {
+            this.isFavourite = isFavourite;
+        }
+
+        public boolean getFavourite() {
+            return isFavourite;
         }
 
         /**

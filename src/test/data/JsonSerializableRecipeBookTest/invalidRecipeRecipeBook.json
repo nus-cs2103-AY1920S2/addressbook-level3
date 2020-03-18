@@ -2,6 +2,7 @@
   "recipes": [ {
     "name": "Hans Muster",
     "time": "9482424",
+    "isFavourite": false,
     "steps": [""]
   } ]
 }
