@@ -43,6 +43,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private MenuItem ExitAppItem;
+
+    @FXML
     private StackPane orderListPanelPlaceholder;
 
     @FXML
@@ -72,7 +75,8 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(ExitAppItem, KeyCombination.valueOf("F1"));
+        setAccelerator(helpMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
