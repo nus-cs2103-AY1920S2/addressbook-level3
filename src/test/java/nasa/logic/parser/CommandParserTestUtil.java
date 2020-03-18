@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import nasa.logic.commands.Command;
 import nasa.logic.parser.exceptions.ParseException;
 
+/**
+ * Util class for command parser tests.
+ */
 public class CommandParserTestUtil {
 
     /**
