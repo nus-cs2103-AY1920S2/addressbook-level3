@@ -8,10 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandAdd.AddCourseCommand;
-import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
-import seedu.address.logic.commands.commandAdd.AddStudentCommand;
-import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
+import seedu.address.logic.commands.commandAdd.*;
 import seedu.address.logic.commands.commandClear.ClearCourseCommand;
 import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
 import seedu.address.logic.commands.commandClear.ClearStudentCommand;
@@ -97,6 +94,12 @@ public class LogicManager implements Logic {
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
+    } else if (command instanceof AddAssignmentCommand) {
+      try {
+        storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
+      } catch (IOException ioe) {
+        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+      }
     }
 
     // Updates summary panel
@@ -112,7 +115,7 @@ public class LogicManager implements Logic {
   public void setSummaryPanel(SummaryPanel summaryPanel){
     this.summaryPanel = summaryPanel;
   }
-  ///
+
   @Override
   public ReadOnlyAddressBook getAddressBook() {
     return model.getAddressBook();

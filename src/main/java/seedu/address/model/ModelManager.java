@@ -378,7 +378,9 @@ public class ModelManager implements Model {
 
   @Override
   public void addAssignment(Assignment assignment) {
-
+    requireNonNull(assignment);
+    assignmentAddressBook.addAssignment(assignment);
+    updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
   }
 
   @Override
