@@ -25,6 +25,7 @@ import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.model.activity.Date;
 import nasa.model.activity.Event;
@@ -42,7 +43,7 @@ public class AddEventCommandParserTest {
     public void parse_allFieldsPresent_success() {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODULE_DESC_CS1231
-        + ACTIVITY_NAME_DESC_EXAM + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM
+            + ACTIVITY_NAME_DESC_EXAM + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM
             + PRIORITY_DESC_HIGH + NOTES_DESC_TEST,
             new AddEventCommand(new EventBuilder().build(), moduleCode));
     }
@@ -73,46 +74,52 @@ public class AddEventCommandParserTest {
         // note field missing
         assertParseSuccess(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_EXAM
                 + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH,
-            new AddEventCommand(EventTemplate.noteFieldMissing, moduleCode));
+            new AddEventCommand(EventTemplate.NOTE_FIELD_MISSING, moduleCode));
 
         // priority field missing
         assertParseSuccess(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_EXAM
                 + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + NOTES_DESC_TEST,
-            new AddEventCommand(EventTemplate.priorityFieldMissing, moduleCode));
+            new AddEventCommand(EventTemplate.PRIORITY_FIELD_MISSING, moduleCode));
     }
 
     @Test
     public void parse_invalidValue_failure() {
         //invalid module code
         assertParseFailure(parser, INVALID_MODULE_DESC + ACTIVITY_NAME_DESC_EXAM
-            + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, ModuleCode.MESSAGE_CONSTRAINTS);
+            + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH,
+                ModuleCode.MESSAGE_CONSTRAINTS);
 
         // invalid activity name
         assertParseFailure(parser, MODULE_DESC_CS1231 + INVALID_ACTIVITY_NAME_DESC
-            + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, Name.MESSAGE_CONSTRAINTS);
+            + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH,
+                Name.MESSAGE_CONSTRAINTS);
 
         // invalid date-from
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_EXAM
-            + INVALID_DATE_FROM_DESC + DATE_DESC_TEST_TO + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, Date.MESSAGE_CONSTRAINTS);
+            + INVALID_DATE_FROM_DESC + DATE_DESC_TEST_TO + NOTES_DESC_TEST + PRIORITY_DESC_HIGH,
+                Date.MESSAGE_CONSTRAINTS);
 
         // invalid date-to
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_EXAM
-            + INVALID_DATE_TO_DESC + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, Date.MESSAGE_CONSTRAINTS);
+            + INVALID_DATE_TO_DESC + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH,
+                Date.MESSAGE_CONSTRAINTS);
 
         // invalid note
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_EXAM
-            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + INVALID_NOTES_DESC + PRIORITY_DESC_HIGH, Note.MESSAGE_CONSTRAINTS);
+            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + INVALID_NOTES_DESC + PRIORITY_DESC_HIGH,
+                Note.MESSAGE_CONSTRAINTS);
 
         // invalid priority
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_EXAM
-            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + NOTES_DESC_TEST + INVALID_PRIORITY_DESC, Priority.PRIORITY_RANGE_CONSTRAINTS);
+            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + NOTES_DESC_TEST + INVALID_PRIORITY_DESC,
+                Priority.PRIORITY_RANGE_CONSTRAINTS);
     }
 
 }
 
 class EventTemplate {
-    public static Event noteFieldMissing = new Event(new Name(VALID_ACTIVITY_NAME_EXAM), null,
+    public static final Event NOTE_FIELD_MISSING = new Event(new Name(VALID_ACTIVITY_NAME_EXAM), null,
         new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST), new Date(VALID_DATE_TEST_2));
-    public static Event priorityFieldMissing =  new Event(new Name(VALID_ACTIVITY_NAME_EXAM),
-        new Note(VALID_NOTES_TEST), null, new Date(VALID_DATE_TEST), new Date(VALID_DATE_TEST_2));
+    public static final Event PRIORITY_FIELD_MISSING = new Event(new Name(VALID_ACTIVITY_NAME_EXAM),
+            new Note(VALID_NOTES_TEST), null, new Date(VALID_DATE_TEST), new Date(VALID_DATE_TEST_2));
 }
