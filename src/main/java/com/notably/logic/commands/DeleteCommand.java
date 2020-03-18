@@ -25,4 +25,6 @@ public class DeleteCommand extends Command {
         model.deleteBlock(this.targetPath);
     }
 
+
+
 }
