@@ -24,13 +24,18 @@ public class JsonAdaptedExerciseTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList());
+    // private static final String VALID_NAME = BENSON.getName().toString();
+    // private static final String VALID_PHONE = BENSON.getPhone().toString();
+    // private static final String VALID_EMAIL = BENSON.getEmail().toString();
+    // private static final String VALID_ADDRESS = BENSON.getAddress().toString();
+    // private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    //         .map(JsonAdaptedTag::new)
+    //         .collect(Collectors.toList());
+    private static final String VALID_NAME = null;
+    private static final String VALID_PHONE = null;
+    private static final String VALID_EMAIL = null;
+    private static final String VALID_ADDRESS = null;
+    private static final List<JsonAdaptedTag> VALID_TAGS = new ArrayList<>();
 
     @Test
     public void toModelType_validExerciseDetails_returnsExercise() throws Exception {

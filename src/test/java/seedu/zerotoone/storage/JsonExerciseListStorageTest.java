@@ -3,10 +3,10 @@ package seedu.zerotoone.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalPersons.ALICE;
-import static seedu.zerotoone.testutil.TypicalPersons.HOON;
-import static seedu.zerotoone.testutil.TypicalPersons.IDA;
-import static seedu.zerotoone.testutil.TypicalPersons.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.TypicalExercises.ALICE;
+import static seedu.zerotoone.testutil.TypicalExercises.HOON;
+import static seedu.zerotoone.testutil.TypicalExercises.IDA;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,13 +51,13 @@ public class JsonExerciseListStorageTest {
     }
 
     @Test
-    public void readExerciseList_invalidPersonExerciseList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readExerciseList("invalidPersonExerciseList.json"));
+    public void readExerciseList_invalidExerciseExerciseList_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readExerciseList("invalidExerciseExerciseList.json"));
     }
 
     @Test
-    public void readExerciseList_invalidAndValidPersonExerciseList_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readExerciseList("invalidAndValidPersonExerciseList.json"));
+    public void readExerciseList_invalidAndValidExerciseExerciseList_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readExerciseList("invalidAndValidExerciseExerciseList.json"));
     }
 
     @Test
@@ -72,14 +72,14 @@ public class JsonExerciseListStorageTest {
         assertEquals(original, new ExerciseList(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addExercise(HOON);
+        original.removeExercise(ALICE);
         jsonExerciseListStorage.saveExerciseList(original, filePath);
         readBack = jsonExerciseListStorage.readExerciseList(filePath).get();
         assertEquals(original, new ExerciseList(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addExercise(IDA);
         jsonExerciseListStorage.saveExerciseList(original); // file path not specified
         readBack = jsonExerciseListStorage.readExerciseList().get(); // file path not specified
         assertEquals(original, new ExerciseList(readBack));
