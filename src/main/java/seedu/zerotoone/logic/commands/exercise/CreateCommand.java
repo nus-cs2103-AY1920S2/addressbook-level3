@@ -1,16 +1,7 @@
 package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NEW_EXERCISE_NAME;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_INTERVAL;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_FREQUENCY;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_DATETIME;
-
-// import seedu.zerotoone.logic.commands.Command;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
@@ -24,15 +15,11 @@ public class CreateCommand extends ExerciseCommand {
 
     public static final String COMMAND_WORD = "create";
 
-    // public static final String MESSAGE_USAGE = COMMAND_WORD + ": creates a new exercise. "
-    //         + "Parameters: "
-    //         + PREFIX_NEW_EXERCISE_NAME + "NAME "
-    //         + PREFIX_NUM_OF_REPS + "REPS "
-    //         + PREFIX_NUM_OF_SETS + "SETS "
-    //         + "Example: " + COMMAND_WORD + " "
-    //         + PREFIX_NEW_EXERCISE_NAME + "Pushups "
-    //         + PREFIX_NUM_OF_REPS + "20 "
-    //         + PREFIX_NUM_OF_SETS + "3 ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": creates a new exercise. "
+            + "Parameters: "
+            + PREFIX_EXERCISE_NAME + "NAME "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_EXERCISE_NAME + "Pushups ";
 
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists";
@@ -51,13 +38,12 @@ public class CreateCommand extends ExerciseCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // if (model.hasExercise(toAdd)) {
-        //     throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
-        // }
+        if (model.hasExercise(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
+        }
 
-        // model.addExercise(toAdd);
-        // return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.addExercise(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
