@@ -34,7 +34,7 @@ public class TypeOfItem {
     }
 
     /**
-     * Returns true if a given string is a valid transaction ID.
+     * Returns true if a given string is a valid Item.
      */
     public static boolean isValidItemName(String test) {
         return test.matches(VALIDATION_REGEX);

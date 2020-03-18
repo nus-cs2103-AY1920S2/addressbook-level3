@@ -48,11 +48,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyOrderBook getSampleOrderBook() {
-        OrderBook sampleAb = new OrderBook();
+        OrderBook sampleOb = new OrderBook();
         for (Order sampleOrder : getSampleOrders()) {
-            sampleAb.addOrder(sampleOrder);
+            sampleOb.addOrder(sampleOrder);
         }
-        return sampleAb;
+        return sampleOb;
     }
 
 }

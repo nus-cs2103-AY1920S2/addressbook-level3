@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -29,6 +30,7 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_DELIVERY_TIMESTAMP + "Delivery_DATE_&_TIME "
             + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION "
+            + PREFIX_COD + "CASH_ON_DELIVERY"
             + "[" + PREFIX_COMMENT + "COMMENT] "
             + "[" + PREFIX_TYPE + "TYPE_OF_ITEM] "
             + "Example: " + COMMAND_WORD + " "
@@ -38,6 +40,7 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_DELIVERY_TIMESTAMP + "2019-12-02 1500 "
             + PREFIX_WAREHOUSE + "5 Toh Guan Rd E, #02-30 S608831 "
+            + PREFIX_COD + "$2"
             + PREFIX_COMMENT + "NIL "
             + PREFIX_TYPE + "glass";
 

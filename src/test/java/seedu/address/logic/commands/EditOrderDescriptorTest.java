@@ -42,7 +42,7 @@ public class EditOrderDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different TID -> returns false
-        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withWarehouse(VALID_TID_BOB).build();
+        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withTid(VALID_TID_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
@@ -58,7 +58,7 @@ public class EditOrderDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different comment -> returns false
-        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withAddress(VALID_COMMENT_NIL).build();
+        editedAmy = new EditOrderDescriptorBuilder(DESC_AMY).withComment(VALID_COMMENT_NIL).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different Item Types -> returns false

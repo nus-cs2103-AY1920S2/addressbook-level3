@@ -26,9 +26,8 @@ public class CashOnDeliveryTest {
         Assert.assertThrows(NullPointerException.class, () -> CashOnDelivery.isValidCashValue(null));
 
         // invalid TID
-        assertFalse(CashOnDelivery.isValidCashValue("")); // empty string
-        assertFalse(CashOnDelivery.isValidCashValue("   ")); // string with spaces
-        assertFalse(CashOnDelivery.isValidCashValue("AAAA")); // alphabets
+        assertFalse(TransactionId.isValidTid("")); // empty string
+        assertFalse(TransactionId.isValidTid("   ")); // string with spaces
         assertTrue(TransactionId.isValidTid("12345678")); // numbers only
         assertTrue(TransactionId.isValidTid("A943739")); // alphanumeric characters
         assertTrue(TransactionId.isValidTid("$")); // dollar sign only
