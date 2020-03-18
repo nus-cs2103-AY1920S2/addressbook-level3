@@ -25,24 +25,28 @@
     "name" : "Chocolate Cake",
     "time" : "120",
     "isFavourite": false,
+    "ingredients" : ["Sugar, 100, other"],
     "steps" : ["Caramelize sugar"],
     "goals" : [ ]
   }, {
     "name" : "Omelet",
     "time" : "15",
     "isFavourite": false,
+    "ingredients" : ["Egg, 50, protein"],
     "steps" : ["Crack and beat eggs"],
     "goals" : [ ]
   }, {
     "name" : "Steamed Egg",
     "time" : "15",
     "isFavourite": false,
+    "ingredients" : ["Egg, 50, protein"],
     "steps" : ["Pour water into steamer and bring to a boil"],
     "goals" : [ ]
   }, {
     "name" : "Tuna Bread",
     "time" : "60",
     "isFavourite": false,
+    "ingredients" : ["Tuna, 100, protein", "Bread, 100, grain"],
     "steps" : ["Slice tuna"],
     "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
   } ]

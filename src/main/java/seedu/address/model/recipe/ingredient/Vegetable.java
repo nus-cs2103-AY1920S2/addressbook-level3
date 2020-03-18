@@ -1,4 +1,4 @@
-package seedu.address.model.ingredient;
+package seedu.address.model.recipe.ingredient;
 
 /**
  * Represents a Vegetable Ingredient in the recipe book.

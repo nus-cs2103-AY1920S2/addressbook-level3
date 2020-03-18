@@ -1,4 +1,4 @@
-package seedu.address.model.ingredient;
+package seedu.address.model.recipe.ingredient;
 
 /**
  * Represents Other Ingredients in the recipe book. These ingredients include spices, liquids and condiments.

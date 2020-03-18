@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -11,11 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Ingredient;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
+
+import seedu.address.model.recipe.ingredient.Ingredient;
 
 /**
  * Jackson-friendly version of {@link Recipe}.
@@ -112,7 +114,7 @@ class JsonAdaptedRecipe {
         final Time modelTime = new Time(time);
 
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
-        final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
+        final Set<Ingredient> modelIngredients = new TreeSet<>(recipeIngredients);
         final ArrayList<Step> modelSteps = new ArrayList<>(recipeSteps);
         return new Recipe(modelName, modelTime, modelIngredients, modelSteps, modelGoals, isFavourite);
     }

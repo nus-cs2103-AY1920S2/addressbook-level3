@@ -60,8 +60,9 @@ public class LogicManagerTest {
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
-    /* todo: resolve after refactoring add command
-    @Test
+
+    //TODO: Resolve after refactoring add and edit command
+    /*@Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
         JsonRecipeBookStorage recipeBookStorage =

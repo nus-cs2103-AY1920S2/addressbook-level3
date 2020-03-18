@@ -8,9 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Ingredient;
 
 /**
  * Represents a Recipe in the address book.
@@ -25,7 +26,7 @@ public class Recipe {
     // Data fields
     private final List<Step> steps = new ArrayList<>();
     private final Set<Goal> goals = new HashSet<>();
-    private final Set<Ingredient> ingredients = new HashSet<>();
+    private final Set<Ingredient> ingredients = new TreeSet<>();
     private boolean isFavourite;
 
     /**
@@ -74,7 +75,6 @@ public class Recipe {
         return Collections.unmodifiableSet(goals);
     }
 
-    // todo: double check ingredients get
     /**
      * Returns an immutable ingredient set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -114,6 +114,7 @@ public class Recipe {
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName())
                 && otherRecipe.getTime().equals(getTime())
+                && otherRecipe.getIngredients().equals(getIngredients())
                 && otherRecipe.getSteps().equals(getSteps())
                 && otherRecipe.getGoals().equals(getGoals());
     }

@@ -1,23 +1,24 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.goal.Goal;
-import seedu.address.model.ingredient.Grain;
-import seedu.address.model.ingredient.Ingredient;
-import seedu.address.model.ingredient.Other;
-import seedu.address.model.ingredient.Protein;
-import seedu.address.model.ingredient.Vegetable;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
+
+import seedu.address.model.recipe.ingredient.Grain;
+import seedu.address.model.recipe.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Other;
+import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
  * Contains utility methods for populating {@code RecipeBook} with sample data.
@@ -69,7 +70,7 @@ public class SampleDataUtil {
      * Returns an ingredient set containing the list of strings given in the format (name, quantity, type).
      */
     public static Set<Ingredient> getIngredientSet(String... ingredients) {
-        Set<Ingredient> ingredientSet = new HashSet<Ingredient>();
+        Set<Ingredient> ingredientSet = new TreeSet<Ingredient>();
         for (String ingredient: ingredients) {
             String[] splitDetails = ingredient.split(",");
             String name = splitDetails[0].trim();

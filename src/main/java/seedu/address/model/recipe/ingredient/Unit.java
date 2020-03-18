@@ -1,4 +1,4 @@
-package seedu.address.model.ingredient;
+package seedu.address.model.recipe.ingredient;
 
 /**
  * Represents the standardized units that will be used in the recipe book.
