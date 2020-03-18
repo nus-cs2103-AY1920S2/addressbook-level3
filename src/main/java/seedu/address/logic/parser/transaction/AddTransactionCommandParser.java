@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
+import static seedu.address.model.util.Description.DEFAULT_VALUE;
 
 import java.util.stream.Stream;
 
@@ -20,6 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
 /**
@@ -46,11 +48,11 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         Money money = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get());
 
-        String transDescription;
+        Description transDescription;
         if (arePrefixesPresent(argMultimap, PREFIX_TRANS_DESCIPTION)) {
             transDescription = ParserUtil.parseTransDescription(argMultimap.getValue(PREFIX_TRANS_DESCIPTION).get());
         } else {
-            transDescription = "";
+            transDescription = new Description(DEFAULT_VALUE);
         }
         Transaction transaction = new Transaction(customer, product, dateTime, quantity, money, transDescription);
 

@@ -21,6 +21,8 @@ import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.util.Quantity;
 
+import javax.crypto.spec.DESedeKeySpec;
+
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -256,14 +258,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
-    public static String parseTransDescription(String description) throws ParseException {
+    public static Description parseTransDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        //        if (!Description.isValidDescription(trimmedDescription)) {
-        //            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
-        //        }
-        //        return new Description(trimmedDescription);
-        return trimmedDescription;
+                if (!Description.isValidDescription(trimmedDescription)) {
+                    throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+                }
+                return new Description(trimmedDescription);
     }
 
 }
