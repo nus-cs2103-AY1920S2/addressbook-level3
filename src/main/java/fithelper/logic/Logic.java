@@ -43,11 +43,5 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of sports entries*/
     ObservableList<Entry> getFilteredReminderEntryList();
 
-    /** Returns an unmodifiable view of the filtered list of food entries for today*/
-    ObservableList<Entry> getFilteredTodayFoodEntryList(String todayDateStr);
-
-    /** Returns an unmodifiable view of the filtered list of sports entries for today*/
-    ObservableList<Entry> getFilteredTodaySportsEntryList(String todayDateStr);
-
     LocalDateTime getCalendarDate();
 }
