@@ -94,13 +94,15 @@ public class EditCommand extends Command {
             Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
         assert exerciseToEdit != null;
 
-        Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
-        Phone updatedPhone = editExerciseDescriptor.getPhone().orElse(exerciseToEdit.getPhone());
-        Email updatedEmail = editExerciseDescriptor.getEmail().orElse(exerciseToEdit.getEmail());
-        Address updatedAddress = editExerciseDescriptor.getAddress().orElse(exerciseToEdit.getAddress());
-        Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
+        // Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
+        // Phone updatedPhone = editExerciseDescriptor.getPhone().orElse(exerciseToEdit.getPhone());
+        // Email updatedEmail = editExerciseDescriptor.getEmail().orElse(exerciseToEdit.getEmail());
+        // Address updatedAddress = editExerciseDescriptor.getAddress().orElse(exerciseToEdit.getAddress());
+        // Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
 
-        return new Exercise(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        // return new Exercise(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+
+        return new Exercise(null, null);
     }
 
     @Override
