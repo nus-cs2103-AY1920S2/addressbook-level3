@@ -196,4 +196,8 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEntry);
         vEventList.setVEvent(target, editedEntry);
     }
+    @Override
+    public void deleteVevent(Entry entry) {
+        vEventList.deleteVEvent(entry);
+    }
 }

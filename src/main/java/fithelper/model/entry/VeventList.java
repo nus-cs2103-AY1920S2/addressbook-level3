@@ -123,4 +123,16 @@ public class VeventList {
         }
         vEvents.set(index, newEvent);
     }
+
+    /**
+     * Removes the equivalent entry from the list.
+     * The entry must exist in the list.
+     */
+    public void deleteVEvent(Entry toRemove) {
+        requireNonNull(toRemove);
+        VEvent temp = entryToVEvent(toRemove);
+        if (!vEvents.remove(temp)) {
+            throw new EntryNotFoundException();
+        }
+    }
 }

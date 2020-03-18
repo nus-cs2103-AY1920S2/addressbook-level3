@@ -48,6 +48,8 @@ public interface Model {
 
     void setVevent(Entry entry, Entry newEntry);
 
+    void deleteVevent(Entry entry);
+
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the log book.
