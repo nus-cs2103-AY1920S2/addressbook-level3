@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.CommandWords.DELETE_MODEL;
+import static seedu.address.logic.commands.CommandWords.MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -12,8 +14,7 @@ import seedu.address.model.module.Module;
  */
 public class DeleteModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "module";
-    public static final String DELETE_MODEL = "delete";
+    public static final String COMMAND_WORD = MODULE;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + DELETE_MODEL
             + ": Deletes the module identified by the module code.\n"
