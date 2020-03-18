@@ -2,22 +2,24 @@ package seedu.zerotoone.model.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 // import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalExercises.ALICE;
-
-import static seedu.zerotoone.testutil.TypicalExercises.BOB;
+import static seedu.zerotoone.testutil.TypicalExercises.BENCH_PRESS;
+import static seedu.zerotoone.testutil.TypicalExercises.CRUNCHES;
 
 import org.junit.jupiter.api.Test;
 
+//import seedu.zerotoone.model.person.Person;
 import seedu.zerotoone.testutil.ExerciseBuilder;
+//import seedu.zerotoone.testutil.PersonBuilder;
 
 public class ExerciseTest {
 
+    // TODO fix_test_case
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Exercise exercise = new ExerciseBuilder().build();
@@ -27,70 +29,47 @@ public class ExerciseTest {
     @Test
     public void isSameExercise() {
         // same object -> returns true
-        assertTrue(ALICE.isSameExercise(ALICE));
+        assertTrue(BENCH_PRESS.isSameExercise(BENCH_PRESS));
 
         // null -> returns false
-        assertFalse(ALICE.isSameExercise(null));
+        assertFalse(BENCH_PRESS.isSameExercise(null));
 
-        // different phone and email -> returns false
-        Exercise editedAlice = new ExerciseBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameExercise(editedAlice));
+        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withExerciseSet("20", "4", "120").build();
 
         // different name -> returns false
-        editedAlice = new ExerciseBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameExercise(editedAlice));
+        editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Leg Curl").build();
+        assertFalse(BENCH_PRESS.isSameExercise(editedBenchPress));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new ExerciseBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameExercise(editedAlice));
-
-        // same name, same email, different attributes -> returns true
-        editedAlice = new ExerciseBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameExercise(editedAlice));
-
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ExerciseBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameExercise(editedAlice));
+        // same name, same attributes -> returns true
+        editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Bench Press")
+                .withExerciseSet("30", "3", "180").build();
+        assertTrue(BENCH_PRESS.isSameExercise(editedBenchPress));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Exercise aliceCopy = new ExerciseBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Exercise benchPressCopy = new ExerciseBuilder(BENCH_PRESS).build();
+        assertTrue(BENCH_PRESS.equals(benchPressCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(BENCH_PRESS.equals(BENCH_PRESS));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(BENCH_PRESS.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(BENCH_PRESS.equals(5));
 
-        // different exercise -> returns false
-        assertFalse(ALICE.equals(BOB));
+        // different person -> returns false
+        assertFalse(BENCH_PRESS.equals(CRUNCHES));
 
         // different name -> returns false
-        Exercise editedAlice = new ExerciseBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Leg Curl").build();
+        assertFalse(BENCH_PRESS.equals(editedBenchPress));
 
         // different phone -> returns false
-        editedAlice = new ExerciseBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new ExerciseBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different address -> returns false
-        editedAlice = new ExerciseBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new ExerciseBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withExerciseSet("35", "2", "120").build();
+        assertFalse(BENCH_PRESS.equals(editedBenchPress));
     }
 }
