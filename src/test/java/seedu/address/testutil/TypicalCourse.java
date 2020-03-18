@@ -24,18 +24,18 @@ public class TypicalCourse {
             .withID("1000")
             .withTags("friends").build();
     public static final Course COURSE_BENSON = new CourseBuilder().withName("Benson Meier")
-            .withID("1000")
+            .withID("1001")
             .withTags("owesMoney", "friends").build();
     public static final Course CARL = new CourseBuilder().withName("Carl Kurz")
-            .withID("1000").build();
+            .withID("1002").build();
     public static final Course DANIEL = new CourseBuilder().withName("Daniel Meier")
-            .withID("1000").withTags("friends").build();
+            .withID("1003").withTags("friends").build();
     public static final Course ELLE = new CourseBuilder().withName("Elle Meyer")
-            .withID("1000").build();
+            .withID("1004").build();
     public static final Course FIONA = new CourseBuilder().withName("Fiona Kunz")
-            .withID("1000").build();
+            .withID("1005").build();
     public static final Course GEORGE = new CourseBuilder().withName("George Best")
-            .withID("1000").build();
+            .withID("1006").build();
 
     // Manually added
     public static final Course HOON = new CourseBuilder().withName("Hoon Meier").withID("1000").build();
