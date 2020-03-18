@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -22,7 +23,7 @@
         </Label>
         <Label fx:id="tid" styleClass="cell_big_label" text="\$tid" />
       </HBox>
-      <FlowPane fx:id="itemType" />
+      <FlowPane fx:id="itemType"/>
       <Label fx:id="name" styleClass="cell_small_label" text="\$first" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
@@ -31,8 +32,5 @@
       <Label fx:id="cashOnDelivery" styleClass="cell_small_label" text="\$cod" />
       <Label fx:id="comment" styleClass="cell_small_label" text="\$comment" />
     </VBox>
-      <rowConstraints>
-         <RowConstraints />
-      </rowConstraints>
   </GridPane>
 </HBox>
