@@ -16,7 +16,7 @@ import seedu.address.model.recipe.Recipe;
 /**
  * An Immutable RecipeBook that is serializable to JSON format.
  */
-@JsonRootName(value = "recipebook")
+@JsonRootName(value = "recipeBook")
 class JsonSerializableRecipeBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate recipe(s).";
