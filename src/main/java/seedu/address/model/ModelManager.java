@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +15,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.Capulator;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 
 /**
@@ -25,6 +30,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private DiaryBook diaryBook;
+    private final FilteredList<Notes> filesInFolder;
+    private List<NusModule> modules;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +46,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         diaryBook = new DiaryBook();
+        filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
+        modules = new ArrayList<>();
     }
 
     public ModelManager() {
@@ -116,6 +125,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+  //=========== Diary Module ==================================================================================
     @Override
     public void addDiaryEntry(DiaryEntry diaryEntry) {
         diaryBook.addEntry(diaryEntry);
@@ -131,6 +141,24 @@ public class ModelManager implements Model {
     public String showDiaryLog() {
         return diaryBook.showLog();
     }
+  
+  //=========== Cap Module ==================================================================================
+    public boolean hasModule(NusModule module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    @Override
+    public void addModule(NusModule module) {
+        modules.add(module);
+    }
+
+    @Override
+    public double getCap() {
+        Capulator capulator = new Capulator(modules);
+        return capulator.calculateCap();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -147,6 +175,20 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //=========== Notes Module ==================================================================================
+    /** Returns an list of String that contains what is currently in the folder */
+    @Override
+    public ObservableList<Notes> getFilesInFolderList() {
+        return filesInFolder;
+    }
+
+    @Override
+    public void updateNotesList(Predicate<Notes> predicate) {
+        requireNonNull(predicate);
+        filesInFolder.setPredicate(predicate);
+    }
+
 
     @Override
     public boolean equals(Object obj) {

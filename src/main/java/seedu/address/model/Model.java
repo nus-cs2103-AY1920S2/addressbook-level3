@@ -6,6 +6,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.diary.DiaryEntry;
+import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,6 +16,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Notes> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -85,8 +90,35 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
+    //=========== Diary Module ==================================================================================
     boolean isEmptyDiaryEntry(DiaryEntry diaryEntry);
+  
     void addDiaryEntry(DiaryEntry diaryEntry);
+  
     String showDiaryLog();
+  
+    //=========== Notes Module ==================================================================================
+    /** Returns an list of String that contains what is currently in the folder */
+    ObservableList<Notes> getFilesInFolderList();
+
+    /**
+     * Updates the notes list by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateNotesList(Predicate<Notes> predicate);
+
+    //=========== CAP Module ==================================================================================
+    /**
+     * Returns true if a module with the same identity as {@code module} exists in the address book.
+     */
+    boolean hasModule(NusModule module);
+
+    /**
+     * Adds the given module.
+     * {@code module} must not already exist in the address book.
+     */
+    void addModule(NusModule module);
+
+    double getCap();
+
 }
