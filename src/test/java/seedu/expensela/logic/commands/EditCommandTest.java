@@ -11,18 +11,14 @@ import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.expensela.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.expensela.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.expensela.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
-import static seedu.expensela.testutil.TypicalTransactions.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.expensela.commons.core.Messages;
 import seedu.expensela.commons.core.index.Index;
-<<<<<<< HEAD
 import seedu.expensela.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.expensela.model.ExpenseLa;
-=======
-import seedu.expensela.logic.commands.EditCommand.editTransaction;
-import seedu.expensela.model.AddressBook;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
@@ -35,13 +31,13 @@ import seedu.expensela.testutil.TransactionBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Transaction editedTransaction = new TransactionBuilder().build();
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(editedTransaction).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
@@ -76,7 +72,7 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, new EditTransactionDescriptor());
-        Transaction editedTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Transaction editedTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
@@ -89,9 +85,9 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction transactionInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Transaction transactionInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList).withName(VALID_NAME_AIRPODS).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
@@ -115,9 +111,9 @@ public class EditCommandTest {
     public void execute_duplicateTransactionFilteredList_failure() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        // edit transaction in filtered list into a duplicate in address book
-        Transaction transactionInList = model.getExpenseLa().getTransactionList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+        // edit transaction in filtered list into a duplicate in expense la
+        Transaction transactionInList = model.getExpenseLa().getTransactionList().get(INDEX_SECOND_TRANSACTION.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder(transactionInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
@@ -134,13 +130,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of expense la
      */
     @Test
     public void execute_invalidTransactionIndexFilteredList_failure() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
         Index outOfBoundIndex = INDEX_SECOND_TRANSACTION;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of expense la list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseLa().getTransactionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
@@ -154,7 +150,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_TRANSACTION, DESC_PIZZA);
 
         // same values -> returns true
-        EditCommand.editTransaction copyDescriptor = new editTransaction(DESC_PIZZA);
+        EditCommand.EditTransactionDescriptor copyDescriptor = new EditTransactionDescriptor(DESC_PIZZA);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_TRANSACTION, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

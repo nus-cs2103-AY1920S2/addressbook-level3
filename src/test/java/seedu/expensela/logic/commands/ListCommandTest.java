@@ -2,8 +2,8 @@ package seedu.expensela.logic.commands;
 
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.expensela.logic.commands.CommandTestUtil.showTransactionAtIndex;
-import static seedu.expensela.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.expensela.testutil.TypicalTransactions.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
         expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
     }
 
@@ -33,7 +33,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
         assertCommandSuccess(new ListCommand(), model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

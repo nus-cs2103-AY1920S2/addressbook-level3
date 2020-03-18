@@ -2,7 +2,7 @@ package seedu.expensela.logic.commands;
 
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,14 +22,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
     }
 
     @Test
     public void execute_newTransaction_success() {
         Transaction validTransaction = new TransactionBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
         expectedModel.addTransaction(validTransaction);
 
         assertCommandSuccess(new AddCommand(validTransaction), model,
@@ -38,8 +38,8 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicateTransaction_throwsCommandException() {
-        Transaction transactionInList = model.getAddressBook().getTransactionList().get(0);
-        assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_Transaction);
+        Transaction transactionInList = model.getExpenseLa().getTransactionList().get(0);
+        assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
 }

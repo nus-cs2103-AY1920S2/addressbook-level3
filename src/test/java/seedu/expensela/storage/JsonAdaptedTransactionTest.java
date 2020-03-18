@@ -3,7 +3,7 @@ package seedu.expensela.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.expensela.storage.JsonAdaptedTransaction.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalPersons.BENSON;
+import static seedu.expensela.testutil.TypicalTransactions.BENSON;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,61 +23,61 @@ public class JsonAdaptedTransactionTest {
     private static final String VALID_REMARK = BENSON.getRemark().toString();
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedTransaction person = new JsonAdaptedTransaction(BENSON);
-        assertEquals(BENSON, person.toModelType());
+    public void toModelType_validTransactionDetails_returnsTransaction() throws Exception {
+        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(BENSON);
+        assertEquals(BENSON, transaction.toModelType());
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedTransaction person =
+        JsonAdaptedTransaction transaction =
                 new JsonAdaptedTransaction(INVALID_NAME, VALID_PHONE, VALID_ADDRESS, VALID_REMARK);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedTransaction person = new JsonAdaptedTransaction(null, VALID_PHONE, VALID_ADDRESS);
+        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(null, VALID_PHONE, VALID_ADDRESS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
-        JsonAdaptedTransaction person =
+        JsonAdaptedTransaction transaction =
                 new JsonAdaptedTransaction(VALID_NAME, INVALID_PHONE, VALID_ADDRESS);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        JsonAdaptedTransaction person = new JsonAdaptedTransaction(VALID_NAME, null, VALID_ADDRESS);
+        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(VALID_NAME, null, VALID_ADDRESS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
-        JsonAdaptedTransaction person =
+        JsonAdaptedTransaction transaction =
                 new JsonAdaptedTransaction(VALID_NAME, VALID_PHONE, INVALID_ADDRESS);
         String expectedMessage = Date.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
     @Test
     public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedTransaction person = new JsonAdaptedTransaction(VALID_NAME, VALID_PHONE, null);
+        JsonAdaptedTransaction transaction = new JsonAdaptedTransaction(VALID_NAME, VALID_PHONE, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        assertThrows(IllegalValueException.class, expectedMessage, transaction::toModelType);
     }
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
-        JsonAdaptedTransaction person =
+        JsonAdaptedTransaction transaction =
                 new JsonAdaptedTransaction(VALID_NAME, VALID_PHONE, VALID_ADDRESS);
-        assertThrows(IllegalValueException.class, person::toModelType);
+        assertThrows(IllegalValueException.class, transaction::toModelType);
     }
 
 }

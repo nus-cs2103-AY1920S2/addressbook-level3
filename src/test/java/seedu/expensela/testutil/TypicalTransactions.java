@@ -1,11 +1,11 @@
 package seedu.expensela.testutil;
 
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,10 +45,10 @@ public class TypicalTransactions {
             .withAddress("chicago ave").build();
 
     // Manually added - Transaction's details found in {@code CommandTestUtil}
-    public static final Transaction AMY = new TransactionBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withAddress(VALID_ADDRESS_AMY).build();
-    public static final Transaction BOB = new TransactionBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withAddress(VALID_ADDRESS_BOB)
+    public static final Transaction AMY = new TransactionBuilder().withName(VALID_NAME_PIZZA).withPhone(VALID_AMOUNT_PIZZA)
+            .withAddress(VALID_REMARK_PIZZA).build();
+    public static final Transaction BOB = new TransactionBuilder().withName(VALID_NAME_AIRPODS).withPhone(VALID_AMOUNT_AIRPODS)
+            .withAddress(VALID_REMARK_AIRPODS)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
@@ -58,7 +58,7 @@ public class TypicalTransactions {
     /**
      * Returns an {@code ExpenseLa} with all the typical Transactions.
      */
-    public static ExpenseLa getTypicalAddressBook() {
+    public static ExpenseLa getTypicalExpenseLa() {
         ExpenseLa ab = new ExpenseLa();
         for (Transaction transaction : getTypicalTransactions()) {
             ab.addTransaction(transaction);
