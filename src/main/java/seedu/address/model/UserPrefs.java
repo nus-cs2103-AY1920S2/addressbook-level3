@@ -58,6 +58,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public Path getCourseListFilePath() {
+        return courseListFilePath;
+    }
+
     public Path getModuleListFilePath() {
         return moduleListFilePath;
     }
