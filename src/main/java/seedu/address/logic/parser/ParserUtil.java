@@ -185,18 +185,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> grains} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> grains} into a {@code Set<Grain>}.
      */
-    public static Set<Ingredient> parseGrains(Collection<String> grains, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Grain> parseGrains(Collection<String> grains) throws ParseException {
         requireNonNull(grains);
+        final Set<Grain> grainsSet = new TreeSet<>();
         for (String grain : grains) {
-            ingredientSet.add(parseGrain(grain));
+            grainsSet.add(parseGrain(grain));
         }
-        return ingredientSet;
+        return grainsSet;
     }
 
     /**
@@ -224,18 +221,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> vegetables} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> vegetables} into a {@code Set<Vegetable>}.
      */
-    public static Set<Ingredient> parseVegetables(Collection<String> vegetables, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Vegetable> parseVegetables(Collection<String> vegetables) throws ParseException {
         requireNonNull(vegetables);
+        final Set<Vegetable> vegetablesSet = new HashSet<>();
         for (String vegetable : vegetables) {
-            ingredientSet.add(parseVegetable(vegetable));
+            vegetablesSet.add(parseVegetable(vegetable));
         }
-        return ingredientSet;
+        return vegetablesSet;
     }
 
     /**
@@ -263,18 +257,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> proteins} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> proteins} into a {@code Set<Protein>}.
      */
-    public static Set<Ingredient> parseProteins(Collection<String> proteins, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Protein> parseProteins(Collection<String> proteins) throws ParseException {
         requireNonNull(proteins);
+        final Set<Protein> proteinsSet = new HashSet<>();
         for (String protein : proteins) {
-            ingredientSet.add(parseProtein(protein));
+            proteinsSet.add(parseProtein(protein));
         }
-        return ingredientSet;
+        return proteinsSet;
     }
 
     /**
@@ -302,18 +293,15 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> others} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> others} into a {@code Set<Other>}.
      */
-    public static Set<Ingredient> parseOthers(Collection<String> others, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Other> parseOthers(Collection<String> others) throws ParseException {
+        final Set<Other> othersSet = new HashSet<>();
         requireNonNull(others);
         for (String other : others) {
-            ingredientSet.add(parseProtein(other));
+            othersSet.add(parseOther(other));
         }
-        return ingredientSet;
+        return othersSet;
     }
 
 }

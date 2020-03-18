@@ -22,7 +22,12 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
+import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Other;
+import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Vegetable;
+
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -49,14 +54,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         List<Step> steps = ParserUtil.parseSteps(argMultimap.getAllValues(PREFIX_STEP));
         Set<Goal> goalList = ParserUtil.parseGoals(argMultimap.getAllValues(PREFIX_GOAL));
 
-        Set<Ingredient> ingredientList = ParserUtil.parseGrains(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN),
-                null);
-        ingredientList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE), ingredientList);
-        ingredientList = ParserUtil.parseProteins(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN), ingredientList);
-        ingredientList = ParserUtil.parseOthers(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER), ingredientList);
+        Set<Grain> grainsList = ParserUtil.parseGrains(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN));
+        Set<Vegetable> vegetablesList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE));
+        Set<Protein> proteinsList = ParserUtil.parseProteins(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN));
+        Set<Other> othersList = ParserUtil.parseOthers(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER));
 
         // When recipe is first added, it will not be marked as favourite by default.
-        Recipe recipe = new Recipe(name, time, ingredientList, steps, goalList, false);
+        Recipe recipe = new Recipe(name, time,
+                grainsList, vegetablesList, proteinsList, othersList,
+                steps, goalList, false);
 
         return new AddCommand(recipe);
     }
