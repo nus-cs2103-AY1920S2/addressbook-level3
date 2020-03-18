@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.layout.VBox?>
+<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox>
+        <Label text="Welcome to MODdy!" styleClass="welcomeTitle" alignment="TOP_LEFT"></Label>
+        <Label text=" Quick start:" styleClass="title"></Label>
+        <Label text=" 1. No new profile? Create using `new`" styleClass="title"></Label>
+    </VBox>
+</StackPane>

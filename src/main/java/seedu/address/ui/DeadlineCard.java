@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * An UI component that displays information of a {@code Profile}.
  */
-public class PersonCard extends UiPart<Region> {
+public class DeadlineCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "DeadlineListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,20 +21,24 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Profile profile;
+    public final Deadline deadline;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label module;
     @FXML
-    private Label id;
+    private Label assignment;
+    @FXML
+    private Label dateTime;
 
-    public PersonCard(Profile profile, int displayedIndex) {
+
+    public DeadlineCard(Deadline deadline) {
         super(FXML);
-        this.profile = profile;
-        id.setText(displayedIndex + ". ");
-        name.setText(profile.getName().fullName);
+        this.deadline = deadline;
+        //module.setText();
+        //assignment.setText();
+        //dateTime.setText();
     }
 
     @Override
@@ -45,14 +49,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ProfileCard)) {
             System.out.print("");
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
-        return id.getText().equals(card.id.getText())
-                && profile.equals(card.profile);
+        DeadlineCard card = (DeadlineCard) other;
+        return deadline.equals(card.deadline);
     }
 }

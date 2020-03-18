@@ -13,21 +13,21 @@ import seedu.address.model.profile.Profile;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class ProfileListPanel extends UiPart<Region> {
+    private static final String FXML = "ProfileListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ProfileListPanel.class);
 
     @FXML
-    private ListView<Profile> personListView;
+    private ListView<Profile> profileListView;
 
-    public PersonListPanel(ObservableList<Profile> profileList) {
+    public ProfileListPanel(ObservableList<Profile> profileList) {
         super(FXML);
-        personListView.setItems(profileList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        profileListView.setItems(profileList);
+        profileListView.setCellFactory(listView -> new PersonListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Profile} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Profile} using a {@code DeadlineCard}.
      */
     class PersonListViewCell extends ListCell<Profile> {
         @Override
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(profile, getIndex() + 1).getRoot());
+                setGraphic(new ProfileCard(profile, getIndex() + 1).getRoot());
             }
         }
     }
