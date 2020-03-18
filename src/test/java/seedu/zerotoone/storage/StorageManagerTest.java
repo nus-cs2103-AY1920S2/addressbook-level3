@@ -14,6 +14,7 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.storage.userprefs.JsonUserPrefsStorage;
 
 public class StorageManagerTest {
 

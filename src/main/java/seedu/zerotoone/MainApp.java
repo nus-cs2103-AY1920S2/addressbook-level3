@@ -24,10 +24,10 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.util.SampleDataUtil;
 import seedu.zerotoone.storage.ExerciseListStorage;
 import seedu.zerotoone.storage.JsonExerciseListStorage;
-import seedu.zerotoone.storage.JsonUserPrefsStorage;
 import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
-import seedu.zerotoone.storage.UserPrefsStorage;
+import seedu.zerotoone.storage.userprefs.JsonUserPrefsStorage;
+import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 import seedu.zerotoone.ui.Ui;
 import seedu.zerotoone.ui.UiManager;
 

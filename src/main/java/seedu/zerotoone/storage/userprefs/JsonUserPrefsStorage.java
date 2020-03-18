@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage;
+package seedu.zerotoone.storage.userprefs;
 
 import java.io.IOException;
 import java.nio.file.Path;

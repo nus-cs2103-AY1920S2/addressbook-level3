@@ -28,8 +28,8 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.storage.JsonExerciseListStorage;
-import seedu.zerotoone.storage.JsonUserPrefsStorage;
 import seedu.zerotoone.storage.StorageManager;
+import seedu.zerotoone.storage.userprefs.JsonUserPrefsStorage;
 import seedu.zerotoone.testutil.ExerciseBuilder;
 
 public class LogicManagerTest {

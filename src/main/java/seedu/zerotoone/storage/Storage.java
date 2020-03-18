@@ -8,6 +8,7 @@ import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 
 /**
  * API of the Storage component

@@ -15,6 +15,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.storage.userprefs.JsonUserPrefsStorage;
 
 public class JsonUserPrefsStorageTest {
 

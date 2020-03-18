@@ -80,7 +80,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + exerciseListFilePath);
+        sb.append("\nExercise List file location : " + exerciseListFilePath);
         return sb.toString();
     }
 
