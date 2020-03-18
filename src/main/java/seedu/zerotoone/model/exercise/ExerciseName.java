@@ -27,14 +27,14 @@ public class ExerciseName {
      */
     public ExerciseName(String name) {
         requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidExerciseName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidExerciseName(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
