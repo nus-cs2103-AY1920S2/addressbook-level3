@@ -2,8 +2,8 @@ package seedu.zerotoone.logic.parser.exercise;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.zerotoone.logic.parser.ParserUtil;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
+import seedu.zerotoone.logic.parser.util.ParserUtil;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;

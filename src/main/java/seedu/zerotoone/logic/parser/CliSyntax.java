@@ -1,5 +1,7 @@
 package seedu.zerotoone.logic.parser;
 
+import seedu.zerotoone.logic.parser.util.Prefix;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */

@@ -2,7 +2,7 @@ package seedu.zerotoone.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.zerotoone.logic.parser.util.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
@@ -14,6 +14,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
+import seedu.zerotoone.logic.parser.util.ParserUtil;
 import seedu.zerotoone.model.exercise.Address;
 import seedu.zerotoone.model.exercise.Email;
 import seedu.zerotoone.model.exercise.Name;

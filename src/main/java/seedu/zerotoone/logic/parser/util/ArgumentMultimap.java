@@ -1,4 +1,4 @@
-package seedu.zerotoone.logic.parser;
+package seedu.zerotoone.logic.parser.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 
-import seedu.zerotoone.logic.parser.ArgumentMultimap;
-import seedu.zerotoone.logic.parser.ArgumentTokenizer;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exercise.EditCommand;
 import seedu.zerotoone.logic.commands.exercise.EditCommand.EditExerciseDescriptor;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
+import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
+import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
 import seedu.zerotoone.logic.parser.Parser;
 
 /**

@@ -7,14 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.zerotoone.logic.parser.ArgumentMultimap;
-import seedu.zerotoone.logic.parser.ArgumentTokenizer;
 import seedu.zerotoone.logic.parser.Parser;
-import seedu.zerotoone.logic.parser.Prefix;
-
 import seedu.zerotoone.logic.commands.exercise.CreateCommand;
 
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
+import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
+import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
+import seedu.zerotoone.logic.parser.util.Prefix;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;

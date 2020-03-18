@@ -1,4 +1,4 @@
-package seedu.zerotoone.logic.parser;
+package seedu.zerotoone.logic.parser.util;
 
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.commons.util.StringUtil;
