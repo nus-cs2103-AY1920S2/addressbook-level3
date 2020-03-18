@@ -1,6 +1,5 @@
 package nasa.model.activity;
 
-import static nasa.testutil.Assert.assertThrows;
 import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
 import static nasa.testutil.TypicalActivities.PAST_EVENT;
 import static nasa.testutil.TypicalActivities.WRONG_EVENT;

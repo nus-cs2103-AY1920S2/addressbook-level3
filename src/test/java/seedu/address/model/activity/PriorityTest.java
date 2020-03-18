@@ -24,7 +24,7 @@ public class PriorityTest {
     public void constructor_invalidNumber_throwsIllegalArgumentException() {
         // invalid number beyond range of 1 to 5 inclusive
         assertThrows(IllegalArgumentException.class, () -> new Priority("6"));
-//        assertThrows(IllegalArgumentException.class, () -> new Priority("0"));
+        //assertThrows(IllegalArgumentException.class, () -> new Priority("0"));
         assertThrows(IllegalArgumentException.class, () -> new Priority("-3"));
         assertThrows(IllegalArgumentException.class, () -> new Priority("01"));
         assertThrows(IllegalArgumentException.class, () -> new Priority("20"));

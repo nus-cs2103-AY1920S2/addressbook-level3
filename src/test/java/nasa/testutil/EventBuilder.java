@@ -5,8 +5,15 @@ import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
 import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
 
-import nasa.model.activity.*;
+import nasa.model.activity.Activity;
+import nasa.model.activity.Date;
+import nasa.model.activity.Event;
+import nasa.model.activity.Name;
+import nasa.model.activity.Note;
 
+/**
+ * Class to build example events.
+ */
 public class EventBuilder {
 
     public static final String DEFAULT_NAME = VALID_ACTIVITY_NAME_EXAM;
