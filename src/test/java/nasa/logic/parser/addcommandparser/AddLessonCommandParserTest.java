@@ -25,6 +25,7 @@ import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
+
 import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.model.activity.Date;
 import nasa.model.activity.Lesson;
@@ -52,66 +53,71 @@ public class AddLessonCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE);
 
         // module code missing
-        assertParseFailure(parser, ACTIVITY_NAME_DESC_TUTORIAL + DATE_DESC_TEST_FROM +
-            DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
+        assertParseFailure(parser, ACTIVITY_NAME_DESC_TUTORIAL + DATE_DESC_TEST_FROM
+                + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
 
         // activity name missing
         assertParseFailure(parser, MODULE_DESC_CS1231 + DATE_DESC_TEST_FROM
-        + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
+            + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
 
         // date-from missing
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-        + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
+            + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
 
         // date-to missing
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-        + DATE_DESC_TEST_FROM + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
+            + DATE_DESC_TEST_FROM + PRIORITY_DESC_HIGH + NOTES_DESC_TEST, expectedMessage);
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // note parameter missing
         assertParseSuccess(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-        + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH,
-            new AddLessonCommand(LessonTemplate.noteFieldMissing, moduleCode));
+            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + PRIORITY_DESC_HIGH,
+            new AddLessonCommand(LessonTemplate.NOTE_FIELD_MISSING, moduleCode));
 
         // priority field missing
-        assertParseSuccess(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-                + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + NOTES_DESC_TEST,
-            new AddLessonCommand(LessonTemplate.priorityFieldMissing, moduleCode));
+        assertParseSuccess(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL + DATE_DESC_TEST_FROM
+                        + DATE_DESC_TEST_TO + NOTES_DESC_TEST,
+            new AddLessonCommand(LessonTemplate.PRIORITY_FIELD_MISSING, moduleCode));
     }
 
     @Test
     public void parse_invalidValue_failure() {
         //invalid module code
         assertParseFailure(parser, INVALID_MODULE_DESC + ACTIVITY_NAME_DESC_TUTORIAL
-        + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, ModuleCode.MESSAGE_CONSTRAINTS);
+            + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH,
+                ModuleCode.MESSAGE_CONSTRAINTS);
 
         // invalid activity name
         assertParseFailure(parser, MODULE_DESC_CS1231 + INVALID_ACTIVITY_NAME_DESC
-        + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, Name.MESSAGE_CONSTRAINTS);
+            + DATE_DESC_TEST_TO + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, Name.MESSAGE_CONSTRAINTS);
 
         // invalid date-from
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-        + INVALID_DATE_FROM_DESC + DATE_DESC_TEST_TO + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, Date.MESSAGE_CONSTRAINTS);
+            + INVALID_DATE_FROM_DESC + DATE_DESC_TEST_TO + NOTES_DESC_TEST + PRIORITY_DESC_HIGH,
+                Date.MESSAGE_CONSTRAINTS);
 
         // invalid date-to
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-            + INVALID_DATE_TO_DESC + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH, Date.MESSAGE_CONSTRAINTS);
+            + INVALID_DATE_TO_DESC + DATE_DESC_TEST_FROM + NOTES_DESC_TEST + PRIORITY_DESC_HIGH,
+                Date.MESSAGE_CONSTRAINTS);
 
         // invalid note
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + INVALID_NOTES_DESC + PRIORITY_DESC_HIGH, Note.MESSAGE_CONSTRAINTS);
+            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + INVALID_NOTES_DESC + PRIORITY_DESC_HIGH,
+                Note.MESSAGE_CONSTRAINTS);
 
         // invalid priority
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_TUTORIAL
-            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + NOTES_DESC_TEST + INVALID_PRIORITY_DESC, Priority.PRIORITY_RANGE_CONSTRAINTS);
+            + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + NOTES_DESC_TEST + INVALID_PRIORITY_DESC,
+                Priority.PRIORITY_RANGE_CONSTRAINTS);
     }
 }
 
 class LessonTemplate {
-    public static Lesson noteFieldMissing = new Lesson(new Name(VALID_ACTIVITY_NAME_TUTORIAL), null,
+    public static final Lesson NOTE_FIELD_MISSING = new Lesson(new Name(VALID_ACTIVITY_NAME_TUTORIAL), null,
         new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST), new Date(VALID_DATE_TEST_2));
-    public static Lesson priorityFieldMissing =  new Lesson(new Name(VALID_ACTIVITY_NAME_TUTORIAL),
+    public static final Lesson PRIORITY_FIELD_MISSING = new Lesson(new Name(VALID_ACTIVITY_NAME_TUTORIAL),
         new Note(VALID_NOTES_TEST), null, new Date(VALID_DATE_TEST), new Date(VALID_DATE_TEST_2));
 }

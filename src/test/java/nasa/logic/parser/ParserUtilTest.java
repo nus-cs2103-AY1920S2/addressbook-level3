@@ -1,17 +1,17 @@
 package nasa.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static nasa.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static nasa.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import nasa.model.activity.Name;
-import nasa.model.module.ModuleName;
 import org.junit.jupiter.api.Test;
 
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.activity.Date;
+import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
+import nasa.model.module.ModuleName;
 
 public class ParserUtilTest {
 
