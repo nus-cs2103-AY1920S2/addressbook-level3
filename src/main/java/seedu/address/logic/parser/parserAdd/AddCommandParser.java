@@ -52,7 +52,7 @@ public class AddCommandParser implements Parser<AddCommand> {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
-
+    Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
     Address address = new Address("Unknown");
     Phone phone = new Phone("Unknown");
     Email email = new Email("Unknown");
@@ -67,7 +67,6 @@ public class AddCommandParser implements Parser<AddCommand> {
       email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
     }
 
-    Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
     //Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
     //Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
     //Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
