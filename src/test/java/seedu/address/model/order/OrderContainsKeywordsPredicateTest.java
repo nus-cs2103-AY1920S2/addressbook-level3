@@ -3,6 +3,7 @@ package seedu.address.model.order;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,6 +41,18 @@ public class OrderContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_transactionIdContainsKeywordsGeneralSearch_returnsTrue() {
+        // One keyword
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("1234567890"));
+        assertTrue(predicate.test(new OrderBuilder().withTid("1234567890").build()));
+
+        // Multiple keywords
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("1234567890", "087654321"));
+        assertTrue(predicate.test(new OrderBuilder().withTid("1234567890").build()));
+    }
+
+    @Test
     public void test_nameContainsKeywordsGeneralSearch_returnsTrue() {
         // One keyword
         OrderContainsKeywordsPredicate predicate =
@@ -60,6 +73,18 @@ public class OrderContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_phoneContainsKeywordGeneralSearch_returnsTrue() {
+        // One keyword
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("97555838"));
+        assertTrue(predicate.test(new OrderBuilder().withPhone("97555838").build()));
+
+        // Only one matching keyword
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("999", "98765432"));
+        assertTrue(predicate.test(new OrderBuilder().withPhone("999").build()));
+    }
+
+    @Test
     public void test_addressContainsKeywordGeneralSearch_returnsTrue() {
         // One keyword
         OrderContainsKeywordsPredicate predicate =
@@ -77,18 +102,6 @@ public class OrderContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new OrderContainsKeywordsPredicate(Arrays.asList("cHuAn", "GeYLaNg"));
         assertTrue(predicate.test(new OrderBuilder().withAddress("geylang lorong").build()));
-    }
-
-    @Test
-    public void test_phoneContainsKeywordGeneralSearch_returnsTrue() {
-        // One keyword
-        OrderContainsKeywordsPredicate predicate =
-            new OrderContainsKeywordsPredicate(Collections.singletonList("97555838"));
-        assertTrue(predicate.test(new OrderBuilder().withPhone("97555838").build()));
-
-        // Only one matching keyword
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("999", "98765432"));
-        assertTrue(predicate.test(new OrderBuilder().withPhone("999").build()));
     }
 
     @Test
@@ -132,6 +145,18 @@ public class OrderContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_cashContainsKeywordGeneralSearch_returnsTrue() {
+        // One keyword full match cash on delivery
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("$5"));
+        assertTrue(predicate.test(new OrderBuilder().withCash("$5").build()));
+
+        // Only one full matching keyword of cash on delivery
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("$5", "$3.50", "$0.10", "$10"));
+        assertTrue(predicate.test(new OrderBuilder().withCash("$10").build()));
+    }
+
+    @Test
     public void test_commentsContainsKeywordGeneralSearch_returnsTrue() {
         // One keyword full match comment given
         OrderContainsKeywordsPredicate predicate =
@@ -150,10 +175,39 @@ public class OrderContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_itemTypeContainsKeywordGeneralSearch_returnsTrue() {
+        // One keyword full match comment given
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Arrays.asList("Plastic"));
+        assertTrue(predicate.test(new OrderBuilder().withItemType("Plastic").build()));
+
+        // Only one full matching keyword of comment given
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Gold", "Silver", "Plastic"));
+        assertTrue(predicate.test(new OrderBuilder().withItemType("Gold").build()));
+    }
+
+    // Test for fail cases
+    @Test
     public void test_emptyKeywordGivenInGeneralSearch_returnFalse() {
         // Empty keyword given
         OrderContainsKeywordsPredicate predicate = new OrderContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new OrderBuilder().build()));
+    }
+
+    @Test
+    public void test_transactionIdDoesNotContainKeywordsGeneralSearch_returnsFalse() {
+        // Non-matching transaction id keyword
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("1234567890"));
+        assertFalse(predicate.test(new OrderBuilder().withTid("0123947124d").build()));
+
+        // Permutations of transaction id keyword
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("1234abc", "3456def"));
+        assertFalse(predicate.test(new OrderBuilder().withTid("4321cba").build()));
+
+        // Substring of transaction id keyword
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("1234", "abc"));
+        assertFalse(predicate.test(new OrderBuilder().withTid("1234abc").build()));
     }
 
     @Test
@@ -191,7 +245,7 @@ public class OrderContainsKeywordsPredicateTest {
         // Non-matching address
         OrderContainsKeywordsPredicate predicate =
             new OrderContainsKeywordsPredicate(Arrays.asList("Yishun", "st", "81"));
-        assertFalse(predicate.test(new OrderBuilder().withName("Jurong West 36").build()));
+        assertFalse(predicate.test(new OrderBuilder().withAddress("Jurong West 36").build()));
     }
 
     @Test
@@ -219,101 +273,257 @@ public class OrderContainsKeywordsPredicateTest {
     }
 
     @Test
+    public void test_cashOnDeliveryDoesNotContainKeywordsGeneralSearch_returnsFalse() {
+        // Non-matching cash keyword
+        OrderContainsKeywordsPredicate predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("$4"));
+        assertFalse(predicate.test(new OrderBuilder().withCash("$0.4").build()));
+
+        // Substring cash keywords do not match
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("$44", "$4.0"));
+        assertFalse(predicate.test(new OrderBuilder().withCash("$4").build()));
+    }
+
+    @Test
     public void test_commentsDoesNotContainKeywordsGeneralSearch_returnsFalse() {
-        // Non-matching warehouse address keyword
+        // Non-matching comment keyword
         OrderContainsKeywordsPredicate predicate = new OrderContainsKeywordsPredicate(Arrays.asList("hi"));
         assertFalse(predicate.test(new OrderBuilder().withComment("bye").build()));
 
-        // Substring comments do not match
+        // Substring comment keywords do not match
         predicate = new OrderContainsKeywordsPredicate(Arrays.asList("hiiiiiiiiiiiiiiiiii", "hi"));
-        assertFalse(predicate.test(new OrderBuilder().withWarehouse("hiii").build()));
+        assertFalse(predicate.test(new OrderBuilder().withComment("hiii").build()));
+    }
+
+    @Test
+    public void test_itemTypeDoesNotContainKeywordsGeneralSearch_returnsFalse() {
+        // Non-matching item type keyword
+        OrderContainsKeywordsPredicate predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Plastic"));
+        assertFalse(predicate.test(new OrderBuilder().withItemType("Gold").build()));
+
+        // Substring item type keyword do not match
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Go", "ld"));
+        assertFalse(predicate.test(new OrderBuilder().withItemType("Gold").build()));
+    }
+
+    // Test for overloaded search
+    @Test
+    public void test_transactionIdContainsKeywordsSpecificSearch_returnTrue() {
+        // One matching transaction id keywords
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("1234567890"),
+                true, false, false, false,
+                false, false, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withTid("1234567890").build()));
+
+        // Multiple transaction id keywords with only one transaction id matching keyword
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("12345", "1023012", "12345abc"),
+            true, false, false, false, false,
+            false, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withTid("12345abc").build()));
     }
 
     @Test
     public void test_nameContainsKeywordsSpecificSearch_returnTrue() {
-        // Matching keywords
+        // One matching name keyword
         OrderContainsKeywordsPredicate predicate =
-            new OrderContainsKeywordsPredicate(Collections.singletonList("Alice"), true, false,
-                false, false, false, false);
+            new OrderContainsKeywordsPredicate(Collections.singletonList("Alice"),
+                false, true, false, false,
+                false, false, false, false, false);
         assertTrue(predicate.test(new OrderBuilder().withName("Alice Bob").build()));
 
         // Multiple matching name keywords
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), true, false,
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"),
+            false, true, false, false, false,
             false, false, false, false);
         assertTrue(predicate.test(new OrderBuilder().withName("Alice Bob").build()));
 
         // Mixed-case name keywords
-        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("ALiCe"), true,
-            false, false, false, false, false);
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("ALiCe"),
+            false, true, false, false, false,
+            false, false, false, false);
         assertTrue(predicate.test(new OrderBuilder().withName("Alice Bob").build()));
     }
 
     @Test
-    public void test_addressContainsKeywordsSpecificSearch_returnTrue() {
-        // Matching keywords
+    public void test_phoneContainsKeywordsSpecificSearch_returnTrue() {
+        // One full matching phone keywords
         OrderContainsKeywordsPredicate predicate =
-            new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), false, true,
+            new OrderContainsKeywordsPredicate(Collections.singletonList("12345678"),
+                false, false, true, false, false,
                 false, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withPhone("12345678").build()));
+
+        // Only one matching phone keyword with other keywords
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("12345678", "111111"),
+            false, false, true, false, false,
+            false, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withPhone("12345678").build()));
+    }
+
+    @Test
+    public void test_addressContainsKeywordsSpecificSearch_returnTrue() {
+        // One matching address keyword
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"),
+                false, false, false, true,
+                false, false, false, false, false);
         assertTrue(predicate.test(new OrderBuilder().withAddress("Geylang").build()));
 
-        // Multiple matching name keywords
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Geylang", "street"), false,
-            true, false, false, false, false);
+        // Multiple matching address keywords
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Geylang", "street"),
+            false, false, false, true,
+            false, false, false, false, false);
         assertTrue(predicate.test(new OrderBuilder().withAddress("Geylang street").build()));
 
-        // Mixed-case name keywords
-        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("geYlAnG"), false,
-            true, false, false, false, false);
+        // Mixed-case address keywords
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("geYlAnG"),
+            false, false, false, true,
+            false, false, false, false, false);
         assertTrue(predicate.test(new OrderBuilder().withAddress("Geylang Street").build()));
     }
 
     @Test
-    public void test_phoneContainsKeywordsSpecificSearch_returnTrue() {
-        // Matching phone keywords
+    public void test_timeStampContainsKeywordsSpecificSearch_returnTrue() {
+        // Full matching timestamp keywords
         OrderContainsKeywordsPredicate predicate =
-            new OrderContainsKeywordsPredicate(Collections.singletonList("12345678"), false, false,
-                false, true, false, false);
-        assertTrue(predicate.test(new OrderBuilder().withPhone("12345678").build()));
+            new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-10", "1500"),
+                false, false, false, false,
+                true, false, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-02-10 1500").build()));
 
-        // Only one single matching phone keywords
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("12345678", "111111"), false,
-            false, false, true, false, false);
-        assertTrue(predicate.test(new OrderBuilder().withPhone("12345678").build()));
+        // Full matching timestamp keywords with other keywords
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-20", "2020-01-10", "1500"),
+                false, false, false, false,
+                true, false, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-02-10 1500").build()));
     }
 
-    // TODO
-    // More test case for false and warehouse, comment, timestamp, cod and transaction id
-
-    @Test void test_fieldsOtherThanSpecifiedFieldContainsKeywordSpecificSearch_returnFalse() {
-        // Matching keywords in name fields but did not search name prefix
+    @Test
+    public void test_warehouseContainsKeywordsSpecificSearch_returnTrue() {
+        // One matching warehouse location keyword
         OrderContainsKeywordsPredicate predicate =
-            new OrderContainsKeywordsPredicate(Collections.singletonList("Alice"), false, true,
-                true, true, true, true);
+            new OrderContainsKeywordsPredicate(Collections.singletonList("Yishun"),
+                false, false, false, false,
+                false, true, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withWarehouse("Yishun Industrial Area Blk 51").build()));
+
+        // Multiple matching warehouse location keywords
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Yishun", "St", "81"),
+            false, false, false, false,
+            false, true, false, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withWarehouse("Yishun st 81").build()));
+    }
+
+    @Test
+    public void test_cashOnDeliveryContainsKeywordsSpecificSearch_returnsTrue() {
+        // keywords full match cash on delivery
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("$5"),
+                false, false, false, false,
+                false, false, true, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withCash("$5").build()));
+
+        // Only one full matching keyword of cash on delivery
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("$5", "$3.50", "$0.10", "$10"),
+            false, false, false, false,
+            false, false, true, false, false);
+        assertTrue(predicate.test(new OrderBuilder().withCash("$10").build()));
+    }
+
+    @Test
+    public void test_commentContainsKeywordsSpecificSearch_returnsTrue() {
+        // keywords full match comment given
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Arrays.asList("Please", "say", "hi", "to", "me"),
+                false, false, false, false,
+                false, false, false, true, false);
+        assertTrue(predicate.test(new OrderBuilder().withComment("Please say hi to me").build()));
+
+        // Mixed comment keywords with full matching keyword of comment
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("5", "hi", "S608831",
+                "Put", "it", "at", "my", "shoe", "rack"),
+            false, false, false, false,
+            false, false, false, true, false);
+        assertTrue(predicate.test(new OrderBuilder().withComment("Put it at my shoe rack").build()));
+
+        // Any one word matches the given comment
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Hi"),
+            false, false, false, false,
+            false, false, false, true, false);
+        assertTrue(predicate.test(new OrderBuilder().withComment("Say hi to me when you're here!").build()));
+    }
+
+    @Test
+    public void test_itemTypeContainsKeywordsSpecificSearch_returnsTrue() {
+        // One keyword full match comment given
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Arrays.asList("Plastic"),
+                false, false, false, false,
+                false, false, false, false, true);
+        assertTrue(predicate.test(new OrderBuilder().withItemType("Plastic").build()));
+
+        // Only one full matching keyword of comment given
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("Gold", "Silver", "Plastic"),
+            false, false, false, false,
+            false, false, false, false, true);
+        assertTrue(predicate.test(new OrderBuilder().withItemType("Gold").build()));
+    }
+
+    // Test for overloaded fail cases
+    @Test void test_fieldsOtherThanSpecifiedFieldContainsKeywordSpecificSearch_returnFalse() {
+        // Matching keywords in Transaction ID field but did not search with Transaction ID prefix
+        OrderContainsKeywordsPredicate predicate =
+            new OrderContainsKeywordsPredicate(Collections.singletonList("1234567890"),
+                false, true, true, true,
+                true, true, true, true, true);
+        assertFalse(predicate.test(new OrderBuilder().withTid("1234567890").build()));
+
+        // Matching keywords in name field but did not search with name prefix
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Alice"),
+                true, false, true, true,
+                true, true, true, true, true);
         assertFalse(predicate.test(new OrderBuilder().withName("Alice Bob").build()));
 
-        // Matching keywords in address fields but did not search address prefix
-        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), true,
-            false, true, true, true, true);
-        assertFalse(predicate.test(new OrderBuilder().withAddress("Geylang").build()));
-
-        // Matching keywords in comment fields but did not search comment prefix
-        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("hi"), true,
-            true, false, true, true, true);
-        assertFalse(predicate.test(new OrderBuilder().withComment("hi").build()));
-
-        // Matching keywords in phone fields but did not search phone prefix
-        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("12345678"), true,
-            true, true, false, true, true);
+        // Matching keywords in phone field but did not search with phone prefix
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("12345678"),
+            true, true, false, true,
+            true, true, true, true, true);
         assertFalse(predicate.test(new OrderBuilder().withPhone("12345678").build()));
 
-        // Matching keywords in timestamp fields but did not search timestamp prefix
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-02", "1500"), true,
-            true, true, true, false, true);
+        // Matching keywords in address field but did not search with address prefix
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"),
+            true, true, true, false,
+            true, true, true, true, true);
+        assertFalse(predicate.test(new OrderBuilder().withAddress("Geylang").build()));
+
+        // Matching keywords in timestamp field but did not search with timestamp prefix
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-02", "1500"),
+            true, true, true, true,
+            false, true, true, true, true);
         assertFalse(predicate.test(new OrderBuilder().withTimeStamp("2020-02-02 1500").build()));
 
-        // Matching keywords in warehouse address fields but did not search warehouse address prefix
-        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"), true,
-            true, true, true, true, false);
+        // Matching keywords in warehouse address field but did not search with warehouse address prefix
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Geylang"),
+            true, true, true, true,
+            true, false, true, true, true);
         assertFalse(predicate.test(new OrderBuilder().withWarehouse("Geylang").build()));
+
+        // Matching keywords in COD field but did not search with COD prefix
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("$4"),
+            true, true, true, true,
+            true, true, false, true, true);
+        assertFalse(predicate.test(new OrderBuilder().withCash("$4").build()));
+
+        // Matching keywords in comment fields but did not search comment prefix
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("hi"),
+            true, true, true, true,
+            true, true, true, false, true);
+        assertFalse(predicate.test(new OrderBuilder().withComment("hi").build()));
+
+        // Matching keywords in itemType field but did not search with itemType prefix
+        predicate = new OrderContainsKeywordsPredicate(Collections.singletonList("Plastic"),
+            true, true, true, true,
+            true, true, true, true, false);
+        assertFalse(predicate.test(new OrderBuilder().withItemType("Plastic").build()));
     }
 }

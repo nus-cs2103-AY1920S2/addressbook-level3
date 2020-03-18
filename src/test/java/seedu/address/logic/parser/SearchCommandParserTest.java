@@ -31,8 +31,10 @@ public class SearchCommandParserTest {
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedSearchCommand);
 
         // test overloaded constructor
-        expectedSearchCommand = new SearchCommand(new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"),
-            false, true, false, false, false, false));
+        expectedSearchCommand = new SearchCommand(
+            new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"),
+            false, false, false, true, false,
+                false, false, false, false));
         assertParseSuccess(parser, " a/Alice Bob", expectedSearchCommand);
     }
 
