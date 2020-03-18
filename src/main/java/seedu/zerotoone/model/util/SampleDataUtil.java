@@ -6,11 +6,12 @@ import java.util.stream.Collectors;
 
 import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.ReadOnlyExerciseList;
-import seedu.zerotoone.model.exercise.Address;
-import seedu.zerotoone.model.exercise.Email;
-import seedu.zerotoone.model.exercise.Name;
+// import seedu.zerotoone.model.exercise.Address;
+// import seedu.zerotoone.model.exercise.Email;
+// import seedu.zerotoone.model.exercise.Name;
+
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.Phone;
+// import seedu.zerotoone.model.exercise.Phone;
 import seedu.zerotoone.model.tag.Tag;
 
 /**
