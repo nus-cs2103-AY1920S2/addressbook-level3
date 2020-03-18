@@ -41,16 +41,15 @@ public class ModuleCommandParser {
         switch (commandWord) {
 
         case CommandWords.ADD_MODEL:
-            // return new AddModuleCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Add module commands"));
+            return new AddModuleCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
-            // return new DeleteModuleCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Delete module commands"));
+            // return new DeleteGroupCommandParser().parse(arguments);
+            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Delete group commands"));
 
         case CommandWords.EDIT_MODEL:
-            // return new EditModuleCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit module commands"));
+            // return new EditGroupCommandParser().parse(arguments);
+            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit group commands"));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

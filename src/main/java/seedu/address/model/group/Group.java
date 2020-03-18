@@ -3,9 +3,9 @@ package seedu.address.model.group;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Matric;
-import seedu.address.model.person.Student;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.student.Matric;
+import seedu.address.model.student.Student;
+import seedu.address.model.student.UniqueStudentList;
 
 /**
  * Represents a group in TAT.
@@ -25,7 +25,7 @@ public class Group {
 
     private final String identifier;
     private final GroupType groupType;
-    private final UniquePersonList students;
+    private final UniqueStudentList students;
 
 
     /**
@@ -36,7 +36,7 @@ public class Group {
      */
     public Group(String identifier, GroupType groupType) {
         this.identifier = identifier;
-        students = new UniquePersonList();
+        students = new UniqueStudentList();
         this.groupType = groupType;
     }
 
@@ -58,6 +58,7 @@ public class Group {
             if (student.getMatric().equals(matric)) {
                 break;
             }
+            student = null;
         }
         return student;
     }
