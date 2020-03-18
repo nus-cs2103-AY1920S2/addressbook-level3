@@ -19,7 +19,7 @@ import seedu.address.model.person.Remark;
  */
 public class EditInfoCommand extends Command {
 
-    public static final String COMMAND_WORD = "ab_editnote";
+    public static final String COMMAND_WORD = "(ab)editnote";
     public static final String COMMAND_FUNCTION = "Edit the information of the person identified "
             + "by the index number used in the last person listing. "
             + "If there is existing information at the line number, "

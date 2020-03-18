@@ -10,6 +10,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.assignment.Deadline;
+import seedu.address.model.assignment.Title;
+import seedu.address.model.assignment.Workload;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
@@ -17,6 +20,12 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
+
+import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Location;
+import seedu.address.model.restaurant.Hours;
+import seedu.address.model.restaurant.Price;
+import seedu.address.model.restaurant.Cuisine;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -65,6 +74,20 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String birthday} into a {@code Birthday}.
+     *
+     * @throws ParseException if the given {@code Birthday} is invalid.
+     */
+    public static seedu.address.model.restaurant.Name parseNameR(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!seedu.address.model.restaurant.Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.restaurant.Name(trimmedName);
     }
 
     /**
@@ -162,4 +185,110 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String location} into a {@code Location}.
+     *
+     * @throws ParseException if the given {@code Location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
+    }
+
+    /**
+     * Parses a {@code String hours} into a {@code Hours}.
+     *
+     * @throws ParseException if the given {@code Hours} is invalid.
+     */
+    public static Hours parseHours(String hours) throws ParseException {
+        requireNonNull(hours);
+        String trimmedHours = hours.trim();
+        if (!Hours.isValidHours(trimmedHours)) {
+            throw new ParseException(Hours.MESSAGE_CONSTRAINTS);
+        }
+        return new Hours(trimmedHours);
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code Price}.
+     *
+     * @throws ParseException if the given {@code Price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String cuisine} into a {@code Cuisine}.
+     *
+     * @throws ParseException if the given {@code Cuisine} is invalid.
+     */
+    public static Cuisine parseCuisine(String cuisine) throws ParseException {
+        requireNonNull(cuisine);
+        String trimmedCuisine = cuisine.trim();
+        if (!Cuisine.isValidCuisine(trimmedCuisine)) {
+            throw new ParseException(Cuisine.MESSAGE_CONSTRAINTS);
+        }
+        return new Cuisine(trimmedCuisine);
+    }
+
+    /**
+     * Parses a {@code String deadline} into a {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code deadline} is invalid.
+     */
+    public static Deadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+        String trimmedDeadline = deadline.trim();
+        String[] inputs = trimmedDeadline.split(" ");
+
+        if (inputs.length != 2 || !Deadline.isValidDate(inputs[0]) || !Deadline.isValidTime(inputs[1])) {
+            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+        return new Deadline(inputs[0], inputs[1]);
+    }
+
+    /**
+     * Parses a {@code String title} into a {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String deadline} into a {@code Deadline}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code deadline} is invalid.
+     */
+    public static Workload parseWorkload(String estTime) throws ParseException {
+        requireNonNull(estTime);
+        String trimmedEstTime = estTime.trim();
+
+        if (!Workload.isValidDuration(trimmedEstTime)) {
+            throw new ParseException(Workload.MESSAGE_CONSTRAINTS);
+        }
+        return new Workload(trimmedEstTime);
+    }
+
 }

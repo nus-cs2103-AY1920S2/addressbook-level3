@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
@@ -13,8 +14,8 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), new Scheduler(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new Scheduler(), new UserPrefs());
 
     // All commented out tests need to be re-written (TBD by sarah)
     /*

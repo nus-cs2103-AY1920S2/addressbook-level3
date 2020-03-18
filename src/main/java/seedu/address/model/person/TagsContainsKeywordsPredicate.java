@@ -20,6 +20,14 @@ public class TagsContainsKeywordsPredicate implements Predicate<Person> {
         this.keywords = keywords;
     }
 
+    /**
+     * Getter method for the number of keywords in the predicate.
+     * @return Number of keywords in the Predicate
+     */
+    public int size() {
+        return keywords.size();
+    }
+
     @Override
     public boolean test(Person person) {
         // we want to find whether they keyword matches any of the tags

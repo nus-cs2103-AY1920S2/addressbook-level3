@@ -31,14 +31,18 @@ public class HelpCommand extends Command {
             + "6. " + EditInfoCommand.COMMAND_WORD + ": " + EditInfoCommand.COMMAND_FUNCTION + "\n"
             + "7. " + DeleteInfoCommand.COMMAND_WORD + ": " + DeleteInfoCommand.COMMAND_FUNCTION + "\n"
             + "8. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
-            + "9. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
-            + "10. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "11. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "9. " + GetCommand.COMMAND_WORD + ": " + GetCommand.COMMAND_FUNCTION + "\n"
+            + "10. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "11. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "12. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
+            + "13. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
+            + "14. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
             + "Example: For (ab)delete - " + COMMAND_WORD + " h/ 3";
-    public static final ArrayList<String> LIST_OF_COMMANDS = commandList();
+    private static final ArrayList<String> commands = new ArrayList<>();
+    public static final ArrayList<String> LIST_OF_COMMANDS = commandList(commands);
 
     public static final String MESSAGE_INVALID_INDEX = "Invalid index.";
 
@@ -56,8 +60,7 @@ public class HelpCommand extends Command {
      * Creates a list of all commands
      * @return list of commands
      */
-    public static ArrayList<String> commandList() {
-        ArrayList<String> commands = new ArrayList<>();
+    public static ArrayList<String> commandList(ArrayList<String> commands) {
 
         commands.add("1. " + AddCommand.MESSAGE_USAGE + "\n");
         commands.add("2. " + EditCommand.MESSAGE_USAGE + "\n");
@@ -67,9 +70,12 @@ public class HelpCommand extends Command {
         commands.add("6. " + EditInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("7. " + DeleteInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("8. " + ClearCommand.MESSAGE_USAGE + "\n");
-        commands.add("9. " + FindCommand.MESSAGE_USAGE + "\n");
-        commands.add("10. " + ExitCommand.MESSAGE_USAGE + "\n");
-        commands.add("11. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("9. " + GetCommand.MESSAGE_SUCCESS + "\n");
+        commands.add("10. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("11. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("12. " + FindCommand.MESSAGE_USAGE + "\n");
+        commands.add("13. " + ExitCommand.MESSAGE_USAGE + "\n");
+        commands.add("14. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }
@@ -77,7 +83,7 @@ public class HelpCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (type > 11) {
+        if (type > commands.size()) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
         }
 

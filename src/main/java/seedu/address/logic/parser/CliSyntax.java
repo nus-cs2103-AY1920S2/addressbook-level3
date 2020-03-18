@@ -13,6 +13,15 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_REMARK = new Prefix("i/");
     public static final Prefix PREFIX_BIRTHDAY = new Prefix("b/");
+    public static final Prefix PREFIX_TITLE = new Prefix("t/");
+    public static final Prefix PREFIX_DEADLINE = new Prefix("d/");
+    public static final Prefix PREFIX_ESTHOURS = new Prefix("e/");
     public static final Prefix PREFIX_LINE_NUMBER = new Prefix("l/");
     public static final Prefix PREFIX_HELP = new Prefix("h/");
+    public static final Prefix PREFIX_RESTAURANT = new Prefix("n/");
+    public static final Prefix PREFIX_LOCATION = new Prefix("l/");
+    public static final Prefix PREFIX_OPERATING_HOURS = new Prefix("o/");
+    public static final Prefix PREFIX_PRICE = new Prefix("p/");
+    public static final Prefix PREFIX_CUISINE = new Prefix("c/");
+
 }

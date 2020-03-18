@@ -16,7 +16,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
  */
 public class GetCommand extends Command {
 
-    public static final String COMMAND_WORD = "ab_get";
+    public static final String COMMAND_WORD = "(ab)get";
     public static final String COMMAND_FUNCTION = "Displays all information relating to the contact.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":  " + COMMAND_FUNCTION + "\n"
             + "Parameters: INDEX (must be a positive integer) "

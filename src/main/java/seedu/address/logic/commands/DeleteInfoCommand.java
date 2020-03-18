@@ -17,7 +17,7 @@ import seedu.address.model.person.Person;
  */
 public class DeleteInfoCommand extends Command {
 
-    public static final String COMMAND_WORD = "ab_deletenote";
+    public static final String COMMAND_WORD = "(ab)deletenote";
     public static final String COMMAND_FUNCTION = "Delete the information of the person identified "
             + "by the index number used in the last person listing. "
             + "If there is existing information at the line number "

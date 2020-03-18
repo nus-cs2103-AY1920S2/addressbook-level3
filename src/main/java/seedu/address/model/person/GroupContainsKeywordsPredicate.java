@@ -15,6 +15,14 @@ public class GroupContainsKeywordsPredicate implements Predicate<Person> {
         this.keywords = keywords;
     }
 
+    /**
+     * Getter method for the number of keywords in the predicate.
+     * @return Number of keywords in the Predicate
+     */
+    public int size() {
+        return keywords.size();
+    }
+
     // this one need to edit when you have implemented Group
     @Override
     public boolean test(Person person) {

@@ -4,16 +4,18 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,29 +24,38 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
+    private final RestaurantBook restaurantBook;
+    private final Scheduler scheduler;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredOnePerson;
     private final UniquePersonList persons;
+    private final FilteredList<Restaurant> filteredRestaurants;
+    private final ArrayList<Assignment> assignments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook, ReadOnlyScheduler scheduler,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, scheduler, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         persons = new UniquePersonList();
         filteredOnePerson = new FilteredList<>((persons.asUnmodifiableObservableList()));
+        this.restaurantBook = new RestaurantBook(restaurantBook);
+        this.scheduler = new Scheduler(scheduler);
+        filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
+        assignments = this.scheduler.getAssignmentsList();
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new RestaurantBook(), new Scheduler(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -131,6 +142,76 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //========== Schoolwork Tracker ==========================================================================
+    @Override
+    public void setScheduler(ReadOnlyScheduler scheduler) {
+        this.scheduler.resetData(scheduler);
+    }
+
+    @Override
+    public void addAssignment(Assignment assignment) {
+        scheduler.addAssignment(assignment);
+    }
+
+    @Override
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return scheduler.hasAssignment(assignment);
+    }
+
+    @Override
+    public ReadOnlyScheduler getScheduler() {
+        return scheduler;
+    }
+
+    @Override
+    public void setAssignment(Assignment target, Assignment markedAssignment) {
+        requireAllNonNull(target, markedAssignment);
+
+        scheduler.setAssignment(target, markedAssignment);
+    }
+
+    @Override
+    public ArrayList<Assignment> getAssignmentList() {
+        return assignments;
+    }
+
+    //=========== RestaurantBook ================================================================================
+
+    @Override
+    public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBookBook) {
+        this.restaurantBook.resetData(restaurantBook);
+    }
+
+    @Override
+    public ReadOnlyRestaurantBook getRestaurantBook() {
+        return restaurantBook;
+    }
+
+    @Override
+    public boolean hasRestaurant(Restaurant person) {
+        requireNonNull(person);
+        return restaurantBook.hasRestaurant(person);
+    }
+
+    @Override
+    public void deleteRestaurant(Restaurant target) {
+        restaurantBook.removeRestaurant(target);
+    }
+
+    @Override
+    public void addRestaurant(Restaurant person) {
+        restaurantBook.addRestaurant(person);
+        updateFilteredRestaurantList(PREDICATE_SHOW_ALL_RESTAURANTS);
+    }
+
+    @Override
+    public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
+        requireAllNonNull(target, editedRestaurant);
+
+        restaurantBook.setRestaurant(target, editedRestaurant);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -178,8 +259,26 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
+                && restaurantBook.equals(other.restaurantBook)
+                && scheduler.equals(other.scheduler)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== Filtered Restaurant List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Restaurant} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Restaurant> getFilteredRestaurantList() {
+        return filteredRestaurants;
+    }
+
+    @Override
+    public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
+        requireNonNull(predicate);
+        filteredRestaurants.setPredicate(predicate);
+    }
 }
