@@ -46,12 +46,12 @@ public class ExerciseCard extends UiPart<Region> {
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
         name.setText(exercise.getName().fullName);
-        phone.setText(exercise.getPhone().value);
-        address.setText(exercise.getAddress().value);
-        email.setText(exercise.getEmail().value);
-        exercise.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        // phone.setText(exercise.getPhone().value);
+        // address.setText(exercise.getAddress().value);
+        // email.setText(exercise.getEmail().value);
+        // exercise.getTags().stream()
+        //         .sorted(Comparator.comparing(tag -> tag.tagName))
+        //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
