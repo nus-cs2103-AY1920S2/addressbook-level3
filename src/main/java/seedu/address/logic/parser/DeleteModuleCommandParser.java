@@ -28,7 +28,7 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteModuleCommand.MESSAGE_USAGE));
         }
 
-        String moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
+        String moduleCode = ParserUtil.parseValue(argMultimap.getValue(PREFIX_MODULE).get());
 
         Module module = new Module(moduleCode, null);
 
