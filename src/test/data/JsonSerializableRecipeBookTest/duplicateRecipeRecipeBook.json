@@ -2,11 +2,13 @@
   "recipes": [ {
     "name": "Alice Pauline",
     "time": "94351253",
+    "isFavourite": false,
     "steps": ["alice@example.com"],
     "goals": [ "friends" ]
   }, {
     "name": "Alice Pauline",
     "time": "94351253",
+    "isFavourite": false,
     "steps": ["pauline@example.com"]
   } ]
 }

@@ -1,11 +1,17 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -36,6 +42,8 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private ImageView favourite;
+    @FXML
     private Label time;
     @FXML
     private FlowPane ingredients;
@@ -44,22 +52,31 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private FlowPane goals;
 
-    public RecipeCard(Recipe recipe, int displayedIndex) {
+    public RecipeCard(Recipe recipe, int displayedIndex) throws IOException {
         super(FXML);
         this.recipe = recipe;
         id.setText(displayedIndex + ". ");
         name.setText(recipe.getName().fullName);
+        name.setWrapText(true);
+
         time.setText(recipe.getTime().value + " min");
+
+        System.out.println("Recipe Card is updated");
+        if (recipe.getFavouriteStatus()) {
+            System.out.println("It IS a favourite");
+            Path favouriteIconPath = Paths.get("src", "main", "resources", "images", "favourite.png");
+            favourite.setImage(new Image(Files.newInputStream(favouriteIconPath)));
+        }
 
         ingredients.setOrientation(Orientation.VERTICAL);
         recipe.getIngredients().stream()
                 .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.toString())));
 
+        // Calculates step number and displays with along with the step
         AtomicInteger stepNumber = new AtomicInteger(1);
         recipe.getSteps().forEach(step -> {
             Label stepLabel = new Label("Step " + stepNumber.getAndIncrement() + ": " + step.value);
             stepLabel.setWrapText(true);
-            stepLabel.prefWidthProperty().bind(getRoot().widthProperty());
             steps.getChildren().add(stepLabel);
         });
 

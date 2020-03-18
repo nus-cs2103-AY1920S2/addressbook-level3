@@ -52,7 +52,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Ingredient> ingredientList = ParserUtil.parseVegetables(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE),
                 null);
 
-        Recipe recipe = new Recipe(name, time, ingredientList, steps, goalList);
+        // When recipe is first added, it will not be marked as favourite by default.
+        Recipe recipe = new Recipe(name, time, ingredientList, steps, goalList, false);
 
         return new AddCommand(recipe);
     }

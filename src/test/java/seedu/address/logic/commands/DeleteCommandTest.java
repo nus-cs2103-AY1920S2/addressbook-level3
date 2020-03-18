@@ -29,9 +29,10 @@ public class DeleteCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
+        DeleteCommand deleteCommand = new DeleteCommand(new Index[] {INDEX_FIRST_RECIPE});
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
+        String expectedMessageTemplate = "Deleted %1$s from recipe book!";
+        String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
         ModelManager expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
         expectedModel.deleteRecipe(recipeToDelete);
@@ -42,7 +43,7 @@ public class DeleteCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredRecipeList().size() + 1);
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(new Index[] {outOfBoundIndex});
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
@@ -52,9 +53,10 @@ public class DeleteCommandTest {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
 
         Recipe recipeToDelete = model.getFilteredRecipeList().get(INDEX_FIRST_RECIPE.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
+        DeleteCommand deleteCommand = new DeleteCommand(new Index[] {INDEX_FIRST_RECIPE});
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RECIPE_SUCCESS, recipeToDelete);
+        String expectedMessageTemplate = "Deleted %1$s from recipe book!";
+        String expectedMessage = String.format(expectedMessageTemplate, recipeToDelete.getName().toString());
 
         Model expectedModel = new ModelManager(model.getRecipeBook(), new UserPrefs());
         expectedModel.deleteRecipe(recipeToDelete);
@@ -71,21 +73,21 @@ public class DeleteCommandTest {
         // ensures that outOfBoundIndex is still in bounds of recipe book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRecipeBook().getRecipeList().size());
 
-        DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
+        DeleteCommand deleteCommand = new DeleteCommand(new Index[] {outOfBoundIndex});
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_RECIPE);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_RECIPE);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(new Index[] {INDEX_FIRST_RECIPE});
+        DeleteCommand deleteSecondCommand = new DeleteCommand(new Index[] {INDEX_SECOND_RECIPE});
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_RECIPE);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(new Index[] {INDEX_FIRST_RECIPE});
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

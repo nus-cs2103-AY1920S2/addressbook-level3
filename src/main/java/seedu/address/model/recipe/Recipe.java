@@ -26,18 +26,24 @@ public class Recipe {
     private final List<Step> steps = new ArrayList<>();
     private final Set<Goal> goals = new HashSet<>();
     private final Set<Ingredient> ingredients = new HashSet<>();
-    private boolean isFavourite = false;
+    private boolean isFavourite;
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Time time, Set<Ingredient> ingredients, List<Step> steps, Set<Goal> goals) {
+    public Recipe(Name name, Time time, Set<Ingredient> ingredients,
+                  List<Step> steps, Set<Goal> goals, boolean isFavourite) {
         requireAllNonNull(name, time, steps, goals);
         this.name = name;
         this.time = time;
         this.steps.addAll(steps);
         this.goals.addAll(goals);
         this.ingredients.addAll(ingredients);
+        this.isFavourite = isFavourite;
+    }
+
+    public boolean getFavouriteStatus() {
+        return isFavourite;
     }
 
     public void markAsFavourite() {

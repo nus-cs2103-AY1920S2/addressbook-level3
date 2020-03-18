@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -21,8 +22,6 @@ public class DeleteCommand extends Command {
             + ": Deletes the recipe identified by the index number(s) used in the displayed recipe list.\n"
             + "Parameters: INDEX NUMBER(s) (must be positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1";
-
-    public static final String MESSAGE_DELETE_RECIPE_SUCCESS = "Deleted Recipe: %1$s";
 
     private final Index[] targetIndex;
 
@@ -60,6 +59,6 @@ public class DeleteCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && Arrays.equals(targetIndex, ((DeleteCommand) other).targetIndex)); // state check
     }
 }

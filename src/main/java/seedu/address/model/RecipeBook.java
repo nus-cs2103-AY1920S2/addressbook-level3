@@ -107,7 +107,7 @@ public class RecipeBook implements ReadOnlyRecipeBook {
      * {@code key} must exist in the recipe book.
      */
     public void unfavouriteRecipe(Recipe key) {
-        recipes.favourite(key);
+        recipes.unfavourite(key);
     }
 
     //// util methods

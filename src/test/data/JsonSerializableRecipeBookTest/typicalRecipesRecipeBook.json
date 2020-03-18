@@ -3,39 +3,46 @@
   "recipes" : [ {
     "name" : "Caesar Salad",
     "time" : "10",
+    "isFavourite": false,
     "ingredients" : ["Tomato, 100, vegetable", "Honeydew, 100, other"],
     "steps" : ["Cut tomatoes", "Remove honeydew skin"],
     "goals" : [ "Herbivore" ]
   }, {
     "name" : "Grilled Sandwich",
     "time" : "10",
+    "isFavourite": false,
     "ingredients" : ["Bread, 50, grain", "Cheese, 50, other"],
     "steps" : ["Spread butter on bread", "Heat pan to medium heat"],
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
     "name" : "Boiled Chicken",
     "time" : "10",
+    "isFavourite": false,
     "ingredients" : ["Chicken, 100, protein"],
     "steps" : ["Dice chicken"],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Chocolate Cake",
     "time" : "120",
+    "isFavourite": false,
     "steps" : ["Caramelize sugar"],
     "goals" : [ ]
   }, {
     "name" : "Omelet",
     "time" : "15",
+    "isFavourite": false,
     "steps" : ["Crack and beat eggs"],
     "goals" : [ ]
   }, {
     "name" : "Steamed Egg",
     "time" : "15",
+    "isFavourite": false,
     "steps" : ["Pour water into steamer and bring to a boil"],
     "goals" : [ ]
   }, {
     "name" : "Tuna Bread",
     "time" : "60",
+    "isFavourite": false,
     "steps" : ["Slice tuna"],
     "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
   } ]

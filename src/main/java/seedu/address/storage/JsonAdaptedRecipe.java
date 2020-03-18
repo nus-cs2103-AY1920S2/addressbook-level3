@@ -26,6 +26,7 @@ class JsonAdaptedRecipe {
 
     private final String name;
     private final String time;
+    private final boolean isFavourite;
     private final List<JsonAdaptedStep> steps = new ArrayList<>();
     private final List<JsonAdaptedGoal> goals = new ArrayList<>();
     private final List<JsonAdaptedIngredient> ingredients = new ArrayList<>();
@@ -35,11 +36,13 @@ class JsonAdaptedRecipe {
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("time") String time,
+            @JsonProperty("isFavourite") boolean isFavourite,
             @JsonProperty("ingredients") List<JsonAdaptedIngredient> ingredients,
             @JsonProperty("steps") List<JsonAdaptedStep> steps,
             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
         this.name = name;
         this.time = time;
+        this.isFavourite = isFavourite;
         if (ingredients != null) {
             this.ingredients.addAll(ingredients);
         }
@@ -57,6 +60,7 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
         time = source.getTime().value;
+        isFavourite = source.getFavouriteStatus();
         ingredients.addAll(source.getIngredients().stream()
                 .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));
@@ -110,7 +114,7 @@ class JsonAdaptedRecipe {
         final Set<Goal> modelGoals = new HashSet<>(recipeGoals);
         final Set<Ingredient> modelIngredients = new HashSet<>(recipeIngredients);
         final ArrayList<Step> modelSteps = new ArrayList<>(recipeSteps);
-        return new Recipe(modelName, modelTime, modelIngredients, modelSteps, modelGoals);
+        return new Recipe(modelName, modelTime, modelIngredients, modelSteps, modelGoals, isFavourite);
     }
 
 }
