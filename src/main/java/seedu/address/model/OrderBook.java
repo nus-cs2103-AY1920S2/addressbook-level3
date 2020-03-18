@@ -84,6 +84,10 @@ public class OrderBook implements ReadOnlyOrderBook {
         orders.remove(key);
     }
 
+    public void deliverOrder(Order target) {
+        orders.deliver(target);
+    }
+
     //// util methods
 
     @Override

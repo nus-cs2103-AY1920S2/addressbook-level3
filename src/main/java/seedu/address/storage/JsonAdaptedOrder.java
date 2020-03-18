@@ -33,6 +33,7 @@ class JsonAdaptedOrder {
     private final String cod;
     private final String comment;
     private final String itemType;
+    private final boolean deliveryStatus;
 
     /**
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
@@ -44,7 +45,8 @@ class JsonAdaptedOrder {
                             @JsonProperty("timestamp") String timeStamp,
                             @JsonProperty("warehouse") String warehouse, @JsonProperty("cashOnDelivery") String cod,
                             @JsonProperty("comment") String comment,
-                            @JsonProperty("itemType") String itemType) {
+                            @JsonProperty("itemType") String itemType,
+                            @JsonProperty("deliveryStatus") boolean deliveryStatus) {
         this.tid = tid;
         this.name = name;
         this.phone = phone;
@@ -55,6 +57,7 @@ class JsonAdaptedOrder {
         this.cod = cod;
         this.comment = comment;
         this.itemType = itemType;
+        this.deliveryStatus = deliveryStatus;
     }
 
     /**
@@ -71,7 +74,7 @@ class JsonAdaptedOrder {
         cod = source.getCash().cashOnDelivery;
         comment = source.getComment().commentMade;
         itemType = source.getItemType().itemType;
-
+        deliveryStatus = source.isDelivered();
     }
 
     /**
@@ -168,9 +171,12 @@ class JsonAdaptedOrder {
             modelItem = new TypeOfItem(itemType);
         }
 
-        return new Order(modelTid, modelName, modelPhone, modelEmail, modelAddress, modelTimeStamp, modelWarehouse,
-                modelCash, modelComment, modelItem);
-
+        Order finalOrder = new Order(modelTid, modelName, modelPhone, modelEmail, modelAddress, modelTimeStamp,
+                modelWarehouse, modelCash, modelComment, modelItem);
+        if (deliveryStatus) {
+            finalOrder.setDeliveryStatus(true);
+        }
+        return finalOrder;
     }
 
 }

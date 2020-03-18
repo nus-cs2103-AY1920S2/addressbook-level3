@@ -101,6 +101,15 @@ public class UniqueOrderList implements Iterable<Order> {
     }
 
     /**
+     * Marks an order in the list as done.
+     * The order must not already exist in the list.
+     */
+    public void deliver(Order toBeDelivered) {
+        requireNonNull(toBeDelivered);
+        toBeDelivered.setDeliveryStatus(true);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Order> asUnmodifiableObservableList() {

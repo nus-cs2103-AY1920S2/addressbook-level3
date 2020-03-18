@@ -26,11 +26,12 @@ public class Order {
     private final Warehouse warehouse;
     private final Comment comment;
     private final TypeOfItem itemType;
+    private boolean deliveryStatus;
     /**
      * Every field must be present and not null.
      */
-    public Order(TransactionId tid, Name name, Phone phone, Email email, Address address, TimeStamp timestamp, Warehouse warehouse,
-                 CashOnDelivery cod, Comment comment, TypeOfItem itemType) {
+    public Order(TransactionId tid, Name name, Phone phone, Email email, Address address, TimeStamp timestamp,
+                 Warehouse warehouse, CashOnDelivery cod, Comment comment, TypeOfItem itemType) {
         requireAllNonNull(tid, name, phone, email, address, timestamp, warehouse, cod, comment, itemType);
         this.tid = tid;
         this.name = name;
@@ -42,6 +43,7 @@ public class Order {
         this.cod = cod;
         this.comment = comment;
         this.itemType = itemType;
+        this.deliveryStatus = false;
     }
 
     public TransactionId getTid() {
@@ -84,6 +86,14 @@ public class Order {
         return itemType;
     }
 
+    public boolean isDelivered() {
+        return deliveryStatus;
+    }
+
+    public void setDeliveryStatus(boolean status) {
+        deliveryStatus = status;
+    }
+
     /**
      * Returns true if both orders of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two orders.
@@ -123,7 +133,8 @@ public class Order {
                 && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
                 && otherOrder.getCash().equals(getCash())
-                && otherOrder.getItemType().equals(getItemType());
+                && otherOrder.getItemType().equals(getItemType())
+                && (otherOrder.isDelivered() == isDelivered());
     }
 
     @Override
@@ -154,6 +165,11 @@ public class Order {
                 .append(getComment())
                 .append(" Item Type: ")
                 .append(getItemType());
+        if (this.isDelivered()) {
+            builder.append(" Delivery Status: ").append("Delivered");
+        } else {
+            builder.append(" Delivery Status: ").append("Not Delivered");
+        }
         return builder.toString();
     }
 
