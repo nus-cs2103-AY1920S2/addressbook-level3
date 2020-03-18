@@ -18,24 +18,24 @@ public class MonthlyDataPanel extends UiPart<Region> {
     public final MonthlyData monthlyData;
 
     @FXML
-    private Label expenditureLabel;
+    private Label expenditure;
 
     @FXML
-    private Label budgetLabel;
+    private Label budget;
 
     @FXML
-    private Label incomeLabel;
+    private Label income;
 
     @FXML
-    private Label balanceLabel;
+    private Label balance;
 
     public MonthlyDataPanel(MonthlyData monthlyData) {
         super(FXML);
         this.monthlyData = monthlyData;
-        expenditureLabel.setText("Monthly Expense: ");
-        budgetLabel.setText("Monthly Budget: ");
-        incomeLabel.setText("Monthly Income: ");
-        balanceLabel.setText("Total Balance: ");
+        expenditure.setText("Monthly Expense: $2,000");
+        budget.setText("Monthly Budget: $3,000");
+        income.setText("Monthly Income: $5,000");
+        balance.setText("Total Balance: $170,000");
     }
 
 }

@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Label?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="expenditureLabel" text="Total expenditure for this month"/>
-    <Label fx:id="budgetLabel" text="Budget for this month"/>
-    <Label fx:id="incomeLabel" text="Income for this month"/>
-    <Label fx:id="balanceLabel" text="Total Balance"/>
-</VBox>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Separator?>
+
+<GridPane fx:id="monthlyDataContainer" prefHeight="300" prefWidth="370"
+          hgap="40" vgap="25"
+          xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="2"
+           text="Placeholder for graphics"/>
+    <Label fx:id="expenditure" GridPane.columnIndex="1" GridPane.rowIndex="0"
+           styleClass="monthly-data-label" text="Total expenditure for this month: "/>
+    <Label fx:id="budget" GridPane.columnIndex="1" GridPane.rowIndex="1"
+           styleClass="monthly-data-label" text="Budget for this month: "/>
+    <Separator orientation="VERTICAL" valignment="CENTER" prefHeight="370"
+               GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2"/>
+    <Label fx:id="income" GridPane.columnIndex="3" GridPane.rowIndex="0"
+           styleClass="monthly-data-label" text="Income for this month: "/>
+    <Label fx:id="balance" GridPane.columnIndex="3" GridPane.rowIndex="1"
+           styleClass="monthly-data-label" text="Total Balance: "/>
+</GridPane>
