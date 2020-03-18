@@ -19,8 +19,11 @@ public class DiaryBook {
     }
 
     public String showLog() {
-        StringBuilder sb = new StringBuilder();
+        if (diaryEntries.size() == 0) {
+            return "There are currently no entries in your diary book!";
+        }
         int entryId = 1;
+        StringBuilder sb = new StringBuilder();
         for (DiaryEntry entry : diaryEntries) {
             sb.append(entryId++).append(entry.getHeading()).append("\n");
         }

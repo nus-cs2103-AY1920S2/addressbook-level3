@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.diary.DiaryBook;
+import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -22,6 +24,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private DiaryBook diaryBook;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -35,6 +38,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        diaryBook = new DiaryBook();
     }
 
     public ModelManager() {
@@ -112,6 +116,16 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public void addDiaryEntry(DiaryEntry diaryEntry) {
+        diaryBook.addEntry(diaryEntry);
+    }
+
+    @Override
+    public boolean isEmptyDiaryEntry(DiaryEntry diaryEntry) {
+        // implement later
+        return false;
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**

@@ -12,6 +12,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_NOTES_OPERATION = new Prefix("ops/");
     public static final Prefix PREFIX_NOTES_PATH = new Prefix("loc/");
-
+    public static final Prefix PREFIX_ENTRY_CONTENT = new Prefix("ec/");
 
 }
