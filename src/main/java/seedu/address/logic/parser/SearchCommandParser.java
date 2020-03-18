@@ -51,44 +51,9 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
 
         KeywordContainsOrderPrefix keywordContainsOrderPrefix = new KeywordContainsOrderPrefix(argMultimap);
-        StringBuilder keywordsString = new StringBuilder();
-        if (keywordContainsOrderPrefix.getHasTid()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_TID);
-        }
+        StringBuilder keywordsString = addPrefixKeywordsToList(argMultimap);
 
-        if (keywordContainsOrderPrefix.getHasName()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_NAME);
-        }
-
-        if (keywordContainsOrderPrefix.getHasPhone()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_PHONE);
-        }
-
-        if (keywordContainsOrderPrefix.getHasAddress()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_ADDRESS);
-        }
-
-        if (keywordContainsOrderPrefix.getHasTimeStamp()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_DELIVERY_TIMESTAMP);
-        }
-
-        if (keywordContainsOrderPrefix.getHasWarehouse()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_WAREHOUSE);
-        }
-
-        if (keywordContainsOrderPrefix.getHasComment()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_COMMENT);
-        }
-
-        if (keywordContainsOrderPrefix.getHasCod()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_COD);
-        }
-
-        if (keywordContainsOrderPrefix.getHasItemType()) {
-            keywordsString = addPrefixKeywordsToList(keywordsString, argMultimap, PREFIX_TYPE);
-        }
-
-        keywords = Arrays.asList(keywordsString.toString().split("\\s+"));
+        keywords = Arrays.asList(keywordsString.toString().trim().split("\\s+"));
         return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, keywordContainsOrderPrefix));
     }
 
@@ -101,22 +66,17 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     }
 
     /**
-     * Add keywords tagged to the prefix given by the user to a StringBuilder.
-     * Returns a StringBuilder with all the keywords tagged to the prefix appended to the given StringBuilder of
-     * {@param givenKeyWords}.
-     *
-     * @param givenKeywords StringBuilder of all or partial of the keywords given by the user.
-     * @param argumentMultimap An {@code ArgumentMultimap} object with keywords tagged to prefix.
-     * @param prefix Prefix object to indicate which keywords to extract out from the argumentMultiMap.
-     * @return Returns a StringBuilder object with all the keywords tagged to the prefix appneded to the StringBuilder.
+     * Returns a StringBuilder object of all the values user keyed in.
+     * @param argumentMultimap An {@code ArgumentMultimap} object containing all the keywords tagged to a
+     *                         specific prefix
+     * @return returns a StringBuilder object of all the values user keyed in with a trailing whitespace behind.
      */
-    private static StringBuilder addPrefixKeywordsToList(StringBuilder givenKeywords,
-                                                        ArgumentMultimap argumentMultimap, Prefix prefix) {
-        StringBuilder copyKeywords = givenKeywords;
-        List<String> currentPrefixListOfKeywords = argumentMultimap.getAllValues(prefix);
+    private static StringBuilder addPrefixKeywordsToList(ArgumentMultimap argumentMultimap) {
+        StringBuilder keywords = new StringBuilder();
+        List<String> currentPrefixListOfKeywords = argumentMultimap.getAllPrefixValues();
         for (String each : currentPrefixListOfKeywords) {
-            copyKeywords.append(each);
+            keywords.append(each + " ");
         }
-        return copyKeywords;
+        return keywords;
     }
 }
