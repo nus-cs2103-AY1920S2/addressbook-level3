@@ -116,6 +116,7 @@ public class EditCommand extends Command {
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
         TypeOfItem updatedType = editOrderDescriptor.getItemType().orElse(orderToEdit.getItemType());
 
+
         return new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
                 updatedWarehouse, updatedCod, updatedComment, updatedType);
 
