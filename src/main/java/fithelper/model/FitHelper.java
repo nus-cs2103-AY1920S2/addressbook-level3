@@ -99,7 +99,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         String todayStr = new Today().getTodayDateStr();
         if (target.isFood()) {
             foodEntries.setEntry(target, editedEntry);
-            if (target.isToday(todayStr)){
+            if (target.isToday(todayStr)) {
                 todayFoodEntries.remove(target);
             }
             if (editedEntry.isToday(todayStr)) {
@@ -107,7 +107,7 @@ public class FitHelper implements ReadOnlyFitHelper {
             }
         } else {
             sportsEntries.setEntry(target, editedEntry);
-            if (target.isToday(todayStr)){
+            if (target.isToday(todayStr)) {
                 todaySportsEntries.remove(target);
             }
             if (editedEntry.isToday(todayStr)) {
