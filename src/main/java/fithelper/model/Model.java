@@ -46,6 +46,8 @@ public interface Model {
 
     void addVEvent(Entry entry) throws IllegalValueException;
 
+    void setVevent(Entry entry, Entry newEntry);
+
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the log book.
