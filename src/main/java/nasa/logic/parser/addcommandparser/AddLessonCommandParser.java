@@ -8,6 +8,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
+import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.logic.parser.ArgumentMultimap;
 import nasa.logic.parser.ArgumentTokenizer;
