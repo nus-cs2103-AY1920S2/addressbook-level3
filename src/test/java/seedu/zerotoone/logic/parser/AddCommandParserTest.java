@@ -26,60 +26,60 @@ import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.zerotoone.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.zerotoone.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.zerotoone.testutil.TypicalPersons.AMY;
-import static seedu.zerotoone.testutil.TypicalPersons.BOB;
+import static seedu.zerotoone.testutil.TypicalExercises.AMY;
+import static seedu.zerotoone.testutil.TypicalExercises.BOB;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.logic.commands.AddCommand;
-import seedu.zerotoone.model.person.Address;
-import seedu.zerotoone.model.person.Email;
-import seedu.zerotoone.model.person.Name;
-import seedu.zerotoone.model.person.Person;
-import seedu.zerotoone.model.person.Phone;
+import seedu.zerotoone.model.exercise.Address;
+import seedu.zerotoone.model.exercise.Email;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.Name;
+import seedu.zerotoone.model.exercise.Phone;
 import seedu.zerotoone.model.tag.Tag;
-import seedu.zerotoone.testutil.PersonBuilder;
+import seedu.zerotoone.testutil.ExerciseBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Exercise expectedExercise = new ExerciseBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExercise));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExercise));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExercise));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExercise));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExercise));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Exercise expectedExerciseMultipleTags = new ExerciseBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedExerciseMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Exercise expectedExercise = new ExerciseBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedExercise));
     }
 
     @Test

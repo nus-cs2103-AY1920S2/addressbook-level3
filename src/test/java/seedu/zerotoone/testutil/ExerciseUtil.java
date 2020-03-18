@@ -9,41 +9,41 @@ import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.zerotoone.logic.commands.AddCommand;
-import seedu.zerotoone.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.logic.commands.EditCommand;
+import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Exercise.
  */
-public class PersonUtil {
+public class ExerciseUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code exercise}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Exercise exercise) {
+        return AddCommand.COMMAND_WORD + " " + getExerciseDetails(exercise);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code exercise}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getExerciseDetails(Exercise exercise) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        sb.append(PREFIX_NAME + exercise.getName().fullName + " ");
+        // sb.append(PREFIX_PHONE + exercise.getPhone().value + " ");
+        // sb.append(PREFIX_EMAIL + exercise.getEmail().value + " ");
+        // sb.append(PREFIX_ADDRESS + exercise.getAddress().value + " ");
+        // exercise.getTags().stream().forEach(
+        //     s -> sb.append(PREFIX_TAG + s.tagName + " ")
+        // );
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditExerciseDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditExerciseDescriptorDetails(EditCommand.EditExerciseDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

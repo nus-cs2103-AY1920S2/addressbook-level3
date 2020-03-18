@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 import seedu.zerotoone.logic.commands.AddCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.person.Address;
-import seedu.zerotoone.model.person.Email;
-import seedu.zerotoone.model.person.Name;
-import seedu.zerotoone.model.person.Person;
-import seedu.zerotoone.model.person.Phone;
+import seedu.zerotoone.model.exercise.Address;
+import seedu.zerotoone.model.exercise.Email;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.Name;
+import seedu.zerotoone.model.exercise.Phone;
 import seedu.zerotoone.model.tag.Tag;
 
 /**
@@ -44,9 +44,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, address, tagList);
+        // Exercise exercise = new Exercise(name, phone, email, address, tagList);
+        Exercise exercise = new Exercise(null, null);
 
-        return new AddCommand(person);
+        return new AddCommand(exercise);
     }
 
     /**

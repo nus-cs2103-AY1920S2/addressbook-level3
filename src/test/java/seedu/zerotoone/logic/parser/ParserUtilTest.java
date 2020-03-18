@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,10 +14,10 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.person.Address;
-import seedu.zerotoone.model.person.Email;
-import seedu.zerotoone.model.person.Name;
-import seedu.zerotoone.model.person.Phone;
+import seedu.zerotoone.model.exercise.Address;
+import seedu.zerotoone.model.exercise.Email;
+import seedu.zerotoone.model.exercise.Name;
+import seedu.zerotoone.model.exercise.Phone;
 import seedu.zerotoone.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -50,10 +50,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_EXERCISE, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_EXERCISE, ParserUtil.parseIndex("  1  "));
     }
 
     @Test

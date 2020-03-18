@@ -11,36 +11,36 @@ import org.junit.jupiter.api.Test;
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.commons.util.JsonUtil;
 import seedu.zerotoone.model.ExerciseList;
-import seedu.zerotoone.testutil.TypicalPersons;
+import seedu.zerotoone.testutil.TypicalExercises;
 
 public class JsonSerializableExerciseListTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableExerciseListTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsExerciseList.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonExerciseList.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonExerciseList..json");
+    private static final Path TYPICAL_EXERCISES_FILE = TEST_DATA_FOLDER.resolve("typicalExercisesExerciseList.json");
+    private static final Path INVALID_EXERCISE_FILE = TEST_DATA_FOLDER.resolve("invalidExerciseExerciseList.json");
+    private static final Path DUPLICATE_EXERCISE_FILE = TEST_DATA_FOLDER.resolve("duplicateExerciseExerciseList..json");
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
+    public void toModelType_typicalExercisesFile_success() throws Exception {
+        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXERCISES_FILE,
                 JsonSerializableExerciseList.class).get();
         ExerciseList exerciseListFromFile = dataFromFile.toModelType();
-        ExerciseList typicalPersonsExerciseList = TypicalPersons.getTypicalExerciseList();
-        assertEquals(exerciseListFromFile, typicalPersonsExerciseList);
+        ExerciseList typicalExercisesExerciseList = TypicalExercises.getTypicalExerciseList();
+        assertEquals(exerciseListFromFile, typicalExercisesExerciseList);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
+    public void toModelType_invalidExerciseFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(INVALID_EXERCISE_FILE,
                 JsonSerializableExerciseList.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
+    public void toModelType_duplicateExercises_throwsIllegalValueException() throws Exception {
+        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXERCISE_FILE,
                 JsonSerializableExerciseList.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableExerciseList.MESSAGE_DUPLICATE_PERSON,
+        assertThrows(IllegalValueException.class, JsonSerializableExerciseList.MESSAGE_DUPLICATE_EXERCISE,
                 dataFromFile::toModelType);
     }
 

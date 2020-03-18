@@ -2,7 +2,13 @@ package seedu.zerotoone.model.exercise;
 
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
+// import java.util.Collections;
+// import java.util.HashSet;
+
 import java.util.Objects;
+// import java.util.Set;
+
+// import seedu.zerotoone.model.tag.Tag;
 
 /**
  * Represents a Exercise in the address book.
@@ -59,13 +65,11 @@ public class Exercise {
         }
 
         Exercise otherExercise = (Exercise) other;
-        return otherExercise.getName().equals(getName())
-                && otherExercise.getExerciseSet().equals(getExerciseSet());
+        return otherExercise.getName().equals(getName());
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, exerciseSet);
     }
 

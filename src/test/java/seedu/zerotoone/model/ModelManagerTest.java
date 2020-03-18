@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalPersons.ALICE;
-import static seedu.zerotoone.testutil.TypicalPersons.BENSON;
+import static seedu.zerotoone.testutil.TypicalExercises.ALICE;
+import static seedu.zerotoone.testutil.TypicalExercises.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.core.GuiSettings;
-import seedu.zerotoone.model.person.NameContainsKeywordsPredicate;
+import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
 import seedu.zerotoone.testutil.ExerciseListBuilder;
 
 public class ModelManagerTest {
@@ -66,36 +66,36 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setEexerciseListFilePath_validPath_setsExerciseListFilePath() {
-        Path path = Paths.get("exercise/list/file/path");
+    public void setExerciseListFilePath_validPath_setsExerciseListFilePath() {
+        Path path = Paths.get("address/book/file/path");
         modelManager.setExerciseListFilePath(path);
         assertEquals(path, modelManager.getExerciseListFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void hasExercise_nullExercise_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasExercise(null));
     }
 
     @Test
-    public void hasPerson_personNotInExerciseList_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasExercise_exerciseNotInExerciseList_returnsFalse() {
+        assertFalse(modelManager.hasExercise(ALICE));
     }
 
     @Test
-    public void hasPerson_personInExerciseList_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasExercise_exerciseInExerciseList_returnsTrue() {
+        modelManager.addExercise(ALICE);
+        assertTrue(modelManager.hasExercise(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredExerciseList().remove(0));
     }
 
     @Test
     public void equals() {
-        ExerciseList exerciseList = new ExerciseListBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        ExerciseList exerciseList = new ExerciseListBuilder().withExercise(ALICE).withExercise(BENSON).build();
         ExerciseList differentExerciseList = new ExerciseList();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -118,11 +118,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(exerciseList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_EXERCISES);
+        modelManager.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

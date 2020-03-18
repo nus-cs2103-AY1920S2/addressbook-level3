@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.commons.util.StringUtil;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.person.Address;
-import seedu.zerotoone.model.person.Email;
-import seedu.zerotoone.model.person.Name;
-import seedu.zerotoone.model.person.Phone;
+import seedu.zerotoone.model.exercise.Address;
+import seedu.zerotoone.model.exercise.Email;
+import seedu.zerotoone.model.exercise.Name;
+import seedu.zerotoone.model.exercise.Phone;
 import seedu.zerotoone.model.tag.Tag;
 
 /**

@@ -6,7 +6,7 @@ import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_TAG;
-// import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,22 +19,22 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.commons.util.CollectionUtil;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.person.Address;
-import seedu.zerotoone.model.person.Email;
-import seedu.zerotoone.model.person.Name;
-import seedu.zerotoone.model.person.Person;
-import seedu.zerotoone.model.person.Phone;
+import seedu.zerotoone.model.exercise.Address;
+import seedu.zerotoone.model.exercise.Email;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.Name;
+import seedu.zerotoone.model.exercise.Phone;
 import seedu.zerotoone.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing exercise in the address book.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
-            + "by the index number used in the displayed person list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the exercise identified "
+            + "by the index number used in the displayed exercise list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -46,60 +46,63 @@ public class EditCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
+    public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited Exercise: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the address book.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditExerciseDescriptor editExerciseDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param index of the exercise in the filtered exercise list to edit
+     * @param editExerciseDescriptor details to edit the exercise with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditExerciseDescriptor editExerciseDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editExerciseDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editExerciseDescriptor = new EditExerciseDescriptor(editExerciseDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Exercise> lastShownList = model.getFilteredExerciseList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
+        Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-        // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.setExercise(exerciseToEdit, editedExercise);
+        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+        return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Exercise} with the details of {@code exerciseToEdit}
+     * edited with {@code editExerciseDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
-        assert personToEdit != null;
+    private static Exercise createEditedExercise(
+            Exercise exerciseToEdit, EditExerciseDescriptor editExerciseDescriptor) {
+        assert exerciseToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        // Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
+        // Phone updatedPhone = editExerciseDescriptor.getPhone().orElse(exerciseToEdit.getPhone());
+        // Email updatedEmail = editExerciseDescriptor.getEmail().orElse(exerciseToEdit.getEmail());
+        // Address updatedAddress = editExerciseDescriptor.getAddress().orElse(exerciseToEdit.getAddress());
+        // Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        // return new Exercise(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+
+        return new Exercise(null, null);
     }
 
     @Override
@@ -117,27 +120,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editExerciseDescriptor.equals(e.editExerciseDescriptor);
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the exercise with. Each non-empty field value will replace the
+     * corresponding field value of the exercise.
      */
-    public static class EditPersonDescriptor {
+    public static class EditExerciseDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
         private Address address;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditExerciseDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditExerciseDescriptor(EditExerciseDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -209,12 +212,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditExerciseDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditExerciseDescriptor e = (EditExerciseDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

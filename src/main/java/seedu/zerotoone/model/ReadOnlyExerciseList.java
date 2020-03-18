@@ -1,7 +1,7 @@
 package seedu.zerotoone.model;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * Unmodifiable view of an exercise list
@@ -9,9 +9,9 @@ import seedu.zerotoone.model.person.Person;
 public interface ReadOnlyExerciseList {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the exercises list.
+     * This list will not contain any duplicate exercises.
      */
-    ObservableList<Person> getPersonList();
+    ObservableList<Exercise> getExerciseList();
 
 }

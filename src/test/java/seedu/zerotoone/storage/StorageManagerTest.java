@@ -2,7 +2,7 @@ package seedu.zerotoone.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.zerotoone.testutil.TypicalPersons.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import java.nio.file.Path;
 
@@ -48,7 +48,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void exerciseListStorageReadSave() throws Exception {
+    public void exerciseListReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonExerciseListStorage} class.

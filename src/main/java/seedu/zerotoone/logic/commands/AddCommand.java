@@ -9,16 +9,16 @@ import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 
 /**
- * Adds a person to the address book.
+ * Adds a exercise to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a exercise to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -33,28 +33,28 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists in the address book";
 
-    private final Person toAdd;
+    private final Exercise toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Exercise}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Exercise exercise) {
+        requireNonNull(exercise);
+        toAdd = exercise;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasExercise(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
-        model.addPerson(toAdd);
+        model.addExercise(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -1,7 +1,7 @@
 package seedu.zerotoone.logic.commands;
 
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.zerotoone.testutil.TypicalPersons.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import org.junit.jupiter.api.Test;
 

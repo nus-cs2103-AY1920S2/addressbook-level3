@@ -1,14 +1,14 @@
 package seedu.zerotoone.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalPersons.AMY;
+import static seedu.zerotoone.testutil.TypicalExercises.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,11 +26,11 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.UserPrefs;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.storage.JsonExerciseListStorage;
 import seedu.zerotoone.storage.JsonUserPrefsStorage;
 import seedu.zerotoone.storage.StorageManager;
-import seedu.zerotoone.testutil.PersonBuilder;
+import seedu.zerotoone.testutil.ExerciseBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -59,7 +59,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -81,16 +81,16 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Exercise expectedExercise = new ExerciseBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
+        expectedModel.addExercise(expectedExercise);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getFilteredExerciseList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredExerciseList().remove(0));
     }
 
     /**

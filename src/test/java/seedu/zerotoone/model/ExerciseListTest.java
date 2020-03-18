@@ -1,26 +1,28 @@
 package seedu.zerotoone.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+// import static org.junit.jupiter.api.Assertions.assertFalse;
+// import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalPersons.ALICE;
-import static seedu.zerotoone.testutil.TypicalPersons.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.TypicalExercises.ALICE;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
+// import java.util.Collections;
+
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.zerotoone.model.person.Person;
-import seedu.zerotoone.model.person.exceptions.DuplicatePersonException;
-import seedu.zerotoone.testutil.PersonBuilder;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.exceptions.DuplicateExerciseException;
+import seedu.zerotoone.testutil.ExerciseBuilder;
 
 public class ExerciseListTest {
 
@@ -28,7 +30,7 @@ public class ExerciseListTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), exerciseList.getPersonList());
+        // assertEquals(Collections.emptyList(), exerciseList.getExerciseList());
     }
 
     @Test
@@ -44,58 +46,58 @@ public class ExerciseListTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateExercises_throwsDuplicateExerciseException() {
+        // Two exercises with the same identity fields
+        Exercise editedAlice = new ExerciseBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        ExerciseListStub newData = new ExerciseListStub(newPersons);
+        List<Exercise> newExercises = Arrays.asList(ALICE, editedAlice);
+        ExerciseListStub newData = new ExerciseListStub(newExercises);
 
-        assertThrows(DuplicatePersonException.class, () -> exerciseList.resetData(newData));
+        assertThrows(DuplicateExerciseException.class, () -> exerciseList.resetData(newData));
     }
 
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> exerciseList.hasPerson(null));
-    }
+    // @Test
+    // public void hasExercise_nullExercise_throwsNullPointerException() {
+    //     assertThrows(NullPointerException.class, () -> exerciseList.hasExercise(null));
+    // }
 
-    @Test
-    public void hasPerson_personNotInExerciseList_returnsFalse() {
-        assertFalse(exerciseList.hasPerson(ALICE));
-    }
+    // @Test
+    // public void hasExercise_exerciseNotInExerciseList_returnsFalse() {
+    //     assertFalse(exerciseList.hasExercise(ALICE));
+    // }
 
-    @Test
-    public void hasPerson_personInExerciseList_returnsTrue() {
-        exerciseList.addPerson(ALICE);
-        assertTrue(exerciseList.hasPerson(ALICE));
-    }
+    // @Test
+    // public void hasExercise_exerciseInExerciseList_returnsTrue() {
+    //     exerciseList.addExercise(ALICE);
+    //     assertTrue(exerciseList.hasExercise(ALICE));
+    // }
 
-    @Test
-    public void hasPerson_personWithSameIdentityFieldsInExerciseList_returnsTrue() {
-        exerciseList.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(exerciseList.hasPerson(editedAlice));
-    }
+    // @Test
+    // public void hasExercise_exerciseWithSameIdentityFieldsInExerciseList_returnsTrue() {
+    //     exerciseList.addExercise(ALICE);
+    //     Exercise editedAlice = new ExerciseBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+    //             .build();
+    //     assertTrue(exerciseList.hasExercise(editedAlice));
+    // }
 
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> exerciseList.getPersonList().remove(0));
-    }
+    // @Test
+    // public void getExerciseList_modifyList_throwsUnsupportedOperationException() {
+    //     assertThrows(UnsupportedOperationException.class, () -> exerciseList.getExerciseList().remove(0));
+    // }
 
     /**
-     * A stub ReadOnlyExerciseList whose persons list can violate interface constraints.
+     * A stub ReadOnlyExerciseList whose exercises list can violate interface constraints.
      */
     private static class ExerciseListStub implements ReadOnlyExerciseList {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Exercise> exercises = FXCollections.observableArrayList();
 
-        ExerciseListStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        ExerciseListStub(Collection<Exercise> exercises) {
+            this.exercises.setAll(exercises);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Exercise> getExerciseList() {
+            return exercises;
         }
     }
 

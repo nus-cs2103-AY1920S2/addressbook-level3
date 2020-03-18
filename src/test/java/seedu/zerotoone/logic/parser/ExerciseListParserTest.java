@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,17 +17,18 @@ import seedu.zerotoone.logic.commands.AddCommand;
 import seedu.zerotoone.logic.commands.ClearCommand;
 import seedu.zerotoone.logic.commands.DeleteCommand;
 import seedu.zerotoone.logic.commands.EditCommand;
-import seedu.zerotoone.logic.commands.EditCommand.EditPersonDescriptor;
+
+// import seedu.zerotoone.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.zerotoone.logic.commands.ExitCommand;
 import seedu.zerotoone.logic.commands.FindCommand;
 import seedu.zerotoone.logic.commands.HelpCommand;
 import seedu.zerotoone.logic.commands.ListCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.person.NameContainsKeywordsPredicate;
-import seedu.zerotoone.model.person.Person;
-import seedu.zerotoone.testutil.EditPersonDescriptorBuilder;
-import seedu.zerotoone.testutil.PersonBuilder;
-import seedu.zerotoone.testutil.PersonUtil;
+import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
+import seedu.zerotoone.testutil.EditExerciseDescriptorBuilder;
+import seedu.zerotoone.testutil.ExerciseBuilder;
+import seedu.zerotoone.testutil.ExerciseUtil;
 
 public class ExerciseListParserTest {
 
@@ -35,9 +36,9 @@ public class ExerciseListParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        Exercise exercise = new ExerciseBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(ExerciseUtil.getAddCommand(exercise));
+        assertEquals(new AddCommand(exercise), command);
     }
 
     @Test
@@ -49,17 +50,17 @@ public class ExerciseListParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_EXERCISE.getOneBased());
+        assertEquals(new DeleteCommand(INDEX_FIRST_EXERCISE), command);
     }
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        Exercise exercise = new ExerciseBuilder().build();
+        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(exercise).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
+                + INDEX_FIRST_EXERCISE.getOneBased() + " " + ExerciseUtil.getEditExerciseDescriptorDetails(descriptor));
+        assertEquals(new EditCommand(INDEX_FIRST_EXERCISE, descriptor), command);
     }
 
     @Test

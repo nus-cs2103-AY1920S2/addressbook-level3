@@ -14,7 +14,7 @@ import seedu.zerotoone.logic.parser.ExerciseListParser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ReadOnlyExerciseList;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.storage.Storage;
 
 /**
@@ -57,8 +57,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return model.getFilteredExerciseList();
     }
 
     @Override

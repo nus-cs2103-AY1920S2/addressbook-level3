@@ -1,20 +1,20 @@
 package seedu.zerotoone.ui;
 
-import java.util.Comparator;
+// import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Exercise}.
  */
-public class PersonCard extends UiPart<Region> {
+public class ExerciseCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "ExerciseListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -24,7 +24,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/exerciseList-level4/issues/336">The issue on ExerciseList level 4</a>
      */
 
-    public final Person person;
+    public final Exercise exercise;
 
     @FXML
     private HBox cardPane;
@@ -41,17 +41,17 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public ExerciseCard(Exercise exercise, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.exercise = exercise;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        person.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(exercise.getName().fullName);
+        // phone.setText(exercise.getPhone().value);
+        // address.setText(exercise.getAddress().value);
+        // email.setText(exercise.getEmail().value);
+        // exercise.getTags().stream()
+        //         .sorted(Comparator.comparing(tag -> tag.tagName))
+        //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -62,13 +62,13 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof ExerciseCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        ExerciseCard card = (ExerciseCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && exercise.equals(card.exercise);
     }
 }

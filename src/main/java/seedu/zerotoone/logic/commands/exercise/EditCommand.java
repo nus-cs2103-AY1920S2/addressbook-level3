@@ -1,9 +1,9 @@
 package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
+// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -32,15 +32,15 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": creates a new exercise. "
-            + "Parameters: "
-            + PREFIX_EXERCISE_NAME + "NAME "
-            + PREFIX_NUM_OF_REPS + "REPS "
-            + PREFIX_NUM_OF_SETS + "SETS "
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_EXERCISE_NAME + "Pushups "
-            + PREFIX_NUM_OF_REPS + "20 "
-            + PREFIX_NUM_OF_SETS + "3 ";
+    // public static final String MESSAGE_USAGE = COMMAND_WORD + ": creates a new exercise. "
+    //         + "Parameters: "
+    //         + PREFIX_EXERCISE_NAME + "NAME "
+    //         + PREFIX_NUM_OF_REPS + "REPS "
+    //         + PREFIX_NUM_OF_SETS + "SETS "
+    //         + "Example: " + COMMAND_WORD + " "
+    //         + PREFIX_EXERCISE_NAME + "Pushups "
+    //         + PREFIX_NUM_OF_REPS + "20 "
+    //         + PREFIX_NUM_OF_SETS + "3 ";
 
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited exercise: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

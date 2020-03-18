@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.ReadOnlyExerciseList;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * An Immutable ExerciseList that is serializable to JSON format.
@@ -19,16 +19,16 @@ import seedu.zerotoone.model.person.Person;
 @JsonRootName(value = "exerciselist")
 class JsonSerializableExerciseList {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_EXERCISE = "Exercises list contains duplicate exercise(s).";
 
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedExercise> exercises = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableExerciseList} with the given persons.
+     * Constructs a {@code JsonSerializableExerciseList} with the given exercises.
      */
     @JsonCreator
-    public JsonSerializableExerciseList(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableExerciseList(@JsonProperty("exercises") List<JsonAdaptedExercise> exercises) {
+        this.exercises.addAll(exercises);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableExerciseList {
      * @param source future changes to this will not affect the created {@code JsonSerializableExerciseList}.
      */
     public JsonSerializableExerciseList(ReadOnlyExerciseList source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        exercises.addAll(source.getExerciseList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,12 +47,12 @@ class JsonSerializableExerciseList {
      */
     public ExerciseList toModelType() throws IllegalValueException {
         ExerciseList exerciseList = new ExerciseList();
-        for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
-            Person person = jsonAdaptedPerson.toModelType();
-            if (exerciseList.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+        for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
+            Exercise exercise = jsonAdaptedExercise.toModelType();
+            if (exerciseList.hasExercise(exercise)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EXERCISE);
             }
-            exerciseList.addPerson(person);
+            exerciseList.addExercise(exercise);
         }
         return exerciseList;
     }

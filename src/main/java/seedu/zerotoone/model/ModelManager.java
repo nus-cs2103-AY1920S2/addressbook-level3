@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
-import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,7 +21,7 @@ public class ModelManager implements Model {
 
     private final ExerciseList exerciseList;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Exercise> filteredExercises;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
 
         this.exerciseList = new ExerciseList(exerciseList);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.exerciseList.getPersonList());
+        filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
     }
 
     public ModelManager() {
@@ -89,44 +89,44 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return exerciseList.hasPerson(person);
+    public boolean hasExercise(Exercise exercise) {
+        requireNonNull(exercise);
+        return exerciseList.hasExercise(exercise);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        exerciseList.removePerson(target);
+    public void deleteExercise(Exercise target) {
+        exerciseList.removeExercise(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        exerciseList.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_EXERCISES);
+    public void addExercise(Exercise exercise) {
+        exerciseList.addExercise(exercise);
+        updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setExercise(Exercise target, Exercise editedExercise) {
+        requireAllNonNull(target, editedExercise);
 
-        exerciseList.setPerson(target, editedPerson);
+        exerciseList.setExercise(target, editedExercise);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Exercise List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
      * {@code versionedExerciseList}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<Exercise> getFilteredExerciseList() {
+        return filteredExercises;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredExerciseList(Predicate<Exercise> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredExercises.setPredicate(predicate);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return exerciseList.equals(other.exerciseList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredExercises.equals(other.filteredExercises);
     }
 
 }

@@ -1,4 +1,4 @@
-package seedu.zerotoone.model.person;
+package seedu.zerotoone.model.exercise;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.util.AppUtil.checkArgument;

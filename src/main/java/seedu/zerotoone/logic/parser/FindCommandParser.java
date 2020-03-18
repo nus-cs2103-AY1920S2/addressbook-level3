@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.zerotoone.logic.commands.FindCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.person.NameContainsKeywordsPredicate;
+import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
