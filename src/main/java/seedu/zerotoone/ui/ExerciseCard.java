@@ -45,7 +45,7 @@ public class ExerciseCard extends UiPart<Region> {
         super(FXML);
         this.exercise = exercise;
         id.setText(displayedIndex + ". ");
-        name.setText(exercise.getName().fullName);
+        name.setText(exercise.getExerciseName().fullName);
         // phone.setText(exercise.getPhone().value);
         // address.setText(exercise.getAddress().value);
         // email.setText(exercise.getEmail().value);
