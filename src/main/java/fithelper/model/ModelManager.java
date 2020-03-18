@@ -29,8 +29,6 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
     private final FilteredList<Entry> filteredReminderEntries;
-    private final FilteredList<Entry> filteredTodayFoodEntries;
-    private final FilteredList<Entry> filteredTodaySportsEntries;
     private final VeventList vEventList;
     private CalendarSettings calendarSettings;
 
@@ -47,8 +45,6 @@ public class ModelManager implements Model {
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
-        filteredTodayFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
-        filteredTodaySportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
     }
 
@@ -134,23 +130,6 @@ public class ModelManager implements Model {
         return filteredReminderEntries;
     }
 
-    /**
-     * Returns an unmodifiable view of the food list of {@code Entry} backed by the internal list of
-     * {@code versionedFitHelper}
-     */
-    @Override
-    public ObservableList<Entry> getFilteredTodayFoodEntryList(String todayDateStr) {
-        return getTodayEntries(todayDateStr, filteredFoodEntries);
-    }
-
-    /**
-     * Returns an unmodifiable view of the food list of {@code Entry} backed by the internal list of
-     * {@code versionedFitHelper}
-     */
-    @Override
-    public ObservableList<Entry> getFilteredTodaySportsEntryList(String todayDateStr) {
-        return getTodayEntries(todayDateStr, filteredSportsEntries);
-    }
 
     public ObservableList<Entry> getTodayEntries(String todayDate, FilteredList<Entry> entries) {
         UniqueEntryList todayEntries = new UniqueEntryList();
