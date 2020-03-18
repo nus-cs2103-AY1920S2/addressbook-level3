@@ -88,4 +88,5 @@ public interface Model {
 
     boolean isEmptyDiaryEntry(DiaryEntry diaryEntry);
     void addDiaryEntry(DiaryEntry diaryEntry);
+    String showDiaryLog();
 }

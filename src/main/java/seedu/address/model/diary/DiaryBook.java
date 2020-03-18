@@ -25,7 +25,7 @@ public class DiaryBook {
         int entryId = 1;
         StringBuilder sb = new StringBuilder();
         for (DiaryEntry entry : diaryEntries) {
-            sb.append(entryId++).append(entry.getHeading()).append("\n");
+            sb.append(entryId++).append(". ").append(entry.getHeading()).append("\n");
         }
         return sb.toString();
     }

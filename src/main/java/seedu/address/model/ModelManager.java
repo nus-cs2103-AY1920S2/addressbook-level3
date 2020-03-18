@@ -126,6 +126,11 @@ public class ModelManager implements Model {
         // implement later
         return false;
     }
+
+    @Override
+    public String showDiaryLog() {
+        return diaryBook.showLog();
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**

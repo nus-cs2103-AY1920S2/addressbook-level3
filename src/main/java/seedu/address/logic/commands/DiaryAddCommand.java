@@ -17,7 +17,7 @@ public class DiaryAddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ENTRY_CONTENT + "I failed my midterm today :( ";
 
-    public static final String MESSAGE_SUCCESS = "Diary entry added";
+    public static final String MESSAGE_SUCCESS = "Diary entry added:";
 
     private final DiaryEntry diaryEntry;
 
@@ -35,6 +35,6 @@ public class DiaryAddCommand extends Command {
         }
 
         model.addDiaryEntry(diaryEntry);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, diaryEntry));
+        return new CommandResult(String.format(MESSAGE_SUCCESS + diaryEntry.getHeading()));
     }
 }
