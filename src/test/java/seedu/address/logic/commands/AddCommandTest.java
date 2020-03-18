@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -150,10 +151,20 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Notes> getFilesInFolderList() {
+          throw new AssertionError("This method should not be called.");
+        }
+      
+        @Override
         public boolean hasModule(NusModule module) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateNotesList(Predicate<Notes> predicate) {
+          throw new AssertionError("This method should not be called.");
+        }
+      
         @Override
         public void addModule(NusModule module) {
             throw new AssertionError("This method should not be called.");

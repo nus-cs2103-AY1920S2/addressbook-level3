@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Capulator;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Notes> filesInFolder;
     private List<NusModule> modules;
 
     /**
@@ -40,6 +42,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         modules = new ArrayList<>();
     }
 
@@ -151,6 +154,20 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //=========== Notes Module ==================================================================================
+    /** Returns an list of String that contains what is currently in the folder */
+    @Override
+    public ObservableList<Notes> getFilesInFolderList() {
+        return filesInFolder;
+    }
+
+    @Override
+    public void updateNotesList(Predicate<Notes> predicate) {
+        requireNonNull(predicate);
+        filesInFolder.setPredicate(predicate);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
