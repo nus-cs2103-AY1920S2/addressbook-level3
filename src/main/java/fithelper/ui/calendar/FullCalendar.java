@@ -9,9 +9,11 @@ import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 /**
@@ -51,6 +53,7 @@ public class FullCalendar extends UiPart<AnchorPane> {
                 ap.setPrefSize(20, 20);
                 ap.setStyle("-fx-border-color:white;");
                 calendar.add(ap, j, i);
+                dayNames[j].setFill(Color.DARKORANGE);
                 if (i == 0) {
                     ap.setTopAnchor(dayNames[j], 8.0);
                     ap.setLeftAnchor(dayNames[j], 8.0);
@@ -64,6 +67,10 @@ public class FullCalendar extends UiPart<AnchorPane> {
         // Populate calendar with the appropriate day numbers
         populateCalendar(YearMonth.now());
         // Create the calendar view
+        AnchorPane.setTopAnchor(monthYearTitle, 0.0);
+        AnchorPane.setLeftAnchor(monthYearTitle, 10.0);
+        AnchorPane.setTopAnchor(calendar, 20.0);
+        monthYearTitle.setTextFill(Color.web("#ff7f50"));
         view = new AnchorPane(monthYearTitle, calendar);
     }
 
@@ -84,6 +91,7 @@ public class FullCalendar extends UiPart<AnchorPane> {
                 ap.getChildren().remove(0);
             }
             Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
+            txt.setFill(Color.DARKORANGE);
             ap.setDate(calendarDate);
             AnchorPane.setTopAnchor(txt, 8.0);
             AnchorPane.setLeftAnchor(txt, 8.0);

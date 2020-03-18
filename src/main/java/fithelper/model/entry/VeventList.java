@@ -68,9 +68,9 @@ public class VeventList {
         vEvent.setSummary(entry.getName().toString());
         vEvent.setUniqueIdentifier(getUniqueIdentifier(entry));
         if (entry.getStatus().toString().equals("Done")) {
-            vEvent.withCategories("25");
-        } else {
             vEvent.withCategories("29");
+        } else {
+            vEvent.withCategories("24");
         }
         return vEvent;
     }
