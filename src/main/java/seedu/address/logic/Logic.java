@@ -30,7 +30,7 @@ public interface Logic {
      */
     ReadOnlyOrderBook getOrderBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of orders */
     ObservableList<Order> getFilteredOrderList();
 
     /**

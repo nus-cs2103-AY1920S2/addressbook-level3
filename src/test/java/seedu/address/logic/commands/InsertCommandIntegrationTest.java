@@ -14,9 +14,9 @@ import seedu.address.model.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code InsertCommand}.
  */
-public class AddCommandIntegrationTest {
+public class InsertCommandIntegrationTest {
 
     private Model model;
 
@@ -32,14 +32,14 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
         expectedModel.addOrder(validOrder);
 
-        assertCommandSuccess(new AddCommand(validOrder), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validOrder), expectedModel);
+        assertCommandSuccess(new InsertCommand(validOrder), model,
+                String.format(InsertCommand.MESSAGE_SUCCESS, validOrder), expectedModel);
     }
 
     @Test
     public void execute_duplicateOrder_throwsCommandException() {
         Order orderInList = model.getOrderBook().getOrderList().get(0);
-        assertCommandFailure(new AddCommand(orderInList), model, AddCommand.MESSAGE_DUPLICATE_ORDER);
+        assertCommandFailure(new InsertCommand(orderInList), model, InsertCommand.MESSAGE_DUPLICATE_ORDER);
     }
 
 }

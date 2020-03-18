@@ -127,7 +127,8 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-Better Model Class Diagram
+An Order class consists of nine different fields as shown in the image. Every order is part of a UniqueOrderList and
+every UniqueOrderList is part of an OrderBook.
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]

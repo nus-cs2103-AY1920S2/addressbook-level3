@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the type of item in the order book.
- * Guarantees: immutable; item is valid as declared in {@link #isValidItemName(String)}}
+ * Guarantees: immutable; item is valid as declared in {@link #isValidItemType(String)}}
  */
 
 public class TypeOfItem {
@@ -29,14 +29,14 @@ public class TypeOfItem {
      */
     public TypeOfItem(String itemType) {
         requireNonNull(itemType);
-        checkArgument(isValidItemName(itemType), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidItemType(itemType), MESSAGE_CONSTRAINTS);
         this.itemType = itemType;
     }
 
     /**
      * Returns true if a given string is a valid Item.
      */
-    public static boolean isValidItemName(String test) {
+    public static boolean isValidItemType(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
