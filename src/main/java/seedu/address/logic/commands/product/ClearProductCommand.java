@@ -19,7 +19,7 @@ public class ClearProductCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new InventorySystem());
+        model.setAddressBook(new InventorySystem(), COMMAND_WORD);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

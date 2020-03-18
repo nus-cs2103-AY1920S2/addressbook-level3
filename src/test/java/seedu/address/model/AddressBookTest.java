@@ -18,6 +18,8 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.customer.ClearCustomerCommand;
+import seedu.address.logic.commands.product.ClearProductCommand;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.exceptions.DuplicatePersonException;
 import seedu.address.model.product.Product;
@@ -35,13 +37,14 @@ public class AddressBookTest {
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> addressBook.resetData(null, null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
         InventorySystem newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
+        addressBook.resetData(newData, ClearCustomerCommand.COMMAND_WORD);
+        addressBook.resetData(newData, ClearProductCommand.COMMAND_WORD);
         assertEquals(newData, addressBook);
     }
 
@@ -53,7 +56,8 @@ public class AddressBookTest {
         List<Customer> newCustomers = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newCustomers);
 
-        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData,
+                ClearCustomerCommand.COMMAND_WORD));
     }
 
     @Test
