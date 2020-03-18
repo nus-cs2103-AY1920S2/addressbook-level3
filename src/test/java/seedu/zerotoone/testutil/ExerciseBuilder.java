@@ -86,6 +86,10 @@ public class ExerciseBuilder {
         return this;
     }
 
+    /**
+     * Build Exercise.
+     * @return Exercise
+     */
     public Exercise build() {
         // return new Exercise(name, phone, email, address, tags);
         return new Exercise(null, null);

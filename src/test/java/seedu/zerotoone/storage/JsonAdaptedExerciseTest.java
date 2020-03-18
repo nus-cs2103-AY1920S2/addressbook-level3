@@ -7,7 +7,7 @@ import static seedu.zerotoone.testutil.TypicalExercises.BENSON;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+// import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 

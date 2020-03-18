@@ -7,8 +7,9 @@ import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.zerotoone.testutil.Assert.assertThrows;
+// import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.TypicalExercises.ALICE;
+
 import static seedu.zerotoone.testutil.TypicalExercises.BOB;
 
 import org.junit.jupiter.api.Test;
