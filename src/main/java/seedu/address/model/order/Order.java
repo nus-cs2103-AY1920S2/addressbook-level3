@@ -17,6 +17,7 @@ public class Order {
     private final TransactionId tid;
     private final Name name;
     private final Phone phone;
+    private final Email email;
 
     // Data fields
     private final CashOnDelivery cod;
@@ -28,12 +29,13 @@ public class Order {
     /**
      * Every field must be present and not null.
      */
-    public Order(TransactionId tid, Name name, Phone phone, Address address, TimeStamp timestamp, Warehouse warehouse,
+    public Order(TransactionId tid, Name name, Phone phone, Email email, Address address, TimeStamp timestamp, Warehouse warehouse,
                  CashOnDelivery cod, Comment comment, TypeOfItem itemType) {
-        requireAllNonNull(tid, name, phone, address, timestamp, warehouse, cod, comment, itemType);
+        requireAllNonNull(tid, name, phone, email, address, timestamp, warehouse, cod, comment, itemType);
         this.tid = tid;
         this.name = name;
         this.phone = phone;
+        this.email = email;
         this.address = address;
         this.timestamp = timestamp;
         this.warehouse = warehouse;
@@ -41,6 +43,7 @@ public class Order {
         this.comment = comment;
         this.itemType = itemType;
     }
+
     public TransactionId getTid() {
         return tid;
     }
@@ -51,6 +54,10 @@ public class Order {
 
     public Phone getPhone() {
         return phone;
+    }
+
+    public Email getEmail() {
+        return email;
     }
 
     public Address getAddress() {
@@ -110,6 +117,7 @@ public class Order {
         return otherOrder.getTid().equals(getTid())
                 && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
+                && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
                 && otherOrder.getTimestamp().equals(getTimestamp())
                 && otherOrder.getWarehouse().equals(getWarehouse())
@@ -121,7 +129,7 @@ public class Order {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tid, name, phone, address, timestamp, warehouse, cod, comment, itemType);
+        return Objects.hash(tid, name, phone, email, address, timestamp, warehouse, cod, comment, itemType);
     }
 
     @Override
@@ -132,6 +140,8 @@ public class Order {
                 .append(getTid())
                 .append(" Phone: ")
                 .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Delivery Date & Time: ")

@@ -5,6 +5,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_NIL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -35,48 +37,66 @@ public class TypicalOrders {
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
             .withCash("$1.01")
             .withPhone("94351253")
+            .withEmail("example@example.com")
             .withItemType("glass").build();
     public static final Order BENSON = new OrderBuilder().withTid("B8484848")
             .withName("Benson Meier")
+            .withEmail("example@example.com")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
             .withCash("$5").withPhone("98765432")
             .build();
-    public static final Order CARL = new OrderBuilder().withTid("C8483883").withName("Carl Kurz").withPhone("95352563")
+    public static final Order CARL = new OrderBuilder().withTid("C8483883").withName("Carl Kurz")
+            .withPhone("95352563")
+            .withEmail("example@example.com")
             .withCash("$1.20").withAddress("wall street").withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
     public static final Order DANIEL = new OrderBuilder().withTid("D93939393").withName("Daniel Meier")
-            .withPhone("87652533").withCash("$5").withAddress("10th street").withTimeStamp("2020-02-20 1500")
+            .withPhone("87652533")
+            .withEmail("example@example.com")
+            .withCash("$5").withAddress("10th street").withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").withItemType("bottle").build();
     public static final Order ELLE = new OrderBuilder().withTid("E939393")
-            .withName("Elle Meyer").withPhone("9482224")
+            .withName("Elle Meyer")
+            .withEmail("example@example.com")
+            .withPhone("9482224")
             .withCash("$6").withAddress("michegan ave").withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
     public static final Order FIONA = new OrderBuilder().withTid("F01010101")
-            .withName("Fiona Kunz").withPhone("9482427").withCash("$2")
+            .withName("Fiona Kunz")
+            .withEmail("example@example.com")
+            .withPhone("9482427").withCash("$2")
             .withAddress("little tokyo").withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
-    public static final Order GEORGE = new OrderBuilder().withTid("G9999").withName("George Best").withPhone("9482442")
+    public static final Order GEORGE = new OrderBuilder().withTid("G9999").withName("George Best")
+            .withPhone("9482442")
+            .withEmail("example@example.com")
             .withCash("$6").withAddress("4th street").withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").withItemType("drinks").build();
 
     // Manually added
-    public static final Order HOON = new OrderBuilder().withTid("H111111").withName("Hoon Meier").withPhone("8482424")
+    public static final Order HOON = new OrderBuilder().withTid("H111111").withName("Hoon Meier")
+            .withPhone("8482424")
+            .withEmail("example@example.com")
             .withCash("$5").withAddress("little india").withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
-    public static final Order IDA = new OrderBuilder().withTid("I0000").withName("Ida Mueller").withPhone("8482131")
+    public static final Order IDA = new OrderBuilder().withTid("I0000").withName("Ida Mueller")
+            .withPhone("8482131")
+            .withEmail("example@example.com")
             .withCash("$1").withAddress("chicago ave").withTimeStamp("2020-02-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
 
     // Manually added - Order's details found in {@code CommandTestUtil}
     public static final Order AMY = new OrderBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withTid(VALID_TID_AMY).withAddress(VALID_ADDRESS_AMY).withTimeStamp(VALID_TIMESTAMP_AMY)
+            .withEmail(VALID_EMAIL_AMY).withTid(VALID_TID_AMY).withAddress(VALID_ADDRESS_AMY)
+            .withTimeStamp(VALID_TIMESTAMP_AMY)
             .withCash(VALID_COD_AMY)
             .withComment(VALID_COMMENT_NIL).withWarehouse(VALID_WAREHOUSE_AMY)
             .build();
     public static final Order BOB = new OrderBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withTid(VALID_TID_BOB).withAddress(VALID_ADDRESS_BOB).withTimeStamp(VALID_TIMESTAMP_BOB)
+            .withEmail(VALID_EMAIL_BOB).withTid(VALID_TID_BOB).withAddress(VALID_ADDRESS_BOB)
+            .withTimeStamp(VALID_TIMESTAMP_BOB)
             .withCash(VALID_COD_BOB)
             .withWarehouse(VALID_WAREHOUSE_BOB)
             .withComment(VALID_COMMENT_NIL)

@@ -4,6 +4,7 @@ import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.CashOnDelivery;
+import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
@@ -19,6 +20,7 @@ public class OrderBuilder {
     public static final String DEFAULT_TID = "A98765431";
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_EMAIL = "amy@example.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_TIMESTAMP = "2020-02-20 1500";
     public static final String DEFAULT_WAREHOUSE = "5 Toh Guan Rd E, #02-30 S608831";
@@ -29,6 +31,7 @@ public class OrderBuilder {
     private TransactionId tid;
     private Name name;
     private Phone phone;
+    private Email email;
     private Address address;
     private TimeStamp timeStamp;
     private Warehouse warehouse;
@@ -40,6 +43,7 @@ public class OrderBuilder {
         tid = new TransactionId(DEFAULT_TID);
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
+        email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         timeStamp = new TimeStamp(DEFAULT_TIMESTAMP);
         warehouse = new Warehouse(DEFAULT_WAREHOUSE);
@@ -55,6 +59,7 @@ public class OrderBuilder {
         tid = orderToCopy.getTid();
         name = orderToCopy.getName();
         phone = orderToCopy.getPhone();
+        email = orderToCopy.getEmail();
         address = orderToCopy.getAddress();
         timeStamp = orderToCopy.getTimestamp();
         warehouse = orderToCopy.getWarehouse();
@@ -128,6 +133,14 @@ public class OrderBuilder {
     }
 
     /**
+     * Sets the {@code Phone} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withEmail(String email) {
+        this.email = new Email(email);
+        return this;
+    }
+
+    /**
      * Sets the {@code Comment} of the {@code Order} that we are building.
      */
     public OrderBuilder withComment(String comment) {
@@ -136,7 +149,7 @@ public class OrderBuilder {
     }
 
     public Order build() {
-        return new Order(tid, name, phone, address, timeStamp, warehouse, cod, comment, itemType);
+        return new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
     }
 
 }
