@@ -1,5 +1,7 @@
 package nasa.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
@@ -9,16 +11,18 @@ import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.NasaBook;
-import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 
+/**
+ * Test util.
+ */
 public class CommandTestUtil {
 
     // valid module names and codes
@@ -55,8 +59,10 @@ public class CommandTestUtil {
     // invalid parameters with their prefixes
     public static final String INVALID_MODULE_DESC = " " + PREFIX_MODULE + "@31_+"; //only alphanumeric char
     public static final String INVALID_MODULE_NAME_DESC = " " + PREFIX_MODULE_NAME + "\t"; //only whitespaces
-    public static final String INVALID_ACTIVITY_NAME_DESC = " " + PREFIX_ACTIVITY_NAME + "\t\t"; // only whitespaces
-    public static final String INVALID_NOTES_DESC = " " + PREFIX_NOTE + "        "; //only whitespaces
+    public static final String INVALID_ACTIVITY_NAME_DESC = " " + PREFIX_ACTIVITY_NAME
+        + "\t\t"; // only whitespaces
+    public static final String INVALID_NOTES_DESC = " " + PREFIX_NOTE
+        + "        "; //only whitespaces
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "r"; //not an integer
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2020-12-31 11:00"; //not DD-MM-YYYY HH:MM format
     public static final String INVALID_DATE_FROM_DESC = " " + PREFIX_START_DATE + "2020-12-31 11:00"; // not DD-MM-YYYY HH:MM format

@@ -15,7 +15,6 @@ import static nasa.logic.commands.CommandTestUtil.NOTES_DESC_TEST;
 import static nasa.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_HIGH;
 import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_EXAM;
-import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_TUTORIAL;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
@@ -27,10 +26,8 @@ import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 import nasa.logic.commands.addcommands.AddEventCommand;
-import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.model.activity.Date;
 import nasa.model.activity.Event;
-import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;

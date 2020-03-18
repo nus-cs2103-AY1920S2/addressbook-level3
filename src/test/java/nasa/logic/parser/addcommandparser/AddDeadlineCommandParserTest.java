@@ -37,7 +37,8 @@ public class AddDeadlineCommandParserTest {
     @Test
     public void parse_allFieldPresent_success() {
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK + DATE_DESC_TEST + NOTES_DESC_TEST
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK
+            + DATE_DESC_TEST + NOTES_DESC_TEST
                 + PRIORITY_DESC_HIGH, new AddDeadlineCommand(DeadlineBuilder.allFieldsPresent, moduleCode));
     }
 
@@ -66,8 +67,8 @@ public class AddDeadlineCommandParserTest {
                 moduleCode));
 
         // priority parameter missing
-        assertParseSuccess(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK + DATE_DESC_TEST + NOTES_DESC_TEST
-                , new AddDeadlineCommand(DeadlineBuilder.priorityFieldMissing, moduleCode));
+        assertParseSuccess(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_HWK + DATE_DESC_TEST
+                + NOTES_DESC_TEST, new AddDeadlineCommand(DeadlineBuilder.priorityFieldMissing, moduleCode));
     }
 
     @Test
@@ -95,10 +96,11 @@ public class AddDeadlineCommandParserTest {
 }
 
 class DeadlineBuilder {
-    public static Deadline allFieldsPresent = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), new Note(VALID_NOTES_TEST),
+    public static final Deadline allFieldsPresent = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+        new Note(VALID_NOTES_TEST),
         new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST));
-    public static Deadline noteFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), null ,
+    public static final Deadline noteFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK), null ,
         new Priority(VALID_PRIORITY_HIGH), new Date(VALID_DATE_TEST));
-    public static Deadline priorityFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
+    public static final Deadline priorityFieldMissing = new Deadline(new Name(VALID_ACTIVITY_NAME_HWK),
             new Note(VALID_NOTES_TEST), null, new Date(VALID_DATE_TEST));
 }

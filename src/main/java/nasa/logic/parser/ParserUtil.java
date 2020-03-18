@@ -96,6 +96,13 @@ public class ParserUtil {
         return new Priority(priorityTrimmed);
     }
 
+    /**
+     * Parses {@code String moduleCode} into a {@code moduleCode}
+     * Checks if String moduleCode is correct.
+     * @param moduleCode of the module
+     * @return ModuleCode object
+     * @throws ParseException
+     */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         String moduleCodeTrimmed = moduleCode.trim();
@@ -105,6 +112,13 @@ public class ParserUtil {
         return new ModuleCode(moduleCodeTrimmed);
     }
 
+    /**
+     * Parses {@code String moduleName} into a {@code moduleName}
+     * Checks if String moduleName is correct.
+     * @param moduleName of the module
+     * @return ModuleName object
+     * @throws ParseException
+     */
     public static ModuleName parseModuleName(String moduleName) throws ParseException {
         requireNonNull(moduleName);
         String moduleNameTrimmed = moduleName.trim();

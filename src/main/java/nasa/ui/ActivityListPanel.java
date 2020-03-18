@@ -1,5 +1,7 @@
 package nasa.ui;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
@@ -7,11 +9,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 
-import java.util.logging.Logger;
-
 import nasa.commons.core.LogsCenter;
 import nasa.model.activity.Activity;
-import nasa.ui.ActivityCard;
 
 /**
  * Panel containing the list of modules.

@@ -29,7 +29,8 @@ public class DeleteActivityCommandParser implements Parser<DeleteActivityCommand
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteActivityCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteActivityCommand.MESSAGE_USAGE), pe);
         }
 
         /*
@@ -41,9 +42,11 @@ public class DeleteActivityCommandParser implements Parser<DeleteActivityCommand
             moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
             return new DeleteActivityCommand(index, moduleCode);
         } catch (NoSuchElementException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteActivityCommand.MESSAGE_USAGE));
-        } catch  (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteActivityCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteActivityCommand.MESSAGE_USAGE));
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteActivityCommand.MESSAGE_USAGE), pe);
         }
     }
 }

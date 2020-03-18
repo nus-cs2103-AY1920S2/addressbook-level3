@@ -2,6 +2,7 @@ package nasa.logic.commands;
 
 import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,6 @@ import nasa.model.UserPrefs;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.testutil.NasaBookBuilder;
-import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 
 public class DeleteModuleCommandTest {
 
