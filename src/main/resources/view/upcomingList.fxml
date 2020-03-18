@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="upcomingList" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
 
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<StackPane id="upcomingPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane prefWidth="200.0">
+            <children>
+                <Label fx:id="upcomingTitle" alignment="TOP_CENTER" text="Upcoming" underline="true" StackPane.alignment="TOP_CENTER">
+                    <StackPane.margin>
+                        <Insets top="5.0" />
+                    </StackPane.margin>
+                </Label>
+            </children>
+        </StackPane>
+        <StackPane id="upcomingPanel" alignment="TOP_CENTER">
+            <children>
+                <ScrollPane id="upcomingScrollPane" fitToWidth="true" prefWidth="200.0">
+                    <content>
+                        <VBox fx:id="upcomingList" prefWidth="200.0" spacing="5.0" />
+                    </content>
+                </ScrollPane>
+            </children>
+        </StackPane>
+    </children>
 </StackPane>

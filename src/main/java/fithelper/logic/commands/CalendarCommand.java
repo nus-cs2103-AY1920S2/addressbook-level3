@@ -19,7 +19,7 @@ public class CalendarCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATE + "tmr";
 
-    public static final String MESSAGE_SUCCESS = "Now you are at CalendarSettings Page ~";
+    public static final String MESSAGE_SUCCESS = "Now you are at Calendar Page ~";
     private String dateToSet;
 
     @Override
@@ -28,7 +28,8 @@ public class CalendarCommand extends Command {
         if (dateToSet != null) {
             model.setCalendarDate(dateToSet);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS), CALENDAR, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date:"
+                + model.getCalendarDate().toLocalDate()), CALENDAR, false);
     }
 
     public void setDate(String date) {
