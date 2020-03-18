@@ -36,7 +36,7 @@ public class ModuleCard extends UiPart<Region> {
     @FXML
     private Label code;
     @FXML
-    private StackPane activityListPanelPlaceholder;
+    private VBox activityListPanelPlaceholder;
 
     public ModuleCard(Module module, int displayedIndex) {
         super(FXML);

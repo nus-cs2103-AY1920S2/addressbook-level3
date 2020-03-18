@@ -91,6 +91,7 @@
     -fx-background-insets: 0;
     -fx-padding: 0;
     -fx-background-color: derive(#000000, 20%);
+    -fx-background-radius: 25;
 }
 
 .list-cell {
@@ -101,9 +102,12 @@
 }
 
 .list-cell:filled {
-    -fx-background-color: #3a243b;
+    -fx-background-color: #32174d;
 }
 
+.list-cell:empty {
+    -fx-background-color: transparent;
+}
 
 .list-cell:filled:selected {
     -fx-background-color: #424d5f;
@@ -281,11 +285,11 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#000000, 20%);
+    -fx-background-color: transparent;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#000000, 50%);
+    -fx-background-color: transparent;
     -fx-background-insets: 3;
 }
 
@@ -306,10 +310,21 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
+#activityPane {
+    -fx-background-color: #336699;
     -fx-border-width: 0;
+    -fx-background-radius: 15;
 }
+
+#activityListView {
+    -fx-border-width: 0;
+    -fx-background-radius: 15;
+}
+
+#cardPane {
+     -fx-background-color: transparent;
+     -fx-border-width: 0;
+ }
 
 #commandTypeLabel {
     -fx-font-size: 11px;
