@@ -20,7 +20,7 @@ import seedu.expensela.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class ExpenseLaParser {
 
     /**
      * Used for initial separation of command word and args.

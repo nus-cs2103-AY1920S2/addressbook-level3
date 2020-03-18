@@ -15,7 +15,7 @@ import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the expensela data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -69,14 +69,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getExpenseLaFilePath() {
         return userPrefs.getExpenseLaFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setExpenseLaFilePath(addressBookFilePath);
+    public void setExpenseLaFilePath(Path expenseLaFilePath) {
+        requireNonNull(expenseLaFilePath);
+        userPrefs.setExpenseLaFilePath(expenseLaFilePath);
     }
 
     //=========== ExpenseLa ================================================================================
@@ -99,7 +99,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteTransaction(Transaction target) {
-        expenseLa.removePerson(target);
+        expenseLa.removeTransaction(target);
     }
 
     @Override
@@ -112,14 +112,14 @@ public class ModelManager implements Model {
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
-        expenseLa.setPerson(target, editedTransaction);
+        expenseLa.setTransaction(target, editedTransaction);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Transaction List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
+     * {@code versionedExpenseLa}
      */
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {

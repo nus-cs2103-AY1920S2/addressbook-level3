@@ -38,15 +38,15 @@ public interface Model {
     /**
      * Returns the user prefs' transaction list file path.
      */
-    Path getAddressBookFilePath();
+    Path getExpenseLaFilePath();
 
     /**
      * Sets the user prefs' transaction list file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setExpenseLaFilePath(Path expenseLaFilePath);
 
     /**
-     * Replaces transaction list data with the data in {@code addressBook}.
+     * Replaces transaction list data with the data in {@code expenseLa}.
      */
     void setExpenseLa(ReadOnlyExpenseLa expenseLa);
 

@@ -11,25 +11,25 @@ import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of transaction.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class TransactionListPanel extends UiPart<Region> {
+    private static final String FXML = "TransactionListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(TransactionListPanel.class);
 
     @FXML
-    private ListView<Transaction> personListView;
+    private ListView<Transaction> transactionListView;
 
-    public PersonListPanel(ObservableList<Transaction> transactionList) {
+    public TransactionListPanel(ObservableList<Transaction> transactionList) {
         super(FXML);
-        personListView.setItems(transactionList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        transactionListView.setItems(transactionList);
+        transactionListView.setCellFactory(listView -> new TransactionListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code TransactionCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Transaction} using a {@code TransactionCard}.
      */
-    class PersonListViewCell extends ListCell<Transaction> {
+    class TransactionListViewCell extends ListCell<Transaction> {
         @Override
         protected void updateItem(Transaction transaction, boolean empty) {
             super.updateItem(transaction, empty);

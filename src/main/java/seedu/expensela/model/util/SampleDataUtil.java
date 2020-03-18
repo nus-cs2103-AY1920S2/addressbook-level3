@@ -25,7 +25,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyExpenseLa getSampleAddressBook() {
+    public static ReadOnlyExpenseLa getSampleExpenseLa() {
         ExpenseLa sampleEL = new ExpenseLa();
         for (Transaction sampleTransaction : getSampleTransactions()) {
             sampleEL.addTransaction(sampleTransaction);

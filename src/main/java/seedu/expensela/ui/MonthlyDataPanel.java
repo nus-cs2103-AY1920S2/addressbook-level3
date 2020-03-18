@@ -9,7 +9,7 @@ import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.monthlydata.MonthlyData;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of transactions.
  */
 public class MonthlyDataPanel extends UiPart<Region> {
     private static final String FXML = "MonthlyDataPanel.fxml";

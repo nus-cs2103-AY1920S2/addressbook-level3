@@ -37,9 +37,9 @@ public interface Logic {
     MonthlyData getMonthlyData();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' expensela file path.
      */
-    Path getAddressBookFilePath();
+    Path getExpenseLaFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

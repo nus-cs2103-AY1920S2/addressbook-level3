@@ -7,13 +7,13 @@ import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * Adds a transaction to the address book.
+ * Adds a transaction to the expensela.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a transaction to the expensela. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT "

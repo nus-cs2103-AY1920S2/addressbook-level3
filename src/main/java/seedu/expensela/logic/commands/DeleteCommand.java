@@ -11,7 +11,7 @@ import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * Deletes a transaction identified using it's displayed index from the address book.
+ * Deletes a transaction identified using it's displayed index from the expensela.
  */
 public class DeleteCommand extends Command {
 

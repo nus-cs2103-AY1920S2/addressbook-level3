@@ -8,7 +8,7 @@ import static seedu.expensela.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.expensela.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalPersons.AMY;
+import static seedu.expensela.testutil.TypicalTransactions.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -27,10 +27,10 @@ import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.storage.JsonAddressBookStorage;
+import seedu.expensela.storage.JsonExpenseLaStorage;
 import seedu.expensela.storage.JsonUserPrefsStorage;
 import seedu.expensela.storage.StorageManager;
-import seedu.expensela.testutil.PersonBuilder;
+import seedu.expensela.testutil.TransactionBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonExpenseLaStorage expenseLaStorage =
+                new JsonExpenseLaStorage(temporaryFolder.resolve("expenseLa.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -70,18 +70,18 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonExpenseLaIoExceptionThrowingStub
+        JsonExpenseLaStorage expenseLaStorage =
+                new JsonExpenseLaIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExpenseLa.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
-        Transaction expectedTransaction = new PersonBuilder(AMY).build();
+        Transaction expectedTransaction = new TransactionBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTransaction(expectedTransaction);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -89,7 +89,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredTransactionList().remove(0));
     }
 
@@ -149,13 +149,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonExpenseLaIoExceptionThrowingStub extends JsonExpenseLaStorage {
+        private JsonExpenseLaIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyExpenseLa addressBook, Path filePath) throws IOException {
+        public void saveExpenseLa(ReadOnlyExpenseLa expenseLa, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

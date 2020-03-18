@@ -34,7 +34,7 @@ class JsonAdaptedTransaction {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Transaction} into this class for Jackson use.
      */
     public JsonAdaptedTransaction(Transaction source) {
         name = source.getName().transactionName;
@@ -45,9 +45,9 @@ class JsonAdaptedTransaction {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted transaction object into the model's {@code Transaction} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted transaction.
      */
     public Transaction toModelType() throws IllegalValueException {
 

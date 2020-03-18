@@ -8,50 +8,50 @@ import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.expensela.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.expensela.testutil.TypicalIndexes.INDEX_FIRST_TRANSACTION;
 import static seedu.expensela.testutil.TypicalIndexes.INDEX_SECOND_TRANSACTION;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.expensela.commons.core.Messages;
 import seedu.expensela.commons.core.index.Index;
 <<<<<<< HEAD
-import seedu.expensela.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.expensela.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.expensela.model.ExpenseLa;
 =======
 import seedu.expensela.logic.commands.EditCommand.editTransaction;
-import seedu.expensela.model.AddressBook;
+import seedu.expensela.model.ExpenseLa;
 >>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ModelManager;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.testutil.EditPersonDescriptorBuilder;
-import seedu.expensela.testutil.PersonBuilder;
+import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
+import seedu.expensela.testutil.TransactionBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Transaction editedTransaction = new PersonBuilder().build();
-        editTransaction descriptor = new EditPersonDescriptorBuilder(editedTransaction).build();
+        Transaction editedTransaction = new TransactionBuilder().build();
+        editTransaction descriptor = new EditTransactionDescriptorBuilder(editedTransaction).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
 <<<<<<< HEAD
         Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedTransaction);
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 =======
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredTransactionList().get(0), editedTransaction);
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 >>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -59,21 +59,21 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredTransactionList().size());
-        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastPerson.getZeroBased());
+        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
+        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastTransaction);
-        Transaction editedTransaction = personInList.withName(VALID_NAME_AIRPODS).withPhone(VALID_AMOUNT_AIRPODS)
+        TransactionBuilder transactionInList = new TransactionBuilder(lastTransaction);
+        Transaction editedTransaction = transactionInList.withName(VALID_NAME_AIRPODS).withPhone(VALID_AMOUNT_AIRPODS)
                 .build();
 
-        EditCommand.editTransaction descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AIRPODS)
+        EditCommand.editTransaction descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS)
                 .withPhone(VALID_AMOUNT_AIRPODS).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastTransaction, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
-        expectedModel.setPerson(lastTransaction, editedTransaction);
+        expectedModel.setTransaction(lastTransaction, editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -92,56 +92,56 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_TRANSACTION);
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
         Transaction transactionInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
-        Transaction editedTransaction = new PersonBuilder(transactionInFilteredList).withName(VALID_NAME_AIRPODS).build();
+        Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList).withName(VALID_NAME_AIRPODS).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());
+                new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
 <<<<<<< HEAD
         Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedTransaction);
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 =======
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredTransactionList().get(0), editedTransaction);
+        Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
+        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
 >>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePersonUnfilteredList_failure() {
+    public void execute_duplicateTransactionUnfilteredList_failure() {
         Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
-        editTransaction descriptor = new EditPersonDescriptorBuilder(firstTransaction).build();
+        editTransaction descriptor = new EditTransactionDescriptorBuilder(firstTransaction).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_TRANSACTION, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
-    public void execute_duplicatePersonFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_TRANSACTION);
+    public void execute_duplicateTransactionFilteredList_failure() {
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        // edit person in filtered list into a duplicate in address book
+        // edit transaction in filtered list into a duplicate in address book
 <<<<<<< HEAD
-        Transaction transactionInList = model.getExpenseLa().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Transaction transactionInList = model.getExpenseLa().getTransactionList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
 =======
-        Transaction transactionInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_TRANSACTION.getZeroBased());
+        Transaction transactionInList = model.getExpenseLa().getTransactionList().get(INDEX_SECOND_TRANSACTION.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
 >>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
-                new EditPersonDescriptorBuilder(transactionInList).build());
+                new EditTransactionDescriptorBuilder(transactionInList).build());
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidTransactionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
-        editTransaction descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AIRPODS).build();
+        editTransaction descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
@@ -152,14 +152,14 @@ public class EditCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidPersonIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST_TRANSACTION);
+    public void execute_invalidTransactionIndexFilteredList_failure() {
+        showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
         Index outOfBoundIndex = INDEX_SECOND_TRANSACTION;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseLa().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseLa().getTransactionList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());
+                new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
     }

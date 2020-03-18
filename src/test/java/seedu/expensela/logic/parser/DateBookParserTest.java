@@ -24,18 +24,18 @@ import seedu.expensela.logic.commands.ListCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.testutil.EditPersonDescriptorBuilder;
-import seedu.expensela.testutil.PersonBuilder;
-import seedu.expensela.testutil.PersonUtil;
+import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
+import seedu.expensela.testutil.TransactionBuilder;
+import seedu.expensela.testutil.TransactionUtil;
 
 public class DateBookParserTest {
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final ExpenseLaParser parser = new ExpenseLaParser();
 
     @Test
     public void parseCommand_add() throws Exception {
-        Transaction transaction = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(transaction));
+        Transaction transaction = new TransactionBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(TransactionUtil.getAddCommand(transaction));
         assertEquals(new AddCommand(transaction), command);
     }
 
@@ -54,10 +54,10 @@ public class DateBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Transaction transaction = new PersonBuilder().build();
-        EditCommand.editTransaction descriptor = new EditPersonDescriptorBuilder(transaction).build();
+        Transaction transaction = new TransactionBuilder().build();
+        EditCommand.editTransaction descriptor = new EditTransactionDescriptorBuilder(transaction).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                + INDEX_FIRST_PERSON.getOneBased() + " " + TransactionUtil.getEditTransactionDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

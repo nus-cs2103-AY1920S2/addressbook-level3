@@ -9,22 +9,22 @@ import seedu.expensela.model.transaction.Transaction;
 /**
  * A utility class to help with building editTransaction objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditTransactionDescriptorBuilder {
 
     private EditCommand.editTransaction descriptor;
 
-    public EditPersonDescriptorBuilder() {
+    public EditTransactionDescriptorBuilder() {
         descriptor = new EditCommand.editTransaction();
     }
 
-    public EditPersonDescriptorBuilder(EditCommand.editTransaction descriptor) {
+    public EditTransactionDescriptorBuilder(EditCommand.editTransaction descriptor) {
         this.descriptor = new EditCommand.editTransaction(descriptor);
     }
 
     /**
-     * Returns an {@code editTransaction} with fields containing {@code person}'s details
+     * Returns an {@code editTransaction} with fields containing {@code transaction}'s details
      */
-    public EditPersonDescriptorBuilder(Transaction transaction) {
+    public EditTransactionDescriptorBuilder(Transaction transaction) {
         descriptor = new EditCommand.editTransaction();
         descriptor.setName(transaction.getName());
         descriptor.setAmount(transaction.getAmount());
@@ -34,7 +34,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code editTransaction} that we are building.
      */
-    public EditPersonDescriptorBuilder withName(String name) {
+    public EditTransactionDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
@@ -42,7 +42,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Phone} of the {@code editTransaction} that we are building.
      */
-    public EditPersonDescriptorBuilder withPhone(String amount) {
+    public EditTransactionDescriptorBuilder withPhone(String amount) {
         descriptor.setAmount(new Amount(amount, true));
         return this;
     }
@@ -50,7 +50,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Address} of the {@code editTransaction} that we are building.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) {
+    public EditTransactionDescriptorBuilder withAddress(String address) {
         descriptor.setDate(new Date(address));
         return this;
     }

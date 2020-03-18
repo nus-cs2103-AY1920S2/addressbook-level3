@@ -9,21 +9,21 @@ import seedu.expensela.logic.commands.EditCommand;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * A utility class for Person.
+ * A utility class for Transaction.
  */
-public class PersonUtil {
+public class TransactionUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code transaction}.
      */
     public static String getAddCommand(Transaction transaction) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(transaction);
+        return AddCommand.COMMAND_WORD + " " + getTransactionDetails(transaction);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code transaction}'s details.
      */
-    public static String getPersonDetails(Transaction transaction) {
+    public static String getTransactionDetails(Transaction transaction) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + transaction.getName().transactionName + " ");
         sb.append(PREFIX_PHONE + transaction.getAmount().toString() + " ");
@@ -34,7 +34,7 @@ public class PersonUtil {
     /**
      * Returns the part of command string for the given {@code editTransaction}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditCommand.editTransaction descriptor) {
+    public static String getEditTransactionDescriptorDetails(EditCommand.editTransaction descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.transactionName).append(" "));
         descriptor.getAmount().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.toString()).append(" "));

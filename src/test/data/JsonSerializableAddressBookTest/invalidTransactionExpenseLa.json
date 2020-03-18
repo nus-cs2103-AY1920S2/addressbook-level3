@@ -1,5 +1,5 @@
 {
-  "persons": [ {
+  "transactions": [ {
     "name": "Hans Muster",
     "amount": "100.00",
     "date": "4th street",
