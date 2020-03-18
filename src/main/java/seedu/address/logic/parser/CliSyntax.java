@@ -18,4 +18,5 @@ public class CliSyntax {
   public static final Prefix PREFIX_DEADLINE = new Prefix("dl/");
   public static final Prefix PREFIX_PAYMENTPLAN = new Prefix("pp/");
   public static final Prefix PREFIX_AMOUNT = new Prefix("a/");
+  public static final Prefix PREFIX_TEACHERID = new Prefix("tid/");
 }

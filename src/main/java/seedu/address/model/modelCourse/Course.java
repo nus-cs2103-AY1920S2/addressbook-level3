@@ -19,6 +19,9 @@ public class Course {
   // Identity fields
   private final Name name;
   private final ID id;
+  // TODO: Create CourseTeacherTab along with CourseStudentTab
+  // TODO: Remove dummy teacher_id
+  private ID teacher_id = new ID("123");
   private final Set<Tag> tags = new HashSet<>();
 
   /**
@@ -39,6 +42,14 @@ public class Course {
     return id;
   }
 
+  public ID getTeacherID() {
+    return this.teacher_id;
+  }
+
+  public void setTeacherID(ID teacher_id) {
+    this.teacher_id = teacher_id;
+  }
+
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
@@ -57,7 +68,7 @@ public class Course {
     }
 
     return otherCourse != null
-        && otherCourse.getName().equals(getName())
+//        && otherCourse.getName().equals(getName())
         && otherCourse.getId().equals(getId());
   }
 

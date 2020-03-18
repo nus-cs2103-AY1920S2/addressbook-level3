@@ -21,6 +21,7 @@
           </minWidth>
         </Label>
         <Label styleClass="cell_big_label" text="\$first" fx:id="name"/>
+        <Label styleClass="cell_big_label" text="\$first" fx:id="teacherId"/>
       </HBox>
       <HBox>
         <Label styleClass="cell_small_label" text="Course ID: "/>

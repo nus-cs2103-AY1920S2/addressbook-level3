@@ -8,7 +8,11 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.commandAdd.*;
+import seedu.address.logic.commands.commandAdd.AddCourseCommand;
+import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
+import seedu.address.logic.commands.commandAdd.AddStudentCommand;
+import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
+import seedu.address.logic.commands.commandAssign.AssignTeacherToCourseCommand;
 import seedu.address.logic.commands.commandClear.ClearCourseCommand;
 import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
 import seedu.address.logic.commands.commandClear.ClearStudentCommand;
@@ -81,7 +85,8 @@ public class LogicManager implements Logic {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
     } else if (command instanceof AddCourseCommand || command instanceof DeleteCourseCommand
-        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand) {
+        || command instanceof ClearCourseCommand || command instanceof EditCourseCommand
+        || command instanceof AssignTeacherToCourseCommand) {
       try {
         storage.saveCourseAddressBook(model.getCourseAddressBook());
       } catch (IOException ioe) {
@@ -91,12 +96,6 @@ public class LogicManager implements Logic {
         || command instanceof ClearFinanceCommand || command instanceof EditFinanceCommand) {
       try {
         storage.saveFinanceAddressBook(model.getFinanceAddressBook());
-      } catch (IOException ioe) {
-        throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-      }
-    } else if (command instanceof AddAssignmentCommand) {
-      try {
-        storage.saveAssignmentAddressBook(model.getAssignmentAddressBook());
       } catch (IOException ioe) {
         throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
       }
@@ -115,7 +114,7 @@ public class LogicManager implements Logic {
   public void setSummaryPanel(SummaryPanel summaryPanel){
     this.summaryPanel = summaryPanel;
   }
-
+  ///
   @Override
   public ReadOnlyAddressBook getAddressBook() {
     return model.getAddressBook();
