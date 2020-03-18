@@ -91,7 +91,7 @@
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <Label fx:id="result" alignment="CENTER" contentDisplay="CENTER" prefHeight="157.0" prefWidth="200.0" style="-fx-background-color: white;" text="FitHelper is ready for helping you~" textAlignment="CENTER" textFill="DARKORANGE" wrapText="true" />
+                           <Label fx:id="result" alignment="CENTER" contentDisplay="CENTER" prefHeight="157.0" prefWidth="200.0" style="-fx-background-color: white;" text="FitHelper is ready to help you~" textAlignment="CENTER" textFill="DARKORANGE" wrapText="true" />
                         </children>
                      </VBox>
                   </children></AnchorPane>

@@ -69,7 +69,11 @@ public class FitHelperParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD_1:
+            // fall through
+        case ExitCommand.COMMAND_WORD_2:
+            // fall through
+        case ExitCommand.COMMAND_WORD_3:
             return new ExitCommand();
 
         case TodayCommand.COMMAND_WORD:
