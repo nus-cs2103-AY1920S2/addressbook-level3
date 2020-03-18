@@ -30,7 +30,7 @@ public class Entry {
         this.location = location;
         this.time = time;
         this.calorie = calorie;
-        this.status = new Status("Done");
+        this.status = new Status("Undone");
         this.remark = new Remark("");
     }
 
@@ -45,7 +45,7 @@ public class Entry {
         this.location = location;
         this.time = time;
         this.calorie = calorie;
-        this.status = new Status("Done");
+        this.status = new Status("Undone");
         this.remark = remark;
     }
 
