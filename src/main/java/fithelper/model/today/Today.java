@@ -1,21 +1,20 @@
 package fithelper.model.today;
 
-import fithelper.model.entry.UniqueEntryList;
+import java.util.Objects;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Objects;
+import fithelper.model.entry.UniqueEntryList;
 
 /**
  * Represents the Today Page in the FitHelper.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-
 public class Today {
 
-    private TodayDate todayDate;
-   private final UniqueEntryList todayFoodEntries = new UniqueEntryList();
+    private final UniqueEntryList todayFoodEntries = new UniqueEntryList();
     private final UniqueEntryList todaySportsEntries = new UniqueEntryList();
+    private TodayDate todayDate;
 
     /**
      * Every field must be present and not null.
