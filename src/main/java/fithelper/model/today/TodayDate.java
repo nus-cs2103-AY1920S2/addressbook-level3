@@ -1,7 +1,5 @@
 package fithelper.model.today;
 
-import fithelper.model.entry.Time;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
