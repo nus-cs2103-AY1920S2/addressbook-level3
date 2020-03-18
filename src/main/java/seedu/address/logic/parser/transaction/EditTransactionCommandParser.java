@@ -44,12 +44,13 @@ public class EditTransactionCommandParser implements Parser<EditTransactionComma
 
         EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
         if (argMultimap.getValue(PREFIX_CUSTOMER).isPresent()) {
-            editTransactionDescriptor.setCustomer(ParserUtil
-                    .parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()));
+            editTransactionDescriptor.setCustomerIndex(ParserUtil
+                    .parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get())
+            );
         }
         if (argMultimap.getValue(PREFIX_PRODUCT).isPresent()) {
-            editTransactionDescriptor.setProduct(
-                    ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT).get())
+            editTransactionDescriptor.setProductIndex(
+                    ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT).get())
             );
         }
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {

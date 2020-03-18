@@ -11,6 +11,7 @@ import static seedu.address.model.util.Description.DEFAULT_VALUE;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.transaction.AddTransactionCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -20,7 +21,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
-import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.TransactionFactory;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
@@ -42,8 +43,8 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
                     AddTransactionCommand.MESSAGE_USAGE));
         }
 
-        String customer = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get());
-        String product = ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT).get());
+        Index customerIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_CUSTOMER).get());
+        Index productIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PRODUCT).get());
         DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
         Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
         Money money = ParserUtil.parseMoney(argMultimap.getValue(PREFIX_MONEY).get());
@@ -54,9 +55,10 @@ public class AddTransactionCommandParser implements Parser<AddTransactionCommand
         } else {
             transDescription = new Description(DEFAULT_VALUE);
         }
-        Transaction transaction = new Transaction(customer, product, dateTime, quantity, money, transDescription);
+        TransactionFactory transactionFactory = new TransactionFactory(customerIndex, productIndex, dateTime,
+                quantity, money, transDescription);
 
-        return new AddTransactionCommand(transaction);
+        return new AddTransactionCommand(transactionFactory);
     }
 
     /**

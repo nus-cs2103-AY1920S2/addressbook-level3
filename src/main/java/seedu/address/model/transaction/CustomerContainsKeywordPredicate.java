@@ -18,7 +18,8 @@ public class CustomerContainsKeywordPredicate implements Predicate<Transaction> 
     @Override
     public boolean test(Transaction transaction) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(transaction.getCustomer(), keyword));
+                .anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(transaction.getCustomer().getName().toString(), keyword));
     }
 
     @Override
