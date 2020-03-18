@@ -6,12 +6,13 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.exceptions.ActivityNotFoundException;
 import nasa.model.activity.exceptions.DuplicateActivityException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
@@ -85,6 +86,11 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.set(index.getZeroBased(), activity);
     }
 
+    /**
+     * Edits activity based on index.
+     * @param index index of activity in list
+     * @param args parameters for editing
+     */
     public void editActivityByIndex(Index index, Object... args) {
         requireAllNonNull(args);
 

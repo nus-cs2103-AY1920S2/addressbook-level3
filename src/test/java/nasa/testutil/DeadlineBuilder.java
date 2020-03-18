@@ -1,7 +1,13 @@
 package nasa.testutil;
 
-import nasa.model.activity.*;
+import nasa.model.activity.Date;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Name;
+import nasa.model.activity.Note;
 
+/**
+ * Class to help build example deadlines.
+ */
 public class DeadlineBuilder {
     public static final String DEFAULT_NAME = "Homework";
     public static final String DEFAULT_DATE = "19-10-2020 03:00";
@@ -69,7 +75,7 @@ public class DeadlineBuilder {
     /**
      * Build an activity accordingly.
      */
-    public Activity build() {
+    public Deadline build() {
         return new Deadline(name, dueDate, note);
     }
 

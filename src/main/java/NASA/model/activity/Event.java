@@ -56,6 +56,11 @@ public class Event extends Activity {
         return endDate;
     }
 
+    /**
+     * Checks if the event is valid.
+     * @param activity Activity to be checked
+     * @return true if it is valid else false
+     */
     public static boolean isValidEvent(Activity activity) {
         requireNonNull(activity);
 

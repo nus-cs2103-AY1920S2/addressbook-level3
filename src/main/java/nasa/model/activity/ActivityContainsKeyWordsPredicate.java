@@ -1,10 +1,13 @@
 package nasa.model.activity;
 
-import nasa.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
 
+import nasa.commons.util.StringUtil;
+
+/**
+ * Predicate to allow activities to be filtered.
+ */
 public class ActivityContainsKeyWordsPredicate implements Predicate<Activity> {
     private final List<String> keywords;
 
