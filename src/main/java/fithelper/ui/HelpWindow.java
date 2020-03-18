@@ -27,7 +27,7 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "  - edit the information of an entry\n"
             + "delete x/type (d/YYYY-MM-DD) i/INDEX\n"
             + "  - delete an entry\n"
-            + "calendar/today/weekreport/weight/profile/help\n"
+            + "home(i.e. dashboard)/today/weight/profile/help\n"
             + "  - switch to the specified page"
             + "find (x/TYPE) keywords\n"
             + "  - show all (food/sports) entries (whose description contains any of the keywords)\n"
