@@ -12,6 +12,7 @@ import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calendar.CalendarSettings;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Time;
+import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 
 import javafx.collections.ObservableList;
@@ -127,6 +128,17 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Entry> getFilteredReminderEntryList() {
         return filteredReminderEntries;
+    }
+
+
+    public ObservableList<Entry> getTodayEntries(String todayDate, FilteredList<Entry> entries) {
+        UniqueEntryList todayEntries = new UniqueEntryList();
+        for (Entry entry : entries) {
+            if (entry.getTime().getDateStr().equalsIgnoreCase(todayDate)) {
+                todayEntries.add(entry);
+            }
+        }
+        return todayEntries.asUnmodifiableObservableList();
     }
 
     /**
