@@ -105,4 +105,7 @@ public class CalendarPage extends UiPart<AnchorPane> {
     public void updateScheduler() {
         this.agenda.updateAppointments();
     }
+    public void setDate(LocalDateTime dateToSet) {
+        this.agenda.setDisplayedLocalDateTime(dateToSet);
+    }
 }

@@ -3,12 +3,15 @@ package fithelper.model;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.model.calendar.CalendarSettings;
 import fithelper.model.entry.Entry;
+import fithelper.model.entry.Time;
 import fithelper.model.entry.VeventList;
 
 import javafx.collections.ObservableList;
@@ -26,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredSportsEntries;
     private final FilteredList<Entry> filteredReminderEntries;
     private final VeventList vEventList;
+    private CalendarSettings calendarSettings;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
@@ -199,5 +203,16 @@ public class ModelManager implements Model {
     @Override
     public void deleteVevent(Entry entry) {
         vEventList.deleteVEvent(entry);
+    }
+
+    @Override
+    public void setCalendarDate(String date) {
+        Time time = new Time(date);
+        LocalDateTime formattedDate = time.dateTime;
+        calendarSettings = new CalendarSettings(formattedDate);
+    }
+
+    public LocalDateTime getCalendarDate() {
+        return calendarSettings.getDate();
     }
 }

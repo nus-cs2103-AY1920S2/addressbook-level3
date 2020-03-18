@@ -76,7 +76,7 @@ public class FitHelperParser {
             return new TodayCommand();
 
         case CalendarCommand.COMMAND_WORD:
-            return new CalendarCommand();
+            return new CalendarParser().parse(arguments);
 
         case ReportCommand.COMMAND_WORD:
             return new ReportCommand();

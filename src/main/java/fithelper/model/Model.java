@@ -1,5 +1,6 @@
 package fithelper.model;
 
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import fithelper.commons.exceptions.IllegalValueException;
@@ -85,5 +86,8 @@ public interface Model {
     void updateFilteredSportEntryList(Predicate<Entry> predicate);
 
     ObservableList<VEvent> getVEvents();
+
+    void setCalendarDate(String date);
+    LocalDateTime getCalendarDate();
 }
 

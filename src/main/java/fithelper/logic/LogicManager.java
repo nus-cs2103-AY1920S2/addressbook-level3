@@ -1,6 +1,7 @@
 package fithelper.logic;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
@@ -76,5 +77,11 @@ public class LogicManager implements Logic {
     public ObservableList<VEvent> getVEvents() {
         return model.getVEvents();
     }
+
+    @Override
+    public LocalDateTime getCalendarDate() {
+        return model.getCalendarDate();
+    }
+
 }
 
