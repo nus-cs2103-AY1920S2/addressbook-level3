@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
  * Represents a Recipe in the recipe book.

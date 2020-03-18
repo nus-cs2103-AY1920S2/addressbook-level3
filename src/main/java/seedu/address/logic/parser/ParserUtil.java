@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.IngredientList;
 import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

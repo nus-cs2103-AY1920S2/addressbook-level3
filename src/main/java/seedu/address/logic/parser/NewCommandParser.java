@@ -15,7 +15,7 @@ import seedu.address.model.recipe.IngredientList;
 import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
  * Parses input arguments and creates a new NewCommand object
