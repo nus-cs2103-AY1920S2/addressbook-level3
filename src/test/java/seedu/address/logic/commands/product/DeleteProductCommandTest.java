@@ -31,7 +31,7 @@ public class DeleteProductCommandTest {
         Product productToDelete = model.getFilteredProductList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteProductCommand deleteProductCommand = new DeleteProductCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteProductCommand.MESSAGE_DELETE_PERSON_SUCCESS, productToDelete);
+        String expectedMessage = String.format(DeleteProductCommand.MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteProduct(productToDelete);
@@ -44,7 +44,7 @@ public class DeleteProductCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredProductList().size() + 1);
         DeleteProductCommand deleteProductCommand = new DeleteProductCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteProductCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteProductCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class DeleteProductCommandTest {
         Product productToDelete = model.getFilteredProductList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteProductCommand deleteProductCommand = new DeleteProductCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteProductCommand.MESSAGE_DELETE_PERSON_SUCCESS, productToDelete);
+        String expectedMessage = String.format(DeleteProductCommand.MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteProduct(productToDelete);
@@ -73,7 +73,7 @@ public class DeleteProductCommandTest {
 
         DeleteProductCommand deleteProductCommand = new DeleteProductCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteProductCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteProductCommand, model, Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
     }
 
     @Test
