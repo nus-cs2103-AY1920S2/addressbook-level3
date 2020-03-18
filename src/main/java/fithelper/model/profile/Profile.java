@@ -2,6 +2,7 @@ package fithelper.model.profile;
 
 import fithelper.model.weight.Bmi;
 import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -19,7 +20,8 @@ public class Profile {
     private final Address address;
     private final Height height;
     private final TargetWeight targetWeight;
-    private final Weight currrentWeight;
+    private final WeightValue currentWeight;
+    private final Bmi currentBmi;
 
     /**
      * Construct an empty profile.
@@ -31,11 +33,12 @@ public class Profile {
         this.address = null;
         this.height = null;
         this.targetWeight = null;
-        this.currrentWeight = null;
+        this.currentWeight = null;
+        this.currentBmi = null;
     }
 
     /**
-     * Construct a profile without current weight.
+     * Construct a profile without current weight and bmi.
      * Every other field must be present and not null.
      */
     public Profile(Name name, Gender gender, Age age, Address address, Height height, TargetWeight targetWeight) {
@@ -46,7 +49,8 @@ public class Profile {
         this.address = address;
         this.height = height;
         this.targetWeight = targetWeight;
-        this.currrentWeight = null;
+        this.currentWeight = null;
+        this.currentBmi = null;
     }
 
     /**
@@ -54,7 +58,7 @@ public class Profile {
      * Every field must be present and not null.
      */
     public Profile(Name name, Gender gender, Age age, Address address, Height height,
-                   TargetWeight targetWeight, Weight currrentWeight) {
+                   TargetWeight targetWeight, Weight Weight) {
         requireAllNonNull(name, age, gender, address, height, targetWeight);
         this.name = name;
         this.age = age;
@@ -62,7 +66,8 @@ public class Profile {
         this.address = address;
         this.height = height;
         this.targetWeight = targetWeight;
-        this.currrentWeight = currrentWeight;
+        this.currentWeight = Weight.getWeightValue();
+        this.currentBmi = Weight.getBmi();
     }
 
     public Name getName() {
@@ -89,14 +94,18 @@ public class Profile {
         return height;
     }
 
-    public Weight getCurrrentWeight() {
-        return currrentWeight;
+    public WeightValue getCurrentWeight() {
+        return currentWeight;
+    }
+
+    public Bmi getCurrentBmi() {
+        return currentBmi;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, gender, age, address, height, targetWeight, currrentWeight);
+        return Objects.hash(name, gender, age, address, height, targetWeight, currentWeight, currentBmi);
     }
 
     @Override
@@ -115,9 +124,9 @@ public class Profile {
                 .append(" Target Weight: ")
                 .append(this.targetWeight == null ? "NA" : getTargetWeight().toString())
                 .append(" Current Weight: ")
-                .append(this.currrentWeight == null ? "NA" : getCurrrentWeight().getWeightValue())
+                .append(this.currentWeight == null ? "NA" : getCurrentWeight())
                 .append(" Current BMI: ")
-                .append(this.currrentWeight == null ? "NA" : getCurrrentWeight().getBmi());
+                .append(this.currentBmi == null ? "NA" : getCurrentBmi());
         return builder.toString();
     }
 
