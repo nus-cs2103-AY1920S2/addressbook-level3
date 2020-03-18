@@ -2,7 +2,8 @@ package fithelper.model.util;
 
 import fithelper.model.FitHelper;
 import fithelper.model.ReadOnlyFitHelper;
-
+import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.UserProfile;
 import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Location;
@@ -10,6 +11,16 @@ import fithelper.model.entry.Name;
 import fithelper.model.entry.Remark;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
+import fithelper.model.profile.Address;
+import fithelper.model.profile.Age;
+import fithelper.model.profile.Gender;
+import fithelper.model.profile.Height;
+import fithelper.model.profile.Profile;
+import fithelper.model.profile.TargetWeight;
+import fithelper.model.weight.Bmi;
+import fithelper.model.weight.Date;
+import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 
 /**
  * Contains utility methods for populating {@code FitHelper} with sample data.
@@ -54,6 +65,38 @@ public class SampleDataUtil {
         }
         return sampleFitHelper;
     }
+
+
+    /**
+     * Gets sample profile content.
+     *
+     * @return A profile with some sample value.
+     */
+    public static Profile getSampleProfile() {
+        return new Profile(
+                new fithelper.model.profile.Name("Alice"),
+                new Gender("female"),
+                new Age("19"),
+                new Address("Utown CAPT"),
+                new Height("168"),
+                new TargetWeight("50"),
+                new Weight(new Date("2020-03-01"), new WeightValue("52"),
+                        new Bmi(new Height("168"), new WeightValue("52")))
+        );
+    }
+
+
+    /**
+     * Gets sample User Profile.
+     *
+     * @return A user profile only with the sample values for each attribute.
+     */
+    public static ReadOnlyUserProfile getSampleUserProfile() {
+        UserProfile sampleUserProfile = new UserProfile();
+        sampleUserProfile.setUserProfile(getSampleProfile());
+        return sampleUserProfile;
+    }
+
 
 }
 

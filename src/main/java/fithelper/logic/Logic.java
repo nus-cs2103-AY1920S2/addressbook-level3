@@ -6,7 +6,9 @@ import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;
+import fithelper.model.ReadOnlyUserProfile;
 import fithelper.model.entry.Entry;
 import javafx.collections.ObservableList;
 
@@ -31,6 +33,13 @@ public interface Logic {
      * @see fithelper.model.Model#getFitHelper()
      */
     ReadOnlyFitHelper getFitHelper();
+
+    /**
+     * Returns the User Profile.
+     *
+     * @see fithelper.model.Model#getUserProfile()
+     */
+    ReadOnlyUserProfile getUserProfile();
 
     ObservableList<VEvent> getVEvents();
 

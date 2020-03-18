@@ -36,7 +36,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
      */
-    public ModelManager(ReadOnlyFitHelper fitHelper) {
+    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserProfile userProfile) {
         super();
         requireAllNonNull(fitHelper);
 
@@ -47,11 +47,11 @@ public class ModelManager implements Model {
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
         vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
-        this.userProfile = new UserProfile(); // need to pass in value after storage part is modified.
+        this.userProfile = new UserProfile(userProfile);
     }
 
     public ModelManager() {
-        this(new FitHelper());
+        this(new FitHelper(), new UserProfile());
     }
 
     //=========== FitHelper ================================================================================
