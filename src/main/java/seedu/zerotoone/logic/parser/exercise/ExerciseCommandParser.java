@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.Command;
-import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.HelpCommand;
 
 import seedu.zerotoone.logic.commands.exercise.CreateCommand;
@@ -15,7 +14,6 @@ import seedu.zerotoone.logic.commands.exercise.ListCommand;
 import seedu.zerotoone.logic.commands.exercise.EditCommand;
 import seedu.zerotoone.logic.commands.exercise.DeleteCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.Model;
 
 /**
  * Parses user input.
