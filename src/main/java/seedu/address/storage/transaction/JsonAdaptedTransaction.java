@@ -4,11 +4,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.storage.JsonAdaptedTag;
+import seedu.address.storage.customer.JsonAdaptedCustomer;
+import seedu.address.storage.product.JsonAdaptedProduct;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Jackson-friendly version of {@link Transaction}.
@@ -17,8 +25,8 @@ public class JsonAdaptedTransaction {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Transaction's %s field is missing!";
 
-    private final String customer;
-    private final String product;
+    private final JsonAdaptedCustomer customer;
+    private final JsonAdaptedProduct product;
     private final String dateTime;
     private final String quantity;
     private final String money;
@@ -28,7 +36,8 @@ public class JsonAdaptedTransaction {
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
      */
     @JsonCreator
-    public JsonAdaptedTransaction(@JsonProperty("customer") String customer, @JsonProperty("product") String product,
+    public JsonAdaptedTransaction(@JsonProperty("customer") JsonAdaptedCustomer customer,
+                                  @JsonProperty("product") JsonAdaptedProduct product,
                                @JsonProperty("dateTime") String dateTime, @JsonProperty("quantity") String quantity,
                                @JsonProperty("money") String money, @JsonProperty("description") String description) {
         this.customer = customer;
@@ -43,8 +52,8 @@ public class JsonAdaptedTransaction {
      * Converts a given {@code Transaction} into this class for Jackson use.
      */
     public JsonAdaptedTransaction(Transaction source) {
-        customer = source.getCustomer();
-        product = source.getProduct();
+        customer = new JsonAdaptedCustomer(source.getCustomer());
+        product = new JsonAdaptedProduct(source.getProduct());
         dateTime = source.getDateTime().toString();
         quantity = source.getQuantity().toString();
         money = source.getMoney().toString();
@@ -60,18 +69,12 @@ public class JsonAdaptedTransaction {
         if (customer == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        //        if (!Name.isValidName(name)) {
-        //            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        //        }
-        final String modelCustomer = customer;
+        final Customer modelCustomer = customer.toModelType();
 
         if (product == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
         }
-        //        if (!Phone.isValidPhone(phone)) {
-        //            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        //        }
-        final String modelProduct = product;
+        final Product modelProduct = product.toModelType();
 
         if (dateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

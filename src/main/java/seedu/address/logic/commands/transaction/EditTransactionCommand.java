@@ -19,6 +19,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.product.Product;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.transaction.Transaction;
@@ -80,7 +82,7 @@ public class EditTransactionCommand extends Command {
         }
 
         Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
-        Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
+        Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor, model);
 
         if (!transactionToEdit.isSameTransaction(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
@@ -96,11 +98,27 @@ public class EditTransactionCommand extends Command {
      * edited with {@code editTransactionDescriptor}.
      */
     private static Transaction createEditedTransaction(Transaction transactionToEdit,
-                                                       EditTransactionDescriptor editTransactionDescriptor) {
+                                                       EditTransactionDescriptor editTransactionDescriptor,
+                                                       Model model) {
         assert transactionToEdit != null;
 
-        String updatedCustomer = editTransactionDescriptor.getCustomer().orElse(transactionToEdit.getCustomer());
-        String updatedProduct = editTransactionDescriptor.getProduct().orElse(transactionToEdit.getProduct());
+
+        Customer updatedCustomer;
+        if (editTransactionDescriptor.getCustomerIndex().isPresent()) {
+            Index updatedCustomerIndex = editTransactionDescriptor.getCustomerIndex().get();
+            updatedCustomer = model.getFilteredCustomerList().get(updatedCustomerIndex.getZeroBased());
+        } else {
+            updatedCustomer = transactionToEdit.getCustomer();
+        }
+
+        Product updatedProduct;
+        if (editTransactionDescriptor.getProductIndex().isPresent()) {
+            Index updatedProductIndex = editTransactionDescriptor.getProductIndex().get();
+            updatedProduct = model.getFilteredProductList().get(updatedProductIndex.getZeroBased());
+        } else {
+            updatedProduct = transactionToEdit.getProduct();
+        }
+
         DateTime updatedDateTime = editTransactionDescriptor.getDateTime().orElse(transactionToEdit.getDateTime());
         Quantity updatedQuantity = editTransactionDescriptor.getQuantity().orElse(transactionToEdit.getQuantity());
         Money updatedMoney = editTransactionDescriptor.getMoney().orElse(transactionToEdit.getMoney());
@@ -134,8 +152,8 @@ public class EditTransactionCommand extends Command {
      * corresponding field value of the transaction.
      */
     public static class EditTransactionDescriptor {
-        private String customer;
-        private String product;
+        private Index customerIndex;
+        private Index productIndex;
         private DateTime dateTime;
         private Quantity quantity;
         private Money money;
@@ -148,8 +166,8 @@ public class EditTransactionCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
-            setCustomer(toCopy.customer);
-            setProduct(toCopy.product);
+            setCustomerIndex(toCopy.customerIndex);
+            setProductIndex(toCopy.productIndex);
             setDateTime(toCopy.dateTime);
             setQuantity(toCopy.quantity);
             setMoney(toCopy.money);
@@ -160,16 +178,16 @@ public class EditTransactionCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(customer, product, dateTime, quantity,
+            return CollectionUtil.isAnyNonNull(customerIndex, productIndex, dateTime, quantity,
                     money, description);
         }
 
-        public void setCustomer(String customer) {
-            this.customer = customer;
+        public void setCustomerIndex(Index customer) {
+            this.customerIndex = customerIndex;
         }
 
-        public void setProduct(String product) {
-            this.product = product;
+        public void setProductIndex(Index product) {
+            this.productIndex = productIndex;
         }
 
         public void setDateTime(DateTime dateTime) {
@@ -188,12 +206,12 @@ public class EditTransactionCommand extends Command {
             this.description = description;
         }
 
-        public Optional<String> getCustomer() {
-            return Optional.ofNullable(customer);
+        public Optional<Index> getCustomerIndex() {
+            return Optional.ofNullable(customerIndex);
         }
 
-        public Optional<String> getProduct() {
-            return Optional.ofNullable(product);
+        public Optional<Index> getProductIndex() {
+            return Optional.ofNullable(productIndex);
         }
 
         public Optional<DateTime> getDateTime() {
@@ -227,8 +245,8 @@ public class EditTransactionCommand extends Command {
             // state check
             EditTransactionDescriptor e = (EditTransactionDescriptor) other;
 
-            return getCustomer().equals(e.getCustomer())
-                    && getProduct().equals(e.getProduct())
+            return getCustomerIndex().equals(e.getCustomerIndex())
+                    && getProductIndex().equals(e.getProductIndex())
                     && getDateTime().equals(e.getDateTime())
                     && getQuantity().equals(e.getQuantity())
                     && getMoney().equals(e.getMoney())
