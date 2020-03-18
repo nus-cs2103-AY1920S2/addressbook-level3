@@ -6,6 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
+import seedu.address.logic.commands.customer.ClearCustomerCommand;
+import seedu.address.logic.commands.product.ClearProductCommand;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.UniqueCustomerList;
 import seedu.address.model.product.Product;
@@ -43,6 +45,8 @@ public class InventorySystem implements ReadOnlyInventorySystem {
      */
     public InventorySystem(ReadOnlyInventorySystem toBeCopied) {
         this();
+        resetData(toBeCopied, ClearCustomerCommand.COMMAND_WORD);
+        resetData(toBeCopied, ClearProductCommand.COMMAND_WORD);
     }
 
     //// list overwrite operations

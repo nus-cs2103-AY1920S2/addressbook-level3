@@ -124,7 +124,7 @@ public class AddProductCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyInventorySystem newData) {
+        public void setAddressBook(ReadOnlyInventorySystem newData, String commandWord) {
             throw new AssertionError("This method should not be called.");
         }
 

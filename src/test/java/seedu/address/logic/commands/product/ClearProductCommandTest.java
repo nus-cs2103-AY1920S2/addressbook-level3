@@ -24,7 +24,7 @@ public class ClearProductCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new InventorySystem());
+        expectedModel.setAddressBook(new InventorySystem(), ClearProductCommand.COMMAND_WORD);
 
         assertCommandSuccess(new ClearProductCommand(), model, ClearProductCommand.MESSAGE_SUCCESS, expectedModel);
     }
