@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class HelpWindow extends UiPart<AnchorPane> {
     public static final String LIST_OF_VALID_COMMANDS = "Common commands and their format are as follows:\n"
-            + "add x/TYPE n/NAME t/YYYY-MM-DD-24:60 l/LOCATION c/CALORIE\n"
+            + "add x/TYPE n/NAME t/YYYY-MM-DD 24:60 l/LOCATION c/CALORIE\n"
             + "  - add a food/exercise entry [TYPE can only be f/food/s/sports]\n"
             + "list (x/TYPE) (d/YYYY-MM-DD)\n"
             + "  - list entries (of food/sport in a given day)\n"
@@ -23,7 +23,7 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "  - list all entries (of food/sport) not marked as done (in a given day)\n"
             + "edit x/TYPE (d/YYYY-MM-DD) i/INDEX s/Done OR Undone\n"
             + "  - Mark an entry as done/not done\n"
-            + "edit x/TYPE i/INDEX [n/NAME] [t/YYYY-MM-DD-24:60] [l/LOCATION] [c/CALORIE] [r/REMARK]\n"
+            + "edit x/TYPE i/INDEX [n/NAME] [t/YYYY-MM-DD 24:60] [l/LOCATION] [c/CALORIE] [r/REMARK]\n"
             + "  - edit the information of an entry\n"
             + "delete x/type (d/YYYY-MM-DD) i/INDEX\n"
             + "  - delete an entry\n"

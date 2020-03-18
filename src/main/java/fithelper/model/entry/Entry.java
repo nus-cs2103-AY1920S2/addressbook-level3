@@ -157,16 +157,16 @@ public class Entry {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Time: ")
-                .append(getTime())
-                .append(" Location: ")
-                .append(getLocation())
-                .append(" Calorie: ")
-                .append(getCalorie())
-                .append(" Status:")
-                .append(getStatus())
-                .append(" Remark: ")
+        builder.append(getName() + "\n")
+                .append("Time: ")
+                .append(getTime() + "\n")
+                .append("Location: ")
+                .append(getLocation() + "\n")
+                .append("Calorie: ")
+                .append(getCalorie() + "\n")
+                .append("Status: ")
+                .append(getStatus() + "\n")
+                .append("Remark: ")
                 .append(getRemark().toString());
         return builder.toString();
     }
