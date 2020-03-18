@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -76,7 +78,9 @@ public class ParserUtil {
     public static Amount parseAmount(ItemPrice price, int numPersons) throws ParseException {
         requireAllNonNull(price, numPersons);
         BigDecimal bigDecimalNumPersons = new BigDecimal(numPersons);
-        BigDecimal pricePerPerson = price.getItemPrice().divide(bigDecimalNumPersons);
+        BigDecimal itemPrice = price.getItemPrice();
+        BigDecimal pricePerPerson = itemPrice.divide(bigDecimalNumPersons,
+                new MathContext(4, RoundingMode.HALF_UP));
         return new Amount(pricePerPerson);
     }
 
