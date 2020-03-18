@@ -19,7 +19,7 @@ import com.joestelmach.natty.DateGroup;
  */
 public class Time {
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should be in format: date HH:mm";
+    public static final String MESSAGE_CONSTRAINTS = "Time should be in format: yyyy-mm-dd-HH:mm";
 
     public final LocalDate date;
     public final LocalTime time;
@@ -45,6 +45,14 @@ public class Time {
         date = dateTime.toLocalDate();
         String truncatedTime = time.format(DateTimeFormatter.ofPattern("HH:mm"));
         value = concat(truncatedTime, date);
+    }
+
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public String getDateStr() {
+        return this.date.toString();
     }
 
     /**

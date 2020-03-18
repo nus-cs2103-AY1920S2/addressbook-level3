@@ -10,6 +10,7 @@ import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.model.today.Today;
 import fithelper.ui.calendar.CalendarPanel;
 import fithelper.ui.profile.ProfilePage;
 import fithelper.ui.weight.WeightPage;
@@ -99,7 +100,9 @@ public class MainWindow extends UiPart<Stage> {
         dashBoard = new DashBoard(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList(),
                 logic.getFilteredReminderEntryList());
         setAllPageAnchor(dashBoard.getRoot());
-        todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        todayPage = new TodayPage(logic.getFilteredTodayFoodEntryList(new Today().getTodayDateStr()),
+                logic.getFilteredTodaySportsEntryList(new Today().getTodayDateStr()));
+        logger.info(new Today().getTodayDateStr());
         setAllPageAnchor(todayPage.getRoot());
         calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
             logic.getFilteredSportsEntryList(), logic.getVEvents());
