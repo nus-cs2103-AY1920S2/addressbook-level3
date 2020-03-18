@@ -50,7 +50,7 @@ public class TransactionCard extends UiPart<Region> {
         dateTime.setText(transaction.getDateTime().toString());
         quantity.setText(transaction.getQuantity().value);
         money.setText(transaction.getMoney().value);
-        description.setText(transaction.getProduct());
+        description.setText(transaction.getDescription().value);
     }
 
     @Override

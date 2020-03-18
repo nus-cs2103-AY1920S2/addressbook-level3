@@ -1,5 +1,6 @@
 package seedu.address.model.transaction;
 
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
 /**
@@ -13,11 +14,11 @@ public class Transaction {
     private final DateTime dateTime;
     private final Quantity quantity;
     private final Money money;
-    private final String description;
+    private final Description description;
 
 
     public Transaction(String customer, String product, DateTime dateTime,
-                       Quantity quantity, Money money, String description) {
+                       Quantity quantity, Money money, Description description) {
         this.customer = customer;
         this.product = product;
         this.quantity = quantity;
@@ -46,7 +47,7 @@ public class Transaction {
         return money;
     }
 
-    public String getDescription() {
+    public Description getDescription() {
         return description;
     }
 

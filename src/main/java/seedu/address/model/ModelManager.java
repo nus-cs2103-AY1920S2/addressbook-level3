@@ -142,16 +142,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireAllNonNull(target, editedTransaction);
+        addressBook.setTransaction(target, editedTransaction);
+    }
+
+    @Override
     public void setPerson(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
-
         addressBook.setPerson(target, editedCustomer);
     }
 
     @Override
     public void setProduct(Product target, Product editedProduct) {
         requireAllNonNull(target, editedProduct);
-
         addressBook.setProduct(target, editedProduct);
     }
 

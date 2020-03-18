@@ -8,9 +8,9 @@ import static seedu.address.testutil.TypicalProducts.BAG;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Sales;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.storage.product.JsonAdaptedProduct;
 

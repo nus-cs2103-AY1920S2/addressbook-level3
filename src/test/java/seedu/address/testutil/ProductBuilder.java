@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
 /**

@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
 /**
@@ -21,7 +22,7 @@ public class JsonAdaptedTransaction {
     private final String dateTime;
     private final String quantity;
     private final String money;
-    private final StringBuilder description = new StringBuilder("");
+    private final String description;
 
     /**
      * Constructs a {@code JsonAdaptedCustomer} with the given customer details.
@@ -35,13 +36,11 @@ public class JsonAdaptedTransaction {
         this.dateTime = dateTime;
         this.quantity = quantity;
         this.money = money;
-        if (description != null) {
-            this.description.append(description);
-        }
+        this.description = description;
     }
 
     /**
-     * Converts a given {@code Customer} into this class for Jackson use.
+     * Converts a given {@code Transaction} into this class for Jackson use.
      */
     public JsonAdaptedTransaction(Transaction source) {
         customer = source.getCustomer();
@@ -49,7 +48,7 @@ public class JsonAdaptedTransaction {
         dateTime = source.getDateTime().toString();
         quantity = source.getQuantity().toString();
         money = source.getMoney().toString();
-        description.append(source.getDescription());
+        description = source.getDescription().toString();
     }
 
     /**
@@ -100,7 +99,15 @@ public class JsonAdaptedTransaction {
         }
         final Money modelMoney = new Money(money);
 
-        final String modelDescription = description.toString();
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
+        }
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS);
+        }
+        final Description modelDescription = new Description(description);
+
         return new Transaction(modelCustomer, modelProduct, modelDateTime, modelQuantity, modelMoney, modelDescription);
     }
 

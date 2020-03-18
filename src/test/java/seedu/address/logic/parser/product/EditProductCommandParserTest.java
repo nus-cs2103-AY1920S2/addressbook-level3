@@ -30,9 +30,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
-import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Sales;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.testutil.EditProductDescriptorBuilder;
 

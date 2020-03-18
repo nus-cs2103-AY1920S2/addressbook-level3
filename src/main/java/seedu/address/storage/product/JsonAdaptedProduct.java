@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
 
