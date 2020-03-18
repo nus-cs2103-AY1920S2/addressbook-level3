@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui;
+package seedu.zerotoone.ui.exercise;
 
 // import java.util.Comparator;
 
@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Exercise}.

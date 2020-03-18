@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui;
+package seedu.zerotoone.ui.exercise;
 
 import java.util.logging.Logger;
 
@@ -9,6 +9,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.ui.UiPart;
 
 /**
  * Panel containing the list of exercises.
