@@ -86,7 +86,8 @@ public class LogicManagerTest {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonRestaurantBookStorage restaurantBookStorage =
-                new JsonRestaurantBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionRestaurantBook.json"));
+                new JsonRestaurantBookIoExceptionThrowingStub(temporaryFolder
+                        .resolve("ioExceptionRestaurantBook.json"));
         JsonSchedulerStorage schedulerStorage =
                 new JsonSchedulerStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
         JsonUserPrefsStorage userPrefsStorage =
