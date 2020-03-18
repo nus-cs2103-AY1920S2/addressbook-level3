@@ -37,8 +37,8 @@ public class HelpWindow extends UiPart<AnchorPane> {
             + "  - show records of calorie intake of some food or calorie consumption per hour of some sports\n"
             + "table x/TYPE YYYY-MM-DD\n"
             + "  - show calorie table of a specified date\n";
-//            + "update attr/ATTRIBUTE v/VALUE\n"
-//            + "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n"
+    //+ "update attr/ATTRIBUTE v/VALUE\n"
+    //+ "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n"
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
             + "please access the user guide via:\n";
     public static final String USERGUIDE_URL =
