@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 
 
+<?import javafx.scene.layout.VBox?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <BorderPane fx:id="calendarBorderPane" maxWidth="Infinity" maxHeight="Infinity"/>
     <StackPane fx:id="calendarPagePlaceholder" alignment="TOP_LEFT" prefWidth="20.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
@@ -16,10 +17,10 @@
         </GridPane.margin>
     </StackPane>
     <AnchorPane fx:id="fullCalendarPlaceholder" AnchorPane.leftAnchor="510.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-color: white;"/>
-        <GridPane.margin>
-            <Insets />
-        </GridPane.margin>
-    <StackPane fx:id="upcomingListPlaceholder" alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <GridPane.margin>
+        <Insets />
+    </GridPane.margin>
+    <StackPane fx:id="upcomingListPlaceholder" AnchorPane.leftAnchor="510.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="220.0" prefHeight="260.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <GridPane.margin>
             <Insets top="10.0" />
         </GridPane.margin>
