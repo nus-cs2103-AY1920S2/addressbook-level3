@@ -1,4 +1,4 @@
-package seedu.zerotoone.logic.parser;
+package seedu.zerotoone.logic.parser.exercise;
 
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -7,16 +7,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.Command;
-import seedu.zerotoone.logic.commands.ExitCommand;
+import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.HelpCommand;
-import seedu.zerotoone.logic.commands.exercise.ExerciseCommand;
+
+import seedu.zerotoone.logic.commands.exercise.CreateCommand;
+import seedu.zerotoone.logic.commands.exercise.ListCommand;
+import seedu.zerotoone.logic.commands.exercise.EditCommand;
+import seedu.zerotoone.logic.commands.exercise.DeleteCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.logic.parser.exercise.ExerciseCommandParser;
+import seedu.zerotoone.model.Model;
 
 /**
  * Parses user input.
  */
-public class ExerciseListParser {
+public class ExerciseCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -39,12 +43,14 @@ public class ExerciseListParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-        case ExerciseCommand.COMMAND_WORD:
-            return new ExerciseCommandParser().parse(arguments);
+        case CreateCommand.COMMAND_WORD:
+            return new CreateCommandParser().parse(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
