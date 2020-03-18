@@ -19,8 +19,9 @@ import com.notably.model.block.Title;
 public class NewCommandParser implements CommandParser<NewCommand> {
 
     /**
+     * TODO: integrate with CorrectionEngine.
      * Parse input and create NewCommand.
-     * @param args userInput used to create block.
+     * @param args parse userInput used to create block.
      * @return NewCommand
      * @throws ParseException when input is invalid.
      */

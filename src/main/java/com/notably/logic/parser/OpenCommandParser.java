@@ -16,9 +16,10 @@ import com.notably.logic.parser.exceptions.ParseException;
 public class OpenCommandParser implements CommandParser {
 
     /**
+     * TODO: integrate with CorrectionEngine.
      * Creates OpenCommand with user input.
-     * @param args
-     * @return
+     * @param args to be parse by into CorrectionEngine
+     * @return OpenCammnd
      * @throws ParseException
      */
     public OpenCommand parse(String args) throws ParseException {
