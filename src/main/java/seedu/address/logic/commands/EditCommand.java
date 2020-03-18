@@ -116,8 +116,8 @@ public class EditCommand extends Command {
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
         TypeOfItem updatedType = editOrderDescriptor.getItemType().orElse(orderToEdit.getItemType());
 
-        return new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp, updatedWarehouse,
-                updatedCod, updatedComment, updatedType);
+        return new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
+                updatedWarehouse, updatedCod, updatedComment, updatedType);
 
 
     }
@@ -211,7 +211,9 @@ public class EditCommand extends Command {
             this.email = email;
         }
 
-        public Optional<Email> getEmail() { return Optional.ofNullable(email); }
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
+        }
 
         public void setAddress(Address address) {
             this.address = address;
