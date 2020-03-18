@@ -64,7 +64,7 @@ public class Exercise {
         }
 
         Exercise otherExercise = (Exercise) other;
-        return otherExercise.getName().equals(getName())
+        return otherExercise.getName().equals(getName());
     }
 
     @Override
