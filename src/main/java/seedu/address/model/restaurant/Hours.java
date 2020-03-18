@@ -15,7 +15,8 @@ public class Hours {
     /*
      *
      */
-    public static final String VALIDATION_REGEX = "(([0-1][0-9][0-5][0-9]|[2][0-3][0-5][0-9]):([0-1][0-9][0-5][0-9]|[2][0-3][0-5][0-9]))|^$";
+    public static final String VALIDATION_REGEX =
+            "(([0-1][0-9][0-5][0-9]|[2][0-3][0-5][0-9]):([0-1][0-9][0-5][0-9]|[2][0-3][0-5][0-9]))|^$";
 
     public final String hours;
 
