@@ -12,6 +12,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_NOTES_OPERATION = new Prefix("ops/");
     public static final Prefix PREFIX_NOTES_PATH = new Prefix("loc/");
-
+    public static final Prefix PREFIX_GRADE = new Prefix("g/");
+    public static final Prefix PREFIX_MODULE_CODE = new Prefix("m/");
+    public static final Prefix PREFIX_MODULE_CREDIT = new Prefix("mc/");
 
 }

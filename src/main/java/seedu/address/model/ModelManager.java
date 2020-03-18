@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +14,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.Capulator;
+import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,6 +28,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Notes> filesInFolder;
+    private List<NusModule> modules;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +43,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
+        modules = new ArrayList<>();
     }
 
     public ModelManager() {
@@ -113,6 +119,23 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         addressBook.setPerson(target, editedPerson);
+    }
+
+    @Override
+    public boolean hasModule(NusModule module) {
+        requireNonNull(module);
+        return modules.contains(module);
+    }
+
+    @Override
+    public void addModule(NusModule module) {
+        modules.add(module);
+    }
+
+    @Override
+    public double getCap() {
+        Capulator capulator = new Capulator(modules);
+        return capulator.calculateCap();
     }
 
     //=========== Filtered Person List Accessors =============================================================
