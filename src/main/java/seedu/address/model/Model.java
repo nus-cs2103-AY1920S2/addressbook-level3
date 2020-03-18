@@ -80,6 +80,12 @@ public interface Model {
     void deleteProduct(Product target);
 
     /**
+     * Deletes the given transaction.
+     * The transaction must exist in the product list.
+     */
+    void deleteTransaction(Transaction target);
+
+    /**
      * Adds the given customer.
      * {@code customer} must not already exist in the address book.
      */

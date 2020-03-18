@@ -148,6 +148,10 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteTransaction(Transaction transaction) {
+        addressBook.removeTransaction(transaction);
+    }
+    @Override
     public void setPerson(Customer target, Customer editedCustomer) {
         requireAllNonNull(target, editedCustomer);
         addressBook.setPerson(target, editedCustomer);

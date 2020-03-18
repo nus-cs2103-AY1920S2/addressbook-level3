@@ -27,7 +27,7 @@ public class FindTransactionCommand extends Command {
             + "[" + PREFIX_CUSTOMER + "CUSTOMER] "
             + "[" + PREFIX_PRODUCT + "PRODUCT] "
             + "[" + PREFIX_DATETIME + "DATETIME] \n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "Bob "
             + PREFIX_PRODUCT + "WaterMelon "
             + PREFIX_DATETIME + "2020-02-20 10:00 ";

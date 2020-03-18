@@ -43,6 +43,17 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
+     * Removes the equivalent transaction from the list.
+     * The transaction must exist in the list.
+     */
+    public void remove(Transaction toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new TransactionNotFoundException();
+        }
+    }
+
+    /**
      * Replaces the product {@code target} in the list with {@code editedProduct}.
      * {@code target} must exist in the list.
      * The product identity of {@code editedProduct} must not be the same as another existing product in the list.
