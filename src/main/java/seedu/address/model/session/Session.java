@@ -26,6 +26,8 @@ public class Session {
 
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private boolean isRecurring;
+    private String moduleCode;
     private SessionType type;
     private String description;
 
@@ -33,7 +35,7 @@ public class Session {
      * Constructs a Session object.
      * The session's end time should be strictly after the session's start time.
      */
-    public Session(LocalDateTime start, LocalDateTime end, SessionType type,
+    public Session(LocalDateTime start, LocalDateTime end, SessionType type, boolean isRecurring, String moduleCode,
                    String description) throws IllegalArgumentException {
 
         if (start.compareTo(end) > 0) {
@@ -42,6 +44,8 @@ public class Session {
 
         this.startDateTime = start;
         this.endDateTime = end;
+        this.isRecurring = isRecurring;
+        this.moduleCode = moduleCode;
         this.type = type;
         this.description = description;
     }
@@ -73,6 +77,20 @@ public class Session {
      */
     public LocalDateTime getEndDateTime() {
         return this.endDateTime;
+    }
+
+    /**
+     * Returns true if session will recur every week; false otherwise.
+     */
+    public boolean getIsRecurring() {
+        return this.isRecurring;
+    }
+
+    /**
+     * Returns the module code associated with this session.
+     */
+    public String getModuleCode() {
+        return this.moduleCode;
     }
 
     /**
