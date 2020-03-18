@@ -14,20 +14,37 @@ import javafx.scene.layout.AnchorPane;
  * Controller for a help page
  */
 public class HelpWindow extends UiPart<AnchorPane> {
-    public static final String LIST_OF_VALID_COMMANDS = "The valid commands are as follows:\n"
-            + "add x/TYPE n/NAME t/YYYY-MM-DD-HH:MM l/LOCATION c/CALORIE: add a food or exercise entry\n"
-            + "list (x/TYPE) (d/YYYY-MM-DD): list entries (of food/sport in a given day)\n"
-            + "reminder (x/TYPE) (d/YYYY-MM-DD): list all entries (of food/sport) not marked as done (in a given day)\n"
-            + "edit x/TYPE (d/YYYY-MM-DD) i/INDEX s/Done: Mark an entry as done\n"
-            + "edit x/TYPE (d/YYYY-MM-DD) i/INDEX s/Undone: Mark an entry as not done\n"
-            + "Edit x/TYPE i/INDEX [n/NAME] [t/yyyy-mm-dd-24:60] [l/LOCATION] [c/CALORIE] [r/REMARK]: "
-            + "edit the information of an entry\n"
-            + "...\n";
+    public static final String LIST_OF_VALID_COMMANDS = "Common commands and their format are as follows:\n"
+            + "add x/TYPE n/NAME t/YYYY-MM-DD-24:60 l/LOCATION c/CALORIE\n"
+            + "  - add a food/exercise entry [TYPE can only be f/food/s/sports]\n"
+            + "list (x/TYPE) (d/YYYY-MM-DD)\n"
+            + "  - list entries (of food/sport in a given day)\n"
+            + "reminder (x/TYPE) (d/YYYY-MM-DD)\n"
+            + "  - list all entries (of food/sport) not marked as done (in a given day)\n"
+            + "edit x/TYPE (d/YYYY-MM-DD) i/INDEX s/Done OR Undone\n"
+            + "  - Mark an entry as done/not done\n"
+            + "edit x/TYPE i/INDEX [n/NAME] [t/YYYY-MM-DD-24:60] [l/LOCATION] [c/CALORIE] [r/REMARK]\n"
+            + "  - edit the information of an entry\n"
+            + "delete x/type (d/YYYY-MM-DD) i/INDEX\n"
+            + "  - delete an entry\n"
+            + "calendar/today/weekreport/weight/profile/help\n"
+            + "  - switch to the specified page"
+            + "find (x/TYPE) keywords\n"
+            + "  - show all (food/sports) entries (whose description contains any of the keywords)\n"
+            + "diary YYYY-MM-DD\n"
+            + "  - record the diary for a date\n"
+            + "check x/TYPE keywords\n"
+            + "  - show records of calorie intake of some food or calorie consumption per hour of some sports\n"
+            + "table x/TYPE YYYY-MM-DD\n"
+            + "  - show calorie table of a specified date\n";
+    //+ "update attr/ATTRIBUTE v/VALUE\n"
+    //+ "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n"
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
-            + "please access the User Guide via the following url:\n";
+            + "please access the user guide via:\n";
     public static final String USERGUIDE_URL =
             "https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/docs/UserGuide.adoc";
-    public static final String HELP_MESSAGE = LIST_OF_VALID_COMMANDS + LOOK_FOR_URL + USERGUIDE_URL;
+    public static final String HELP_MESSAGE = LIST_OF_VALID_COMMANDS;
+    public static final String SHOW_URL = LOOK_FOR_URL + USERGUIDE_URL;
     private static final String FXML = "HelpWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(HelpWindow.class);
 
@@ -40,6 +57,9 @@ public class HelpWindow extends UiPart<AnchorPane> {
     @FXML
     private Label helpMessage;
 
+    @FXML
+    private Label showUrl;
+
     /**
      * Creates a new HelpWindow.
      */
@@ -47,6 +67,7 @@ public class HelpWindow extends UiPart<AnchorPane> {
         super(FXML);
         logger.info("Initializing Help Page");
         helpMessage.setText(HELP_MESSAGE);
+        showUrl.setText(SHOW_URL);
     }
 
     /**
