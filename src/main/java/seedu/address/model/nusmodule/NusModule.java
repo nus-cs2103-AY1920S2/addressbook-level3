@@ -29,4 +29,16 @@ public class NusModule {
     public void setGrade(Grade grade) {
         this.grade = Optional.ofNullable(grade);
     }
+
+    @Override
+    public String toString() {
+        return moduleCode.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof NusModule // instanceof handles nulls
+                && moduleCode.equals(((NusModule) other).moduleCode)); // state check
+    }
 }
