@@ -1,6 +1,7 @@
 package fithelper.model.entry;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static fithelper.commons.util.EventUtil.entryToVEvent;
 
 import static java.util.Objects.requireNonNull;
 
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 
 import fithelper.commons.exceptions.IllegalValueException;
 
+import fithelper.model.entry.exceptions.DuplicateEntryException;
+import fithelper.model.entry.exceptions.EntryNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -59,36 +62,10 @@ public class VeventList {
     }
 
     /**
-     * Maps event to VEvent
-     */
-    private VEvent entryToVEvent(Entry entry) {
-        VEvent vEvent = new VEvent();
-        vEvent.setDateTimeStart(entry.getDateTime());
-        vEvent.setDateTimeEnd(entry.getDateTime().plusHours(1));
-        vEvent.setSummary(entry.getName().toString());
-        vEvent.setUniqueIdentifier(getUniqueIdentifier(entry));
-        if (entry.getStatus().toString().equals("Done")) {
-            vEvent.withCategories("25");
-        } else {
-            vEvent.withCategories("29");
-        }
-        return vEvent;
-    }
-
-    /**
      * Returns an unmodifiable ObservableList.
      */
     public ObservableList<VEvent> getVEvents() {
         return this.vEventUnmodifiableList;
-    }
-
-    public static String getUniqueIdentifier(Entry entry) {
-        StringBuilder tmp = new StringBuilder();
-        tmp.append(entry.getName().toString());
-        tmp.append(entry.getDateTime());
-        tmp.append("-");
-        tmp.append(entry.getDateTime().plusMinutes(30));
-        return tmp.toString();
     }
 
     /**
@@ -125,5 +102,37 @@ public class VeventList {
             isEqual = false;
         }
         return isEqual;
+    }
+
+    /**
+     * Replace the old entry with the updated one.
+     * @param entry the old entry
+     * @param newEntry updated entry
+     */
+    public void setVEvent(Entry entry, Entry newEntry) {
+        VEvent newEvent = entryToVEvent(newEntry);
+        VEvent event = entryToVEvent(entry);
+        requireAllNonNull(newEvent, event);
+        int index = vEvents.indexOf(event);
+        if (index == -1) {
+            throw new EntryNotFoundException();
+        }
+
+        if (!event.equals(newEvent) && contains(newEvent)) {
+            throw new DuplicateEntryException();
+        }
+        vEvents.set(index, newEvent);
+    }
+
+    /**
+     * Removes the equivalent entry from the list.
+     * The entry must exist in the list.
+     */
+    public void deleteVEvent(Entry toRemove) {
+        requireNonNull(toRemove);
+        VEvent temp = entryToVEvent(toRemove);
+        if (!vEvents.remove(temp)) {
+            throw new EntryNotFoundException();
+        }
     }
 }

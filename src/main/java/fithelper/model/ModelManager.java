@@ -190,4 +190,14 @@ public class ModelManager implements Model {
     public void addVEvent(Entry entry) throws IllegalValueException {
         vEventList.addVEvent(entry);
     }
+
+    @Override
+    public void setVevent(Entry target, Entry editedEntry) {
+        requireAllNonNull(target, editedEntry);
+        vEventList.setVEvent(target, editedEntry);
+    }
+    @Override
+    public void deleteVevent(Entry entry) {
+        vEventList.deleteVEvent(entry);
+    }
 }

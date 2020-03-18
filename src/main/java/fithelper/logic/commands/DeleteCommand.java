@@ -55,6 +55,7 @@ public class DeleteCommand extends Command {
 
         Entry entryToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEntry(entryToDelete);
+        model.deleteVevent(entryToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, entryToDelete));
     }
 
