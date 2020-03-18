@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.ALICE;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
@@ -46,7 +46,7 @@ public class OrderBookTest {
     @Test
     public void resetData_withDuplicateOrders_throwsDuplicateOrderException() {
         // Two orders with the same identity fields
-        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withItemType(VALID_TYPE_PLASTIC)
                 .build();
         List<Order> newOrders = Arrays.asList(ALICE, editedAlice);
         OrderBookStub newData = new OrderBookStub(newOrders);
@@ -73,7 +73,7 @@ public class OrderBookTest {
     @Test
     public void hasOrder_orderWithSameIdentityFieldsInOrderBook_returnsTrue() {
         orderBook.addOrder(ALICE);
-        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Order editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withItemType(VALID_TYPE_PLASTIC)
                 .build();
         assertTrue(orderBook.hasOrder(editedAlice));
     }

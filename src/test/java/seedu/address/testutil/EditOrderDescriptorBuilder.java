@@ -1,20 +1,17 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
 import seedu.address.model.comment.Comment;
+import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
+import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building EditOrderDescriptor objects.
@@ -36,14 +33,15 @@ public class EditOrderDescriptorBuilder {
      */
     public EditOrderDescriptorBuilder(Order order) {
         descriptor = new EditOrderDescriptor();
+        descriptor.setTid(order.getTid());
         descriptor.setName(order.getName());
         descriptor.setPhone(order.getPhone());
-        descriptor.setEmail(order.getEmail());
         descriptor.setAddress(order.getAddress());
         descriptor.setTimeStamp(order.getTimestamp());
         descriptor.setWarehouse(order.getWarehouse());
+        descriptor.setCash(order.getCash());
         descriptor.setComment(order.getComment());
-        descriptor.setTags(order.getTags());
+        descriptor.setItemType(order.getItemType());
     }
 
     /**
@@ -51,6 +49,14 @@ public class EditOrderDescriptorBuilder {
      */
     public EditOrderDescriptorBuilder withComment(String comment) {
         descriptor.setComment(new Comment(comment));
+        return this;
+    }
+
+    /**
+     * Sets the {@code TransactionId} of the {@code EditOrderDescriptor} that we are building.
+     */
+    public EditOrderDescriptorBuilder withTid(String tid) {
+        descriptor.setTid(new TransactionId(tid));
         return this;
     }
 
@@ -67,14 +73,6 @@ public class EditOrderDescriptorBuilder {
      */
     public EditOrderDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
-        return this;
-    }
-
-    /**
-     * Sets the {@code Email} of the {@code EditOrderDescriptor} that we are building.
-     */
-    public EditOrderDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
         return this;
     }
 
@@ -103,12 +101,19 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditOrderDescriptor}
-     * that we are building.
+     * Sets the {@code CashOnDelivery} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
+    public EditOrderDescriptorBuilder withCash(String cash) {
+        descriptor.setCash(new CashOnDelivery(cash));
+        return this;
+    }
+
+    /**
+     * Sets the {@code TypeOfItem} of the {@code EditOrderDescriptor} that we are building.
+     *
+     */
+    public EditOrderDescriptorBuilder withItemType(String item) {
+        descriptor.setItemType(new TypeOfItem(item));
         return this;
     }
 

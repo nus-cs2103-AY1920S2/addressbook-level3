@@ -17,17 +17,18 @@ Class ReadOnlyUserPrefs
 
 Package Order {
 Class Order
+Class TransactionId
 Class Address
-Class Email
 Class Name
 Class Phone
+Class CashOnDelivery
 Class UniqueOrderList
 Class Warehouse
 Class TimeStamp
 }
 
-Package Tag {
-Class Tag
+Package TypeOfItem {
+Class TypeOfItem
 }
 
 Package Comment {
@@ -48,20 +49,23 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 OrderBook *--> "1" UniqueOrderList
 UniqueOrderList o--> "*" Order
+Order *--> TransactionId
+Order *--> CashOnDelivery
 Order *--> Name
 Order *--> Phone
-Order *--> Email
 Order *--> Address
-Order *--> "*" Tag
+Order *--> TypeOfItem
 Order *--> Warehouse
 Order *--> Comment
 Order *--> TimeStamp
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Address -[hidden]right-> TimeStamp
 Order -[hidden]left-> Comment
 TimeStamp -[hidden]right-> Warehouse
+Warehouse -[hidden]right-> TransactionId
+TransactionId -[hidden]right-> CashOnDelivery
 
 ModelManager -->"1" Order : filtered list
 @enduml

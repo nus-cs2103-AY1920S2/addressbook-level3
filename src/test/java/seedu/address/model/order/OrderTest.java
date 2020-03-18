@@ -3,11 +3,12 @@ package seedu.address.model.order;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TID_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_PLASTIC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_WAREHOUSE_BOB;
 import static seedu.address.testutil.TypicalOrders.ALICE;
 import static seedu.address.testutil.TypicalOrders.BOB;
 
@@ -18,12 +19,6 @@ import seedu.address.testutil.OrderBuilder;
 public class OrderTest {
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Order order = new OrderBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> order.getTags().remove(0));
-    }
-
-    @Test
     public void isSameOrder() {
         // same object -> returns true
         assertTrue(ALICE.isSameOrder(ALICE));
@@ -31,26 +26,31 @@ public class OrderTest {
         // null -> returns false
         assertFalse(ALICE.isSameOrder(null));
 
-        // different phone and email -> returns false
-        Order editedAlice = new OrderBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        // different transaction ID -> returns false
+        Order editedAlice = new OrderBuilder(ALICE).withTid(VALID_TID_BOB).build();
+
         assertFalse(ALICE.isSameOrder(editedAlice));
 
         // different name -> returns false
         editedAlice = new OrderBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.isSameOrder(editedAlice));
 
+        // different phone -> returns false
+        editedAlice = new OrderBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE.isSameOrder(editedAlice));
+
         // same name, same phone, different attributes -> returns true
-        editedAlice = new OrderBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+                .withCash(VALID_COD_BOB).withItemType(VALID_TYPE_PLASTIC).build();
         assertTrue(ALICE.isSameOrder(editedAlice));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new OrderBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        // same name, same phone, different attributes -> returns true
+        editedAlice = new OrderBuilder(ALICE).withWarehouse(VALID_WAREHOUSE_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withItemType(VALID_TYPE_PLASTIC).build();
         assertTrue(ALICE.isSameOrder(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        // same name, same phone, same warehouse, different attributes -> returns true
+        editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withItemType(VALID_TYPE_PLASTIC).build();
         assertTrue(ALICE.isSameOrder(editedAlice));
     }
 
@@ -80,16 +80,20 @@ public class OrderTest {
         editedAlice = new OrderBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new OrderBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        // different TID -> returns false
+        editedAlice = new OrderBuilder(ALICE).withTid(VALID_TID_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different address -> returns false
         editedAlice = new OrderBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different tags -> returns false
-        editedAlice = new OrderBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        // different warehouse -> returns false
+        editedAlice = new OrderBuilder(ALICE).withWarehouse(VALID_WAREHOUSE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different item types -> returns false
+        editedAlice = new OrderBuilder(ALICE).withItemType(VALID_TYPE_PLASTIC).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

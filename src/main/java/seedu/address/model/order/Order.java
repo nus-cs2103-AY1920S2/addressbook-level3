@@ -2,13 +2,10 @@ package seedu.address.model.order;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.comment.Comment;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.itemtype.TypeOfItem;
 
 /**
  * Represents a Order in the order book.
@@ -17,31 +14,35 @@ import seedu.address.model.tag.Tag;
 public class Order {
 
     // Identity fields
+    private final TransactionId tid;
     private final Name name;
     private final Phone phone;
-    private final Email email;
 
     // Data fields
+    private final CashOnDelivery cod;
     private final Address address;
     private final TimeStamp timestamp;
     private final Warehouse warehouse;
     private final Comment comment;
-    private final Set<Tag> tags = new HashSet<>();
-
+    private final TypeOfItem itemType;
     /**
      * Every field must be present and not null.
      */
-    public Order(Name name, Phone phone, Email email, Address address, TimeStamp timestamp, Warehouse warehouse,
-                 Comment comment, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, timestamp, warehouse, comment, tags);
+    public Order(TransactionId tid, Name name, Phone phone, Address address, TimeStamp timestamp, Warehouse warehouse,
+                 CashOnDelivery cod, Comment comment, TypeOfItem itemType) {
+        requireAllNonNull(tid, name, phone, address, timestamp, warehouse, cod, comment, itemType);
+        this.tid = tid;
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.address = address;
         this.timestamp = timestamp;
         this.warehouse = warehouse;
+        this.cod = cod;
         this.comment = comment;
-        this.tags.addAll(tags);
+        this.itemType = itemType;
+    }
+    public TransactionId getTid() {
+        return tid;
     }
 
     public Name getName() {
@@ -50,10 +51,6 @@ public class Order {
 
     public Phone getPhone() {
         return phone;
-    }
-
-    public Email getEmail() {
-        return email;
     }
 
     public Address getAddress() {
@@ -68,16 +65,16 @@ public class Order {
         return warehouse;
     }
 
+    public CashOnDelivery getCash() {
+        return cod;
+    }
+
     public Comment getComment() {
         return comment;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public TypeOfItem getItemType() {
+        return itemType;
     }
 
     /**
@@ -90,8 +87,9 @@ public class Order {
         }
 
         return otherOrder != null
+                && otherOrder.getTid().equals(getTid())
                 && otherOrder.getName().equals(getName())
-                && (otherOrder.getPhone().equals(getPhone()) || otherOrder.getEmail().equals(getEmail()));
+                && otherOrder.getPhone().equals(getPhone());
     }
 
     /**
@@ -109,40 +107,43 @@ public class Order {
         }
 
         Order otherOrder = (Order) other;
-        return otherOrder.getName().equals(getName())
+        return otherOrder.getTid().equals(getTid())
+                && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
-                && otherOrder.getEmail().equals(getEmail())
                 && otherOrder.getAddress().equals(getAddress())
                 && otherOrder.getTimestamp().equals(getTimestamp())
                 && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
-                && otherOrder.getTags().equals(getTags());
+                && otherOrder.getCash().equals(getCash())
+                && otherOrder.getItemType().equals(getItemType());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, timestamp, warehouse, comment, tags);
+        return Objects.hash(tid, name, phone, address, timestamp, warehouse, cod, comment, itemType);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Transaction ID: ")
+                .append(getTid())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Delivery Date & Time: ")
                 .append(getTimestamp())
                 .append(" Warehouse: ")
                 .append(getWarehouse())
+                .append(" Cash On Delivery: ")
+                .append(getCash())
                 .append(" Comment: ")
                 .append(getComment())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Item Type: ")
+                .append(getItemType());
         return builder.toString();
     }
 
