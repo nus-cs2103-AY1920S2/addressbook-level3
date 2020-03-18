@@ -4,17 +4,27 @@ import static com.notably.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
+
 import com.notably.model.commandinput.CommandInputModel;
 
+import com.notably.model.suggestion.SuggestionItem;
+import com.notably.model.suggestion.SuggestionModel;
+
+import javafx.beans.property.Property;
+
 import javafx.beans.property.StringProperty;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+// TODO: to update according to our Model classes.
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -24,8 +34,9 @@ public class ModelManager implements Model {
     private AddressBook addressBook;
     private UserPrefs userPrefs;
     private FilteredList<Object> filteredPersons;
+    // TODO: set the model variables to final after removing the AB3 attributes.
+    private SuggestionModel suggestionModel;
     private CommandInputModel commandInputModel;
-
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,7 +57,8 @@ public class ModelManager implements Model {
     }
 
     // TODO: to update constructor according to our Model classes.
-    public ModelManager(CommandInputModel commandInputModel) {
+    public ModelManager(SuggestionModel suggestionModel, CommandInputModel commandInputModel) {
+        this.suggestionModel = suggestionModel;
         this.commandInputModel = commandInputModel;
     }
 
@@ -150,6 +162,37 @@ public class ModelManager implements Model {
         return addressBook.equals(other.addressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //=========== Suggestion Model =============================================================
+    @Override
+    public ObservableList<SuggestionItem> getSuggestions() {
+        return suggestionModel.getSuggestions();
+    }
+
+    @Override
+    public void setSuggestions(List<SuggestionItem> suggestions) {
+        suggestionModel.setSuggestions(suggestions);
+    }
+
+    @Override
+    public Property<Optional<String>> responseTextProperty() {
+        return suggestionModel.responseTextProperty();
+    }
+
+    @Override
+    public void setResponseText(String responseText) {
+        suggestionModel.setResponseText(responseText);
+    }
+
+    @Override
+    public void clearResponseText() {
+        suggestionModel.clearResponseText();
+    }
+
+    @Override
+    public void clearSuggestions() {
+        suggestionModel.clearSuggestions();
     }
 
     //========= CommandInputModel==================================================================
