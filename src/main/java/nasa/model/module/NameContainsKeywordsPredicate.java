@@ -1,10 +1,13 @@
 package nasa.model.module;
 
-import nasa.commons.util.StringUtil;
-
 import java.util.List;
 import java.util.function.Predicate;
 
+import nasa.commons.util.StringUtil;
+
+/**
+ * Predicate to filter based on activity name.
+ */
 public class NameContainsKeywordsPredicate implements Predicate<Module> {
     private final List<String> keywords;
 
@@ -15,7 +18,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Module> {
     @Override
     public boolean test(Module module) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(module.getModuleName().getModuleName(), keyword));
+                .anyMatch(keyword ->
+                    StringUtil.containsWordIgnoreCase(module.getModuleName().getModuleName(), keyword));
     }
 
     @Override

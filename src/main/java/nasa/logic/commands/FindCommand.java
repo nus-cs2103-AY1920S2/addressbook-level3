@@ -1,10 +1,13 @@
 package nasa.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Represents the command for finding specific activities.
+ */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
