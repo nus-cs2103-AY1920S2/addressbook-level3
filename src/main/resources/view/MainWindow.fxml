@@ -67,7 +67,7 @@
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <Button fx:id="calendarButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Calendar" textFill="WHITE">
+                           <Button fx:id="calendarButton" mnemonicParsing="false" onAction="#handleShowCalendarPage" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #ff8c00; -fx-border-color: white;" text="Calendar" textFill="WHITE">
                               <font>
                                  <Font size="14.0" />
                               </font>
