@@ -17,7 +17,7 @@ import seedu.zerotoone.model.exercise.ExerciseSet;
 /**
  * Jackson-friendly version of {@link Exercise}.
  */
-class JacksonExercise {
+public class JacksonExercise {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Exercise's %s field is missing!";
 

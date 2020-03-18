@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage;
+package seedu.zerotoone.storage.userprefs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,9 +15,8 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.userprefs.UserPrefs;
-import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 
-public class JsonUserPrefsStorageTest {
+public class UserPrefsStorageManagerTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
 

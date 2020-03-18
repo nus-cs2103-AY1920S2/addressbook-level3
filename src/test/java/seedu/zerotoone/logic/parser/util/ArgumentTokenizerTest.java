@@ -1,4 +1,4 @@
-package seedu.zerotoone.logic.parser;
+package seedu.zerotoone.logic.parser.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
