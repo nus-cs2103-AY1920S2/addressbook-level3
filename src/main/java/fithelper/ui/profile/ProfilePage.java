@@ -1,14 +1,15 @@
 package fithelper.ui.profile;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.ReadOnlyUserProfile;
 import fithelper.model.profile.Profile;
 import fithelper.ui.UiPart;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.logging.Logger;
 
 /**
  * Controller for a user profile page.
@@ -57,7 +58,7 @@ public class ProfilePage extends UiPart<AnchorPane> {
      *
      * @param profile an profile object containing user basic data.
      */
-    private void initializeAttributeValue(Profile profile){
+    private void initializeAttributeValue(Profile profile) {
         name.setText(profile.getName().toString());
         gender.setText(profile.getGender().toString());
         age.setText(profile.getAge().toString());

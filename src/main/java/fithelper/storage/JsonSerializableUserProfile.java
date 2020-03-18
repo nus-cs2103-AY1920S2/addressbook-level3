@@ -3,9 +3,9 @@ package fithelper.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import fithelper.commons.exceptions.IllegalValueException;
-import fithelper.model.UserProfile;
+
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.UserProfile;
 import fithelper.model.profile.Profile;
 
 /**

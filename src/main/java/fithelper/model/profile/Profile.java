@@ -1,12 +1,12 @@
 package fithelper.model.profile;
 
-import fithelper.model.weight.Bmi;
-import fithelper.model.weight.Weight;
-import fithelper.model.weight.WeightValue;
-
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+
+import fithelper.model.weight.Bmi;
+import fithelper.model.weight.Weight;
+import fithelper.model.weight.WeightValue;
 
 /**
  * Represents the user profile in the FitHelper.
@@ -58,7 +58,7 @@ public class Profile {
      * Every field must be present and not null.
      */
     public Profile(Name name, Gender gender, Age age, Address address, Height height,
-                   TargetWeight targetWeight, Weight Weight) {
+                   TargetWeight targetWeight, Weight weight) {
         requireAllNonNull(name, age, gender, address, height, targetWeight);
         this.name = name;
         this.age = age;
@@ -66,8 +66,8 @@ public class Profile {
         this.address = address;
         this.height = height;
         this.targetWeight = targetWeight;
-        this.currentWeight = Weight.getWeightValue();
-        this.currentBmi = Weight.getBmi();
+        this.currentWeight = weight.getWeightValue();
+        this.currentBmi = weight.getBmi();
     }
 
     public Name getName() {

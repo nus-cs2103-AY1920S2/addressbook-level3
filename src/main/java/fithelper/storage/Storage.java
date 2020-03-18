@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import fithelper.commons.exceptions.DataConversionException;
 import fithelper.model.ReadOnlyFitHelper;
-import fithelper.model.ReadOnlyUserPrefs;
 import fithelper.model.ReadOnlyUserProfile;
 
 /**

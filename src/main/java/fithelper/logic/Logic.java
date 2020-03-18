@@ -6,7 +6,6 @@ import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
 import fithelper.model.entry.Entry;

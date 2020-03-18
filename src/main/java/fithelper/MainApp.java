@@ -85,10 +85,12 @@ public class MainApp extends Application {
             }
             initialUserProfileData = userProfileOptional.orElseGet(SampleDataUtil::getSampleUserProfile);
         } catch (DataConversionException e) {
-            logger.warning("User Profile data file not in the correct format. Will be starting with an empty User Profile");
+            logger.warning("User Profile data file not in the correct format. "
+                    + "Will be starting with an empty User Profile");
             initialUserProfileData = getSampleUserProfile();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the user profile file. Will be starting with an empty User Profile");
+            logger.warning("Problem while reading from the user profile file. "
+                    + "Will be starting with an empty User Profile");
             initialUserProfileData = getSampleUserProfile();
         }
 

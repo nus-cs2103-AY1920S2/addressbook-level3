@@ -1,17 +1,17 @@
 package fithelper.storage;
 
-import fithelper.commons.core.LogsCenter;
-import fithelper.commons.exceptions.DataConversionException;
-import fithelper.commons.util.FileUtil;
-import fithelper.commons.util.JsonUtil;
-import fithelper.model.ReadOnlyUserProfile;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
+import fithelper.commons.core.LogsCenter;
+import fithelper.commons.exceptions.DataConversionException;
+import fithelper.commons.util.FileUtil;
+import fithelper.commons.util.JsonUtil;
+import fithelper.model.ReadOnlyUserProfile;
 
 /**
  * A class to access UserProfile data stored as a json file on the hard disk.

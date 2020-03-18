@@ -1,9 +1,8 @@
 package fithelper.model;
 
-import fithelper.model.profile.Profile;
-import javafx.collections.ObservableList;
-
 import static java.util.Objects.requireNonNull;
+
+import fithelper.model.profile.Profile;
 
 /**
  * Wraps all profile-related data at the UserProfile level
