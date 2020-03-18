@@ -17,7 +17,7 @@ public class DeleteModuleCommand extends Command {
     public static final String COMMAND_WORD = "Mdelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ":Deletes the modules specified in the NASA application"
+            + ": Deletes the modules specified in the NASA application"
             + ".\n "
             + "Parameters:"
             + PREFIX_MODULE + "....." + "\n"

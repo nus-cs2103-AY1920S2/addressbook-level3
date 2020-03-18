@@ -95,17 +95,19 @@
 }
 
 .list-cell {
+    -fx-padding: 2000px ;
     -fx-background-radius: 25;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
 }
 
 .list-cell:filled {
+    -fx-padding: 2px ;
     -fx-background-color: #32174d;
 }
 
 .list-cell:empty {
+    -fx-padding: 2px ;
     -fx-background-color: transparent;
 }
 
@@ -122,10 +124,24 @@
     -fx-text-fill: white;
 }
 
-.cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
+.activity_big_label {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 20px;
     -fx-text-fill: #010504;
+    -fx-font-weight: bold;
+}
+
+.activity_small_label {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+}
+
+.cell_big_label {
+    -fx-font-family: "Impact";
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+    -fx-padding: 10 10 10 10;
 }
 
 .cell_small_label {
@@ -142,6 +158,14 @@
      -fx-background-color: derive(#000000, 20%);
      -fx-border-color: derive(#000000, 10%);
      -fx-border-top-width: 1px;
+}
+
+.pane-with-rounded-border {
+    -fx-background-color: white;
+    -fx-border-color: derive(#000000, 10%);
+    -fx-border-top-width: 1px;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
 }
 
 .status-bar {
@@ -228,7 +252,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: black;
 }
 
 .button:pressed, .button:default:hover:pressed {
@@ -303,17 +327,18 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 0;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+    -fx-padding: 0;
 }
 
 #activityPane {
     -fx-background-color: #336699;
     -fx-border-width: 0;
     -fx-background-radius: 15;
+    -fx-padding: 10px;
 }
 
 #activityListView {
