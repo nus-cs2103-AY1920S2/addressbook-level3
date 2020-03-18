@@ -13,6 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.transaction.TransactionFactory;
 
 /**
  * Adds a transaction to the system.
@@ -30,8 +31,8 @@ public class AddTransactionCommand extends Command {
             + "[" + PREFIX_MONEY + "MONEY] "
             + "[" + PREFIX_TRANS_DESCIPTION + "DESCRIPTION] \n"
             + "Example: " + COMMAND_WORD
-            + PREFIX_CUSTOMER + "Bob "
-            + PREFIX_PRODUCT + "WaterMelon "
+            + PREFIX_CUSTOMER + "1 "
+            + PREFIX_PRODUCT + "1 "
             + PREFIX_DATETIME + "2020-02-20 10:00 "
             + PREFIX_QUANTITY + "30"
             + PREFIX_MONEY + "30 "
@@ -40,16 +41,18 @@ public class AddTransactionCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book";
 
-    private final Transaction toAdd;
+    private final TransactionFactory transactionFactory;
 
-    public AddTransactionCommand(Transaction transaction) {
-        requireNonNull(transaction);
-        toAdd = transaction;
+    public AddTransactionCommand(TransactionFactory transactionFactory) {
+        requireNonNull(transactionFactory);
+        this.transactionFactory = transactionFactory;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        Transaction toAdd = transactionFactory.createTransaction(model);
 
         if (model.hasTransaction(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);

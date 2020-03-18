@@ -45,8 +45,8 @@ public class TransactionCard extends UiPart<Region> {
         super(FXML);
         this.transaction = transaction;
         id.setText(displayedIndex + ". ");
-        customer.setText(transaction.getCustomer());
-        product.setText(transaction.getProduct());
+        customer.setText(transaction.getCustomer().getName().toString());
+        product.setText(transaction.getProduct().getDescription().toString());
         dateTime.setText(transaction.getDateTime().toString());
         quantity.setText(transaction.getQuantity().value);
         money.setText(transaction.getMoney().value);
