@@ -1,0 +1,76 @@
+package seedu.address.logic.parser.transaction;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import seedu.address.logic.commands.transaction.FindTransactionCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.transaction.CustomerContainsKeywordPredicate;
+import seedu.address.model.transaction.DateTime;
+import seedu.address.model.transaction.DateTimeEqualsPredicate;
+import seedu.address.model.transaction.JointTransactionPredicate;
+import seedu.address.model.transaction.ProductContainsKeywordPredicate;
+import seedu.address.model.transaction.Transaction;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
+
+
+/**
+ * Parse input arguments and creates a new FindCommand object.
+ */
+public class FindTransactionCommandParser implements Parser<FindTransactionCommand> {
+    private final List<Predicate<Transaction>> predicates = new ArrayList<>() ;
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the FindTransactionCommand
+     * and returns a FindTransactionCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public FindTransactionCommand parse(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME);
+
+        if (!anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER, PREFIX_PRODUCT, PREFIX_DATETIME)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTransactionCommand.MESSAGE_USAGE));
+        }
+
+        if (anyPrefixesPresent(argMultimap, PREFIX_CUSTOMER)) {
+            String customerArgs = ParserUtil.parseCustomer(argMultimap.getValue(PREFIX_CUSTOMER).get()).trim();
+            String[] customerKeywords = customerArgs.split("\\s+");
+            predicates.add(new CustomerContainsKeywordPredicate(Arrays.asList(customerKeywords)));
+        }
+        if (anyPrefixesPresent(argMultimap, PREFIX_PRODUCT)) {
+            String productArgs = ParserUtil.parseProduct(argMultimap.getValue(PREFIX_PRODUCT).get()).trim();
+            String[] productKeywords = productArgs.split("\\s+");
+            predicates.add(new ProductContainsKeywordPredicate(Arrays.asList(productKeywords)));
+        }
+        if (anyPrefixesPresent(argMultimap, PREFIX_DATETIME)) {
+            DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
+            predicates.add(new DateTimeEqualsPredicate(dateTime));
+        }
+
+        return new FindTransactionCommand(new JointTransactionPredicate(predicates));
+    }
+
+    /**
+     * Returns true if any of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+}

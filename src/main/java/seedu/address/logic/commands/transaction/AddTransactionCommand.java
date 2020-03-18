@@ -1,8 +1,12 @@
 package seedu.address.logic.commands.transaction;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
