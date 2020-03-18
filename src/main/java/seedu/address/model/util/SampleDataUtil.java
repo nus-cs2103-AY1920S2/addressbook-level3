@@ -1,15 +1,14 @@
 package seedu.address.model.util;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.RestaurantBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
@@ -61,8 +60,12 @@ public class SampleDataUtil {
     public static Restaurant[] getSampleRestaurants() {
         SOMEMORE_REMARK.add(new seedu.address.model.restaurant.Remark("Place is clean"));
         return new Restaurant[] {
-                new Restaurant(new seedu.address.model.restaurant.Name("McDonalds"), new Location("West Coast"), new Hours("0000:0000"),
-                        new Price("$"), new Cuisine("Fast Food"), SOMEMORE_REMARK)
+                new Restaurant(new seedu.address.model.restaurant.Name("McDonalds"),
+                        new Location("West Coast"),
+                        new Hours("0000:0000"),
+                        new Price("$"),
+                        new Cuisine("Fast Food"),
+                        SOMEMORE_REMARK)
         };
     }
 

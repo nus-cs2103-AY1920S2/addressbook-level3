@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.RestaurantBook;
 import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.restaurant.Restaurant;
 
 /**
@@ -37,7 +37,11 @@ class JsonSerializableRestaurantBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableRestaurantBook}.
      */
     public JsonSerializableRestaurantBook(ReadOnlyRestaurantBook source) {
-        restaurants.addAll(source.getRestaurantsList().stream().map(JsonAdaptedRestaurant::new).collect(Collectors.toList()));
+        restaurants.addAll(source
+                .getRestaurantsList()
+                .stream()
+                .map(JsonAdaptedRestaurant::new)
+                .collect(Collectors.toList()));
     }
 
     /**

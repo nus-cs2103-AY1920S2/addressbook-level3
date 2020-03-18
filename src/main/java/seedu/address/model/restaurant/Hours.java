@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Hours {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Hours should only contain of this format XXXX:YYYY, where XXXX and YYYY are the opening and closing times.";
+            "Hours should only contain of this format XXXX:YYYY, where XXXX and YYYY are the opening & closing times.";
 
     /*
      *

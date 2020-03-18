@@ -33,7 +33,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook, ReadOnlyScheduler scheduler, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
+                        ReadOnlyScheduler scheduler, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, scheduler, userPrefs);
 

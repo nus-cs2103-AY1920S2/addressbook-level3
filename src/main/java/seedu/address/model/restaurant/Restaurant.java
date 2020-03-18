@@ -3,16 +3,11 @@ package seedu.address.model.restaurant;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Objects;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ModelManager;
-import seedu.address.model.restaurant.Remark;
 
 /**
  * Represents a Person in the address book.
@@ -33,7 +28,8 @@ public class Restaurant {
     private final ArrayList<Remark> remarks = new ArrayList<>();
 
 
-    public Restaurant(Name name, Location location, Hours hours, Price price, Cuisine cuisine, ArrayList<Remark> remark) {
+    public Restaurant(Name name, Location location, Hours hours, Price price, Cuisine cuisine,
+                      ArrayList<Remark> remark) {
         requireAllNonNull(name, location);
         this.name = name;
         this.location = location;

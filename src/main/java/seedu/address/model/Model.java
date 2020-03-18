@@ -121,7 +121,8 @@ public interface Model {
     /**
      * Replaces the given restaurant {@code target} with {@code editedRestaurant}.
      * {@code target} must exist in the restaurant book.
-     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the restaurant book.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the
+     * restaurant book.
      */
     void setRestaurant(Restaurant target, Restaurant editedRestaurant);
 
