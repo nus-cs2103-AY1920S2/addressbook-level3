@@ -1,6 +1,6 @@
 package seedu.eylah.diettracker.logic;
 
-import java.io.IOException;
+// import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
@@ -43,11 +43,11 @@ public class LogicManager implements Logic {
         Command command = foodBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        try {
-            storage.saveFoodBook(model.getFoodBook());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
+        //try {
+        //    storage.saveFoodBook(model.getFoodBook());
+        //} catch (IOException ioe) {
+        //    throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        //}
 
         return commandResult;
     }

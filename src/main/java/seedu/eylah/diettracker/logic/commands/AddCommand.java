@@ -1,6 +1,7 @@
 package seedu.eylah.diettracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -17,11 +18,11 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a food to the food book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + " NAME "
+            + PREFIX_CALORIES + " CALORIES "
+            + PREFIX_TAG + " [TAGS] ";
 
-    public static final String MESSAGE_SUCCESS = "New food added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New Food Added: %1$s";
     public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in the food book";
 
     private final Food toAdd;

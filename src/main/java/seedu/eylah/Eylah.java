@@ -1,6 +1,5 @@
 package seedu.eylah;
 
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 import seedu.eylah.commons.core.LogsCenter;
@@ -12,6 +11,7 @@ import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.ModelManager;
+import seedu.eylah.ui.Ui;
 
 /**
  * The main entry for the EYLAH.
@@ -27,8 +27,11 @@ public class Eylah {
     protected seedu.eylah.expensesplitter.logic.Logic splitterLogic;
     protected seedu.eylah.expensesplitter.model.Model splitterModel;
 
+    private Ui ui;
+
     public Eylah() {
         logger.info("=============================[ Initializing EYLAH ]===========================");
+        ui = new Ui();
     }
 
     /**
@@ -40,9 +43,9 @@ public class Eylah {
      */
     public void run() {
         boolean isExit = false;
-        Scanner scanner = new Scanner(System.in);
+        ui.showWelcome();
         System.out.println("Enter mode (diet/splitting): ");
-        String input = scanner.nextLine();
+        String input = ui.readCommand();
         if (input.equals("diet")) {
             // Diet mode
             logger.info("Entering Diet MODE.");
@@ -50,14 +53,17 @@ public class Eylah {
             dietLogic = new LogicManager(dietModel, null);
             while (!isExit) {
                 System.out.println("Enter Diet Command: ");
-                input = scanner.nextLine();
+                input = ui.readCommand();
+                if (input.equals("exit")) {
+                    ui.showExit();
+                    break;
+                }
                 try {
                     CommandResult commandResult = dietLogic.execute(input);
                     // Here will print out the respond to user
-                    System.out.println(commandResult.getFeedbackToUser());
+                    ui.showResult(commandResult.getFeedbackToUser());
                 } catch (CommandException | ParseException e) {
-                    e.printStackTrace();
-                    break;
+                    ui.showError(e.getMessage());
                 }
             }
         } else {
@@ -67,16 +73,19 @@ public class Eylah {
             splitterLogic = new seedu.eylah.expensesplitter.logic.LogicManager(splitterModel, null);
             while (!isExit) {
                 System.out.println("Enter Splitting Command: ");
-                input = scanner.nextLine();
+                input = ui.readCommand();
+                if (input.equals("exit")) {
+                    ui.showExit();
+                    break;
+                }
                 try {
                     seedu.eylah.expensesplitter.logic.commands.CommandResult commandResult =
                             splitterLogic.execute(input);
                     // Here will print out the respond to user
-                    System.out.println(commandResult.getFeedbackToUser());
+                    ui.showResult(commandResult.getFeedbackToUser());
                 } catch (seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException
                         | seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException e) {
-                    e.printStackTrace();
-                    break;
+                    ui.showError(e.getMessage());
                 }
             }
         }

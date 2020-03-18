@@ -91,10 +91,11 @@ public class Item {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getItemName())
-                .append(" Item Price: $")
+        String formattedItemName = getItemName().toString().substring(0, 1).toUpperCase()
+                + getItemName().toString().substring(1).toLowerCase();
+        builder.append(formattedItemName)
+                .append(" | Price: $")
                 .append(getItemPrice());
-
         return builder.toString();
     }
 }
