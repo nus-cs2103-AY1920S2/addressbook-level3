@@ -52,8 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *r/* remark
 * *i/* index
 * *k/* keyword (in `find`)
-* *[DATE]* a date in the fixed format of yyyy-mm-dd
-* *[TIME]* a time in the fixed format of yyyy-mm-dd-hh-mm
+* *[DATE]* txt containing relevant date information
+* *[TIME]* a time in the fixed format of txt hh:mm
 * *[INDEX]* a positive integer indicating the position of an entry in the list
 
 [[Features]]
