@@ -14,6 +14,7 @@ import seedu.address.model.ReadOnlyInventorySystem;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.storage.customer.JsonAdaptedCustomer;
 import seedu.address.storage.product.JsonAdaptedProduct;
 import seedu.address.storage.transaction.JsonAdaptedTransaction;
 

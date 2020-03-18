@@ -52,7 +52,7 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyInventorySystem addressBook);
+    void setAddressBook(ReadOnlyInventorySystem addressBook, String commandWord);
 
     /** Returns the InventorySystem */
     ReadOnlyInventorySystem getAddressBook();

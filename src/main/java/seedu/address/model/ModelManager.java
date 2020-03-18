@@ -86,8 +86,8 @@ public class ModelManager implements Model {
     //=========== InventorySystem ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyInventorySystem addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setAddressBook(ReadOnlyInventorySystem addressBook, String commandWord) {
+        this.addressBook.resetData(addressBook, commandWord);
     }
 
     @Override

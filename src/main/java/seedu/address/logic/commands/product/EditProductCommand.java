@@ -66,7 +66,7 @@ public class EditProductCommand extends Command {
         List<Product> lastShownList = model.getFilteredProductList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
         }
 
         Product productToEdit = lastShownList.get(index.getZeroBased());

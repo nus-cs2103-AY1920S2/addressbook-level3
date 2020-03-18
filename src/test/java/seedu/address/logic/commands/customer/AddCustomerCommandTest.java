@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.customer;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.customer.AddCustomerCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.InventorySystem;
 import seedu.address.model.Model;
@@ -124,7 +124,7 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyInventorySystem newData) {
+        public void setAddressBook(ReadOnlyInventorySystem newData, String commandWord) {
             throw new AssertionError("This method should not be called.");
         }
 

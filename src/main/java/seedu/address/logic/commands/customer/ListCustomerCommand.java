@@ -15,12 +15,16 @@ public class ListCustomerCommand extends Command {
     public static final String COMMAND_WORD = "listc";
 
     public static final String MESSAGE_SUCCESS = "Listed all customers";
+    public static final String MESSAGE_EMPTY = "There are no customers in the list!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCustomerList(PREDICATE_SHOW_ALL_PERSONS);
+        if (model.getFilteredCustomerList().size() == 0) {
+            return new CommandResult(MESSAGE_EMPTY);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
