@@ -2,6 +2,7 @@
   "persons": [ {
     "name": "Alice Pauline",
     "amount": "100.00",
+    "positive": true,
     "address": "2020-07-02",
     "tagged": [ "friends" ]
   }, {

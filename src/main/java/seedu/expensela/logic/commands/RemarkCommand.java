@@ -1,6 +1,6 @@
-package seedu.address.logic.commands;
+package seedu.expensela.logic.commands;
 
-import seedu.address.model.Model;
+import seedu.expensela.model.Model;
 
 /**
  * Changes the remark of an existing person in the address book.

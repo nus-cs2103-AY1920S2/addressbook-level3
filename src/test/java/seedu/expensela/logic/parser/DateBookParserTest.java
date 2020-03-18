@@ -17,7 +17,6 @@ import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.logic.commands.ClearCommand;
 import seedu.expensela.logic.commands.DeleteCommand;
 import seedu.expensela.logic.commands.EditCommand;
-import seedu.expensela.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.expensela.logic.commands.ExitCommand;
 import seedu.expensela.logic.commands.FindCommand;
 import seedu.expensela.logic.commands.HelpCommand;
@@ -56,7 +55,7 @@ public class DateBookParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Transaction transaction = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(transaction).build();
+        EditCommand.editTransaction descriptor = new EditPersonDescriptorBuilder(transaction).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);

@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.logic.commands.exceptions.CommandException;
-import seedu.expensela.model.AddressBook;
+import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
-import seedu.expensela.model.ReadOnlyAddressBook;
+import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.TransactionBuilder;
@@ -114,12 +114,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setExpenseLa(ReadOnlyExpenseLa newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyExpenseLa getExpenseLa() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -186,8 +186,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyExpenseLa getExpenseLa() {
+            return new ExpenseLa();
         }
     }
 

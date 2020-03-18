@@ -2,15 +2,11 @@ package seedu.expensela.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.expensela.logic.parser.CliSyntax.*;
 
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.EditCommand;
-import seedu.expensela.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.expensela.logic.commands.EditCommand.editTransaction;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,7 +22,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK, PREFIX_CATEGORY);
 
         Index index;
 
@@ -36,22 +32,28 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditCommand.editTransaction editTransaction = new editTransaction();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editTransaction.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            editPersonDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_PHONE).get()));
+        if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
+            editTransaction.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            editPersonDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            editTransaction.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
+            editTransaction.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+        }
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            editTransaction.setCategory(ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get()));
         }
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editTransaction.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editTransaction);
     }
 
 }

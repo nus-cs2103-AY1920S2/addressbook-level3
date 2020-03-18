@@ -1,5 +1,7 @@
 package seedu.expensela.model.transaction;
 
+import java.text.DecimalFormat;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
@@ -12,27 +14,26 @@ public class Amount {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Amount should only contain numbers with 2 decimal places";
-    public static final String VALIDATION_REGEX = "\\d{1,}\\.\\d{2}";
-    public final int dollarValue;
-    public final int centValue;
+    public static final String VALIDATION_REGEX = "^(?=.*[1-9])\\d{1,9}(?:\\.\\d{0,2})?$";
+    public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
+    public final Double transactionAmount;
     public final boolean positive;
 
     /**
      * Constructs a {@code Amount}.
      *
-     * @param value A valid transaction amount.
+     * @param value A valid transaction transactionAmount.
      */
     public Amount(String value, boolean positive) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
         String[] tokens = value.split(".");
-        this.dollarValue = Integer.parseInt(tokens[0]);
-        this.centValue = Integer.parseInt(tokens[1]);
+        this.transactionAmount = Double.parseDouble(value);
         this.positive = positive;
     }
 
     /**
-     * Returns true if a given string is a valid transaction amount.
+     * Returns true if a given string is a valid transaction transactionAmount.
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -46,7 +47,7 @@ public class Amount {
         } else {
             printedAmount = "- $";
         }
-        printedAmount += dollarValue + "." + centValue;
+        printedAmount += transactionAmount;
         return printedAmount;
     }
 
@@ -54,13 +55,12 @@ public class Amount {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Amount // instanceof handles nulls
-                && dollarValue == ((Amount) other).dollarValue //state check
-                && centValue == ((Amount) other).centValue); // state check
+                && transactionAmount.equals(((Amount) other).transactionAmount)); //state check
     }
 
     @Override
     public int hashCode() {
-        return (dollarValue + "." + centValue).hashCode();
+        return transactionAmount.hashCode();
     }
 
 }

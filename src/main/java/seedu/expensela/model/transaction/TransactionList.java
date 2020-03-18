@@ -12,33 +12,33 @@ import seedu.expensela.model.transaction.exceptions.DuplicateTransactionExceptio
 import seedu.expensela.model.transaction.exceptions.TransactionNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of transactions that enforces uniqueness between its elements and does not allow nulls.
+ * A transaction is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
+ * transaction uses Person#isSamePerson(Person) for equality so as to ensure that the transaction being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a transaction uses Person#equals(Object) so
+ * as to ensure that the transaction with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Transaction#isSamePerson(Transaction)
+ * @see Transaction#isSameTransaction(Transaction)
  */
-public class UniqueTransactionList implements Iterable<Transaction> {
+public class TransactionList implements Iterable<Transaction> {
 
     private final ObservableList<Transaction> internalList = FXCollections.observableArrayList();
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent transaction as the given argument.
      */
     public boolean contains(Transaction toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameTransaction);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a transaction to the list.
+     * The transaction must not already exist in the list.
      */
     public void add(Transaction toAdd) {
         requireNonNull(toAdd);
@@ -49,11 +49,11 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the transaction {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The transaction identity of {@code editedPerson} must not be the same as another existing transaction in the list.
      */
-    public void setPerson(Transaction target, Transaction editedTransaction) {
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
         int index = internalList.indexOf(target);
@@ -61,7 +61,7 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new TransactionNotFoundException();
         }
 
-        if (!target.isSamePerson(editedTransaction) && contains(editedTransaction)) {
+        if (!target.isSameTransaction(editedTransaction) && contains(editedTransaction)) {
             throw new DuplicateTransactionException();
         }
 
@@ -69,8 +69,8 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent transaction from the list.
+     * The transaction must exist in the list.
      */
     public void remove(Transaction toRemove) {
         requireNonNull(toRemove);
@@ -79,21 +79,17 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         }
     }
 
-    public void setPersons(UniqueTransactionList replacement) {
+    public void setTransaction(TransactionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code transaction}.
+     * {@code transaction} must not contain duplicate transaction.
      */
-    public void setPersons(List<Transaction> transactions) {
+    public void setTransaction(List<Transaction> transactions) {
         requireAllNonNull(transactions);
-        if (!personsAreUnique(transactions)) {
-            throw new DuplicateTransactionException();
-        }
-
         internalList.setAll(transactions);
     }
 
@@ -112,8 +108,8 @@ public class UniqueTransactionList implements Iterable<Transaction> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTransactionList // instanceof handles nulls
-                        && internalList.equals(((UniqueTransactionList) other).internalList));
+                || (other instanceof TransactionList // instanceof handles nulls
+                        && internalList.equals(((TransactionList) other).internalList));
     }
 
     @Override
@@ -121,17 +117,4 @@ public class UniqueTransactionList implements Iterable<Transaction> {
         return internalList.hashCode();
     }
 
-    /**
-     * Returns true if {@code persons} contains only unique persons.
-     */
-    private boolean personsAreUnique(List<Transaction> transactions) {
-        for (int i = 0; i < transactions.size() - 1; i++) {
-            for (int j = i + 1; j < transactions.size(); j++) {
-                if (transactions.get(i).isSamePerson(transactions.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }

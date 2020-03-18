@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.expensela.commons.core.LogsCenter;
+import seedu.expensela.model.monthlydata.MonthlyData;
 
 /**
  * Panel containing the list of persons.
@@ -15,9 +16,18 @@ public class MonthlyDataPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(MonthlyDataPanel.class);
 
     @FXML
-    private Label monthlyLabel;
+    private Label expenditureLabel;
 
-    public MonthlyDataPanel() {
+    @FXML
+    private Label budgetLabel;
+
+    @FXML
+    private Label incomeLabel;
+
+    @FXML
+    private Label balanceLabel;
+
+    public MonthlyDataPanel(MonthlyData monthlyData) {
         super(FXML);
     }
 

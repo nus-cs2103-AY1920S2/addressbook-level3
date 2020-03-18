@@ -1,12 +1,13 @@
 package seedu.expensela.model;
 
 import javafx.collections.ObservableList;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyExpenseLa {
 
     /**
      * Returns an unmodifiable view of the persons list.
@@ -14,4 +15,5 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Transaction> getPersonList();
 
+    MonthlyData getMonthlyData();
 }
