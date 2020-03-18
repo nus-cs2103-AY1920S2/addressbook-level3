@@ -94,9 +94,11 @@ public class Food {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Calories: ")
-                .append(getCalories())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getCalories());
+        if (!tags.isEmpty()) {
+            builder.append(" Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 }
