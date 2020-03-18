@@ -5,19 +5,18 @@ import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.Assert.assertThrows;
 
-import nasa.logic.commands.exceptions.CommandException;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
 import nasa.model.Model;
+import nasa.model.ModelManager;
+import nasa.model.UserPrefs;
+import nasa.model.NasaBook;import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.activity.Deadline;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 import nasa.testutil.DeadlineBuilder;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import nasa.model.ModelManager;
-import nasa.model.UserPrefs;
-import nasa.model.NasaBook;
 
 public class AddDeadlineCommandTest {
 

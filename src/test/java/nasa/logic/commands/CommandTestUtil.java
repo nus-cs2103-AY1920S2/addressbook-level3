@@ -2,14 +2,14 @@ package nasa.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
-import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
-import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
+import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
+import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -65,8 +65,10 @@ public class CommandTestUtil {
         + "        "; //only whitespaces
     public static final String INVALID_PRIORITY_DESC = " " + PREFIX_PRIORITY + "r"; //not an integer
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2020-12-31 11:00"; //not DD-MM-YYYY HH:MM format
-    public static final String INVALID_DATE_FROM_DESC = " " + PREFIX_START_DATE + "2020-12-31 11:00"; // not DD-MM-YYYY HH:MM format
-    public static final String INVALID_DATE_TO_DESC = " " + PREFIX_END_DATE + "2020-12-31 11:00"; // not DD-MM-YYYY HH:MM format
+    public static final String INVALID_DATE_FROM_DESC = " " + PREFIX_START_DATE
+        + "2020-12-31 11:00"; // not DD-MM-YYYY HH:MM format
+    public static final String INVALID_DATE_TO_DESC = " " + PREFIX_END_DATE
+        + "2020-12-31 11:00"; // not DD-MM-YYYY HH:MM format
 
     //extra test strings
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

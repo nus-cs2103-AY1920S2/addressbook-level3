@@ -1,10 +1,5 @@
 package nasa.logic.commands.addcommands;
 
-import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
-import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
-import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static nasa.testutil.Assert.assertThrows;
-
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Event;
@@ -18,6 +13,10 @@ import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
 import nasa.model.NasaBook;
 import nasa.testutil.EventBuilder;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
+import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static nasa.testutil.Assert.assertThrows;
 
 public class AddEventCommandTest {
 

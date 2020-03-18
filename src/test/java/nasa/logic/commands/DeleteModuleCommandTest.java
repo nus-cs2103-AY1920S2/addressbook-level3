@@ -22,7 +22,8 @@ public class DeleteModuleCommandTest {
         Module moduleToDelete = model.getFilteredModuleList().get(INDEX_FIRST_ACTIVITY.getZeroBased());
         DeleteModuleCommand deleteCommand = new DeleteModuleCommand(moduleToDelete.getModuleCode());
 
-        String expectedMessage = String.format(moduleToDelete.getModuleCode().toString() + DeleteModuleCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(moduleToDelete.getModuleCode().toString()
+            + DeleteModuleCommand.MESSAGE_SUCCESS);
 
         ModelManager expectedModel = new ModelManager(model.getNasaBook(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);
