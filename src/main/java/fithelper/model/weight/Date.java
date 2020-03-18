@@ -3,7 +3,7 @@ package fithelper.model.weight;
 import static fithelper.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -16,7 +16,7 @@ public class Date {
 
     public static final DateTimeFormatter PARSE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public final LocalTime value;
+    public final LocalDate value;
     /**
      * Constructs an {@code Time}.
      *
@@ -25,7 +25,7 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
-        value = LocalTime.parse(date, PARSE_FORMAT);
+        value = LocalDate.parse(date, PARSE_FORMAT);
     }
 
     /**
@@ -33,7 +33,7 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         try {
-            LocalTime.parse(test, PARSE_FORMAT);
+            LocalDate.parse(test, PARSE_FORMAT);
         } catch (Exception e) {
             return false;
         }

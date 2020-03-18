@@ -23,7 +23,7 @@ public class SportsListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code SportsCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Entry} using a {@code SportsCard}.
      */
     class SportsListViewCell extends ListCell<Entry> {
         @Override

@@ -109,7 +109,7 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(calendarPanel.getRoot());
         helpWindow = new HelpWindow();
         setAllPageAnchor(helpWindow.getRoot());
-        profilePage = new ProfilePage();
+        profilePage = new ProfilePage(logic.getUserProfile());
         setAllPageAnchor(profilePage.getRoot());
         weightPage = new WeightPage();
         setAllPageAnchor(weightPage.getRoot());
