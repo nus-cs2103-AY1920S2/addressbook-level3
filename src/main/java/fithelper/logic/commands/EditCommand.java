@@ -28,6 +28,7 @@ import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
 
+
 /**
  * Edits the details of an existing entry in the location book.
  */
@@ -94,7 +95,9 @@ public class EditCommand extends Command {
         }
 
         model.setEntry(entryToEdit, editedEntry);
+        model.setVevent(entryToEdit, editedEntry);
         model.updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+        //model.updateFil
         return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedEntry));
     }
 
