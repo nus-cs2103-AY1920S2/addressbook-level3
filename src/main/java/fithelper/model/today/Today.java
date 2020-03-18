@@ -1,8 +1,8 @@
 package fithelper.model.today;
 
-import java.util.Objects;
-
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 import fithelper.model.entry.UniqueEntryList;
 
