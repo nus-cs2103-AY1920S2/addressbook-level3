@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.CommandWords.ADD_MODEL;
-import static seedu.address.logic.commands.CommandWords.MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -15,12 +13,12 @@ import seedu.address.model.module.Module;
  */
 public class AddModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = MODULE;
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + ADD_MODEL + ": Adds a module to the TA-Tracker. "
+    public static final String COMMAND_WORD = CommandWords.MODULE + " " + CommandWords.ADD_MODEL;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a module to the TA-Tracker. "
             + "Parameters: "
             + PREFIX_NAME + "MODULE NAME "
             + PREFIX_MODULE + "MODULE CODE "
-            + "Example: " + COMMAND_WORD + " " + ADD_MODEL + " "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Introduction to AI "
             + PREFIX_MODULE + "CS3243 ";
 

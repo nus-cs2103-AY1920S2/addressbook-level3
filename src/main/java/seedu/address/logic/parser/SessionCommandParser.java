@@ -10,6 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandWords;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.session.EditSessionCommandParser;
 
 /**
  * Parses user input into commands that interact with Session models.
@@ -49,8 +50,8 @@ public class SessionCommandParser {
             throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Delete session commands"));
 
         case CommandWords.EDIT_MODEL:
-            // return new EditSessionCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit session commands"));
+            return new EditSessionCommandParser().parse(arguments);
+            // throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit session commands"));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
