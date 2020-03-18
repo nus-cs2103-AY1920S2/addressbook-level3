@@ -17,7 +17,7 @@ import seedu.zerotoone.logic.commands.AddCommand;
 import seedu.zerotoone.logic.commands.ClearCommand;
 import seedu.zerotoone.logic.commands.DeleteCommand;
 import seedu.zerotoone.logic.commands.EditCommand;
-import seedu.zerotoone.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.zerotoone.logic.commands.EditCommand.EditExerciseDescriptor;
 import seedu.zerotoone.logic.commands.ExitCommand;
 import seedu.zerotoone.logic.commands.FindCommand;
 import seedu.zerotoone.logic.commands.HelpCommand;
