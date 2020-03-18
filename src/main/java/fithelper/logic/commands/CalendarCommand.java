@@ -28,8 +28,8 @@ public class CalendarCommand extends Command {
         if (dateToSet != null) {
             model.setCalendarDate(dateToSet);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date:" +
-                model.getCalendarDate().toLocalDate()), CALENDAR, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date:"
+                + model.getCalendarDate().toLocalDate()), CALENDAR, false);
     }
 
     public void setDate(String date) {
