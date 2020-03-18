@@ -10,13 +10,13 @@ import seedu.address.commons.util.StringUtil;
  */
 public class OrderContainsKeywordsPredicate implements Predicate<Order> {
     private final List<String> keywords;
-    private boolean hasTID;
+    private boolean hasTid;
     private boolean hasName;
     private boolean hasPhone;
     private boolean hasAddress;
     private boolean hasTimeStamp;
     private boolean hasWarehouse;
-    private boolean hasCOD;
+    private boolean hasCod;
     private boolean hasComment;
     private boolean hasItemType;
     private boolean isGeneralSearch = true;
@@ -26,17 +26,17 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
         this.keywords = keywords;
     }
 
-    public OrderContainsKeywordsPredicate(List<String> keywords, boolean hasTID, boolean hasName, boolean hasPhone,
+    public OrderContainsKeywordsPredicate(List<String> keywords, boolean hasTid, boolean hasName, boolean hasPhone,
                                           boolean hasAddress, boolean hasTimeStamp, boolean hasWarehouse,
-                                          boolean hasCOD, boolean hasComment, boolean hasItemType) {
+                                          boolean hasCod, boolean hasComment, boolean hasItemType) {
         this.keywords = keywords;
-        this.hasTID = hasTID;
+        this.hasTid = hasTid;
         this.hasName = hasName;
         this.hasPhone = hasPhone;
         this.hasAddress = hasAddress;
         this.hasTimeStamp = hasTimeStamp;
         this.hasWarehouse = hasWarehouse;
-        this.hasCOD = hasCOD;
+        this.hasCod = hasCod;
         this.hasComment = hasComment;
         this.hasItemType = hasItemType;
         this.isGeneralSearch = false;
@@ -59,15 +59,15 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
                 );
         }
         return keywords.stream()
-            .anyMatch(keyword -> (
-                (hasTID && StringUtil.containsWordIgnoreCase(order.getTid().tid, keyword))
+            .anyMatch(keyword -> ((
+                hasTid && StringUtil.containsWordIgnoreCase(order.getTid().tid, keyword))
                 || (hasName && StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword))
                 || (hasPhone && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
                 || (hasAddress && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
                 || (hasTimeStamp && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
                 || (hasWarehouse && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
                 || (hasComment && StringUtil.containsWordIgnoreCase(order.getComment().commentMade, keyword))
-                || (hasCOD && StringUtil.containsWordIgnoreCase(order.getCash().cashOnDelivery, keyword))
+                || (hasCod && StringUtil.containsWordIgnoreCase(order.getCash().cashOnDelivery, keyword))
                 || (hasItemType && StringUtil.containsWordIgnoreCase(order.getItemType().itemType, keyword))
             ));
     }

@@ -48,17 +48,17 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             return new SearchCommand(new OrderContainsKeywordsPredicate(keywords));
         }
 
-        boolean hasTID = argMultimap.getValue(PREFIX_TID).isPresent();
+        boolean hasTid = argMultimap.getValue(PREFIX_TID).isPresent();
         boolean hasName = argMultimap.getValue(PREFIX_NAME).isPresent();
         boolean hasPhone = argMultimap.getValue(PREFIX_PHONE).isPresent();
         boolean hasAddress = argMultimap.getValue(PREFIX_ADDRESS).isPresent();
         boolean hasTimeStamp = argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent();
         boolean hasWarehouse = argMultimap.getValue(PREFIX_WAREHOUSE).isPresent();
-        boolean hasCOD = argMultimap.getValue(PREFIX_COD).isPresent();
+        boolean hasCod = argMultimap.getValue(PREFIX_COD).isPresent();
         boolean hasComment = argMultimap.getValue(PREFIX_COMMENT).isPresent();
         boolean hasItemType = argMultimap.getValue(PREFIX_TYPE).isPresent();
 
-        if (hasTID) {
+        if (hasTid) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_TID);
         }
 
@@ -86,7 +86,7 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_COMMENT);
         }
 
-        if (hasCOD) {
+        if (hasCod) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_COD);
         }
 
@@ -95,8 +95,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         }
 
 
-        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, hasTID, hasName, hasPhone, hasAddress,
-            hasTimeStamp, hasWarehouse, hasCOD, hasComment, hasItemType));
+        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, hasTid, hasName, hasPhone, hasAddress,
+            hasTimeStamp, hasWarehouse, hasCod, hasComment, hasItemType));
     }
 
     /**
