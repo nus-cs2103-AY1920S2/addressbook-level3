@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.commons.util.JsonUtil;
 import seedu.zerotoone.model.exercise.ExerciseList;
+import seedu.zerotoone.storage.exercise.util.JacksonExerciseList;
 import seedu.zerotoone.testutil.TypicalExercises;
 
 public class JsonSerializableExerciseListTest {
@@ -22,8 +23,8 @@ public class JsonSerializableExerciseListTest {
 
     @Test
     public void toModelType_typicalExercisesFile_success() throws Exception {
-        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXERCISES_FILE,
-                JsonSerializableExerciseList.class).get();
+        JacksonExerciseList dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXERCISES_FILE,
+                JacksonExerciseList.class).get();
         ExerciseList exerciseListFromFile = dataFromFile.toModelType();
         ExerciseList typicalExercisesExerciseList = TypicalExercises.getTypicalExerciseList();
         assertEquals(exerciseListFromFile, typicalExercisesExerciseList);
@@ -31,16 +32,16 @@ public class JsonSerializableExerciseListTest {
 
     @Test
     public void toModelType_invalidExerciseFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(INVALID_EXERCISE_FILE,
-                JsonSerializableExerciseList.class).get();
+        JacksonExerciseList dataFromFile = JsonUtil.readJsonFile(INVALID_EXERCISE_FILE,
+                JacksonExerciseList.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicateExercises_throwsIllegalValueException() throws Exception {
-        JsonSerializableExerciseList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXERCISE_FILE,
-                JsonSerializableExerciseList.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableExerciseList.MESSAGE_DUPLICATE_EXERCISE,
+        JacksonExerciseList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_EXERCISE_FILE,
+                JacksonExerciseList.class).get();
+        assertThrows(IllegalValueException.class, JacksonExerciseList.MESSAGE_DUPLICATE_EXERCISE,
                 dataFromFile::toModelType);
     }
 

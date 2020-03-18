@@ -14,6 +14,7 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 
 public class StorageManagerTest {
@@ -25,7 +26,7 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonExerciseListStorage exerciseListStorage = new JsonExerciseListStorage(getTempFilePath("ab"));
+        ExerciseListStorageManager exerciseListStorage = new ExerciseListStorageManager(getTempFilePath("ab"));
         UserPrefsStorageManager userPrefsStorage = new UserPrefsStorageManager(getTempFilePath("prefs"));
         storageManager = new StorageManager(exerciseListStorage, userPrefsStorage);
     }

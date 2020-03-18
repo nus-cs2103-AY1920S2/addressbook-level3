@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage;
+package seedu.zerotoone.storage.exercise;
 
 import static java.util.Objects.requireNonNull;
 
@@ -13,17 +13,18 @@ import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.commons.util.FileUtil;
 import seedu.zerotoone.commons.util.JsonUtil;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.storage.exercise.util.JacksonExerciseList;
 
 /**
  * A class to access ExerciseList data stored as a json file on the hard disk.
  */
-public class JsonExerciseListStorage implements ExerciseListStorage {
+public class ExerciseListStorageManager implements ExerciseListStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonExerciseListStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(ExerciseListStorageManager.class);
 
     private Path filePath;
 
-    public JsonExerciseListStorage(Path filePath) {
+    public ExerciseListStorageManager(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -45,8 +46,8 @@ public class JsonExerciseListStorage implements ExerciseListStorage {
     public Optional<ReadOnlyExerciseList> readExerciseList(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableExerciseList> jsonExerciseList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableExerciseList.class);
+        Optional<JacksonExerciseList> jsonExerciseList = JsonUtil.readJsonFile(
+                filePath, JacksonExerciseList.class);
         if (!jsonExerciseList.isPresent()) {
             return Optional.empty();
         }
@@ -74,7 +75,7 @@ public class JsonExerciseListStorage implements ExerciseListStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableExerciseList(exerciseList), filePath);
+        JsonUtil.saveJsonFile(new JacksonExerciseList(exerciseList), filePath);
     }
 
 }

@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage;
+package seedu.zerotoone.storage.exercise;
 
 import java.io.IOException;
 import java.nio.file.Path;

@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage;
+package seedu.zerotoone.storage.exercise.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ import seedu.zerotoone.model.exercise.ExerciseSet;
 /**
  * Jackson-friendly version of {@link Exercise}.
  */
-class JsonAdaptedExercise {
+class JacksonExercise {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Exercise's %s field is missing!";
 
@@ -28,7 +28,7 @@ class JsonAdaptedExercise {
      * Constructs a {@code JsonAdaptedExercise} with the given exercise details.
      */
     @JsonCreator
-    public JsonAdaptedExercise(@JsonProperty("exerciseName") String exerciseName, @JsonProperty("phone") String phone,
+    public JacksonExercise(@JsonProperty("exerciseName") String exerciseName, @JsonProperty("phone") String phone,
                                @JsonProperty("email") String email, @JsonProperty("address") String address) {
         this.exerciseName = exerciseName;
     }
@@ -36,7 +36,7 @@ class JsonAdaptedExercise {
     /**
      * Converts a given {@code Exercise} into this class for Jackson use.
      */
-    public JsonAdaptedExercise(Exercise source) {
+    public JacksonExercise(Exercise source) {
         exerciseName = source.getExerciseName().fullName;
     }
 

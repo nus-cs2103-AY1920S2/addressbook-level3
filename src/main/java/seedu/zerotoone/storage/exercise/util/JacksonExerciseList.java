@@ -1,4 +1,4 @@
-package seedu.zerotoone.storage;
+package seedu.zerotoone.storage.exercise.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +17,17 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
  * An Immutable ExerciseList that is serializable to JSON format.
  */
 @JsonRootName(value = "exerciselist")
-class JsonSerializableExerciseList {
+class JacksonExerciseList {
 
     public static final String MESSAGE_DUPLICATE_EXERCISE = "Exercises list contains duplicate exercise(s).";
 
-    private final List<JsonAdaptedExercise> exercises = new ArrayList<>();
+    private final List<JacksonExercise> exercises = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableExerciseList} with the given exercises.
      */
     @JsonCreator
-    public JsonSerializableExerciseList(@JsonProperty("exercises") List<JsonAdaptedExercise> exercises) {
+    public JacksonExerciseList(@JsonProperty("exercises") List<JacksonExercise> exercises) {
         this.exercises.addAll(exercises);
     }
 
@@ -36,8 +36,8 @@ class JsonSerializableExerciseList {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableExerciseList}.
      */
-    public JsonSerializableExerciseList(ReadOnlyExerciseList source) {
-        exercises.addAll(source.getExerciseList().stream().map(JsonAdaptedExercise::new).collect(Collectors.toList()));
+    public JacksonExerciseList(ReadOnlyExerciseList source) {
+        exercises.addAll(source.getExerciseList().stream().map(JacksonExercise::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,7 +47,7 @@ class JsonSerializableExerciseList {
      */
     public ExerciseList toModelType() throws IllegalValueException {
         ExerciseList exerciseList = new ExerciseList();
-        for (JsonAdaptedExercise jsonAdaptedExercise : exercises) {
+        for (JacksonExercise jsonAdaptedExercise : exercises) {
             Exercise exercise = jsonAdaptedExercise.toModelType();
             if (exerciseList.hasExercise(exercise)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXERCISE);

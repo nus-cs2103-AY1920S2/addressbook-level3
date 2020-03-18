@@ -18,6 +18,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 
 public class JsonExerciseListStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonExerciseListStorageTest");
@@ -31,7 +32,7 @@ public class JsonExerciseListStorageTest {
     }
 
     private java.util.Optional<ReadOnlyExerciseList> readExerciseList(String filePath) throws Exception {
-        return new JsonExerciseListStorage(Paths.get(filePath)).readExerciseList(addToTestDataPathIfNotNull(filePath));
+        return new ExerciseListStorageManager(Paths.get(filePath)).readExerciseList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -64,7 +65,7 @@ public class JsonExerciseListStorageTest {
     public void readAndSaveExerciseList_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempExerciseList.json");
         ExerciseList original = getTypicalExerciseList();
-        JsonExerciseListStorage jsonExerciseListStorage = new JsonExerciseListStorage(filePath);
+        ExerciseListStorageManager jsonExerciseListStorage = new ExerciseListStorageManager(filePath);
 
         // Save in new file and read back
         jsonExerciseListStorage.saveExerciseList(original, filePath);
@@ -96,7 +97,7 @@ public class JsonExerciseListStorageTest {
      */
     private void saveExerciseList(ReadOnlyExerciseList exerciseList, String filePath) {
         try {
-            new JsonExerciseListStorage(Paths.get(filePath))
+            new ExerciseListStorageManager(Paths.get(filePath))
                     .saveExerciseList(exerciseList, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);

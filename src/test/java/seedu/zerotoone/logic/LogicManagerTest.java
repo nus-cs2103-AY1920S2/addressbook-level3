@@ -27,8 +27,8 @@ import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.UserPrefs;
-import seedu.zerotoone.storage.JsonExerciseListStorage;
 import seedu.zerotoone.storage.StorageManager;
+import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.testutil.ExerciseBuilder;
 
@@ -43,8 +43,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonExerciseListStorage exerciseListStorage =
-                new JsonExerciseListStorage(temporaryFolder.resolve("exerciseList.json"));
+        ExerciseListStorageManager exerciseListStorage =
+                new ExerciseListStorageManager(temporaryFolder.resolve("exerciseList.json"));
         UserPrefsStorageManager userPrefsStorage = new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(exerciseListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -71,7 +71,7 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonExerciseListIoExceptionThrowingStub
-        JsonExerciseListStorage exerciseListStorage =
+        ExerciseListStorageManager exerciseListStorage =
                 new JsonExerciseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
@@ -149,7 +149,7 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonExerciseListIoExceptionThrowingStub extends JsonExerciseListStorage {
+    private static class JsonExerciseListIoExceptionThrowingStub extends ExerciseListStorageManager {
         private JsonExerciseListIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
