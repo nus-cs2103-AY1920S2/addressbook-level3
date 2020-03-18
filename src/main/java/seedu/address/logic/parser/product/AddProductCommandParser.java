@@ -15,7 +15,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.product.Description;
+import seedu.address.model.util.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;

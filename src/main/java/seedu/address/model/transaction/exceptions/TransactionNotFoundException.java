@@ -1,0 +1,3 @@
+package seedu.address.model.transaction.exceptions;
+
+public class TransactionNotFoundException extends RuntimeException{}

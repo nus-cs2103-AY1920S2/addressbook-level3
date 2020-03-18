@@ -19,7 +19,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.product.Description;
+import seedu.address.model.util.Description;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
 import seedu.address.model.transaction.Transaction;
@@ -52,7 +52,8 @@ public class EditTransactionCommand extends Command {
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the transaction list.";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION =
+            "This transaction already exists in the transaction list.";
 
     private final Index index;
     private final EditTransactionDescriptor editTransactionDescriptor;
@@ -94,15 +95,20 @@ public class EditTransactionCommand extends Command {
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
      * edited with {@code editTransactionDescriptor}.
      */
-    private static Transaction createEditedTransaction(Transaction transactionToEdit, EditTransactionDescriptor editTransactionDescriptor) {
+    private static Transaction createEditedTransaction(Transaction transactionToEdit,
+                                                       EditTransactionDescriptor editTransactionDescriptor) {
         assert transactionToEdit != null;
 
-        Description updatedDescription = editTransactionDescriptor.getDescription().orElse(transactionToEdit.getDescription());
-        Price updatedPrice = editTransactionDescriptor.getPrice().orElse(transactionToEdit.getPrice());
+        String updatedCustomer = editTransactionDescriptor.getCustomer().orElse(transactionToEdit.getCustomer());
+        String updatedProduct = editTransactionDescriptor.getProduct().orElse(transactionToEdit.getProduct());
+        DateTime updatedDateTime = editTransactionDescriptor.getDateTime().orElse(transactionToEdit.getDateTime());
         Quantity updatedQuantity = editTransactionDescriptor.getQuantity().orElse(transactionToEdit.getQuantity());
-        Sales updatedSales = editTransactionDescriptor.getSales().orElse(transactionToEdit.getSales());
-        System.out.println("createEditedTransaction " + transactionToEdit);
-        return new Transaction(updatedDescription, updatedPrice, updatedQuantity, updatedSales);
+        Money updatedMoney = editTransactionDescriptor.getMoney().orElse(transactionToEdit.getMoney());
+        Description updatedDescription = editTransactionDescriptor.getDescription()
+                .orElse(transactionToEdit.getDescription());
+
+        return new Transaction(updatedCustomer, updatedProduct,
+                updatedDateTime, updatedQuantity, updatedMoney, updatedDescription);
     }
 
     @Override
@@ -175,7 +181,7 @@ public class EditTransactionCommand extends Command {
         }
 
         public void setMoney(Money money) {
-            this.money = money
+            this.money = money;
         }
 
         public void setDescription(Description description) {
@@ -186,8 +192,7 @@ public class EditTransactionCommand extends Command {
             return Optional.ofNullable(customer);
         }
 
-
-        public Optional<Quantity> getProduct() {
+        public Optional<String> getProduct() {
             return Optional.ofNullable(product);
         }
 
@@ -195,15 +200,15 @@ public class EditTransactionCommand extends Command {
             return Optional.ofNullable(dateTime);
         }
 
-        public Optional<Description> getDescription() {
-            return Optional.ofNullable(description);
-        }
-
         public Optional<Quantity> getQuantity() {
             return Optional.ofNullable(quantity);
         }
 
-        public Optional<Modey> getDescription() {
+        public Optional<Money> getMoney() {
+            return Optional.ofNullable(money);
+        }
+
+        public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
 
@@ -222,10 +227,12 @@ public class EditTransactionCommand extends Command {
             // state check
             EditTransactionDescriptor e = (EditTransactionDescriptor) other;
 
-            return getDescription().equals(e.getDescription())
-                    && getPrice().equals(e.getPrice())
+            return getCustomer().equals(e.getCustomer())
+                    && getProduct().equals(e.getProduct())
+                    && getDateTime().equals(e.getDateTime())
                     && getQuantity().equals(e.getQuantity())
-                    && getSales().equals(e.getSales());
+                    && getMoney().equals(e.getMoney())
+                    && getDescription().equals(e.getDescription());
         }
     }
 }

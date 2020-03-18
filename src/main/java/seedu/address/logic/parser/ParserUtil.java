@@ -13,7 +13,7 @@ import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
-import seedu.address.model.product.Description;
+import seedu.address.model.util.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Sales;
 import seedu.address.model.tag.Tag;

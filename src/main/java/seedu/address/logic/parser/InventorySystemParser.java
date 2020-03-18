@@ -108,6 +108,9 @@ public class InventorySystemParser {
         case AddTransactionCommand.COMMAND_WORD:
             return new AddTransactionCommandParser().parse(arguments);
 
+        case EditTransactionCommand.COMMAND_WORD:
+            return new EditTransactionCommandParser().parse(arguments);
+
         case ListTransactionCommand.COMMAND_WORD:
             return new ListTransactionCommand();
 

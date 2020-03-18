@@ -107,6 +107,14 @@ public interface Model {
      */
     void setProduct(Product target, Product editedProduct);
 
+    /**
+     * Replaces the given customer {@code target} with {@code editedCustomer}.
+     * {@code target} must exist in the address book.
+     * The customer identity of {@code editedCustomer} must not be the same as another existing customer
+     * in the address book.
+     */
+    void setTransaction(Transaction target, Transaction editedTransaction);
+
     /** Returns an unmodifiable view of the filtered customer list */
     ObservableList<Customer> getFilteredCustomerList();
 

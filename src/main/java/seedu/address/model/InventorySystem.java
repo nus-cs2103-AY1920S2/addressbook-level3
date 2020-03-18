@@ -125,7 +125,6 @@ public class InventorySystem implements ReadOnlyInventorySystem {
      */
     public void setPerson(Customer target, Customer editedCustomer) {
         requireNonNull(editedCustomer);
-
         persons.setPerson(target, editedCustomer);
     }
 
@@ -137,9 +136,21 @@ public class InventorySystem implements ReadOnlyInventorySystem {
      */
     public void setProduct(Product target, Product editedProduct) {
         requireNonNull(editedProduct);
-
         products.setProduct(target, editedProduct);
     }
+
+    /**
+     * Replaces the given product {@code target} in the list with {@code editedProduct}.
+     * {@code target} must exist in the product list.
+     * The product identity of {@code editedProduct} must not be the same as another
+     * existing product in the product list.
+     */
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireNonNull(editedTransaction);
+        transactions.setTransaction(target, editedTransaction);
+    }
+
+
 
     /**
      * Removes {@code key} from this {@code InventorySystem}.

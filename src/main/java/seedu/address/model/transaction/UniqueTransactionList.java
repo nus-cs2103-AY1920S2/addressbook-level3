@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.transaction.exceptions.DuplicateTransactionException;
+import seedu.address.model.transaction.exceptions.TransactionNotFoundException;
 
 
 /**
@@ -39,6 +40,26 @@ public class UniqueTransactionList implements Iterable<Transaction> {
             throw new DuplicateTransactionException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Replaces the product {@code target} in the list with {@code editedProduct}.
+     * {@code target} must exist in the list.
+     * The product identity of {@code editedProduct} must not be the same as another existing product in the list.
+     */
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
+        requireAllNonNull(target, editedTransaction);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new TransactionNotFoundException();
+        }
+
+        if (!target.isSameTransaction(editedTransaction) && contains(editedTransaction)) {
+            throw new DuplicateTransactionException();
+        }
+
+        internalList.set(index, editedTransaction);
     }
 
     /**
