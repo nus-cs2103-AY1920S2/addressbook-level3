@@ -239,6 +239,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode) {
+        filteredModules.setPredicate(x -> x.equals(moduleCode));
+        Module module = filteredModules.getSource().get(0);
+        return module.getActivities().getActivityList();
+    }
+
+    @Override
     public void updateFilteredActivityList(Index index, Predicate<Activity> predicate) {
         Module module = filteredModules.get(index.getZeroBased());
         module.updateFilteredActivityList(predicate);

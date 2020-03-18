@@ -153,6 +153,7 @@ public interface Model {
     void editActivityByIndex(Module module, Index index, Object... args);
     void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args);
     ObservableList<Activity> getFilteredActivityList(Index index);
+    ObservableList<Activity> getFilteredActivityList(ModuleCode moduleCode);
     void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
     void removeModuleByIndex(Index index);
     void removeActivityByIndex(Module module, Index index);

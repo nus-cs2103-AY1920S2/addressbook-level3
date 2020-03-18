@@ -1,5 +1,6 @@
 package nasa.model.activity;
 
+import javafx.collections.ObservableList;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -56,4 +57,19 @@ class UniqueActivityListTest {
 
         assertFalse(uniqueActivityList.contains(DEADLINE));
     }
+
+    @Test
+    public void checkUnmodifiableList_test() {
+        uniqueActivityList.add(DEADLINE);
+        uniqueActivityList.add(CORRECT_EVENT);
+        assertTrue(uniqueActivityList.asUnmodifiableObservableList().size() == 2);
+    }
+
+    @Test
+    public void modifyUnmodifiableList_test() {
+        uniqueActivityList.add(DEADLINE);
+        ObservableList<Activity> temp = uniqueActivityList.asUnmodifiableObservableList();
+        assertThrows(UnsupportedOperationException.class, () -> temp.add(CORRECT_EVENT));
+    }
+
 }
