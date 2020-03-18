@@ -42,7 +42,7 @@ public class SportsCard extends UiPart<Region> {
         this.sports = sports;
         name.setText(sports.getName().toString());
         time.setText(sports.getTime().toString());
-        place.setText(sports.getPlace().toString());
+        place.setText(sports.getLocation().toString());
         calorie.setText(sports.getCalorie().toString());
         remark.setText(sports.getRemark().value);
     }

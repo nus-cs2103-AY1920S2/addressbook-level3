@@ -43,7 +43,7 @@ public class SportCard extends UiPart<AnchorPane> {
         this.sport = sport;
         name.setText(sport.getName().toString());
         time.setText(sport.getTime().toString());
-        place.setText(sport.getPlace().toString());
+        place.setText(sport.getLocation().toString());
         calorie.setText(sport.getCalorie().toString());
     }
 
@@ -69,7 +69,7 @@ public class SportCard extends UiPart<AnchorPane> {
         name.setText(sport.getName().toString());
         status.setText(sport.getStatus().toString());
         time.setText(sport.getTime().toString());
-        place.setText(sport.getPlace().toString());
+        place.setText(sport.getLocation().toString());
         calorie.setText(sport.getCalorie().toString());
     }
 

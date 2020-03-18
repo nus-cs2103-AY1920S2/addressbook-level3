@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.DataConversionException;
-import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.commons.util.FileUtil;
 import fithelper.commons.util.JsonUtil;
 import fithelper.model.ReadOnlyFitHelper;
@@ -53,7 +52,7 @@ public class JsonFitHelperStorage implements FitHelperStorage {
 
         try {
             return Optional.of(jsonFitHelper.get().toModelType());
-        } catch (IllegalValueException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
             throw new DataConversionException(e);
         } catch (Exception i) {

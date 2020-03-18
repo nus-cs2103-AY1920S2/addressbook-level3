@@ -108,7 +108,7 @@ public class EditCommand extends Command {
         Type updatedType = editEntryDescriptor.getType();
         Name updatedName = editEntryDescriptor.getName().orElse(entryToEdit.getName());
         Time updatedTime = editEntryDescriptor.getTime().orElse(entryToEdit.getTime());
-        Location updatedLocation = editEntryDescriptor.getLocation().orElse(entryToEdit.getPlace());
+        Location updatedLocation = editEntryDescriptor.getLocation().orElse(entryToEdit.getLocation());
         Calorie updatedCalorie = editEntryDescriptor.getCalorie().orElse(entryToEdit.getCalorie());
         Status updatedStatus = editEntryDescriptor.getStatus().orElse(entryToEdit.getStatus());
         Remark updatedRemark = editEntryDescriptor.getRemark().orElse(entryToEdit.getRemark());

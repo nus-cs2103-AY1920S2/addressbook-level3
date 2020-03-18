@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.Logic;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.ui.calendar.CalendarPanel;
+import fithelper.ui.profile.ProfilePage;
+import fithelper.ui.weight.WeightPage;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,8 +42,9 @@ public class MainWindow extends UiPart<Stage> {
 
     private DashBoard dashBoard;
     private TodayPage todayPage;
-    /*private ReportPage reportPage;
-    private ProfilePage profilePage;*/
+    //private ReportPage reportPage;
+    private ProfilePage profilePage;
+    private WeightPage weightPage;
     private CalendarPanel calendarPanel;
     private HelpWindow helpWindow;
 
@@ -72,6 +76,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Button profileButton;
     @FXML
+    private Button weightButton;
+    @FXML
     private Button helpButton;
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -95,8 +101,15 @@ public class MainWindow extends UiPart<Stage> {
         setAllPageAnchor(dashBoard.getRoot());
         todayPage = new TodayPage(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
         setAllPageAnchor(todayPage.getRoot());
-        calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(), logic.getFilteredSportsEntryList());
+        calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
+            logic.getFilteredSportsEntryList(), logic.getVEvents());
         setAllPageAnchor(calendarPanel.getRoot());
+        helpWindow = new HelpWindow();
+        setAllPageAnchor(helpWindow.getRoot());
+        profilePage = new ProfilePage();
+        setAllPageAnchor(profilePage.getRoot());
+        weightPage = new WeightPage();
+        setAllPageAnchor(weightPage.getRoot());
         logger.fine("All pages filled in MainWindow");
     }
 
@@ -105,22 +118,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
-    /**
      * Handles the user inputs.
      */
     @FXML
-    public void handleUserInput() {
+    public void handleUserInput() throws IllegalValueException {
         String input = userInput.getText();
 
         inputHistory.add(input);
@@ -139,7 +140,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Shows the page of FitHelper according to the command keyword.
-     * @param commandResult the result ofe executing a command
+     * @param commandResult the result of executing a command
      */
     private void showPage(CommandResult commandResult) {
         CommandResult.DisplayedPage toDisplay = commandResult.getDisplayedPage();
@@ -153,9 +154,23 @@ public class MainWindow extends UiPart<Stage> {
         case CALENDAR:
             showCalendarPanel();
             break;
+        case HELP:
+            showHelpPage();
+            break;
+        case PROFILE:
+            showProfilePage();
+            break;
+        case WEIGHT:
+            showWeightPage();
+            break;
         default:
             break;
         }
+    }
+
+    @FXML
+    public void handleShowHelpPage() {
+        showHelpPage();
     }
 
     @FXML
@@ -173,6 +188,17 @@ public class MainWindow extends UiPart<Stage> {
         showCalendarPanel();
     }
 
+    @FXML
+    public void handleShowProfilePage() {
+        showProfilePage();
+    }
+
+    @FXML
+    public void handleShowWeightPage() {
+        showWeightPage();
+    }
+
+
     private void showTodayPage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(todayPage.getRoot());
@@ -182,7 +208,13 @@ public class MainWindow extends UiPart<Stage> {
     private void showDashBoard() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(dashBoard.getRoot());
-        currentPage.setText("DashBoard");
+        currentPage.setText("Dash Board");
+    }
+
+    private void showHelpPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(helpWindow.getRoot());
+        currentPage.setText("Help");
     }
 
     /**
@@ -190,8 +222,27 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void showCalendarPanel() {
         pagePane.getChildren().clear();
+        calendarPanel.updateScheduler();
         pagePane.getChildren().add(calendarPanel.getRoot());
         currentPage.setText("Calendar");
+    }
+
+    /**
+     * Shows the user profile page.
+     */
+    private void showProfilePage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(profilePage.getRoot());
+        currentPage.setText("Profile");
+    }
+
+    /**
+     * Shows the user weight records.
+     */
+    private void showWeightPage() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(weightPage.getRoot());
+        currentPage.setText("Weight Records");
     }
 
     private void showResultMessage(String message) {
@@ -228,7 +279,7 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see fithelper.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    /*private CommandResult executeCommand(String commandText) throws CommandException, IllegalValueException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -242,5 +293,5 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Invalid command: " + commandText);
             throw e;
         }
-    }
+    }*/
 }

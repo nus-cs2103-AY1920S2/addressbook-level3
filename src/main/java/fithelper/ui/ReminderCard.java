@@ -44,7 +44,7 @@ public class ReminderCard extends UiPart<AnchorPane> {
         this.reminder = reminder;
         name.setText(reminder.getName().toString());
         time.setText(reminder.getTime().toString());
-        place.setText(reminder.getPlace().toString());
+        place.setText(reminder.getLocation().toString());
         calorie.setText(reminder.getCalorie().toString());
     }
 
@@ -69,7 +69,7 @@ public class ReminderCard extends UiPart<AnchorPane> {
         name.setText(reminder.getName().toString());
         status.setText(reminder.getStatus().toString());
         time.setText(reminder.getTime().toString());
-        place.setText(reminder.getPlace().toString());
+        place.setText(reminder.getLocation().toString());
         calorie.setText(reminder.getCalorie().toString());
     }
 

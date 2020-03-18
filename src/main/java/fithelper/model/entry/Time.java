@@ -4,8 +4,14 @@ import static fithelper.commons.util.AppUtil.checkArgument;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
+
+import com.joestelmach.natty.DateGroup;
 
 /**
  * Represents a Entry's time in FitHelper.
@@ -13,12 +19,11 @@ import java.time.format.DateTimeFormatter;
  */
 public class Time {
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should be in format: yyyy-MM-dd-HH:mm";
-
-    public static final DateTimeFormatter PARSEFORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm");
+    public static final String MESSAGE_CONSTRAINTS = "Time should be in format: date HH:mm";
 
     public final LocalDate date;
     public final LocalTime time;
+    public final LocalDateTime dateTime;
     public final String value;
 
     /**
@@ -28,27 +33,52 @@ public class Time {
      */
     public Time(String timeStr) {
         requireNonNull(timeStr);
-        checkArgument(isValidTime(timeStr), MESSAGE_CONSTRAINTS);
-        time = LocalTime.parse(timeStr, PARSEFORMAT);
-        date = LocalDate.parse(timeStr, PARSEFORMAT);
-        value = concat(time, date);
+        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
+        List groups = parser.parse(timeStr);
+        checkArgument(groups.size() > 0, MESSAGE_CONSTRAINTS);
+        DateGroup dateGroup = (DateGroup) groups.get(0);
+        checkArgument(dateGroup.getDates().size() > 0, MESSAGE_CONSTRAINTS);
+        Date localDate = dateGroup.getDates().get(0);
+        dateTime = LocalDateTime.ofInstant(localDate.toInstant(), ZoneId.systemDefault());
+
+        time = dateTime.toLocalTime();
+        date = dateTime.toLocalDate();
+        String truncatedTime = time.format(DateTimeFormatter.ofPattern("HH:mm"));
+        value = concat(truncatedTime, date);
     }
 
     /**
      * Returns true if a given string is a valid time.
      */
     public static boolean isValidTime(String test) {
-        try {
-            LocalTime.parse(test, PARSEFORMAT);
-            LocalDate.parse(test, PARSEFORMAT);
-        } catch (Exception e) {
-            return false;
+        boolean isValid = true;
+        String delims = " ";
+        String[] tokens = test.split(delims);
+        if (tokens.length < 2) {
+            isValid = false;
+        } else {
+            delims = ":";
+            String[] time = tokens[tokens.length - 1].split(delims);
+            if (time.length != 2) {
+                isValid = false;
+            } else {
+                com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
+                List groups = parser.parse(test);
+                if (groups.size() <= 0) {
+                    isValid = false;
+                } else {
+                    DateGroup dateGroup = (DateGroup) groups.get(0);
+                    if (dateGroup.getDates().size() <= 0) {
+                        isValid = false;
+                    }
+                }
+            }
         }
-        return true;
+        return isValid;
     }
 
-    public String concat(LocalTime time, LocalDate date) {
-        return date + "-" + time;
+    public String concat(String time, LocalDate date) {
+        return date + " " + time;
     }
 
     @Override
@@ -67,5 +97,4 @@ public class Time {
     public int hashCode() {
         return value.hashCode();
     }
-
 }

@@ -10,7 +10,7 @@ import fithelper.model.entry.UniqueEntryList;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all entry-related data at the FitHelper level
  * Duplicates are not allowed (by .isSameEntry comparison)
  */
 public class FitHelper implements ReadOnlyFitHelper {

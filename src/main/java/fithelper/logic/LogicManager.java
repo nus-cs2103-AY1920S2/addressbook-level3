@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.FitHelperParser;
-import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.entry.Entry;
 import fithelper.storage.FitHelperStorage;
 
 import javafx.collections.ObservableList;
-//import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.components.VEvent;
 
 /**
  * The main LogicManager of the app.
@@ -35,7 +35,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException, IllegalValueException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -72,14 +72,9 @@ public class LogicManager implements Logic {
         return model.getFilteredReminderEntryList();
     }
 
-    /* @Override
-    public ObservableList<VEvent> getVFoodList() {
-        return model.getVFoodList();
-    }
-
     @Override
-    public ObservableList<VEvent> getVSportsList() {
-        return model.getVSportsList();
-    }*/
+    public ObservableList<VEvent> getVEvents() {
+        return model.getVEvents();
+    }
 }
 
