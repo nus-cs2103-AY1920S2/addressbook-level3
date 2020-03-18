@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalPersons.ALICE;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.ALICE;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,7 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.exceptions.DuplicateTransactionException;
-import seedu.expensela.testutil.PersonBuilder;
+import seedu.expensela.testutil.TransactionBuilder;
 
 public class DateBookTest {
 
@@ -27,7 +27,7 @@ public class DateBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), expenseLa.getPersonList());
+        assertEquals(Collections.emptyList(), expenseLa.getTransactionList());
     }
 
     @Test
@@ -36,16 +36,16 @@ public class DateBookTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        ExpenseLa newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyExpenseLa_replacesData() {
+        ExpenseLa newData = getTypicalExpenseLa();
         expenseLa.resetData(newData);
         assertEquals(newData, expenseLa);
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+    public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
+        // Two transactions with the same identity fields
+        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
         List<Transaction> newTransactions = Arrays.asList(ALICE, editedAlice);
         ExpenseLaStub newData = new ExpenseLaStub(newTransactions);
@@ -54,36 +54,36 @@ public class DateBookTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseLa.hasPerson(null));
+    public void hasTransaction_nullTransaction_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> expenseLa.hasTransaction(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(expenseLa.hasPerson(ALICE));
+    public void hasTransaction_transactionNotInExpenseLa_returnsFalse() {
+        assertFalse(expenseLa.hasTransaction(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        expenseLa.addPerson(ALICE);
-        assertTrue(expenseLa.hasPerson(ALICE));
+    public void hasTransaction_transactionInExpenseLa_returnsTrue() {
+        expenseLa.addTransaction(ALICE);
+        assertTrue(expenseLa.hasTransaction(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        expenseLa.addPerson(ALICE);
-        Transaction editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+    public void hasTransaction_transactionWithSameIdentityFieldsInExpenseLa_returnsTrue() {
+        expenseLa.addTransaction(ALICE);
+        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
                 .build();
-        assertTrue(expenseLa.hasPerson(editedAlice));
+        assertTrue(expenseLa.hasTransaction(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> expenseLa.getPersonList().remove(0));
+    public void getTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> expenseLa.getTransactionList().remove(0));
     }
 
     /**
-     * A stub ReadOnlyExpenseLa whose persons list can violate interface constraints.
+     * A stub ReadOnlyExpenseLa whose transactions list can violate interface constraints.
      */
     private static class ExpenseLaStub implements ReadOnlyExpenseLa {
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
@@ -93,7 +93,7 @@ public class DateBookTest {
         }
 
         @Override
-        public ObservableList<Transaction> getPersonList() {
+        public ObservableList<Transaction> getTransactionList() {
             return transactions;
         }
     }

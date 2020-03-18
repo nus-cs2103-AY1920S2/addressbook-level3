@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Transaction's cost/gain in the expensela.
  * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
  */
 public class Amount {

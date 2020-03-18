@@ -13,9 +13,9 @@ import seedu.expensela.model.transaction.exceptions.TransactionNotFoundException
 
 /**
  * A list of transactions that enforces uniqueness between its elements and does not allow nulls.
- * A transaction is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * transaction uses Person#isSamePerson(Person) for equality so as to ensure that the transaction being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a transaction uses Person#equals(Object) so
+ * A transaction is considered unique by comparing using {@code Transaction#isSameTransactionTransaction)}. As such, adding and updating of
+ * transaction uses Transaction#isSameTransaction(Transaction) for equality so as to ensure that the transaction being added or updated is
+ * unique in terms of identity in the UniqueTransactionList. However, the removal of a transaction uses Transaction#equals(Object) so
  * as to ensure that the transaction with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -49,9 +49,9 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     /**
-     * Replaces the transaction {@code target} in the list with {@code editedPerson}.
+     * Replaces the transaction {@code target} in the list with {@code editedTransaction}.
      * {@code target} must exist in the list.
-     * The transaction identity of {@code editedPerson} must not be the same as another existing transaction in the list.
+     * The transaction identity of {@code editedTransaction} must not be the same as another existing transaction in the list.
      */
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);

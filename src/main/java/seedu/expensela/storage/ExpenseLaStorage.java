@@ -5,18 +5,17 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.expensela.commons.exceptions.DataConversionException;
-import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 
 /**
- * Represents a storage for {@link ExpenseLa}.
+ * Represents a storage for {@link seedu.expensela.model.ExpenseLa}.
  */
-public interface AddressBookStorage {
+public interface ExpenseLaStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getExpenseLaFilePath();
 
     /**
      * Returns ExpenseLa data as a {@link ReadOnlyExpenseLa}.
@@ -24,23 +23,23 @@ public interface AddressBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyExpenseLa> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyExpenseLa> readExpenseLa() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getExpenseLaFilePath()
      */
-    Optional<ReadOnlyExpenseLa> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyExpenseLa> readExpenseLa(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyExpenseLa} to the storage.
-     * @param addressBook cannot be null.
+     * @param expenseLa cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyExpenseLa addressBook) throws IOException;
+    void saveExpenseLa(ReadOnlyExpenseLa expenseLa) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyExpenseLa)
+     * @see #saveExpenseLa(ReadOnlyExpenseLa)
      */
-    void saveAddressBook(ReadOnlyExpenseLa addressBook, Path filePath) throws IOException;
+    void saveExpenseLa(ReadOnlyExpenseLa expenseLa, Path filePath) throws IOException;
 
 }

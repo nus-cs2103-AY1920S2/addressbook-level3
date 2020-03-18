@@ -1,7 +1,10 @@
 {
-  "persons": [ {
-    "name": "Transaction with invalid name field: Ha!ns Mu@ster",
-    "amount": "100.00",
-    "date": "2019-02-07"
+  "transactions": [ {
+    "name": "Transaction with invalid amount field: 100.15.50",
+    "amount": "100.15.50",
+    "positive": "false",
+    "date": "2019-02-07",
+    "type": "Food",
+    "remark": "Treating friends"
   } ]
 }

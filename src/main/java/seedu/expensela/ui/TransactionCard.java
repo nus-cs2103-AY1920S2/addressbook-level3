@@ -7,11 +7,11 @@ import javafx.scene.layout.Region;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Transaction}.
  */
 public class TransactionCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "TransactionListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

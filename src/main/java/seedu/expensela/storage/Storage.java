@@ -12,7 +12,7 @@ import seedu.expensela.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends ExpenseLaStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -21,12 +21,8 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getExpenseLaFilePath();
 
     @Override
-    Optional<ReadOnlyExpenseLa> readAddressBook() throws DataConversionException, IOException;
-
-    @Override
-    void saveAddressBook(ReadOnlyExpenseLa addressBook) throws IOException;
-
+    void saveExpenseLa(ReadOnlyExpenseLa expenseLa) throws IOException;
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Transaction's date in the expensela.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
@@ -12,7 +12,7 @@ public class Date {
     public static final String MESSAGE_CONSTRAINTS = "Dates must be in yyyy-MM-dd format";
 
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\d]{4}-[\\d]{2}-[\\d]{2}";
@@ -31,7 +31,7 @@ public class Date {
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);

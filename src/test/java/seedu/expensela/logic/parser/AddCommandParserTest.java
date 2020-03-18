@@ -21,8 +21,8 @@ import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.expensela.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.expensela.testutil.TypicalPersons.AMY;
-import static seedu.expensela.testutil.TypicalPersons.BOB;
+import static seedu.expensela.testutil.TypicalTransactions.AMY;
+import static seedu.expensela.testutil.TypicalTransactions.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,14 +31,14 @@ import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.testutil.PersonBuilder;
+import seedu.expensela.testutil.TransactionBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Transaction expectedTransaction = new PersonBuilder(BOB).build();
+        Transaction expectedTransaction = new TransactionBuilder(BOB).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -61,7 +61,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedTransaction));
 
         // multiple tags - all accepted
-        Transaction expectedTransactionMultipleTags = new PersonBuilder(BOB)
+        Transaction expectedTransactionMultipleTags = new TransactionBuilder(BOB)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedTransactionMultipleTags));
@@ -70,7 +70,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Transaction expectedTransaction = new PersonBuilder(AMY).build();
+        Transaction expectedTransaction = new TransactionBuilder(AMY).build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedTransaction));
     }

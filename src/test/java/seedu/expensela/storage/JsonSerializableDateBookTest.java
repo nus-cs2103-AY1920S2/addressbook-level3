@@ -11,36 +11,36 @@ import org.junit.jupiter.api.Test;
 import seedu.expensela.commons.exceptions.IllegalValueException;
 import seedu.expensela.commons.util.JsonUtil;
 import seedu.expensela.model.ExpenseLa;
-import seedu.expensela.testutil.TypicalPersons;
+import seedu.expensela.testutil.TypicalTransactions;
 
 public class JsonSerializableDateBookTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalTransactionsAddressBook.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidTransactionAddressBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicateTransactionAddressBook.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableExpenseLaTest");
+    private static final Path TYPICAL_TRANSACTIONS_FILE = TEST_DATA_FOLDER.resolve("typicalTransactionsExpenseLa.json");
+    private static final Path INVALID_TRANSACTION_FILE = TEST_DATA_FOLDER.resolve("invalidTransactionExpenseLa.json");
+    private static final Path DUPLICATE_TRANSACTION_FILE = TEST_DATA_FOLDER.resolve("duplicateTransactionExpenseLa.json");
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
-                JsonSerializableAddressBook.class).get();
+    public void toModelType_typicalTransactionsFile_success() throws Exception {
+        JsonSerializableExpenseLa dataFromFile = JsonUtil.readJsonFile(TYPICAL_TRANSACTIONS_FILE,
+                JsonSerializableExpenseLa.class).get();
         ExpenseLa expenseLaFromFile = dataFromFile.toModelType();
-        ExpenseLa typicalPersonsExpenseLa = TypicalPersons.getTypicalAddressBook();
-        assertEquals(expenseLaFromFile, typicalPersonsExpenseLa);
+        ExpenseLa typicalTransactionsExpenseLa = TypicalTransactions.getTypicalExpenseLa();
+        assertEquals(expenseLaFromFile, typicalTransactionsExpenseLa);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
-                JsonSerializableAddressBook.class).get();
+    public void toModelType_invalidTransactionFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableExpenseLa dataFromFile = JsonUtil.readJsonFile(INVALID_TRANSACTION_FILE,
+                JsonSerializableExpenseLa.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
-                JsonSerializableAddressBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON,
+    public void toModelType_duplicateTransactions_throwsIllegalValueException() throws Exception {
+        JsonSerializableExpenseLa dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TRANSACTION_FILE,
+                JsonSerializableExpenseLa.class).get();
+        assertThrows(IllegalValueException.class, JsonSerializableExpenseLa.MESSAGE_DUPLICATE_TRANSACTION,
                 dataFromFile::toModelType);
     }
 

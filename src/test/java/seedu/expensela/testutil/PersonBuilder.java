@@ -6,9 +6,9 @@ import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Transaction objects.
  */
-public class PersonBuilder {
+public class TransactionBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_AMOUNT = "85355255";
@@ -18,41 +18,41 @@ public class PersonBuilder {
     private Amount amount;
     private Date date;
 
-    public PersonBuilder() {
+    public TransactionBuilder() {
         name = new Name(DEFAULT_NAME);
         amount = new Amount(DEFAULT_AMOUNT, true);
         date = new Date(DEFAULT_DATE);
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
      */
-    public PersonBuilder(Transaction transactionToCopy) {
+    public TransactionBuilder(Transaction transactionToCopy) {
         name = transactionToCopy.getName();
         amount = transactionToCopy.getAmount();
         date = transactionToCopy.getDate();
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Transaction} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public TransactionBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Address} of the {@code Transaction} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
+    public TransactionBuilder withAddress(String address) {
         this.date = new Date(address);
         return this;
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Phone} of the {@code Transaction} that we are building.
      */
-    public PersonBuilder withPhone(String amount) {
+    public TransactionBuilder withPhone(String amount) {
         this.amount = new Amount(amount, true);
         return this;
     }

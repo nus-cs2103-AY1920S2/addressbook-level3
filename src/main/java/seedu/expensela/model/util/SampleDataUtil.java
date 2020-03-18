@@ -6,13 +6,15 @@ import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 import seedu.expensela.model.transaction.Transaction;
+import seedu.expensela.model.transaction.Category;
+import seedu.expensela.model.transaction.Remark;
 import seedu.expensela.model.transaction.*;
 
 /**
  * Contains utility methods for populating {@code ExpenseLa} with sample data.
  */
 public class SampleDataUtil {
-    public static Transaction[] getSamplePersons() {
+    public static Transaction[] getSampleTransactions() {
         return new Transaction[] {
             new Transaction(new Name("Apple AirPods"), new Amount("188", true),
                 new Date("2020-02-14"), new Remark("On discount for valentine's"), new Category("SHOPPING")),
@@ -23,12 +25,12 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyExpenseLa getSampleAddressBook() {
-        ExpenseLa sampleAb = new ExpenseLa();
-        for (Transaction sampleTransaction : getSamplePersons()) {
-            sampleAb.addPerson(sampleTransaction);
+    public static ReadOnlyExpenseLa getSampleExpenseLa() {
+        ExpenseLa sampleEL = new ExpenseLa();
+        for (Transaction sampleTransaction : getSampleTransactions()) {
+            sampleEL.addTransaction(sampleTransaction);
         }
-        return sampleAb;
+        return sampleEL;
     }
 
 }

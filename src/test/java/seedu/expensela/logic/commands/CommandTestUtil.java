@@ -15,7 +15,7 @@ import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.testutil.EditPersonDescriptorBuilder;
+import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -57,10 +57,10 @@ public class CommandTestUtil {
     public static final EditCommand.editTransaction DESC_AIRPODS;
 
     static {
-        DESC_PIZZA = new EditPersonDescriptorBuilder().withName(VALID_NAME_PIZZA)
+        DESC_PIZZA = new EditTransactionDescriptorBuilder().withName(VALID_NAME_PIZZA)
                 .withPhone(VALID_AMOUNT_PIZZA).withAddress(VALID_REMARK_PIZZA)
                 .build();
-        DESC_AIRPODS = new EditPersonDescriptorBuilder().withName(VALID_NAME_AIRPODS)
+        DESC_AIRPODS = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS)
                 .withPhone(VALID_AMOUNT_AIRPODS).withAddress(VALID_REMARK_AIRPODS)
                 .build();
     }
@@ -95,32 +95,32 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the address book, filtered transaction list and selected transaction in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
 <<<<<<< HEAD
         ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
-        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-=======
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
+        assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
+=======
+        ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
+        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
+
+        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
+        assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
 >>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
     }
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showTransactionAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
 
         Transaction transaction = model.getFilteredTransactionList().get(targetIndex.getZeroBased());

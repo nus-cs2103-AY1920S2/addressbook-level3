@@ -4,10 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.expensela.logic.commands.CommandTestUtil.showTransactionAtIndex;
 import static seedu.expensela.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.expensela.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,24 +24,24 @@ import seedu.expensela.model.transaction.Transaction;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Transaction transactionToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, transactionToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
-        expectedModel.deletePerson(transactionToDelete);
+        expectedModel.deleteTransaction(transactionToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -49,27 +49,27 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
 
-        Transaction transactionToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, transactionToDelete);
 
         Model expectedModel = new ModelManager(model.getExpenseLa(), new UserPrefs());
-        expectedModel.deletePerson(transactionToDelete);
-        showNoPerson(expectedModel);
+        expectedModel.deleteTransaction(transactionToDelete);
+        showNoTransaction(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showTransactionAtIndex(model, INDEX_FIRST_PERSON);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseLa().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseLa().getTransactionList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -94,16 +94,16 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different transaction -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
     /**
      * Updates {@code model}'s filtered list to show no one.
      */
-    private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
+    private void showNoTransaction(Model model) {
+        model.updateFilteredTransactionList(p -> false);
 
-        assertTrue(model.getFilteredPersonList().isEmpty());
+        assertTrue(model.getFilteredTransactionList().isEmpty());
     }
 }

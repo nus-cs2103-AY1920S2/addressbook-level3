@@ -34,7 +34,7 @@ import seedu.expensela.logic.commands.EditCommand.editTransaction;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
-import seedu.expensela.testutil.EditPersonDescriptorBuilder;
+import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
 
 public class EditCommandParserTest {
 
@@ -96,7 +96,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        editTransaction descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        editTransaction descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_AMY)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -109,7 +109,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
-        editTransaction descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        editTransaction descriptor = new EditTransactionDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -121,31 +121,31 @@ public class EditCommandParserTest {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        editTransaction descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        editTransaction descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // phone
         userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
+        descriptor = new EditTransactionDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
         userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().build();
+        descriptor = new EditTransactionDescriptorBuilder().build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        descriptor = new EditTransactionDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().build();
+        descriptor = new EditTransactionDescriptorBuilder().build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -157,7 +157,7 @@ public class EditCommandParserTest {
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
                 + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditCommand.editTransaction descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditCommand.editTransaction descriptor = new EditTransactionDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withAddress(VALID_ADDRESS_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -170,14 +170,14 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        editTransaction descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        editTransaction descriptor = new EditTransactionDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ADDRESS_DESC_BOB
                 + PHONE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        descriptor = new EditTransactionDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withAddress(VALID_ADDRESS_BOB).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -188,7 +188,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        editTransaction descriptor = new EditPersonDescriptorBuilder().build();
+        editTransaction descriptor = new EditTransactionDescriptorBuilder().build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

@@ -36,7 +36,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_TRANSACTION_SUCCESS = "Edited Transaction: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the expensela.";
 
     private final Index index;
     private final editTransaction editTransaction;
@@ -75,7 +75,7 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code transactionToEdit}
+     * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
      * edited with {@code editTransaction}.
      */
     private static Transaction createEditedTransaction(Transaction transactionToEdit,

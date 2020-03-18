@@ -5,7 +5,7 @@ import static seedu.expensela.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Transaction in the expensela.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Transaction {
@@ -45,8 +45,8 @@ public class Transaction {
     public Category getCategory() { return category; }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both transactions of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two transactions.
      */
     public boolean isSameTransaction(Transaction otherTransaction) {
         if (otherTransaction == this) {
@@ -62,8 +62,8 @@ public class Transaction {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both transactions have the same identity and data fields.
+     * This defines a stronger notion of equality between two transactions.
      */
     @Override
     public boolean equals(Object other) {

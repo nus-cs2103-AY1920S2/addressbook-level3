@@ -3,10 +3,10 @@ package seedu.expensela.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalPersons.ALICE;
-import static seedu.expensela.testutil.TypicalPersons.HOON;
-import static seedu.expensela.testutil.TypicalPersons.IDA;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.ALICE;
+import static seedu.expensela.testutil.TypicalTransactions.HOON;
+import static seedu.expensela.testutil.TypicalTransactions.IDA;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,18 +21,18 @@ import seedu.expensela.model.ReadOnlyExpenseLa;
 
 public class JsonDateBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
-            "JsonAddressBookStorageTest");
+            "JsonExpenseLaStorageTest");
 
     @TempDir
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readExpenseLa_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readExpenseLa(null));
     }
 
-    private java.util.Optional<ReadOnlyExpenseLa> readAddressBook(String filePath) throws Exception {
-        return new JsonAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyExpenseLa> readExpenseLa(String filePath) throws Exception {
+        return new JsonExpenseLaStorage(Paths.get(filePath)).readExpenseLa(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -43,71 +43,71 @@ public class JsonDateBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readExpenseLa("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatAddressBook.json"));
+        assertThrows(DataConversionException.class, () -> readExpenseLa("notJsonFormatExpenseLa.json"));
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() {
+    public void readExpenseLa_invalidTransactionExpenseLa_throwDataConversionException() {
         assertThrows(DataConversionException.class, (
-        ) -> readAddressBook("invalidTransactionAddressBook.json"));
+        ) -> readExpenseLa("invalidTransactionExpenseLa.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() {
+    public void readExpenseLa_invalidAndValidTransactionExpenseLa_throwDataConversionException() {
         assertThrows(DataConversionException.class, (
-        ) -> readAddressBook("invalidAndValidTransactionAddressBook.json"));
+        ) -> readExpenseLa("invalidAndValidTransactionExpenseLa.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        ExpenseLa original = getTypicalAddressBook();
-        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
+    public void readAndSaveExpenseLa_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempExpenseLa.json");
+        ExpenseLa original = getTypicalExpenseLa();
+        JsonExpenseLaStorage jsonExpenseLaStorage = new JsonExpenseLaStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyExpenseLa readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonExpenseLaStorage.saveExpenseLa(original, filePath);
+        ReadOnlyExpenseLa readBack = jsonExpenseLaStorage.readExpenseLa(filePath).get();
         assertEquals(original, new ExpenseLa(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        original.addTransaction(HOON);
+        original.removeTransaction(ALICE);
+        jsonExpenseLaStorage.saveExpenseLa(original, filePath);
+        readBack = jsonExpenseLaStorage.readExpenseLa(filePath).get();
         assertEquals(original, new ExpenseLa(readBack));
 
         // Save and read without specifying file path
-        original.addPerson(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        original.addTransaction(IDA);
+        jsonExpenseLaStorage.saveExpenseLa(original); // file path not specified
+        readBack = jsonExpenseLaStorage.readExpenseLa().get(); // file path not specified
         assertEquals(original, new ExpenseLa(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveExpenseLa_nullExpenseLa_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveExpenseLa(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code expenseLa} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyExpenseLa addressBook, String filePath) {
+    private void saveExpenseLa(ReadOnlyExpenseLa expenseLa, String filePath) {
         try {
-            new JsonAddressBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonExpenseLaStorage(Paths.get(filePath))
+                    .saveExpenseLa(expenseLa, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new ExpenseLa(), null));
+    public void saveExpenseLa_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveExpenseLa(new ExpenseLa(), null));
     }
 }

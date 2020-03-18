@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalPersons.ALICE;
-import static seedu.expensela.testutil.TypicalPersons.BENSON;
+import static seedu.expensela.testutil.TypicalTransactions.ALICE;
+import static seedu.expensela.testutil.TypicalTransactions.BENSON;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
-import seedu.expensela.testutil.AddressBookBuilder;
+import seedu.expensela.testutil.ExpenseLaBuilder;
 
 public class ModelManagerTest {
 
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setExpenseLaFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setExpenseLaFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,41 +61,41 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setExpenseLaFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setExpenseLaFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setExpenseLaFilePath_validPath_setsExpenseLaFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setExpenseLaFilePath(path);
+        assertEquals(path, modelManager.getExpenseLaFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasTransaction_nullTransaction_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasTransaction(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasTransaction_transactionNotInExpenseLa_returnsFalse() {
         assertFalse(modelManager.hasTransaction(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
+    public void hasTransaction_transactionInExpenseLa_returnsTrue() {
+        modelManager.addTransaction(ALICE);
         assertTrue(modelManager.hasTransaction(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void getFilteredTransactionList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredTransactionList().remove(0));
     }
 
     @Test
     public void equals() {
-        ExpenseLa expenseLa = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        ExpenseLa expenseLa = new ExpenseLaBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
         ExpenseLa differentExpenseLa = new ExpenseLa();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -118,15 +118,15 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().transactionName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+        modelManager.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setExpenseLaFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(expenseLa, differentUserPrefs)));
     }
 }

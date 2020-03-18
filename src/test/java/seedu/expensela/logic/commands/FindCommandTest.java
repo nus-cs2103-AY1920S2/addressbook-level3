@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.expensela.testutil.TypicalPersons.CARL;
-import static seedu.expensela.testutil.TypicalPersons.ELLE;
-import static seedu.expensela.testutil.TypicalPersons.FIONA;
-import static seedu.expensela.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.expensela.testutil.TypicalTransactions.CARL;
+import static seedu.expensela.testutil.TypicalTransactions.ELLE;
+import static seedu.expensela.testutil.TypicalTransactions.FIONA;
+import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalExpenseLa(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -50,28 +50,28 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different transaction -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredTransactionList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleTransactionsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredTransactionList());
     }
 
     /**
