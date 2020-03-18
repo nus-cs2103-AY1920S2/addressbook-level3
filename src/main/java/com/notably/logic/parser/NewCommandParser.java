@@ -39,9 +39,9 @@ public class NewCommandParser implements CommandParser<NewCommand> {
         Block block = new BlockImpl(new Title(title), new Body(body));
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
-            return new NewCommand(block, true);
+            return new NewCommand(block, false);
         }
-        return new NewCommand(block, false);
+        return new NewCommand(block, true);
     }
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

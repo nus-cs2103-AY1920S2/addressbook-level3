@@ -1,5 +1,6 @@
 package com.notably.logic.parser;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,20 @@ public class NotablyParserTest {
     }
 
     @Test
+    public void parseCommand_newCommandInputJump_false() throws Exception {
+        NewCommand command = (NewCommand) parser.parseCommand("new -t CS2103 -b Hi");
+
+        assertFalse(command.getJump());
+    }
+
+    @Test
+    public void parseCommand_newCommandInputJump_true() throws Exception {
+        NewCommand command = (NewCommand) parser.parseCommand("new -t CS2103 -b Hi -o");
+
+        assertTrue(command.getJump());
+    }
+
+    @Test
     public void parseCommand_openCommandInput_openCommand() throws Exception {
         Command command = parser.parseCommand("open -t CS2103");
 
@@ -33,4 +48,6 @@ public class NotablyParserTest {
 
         assertTrue(command instanceof DeleteCommand);
     }
+
+
 }

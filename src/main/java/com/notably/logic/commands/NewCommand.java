@@ -40,4 +40,8 @@ public class NewCommand extends Command {
             }
         }
     }
+
+    public boolean getJump() {
+        return this.jump;
+    }
 }
