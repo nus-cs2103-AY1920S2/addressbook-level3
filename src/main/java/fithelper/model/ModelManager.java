@@ -31,6 +31,7 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredReminderEntries;
     private final VeventList vEventList;
     private CalendarSettings calendarSettings;
+    private final UserProfile userProfile;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
@@ -46,6 +47,7 @@ public class ModelManager implements Model {
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
         vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
+        this.userProfile = new UserProfile(); // need to pass in value after storage part is modified.
     }
 
     public ModelManager() {
@@ -197,6 +199,9 @@ public class ModelManager implements Model {
                 && filteredSportsEntries.equals(other.filteredSportsEntries);
     }
 
+
+    // Methods about calendar.
+
     @Override
     public ObservableList<VEvent> getVEvents() {
         return vEventList.getVEvents();
@@ -226,5 +231,19 @@ public class ModelManager implements Model {
 
     public LocalDateTime getCalendarDate() {
         return calendarSettings.getDate();
+    }
+
+
+    // Methods about user profile.
+
+
+    @Override
+    public void setUserProfile(ReadOnlyUserProfile newUserProfile) {
+        this.userProfile.resetData(newUserProfile);
+    }
+
+    @Override
+    public ReadOnlyUserProfile getUserProfile() {
+        return this.userProfile;
     }
 }

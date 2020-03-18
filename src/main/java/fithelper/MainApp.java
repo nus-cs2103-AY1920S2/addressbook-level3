@@ -18,6 +18,7 @@ import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.util.SampleDataUtil;
 import fithelper.storage.FitHelperStorage;
 import fithelper.storage.JsonFitHelperStorage;
+import fithelper.storage.JsonUserPrefsStorage;
 import fithelper.ui.Ui;
 import fithelper.ui.UiManager;
 import javafx.application.Application;
@@ -35,6 +36,7 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected FitHelperStorage storage = new JsonFitHelperStorage(Config.FITHELPER_DATA_PATH);
+    //protected UserProfileStorage userProfileStorage = new JsonUserProfileStorage(Config.USERPROFILE_DATA_PATH);
     protected Model model;
 
     @Override

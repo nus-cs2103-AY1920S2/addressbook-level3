@@ -91,5 +91,16 @@ public interface Model {
     void setCalendarDate(String date);
     LocalDateTime getCalendarDate();
 
+
+    // Methods about user profile.
+
+    /**
+     * Replaces user profile data with the data in {@code newUserProfile}.
+     */
+    void setUserProfile(ReadOnlyUserProfile newUserProfile);
+
+    /** Returns the User Profile */
+    ReadOnlyUserProfile getUserProfile();
+
 }
 
