@@ -1,5 +1,7 @@
 package fithelper.model.today;
 
+import fithelper.model.entry.UniqueEntryList;
+
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -12,6 +14,8 @@ import java.util.Objects;
 public class Today {
 
     private TodayDate todayDate;
+   private final UniqueEntryList todayFoodEntries = new UniqueEntryList();
+    private final UniqueEntryList todaySportsEntries = new UniqueEntryList();
 
     /**
      * Every field must be present and not null.

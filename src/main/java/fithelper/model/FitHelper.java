@@ -7,6 +7,7 @@ import java.util.List;
 
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.UniqueEntryList;
+import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
 
 /**
@@ -18,6 +19,8 @@ public class FitHelper implements ReadOnlyFitHelper {
     private final UniqueEntryList foodEntries = new UniqueEntryList();
     private final UniqueEntryList sportsEntries = new UniqueEntryList();
     private final UniqueEntryList reminderEntries = new UniqueEntryList();
+    private final UniqueEntryList todayFoodEntries = new UniqueEntryList();
+    private final UniqueEntryList todaySportsEntries = new UniqueEntryList();
 
     public FitHelper() {}
 
@@ -36,14 +39,23 @@ public class FitHelper implements ReadOnlyFitHelper {
      * {@code entries} must not contain duplicate entries.
      */
     public void setEntries(List<Entry> entries) {
+        String todayStr = new Today().getTodayDateStr();
         List<Entry> foodList = new ArrayList<>();
         List<Entry> sportsList = new ArrayList<>();
         List<Entry> reminderList = new ArrayList<>();
+        List<Entry> todayFoodList = new ArrayList<>();
+        List<Entry> todaySportsList = new ArrayList<>();
         for (Entry entry : entries) {
             if (entry.isFood()) {
                 foodList.add(entry);
+                if (entry.getTime().getDateStr().equalsIgnoreCase(todayStr)) {
+                    todayFoodList.add(entry);
+                }
             } else {
                 sportsList.add(entry);
+                if (entry.getTime().getDateStr().equalsIgnoreCase(todayStr)) {
+                    todaySportsList.add(entry);
+                }
             }
             if (entry.getStatus().value.equalsIgnoreCase("Undone")) {
                 reminderList.add(entry);
@@ -52,12 +64,29 @@ public class FitHelper implements ReadOnlyFitHelper {
         this.foodEntries.setEntries(foodList);
         this.sportsEntries.setEntries(sportsList);
         this.reminderEntries.setEntries(reminderList);
+        this.todayFoodEntries.setEntries(todayFoodList);
+        this.todaySportsEntries.setEntries(todaySportsList);
     }
 
     public void setEntries(List<Entry> foods, List<Entry> sports, List<Entry> reminders) {
+        String todayStr = new Today().getTodayDateStr();
+        List<Entry> todayFoodList = new ArrayList<>();
+        List<Entry> todaySportsList = new ArrayList<>();
+        for (Entry entry : foods) {
+            if (entry.getTime().getDateStr().equalsIgnoreCase(todayStr)) {
+                todayFoodList.add(entry);
+            }
+        }
+        for (Entry entry : sports) {
+            if (entry.getTime().getDateStr().equalsIgnoreCase(todayStr)) {
+                todaySportsList.add(entry);
+            }
+        }
         this.foodEntries.setEntries(foods);
         this.sportsEntries.setEntries(sports);
         this.reminderEntries.setEntries(reminders);
+        this.todayFoodEntries.setEntries(todayFoodList);
+        this.todaySportsEntries.setEntries(todaySportsList);
     }
 
     /**
@@ -67,10 +96,23 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     public void setEntry(Entry target, Entry editedEntry) {
         requireNonNull(editedEntry);
+        String todayStr = new Today().getTodayDateStr();
         if (target.isFood()) {
             foodEntries.setEntry(target, editedEntry);
+            if (target.isToday(todayStr)){
+                todayFoodEntries.remove(target);
+            }
+            if (editedEntry.isToday(todayStr)) {
+                todayFoodEntries.add(editedEntry);
+            }
         } else {
             sportsEntries.setEntry(target, editedEntry);
+            if (target.isToday(todayStr)){
+                todaySportsEntries.remove(target);
+            }
+            if (editedEntry.isToday(todayStr)) {
+                todaySportsEntries.add(editedEntry);
+            }
         }
         reminderEntries.remove(target);
         if (!editedEntry.isDone()) {
@@ -105,10 +147,17 @@ public class FitHelper implements ReadOnlyFitHelper {
      * The entry must not already exist in FitHelper.
      */
     public void addEntry(Entry entry) {
+        String todayStr = new Today().getTodayDateStr();
         if (entry.isFood()) {
             foodEntries.add(entry);
+            if (entry.isToday(todayStr)) {
+                todayFoodEntries.add(entry);
+            }
         } else {
             sportsEntries.add(entry);
+            if (entry.isToday(todayStr)) {
+                todaySportsEntries.add(entry);
+            }
         }
         if (!entry.isDone()) {
             reminderEntries.add(entry);
@@ -120,10 +169,17 @@ public class FitHelper implements ReadOnlyFitHelper {
      * {@code key} must exist in FitHelper.
      */
     public void removeEntry(Entry key) {
+        String todayStr = new Today().getTodayDateStr();
         if (key.isFood()) {
             foodEntries.remove(key);
+            if (key.isToday(todayStr)) {
+                todayFoodEntries.remove(key);
+            }
         } else {
             sportsEntries.remove(key);
+            if (key.isToday(todayStr)) {
+                todaySportsEntries.remove(key);
+            }
         }
         if (!key.isDone()) {
             reminderEntries.remove(key);
@@ -143,6 +199,12 @@ public class FitHelper implements ReadOnlyFitHelper {
                 .append("\n")
                 .append("Reminders ")
                 .append(reminderEntries.asUnmodifiableObservableList().size())
+                .append("\n")
+                .append("Today Food: ")
+                .append(todayFoodEntries.asUnmodifiableObservableList().size())
+                .append("\n")
+                .append("Today Sports ")
+                .append(todaySportsEntries.asUnmodifiableObservableList().size())
                 .append("\n");
         return builder.toString();
     }
@@ -174,13 +236,31 @@ public class FitHelper implements ReadOnlyFitHelper {
         return reminderEntries.asUnmodifiableObservableList();
     }
 
+    /**
+     * Returns an unmodifiable view of the food entry list.
+     * This list will not contain any duplicate entries.
+     */
+    public ObservableList<Entry> getTodayFoodList(String dateStr) {
+        return todayFoodEntries.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns an unmodifiable view of the sports entry list.
+     * This list will not contain any duplicate entries.
+     */
+    public ObservableList<Entry> getTodaySportsList(String dateStr) {
+        return todaySportsEntries.asUnmodifiableObservableList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FitHelper // instanceof handles nulls
                 && foodEntries.equals(((FitHelper) other).foodEntries)
                 && sportsEntries.equals(((FitHelper) other).sportsEntries)
-                && reminderEntries.equals(((FitHelper) other).reminderEntries));
+                && reminderEntries.equals(((FitHelper) other).reminderEntries)
+                && todayFoodEntries.equals(((FitHelper) other).todayFoodEntries)
+                && todaySportsEntries.equals(((FitHelper) other).todaySportsEntries));
     }
 
     @Override
@@ -189,6 +269,8 @@ public class FitHelper implements ReadOnlyFitHelper {
         allList.add(foodEntries);
         allList.add(sportsEntries);
         allList.add(reminderEntries);
+        allList.add(todayFoodEntries);
+        allList.add(todaySportsEntries);
         return allList.hashCode();
     }
 }
