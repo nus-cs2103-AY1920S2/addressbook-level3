@@ -110,14 +110,10 @@ class JsonAdaptedRestaurant {
             throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
         }
         final Cuisine modelCuisine = new Cuisine(cuisine);
-        
-        
         final ArrayList<Remark> modelRemark = new ArrayList<>();
         for (JsonAdaptedRemarkR r : remark) {
             modelRemark.add(r.toModelType());
         }
-        
         return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark);
     }
-
 }
