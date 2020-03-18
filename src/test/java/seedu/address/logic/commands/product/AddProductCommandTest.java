@@ -164,6 +164,11 @@ public class AddProductCommandTest {
         }
 
         @Override
+        public void setTransaction(Transaction target, Transaction editedTransaction) {
+
+        }
+
+        @Override
         public ObservableList<Customer> getFilteredCustomerList() {
             throw new AssertionError("This method should not be called.");
         }

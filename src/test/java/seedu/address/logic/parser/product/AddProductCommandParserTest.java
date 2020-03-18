@@ -27,10 +27,10 @@ import static seedu.address.testutil.TypicalProducts.WATCH;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.product.AddProductCommand;
-import seedu.address.model.product.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.testutil.ProductBuilder;
 
