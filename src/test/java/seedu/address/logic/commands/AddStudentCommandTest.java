@@ -256,12 +256,12 @@ public class AddStudentCommandTest {
 
         @Override
         public void deleteModule(Module module) {
-
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Module getModule(Module module) {
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
     }
 
