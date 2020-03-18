@@ -31,7 +31,9 @@ public class NewCommand extends Command {
         if (notablyModel.hasBlock(toAdd)) {
             throw new CommandException("Block with the same Title detected.");
         }
+
         notablyModel.addBlock(toAdd);
+
         if (this.jump) {
             try {
                 notablyModel.openBlock(RelativePath.fromString(toAdd.getTitle().toString()));
