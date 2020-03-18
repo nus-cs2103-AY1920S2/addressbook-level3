@@ -48,11 +48,12 @@ public class EditCommandTest {
 
         CouponBuilder couponInList = new CouponBuilder(lastCoupon);
         Coupon editedCoupon = couponInList.withName(CommandTestUtil.VALID_NAME_BOB)
-                .withPhone(CommandTestUtil.VALID_PHONE_BOB)
+                .withPromoCode(CommandTestUtil.VALID_PROMO_CODE_BOB)
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
 
         EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
-                .withPhone(CommandTestUtil.VALID_PHONE_BOB).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+                .withPromoCode(CommandTestUtil.VALID_PROMO_CODE_BOB)
+                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastCoupon, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);

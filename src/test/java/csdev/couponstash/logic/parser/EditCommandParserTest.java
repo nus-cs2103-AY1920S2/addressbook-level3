@@ -6,15 +6,14 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.EXPIRY_DATE_DESC_
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_EXPIRY_DATE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_LIMIT_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_START_DATE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_USAGE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.LIMIT_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.LIMIT_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static csdev.couponstash.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.PROMO_CODE_DESC_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.PROMO_CODE_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.START_DATE_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
@@ -24,8 +23,8 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_MONEY_SYMBOL;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PROMO_CODE_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PROMO_CODE_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_START_DATE_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -40,7 +39,6 @@ import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
@@ -87,8 +85,6 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS); // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_PHONE_DESC,
-                Phone.MESSAGE_CONSTRAINTS); // invalid phone
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_USAGE_DESC,
                 Usage.MESSAGE_CONSTRAINTS); // invalid usage
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_LIMIT_DESC,
@@ -99,11 +95,6 @@ public class EditCommandParserTest {
                 StartDate.MESSAGE_CONSTRAINTS); // invalid start date
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS); // invalid tag
-
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        CommandParserTestUtil.assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC,
-                Phone.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Coupon} being edited,
         // parsing it together with a valid tag results in error
@@ -116,17 +107,17 @@ public class EditCommandParserTest {
 
         // multiple invalid values, but only the first invalid value is captured
         CommandParserTestUtil.assertParseFailure(parser,
-                "1" + INVALID_NAME_DESC + VALID_PHONE_AMY, Name.MESSAGE_CONSTRAINTS);
+                "1" + INVALID_NAME_DESC + VALID_PROMO_CODE_AMY, Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_COUPON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
+        String userInput = targetIndex.getOneBased() + PROMO_CODE_DESC_BOB + TAG_DESC_HUSBAND
                 + NAME_DESC_AMY + USAGE_DESC_AMY + LIMIT_DESC_BOB + TAG_DESC_FRIEND;
 
         EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB)
+                .withPromoCode(VALID_PROMO_CODE_BOB)
                 .withUsage(VALID_USAGE_AMY)
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
@@ -138,9 +129,9 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = TypicalIndexes.INDEX_FIRST_COUPON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + PROMO_CODE_DESC_BOB;
 
-        EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withPromoCode(VALID_PROMO_CODE_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -158,9 +149,9 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditCouponDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
+        // promoCode
+        userInput = targetIndex.getOneBased() + PROMO_CODE_DESC_AMY;
+        descriptor = new EditCouponDescriptorBuilder().withPromoCode(VALID_PROMO_CODE_AMY).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
@@ -198,33 +189,15 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = TypicalIndexes.INDEX_FIRST_COUPON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY
-                + TAG_DESC_FRIEND + PHONE_DESC_AMY + TAG_DESC_FRIEND
-                + PHONE_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + PROMO_CODE_DESC_AMY
+                + TAG_DESC_FRIEND + PROMO_CODE_DESC_AMY + TAG_DESC_FRIEND
+                + PROMO_CODE_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withPhone(VALID_PHONE_BOB)
+        EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withPromoCode(VALID_PROMO_CODE_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_invalidValueFollowedByValidValue_success() {
-        // no other valid values specified
-        Index targetIndex = TypicalIndexes.INDEX_FIRST_COUPON;
-        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
-
-        // other valid values specified
-        userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC
-                + PHONE_DESC_BOB;
-        descriptor = new EditCouponDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
     }
 

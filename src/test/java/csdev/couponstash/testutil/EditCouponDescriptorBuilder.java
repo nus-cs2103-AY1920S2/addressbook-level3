@@ -10,7 +10,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -37,7 +37,7 @@ public class EditCouponDescriptorBuilder {
     public EditCouponDescriptorBuilder(Coupon coupon) {
         descriptor = new EditCouponDescriptor();
         descriptor.setName(coupon.getName());
-        descriptor.setPhone(coupon.getPhone());
+        descriptor.setPromoCode(coupon.getPromoCode());
         descriptor.setSavings(coupon.getSavingsForEachUse());
         descriptor.setExpiryDate(coupon.getExpiryDate());
         descriptor.setStartDate(coupon.getStartDate());
@@ -55,10 +55,10 @@ public class EditCouponDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditCouponDescriptor} that we are building.
+     * Sets the {@code PromoCode} of the {@code EditCouponDescriptor} that we are building.
      */
-    public EditCouponDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditCouponDescriptorBuilder withPromoCode(String promoCode) {
+        descriptor.setPromoCode(new PromoCode(promoCode));
         return this;
     }
 

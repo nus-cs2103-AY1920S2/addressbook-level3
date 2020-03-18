@@ -21,7 +21,7 @@ public class Coupon {
     // ("immutable" properties of Coupon that will never
     // change unless edited)
     private final Name name;
-    private final Phone phone;
+    private final PromoCode promoCode;
     private final ExpiryDate expiryDate;
     private final StartDate startDate;
     private final Savings savingsForEachUse;
@@ -41,7 +41,7 @@ public class Coupon {
      * total savings and no reminder).
      * Every field must be present and not null.
      * @param name The Name of this Coupon.
-     * @param phone Phone number for this Coupon.
+     * @param promoCode Promo code for this Coupon.
      * @param savingsForEachUse How much Savings saved
      *                          when this Coupon is used.
      * @param expiryDate The ExpiryDate for this Coupon.
@@ -50,10 +50,10 @@ public class Coupon {
      * @param limit The usage Limit for this Coupon.
      * @param tags The List of tags for this Coupon.
      */
-    public Coupon(Name name, Phone phone, Savings savingsForEachUse, ExpiryDate expiryDate, StartDate startDate,
+    public Coupon(Name name, PromoCode promoCode, Savings savingsForEachUse, ExpiryDate expiryDate, StartDate startDate,
                   Usage usage, Limit limit, Set<Tag> tags) {
 
-        this(name, phone, savingsForEachUse, expiryDate, startDate, usage,
+        this(name, promoCode, savingsForEachUse, expiryDate, startDate, usage,
                 limit, tags, new PureMonetarySavings(), new Remind());
     }
 
@@ -62,7 +62,7 @@ public class Coupon {
      * Each field should not be null, otherwise a
      * NullPointerException will be thrown!
      * @param name The Name of this Coupon.
-     * @param phone Phone number for this Coupon.
+     * @param promoCode Promo code for this Coupon..
      * @param savingsForEachUse How much Savings saved
      *                          when this Coupon is used.
      * @param expiryDate The ExpiryDate for this Coupon.
@@ -77,7 +77,7 @@ public class Coupon {
      */
     public Coupon(
             Name name,
-            Phone phone,
+            PromoCode promoCode,
             Savings savingsForEachUse,
             ExpiryDate expiryDate,
             StartDate startDate,
@@ -87,9 +87,9 @@ public class Coupon {
             PureMonetarySavings totalSavings,
             Remind remind) {
 
-        requireAllNonNull(name, phone, savingsForEachUse, expiryDate, usage, limit, tags, totalSavings, remind);
+        requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags, totalSavings, remind);
         this.name = name;
-        this.phone = phone;
+        this.promoCode = promoCode;
         this.savingsForEachUse = savingsForEachUse;
         this.totalSavings = totalSavings;
         this.expiryDate = expiryDate;
@@ -108,8 +108,8 @@ public class Coupon {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public PromoCode getPromoCode() {
+        return promoCode;
     }
 
     /**
@@ -168,7 +168,7 @@ public class Coupon {
      * @return A new Coupon with total savings modified.
      */
     public Coupon addToTotalSavings(PureMonetarySavings pms) {
-        return new Coupon(this.name, this.phone, this.savingsForEachUse,
+        return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, this.usage, this.limit,
                 this.tags, this.totalSavings.add(pms), this.remind);
     }
@@ -178,14 +178,14 @@ public class Coupon {
      * @return A new Coupon with total usage increased by one.
      */
     public Coupon increaseUsageByOne() {
-        return new Coupon(this.name, this.phone, this.savingsForEachUse,
+        return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, this.usage.increaseUsageByOne(),
                 this.limit, this.tags, this.totalSavings, this.remind);
     }
 
     /**
      * Returns true if both coupons have the same name, and all
-     * of the fields of phone, savings for each use, expiry date or
+     * of the fields of promo code, savings for each use, expiry date or
      * start date is the same.
      * This defines a weaker notion of equality between two coupons.
      */
@@ -196,7 +196,7 @@ public class Coupon {
 
         return otherCoupon != null
                 && otherCoupon.getName().equals(getName())
-                && otherCoupon.getPhone().equals(getPhone())
+                && otherCoupon.getPromoCode().equals(getPromoCode())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
                 && otherCoupon.getSavingsForEachUse().equals(getSavingsForEachUse());
     }
@@ -234,7 +234,7 @@ public class Coupon {
         }
 
         return otherCoupon.getName().equals(getName())
-                && otherCoupon.getPhone().equals(getPhone())
+                && otherCoupon.getPromoCode().equals(getPromoCode())
                 && otherCoupon.getSavingsForEachUse().equals(getSavingsForEachUse())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
                 && otherCoupon.getStartDate().equals(getStartDate())
@@ -246,15 +246,16 @@ public class Coupon {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, savingsForEachUse, expiryDate, startDate, usage, limit, tags, totalSavings);
+        return Objects.hash(name, promoCode, savingsForEachUse, expiryDate,
+                startDate, usage, limit, tags, totalSavings);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Promo Code: ")
+                .append(getPromoCode())
                 .append(" Savings: ")
                 .append(getSavingsForEachUse())
                 .append(" Expiry Date: ")

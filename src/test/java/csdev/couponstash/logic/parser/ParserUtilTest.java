@@ -15,21 +15,20 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_USAGE = "-1";
     private static final String INVALID_LIMIT = "asdf";
     private static final String INVALID_TAG = "#friend";
 
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PROMO_CODE = "STASH4LYFE";
     private static final String VALID_USAGE = "1";
     private static final String VALID_LIMIT = "5";
     private static final String VALID_TAG_1 = "friend";
@@ -81,26 +80,21 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parsePromoCode_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePromoCode((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parsePromoCode_validValueWithoutWhitespace_returnsPromoCode() throws Exception {
+        PromoCode expectedPromoCode = new PromoCode(VALID_PROMO_CODE);
+        assertEquals(expectedPromoCode, ParserUtil.parsePromoCode(VALID_PROMO_CODE));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
-    }
-
-    @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parsePromoCode_validValueWithWhitespace_returnsTrimmedPromoCode() throws Exception {
+        String promoCodeWithWhitespace = WHITESPACE + VALID_PROMO_CODE + WHITESPACE;
+        PromoCode expectedPromoCode = new PromoCode(VALID_PROMO_CODE);
+        assertEquals(expectedPromoCode, ParserUtil.parsePromoCode(promoCodeWithWhitespace));
     }
 
     @Test

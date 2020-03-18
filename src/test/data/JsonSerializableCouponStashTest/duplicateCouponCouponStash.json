@@ -1,7 +1,7 @@
 {
   "coupons": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "promoCode": "I<3STASH",
     "savingsPerUse" : {
       "monetaryAmount" : 123.0,
       "percentageAmount" :null,
@@ -20,7 +20,7 @@
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
+    "promoCode": "I<3STASH",
     "savingsPerUse" : {
       "monetaryAmount" : 123.0,
       "percentageAmount" :null,
