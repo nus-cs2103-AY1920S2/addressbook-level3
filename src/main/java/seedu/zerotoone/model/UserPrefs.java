@@ -14,7 +14,7 @@ import seedu.zerotoone.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path exerciseListFilePath = Paths.get("data" , "addressbook.json");
+    private Path exerciseListFilePath = Paths.get("data" , "exerciselist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.

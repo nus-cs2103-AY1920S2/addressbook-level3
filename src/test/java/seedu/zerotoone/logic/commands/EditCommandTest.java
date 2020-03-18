@@ -9,22 +9,23 @@ import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.zerotoone.logic.commands.CommandTestUtil.showExerciseAtIndex;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
-import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
+import static seedu.zerotoone.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.zerotoone.testutil.TypicalPersons.getTypicalExerciseList;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
+import seedu.zerotoone.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.UserPrefs;
-import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.testutil.EditExerciseDescriptorBuilder;
-import seedu.zerotoone.testutil.ExerciseBuilder;
+import seedu.zerotoone.model.person.Person;
+import seedu.zerotoone.testutil.EditPersonDescriptorBuilder;
+import seedu.zerotoone.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -35,97 +36,96 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Exercise editedExercise = new ExerciseBuilder().build();
-        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(editedExercise).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE, descriptor);
+        Person editedPerson = new PersonBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
-        expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastExercise = Index.fromOneBased(model.getFilteredExerciseList().size());
-        Exercise lastExercise = model.getFilteredExerciseList().get(indexLastExercise.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
+        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
-        ExerciseBuilder exerciseInList = new ExerciseBuilder(lastExercise);
-        Exercise editedExercise = exerciseInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        PersonBuilder personInList = new PersonBuilder(lastPerson);
+        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
-        EditCommand editCommand = new EditCommand(indexLastExercise, descriptor);
+        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
-        expectedModel.setExercise(lastExercise, editedExercise);
+        expectedModel.setPerson(lastPerson, editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE, new EditCommand.EditExerciseDescriptor());
-        Exercise editedExercise = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
+        Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
+    // @Test
+    // public void execute_filteredList_success() {
+    //     showPersonAtIndex(model, INDEX_FIRST_PERSON);
+
+    //     Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+    //     Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+    //     EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+    //             new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+
+    //     String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+    //     Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
+    //     expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+
+    //     assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    // }
+
     @Test
-    public void execute_filteredList_success() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
+    public void execute_duplicatePersonUnfilteredList_failure() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
+        EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
-        Exercise exerciseInFilteredList = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
-        Exercise editedExercise = new ExerciseBuilder(exerciseInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
-                new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB).build());
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
-
-        Model expectedModel = new ModelManager(new ExerciseList(model.getExerciseList()), new UserPrefs());
-        expectedModel.setExercise(model.getFilteredExerciseList().get(0), editedExercise);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
-    public void execute_duplicateExerciseUnfilteredList_failure() {
-        Exercise firstExercise = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
-        EditCommand.EditExerciseDescriptor descriptor = new EditExerciseDescriptorBuilder(firstExercise).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_EXERCISE, descriptor);
+    public void execute_duplicatePersonFilteredList_failure() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_EXERCISE);
+        // edit person in filtered list into a duplicate in address book
+        Person personInList = model.getExerciseList().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
+                new EditPersonDescriptorBuilder(personInList).build());
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
-    public void execute_duplicateExerciseFilteredList_failure() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
-
-        // edit exercise in filtered list into a duplicate in address book
-        Exercise exerciseInList = model.getExerciseList().getExerciseList().get(INDEX_SECOND_EXERCISE.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXERCISE,
-                new EditExerciseDescriptorBuilder(exerciseInList).build());
-
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_EXERCISE);
-    }
-
-    @Test
-    public void execute_invalidExerciseIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExerciseList().size() + 1);
-        EditCommand.EditExerciseDescriptor descriptor =
-                new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB).build();
+    public void execute_invalidPersonIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -133,25 +133,25 @@ public class EditCommandTest {
      * but smaller than size of address book
      */
     @Test
-    public void execute_invalidExerciseIndexFilteredList_failure() {
-        showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
-        Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
+    public void execute_invalidPersonIndexFilteredList_failure() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseList().getExerciseList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseList().getPersonList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_EXERCISE, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
-        EditCommand.EditExerciseDescriptor copyDescriptor = new EditCommand.EditExerciseDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_EXERCISE, copyDescriptor);
+        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -164,10 +164,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_EXERCISE, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_EXERCISE, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }
 
 }

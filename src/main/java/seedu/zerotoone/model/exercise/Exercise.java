@@ -17,51 +17,27 @@ public class Exercise {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
-
-    // Data fields
-    private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
+    private final ExerciseSet exerciseSet;
 
     /**
      * Every field must be present and not null.
      */
-    public Exercise(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Exercise(Name name, ExerciseSet exerciseSet) {
+        requireAllNonNull(name, exerciseSet);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
+        this.exerciseSet = exerciseSet;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
+    public ExerciseSet getExerciseSet() {
+        return exerciseSet;
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
-    /**
-     * Returns true if both exercises of the same name have at least one other identity field that is the same.
+     * Returns true if both exercises of the same name.
      * This defines a weaker notion of equality between two exercises.
      */
     public boolean isSameExercise(Exercise otherExercise) {
@@ -70,8 +46,7 @@ public class Exercise {
         }
 
         return otherExercise != null
-                && otherExercise.getName().equals(getName())
-                && (otherExercise.getPhone().equals(getPhone()) || otherExercise.getEmail().equals(getEmail()));
+                && otherExercise.getName().equals(getName());
     }
 
     /**
@@ -90,30 +65,19 @@ public class Exercise {
 
         Exercise otherExercise = (Exercise) other;
         return otherExercise.getName().equals(getName())
-                && otherExercise.getPhone().equals(getPhone())
-                && otherExercise.getEmail().equals(getEmail())
-                && otherExercise.getAddress().equals(getAddress())
-                && otherExercise.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, exerciseSet);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Exercise set: ")
+                .append(getExerciseSet().toString());
         return builder.toString();
     }
 
