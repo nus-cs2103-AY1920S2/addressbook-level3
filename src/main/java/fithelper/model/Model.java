@@ -67,6 +67,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered sports entry list */
     ObservableList<Entry> getFilteredReminderEntryList();
 
+    /** Returns an unmodifiable view of the filtered food entry list */
+    ObservableList<Entry> getFilteredTodayFoodEntryList(String todayDateStr);
+
+    /** Returns an unmodifiable view of the filtered sports entry list */
+    ObservableList<Entry> getFilteredTodaySportsEntryList(String todayDateStr);
+
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -89,5 +95,6 @@ public interface Model {
 
     void setCalendarDate(String date);
     LocalDateTime getCalendarDate();
+
 }
 
