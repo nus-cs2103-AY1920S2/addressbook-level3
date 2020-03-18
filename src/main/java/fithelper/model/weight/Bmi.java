@@ -30,7 +30,7 @@ public class Bmi {
         checkArgument(isValidBmi(height, weightValue), MESSAGE_CONSTRAINTS);
         this.height = height;
         this.weightValue = weightValue;
-        value = weightValue.value / (height.value * height.value);
+        value = weightValue.value / (height.value / 100.0 * height.value / 100.0);
     }
 
     /**

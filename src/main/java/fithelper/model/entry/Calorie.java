@@ -40,7 +40,7 @@ public class Calorie {
 
     @Override
     public String toString() {
-        return String.format("%.3f", value);
+        return String.format("%.0f", value);
     }
 
     @Override
