@@ -220,7 +220,7 @@ Format: `(ab)deletenote INDEX [-l/LINE_NUMBER]`
 === Adds a new restaurant: `(rt)add`
 
 Adds a new restaurant +
-Format: `(rt)add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUISINE]`
+Format: `(rt)add n/NAME l/LOCATION [o/OPERATING_HOURS] [p/PRICE_POINT] [c/CUISINE]`
 
 ****
 * OPERATING_HOURS is 8 digits
@@ -228,8 +228,8 @@ Format: `(rt)add n/NAME [o/OPERATING_HOURS] [l/LOCATION] [p/PRICE_POINT] [c/CUIS
 
 Examples:
 
-* `(rt)add rubbish o/0900:2300 p/$$` +
-Adds a new restaurant called rubbish with 2 dollar signs price point and opens from 9am to 11pm
+* `(rt)add rubbish l/bedok o/0900:2300 p/$$` +
+Adds a new restaurant called rubbish at bedok with 2 dollar signs price point and opens from 9am to 11pm
 
 === Search: `(rt)search`
 

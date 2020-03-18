@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
@@ -23,14 +24,20 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new Scheduler(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(),
+                new RestaurantBook(),
+                new Scheduler(),
+                new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new Scheduler(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(),
+                model.getRestaurantBook(),
+                new Scheduler(),
+                new UserPrefs());
         expectedModel.addPerson(validPerson);
 
         assertCommandSuccess(new AddCommand(validPerson), model,

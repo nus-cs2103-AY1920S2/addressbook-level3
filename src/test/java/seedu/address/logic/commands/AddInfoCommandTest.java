@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
@@ -29,7 +30,10 @@ class AddInfoCommandTest {
 
     private static final String REMARK_STUB = "Some remark";
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new Scheduler(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(),
+            new RestaurantBook(),
+            new Scheduler(),
+            new UserPrefs());
 
     @Test
     public void execute_addInfoUnfilteredList_success() {
@@ -42,7 +46,10 @@ class AddInfoCommandTest {
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new Scheduler(), new UserPrefs());
+                new ModelManager(new AddressBook(model.getAddressBook()),
+                        new RestaurantBook(),
+                        new Scheduler(),
+                        new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(addInfoCommand, model, expectedMessage, expectedModel);
@@ -61,7 +68,10 @@ class AddInfoCommandTest {
         String expectedMessage = String.format(AddInfoCommand.MESSAGE_ADD_REMARK_SUCCESS, editedPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new Scheduler(), new UserPrefs());
+                new ModelManager(new AddressBook(model.getAddressBook()),
+                        new RestaurantBook(),
+                        new Scheduler(),
+                        new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(addInfoCommand, model, expectedMessage, expectedModel);

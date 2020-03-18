@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
@@ -14,6 +16,11 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.restaurant.Cuisine;
+import seedu.address.model.restaurant.Hours;
+import seedu.address.model.restaurant.Location;
+import seedu.address.model.restaurant.Price;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,6 +30,7 @@ public class SampleDataUtil {
 
     public static final ArrayList<Remark> EMPTY_REMARK = new ArrayList<>();
     public static final ArrayList<Remark> SOME_REMARK = new ArrayList<>();
+    public static final ArrayList<seedu.address.model.restaurant.Remark> SOMEMORE_REMARK = new ArrayList<>();
     public static final Birthday EMPTY_BIRTHDAY = new Birthday("");
 
     public static Person[] getSamplePersons() {
@@ -49,12 +57,32 @@ public class SampleDataUtil {
         };
     }
 
+    public static Restaurant[] getSampleRestaurants() {
+        SOMEMORE_REMARK.add(new seedu.address.model.restaurant.Remark("Place is clean"));
+        return new Restaurant[] {
+            new Restaurant(new seedu.address.model.restaurant.Name("McDonalds"),
+                    new Location("West Coast"),
+                    new Hours("0000:0000"),
+                    new Price("$"),
+                    new Cuisine("Fast Food"),
+                    SOMEMORE_REMARK)
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ReadOnlyRestaurantBook getSampleRestaurantBook() {
+        RestaurantBook sampleRb = new RestaurantBook();
+        for (Restaurant sampleRestaurant : getSampleRestaurants()) {
+            sampleRb.addRestaurant(sampleRestaurant);
+        }
+        return sampleRb;
     }
 
     /**

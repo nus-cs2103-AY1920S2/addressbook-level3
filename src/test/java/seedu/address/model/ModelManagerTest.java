@@ -96,13 +96,14 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        RestaurantBook restaurantBook = new RestaurantBook();
         AddressBook differentAddressBook = new AddressBook();
         Scheduler scheduler = new Scheduler();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, scheduler, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, scheduler, userPrefs);
+        modelManager = new ModelManager(addressBook, restaurantBook, scheduler, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, restaurantBook, scheduler, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -115,12 +116,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, scheduler, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, restaurantBook, scheduler, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, scheduler, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, restaurantBook, scheduler, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -128,6 +129,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, scheduler, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, restaurantBook, scheduler, differentUserPrefs)));
     }
 }

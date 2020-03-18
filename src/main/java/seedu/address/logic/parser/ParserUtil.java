@@ -19,6 +19,10 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
+import seedu.address.model.restaurant.Cuisine;
+import seedu.address.model.restaurant.Hours;
+import seedu.address.model.restaurant.Location;
+import seedu.address.model.restaurant.Price;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -68,6 +72,20 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String birthday} into a {@code Birthday}.
+     *
+     * @throws ParseException if the given {@code Birthday} is invalid.
+     */
+    public static seedu.address.model.restaurant.Name parseNameR(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!seedu.address.model.restaurant.Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new seedu.address.model.restaurant.Name(trimmedName);
     }
 
     /**
@@ -164,6 +182,62 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String location} into a {@code Location}.
+     *
+     * @throws ParseException if the given {@code Location} is invalid.
+     */
+    public static Location parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+        String trimmedLocation = location.trim();
+        if (!Location.isValidLocation(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
+        }
+        return new Location(trimmedLocation);
+    }
+
+    /**
+     * Parses a {@code String hours} into a {@code Hours}.
+     *
+     * @throws ParseException if the given {@code Hours} is invalid.
+     */
+    public static Hours parseHours(String hours) throws ParseException {
+        requireNonNull(hours);
+        String trimmedHours = hours.trim();
+        if (!Hours.isValidHours(trimmedHours)) {
+            throw new ParseException(Hours.MESSAGE_CONSTRAINTS);
+        }
+        return new Hours(trimmedHours);
+    }
+
+    /**
+     * Parses a {@code String price} into a {@code Price}.
+     *
+     * @throws ParseException if the given {@code Price} is invalid.
+     */
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
+        if (!Price.isValidPrice(trimmedPrice)) {
+            throw new ParseException(Price.MESSAGE_CONSTRAINTS);
+        }
+        return new Price(trimmedPrice);
+    }
+
+    /**
+     * Parses a {@code String cuisine} into a {@code Cuisine}.
+     *
+     * @throws ParseException if the given {@code Cuisine} is invalid.
+     */
+    public static Cuisine parseCuisine(String cuisine) throws ParseException {
+        requireNonNull(cuisine);
+        String trimmedCuisine = cuisine.trim();
+        if (!Cuisine.isValidCuisine(trimmedCuisine)) {
+            throw new ParseException(Cuisine.MESSAGE_CONSTRAINTS);
+        }
+        return new Cuisine(trimmedCuisine);
     }
 
     /**

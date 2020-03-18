@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -19,16 +20,20 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
-
 import seedu.address.model.util.SampleDataUtil;
+
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.JsonSchedulerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.RestaurantBookStorage;
 import seedu.address.storage.SchedulerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -62,8 +67,10 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
+        RestaurantBookStorage restaurantBookStorage =
+                new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
         SchedulerStorage schedulerStorage = new JsonSchedulerStorage(userPrefs.getSchedulerFilePath());
-        storage = new StorageManager(addressBookStorage, schedulerStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -81,7 +88,9 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyRestaurantBook> restaurantBookOptional;
         ReadOnlyAddressBook initialPersonsData;
+        ReadOnlyRestaurantBook initialRestaurantsData;
 
         Optional<ReadOnlyScheduler> schedulerOptional;
         ReadOnlyScheduler initialAssignmentsData;
@@ -100,6 +109,20 @@ public class MainApp extends Application {
         }
 
         try {
+            restaurantBookOptional = storage.readRestaurantBook();
+            if (!restaurantBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample RestaurantBook");
+            }
+            initialRestaurantsData = restaurantBookOptional.orElseGet(SampleDataUtil::getSampleRestaurantBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty RestaurantBook");
+            initialRestaurantsData = new RestaurantBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty RestaurantBook");
+            initialRestaurantsData = new RestaurantBook();
+        }
+
+        try {
             schedulerOptional = storage.readScheduler();
             if (!schedulerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty Scheduler.");
@@ -113,7 +136,7 @@ public class MainApp extends Application {
             initialAssignmentsData = new Scheduler();
         }
 
-        return new ModelManager(initialPersonsData, initialAssignmentsData, userPrefs);
+        return new ModelManager(initialPersonsData, initialRestaurantsData, initialAssignmentsData, userPrefs);
     }
 
     private void initLogging(Config config) {

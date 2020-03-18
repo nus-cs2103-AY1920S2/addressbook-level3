@@ -30,7 +30,7 @@ public class Person {
     // Data fields
     private final Address address;
     private final Birthday birthday;
-    private final ArrayList<Remark> remark = new ArrayList<>();
+    private final ArrayList<Remark> remarks = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -44,7 +44,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.birthday = birthday;
-        this.remark.addAll(remark);
+        this.remarks.addAll(remark);
         this.tags.addAll(tags);
     }
 
@@ -65,7 +65,7 @@ public class Person {
     }
 
     public ArrayList<Remark> getRemark() {
-        return remark;
+        return remarks;
     }
 
     public Birthday getBirthday() {

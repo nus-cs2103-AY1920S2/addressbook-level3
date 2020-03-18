@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 
@@ -23,8 +24,15 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new Scheduler(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new Scheduler(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(),
+                new RestaurantBook(),
+                new Scheduler(),
+                new UserPrefs());
+
+        expectedModel = new ModelManager(model.getAddressBook(),
+                new RestaurantBook(),
+                new Scheduler(),
+                new UserPrefs());
     }
 
     @Test

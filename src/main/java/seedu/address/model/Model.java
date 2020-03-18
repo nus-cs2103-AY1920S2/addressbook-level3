@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * The API of the Model component.
@@ -15,6 +16,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -88,6 +92,48 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Replaces restaurant book data with the data in {@code restaurantBook}.
+     */
+    void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook);
+
+    /** Returns the RestaurantBook */
+    ReadOnlyRestaurantBook getRestaurantBook();
+
+    /**
+     * Returns true if a restaurant with the same identity as {@code restaurant} exists in the restaurant book.
+     */
+    boolean hasRestaurant(Restaurant restaurant);
+
+    /**
+     * Deletes the given restaurant.
+     * The restaurant must exist in the restaurant book.
+     */
+    void deleteRestaurant(Restaurant target);
+
+    /**
+     * Adds the given restaurant.
+     * {@code restaurant} must not already exist in the restaurant book.
+     */
+    void addRestaurant(Restaurant restaurant);
+
+    /**
+     * Replaces the given restaurant {@code target} with {@code editedRestaurant}.
+     * {@code target} must exist in the restaurant book.
+     * The restaurant identity of {@code editedRestaurant} must not be the same as another existing restaurant in the
+     * restaurant book.
+     */
+    void setRestaurant(Restaurant target, Restaurant editedRestaurant);
+
+    /** Returns an unmodifiable view of the filtered restaurant list */
+    ObservableList<Restaurant> getFilteredRestaurantList();
+
+    /**
+     * Updates the filter of the filtered restaurant list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
 
     /**
      * Replaces scheduler data with the data in {@code scheduler}.
