@@ -13,6 +13,11 @@ public class Config {
      */
     public static final Path FITHELPER_DATA_PATH = Paths.get("data", "fithelper.json");
 
+    /**
+     * Path of User Profile data.
+     */
+    public static final Path USERPROFILE_DATA_PATH = Paths.get("data", "userprofile.json");
+
     private Config() {
 
     }

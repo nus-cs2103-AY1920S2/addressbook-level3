@@ -23,7 +23,6 @@ public class Weight {
         this.date = date;
         this.weightValue = weightValue;
         this.bmi = bmi;
-
     }
 
     public Date getDate() {
