@@ -32,6 +32,19 @@ public class Session {
     private String description;
 
     /**
+     * Default Constructor for Session.
+     * Creates a session object with default values.
+     */
+    public Session() {
+        this.startDateTime = LocalDateTime.now();
+        this.endDateTime = LocalDateTime.now();
+        this.isRecurring = false;
+        this.moduleCode = "";
+        this.type = SessionType.SESSION_TYPE_OTHER;
+        this.description = "Default Session";
+    }
+
+    /**
      * Constructs a Session object.
      * The session's end time should be strictly after the session's start time.
      */
