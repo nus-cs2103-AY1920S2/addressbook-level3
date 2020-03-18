@@ -114,7 +114,9 @@ public class FitHelper implements ReadOnlyFitHelper {
                 todaySportsEntries.add(editedEntry);
             }
         }
-        reminderEntries.remove(target);
+        if (!target.isDone()) {
+            reminderEntries.remove(target);
+        }
         if (!editedEntry.isDone()) {
             reminderEntries.add(editedEntry);
         }

@@ -63,7 +63,7 @@ public class ProfilePage extends UiPart<AnchorPane> {
         gender.setText(profile.getGender().toString());
         age.setText(profile.getAge().toString());
         address.setText(profile.getAddress().toString());
-        height.setText(profile.getHeight().toString() + " m");
+        height.setText(profile.getHeight().toString() + " cm");
         targetweight.setText(profile.getTargetWeight().toString() + " kg");
         currentweight.setText(profile.getCurrentWeight().toString() + " kg");
         currentbmi.setText(profile.getCurrentBmi().toString());
