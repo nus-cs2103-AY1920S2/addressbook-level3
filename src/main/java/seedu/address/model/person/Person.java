@@ -35,6 +35,17 @@ public class Person {
     this.tags.addAll(tags);
   }
 
+  /**
+   * Adding a Person with name only, other fields present as Unknown
+   */
+  public Person(Name name) {
+    requireAllNonNull(name);
+    this.name = name;
+    this.phone = new Phone("Unknown");
+    this.email = new Email("Unknown");
+    this.address = new Address("Unknown");
+  }
+
   public Name getName() {
     return name;
   }
@@ -104,16 +115,20 @@ public class Person {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    builder.append(getName())
-        .append(" Phone: ")
-        .append(getPhone())
-        .append(" Email: ")
-        .append(getEmail())
-        .append(" Address: ")
-        .append(getAddress())
-        .append(" Tags: ");
-    getTags().forEach(builder::append);
+    builder.append(getName());
+    if (getPhone().isKnown()) {
+      builder.append(" Phone: ").append(getPhone());
+    }
+    if (getEmail().isKnown()) {
+      builder.append(" Email: ").append(getEmail());
+    }
+    if (getAddress().isKnown()) {
+      builder.append(" Address: ").append(getAddress());
+    }
+    if (!tags.isEmpty()) {
+      builder.append(" Tags: ");
+      getTags().forEach(builder::append);
+    }
     return builder.toString();
   }
-
 }
