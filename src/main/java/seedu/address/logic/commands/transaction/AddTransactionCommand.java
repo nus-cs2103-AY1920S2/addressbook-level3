@@ -30,11 +30,11 @@ public class AddTransactionCommand extends Command {
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_MONEY + "MONEY] "
             + "[" + PREFIX_TRANS_DESCIPTION + "DESCRIPTION] \n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_CUSTOMER + "1 "
             + PREFIX_PRODUCT + "1 "
             + PREFIX_DATETIME + "2020-02-20 10:00 "
-            + PREFIX_QUANTITY + "30"
+            + PREFIX_QUANTITY + "30 "
             + PREFIX_MONEY + "30 "
             + PREFIX_TRANS_DESCIPTION + "under discount ";;
 

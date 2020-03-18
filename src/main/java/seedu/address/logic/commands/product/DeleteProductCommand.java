@@ -24,7 +24,7 @@ public class DeleteProductCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Product: %1$s";
+    public static final String MESSAGE_DELETE_PRODUCT_SUCCESS = "Deleted Product: %1$s";
 
     private final Index targetIndex;
 
@@ -38,12 +38,12 @@ public class DeleteProductCommand extends Command {
         List<Product> lastShownList = model.getFilteredProductList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PRODUCT_DISPLAYED_INDEX);
         }
 
         Product productToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteProduct(productToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, productToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PRODUCT_SUCCESS, productToDelete));
     }
 
     @Override

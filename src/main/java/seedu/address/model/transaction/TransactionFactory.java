@@ -28,6 +28,11 @@ public class TransactionFactory {
         this.description = description;
     }
 
+    /**
+     * Creates a transaction with the found product and customer.
+     * @param model the model manager.
+     * @return created transaction.
+     */
     public Transaction createTransaction(Model model) {
         Customer customer = model.getFilteredCustomerList().get(customerIndex.getZeroBased());
         Product product = model.getFilteredProductList().get(productIndex.getZeroBased());

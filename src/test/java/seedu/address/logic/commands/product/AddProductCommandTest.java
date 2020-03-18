@@ -154,6 +154,11 @@ public class AddProductCommandTest {
         }
 
         @Override
+        public void deleteTransaction(Transaction target) {
+
+        }
+
+        @Override
         public void setPerson(Customer target, Customer editedProduct) {
             throw new AssertionError("This method should not be called.");
         }

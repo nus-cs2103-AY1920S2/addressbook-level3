@@ -11,12 +11,8 @@ import seedu.address.model.transaction.Money;
 import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
-import seedu.address.storage.JsonAdaptedTag;
 import seedu.address.storage.customer.JsonAdaptedCustomer;
 import seedu.address.storage.product.JsonAdaptedProduct;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Jackson-friendly version of {@link Transaction}.
