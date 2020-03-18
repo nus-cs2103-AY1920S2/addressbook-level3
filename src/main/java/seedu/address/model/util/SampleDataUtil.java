@@ -61,7 +61,7 @@ public class SampleDataUtil {
         SOMEMORE_REMARK.add(new seedu.address.model.restaurant.Remark("Place is clean"));
         return new Restaurant[] {
             new Restaurant(new seedu.address.model.restaurant.Name("McDonalds"),
-                    new Location("West Coast"), 
+                    new Location("West Coast"),
                     new Hours("0000:0000"),
                     new Price("$"),
                     new Cuisine("Fast Food"),
