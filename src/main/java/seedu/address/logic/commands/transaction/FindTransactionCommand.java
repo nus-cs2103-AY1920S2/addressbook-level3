@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.transaction;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
-import static java.util.Objects.requireNonNull;
 
 import java.util.function.Predicate;
 
@@ -13,6 +13,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.transaction.Transaction;
 
+/**
+ * Finds and lists all transactions in transaction list whose description contains any of the argument keywords.
+ * Keyword matching is case insensitive.
+ */
 public class FindTransactionCommand extends Command {
     public static final String COMMAND_WORD = "findt";
 
@@ -40,7 +44,8 @@ public class FindTransactionCommand extends Command {
         model.updateFilteredTransactionList(predicate);
         System.out.println("Find " + model.getFilteredTransactionList());
         return new CommandResult(
-                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
+                String.format(Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW,
+                        model.getFilteredTransactionList().size()));
     }
 
     @Override

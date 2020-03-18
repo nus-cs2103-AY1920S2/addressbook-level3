@@ -1,6 +1,15 @@
 package seedu.address.logic.parser.transaction;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.transaction.FindTransactionCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -16,22 +25,11 @@ import seedu.address.model.transaction.JointTransactionPredicate;
 import seedu.address.model.transaction.ProductContainsKeywordPredicate;
 import seedu.address.model.transaction.Transaction;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
-
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
-
-
 /**
  * Parse input arguments and creates a new FindCommand object.
  */
 public class FindTransactionCommandParser implements Parser<FindTransactionCommand> {
-    private final List<Predicate<Transaction>> predicates = new ArrayList<>() ;
+    private final List<Predicate<Transaction>> predicates = new ArrayList<>();
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindTransactionCommand

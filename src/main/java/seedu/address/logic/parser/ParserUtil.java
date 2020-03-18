@@ -13,15 +13,13 @@ import seedu.address.model.customer.Address;
 import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
-import seedu.address.model.util.Description;
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Sales;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.transaction.DateTime;
 import seedu.address.model.transaction.Money;
+import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
-
-import javax.crypto.spec.DESedeKeySpec;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -261,10 +259,10 @@ public class ParserUtil {
     public static Description parseTransDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-                if (!Description.isValidDescription(trimmedDescription)) {
-                    throw new ParseException(Description.MESSAGE_CONSTRAINTS);
-                }
-                return new Description(trimmedDescription);
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
     }
 
 }

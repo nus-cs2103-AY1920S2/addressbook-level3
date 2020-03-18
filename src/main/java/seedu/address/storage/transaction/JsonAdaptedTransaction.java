@@ -10,8 +10,6 @@ import seedu.address.model.transaction.Transaction;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 
-import javax.crypto.spec.DESedeKeySpec;
-
 /**
  * Jackson-friendly version of {@link Transaction}.
  */
@@ -102,7 +100,8 @@ public class JsonAdaptedTransaction {
         final Money modelMoney = new Money(money);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Money.MESSAGE_CONSTRAINTS);

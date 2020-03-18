@@ -3,10 +3,10 @@ package seedu.address.logic.parser.transaction;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MONEY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRODUCT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANS_DESCIPTION;
 
 import seedu.address.commons.core.index.Index;

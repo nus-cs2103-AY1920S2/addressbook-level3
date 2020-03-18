@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
 
+/**
+ * Tests that a {@code Transaction}'s {@code Product} matches any of the keywords given.
+ */
 public class ProductContainsKeywordPredicate implements Predicate<Transaction> {
     private final List<String> keywords;
 

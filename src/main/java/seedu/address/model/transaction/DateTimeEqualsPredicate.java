@@ -2,6 +2,9 @@ package seedu.address.model.transaction;
 
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Transactions}'s {@code DateTime} matches the DateTime object given.
+ */
 public class DateTimeEqualsPredicate implements Predicate<Transaction> {
     private final DateTime targetDateTime;
 
