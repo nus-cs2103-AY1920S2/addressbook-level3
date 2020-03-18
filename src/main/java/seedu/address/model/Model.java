@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
@@ -89,7 +90,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
-
+    //=========== Diary Module ==================================================================================
+    boolean isEmptyDiaryEntry(DiaryEntry diaryEntry);
+  
+    void addDiaryEntry(DiaryEntry diaryEntry);
+  
+    String showDiaryLog();
+  
     //=========== Notes Module ==================================================================================
     /** Returns an list of String that contains what is currently in the folder */
     ObservableList<Notes> getFilesInFolderList();
@@ -113,4 +120,5 @@ public interface Model {
     void addModule(NusModule module);
 
     double getCap();
+
 }

@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.diary.DiaryBook;
+import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Capulator;
 import seedu.address.model.nusmodule.NusModule;
@@ -27,6 +29,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private DiaryBook diaryBook;
     private final FilteredList<Notes> filesInFolder;
     private List<NusModule> modules;
 
@@ -42,6 +45,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        diaryBook = new DiaryBook();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         modules = new ArrayList<>();
     }
@@ -121,7 +125,24 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+  //=========== Diary Module ==================================================================================
     @Override
+    public void addDiaryEntry(DiaryEntry diaryEntry) {
+        diaryBook.addEntry(diaryEntry);
+    }
+
+    @Override
+    public boolean isEmptyDiaryEntry(DiaryEntry diaryEntry) {
+        // implement later
+        return false;
+    }
+
+    @Override
+    public String showDiaryLog() {
+        return diaryBook.showLog();
+    }
+  
+  //=========== Cap Module ==================================================================================
     public boolean hasModule(NusModule module) {
         requireNonNull(module);
         return modules.contains(module);
