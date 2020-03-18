@@ -50,7 +50,7 @@ public class AddCourseCommandParser implements Parser<AddCourseCommand> {
     }
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-    ID courseID = ParserUtil.parseCourseID(argMultimap.getValue(PREFIX_COURSEID).get());
+    ID courseID = ParserUtil.parseID(argMultimap.getValue(PREFIX_COURSEID).get());
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
     Course course = new Course(name, courseID, tagList);

@@ -34,6 +34,8 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private Label id;
   @FXML
+  private Label teacherId;
+  @FXML
   private Label courseID;
   @FXML
   private FlowPane tags;
@@ -43,6 +45,7 @@ public class CourseCard extends UiPart<Region> {
     this.course = course;
     id.setText(displayedIndex + ". ");
     name.setText(course.getName().fullName);
+    teacherId.setText(course.getTeacherID().value);
     courseID.setText(course.getId().value);
     course.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
