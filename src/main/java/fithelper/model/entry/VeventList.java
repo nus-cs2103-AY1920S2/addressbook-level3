@@ -1,9 +1,9 @@
 package fithelper.model.entry;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static fithelper.commons.util.EventUtil.entryToVEvent;
 
 import static java.util.Objects.requireNonNull;
-import static fithelper.commons.util.EventUtil.entryToVEvent;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,9 @@ package fithelper.commons.util;
 
 import fithelper.model.entry.Entry;
 import jfxtras.icalendarfx.components.VEvent;
-
+/**
+ * A class for accessing and modifying VEvent.
+ */
 public class EventUtil {
     /**
      * Maps event to VEvent

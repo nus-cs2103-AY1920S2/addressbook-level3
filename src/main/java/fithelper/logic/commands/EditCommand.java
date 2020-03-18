@@ -1,6 +1,5 @@
 package fithelper.logic.commands;
 
-import static fithelper.commons.util.EventUtil.entryToVEvent;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_CALORIE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_INDEX;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
