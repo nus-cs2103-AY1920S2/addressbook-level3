@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -41,6 +42,32 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses multiple {@code oneBasedIndex} into an {@code Index} array and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     */
+    public static Index[] parseMultipleIndex(String oneBasedIndex) throws ParseException {
+        String[] args = oneBasedIndex.trim().split(" ");
+        int len = args.length;
+
+        Integer[] toSort = new Integer[len];
+        for (int i = 0; i < len; i++) {
+            String index = args[i];
+            if (!StringUtil.isNonZeroUnsignedInteger(index)) {
+                throw new ParseException(MESSAGE_INVALID_INDEX);
+            }
+            toSort[i] = Integer.parseInt(index);
+        }
+        Arrays.sort(toSort);
+
+        Index[] indices = new Index[len];
+        for (int i = 0; i < len; i++) {
+            indices[i] = Index.fromOneBased(toSort[i]);
+        }
+        return indices;
     }
 
     /**

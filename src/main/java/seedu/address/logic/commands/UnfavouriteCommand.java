@@ -12,20 +12,19 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Deletes a recipe identified using it's displayed index from the address book.
+ * Unfavourites a recipe identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends Command {
-
-    public static final String COMMAND_WORD = "delete";
+public class UnfavouriteCommand extends Command {
+    public static final String COMMAND_WORD = "unfavourite";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the recipe identified by the index number(s) used in the displayed recipe list.\n"
+            + ": Unfavourites the recipe identified by the index number(s) used in the displayed recipe list.\n"
             + "Parameters: INDEX NUMBER(s) (must be positive integers)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     private final Index[] targetIndex;
 
-    public DeleteCommand(Index[] targetIndex) {
+    public UnfavouriteCommand(Index[] targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -33,32 +32,31 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Recipe> lastShownList = model.getFilteredRecipeList();
-        StringBuilder sb = new StringBuilder().append("Deleted ");
+        StringBuilder sb = new StringBuilder().append("Removed ");
 
         for (int i = 0; i < targetIndex.length; i++) {
-            Index indexAfterEachDeletion = Index.fromZeroBased(targetIndex[i].getZeroBased() - i);
-            if (indexAfterEachDeletion.getZeroBased() >= lastShownList.size()) {
+            if (targetIndex[i].getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
             }
 
-            Recipe recipeToDelete = lastShownList.get(indexAfterEachDeletion.getZeroBased());
-            model.deleteRecipe(recipeToDelete);
+            Recipe recipeToUnfavourite = lastShownList.get(targetIndex[i].getZeroBased());
+            model.unfavouriteRecipe(recipeToUnfavourite);
             if (i == targetIndex.length - 1 && targetIndex.length != 1) {
                 sb.append(" and ");
             }
-            sb.append(recipeToDelete.getName().toString());
+            sb.append(recipeToUnfavourite.getName().toString());
             if (i < targetIndex.length - 2) {
                 sb.append(", ");
             }
         }
-        sb.append(" from recipe book!");
+        sb.append(" from favourites!");
         return new CommandResult(sb.toString());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && Arrays.equals(targetIndex, ((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof UnfavouriteCommand // instanceof handles nulls
+                && Arrays.equals(targetIndex, ((UnfavouriteCommand) other).targetIndex)); // state check
     }
 }

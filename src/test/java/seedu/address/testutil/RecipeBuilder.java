@@ -24,11 +24,13 @@ public class RecipeBuilder {
 
     public static final String DEFAULT_NAME = "Egg Tomato Stir Fry";
     public static final String DEFAULT_TIME = "10";
+    public static final boolean DEFAULT_FAVOURITE = false;
     public static final Step DEFAULT_STEP = new Step("Cut tomatoes into crescent shaped slices");
     public static final Ingredient DEFAULT_INGREDIENT = new Vegetable("Tomato", 100);
 
     private Name name;
     private Time time;
+    private boolean isFavourite;
     private Set<Ingredient> ingredients;
     private List<Step> steps;
     private Set<Goal> goals;
@@ -36,6 +38,7 @@ public class RecipeBuilder {
     public RecipeBuilder() {
         name = new Name(DEFAULT_NAME);
         time = new Time(DEFAULT_TIME);
+        isFavourite = DEFAULT_FAVOURITE;
         ingredients = new TreeSet<>();
         ingredients.add(DEFAULT_INGREDIENT);
         steps = new ArrayList<>();
@@ -49,6 +52,7 @@ public class RecipeBuilder {
     public RecipeBuilder(Recipe recipeToCopy) {
         name = recipeToCopy.getName();
         time = recipeToCopy.getTime();
+        isFavourite = recipeToCopy.getFavouriteStatus();
         ingredients = recipeToCopy.getIngredients();
         steps = recipeToCopy.getSteps();
         goals = new HashSet<>(recipeToCopy.getGoals());
@@ -95,7 +99,7 @@ public class RecipeBuilder {
     }
 
     public Recipe build() {
-        return new Recipe(name, time, ingredients, steps, goals);
+        return new Recipe(name, time, ingredients, steps, goals, isFavourite);
     }
 
 }

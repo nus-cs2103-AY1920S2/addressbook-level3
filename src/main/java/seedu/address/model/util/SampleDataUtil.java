@@ -28,23 +28,24 @@ public class SampleDataUtil {
         return new Recipe[] {
             new Recipe(new Name("Caesar Salad"), new Time("10"),
                     getIngredientSet("Tomato, 100, vegetable", "Honeydew, 100, other"),
-                    getStepsList("Cut tomatoes", "Remove honeydew skin"), getGoalSet("Herbivore")),
+                    getStepsList("Cut tomatoes", "Remove honeydew skin"), getGoalSet("Herbivore"), false),
             new Recipe(new Name("Grilled Sandwich"), new Time("10"),
                     getIngredientSet("Bread, 50, grain", "Cheese, 50, other"),
                     getStepsList("Spread butter on bread", "Heat pan to medium heat"),
-                    getGoalSet("Wholesome Wholemeal")),
+                    getGoalSet("Wholesome Wholemeal"), false),
             new Recipe(new Name("Boiled Chicken"), new Time("10"),
                     getIngredientSet("Chicken, 100, protein"),
-                    getStepsList("Dice chicken"), getGoalSet("Bulk like the Hulk")),
+                    getStepsList("Dice chicken"), getGoalSet("Bulk like the Hulk"), false),
             new Recipe(new Name("Chocolate Cake"), new Time("120"),
                     getIngredientSet("Sugar, 100, other"),
-                    getStepsList("Caramelize sugar"), getGoalSet()),
+                    getStepsList("Caramelize sugar"), getGoalSet(), false),
             new Recipe(new Name("Omelet"), new Time("15"),
                     getIngredientSet("Egg, 100, protein"),
-                    getStepsList("Crack and beat eggs"), getGoalSet()),
+                    getStepsList("Crack and beat eggs"), getGoalSet(), false),
             new Recipe(new Name("Tuna Bread"), new Time("60"),
                     getIngredientSet("Wholemeal bread, 100, grain", "Tuna, 100, protein"),
-                    getStepsList("Slice tuna"), getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal"))
+                    getStepsList("Slice tuna"),
+                    getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal"), false)
         };
     }
 

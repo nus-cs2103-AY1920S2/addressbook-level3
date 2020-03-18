@@ -94,6 +94,22 @@ public class RecipeBook implements ReadOnlyRecipeBook {
         recipes.remove(key);
     }
 
+    /**
+     * Favourites {@code key} from this {@code RecipeBook}.
+     * {@code key} must exist in the recipe book.
+     */
+    public void favouriteRecipe(Recipe key) {
+        recipes.favourite(key);
+    }
+
+    /**
+     * Unfavourites {@code key} from this {@code RecipeBook}.
+     * {@code key} must exist in the recipe book.
+     */
+    public void unfavouriteRecipe(Recipe key) {
+        recipes.unfavourite(key);
+    }
+
     //// util methods
 
     @Override
