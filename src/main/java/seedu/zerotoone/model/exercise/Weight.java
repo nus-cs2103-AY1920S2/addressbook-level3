@@ -9,13 +9,13 @@ import static seedu.zerotoone.commons.util.AppUtil.checkArgument;
  */
 public class Weight {
 
-    public static final String MESSAGE_CONSTRAINTS = "Weight should only be one number.";
+    public static final String MESSAGE_CONSTRAINTS = "Weight should be a one to three digits number.";
 
     /*
      * The first character of the weight must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "\\d{1,}";
+    public static final String VALIDATION_REGEX = "\\d{1,3}";
 
     public final String value;
 
