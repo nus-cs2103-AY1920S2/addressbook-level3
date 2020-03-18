@@ -23,7 +23,7 @@ public class BmiCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": \n"
             + "Parameters: [-h HEIGHT (must be in centimeters)] [-w WEIGHT (must be in kilograms)]\n"
-            + "Example: " + COMMAND_WORD + "-h 170 -w 65";
+            + "Example: " + COMMAND_WORD + " -h 170 -w 65";
 
     public static final String MESSAGE_CALCULATE_BMI_SUCCESS = "The BMI Calculated is: %1$s\n"
             + "Your BMI is in the %1$s category.";
