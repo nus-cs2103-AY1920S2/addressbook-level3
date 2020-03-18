@@ -152,9 +152,9 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Notes> getFilesInFolderList() {
-          throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public boolean hasModule(NusModule module) {
             throw new AssertionError("This method should not be called.");
@@ -162,9 +162,9 @@ public class AddCommandTest {
 
         @Override
         public void updateNotesList(Predicate<Notes> predicate) {
-          throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public void addModule(NusModule module) {
             throw new AssertionError("This method should not be called.");
