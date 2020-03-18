@@ -1,7 +1,7 @@
 package nasa.model.activity;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static nasa.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 

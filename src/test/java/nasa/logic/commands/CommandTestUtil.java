@@ -1,7 +1,5 @@
 package nasa.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
 import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
@@ -11,6 +9,8 @@ import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.testutil.Assert.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,22 +1,23 @@
 package nasa.logic.commands.addcommands;
 
-import nasa.logic.commands.exceptions.CommandException;
-import nasa.model.Model;
-import nasa.model.activity.Event;
-import nasa.model.module.Module;
-import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
-import nasa.model.ModelManager;
-import nasa.model.UserPrefs;
-import nasa.model.NasaBook;
-import nasa.testutil.EventBuilder;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.Model;
+import nasa.model.ModelManager;
+import nasa.model.NasaBook;
+import nasa.model.UserPrefs;
+import nasa.model.activity.Event;
+import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
+import nasa.testutil.EventBuilder;
 
 public class AddEventCommandTest {
 
@@ -46,10 +47,12 @@ public class AddEventCommandTest {
     public void execute_duplicateEvent_failure() {
         Event event = new EventBuilder().build();
         Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
-        AddEventCommand command = new AddEventCommand(event, new ModuleCode(VALID_MODULE_CS1231));
+        AddEventCommand command = new AddEventCommand(event,
+            new ModuleCode(VALID_MODULE_CS1231));
 
         expectedModel.addActivity(module, event);
-        assertThrows(CommandException.class, AddEventCommand.MESSAGE_DUPLICATED_ACTIVITY, () -> command.execute(expectedModel));
+        assertThrows(CommandException.class, AddEventCommand.MESSAGE_DUPLICATED_ACTIVITY, () ->
+            command.execute(expectedModel));
     }
 
     @Test
