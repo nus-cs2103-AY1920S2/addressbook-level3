@@ -17,7 +17,7 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
  * An Immutable ExerciseList that is serializable to JSON format.
  */
 @JsonRootName(value = "exerciselist")
-class JacksonExerciseList {
+public class JacksonExerciseList {
 
     public static final String MESSAGE_DUPLICATE_EXERCISE = "Exercises list contains duplicate exercise(s).";
 

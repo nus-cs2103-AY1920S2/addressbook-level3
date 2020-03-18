@@ -13,8 +13,6 @@ public class ExerciseSet {
      * The first character of the exercise set must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "\\d{1,}";
-
     public final Weight weight;
     public final NumReps numReps;
 
@@ -33,13 +31,6 @@ public class ExerciseSet {
 
     public NumReps getNumReps() {
         return numReps;
-    }
-
-    /**
-     * Returns true if a given string is a valid number of exercise sets.
-     */
-    public static boolean isValidExerciseSet(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

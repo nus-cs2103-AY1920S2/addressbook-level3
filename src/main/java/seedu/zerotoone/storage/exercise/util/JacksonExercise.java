@@ -22,15 +22,18 @@ class JacksonExercise {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Exercise's %s field is missing!";
 
     private final String exerciseName;
-    // private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JacksonExerciseSet> exerciseSets = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedExercise} with the given exercise details.
      */
     @JsonCreator
-    public JacksonExercise(@JsonProperty("exerciseName") String exerciseName, @JsonProperty("phone") String phone,
-                               @JsonProperty("email") String email, @JsonProperty("address") String address) {
+    public JacksonExercise(@JsonProperty("exerciseName") String exerciseName,
+            @JsonProperty("exerciseSets") List<JacksonExerciseSet> exerciseSets) {
         this.exerciseName = exerciseName;
+        if (exerciseSets != null) {
+            this.exerciseSets.addAll(exerciseSets);
+        }
     }
 
     /**
@@ -38,6 +41,9 @@ class JacksonExercise {
      */
     public JacksonExercise(Exercise source) {
         exerciseName = source.getExerciseName().fullName;
+        for (ExerciseSet exerciseSet : source.getExerciseSets()) {
+            exerciseSets.add(new JacksonExerciseSet(exerciseSet));
+        }
     }
 
     /**
@@ -46,20 +52,17 @@ class JacksonExercise {
      * @throws IllegalValueException if there were any data constraints violated in the adapted exercise.
      */
     public Exercise toModelType() throws IllegalValueException {
-        // final List<Tag> exerciseTags = new ArrayList<>();
-        // for (JsonAdaptedTag tag : tagged) {
-        //     exerciseTags.add(tag.toModelType());
-        // }
-
         if (exerciseName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ExerciseName.class.getSimpleName()));
-        }
-        if (!ExerciseName.isValidExerciseName(exerciseName)) {
+        } else if (!ExerciseName.isValidExerciseName(exerciseName)) {
             throw new IllegalValueException(ExerciseName.MESSAGE_CONSTRAINTS);
         }
         final ExerciseName modelExerciseName = new ExerciseName(exerciseName);
+
         final List<ExerciseSet> modelExerciseSets = new ArrayList<>();
-       
+        for (JacksonExerciseSet exerciseSet : exerciseSets) {
+            modelExerciseSets.add(exerciseSet.toModelType());
+        }
         return new Exercise(modelExerciseName, modelExerciseSets);
     }
 
