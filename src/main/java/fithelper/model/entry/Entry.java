@@ -111,6 +111,10 @@ public class Entry {
         return !this.isDone();
     }
 
+    public boolean isToday(String dateStr) {
+        return getTime().getDateStr().equalsIgnoreCase(dateStr);
+    }
+
     /**
      * Returns true if both Entry of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two entries.
