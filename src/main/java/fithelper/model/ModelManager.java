@@ -33,11 +33,12 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredTodaySportsEntries;
     private final VeventList vEventList;
     private CalendarSettings calendarSettings;
+    private final UserProfile userProfile;
 
     /**
      * Initializes a ModelManager with the given fitHelper and userPrefs.
      */
-    public ModelManager(ReadOnlyFitHelper fitHelper) {
+    public ModelManager(ReadOnlyFitHelper fitHelper, ReadOnlyUserProfile userProfile) {
         super();
         requireAllNonNull(fitHelper);
 
@@ -50,10 +51,11 @@ public class ModelManager implements Model {
         filteredTodayFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredTodaySportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         vEventList = new VeventList(filteredFoodEntries, filteredSportsEntries);
+        this.userProfile = new UserProfile(userProfile);
     }
 
     public ModelManager() {
-        this(new FitHelper());
+        this(new FitHelper(), new UserProfile());
     }
 
     //=========== FitHelper ================================================================================
@@ -219,6 +221,9 @@ public class ModelManager implements Model {
                 && filteredSportsEntries.equals(other.filteredSportsEntries);
     }
 
+
+    // Methods about calendar.
+
     @Override
     public ObservableList<VEvent> getVEvents() {
         return vEventList.getVEvents();
@@ -248,5 +253,19 @@ public class ModelManager implements Model {
 
     public LocalDateTime getCalendarDate() {
         return calendarSettings.getDate();
+    }
+
+
+    // Methods about user profile.
+
+
+    @Override
+    public void setUserProfile(ReadOnlyUserProfile newUserProfile) {
+        this.userProfile.resetData(newUserProfile);
+    }
+
+    @Override
+    public ReadOnlyUserProfile getUserProfile() {
+        return this.userProfile;
     }
 }

@@ -11,8 +11,8 @@
    <children>
       <GridPane prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="129.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="471.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="170.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="471.0" minWidth="10.0" prefWidth="430.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -25,42 +25,82 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" prefHeight="27.0" prefWidth="153.0" text="Name:" textAlignment="CENTER" textFill="DARKORANGE">
+            <Label alignment="CENTER" prefHeight="27.0" prefWidth="171.0" text="Name:" textAlignment="CENTER" textFill="DARKORANGE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="148.0" text="Gender:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="1">
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="172.0" text="Gender:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="148.0" text="Age:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="2">
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="171.0" text="Age:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="2">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="148.0" text="Address:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="3">
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="170.0" text="Address:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="3">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="148.0" text="Height:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="4">
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="173.0" text="Height:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="4">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="148.0" text="Target Weight:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="5">
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="173.0" text="Target Weight:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="5">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="148.0" text="Current Weight:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="6">
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="173.0" text="Current Weight:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="6">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="32.0" prefWidth="148.0" text="Current BMI:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="7">
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="179.0" text="Current BMI:" textAlignment="CENTER" textFill="DARKORANGE" GridPane.rowIndex="7">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="name" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="gender" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="age" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="address" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="height" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="targetweight" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentweight" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="currentbmi" alignment="CENTER" prefHeight="17.0" prefWidth="471.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <font>
                   <Font size="14.0" />
                </font>
