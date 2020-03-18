@@ -6,39 +6,24 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Order}'s {@code TransactionId}, {@code Name}, {@code Phone}, {@code Address}, {@code TimeStamp},
+ * {@code Warehouse}, {@code CashOnDeliver}, {@code Comment} and {@code TypeOfItem} matches any of the keywords given.
  */
 public class OrderContainsKeywordsPredicate implements Predicate<Order> {
     private final List<String> keywords;
-    private boolean hasTid;
-    private boolean hasName;
-    private boolean hasPhone;
-    private boolean hasAddress;
-    private boolean hasTimeStamp;
-    private boolean hasWarehouse;
-    private boolean hasCod;
-    private boolean hasComment;
-    private boolean hasItemType;
+    private final KeywordContainsOrderPrefix keywordContainsOrderPrefix;
     private boolean isGeneralSearch = true;
 
 
     public OrderContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
+        this.keywordContainsOrderPrefix = new KeywordContainsOrderPrefix();
     }
 
-    public OrderContainsKeywordsPredicate(List<String> keywords, boolean hasTid, boolean hasName, boolean hasPhone,
-                                          boolean hasAddress, boolean hasTimeStamp, boolean hasWarehouse,
-                                          boolean hasCod, boolean hasComment, boolean hasItemType) {
+    public OrderContainsKeywordsPredicate(List<String> keywords,
+                                          KeywordContainsOrderPrefix keywordContainsOrderPrefix) {
         this.keywords = keywords;
-        this.hasTid = hasTid;
-        this.hasName = hasName;
-        this.hasPhone = hasPhone;
-        this.hasAddress = hasAddress;
-        this.hasTimeStamp = hasTimeStamp;
-        this.hasWarehouse = hasWarehouse;
-        this.hasCod = hasCod;
-        this.hasComment = hasComment;
-        this.hasItemType = hasItemType;
+        this.keywordContainsOrderPrefix = keywordContainsOrderPrefix;
         this.isGeneralSearch = false;
     }
 
@@ -60,15 +45,24 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
         }
         return keywords.stream()
             .anyMatch(keyword -> ((
-                hasTid && StringUtil.containsWordIgnoreCase(order.getTid().tid, keyword))
-                || (hasName && StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword))
-                || (hasPhone && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
-                || (hasAddress && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
-                || (hasTimeStamp && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
-                || (hasWarehouse && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
-                || (hasComment && StringUtil.containsWordIgnoreCase(order.getComment().commentMade, keyword))
-                || (hasCod && StringUtil.containsWordIgnoreCase(order.getCash().cashOnDelivery, keyword))
-                || (hasItemType && StringUtil.containsWordIgnoreCase(order.getItemType().itemType, keyword))
+                keywordContainsOrderPrefix.getHasTid()
+                    && StringUtil.containsWordIgnoreCase(order.getTid().tid, keyword))
+                || (keywordContainsOrderPrefix.getHasName()
+                    && StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword))
+                || (keywordContainsOrderPrefix.getHasPhone()
+                    && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
+                || (keywordContainsOrderPrefix.getHasAddress()
+                    && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
+                || (keywordContainsOrderPrefix.getHasTimeStamp()
+                    && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
+                || (keywordContainsOrderPrefix.getHasWarehouse()
+                    && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
+                || (keywordContainsOrderPrefix.getHasComment()
+                    && StringUtil.containsWordIgnoreCase(order.getComment().commentMade, keyword))
+                || (keywordContainsOrderPrefix.getHasCod()
+                    && StringUtil.containsWordIgnoreCase(order.getCash().cashOnDelivery, keyword))
+                || (keywordContainsOrderPrefix.getHasItemType()
+                    && StringUtil.containsWordIgnoreCase(order.getItemType().itemType, keyword))
             ));
     }
 

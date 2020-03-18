@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SearchCommand;
+import seedu.address.model.order.KeywordContainsOrderPrefix;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {
@@ -31,10 +32,10 @@ public class SearchCommandParserTest {
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedSearchCommand);
 
         // test overloaded constructor
+        KeywordContainsOrderPrefix keywordContainsOrderPrefix = new KeywordContainsOrderPrefix();
+        keywordContainsOrderPrefix.setHasAddress(true);
         expectedSearchCommand = new SearchCommand(
-            new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"),
-            false, false, false, true, false,
-                false, false, false, false));
+            new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), keywordContainsOrderPrefix));
         assertParseSuccess(parser, " a/Alice Bob", expectedSearchCommand);
     }
 

@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.order.KeywordContainsOrderPrefix;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 
 /**
@@ -48,55 +49,46 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             return new SearchCommand(new OrderContainsKeywordsPredicate(keywords));
         }
 
-        boolean hasTid = argMultimap.getValue(PREFIX_TID).isPresent();
-        boolean hasName = argMultimap.getValue(PREFIX_NAME).isPresent();
-        boolean hasPhone = argMultimap.getValue(PREFIX_PHONE).isPresent();
-        boolean hasAddress = argMultimap.getValue(PREFIX_ADDRESS).isPresent();
-        boolean hasTimeStamp = argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).isPresent();
-        boolean hasWarehouse = argMultimap.getValue(PREFIX_WAREHOUSE).isPresent();
-        boolean hasCod = argMultimap.getValue(PREFIX_COD).isPresent();
-        boolean hasComment = argMultimap.getValue(PREFIX_COMMENT).isPresent();
-        boolean hasItemType = argMultimap.getValue(PREFIX_TYPE).isPresent();
+        KeywordContainsOrderPrefix keywordContainsOrderPrefix = new KeywordContainsOrderPrefix(argMultimap);
 
-        if (hasTid) {
+        if (keywordContainsOrderPrefix.getHasTid()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_TID);
         }
 
-        if (hasName) {
+        if (keywordContainsOrderPrefix.getHasName()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_NAME);
         }
 
-        if (hasPhone) {
+        if (keywordContainsOrderPrefix.getHasPhone()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_PHONE);
         }
 
-        if (hasAddress) {
+        if (keywordContainsOrderPrefix.getHasAddress()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_ADDRESS);
         }
 
-        if (hasTimeStamp) {
+        if (keywordContainsOrderPrefix.getHasTimeStamp()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_DELIVERY_TIMESTAMP);
         }
 
-        if (hasWarehouse) {
+        if (keywordContainsOrderPrefix.getHasWarehouse()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_WAREHOUSE);
         }
 
-        if (hasComment) {
+        if (keywordContainsOrderPrefix.getHasComment()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_COMMENT);
         }
 
-        if (hasCod) {
+        if (keywordContainsOrderPrefix.getHasCod()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_COD);
         }
 
-        if (hasItemType) {
+        if (keywordContainsOrderPrefix.getHasItemType()) {
             keywords = addPrefixKeywordsToList(keywords, argMultimap, PREFIX_TYPE);
         }
 
 
-        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, hasTid, hasName, hasPhone, hasAddress,
-            hasTimeStamp, hasWarehouse, hasCod, hasComment, hasItemType));
+        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, keywordContainsOrderPrefix));
     }
 
     /**
