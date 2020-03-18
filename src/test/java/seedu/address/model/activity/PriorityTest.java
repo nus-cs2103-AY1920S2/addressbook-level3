@@ -1,44 +1,36 @@
 package seedu.address.model.activity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class PriorityTest {
 
     @Test
-    public void isValidPriority_validPriority_true() {
-        boolean result = Priority.isValidPriorityValue("3");
-        assertEquals(true, result);
-    }
+    public void isValidPriorityValue() {
+        // valid priority
+        assertEquals(true, Priority.isValidPriorityValue("3"));
 
-    @Test
-    public void isValidPriority_invalidPriority_false() {
-        /*
-         * Test for empty string, or whitespace characters
-         */
+        // invalid priority
         assertEquals(false, Priority.isValidPriorityValue("2.0"));
         assertEquals(false, Priority.isValidPriorityValue("3.5"));
         assertEquals(false, Priority.isValidPriorityValue("-1"));
         assertEquals(false, Priority.isValidPriorityValue("10"));
-        assertEquals(false, Priority.isValidPriorityValue("abc"));
+        assertEquals(false, Priority.isValidPriorityValue("a"));
     }
 
     @Test
-    public void priority_validInstantiation_noException() throws IllegalArgumentException {
-        Priority priority = new Priority();
-        priority = new Priority("1");
-        priority = new Priority("5");
-    }
+    public void constructor_invalidNumber_throwsIllegalArgumentException() {
+        // invalid number beyond range of 1 to 5 inclusive
+        assertThrows(IllegalArgumentException.class, () -> new Priority("6"));
+//        assertThrows(IllegalArgumentException.class, () -> new Priority("0"));
+        assertThrows(IllegalArgumentException.class, () -> new Priority("-3"));
+        assertThrows(IllegalArgumentException.class, () -> new Priority("01"));
+        assertThrows(IllegalArgumentException.class, () -> new Priority("20"));
 
-    @Test
-    public void priority_invalidInstantiation_exceptionThrown() {
-        try {
-            Priority note = new Priority("6");
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals("java.lang.IllegalArgumentException: " + Priority.PRIORITY_RANGE_CONSTRAINTS, e.toString());
-        }
+        // invalid number: non-numeric characters
+        assertThrows(IllegalArgumentException.class, () -> new Priority("d"));
+        assertThrows(IllegalArgumentException.class, () -> new Priority("testing string"));
     }
 }

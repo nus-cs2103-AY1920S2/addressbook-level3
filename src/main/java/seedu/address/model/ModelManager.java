@@ -19,12 +19,12 @@ import seedu.address.model.person.Person;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final AddressBook nasaBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given AddressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -32,9 +32,9 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.nasaBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredPersons = new FilteredList<>(this.nasaBook.getPersonList());
     }
 
     public ModelManager() {
@@ -79,29 +79,29 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setAddressBook(ReadOnlyAddressBook AddressBook) {
+        this.nasaBook.resetData(AddressBook);
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return nasaBook;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public boolean hasPerson(Person module) {
+        requireNonNull(module);
+        return nasaBook.hasPerson(module);
     }
 
     @Override
     public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+        nasaBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
+    public void addPerson(Person module) {
+        nasaBook.addPerson(module);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setPerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.setPerson(target, editedPerson);
+        nasaBook.setPerson(target, editedPerson);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return nasaBook.equals(other.nasaBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }
