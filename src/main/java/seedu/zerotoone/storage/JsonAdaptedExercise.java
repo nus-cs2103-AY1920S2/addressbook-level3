@@ -51,12 +51,15 @@ class JsonAdaptedExercise {
      */
     public JsonAdaptedExercise(Exercise source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
-        address = source.getAddress().value;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        // phone = source.getPhone().value;
+        // email = source.getEmail().value;
+        // address = source.getAddress().value;
+        // tagged.addAll(source.getTags().stream()
+        //         .map(JsonAdaptedTag::new)
+        //         .collect(Collectors.toList()));
+        phone = null;
+        email = null;
+        address = null;
     }
 
     /**
@@ -103,7 +106,8 @@ class JsonAdaptedExercise {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(exerciseTags);
-        return new Exercise(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        // return new Exercise(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Exercise(null, null);
     }
 
 }
