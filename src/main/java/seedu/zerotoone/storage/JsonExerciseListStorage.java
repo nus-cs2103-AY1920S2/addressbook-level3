@@ -12,7 +12,7 @@ import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.commons.util.FileUtil;
 import seedu.zerotoone.commons.util.JsonUtil;
-import seedu.zerotoone.model.ReadOnlyExerciseList;
+import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 
 /**
  * A class to access ExerciseList data stored as a json file on the hard disk.

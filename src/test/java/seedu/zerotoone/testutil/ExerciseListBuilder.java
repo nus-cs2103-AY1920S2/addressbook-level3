@@ -1,7 +1,7 @@
 package seedu.zerotoone.testutil;
 
-import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseList;
 
 /**
  * A utility class to help with building ExerciseList objects.

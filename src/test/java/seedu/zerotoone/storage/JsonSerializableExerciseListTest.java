@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.commons.util.JsonUtil;
-import seedu.zerotoone.model.ExerciseList;
+import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.testutil.TypicalExercises;
 
 public class JsonSerializableExerciseListTest {

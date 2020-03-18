@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.core.GuiSettings;
+import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
 import seedu.zerotoone.testutil.ExerciseListBuilder;
 

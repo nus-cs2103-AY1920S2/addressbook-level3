@@ -1,12 +1,10 @@
-package seedu.zerotoone.model;
+package seedu.zerotoone.model.exercise;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.UniqueExerciseList;
 
 /**
  * Wraps all data at the address-book level

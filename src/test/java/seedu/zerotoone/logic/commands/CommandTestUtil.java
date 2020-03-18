@@ -15,9 +15,9 @@ import java.util.List;
 
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
 import seedu.zerotoone.testutil.EditExerciseDescriptorBuilder;
 

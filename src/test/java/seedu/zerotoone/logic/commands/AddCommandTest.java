@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseList;
+import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.testutil.ExerciseBuilder;
 
 public class AddCommandTest {

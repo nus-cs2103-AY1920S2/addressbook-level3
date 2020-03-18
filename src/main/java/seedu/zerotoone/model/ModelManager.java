@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseList;
+import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 
 /**
  * Represents the in-memory model of the address book data.

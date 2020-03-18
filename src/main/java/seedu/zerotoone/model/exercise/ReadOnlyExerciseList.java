@@ -1,7 +1,6 @@
-package seedu.zerotoone.model;
+package seedu.zerotoone.model.exercise;
 
 import javafx.collections.ObservableList;
-import seedu.zerotoone.model.exercise.Exercise;
 
 /**
  * Unmodifiable view of an exercise list

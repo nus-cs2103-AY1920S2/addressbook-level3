@@ -5,10 +5,10 @@ import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.UserPrefs;
+import seedu.zerotoone.model.exercise.ExerciseList;
 
 public class ClearCommandTest {
 

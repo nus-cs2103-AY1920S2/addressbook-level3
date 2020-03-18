@@ -3,14 +3,14 @@ package seedu.zerotoone.model.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.zerotoone.model.ExerciseList;
-import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.model.exercise.Weight;
 import seedu.zerotoone.model.exercise.NumReps;
+import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.ExerciseName;
 
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseList;
 
 /**
  * Contains utility methods for populating {@code ExerciseList} with sample data.
