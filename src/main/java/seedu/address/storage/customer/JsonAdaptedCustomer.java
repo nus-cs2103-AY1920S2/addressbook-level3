@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.customer;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,11 +16,12 @@ import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.storage.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Customer}.
  */
-class JsonAdaptedCustomer {
+public class JsonAdaptedCustomer {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Customer's %s field is missing!";
 

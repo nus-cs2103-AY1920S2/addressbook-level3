@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.product;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.customer.AddCustomerCommand;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.InventorySystem;
 import seedu.address.model.Model;
@@ -24,49 +24,49 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ProductBuilder;
 
-public class AddCustomerCommandTest {
+public class AddProductCommandTest {
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCustomerCommand(null));
+    public void constructor_nullProduct_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddProductCommand(null));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Customer validCustomer = new PersonBuilder().build();
+    public void execute_productAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingProductAdded modelStub = new ModelStubAcceptingProductAdded();
+        Product validProduct = new ProductBuilder().build();
 
-        CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub);
+        CommandResult commandResult = new AddProductCommand(validProduct).execute(modelStub);
 
-        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer),
+        assertEquals(String.format(AddProductCommand.MESSAGE_SUCCESS, validProduct),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCustomer), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validProduct), modelStub.productsAdded);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Customer validCustomer = new PersonBuilder().build();
-        AddCustomerCommand addCustomerCommand = new AddCustomerCommand(validCustomer);
-        ModelStub modelStub = new ModelStubWithPerson(validCustomer);
+    public void execute_duplicateProduct_throwsCommandException() {
+        Product validProduct = new ProductBuilder().build();
+        AddProductCommand addProductCommand = new AddProductCommand(validProduct);
+        ModelStub modelStub = new ModelStubWithProduct(validProduct);
 
         assertThrows(CommandException.class,
-                AddCustomerCommand.MESSAGE_DUPLICATE_PERSON, () -> addCustomerCommand.execute(modelStub));
+                AddProductCommand.MESSAGE_DUPLICATE_PRODUCT, () -> addProductCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Customer alice = new PersonBuilder().withName("Alice").build();
-        Customer bob = new PersonBuilder().withName("Bob").build();
-        AddCustomerCommand addAliceCommand = new AddCustomerCommand(alice);
-        AddCustomerCommand addBobCommand = new AddCustomerCommand(bob);
+        Product alice = new ProductBuilder().withDescription("Alice").build();
+        Product bob = new ProductBuilder().withDescription("Bob").build();
+        AddProductCommand addAliceCommand = new AddProductCommand(alice);
+        AddProductCommand addBobCommand = new AddProductCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCustomerCommand addAliceCommandCopy = new AddCustomerCommand(alice);
+        AddProductCommand addAliceCommandCopy = new AddProductCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -75,7 +75,7 @@ public class AddCustomerCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different customer -> returns false
+        // different product -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -154,7 +154,7 @@ public class AddCustomerCommandTest {
         }
 
         @Override
-        public void setPerson(Customer target, Customer editedCustomer) {
+        public void setPerson(Customer target, Customer editedProduct) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -205,39 +205,39 @@ public class AddCustomerCommandTest {
     }
 
     /**
-     * A Model stub that contains a single customer.
+     * A Model stub that contains a single product.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Customer customer;
+    private class ModelStubWithProduct extends ModelStub {
+        private final Product product;
 
-        ModelStubWithPerson(Customer customer) {
-            requireNonNull(customer);
-            this.customer = customer;
+        ModelStubWithProduct(Product product) {
+            requireNonNull(product);
+            this.product = product;
         }
 
         @Override
-        public boolean hasPerson(Customer customer) {
-            requireNonNull(customer);
-            return this.customer.isSamePerson(customer);
+        public boolean hasProduct(Product product) {
+            requireNonNull(product);
+            return this.product.isSameProduct(product);
         }
     }
 
     /**
-     * A Model stub that always accept the customer being added.
+     * A Model stub that always accept the product being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Customer> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingProductAdded extends ModelStub {
+        final ArrayList<Product> productsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Customer customer) {
-            requireNonNull(customer);
-            return personsAdded.stream().anyMatch(customer::isSamePerson);
+        public boolean hasProduct(Product product) {
+            requireNonNull(product);
+            return productsAdded.stream().anyMatch(product::isSameProduct);
         }
 
         @Override
-        public void addPerson(Customer customer) {
-            requireNonNull(customer);
-            personsAdded.add(customer);
+        public void addProduct(Product product) {
+            requireNonNull(product);
+            productsAdded.add(product);
         }
 
         @Override
@@ -247,3 +247,4 @@ public class AddCustomerCommandTest {
     }
 
 }
+
