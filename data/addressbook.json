@@ -1,14 +1,8 @@
 {
   "recipes" : [ {
-    "name" : "Chicken Rice",
-    "time" : "15",
-    "ingredients" : [ ],
-    "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
-    "goals" : [ "Bulk like the Hulk" ]
-  }, {
-    "name" : "Duck Brown Rice",
+    "name" : "Healthy Duck Brown Rice",
     "time" : "20",
-    "ingredients" : [ ],
+    "ingredients" : [ "Brown rice,  300.0, grain", "Duck,  100.0, protein" ],
     "steps" : [ "Braise the duck and eggs", "Steam brown rice with herbs", "Serve while hot" ],
     "goals" : [ "Wholesome Wholegrains", "Bulk like the Hulk" ]
   }, {
@@ -29,5 +23,29 @@
     "ingredients" : [ ],
     "steps" : [ "This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 1111111111111111111111 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 2222222222222222222222222 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 333333333333333333333333 This is a super long step This is a super long step This is a super long step This is a super long step 44444444444444This is a super long step This is a super long step This is a super long step END OF STEP" ],
     "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "Mayonnaise",
+    "time" : "20",
+    "ingredients" : [ "Jar of mayo,  20.0, vegetable", "pickles,  20.0, vegetable" ],
+    "steps" : [ "step one" ],
+    "goals" : [ ]
+  }, {
+    "name" : "Potato salad",
+    "time" : "20",
+    "ingredients" : [ "tomato,  20.0, vegetable" ],
+    "steps" : [ "mix" ],
+    "goals" : [ ]
+  }, {
+    "name" : "Chinese stir fry",
+    "time" : "20",
+    "ingredients" : [ "giraffe,  9999.9, protein", "other,  20.0, protein", "vege,  20.0, vegetable" ],
+    "steps" : [ "one" ],
+    "goals" : [ ]
+  }, {
+    "name" : "English Breakfast",
+    "time" : "20",
+    "ingredients" : [ "butter,  20.0, protein", "egg,  50.0, protein", "sausage,  100.0, protein", "wholemeal bread,  100.0, grain" ],
+    "steps" : [ "Break the egg and season the egg mixture with salt and pepper.", "Fry the sausage, then use the same pan to fry the egg.", "Toast the bread then spread butter." ],
+    "goals" : [ ]
   } ]
 }

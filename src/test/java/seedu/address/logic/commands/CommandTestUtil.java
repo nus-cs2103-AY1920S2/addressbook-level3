@@ -26,6 +26,8 @@ import seedu.address.testutil.EditRecipeDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_INGREDIENT_TURKEY_SANDWICH = "Shredded Turkey, 150, protein";
+    public static final String VALID_INGREDIENT_FISH = "Cod fish, 300, protein";
     public static final String VALID_NAME_TURKEY_SANDWICH = "Turkey Sandwich";
     public static final String VALID_NAME_FISH = "Steamed Fish";
     public static final String VALID_TIME_TURKEY_SANDWICH = "15";

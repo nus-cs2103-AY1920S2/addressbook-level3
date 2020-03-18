@@ -2,6 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_VEGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -21,11 +25,18 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_TIME + "TIME "
+            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]..."
+            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]..."
+            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]..."
+            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]..."
             + "[" + PREFIX_STEP + "STEP]... "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Caesar Salad "
             + PREFIX_TIME + "10 "
+            + PREFIX_INGREDIENT_VEGE + "100, Tomato"
+            + PREFIX_INGREDIENT_VEGE + "100, Lettuce"
+            + PREFIX_INGREDIENT_OTHER + "50, Honeydew"
             + PREFIX_STEP + "Cut tomatoes "
             + PREFIX_STEP + "Remove honeydew skin "
             + PREFIX_GOAL + "Herbivore ";

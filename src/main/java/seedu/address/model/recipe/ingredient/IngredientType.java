@@ -1,4 +1,4 @@
-package seedu.address.model.ingredient;
+package seedu.address.model.recipe.ingredient;
 
 /**
  * IngredientType contains the four main categories that the ingredients can belong to.
