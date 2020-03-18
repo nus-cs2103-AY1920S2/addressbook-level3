@@ -35,7 +35,7 @@ public class AddCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(),
-                new RestaurantBook(),
+                model.getRestaurantBook(),
                 new Scheduler(),
                 new UserPrefs());
         expectedModel.addPerson(validPerson);
