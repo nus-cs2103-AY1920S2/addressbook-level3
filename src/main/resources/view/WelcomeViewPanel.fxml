@@ -8,5 +8,6 @@
     <VBox>
         <Label text="Welcome to MODdy!" styleClass="welcomeTitle" alignment="TOP_LEFT"></Label>
         <Label text=" Quick start:" styleClass="title"></Label>
+        <Label text=" 1. No new profile? Create using `new`" styleClass="title"></Label>
     </VBox>
 </StackPane>
