@@ -1,0 +1,45 @@
+{
+  "recipes" : [ {
+    "name" : "Caesar Salad",
+    "time" : "10",
+    "ingredients" : [ "Honeydew,  100.0, other", "Tomato,  100.0, vegetable" ],
+    "steps" : [ "Cut tomatoes", "Remove honeydew skin" ],
+    "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "Grilled Sandwich",
+    "time" : "10",
+    "ingredients" : [ "Bread,  50.0, grain", "Cheese,  50.0, other" ],
+    "steps" : [ "Spread butter on bread", "Heat pan to medium heat" ],
+    "goals" : [ "Wholesome Wholemeal" ]
+  }, {
+    "name" : "Boiled Chicken",
+    "time" : "10",
+    "ingredients" : [ "Chicken,  100.0, protein" ],
+    "steps" : [ "Dice chicken" ],
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Chocolate Cake",
+    "time" : "120",
+    "ingredients" : [ "Sugar,  100.0, other" ],
+    "steps" : [ "Caramelize sugar" ],
+    "goals" : [ ]
+  }, {
+    "name" : "Omelet",
+    "time" : "15",
+    "ingredients" : [ "Egg,  100.0, protein" ],
+    "steps" : [ "Crack and beat eggs" ],
+    "goals" : [ ]
+  }, {
+    "name" : "Tuna Bread",
+    "time" : "60",
+    "ingredients" : [ "Tuna,  100.0, protein", "Wholemeal bread,  100.0, grain" ],
+    "steps" : [ "Slice tuna" ],
+    "goals" : [ "Wholesome Wholemeal", "Bulk like the Hulk" ]
+  }, {
+    "name" : "Vege shake",
+    "time" : "10",
+    "ingredients" : [ "carrots,  10.0, vegetable", "celery,  50.0, vegetable", "tomatoes,  100.0, vegetable" ],
+    "steps" : [ "blend everything together" ],
+    "goals" : [ "herbivore" ]
+  } ]
+}
