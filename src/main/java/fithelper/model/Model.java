@@ -67,6 +67,12 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered sports entry list */
     ObservableList<Entry> getFilteredReminderEntryList();
 
+    /** Returns an unmodifiable view of the filtered food entry list */
+    ObservableList<Entry> getFilteredTodayFoodEntryList(String dateStr);
+
+    /** Returns an unmodifiable view of the filtered sports entry list */
+    ObservableList<Entry> getFilteredTodaySportsEntryList(String dateStr);
+
 
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.
