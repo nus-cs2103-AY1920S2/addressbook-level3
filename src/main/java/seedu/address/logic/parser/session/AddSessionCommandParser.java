@@ -35,7 +35,7 @@ public class AddSessionCommandParser implements Parser<AddSessionCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STARTTIME, PREFIX_ENDTIME,
                 PREFIX_DATE, PREFIX_RECUR, PREFIX_MOD_CODE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
 
-        LocalDate date = LocalDate.now(); // Arbitrary default value. Will be overwritten by AddSessionCommand
+        LocalDate date = LocalDate.now();
         Session sessionToAdd = new Session();
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
