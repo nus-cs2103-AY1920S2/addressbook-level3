@@ -23,7 +23,7 @@ class JsonCourseFocusArea {
     private final String modularCredits;
 
     @JsonCreator
-    public JsonCourseFocusArea(@JsonProperty("sectionName") String focusAreaName,
+    public JsonCourseFocusArea(@JsonProperty("focusAreaName") String focusAreaName,
                       @JsonProperty("modules") List<String> modules,
                       @JsonProperty("modularCredits") String modularCredits) {
         this.focusAreaName = focusAreaName;

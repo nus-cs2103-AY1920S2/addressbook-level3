@@ -1,7 +1,7 @@
 {
   "courses": [
     {
-      "name": "Computer Science",
+      "courseName": "Computer Science",
       "focusArea": [
         {
           "focusAreaName": "Computer Science Foundation",
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "name": "Business Analytics",
+      "courseName": "Business Analytics",
       "focusArea": [
         {
           "focusAreaName": "Core Modules",

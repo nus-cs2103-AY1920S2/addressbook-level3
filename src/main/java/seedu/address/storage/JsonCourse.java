@@ -21,7 +21,7 @@ class JsonCourse {
     private final List<JsonCourseFocusArea> focusAreas;
 
     @JsonCreator
-    public JsonCourse(@JsonProperty("name") String courseName,
+    public JsonCourse(@JsonProperty("courseName") String courseName,
                       @JsonProperty("focusArea") List<JsonCourseFocusArea> focusAreas) {
         this.courseName = courseName;
         this.focusAreas = focusAreas;

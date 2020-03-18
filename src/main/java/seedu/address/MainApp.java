@@ -114,7 +114,7 @@ public class MainApp extends Application {
      * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
      */
     private CourseManager initCourseManager(UserPrefs userPrefs) {
-        JsonCourseListStorage modules = new JsonCourseListStorage(userPrefs.getModuleListFilePath());
+        JsonCourseListStorage modules = new JsonCourseListStorage(userPrefs.getCourseListFilePath());
         CourseManager courseManager;
         try {
             Optional<CourseList> courseListOptional = modules.readCourseList();

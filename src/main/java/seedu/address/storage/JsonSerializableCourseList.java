@@ -19,7 +19,7 @@ public class JsonSerializableCourseList {
     private final List<JsonCourse> courses = new ArrayList<>();
 
     @JsonCreator
-    public JsonSerializableCourseList(@JsonProperty("modules") List<JsonCourse> courses) {
+    public JsonSerializableCourseList(@JsonProperty("courses") List<JsonCourse> courses) {
         this.courses.addAll(courses);
     }
 
