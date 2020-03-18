@@ -1,6 +1,7 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.commands.CommandResult.DisplayedPage.CALENDAR;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.model.Model;
@@ -12,14 +13,27 @@ public class CalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "calendar";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the calendar view. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the calendar view. "
+            + "Parameters (Optional): "
+            + PREFIX_DATE + "DATE "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_DATE + "tmr";
 
-    public static final String MESSAGE_SUCCESS = "Now you are at Calendar Page ~";
+    public static final String MESSAGE_SUCCESS = "Now you are at CalendarSettings Page ~";
+    private String dateToSet;
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        if (dateToSet != null) {
+            model.setCalendarDate(dateToSet);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS), CALENDAR, false);
+    }
+
+    public void setDate(String date) {
+        requireNonNull(date);
+        this.dateToSet = date;
     }
 
     @Override

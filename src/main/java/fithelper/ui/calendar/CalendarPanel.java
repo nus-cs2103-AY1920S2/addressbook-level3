@@ -1,5 +1,6 @@
 package fithelper.ui.calendar;
 
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
@@ -35,7 +36,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     public CalendarPanel(ObservableList<Entry> foodList, ObservableList<Entry> sportList,
                          ObservableList<VEvent> events) {
         super(FXML);
-        logger.info("Initializing Calendar Page");
+        logger.info("Initializing CalendarSettings Page");
         calendarPage = new CalendarPage(events);
         calendarPage.updateScheduler();
         calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
@@ -45,5 +46,8 @@ public class CalendarPanel extends UiPart<AnchorPane> {
 
     public void updateScheduler() {
         calendarPage.updateScheduler();
+    }
+    public void setDate(LocalDateTime date) {
+        calendarPage.setDate(date);
     }
 }

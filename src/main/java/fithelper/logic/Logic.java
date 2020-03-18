@@ -1,5 +1,7 @@
 package fithelper.logic;
 
+import java.time.LocalDateTime;
+
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.CommandResult;
 import fithelper.logic.commands.exceptions.CommandException;
@@ -41,4 +43,5 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of sports entries*/
     ObservableList<Entry> getFilteredReminderEntryList();
 
+    LocalDateTime getCalendarDate();
 }
