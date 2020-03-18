@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.logging.Logger;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -25,8 +24,6 @@ import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.task.Reminder;
-import seedu.address.logic.PomodoroManager;
-import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where
@@ -304,12 +301,13 @@ public class MainWindow extends UiPart<Stage> {
     public static void triggerReminder(Reminder reminder, String name, String description) {
         long delay = reminder.getDelay();
         Timeline timeline =
-            new Timeline(
-                new KeyFrame(
-                    Duration.seconds(delay), ae -> {
-                        MainWindow.showReminder(name, description);
-                        reminder.setHasFired();
-                    }));
+                new Timeline(
+                        new KeyFrame(
+                                Duration.seconds(delay),
+                                ae -> {
+                                    MainWindow.showReminder(name, description);
+                                    reminder.setHasFired();
+                                }));
         timeline.play();
     }
 
@@ -325,7 +323,7 @@ public class MainWindow extends UiPart<Stage> {
         alert.setContentText(description);
         alert.show();
     }
-    
+
     private PetDisplayHandler getPetDisplayHandler() {
         return logic.getPetDisplayHandler();
     }
