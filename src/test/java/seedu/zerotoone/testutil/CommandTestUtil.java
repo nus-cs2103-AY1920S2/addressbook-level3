@@ -2,9 +2,9 @@ package seedu.zerotoone.testutil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
