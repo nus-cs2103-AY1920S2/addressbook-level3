@@ -1,11 +1,11 @@
 package seedu.zerotoone.testutil.exercise;
 
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_BENCH_PRESS;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_CRUNCHES;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NUM_REPS_BENCH_PRESS;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NUM_REPS_CRUNCHES;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_WEIGHT_BENCH_PRESS;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_WEIGHT_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_CRUNCHES;
 
 import java.util.ArrayList;
 import java.util.Arrays;

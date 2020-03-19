@@ -3,9 +3,9 @@ package seedu.zerotoone.model.exercise;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_CRUNCHES;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NUM_REPS_CRUNCHES;
-import static seedu.zerotoone.testutil.CommandTestUtil.VALID_WEIGHT_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_CRUNCHES;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.CRUNCHES;
 

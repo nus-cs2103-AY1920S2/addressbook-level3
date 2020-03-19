@@ -8,32 +8,31 @@ import org.junit.jupiter.api.Test;
 
 public class ExerciseNameTest {
 
-    // @Test
-    // public void constructor_null_throwsNullPointerException() {
-    //     assertThrows(NullPointerException.class, () -> new Name(null));
-    // }
+    @Test
+    public void constructor_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new ExerciseName(null));
+    }
 
-    // @Test
-    // public void constructor_invalidName_throwsIllegalArgumentException() {
-    //     String invalidName = "";
-    //     assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
-    // }
+    @Test
+    public void constructor_invalidExerciseName_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new ExerciseName(""));
+    }
 
-    // @Test
-    // public void isValidName() {
-    //     // null name
-    //     assertThrows(NullPointerException.class, () -> Name.isValidName(null));
+    @Test
+    public void isValidExerciseName() {
+        // null Exercise Name
+        assertThrows(NullPointerException.class, () -> ExerciseName.isValidExerciseName(null));
 
-    //     // invalid name
-    //     assertFalse(Name.isValidName("")); // empty string
-    //     assertFalse(Name.isValidName(" ")); // spaces only
-    //     assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-    //     assertFalse(Name.isValidName("deadlift*")); // contains non-alphanumeric characters
+        // invalid Exercise Name
+        assertFalse(ExerciseName.isValidExerciseName("")); // empty string
+        assertFalse(ExerciseName.isValidExerciseName(" ")); // spaces only
+        assertFalse(ExerciseName.isValidExerciseName("^")); // only non-alphanumeric characters
+        assertFalse(ExerciseName.isValidExerciseName("deadlift*")); // contains non-alphanumeric characters
 
-    //     // valid name
-    //     assertTrue(Name.isValidName("jumping jacks")); // alphabets only
-    //     assertTrue(Name.isValidName("2 directional elbow circles")); // alphanumeric characters
-    //     assertTrue(Name.isValidName("Bench Press")); // with capital letters
-    //     assertTrue(Name.isValidName("Chest supported and seated cable row")); // long names
-    // }
+        // valid Exercise Name
+        assertTrue(ExerciseName.isValidExerciseName("jumping jacks")); // alphabets only
+        assertTrue(ExerciseName.isValidExerciseName("2 directional elbow circles")); // alphanumeric characters
+        assertTrue(ExerciseName.isValidExerciseName("Bench Press")); // with capital letters
+        assertTrue(ExerciseName.isValidExerciseName("Chest supported and seated cable row")); // long names
+    }
 }
