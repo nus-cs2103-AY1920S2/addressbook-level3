@@ -44,8 +44,7 @@ public class SessionCommandParser {
             return new AddSessionCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
-            // return new DeleteSessionCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Delete session commands"));
+            return new DeleteSessionCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
             return new EditSessionCommandParser().parse(arguments);

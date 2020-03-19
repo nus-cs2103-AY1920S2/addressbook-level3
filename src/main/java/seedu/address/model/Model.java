@@ -145,12 +145,6 @@ public interface Model {
     ObservableList<Module> getFilteredModuleList();
 
     /**
-     * Deletes the given module.
-     * The module must exist in the address book.
-     */
-    void deleteModule(Module target);
-
-    /**
      * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the address book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the address
@@ -163,4 +157,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
+    /**
+     * Deletes a module.
+     */
+    void deleteModule(Module module);
+
+    /**
+     * Returns a module with same module code.
+     */
+    Module getModule(Module module);
+
 }

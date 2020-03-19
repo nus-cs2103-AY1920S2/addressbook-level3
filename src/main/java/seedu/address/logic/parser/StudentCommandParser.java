@@ -44,8 +44,7 @@ public class StudentCommandParser {
             return new AddStudentCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
-            // return new DeleteStudentCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Delete student commands"));
+            return new DeleteStudentCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
             // return new EditStudentCommandParser().parse(arguments);

@@ -85,6 +85,7 @@ public class Module {
                 str.append((", " + groups.get(i)));
             }
         }
+        str.append("]");
         return str.toString();
     }
 
