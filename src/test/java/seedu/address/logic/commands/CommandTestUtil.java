@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_VEGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -22,18 +26,18 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
 
 /**
- * Contains helper methods for testing commands. todo: Add ingredients desc
+ * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
 
-    public static final String VALID_GRAIN_TURKEY_SANDWICH = "Wholemeal bread, 300";
-    public static final String VALID_GRAIN_FISH = "";
-    public static final String VALID_PROTEIN_TURKEY_SANDWICH = "Shredded Turkey, 150";
-    public static final String VALID_PROTEIN_FISH = "Cod fish, 300";
-    public static final String VALID_VEGETABLE_TURKEY_SANDWICH = "Lettuce, 150";
-    public static final String VALID_VEGETABLE_FISH = "Tomato, 300";
-    public static final String VALID_OTHER_TURKEY_SANDWICH = "Mayonnaise, 150";
-    public static final String VALID_OTHER_FISH = "Sesame oil, 300";
+    public static final String VALID_GRAIN_TURKEY_SANDWICH = "300, Wholemeal bread";
+    public static final String VALID_GRAIN_FISH = "200, Rice";
+    public static final String VALID_PROTEIN_TURKEY_SANDWICH = "150, Shredded Turkey";
+    public static final String VALID_PROTEIN_FISH = "300, Cod fish";
+    public static final String VALID_VEGE_TURKEY_SANDWICH = "150, Lettuce";
+    public static final String VALID_VEGE_FISH = "300, Tomato";
+    public static final String VALID_OTHER_TURKEY_SANDWICH = "150, Mayonnaise";
+    public static final String VALID_OTHER_FISH = "300, Sesame oil";
     public static final String VALID_NAME_TURKEY_SANDWICH = "Turkey Sandwich";
     public static final String VALID_NAME_FISH = "Steamed Fish";
     public static final String VALID_TIME_TURKEY_SANDWICH = "15";
@@ -43,10 +47,18 @@ public class CommandTestUtil {
     public static final String VALID_GOAL_PROTEIN = "Bulk like the Hulk";
     public static final String VALID_GOAL_GRAIN = "Wholesome Wholemeal";
 
+    public static final String GRAIN_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_GRAIN + VALID_GRAIN_TURKEY_SANDWICH;
+    public static final String GRAIN_DESC_FISH = " " + PREFIX_INGREDIENT_GRAIN + VALID_GRAIN_FISH;
     public static final String NAME_DESC_TURKEY_SANDWICH = " " + PREFIX_NAME + VALID_NAME_TURKEY_SANDWICH;
     public static final String NAME_DESC_FISH = " " + PREFIX_NAME + VALID_NAME_FISH;
+    public static final String OTHER_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_OTHER + VALID_OTHER_TURKEY_SANDWICH;
+    public static final String OTHER_DESC_FISH = " " + PREFIX_INGREDIENT_OTHER + VALID_OTHER_FISH;
+    public static final String PROTEIN_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_PROTEIN + VALID_PROTEIN_TURKEY_SANDWICH;
+    public static final String PROTEIN_DESC_FISH = " " + PREFIX_INGREDIENT_PROTEIN + VALID_PROTEIN_FISH;
     public static final String TIME_DESC_TURKEY_SANDWICH = " " + PREFIX_TIME + VALID_TIME_TURKEY_SANDWICH;
     public static final String TIME_DESC_FISH = " " + PREFIX_TIME + VALID_TIME_FISH;
+    public static final String VEGETABLE_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_VEGE + VALID_VEGE_TURKEY_SANDWICH;
+    public static final String VEGETABLE_DESC_FISH = " " + PREFIX_INGREDIENT_VEGE + VALID_VEGE_FISH;
     public static final String STEP_DESC_TURKEY_SANDWICH = " " + PREFIX_STEP + VALID_STEP_TURKEY_SANDWICH;
     public static final String STEP_DESC_FISH = " " + PREFIX_STEP + VALID_STEP_FISH;
     public static final String GOAL_DESC_GRAIN = " " + PREFIX_GOAL + VALID_GOAL_GRAIN;

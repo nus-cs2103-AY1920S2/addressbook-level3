@@ -1,6 +1,10 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_VEGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
@@ -33,8 +37,16 @@ public class RecipeUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME).append(recipe.getName().fullName).append(" ");
         sb.append(PREFIX_TIME).append(recipe.getTime().value).append(" ");
-        //sb.append(PREFIX_INGREDIENT_GRAIN).append(recipe.getIngredients())
-        // TODO: reconsider saving each ingredient type as a separate recipe variable
+
+        recipe.getGrains().forEach(grain -> sb.append(PREFIX_INGREDIENT_GRAIN)
+                .append(grain.getQuantity() + "," + grain.getIngredientName()).append(" "));
+        recipe.getVegetables().forEach(vege -> sb.append(PREFIX_INGREDIENT_VEGE)
+                .append(vege.getQuantity() + "," + vege.getIngredientName()).append(" "));
+        recipe.getProteins().forEach(protein -> sb.append(PREFIX_INGREDIENT_PROTEIN)
+                .append(protein.getQuantity() + "," + protein.getIngredientName()).append(" "));
+        recipe.getOthers().forEach(other -> sb.append(PREFIX_INGREDIENT_OTHER)
+                .append(other.getQuantity() + "," + other.getIngredientName()).append(" "));
+
         recipe.getSteps().forEach(step -> sb.append(PREFIX_STEP).append(step.value).append(" "));
         recipe.getGoals().forEach(s -> sb.append(PREFIX_GOAL).append(s.goalName).append(" "));
         return sb.toString();

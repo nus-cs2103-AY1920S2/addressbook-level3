@@ -322,7 +322,10 @@ public class EditCommand extends Command {
             EditRecipeDescriptor e = (EditRecipeDescriptor) other;
             return getName().equals(e.getName())
                     && getTime().equals(e.getTime())
-                    // && getIngredients().equals(e.getIngredients()) todo
+                    && getGrains().equals(e.getGrains())
+                    && getVegetables().equals(e.getVegetables())
+                    && getProteins().equals(e.getProteins())
+                    && getOthers().equals(e.getOthers())
                     && getSteps().equals(e.getSteps())
                     && getGoals().equals(e.getGoals());
         }

@@ -91,8 +91,8 @@ public class SampleDataUtil {
         for (String grain: grains) {
             if (!grain.isBlank()) {
                 String[] splitDetails = grain.split(",");
-                String name = splitDetails[0].trim();
-                double quantity = Double.parseDouble(splitDetails[1].trim());
+                String name = splitDetails[1].trim();
+                double quantity = Double.parseDouble(splitDetails[0].trim());
 
                 grainSet.add(new Grain(name, quantity));
             }
@@ -108,8 +108,8 @@ public class SampleDataUtil {
         for (String vegetable: vegetables) {
             if (!vegetable.isBlank()) {
                 String[] splitDetails = vegetable.split(",");
-                String name = splitDetails[0].trim();
-                double quantity = Double.parseDouble(splitDetails[1].trim());
+                String name = splitDetails[1].trim();
+                double quantity = Double.parseDouble(splitDetails[0].trim());
 
                 vegetableSet.add(new Vegetable(name, quantity));
             }
@@ -126,8 +126,8 @@ public class SampleDataUtil {
         for (String protein: proteins) {
             if (!protein.isBlank()) {
                 String[] splitDetails = protein.split(",");
-                String name = splitDetails[0].trim();
-                double quantity = Double.parseDouble(splitDetails[1].trim());
+                String name = splitDetails[1].trim();
+                double quantity = Double.parseDouble(splitDetails[0].trim());
 
                 proteinSet.add(new Protein(name, quantity));
             }
@@ -144,8 +144,8 @@ public class SampleDataUtil {
         for (String other: others) {
             if (!other.isBlank()) {
                 String[] splitDetails = other.split(",");
-                String name = splitDetails[0].trim();
-                double quantity = Double.parseDouble(splitDetails[1].trim());
+                String name = splitDetails[1].trim();
+                double quantity = Double.parseDouble(splitDetails[0].trim());
 
                 otherSet.add(new Other(name, quantity));
             }

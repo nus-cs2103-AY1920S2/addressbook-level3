@@ -3,11 +3,21 @@
     "name" : "chickenn",
     "time" : "15",
     "isFavourite" : false,
-    "grains" : [  ],
+    "grains" : [ ],
     "vegetables" : [ "vege,  20.0" ],
-    "proteins" : [  ],
-    "others" : [  ],
+    "proteins" : [ ],
+    "others" : [ "pizza,  30.0" ],
     "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
     "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "hi",
+    "time" : "2",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  20.0" ],
+    "proteins" : [ ],
+    "others" : [ "other,  30.0" ],
+    "steps" : [ "first" ],
+    "goals" : [ ]
   } ]
 }
