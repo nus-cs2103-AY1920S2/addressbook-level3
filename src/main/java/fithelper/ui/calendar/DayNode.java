@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 /**
  * Create an anchor pane that can store additional data.
  */
-public class AnchorPaneNode extends AnchorPane {
+public class DayNode extends AnchorPane {
 
     // Date associated with this pane
     private LocalDate date;
@@ -17,7 +17,7 @@ public class AnchorPaneNode extends AnchorPane {
      * Create a anchor pane node. Date is not assigned in the constructor.
      * @param children children of the anchor pane
      */
-    public AnchorPaneNode(Node... children) {
+    public DayNode(javafx.scene.Node... children) {
         super(children);
     }
 

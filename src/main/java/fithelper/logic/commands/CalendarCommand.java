@@ -20,6 +20,7 @@ public class CalendarCommand extends Command {
             + PREFIX_DATE + "tmr";
 
     public static final String MESSAGE_SUCCESS = "Now you are at Calendar Page ~";
+    public static final String MESSAGE_INSTRUCTION = "Switch date reference by entering 'calendar d/dateinfo' ~";
     private String dateToSet;
 
     @Override
@@ -29,7 +30,8 @@ public class CalendarCommand extends Command {
             model.setCalendarDate(dateToSet);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS + "Reference Date:"
-                + model.getCalendarDate().toLocalDate()), CALENDAR, false);
+                + model.getCalendarDate().toLocalDate())
+                + "\n" + MESSAGE_INSTRUCTION, CALENDAR, false);
     }
 
     public void setDate(String date) {

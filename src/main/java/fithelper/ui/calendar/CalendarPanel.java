@@ -18,14 +18,18 @@ import jfxtras.icalendarfx.components.VEvent;
  */
 public class CalendarPanel extends UiPart<AnchorPane> {
     private static final String FXML = "CalendarPanel.fxml";
+    private ObservableList<Entry> foodList;
+    private ObservableList<Entry> sportList;
     private final CalendarPage calendarPage;
+    private MonthView monthView;
+    private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
 
     @FXML
     private StackPane calendarPagePlaceholder;
 
     @FXML
-    private AnchorPane fullCalendarPlaceholder;
+    private AnchorPane monthViewPlaceholder;
 
     @FXML
     private StackPane upcomingListPlaceholder;
@@ -36,18 +40,31 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     public CalendarPanel(ObservableList<Entry> foodList, ObservableList<Entry> sportList,
                          ObservableList<VEvent> events) {
         super(FXML);
+        this.foodList = foodList;
+        this.sportList = sportList;
         logger.info("Initializing Calendar Page");
         calendarPage = new CalendarPage(events);
+        monthView = new MonthView(LocalDateTime.now());
+        upcomingList = new UpcomingList(foodList, sportList, LocalDateTime.now());
         calendarPage.updateScheduler();
         calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
-        fullCalendarPlaceholder.getChildren().add(new FullCalendar(foodList, sportList).getView());
-        upcomingListPlaceholder.getChildren().add(new UpcomingList(foodList, sportList).getRoot());
+        monthViewPlaceholder.getChildren().add(monthView.getView());
+        upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
     }
 
     public void updateScheduler() {
         calendarPage.updateScheduler();
     }
+
+    // set date reference based on parameter date
     public void setDate(LocalDateTime date) {
         calendarPage.setDate(date);
+        monthView = new MonthView(date);
+        upcomingList = new UpcomingList(foodList, sportList, date);
+        upcomingListPlaceholder.getChildren().clear();
+        upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
+        monthViewPlaceholder.getChildren().clear();
+        monthViewPlaceholder.getChildren().add(monthView.getView());
+
     }
 }

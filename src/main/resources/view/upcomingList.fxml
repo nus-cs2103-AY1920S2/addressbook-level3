@@ -10,18 +10,21 @@
     <children>
         <StackPane prefWidth="200.0">
             <children>
-                <Label fx:id="upcomingTitle" alignment="TOP_CENTER" text="Upcoming" underline="true" StackPane.alignment="TOP_CENTER">
+                <Label fx:id="upcomingTitle" StackPane.alignment="TOP_LEFT" textFill="DARKORANGE">
                     <StackPane.margin>
-                        <Insets top="5.0" />
+                        <Insets top="0.0" left="3.0"/>
                     </StackPane.margin>
                 </Label>
             </children>
         </StackPane>
-        <StackPane id="upcomingPanel" alignment="TOP_CENTER">
+        <StackPane id="upcomingPanel" alignment="BOTTOM_CENTER">
             <children>
                 <ScrollPane id="upcomingScrollPane" fitToWidth="true" prefWidth="200.0">
+                    <StackPane.margin>
+                        <Insets top="20.0" />
+                    </StackPane.margin>
                     <content>
-                        <VBox fx:id="upcomingList" prefWidth="200.0" spacing="5.0" />
+                        <VBox fx:id="upcomingList" prefWidth="200.0" spacing="5.0"/>
                     </content>
                 </ScrollPane>
             </children>

@@ -27,9 +27,10 @@ public class UpcomingList extends UiPart<AnchorPane> {
     @FXML
     private Label upcomingTitle;
 
-    public UpcomingList(ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
+
+    public UpcomingList(ObservableList<Entry> foodList, ObservableList<Entry> sportsList, LocalDateTime dateToSet) {
         super(FXML);
-        time = LocalDateTime.now();
+        time = dateToSet;
         upcomingTitle.setText("Upcoming in " + time.getMonth());
         getList(foodList, sportsList);
     }
@@ -48,7 +49,7 @@ public class UpcomingList extends UiPart<AnchorPane> {
      */
     public void findList(ObservableList<Entry> entries) {
         for (Entry entry: entries) {
-            if (LocalDateTime.now().isBefore(entry.getDateTime())) {
+            if (time.isBefore(entry.getDateTime())) {
                 if (entry.getType().toString().equals("food")) {
                     index++;
                     FoodCard foodCard = new FoodCard(entry, index);
@@ -59,6 +60,9 @@ public class UpcomingList extends UiPart<AnchorPane> {
                     upcomingList.getChildren().add(sportCard.getRoot());
                 }
             }
+        }
+        if (index == 0) {
+            upcomingTitle.setText("No entry from this month onwards");
         }
     }
 }
