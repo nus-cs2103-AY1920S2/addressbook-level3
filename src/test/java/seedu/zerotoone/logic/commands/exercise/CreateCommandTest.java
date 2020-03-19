@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.CRUNCHES;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -34,18 +36,16 @@ public class CreateCommandTest {
     @Test
     public void execute_exerciseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExerciseAdded modelStub = new ModelStubAcceptingExerciseAdded();
-        Exercise validExercise = new ExerciseBuilder().build();
+        CommandResult commandResult = new CreateCommand(BENCH_PRESS.getExerciseName()).execute(modelStub);
 
-        CommandResult commandResult = new CreateCommand(validExercise).execute(modelStub);
-
-        assertEquals(String.format(CreateCommand.MESSAGE_SUCCESS, validExercise), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validExercise), modelStub.exercisesAdded);
+        assertEquals(String.format(CreateCommand.MESSAGE_SUCCESS, BENCH_PRESS), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(BENCH_PRESS), modelStub.exercisesAdded);
     }
 
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
         Exercise validExercise = new ExerciseBuilder().build();
-        CreateCommand createCommand = new CreateCommand(validExercise);
+        CreateCommand createCommand = new CreateCommand(BENCH_PRESS.getExerciseName());
         ModelStub modelStub = new ModelStubWithExercise(validExercise);
 
         assertThrows(
@@ -54,16 +54,14 @@ public class CreateCommandTest {
 
     @Test
     public void equals() {
-        Exercise benchPress = new ExerciseBuilder().withExerciseName("Bench Press").build();
-        Exercise crunches = new ExerciseBuilder().withExerciseName("Crunches").build();
-        CreateCommand addBenchPressCommand = new CreateCommand(benchPress);
-        CreateCommand addCrunchesCommand = new CreateCommand(crunches);
+        CreateCommand addBenchPressCommand = new CreateCommand(BENCH_PRESS.getExerciseName());
+        CreateCommand addCrunchesCommand = new CreateCommand(CRUNCHES.getExerciseName());
 
         // same object -> returns true
         assertTrue(addBenchPressCommand.equals(addBenchPressCommand));
 
         // same values -> returns true
-        CreateCommand addBenchPressCommandCopy = new CreateCommand(benchPress);
+        CreateCommand addBenchPressCommandCopy = new CreateCommand(BENCH_PRESS.getExerciseName());
         assertTrue(addBenchPressCommand.equals(addBenchPressCommandCopy));
 
         // different types -> returns false
