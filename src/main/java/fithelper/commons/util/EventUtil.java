@@ -2,10 +2,16 @@ package fithelper.commons.util;
 
 import fithelper.model.entry.Entry;
 import jfxtras.icalendarfx.components.VEvent;
+import jfxtras.icalendarfx.properties.component.descriptive.Categories;
+
+import java.util.List;
+
 /**
  * A class for accessing and modifying VEvent.
  */
 public class EventUtil {
+    public static final String PINK = "group21";
+    public static final String GREY = "group18";
     /**
      * Maps event to VEvent
      */
@@ -15,19 +21,18 @@ public class EventUtil {
         vEvent.setDateTimeEnd(entry.getDateTime().plusHours(1));
         StringBuilder summary = new StringBuilder();
         summary.append(entry.getName());
-        String temp = "";
-        if (entry.getStatus().toString().equals("Done")) {
-            temp = " D";
-        } else {
-            temp = " U";
-        }
-        summary.append(temp);
         vEvent.setSummary(summary.toString());
         vEvent.setUniqueIdentifier(getUniqueIdentifier(entry));
         if (entry.getStatus().toString().equals("Done")) {
-            vEvent.withCategories("29");
+            Categories categories = new Categories();
+            // pink color in iCalendarAgenda
+            categories.setValue(List.of(GREY));
+            vEvent.setCategories(List.of(categories));
         } else {
-            vEvent.withCategories("24");
+            Categories categories = new Categories();
+            // pink color in iCalendarAgenda
+            categories.setValue(List.of(PINK));
+            vEvent.setCategories(List.of(categories));
         }
         return vEvent;
     }

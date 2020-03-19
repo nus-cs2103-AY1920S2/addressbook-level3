@@ -77,6 +77,12 @@ public class ModelManager implements Model {
         return fitHelper.hasEntry(entry);
     }
 
+    @Override
+    public boolean hasTimeClashes(Entry entry) {
+        requireNonNull(entry);
+        return fitHelper.hasTimeClashes(entry);
+    }
+
     /**
      * Deletes the given entry.
      * The entry must exist in the log book.
