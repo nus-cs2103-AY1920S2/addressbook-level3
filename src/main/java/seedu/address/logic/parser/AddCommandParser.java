@@ -2,28 +2,29 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.comment.Comment;
+import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
+import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -38,27 +39,31 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_COMMENT, PREFIX_TAG);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE,
-                PREFIX_PHONE, PREFIX_EMAIL)
+                ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
+                        PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_COD, PREFIX_TYPE,
+                        PREFIX_COMMENT);
+        if (!arePrefixesPresent(argMultimap, PREFIX_TID, PREFIX_NAME, PREFIX_ADDRESS,
+                PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE,
+                PREFIX_PHONE, PREFIX_COD)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         TimeStamp timeStamp = ParserUtil.parseTimeStamp(argMultimap.getValue(PREFIX_DELIVERY_TIMESTAMP).get());
         Warehouse warehouse = ParserUtil.parseWarehouse(argMultimap.getValue(PREFIX_WAREHOUSE).get());
+        CashOnDelivery cash = ParserUtil.parseCash(argMultimap.getValue(PREFIX_COD).get());
         Comment comment = ParserUtil.parseComment(argMultimap.getValue(PREFIX_COMMENT).isEmpty()
                 ? "NIL"
                 : argMultimap.getValue(PREFIX_COMMENT).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        TypeOfItem type = ParserUtil.parseItemType(argMultimap.getValue(PREFIX_TYPE).isEmpty()
+                ? "NIL"
+                : argMultimap.getValue(PREFIX_TYPE).get());
 
-        Order order = new Order(name, phone, email, address, timeStamp, warehouse, comment, tagList);
+        Order order = new Order(tid, name, phone, address, timeStamp, warehouse, cash, comment, type);
 
         return new AddCommand(order);
     }

@@ -19,13 +19,13 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NearbyCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.NameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.OrderUtil;
@@ -70,11 +70,11 @@ public class OrderBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_search() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new OrderContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

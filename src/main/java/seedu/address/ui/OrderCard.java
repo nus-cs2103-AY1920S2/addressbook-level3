@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -28,6 +26,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label tid;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -38,28 +38,30 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label warehouse;
     @FXML
-    private Label email;
+    private Label cashOnDelivery;
     @FXML
     private Label comment;
     @FXML
     private Label timeStamp;
     @FXML
-    private FlowPane tags;
+    private FlowPane itemType;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.order = order;
         id.setText(displayedIndex + ". ");
+        tid.setText(order.getTid().tid);
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);
         timeStamp.setText(order.getTimestamp().value);
         warehouse.setText(order.getWarehouse().address);
-        email.setText(order.getEmail().value);
         comment.setText(order.getComment().commentMade);
-        order.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        cashOnDelivery.setText(order.getCash().cashOnDelivery);
+
+        if (!(order.getItemType().itemType).equals("NIL")) {
+            itemType.getChildren().add(new Label(order.getItemType().itemType));
+        }
     }
 
     @Override

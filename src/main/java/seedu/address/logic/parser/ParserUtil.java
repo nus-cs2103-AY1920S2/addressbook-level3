@@ -2,21 +2,18 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.comment.Comment;
+import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.Email;
+import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
+import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -37,6 +34,21 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String tid} into a {@code TransactionId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code tid} is invalid.
+     */
+    public static TransactionId parseTid(String tid) throws ParseException {
+        requireNonNull(tid);
+        String trimmedTid = tid.trim();
+        if (!TransactionId.isValidTid(trimmedTid)) {
+            throw new ParseException(TransactionId.MESSAGE_CONSTRAINTS);
+        }
+        return new TransactionId(trimmedTid);
     }
 
     /**
@@ -115,18 +127,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String cod} into a {@code CashOnDelivery}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code cod} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static CashOnDelivery parseCash(String cod) throws ParseException {
+        requireNonNull(cod);
+        String trimmedCash = cod.trim();
+        if (!CashOnDelivery.isValidCashValue(trimmedCash)) {
+            throw new ParseException(CashOnDelivery.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new CashOnDelivery(trimmedCash);
     }
 
     /**
@@ -145,29 +157,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String itemType} into a {@code TypeOfItem}
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code itemType} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+    public static TypeOfItem parseItemType(String itemType) throws ParseException {
+        requireNonNull(itemType);
+        String itemTypeTrimmed = itemType.trim();
+        if (!TypeOfItem.isValidItemName(itemTypeTrimmed)) {
+            throw new ParseException(TypeOfItem.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
-    }
 
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
+        return new TypeOfItem(itemTypeTrimmed);
     }
 }

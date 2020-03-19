@@ -1,10 +1,13 @@
 {
   "orders": [ {
-    "name": "Hans Muster",
+    "tid": "",
+    "name": "Hans@Muster",
     "phone": "9482424",
-    "email": "invalid@email!3e",
     "address": "4th street",
     "timestamp": "2020-02-20 1500",
-    "warehouse": "5 Toh Guan Rd E, #02-30 S608831"
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery" : "3",
+    "comment" : "NIL",
+    "itemType": "NIL"
   } ]
 }
