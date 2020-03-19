@@ -10,8 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.InsertCommand;
 import seedu.address.model.order.Order;
 
 /**
@@ -22,8 +22,8 @@ public class OrderUtil {
     /**
      * Returns an add command string for adding the {@code order}.
      */
-    public static String getAddCommand(Order order) {
-        return AddCommand.COMMAND_WORD + " " + getOrderDetails(order);
+    public static String getInsertCommand(Order order) {
+        return InsertCommand.COMMAND_WORD + " " + getOrderDetails(order);
     }
 
     /**

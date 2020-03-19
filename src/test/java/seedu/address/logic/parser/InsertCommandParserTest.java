@@ -48,7 +48,7 @@ import static seedu.address.testutil.TypicalOrders.BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.InsertCommand;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
@@ -60,7 +60,7 @@ import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.Warehouse;
 import seedu.address.testutil.OrderBuilder;
 
-public class AddCommandParserTest {
+public class InsertCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
@@ -70,54 +70,54 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
-                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple TIDs - last TID accepted
         assertParseSuccess(parser, TID_DESC_AMY + TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
-                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
-                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
                 + COMMENT_DESC_NIL + TYPE_DESC_GLASS,
-                new AddCommand(expectedOrder));
+                new InsertCommand(expectedOrder));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_AMY
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
                 + COMMENT_DESC_NIL + TYPE_DESC_GLASS,
-                new AddCommand(expectedOrder));
+                new InsertCommand(expectedOrder));
 
         // multiple timeStamps - last timeStamp accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_AMY + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
-                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple warehouses - last warehouse accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
                 + WAREHOUSE_DESC_AMY + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
-                + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple cashOnDeliveries - last cashOnDelivery accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
                         + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_AMY
-                        + COD_DESC_BOB + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                        + COD_DESC_BOB + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple comment - last comment accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
                         + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_INSTRUCTION
-                        + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                        + COMMENT_DESC_NIL + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple item types - all accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
                 + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB + COMMENT_DESC_NIL
-                + TYPE_DESC_PLASTIC + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                + TYPE_DESC_PLASTIC + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
     }
 
     @Test
@@ -125,12 +125,12 @@ public class AddCommandParserTest {
         // zero item types and comment
         Order expectedOrder = new OrderBuilder(AMY).build();
         assertParseSuccess(parser, TID_DESC_AMY + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY
-                + DELIVERY_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COD_DESC_AMY, new AddCommand(expectedOrder));
+                + DELIVERY_TIMESTAMP_DESC_AMY + WAREHOUSE_DESC_AMY + COD_DESC_AMY, new InsertCommand(expectedOrder));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertCommand.MESSAGE_USAGE);
 
         // missing TID prefix
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + ADDRESS_DESC_BOB
@@ -244,6 +244,6 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
                 + COMMENT_DESC_NIL + TYPE_DESC_PLASTIC
-                + TYPE_DESC_GLASS, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                + TYPE_DESC_GLASS, String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertCommand.MESSAGE_USAGE));
     }
 }

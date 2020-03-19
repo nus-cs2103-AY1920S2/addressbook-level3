@@ -13,7 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
@@ -27,17 +27,17 @@ import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new InsertCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<InsertCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the InsertCommand
+     * and returns an InsertCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public InsertCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TID, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS,
                         PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_COD, PREFIX_TYPE,
@@ -46,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE,
                 PREFIX_PHONE, PREFIX_COD)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertCommand.MESSAGE_USAGE));
         }
 
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
@@ -65,7 +65,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Order order = new Order(tid, name, phone, address, timeStamp, warehouse, cash, comment, type);
 
-        return new AddCommand(order);
+        return new InsertCommand(order);
     }
 
     /**
