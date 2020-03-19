@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.group.Group.GroupType;
 import seedu.address.model.session.Session;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Matric;
@@ -173,6 +174,17 @@ public class ParserUtil {
             return Session.SessionType.SESSION_TYPE_PREPARATION;
         default:
             return Session.SessionType.SESSION_TYPE_OTHER;
+        }
+    }
+
+    public static GroupType parseGroupType(String type) {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        switch(trimmedType.toLowerCase()) {
+        case "lab":
+            return GroupType.LAB;
+        default:
+            return GroupType.TUTORIAL;
         }
     }
 }
