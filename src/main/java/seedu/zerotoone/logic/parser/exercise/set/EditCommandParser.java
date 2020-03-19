@@ -32,7 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         Index setId;
 
         try {
-            String[] splitPreamble = argMultimap.getPreamble().split(" ");
+            String[] splitPreamble = argMultimap.getPreamble().trim().split("\\s+");
             exerciseId = SetParserUtil.parseIndex(splitPreamble[0]);
             setId = SetParserUtil.parseIndex(splitPreamble[1]);
         } catch (ParseException e) {

@@ -1,6 +1,7 @@
 package seedu.zerotoone.storage.exercise.util;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.exercise.ExerciseSet;
@@ -21,7 +22,8 @@ class JacksonExerciseSet {
      * Constructs a {@code JacksonExerciseSet} with the given {@code exerciseSet}.
      */
     @JsonCreator
-    public JacksonExerciseSet(String weight, String numReps) {
+    public JacksonExerciseSet(@JsonProperty("weight") String weight,
+            @JsonProperty("numReps") String numReps) {
         this.weight = weight;
         this.numReps = numReps;
     }
