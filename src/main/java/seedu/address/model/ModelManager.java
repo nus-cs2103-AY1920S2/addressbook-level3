@@ -132,9 +132,11 @@ public class ModelManager implements Model {
         addressBook.addModule(module);
     }
 
+
     @Override
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
+
         addressBook.setModule(target, editedModule);
     }
 

@@ -83,9 +83,9 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-    * Gets module with given module code.
-    * Returns null if no such module exists.
-    */
+     * Gets module with given module code.
+     * Returns null if no such module exists.
+     */
     public Module getModule(String code) {
         Module module = null;
         for (int i = 0; i < this.size(); ++i) {
