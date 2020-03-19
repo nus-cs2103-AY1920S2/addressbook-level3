@@ -145,6 +145,25 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
+     * Returns true if a entry has time clashes with at least two other entries{@code entry}.
+     */
+    public boolean hasTimeClashes(Entry entry) {
+        requireNonNull(entry);
+        boolean hasTimeClashes;
+        long hasTimeClashesWithFood = foodEntries.countClashes(entry);
+        long hasTimeClashesWithSports = sportsEntries.countClashes(entry);
+        long count = hasTimeClashesWithFood + hasTimeClashesWithSports;
+        if (hasEntry(entry)) {
+            count--;
+        }
+        if (count >= 2) {
+            hasTimeClashes = true;
+        } else {
+            hasTimeClashes = false;
+        }
+        return hasTimeClashes;
+    }
+    /**
      * Adds an entry to FitHelper.
      * The entry must not already exist in FitHelper.
      */

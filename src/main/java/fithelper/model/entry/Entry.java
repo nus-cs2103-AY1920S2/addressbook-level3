@@ -2,6 +2,7 @@ package fithelper.model.entry;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -129,6 +130,23 @@ public class Entry {
                 && (anotherEntry.getLocation().equals(getLocation()))
                 && (anotherEntry.getTime().equals(getTime()));
     }
+
+    /**
+     * Returns true if both Entry has time clashes.
+     * This defines a weaker notion of equality between two entries.
+     */
+    public boolean hasTimeClashes(Entry anotherEntry) {
+        if (anotherEntry == this) {
+            return true;
+        }
+        Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes();
+        return anotherEntry != null
+                && (Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() <= 59
+                && Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() >= 0
+                || Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() <= 59
+                && Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() >= 0);
+    }
+
 
     /**
      * Returns true if both entries have the same identity and data fields.

@@ -4,57 +4,77 @@ import java.time.LocalDateTime;
 
 import fithelper.model.entry.Entry;
 import fithelper.ui.FoodCard;
-import fithelper.ui.SportCard;
 import fithelper.ui.UiPart;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 /**
  * A section which displays upcoming tasks.
  */
 public class UpcomingList extends UiPart<AnchorPane> {
     private static final String FXML = "upcomingList.fxml";
+    private ObservableList<Entry> combined;
     private LocalDateTime time;
-
-    @FXML
-    private VBox upcomingList;
 
     @FXML
     private Label upcomingTitle;
 
-    public UpcomingList(ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
+    @FXML
+    private ListView<Entry> listView;
+
+
+    public UpcomingList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime dateToSet) {
         super(FXML);
-        time = LocalDateTime.now();
+        time = dateToSet;
         upcomingTitle.setText("Upcoming in " + time.getMonth());
-        getList(foodList, sportsList);
+        combined = FXCollections.observableArrayList();
+        initializeListView(foodList, sportList);
     }
 
     /**
-     * Updates the upcoming tasks.
+     * Constructs ListView Cell class.
      */
-    public void getList(ObservableList<Entry> foodList, ObservableList<Entry> sportsList) {
-        upcomingList.getChildren().clear();
-        findList(foodList);
-        findList(sportsList);
+    static class ListViewCell extends ListCell<Entry> {
+        @Override
+        protected void updateItem(Entry entry, boolean empty) {
+            super.updateItem(entry, empty);
+            updateSelected(false);
+            if (empty || entry == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new FoodCard(entry, getIndex() + 1).getRoot());
+            }
+        }
     }
 
     /**
-     * Finds the upcoming tasks.
+     * Initializes the list view.
+     *
+     * @param foodList  an observable list of food entries
+     * @param sportList an observable list of sport entries
      */
-    public void findList(ObservableList<Entry> entries) {
-        for (Entry entry: entries) {
-            if (LocalDateTime.now().isAfter(entry.getDateTime())) {
-                if (entry.getType().toString().equals("food")) {
-                    FoodCard foodCard = new FoodCard(entry);
-                    upcomingList.getChildren().add(foodCard.getRoot());
-                } else {
-                    SportCard sportCard = new SportCard(entry);
-                    upcomingList.getChildren().add(sportCard.getRoot());
-                }
+    private void initializeListView(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
+        addFilteredEntries(foodList);
+        addFilteredEntries(sportList);
+        listView.setItems(combined);
+        listView.setCellFactory(listView -> new UpcomingList.ListViewCell());
+    }
+
+    /**
+     * Add filtered entries to combined list
+     * @param list the list to be filterd, can be either food or sports type
+     */
+    public void addFilteredEntries(ObservableList<Entry> list) {
+        for (Entry entry : list) {
+            if (time.isBefore(entry.getDateTime())) {
+                combined.add(entry);
             }
         }
     }

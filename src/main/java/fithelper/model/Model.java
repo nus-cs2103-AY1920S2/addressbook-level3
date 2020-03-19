@@ -34,6 +34,11 @@ public interface Model {
     boolean hasEntry(Entry entry);
 
     /**
+     * Returns true if at least two Entries have time clashes as {@code entry} exists in the FitHelper.
+     */
+    boolean hasTimeClashes(Entry entry);
+
+    /**
      * Deletes the given entry.
      * The entry must exist in the log book.
      */
