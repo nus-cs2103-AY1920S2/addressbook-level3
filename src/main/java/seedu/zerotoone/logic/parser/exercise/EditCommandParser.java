@@ -4,13 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 
+import java.util.NoSuchElementException;
+
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exercise.EditCommand;
-import seedu.zerotoone.logic.commands.exercise.EditCommand.EditExerciseDescriptor;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
+import seedu.zerotoone.model.exercise.ExerciseName;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -24,27 +26,15 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
-        if (!ArgumentTokenizer.arePrefixesPresent(argMultimap, PREFIX_EXERCISE_NAME)
-                || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-
-        Index index;
         try {
-            index = ExerciseParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException e) {
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
+
+            Index index = ExerciseParserUtil.parseIndex(argMultimap.getPreamble());
+            ExerciseName exerciseName = ExerciseParserUtil.parseExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
+
+            return new EditCommand(index, exerciseName);
+        } catch (ParseException | NoSuchElementException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), e);
         }
-
-        EditExerciseDescriptor editExerciseDescriptor = new EditExerciseDescriptor();
-        if (argMultimap.getValue(PREFIX_EXERCISE_NAME).isPresent()) {
-            editExerciseDescriptor.setExerciseName(
-                ExerciseParserUtil.parseExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get())
-            );
-        }
-
-        return new EditCommand(index, editExerciseDescriptor);
     }
-
 }
