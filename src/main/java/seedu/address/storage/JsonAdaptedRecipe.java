@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.recipe.Calorie;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.attribute.IngredientList;
@@ -36,9 +36,8 @@ class JsonAdaptedRecipe {
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
-                             @JsonProperty("instructions") String instructions,
-                             @JsonProperty("calorie") String calorie,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
@@ -56,15 +55,15 @@ class JsonAdaptedRecipe {
         ingredients = source.getIngredients().toString();
         instructions = source.getInstructions().toString();
         calorie = source.getCalorie().calorie;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted recipe object into the model's {@code Recipe} object.
+     * Converts this Jackson-friendly adapted recipe object into the model's
+     * {@code Recipe} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
+     * @throws IllegalValueException if there were any data constraints violated in
+     *                               the adapted recipe.
      */
     public Recipe toModelType() throws IllegalValueException {
         final List<Tag> recipeTags = new ArrayList<>();
@@ -85,7 +84,7 @@ class JsonAdaptedRecipe {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, IngredientList.class.getSimpleName()));
         }
         // if (!IngredientList.isValidIngredients(ingredients)) {
-        //     throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
+        // throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
         // }
         final IngredientList modelIngredients = ParserUtil.parseIngredients(ingredients);
 
@@ -94,7 +93,7 @@ class JsonAdaptedRecipe {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, InstructionList.class.getSimpleName()));
         }
         // if (!InstructionList.isValidInstructions(instructions)) {
-        //     throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
+        // throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
         // }
         final InstructionList modelInstructions = ParserUtil.parseInstructions(instructions);
 
