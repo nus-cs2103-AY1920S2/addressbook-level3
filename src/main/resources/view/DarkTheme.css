@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#000000, 20%);
+    -fx-background-color: black;
     background-color: #383838; /* Used in the default.html file */
 }
 
@@ -77,37 +77,39 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#000000, 20%);
+    -fx-background-color: black;
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#000000, 20%);
+    -fx-background-color: black;
 }
 
 .list-view {
-    -fx-background-insets: 0;
-    -fx-padding: 0;
-    -fx-background-color: derive(#000000, 20%);
+    -fx-padding: 10;
+    -fx-background-color: black;
     -fx-background-radius: 25;
+}
+
+.module {
+    -fx-padding: 0.25em 0.583em 0.25em 0.583em; /* 3 7 3 7 */
 }
 
 .list-cell {
-    -fx-padding: 2000px ;
-    -fx-background-radius: 25;
+    -fx-background-radius: 15;
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
+    -fx-padding: 10;
+
 }
 
 .list-cell:filled {
-    -fx-padding: 2px ;
     -fx-background-color: #32174d;
 }
 
 .list-cell:empty {
-    -fx-padding: 2px ;
     -fx-background-color: transparent;
 }
 
@@ -151,11 +153,11 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#000000, 20%);
+     -fx-background-color: black;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#000000, 20%);
+     -fx-background-color: black;
      -fx-border-color: derive(#000000, 10%);
      -fx-border-top-width: 1px;
 }
@@ -175,9 +177,9 @@
 .result-display {
     -fx-background-radius: 15;
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-font-family: "Helvetica";
+    -fx-font-size: 12pt;
+    -fx-text-fill: black;
 }
 
 .result-display .label {
@@ -220,12 +222,12 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#000000, 20%);
+    -fx-background-color: black;
 }
 
 .menu-bar .label {
     -fx-font-size: 10pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Microsoft Sans Serif";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
@@ -342,12 +344,12 @@
 }
 
 #activityListView {
+    -fx-background-color: transparent;
     -fx-border-width: 0;
     -fx-background-radius: 15;
 }
 
-#cardPane {
-     -fx-background-color: transparent;
+#modulePane {
      -fx-border-width: 0;
  }
 
@@ -374,7 +376,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-color: white;
     -fx-background-radius: 20;
 }
 

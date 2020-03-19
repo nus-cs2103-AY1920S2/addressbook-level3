@@ -4,7 +4,9 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.control.Control;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -26,8 +28,6 @@ public class ModuleListPanel extends UiPart<Region> {
         super(FXML);
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());
-        moduleListView.setOrientation(Orientation.HORIZONTAL);
-
     }
 
     /**
@@ -37,10 +37,11 @@ public class ModuleListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Module module, boolean empty) {
             super.updateItem(module, empty);
-            //Fit modules to screen
-            prefWidthProperty().bind(moduleListView.widthProperty().divide(moduleListView.getItems().size()));
-            //minWidthProperty().set(200);
-            //setMaxWidth(Control.USE_PREF_SIZE);
+
+            prefWidthProperty().bind(moduleListView.widthProperty().divide(moduleListView.getItems().size()).subtract(10));
+            //TODO Fit modules to screen
+            minWidthProperty().set(200);
+            setMaxWidth(Control.USE_PREF_SIZE);
 
             if (empty || module == null) {
                 setGraphic(null);
