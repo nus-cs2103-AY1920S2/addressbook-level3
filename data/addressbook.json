@@ -1,9 +1,9 @@
-{
+{ //TODO
   "recipes" : [ {
-    "name" : "Chicken Rice",
+    "name" : "chickenn",
     "time" : "15",
-    "isFavourite" : true,
-    "ingredients" : [ ],
+    "isFavourite" : false,
+    "ingredients" : [ "vrgr,  20.0, vegetable" ],
     "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
@@ -16,7 +16,7 @@
   }, {
     "name" : "Final Recipe",
     "time" : "33",
-    "isFavourite" : true,
+    "isFavourite" : false,
     "ingredients" : [ ],
     "steps" : [ "No empty steps allowed" ],
     "goals" : [ "Test" ]
@@ -89,6 +89,13 @@
     "isFavourite" : false,
     "ingredients" : [ "butter,  20.0, protein", "egg,  50.0, protein", "sausage,  100.0, protein", "wholemeal bread,  100.0, grain" ],
     "steps" : [ "Break the egg and season the egg mixture with salt and pepper.", "Fry the sausage, then use the same pan to fry the egg.", "Toast the bread then spread butter." ],
+    "goals" : [ ]
+  }, {
+    "name" : "Hello",
+    "time" : "20",
+    "isFavourite" : false,
+    "ingredients" : [ "meeat,  20.0, protein", "vege,  20.0, vegetable" ],
+    "steps" : [ "first step", "second step" ],
     "goals" : [ ]
   } ]
 }

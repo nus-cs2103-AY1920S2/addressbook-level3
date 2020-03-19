@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * An UI component that displays information of a {@code Recipe}.
+ * An UI component that displays information of a {@code Recipe}. TODO
  */
 public class RecipeCard extends UiPart<Region> {
 
