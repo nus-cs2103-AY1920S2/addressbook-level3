@@ -19,6 +19,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -40,6 +41,7 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
             + "[" + CliSyntax.PREFIX_USAGE + "4 "
             + "[" + CliSyntax.PREFIX_LIMIT + "5 "
+            + "[" + CliSyntax.PREFIX_REMIND + "01-08-2020] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 ";
@@ -98,9 +100,10 @@ public class EditCommand extends Command {
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
+        RemindDate updatedRemindDate = editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
 
         return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate,
-                updatedUsage, updatedLimit, updatedTags);
+                updatedUsage, updatedLimit, updatedRemindDate, updatedTags);
     }
 
     @Override
@@ -133,6 +136,7 @@ public class EditCommand extends Command {
         private Usage usage;
         private Limit limit;
         private Set<Tag> tags;
+        private RemindDate remindDate;
 
         public EditCouponDescriptor() {}
 
@@ -147,6 +151,7 @@ public class EditCommand extends Command {
             setExpiryDate(toCopy.expiryDate);
             setUsage(toCopy.usage);
             setLimit(toCopy.limit);
+            setRemindDate(toCopy.remindDate);
             setTags(toCopy.tags);
         }
 
@@ -154,7 +159,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, limit, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, limit, remindDate, tags);
         }
 
         public void setName(Name name) {
@@ -199,6 +204,15 @@ public class EditCommand extends Command {
 
         public Optional<ExpiryDate> getExpiryDate() {
             return Optional.ofNullable(expiryDate);
+        }
+
+        ///
+        public void setRemindDate(RemindDate remindDate) {
+            this.remindDate = remindDate;
+        }
+
+        public Optional<RemindDate> getRemindDate() {
+            return Optional.ofNullable(remindDate);
         }
 
         public void setUsage(Usage usage) {
@@ -255,6 +269,7 @@ public class EditCommand extends Command {
                     && getExpiryDate().equals(e.getExpiryDate())
                     && getUsage().equals(e.getUsage())
                     && getLimit().equals(e.getLimit())
+                    && getRemindDate().equals(e.getRemindDate())
                     && getTags().equals(e.getTags());
         }
     }

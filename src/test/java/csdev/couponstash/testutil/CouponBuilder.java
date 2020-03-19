@@ -8,10 +8,12 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
+
 import csdev.couponstash.model.util.SampleDataUtil;
 
 /**
@@ -33,6 +35,7 @@ public class CouponBuilder {
     private Usage usage;
     private Limit limit;
     private Set<Tag> tags;
+    private RemindDate remindDate;
 
     public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -41,6 +44,7 @@ public class CouponBuilder {
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
         usage = new Usage(DEFAULT_USAGE);
         limit = new Limit(DEFAULT_LIMIT);
+        remindDate = new RemindDate(DEFAULT_EXPIRY_DATE);
         tags = new HashSet<>();
     }
 
@@ -55,6 +59,7 @@ public class CouponBuilder {
         usage = couponToCopy.getUsage();
         limit = couponToCopy.getLimit();
         tags = new HashSet<>(couponToCopy.getTags());
+        remindDate = new RemindDate(DEFAULT_EXPIRY_DATE);
     }
 
     /**
@@ -108,6 +113,13 @@ public class CouponBuilder {
     }
 
     /**
+     * Sets the {@code ExpiryDate} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withRemindDate(String expiryDate) {
+        this.remindDate = new RemindDate(expiryDate);
+        return this;
+    }
+    /**
      * Sets the {@code Limit} of the {@code Coupon} that we are building.
      */
     public CouponBuilder withLimit(String limit) {
@@ -116,7 +128,7 @@ public class CouponBuilder {
     }
 
     public Coupon build() {
-        return new Coupon(name, phone, savings, expiryDate, usage, limit, tags);
+        return new Coupon(name, phone, savings, expiryDate, usage, limit, remindDate, tags);
     }
 
 }

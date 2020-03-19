@@ -15,6 +15,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -30,6 +31,7 @@ class JsonAdaptedCoupon {
     private final String phone;
     private final JsonAdaptedSavings savings;
     private final String expiryDate;
+    private final String remindDate;
     private final String usage;
     private final String limit;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -44,6 +46,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("expiry date") String expiryDate,
                              @JsonProperty("usage") String usage,
                              @JsonProperty("limit") String limit,
+                             @JsonProperty("remind date") String remindDate,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged
                              ) {
         this.name = name;
@@ -52,6 +55,7 @@ class JsonAdaptedCoupon {
         this.expiryDate = expiryDate;
         this.usage = usage;
         this.limit = limit;
+        this.remindDate = remindDate;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -67,6 +71,7 @@ class JsonAdaptedCoupon {
         expiryDate = source.getExpiryDate().value;
         usage = source.getUsage().value;
         limit = source.getLimit().value;
+        remindDate = source.getRemindDate().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -114,6 +119,16 @@ class JsonAdaptedCoupon {
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
+        //
+        if (remindDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    RemindDate.class.getSimpleName()));
+        }
+        if (!RemindDate.isValidRemindDate(remindDate)) {
+            throw new IllegalValueException(RemindDate.MESSAGE_CONSTRAINTS);
+        }
+        final RemindDate modelRemindDate = new RemindDate(remindDate);
+
         if (usage == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Usage.class.getSimpleName()));
         }
@@ -132,7 +147,8 @@ class JsonAdaptedCoupon {
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
-        return new Coupon(modelName, modelPhone, modelSavings, modelExpiryDate, modelUsage, modelLimit, modelTags);
+        return new Coupon(modelName, modelPhone, modelSavings,
+                modelExpiryDate, modelUsage, modelLimit, modelRemindDate, modelTags);
 
     }
 

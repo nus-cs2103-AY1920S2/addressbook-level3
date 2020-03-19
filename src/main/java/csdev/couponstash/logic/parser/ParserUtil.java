@@ -15,12 +15,14 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -158,6 +160,22 @@ public class ParserUtil {
             throw new ParseException(ExpiryDate.MESSAGE_CONSTRAINTS);
         }
         return new ExpiryDate(trimmedDate);
+    }
+
+
+    /**
+     * Parses a {@code String remindDate} into an {@code RemindDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remindDate} is invalid.
+     */
+    public static RemindDate parseRemindDate(String remindDate) throws ParseException {
+        requireNonNull(remindDate);
+        String trimmedDate = remindDate.trim();
+        if (!RemindDate.isValidRemindDate(trimmedDate)) {
+            throw new ParseException(RemindDate.MESSAGE_CONSTRAINTS);
+        }
+        return new RemindDate(trimmedDate);
     }
 
     /**

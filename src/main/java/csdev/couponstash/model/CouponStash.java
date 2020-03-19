@@ -116,7 +116,7 @@ public class CouponStash implements ReadOnlyCouponStash {
             copy.addCoupon(new Coupon(
                     coupon.getName(), coupon.getPhone(),
                     coupon.getSavings(), coupon.getExpiryDate(),
-                    coupon.getUsage(), coupon.getLimit(), copiedTags
+                    coupon.getUsage(), coupon.getLimit(), coupon.getRemindDate(), copiedTags
             ));
         }
 

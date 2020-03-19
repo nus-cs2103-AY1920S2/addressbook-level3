@@ -11,6 +11,7 @@ public class Messages {
     public static final String MESSAGE_COUPONS_LISTED_OVERVIEW = "%1$d coupons listed!";
     public static final String MESSAGE_REMIND_DATE_EXCEED_EXPIRY_DATE =
             "Please input an earlier date to be reminded, than the coupon's expiry date";
-
+    public static final String MESSAGE_REMIND_DATE_BEFORE_TODAYS =
+            "Please input a later date than today's";
 
 }

@@ -20,7 +20,7 @@ public class Coupon {
     private final Name name;
     private final Phone phone;
     private final ExpiryDate expiryDate;
-    private final Remind remind;
+    private final RemindDate remindDate;
 
     // Savings field
     private final Savings savings;
@@ -34,20 +34,20 @@ public class Coupon {
      * Every field must be present and not null.
      */
     public Coupon(Name name, Phone phone, Savings savings, ExpiryDate expiryDate,
-                  Usage usage, Limit limit, Set<Tag> tags) {
-        requireAllNonNull(name, phone, savings, expiryDate, usage, limit, tags);
+                  Usage usage, Limit limit, RemindDate remindDate, Set<Tag> tags) {
+        requireAllNonNull(name, phone, savings, expiryDate, usage, limit, remindDate, tags);
         this.name = name;
         this.phone = phone;
         this.savings = savings;
         this.expiryDate = expiryDate;
-        this.remind = new Remind();
+        this.remindDate = remindDate;
         this.usage = usage;
         this.limit = limit;
         this.tags.addAll(tags);
     }
 
-    public Remind getRemind() {
-        return remind;
+    public RemindDate getRemindDate() {
+        return this.remindDate;
     }
 
     public Name getName() {
@@ -137,13 +137,14 @@ public class Coupon {
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
                 && otherCoupon.getUsage().equals(getUsage())
                 && otherCoupon.getLimit().equals(getLimit())
+                && otherCoupon.getRemindDate().equals((getRemindDate()))
                 && otherCoupon.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, savings, expiryDate, usage, limit, tags);
+        return Objects.hash(name, phone, savings, expiryDate, usage, limit, remindDate, tags);
     }
 
     @Override
@@ -160,9 +161,10 @@ public class Coupon {
                 .append(getUsage())
                 .append(" Limit: ")
                 .append(getLimit())
+                .append(" Remind Date: ")
+                .append(getRemindDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }
