@@ -18,7 +18,7 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
 import seedu.zerotoone.model.userprefs.UserPrefs;
-import seedu.zerotoone.testutil.ExerciseListBuilder;
+import seedu.zerotoone.testutil.exercise.ExerciseListBuilder;
 
 public class ModelManagerTest {
 

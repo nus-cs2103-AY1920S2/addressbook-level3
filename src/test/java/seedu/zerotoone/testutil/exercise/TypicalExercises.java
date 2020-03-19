@@ -1,4 +1,4 @@
-package seedu.zerotoone.testutil;
+package seedu.zerotoone.testutil.exercise;
 
 import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_BENCH_PRESS;
 import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_CRUNCHES;

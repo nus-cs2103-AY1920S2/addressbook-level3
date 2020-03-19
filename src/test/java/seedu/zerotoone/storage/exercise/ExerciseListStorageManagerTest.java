@@ -12,7 +12,7 @@ import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.commons.util.JsonUtil;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.storage.exercise.util.JacksonExerciseList;
-import seedu.zerotoone.testutil.TypicalExercises;
+import seedu.zerotoone.testutil.exercise.TypicalExercises;
 
 public class ExerciseListStorageManagerTest {
 

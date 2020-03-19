@@ -1,4 +1,4 @@
-package seedu.zerotoone.testutil;
+package seedu.zerotoone.testutil.exercise;
 
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 

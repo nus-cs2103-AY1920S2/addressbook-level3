@@ -2,7 +2,7 @@ package seedu.zerotoone.logic.commands.exercise;
 
 import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.userprefs.UserPrefs;
-import seedu.zerotoone.testutil.ExerciseBuilder;
+import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code CreateCommand}.

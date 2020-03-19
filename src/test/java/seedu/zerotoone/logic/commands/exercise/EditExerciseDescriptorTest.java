@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-// import seedu.zerotoone.logic.commands.EditCommand.EditExerciseDescriptor;
-import seedu.zerotoone.testutil.EditExerciseDescriptorBuilder;
+import seedu.zerotoone.testutil.exercise.EditExerciseDescriptorBuilder;
 
 public class EditExerciseDescriptorTest {
 

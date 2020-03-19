@@ -6,12 +6,12 @@ import static seedu.zerotoone.testutil.Assert.assertThrows;
 import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_CRUNCHES;
 import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NUM_REPS_CRUNCHES;
 import static seedu.zerotoone.testutil.CommandTestUtil.VALID_WEIGHT_CRUNCHES;
-import static seedu.zerotoone.testutil.TypicalExercises.BENCH_PRESS;
-import static seedu.zerotoone.testutil.TypicalExercises.CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.CRUNCHES;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.testutil.ExerciseBuilder;
+import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 public class ExerciseTest {
 

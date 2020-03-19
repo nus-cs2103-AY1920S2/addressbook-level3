@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.CommandTestUtil.showExerciseAtIndex;
-import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
 
 import org.junit.jupiter.api.Test;
 

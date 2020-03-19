@@ -1,4 +1,4 @@
-package seedu.zerotoone.testutil;
+package seedu.zerotoone.testutil.exercise;
 
 import java.util.ArrayList;
 import java.util.List;

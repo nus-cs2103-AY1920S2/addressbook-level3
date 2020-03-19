@@ -1,4 +1,4 @@
-package seedu.zerotoone.testutil;
+package seedu.zerotoone.testutil.exercise;
 
 import java.util.Set;
 import java.util.stream.Collectors;

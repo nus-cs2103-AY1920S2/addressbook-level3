@@ -1,4 +1,4 @@
-package seedu.zerotoone.testutil;
+package seedu.zerotoone.testutil.exercise;
 
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;

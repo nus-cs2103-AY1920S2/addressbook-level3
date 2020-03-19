@@ -22,7 +22,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
-import seedu.zerotoone.testutil.ExerciseBuilder;
+import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 public class CreateCommandTest {
 

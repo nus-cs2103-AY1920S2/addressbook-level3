@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.testutil.ExerciseBuilder;
+import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 public class NameContainsKeywordsPredicateTest {
 

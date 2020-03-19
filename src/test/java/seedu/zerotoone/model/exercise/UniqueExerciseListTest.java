@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.zerotoone.model.exercise.exceptions.ExerciseNotFoundException;
-import seedu.zerotoone.testutil.ExerciseBuilder;
+import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 public class UniqueExerciseListTest {
 
