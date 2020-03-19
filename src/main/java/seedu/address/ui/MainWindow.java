@@ -215,6 +215,8 @@ public class MainWindow extends UiPart<Stage> {
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.doneTask();
                     pomodoro.checkBreakActions();
+                    logic.incrementPomExp();
+                    petDisplay.update();
                     return commandResult;
                     // Continue to next prompt from break-timer
                 } else if (commandText.toLowerCase().equals("n")) {
@@ -226,6 +228,8 @@ public class MainWindow extends UiPart<Stage> {
                                     false);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.checkBreakActions();
+                    logic.incrementPomExp();
+                    petDisplay.update();
                     return commandResult;
                 } else {
                     throw new ParseException(
@@ -284,6 +288,7 @@ public class MainWindow extends UiPart<Stage> {
 
             //update PetDisplay
             petDisplay.update();
+            System.out.println("Updated");
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

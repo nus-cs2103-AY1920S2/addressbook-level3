@@ -91,4 +91,9 @@ public class LogicManager implements Logic {
     public ReadOnlyPet getPet() {
         return model.getPet();
     }
+
+    @Override
+    public void incrementPomExp() {
+        model.incrementPomExp();
+    }
 }

@@ -184,4 +184,9 @@ public class ModelManager implements Model {
     public void incrementExp() {
         this.pet.incrementExp();
     }
+
+    @Override
+    public void incrementPomExp() {
+        this.pet.incrementPomExp();
+    }
 }

@@ -42,4 +42,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     ReadOnlyPet getPet();
+
+    void incrementPomExp();
 }

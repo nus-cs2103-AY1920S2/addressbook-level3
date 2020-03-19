@@ -70,6 +70,8 @@ public interface Model {
 
     void incrementExp();
 
+    void incrementPomExp();
+
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);
