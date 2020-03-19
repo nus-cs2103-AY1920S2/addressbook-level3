@@ -18,7 +18,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -36,7 +36,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
+            + "[" + CliSyntax.PREFIX_PROMO_CODE + "PROMO_CODE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
             + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
             + "[" + CliSyntax.PREFIX_START_DATE + "1-08-2020] "
@@ -44,7 +44,7 @@ public class EditCommand extends Command {
             + "[" + CliSyntax.PREFIX_LIMIT + "5 "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 ";
+            + CliSyntax.PREFIX_PROMO_CODE + "91234567 ";
 
     public static final String MESSAGE_EDIT_COUPON_SUCCESS = "Edited Coupon: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -103,14 +103,14 @@ public class EditCommand extends Command {
         assert couponToEdit != null;
 
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
-        Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
+        PromoCode updatedPromoCode = editCouponDescriptor.getPromoCode().orElse(couponToEdit.getPromoCode());
         Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavingsForEachUse());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
         StartDate updatedStartDate = editCouponDescriptor.getStartDate().orElse(couponToEdit.getStartDate());
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
 
-        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedStartDate,
+        return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
                 // avoid changing the usage
                 couponToEdit.getUsage(),
                 updatedLimit, updatedTags,
@@ -144,7 +144,7 @@ public class EditCommand extends Command {
      */
     public static class EditCouponDescriptor {
         private Name name;
-        private Phone phone;
+        private PromoCode promoCode;
         private Savings savings;
         private ExpiryDate expiryDate;
         private StartDate startDate;
@@ -160,7 +160,7 @@ public class EditCommand extends Command {
          */
         public EditCouponDescriptor(EditCouponDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setPromoCode(toCopy.promoCode);
             setSavings(toCopy.savings);
             setExpiryDate(toCopy.expiryDate);
             setStartDate(toCopy.startDate);
@@ -173,7 +173,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, startDate, usage, limit, tags);
+            return CollectionUtil.isAnyNonNull(name, promoCode, savings, expiryDate, startDate, usage, limit, tags);
         }
 
         public void setName(Name name) {
@@ -184,12 +184,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setPromoCode(PromoCode promoCode) {
+            this.promoCode = promoCode;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<PromoCode> getPromoCode() {
+            return Optional.ofNullable(promoCode);
         }
 
         /**
@@ -277,7 +277,7 @@ public class EditCommand extends Command {
             EditCouponDescriptor e = (EditCouponDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getPromoCode().equals(e.getPromoCode())
                     && getSavings().equals(e.getSavings())
                     && getExpiryDate().equals(e.getExpiryDate())
                     && getStartDate().equals(e.getStartDate())

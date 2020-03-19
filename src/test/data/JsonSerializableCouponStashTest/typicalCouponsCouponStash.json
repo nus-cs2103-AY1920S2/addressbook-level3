@@ -2,7 +2,7 @@
   "_comment": "CouponStash save file which contains the same Coupon values as in TypicalCoupons#getTypicalCouponStash()",
   "coupons" : [ {
     "name" : "Alice Pauline",
-    "phone" : "94351253",
+    "promoCode": "I<3STASH",
     "savingsPerUse" : {
       "monetaryAmount" : 0.5,
       "percentageAmount" : null,
@@ -19,7 +19,7 @@
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
-    "phone" : "98765432",
+    "promoCode": "ILUVSTASH",
     "savingsPerUse" : {
       "monetaryAmount" : null,
       "percentageAmount" : 30.0,
@@ -36,7 +36,7 @@
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
-    "phone" : "95352563",
+    "promoCode": "KKB",
     "savingsPerUse" : {
       "monetaryAmount" : 20.0,
       "percentageAmount" : null,
@@ -62,7 +62,7 @@
     "tagged" : [ ]
   }, {
     "name" : "Daniel Meier",
-    "phone" : "87652533",
+    "promoCode": "DANIELZXC",
     "savingsPerUse" : {
       "monetaryAmount" : null,
       "percentageAmount" : 5.0,
@@ -88,7 +88,7 @@
     "tagged" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
-    "phone" : "9482224",
+    "promoCode": "9482224",
     "savingsPerUse" : {
       "monetaryAmount" : null,
       "percentageAmount" : null,
@@ -114,7 +114,7 @@
     "tagged" : [ ]
   }, {
     "name" : "Fiona Kunz",
-    "phone" : "9482427",
+    "promoCode": "9482427",
     "savingsPerUse" : {
       "monetaryAmount" : 3.0,
       "percentageAmount" : null,
@@ -131,7 +131,7 @@
     "tagged" : [ ]
   }, {
     "name" : "George Best",
-    "phone" : "9482442",
+    "promoCode": "9482442",
     "savingsPerUse" : {
       "monetaryAmount" : null,
       "percentageAmount" : 17.0,

@@ -40,7 +40,7 @@ public class UsedCommandParser implements Parser<UsedCommand> {
                 ArgumentTokenizer.tokenize(
                         args,
                         CliSyntax.PREFIX_NAME,
-                        CliSyntax.PREFIX_PHONE,
+                        CliSyntax.PREFIX_PROMO_CODE,
                         CliSyntax.PREFIX_EXPIRY_DATE,
                         CliSyntax.PREFIX_SAVINGS,
                         CliSyntax.PREFIX_USAGE,

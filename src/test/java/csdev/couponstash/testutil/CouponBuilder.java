@@ -8,7 +8,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.Remind;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
@@ -24,7 +24,7 @@ import csdev.couponstash.model.util.SampleDataUtil;
 public class CouponBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_PROMO_CODE = "ILOVESTASH";
     public static final Savings DEFAULT_SAVINGS = new Savings(new MonetaryAmount(32.5));
     public static final PureMonetarySavings DEFAULT_TOTAL_SAVINGS =
             new PureMonetarySavings(new MonetaryAmount(97.5));
@@ -35,7 +35,7 @@ public class CouponBuilder {
     public static final Remind DEFAULT_REMIND = new Remind();
 
     private Name name;
-    private Phone phone;
+    private PromoCode promoCode;
     private Savings savings;
     private PureMonetarySavings totalSavings;
     private ExpiryDate expiryDate;
@@ -47,7 +47,7 @@ public class CouponBuilder {
 
     public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
+        promoCode = new PromoCode(DEFAULT_PROMO_CODE);
         savings = new Savings(DEFAULT_SAVINGS);
         totalSavings = DEFAULT_TOTAL_SAVINGS;
         expiryDate = new ExpiryDate(DEFAULT_EXPIRY_DATE);
@@ -63,7 +63,7 @@ public class CouponBuilder {
      */
     public CouponBuilder(Coupon couponToCopy) {
         name = couponToCopy.getName();
-        phone = couponToCopy.getPhone();
+        promoCode = couponToCopy.getPromoCode();
         savings = new Savings(couponToCopy.getSavingsForEachUse());
         totalSavings = new PureMonetarySavings(couponToCopy.getTotalSavings());
         expiryDate = couponToCopy.getExpiryDate();
@@ -91,10 +91,10 @@ public class CouponBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Coupon} that we are building.
+     * Sets the {@code PromoCode} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public CouponBuilder withPromoCode(String promoCode) {
+        this.promoCode = new PromoCode(promoCode);
         return this;
     }
 
@@ -173,7 +173,7 @@ public class CouponBuilder {
      * @return A new Coupon.
      */
     public Coupon build() {
-        return new Coupon(name, phone, savings, expiryDate, startDate,
+        return new Coupon(name, promoCode, savings, expiryDate, startDate,
                 usage, limit, tags, totalSavings, remind);
     }
 

@@ -1,7 +1,7 @@
 {
   "coupons": [ {
     "name": "Valid Coupon",
-    "phone": "9482424",
+    "promoCode": "9482424",
     "savingsPerUse" : {
       "monetaryAmount" : 5.5,
       "percentageAmount" : null,
@@ -12,7 +12,7 @@
     "limit": "1"
   }, {
     "name": "Coupon With Invalid Savings Field",
-    "phone": "9482424",
+    "promoCode": "9482424",
     "savingsPerUse" : {
       "monetaryAmount" : 7.5,
       "percentageAmount" : 7.5,
