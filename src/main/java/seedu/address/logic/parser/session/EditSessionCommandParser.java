@@ -92,6 +92,11 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
             editSessionDescriptor.setDescription(ParserUtil.parseValue(argMultimap.getValue(PREFIX_NOTES).get()));
         }
 
+        // TODO: Check if editing should be allowed if there are no fields
+        if (!editSessionDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditSessionCommand.MESSAGE_NOT_EDITED);
+        }
+
         return new EditSessionCommand(index, editSessionDescriptor);
     }
 }
