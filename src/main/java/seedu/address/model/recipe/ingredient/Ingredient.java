@@ -16,7 +16,6 @@ public abstract class Ingredient implements Comparable<Ingredient> {
             + "For example, to enter 50g of Broccoli, the format is iv/50, Broccoli";
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
-    protected IngredientType ingredientType;
     protected String ingredientName;
     protected double quantity;
     protected Unit unit;
@@ -41,10 +40,6 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     public String getName() {
         return ingredientName;
-    }
-
-    public IngredientType getType() {
-        return ingredientType;
     }
 
     public Unit getUnit() {

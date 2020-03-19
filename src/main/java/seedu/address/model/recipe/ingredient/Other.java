@@ -9,7 +9,6 @@ public class Other extends Ingredient {
     public Other(String name, double quantity) {
         super(name, quantity);
         super.unit = Unit.COUNTABLE;
-        super.ingredientType = IngredientType.OTHER;
     }
 
     public void setUnit(Unit unit) { //todo: allow users to input their own unit for 'Other' Ingredient

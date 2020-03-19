@@ -9,14 +9,14 @@ public enum Unit {
     SOLID("g"),
     COUNTABLE("");
 
-    private final String label;
+    private final String unit;
 
-    Unit(final String label) {
-        this.label = label;
+    Unit(final String unit) {
+        this.unit = unit;
     }
 
     @Override
     public String toString() {
-        return label;
+        return unit;
     }
 }
