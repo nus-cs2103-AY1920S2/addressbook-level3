@@ -14,6 +14,13 @@ public class Lesson extends Activity {
     /**
      * Initialise Lessons with default status and priority.
      */
+    public Lesson(Name name, Date startDate, Date endDate) {
+        super(name);
+        requireAllNonNull(startDate, endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Lesson(Name name, Note note, Date startDate, Date endDate) {
         super(name, note);
         requireAllNonNull(startDate, endDate);

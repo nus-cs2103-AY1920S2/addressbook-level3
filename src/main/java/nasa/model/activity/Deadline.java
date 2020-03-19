@@ -15,6 +15,13 @@ public class Deadline extends Activity {
 
     private Date dueDate;
 
+    public Deadline(Name name, Date dueDate) {
+        super(name);
+        requireNonNull(dueDate);
+        checkArgument(isExpiredDueDate(dueDate), DUE_DATE_CONSTRAINTS);
+        this.dueDate = dueDate;
+    }
+
     public Deadline(Name name, Date dueDate, Note note) {
         super(name, note);
         requireNonNull(dueDate);

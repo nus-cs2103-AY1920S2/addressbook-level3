@@ -14,6 +14,13 @@ public class Event extends Activity {
     /**
      * Initialise Event with default status and priority.
      */
+    public Event(Name name, Date startDate, Date endDate) {
+        super(name);
+        requireAllNonNull(startDate, endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Event(Name name, Note note, Date startDate, Date endDate) {
         super(name, note);
         requireAllNonNull(startDate, endDate);

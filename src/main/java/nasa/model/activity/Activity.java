@@ -16,6 +16,15 @@ public abstract class Activity implements Regenerable<Activity> {
     protected Status status;
     private Priority priority;
 
+    public Activity(Name name) {
+        requireAllNonNull(name);
+        this.name = name;
+        this.note = new Note("-");
+        this.date = Date.now();
+        this.status = Status.ONGOING;
+        this.priority = new Priority("1");
+    }
+
     public Activity(Name name, Note note) {
         requireAllNonNull(name);
         this.name = name;

@@ -47,22 +47,21 @@ public class AddDeadlineCommandParser extends AddCommandParser {
         Name activityName = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get());
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get());
 
+        Deadline deadline = new Deadline(activityName, dueDate);
         // optional fields - must see if it exist, else create null
         Note note;
+
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-        } else {
-            note  = null;
+            deadline.setNote(note);
         }
 
         Priority priority;
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-        } else {
-            priority = null;
+            deadline.setPriority(priority);
         }
 
-        Deadline deadline = new Deadline(activityName, note, priority, dueDate);
         return new AddDeadlineCommand(deadline, moduleCode);
     }
 }
