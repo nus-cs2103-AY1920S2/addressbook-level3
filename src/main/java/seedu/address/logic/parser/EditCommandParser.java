@@ -65,10 +65,14 @@ public class EditCommandParser implements Parser<EditCommand> {
             editRecipeDescriptor.setTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
         }
 
-        parseGrainsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN)).ifPresent(editRecipeDescriptor::setGrains);
-        parseVegetablesForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE)).ifPresent(editRecipeDescriptor::setVegetables);
-        parseProteinsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN)).ifPresent(editRecipeDescriptor::setProteins);
-        parseOthersForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER)).ifPresent(editRecipeDescriptor::setOthers);
+        parseGrainsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN))
+                .ifPresent(editRecipeDescriptor::setGrains); //todo
+        parseVegetablesForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE))
+                .ifPresent(editRecipeDescriptor::setVegetables);
+        parseProteinsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN))
+                .ifPresent(editRecipeDescriptor::setProteins);
+        parseOthersForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER))
+                .ifPresent(editRecipeDescriptor::setOthers);
 
         parseStepsForEdit(argMultimap.getAllValues(PREFIX_STEP)).ifPresent(editRecipeDescriptor::setSteps);
         parseGoalsForEdit(argMultimap.getAllValues(PREFIX_GOAL)).ifPresent(editRecipeDescriptor::setGoals);

@@ -31,7 +31,11 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
+import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Other;
+import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
  * Edits the details of an existing recipe in the address book.
@@ -145,7 +149,10 @@ public class EditCommand extends Command {
         private boolean isFavourite;
         private List<Step> steps;
         private Set<Goal> goals;
-        private Set<Ingredient> ingredients;
+        private Set<Grain> grains;
+        private Set<Vegetable> vegetables;
+        private Set<Protein> proteins;
+        private Set<Other> others;
 
         public EditRecipeDescriptor() {}
 
@@ -159,14 +166,17 @@ public class EditCommand extends Command {
             setFavourite(toCopy.isFavourite);
             setSteps(toCopy.steps);
             setGoals(toCopy.goals);
-            setIngredients(toCopy.ingredients);
+            setGrains(toCopy.grains);
+            setVegetables(toCopy.vegetables);
+            setProteins(toCopy.proteins);
+            setOthers(toCopy.others);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, time, ingredients, steps, goals);
+            return CollectionUtil.isAnyNonNull(name, time, grains, vegetables, proteins, others, steps, goals);
         }
 
         public void setName(Name name) {
@@ -194,20 +204,20 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code ingredients} to this object's {@code ingredients}.
-         * A defensive copy of {@code ingredients} is used internally.
+         * Sets {@code grains} to this object's {@code grains}.
+         * A defensive copy of {@code grains} is used internally.
          */
-        public void setIngredients(Set<Ingredient> ingredients) {
-            this.ingredients = (ingredients != null) ? new TreeSet<>(ingredients) : null;
+        public void setGrains(Set<Grain> grains) {
+            this.grains = (grains != null) ? new TreeSet<>(grains) : null;
         }
 
         /**
          * Returns an unmodifiable ingredient set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code ingredients} is null.
+         * Returns {@code Optional#empty()} if {@code grains} is null.
          */
-        public Optional<Set<Ingredient>> getIngredients() {
-            return (ingredients != null) ? Optional.of(Collections.unmodifiableSet(ingredients)) : Optional.empty();
+        public Optional<Set<Grain>> getGrains() {
+            return (grains != null) ? Optional.of(Collections.unmodifiableSet(grains)) : Optional.empty();
         }
 
         /**
