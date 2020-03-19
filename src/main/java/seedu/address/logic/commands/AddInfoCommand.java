@@ -61,7 +61,7 @@ public class AddInfoCommand extends Command {
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(),
                 personToEdit.getEmail(), personToEdit.getAddress(), personToEdit.getRemark(),
-                personToEdit.getBirthday(), personToEdit.getTags());
+                personToEdit.getBirthday(), personToEdit.getTags(), personToEdit.getIndex());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

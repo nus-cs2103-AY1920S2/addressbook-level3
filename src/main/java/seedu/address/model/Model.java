@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 import seedu.address.model.restaurant.Restaurant;
@@ -87,14 +88,8 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered person */
-    ObservableList<Person> getFilteredPerson();
-
-    /**
-     * Updates the filter of the filtered person to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPerson(Predicate<Person> predicate);
+    /** Returns an unmodifiable view of the filtered person list for the result panel*/
+    ObservableList<Person> getFilteredPersonListResult();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
@@ -103,10 +98,16 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Gets the given person from the filtered person list by the given {@code index}.
-     * @throws NullPointerException if {@code index} is null.
+     * Updates the filter of the filtered person list to filter by the given {@code predicate} in the result panel.
+     * @throws NullPointerException if {@code predicate} is null.
      */
-    void getPerson(Person person, int index);
+    void updateFilteredPersonListResult(Predicate<Person> predicate);
+
+    /**
+     * Gets the person at the specified index.
+     * @param index of the person in the filtered person list.
+     */
+    Person getPerson(Index index);
 
     /**
      * Replaces restaurant book data with the data in {@code restaurantBook}.

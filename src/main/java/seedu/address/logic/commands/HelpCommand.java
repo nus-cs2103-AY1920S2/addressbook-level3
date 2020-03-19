@@ -70,7 +70,7 @@ public class HelpCommand extends Command {
         commands.add("6. " + EditInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("7. " + DeleteInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("8. " + ClearCommand.MESSAGE_USAGE + "\n");
-        commands.add("9. " + GetCommand.MESSAGE_SUCCESS + "\n");
+        commands.add("9. " + GetCommand.MESSAGE_USAGE + "\n");
         commands.add("10. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("11. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
         commands.add("12. " + FindCommand.MESSAGE_USAGE + "\n");

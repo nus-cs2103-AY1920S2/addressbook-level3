@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -28,8 +29,7 @@ public class ModelManager implements Model {
     private final Scheduler scheduler;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<Person> filteredOnePerson;
-    private final UniquePersonList persons;
+    private final FilteredList<Person> filteredPersonsResult;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final ArrayList<Assignment> assignments;
 
@@ -46,8 +46,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
-        persons = new UniquePersonList();
-        filteredOnePerson = new FilteredList<>((persons.asUnmodifiableObservableList()));
+        filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
         this.restaurantBook = new RestaurantBook(restaurantBook);
         this.scheduler = new Scheduler(scheduler);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
@@ -119,19 +118,6 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    /**
-     * Returns an unmodifiable view of the {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public void getPerson(Person person, int index) {
-        requireNonNull(person);
-        persons.add(addressBook.getPerson(person, index));
-        //ObservableList<Person> p = persons.asUnmodifiableObservableList();
-        //persons.setPerson(p.get(0), addressBook.getPerson(person, index));
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -224,12 +210,12 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook} for the result panel
      */
     @Override
-    public ObservableList<Person> getFilteredPerson() {
-        return filteredOnePerson;
+    public ObservableList<Person> getFilteredPersonListResult() {
+        return filteredPersonsResult;
     }
 
     @Override
@@ -239,9 +225,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPerson(Predicate<Person> predicate) {
+    public void updateFilteredPersonListResult(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        filteredOnePerson.setPredicate(predicate);
+        filteredPersonsResult.setPredicate(predicate);
+    }
+
+    /**
+     * Gets the person at the specified index.
+     * @param index of the person in the filtered person list.
+     * @return
+     */
+    @Override
+    public Person getPerson(Index index) {
+        requireNonNull(index);
+        return filteredPersons.get(index.getZeroBased());
     }
 
     @Override
