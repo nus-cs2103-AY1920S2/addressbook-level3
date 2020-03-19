@@ -3,9 +3,13 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.GRAIN_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.OTHER_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.PROTEIN_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.VEGETABLE_DESC_TURKEY_SANDWICH;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalRecipes.TURKEY_SANDWICH;
 
@@ -78,8 +82,9 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH +
-        STEP_DESC_TURKEY_SANDWICH;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH
+                + STEP_DESC_TURKEY_SANDWICH + GRAIN_DESC_TURKEY_SANDWICH + VEGETABLE_DESC_TURKEY_SANDWICH
+                + PROTEIN_DESC_TURKEY_SANDWICH + OTHER_DESC_TURKEY_SANDWICH;
         Recipe expectedRecipe = new RecipeBuilder(TURKEY_SANDWICH).withGoals().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addRecipe(expectedRecipe);
