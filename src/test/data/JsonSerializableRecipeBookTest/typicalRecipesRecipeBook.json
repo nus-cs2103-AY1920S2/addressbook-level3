@@ -5,9 +5,9 @@
     "time" : "10",
     "isFavourite": false,
     "grains": [ ],
-    "vegetables" : [ "Tomato, 100" ],
+    "vegetables" : [ ],
     "proteins" : [ ],
-    "others" : [ "Honeydew, 100"],
+    "others" : [ ],
     "steps" : ["Cut tomatoes", "Remove honeydew skin"],
     "goals" : [ "Herbivore" ]
   }, {
