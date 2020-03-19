@@ -18,7 +18,7 @@ import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the NASA data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -34,7 +34,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(nasaBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + nasaBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with NASA: " + nasaBook + " and user prefs " + userPrefs);
 
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -44,6 +44,8 @@ public class ModelManager implements Model {
     public ModelManager() {
         this(new NasaBook(), new UserPrefs());
     }
+
+    //=========== UserPrefs ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -202,6 +204,14 @@ public class ModelManager implements Model {
         nasaBook.removeActivityByIndex(target, index);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
+    /*
+        @Override
+    public void setPerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        nasaBook.setPerson(target, editedPerson);
+    }
+     */
 
     @Override
     public boolean hasActivity(Module target, Activity activity) {

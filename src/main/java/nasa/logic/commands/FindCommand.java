@@ -6,7 +6,8 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 
 /**
- * Represents the command for finding specific activities.
+ * Finds and lists all activities in NASA whose name contains any of the argument keywords.
+ * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
@@ -17,10 +18,31 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " assignment lab tutorial";
 
+    /*
+        private final NameContainsKeywordsPredicate predicate;
+
+    public FindCommand(NameContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
+     */
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        //model.updateFilteredPersonList(predicate);
         // TODO add the necessary implementation once model is done
         return new CommandResult("");
     }
+
+    //new CommandResult(
+    //                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+
+    /*
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FindCommand // instanceof handles nulls
+                && predicate.equals(((FindCommand) other).predicate)); // state check
+    }
+     */
 }

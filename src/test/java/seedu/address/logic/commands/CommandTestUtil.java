@@ -13,12 +13,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
+import nasa.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
+
+import nasa.model.activity.NameContainsKeywordsPredicate;
+
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**

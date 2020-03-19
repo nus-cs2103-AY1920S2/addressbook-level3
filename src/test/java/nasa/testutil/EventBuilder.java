@@ -8,7 +8,6 @@ import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Date;
 import nasa.model.activity.Event;
-import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 
 /**

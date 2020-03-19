@@ -8,7 +8,7 @@ import nasa.model.Model;
 import nasa.model.module.ModuleCode;
 
 /**
- * Deletes a module from the NASA book.
+ * Deletes a module identified using it's code from NASA.
  */
 
 public class DeleteModuleCommand extends Command {

@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.activity.Date;
-import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleName;

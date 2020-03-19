@@ -32,8 +32,6 @@ public class Module {
         this.moduleName = moduleName;
     }
 
-    //Priority priority;
-
     /**
      * Retrieve the moduleCode of the module.
      * @return String moduleCode

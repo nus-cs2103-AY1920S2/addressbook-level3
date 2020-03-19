@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Test;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
-import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;

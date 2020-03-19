@@ -2,7 +2,7 @@ package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.EditModuleCommand;

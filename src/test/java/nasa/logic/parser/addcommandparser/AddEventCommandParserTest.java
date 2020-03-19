@@ -29,7 +29,6 @@ import org.junit.jupiter.api.Test;
 import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.model.activity.Date;
 import nasa.model.activity.Event;
-import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;

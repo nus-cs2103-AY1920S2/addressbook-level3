@@ -1,13 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.Date;
-import seedu.address.model.activity.Deadline;
-import seedu.address.model.activity.Event;
-import seedu.address.model.activity.Lesson;
-import seedu.address.model.activity.Name;
-import seedu.address.model.activity.Note;
-
 /**
  * A utility class to help with building Activity objects.
  */

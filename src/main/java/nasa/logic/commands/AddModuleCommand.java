@@ -10,7 +10,7 @@ import nasa.model.Model;
 import nasa.model.module.Module;
 
 /**
- * Adds a module to the NASA book.
+ * Adds a module to NASA.
  */
 public class AddModuleCommand extends Command {
 
@@ -41,8 +41,9 @@ public class AddModuleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         if (model.hasModule(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATED_ACTIVITY);
+            throw new CommandException(MESSAGE_DUPLICATED_MODULE);
         }
 
         model.addModule(toAdd);
