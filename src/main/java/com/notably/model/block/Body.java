@@ -10,13 +10,14 @@ import static java.util.Objects.requireNonNull;
 public class Body {
     public static final String MESSAGE_CONSTRAINTS =
         "Body should not be blank";
-    public final String blockBody;
 
     /*
-     * The string can be empty (initialization of an empty body) but
-     * the body cannot contain only whitespace characters, e.g. "  " is invalid.
-     */
+    * The string can be empty (initialization of an empty body) but
+    * the body cannot contain only whitespace characters, e.g. "  " is invalid.
+    */
     public static final String VALIDATION_REGEX = "^\\s+$";
+
+    public final String blockBody;
 
     /**
      * Constructs a {@code Body}.
