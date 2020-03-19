@@ -8,10 +8,10 @@ import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exercise.set.EditCommand;
 import seedu.zerotoone.logic.commands.exercise.set.EditCommand.EditExerciseSetDescriptor;
+import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
-import seedu.zerotoone.logic.parser.Parser;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -45,7 +45,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 SetParserUtil.parseNumReps(argMultimap.getValue(PREFIX_NUM_OF_REPS).get())
             );
         }
-        
+
         if (argMultimap.getValue(PREFIX_WEIGHT).isPresent()) {
             editExerciseDescriptor.setWeight(
                 SetParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get())

@@ -5,9 +5,8 @@ import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 
 import java.util.stream.Stream;
 
-import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.commands.exercise.FindCommand;
-
+import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;

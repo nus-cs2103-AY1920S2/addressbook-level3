@@ -79,7 +79,7 @@ public class AddCommand extends SetCommand {
         }
 
         // state check
-        AddCommand otherCommand= (AddCommand) other;
+        AddCommand otherCommand = (AddCommand) other;
         return exerciseId.equals(otherCommand.exerciseId)
                 && exerciseSet.equals(otherCommand.exerciseSet);
     }

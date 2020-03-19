@@ -1,6 +1,7 @@
 package seedu.zerotoone.model.exercise;
 
 import java.util.function.Predicate;
+
 import seedu.zerotoone.commons.util.StringUtil;
 
 /**

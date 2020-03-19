@@ -10,7 +10,7 @@ import seedu.zerotoone.model.exercise.Weight;
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
-public class SetParserUtil extends ParserUtil {    
+public class SetParserUtil extends ParserUtil {
     /**
      * Parses a {@code String numReps} into a {@code NumReps}.
      * Leading and trailing whitespaces will be trimmed.
@@ -25,7 +25,7 @@ public class SetParserUtil extends ParserUtil {
         }
         return new NumReps(trimmedNumReps);
     }
-    
+
     /**
      * Parses a {@code String weight} into a {@code Weight}.
      * Leading and trailing whitespaces will be trimmed.

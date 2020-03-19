@@ -3,9 +3,9 @@ package seedu.zerotoone.logic.commands.exercise;
 import static java.util.Objects.requireNonNull;
 
 import seedu.zerotoone.commons.core.Messages;
+import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
-import seedu.zerotoone.logic.commands.CommandResult;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
