@@ -3,10 +3,10 @@
     "name" : "chickenn",
     "time" : "15",
     "isFavourite" : false,
-    "grains" : [ "hi, 20" ],
+    "grains" : [  ],
     "vegetables" : [ "vege,  20.0" ],
-    "proteins" : [ "hi, 20"],
-    "others" : [ "hi, 20 "],
+    "proteins" : [  ],
+    "others" : [  ],
     "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
     "goals" : [ "Bulk like the Hulk" ]
   } ]

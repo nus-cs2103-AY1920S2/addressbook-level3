@@ -66,21 +66,21 @@ public class TypicalRecipes {
 
     public static final Recipe TUNA_BREAD = new RecipeBuilder().withName("Tuna Bread")
             .withTime("60")
-            .withProteins("Tuna, 100")
             .withGrains("Bread, 100")
+            .withProteins("Tuna, 100")
             .withGoals("Bulk like the Hulk", "Wholesome Wholemeal")
             .withSteps("Slice tuna").build();
 
     // Manually added
     public static final Recipe FISH_TACO = new RecipeBuilder().withName("Fish Taco").withTime("60")
-            .withProteins("Fish, 100")
             .withGrains("Taco, 50")
+            .withProteins("Fish, 100")
             .withSteps("Grill fish until skin is slightly crispy and meat is opaque and flaky").build();
 
     public static final Recipe VEGETARIAN_PIZZA = new RecipeBuilder().withName("Vegetarian Pizza").withTime("45")
-            .withOthers("Tomato sauce, 100")
             .withGrains("Dough, 300")
             .withVegetables("Capsicum, 100")
+            .withOthers("Tomato sauce, 100")
             .withGoals("Herbivore").withSteps("Roll dough until stretchy and thin").build();
 
     // Manually added - Recipe's details found in {@code CommandTestUtil}

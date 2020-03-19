@@ -89,11 +89,13 @@ public class SampleDataUtil {
     public static Set<Grain> getGrainSet(String... grains) {
         Set<Grain> grainSet = new TreeSet<>();
         for (String grain: grains) {
-            String[] splitDetails = grain.split(",");
-            String name = splitDetails[0].trim();
-            double quantity = Double.parseDouble(splitDetails[1].trim());
+            if (!grain.isBlank()) {
+                String[] splitDetails = grain.split(",");
+                String name = splitDetails[0].trim();
+                double quantity = Double.parseDouble(splitDetails[1].trim());
 
-            grainSet.add(new Grain(name, quantity));
+                grainSet.add(new Grain(name, quantity));
+            }
         }
         return grainSet;
     }
@@ -104,11 +106,13 @@ public class SampleDataUtil {
     public static Set<Vegetable> getVegetableSet(String... vegetables) {
         Set<Vegetable> vegetableSet = new TreeSet<>();
         for (String vegetable: vegetables) {
-            String[] splitDetails = vegetable.split(",");
-            String name = splitDetails[0].trim();
-            double quantity = Double.parseDouble(splitDetails[1].trim());
+            if (!vegetable.isBlank()) {
+                String[] splitDetails = vegetable.split(",");
+                String name = splitDetails[0].trim();
+                double quantity = Double.parseDouble(splitDetails[1].trim());
 
-            vegetableSet.add(new Vegetable(name, quantity));
+                vegetableSet.add(new Vegetable(name, quantity));
+            }
         }
         return vegetableSet;
     }
@@ -120,11 +124,13 @@ public class SampleDataUtil {
     public static Set<Protein> getProteinSet(String... proteins) {
         Set<Protein> proteinSet = new TreeSet<>();
         for (String protein: proteins) {
-            String[] splitDetails = protein.split(",");
-            String name = splitDetails[0].trim();
-            double quantity = Double.parseDouble(splitDetails[1].trim());
+            if (!protein.isBlank()) {
+                String[] splitDetails = protein.split(",");
+                String name = splitDetails[0].trim();
+                double quantity = Double.parseDouble(splitDetails[1].trim());
 
-            proteinSet.add(new Protein(name, quantity));
+                proteinSet.add(new Protein(name, quantity));
+            }
         }
         return proteinSet;
     }
@@ -136,11 +142,13 @@ public class SampleDataUtil {
     public static Set<Other> getOtherSet(String... others) {
         Set<Other> otherSet = new TreeSet<>();
         for (String other: others) {
-            String[] splitDetails = other.split(",");
-            String name = splitDetails[0].trim();
-            double quantity = Double.parseDouble(splitDetails[1].trim());
+            if (!other.isBlank()) {
+                String[] splitDetails = other.split(",");
+                String name = splitDetails[0].trim();
+                double quantity = Double.parseDouble(splitDetails[1].trim());
 
-            otherSet.add(new Other(name, quantity));
+                otherSet.add(new Other(name, quantity));
+            }
         }
         return otherSet;
     }

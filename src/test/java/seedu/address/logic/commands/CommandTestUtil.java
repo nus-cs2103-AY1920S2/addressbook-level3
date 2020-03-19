@@ -22,7 +22,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
 
 /**
- * Contains helper methods for testing commands. todo: Add ingredients
+ * Contains helper methods for testing commands. todo: Add ingredients desc
  */
 public class CommandTestUtil {
 

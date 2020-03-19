@@ -1,8 +1,12 @@
 {
   "recipes": [ {
-    "name": "Hans Muster",
-    "time": "9482424",
+    "name": "!@#$Hans Muster",
+    "time": "",
     "isFavourite": false,
+    "grains" : [  ],
+    "vegetables" : [  ],
+    "proteins" : [  ],
+    "others" : [  ],
     "steps": [""]
   } ]
 }

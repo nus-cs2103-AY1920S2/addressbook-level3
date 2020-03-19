@@ -49,13 +49,9 @@ public class RecipeBuilder {
         isFavourite = DEFAULT_FAVOURITE;
 
         grains = new TreeSet<>();
-        grains.add(DEFAULT_GRAIN);
         vegetables = new TreeSet<>();
-        vegetables.add(DEFAULT_VEGETABLE);
         proteins = new TreeSet<>();
-        proteins.add(DEFAULT_PROTEIN);
         others = new TreeSet<>();
-        others.add(DEFAULT_OTHER);
 
         steps = new ArrayList<>();
         steps.add(DEFAULT_STEP);

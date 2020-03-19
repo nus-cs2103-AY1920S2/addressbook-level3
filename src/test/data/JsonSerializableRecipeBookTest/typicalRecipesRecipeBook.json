@@ -15,7 +15,7 @@
     "time" : "10",
     "isFavourite": false,
     "grains": [ "Bread, 50" ],
-    "vegetables" : [ "Tomato, 100" ],
+    "vegetables" : [ ],
     "proteins" : [ ],
     "others" : [ "Cheese, 50"],
     "steps" : ["Spread butter on bread", "Heat pan to medium heat"],
