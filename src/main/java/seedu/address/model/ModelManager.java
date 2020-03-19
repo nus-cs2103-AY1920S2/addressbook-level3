@@ -150,6 +150,13 @@ public class ModelManager implements Model {
         return addressBook.getModule(module);
     }
 
+    @Override
+    public Module getModule(String code) {
+        requireNonNull(code);
+        Module module = new Module(code, null);
+        return addressBook.getModule(module);
+    }
+
     //=========== Filtered Student List Accessors =============================================================
 
     /**

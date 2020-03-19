@@ -167,4 +167,9 @@ public interface Model {
      */
     Module getModule(Module module);
 
+    /**
+    * Returns a module with the given module code.
+    */
+    Module getModule(String code);
+
 }

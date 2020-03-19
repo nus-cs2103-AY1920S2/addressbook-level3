@@ -177,6 +177,9 @@ public class ParserUtil {
         }
     }
 
+    /**
+     * Parses and returns Group Type of group.
+     */
     public static GroupType parseGroupType(String type) {
         requireNonNull(type);
         String trimmedType = type.trim();

@@ -16,7 +16,7 @@ import seedu.address.model.module.Module;
  */
 public class AddGroupCommand extends Command {
 
-     public static final String COMMAND_WORD = GROUP + " " + ADD_MODEL;
+    public static final String COMMAND_WORD = GROUP + " " + ADD_MODEL;
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a group into TA-Tracker. "
@@ -29,32 +29,35 @@ public class AddGroupCommand extends Command {
             + PREFIX_MODULE + "CS2100 "
             + PREFIX_TYPE + "lab";
 
-   public static final String MESSAGE_SUCCESS = "New Group added: %s";
-   public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the TA-Tracker";
-   public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
+    public static final String MESSAGE_SUCCESS = "New Group added: %s";
+    public static final String MESSAGE_DUPLICATE_GROUP = "This group already exists in the TA-Tracker";
+    public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
 
-   private final Group toAdd;
-   private final String moduleCode;
+    private final Group toAdd;
+    private final String moduleCode;
 
-   /**
-   * Creates an addGroupCommand
-   */
+    /**
+    * Creates an addGroupCommand
+    */
 
-   public AddGroupCommand(Group group, String code) {
+    public AddGroupCommand(Group group, String code) {
         requireNonNull(group, code);
         toAdd = group;
         moduleCode = code;
-   }
+    }
 
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.hasModule(moduleCode)) {
+        Module module = new Module(moduleCode, null);
+
+        if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
-        Module module = model.getModule(moduleCode);
+
+        module = model.getModule(module);
 
         if (module.hasGroup(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_GROUP);
@@ -67,7 +70,7 @@ public class AddGroupCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-         || (other instanceof AddGroupCommand // instanceof handles nulls
-         && toAdd.equals(((Group) other).toAdd));
+            || (other instanceof AddGroupCommand // instanceof handles nulls
+            && toAdd.equals(((AddGroupCommand) other).toAdd));
     }
 }
