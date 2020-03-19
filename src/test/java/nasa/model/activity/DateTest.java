@@ -29,11 +29,11 @@ class DateTest {
         assertFalse(Date.isValidDate(" ")); // spaces only
         assertFalse(Date.isValidDate("30-02-2020")); // invalid date
         assertFalse(Date.isValidDate("31-02-2020 12:00"));
-        assertFalse(Date.isValidDate("29-02-2020")); //regular date;
+        assertFalse(Date.isValidDate("29-02-2020")); //no time;
 
         // valid Dates
         assertTrue(Date.isValidDate("29-02-2020 23:59")); //leap year
-
+        assertTrue(Date.isValidDate("12-03-2020 20:00")); //leap year
     }
 
     @Test

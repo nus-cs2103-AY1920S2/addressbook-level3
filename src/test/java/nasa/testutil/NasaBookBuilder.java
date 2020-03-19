@@ -10,7 +10,9 @@ import nasa.model.module.Module;
 import nasa.model.module.UniqueModuleList;
 
 /**
- * Class to build example NasaBook.
+ * A utility class to help with building NASA objects.
+ * Example usage: <br>
+ *     {@code NasaBook nb = new NasaBookBuilder().withPerson("John", "Doe").build();}
  */
 public class NasaBookBuilder {
 

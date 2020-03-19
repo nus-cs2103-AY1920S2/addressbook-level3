@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
-
 import nasa.model.activity.NameContainsKeywordsPredicate;
 
 public class NameContainsKeywordsPredicateTest {

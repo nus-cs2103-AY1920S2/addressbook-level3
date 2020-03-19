@@ -17,7 +17,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import nasa.model.activity.NameContainsKeywordsPredicate;
 
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {

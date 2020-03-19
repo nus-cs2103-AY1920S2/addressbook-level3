@@ -7,8 +7,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.testutil.PersonBuilder;
-
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
