@@ -32,6 +32,19 @@ public class Session {
     private String description;
 
     /**
+     * Default Constructor for Session.
+     * Creates a session object with default values.
+     */
+    public Session() {
+        this.startDateTime = LocalDateTime.now();
+        this.endDateTime = LocalDateTime.now();
+        this.isRecurring = false;
+        this.moduleCode = "";
+        this.type = SessionType.SESSION_TYPE_OTHER;
+        this.description = "Default Session";
+    }
+
+    /**
      * Constructs a Session object.
      * The session's end time should be strictly after the session's start time.
      */
@@ -73,10 +86,24 @@ public class Session {
     }
 
     /**
+     * Sets the start time of the session.
+     */
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    /**
      * Returns the end time of the session.
      */
     public LocalDateTime getEndDateTime() {
         return this.endDateTime;
+    }
+
+    /**
+     * Sets the end time of the session.
+     */
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
     /**
@@ -87,10 +114,24 @@ public class Session {
     }
 
     /**
+     * Sets whether the session is a recurring session.
+     */
+    public void setRecurring(boolean recurring) {
+        isRecurring = recurring;
+    }
+
+    /**
      * Returns the module code associated with this session.
      */
     public String getModuleCode() {
         return this.moduleCode;
+    }
+
+    /**
+     * Sets the module code associated with this session.
+     */
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 
     /**
@@ -101,10 +142,24 @@ public class Session {
     }
 
     /**
+     * Sets the type of session.
+     */
+    public void setType(SessionType type) {
+        this.type = type;
+    }
+
+    /**
      * Returns the description of the session.
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Sets the description of the session.
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
