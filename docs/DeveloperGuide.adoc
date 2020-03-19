@@ -946,7 +946,9 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 .. Test case: Invalid syntax
    Expected: An error will occur and the response box will show an error message
 
-=== Obtain all nearby orders based on postal sector
+=== Obtain all nearby orders based on area or postal sector
+
+There are two possible search criteria for nearby orders
 
 . Obtain all orders located in the same postal sector. +
 The postal sector to search for is given by the user. +
@@ -967,6 +969,26 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
    Expected: An error will occur as the given postal sector is invalid
 .. Test case: `nearby` +
    Expected: An error will occur as it is an invalid syntax (no postal sector is provided)
+
+
+. Obtain all orders located in the same area. +
+There are *5* different areas in Singapore: Central, East, North East, West, North +
+.. Nearby command format: `nearby` `AREA`
+.. Prerequisites: Should call a list command before calling nearby. The nearby command will search based on the current list
+.. Test case: `nearby` `central` +
+   Expected: Obtain all orders located in central area of Singapore
+.. Test case: `nearby` `east` +
+   Expected: Obtain all orders located in east area of Singapore
+.. Test case: `nearby` `north east` +
+   Expected: Obtain all orders located in east area of Singapore
+.. Test case: `nearby` `west` +
+   Expected: Obtain all orders located in east area of Singapore
+.. Test case: `nearby` `north` +
+   Expected: Obtain all orders located in east area of Singapore
+
+.. Information about each area was obtained from
+https://keylocation.sg/singapore/districts-map[here] +
+
 
 === Undo previous action
 
