@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.IngredientList;
 import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
@@ -26,6 +27,7 @@ class JsonAdaptedRecipe {
     private final String name;
     private final String ingredients;
     private final String instructions;
+    private final String calorie;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -34,10 +36,12 @@ class JsonAdaptedRecipe {
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
                              @JsonProperty("instructions") String instructions,
+                             @JsonProperty("calorie") String calorie,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.calorie = calorie;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -50,6 +54,7 @@ class JsonAdaptedRecipe {
         name = source.getName().name;
         ingredients = source.getIngredients().ingredientListString;
         instructions = source.getInstructions().instructionListString;
+        calorie = source.getCalorie().calorie;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -92,8 +97,9 @@ class JsonAdaptedRecipe {
         }
         final InstructionList modelInstructions = new InstructionList(instructions);
 
+        final Calorie modelCalorie = new Calorie(calorie);
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
-        return new Recipe(modelName, modelIngredients, modelInstructions, modelTags);
+        return new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelTags);
     }
 
 }
