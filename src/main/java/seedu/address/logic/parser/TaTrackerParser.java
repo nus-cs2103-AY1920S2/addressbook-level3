@@ -60,7 +60,7 @@ public class TaTrackerParser {
             return new DeleteCommandParser().parse(arguments);
 
         case EditStudentCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditStudentCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
