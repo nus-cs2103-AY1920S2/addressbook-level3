@@ -22,7 +22,6 @@ public class MonthView extends UiPart<AnchorPane> {
     private ArrayList<DayNode> allCalendarDays;
     private AnchorPane view;
     private YearMonth currentYearMonth;
-    private GridPane calendar;
 
     @FXML
     private Label monthYearTitle;
@@ -34,7 +33,7 @@ public class MonthView extends UiPart<AnchorPane> {
         super(FXML);
         currentYearMonth = YearMonth.from(dateToSet);
         // Create the calendar grid pane
-        calendar = new GridPane();
+        GridPane calendar = new GridPane();
         view = new AnchorPane();
         calendar.setPrefSize(60, 40);
         calendar.setGridLinesVisible(false);
