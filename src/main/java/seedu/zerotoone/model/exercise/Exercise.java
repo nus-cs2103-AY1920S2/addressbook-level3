@@ -3,6 +3,7 @@ package seedu.zerotoone.model.exercise;
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ public class Exercise {
     }
 
     public List<ExerciseSet> getExerciseSets() {
-        return exerciseSets;
+        return Collections.unmodifiableList(exerciseSets);
     }
 
     /**
@@ -61,7 +62,8 @@ public class Exercise {
         }
 
         Exercise otherExercise = (Exercise) other;
-        return otherExercise.getExerciseName().equals(getExerciseName());
+        return otherExercise.getExerciseName().equals(getExerciseName())
+                && otherExercise.getExerciseSets().equals(getExerciseSets());
     }
 
     @Override
