@@ -26,7 +26,7 @@ public class ExerciseParserUtil extends ParserUtil {
         }
         return new ExerciseName(trimmedExerciseName);
     }
-    
+
     /**
      * Parses a {@code String numReps} into a {@code NumReps}.
      * Leading and trailing whitespaces will be trimmed.
@@ -41,7 +41,7 @@ public class ExerciseParserUtil extends ParserUtil {
         }
         return new NumReps(trimmedNumReps);
     }
-    
+
     /**
      * Parses a {@code String weight} into a {@code Weight}.
      * Leading and trailing whitespaces will be trimmed.

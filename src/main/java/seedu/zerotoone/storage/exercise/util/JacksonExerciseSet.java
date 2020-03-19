@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.exercise.ExerciseSet;
-import seedu.zerotoone.model.exercise.Weight;
 import seedu.zerotoone.model.exercise.NumReps;
+import seedu.zerotoone.model.exercise.Weight;
 
 /**
  * Jackson-friendly version of {@link ExerciseSet}.
@@ -46,14 +46,14 @@ class JacksonExerciseSet {
             throw new IllegalValueException(Weight.MESSAGE_CONSTRAINTS);
         }
         final Weight modelWeight = new Weight(weight);
-        
+
         if (numReps == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, NumReps.class.getSimpleName()));
         } else if (!NumReps.isValidNumReps(numReps)) {
             throw new IllegalValueException(NumReps.MESSAGE_CONSTRAINTS);
         }
         final NumReps modelNumReps = new NumReps(numReps);
-        
+
         return new ExerciseSet(modelWeight, modelNumReps);
     }
 

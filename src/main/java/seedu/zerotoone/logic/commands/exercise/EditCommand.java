@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.zerotoone.commons.core.Messages;
-
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.commons.util.CollectionUtil;
 import seedu.zerotoone.logic.commands.CommandResult;
@@ -86,7 +85,7 @@ public class EditCommand extends ExerciseCommand {
         }
 
         // state check
-        EditCommand otherCommand= (EditCommand) other;
+        EditCommand otherCommand = (EditCommand) other;
         return exerciseId.equals(otherCommand.exerciseId)
                 && editExerciseDescriptor.equals(otherCommand.editExerciseDescriptor);
     }

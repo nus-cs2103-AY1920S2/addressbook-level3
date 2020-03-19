@@ -7,9 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.commands.exercise.CreateCommand;
-
+import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
@@ -37,7 +36,8 @@ public class CreateCommandParser implements Parser<CreateCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
         }
 
-        ExerciseName exerciseName = ExerciseParserUtil.parseExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
+        ExerciseName exerciseName =
+            ExerciseParserUtil.parseExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
         List<ExerciseSet> exerciseSets = new ArrayList<>();
         Exercise exercise = new Exercise(exerciseName, exerciseSets);
 

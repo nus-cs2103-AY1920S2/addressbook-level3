@@ -13,7 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
-    
+
     // ZeroToOne
     public static final Prefix PREFIX_EXERCISE_NAME = new Prefix("e/");
     public static final Prefix PREFIX_WORKOUT_NAME = new Prefix("w/");
