@@ -44,7 +44,9 @@ public class ExerciseBuilder {
      * Sets the {@code exerciseSet} of the {@code Exercise} that we are building.
      */
     public ExerciseBuilder withExerciseSet(String weight, String numReps) {
-        this.exerciseSets.add(new ExerciseSet(new Weight(weight), new NumReps(numReps)));
+        List<ExerciseSet> exerciseSetsCopy = new ArrayList<>(exerciseSets);
+        exerciseSetsCopy.add(new ExerciseSet(new Weight(weight), new NumReps(numReps)));
+        exerciseSets = exerciseSetsCopy;
         return this;
     }
 

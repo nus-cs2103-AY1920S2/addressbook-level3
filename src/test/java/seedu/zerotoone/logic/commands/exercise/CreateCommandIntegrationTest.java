@@ -1,8 +1,8 @@
 package seedu.zerotoone.logic.commands.exercise;
 
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandFailure;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSuccess;
-// import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandFailure;
+import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
+import static seedu.zerotoone.testutil.TypicalExercises.getTypicalExerciseList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,28 +18,28 @@ import seedu.zerotoone.testutil.ExerciseBuilder;
  */
 public class CreateCommandIntegrationTest {
 
-    // private Model model;
+    private Model model;
 
-    // @BeforeEach
-    // public void setUp() {
-    //     model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
-    // }
+    @BeforeEach
+    public void setUp() {
+        model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
+    }
 
-    // @Test
-    // public void execute_newExercise_success() {
-    //     Exercise validExercise = new ExerciseBuilder().build();
+    @Test
+    public void execute_newExercise_success() {
+        Exercise validExercise = new ExerciseBuilder().build();
 
-    //     Model expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
-    //     expectedModel.addExercise(validExercise);
+        Model expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
+        expectedModel.addExercise(validExercise);
 
-    //     assertCommandSuccess(new CreateCommand(validExercise), model,
-    //             String.format(CreateCommand.MESSAGE_SUCCESS, validExercise), expectedModel);
-    // }
+        assertCommandSuccess(new CreateCommand(validExercise), model,
+                String.format(CreateCommand.MESSAGE_SUCCESS, validExercise), expectedModel);
+    }
 
-    // @Test
-    // public void execute_duplicateExercise_throwsCommandException() {
-    //     Exercise exerciseInList = model.getExerciseList().getExerciseList().get(0);
-    //     assertCommandFailure(new CreateCommand(exerciseInList), model, CreateCommand.MESSAGE_DUPLICATE_EXERCISE);
-    // }
+    @Test
+    public void execute_duplicateExercise_throwsCommandException() {
+        Exercise exerciseInList = model.getExerciseList().getExerciseList().get(0);
+        assertCommandFailure(new CreateCommand(exerciseInList), model, CreateCommand.MESSAGE_DUPLICATE_EXERCISE);
+    }
 
 }
