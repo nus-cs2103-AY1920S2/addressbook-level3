@@ -33,7 +33,7 @@ public class AbsolutePath implements Path {
      * @return
      */
     public static boolean isValidAbsolutePath(String absolutePathString) {
-        return absolutePathString.matches(VALIDATION_REGEX);
+        return absolutePathString.matches(VALIDATION_REGEX) || absolutePathString.equals("/");
     }
 
     /**
