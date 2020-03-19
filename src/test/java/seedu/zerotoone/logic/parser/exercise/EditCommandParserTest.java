@@ -1,32 +1,25 @@
 package seedu.zerotoone.logic.parser.exercise;
 
-import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+// import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+// import static seedu.zerotoone.testutil.CommandTestUtil.INVALID_NAME_DESC;
+// import static seedu.zerotoone.testutil.CommandTestUtil.INVALID_NUM_REPS_DESC;
+// import static seedu.zerotoone.testutil.CommandTestUtil.INVALID_WEIGHT_DESC;
+// import static seedu.zerotoone.testutil.CommandTestUtil.NAME_DESC_BENCH_PRESS;
+// import static seedu.zerotoone.testutil.CommandTestUtil.NUM_REPS_DESC_BENCH_PRESS;
+// import static seedu.zerotoone.testutil.CommandTestUtil.NUM_REPS_DESC_CRUNCHES;
+// import static seedu.zerotoone.testutil.CommandTestUtil.WEIGHT_DESC_BENCH_PRESS;
+// import static seedu.zerotoone.testutil.CommandTestUtil.WEIGHT_DESC_CRUNCHES;
+// import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_BENCH_PRESS;
+// import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NAME_CRUNCHES;
+// import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NUM_REPS_BENCH_PRESS;
+// import static seedu.zerotoone.testutil.CommandTestUtil.VALID_NUM_REPS_CRUNCHES;
+// import static seedu.zerotoone.testutil.CommandTestUtil.VALID_WEIGHT_BENCH_PRESS;
+// import static seedu.zerotoone.testutil.CommandTestUtil.VALID_WEIGHT_CRUNCHES;
+
 // import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_TAG;
-// import static seedu.zerotoone.logic.parser.CommandParserTestUtil.assertParseFailure;
-// import static seedu.zerotoone.logic.parser.CommandParserTestUtil.assertParseSuccess;
+// import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
+// import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseSuccess;
 // import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_FIRST_EXERCISE;
 // import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_SECOND_EXERCISE;
 // import static seedu.zerotoone.testutil.TypicalIndexes.INDEX_THIRD_EXERCISE;
@@ -34,13 +27,12 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 // import org.junit.jupiter.api.Test;
 
 // import seedu.zerotoone.commons.core.index.Index;
-// import seedu.zerotoone.logic.commands.EditCommand;
-// import seedu.zerotoone.logic.commands.EditCommand.EditExerciseDescriptor;
-// import seedu.zerotoone.model.exercise.Address;
-// import seedu.zerotoone.model.exercise.Email;
-// import seedu.zerotoone.model.exercise.Name;
-// import seedu.zerotoone.model.exercise.Phone;
-// import seedu.zerotoone.model.tag.Tag;
+// import seedu.zerotoone.logic.commands.exercise.EditCommand;
+// import seedu.zerotoone.logic.commands.exercise.EditCommand.EditExerciseDescriptor;
+// import seedu.zerotoone.model.exercise.ExerciseName;
+// import seedu.zerotoone.model.exercise.ExerciseSet;
+// import seedu.zerotoone.model.exercise.NumReps;
+// import seedu.zerotoone.model.exercise.Weight;
 // import seedu.zerotoone.testutil.EditExerciseDescriptorBuilder;
 
 public class EditCommandParserTest {
