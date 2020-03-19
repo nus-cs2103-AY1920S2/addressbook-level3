@@ -1,5 +1,6 @@
 package seedu.zerotoone.logic.parser.exercise;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.zerotoone.commons.core.index.Index;
@@ -19,6 +20,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         try {
+            requireNonNull(args);
             Index index = ExerciseParserUtil.parseIndex(args);
             return new DeleteCommand(index);
         } catch (ParseException pe) {
@@ -26,5 +28,4 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
     }
-
 }
