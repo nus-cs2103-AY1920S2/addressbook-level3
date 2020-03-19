@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.attribute.Ingredient;
 import seedu.address.model.recipe.attribute.IngredientList;
@@ -92,8 +93,23 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
-     * whitespaces will be trimmed.
+     * Parses a {@code String calorie} into a {@code Calorie}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code calorie} is invalid.
+     */
+    public static Calorie parseCalorie(String calorie) throws ParseException {
+        requireNonNull(calorie);
+        String trimmedCalorie = calorie.trim();
+        if (!Calorie.isValidCalorieAmount(trimmedCalorie)) {
+            throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
+        }
+        return new Calorie(trimmedCalorie);
+    }
+
+    /**
+     * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */

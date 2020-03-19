@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
+import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.attribute.Ingredient;
@@ -28,18 +29,20 @@ public class SampleDataUtil {
         InstructionList insList1 = new InstructionList(List.of(
                 new Instruction("put ham between bread"),
                 new Instruction("serve on plate")));
+        Calorie calorie1 = new Calorie("169");
         Set<Tag> tagSet1 = getTagSet("breakfast", "lunch");
 
-        Recipe recipe1 = new Recipe(name1, ingList1, insList1, tagSet1);
+        Recipe recipe1 = new Recipe(name1, ingList1, insList1, calorie1 tagSet1);
 
         Name name2 = new Name("Idiot Sandwich");
         IngredientList ingList2 = new IngredientList(List.of(new Ingredient("bread, 2 slices")));
         InstructionList insList2 = new InstructionList(List.of(
                 new Instruction("put bread to opposite sides of head"),
                 new Instruction("Yell 'I am an idiot sandwich!'")));
+        Calorie calorie2 = new Calorie("0");
         Set<Tag> tagSet2 = getTagSet("lunch", "dinner");
 
-        Recipe recipe2 = new Recipe(name2, ingList2, insList2, tagSet2);
+        Recipe recipe2 = new Recipe(name2, ingList2, insList2, calorie2, tagSet2);
 
         return new Recipe[] {recipe1, recipe2};
     }

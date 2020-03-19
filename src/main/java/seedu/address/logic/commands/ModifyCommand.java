@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -18,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.attribute.IngredientList;
@@ -38,6 +40,7 @@ public class ModifyCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_INGREDIENTS + "INGREDIENTS] "
             + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
+            + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
@@ -68,7 +71,7 @@ public class ModifyCommand extends Command {
         List<Recipe> lastShownList = model.getFilteredRecipeList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX);
         }
 
         Recipe recipeToEdit = lastShownList.get(index.getZeroBased());
@@ -94,9 +97,10 @@ public class ModifyCommand extends Command {
         IngredientList updatedIngredients = editRecipeDescriptor.getIngredients().orElse(recipeToEdit.getIngredients());
         InstructionList updatedInstructions =
                 editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
+        Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
-        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedTags);
+        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedTags);
     }
 
     @Override
@@ -125,6 +129,7 @@ public class ModifyCommand extends Command {
         private Name name;
         private IngredientList ingredients;
         private InstructionList instructions;
+        private Calorie calorie;
         private Set<Tag> tags;
 
         public EditRecipeDescriptor() {
@@ -138,6 +143,7 @@ public class ModifyCommand extends Command {
             setName(toCopy.name);
             setIngredients(toCopy.ingredients);
             setInstructions(toCopy.instructions);
+            setCalorie(toCopy.calorie);
             setTags(toCopy.tags);
         }
 
@@ -170,6 +176,14 @@ public class ModifyCommand extends Command {
 
         public void setInstructions(InstructionList instructions) {
             this.instructions = instructions;
+        }
+
+        public void setCalorie(Calorie calorie) {
+            this.calorie = calorie;
+        }
+
+        public Optional<Calorie> getCalorie() {
+            return (calorie != null) ? Optional.of(calorie) : Optional.empty();
         }
 
         /**
@@ -207,6 +221,7 @@ public class ModifyCommand extends Command {
             return getName().equals(e.getName())
                     && getIngredients().equals(e.getIngredients())
                     && getInstructions().equals(e.getInstructions())
+                    && getCalorie().equals(e.getCalorie())
                     && getTags().equals(e.getTags());
         }
     }
