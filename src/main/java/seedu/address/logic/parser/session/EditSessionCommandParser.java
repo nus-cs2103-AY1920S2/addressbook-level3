@@ -22,6 +22,14 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/*
+ * === BUGS ===
+ * TODO: No error when end time is after start time.
+ *
+ * TODO: Sessions cannot have dates that are earlier than the current date.
+ *        Earlier dates are replaced by the current date.
+ */
+
 /**
  * Parses input arguments and creates a new EditSessionCommand object
  */
