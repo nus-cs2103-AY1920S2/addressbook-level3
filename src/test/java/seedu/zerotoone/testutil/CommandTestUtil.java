@@ -21,7 +21,7 @@ import seedu.zerotoone.logic.commands.exercise.EditCommand;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
-import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
+import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
 
 /**
  * Contains helper methods for testing commands.

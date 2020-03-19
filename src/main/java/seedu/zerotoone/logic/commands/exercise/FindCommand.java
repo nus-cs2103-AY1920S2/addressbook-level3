@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
+import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
 import seedu.zerotoone.logic.commands.CommandResult;
 
 /**
@@ -15,8 +15,8 @@ public class FindCommand extends ExerciseCommand {
     public static final String COMMAND_WORD = "find";
     public static final String MESSAGE_USAGE = "Usage: exercise find e/<exercise_name>";
 
-    private final NameContainsKeywordsPredicate predicate;
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    private final PredicateFilterExerciseName predicate;
+    public FindCommand(PredicateFilterExerciseName predicate) {
         this.predicate = predicate;
     }
 
