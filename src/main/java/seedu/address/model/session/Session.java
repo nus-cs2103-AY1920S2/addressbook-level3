@@ -3,6 +3,7 @@ package seedu.address.model.session;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a session in TAT.
@@ -10,6 +11,9 @@ import java.time.LocalDateTime;
  * Guarantees: Date, Start Time and End Time are not null.
  */
 public class Session {
+
+    /** For converting date times to strings. Example: "2020-03-03 14:00" */
+    private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Represents a session type. Session types follows the same specifications as the TSS.
@@ -167,6 +171,18 @@ public class Session {
      */
     public Duration getSessionDuration() {
         return Duration.between(this.startDateTime, this.endDateTime);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Type: ").append(type)
+                .append(" Start: ").append(startDateTime.format(FORMAT_DATE_TIME))
+                .append(" End: ").append(endDateTime.format(FORMAT_DATE_TIME))
+                .append(" Module Code: ").append(moduleCode)
+                .append(" Description: ").append(description)
+                .append(" Recurs: ").append(isRecurring);
+        return builder.toString();
     }
 
     /**
