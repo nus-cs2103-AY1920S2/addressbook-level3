@@ -25,7 +25,7 @@ import seedu.address.model.RecipeBook;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * A utility class containing a list of {@code Recipe} objects to be used in tests. TODO
+ * A utility class containing a list of {@code Recipe} objects to be used in tests.
  */
 public class TypicalRecipes {
 
