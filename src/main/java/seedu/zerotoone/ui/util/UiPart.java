@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui;
+package seedu.zerotoone.ui.util;
 
 import static java.util.Objects.requireNonNull;
 

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import javafx.fxml.FXML;
 import seedu.zerotoone.MainApp;
+import seedu.zerotoone.ui.util.UiPart;
 
 public class UiPartTest {
 
