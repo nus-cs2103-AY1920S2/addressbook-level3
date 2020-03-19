@@ -61,7 +61,8 @@ public class EditCommand extends ExerciseCommand {
         model.setExercise(exerciseToEdit, editedExercise);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
 
-        String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise.getExerciseName().toString());
+        String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS,
+                editedExercise.getExerciseName().toString());
         return new CommandResult(outputMessage);
     }
 

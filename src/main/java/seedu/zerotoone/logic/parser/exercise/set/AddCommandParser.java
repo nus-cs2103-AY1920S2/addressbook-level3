@@ -31,11 +31,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         try {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NUM_OF_REPS, PREFIX_WEIGHT);
-    
-            Index index = SetParserUtil.parseIndex(argMultimap.getPreamble());    
+
+            Index index = SetParserUtil.parseIndex(argMultimap.getPreamble());
             NumReps numReps = SetParserUtil.parseNumReps(argMultimap.getValue(PREFIX_NUM_OF_REPS).get());
             Weight weight = SetParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
-    
+
             return new AddCommand(index, numReps, weight);
         } catch (ParseException | NoSuchElementException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE), e);

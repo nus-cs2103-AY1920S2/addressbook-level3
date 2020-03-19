@@ -30,7 +30,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
 
             Index index = ExerciseParserUtil.parseIndex(argMultimap.getPreamble());
-            ExerciseName exerciseName = ExerciseParserUtil.parseExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
+            ExerciseName exerciseName = ExerciseParserUtil.parseExerciseName(
+                    argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
 
             return new EditCommand(index, exerciseName);
         } catch (ParseException | NoSuchElementException e) {

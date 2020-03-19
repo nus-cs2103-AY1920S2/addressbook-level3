@@ -31,7 +31,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             if (!argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException("");
             }
-    
+
             ExerciseName exerciseName = new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
             return new FindCommand(exerciseName);
         } catch (ParseException | NoSuchElementException e) {

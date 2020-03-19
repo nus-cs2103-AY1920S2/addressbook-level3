@@ -29,7 +29,8 @@ public class FindCommand extends ExerciseCommand {
 
         model.updateFilteredExerciseList(predicate);
 
-        String outputMessage =  String.format(MESSAGE_EXERCISES_LISTED_OVERVIEW, model.getFilteredExerciseList().size());
+        String outputMessage = String.format(MESSAGE_EXERCISES_LISTED_OVERVIEW,
+                model.getFilteredExerciseList().size());
         return new CommandResult(outputMessage);
     }
 
