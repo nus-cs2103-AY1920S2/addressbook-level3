@@ -11,6 +11,8 @@ import seedu.zerotoone.logic.commands.HelpCommand;
 import seedu.zerotoone.logic.commands.exercise.CreateCommand;
 import seedu.zerotoone.logic.commands.exercise.DeleteCommand;
 import seedu.zerotoone.logic.commands.exercise.FindCommand;
+import seedu.zerotoone.logic.commands.exercise.ListCommand;
+import seedu.zerotoone.logic.commands.exercise.EditCommand;
 import seedu.zerotoone.logic.commands.exercise.set.SetCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.exercise.set.SetCommandParser;
