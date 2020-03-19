@@ -74,8 +74,8 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     public Module getModule(Module module) {
-        for (int i = 0; i < internalList.size() - 1; i++) {
-            if (module.equals(internalList.get(i))) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (module.getIdentifier().equals(internalList.get(i).getIdentifier())) {
                 return internalList.get(i);
             }
         }

@@ -14,12 +14,12 @@ import seedu.address.model.module.Module;
  */
 public class DeleteModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = MODULE;
+    public static final String COMMAND_WORD = MODULE + " " + DELETE_MODEL;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + DELETE_MODEL
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module identified by the module code.\n"
             + "Parameters: " + PREFIX_MODULE + " MODULE_CODE\n"
-            + "Example: " + COMMAND_WORD + " " + DELETE_MODEL + " CS2013T";
+            + "Example: " + COMMAND_WORD + " CS2013T";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with this module code.";
