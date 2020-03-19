@@ -55,10 +55,6 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-        int size = lastShownList.size();
-
-        toAdd.index = new Index(size);
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -16,23 +17,23 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
-import seedu.address.model.RestaurantBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
-
 import seedu.address.model.util.SampleDataUtil;
+
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.RestaurantBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.JsonSchedulerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.RestaurantBookStorage;
 import seedu.address.storage.SchedulerStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -66,7 +67,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        RestaurantBookStorage restaurantBookStorage = new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
+        RestaurantBookStorage restaurantBookStorage =
+                new JsonRestaurantBookStorage(userPrefs.getRestaurantBookFilePath());
         SchedulerStorage schedulerStorage = new JsonSchedulerStorage(userPrefs.getSchedulerFilePath());
         storage = new StorageManager(addressBookStorage, restaurantBookStorage, schedulerStorage, userPrefsStorage);
 

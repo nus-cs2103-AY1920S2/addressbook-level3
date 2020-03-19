@@ -10,12 +10,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Prices should contain only dollar signs";
+            "Prices should contain only dollar signs, but can be empty";
 
     /*
      * Only dollar signs allowed
      */
-    public static final String VALIDATION_REGEX = ".*"; //"\\$+"
+    public static final String VALIDATION_REGEX = "\\$+|^$";
 
     public final String price;
 

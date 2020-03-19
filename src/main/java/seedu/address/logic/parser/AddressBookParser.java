@@ -23,6 +23,7 @@ import seedu.address.logic.commands.GetCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * Parses user input.
@@ -41,7 +42,7 @@ public class AddressBookParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput, Model model) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -53,37 +54,37 @@ public class AddressBookParser {
         switch (commandWord) {
 
         case AddRestaurantCommand.COMMAND_WORD:
-            return new AddRestaurantCommandParser().parse(arguments);
+            return new AddRestaurantCommandParser().parse(arguments, model);
 
         case AddAssignmentCommand.COMMAND_WORD:
-            return new AddAssignmentCommandParser().parse(arguments);
+            return new AddAssignmentCommandParser().parse(arguments, model);
 
         case DoneCommand.COMMAND_WORD:
-            return new DoneCommandParser().parse(arguments);
+            return new DoneCommandParser().parse(arguments, model);
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddCommandParser().parse(arguments, model);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditCommandParser().parse(arguments, model);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments, model);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            return new FindCommandParser().parse(arguments, model);
 
         case AddInfoCommand.COMMAND_WORD:
-            return new AddInfoCommandParser().parse(arguments);
+            return new AddInfoCommandParser().parse(arguments, model);
 
         case EditInfoCommand.COMMAND_WORD:
-            return new EditInfoCommandParser().parse(arguments);
+            return new EditInfoCommandParser().parse(arguments, model);
 
         case DeleteInfoCommand.COMMAND_WORD:
-            return new DeleteInfoCommandParser().parse(arguments);
+            return new DeleteInfoCommandParser().parse(arguments, model);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -92,10 +93,10 @@ public class AddressBookParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommandParser().parse(arguments);
+            return new HelpCommandParser().parse(arguments, model);
 
         case GetCommand.COMMAND_WORD:
-            return new GetCommandParser().parse(arguments);
+            return new GetCommandParser().parse(arguments, model);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

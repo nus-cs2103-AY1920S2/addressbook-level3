@@ -1,26 +1,26 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUISINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
+import seedu.address.model.restaurant.Cuisine;
+import seedu.address.model.restaurant.Hours;
+import seedu.address.model.restaurant.Location;
 import seedu.address.model.restaurant.Name;
+import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
 import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.restaurant.Location;
-import seedu.address.model.restaurant.Hours;
-import seedu.address.model.restaurant.Price;
-import seedu.address.model.restaurant.Cuisine;
-
 
 /**
  * Parses input arguments and creates a new AddAssignmentCommand object.
@@ -29,10 +29,11 @@ public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     * @return AddRestaurantCommand
      * @throws ParseException if the user input does not conform the expected format
-     * @return
+     *
      */
-    public AddRestaurantCommand parse(String args) throws ParseException {
+    public AddRestaurantCommand parse(String args, Model model) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_RESTAURANT, PREFIX_LOCATION, PREFIX_OPERATING_HOURS,
                         PREFIX_PRICE, PREFIX_CUISINE);

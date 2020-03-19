@@ -137,8 +137,7 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getBirthday().equals(getBirthday())
-                && otherPerson.getTags().equals(getTags())
-                && ((Person) other).getIndex().equals(getIndex());
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override

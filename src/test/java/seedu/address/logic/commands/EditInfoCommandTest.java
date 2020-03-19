@@ -19,6 +19,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
@@ -29,7 +30,10 @@ class EditInfoCommandTest {
 
     private static final String REMARK_STUB = "Some remark";
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new Scheduler(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(),
+            new RestaurantBook(),
+            new Scheduler(),
+            new UserPrefs());
 
     @Test
     public void execute_editInfoUnfilteredList_success() {
@@ -43,7 +47,10 @@ class EditInfoCommandTest {
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new Scheduler(), new UserPrefs());
+                new ModelManager(new AddressBook(model.getAddressBook()),
+                        new RestaurantBook(),
+                        new Scheduler(),
+                        new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);
@@ -63,7 +70,10 @@ class EditInfoCommandTest {
         String expectedMessage = String.format(EditInfoCommand.MESSAGE_EDIT_REMARK_SUCCESS, firstPerson);
 
         Model expectedModel =
-                new ModelManager(new AddressBook(model.getAddressBook()), new Scheduler(), new UserPrefs());
+                new ModelManager(new AddressBook(model.getAddressBook()),
+                        new RestaurantBook(),
+                        new Scheduler(),
+                        new UserPrefs());
         expectedModel.setPerson(firstPerson, editedPerson);
 
         assertCommandSuccess(editInfoCommand, model, expectedMessage, expectedModel);

@@ -1,23 +1,20 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.restaurant.Name;
-import seedu.address.model.restaurant.Location;
-import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Cuisine;
+import seedu.address.model.restaurant.Hours;
+import seedu.address.model.restaurant.Location;
+import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Price;
 import seedu.address.model.restaurant.Remark;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.restaurant.Restaurant;
 
 /**
  * Jackson-friendly version of {@link Restaurant}
@@ -38,9 +35,10 @@ class JsonAdaptedRestaurant {
      */
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("location") String location,
-                             @JsonProperty("hours") String hours, @JsonProperty("price") String price,
-                             @JsonProperty("remark") ArrayList<JsonAdaptedRemarkR> remark, @JsonProperty("cuisine") String cuisine,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                                 @JsonProperty("hours") String hours, @JsonProperty("price") String price,
+                                 @JsonProperty("remark") ArrayList<JsonAdaptedRemarkR> remark,
+                                 @JsonProperty("cuisine") String cuisine,
+                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -80,7 +78,8 @@ class JsonAdaptedRestaurant {
         final Name modelName = new Name(name);
 
         if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Location.class.getSimpleName()));
         }
         if (!Location.isValidLocation(location)) {
             throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
@@ -110,14 +109,10 @@ class JsonAdaptedRestaurant {
             throw new IllegalValueException(Cuisine.MESSAGE_CONSTRAINTS);
         }
         final Cuisine modelCuisine = new Cuisine(cuisine);
-        
-        
         final ArrayList<Remark> modelRemark = new ArrayList<>();
         for (JsonAdaptedRemarkR r : remark) {
             modelRemark.add(r.toModelType());
         }
-        
         return new Restaurant(modelName, modelLocation, modelHours, modelPrice, modelCuisine, modelRemark);
     }
-
 }

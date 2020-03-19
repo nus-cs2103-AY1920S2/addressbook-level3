@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
 import seedu.address.model.person.Email;
@@ -25,6 +26,7 @@ public class PersonBuilder {
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_REMARK = "She likes aardvarks.";
     public static final String DEFAULT_BIRTHDAY = "01-15";
+    public static final int DEFAULT_INDEX = 0;
 
     private Name name;
     private Phone phone;
@@ -33,6 +35,7 @@ public class PersonBuilder {
     private ArrayList<Remark> remark;
     private Birthday birthday;
     private Set<Tag> tags;
+    private Index index;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -43,6 +46,7 @@ public class PersonBuilder {
         remark.add(new Remark(DEFAULT_REMARK));
         birthday = new Birthday(DEFAULT_BIRTHDAY);
         tags = new HashSet<>();
+        index = new Index(DEFAULT_INDEX);
     }
 
     /**
@@ -57,6 +61,7 @@ public class PersonBuilder {
         remark.addAll(personToCopy.getRemark());
         birthday = personToCopy.getBirthday();
         tags = new HashSet<>(personToCopy.getTags());
+        index = personToCopy.getIndex();
     }
 
     /**
@@ -115,8 +120,16 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Index} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withIndex(String index) {
+        this.index = new Index(Integer.parseInt(index));
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, remark, birthday, tags);
+        return new Person(name, phone, email, address, remark, birthday, tags, index);
     }
 
 }

@@ -15,14 +15,17 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRestaurantBook;
 import seedu.address.model.ReadOnlyScheduler;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -34,7 +37,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStub.ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingPersonAdded  modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
@@ -151,13 +154,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Person> getFilteredPerson() {
-            return null;
+        public ObservableList<Person> getFilteredPersonListResult() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPerson(Predicate<Person> predicate) {
-
+        public void updateFilteredPersonListResult(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -166,7 +169,43 @@ public class AddCommandTest {
         }
 
         @Override
-        public void getPerson(Person person, int index) {
+        public void setRestaurantBook(ReadOnlyRestaurantBook restaurantBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyRestaurantBook getRestaurantBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRestaurant(Restaurant restaurant) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRestaurant(Restaurant target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRestaurant(Restaurant restaurant) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Restaurant> getFilteredRestaurantList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -209,6 +248,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
+            this.person.index = Index.fromZeroBased(1);
             return this.person.isSamePerson(person);
         }
     }

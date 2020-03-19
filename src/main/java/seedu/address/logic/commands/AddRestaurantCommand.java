@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CUISINE;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CUISINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPERATING_HOURS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RESTAURANT;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

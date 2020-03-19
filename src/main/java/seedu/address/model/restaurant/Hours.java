@@ -10,12 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Hours {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Hours should only contain of this format XXXX:YYYY, where XXXX and YYYY are the opening and closing times.";
+            "Hours should only contain of this format XXXX:YYYY, where XXXX and YYYY are the opening & closing times.";
 
     /*
      *
      */
-    public static final String VALIDATION_REGEX = ".*"; // Need to change to the proper regex
+    public static final String VALIDATION_REGEX =
+            "(([0-1][0-9][0-5][0-9]|[2][0-3][0-5][0-9]):([0-1][0-9][0-5][0-9]|[2][0-3][0-5][0-9]))|^$";
 
     public final String hours;
 

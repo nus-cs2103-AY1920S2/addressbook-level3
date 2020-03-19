@@ -26,10 +26,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyRestaurantBook;
+import seedu.address.model.RestaurantBook;
 import seedu.address.model.Scheduler;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonRestaurantBookStorage;
 import seedu.address.storage.JsonSchedulerStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -48,9 +51,14 @@ public class LogicManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonRestaurantBookStorage restaurantBookStorage =
+                new JsonRestaurantBookStorage(temporaryFolder.resolve("restaurantBook.json"));
         JsonSchedulerStorage schedulerStorage = new JsonSchedulerStorage(temporaryFolder.resolve("assignments.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, schedulerStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage,
+                restaurantBookStorage,
+                schedulerStorage,
+                userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -77,11 +85,17 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonAddressBookStorage addressBookStorage =
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonRestaurantBookStorage restaurantBookStorage =
+                new JsonRestaurantBookIoExceptionThrowingStub(temporaryFolder
+                        .resolve("ioExceptionRestaurantBook.json"));
         JsonSchedulerStorage schedulerStorage =
                 new JsonSchedulerStorage(temporaryFolder.resolve("ioExceptionAssignments.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, schedulerStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage,
+                restaurantBookStorage,
+                schedulerStorage,
+                userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -136,7 +150,10 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new Scheduler(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(),
+                new RestaurantBook(),
+                new Scheduler(),
+                new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -163,6 +180,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonRestaurantBookIoExceptionThrowingStub extends JsonRestaurantBookStorage {
+        private JsonRestaurantBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveRestaurantBook(ReadOnlyRestaurantBook restaurantBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

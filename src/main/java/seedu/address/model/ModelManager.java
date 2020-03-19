@@ -36,8 +36,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook, ReadOnlyScheduler scheduler,
-                        ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
+                        ReadOnlyScheduler scheduler, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, scheduler, userPrefs);
 
@@ -230,17 +230,6 @@ public class ModelManager implements Model {
         filteredPersonsResult.setPredicate(predicate);
     }
 
-    /**
-     * Gets the person at the specified index.
-     * @param index of the person in the filtered person list.
-     * @return
-     */
-    @Override
-    public Person getPerson(Index index) {
-        requireNonNull(index);
-        return filteredPersons.get(index.getZeroBased());
-    }
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -257,7 +246,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && restaurantBook.equals(other.restaurantBook)
-                && scheduler.equals(other.scheduler)
+                // && scheduler.equals(other.scheduler)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
     }

@@ -25,7 +25,9 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, RestaurantBookStorage restaurantBookStorage, SchedulerStorage schedulerStorage,
+    public StorageManager(AddressBookStorage addressBookStorage,
+                          RestaurantBookStorage restaurantBookStorage,
+                          SchedulerStorage schedulerStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
@@ -94,7 +96,8 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyRestaurantBook> readRestaurantBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyRestaurantBook> readRestaurantBook(Path filePath) throws DataConversionException,
+            IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return restaurantBookStorage.readRestaurantBook(filePath);
     }
