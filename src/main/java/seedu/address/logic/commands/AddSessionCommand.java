@@ -18,7 +18,7 @@ import seedu.address.model.session.Session;
  */
 public class AddSessionCommand extends Command {
 
-    public static final String COMMAND_WORD = "Session";
+    public static final String COMMAND_WORD = CommandWords.SESSION + " " + CommandWords.ADD_MODEL;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a session in TA-Tracker. "
             + "Parameters: "
