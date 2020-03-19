@@ -73,6 +73,31 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.set(index, editedModule);
     }
 
+    public Module getModule(Module module) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (module.getIdentifier().equals(internalList.get(i).getIdentifier())) {
+                return internalList.get(i);
+            }
+        }
+        return null;
+    }
+
+    /**
+    * Gets module with given module code.
+    * Returns null if no such module exists.
+    */
+    public Module getModule(String code) {
+        Module module = null;
+        for (int i = 0; i < this.size(); ++i) {
+            module = this.get(i);
+            if (module.getIdentifier().equals(code)) {
+                break;
+            }
+            module = null;
+        }
+        return module;
+    }
+
     /**
      * Removes the equivalent module from the list.
      * The module must exist in the list.

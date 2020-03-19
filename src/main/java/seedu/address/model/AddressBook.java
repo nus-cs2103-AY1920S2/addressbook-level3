@@ -167,6 +167,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes a module from TATracker.
+     */
+    public void deleteModule(Module module) {
+        modules.remove(module);
+    }
+
+    /**
+     * Returns module from TATracker.
+     */
+    public Module getModule(Module module) {
+        return modules.getModule(module);
+    }
+
+    /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
      * {@code target} must exist in the address book.
      * The module identity of {@code editedModule} must not be the same as another existing module in the address

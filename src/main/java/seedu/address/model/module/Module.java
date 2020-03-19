@@ -72,6 +72,13 @@ public class Module {
     }
 
     /**
+    * Checks if module has the given group.
+    */
+    public boolean hasGroup(Group group) {
+        return groups.contains(group);
+    }
+
+    /**
      * Returns a string that shows the value inside the groups list.
      */
     public String groupsString() {
@@ -85,6 +92,7 @@ public class Module {
                 str.append((", " + groups.get(i)));
             }
         }
+        str.append("]");
         return str.toString();
     }
 
