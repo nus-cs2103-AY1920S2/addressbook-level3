@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 public class UpcomingList extends UiPart<AnchorPane> {
     private static final String FXML = "upcomingList.fxml";
     private LocalDateTime time;
+    private int index = 0;
 
     @FXML
     private VBox upcomingList;
@@ -47,12 +48,14 @@ public class UpcomingList extends UiPart<AnchorPane> {
      */
     public void findList(ObservableList<Entry> entries) {
         for (Entry entry: entries) {
-            if (LocalDateTime.now().isAfter(entry.getDateTime())) {
+            if (LocalDateTime.now().isBefore(entry.getDateTime())) {
                 if (entry.getType().toString().equals("food")) {
-                    FoodCard foodCard = new FoodCard(entry);
+                    index++;
+                    FoodCard foodCard = new FoodCard(entry, index);
                     upcomingList.getChildren().add(foodCard.getRoot());
                 } else {
-                    SportCard sportCard = new SportCard(entry);
+                    index++;
+                    SportCard sportCard = new SportCard(entry, index);
                     upcomingList.getChildren().add(sportCard.getRoot());
                 }
             }

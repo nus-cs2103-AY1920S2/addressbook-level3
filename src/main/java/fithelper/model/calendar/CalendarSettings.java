@@ -13,4 +13,7 @@ public class CalendarSettings {
     public LocalDateTime getDate() {
         return this.date;
     }
+    public void setDate(LocalDateTime dateToSet) {
+        this.date = dateToSet;
+    }
 }

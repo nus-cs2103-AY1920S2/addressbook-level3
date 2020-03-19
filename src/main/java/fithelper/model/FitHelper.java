@@ -152,7 +152,11 @@ public class FitHelper implements ReadOnlyFitHelper {
         boolean hasTimeClashes;
         long hasTimeClashesWithFood = foodEntries.countClashes(entry);
         long hasTimeClashesWithSports = sportsEntries.countClashes(entry);
-        if (hasTimeClashesWithFood +  hasTimeClashesWithSports >= 2) {
+        long count = hasTimeClashesWithFood + hasTimeClashesWithSports;
+        if (hasEntry(entry)) {
+            count --;
+        }
+        if (count >= 2) {  // for check during edit only, exclude itself
             hasTimeClashes = true;
         } else {
             hasTimeClashes = false;

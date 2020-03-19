@@ -32,7 +32,7 @@ public class ModelManager implements Model {
     private final FilteredList<Entry> filteredTodayFoodEntries;
     private final FilteredList<Entry> filteredTodaySportsEntries;
     private final VeventList vEventList;
-    private CalendarSettings calendarSettings;
+    private CalendarSettings calendarSettings = new CalendarSettings(LocalDateTime.now());
     private final UserProfile userProfile;
 
     /**
@@ -254,7 +254,7 @@ public class ModelManager implements Model {
     public void setCalendarDate(String date) {
         Time time = new Time(date);
         LocalDateTime formattedDate = time.dateTime;
-        calendarSettings = new CalendarSettings(formattedDate);
+        calendarSettings.setDate(formattedDate);
     }
 
     public LocalDateTime getCalendarDate() {

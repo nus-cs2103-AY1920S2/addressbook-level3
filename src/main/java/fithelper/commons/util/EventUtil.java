@@ -21,6 +21,10 @@ public class EventUtil {
         vEvent.setDateTimeEnd(entry.getDateTime().plusHours(1));
         StringBuilder summary = new StringBuilder();
         summary.append(entry.getName());
+        summary.append(" ");
+        summary.append(entry.getLocation());
+        summary.append(" ");
+        summary.append(entry.getCalorie());
         vEvent.setSummary(summary.toString());
         vEvent.setUniqueIdentifier(getUniqueIdentifier(entry));
         if (entry.getStatus().toString().equals("Done")) {
