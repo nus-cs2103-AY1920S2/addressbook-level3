@@ -1,16 +1,16 @@
 package seedu.zerotoone.logic.parser.exercise;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 
-import java.util.stream.Stream;
+import java.util.NoSuchElementException;
 
 import seedu.zerotoone.logic.commands.exercise.FindCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
-import seedu.zerotoone.logic.parser.util.Prefix;
 import seedu.zerotoone.model.exercise.ExerciseName;
 
 /**
@@ -24,21 +24,18 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
+        requireNonNull(args);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_EXERCISE_NAME)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        try {
+            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
+            if (!argMultimap.getPreamble().isEmpty()) {
+                throw new ParseException("");
+            }
+    
+            ExerciseName exerciseName = new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
+            return new FindCommand(exerciseName);
+        } catch (ParseException | NoSuchElementException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), e);
         }
-
-        ExerciseName exerciseName = new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
-        return new FindCommand(exerciseName);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
