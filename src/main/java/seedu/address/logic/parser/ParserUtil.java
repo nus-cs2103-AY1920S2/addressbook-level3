@@ -11,7 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.session.Session;
+import seedu.address.model.session.SessionType;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Matric;
 import seedu.address.model.student.Name;
@@ -154,25 +154,25 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String sessionType} into a {@code Session.SessionType}
+     * Parses a {@code String sessionType} into a {@code SessionType}
      */
-    public static Session.SessionType parseSessionType(String sessionType) {
+    public static SessionType parseSessionType(String sessionType) {
         requireNonNull(sessionType);
         String trimmedType = sessionType.trim();
         assert (trimmedType.equals(trimmedType.toLowerCase()));
         switch (trimmedType) {
         case "tutorial":
-            return Session.SessionType.SESSION_TYPE_TUTORIAL;
+            return SessionType.SESSION_TYPE_TUTORIAL;
         case "lab":
-            return Session.SessionType.SESSION_TYPE_LAB;
+            return SessionType.SESSION_TYPE_LAB;
         case "consultation":
-            return Session.SessionType.SESSION_TYPE_CONSULTATION;
+            return SessionType.SESSION_TYPE_CONSULTATION;
         case "grading":
-            return Session.SessionType.SESSION_TYPE_GRADING;
+            return SessionType.SESSION_TYPE_GRADING;
         case "preparation":
-            return Session.SessionType.SESSION_TYPE_PREPARATION;
+            return SessionType.SESSION_TYPE_PREPARATION;
         default:
-            return Session.SessionType.SESSION_TYPE_OTHER;
+            return SessionType.SESSION_TYPE_OTHER;
         }
     }
 }
