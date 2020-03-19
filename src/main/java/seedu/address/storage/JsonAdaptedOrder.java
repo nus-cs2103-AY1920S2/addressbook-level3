@@ -38,10 +38,10 @@ class JsonAdaptedOrder {
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("tid") String tid, @JsonProperty("name") String name,
                             @JsonProperty("phone") String phone, @JsonProperty("address") String address,
-                            @JsonProperty("timestamp") String timeStamp,
+                            @JsonProperty("timestamp") String timestamp,
                             @JsonProperty("warehouse") String warehouse, @JsonProperty("cashOnDelivery") String cod,
                             @JsonProperty("comment") String comment,
-                            @JsonProperty("itemType") String itemType) {
+                            @JsonProperty("itemtype") String itemType) {
         this.tid = tid;
         this.name = name;
         this.phone = phone;
