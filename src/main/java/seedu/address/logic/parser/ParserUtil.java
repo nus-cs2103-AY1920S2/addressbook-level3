@@ -163,17 +163,17 @@ public class ParserUtil {
         assert (trimmedType.equals(trimmedType.toLowerCase()));
         switch (trimmedType) {
         case "tutorial":
-            return Session.SessionType.SESSION_TYPE_TUTORIAL;
+            return Session.SessionType.TUTORIAL;
         case "lab":
-            return Session.SessionType.SESSION_TYPE_LAB;
+            return Session.SessionType.LAB;
         case "consultation":
-            return Session.SessionType.SESSION_TYPE_CONSULTATION;
+            return Session.SessionType.CONSULTATION;
         case "grading":
-            return Session.SessionType.SESSION_TYPE_GRADING;
+            return Session.SessionType.GRADING;
         case "preparation":
-            return Session.SessionType.SESSION_TYPE_PREPARATION;
+            return Session.SessionType.PREPARATION;
         default:
-            return Session.SessionType.SESSION_TYPE_OTHER;
+            return Session.SessionType.OTHER;
         }
     }
 

@@ -16,12 +16,12 @@ public class Session {
      * Example session types include: Tutorial, Grading, Consultation, etc.
      */
     public enum SessionType {
-        SESSION_TYPE_TUTORIAL,
-        SESSION_TYPE_LAB,
-        SESSION_TYPE_CONSULTATION,
-        SESSION_TYPE_GRADING,
-        SESSION_TYPE_PREPARATION,
-        SESSION_TYPE_OTHER
+        TUTORIAL,
+        LAB,
+        CONSULTATION,
+        GRADING,
+        PREPARATION,
+        OTHER
     }
 
     private LocalDateTime startDateTime;
@@ -40,7 +40,7 @@ public class Session {
         this.endDateTime = LocalDateTime.now();
         this.isRecurring = false;
         this.moduleCode = "";
-        this.type = SessionType.SESSION_TYPE_OTHER;
+        this.type = SessionType.OTHER;
         this.description = "Default Session";
     }
 
