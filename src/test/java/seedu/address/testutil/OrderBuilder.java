@@ -56,7 +56,7 @@ public class OrderBuilder {
         name = orderToCopy.getName();
         phone = orderToCopy.getPhone();
         address = orderToCopy.getAddress();
-        timeStamp = orderToCopy.getTimestamp();
+        timeStamp = orderToCopy.getTimeStamp();
         warehouse = orderToCopy.getWarehouse();
         cod = orderToCopy.getCash();
         comment = orderToCopy.getComment();

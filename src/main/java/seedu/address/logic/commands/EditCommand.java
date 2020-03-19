@@ -106,7 +106,7 @@ public class EditCommand extends Command {
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
-        TimeStamp updateTimeStamp = editOrderDescriptor.getTimeStamp().orElse(orderToEdit.getTimestamp());
+        TimeStamp updateTimeStamp = editOrderDescriptor.getTimeStamp().orElse(orderToEdit.getTimeStamp());
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
         CashOnDelivery updatedCod = editOrderDescriptor.getCash().orElse(orderToEdit.getCash());
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());

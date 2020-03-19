@@ -26,7 +26,7 @@ class JsonAdaptedOrder {
     private final String name;
     private final String phone;
     private final String address;
-    private final String timestamp;
+    private final String timeStamp;
     private final String warehouse;
     private final String cod;
     private final String comment;
@@ -38,15 +38,15 @@ class JsonAdaptedOrder {
     @JsonCreator
     public JsonAdaptedOrder(@JsonProperty("tid") String tid, @JsonProperty("name") String name,
                             @JsonProperty("phone") String phone, @JsonProperty("address") String address,
-                            @JsonProperty("timestamp") String timestamp,
+                            @JsonProperty("timeStamp") String timeStamp,
                             @JsonProperty("warehouse") String warehouse, @JsonProperty("cashOnDelivery") String cod,
                             @JsonProperty("comment") String comment,
-                            @JsonProperty("itemtype") String itemType) {
+                            @JsonProperty("itemType") String itemType) {
         this.tid = tid;
         this.name = name;
         this.phone = phone;
         this.address = address;
-        this.timestamp = timestamp;
+        this.timeStamp = timeStamp;
         this.warehouse = warehouse;
         this.cod = cod;
         this.comment = comment;
@@ -61,7 +61,7 @@ class JsonAdaptedOrder {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         address = source.getAddress().value;
-        timestamp = source.getTimestamp().value;
+        timeStamp = source.getTimeStamp().value;
         warehouse = source.getWarehouse().address;
         cod = source.getCash().cashOnDelivery;
         comment = source.getComment().commentMade;
@@ -108,14 +108,14 @@ class JsonAdaptedOrder {
         }
         final Address modelAddress = new Address(address);
 
-        if (timestamp == null) {
+        if (timeStamp == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TimeStamp.class.getSimpleName()));
         }
-        if (!TimeStamp.isValidTimeStamp(timestamp)) {
+        if (!TimeStamp.isValidTimeStamp(timeStamp)) {
             throw new IllegalValueException(TimeStamp.MESSAGE_CONSTRAINTS);
         }
-        final TimeStamp modelTimeStamp = new TimeStamp(timestamp);
+        final TimeStamp modelTimeStamp = new TimeStamp(timeStamp);
 
         if (warehouse == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,

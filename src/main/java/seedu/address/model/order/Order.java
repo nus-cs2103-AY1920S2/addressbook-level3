@@ -21,21 +21,21 @@ public class Order {
     // Data fields
     private final CashOnDelivery cod;
     private final Address address;
-    private final TimeStamp timestamp;
+    private final TimeStamp timeStamp;
     private final Warehouse warehouse;
     private final Comment comment;
     private final TypeOfItem itemType;
     /**
      * Every field must be present and not null.
      */
-    public Order(TransactionId tid, Name name, Phone phone, Address address, TimeStamp timestamp, Warehouse warehouse,
+    public Order(TransactionId tid, Name name, Phone phone, Address address, TimeStamp timeStamp, Warehouse warehouse,
                  CashOnDelivery cod, Comment comment, TypeOfItem itemType) {
-        requireAllNonNull(tid, name, phone, address, timestamp, warehouse, cod, comment, itemType);
+        requireAllNonNull(tid, name, phone, address, timeStamp, warehouse, cod, comment, itemType);
         this.tid = tid;
         this.name = name;
         this.phone = phone;
         this.address = address;
-        this.timestamp = timestamp;
+        this.timeStamp = timeStamp;
         this.warehouse = warehouse;
         this.cod = cod;
         this.comment = comment;
@@ -57,8 +57,8 @@ public class Order {
         return address;
     }
 
-    public TimeStamp getTimestamp() {
-        return timestamp;
+    public TimeStamp getTimeStamp() {
+        return timeStamp;
     }
 
     public Warehouse getWarehouse() {
@@ -111,7 +111,7 @@ public class Order {
                 && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
                 && otherOrder.getAddress().equals(getAddress())
-                && otherOrder.getTimestamp().equals(getTimestamp())
+                && otherOrder.getTimeStamp().equals(getTimeStamp())
                 && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
                 && otherOrder.getCash().equals(getCash())
@@ -121,7 +121,7 @@ public class Order {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tid, name, phone, address, timestamp, warehouse, cod, comment, itemType);
+        return Objects.hash(tid, name, phone, address, timeStamp, warehouse, cod, comment, itemType);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class Order {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Delivery Date & Time: ")
-                .append(getTimestamp())
+                .append(getTimeStamp())
                 .append(" Warehouse: ")
                 .append(getWarehouse())
                 .append(" Cash On Delivery: ")

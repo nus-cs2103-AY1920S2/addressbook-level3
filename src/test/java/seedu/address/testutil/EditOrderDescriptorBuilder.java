@@ -37,7 +37,7 @@ public class EditOrderDescriptorBuilder {
         descriptor.setName(order.getName());
         descriptor.setPhone(order.getPhone());
         descriptor.setAddress(order.getAddress());
-        descriptor.setTimeStamp(order.getTimestamp());
+        descriptor.setTimeStamp(order.getTimeStamp());
         descriptor.setWarehouse(order.getWarehouse());
         descriptor.setCash(order.getCash());
         descriptor.setComment(order.getComment());

@@ -35,7 +35,7 @@ public class OrderUtil {
         sb.append(PREFIX_NAME + order.getName().fullName + " ");
         sb.append(PREFIX_PHONE + order.getPhone().value + " ");
         sb.append(PREFIX_ADDRESS + order.getAddress().value + " ");
-        sb.append(PREFIX_DELIVERY_TIMESTAMP + order.getTimestamp().value + " ");
+        sb.append(PREFIX_DELIVERY_TIMESTAMP + order.getTimeStamp().value + " ");
         sb.append(PREFIX_WAREHOUSE + order.getWarehouse().address + " ");
         sb.append(PREFIX_COD + order.getCash().cashOnDelivery + " ");
         sb.append(PREFIX_COMMENT + order.getComment().commentMade + " ");

@@ -33,7 +33,7 @@ public class JsonAdaptedOrderTest {
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_TIMESTAMP = BENSON.getTimestamp().toString();
+    private static final String VALID_TIMESTAMP = BENSON.getTimeStamp().toString();
     private static final String VALID_WAREHOUSE = BENSON.getWarehouse().toString();
     private static final String VALID_COD = BENSON.getCash().toString();
     private static final String VALID_COMMENT = BENSON.getComment().toString();

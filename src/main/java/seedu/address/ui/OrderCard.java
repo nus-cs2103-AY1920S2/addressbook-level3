@@ -54,7 +54,7 @@ public class OrderCard extends UiPart<Region> {
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
         address.setText(order.getAddress().value);
-        timeStamp.setText(order.getTimestamp().value);
+        timeStamp.setText(order.getTimeStamp().value);
         warehouse.setText(order.getWarehouse().address);
         comment.setText(order.getComment().commentMade);
         cashOnDelivery.setText(order.getCash().cashOnDelivery);
