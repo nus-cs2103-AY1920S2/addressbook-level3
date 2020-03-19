@@ -9,6 +9,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.zerotoone.commons.core.LogsCenter;
+import seedu.zerotoone.ui.util.UiPart;
 
 /**
  * Controller for a help page

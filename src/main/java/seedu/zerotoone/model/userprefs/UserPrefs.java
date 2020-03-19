@@ -15,6 +15,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path exerciseListFilePath = Paths.get("data" , "exerciselist.json");
+    private Path workoutListFilePath = Paths.get("data" , "workoutlist.json");
+    private Path scheduleListFilePath = Paths.get("data" , "schedulelist.json");
+    private Path logListFilePath = Paths.get("data" , "loglist.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -56,6 +59,33 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.exerciseListFilePath = exerciseListFilePath;
     }
 
+    public Path getWorkoutListFilePath() {
+        return workoutListFilePath;
+    }
+
+    public void setWorkoutListFilePath(Path workoutListFilePath) {
+        requireNonNull(workoutListFilePath);
+        this.workoutListFilePath = workoutListFilePath;
+    }
+
+    public Path getScheduleListFilePath() {
+        return scheduleListFilePath;
+    }
+
+    public void setScheduleListFilePath(Path scheduleListFilePath) {
+        requireNonNull(scheduleListFilePath);
+        this.scheduleListFilePath = scheduleListFilePath;
+    }
+
+    public Path getLogListFilePath() {
+        return logListFilePath;
+    }
+
+    public void setLogListFilePath(Path logListFilePath) {
+        requireNonNull(logListFilePath);
+        this.logListFilePath = logListFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -81,6 +111,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nExercise List file location : " + exerciseListFilePath);
+        sb.append("\nWorkout List file location : " + workoutListFilePath);
+        sb.append("\nSchedule List file location : " + scheduleListFilePath);
+        sb.append("\nLog List file location : " + logListFilePath);
         return sb.toString();
     }
 

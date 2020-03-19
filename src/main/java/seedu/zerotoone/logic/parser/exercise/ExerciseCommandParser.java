@@ -50,7 +50,7 @@ public class ExerciseCommandParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            return new DeleteCommandParser().parse(arguments);
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
         case SetCommand.COMMAND_WORD:
