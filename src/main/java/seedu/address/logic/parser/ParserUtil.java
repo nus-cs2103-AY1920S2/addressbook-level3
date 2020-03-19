@@ -28,6 +28,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     private static final String MESSAGE_INVALID_DATE = "Dates should be in yyyy-MM-dd format";
+    private static final String MESSAGE_INVALID_TIME = "Times should be in HH:mm format";
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -155,11 +157,17 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String time} into a {@code LocalTime}
+     *
+     * @throws ParseException if the given {@code time} is invalid.
      */
-    public static LocalTime parseTime(String time) {
+    public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        return LocalTime.parse(trimmedTime);
+        try {
+            return LocalTime.parse(trimmedTime);
+        } catch (DateTimeParseException dtpe) {
+            throw new ParseException(MESSAGE_INVALID_TIME);
+        }
     }
 
     /**
