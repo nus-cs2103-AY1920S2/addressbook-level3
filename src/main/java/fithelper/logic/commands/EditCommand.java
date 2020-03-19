@@ -95,7 +95,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
 
-        if (model.hasTimeClashes(editedEntry)) {
+        if (model.hasTimeClashes(entryToEdit)) {
             throw new CommandException(MESSAGE_TIME_CLASHES);
         }
 
