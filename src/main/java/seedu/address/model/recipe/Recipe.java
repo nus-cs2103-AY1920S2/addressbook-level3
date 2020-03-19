@@ -84,7 +84,7 @@ public class Recipe {
      * which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Ingredient> getGrains() {
+    public Set<Grain> getGrains() {
         return Collections.unmodifiableSet(grains);
     }
 
@@ -93,7 +93,7 @@ public class Recipe {
      * which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Ingredient> getVegetables() {
+    public Set<Vegetable> getVegetables() {
         return Collections.unmodifiableSet(vegetables);
     }
 
@@ -102,7 +102,7 @@ public class Recipe {
      * which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Ingredient> getProteins() {
+    public Set<Protein> getProteins() {
         return Collections.unmodifiableSet(proteins);
     }
 
@@ -111,7 +111,7 @@ public class Recipe {
      * which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<Ingredient> getOthers() {
+    public Set<Other> getOthers() {
         return Collections.unmodifiableSet(others);
     }
 

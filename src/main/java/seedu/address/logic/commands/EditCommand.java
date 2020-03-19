@@ -25,14 +25,11 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.goal.Goal;
-
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
-
 import seedu.address.model.recipe.ingredient.Grain;
-import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
 import seedu.address.model.recipe.ingredient.Vegetable;
@@ -115,10 +112,14 @@ public class EditCommand extends Command {
         boolean isFavourite = editRecipeDescriptor.getFavourite();
         List<Step> updatedStep = editRecipeDescriptor.getSteps().orElse(recipeToEdit.getSteps());
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
-        Set<Ingredient> updatedIngredients = editRecipeDescriptor.getIngredients()
-                .orElse(recipeToEdit.getIngredients());
+        Set<Grain> updatedGrains = editRecipeDescriptor.getGrains().orElse(recipeToEdit.getGrains());
+        Set<Vegetable> updatedVegetables = editRecipeDescriptor.getVegetables().orElse(recipeToEdit.getVegetables());
+        Set<Protein> updatedProteins = editRecipeDescriptor.getProteins().orElse(recipeToEdit.getProteins());
+        Set<Other> updatedOthers = editRecipeDescriptor.getOthers().orElse(recipeToEdit.getOthers());
 
-        return new Recipe(updatedName, updatedTime, updatedIngredients, updatedStep, updatedGoals, isFavourite);
+        return new Recipe(updatedName, updatedTime,
+                updatedGrains, updatedVegetables, updatedProteins, updatedOthers,
+                updatedStep, updatedGoals, isFavourite);
     }
 
     @Override
@@ -212,12 +213,63 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable ingredient set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable grains set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code grains} is null.
          */
         public Optional<Set<Grain>> getGrains() {
             return (grains != null) ? Optional.of(Collections.unmodifiableSet(grains)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code vegetables} to this object's {@code vegetables}.
+         * A defensive copy of {@code vegetables} is used internally.
+         */
+        public void setVegetables(Set<Vegetable> vegetables) {
+            this.vegetables = (vegetables != null) ? new TreeSet<>(vegetables) : null;
+        }
+
+        /**
+         * Returns an unmodifiable vegetables set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code vegetables} is null.
+         */
+        public Optional<Set<Vegetable>> getVegetables() {
+            return (vegetables != null) ? Optional.of(Collections.unmodifiableSet(vegetables)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code proteins} to this object's {@code proteins}.
+         * A defensive copy of {@code proteins} is used internally.
+         */
+        public void setProteins(Set<Protein> proteins) {
+            this.proteins = (proteins != null) ? new TreeSet<>(proteins) : null;
+        }
+
+        /**
+         * Returns an unmodifiable proteins set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code proteins} is null.
+         */
+        public Optional<Set<Protein>> getProteins() {
+            return (proteins != null) ? Optional.of(Collections.unmodifiableSet(proteins)) : Optional.empty();
+        }
+
+        /**
+         * Sets {@code others} to this object's {@code others}.
+         * A defensive copy of {@code others} is used internally.
+         */
+        public void setOthers(Set<Other> others) {
+            this.others = (others != null) ? new TreeSet<>(others) : null;
+        }
+
+        /**
+         * Returns an unmodifiable others set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code others} is null.
+         */
+        public Optional<Set<Other>> getOthers() {
+            return (others != null) ? Optional.of(Collections.unmodifiableSet(others)) : Optional.empty();
         }
 
         /**
@@ -268,10 +320,9 @@ public class EditCommand extends Command {
 
             // state check
             EditRecipeDescriptor e = (EditRecipeDescriptor) other;
-            System.out.println("Ingredients test: " + getIngredients().equals(e.getIngredients()));
             return getName().equals(e.getName())
                     && getTime().equals(e.getTime())
-                    && getIngredients().equals(e.getIngredients())
+                    // && getIngredients().equals(e.getIngredients()) todo
                     && getSteps().equals(e.getSteps())
                     && getGoals().equals(e.getGoals());
         }

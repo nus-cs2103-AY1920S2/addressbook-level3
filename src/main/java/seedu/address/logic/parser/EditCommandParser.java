@@ -66,7 +66,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         parseGrainsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_GRAIN))
-                .ifPresent(editRecipeDescriptor::setGrains); //todo
+                .ifPresent(editRecipeDescriptor::setGrains);
         parseVegetablesForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_VEGE))
                 .ifPresent(editRecipeDescriptor::setVegetables);
         parseProteinsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN))
