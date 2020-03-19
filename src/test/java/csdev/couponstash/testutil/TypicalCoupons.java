@@ -79,8 +79,8 @@ public class TypicalCoupons {
             .withTotalSavings(NO_TOTAL_SAVINGS)
             .withExpiryDate("31-12-2020")
             .withStartDate("31-7-2020")
-            .withUsage("0")
-            .withLimit("1")
+            .withUsage("2")
+            .withLimit("5")
             .withTags("owesMoney", "friends").build();
     public static final Coupon CARL = new CouponBuilder().withName("Carl Kurz")
             .withPhone("95352563")

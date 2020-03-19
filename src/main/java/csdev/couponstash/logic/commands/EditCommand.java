@@ -49,7 +49,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_COUPON_SUCCESS = "Edited Coupon: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in the CouponStash.";
-
+    public static final String MESSAGE_CANNOT_EDIT_USAGE = "The usage of the coupon cannot be edited, "
+            + "due to changes in the concrete savings.";
+    public static final String MESSAGE_LIMIT_LESS_THAN_USAGE = "The new limit of the coupon cannot be less than "
+            + "the current usage (%d) of the coupon.";
     private final Index index;
     private final EditCouponDescriptor editCouponDescriptor;
 
@@ -81,6 +84,12 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);
         }
 
+        Integer currentUsage = Integer.parseInt(couponToEdit.getUsage().value);
+        Integer editedLimit = Integer.parseInt(editedCoupon.getLimit().value);
+        if (currentUsage > editedLimit) {
+            throw new CommandException(String.format(MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsage));
+        }
+
         model.setCoupon(couponToEdit, editedCoupon);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon));
@@ -98,12 +107,13 @@ public class EditCommand extends Command {
         Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavingsForEachUse());
         ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
         StartDate updatedStartDate = editCouponDescriptor.getStartDate().orElse(couponToEdit.getStartDate());
-        Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
 
         return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate, updatedStartDate,
-                updatedUsage, updatedLimit, updatedTags,
+                // avoid changing the usage
+                couponToEdit.getUsage(),
+                updatedLimit, updatedTags,
                 // avoid changing the cached total savings value
                 couponToEdit.getTotalSavings(),
                 // avoid changing the reminder
