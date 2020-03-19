@@ -24,9 +24,7 @@ import seedu.zerotoone.model.exercise.Weight;
  * Edits the details of an existing exercise in the address book.
  */
 public class EditCommand extends SetCommand {
-
     public static final String COMMAND_WORD = "edit";
-
     public static final String MESSAGE_USAGE = "Usage: exercise set edit EXERCISE_ID SET_ID r/<num_reps> m/<weight>";
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited exercise set: %1$s";
 

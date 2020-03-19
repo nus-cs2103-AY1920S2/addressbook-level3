@@ -10,9 +10,7 @@ import seedu.zerotoone.model.Model;
  * Lists all exercises in the exercise list to the user.
  */
 public class ListCommand extends ExerciseCommand {
-
     public static final String COMMAND_WORD = "list";
-
     public static final String MESSAGE_SUCCESS = "Listed all exercises";
 
 

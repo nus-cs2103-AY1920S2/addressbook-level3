@@ -16,20 +16,13 @@ import seedu.zerotoone.model.exercise.Exercise;
  * Deletes a exercise identified using it's displayed index from the exercise list.
  */
 public class DeleteCommand extends ExerciseCommand {
-
     public static final String COMMAND_WORD = "delete";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the exercise identified by the index number used in the displayed exercise list.\n"
-            + "Parameters: EXERCISE_ID (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
+    public static final String MESSAGE_USAGE = "Usage: exercise delete EXERCISE_ID";
     public static final String MESSAGE_DELETE_EXERCISE_SUCCESS = "Deleted Exercise: %1$s";
-
-    private final Index targetIndex;
+    private final Index exerciseId;
 
     public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+        this.exerciseId = targetIndex;
     }
 
     @Override
@@ -37,11 +30,11 @@ public class DeleteCommand extends ExerciseCommand {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (exerciseId.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        Exercise exerciseToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Exercise exerciseToDelete = lastShownList.get(exerciseId.getZeroBased());
         model.deleteExercise(exerciseToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete));
     }
@@ -50,6 +43,6 @@ public class DeleteCommand extends ExerciseCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                && exerciseId.equals(((DeleteCommand) other).exerciseId)); // state check
     }
 }

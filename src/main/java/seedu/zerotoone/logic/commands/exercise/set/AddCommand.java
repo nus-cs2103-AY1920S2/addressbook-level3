@@ -21,7 +21,6 @@ import seedu.zerotoone.model.exercise.ExerciseSet;
  */
 public class AddCommand extends SetCommand {
     public static final String COMMAND_WORD = "add";
-
     public static final String MESSAGE_USAGE = "Usage: exercise set add EXERCISE_ID r/<num_reps> m/<weight>";
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Added exercise set: %1$s";
 

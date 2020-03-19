@@ -20,7 +20,6 @@ import seedu.zerotoone.model.exercise.ExerciseSet;
  * Deletes a exerciseSet identified using it's displayed index from the exerciseSet list.
  */
 public class DeleteCommand extends SetCommand {
-
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_USAGE = "Usage: exercise set delete EXERCISE_ID SET_ID";
     public static final String MESSAGE_DELETE_EXERCISE_SET_SUCCESS = "Deleted Exercise Set: %1$s";

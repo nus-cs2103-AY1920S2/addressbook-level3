@@ -1,7 +1,6 @@
 package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
 import java.util.List;
@@ -22,30 +21,23 @@ import seedu.zerotoone.model.exercise.ExerciseSet;
  * Edits the details of an existing exercise in the address book.
  */
 public class EditCommand extends ExerciseCommand {
-
     public static final String COMMAND_WORD = "edit";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": edits a current exercise name. "
-            + "Parameters: EXERCISE_ID (must be a positive integer) "
-            + PREFIX_EXERCISE_NAME + "NEW EXERCISE NAME "
-            + "Example: " + COMMAND_WORD + "1 "
-            + PREFIX_EXERCISE_NAME + "Bench Press";
-
+    public static final String MESSAGE_USAGE = "Usage: exercise edit EXERCISE_ID e/<exercise_name>";
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited exercise: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists.";
 
-    private final Index index;
+    private final Index exerciseId;
     private final EditExerciseDescriptor editExerciseDescriptor;
 
     /**
-     * @param index of the exercise in the filtered exercise list to edit
+     * @param exerciseId of the exercise in the filtered exercise list to edit
      * @param editExerciseDescriptor details to edit the exercise with
      */
-    public EditCommand(Index index, EditExerciseDescriptor editExerciseDescriptor) {
-        requireNonNull(index);
+    public EditCommand(Index exerciseId, EditExerciseDescriptor editExerciseDescriptor) {
+        requireNonNull(exerciseId);
         requireNonNull(editExerciseDescriptor);
 
-        this.index = index;
+        this.exerciseId = exerciseId;
         this.editExerciseDescriptor = new EditExerciseDescriptor(editExerciseDescriptor);
     }
 
@@ -54,11 +46,11 @@ public class EditCommand extends ExerciseCommand {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (exerciseId.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
         }
 
-        Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
+        Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
         Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
 
         if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
@@ -95,7 +87,7 @@ public class EditCommand extends ExerciseCommand {
 
         // state check
         EditCommand otherCommand= (EditCommand) other;
-        return index.equals(otherCommand.index)
+        return exerciseId.equals(otherCommand.exerciseId)
                 && editExerciseDescriptor.equals(otherCommand.editExerciseDescriptor);
     }
 
