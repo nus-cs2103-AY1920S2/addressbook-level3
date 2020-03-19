@@ -12,6 +12,12 @@ public class Body {
         "Body should not be blank";
     public final String blockBody;
 
+    /*
+     * The string can be empty (initialization of an empty body) but
+     * the body cannot contain only whitespace characters, e.g. "  " is invalid.
+     */
+    public static final String VALIDATION_REGEX = "^\\s+$";
+
     /**
      * Constructs a {@code Body}.
      *
@@ -29,7 +35,7 @@ public class Body {
      * @param test The body string to test.
      */
     public static boolean isValidBody(String test) {
-        return !test.isBlank();
+        return !test.matches(VALIDATION_REGEX);
     }
 
     /**
