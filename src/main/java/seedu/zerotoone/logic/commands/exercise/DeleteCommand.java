@@ -22,6 +22,7 @@ public class DeleteCommand extends ExerciseCommand {
     private final Index exerciseId;
 
     public DeleteCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.exerciseId = targetIndex;
     }
 

@@ -18,6 +18,7 @@ public class FindCommand extends ExerciseCommand {
 
     private final ExerciseName exerciseName;
     public FindCommand(ExerciseName exerciseName) {
+        requireNonNull(exerciseName);
         this.exerciseName = exerciseName;
     }
 
