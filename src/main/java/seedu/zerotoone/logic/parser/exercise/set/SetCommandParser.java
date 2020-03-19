@@ -8,10 +8,9 @@ import java.util.regex.Pattern;
 
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.HelpCommand;
-
 import seedu.zerotoone.logic.commands.exercise.set.AddCommand;
-import seedu.zerotoone.logic.commands.exercise.set.EditCommand;
 import seedu.zerotoone.logic.commands.exercise.set.DeleteCommand;
+import seedu.zerotoone.logic.commands.exercise.set.EditCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 
 /**

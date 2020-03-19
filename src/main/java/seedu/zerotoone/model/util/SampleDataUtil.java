@@ -32,7 +32,7 @@ public class SampleDataUtil {
         exerciseTwoSets.add(new ExerciseSet(new Weight("30"), new NumReps("10")));
         exerciseTwoSets.add(new ExerciseSet(new Weight("30"), new NumReps("10")));
         exerciseTwoSets.add(new ExerciseSet(new Weight("30"), new NumReps("10")));
-        exercises[0] = new Exercise(exerciseTwoName, exerciseTwoSets);
+        exercises[1] = new Exercise(exerciseTwoName, exerciseTwoSets);
 
         // Exercise 3
         ExerciseName exerciseThreeName = new ExerciseName("Triceps Pushdown");
@@ -42,7 +42,7 @@ public class SampleDataUtil {
         exerciseThreeSets.add(new ExerciseSet(new Weight("15"), new NumReps("10")));
         exerciseThreeSets.add(new ExerciseSet(new Weight("15"), new NumReps("10")));
         exerciseThreeSets.add(new ExerciseSet(new Weight("15"), new NumReps("10")));
-        exercises[0] = new Exercise(exerciseThreeName, exerciseThreeSets);
+        exercises[2] = new Exercise(exerciseThreeName, exerciseThreeSets);
 
         return exercises;
     }

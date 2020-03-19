@@ -101,7 +101,7 @@ public class EditCommand extends SetCommand {
         }
 
         // state check
-        EditCommand otherCommand= (EditCommand) other;
+        EditCommand otherCommand = (EditCommand) other;
         return exerciseId.equals(otherCommand.exerciseId)
                 && setId.equals(otherCommand.setId)
                 && editExerciseSetDescriptor.equals(otherCommand.editExerciseSetDescriptor);
@@ -140,7 +140,7 @@ public class EditCommand extends SetCommand {
         public Optional<NumReps> getNumReps() {
             return Optional.ofNullable(numReps);
         }
-        
+
         public void setWeight(Weight weight) {
             this.weight = weight;
         }
