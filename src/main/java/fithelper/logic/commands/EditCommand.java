@@ -57,6 +57,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the location book.";
+    public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can have time clashes";
 
     private final Index index;
     private final EditEntryDescriptor editEntryDescriptor;
@@ -92,6 +93,10 @@ public class EditCommand extends Command {
 
         if (!entryToEdit.isSameEntry(editedEntry) && model.hasEntry(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
+        }
+
+        if (model.hasTimeClashes(editedEntry)) {
+            throw new CommandException(MESSAGE_TIME_CLASHES);
         }
 
         model.setEntry(entryToEdit, editedEntry);

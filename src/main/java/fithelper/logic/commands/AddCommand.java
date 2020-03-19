@@ -38,7 +38,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in FitHelper";
-    public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can exit in the same time slot";
+    public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can have time clashes";
 
     private final Entry toAdd;
 
