@@ -320,8 +320,14 @@ Adds the order with transaction id 'ac17s2a' as a return parcel into the list of
 Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
 
 [[nearby]]
-=== View orders located at the same postal sector: `nearby`
+=== View orders located at the same area or postal sector: `nearby`
 ==== Description
+There are two possible search criteria for the `nearby` command:
+
+. By *postal sector*: +
+Command Usage: `nearby` `POSTAL_SECTOR`
+
+
 [NOTE]
 ====
 A *postal sector* refers to the first *two* digits of a six digit Singapore postal code.
@@ -365,8 +371,243 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 |79, 80 |Seletar
 |===
 
+
+[start=2]
+. By *area*: +
+Command Usage: `nearby` `AREA`
+
+[NOTE]
+====
+An *area* refers to one of the five areas of Singapore +
+
+. Central
+. East
+. North East
+. West
+. North
+
+You can obtain more information about each area from
+https://keylocation.sg/singapore/districts-map[here] +
+====
+* You can view the orders located at a specified *area*.
+
+
+More information about the 5 areas of Singapore are shown below: +
+
+.Central
+|===
+|District |Areas |Location
+
+|1 |Marina Area
+a|
+* Boat Quay
+* Chinatown
+* Havelock Road
+* Marina Square
+* Raffles Place
+* Suntec City
+
+|2 |CBD
+a|
+* Anson Road
+* Chinatown
+* Neil Road
+* Raffles Place
+* Shenton Way
+* Tanjong Pagar
+
+|3 |Central South
+a|
+* Alexandra Road
+* Tiong Bahru
+* Queenstown
+
+|4 |Keppel
+a|
+* Keppel
+* Mount Faber
+* Sentosa
+* Telok Blangah
+
+|5 |South West
+a|
+* Buona Vista
+* Dover
+* Pasir Panjang
+* West Coast
+
+|6 |City Hall
+a|
+* City Hall
+* High Street
+* North Bridge Road
+
+|7 |Beach Road
+a|
+* Beach Road
+* Bencoolen Road
+* Bugis
+* Rochor
+
+|8 |Little India
+a|
+* Little India
+* Farrer Park
+* Serangoon Road
+
+|9 |Orchard
+a|
+* Cairnhill
+* Killiney
+* Leonie Hill
+* Orchard
+* Oxley
+
+|10 |Tanglin
+a|
+* Balmoral
+* Bukit Timah
+* Grange Road
+* Holland
+* Orchard Boulevard
+* River Valley
+* Tanglin Road
+
+|11 |Newton
+a|
+* Chancery
+* Bukit Timah
+* Dunearn Road
+* Newton
+
+|12 |Toa Payoh
+a|
+* Balestier
+* Moulmein
+* Novena
+* Toa Payoh
+
+|13 |Central East
+a|
+* Potong Pasir
+* Macpherson
+
+|14 |Eunos
+a|
+* Eunos
+* Geylang
+* Kembangan
+* Paya Lebar
+
+|15 |East Coast
+a|
+* Katong
+* Marine Parade
+* Siglap
+* Tanjong Rhu
+
+|21 |Central West
+a|
+* Clementi
+* Upper Bukit Timah
+* Hume Avenue
+|===
+
+.East +
+|===
+|District |Areas |Location
+
+|16 |Upper East Coast
+a|
+* Bayshore
+* Bedok
+* Chai Chee
+
+|17 |Far East
+a|
+* Changi
+* Loyang
+* Pasir Ris
+
+|18 |Tampines
+a|
+* Pasir Ris
+* Simei
+* Tampines
+|===
+
+.North East
+|===
+|District |Areas |Location
+
+|19 |North East
+a|
+* Hougang
+* Punggol
+* Sengkang
+
+|20 |Ang Mo Kio
+a|
+* Ang Mo Kio
+* Bishan
+* Braddell Road
+* Thomson
+
+|28 |North East
+a|
+* Seletar
+* Yio Chu Kang
+|===
+
+.West
+|===
+|District |Areas |Location
+
+|22 |Far West
+a|
+* Boon Lay
+* Jurong
+* Tuas
+
+|23 |North West
+a|
+* Bukit Batok
+* Choa Chu Kang
+* Hillview Avenue
+* Upper Bukit Timah
+
+|24 |Far North West
+a|
+* Kranji
+* Lim Chu Kang
+* Sungei Gedong
+* Tengah
+|===
+
+.North
+|===
+|District |Areas |Location
+
+|25 |Far North
+a|
+* Admiralty
+* Woodlands
+
+|26 |North
+a|
+* Tagore
+* Yio Chu Kang
+
+|27 |Far North
+a|
+* Admiralty
+* Sembawang
+* Yishun
+|===
+
+
 ==== Format
-`nearby` `POSTAL_SECTOR` +
+. `nearby` `POSTAL_SECTOR` +
 
 [IMPORTANT]
 ====
@@ -374,11 +615,16 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
 ====
 
+[start=2]
+. `nearby` `AREA`
+
 ==== Examples
 * `nearby` `14` +
 You will view all orders located in the general location of `Queenstown, Tiong Bahru`.
 * `nearby` `04` +
 You will view all orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
+* `nearby` `north` +
+You will view all orders located in the north area of Singapore.
 
 [[undo]]
 === Undo the previous action: `undo`
@@ -445,8 +691,9 @@ e.g. `import` `orders.csv`
 e.g. `list` `done`
 * <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
 e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
-* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` +
-e.g. `nearby` `14`
+* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` or `nearby` `AREA` +
+e.g. `nearby` `14` +
+e.g. `nearby` `north`
 * <<undo, *Undo*>> : `undo`
 
 == Appendix A: Glossary
