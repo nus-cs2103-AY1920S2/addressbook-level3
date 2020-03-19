@@ -2,7 +2,7 @@ package seedu.zerotoone.testutil.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
@@ -31,14 +31,14 @@ public class ExerciseCommandTestUtil extends CommandTestUtil {
     public static final String VALID_WEIGHT_BENCH_PRESS = "25";
     public static final String VALID_WEIGHT_CRUNCHES = "15";
 
-    public static final String NAME_DESC_BENCH_PRESS = " " + PREFIX_NAME + VALID_NAME_BENCH_PRESS;
-    public static final String NAME_DESC_CRUNCHES = " " + PREFIX_NAME + VALID_NAME_CRUNCHES;
+    public static final String EXERCISE_NAME_DESC_BENCH_PRESS = " " + PREFIX_EXERCISE_NAME + VALID_NAME_BENCH_PRESS;
+    public static final String EXERCISE_NAME_DESC_CRUNCHES = " " + PREFIX_EXERCISE_NAME + VALID_NAME_CRUNCHES;
     public static final String NUM_REPS_DESC_BENCH_PRESS = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_BENCH_PRESS;
     public static final String NUM_REPS_DESC_CRUNCHES = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_CRUNCHES;
     public static final String WEIGHT_DESC_BENCH_PRESS = " " + PREFIX_WEIGHT + VALID_WEIGHT_BENCH_PRESS;
     public static final String WEIGHT_DESC_CRUNCHES = " " + PREFIX_WEIGHT + VALID_WEIGHT_CRUNCHES;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_EXERCISE_NAME_DESC = " " + PREFIX_EXERCISE_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_NUM_REPS_DESC = " " + PREFIX_NUM_OF_REPS + "911a"; // 'a' not allowed in repetitions
     public static final String INVALID_WEIGHT_DESC = " " + PREFIX_WEIGHT + "911a"; // 'a' not allowed in weight
 

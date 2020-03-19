@@ -4,9 +4,9 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.NAME_DESC_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.NAME_DESC_CRUNCHES;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.INVALID_NAME_DESC;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.EXERCISE_NAME_DESC_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.EXERCISE_NAME_DESC_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.INVALID_EXERCISE_NAME_DESC;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseSuccess;
 
@@ -23,11 +23,7 @@ public class CreateCommandParserTest {
         ExerciseName expectedExerciseName = new ExerciseName(VALID_NAME_BENCH_PRESS);
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BENCH_PRESS,
-                new CreateCommand(expectedExerciseName));
-
-        // multiple exercise names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_BENCH_PRESS + NAME_DESC_CRUNCHES,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + EXERCISE_NAME_DESC_BENCH_PRESS,
                 new CreateCommand(expectedExerciseName));
     }
 
@@ -42,10 +38,10 @@ public class CreateCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC, ExerciseName.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_EXERCISE_NAME_DESC, ExerciseName.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BENCH_PRESS,
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + EXERCISE_NAME_DESC_BENCH_PRESS,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
     }
 }
