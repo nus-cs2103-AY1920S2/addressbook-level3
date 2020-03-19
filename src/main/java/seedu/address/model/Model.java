@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.listmanagers.ReadOnlyActivityManager;
 import seedu.address.model.listmanagers.ReadOnlyFixedExpenseManager;
 import seedu.address.model.listmanagers.ReadOnlyPackingListManager;
 import seedu.address.model.listmanagers.ReadOnlyTransportBookingManager;
@@ -307,7 +308,15 @@ public interface Model {
     void updateFilteredPackingList(Predicate<PackingListItem> predicate);
 
     // ========== ActivityManager ==========
+    /**
+     * Returns the activityManager
+     */
+    ReadOnlyActivityManager getActivityManager();
 
+    /**
+     * Replaces activityManagerv data with the data in {@code activityManager}.
+     */
+    void setActivityManager(ReadOnlyActivityManager activityManager);
     /**
      * Returns true if a activity that is the same as {@code target} exists in the
      * ActivityManager.

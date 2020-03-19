@@ -324,6 +324,15 @@ public class ModelManager implements Model {
     // ========== ActivityManager ==========
 
     @Override
+    public ReadOnlyActivityManager getActivityManager() {
+        return activityManager;
+    }
+
+    public void setActivityManager(ReadOnlyActivityManager activityManager) {
+        this.activityManager.resetData(activityManager);
+    }
+
+    @Override
     public boolean hasActivity(Activity target) {
         requireNonNull(target);
         return activityManager.hasActivity(target);
