@@ -2,9 +2,9 @@ package seedu.zerotoone.model.exercise;
 
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Objects;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a Exercise in the address book.

@@ -26,8 +26,8 @@ import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
-import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
+import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.ui.Ui;
 import seedu.zerotoone.ui.UiManager;
 
@@ -120,7 +120,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -148,7 +148,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseList");

@@ -1,10 +1,7 @@
 package seedu.zerotoone.storage.exercise.util;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-// import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +10,8 @@ import seedu.zerotoone.commons.exceptions.IllegalValueException;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;
+
+// import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Exercise}.
@@ -53,7 +52,9 @@ public class JacksonExercise {
      */
     public Exercise toModelType() throws IllegalValueException {
         if (exerciseName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ExerciseName.class.getSimpleName()));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ExerciseName.class.getSimpleName()));
         } else if (!ExerciseName.isValidExerciseName(exerciseName)) {
             throw new IllegalValueException(ExerciseName.MESSAGE_CONSTRAINTS);
         }
