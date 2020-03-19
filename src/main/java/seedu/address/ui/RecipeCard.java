@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * An UI component that displays information of a {@code Recipe}. TODO
+ * An UI component that displays information of a {@code Recipe}.
  */
 public class RecipeCard extends UiPart<Region> {
 
@@ -46,7 +46,13 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
-    private FlowPane ingredients;
+    private VBox grains;
+    @FXML
+    private VBox vegetables;
+    @FXML
+    private VBox proteins;
+    @FXML
+    private VBox others;
     @FXML
     private VBox steps;
     @FXML
@@ -68,9 +74,10 @@ public class RecipeCard extends UiPart<Region> {
             favourite.setImage(new Image(Files.newInputStream(favouriteIconPath)));
         }
 
-        ingredients.setOrientation(Orientation.VERTICAL);
-        recipe.getIngredients().stream()
-                .forEach(ingredient -> ingredients.getChildren().add(new Label(ingredient.toString())));
+        recipe.getGrains().forEach(grain -> grains.getChildren().add(new Label(grain.toString())));
+        recipe.getVegetables().forEach(vegetable -> vegetables.getChildren().add(new Label(vegetable.toString())));
+        recipe.getProteins().forEach(protein -> proteins.getChildren().add(new Label(protein.toString())));
+        recipe.getOthers().forEach(other -> others.getChildren().add(new Label(other.toString())));
 
         // Calculates step number and displays with along with the step
         AtomicInteger stepNumber = new AtomicInteger(1);

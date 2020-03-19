@@ -1,52 +1,73 @@
-{ // TODO
+{
   "_comment": "RecipeBook save file which contains the same Recipe values as in TypicalRecipes#getTypicalAddressBook()",
   "recipes" : [ {
     "name" : "Caesar Salad",
     "time" : "10",
     "isFavourite": false,
-    "ingredients" : ["Tomato, 100, vegetable", "Honeydew, 100, other"],
+    "grains": [ ],
+    "vegetables" : [ "Tomato, 100" ],
+    "proteins" : [ ],
+    "others" : [ "Honeydew, 100"],
     "steps" : ["Cut tomatoes", "Remove honeydew skin"],
     "goals" : [ "Herbivore" ]
   }, {
     "name" : "Grilled Sandwich",
     "time" : "10",
     "isFavourite": false,
-    "ingredients" : ["Bread, 50, grain", "Cheese, 50, other"],
+    "grains": [ "Bread, 50" ],
+    "vegetables" : [ "Tomato, 100" ],
+    "proteins" : [ ],
+    "others" : [ "Cheese, 50"],
     "steps" : ["Spread butter on bread", "Heat pan to medium heat"],
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
     "name" : "Boiled Chicken",
     "time" : "10",
     "isFavourite": false,
-    "ingredients" : ["Chicken, 100, protein"],
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ "Chicken, 100" ],
+    "others" : [ ],
     "steps" : ["Dice chicken"],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Chocolate Cake",
     "time" : "120",
     "isFavourite": false,
-    "ingredients" : ["Sugar, 100, other"],
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "others" : [ "Sugar, 100" ],
     "steps" : ["Caramelize sugar"],
     "goals" : [ ]
   }, {
     "name" : "Omelet",
     "time" : "15",
     "isFavourite": false,
-    "ingredients" : ["Egg, 50, protein"],
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ "Egg, 50" ],
+    "others" : [ ],
     "steps" : ["Crack and beat eggs"],
     "goals" : [ ]
   }, {
     "name" : "Steamed Egg",
     "time" : "15",
     "isFavourite": false,
-    "ingredients" : ["Egg, 50, protein"],
+    "grains": [ ],
+    "vegetables" : [ ],
+    "proteins" : [ "Egg, 50" ],
+    "others" : [ ],
     "steps" : ["Pour water into steamer and bring to a boil"],
     "goals" : [ ]
   }, {
     "name" : "Tuna Bread",
     "time" : "60",
     "isFavourite": false,
-    "ingredients" : ["Tuna, 100, protein", "Bread, 100, grain"],
+    "grains": [ "Bread, 100" ],
+    "vegetables" : [ ],
+    "proteins" : [ "Tuna, 100" ],
+    "others" : [ ],
     "steps" : ["Slice tuna"],
     "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
   } ]
