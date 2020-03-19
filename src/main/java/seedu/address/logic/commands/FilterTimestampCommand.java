@@ -7,6 +7,6 @@ public class FilterTimestampCommand implements AppCommand {
 
     @Override
     public AppCommandResult execute(String arguments) throws ParseException {
-        return null;
+        return new AppCommandResult("Fake result", false);
     }
 }

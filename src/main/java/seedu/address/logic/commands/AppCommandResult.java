@@ -1,14 +1,18 @@
 package seedu.address.logic.commands;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.bluetooth.BluetoothPings;
+
+import java.util.ArrayList;
 import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
 public class AppCommandResult {
 
     private final String feedbackToUser;
-
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    private Boolean RENDER_FLAG;
+    private ArrayList<BluetoothPings> toDisplayList;
 
     /** The application should exit. */
     private final boolean exit;
@@ -16,10 +20,10 @@ public class AppCommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public AppCommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public AppCommandResult(String feedbackToUser, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
         this.exit = exit;
+        this.RENDER_FLAG = false;
     }
 
     /**
@@ -27,15 +31,26 @@ public class AppCommandResult {
      * and other fields set to their default value.
      */
     public AppCommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public Boolean getRenderFlag() { return this.RENDER_FLAG; }
+
+    public ObservableList<BluetoothPings> getDisplayAsObservable() { return FXCollections.observableArrayList(this.toDisplayList); }
+
+    /**
+     * A display list contains the necessary items needed to be rendered on the screen
+     * If this function is called, we set the RENDER_FLAG to true as signal that there is something to be displayed
+     *
+     * @param displayList   List to be rendered on the screen
+     */
+    public void setToDisplayList(ArrayList<BluetoothPings> displayList) {
+        this.toDisplayList  = displayList;
+        this.RENDER_FLAG    = true;
     }
 
     public boolean isExit() {
@@ -55,12 +70,11 @@ public class AppCommandResult {
 
         AppCommandResult otherCommandResult = (AppCommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, exit);
     }
 }
