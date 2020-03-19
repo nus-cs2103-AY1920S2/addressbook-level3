@@ -1,21 +1,9 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.AddCommandTest;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.*;
-import seedu.address.model.assignment.Assignment;
-import seedu.address.model.person.Person;
-import seedu.address.model.restaurant.Restaurant;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.function.Predicate;
 
 /**
  * Contains helper methods for testing command parsers.

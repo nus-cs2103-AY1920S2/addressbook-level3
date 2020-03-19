@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HELP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.ArrayList;
 
@@ -41,8 +42,8 @@ public class HelpCommand extends Command {
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
             + "Example: For (ab)delete - " + COMMAND_WORD + " h/ 3";
-    private static final ArrayList<String> commands = new ArrayList<>();
-    public static final ArrayList<String> LIST_OF_COMMANDS = commandList(commands);
+    public static final ArrayList<String> COMMANDS = new ArrayList<>();
+    public static final ArrayList<String> LIST_OF_COMMANDS = commandList(COMMANDS);
 
     public static final String MESSAGE_INVALID_INDEX = "Invalid index.";
 
@@ -83,7 +84,7 @@ public class HelpCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        if (type > commands.size()) {
+        if (type > COMMANDS.size()) {
             throw new CommandException(MESSAGE_INVALID_INDEX);
         }
 

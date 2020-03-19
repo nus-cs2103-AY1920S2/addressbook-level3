@@ -8,7 +8,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -34,7 +33,6 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private PersonListPanel personListPanel2;
-    private PersonDetail personDetail;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -49,9 +47,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder2;
-
-    @FXML
-    private Pane personPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;

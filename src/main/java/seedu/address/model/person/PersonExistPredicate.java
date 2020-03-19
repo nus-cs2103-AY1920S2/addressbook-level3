@@ -1,10 +1,8 @@
 package seedu.address.model.person;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code Person}'s {@code Group} matches any of the keywords given.
@@ -18,7 +16,7 @@ public class PersonExistPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        if (person.getIndex().getZeroBased()  == index.getZeroBased()) {
+        if (person.getIndex().getZeroBased() == index.getZeroBased()) {
             return true;
         }
         return false;

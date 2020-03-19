@@ -24,10 +24,10 @@ public class Person {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     // Identity fields
+    private Index index;
     private final Name name;
     private final Phone phone;
     private final Email email;
-    public Index index;
 
     // Data fields
     private final Address address;

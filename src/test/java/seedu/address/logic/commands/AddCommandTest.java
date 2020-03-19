@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -37,7 +36,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded  modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
         CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
@@ -142,7 +141,7 @@ public class AddCommandTest {
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public ReadOnlyScheduler getScheduler() {
             throw new AssertionError("This method should not be called.");
@@ -248,7 +247,6 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
-            this.person.index = Index.fromZeroBased(1);
             return this.person.isSamePerson(person);
         }
     }

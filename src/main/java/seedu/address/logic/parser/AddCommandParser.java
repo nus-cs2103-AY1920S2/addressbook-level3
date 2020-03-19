@@ -56,8 +56,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         Index index;
         if (model == null) {
             index = new Index(0);
-        }
-        else {
+        } else {
             index = new Index(model.getFilteredPersonList().size());
         }
         Person person = new Person(name, phone, email, address, remark, birthday, tagList, index);

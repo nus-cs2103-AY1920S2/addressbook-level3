@@ -135,7 +135,8 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Index modelIndex = new Index(Integer.parseInt(index));
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelBirthday, modelTags, modelIndex);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+                modelRemark, modelBirthday, modelTags, modelIndex);
     }
 
 }
