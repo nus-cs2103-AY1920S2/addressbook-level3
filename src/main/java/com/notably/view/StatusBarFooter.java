@@ -17,10 +17,16 @@ public class StatusBarFooter extends ViewPart<Region> {
     @FXML
     private Label saveLocationStatus;
 
-
     public StatusBarFooter(Path saveLocation) {
         super(FXML);
+        setDummySaveLocationStatus();
+    }
+
+    private void setSaveLocationStatus(Path saveLocation) {
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
+    private void setDummySaveLocationStatus() {
+        saveLocationStatus.setText("Notably v1.2");
+    }
 }
