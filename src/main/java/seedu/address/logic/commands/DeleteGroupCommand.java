@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.CommandWords.GROUP;
 import static seedu.address.logic.commands.CommandWords.DELETE_MODEL;
+import static seedu.address.logic.commands.CommandWords.GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -42,7 +42,7 @@ public class DeleteGroupCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new module(moduleCode, null);
+        Module module = new Module(moduleCode, null);
 
         if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
@@ -54,8 +54,8 @@ public class DeleteGroupCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
-        Group deletedGroup = moduleToDeleteFrom.getGroup(group.getIdentifier());
-        moduleToDeleteFrom.deleteGroup(deletedGroup);
+        Group deletedGroup = module.getGroup(group.getIdentifier());
+        module.deleteGroup(deletedGroup);
         return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, deletedGroup));
     }
 
@@ -65,4 +65,4 @@ public class DeleteGroupCommand extends Command {
                 || (other instanceof DeleteGroupCommand // instanceof handles nulls
                 && group.equals(((DeleteGroupCommand) other).group)); // state check
     }
- }
+}
