@@ -3,16 +3,18 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Delino" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Delino" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -22,38 +24,66 @@
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
+         <VBox>
+            <children>
+           <MenuBar fx:id="menuBar">
+             <Menu mnemonicParsing="false" text="File">
+               <MenuItem fx:id="ExitAppItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+             </Menu>
+             <Menu mnemonicParsing="false" text="Help">
+               <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+             </Menu>
+           </MenuBar>
+               <HBox VBox.vgrow="ALWAYS">
+                  <children>
+                     <VBox id="menuLabels" prefHeight="200.0" prefWidth="120.0">
+                        <children>
+                           <Label fx:id="allOrdersLabel" text="All Orders" minWidth="-Infinity"
+                                  prefWidth="120.0"/>
+                           <Label fx:id="todayOrdersLabel" text="Today's Orders" minWidth="-Infinity"
+                                  prefWidth="120.0"/>
+                           <Label fx:id="completedLabel" text="Completed" minWidth="-Infinity"
+                                  prefWidth="120.0"/>
+                           <Label fx:id="urgentLabel" text="Urgent" minWidth="-Infinity" prefWidth="120.0"/>
+                           <Label fx:id="warehouseLabel" text="Warehouse" minWidth="-Infinity"
+                                  prefWidth="120.0"/>
+                           <Label fx:id="returnLabel" text="Returns" minWidth="-Infinity" prefWidth="120.0"/>
+                           <Label fx:id="earningLabel" text="Earnings" minWidth="-Infinity"
+                                  prefWidth="120.0"/>
+                           <Label fx:id="importLabel" text="Import" minWidth="-Infinity" prefWidth="120.0"/>
+                           <Label fx:id="settingLabel" text="Settings" minWidth="-Infinity"
+                                  prefWidth="120.0"/>
+                        </children>
+                     </VBox>
+                     <Separator orientation="VERTICAL" prefHeight="200.0" />
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem fx:id="exitAppItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
+                  <VBox id="userActivityBox" HBox.hgrow="ALWAYS">
 
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                    <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                      <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                      </padding>
+                    </StackPane>
 
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                      <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                      </padding>
+                    </StackPane>
 
-        <VBox fx:id="orderList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-          </padding>
-          <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
+                    <VBox fx:id="orderList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                      <padding>
+                        <Insets bottom="10" left="10" right="10" top="10" />
+                      </padding>
+                      <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                    </VBox>
+                  </VBox>
+                  </children>
+               </HBox>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
+                    <StackPane fx:id="statusbarPlaceholder" />
+            </children>
+         </VBox>
     </Scene>
   </scene>
 </fx:root>
