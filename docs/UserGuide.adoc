@@ -198,8 +198,8 @@ Edits the sales of the 2nd product to be 1000.
 
 === Finding products : `findp`
 
-Finds products whose description contains a certain keyword or price/ sales/ quantity falls into a certain range. +
-Format: `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]`
+Finds products whose description contains a certain keyword +
+Format: `findp [KEYWORD]`
 
 ****
 * The search is case insensitive. e.g blue will match Blue
@@ -212,10 +212,10 @@ Format: `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]`
 
 Examples:
 
-* `findp pr/1000-2000` +
-Returns iphone x and camera.
-* `findp q/20-100` +
+* `findp camera` +
 Returns camera.
+* `findp iphone` +
+Returns iPhone.
 
 // tag::delete[]
 === Deleting a product : `deletep`
@@ -439,8 +439,8 @@ e.g. `addp d/iphone x pr/1000 q/10`
 e.g. `listp s/quantity o/ASC`
 * *Editing a product* : `editp INDEX [d/DESCRIPTION] [pr/PRICE] [q/QUANTITY] [s/SALES]` +
 e.g. `editp 1 pr/1150 q/80`
-* *Finding products* : `findp [k/KEYWORD] [pr/LOW-HIGH] [s/LOW-HIGH] [q/LOW-HIGH]` +
-e.g. `findp pr/1000-2000`
+* *Finding products* : `findp [KEYWORD]` +
+e.g. `findp black`
 * *Deleting a product* : `deletep INDEX` +
 e.g. `listp` +
 `deletep 2`
