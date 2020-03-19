@@ -1,21 +1,22 @@
 package seedu.zerotoone.ui.exercise;
 
-// import java.util.Comparator;
+import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.ui.UiPart;
+import seedu.zerotoone.model.exercise.ExerciseSet;
+import seedu.zerotoone.ui.util.UiPart;
 
 /**
  * An UI component that displays information of a {@code Exercise}.
  */
 public class ExerciseCard extends UiPart<Region> {
 
-    private static final String FXML = "ExerciseListCard.fxml";
+    private static final String FXML = "exercise/ExerciseCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,34 +26,27 @@ public class ExerciseCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/exerciseList-level4/issues/336">The issue on ExerciseList level 4</a>
      */
 
-    public final Exercise exercise;
-
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label exerciseId;
     @FXML
-    private Label id;
+    private Label exerciseName;
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private VBox exerciseSets;
 
     public ExerciseCard(Exercise exercise, int displayedIndex) {
         super(FXML);
-        this.exercise = exercise;
-        id.setText(displayedIndex + ". ");
-        name.setText(exercise.getExerciseName().fullName);
-        // phone.setText(exercise.getPhone().value);
-        // address.setText(exercise.getAddress().value);
-        // email.setText(exercise.getEmail().value);
-        // exercise.getTags().stream()
-        //         .sorted(Comparator.comparing(tag -> tag.tagName))
-        //         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        exerciseId.setText(String.format("%d. ", displayedIndex));
+        exerciseName.setText(exercise.getExerciseName().fullName);
+
+        List<ExerciseSet> exerciseSetsList = exercise.getExerciseSets();
+        for (int i = 0; i < exerciseSetsList.size(); i++) {
+            ExerciseSet exerciseSet = exerciseSetsList.get(i);
+            ExerciseSetCard exerciseSetCard =
+                    new ExerciseSetCard(i, exerciseSet.getNumReps().value, exerciseSet.getWeight().value);
+            this.exerciseSets.getChildren().add(exerciseSetCard.getRoot());
+        }
     }
 
     @Override
@@ -69,7 +63,7 @@ public class ExerciseCard extends UiPart<Region> {
 
         // state check
         ExerciseCard card = (ExerciseCard) other;
-        return id.getText().equals(card.id.getText())
-                && exercise.equals(card.exercise);
+        return exerciseId.getText().equals(card.exerciseId.getText())
+                && exerciseName.getText().equals(card.exerciseName.getText());
     }
 }

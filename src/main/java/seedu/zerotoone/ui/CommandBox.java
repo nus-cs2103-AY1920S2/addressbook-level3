@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
+import seedu.zerotoone.ui.util.UiPart;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

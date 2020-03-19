@@ -33,8 +33,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyExerciseList exerciseList, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(exerciseList, userPrefs);
-
-        logger.fine("Initializing with address book: " + exerciseList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with user prefs " + userPrefs);
 
         this.exerciseList = new ExerciseList(exerciseList);
         this.userPrefs = new UserPrefs(userPrefs);
