@@ -58,7 +58,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(exerciseListFilePath);
         this.exerciseListFilePath = exerciseListFilePath;
     }
-    
+
     public Path getWorkoutListFilePath() {
         return workoutListFilePath;
     }
@@ -67,7 +67,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(workoutListFilePath);
         this.workoutListFilePath = workoutListFilePath;
     }
-    
+
     public Path getScheduleListFilePath() {
         return scheduleListFilePath;
     }
@@ -76,7 +76,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(scheduleListFilePath);
         this.scheduleListFilePath = scheduleListFilePath;
     }
-    
+
     public Path getLogListFilePath() {
         return logListFilePath;
     }
