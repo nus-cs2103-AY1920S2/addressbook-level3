@@ -8,6 +8,9 @@
     <Tab text="AB3">
         <StackPane fx:id="personListPanelPlaceholder"/>
     </Tab>
+    <Tab text="My Activities">
+        <StackPane fx:id="activityPanelPlaceholder"/>
+    </Tab>
     <Tab text="Transport Booking">
         <StackPane fx:id="transportBookingPanelPlaceholder"/>
     </Tab>

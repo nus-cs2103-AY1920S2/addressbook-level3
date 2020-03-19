@@ -9,6 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.listmanagers.activity.Activity;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Add Addactivity command
 /**
  * An UI component that displays information of a {@code Activity}.
  */
@@ -31,20 +35,38 @@ public class ActivityCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+<<<<<<< HEAD
     private Label title;
     @FXML
     private Label duration;
     @FXML
     private Label activityLocation;
+=======
+    private Label duration;
+    @FXML
+    private Label title;
+    @FXML
+    private Label priority;
+    @FXML
+    private Label location;
+>>>>>>> Add Addactivity command
     @FXML
     private FlowPane tags;
 
     public ActivityCard(Activity activity, int displayedIndex) {
         super(FXML);
         this.activity = activity;
+<<<<<<< HEAD
         title.setText(activity.getTitle().toString());
         duration.setText("Duration: " + activity.getDuration().toString());
         activityLocation.setText("Activity: " + activity.getLocation().toString());
+=======
+        id.setText(displayedIndex + ". ");
+        title.setText("Title: " + activity.getTitle().toString());
+        priority.setText("Priority: " + activity.getPriority().toString());
+        duration.setText("Duration: " + activity.getDuration().toString() + " hours");
+        location.setText("Location: " + activity.getLocation().toString());
+>>>>>>> Add Addactivity command
         activity.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

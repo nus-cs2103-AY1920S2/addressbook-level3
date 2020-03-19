@@ -25,4 +25,14 @@ public class CliSyntax {
     public static final Prefix PREFIX_END_LOCATION = new Prefix("endloc/");
     public static final Prefix PREFIX_START_TIME = new Prefix("starttime/");
     public static final Prefix PREFIX_END_TIME = new Prefix("endtime/");
+
+
+
+
+
+
+    public static final Prefix PREFIX_TITLE = new Prefix("title/");
+    public static final Prefix PREFIX_PRIORITY = new Prefix("priority/");
+    public static final Prefix PREFIX_LOCATION = new Prefix("location/");
+    public static final Prefix PREFIX_DURATION = new Prefix("duration/");
 }

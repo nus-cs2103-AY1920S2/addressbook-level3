@@ -6,10 +6,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.time.DateTime;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.listmanagers.activity.Duration;
+import seedu.address.model.listmanagers.activity.Priority;
+import seedu.address.model.listmanagers.activity.Title;
 import seedu.address.model.listmanagers.fixedexpense.Amount;
 import seedu.address.model.listmanagers.fixedexpense.Category;
 import seedu.address.model.listmanagers.fixedexpense.Description;
@@ -302,5 +306,50 @@ public class ParserUtil {
             throw new ParseException(Category.MESSAGE_CONSTRAINTS);
         }
         return new ItemCategory(trimmedCategory);
+    }
+
+    /*
+     * Parses a {@code String Priority} into a {@code {Priority}}.
+     * Parses the string into an Integer
+     *
+     * @throws ParseException if the given {@code priority} is invalid.
+     */
+    public static Priority parsePriority (String priority) throws ParseException {
+        requireNonNull(priority);
+        Integer parsedPriority = Integer.parseInt(priority);
+        if (!Priority.isValidPriority(parsedPriority)) {
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
+        }
+        return new Priority(parsedPriority);
+    }
+
+    /**
+     * Parses a {@code String Duration} into a {@code {Duration}}.
+     * Parses the string into an Integer
+     *
+     * @throws ParseException if the given {@code duration} is invalid.
+     */
+    public static Duration parseDuration (String duration) throws ParseException {
+        requireNonNull(duration);
+        Integer parseDuration = Integer.parseInt(duration);
+        if (!Duration.isValidDuration(parseDuration)) {
+            throw new ParseException(Duration.MESSAGE_CONSTRAINTS);
+        }
+        return new Duration(parseDuration);
+    }
+
+    /**
+     * Parses a {@code String title} into an {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code title} is invalid.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(trimmedTitle)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
     }
 }

@@ -108,6 +108,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+<<<<<<< HEAD
         tabPanel = new TabPanel(logic.getFilteredPersonList(),
                 logic.getFilteredTransportBookingList(),
                 logic.getFilteredFixedExpenseList(),
@@ -115,6 +116,10 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredAccommodationBookingList(),
                 logic.getFilteredActivityList()
                 );
+=======
+        tabPanel = new TabPanel(logic.getFilteredPersonList(), logic.getFilteredTransportBookingList(),
+                logic.getFilteredFixedExpenseList(), logic.getFilteredActivityList());
+>>>>>>> Add Addactivity command
         tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
