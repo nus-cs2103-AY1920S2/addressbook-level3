@@ -25,12 +25,11 @@ public class BodyTest {
 
         // Valid body
         assertTrue(Body.isValidBody("")); // Empty body (for Body initialization without content)
-        assertTrue(Body.isValidBody("25110048")); // Numbers only
-        assertTrue(Body.isValidBody("lorem ipsum dolor sit amet, consectetur adipiscing elit")); // Letters only
+        assertTrue(Body.isValidBody("01032020")); // Numbers only
+        assertTrue(Body.isValidBody("This is ")); // Letters only (Upper and lower case)
         assertTrue(Body.isValidBody("lecture 2 begins with 4 examples")); // Alphanumeric characters
-        assertTrue(Body.isValidBody("Lecture Week 2")); // With uppercase characters
-        assertTrue(Body.isValidBody("Lorem! ipsum amet, labore et  aliqua.")); // With non-alphanumeric characters
-        assertTrue(Body.isValidBody("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do "
-            + "eiusmod tempor incididunt ut labore et dolore magna aliqua.")); // Long body
+        assertTrue(Body.isValidBody("  Today is another day")); // Leading whitespace
+        assertTrue(Body.isValidBody("Lorem ipsum dolor sit amet, consectetur 44 adipiscing elit, sed do "
+            + "eiusmod! Tempor & incididunt ut labore et aliqua.")); // Long body with non-alphanumeric characters
     }
 }
