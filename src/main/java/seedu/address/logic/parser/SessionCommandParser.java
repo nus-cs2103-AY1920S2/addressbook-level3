@@ -10,6 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandWords;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.session.AddSessionCommandParser;
 import seedu.address.logic.parser.session.EditSessionCommandParser;
 
 /**
@@ -42,8 +43,7 @@ public class SessionCommandParser {
         switch (commandWord) {
 
         case CommandWords.ADD_MODEL:
-            // return new AddSessionCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Add session commands"));
+            return new AddSessionCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
             // return new DeleteSessionCommandParser().parse(arguments);
