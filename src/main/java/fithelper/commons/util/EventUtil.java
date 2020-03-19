@@ -1,10 +1,10 @@
 package fithelper.commons.util;
 
+import java.util.List;
+
 import fithelper.model.entry.Entry;
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
-
-import java.util.List;
 
 /**
  * A class for accessing and modifying VEvent.

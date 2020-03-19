@@ -23,7 +23,7 @@
             <children>
                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
-                     <TextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0" prefWidth="338.0" promptText="Enter any command to start. e.g.  add x/food n/alice t/2020-03-10-16-00 l/utown c/500" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="560.6666666666666" />
+                     <TextField fx:id="userInput" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" prefHeight="33.0" prefWidth="338.0" promptText="Enter any command to start. e.g.  add x/food n/alice t/2020-03-10 16:00 l/utown c/500" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="560.6666666666666" />
                      <Label fx:id="currentPage" text="FitHelper" textFill="DARKORANGE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                         <font>
                            <Font size="30.0" />

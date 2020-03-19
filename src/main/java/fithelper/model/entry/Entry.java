@@ -140,11 +140,11 @@ public class Entry {
             return true;
         }
         Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes();
-        return anotherEntry != null &&
-                (Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() <= 59 &&
-                        Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() >= 0
-                || Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() <= 59 &&
-                        Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() >= 0);
+        return anotherEntry != null
+                && (Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() <= 59
+                && Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() >= 0
+                || Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() <= 59
+                && Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() >= 0);
     }
 
 

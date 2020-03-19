@@ -45,7 +45,7 @@ public class MonthView extends UiPart<AnchorPane> {
 
         // Days of the week labels
         Text[] dayNames = new Text[]{new Text("S"), new Text("M"), new Text("T"),
-                new Text("W"), new Text("T"), new Text("F"), new Text("S")};
+            new Text("W"), new Text("T"), new Text("F"), new Text("S")};
 
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 6; i++) {

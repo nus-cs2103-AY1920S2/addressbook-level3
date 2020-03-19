@@ -1,7 +1,6 @@
 package fithelper.ui.calendar;
 import java.time.LocalDate;
 
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
 

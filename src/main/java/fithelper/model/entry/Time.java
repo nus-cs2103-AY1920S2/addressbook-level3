@@ -19,7 +19,7 @@ import com.joestelmach.natty.DateGroup;
  */
 public class Time {
 
-    public static final String MESSAGE_CONSTRAINTS = "Time should be in format: yyyy-mm-dd-HH:mm";
+    public static final String MESSAGE_CONSTRAINTS = "Time should be in format: time string hh:mm";
 
     public final LocalDate date;
     public final LocalTime time;

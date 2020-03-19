@@ -79,7 +79,10 @@ public class CalendarPage extends UiPart<AnchorPane> {
         agenda.setAppointmentChangedCallback(null);
         agenda.setOnMouseClicked(null);
         agenda.setOnMousePressed(null);
+        agenda.setAllowDragging(false);
         agenda.setOnTouchPressed(null);
+        agenda.setOnMouseEntered(null);
+        agenda.setOnMouseExited(null);
     }
 
     /**
