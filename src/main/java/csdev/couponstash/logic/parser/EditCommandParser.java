@@ -83,9 +83,9 @@ public class EditCommandParser implements Parser<EditCommand> {
                     .getValue(CliSyntax.PREFIX_START_DATE).get()));
         }
 
+        // usage is not allowed to be edited due to potential changes in savings
         if (argMultimap.getValue(CliSyntax.PREFIX_USAGE).isPresent()) {
-            editCouponDescriptor.setUsage(ParserUtil.parseUsage(argMultimap
-                    .getValue(CliSyntax.PREFIX_USAGE).get()));
+            throw new ParseException(EditCommand.MESSAGE_CANNOT_EDIT_USAGE);
         }
 
         if (argMultimap.getValue(CliSyntax.PREFIX_LIMIT).isPresent()) {

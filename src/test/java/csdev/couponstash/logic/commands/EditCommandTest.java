@@ -28,15 +28,18 @@ public class EditCommandTest {
     private Model model = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Coupon editedCoupon = new CouponBuilder().build();
+    public void execute_allFieldsSpecifiedExceptUsageUnfilteredList_success() {
+        Coupon comparedCoupon = model.getFilteredCouponList().get(0);
+        Coupon editedCoupon = new CouponBuilder()
+                .withUsage(comparedCoupon.getUsage().value)
+                .build();
         EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(editedCoupon).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
-        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
+        expectedModel.setCoupon(comparedCoupon, editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -93,6 +96,23 @@ public class EditCommandTest {
         expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_limitLowerThanUsage_failure() {
+        Index targetIndex = TypicalIndexes.INDEX_SECOND_COUPON;
+        Integer currentUsage =
+                Integer.parseInt(TypicalCoupons.getTypicalCoupons().get(targetIndex.getZeroBased()).getUsage().value);
+        String newLimit = String.valueOf(currentUsage - 1);
+
+        Coupon secondCoupon = model.getFilteredCouponList().get(TypicalIndexes.INDEX_SECOND_COUPON.getZeroBased());
+        EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(secondCoupon)
+                .withLimit(newLimit)
+                .build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
+
+        assertCommandFailure(editCommand, model,
+                String.format(EditCommand.MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsage));
     }
 
     @Test

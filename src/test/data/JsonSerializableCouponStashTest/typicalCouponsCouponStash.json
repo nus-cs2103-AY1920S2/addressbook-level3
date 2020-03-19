@@ -31,8 +31,8 @@
     },
     "expiry date" : "31-12-2020",
     "start date" : "31-7-2020",
-    "usage": "0",
-    "limit": "1",
+    "usage": "2",
+    "limit": "5",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",

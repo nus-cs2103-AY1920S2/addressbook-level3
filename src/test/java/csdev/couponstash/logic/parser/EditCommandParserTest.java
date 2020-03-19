@@ -8,7 +8,6 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_LIMIT_DES
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_START_DATE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static csdev.couponstash.logic.commands.CommandTestUtil.INVALID_USAGE_DESC;
 import static csdev.couponstash.logic.commands.CommandTestUtil.LIMIT_DESC_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.LIMIT_DESC_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -28,7 +27,6 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PROMO_CODE_
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_START_DATE_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_USAGE_AMY;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
 
 import org.junit.jupiter.api.Test;
@@ -40,7 +38,6 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.StartDate;
-import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.testutil.EditCouponDescriptorBuilder;
 import csdev.couponstash.testutil.TypicalIndexes;
@@ -85,8 +82,6 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS); // invalid name
-        CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_USAGE_DESC,
-                Usage.MESSAGE_CONSTRAINTS); // invalid usage
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_LIMIT_DESC,
                 Limit.MESSAGE_CONSTRAINTS); // invalid limit
         CommandParserTestUtil.assertParseFailure(parser, "1" + INVALID_EXPIRY_DATE_DESC,
@@ -114,11 +109,10 @@ public class EditCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_COUPON;
         String userInput = targetIndex.getOneBased() + PROMO_CODE_DESC_BOB + TAG_DESC_HUSBAND
-                + NAME_DESC_AMY + USAGE_DESC_AMY + LIMIT_DESC_BOB + TAG_DESC_FRIEND;
+                + NAME_DESC_AMY + LIMIT_DESC_BOB + TAG_DESC_FRIEND;
 
         EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPromoCode(VALID_PROMO_CODE_BOB)
-                .withUsage(VALID_USAGE_AMY)
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -155,12 +149,6 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
-        // usages
-        userInput = targetIndex.getOneBased() + USAGE_DESC_AMY;
-        descriptor = new EditCouponDescriptorBuilder().withUsage(VALID_USAGE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
-
         // limit
         userInput = targetIndex.getOneBased() + LIMIT_DESC_AMY;
         descriptor = new EditCouponDescriptorBuilder().withLimit(VALID_LIMIT_AMY).build();
@@ -184,6 +172,14 @@ public class EditCommandParserTest {
         descriptor = new EditCouponDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void pasrse_editUsageField_failure() {
+        Index targetIndex = TypicalIndexes.INDEX_THIRD_COUPON;
+        String userInput = targetIndex.getOneBased() + USAGE_DESC_AMY;
+
+        CommandParserTestUtil.assertParseFailure(parser, userInput, EditCommand.MESSAGE_CANNOT_EDIT_USAGE);
     }
 
     @Test
