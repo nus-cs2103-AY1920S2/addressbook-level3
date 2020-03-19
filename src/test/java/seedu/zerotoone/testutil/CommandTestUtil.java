@@ -2,9 +2,9 @@ package seedu.zerotoone.testutil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -14,7 +14,6 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-// import seedu.zerotoone.logic.commands.exercise.EditCommand;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
