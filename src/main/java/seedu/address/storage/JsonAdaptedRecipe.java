@@ -10,10 +10,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.recipe.IngredientList;
-import seedu.address.model.recipe.InstructionList;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.InstructionList;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**
@@ -78,22 +79,21 @@ class JsonAdaptedRecipe {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, IngredientList.class.getSimpleName()));
         }
-        if (!IngredientList.isValidIngredients(ingredients)) {
-            throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
-        }
-        final IngredientList modelIngredients = new IngredientList(ingredients);
+        // if (!IngredientList.isValidIngredients(ingredients)) {
+        //     throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
+        // }
+        final IngredientList modelIngredients = ParserUtil.parseIngredients(ingredients);
 
         if (instructions == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, InstructionList.class.getSimpleName()));
         }
-        if (!InstructionList.isValidInstructions(instructions)) {
-            throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
-        }
-        final InstructionList modelInstructions = new InstructionList(instructions);
+        // if (!InstructionList.isValidInstructions(instructions)) {
+        //     throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
+        // }
+        final InstructionList modelInstructions = ParserUtil.parseInstructions(instructions);
 
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
         return new Recipe(modelName, modelIngredients, modelInstructions, modelTags);
     }
-
 }

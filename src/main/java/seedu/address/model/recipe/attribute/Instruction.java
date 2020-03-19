@@ -4,54 +4,51 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Recipe's instruction in the recipe book.
- * Guarantees: immutable; is valid as declared in {@link #isValidInstructions(String)}
+ * Represents a Recipe's instruction in the recipe book. Guarantees: immutable;
+ * is valid as declared in {@link #isValidInstructions(String)}
  */
 public class Instruction {
 
-    public static final String MESSAGE_CONSTRAINTS = "Instruction can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Each instruction should be "
+            + "a non-blank string.";
 
-    /*
-     * The first character of the instructions must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
-
-    public final String value;
+    private final String instructionString;
 
     /**
      * Constructs an {@code Instruction}.
      *
-     * @param instruction A valid instruction string.
+     * @param instructionString a valid, non-null {@link String} that represents a
+     *                          single line of instructions in a recipe.
      */
-    public Instruction(String instruction) {
-        requireNonNull(instruction);
-        checkArgument(isValidInstructions(instruction), MESSAGE_CONSTRAINTS);
-        value = instruction;
+    public Instruction(String instructionString) {
+        requireNonNull(instructionString);
+        checkArgument(isValidInstruction(instructionString), MESSAGE_CONSTRAINTS);
+        this.instructionString = instructionString;
     }
 
     /**
-     * Returns true if a given string is a valid instruction.
+     * Returns true if {@code instructionString} is a valid instruction, as specified by
+     * {@link String#isBlank()}.
      */
-    public static boolean isValidInstructions(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidInstruction(String instructionString) {
+        return !instructionString.isBlank();
     }
 
     @Override
     public String toString() {
-        return value;
+        return this.instructionString;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Instruction // instanceof handles nulls
-                    && value.equals(((Instruction) other).value)); // state check
+                && instructionString.equals(((Instruction) other).instructionString)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return this.instructionString.hashCode();
     }
 
 }

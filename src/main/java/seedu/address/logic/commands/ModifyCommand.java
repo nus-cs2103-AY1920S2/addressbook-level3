@@ -18,10 +18,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.recipe.IngredientList;
-import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.InstructionList;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**
