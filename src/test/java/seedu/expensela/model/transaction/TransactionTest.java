@@ -22,7 +22,7 @@ public class TransactionTest {
         // null -> returns false
         assertFalse(ALICE.isSameTransaction(null));
 
-        // different phone and email -> returns false
+        // different amount and email -> returns false
         Transaction editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_AMOUNT_AIRPODS).build();
         assertFalse(ALICE.isSameTransaction(editedAlice));
 
@@ -30,7 +30,7 @@ public class TransactionTest {
         editedAlice = new TransactionBuilder(ALICE).withName(VALID_NAME_AIRPODS).build();
         assertFalse(ALICE.isSameTransaction(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same amount, different attributes -> returns true
         editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
                 .build();
         assertTrue(ALICE.isSameTransaction(editedAlice));
@@ -40,7 +40,7 @@ public class TransactionTest {
                 .build();
         assertTrue(ALICE.isSameTransaction(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same amount, same email, different attributes -> returns true
         editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS).build();
         assertTrue(ALICE.isSameTransaction(editedAlice));
     }
@@ -67,7 +67,7 @@ public class TransactionTest {
         Transaction editedAlice = new TransactionBuilder(ALICE).withName(VALID_NAME_AIRPODS).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
+        // different amount -> returns false
         editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_AMOUNT_AIRPODS).build();
         assertFalse(ALICE.equals(editedAlice));
 
@@ -75,7 +75,7 @@ public class TransactionTest {
         editedAlice = new TransactionBuilder(ALICE).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
+        // different remark -> returns false
         editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS).build();
         assertFalse(ALICE.equals(editedAlice));
 
@@ -83,4 +83,5 @@ public class TransactionTest {
         editedAlice = new TransactionBuilder(ALICE).build();
         assertFalse(ALICE.equals(editedAlice));
     }
+
 }

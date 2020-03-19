@@ -3,7 +3,7 @@ package seedu.expensela.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.commons.core.Messages.MESSAGE_TRANSACTIONS_LISTED_OVERVIEW;
+import static seedu.expensela.commons.core.Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW;
 import static seedu.expensela.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.expensela.testutil.TypicalTransactions.CARL;
 import static seedu.expensela.testutil.TypicalTransactions.ELLE;
@@ -56,7 +56,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
@@ -66,7 +66,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleTransactionsFound() {
-        String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
