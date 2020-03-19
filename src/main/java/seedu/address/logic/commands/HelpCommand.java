@@ -88,11 +88,11 @@ public class HelpCommand extends Command {
         }
 
         if (type < 0) {
-            return new CommandResult(MESSAGE, true, false);
+            return new CommandResult(MESSAGE, true, false, false);
         }
 
         return new CommandResult(LIST_OF_COMMANDS.get(type - 1) + "\n"
-                + "Type help to return to the list of commands.", true, false);
+                + "Type help to return to the list of commands.", true, false, false);
     }
 
 }

@@ -120,9 +120,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        personListPanel2 = new PersonListPanel(logic.getFilteredPersonListResult());
-        personListPanelPlaceholder2.getChildren().add(personListPanel2.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -175,6 +172,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Display result on third panel.
+     */
+    @FXML
+    private void handleResult() {
+        personListPanel2 = new PersonListPanel(logic.getFilteredPersonListResult());
+        personListPanelPlaceholder2.getChildren().add(personListPanel2.getRoot());
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -196,6 +202,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isResult()) {
+                handleResult();
             }
 
             return commandResult;

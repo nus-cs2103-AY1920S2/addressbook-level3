@@ -39,7 +39,7 @@ public class GetCommand extends Command {
         requireNonNull(model);
 
         model.updateFilteredPersonListResult(index);
-        return new CommandResult(String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonListResult().size()));
+        return new CommandResult(String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonListResult().size()), false, false, true);
     }
 
     @Override
