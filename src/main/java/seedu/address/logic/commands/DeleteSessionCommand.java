@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.CommandWords.DELETE_MODEL;
 import static seedu.address.logic.commands.CommandWords.SESSION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MOD_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RECUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
@@ -35,7 +35,7 @@ public class DeleteSessionCommand extends Command {
             + "[" + PREFIX_ENDTIME + "END] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_RECUR + "] "
-            + "[" + PREFIX_MOD_CODE + "MOD_CODE] "
+            + "[" + PREFIX_MODULE + "MODULE] "
             + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
             + "[" + PREFIX_NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " 2" + PREFIX_DATE + "20-02-2020 ";
