@@ -4,14 +4,14 @@
     "amount": "100.00",
     "positive": "false",
     "date": "2020-02-07",
-    "type": "Food",
     "remark": "Treating friends",
+    "category": "FOOD"
   }, {
     "name": "Transaction With Invalid Amount Field",
     "amount": "948asdf2424",
     "positive": "false",
     "date": "2020-02-07",
-    "type": "Food",
     "remark": "Treating friends",
+    "category": "FOOD"
   } ]
 }

@@ -22,9 +22,9 @@ import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_PIZZA = "Amy Bee";
-    public static final String VALID_NAME_AIRPODS = "Bob Choo";
-    public static final String VALID_AMOUNT_PIZZA = "23";
+    public static final String VALID_NAME_PIZZA = "Pepperoni Pizza";
+    public static final String VALID_NAME_AIRPODS = "Apple Airpods";
+    public static final String VALID_AMOUNT_PIZZA = "23.00";
     public static final String VALID_AMOUNT_AIRPODS = "188";
     public static final String VALID_DATE_PIZZA = "2020-02-03";
     public static final String VALID_DATE_AIRPODS = "2020-02-19";
@@ -58,10 +58,12 @@ public class CommandTestUtil {
 
     static {
         DESC_PIZZA = new EditTransactionDescriptorBuilder().withName(VALID_NAME_PIZZA)
-                .withPhone(VALID_AMOUNT_PIZZA).withAddress(VALID_REMARK_PIZZA)
+                .withAmount(VALID_AMOUNT_PIZZA).withDate(VALID_DATE_PIZZA)
+                .withRemark(VALID_REMARK_PIZZA).withCategory(VALID_CATEGORY_FOOD)
                 .build();
         DESC_AIRPODS = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS)
-                .withPhone(VALID_AMOUNT_AIRPODS).withAddress(VALID_REMARK_AIRPODS)
+                .withAmount(VALID_AMOUNT_AIRPODS).withDate(VALID_DATE_AIRPODS)
+                .withRemark(VALID_REMARK_AIRPODS).withCategory(VALID_CATEGORY_SHOPPING)
                 .build();
     }
 
@@ -100,21 +102,12 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-<<<<<<< HEAD
         ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
-=======
-        ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
-        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
-        assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
->>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
     }
     /**
      * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
