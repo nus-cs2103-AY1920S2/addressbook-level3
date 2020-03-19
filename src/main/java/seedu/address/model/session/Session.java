@@ -16,12 +16,22 @@ public class Session {
      * Example session types include: Tutorial, Grading, Consultation, etc.
      */
     public enum SessionType {
-        SESSION_TYPE_TUTORIAL,
-        SESSION_TYPE_LAB,
-        SESSION_TYPE_CONSULTATION,
-        SESSION_TYPE_GRADING,
-        SESSION_TYPE_PREPARATION,
-        SESSION_TYPE_OTHER
+        SESSION_TYPE_TUTORIAL ("Tutorial"),
+        SESSION_TYPE_LAB ("Lab"),
+        SESSION_TYPE_CONSULTATION ("Consultation"),
+        SESSION_TYPE_GRADING ("Grading"),
+        SESSION_TYPE_PREPARATION ("Preparation"),
+        SESSION_TYPE_OTHER ("Other");
+
+        private String typeName;
+        private SessionType(String typeName) {
+            this.typeName = typeName;
+        }
+
+        @Override
+        public String toString() {
+            return typeName;
+        }
     }
 
     private LocalDateTime startDateTime;

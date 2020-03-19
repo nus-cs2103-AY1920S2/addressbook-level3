@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.student.Student;
+import seedu.address.model.session.Session;
 
 /**
  * Panel containing the list of sessions.
@@ -18,27 +18,27 @@ public class SessionListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(SessionListPanel.class);
 
     @FXML
-    private ListView<Student> studentListView;
+    private ListView<Session> sessionListView;
 
-    public SessionListPanel(ObservableList<Student> studentList) {
+    public SessionListPanel(ObservableList<Session> sessionList) {
         super(FXML);
-        studentListView.setItems(studentList);
-        studentListView.setCellFactory(listView -> new StudentListViewCell());
+        sessionListView.setItems(sessionList);
+        sessionListView.setCellFactory(listView -> new SessionListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Student} using a {@code StudentCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Session} using a {@code SessionCard}.
      */
-    class StudentListViewCell extends ListCell<Student> {
+    class SessionListViewCell extends ListCell<Session> {
         @Override
-        protected void updateItem(Student student, boolean empty) {
-            super.updateItem(student, empty);
+        protected void updateItem(Session session, boolean empty) {
+            super.updateItem(session, empty);
 
-            if (empty || student == null) {
+            if (empty || session == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new StudentCard(student, getIndex() + 1).getRoot());
+                setGraphic(new SessionCard(session, getIndex() + 1).getRoot());
             }
         }
     }
