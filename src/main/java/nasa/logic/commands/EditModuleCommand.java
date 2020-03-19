@@ -9,7 +9,7 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 
 /**
- * Edits a module in the NASA book.
+ * Edits the details of a module in NASA.
  */
 public class EditModuleCommand extends Command {
 
@@ -19,19 +19,19 @@ public class EditModuleCommand extends Command {
             + "by the index number used in the displayed NASA application. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE"
-            + "INDEX (must be a positive integer)"
+            + PREFIX_MODULE + "MODULE CODE "
+            + "INDEX (must be a positive integer) "
             + "[" + PREFIX_MODULE + "MODULE CODE] "
             + "[" + PREFIX_MODULE_NAME + "MODULE NAME]\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_MODULE + "CS2030"
-            + "1"
-            + PREFIX_MODULE + "CS2020"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_MODULE + "CS2030 "
+            + "1 "
+            + PREFIX_MODULE + "CS2020 "
             + PREFIX_MODULE_NAME + "Data Structures and Algorithms II";
 
-    public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity";
+    public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Module";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This activity already exists in the module activity list.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This module already exists in NASA.";
 
     private final Index index;
 
