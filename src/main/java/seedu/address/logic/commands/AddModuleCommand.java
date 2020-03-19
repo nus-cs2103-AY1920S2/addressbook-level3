@@ -23,7 +23,7 @@ public class AddModuleCommand extends Command {
             + PREFIX_MODULE + "CS3243 ";
 
     public static final String MESSAGE_SUCCESS = "New Module added: %s";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This module already exists in the TATracker";
+    public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the TA-Tracker";
 
     private final Module toAdd;
 
