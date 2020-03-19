@@ -42,9 +42,6 @@ public class ExerciseCommandTestUtil extends CommandTestUtil {
     public static final String INVALID_NUM_REPS_DESC = " " + PREFIX_NUM_OF_REPS + "911a"; // 'a' not allowed in repetitions
     public static final String INVALID_WEIGHT_DESC = " " + PREFIX_WEIGHT + "911a"; // 'a' not allowed in weight
 
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>

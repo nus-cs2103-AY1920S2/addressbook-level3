@@ -11,6 +11,9 @@ import seedu.zerotoone.model.Model;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
+    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+    
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
