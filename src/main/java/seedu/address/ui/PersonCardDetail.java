@@ -58,7 +58,7 @@ public class PersonCardDetail extends UiPart<Region> {
         int i = 0;
         while (i < person.getRemark().size()) {
             int index = i + 1;
-            remarkValue += "\t" + index +". " + person.getRemark().get(i).value;
+            remarkValue += "\t" + index + ". " + person.getRemark().get(i).value;
             if (i != person.getRemark().size() - 1) {
                 remarkValue += "\n";
             }
