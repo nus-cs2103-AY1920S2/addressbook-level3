@@ -51,7 +51,6 @@ public class SessionCommandParser {
 
         case CommandWords.EDIT_MODEL:
             return new EditSessionCommandParser().parse(arguments);
-            // throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit session commands"));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
