@@ -7,9 +7,11 @@ import java.util.logging.Logger;
 
 import nasa.commons.core.LogsCenter;
 import nasa.commons.exceptions.DataConversionException;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.ReadOnlyUserPrefs;
 import nasa.model.UserPrefs;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * Manages storage of NasaBook data in local storage.
@@ -70,9 +72,20 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException {
+        saveUltimate(nasaBook, historyBook, nasaBookStorage.getNasaBookFilePath());
+    }
+
+    @Override
     public void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         nasaBookStorage.saveNasaBook(nasaBook, filePath);
+    }
+
+    @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        nasaBookStorage.saveUltimate(nasaBook, historyBook, filePath);
     }
 
 }

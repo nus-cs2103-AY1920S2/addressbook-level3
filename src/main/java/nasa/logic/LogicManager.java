@@ -14,8 +14,10 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.logic.parser.NasaBookParser;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.Model;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
 import nasa.model.module.Module;
+import nasa.model.module.UniqueModuleList;
 import nasa.storage.Storage;
 
 /**
@@ -44,7 +46,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveNasaBook(model.getNasaBook());
+            storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

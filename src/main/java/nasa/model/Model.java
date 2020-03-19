@@ -11,6 +11,7 @@ import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * The API of the Model component.
@@ -159,4 +160,5 @@ public interface Model {
     void removeActivityByIndex(Module module, Index index);
     void removeActivityByIndex(ModuleCode moduleCode, Index index);
 
+    HistoryManager<UniqueModuleList> getHistoryManager();
 }

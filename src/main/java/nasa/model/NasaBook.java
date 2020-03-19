@@ -299,6 +299,10 @@ public class NasaBook implements ReadOnlyNasaBook {
         moduleList.remove(key);
     }
 
+    public UniqueModuleList getList() {
+        return moduleList;
+    }
+
     //// util methods
 
     @Override

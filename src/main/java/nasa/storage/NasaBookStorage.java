@@ -5,7 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import nasa.commons.exceptions.DataConversionException;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * Represents a storage for {@link nasa.model.NasaBook}.
@@ -36,10 +38,11 @@ public interface NasaBookStorage {
      * @throws IOException if there was any problem writing to the file.
      */
     void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException;
-
+    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException;
     /**
      * @see #saveNasaBook(ReadOnlyNasaBook)
      */
     void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException;
 
+    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePath) throws IOException;
 }

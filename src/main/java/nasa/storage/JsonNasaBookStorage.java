@@ -12,7 +12,9 @@ import nasa.commons.exceptions.DataConversionException;
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.commons.util.FileUtil;
 import nasa.commons.util.JsonUtil;
+import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * A class to access NasaBook data stored as a json file on the hard disk.
@@ -64,6 +66,11 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         saveNasaBook(nasaBook, filePath);
     }
 
+    @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException {
+        saveUltimate(nasaBook, historyBook, filePath);
+    }
+
     /**
      * Similar to {@link #saveNasaBook(ReadOnlyNasaBook)}.
      *
@@ -75,6 +82,16 @@ public class JsonNasaBookStorage implements NasaBookStorage {
 
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePath);
+    }
+
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePath) throws IOException {
+        requireNonNull(nasaBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePath);
+        JsonUtil.saveJsonFile(new JsonAdaptedHistory(historyBook), filePath);
+
     }
 
 }

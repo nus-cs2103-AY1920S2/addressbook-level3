@@ -1,5 +1,7 @@
 package nasa.model;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import java.util.List;
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -16,6 +18,7 @@ import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.UniqueModuleList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,6 +29,7 @@ public class ModelManager implements Model {
     private final NasaBook nasaBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Module> filteredModules;
+    private final HistoryManager<UniqueModuleList> historyManager;
 
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
@@ -39,10 +43,15 @@ public class ModelManager implements Model {
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
+        this.historyManager = new HistoryManager();
     }
 
     public ModelManager() {
         this(new NasaBook(), new UserPrefs());
+    }
+
+    public HistoryManager<UniqueModuleList> getHistoryManager() {
+        return historyManager;
     }
 
     @Override
@@ -120,12 +129,14 @@ public class ModelManager implements Model {
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
+        historyManager.add(nasaBook.getList());
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addModule(ModuleCode moduleCode, ModuleName moduleName) {
         nasaBook.addModule(moduleCode, moduleName);
+        historyManager.add(nasaBook.getList());
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
