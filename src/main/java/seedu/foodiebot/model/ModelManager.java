@@ -207,7 +207,9 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Canteen> getFilteredCanteenList() {
-        return filteredCanteens;
+        SortedList<Canteen> sortedCanteenList = new SortedList<>(filteredCanteens);
+        sortedCanteenList.setComparator(Comparator.comparing((Canteen c) -> c.getName().fullName));
+        return sortedCanteenList;
     }
 
     /**
