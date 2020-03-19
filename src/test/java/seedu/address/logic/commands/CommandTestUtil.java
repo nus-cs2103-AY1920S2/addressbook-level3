@@ -21,8 +21,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
-import seedu.address.model.order.NameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
 /**
@@ -98,8 +98,8 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_AMY)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_GLASS).build();
-        DESC_BOB = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withTid(VALID_TID_BOB).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        DESC_BOB = new EditOrderDescriptorBuilder().withName(VALID_NAME_BOB).withTid(VALID_TID_BOB)
+                .withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_BOB)
                 .withCash(VALID_COD_BOB)
                 .withComment(VALID_COMMENT_INSTRUCTION)
@@ -158,7 +158,7 @@ public class CommandTestUtil {
 
         Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());
         final String[] splitName = order.getName().fullName.split("\\s+");
-        model.updateFilteredOrderList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredOrderList().size());
     }

@@ -28,7 +28,7 @@
             <children>
            <MenuBar fx:id="menuBar">
              <Menu mnemonicParsing="false" text="File">
-               <MenuItem fx:id="ExitAppItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+               <MenuItem fx:id="exitAppItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
              </Menu>
              <Menu mnemonicParsing="false" text="Help">
                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
