@@ -151,7 +151,7 @@ public class ModifyCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, tags);
+            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, calorie, tags);
         }
 
         public void setName(Name name) {
@@ -183,7 +183,8 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Calorie> getCalorie() {
-            return (calorie != null) ? Optional.of(calorie) : Optional.empty();
+            return (calorie != null) ? Optional.of(calorie) : Optional.empty(); //tried !calorie.equals("0)
+            //            return Optional.ofNullable(calorie);
         }
 
         /**
