@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 
 /**
@@ -12,5 +13,5 @@ public interface ReadOnlyScheduler {
      * Returns an unmodifiable view of the assignment list.
      * This list will not contain any duplicate assignments.
      */
-    ArrayList<Assignment> getAssignmentsList();
+    ObservableList<Assignment> getAssignmentsList();
 }

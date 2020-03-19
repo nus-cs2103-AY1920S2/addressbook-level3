@@ -2,8 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-
+import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentList;
 
@@ -40,13 +39,13 @@ public class Scheduler implements ReadOnlyScheduler {
      * Replaces the contents of the assignment list with {@code assignments}.
      * Must not contain duplicate assignments.
      */
-    public void setAssignments(ArrayList<Assignment> assignments) {
+    public void setAssignments(ObservableList<Assignment> assignments) {
         this.assignments.setAssignments(assignments);
     }
 
     @Override
-    public ArrayList<Assignment> getAssignmentsList() {
-        return assignments.getAssignments();
+    public ObservableList<Assignment> getAssignmentsList() {
+        return assignments.asUnmodifiableObservableList();
     }
 
     /**

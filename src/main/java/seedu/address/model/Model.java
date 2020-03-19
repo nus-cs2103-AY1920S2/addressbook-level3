@@ -18,6 +18,9 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
 
     /**
@@ -82,7 +85,7 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    ArrayList<Assignment> getAssignmentList();
+    ObservableList<Assignment> getAssignmentList();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -155,4 +158,13 @@ public interface Model {
     boolean hasAssignment(Assignment toAdd);
 
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
+
+    /** Returns an unmodifiable view of the filtered assignment list */
+    ObservableList<Assignment> getFilteredAssignmentList();
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 }

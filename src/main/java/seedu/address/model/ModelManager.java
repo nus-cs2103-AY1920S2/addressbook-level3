@@ -27,8 +27,8 @@ public class ModelManager implements Model {
     private final Scheduler scheduler;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Assignment> filteredAssignments;
     private final FilteredList<Restaurant> filteredRestaurants;
-    private final ArrayList<Assignment> assignments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,7 +46,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
-        assignments = this.scheduler.getAssignmentsList();
+        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
     }
 
     public ModelManager() {
@@ -154,8 +154,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<Assignment> getAssignmentList() {
-        return assignments;
+    public ObservableList<Assignment> getAssignmentList() {
+        return filteredAssignments;
     }
 
     //=========== RestaurantBook ================================================================================
@@ -227,9 +227,26 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && restaurantBook.equals(other.restaurantBook)
-                // && scheduler.equals(other.scheduler)
+                && scheduler.equals(other.scheduler)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons);
+    }
+
+    //=========== Filtered Assignment List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return filteredAssignments;
+    }
+
+    @Override
+    public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+        requireNonNull(predicate);
+        filteredAssignments.setPredicate(predicate);
     }
 
     //=========== Filtered Restaurant List Accessors =============================================================
