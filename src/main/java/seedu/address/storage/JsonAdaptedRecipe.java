@@ -27,7 +27,7 @@ class JsonAdaptedRecipe {
     private final String name;
     private final String ingredients;
     private final String instructions;
-    private String calorie; //if i make it final the code breaks!
+    private final String calorie;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -41,9 +41,7 @@ class JsonAdaptedRecipe {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
-        if (calorie != null) {
-            this.calorie = calorie;
-        }
+        this.calorie = calorie;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }

@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Calorie {
 
-    public static final String MESSAGE_CONSTRAINTS = "Calorie amount should be numeric";
+    public static final String MESSAGE_CONSTRAINTS = "Calorie amount should be numeric(integer)";
     public static final String VALIDATION_REGEX = "\\d+";
 
     public final String calorie;
