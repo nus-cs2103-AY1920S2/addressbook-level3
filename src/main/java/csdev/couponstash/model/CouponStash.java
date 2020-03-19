@@ -104,7 +104,7 @@ public class CouponStash implements ReadOnlyCouponStash {
      */
     public CouponStash clone() {
         CouponStash copy = new CouponStash();
-
+//
         for (Coupon coupon : coupons) {
 
             // Copy all the tags
