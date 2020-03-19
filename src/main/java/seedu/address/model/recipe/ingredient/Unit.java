@@ -5,8 +5,10 @@ package seedu.address.model.recipe.ingredient;
  */
 
 public enum Unit {
-    LIQUID("ml"),
-    SOLID("g"),
+    MILLILITER("ml"),
+    GRAM("g"),
+    TEASPOON("tsp"),
+    TABLESPOON("tbsp"),
     COUNTABLE("");
 
     private final String unit;
