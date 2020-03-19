@@ -13,6 +13,7 @@ import seedu.zerotoone.logic.commands.exercise.CreateCommand;
 import seedu.zerotoone.logic.commands.exercise.ListCommand;
 import seedu.zerotoone.logic.commands.exercise.EditCommand;
 import seedu.zerotoone.logic.commands.exercise.DeleteCommand;
+import seedu.zerotoone.logic.commands.exercise.FindCommand;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 
 /**
@@ -48,7 +49,9 @@ public class ExerciseCommandParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -18,7 +18,7 @@ import seedu.zerotoone.logic.commands.exercise.DeleteCommand;
  */
 public class DeleteCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private FindCommandParser parser = new FindCommandParser();
 
     // @Test
     // public void parse_validArgs_returnsDeleteCommand() {
