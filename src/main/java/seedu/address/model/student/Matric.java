@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Matric {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Matric numbers should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Matric numbers should start with an \"A\" followed by 7 digits and one final capital letter,"
+                    + "and it should not be blank";
 
     /*
      * matric number must start with an "A" followed by 7 digits and one final capital letter

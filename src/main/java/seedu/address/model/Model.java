@@ -157,6 +157,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
+
     /**
      * Deletes a module.
      */
@@ -166,5 +167,10 @@ public interface Model {
      * Returns a module with same module code.
      */
     Module getModule(Module module);
+
+    /**
+    * Returns a module with the given module code.
+    */
+    Module getModule(String code);
 
 }
