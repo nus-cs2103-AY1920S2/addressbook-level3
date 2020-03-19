@@ -1,6 +1,5 @@
 package nasa.commons.core;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.Serializable;

@@ -19,7 +19,7 @@ public class DeleteModuleCommand extends Command {
             + "Parameters: " + PREFIX_MODULE + ".....\n"
             + "Example: " + COMMAND_WORD + " CS2030";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "%1$s is deleted successfully!";
+    public static final String MESSAGE_DELETE_MODULE_SUCCESS = "%1$s is deleted successfully!";
 
     public static final String MESSAGE_FAILURE = "Module indicated does not exist!";
 
@@ -39,7 +39,7 @@ public class DeleteModuleCommand extends Command {
         requireNonNull(model);
         if (model.hasModule(moduleToDelete)) {
             model.deleteModule(moduleToDelete);
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, moduleToDelete));
+            return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleToDelete));
         } else {
             throw new CommandException(MESSAGE_FAILURE);
         }

@@ -2,11 +2,11 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-//import seedu.address.model.person.NameContainsKeywordsPredicate;
-
 import nasa.commons.core.Messages;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
+
+//import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all activities in NASA whose name contains any of the argument keywords.

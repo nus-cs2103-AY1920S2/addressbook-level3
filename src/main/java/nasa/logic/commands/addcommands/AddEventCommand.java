@@ -1,7 +1,6 @@
 package nasa.logic.commands.addcommands;
 
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;

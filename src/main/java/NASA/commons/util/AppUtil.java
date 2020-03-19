@@ -3,6 +3,7 @@ package nasa.commons.util;
 import static java.util.Objects.requireNonNull;
 
 import javafx.scene.image.Image;
+
 import nasa.MainApp;
 
 /**
