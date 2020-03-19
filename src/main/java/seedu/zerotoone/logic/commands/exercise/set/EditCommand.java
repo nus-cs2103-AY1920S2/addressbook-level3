@@ -5,17 +5,14 @@ import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import seedu.zerotoone.commons.core.Messages;
 
 import seedu.zerotoone.commons.core.index.Index;
-import seedu.zerotoone.commons.util.CollectionUtil;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
@@ -30,66 +27,50 @@ public class EditCommand extends SetCommand {
 
     private final Index exerciseId;
     private final Index setId;
-    private final EditExerciseSetDescriptor editExerciseSetDescriptor;
+    private final NumReps numReps;
+    private final Weight weight;
 
     /**
      * @param index of the exercise in the filtered exercise list to edit
-     * @param editExerciseSetDescriptor details to edit the exercise with
+     * @param weight details to edit the exercise with
      */
-    public EditCommand(Index exerciseId, Index setId, EditExerciseSetDescriptor editExerciseSetDescriptor) {
+    public EditCommand(Index exerciseId, Index setId, NumReps numReps, Weight weight) {
         requireNonNull(exerciseId);
         requireNonNull(setId);
-        requireNonNull(editExerciseSetDescriptor);
+        requireNonNull(numReps);
+        requireNonNull(weight);
 
         this.exerciseId = exerciseId;
         this.setId = setId;
-        this.editExerciseSetDescriptor = new EditExerciseSetDescriptor(editExerciseSetDescriptor);
+        this.numReps = numReps;
+        this.weight = weight;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();
-
         if (exerciseId.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
-        Exercise editedExercise = createEditedExercise(exerciseToEdit, setId, editExerciseSetDescriptor);
+        List<ExerciseSet> updatedExerciseSets = new ArrayList<>(exerciseToEdit.getExerciseSets());
+        if (setId.getZeroBased() >= updatedExerciseSets.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
+        }
+
+        ExerciseSet updatedExerciseSet = new ExerciseSet(weight, numReps);
+        updatedExerciseSets.remove(this.setId.getZeroBased());
+        updatedExerciseSets.add(this.setId.getZeroBased(), updatedExerciseSet);
+
+        Exercise editedExercise = new Exercise(exerciseToEdit.getExerciseName(), updatedExerciseSets);
 
         model.setExercise(exerciseToEdit, editedExercise);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
-    }
 
-    /**
-     * Creates and returns an {@code Exercise} with the details of {@code exerciseToEdit}
-     * edited with {@code editExerciseDescriptor}.
-     */
-    private static Exercise createEditedExercise(Exercise exerciseToEdit,
-            Index setId, EditExerciseSetDescriptor editExerciseDescriptor) {
-        assert exerciseToEdit != null;
-
-        ExerciseName updatedExerciseName = exerciseToEdit.getExerciseName();
-
-        List<ExerciseSet> exerciseSets = exerciseToEdit.getExerciseSets();
-        List<ExerciseSet> updatedExerciseSets = new ArrayList<>();
-        for (int i = 0; i < exerciseSets.size(); i++) {
-            ExerciseSet exerciseSet = exerciseSets.get(i);
-            if (i == setId.getZeroBased()) {
-                NumReps updatedNumReps = editExerciseDescriptor.getNumReps()
-                        .orElse(exerciseSet.getNumReps());
-                Weight updatedWeight = editExerciseDescriptor.getWeight()
-                        .orElse(exerciseSet.getWeight());
-                ExerciseSet updatedExerciseSet = new ExerciseSet(updatedWeight, updatedNumReps);
-                updatedExerciseSets.add(updatedExerciseSet);
-            } else {
-                updatedExerciseSets.add(exerciseSet);
-            }
-        }
-
-        return new Exercise(updatedExerciseName, updatedExerciseSets);
+        String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise.getExerciseName().toString());
+        return new CommandResult(outputMessage);
     }
 
     @Override
@@ -104,62 +85,7 @@ public class EditCommand extends SetCommand {
         EditCommand otherCommand = (EditCommand) other;
         return exerciseId.equals(otherCommand.exerciseId)
                 && setId.equals(otherCommand.setId)
-                && editExerciseSetDescriptor.equals(otherCommand.editExerciseSetDescriptor);
-    }
-
-    /**
-     * Stores the details to edit the exercise with. Each non-empty field value will replace the
-     * corresponding field value of the exercise.
-     */
-    public static class EditExerciseSetDescriptor {
-        private NumReps numReps;
-        private Weight weight;
-
-        public EditExerciseSetDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditExerciseSetDescriptor(EditExerciseSetDescriptor toCopy) {
-            setNumReps(toCopy.numReps);
-            setWeight(toCopy.weight);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(numReps, weight);
-        }
-
-        public void setNumReps(NumReps numReps) {
-            this.numReps = numReps;
-        }
-
-        public Optional<NumReps> getNumReps() {
-            return Optional.ofNullable(numReps);
-        }
-
-        public void setWeight(Weight weight) {
-            this.weight = weight;
-        }
-
-        public Optional<Weight> getWeight() {
-            return Optional.ofNullable(weight);
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (other == this) {
-                return true;
-            } else if (!(other instanceof EditExerciseSetDescriptor)) {
-                return false;
-            }
-
-            EditExerciseSetDescriptor otherDescriptor = (EditExerciseSetDescriptor) other;
-            return getNumReps().equals(otherDescriptor.getNumReps())
-                    && getWeight().equals(otherDescriptor.getWeight());
-        }
+                && numReps.equals(otherCommand.numReps)
+                && weight.equals(otherCommand.weight);
     }
 }

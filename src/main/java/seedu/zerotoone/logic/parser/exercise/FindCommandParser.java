@@ -11,7 +11,7 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
 import seedu.zerotoone.logic.parser.util.Prefix;
-import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
+import seedu.zerotoone.model.exercise.ExerciseName;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -30,9 +30,8 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        PredicateFilterExerciseName predicate = new PredicateFilterExerciseName(
-                argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
-        return new FindCommand(predicate);
+        ExerciseName exerciseName = new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
+        return new FindCommand(exerciseName);
     }
 
     /**

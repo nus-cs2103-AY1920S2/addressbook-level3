@@ -1,7 +1,7 @@
 package seedu.zerotoone.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX;
+import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_INDEX;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 // import static seedu.zerotoone.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 // import static seedu.zerotoone.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;

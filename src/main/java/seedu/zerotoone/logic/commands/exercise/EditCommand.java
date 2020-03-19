@@ -3,7 +3,6 @@ package seedu.zerotoone.logic.commands.exercise;
 import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import seedu.zerotoone.commons.core.Messages;
@@ -13,7 +12,6 @@ import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
-import seedu.zerotoone.model.exercise.ExerciseSet;
 
 /**
  * Edits the details of an existing exercise in the address book.
@@ -36,7 +34,7 @@ public class EditCommand extends ExerciseCommand {
         requireNonNull(exerciseName);
 
         this.exerciseId = exerciseId;
-        this.exerciseName = new ExerciseName(exerciseName.fullName);
+        this.exerciseName = exerciseName;
     }
 
     @Override
@@ -44,7 +42,7 @@ public class EditCommand extends ExerciseCommand {
         requireNonNull(model);
         List<Exercise> lastShownList = model.getFilteredExerciseList();
         if (exerciseId.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
@@ -54,15 +52,17 @@ public class EditCommand extends ExerciseCommand {
         } else {
             updatedExerciseName = new ExerciseName(exerciseToEdit.getExerciseName().fullName);
         }
-        List<ExerciseSet> updatedExerciseSets = new ArrayList<>(exerciseToEdit.getExerciseSets());
-        Exercise editedExercise = new Exercise(updatedExerciseName, updatedExerciseSets);
+
+        Exercise editedExercise = new Exercise(updatedExerciseName, exerciseToEdit.getExerciseSets());
         if (model.hasExercise(editedExercise)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
         }
 
         model.setExercise(exerciseToEdit, editedExercise);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
+
+        String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise.getExerciseName().toString());
+        return new CommandResult(outputMessage);
     }
 
     @Override

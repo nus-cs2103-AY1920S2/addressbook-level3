@@ -31,12 +31,15 @@ public class DeleteCommand extends ExerciseCommand {
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
         if (exerciseId.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Exercise exerciseToDelete = lastShownList.get(exerciseId.getZeroBased());
         model.deleteExercise(exerciseToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete));
+
+        String outputMessage = String.format(MESSAGE_DELETE_EXERCISE_SUCCESS,
+                exerciseToDelete.getExerciseName().toString());
+        return new CommandResult(outputMessage);
     }
 
     @Override

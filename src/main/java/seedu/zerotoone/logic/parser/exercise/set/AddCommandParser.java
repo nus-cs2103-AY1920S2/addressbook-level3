@@ -13,7 +13,6 @@ import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
 import seedu.zerotoone.logic.parser.util.Prefix;
-import seedu.zerotoone.model.exercise.ExerciseSet;
 import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
 
@@ -46,9 +45,8 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         NumReps numReps = SetParserUtil.parseNumReps(argMultimap.getValue(PREFIX_NUM_OF_REPS).get());
         Weight weight = SetParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
-        ExerciseSet exerciseSet = new ExerciseSet(weight, numReps);
 
-        return new AddCommand(index, exerciseSet);
+        return new AddCommand(index, numReps, weight);
     }
 
     /**

@@ -13,7 +13,6 @@ import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;
 
 /**
@@ -41,29 +40,21 @@ public class DeleteCommand extends SetCommand {
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
         if (exerciseId.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
-        Exercise editedExercise = createEditedExercise(exerciseToEdit, setId);
 
-        model.setExercise(exerciseToEdit, editedExercise);
-        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
-        return new CommandResult(String.format(MESSAGE_DELETE_EXERCISE_SET_SUCCESS, editedExercise));
-    }
-
-    /**
-     * Creates and returns an {@code Exercise} with the details of {@code exerciseToEdit}
-     * edited with {@code editExerciseDescriptor}.
-     */
-    private static Exercise createEditedExercise(Exercise exerciseToEdit, Index setId) {
-        assert exerciseToEdit != null;
-
-        ExerciseName updatedExerciseName = exerciseToEdit.getExerciseName();
         List<ExerciseSet> updatedExerciseSets = new ArrayList<>(exerciseToEdit.getExerciseSets());
         updatedExerciseSets.remove(setId.getZeroBased());
 
-        return new Exercise(updatedExerciseName, updatedExerciseSets);
+        Exercise editedExercise = new Exercise(exerciseToEdit.getExerciseName(), updatedExerciseSets);
+
+        model.setExercise(exerciseToEdit, editedExercise);
+        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+
+        String outputMessage = String.format(MESSAGE_DELETE_EXERCISE_SET_SUCCESS, editedExercise);
+        return new CommandResult(outputMessage);
     }
 
     @Override

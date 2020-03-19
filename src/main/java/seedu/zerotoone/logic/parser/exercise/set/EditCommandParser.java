@@ -7,11 +7,12 @@ import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exercise.set.EditCommand;
-import seedu.zerotoone.logic.commands.exercise.set.EditCommand.EditExerciseSetDescriptor;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
 import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
+import seedu.zerotoone.model.exercise.NumReps;
+import seedu.zerotoone.model.exercise.Weight;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -39,20 +40,10 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), e);
         }
 
-        EditExerciseSetDescriptor editExerciseDescriptor = new EditExerciseSetDescriptor();
-        if (argMultimap.getValue(PREFIX_NUM_OF_REPS).isPresent()) {
-            editExerciseDescriptor.setNumReps(
-                SetParserUtil.parseNumReps(argMultimap.getValue(PREFIX_NUM_OF_REPS).get())
-            );
-        }
+        NumReps numReps = SetParserUtil.parseNumReps(argMultimap.getValue(PREFIX_NUM_OF_REPS).get());
+        Weight weight = SetParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
 
-        if (argMultimap.getValue(PREFIX_WEIGHT).isPresent()) {
-            editExerciseDescriptor.setWeight(
-                SetParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get())
-            );
-        }
-
-        return new EditCommand(exerciseId, setId, editExerciseDescriptor);
+        return new EditCommand(exerciseId, setId, numReps, weight);
     }
 
 }

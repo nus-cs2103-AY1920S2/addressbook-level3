@@ -13,8 +13,9 @@ import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;
+import seedu.zerotoone.model.exercise.NumReps;
+import seedu.zerotoone.model.exercise.Weight;
 
 /**
  * Edits the details of an existing exercise in the address book.
@@ -25,18 +26,21 @@ public class AddCommand extends SetCommand {
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Added exercise set: %1$s";
 
     private final Index exerciseId;
-    private final ExerciseSet exerciseSet;
+    private final NumReps numReps;
+    private final Weight weight;
 
     /**
      * @param index of the exercise in the filtered exercise list to edit
      * @param exerciseSet details to edit the exercise with
      */
-    public AddCommand(Index exerciseId, ExerciseSet exerciseSet) {
+    public AddCommand(Index exerciseId, NumReps numReps, Weight weight) {
         requireNonNull(exerciseId);
-        requireNonNull(exerciseSet);
+        requireNonNull(numReps);
+        requireNonNull(weight);
 
         this.exerciseId = exerciseId;
-        this.exerciseSet = exerciseSet;
+        this.numReps = numReps;
+        this.weight = weight;
     }
 
     @Override
@@ -45,29 +49,21 @@ public class AddCommand extends SetCommand {
         List<Exercise> lastShownList = model.getFilteredExerciseList();
 
         if (exerciseId.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
-        Exercise editedExercise = createEditedExercise(exerciseToEdit, exerciseSet);
+
+        List<ExerciseSet> updatedExerciseSets = new ArrayList<>(exerciseToEdit.getExerciseSets());
+        ExerciseSet exerciseSetToAdd = new ExerciseSet(weight, numReps);
+        updatedExerciseSets.add(exerciseSetToAdd);
+        Exercise editedExercise = new Exercise(exerciseToEdit.getExerciseName(), updatedExerciseSets);
 
         model.setExercise(exerciseToEdit, editedExercise);
         model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
-    }
 
-    /**
-     * Creates and returns an {@code Exercise} with the details of {@code exerciseToEdit}
-     * edited with {@code editExerciseDescriptor}.
-     */
-    private static Exercise createEditedExercise(Exercise exerciseToEdit, ExerciseSet exerciseSet) {
-        assert exerciseToEdit != null;
-
-        ExerciseName updatedExerciseName = exerciseToEdit.getExerciseName();
-        List<ExerciseSet> updatedExerciseSets = new ArrayList<>(exerciseToEdit.getExerciseSets());
-        updatedExerciseSets.add(exerciseSet);
-
-        return new Exercise(updatedExerciseName, updatedExerciseSets);
+        String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise);
+        return new CommandResult(outputMessage);
     }
 
     @Override
@@ -81,6 +77,7 @@ public class AddCommand extends SetCommand {
         // state check
         AddCommand otherCommand = (AddCommand) other;
         return exerciseId.equals(otherCommand.exerciseId)
-                && exerciseSet.equals(otherCommand.exerciseSet);
+                && numReps.equals(otherCommand.numReps)
+                && weight.equals(otherCommand.weight);
     }
 }
