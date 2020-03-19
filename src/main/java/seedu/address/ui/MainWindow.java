@@ -23,6 +23,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -43,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private PetDisplayHandler petDisplayHandler;
+    private PetDisplay petDisplay;
     private PomodoroDisplay pomodoroDisplay;
     private StatisticsDisplay statisticsDisplay;
 
@@ -127,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        petDisplayHandler = getPetDisplayHandler();
-        petPlaceholder.getChildren().add(petDisplayHandler.getPetDisplay().getRoot());
+        petDisplay = new PetDisplay(this.getPet());
+        petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -281,6 +282,8 @@ public class MainWindow extends UiPart<Stage> {
                 resultDisplay.setFeedbackToUser("Sorry, you've got no tasks being POMmed.");
             }
 
+            //update PetDisplay
+            petDisplay.update();
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -324,7 +327,7 @@ public class MainWindow extends UiPart<Stage> {
         alert.show();
     }
 
-    private PetDisplayHandler getPetDisplayHandler() {
-        return logic.getPetDisplayHandler();
+    private ReadOnlyPet getPet() {
+        return logic.getPet();
     }
 }
