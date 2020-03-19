@@ -23,8 +23,8 @@ public class JsonAdaptedRecipeTest {
     private static final String INVALID_GOAL = "#friend";
     private static final String VALID_NAME = GRILLED_SANDWICH.getName().toString();
     private static final String VALID_TIME = GRILLED_SANDWICH.getTime().toString();
-    private static final List<JsonAdaptedIngredient> VALID_INGREDIENTS = GRILLED_SANDWICH.getIngredients().stream()
-            .map(JsonAdaptedIngredient::new)
+    private static final List<JsonAdaptedGrain> VALID_INGREDIENTS = GRILLED_SANDWICH.getIngredients().stream()
+            .map(JsonAdaptedGrain::new)
             .collect(Collectors.toList());
     private static final List<JsonAdaptedStep> VALID_STEP = GRILLED_SANDWICH.getSteps().stream()
             .map(JsonAdaptedStep::new).collect(Collectors.toList());
