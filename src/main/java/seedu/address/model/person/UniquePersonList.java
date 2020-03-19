@@ -79,6 +79,18 @@ public class UniquePersonList implements Iterable<Person> {
         }
     }
 
+    /**
+     * Gets the equivalent person from the list.
+     * The person must exist in the list.
+     */
+    public Person get(Person person, int index) {
+        requireNonNull(person);
+        if (!contains(person)) {
+            throw new PersonNotFoundException();
+        }
+        return internalList.get(index);
+    }
+
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

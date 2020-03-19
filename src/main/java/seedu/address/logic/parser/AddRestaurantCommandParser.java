@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddRestaurantCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.restaurant.Cuisine;
 import seedu.address.model.restaurant.Hours;
 import seedu.address.model.restaurant.Location;
@@ -32,7 +33,7 @@ public class AddRestaurantCommandParser implements Parser<AddRestaurantCommand> 
      * @throws ParseException if the user input does not conform the expected format
      *
      */
-    public AddRestaurantCommand parse(String args) throws ParseException {
+    public AddRestaurantCommand parse(String args, Model model) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_RESTAURANT, PREFIX_LOCATION, PREFIX_OPERATING_HOURS,
                         PREFIX_PRICE, PREFIX_CUISINE);
