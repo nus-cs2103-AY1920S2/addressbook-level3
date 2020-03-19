@@ -46,17 +46,13 @@ public class PredicateFilterExerciseNameTest {
 
         // Mixed-case keywords
         predicate = new PredicateFilterExerciseName("bEnCh");
-        assertTrue(predicate.test(new ExerciseBuilder().withExerciseName("Alice Bob").build()));
+        assertTrue(predicate.test(new ExerciseBuilder().withExerciseName("Bench Press").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
-        PredicateFilterExerciseName predicate = new PredicateFilterExerciseName("");
-        assertFalse(predicate.test(new ExerciseBuilder().withExerciseName("Bench Press").build()));
-
         // Non-matching keyword
-        predicate = new PredicateFilterExerciseName("Bench");
+        PredicateFilterExerciseName predicate = new PredicateFilterExerciseName("Bench");
         assertFalse(predicate.test(new ExerciseBuilder().withExerciseName("Deadlift").build()));
     }
 }
