@@ -2,22 +2,19 @@ package seedu.zerotoone.testutil;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.logic.commands.exercise.EditCommand;
+// import seedu.zerotoone.logic.commands.exercise.EditCommand;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
@@ -29,46 +26,34 @@ import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
 public class CommandTestUtil {
 
     public static final String VALID_NAME_BENCH_PRESS = "Bench Press";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_NAME_CRUNCHES = "Crunches";
+    public static final String VALID_NUM_REPS_BENCH_PRESS = "3";
+    public static final String VALID_NUM_REPS_CRUNCHES = "4";
+    public static final String VALID_WEIGHT_BENCH_PRESS = "25";
+    public static final String VALID_WEIGHT_CRUNCHES = "15";
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String NAME_DESC_BENCH_PRESS = " " + PREFIX_NAME + VALID_NAME_BENCH_PRESS;
+    public static final String NAME_DESC_CRUNCHES = " " + PREFIX_NAME + VALID_NAME_CRUNCHES;
+    public static final String NUM_REPS_DESC_BENCH_PRESS = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_BENCH_PRESS;
+    public static final String NUM_REPS_DESC_CRUNCHES = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_CRUNCHES;
+    public static final String WEIGHT_DESC_BENCH_PRESS = " " + PREFIX_WEIGHT + VALID_WEIGHT_BENCH_PRESS;
+    public static final String WEIGHT_DESC_CRUNCHES = " " + PREFIX_WEIGHT + VALID_WEIGHT_CRUNCHES;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_NUM_REPS_DESC = " " + PREFIX_NUM_OF_REPS + "911a"; // 'a' not allowed in repetitions
+    public static final String INVALID_WEIGHT_DESC = " " + PREFIX_WEIGHT + "911a"; // 'a' not allowed in weight
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExerciseDescriptor DESC_AMY;
-    public static final EditCommand.EditExerciseDescriptor DESC_BOB;
+    // public static final EditCommand.EditExerciseDescriptor DESC_BENCH_PRESS;
+    // public static final EditCommand.EditExerciseDescriptor DESC_CRUNCHES;
 
     static {
-        DESC_AMY = new EditExerciseDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditExerciseDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        // DESC_BENCH_PRESS = new EditExerciseDescriptorBuilder().withName(VALID_NAME_BENCH_PRESS)
+        //         .withPhone(VALID_NUM_REPS_BENCH_PRESS).withEmail(VALID_WEIGHT_BENCH_PRESS).build();
+        // DESC_CRUNCHES = new EditExerciseDescriptorBuilder().withName(VALID_NAME_CRUNCHES)
+        //         .withPhone(VALID_NUM_REPS_CRUNCHES).withEmail(VALID_WEIGHT_CRUNCHES).build();
     }
 
     /**
@@ -121,8 +106,8 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExerciseList().size());
 
         Exercise exercise = model.getFilteredExerciseList().get(targetIndex.getZeroBased());
-        final String[] splitName = exercise.getName().fullName.split("\\s+");
-        model.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String name = exercise.getExerciseName().fullName;
+        model.updateFilteredExerciseList(new PredicateFilterExerciseName(name));
 
         assertEquals(1, model.getFilteredExerciseList().size());
     }
