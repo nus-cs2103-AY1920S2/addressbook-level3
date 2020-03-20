@@ -26,13 +26,6 @@
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-<<<<<<< HEAD
-                <Label fx:id="title" styleClass="cell_big_label" text="\$title"/>
-            </HBox>
-            <FlowPane fx:id="tags"/>
-            <Label fx:id="duration" styleClass="cell_small_label" text="\$duration"/>
-            <Label fx:id="activityLocation" styleClass="cell_small_label" text="\$activityLocation"/>
-=======
                 <Label fx:id="title" styleClass="cell_big_label" text="\$first"/>
             </HBox>
             <FlowPane fx:id="tags"/>
@@ -40,7 +33,6 @@
             <Label fx:id="duration" styleClass="cell_small_label" text="\$email"/>
             <Label fx:id="activityLocation" styleClass="cell_small_label" text="\$email"/>
 
->>>>>>> Add Addactivity command
         </VBox>
         <rowConstraints>
             <RowConstraints/>

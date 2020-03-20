@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.core.time.DateTime;
 import seedu.address.commons.util.StringUtil;
@@ -308,7 +307,7 @@ public class ParserUtil {
         return new ItemCategory(trimmedCategory);
     }
 
-    /*
+    /**
      * Parses a {@code String Priority} into a {@code {Priority}}.
      * Parses the string into an Integer
      *
