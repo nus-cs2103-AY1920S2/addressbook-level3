@@ -4,14 +4,14 @@ import static com.notably.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.DuplicateBlockException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class BlockTreeTest {
     private BlockTree blockTree = new BlockTreeImpl();
@@ -44,7 +44,7 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void get_root_from_path() throws InvalidPathException {
+    public void get_root() throws InvalidPathException {
         setUpTestTree();
         assertEquals(blockTree.get(toRoot), blockTree.getRootBlock());
     }
@@ -57,7 +57,7 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void add_block_to_path() throws InvalidPathException {
+    public void add_block() throws InvalidPathException {
         Block newBlock = new BlockImpl(new Title("Week2"));
         AbsolutePath toCs2103Week2 = AbsolutePath.fromString("/CS2103/Week2");
 
@@ -67,14 +67,14 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void add_duplicate_block_to_path() {
+    public void add_block_throwsDuplicateBlockException() {
         setUpTestTree();
         Block newBlock = new BlockImpl(new Title("CS2103"));
         assertThrows(DuplicateBlockException.class, () -> blockTree.add(toRoot, newBlock));
     }
 
     @Test
-    public void add_then_get_block_from_path_deeperNestedBlock() {
+    public void add_block_deeperNestedBlock() {
         Block newBlock = new BlockImpl(new Title("Lecture"));
 
         setUpTestTree();
@@ -83,7 +83,7 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void remove_block_from_path() throws CannotModifyRootException {
+    public void remove_block() throws CannotModifyRootException {
         setUpTestTree();
         blockTree.remove(toCs2103Week1);
         assertThrows(NoSuchBlockException.class, () -> blockTree.get(toCs2103Week1));
