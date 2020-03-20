@@ -412,6 +412,17 @@ The application data is saved in the hard disk automatically after any command t
 * There is no need to save manually.
 ****
 
+=== Reusing previous inputs
+
+The application keeps the history of previous inputs automatically that was keyed in the command line.
+
+****
+* Can keep history of up to 100 inputs. +
+* Up arrow key in command line to navigate up the history of inputs. +
+* Down arrow key in command line to navigate down the history of inputs. +
+* The history is deleted after application closes.
+****
+
 == FAQ
 
 *Q*: How to delete a product? +
