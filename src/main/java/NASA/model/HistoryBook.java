@@ -6,8 +6,8 @@ import nasa.model.history.ModuleListHistory;
 
 public class HistoryBook<T> implements ReadOnlyHistory<T> {
 
-    private final ModuleListHistory<T> moduleListHistory;
-    private final ModuleListHistory<T> moduleListHistoryCollector;
+    private ModuleListHistory<T> moduleListHistory;
+    private ModuleListHistory<T> moduleListHistoryCollector;
 
     {
         moduleListHistory = new ModuleListHistory<>();
@@ -29,6 +29,10 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
 
     public ObservableList<T> getModuleListHistory() {
         return moduleListHistory.asUnmodifiableObservableList();
+    }
+
+    public void setModuleListHistory(ModuleListHistory<T> moduleListHistory) {
+        this.moduleListHistory = moduleListHistory;
     }
 
     public void add(T item) {

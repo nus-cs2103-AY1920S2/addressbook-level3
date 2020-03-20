@@ -36,7 +36,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
      */
-    public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(nasaBook, userPrefs);
 
@@ -45,15 +45,21 @@ public class ModelManager implements Model {
         this.nasaBook = new NasaBook(nasaBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
-        this.historyManager = new HistoryManager();
+        this.historyManager = new HistoryManager(historyBook);
     }
 
     public ModelManager() {
-        this(new NasaBook(), new UserPrefs());
+        this(new NasaBook(), new HistoryBook<UniqueModuleList>(),new UserPrefs());
     }
 
     public HistoryManager<UniqueModuleList> getHistoryManager() {
         return historyManager;
+    }
+
+    public void updateHistory() {
+        final UniqueModuleList temp = new UniqueModuleList();
+        temp.setModules(nasaBook.getDeepCopyList());
+        historyManager.add(temp);
     }
 
     @Override
@@ -132,9 +138,7 @@ public class ModelManager implements Model {
     public void addModule(Module module) {
         nasaBook.addModule(module);
         //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
-        final UniqueModuleList temp = new UniqueModuleList();
-        temp.setModules(nasaBook.getDeepCopyList());
-        historyManager.add(temp);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -142,9 +146,7 @@ public class ModelManager implements Model {
     public void addModule(ModuleCode moduleCode, ModuleName moduleName) {
         nasaBook.addModule(moduleCode, moduleName);
         //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
-        final UniqueModuleList temp = new UniqueModuleList();
-        temp.setModules(nasaBook.getDeepCopyList());
-        historyManager.add(temp);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -165,15 +167,14 @@ public class ModelManager implements Model {
     @Override
     public void addActivity(Module target, Activity activity) {
         nasaBook.addActivity(target, activity);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addActivity(ModuleCode target, Activity activity) {
         nasaBook.addActivity(target, activity);
-        final UniqueModuleList temp = new UniqueModuleList();
-        temp.setModules(nasaBook.getDeepCopyList());
-        historyManager.add(temp);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 

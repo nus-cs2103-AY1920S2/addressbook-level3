@@ -56,6 +56,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Path getHistoryBookFilePath() {
+        return nasaBookStorage.getHistoryBookFilePath();
+    }
+
+    @Override
     public Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException {
         return readNasaBook(nasaBookStorage.getNasaBookFilePath());
     }
@@ -67,13 +72,24 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Optional<ReadOnlyHistory> readHistoryBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return nasaBookStorage.readHistoryBook(filePath);
+    }
+
+    @Override
+    public Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException {
+        return readHistoryBook(nasaBookStorage.getHistoryBookFilePath());
+    }
+
+    @Override
     public void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException {
         saveNasaBook(nasaBook, nasaBookStorage.getNasaBookFilePath());
     }
 
     @Override
     public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException {
-        saveUltimate(nasaBook, historyBook, nasaBookStorage.getNasaBookFilePath());
+        saveUltimate(nasaBook, historyBook, nasaBookStorage.getNasaBookFilePath(), nasaBookStorage.getHistoryBookFilePath());
     }
 
     @Override
@@ -83,9 +99,9 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        nasaBookStorage.saveUltimate(nasaBook, historyBook, filePath);
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne, Path filePathTwo) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePathOne + filePathTwo);
+        nasaBookStorage.saveUltimate(nasaBook, historyBook, filePathOne, filePathTwo);
     }
 
 }

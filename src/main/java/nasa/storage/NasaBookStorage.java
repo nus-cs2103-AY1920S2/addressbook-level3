@@ -19,6 +19,8 @@ public interface NasaBookStorage {
      */
     Path getNasaBookFilePath();
 
+    Path getHistoryBookFilePath();
+
     /**
      * Returns NASABook data as a {@link ReadOnlyNasaBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
@@ -27,11 +29,15 @@ public interface NasaBookStorage {
      */
     Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException;
 
+    Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException;
+
+
     /**
      * @see #getNasaBookFilePath()
      */
     Optional<ReadOnlyNasaBook> readNasaBook(Path filePath) throws DataConversionException, IOException;
 
+    Optional<ReadOnlyHistory> readHistoryBook(Path filePath) throws DataConversionException, IOException;
     /**
      * Saves the given {@link ReadOnlyNasaBook} to the storage.
      * @param nasaBook cannot be null.
@@ -44,5 +50,5 @@ public interface NasaBookStorage {
      */
     void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException;
 
-    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePath) throws IOException;
+    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne, Path filePathTwo) throws IOException;
 }
