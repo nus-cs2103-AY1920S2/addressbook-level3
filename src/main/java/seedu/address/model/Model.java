@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -165,6 +166,11 @@ public interface Model {
      * Returns true if an assignment with the same title and deadline as {@code assignment} exists in the scheduler.
      */
     boolean hasAssignment(Assignment toAdd);
+
+    /**
+     * Sorts the scheduler by the filter.
+     */
+    void sortAssignment(Comparator<Assignment> comparator);
 
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
 

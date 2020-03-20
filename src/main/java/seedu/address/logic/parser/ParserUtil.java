@@ -249,10 +249,17 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        String[] inputs = trimmedDeadline.split(" ");
+        String[] inputs = new String[2];
 
-        if (inputs.length != 2 || !Deadline.isValidDate(inputs[0]) || !Deadline.isValidTime(inputs[1])) {
-            throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+        if (!Deadline.isValidDeadline(trimmedDeadline)) {
+            inputs = trimmedDeadline.split(" ");
+            if (inputs.length != 2 || !Deadline.isValidDate(inputs[0]) || !Deadline.isValidTime(inputs[1])) {
+                throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
+            }
+        }
+        else {
+            inputs[0] = "";
+            inputs[1] = "";
         }
         return new Deadline(inputs[0], inputs[1]);
     }

@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentList;
 
+import java.util.Comparator;
+
 /**
  * Wraps all data at the scheduler level.
  * Duplicates are not allowed (by .isSameAssignment comparison)
@@ -54,6 +56,14 @@ public class Scheduler implements ReadOnlyScheduler {
      */
     public void addAssignment(Assignment assignment) {
         assignments.add(assignment);
+    }
+
+    /**
+     * Sort assignments in the scheduler
+     * by the filter.
+     */
+    public void sortAssignment(Comparator<Assignment> comparator) {
+        assignments.sort(comparator);
     }
 
     /**

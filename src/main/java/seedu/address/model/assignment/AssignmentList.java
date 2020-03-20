@@ -9,6 +9,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -228,6 +229,16 @@ public class AssignmentList implements Iterable<Assignment> {
         if (!internalList.remove(toRemove)) {
             throw new AssignmentNotFoundException();
         }
+    }
+
+    /**
+     * Sorts the scheduler list as an {@code ObservableList}.
+     */
+    public void sort(Comparator<Assignment> comparator) {
+        FXCollections.sort(internalList, comparator);
+        //Comparator<Assignment> titleComparator = new TitleComparator();
+        //SortedList<Assignment> sortedList = new SortedList<>(internalList, titleComparator);
+        //internalList.setAll(sortedList);
     }
 
     /**

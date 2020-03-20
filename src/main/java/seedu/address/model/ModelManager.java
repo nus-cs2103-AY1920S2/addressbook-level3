@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -135,12 +136,19 @@ public class ModelManager implements Model {
     @Override
     public void addAssignment(Assignment assignment) {
         scheduler.addAssignment(assignment);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
         return scheduler.hasAssignment(assignment);
+    }
+
+    @Override
+    public void sortAssignment(Comparator<Assignment> comparator) {
+        scheduler.sortAssignment(comparator);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override

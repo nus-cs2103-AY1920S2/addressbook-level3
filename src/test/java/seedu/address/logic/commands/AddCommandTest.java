@@ -213,7 +213,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ArrayList<Assignment> getAssignmentList() {
+        public ObservableList<Assignment> getAssignmentList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -229,6 +229,16 @@ public class AddCommandTest {
 
         @Override
         public void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Assignment> getFilteredAssignmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
