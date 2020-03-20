@@ -11,19 +11,17 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
-import seedu.address.ui.PetDisplayHandler;
-
-// TODO Set Pet attributes via ModelManager
+import seedu.address.model.Pet;
 
 /** Represents the in-memory model of the address book data. */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskList taskList;
-    private final Pet pet;
     private final Pomodoro pomodoro;
     private final Statistics statistics;
     private final PetDisplayHandler petDisplayHandler;
+    private final Pet pet;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
 
@@ -175,6 +173,11 @@ public class ModelManager implements Model {
     @Override
     public void setPetName(String name) {
         this.pet.setName(name);
+    }
+  
+    @Override
+    public void incrementPomExp() {
+        this.pet.incrementPomExp();
     }
 
     public ReadOnlyPomodoro getPomodoro() {
