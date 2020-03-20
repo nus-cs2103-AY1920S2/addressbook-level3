@@ -173,9 +173,7 @@ class JsonAdaptedOrder {
 
         Order finalOrder = new Order(modelTid, modelName, modelPhone, modelEmail, modelAddress, modelTimeStamp,
                 modelWarehouse, modelCash, modelComment, modelItem);
-        if (deliveryStatus) {
-            finalOrder.setDeliveryStatus(true);
-        }
+        finalOrder.setDeliveryStatus(deliveryStatus);
         return finalOrder;
     }
 

@@ -41,9 +41,14 @@ public class DoneCommand extends Command {
         }
 
         Order orderToBeDelivered = lastShownList.get(targetIndex.getZeroBased());
-        model.deliverOrder(orderToBeDelivered);
-        model.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
+        if (orderToBeDelivered.isDelivered() == false) {
+            model.deliverOrder(orderToBeDelivered);
+            model.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
+            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
+        } else {
+            model.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
+            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
+        }
     }
 
     @Override

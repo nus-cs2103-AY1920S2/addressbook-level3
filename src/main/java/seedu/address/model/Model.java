@@ -82,6 +82,12 @@ public interface Model {
      */
     void deliverOrder(Order target);
 
+    /**
+     * Used to mark a given order as undelivered.
+     * The order must exist in the order book.
+     */
+    void renewDeliveryStatus(Order target);
+
     /** Returns an unmodifiable view of the filtered order list */
     ObservableList<Order> getFilteredOrderList();
 

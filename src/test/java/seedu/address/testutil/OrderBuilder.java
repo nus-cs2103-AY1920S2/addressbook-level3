@@ -38,6 +38,7 @@ public class OrderBuilder {
     private CashOnDelivery cod;
     private Comment comment;
     private TypeOfItem itemType;
+    private boolean deliveryStatus;
 
     public OrderBuilder() {
         tid = new TransactionId(DEFAULT_TID);
@@ -50,6 +51,7 @@ public class OrderBuilder {
         cod = new CashOnDelivery(DEFAULT_COD);
         comment = new Comment(DEFAULT_COMMENT);
         itemType = new TypeOfItem(DEFAULT_TYPE);
+        deliveryStatus = false;
     }
 
     /**
@@ -66,6 +68,7 @@ public class OrderBuilder {
         cod = orderToCopy.getCash();
         comment = orderToCopy.getComment();
         itemType = orderToCopy.getItemType();
+        deliveryStatus = orderToCopy.isDelivered();
     }
 
     /**

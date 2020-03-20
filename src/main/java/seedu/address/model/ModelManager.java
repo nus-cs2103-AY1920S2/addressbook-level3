@@ -113,8 +113,13 @@ public class ModelManager implements Model {
 
     @Override
     public void deliverOrder(Order target) {
-        target.setDeliveryStatus(true);
         orderBook.deliverOrder(target);
+    }
+
+    @Override
+    public void renewDeliveryStatus(Order target) {
+        target.setDeliveryStatus(false);
+        orderBook.setDeliveryStatus(target);
     }
 
     //=========== Filtered Person List Accessors =============================================================

@@ -88,6 +88,10 @@ public class OrderBook implements ReadOnlyOrderBook {
         orders.deliver(target);
     }
 
+    public void setDeliveryStatus(Order target) {
+        orders.setToBeDelivered(target);
+    }
+
     //// util methods
 
     @Override
