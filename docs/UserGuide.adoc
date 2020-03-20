@@ -386,13 +386,179 @@ An *area* refers to one of the five areas of Singapore +
 . West
 . North
 
-You can obtain more information about each area from
-https://keylocation.sg/singapore/districts-map[here] +
+A quick reference for the five areas of Singapore can be <<area_table, found here>>
 ====
-* You can view the orders located at a specified *area*.
+* You can view all the orders located at a specified *area*.
+
+You can obtain more detailed information about each area from
+https://keylocation.sg/singapore/districts-map[this website]
 
 
-More information about the 5 areas of Singapore are shown below: +
+==== Format
+. `nearby` `POSTAL_SECTOR` +
+
+[IMPORTANT]
+====
+`POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
+Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
+====
+
+[start=2]
+. `nearby` `AREA`
+
+==== Examples
+* `nearby` `14` +
+You will view all orders located in the general location of `Queenstown, Tiong Bahru`.
+* `nearby` `04` +
+You will view all orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
+* `nearby` `north` +
+You will view all orders located in the north area of Singapore.
+
+[[undo]]
+=== Undo the previous action: `undo`
+==== Description
+* You can use the `undo` command to revert the most recent action that was previously executed.
+* For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
+back to the list of orders.
+
+==== Format
+`undo`
+
+==== Example
+* `list` +
+`delete` `1` +
+`delete` `2` +
+`undo` +
+The list will be reverted back to the state after the second command `delete` `1`.
+
+=== Saving the data
+==== Description
+* Data is saved in the hard disk automatically after any command that changes data that is present.
+* There is no need to save manually.
+
+=== Export order list `[coming in v2.0]`
+_{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
+
+=== Reminder `[coming in v2.0]`
+_{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
+
+=== Rescheduling orders `[coming in v2.0]`
+_{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
+
+=== Keeping track of work schedule `[coming in v2.0]`
+_{explain how the user can keep track of their work schedule}_
+
+=== Statistics for completed orders `[coming in v2.0]`
+_{explain how the user can view statistics such as on-time rates (difference between actual and expected
+delivery), number of deliveries completed in a day}_
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
+* <<clear, *Clear*>> : `clear` `[FLAG]` +
+e.g. `clear` `-f`
+* <<delete, *Delete*>> : `delete` `INDEX` +
+e.g. `delete` `2`
+* <<done, *Done*>> : `done` `INDEX` +
+e.g. `done` `2`
+* <<edit, *Edit*>> : `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
+e.g. `edit` `2` `n/Xuan En`
+* <<exit, *Exit*>> : `exit`
+* <<search, *Search*>> : `search` `flag` `KEYWORD` +
+e.g. `search` `-t` `ac1e345x7s`
+* <<help, *Help*>> : `help`
+* <<import, *Import*>> : `import` `FILE_NAME` +
+e.g. `import` `orders.csv`
+* <<list, *List*>> : `list` `[DONE_STATUS]` +
+e.g. `list` `done`
+* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
+* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` or `nearby` `AREA` +
+e.g. `nearby` `14` +
+e.g. `nearby` `north`
+* <<undo, *Undo*>> : `undo`
+
+== Appendix A: Glossary
+
+[[command_prefix]]
+.Command Prefix
+|===
+|Prefix |Meaning |Used in the following Command(s)
+
+|ot/
+|Order Type
+|<<import, Import>>
+
+|tid/
+|Transaction ID
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|n/
+|Customer Name
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|a/
+|Address
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|p/
+|Phone Number
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|dts/
+|Delivery Date And Time
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
+
+|rts/
+|Return Date and Time
+|<<return, Return>>
+
+|w/
+|Warehouse Location
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|cod/
+|Cash On Delivery
+|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
+
+|c/
+|Comments by Customer
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
+
+|type/
+|Type of Item
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
+|===
+
+[[command_flags]]
+.Possible Command Flags
+|===
+|Flag |Meaning |Used in the following Command(s)
+
+|-f
+|Force clear, no user confirmation will be requested
+|<<clear, Clear>>
+
+|-n
+|Search using Customer Name
+|<<search, Search>>
+
+|-t
+|Search using Transaction ID
+|<<search, Search>>
+|===
+
+
+[[area_table]]
+*Area Information of Singapore*
+
+<<nearby, Click here>> to navigate back to the Nearby Command!
 
 .Central
 |===
@@ -603,165 +769,4 @@ a|
 * Admiralty
 * Sembawang
 * Yishun
-|===
-
-
-==== Format
-. `nearby` `POSTAL_SECTOR` +
-
-[IMPORTANT]
-====
-`POSTAL_SECTOR` is the first *two* digits of a six digit Singapore postal code +
-Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
-====
-
-[start=2]
-. `nearby` `AREA`
-
-==== Examples
-* `nearby` `14` +
-You will view all orders located in the general location of `Queenstown, Tiong Bahru`.
-* `nearby` `04` +
-You will view all orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
-* `nearby` `north` +
-You will view all orders located in the north area of Singapore.
-
-[[undo]]
-=== Undo the previous action: `undo`
-==== Description
-* You can use the `undo` command to revert the most recent action that was previously executed.
-* For example, if you accidentally deleted an order, you can use the `undo` command to add the deleted order
-back to the list of orders.
-
-==== Format
-`undo`
-
-==== Example
-* `list` +
-`delete` `1` +
-`delete` `2` +
-`undo` +
-The list will be reverted back to the state after the second command `delete` `1`.
-
-=== Saving the data
-==== Description
-* Data is saved in the hard disk automatically after any command that changes data that is present.
-* There is no need to save manually.
-
-=== Export order list `[coming in v2.0]`
-_{explain how the user can export their order list as csv file to pass the orders to their colleagues}_
-
-=== Reminder `[coming in v2.0]`
-_{explain how the user can set reminder specifically for orders that are rescheduled or urgent orders}_
-
-=== Rescheduling orders `[coming in v2.0]`
-_{explain how the user can reschedule their orders when customers notify them that they are unavailable for receiving orders}_
-
-=== Keeping track of work schedule `[coming in v2.0]`
-_{explain how the user can keep track of their work schedule}_
-
-=== Statistics for completed orders `[coming in v2.0]`
-_{explain how the user can view statistics such as on-time rates (difference between actual and expected
-delivery), number of deliveries completed in a day}_
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
-* <<clear, *Clear*>> : `clear` `[FLAG]` +
-e.g. `clear` `-f`
-* <<delete, *Delete*>> : `delete` `INDEX` +
-e.g. `delete` `2`
-* <<done, *Done*>> : `done` `INDEX` +
-e.g. `done` `2`
-* <<edit, *Edit*>> : `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
-e.g. `edit` `2` `n/Xuan En`
-* <<exit, *Exit*>> : `exit`
-* <<search, *Search*>> : `search` `flag` `KEYWORD` +
-e.g. `search` `-t` `ac1e345x7s`
-* <<help, *Help*>> : `help`
-* <<import, *Import*>> : `import` `FILE_NAME` +
-e.g. `import` `orders.csv`
-* <<list, *List*>> : `list` `[DONE_STATUS]` +
-e.g. `list` `done`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
-e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
-* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` or `nearby` `AREA` +
-e.g. `nearby` `14` +
-e.g. `nearby` `north`
-* <<undo, *Undo*>> : `undo`
-
-== Appendix A: Glossary
-
-[[command_prefix]]
-.Command Prefix
-|===
-|Prefix |Meaning |Used in the following Command(s)
-
-|ot/
-|Order Type
-|<<import, Import>>
-
-|tid/
-|Transaction ID
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
-
-|n/
-|Customer Name
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
-
-|a/
-|Address
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
-
-|p/
-|Phone Number
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
-
-|dts/
-|Delivery Date And Time
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
-
-|rts/
-|Return Date and Time
-|<<return, Return>>
-
-|w/
-|Warehouse Location
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
-
-|cod/
-|Cash On Delivery
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
-
-|c/
-|Comments by Customer
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
-
-|type/
-|Type of Item
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
-|===
-
-[[command_flags]]
-.Possible Command Flags
-|===
-|Flag |Meaning |Used in the following Command(s)
-
-|-f
-|Force clear, no user confirmation will be requested
-|<<clear, Clear>>
-
-|-n
-|Search using Customer Name
-|<<search, Search>>
-
-|-t
-|Search using Transaction ID
-|<<search, Search>>
 |===
