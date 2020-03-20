@@ -158,7 +158,7 @@ public class MainWindow extends UiPart<Stage> {
             showCalendarPanel();
             break;
         case HELP:
-            showHelpPage();
+            showHelpPageAndCopyUrl();
             break;
         case PROFILE:
             showProfilePage();
@@ -173,7 +173,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleShowHelpPage() {
-        showHelpPage();
+        showHelpPageAndCopyUrl();
     }
 
     @FXML
@@ -214,10 +214,11 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("Dash Board");
     }
 
-    private void showHelpPage() {
+    private void showHelpPageAndCopyUrl() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(helpWindow.getRoot());
         currentPage.setText("Help");
+        helpWindow.copyUrl();
     }
 
     /**
