@@ -1,5 +1,5 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "_comment": "Ta-Tracker save file which contains the same Person values as in TypicalPersons#getTypicalTaTracker()",
   "students" : [ {
     "name" : "Alice Pauline",
     "phone" : "94351253",
