@@ -9,7 +9,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /** API of the Storage component */
-public interface Storage extends TaskListStorage, UserPrefsStorage, PetStorage, PomodoroStorage {
+public interface Storage extends TaskListStorage, UserPrefsStorage, PetStorage, PomodoroStorage, StatisticsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

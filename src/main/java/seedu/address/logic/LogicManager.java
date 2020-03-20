@@ -57,6 +57,13 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
+
+        try {
+            storage.saveStatistics(model.getStatistics());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
+
         model.updatePetDisplayHandler();
 
         return commandResult;
