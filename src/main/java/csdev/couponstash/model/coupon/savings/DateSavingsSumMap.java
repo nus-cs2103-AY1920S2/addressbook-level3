@@ -29,8 +29,7 @@ public class DateSavingsSumMap extends HashMap<LocalDate, PureMonetarySavings> {
      * @return The previous value associated with {@code ld}, or
      *         {@code null} if there was no mapping for {@code key}.
      */
-    @Override
-    public PureMonetarySavings put(LocalDate ld, PureMonetarySavings pms) {
+    public PureMonetarySavings add(LocalDate ld, PureMonetarySavings pms) {
         requireAllNonNull(ld, pms);
         if (super.containsKey(ld)) {
             PureMonetarySavings oldValue = super.get(ld);
@@ -40,8 +39,17 @@ public class DateSavingsSumMap extends HashMap<LocalDate, PureMonetarySavings> {
         }
     }
 
-    @Override
-    public void putAll(Map<? extends LocalDate, ? extends PureMonetarySavings> m) {
-        m.forEach(this::put);
+    /**
+     * Adds all of the mappings from the specified map to this map.
+     * The effect of this call is equivalent to that
+     * of calling {@link #add(LocalDate, PureMonetarySavings) add(k, v)}
+     * for every mapping of key {@code k} to value {@code v}.
+     * PureMonetarySavings values for a certain date will never
+     * be overwritten, but instead summed up to produce a new value.
+     *
+     * @param m The mappings to be stored in this DateSavingsSumMap.
+     */
+    public void addAll(Map<? extends LocalDate, ? extends PureMonetarySavings> m) {
+        m.forEach(this::add);
     }
 }
