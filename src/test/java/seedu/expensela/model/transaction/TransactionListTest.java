@@ -3,7 +3,7 @@ package seedu.expensela.model.transaction;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
 import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalTransactions.ALICE;
 import static seedu.expensela.testutil.TypicalTransactions.BOB;
@@ -41,7 +41,7 @@ public class TransactionListTest {
     @Test
     public void contains_transactionWithSameIdentityFieldsInList_returnsTrue() {
         transactionList.add(ALICE);
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
                 .build();
         assertTrue(transactionList.contains(editedAlice));
     }
@@ -84,7 +84,7 @@ public class TransactionListTest {
     @Test
     public void setTransaction_editedTransactionHasSameIdentity_success() {
         transactionList.add(ALICE);
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
                 .build();
         transactionList.setTransaction(ALICE, editedAlice);
         TransactionList expectedTransactionList = new TransactionList();

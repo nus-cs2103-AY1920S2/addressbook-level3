@@ -3,10 +3,10 @@ package seedu.expensela.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX;
 import static seedu.expensela.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.expensela.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.expensela.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.expensela.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.expensela.logic.commands.CommandTestUtil.ADDRESS_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.EMAIL_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.NAME_DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.PHONE_DESC_PIZZA;
 import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalTransactions.AMY;
 
@@ -79,8 +79,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_PIZZA + PHONE_DESC_PIZZA + EMAIL_DESC_PIZZA
+                + ADDRESS_DESC_PIZZA;
         Transaction expectedTransaction = new TransactionBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTransaction(expectedTransaction);

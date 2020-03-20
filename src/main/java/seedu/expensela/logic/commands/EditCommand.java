@@ -39,18 +39,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists in the expensela.";
 
     private final Index index;
-    private final editTransaction editTransaction;
+    private final EditTransactionDescriptor editTransactionDescriptor;
 
     /**
      * @param index of the transaction in the filtered transaction list to edit
-     * @param editTransaction details to edit the transaction with
+     * @param editTransactionDescriptor details to edit the transaction with
      */
-    public EditCommand(Index index, editTransaction editTransaction) {
+    public EditCommand(Index index, EditTransactionDescriptor editTransactionDescriptor) {
         requireNonNull(index);
-        requireNonNull(editTransaction);
+        requireNonNull(editTransactionDescriptor);
 
         this.index = index;
-        this.editTransaction = new editTransaction(editTransaction);
+        this.editTransactionDescriptor = new EditTransactionDescriptor(editTransactionDescriptor);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class EditCommand extends Command {
         }
 
         Transaction transactionToEdit = lastShownList.get(index.getZeroBased());
-        Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransaction);
+        Transaction editedTransaction = createEditedTransaction(transactionToEdit, editTransactionDescriptor);
 
         if (!transactionToEdit.isSameTransaction(editedTransaction) && model.hasTransaction(editedTransaction)) {
             throw new CommandException(MESSAGE_DUPLICATE_TRANSACTION);
@@ -76,17 +76,17 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Transaction} with the details of {@code transactionToEdit}
-     * edited with {@code editTransaction}.
+     * edited with {@code editTransactionDescriptor}.
      */
     private static Transaction createEditedTransaction(Transaction transactionToEdit,
-                                                  editTransaction editTransaction) {
+                                                  EditTransactionDescriptor editTransactionDescriptor) {
         assert transactionToEdit != null;
 
-        Name updatedName = editTransaction.getName().orElse(transactionToEdit.getName());
-        Amount updatedAmount = editTransaction.getAmount().orElse(transactionToEdit.getAmount());
-        Date updatedDate = editTransaction.getDate().orElse(transactionToEdit.getDate());
-        Remark updatedRemark = editTransaction.getRemark().orElse(transactionToEdit.getRemark());
-        Category updatedCategory = editTransaction.getCategory().orElse(transactionToEdit.getCategory());
+        Name updatedName = editTransactionDescriptor.getName().orElse(transactionToEdit.getName());
+        Amount updatedAmount = editTransactionDescriptor.getAmount().orElse(transactionToEdit.getAmount());
+        Date updatedDate = editTransactionDescriptor.getDate().orElse(transactionToEdit.getDate());
+        Remark updatedRemark = editTransactionDescriptor.getRemark().orElse(transactionToEdit.getRemark());
+        Category updatedCategory = editTransactionDescriptor.getCategory().orElse(transactionToEdit.getCategory());
 
         return new Transaction(updatedName, updatedAmount, updatedDate, updatedRemark, updatedCategory);
     }
@@ -106,27 +106,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editTransaction.equals(e.editTransaction);
+                && editTransactionDescriptor.equals(e.editTransactionDescriptor);
     }
 
     /**
      * Stores the details to edit the transaction with. Each non-empty field value will replace the
      * corresponding field value of the transaction.
      */
-    public static class editTransaction {
+    public static class EditTransactionDescriptor {
         private Name name;
         private Amount amount;
         private Date date;
         private Remark remark;
         private Category category;
 
-        public editTransaction() {}
+        public EditTransactionDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public editTransaction(editTransaction toCopy) {
+        public EditTransactionDescriptor(EditTransactionDescriptor toCopy) {
             setName(toCopy.name);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
@@ -187,12 +187,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof editTransaction)) {
+            if (!(other instanceof EditTransactionDescriptor)) {
                 return false;
             }
 
             // state check
-            editTransaction e = (editTransaction) other;
+            EditTransactionDescriptor e = (EditTransactionDescriptor) other;
 
             return getName().equals(e.getName())
                     && getAmount().equals(e.getAmount())

@@ -6,7 +6,11 @@ import seedu.expensela.model.transaction.Transaction;
 /**
  * A utility class to help with building ExpenseLa objects.
  * Example usage: <br>
+<<<<<<< HEAD
+ *     {@code ExpenseLa ab = new ExpenseLaBuilder().withTransaction("John", "Doe").build();}
+=======
  *     {@code ExpenseLa el = new ExpenseLaBuilder().withTransaction(transaction_1).build();}
+>>>>>>> 30892643437f34849fd9499b977cc4141118a5e7
  */
 public class ExpenseLaBuilder {
 

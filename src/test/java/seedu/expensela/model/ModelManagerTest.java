@@ -3,7 +3,7 @@ package seedu.expensela.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.expensela.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalTransactions.ALICE;
 import static seedu.expensela.testutil.TypicalTransactions.BENSON;

@@ -53,8 +53,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.editTransaction DESC_PIZZA;
-    public static final EditCommand.editTransaction DESC_AIRPODS;
+    public static final EditCommand.EditTransactionDescriptor DESC_PIZZA;
+    public static final EditCommand.EditTransactionDescriptor DESC_AIRPODS;
 
     static {
         DESC_PIZZA = new EditTransactionDescriptorBuilder().withName(VALID_NAME_PIZZA)
@@ -95,30 +95,22 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered transaction list and selected transaction in {@code actualModel} remain unchanged
+     * - the expense la, filtered transaction list and selected transaction in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-<<<<<<< HEAD
+
         ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
-=======
-        ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
-        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
-        assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
->>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
     }
     /**
      * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s expense la.
      */
     public static void showTransactionAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredTransactionList().size());
