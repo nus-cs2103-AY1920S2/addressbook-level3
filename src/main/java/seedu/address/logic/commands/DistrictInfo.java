@@ -113,8 +113,10 @@ public class DistrictInfo {
      * @return boolean indicating validity of given {@code searchTerm}
      */
     public static boolean isValidArea(String searchTerm) {
+        requireNonNull(searchTerm);
+        String term = searchTerm.toUpperCase();
         return Stream.of(CENTRAL, EAST, NORTH_EAST, WEST, NORTH)
-                .anyMatch(s -> s.contains(searchTerm.toUpperCase()));
+                .anyMatch(term::contains);
     }
 
     /**
