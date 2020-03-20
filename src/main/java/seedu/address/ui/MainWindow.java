@@ -204,10 +204,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText)
             throws CommandException, ParseException {
-
+        
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
             case CHECK_DONE:
+                petDisplay.update();
                 if (commandText.toLowerCase().equals("y")) {
                     CommandResult commandResult =
                             new CommandResult(
@@ -215,8 +216,7 @@ public class MainWindow extends UiPart<Stage> {
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.doneTask();
                     pomodoro.checkBreakActions();
-                    logic.incrementPomExp();
-                    petDisplay.update();
+                    //logic.incrementPomExp();
                     return commandResult;
                     // Continue to next prompt from break-timer
                 } else if (commandText.toLowerCase().equals("n")) {
@@ -228,8 +228,7 @@ public class MainWindow extends UiPart<Stage> {
                                     false);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.checkBreakActions();
-                    logic.incrementPomExp();
-                    petDisplay.update();
+                    //logic.incrementPomExp();
                     return commandResult;
                 } else {
                     throw new ParseException(
@@ -285,10 +284,7 @@ public class MainWindow extends UiPart<Stage> {
             } catch (NullPointerException ne) {
                 resultDisplay.setFeedbackToUser("Sorry, you've got no tasks being POMmed.");
             }
-
-            //update PetDisplay
-            petDisplay.update();
-            System.out.println("Updated");
+            
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -296,6 +292,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            petDisplay.update();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
