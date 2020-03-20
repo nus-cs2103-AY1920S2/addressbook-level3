@@ -20,16 +20,14 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      */
     public DeleteCommand parse(String args) throws ParseException {
         requireNonNull(args);
-
-        try {
-            String[] splitArgs = args.trim().split("\\s+");
-            Index exerciseId = SetParserUtil.parseIndex(splitArgs[0]);
-            Index setId = SetParserUtil.parseIndex(splitArgs[1]);
-            return new DeleteCommand(exerciseId, setId);
-        } catch (ParseException e) {
+        String[] splitArgs = args.trim().split("\\s+");
+        if (splitArgs.length != 2) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), e);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-    }
 
+        Index exerciseId = SetParserUtil.parseIndex(splitArgs[0]);
+        Index setId = SetParserUtil.parseIndex(splitArgs[1]);
+        return new DeleteCommand(exerciseId, setId);
+    }
 }

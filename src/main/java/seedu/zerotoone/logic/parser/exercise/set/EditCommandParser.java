@@ -5,8 +5,6 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WEIGHT;
 
-import java.util.NoSuchElementException;
-
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exercise.set.EditCommand;
 import seedu.zerotoone.logic.parser.Parser;
@@ -28,19 +26,22 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        try {
-            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NUM_OF_REPS, PREFIX_WEIGHT);
-
-            String[] splitPreamble = argMultimap.getPreamble().trim().split("\\s+");
-            Index exerciseId = SetParserUtil.parseIndex(splitPreamble[0]);
-            Index setId = SetParserUtil.parseIndex(splitPreamble[1]);
-            NumReps numReps = SetParserUtil.parseNumReps(argMultimap.getValue(PREFIX_NUM_OF_REPS).get());
-            Weight weight = SetParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
-
-            return new EditCommand(exerciseId, setId, numReps, weight);
-        } catch (ParseException | NoSuchElementException | IndexOutOfBoundsException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), e);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NUM_OF_REPS, PREFIX_WEIGHT);
+        if (!ArgumentTokenizer.arePrefixesPresent(argMultimap, PREFIX_NUM_OF_REPS, PREFIX_WEIGHT)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-    }
+        
+        String[] splitPreamble = argMultimap.getPreamble().trim().split("\\s+");
+        if (splitPreamble.length != 2) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
 
+        Index exerciseId = SetParserUtil.parseIndex(splitPreamble[0]);
+        Index setId = SetParserUtil.parseIndex(splitPreamble[1]);
+        NumReps numReps = SetParserUtil.parseNumReps(argMultimap.getValue(PREFIX_NUM_OF_REPS).get());
+        Weight weight = SetParserUtil.parseWeight(argMultimap.getValue(PREFIX_WEIGHT).get());
+
+        return new EditCommand(exerciseId, setId, numReps, weight);
+    }
 }

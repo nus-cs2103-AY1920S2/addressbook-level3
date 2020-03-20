@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 
-import java.util.NoSuchElementException;
-
 import seedu.zerotoone.logic.commands.exercise.CreateCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
@@ -25,19 +23,15 @@ public class CreateCommandParser implements Parser<CreateCommand> {
      */
     public CreateCommand parse(String args) throws ParseException {
         requireNonNull(args);
-
-        try {
-            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
-            if (!argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException("");
-            }
-
-            ExerciseName exerciseName = ExerciseParserUtil.parseExerciseName(
-                        argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
-
-            return new CreateCommand(exerciseName);
-        } catch (ParseException | NoSuchElementException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE), e);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
+        if (!ArgumentTokenizer.arePrefixesPresent(argMultimap, PREFIX_EXERCISE_NAME)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateCommand.MESSAGE_USAGE));
         }
+
+        ExerciseName exerciseName = ExerciseParserUtil.parseExerciseName(
+                    argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
+
+        return new CreateCommand(exerciseName);
     }
 }

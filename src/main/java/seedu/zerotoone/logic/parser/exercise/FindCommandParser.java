@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
 
-import java.util.NoSuchElementException;
-
 import seedu.zerotoone.logic.commands.exercise.FindCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
@@ -25,17 +23,13 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     public FindCommand parse(String args) throws ParseException {
         requireNonNull(args);
-
-        try {
-            ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
-            if (!argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException("");
-            }
-
-            ExerciseName exerciseName = new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
-            return new FindCommand(exerciseName);
-        } catch (ParseException | NoSuchElementException e) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), e);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXERCISE_NAME);
+        if (!ArgumentTokenizer.arePrefixesPresent(argMultimap, PREFIX_EXERCISE_NAME)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
+
+        ExerciseName exerciseName = new ExerciseName(argMultimap.getValue(PREFIX_EXERCISE_NAME).get());
+        return new FindCommand(exerciseName);
     }
 }
