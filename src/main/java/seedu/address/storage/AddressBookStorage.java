@@ -19,7 +19,7 @@ public interface AddressBookStorage {
     Path getAddressBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link seedu.address.model.ReadOnlyList <Person>}.
+     * Returns AddressBook data as a {@link ReadOnlyList}&lt;Person&gt;.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -32,14 +32,14 @@ public interface AddressBookStorage {
     Optional<ReadOnlyList<Person>> readAddressBook(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link seedu.address.model.ReadOnlyList <Person>} to the storage.
+     * Saves the given {@link ReadOnlyList}&lt;Person&gt; to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveAddressBook(ReadOnlyList<Person> addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(seedu.address.model.ReadOnlyList <Person>)
+     * @see #saveAddressBook(ReadOnlyList)
      */
     void saveAddressBook(ReadOnlyList<Person> addressBook, Path filePath) throws IOException;
 

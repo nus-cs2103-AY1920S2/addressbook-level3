@@ -66,7 +66,7 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(seedu.address.model.ReadOnlyList <Person>)}.
+     * Similar to {@link #saveAddressBook(ReadOnlyList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */

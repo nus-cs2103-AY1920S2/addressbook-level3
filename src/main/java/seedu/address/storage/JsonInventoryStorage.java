@@ -66,7 +66,7 @@ public class JsonInventoryStorage implements InventoryStorage {
     }
 
     /**
-     * Similar to {@link #saveInventory(seedu.address.model.ReadOnlyList <Good>)}.
+     * Similar to {@link #saveInventory(ReadOnlyList)}.
      *
      * @param filePath location of the data. Cannot be null.
      */

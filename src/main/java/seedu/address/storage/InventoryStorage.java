@@ -19,7 +19,7 @@ public interface InventoryStorage {
     Path getInventoryFilePath();
 
     /**
-     * Returns Inventory data as a {@link seedu.address.model.ReadOnlyList <Good>}.
+     * Returns Inventory data as a {@link ReadOnlyList}&lt;Good&gt;.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -32,14 +32,14 @@ public interface InventoryStorage {
     Optional<ReadOnlyList<Good>> readInventory(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link seedu.address.model.ReadOnlyList <Good>} to the storage.
+     * Saves the given {@link ReadOnlyList}&lt;Good&gt; to the storage.
      * @param inventory cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveInventory(ReadOnlyList<Good> inventory) throws IOException;
 
     /**
-     * @see #saveInventory(seedu.address.model.ReadOnlyList <Good>)
+     * @see #saveInventory(ReadOnlyList)
      */
     void saveInventory(ReadOnlyList<Good> inventory, Path filePath) throws IOException;
 
