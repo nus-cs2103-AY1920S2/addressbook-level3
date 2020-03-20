@@ -55,6 +55,10 @@ public class Time {
         return this.date.toString();
     }
 
+    public LocalDateTime getDateTime() {
+        return this.dateTime;
+    }
+
     /**
      * Returns true if a given string is a valid time.
      */
