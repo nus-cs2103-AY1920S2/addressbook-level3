@@ -16,7 +16,7 @@ import seedu.foodiebot.model.tag.Tag;
  * are validated, immutable.
  */
 public class Food {
-    public static final String[] FOOD = new String[]{"Combo Set", "Ayam Penyet", "Cai fan"};
+    public static final String[] FOOD = new String[]{"Combo Set", "Ayam Penyet", "Cai fan", "Fried Fish"};
     public static final String IMAGE_FOLDER = "/images/canteen/";
     public static final String MESSAGE_CONSTRAINTS = "Food name should be from " + Arrays.toString(FOOD);
 
