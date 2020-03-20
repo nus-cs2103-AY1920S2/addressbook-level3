@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.group;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.group.DeleteGroupCommand;
+import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
 
