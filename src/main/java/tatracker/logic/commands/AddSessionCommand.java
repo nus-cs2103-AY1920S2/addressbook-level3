@@ -38,7 +38,7 @@ public class AddSessionCommand extends Command {
             + PREFIX_NOTES + "Location: PLAB 04";
 
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";
 
     private final Session toAdd;
 

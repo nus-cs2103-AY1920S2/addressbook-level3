@@ -27,7 +27,7 @@ import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
 /**
- * Edits the details of an existing student in the address book.
+ * Edits the details of an existing student in the TA-Tracker.
  */
 public class EditStudentCommand extends Command {
 
@@ -49,7 +49,7 @@ public class EditStudentCommand extends Command {
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker.";
 
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;

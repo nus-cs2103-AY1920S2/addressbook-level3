@@ -6,7 +6,7 @@ import static tatracker.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import tatracker.model.Model;
 
 /**
- * Lists all students in the address book to the user.
+ * Lists all students in the TA-Tracker to the user.
  */
 public class ListCommand extends Command {
 

@@ -11,7 +11,7 @@ import tatracker.model.Model;
 import tatracker.model.student.Student;
 
 /**
- * Deletes a student identified using it's displayed index from the address book.
+ * Deletes a student identified using it's displayed index from the TA-Tracker.
  */
 public class DeleteCommand extends Command {
 
