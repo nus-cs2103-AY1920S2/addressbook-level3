@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import fithelper.commons.exceptions.IllegalValueException;
 
 import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Duration;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
@@ -13,7 +14,6 @@ import fithelper.model.entry.Remark;
 import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
-
 
 
 /**
@@ -30,6 +30,7 @@ class JsonAdaptedEntry {
     private final String calorie;
     private final String status;
     private final String remark;
+    private final String duration;
 
     /**
      * Constructs a {@code JsonAdaptedEntry} with the given entry details.
@@ -41,7 +42,8 @@ class JsonAdaptedEntry {
                             @JsonProperty("location") String location,
                             @JsonProperty("calorie") String calorie,
                             @JsonProperty("status") String status,
-                            @JsonProperty("remark") String remark) {
+                            @JsonProperty("remark") String remark,
+                            @JsonProperty("duration") String duration) {
         this.type = type;
         this.name = name;
         this.time = time;
@@ -49,6 +51,7 @@ class JsonAdaptedEntry {
         this.calorie = calorie;
         this.status = status;
         this.remark = remark;
+        this.duration = duration;
     }
 
     /**
@@ -62,6 +65,7 @@ class JsonAdaptedEntry {
         calorie = source.getCalorie().toString();
         status = source.getStatus().value;
         remark = source.getRemark().value;
+        duration = Long.toString(source.getDuration());
     }
 
     /**
@@ -175,12 +179,25 @@ class JsonAdaptedEntry {
     }
 
     /**
+     * Build {@code Duration} based on Json file string.
+     *
+     * @return Attribute duration.
+     * @throws IllegalValueException Invalid value for duration.
+     */
+    public Duration buildDuration() throws IllegalValueException {
+        if (duration == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Duration.class.getSimpleName()));
+        }
+        return new Duration(duration);
+    }
+
+    /**
      * Converts this Jackson-friendly adapted entry object into the model's {@code Entry} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted entry.
      */
     public Entry toModelType() throws IllegalValueException {
-
         final Type modelType = buildType();
         final Name modelName = buildName();
         final Time modelTime = buildTime();
@@ -188,8 +205,10 @@ class JsonAdaptedEntry {
         final Calorie modelCalorie = buildCalorie();
         final Status modelStatus = buildStatus();
         final Remark modelRemark = buildRemark();
+        final Duration modelDuration = buildDuration();
 
-        return new Entry(modelType, modelName, modelTime, modelLocation, modelCalorie, modelStatus, modelRemark);
+        return new Entry(modelType, modelName, modelTime, modelLocation, modelCalorie,
+                modelStatus, modelRemark, modelDuration);
     }
 
 }

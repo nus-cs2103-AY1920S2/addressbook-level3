@@ -6,6 +6,7 @@ import fithelper.commons.core.index.Index;
 import fithelper.commons.util.StringUtil;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Duration;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
 import fithelper.model.entry.Remark;
@@ -129,5 +130,15 @@ public class ParserUtil {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
         return new Remark(trimmedRemark);
+    }
+
+    /**
+     * Parses a {@code String duration} into an {@code Duration}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Duration parseDuration(String duration) {
+        requireNonNull(duration);
+        String trimmedDuration = duration.trim();
+        return new Duration(trimmedDuration);
     }
 }
