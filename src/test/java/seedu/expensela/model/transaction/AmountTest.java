@@ -14,27 +14,27 @@ public class AmountTest {
     }
 
     @Test
-    public void constructor_invalidPhone_throwsIllegalArgumentException() {
-        String invalidPhone = "";
-        assertThrows(IllegalArgumentException.class, () -> new Amount(invalidPhone, true));
+    public void constructor_invalidAmount_throwsIllegalArgumentException() {
+        String invalidAmount = "";
+        assertThrows(IllegalArgumentException.class, () -> new Amount(invalidAmount, true));
     }
 
     @Test
     public void isValidAmount() {
-        // null phone number
+        // null amount number
         assertThrows(NullPointerException.class, () -> Amount.isValidAmount(null));
 
-        // invalid phone numbers
+        // invalid amount numbers
         assertFalse(Amount.isValidAmount("")); // empty string
         assertFalse(Amount.isValidAmount(" ")); // spaces only
-        assertFalse(Amount.isValidAmount("91")); // less than 3 numbers
-        assertFalse(Amount.isValidAmount("phone")); // non-numeric
+        assertFalse(Amount.isValidAmount("91")); // no decimal places
+        assertFalse(Amount.isValidAmount("91.1")); // 1 decimal place
+        assertFalse(Amount.isValidAmount("amount")); // non-numeric
         assertFalse(Amount.isValidAmount("9011p041")); // alphabets within digits
         assertFalse(Amount.isValidAmount("9312 1534")); // spaces within digits
 
-        // valid phone numbers
-        assertTrue(Amount.isValidAmount("911")); // exactly 3 numbers
-        assertTrue(Amount.isValidAmount("93121534"));
-        assertTrue(Amount.isValidAmount("124293842033123")); // long phone numbers
+        // valid amount numbers
+        assertTrue(Amount.isValidAmount("91.10")); // exactly 2 decimal places
+        assertTrue(Amount.isValidAmount("124293842033123.00")); // long amount numbers
     }
 }

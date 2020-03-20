@@ -38,7 +38,7 @@ public class TransactionUtil {
     /**
      * Returns the part of command string for the given {@code editTransaction}'s details.
      */
-    public static String getEditTransactionDescriptorDetails(EditCommand.editTransaction descriptor) {
+    public static String getEditTransactionDescriptorDetails(EditCommand.EditTransactionDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.transactionName).append(" "));
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.toString()).append(" "));

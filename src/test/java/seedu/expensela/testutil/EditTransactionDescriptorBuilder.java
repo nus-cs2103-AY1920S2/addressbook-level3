@@ -13,21 +13,21 @@ import seedu.expensela.model.transaction.Transaction;
  */
 public class EditTransactionDescriptorBuilder {
 
-    private EditCommand.editTransaction descriptor;
+    private EditCommand.EditTransactionDescriptor descriptor;
 
     public EditTransactionDescriptorBuilder() {
-        descriptor = new EditCommand.editTransaction();
+        descriptor = new EditCommand.EditTransactionDescriptor();
     }
 
-    public EditTransactionDescriptorBuilder(EditCommand.editTransaction descriptor) {
-        this.descriptor = new EditCommand.editTransaction(descriptor);
+    public EditTransactionDescriptorBuilder(EditCommand.EditTransactionDescriptor descriptor) {
+        this.descriptor = new EditCommand.EditTransactionDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code editTransaction} with fields containing {@code transaction}'s details
+     * Returns an {@code EditTransactionDescriptor} with fields containing {@code transaction}'s details
      */
     public EditTransactionDescriptorBuilder(Transaction transaction) {
-        descriptor = new EditCommand.editTransaction();
+        descriptor = new EditCommand.EditTransactionDescriptor();
         descriptor.setName(transaction.getName());
         descriptor.setAmount(transaction.getAmount());
         descriptor.setDate(transaction.getDate());
@@ -36,7 +36,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code editTransaction} that we are building.
+     * Sets the {@code Name} of the {@code EditTransactionDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
@@ -44,7 +44,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Amount} of the {@code editTransaction} that we are building.
+     * Sets the {@code Amount} of the {@code EditTransactionDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withAmount(String amount) {
         descriptor.setAmount(new Amount(amount, false));
@@ -52,7 +52,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code editTransaction} that we are building.
+     * Sets the {@code Date} of the {@code EditTransactionDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withDate(String date) {
         descriptor.setDate(new Date(date));
@@ -60,7 +60,7 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code editTransaction} that we are building.
+     * Sets the {@code Remark} of the {@code EditTransactionDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withRemark(String remark) {
         descriptor.setRemark(new Remark(remark));
@@ -68,14 +68,14 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Date} of the {@code editTransaction} that we are building.
+     * Sets the {@code Category} of the {@code EditTransactionDescriptor} that we are building.
      */
     public EditTransactionDescriptorBuilder withCategory(String category) {
         descriptor.setCategory(new Category(category));
         return this;
     }
 
-    public EditCommand.editTransaction build() {
+    public EditCommand.EditTransactionDescriptor build() {
         return descriptor;
     }
 }

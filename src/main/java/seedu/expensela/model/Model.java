@@ -88,4 +88,7 @@ public interface Model {
 
     /** Returns a view of monthly data object */
     MonthlyData getMonthlyData();
+
+    /** Updates monthly data by the given monthly data */
+    void updateMonthlyData(MonthlyData monthlyData);
 }

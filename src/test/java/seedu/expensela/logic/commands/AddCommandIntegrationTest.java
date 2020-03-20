@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_duplicateTransaction_throwsCommandException() {
         Transaction transactionInList = model.getExpenseLa().getTransactionList().get(0);
-        assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new AddCommand(transactionInList), model, AddCommand.MESSAGE_DUPLICATE_TRANSACTION);
     }
 
 }
