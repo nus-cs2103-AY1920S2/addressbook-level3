@@ -62,7 +62,12 @@ public class NearbyCommand extends Command {
         return order -> {
             String orderAddress = order.getAddress().toString();
             return matchingPostalSectors.stream()
-                    .anyMatch(orderAddress::contains);
+                    .map(mps -> String.format(".*%s\\d{4}.*", mps))
+                    .anyMatch(regex -> {
+                        Pattern p = Pattern.compile(regex);
+                        Matcher m = p.matcher(orderAddress);
+                        return m.matches();
+                    });
         };
     }
 
