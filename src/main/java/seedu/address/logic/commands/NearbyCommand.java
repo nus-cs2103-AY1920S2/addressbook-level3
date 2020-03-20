@@ -143,7 +143,8 @@ public class NearbyCommand extends Command {
      * @return boolean indicating area validity of {@code searchTerm}
      */
     private boolean isValidAreaSearch() {
-        return validAreas.stream().anyMatch(s -> s.contains(searchTerm.toUpperCase()));
+        return validAreas.stream()
+                .anyMatch(s -> s.contains(searchTerm.toUpperCase()));
     }
 
     @Override
