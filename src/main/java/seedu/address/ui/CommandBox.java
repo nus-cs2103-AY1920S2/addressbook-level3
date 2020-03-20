@@ -37,6 +37,10 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setOnKeyPressed(event -> keyPressedEvent(event));
     }
 
+    /**
+     * Event handler for text field when an key is pressed.
+     * @param event KeyEvent to process.
+     */
     private void keyPressedEvent(KeyEvent event) {
         switch (event.getCode()) {
         case UP:
@@ -50,6 +54,10 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    /**
+     * Goes through the text field history.
+     * @param index positive to traverse down, negative to traverse up.
+     */
     private void traverseHistory(int index) {
         String command = "";
         if (index > 0 && historyIterator.hasNext()) {
