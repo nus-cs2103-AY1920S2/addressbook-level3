@@ -8,6 +8,7 @@ import java.util.Set;
 
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.UniqueCouponList;
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.tag.Tag;
 
 import javafx.collections.ObservableList;
@@ -117,7 +118,7 @@ public class CouponStash implements ReadOnlyCouponStash {
                     coupon.getName(), coupon.getPromoCode(),
                     coupon.getSavingsForEachUse(), coupon.getExpiryDate(), coupon.getStartDate(),
                     coupon.getUsage(), coupon.getLimit(), copiedTags,
-                    coupon.getTotalSavings(), coupon.getRemind()
+                    (DateSavingsSumMap) coupon.getSavingsMap().clone(), coupon.getRemind()
             ));
         }
 
