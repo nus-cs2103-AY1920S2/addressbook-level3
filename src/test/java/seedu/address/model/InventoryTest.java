@@ -80,7 +80,7 @@ public class InventoryTest {
     }
 
     /**
-     * A stub ReadOnlyList<Good> whose goods list can violate interface constraints.
+     * A stub ReadOnlyList&lt;Good&gt; whose goods list can violate interface constraints.
      */
     private static class InventoryStub implements ReadOnlyList<Good> {
         private final ObservableList<Good> goods = FXCollections.observableArrayList();
