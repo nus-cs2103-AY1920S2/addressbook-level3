@@ -54,6 +54,10 @@ public class Content {
         this.value = value;
     }
 
+    /**
+     * Adds new content to a diary.
+     * @param appendingStr the new string being being added
+     */
     public void add(String appendingStr) {
         StringBuilder sb = new StringBuilder(this.value);
         checkArgument(isValidContent(sb.append(appendingStr).toString()),
@@ -81,7 +85,7 @@ public class Content {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Content content  = (Content) o;
+        Content content = (Content) o;
         return this.value.equals(content.value);
     }
 

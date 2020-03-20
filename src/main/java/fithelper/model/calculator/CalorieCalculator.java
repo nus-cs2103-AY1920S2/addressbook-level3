@@ -2,10 +2,10 @@ package fithelper.model.calculator;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
-import fithelper.model.entry.Entry;
-
 import java.util.List;
 import java.util.Objects;
+
+import fithelper.model.entry.Entry;
 
 /**
  * This class calculates the calorie intake and consumption.
