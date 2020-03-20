@@ -5,10 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.good.Good;
+import seedu.address.model.person.Person;
 
 /**
  * API of the Storage component
@@ -25,18 +26,18 @@ public interface Storage extends AddressBookStorage, InventoryStorage, UserPrefs
     Path getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Person>> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyList<Person> addressBook) throws IOException;
 
     @Override
     Path getInventoryFilePath();
 
     @Override
-    Optional<ReadOnlyInventory> readInventory() throws DataConversionException, IOException;
+    Optional<ReadOnlyList<Good>> readInventory() throws DataConversionException, IOException;
 
     @Override
-    void saveInventory(ReadOnlyInventory inventory) throws IOException;
+    void saveInventory(ReadOnlyList<Good> inventory) throws IOException;
 
 }

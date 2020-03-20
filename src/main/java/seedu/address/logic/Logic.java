@@ -7,8 +7,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.good.Good;
 import seedu.address.model.person.Person;
 
@@ -30,14 +29,14 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getAddressBook()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyList<Person> getAddressBook();
 
     /**
      * Returns the Inventory.
      *
      * @see seedu.address.model.Model#getInventory()
      */
-    ReadOnlyInventory getInventory();
+    ReadOnlyList<Good> getInventory();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();

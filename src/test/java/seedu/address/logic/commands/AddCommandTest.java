@@ -19,8 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.good.Good;
 import seedu.address.model.person.Person;
@@ -117,12 +116,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyList<Person> newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyList<Person> getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -162,12 +161,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setInventory(ReadOnlyInventory inventory) {
+        public void setInventory(ReadOnlyList<Good> inventory) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyInventory getInventory() {
+        public ReadOnlyList<Good> getInventory() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -262,7 +261,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyList<Person> getAddressBook() {
             return new AddressBook();
         }
     }
@@ -286,7 +285,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyInventory getInventory() {
+        public ReadOnlyList<Good> getInventory() {
             return new Inventory();
         }
     }

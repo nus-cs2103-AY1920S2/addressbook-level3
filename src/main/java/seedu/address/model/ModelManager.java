@@ -29,7 +29,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook, inventory and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyInventory inventory,
+    public ModelManager(ReadOnlyList<Person> addressBook, ReadOnlyList<Good> inventory,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, inventory, userPrefs);
@@ -40,8 +40,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.inventory = new Inventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        filteredGoods = new FilteredList<>(this.inventory.getGoodList());
+        filteredPersons = new FilteredList<>(this.addressBook.getReadOnlyList());
+        filteredGoods = new FilteredList<>(this.inventory.getReadOnlyList());
     }
 
     public ModelManager() {
@@ -97,12 +97,12 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyList<Person> addressBook) {
         this.addressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyList<Person> getAddressBook() {
         return addressBook;
     }
 
@@ -133,12 +133,12 @@ public class ModelManager implements Model {
     //=========== Inventory ================================================================================
 
     @Override
-    public void setInventory(ReadOnlyInventory inventory) {
+    public void setInventory(ReadOnlyList<Good> inventory) {
         this.inventory.resetData(inventory);
     }
 
     @Override
-    public ReadOnlyInventory getInventory() {
+    public ReadOnlyList<Good> getInventory() {
         return inventory;
     }
 

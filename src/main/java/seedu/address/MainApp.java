@@ -19,10 +19,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.good.Good;
+import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InventoryStorage;
@@ -82,10 +83,10 @@ public class MainApp extends Application {
      * or an empty inventory will be used instead if errors occur when reading {@code storage}'s inventory.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        Optional<ReadOnlyInventory> inventoryOptional;
-        ReadOnlyAddressBook initialAddressBookData;
-        ReadOnlyInventory initialInventoryData;
+        Optional<ReadOnlyList<Person>> addressBookOptional;
+        Optional<ReadOnlyList<Good>> inventoryOptional;
+        ReadOnlyList<Person> initialAddressBookData;
+        ReadOnlyList<Good> initialInventoryData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {

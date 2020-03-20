@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Inventory;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyInventory;
+import seedu.address.model.ReadOnlyList;
 import seedu.address.model.good.Good;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.good.GoodQuantity;
@@ -64,7 +63,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyList<Person> getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
@@ -72,7 +71,7 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    public static ReadOnlyInventory getSampleInventory() {
+    public static ReadOnlyList<Good> getSampleInventory() {
         Inventory sampleInventory = new Inventory();
         for (Good sampleGood : getSampleGoods()) {
             sampleInventory.addGood(sampleGood);

@@ -51,10 +51,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyList<Person> addressBook);
 
     /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyList<Person> getAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -102,10 +102,10 @@ public interface Model {
     /**
      * Replaces inventory data with the data in {@code inventory}.
      */
-    void setInventory(ReadOnlyInventory inventory);
+    void setInventory(ReadOnlyList<Good> inventory);
 
     /** Returns the Inventory */
-    ReadOnlyInventory getInventory();
+    ReadOnlyList<Good> getInventory();
 
     /**
      * Returns true if a good with the same identity as {@code good} exists in the inventory.
