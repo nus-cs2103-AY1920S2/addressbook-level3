@@ -223,7 +223,7 @@ public class AddStudentCommandTest {
     }
 
     /**
-     * A Model stub that contains a single module.
+     * A Model stub that contains a single session.
      */
     private class ModelStubWithSession extends ModelStub {
         private final Session session;
@@ -238,27 +238,26 @@ public class AddStudentCommandTest {
             requireNonNull(session);
             return this.session.isSameSession(session);
         }
+    }
 
-        @Override
-        public ObservableList<Module> getFilteredModuleList() {
-            throw new AssertionError("This method should not be called.");
-        }
+    /**
+     * A Model stub that contains a single module.
+     */
+    private class ModelStubWithModule extends ModelStub {
+        private final Module module;
 
-        @Override
-        public void updateFilteredModuleList(Predicate<Module> predicate) {
-            throw new AssertionError("This method should not be called.");
+        ModelStubWithModule(Module module) {
+            requireNonNull(module);
+            this.module = module;
         }
 
         @Override
         public boolean hasModule(Module module) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addModule(Module module) {
-            throw new AssertionError("This method should not be called.");
+            requireNonNull(module);
+            return this.module.equals(module);
         }
     }
+
 
     /**
      * A Model stub that contains a single student.
@@ -318,6 +317,30 @@ public class AddStudentCommandTest {
         public void addStudent(Student student) {
             requireNonNull(student);
             studentsAdded.add(student);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+    }
+
+    /**
+     * A Model stub that always accept the module being added.
+     */
+    private class ModelStubAcceptingModuleAdded extends ModelStub {
+        final ArrayList<Module> modulesAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasModule(Module module) {
+            requireNonNull(module);
+            return modulesAdded.stream().anyMatch(module::equals);
+        }
+
+        @Override
+        public void addModule(Module module) {
+            requireNonNull(module);
+            modulesAdded.add(module);
         }
 
         @Override
