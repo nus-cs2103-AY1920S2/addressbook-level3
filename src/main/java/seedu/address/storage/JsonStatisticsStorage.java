@@ -11,7 +11,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.ReadOnlyPomodoro;
 import seedu.address.model.ReadOnlyStatistics;
 
 /** A class to access TaskList data stored as a json file on the hard disk. */
@@ -30,22 +29,20 @@ public class JsonStatisticsStorage implements StatisticsStorage {
     }
 
     /**
-     * Similar to {@link #readTaskList()}.
+     * Similar to {@link #readStatistics()}.
      *
-     * @param filePath location of the data. Cannot be null.
-     * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyStatistics> readStatistics() throws DataConversionException {
         requireNonNull(this.filePath);
 
-        Optional<JsonAdaptedStatistics> jsonStatistics =
-                JsonUtil.readJsonFile(this.filePath, JsonAdaptedStatistics.class);
-        if (!jsonStatistics.isPresent()) {
+        Optional<JsonSerializableDayDataList> jsonSerializableDayDataList =
+                JsonUtil.readJsonFile(this.filePath, JsonSerializableDayDataList.class);
+        if (!jsonSerializableDayDataList.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonStatistics.get().toModelType());
+            return Optional.of(jsonSerializableDayDataList.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -63,6 +60,6 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         requireNonNull(this.filePath);
 
         FileUtil.createIfMissing(this.filePath);
-        JsonUtil.saveJsonFile(new JsonAdaptedStatistics(statistics), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableDayDataList(statistics), filePath);
     }
 }

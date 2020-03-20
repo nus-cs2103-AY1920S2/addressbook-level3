@@ -3,9 +3,10 @@ package seedu.address.model;
 import java.util.List;
 
 public interface ReadOnlyStatistics {
-    public int getMedals();
-
-    public List<String> getPomDurationData();
-
-    public List<String> getTasksDoneData();
+    /**
+     * Returns an unmodifiable view of the persons list. This list will not contain any duplicate
+     * persons.
+     * @return
+     */
+    List<DayData> getDayDataList();
 }

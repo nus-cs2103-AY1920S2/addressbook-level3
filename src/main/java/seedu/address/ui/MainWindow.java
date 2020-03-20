@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import java.nio.file.Paths;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -145,13 +145,13 @@ public class MainWindow extends UiPart<Stage> {
         pomodoro.setResultDisplay(resultDisplay);
 
         statisticsDisplay =
-                new StatisticsDisplay("Time spent on Pomodoro over the last 7 days",
+                new StatisticsDisplay(
+                        "Time spent on Pomodoro over the last 7 days",
                         null,
                         Paths.get("images", "statistics", "progressBarDaily50%.png"),
                         "50 mins / 100 mins",
                         "Medals earned: 0");
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-       
     }
 
     /** Sets the default size based on {@code guiSettings}. */

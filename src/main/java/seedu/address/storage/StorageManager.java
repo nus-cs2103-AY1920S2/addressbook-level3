@@ -28,13 +28,13 @@ public class StorageManager implements Storage {
             TaskListStorage taskListStorage,
             PetStorage petStorage,
             PomodoroStorage pomodoroStorage,
-            StatisticsStorage statisticsStorage,
+            StatisticsStorage dayDataListStorage,
             UserPrefsStorage userPrefsStorage) {
         super();
         this.taskListStorage = taskListStorage;
         this.petStorage = petStorage;
         this.pomodoroStorage = pomodoroStorage;
-        this.statisticsStorage = statisticsStorage;
+        this.statisticsStorage = dayDataListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -127,13 +127,14 @@ public class StorageManager implements Storage {
 
     // ================ Statistics methods ==============================
     @Override
-    public Optional<ReadOnlyStatistics> readStatistics() throws DataConversionException, IOException {
+    public Optional<ReadOnlyStatistics> readStatistics()
+            throws DataConversionException, IOException {
         return statisticsStorage.readStatistics();
     }
 
     @Override
-    public void saveStatistics(ReadOnlyStatistics statistics) throws IOException {
-        logger.fine("Attempting to write statistics data: ");
-        statisticsStorage.saveStatistics(statistics);
+    public void saveStatistics(ReadOnlyStatistics dayDataList) throws IOException {
+        logger.fine("Attempting to write Day Data List data: ");
+        statisticsStorage.saveStatistics(dayDataList);
     }
 }

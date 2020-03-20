@@ -1,5 +1,11 @@
 {
-  "medals": "5",
-  "pomDurationData" : ["50", "20"],
-  "tasksDoneData" : ["5", "2"]
+  "dayDatas" : [ {
+    "date" : "11/1/2020",
+    "pomDurationData" : "30",
+    "tasksDoneData" : "1"
+  }, {
+    "date" : "11/2/2020",
+    "pomDurationData" : "60",
+    "tasksDoneData" : "0"
+  } ]
 }

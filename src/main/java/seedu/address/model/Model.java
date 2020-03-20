@@ -80,5 +80,5 @@ public interface Model {
 
     ReadOnlyStatistics getStatistics();
 
-    void setStatistics(String data); //placeholder
+    void setStatistics(String data); // placeholder
 }

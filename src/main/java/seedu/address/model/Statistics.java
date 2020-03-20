@@ -1,51 +1,82 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wraps all data at the address-book level Duplicates are not allowed (by .isSameTask comparison)
+ */
 public class Statistics implements ReadOnlyStatistics {
-    private static final int DEFAULT_MEDALS = 0;
 
-    private int medals;
-    private List<String> pomDurationData = new ArrayList<>();
-    private List<String> tasksDoneData = new ArrayList<>();
-
-    public Statistics(int medals, List<String> pomDurationData, List<String> tasksDoneData) {
-        this.medals = medals;
-        this.pomDurationData = pomDurationData;
-        this.tasksDoneData = tasksDoneData;
-    }
-
-    public Statistics(ReadOnlyStatistics source) {
-        this(source.getMedals(), source.getPomDurationData(), source.getTasksDoneData());
-    }
+    private final ArrayList<DayData> dayDataList;
 
     public Statistics() {
-        this(DEFAULT_MEDALS, null, null);
+        dayDataList = new ArrayList<DayData>();
     }
 
-    public void setMedals(int medals) {
-        this.medals = medals;
+    /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
+    public Statistics(ReadOnlyStatistics toBeCopied) {
+        this();
+        resetData(toBeCopied);
     }
 
-    @Override
-    public int getMedals() {
-        return this.medals;
+    //// list overwrite operations
+    /**
+     * Replaces the contents of the person list with {@code persons}. {@code persons} must not
+     * contain duplicate persons.
+     */
+    public void setDayDatas(List<DayData> dayDataList) {
+        this.dayDataList.clear();
+        this.dayDataList.addAll(dayDataList);
     }
 
-    @Override
-    public List<String> getPomDurationData() {
-        return this.pomDurationData;
+    /** Resets the existing data of this {@code TaskList} with {@code newData}. */
+    public void resetData(ReadOnlyStatistics newData) {
+        requireNonNull(newData);
+        setDayDatas(newData.getDayDataList());
     }
 
-    @Override
-    public List<String> getTasksDoneData() {
-        return this.tasksDoneData;
+    //// person-level operations
+
+    /**
+     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasTask(DayData dayData) {
+        requireNonNull(dayData);
+        return dayDataList.contains(dayData);
     }
+
+    /** Adds a person to the address book. The person must not already exist in the address book. */
+    public void addTask(DayData dayData) {
+        dayDataList.add(dayData);
+    }
+
+    /**
+     * Removes {@code key} from this {@code TaskList}. {@code key} must exist in the address book.
+     */
+    public void removeTask(DayData dayData) {
+        dayDataList.remove(dayData);
+    }
+
+    //// util methods
 
     @Override
     public String toString() {
-        return String.format(
-                "Hi I am a placeholder " + this.medals);
+        return dayDataList.size() + " dayDats";
+        // TODO: refine later
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Statistics // instanceof handles nulls
+                && dayDataList.equals(((Statistics) other).dayDataList));
+    }
+
+    @Override
+    public List<DayData> getDayDataList() {
+        return dayDataList;
     }
 }

@@ -52,7 +52,12 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage =
-                new StorageManager(taskListStorage, petStorage, pomodoroStorage, statisticsStorage, userPrefsStorage);
+                new StorageManager(
+                        taskListStorage,
+                        petStorage,
+                        pomodoroStorage,
+                        statisticsStorage,
+                        userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -87,7 +92,12 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage =
-                new StorageManager(taskListStorage, petStorage, pomodoroStorage, statisticsStorage, userPrefsStorage);
+                new StorageManager(
+                        taskListStorage,
+                        petStorage,
+                        pomodoroStorage,
+                        statisticsStorage,
+                        userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -156,7 +166,11 @@ public class LogicManagerTest {
             String expectedMessage) {
         Model expectedModel =
                 new ModelManager(
-                        model.getTaskList(), model.getPet(), model.getPomodoro(), model.getStatistics(), new UserPrefs());
+                        model.getTaskList(),
+                        model.getPet(),
+                        model.getPomodoro(),
+                        model.getStatistics(),
+                        new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 

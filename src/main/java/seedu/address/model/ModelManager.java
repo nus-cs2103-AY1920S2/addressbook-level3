@@ -46,8 +46,7 @@ public class ModelManager implements Model {
         this.petDisplayHandler = new PetDisplayHandler(this.pet);
         logger.info(String.format("Initializing with Pet: %s", this.pet.toString()));
         logger.info(String.format("Initializing with Pomodoro: %s", this.pomodoro.toString()));
-        logger.info(String.format("Initializing with Statistics: %s", this.statistics.toString()));
-
+        logger.info(String.format("Initializing with DayDataList: %s", this.statistics.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
@@ -211,7 +210,6 @@ public class ModelManager implements Model {
     // ============================ Statistics Manager
 
     public void setStatistics(String data) {
-        //placeholder
+        // placeholder
     }
-
 }

@@ -19,9 +19,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.Pet;
 import seedu.address.model.Pomodoro;
+import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
-import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Statistics;
@@ -71,10 +71,16 @@ public class MainApp extends Application {
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
         PetStorage petStorage = new JsonPetStorage(userPrefs.getPetFilePath());
         PomodoroStorage pomodoroStorage = new JsonPomodoroStorage(userPrefs.getPomodoroFilePath());
-        StatisticsStorage statisticsStorage = new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
+        StatisticsStorage statisticsStorage =
+                new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
 
         storage =
-                new StorageManager(taskListStorage, petStorage, pomodoroStorage, statisticsStorage, userPrefsStorage);
+                new StorageManager(
+                        taskListStorage,
+                        petStorage,
+                        pomodoroStorage,
+                        statisticsStorage,
+                        userPrefsStorage);
 
         initLogging(config);
 
@@ -103,7 +109,7 @@ public class MainApp extends Application {
         ReadOnlyTaskList initialData;
         ReadOnlyPet initialPet;
         ReadOnlyPomodoro initialPomodoro;
-        ReadOnlyStatistics initialStatistics;
+        ReadOnlyStatistics initialDayDataList;
 
         try {
             taskListOptional = storage.readTaskList();
@@ -158,18 +164,19 @@ public class MainApp extends Application {
             if (!statisticsOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Statistics");
             }
-            initialStatistics = statisticsOptional.orElse(new Statistics());
+            initialDayDataList = statisticsOptional.orElse(new Statistics());
         } catch (DataConversionException e) {
             logger.warning(
                     "Data file not in the correct format. Will be starting with an empty Statistics");
-            initialStatistics = new Statistics();
+            initialDayDataList = new Statistics();
         } catch (IOException e) {
             logger.warning(
                     "Problem while reading from the file. Will be starting with an empty Statistics");
-            initialStatistics = new Statistics();
+            initialDayDataList = new Statistics();
         }
 
-        return new ModelManager(initialData, initialPet, initialPomodoro, initialStatistics, userPrefs);
+        return new ModelManager(
+                initialData, initialPet, initialPomodoro, initialDayDataList, userPrefs);
     }
 
     private void initLogging(Config config) {
