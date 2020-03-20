@@ -95,12 +95,14 @@ public class AbsolutePath implements Path {
         return RelativePath.fromAbsolutePath(this, currentWorkingPath);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<String> getComponents() {
         return this.components;
+    }
+
+    @Override
+    public String getStringRepresentation() {
+        return "/" + String.join("/", this.components);
     }
 
     @Override
@@ -121,7 +123,7 @@ public class AbsolutePath implements Path {
 
     @Override
     public String toString() {
-        return "/" + String.join("/", this.components);
+        return getStringRepresentation();
     }
 }
 
