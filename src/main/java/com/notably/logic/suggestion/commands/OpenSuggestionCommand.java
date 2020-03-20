@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.Path;
@@ -91,17 +92,15 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     }
 
     private List<SuggestionItem> getSuggestions(List<Path> possiblePaths, Model model) {
-        List<SuggestionItem> suggestions = new ArrayList<>();
-        for (Path path : possiblePaths) {
-            String displayText = path.toString();
-            Runnable action = () -> {
-                model.setInput(displayText);
-            };
-            SuggestionItem suggestionItem = new SuggestionItemImpl(displayText, action);
-            suggestions.add(suggestionItem);
-        }
-
-        return suggestions;
+        return possiblePaths.stream()
+                .map(path -> {
+                    String displayText = path.toString();
+                    Runnable action = () -> {
+                        model.setInput(displayText);
+                    };
+                    return new SuggestionItemImpl(displayText, action);
+                })
+                .collect(Collectors.toList());
     }
 
     /**
