@@ -21,7 +21,7 @@ public class NearbyCommandParser implements Parser<NearbyCommand> {
     public NearbyCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         int numOfArgs = trimmedArgs.split("\\s+").length;
-        if (numOfArgs > 1) {
+        if (numOfArgs > 1 || trimmedArgs.length() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     NearbyCommand.MESSAGE_USAGE));
         }
