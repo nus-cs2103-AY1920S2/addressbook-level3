@@ -23,7 +23,11 @@ import java.util.List;
 
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.savings.*;
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
+import csdev.couponstash.model.coupon.savings.MonetaryAmount;
+import csdev.couponstash.model.coupon.savings.PercentageAmount;
+import csdev.couponstash.model.coupon.savings.Saveable;
+import csdev.couponstash.model.coupon.savings.Savings;
 
 /**
  * A utility class containing a list of {@code Coupon} objects to be used in tests.

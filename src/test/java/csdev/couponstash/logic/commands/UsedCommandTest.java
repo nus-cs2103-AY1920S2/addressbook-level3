@@ -6,7 +6,8 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.showCouponAtIndex
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.Messages;
@@ -15,13 +16,12 @@ import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
 import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 import csdev.couponstash.testutil.TypicalIndexes;
-
-import java.time.LocalDate;
 
 class UsedCommandTest {
 
