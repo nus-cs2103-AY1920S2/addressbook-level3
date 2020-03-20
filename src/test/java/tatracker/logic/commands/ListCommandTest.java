@@ -3,7 +3,7 @@ package tatracker.logic.commands;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
-import static tatracker.testutil.TypicalStudents.getTypicalAddressBook;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
         expectedModel = new ModelManager(model.getTaTracker(), new UserPrefs());
     }
 

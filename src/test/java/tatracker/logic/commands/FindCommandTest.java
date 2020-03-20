@@ -8,7 +8,7 @@ import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.testutil.TypicalStudents.CARL;
 import static tatracker.testutil.TypicalStudents.ELLE;
 import static tatracker.testutil.TypicalStudents.FIONA;
-import static tatracker.testutil.TypicalStudents.getTypicalAddressBook;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +24,8 @@ import tatracker.model.student.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalTaTracker(), new UserPrefs());
 
     @Test
     public void equals() {

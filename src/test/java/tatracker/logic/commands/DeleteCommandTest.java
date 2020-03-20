@@ -7,7 +7,7 @@ import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
-import static tatracker.testutil.TypicalStudents.getTypicalAddressBook;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ import tatracker.model.student.Student;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -68,7 +68,7 @@ public class DeleteCommandTest {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
 
         Index outOfBoundIndex = INDEX_SECOND_STUDENT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of ta-tracker list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaTracker().getStudentList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);

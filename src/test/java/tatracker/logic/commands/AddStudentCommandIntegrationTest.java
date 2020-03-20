@@ -21,7 +21,7 @@ public class AddStudentCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalStudents.getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(TypicalStudents.getTypicalTaTracker(), new UserPrefs());
     }
 
     @Test
