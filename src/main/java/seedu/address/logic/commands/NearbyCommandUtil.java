@@ -160,6 +160,7 @@ public class NearbyCommandUtil {
      * @return {@code List<String>} of all postal sectors regex with same area
      */
     public static List<String> sameAreaRegex(String searchTerm) {
+        requireNonNull(searchTerm);
         switch (searchTerm.toUpperCase()) {
         case "CENTRAL":
             return centralArea;

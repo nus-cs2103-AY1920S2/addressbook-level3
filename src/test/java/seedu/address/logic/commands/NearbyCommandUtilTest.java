@@ -95,6 +95,18 @@ class NearbyCommandUtilTest {
         assertTrue(NearbyCommandUtil.isValidPostalSector(VALID_POSTAL_SECTOR));
     }
 
+    @Test
+    void sameAreaRegex_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> NearbyCommandUtil.sameAreaRegex(null));
+    }
+
+    @Test
+    void sameAreaRegex_invalidSearchTerm_returnsEmptyList() {
+        String searchTerm = "La La Land";
+        List<String> output = NearbyCommandUtil.sameAreaRegex(searchTerm);
+        assertEquals(0, output.size());
+    }
+
     /**
      * Used to generate list of sectors belonging to the same general location
      *
