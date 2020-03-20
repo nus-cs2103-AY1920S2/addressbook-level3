@@ -23,11 +23,7 @@ import java.util.List;
 
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.savings.MonetaryAmount;
-import csdev.couponstash.model.coupon.savings.PercentageAmount;
-import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
-import csdev.couponstash.model.coupon.savings.Saveable;
-import csdev.couponstash.model.coupon.savings.Savings;
+import csdev.couponstash.model.coupon.savings.*;
 
 /**
  * A utility class containing a list of {@code Coupon} objects to be used in tests.
@@ -62,7 +58,7 @@ public class TypicalCoupons {
                     new Saveable("Norråker Table "))
     );
 
-    public static final PureMonetarySavings NO_TOTAL_SAVINGS = new PureMonetarySavings();
+    public static final DateSavingsSumMap NO_TOTAL_SAVINGS = new DateSavingsSumMap();
 
     public static final Coupon ALICE = new CouponBuilder().withName("Alice Pauline")
             .withPromoCode("I<3STASH")

@@ -15,7 +15,8 @@ import csdev.couponstash.model.tag.Tag;
 
 /**
  * Represents a Coupon in the CouponStash.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values are validated.
+ * All fields are immutable except for total savings.
  */
 public class Coupon {
 
@@ -140,13 +141,14 @@ public class Coupon {
     }
 
     /**
-     * Gets the date and savings map associated with
-     * this Coupon.
+     * Gets a shallow clone of the date and savings map
+     * that is associated with this Coupon. LocalDate
+     * and PureMonetarySavings are immutable, however.
      * @return DateSavingsSumMap representing the savings
      *     earned for specific dates.
      */
     public DateSavingsSumMap getSavingsMap() {
-        return this.totalSavings;
+        return (DateSavingsSumMap) this.totalSavings.clone();
     }
 
     public ExpiryDate getExpiryDate() {

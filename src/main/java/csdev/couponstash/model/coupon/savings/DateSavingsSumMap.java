@@ -13,8 +13,29 @@ import java.util.Map;
  * certain LocalDate by adding up the PureMonetarySavings
  * whenever the value already exists in the Map. Hence
  * putting new entries should always return null.
+ *
+ * <p>WARNING: This class is mutable, just like HashMap!
  */
 public class DateSavingsSumMap extends HashMap<LocalDate, PureMonetarySavings> {
+
+    /**
+     * Constructs a new empty DateSavingsSumMap.
+     */
+    public DateSavingsSumMap() {
+        super();
+    }
+
+    /**
+     * Constructs a DateSavingsSumMap with a single entry,
+     * given the key and value that make up this entry.
+     * @param ld LocalDate that acts as the key of the first entry.
+     * @param pms PureMonetarySavings that acts as the
+     *            associated value for this entry.
+     */
+    public DateSavingsSumMap(LocalDate ld, PureMonetarySavings pms) {
+        super();
+        this.add(ld, pms);
+    }
 
     /**
      * Associates the specified LocalDate with the specified

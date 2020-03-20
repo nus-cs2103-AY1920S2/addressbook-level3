@@ -21,7 +21,6 @@ import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
-import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -116,7 +115,7 @@ public class EditCommand extends Command {
                 couponToEdit.getUsage(),
                 updatedLimit, updatedTags,
                 // avoid changing the total savings and dates mappings
-                (DateSavingsSumMap) couponToEdit.getSavingsMap().clone(),
+                couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
                 couponToEdit.getRemind());
     }
