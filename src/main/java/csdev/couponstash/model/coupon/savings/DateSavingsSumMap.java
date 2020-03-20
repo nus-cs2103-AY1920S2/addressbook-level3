@@ -1,9 +1,10 @@
 package csdev.couponstash.model.coupon.savings;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -50,6 +51,7 @@ public class DateSavingsSumMap extends HashMap<LocalDate, PureMonetarySavings> {
      * @param m The mappings to be stored in this DateSavingsSumMap.
      */
     public void addAll(Map<? extends LocalDate, ? extends PureMonetarySavings> m) {
+        requireNonNull(m);
         m.forEach(this::add);
     }
 }
