@@ -21,12 +21,12 @@ public interface Storage extends TaTrackerStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getTaTrackerFilePath();
 
     @Override
-    Optional<ReadOnlyTaTracker> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaTracker> readTaTracker() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyTaTracker addressBook) throws IOException;
+    void saveTaTracker(ReadOnlyTaTracker taTracker) throws IOException;
 
 }

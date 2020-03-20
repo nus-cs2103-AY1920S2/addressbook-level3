@@ -16,7 +16,7 @@ public interface TaTrackerStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getTaTrackerFilePath();
 
     /**
      * Returns TaTracker data as a {@link ReadOnlyTaTracker}.
@@ -24,23 +24,23 @@ public interface TaTrackerStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTaTracker> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaTracker> readTaTracker() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getTaTrackerFilePath()
      */
-    Optional<ReadOnlyTaTracker> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTaTracker> readTaTracker(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyTaTracker} to the storage.
-     * @param addressBook cannot be null.
+     * @param taTracker cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyTaTracker addressBook) throws IOException;
+    void saveTaTracker(ReadOnlyTaTracker taTracker) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyTaTracker)
+     * @see #saveTaTracker(ReadOnlyTaTracker)
      */
-    void saveAddressBook(ReadOnlyTaTracker addressBook, Path filePath) throws IOException;
+    void saveTaTracker(ReadOnlyTaTracker taTracker, Path filePath) throws IOException;
 
 }

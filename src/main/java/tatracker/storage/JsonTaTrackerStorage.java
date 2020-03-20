@@ -27,32 +27,32 @@ public class JsonTaTrackerStorage implements TaTrackerStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getTaTrackerFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyTaTracker> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyTaTracker> readTaTracker() throws DataConversionException {
+        return readTaTracker(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readTaTracker()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTaTracker> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyTaTracker> readTaTracker(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableTaTracker> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableTaTracker> jsonTaTracker = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTaTracker.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonTaTracker.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonTaTracker.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonTaTrackerStorage implements TaTrackerStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaTracker addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveTaTracker(ReadOnlyTaTracker taTracker) throws IOException {
+        saveTaTracker(taTracker, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyTaTracker)}.
+     * Similar to {@link #saveTaTracker(ReadOnlyTaTracker)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyTaTracker addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveTaTracker(ReadOnlyTaTracker taTracker, Path filePath) throws IOException {
+        requireNonNull(taTracker);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableTaTracker(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableTaTracker(taTracker), filePath);
     }
 
 }

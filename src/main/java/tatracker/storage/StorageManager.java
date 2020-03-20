@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ TaTracker methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return taTrackerStorage.getAddressBookFilePath();
+    public Path getTaTrackerFilePath() {
+        return taTrackerStorage.getTaTrackerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyTaTracker> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(taTrackerStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaTracker> readTaTracker() throws DataConversionException, IOException {
+        return readTaTracker(taTrackerStorage.getTaTrackerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyTaTracker> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaTracker> readTaTracker(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return taTrackerStorage.readAddressBook(filePath);
+        return taTrackerStorage.readTaTracker(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaTracker addressBook) throws IOException {
-        saveAddressBook(addressBook, taTrackerStorage.getAddressBookFilePath());
+    public void saveTaTracker(ReadOnlyTaTracker taTracker) throws IOException {
+        saveTaTracker(taTracker, taTrackerStorage.getTaTrackerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaTracker addressBook, Path filePath) throws IOException {
+    public void saveTaTracker(ReadOnlyTaTracker taTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        taTrackerStorage.saveAddressBook(addressBook, filePath);
+        taTrackerStorage.saveTaTracker(taTracker, filePath);
     }
 
 }

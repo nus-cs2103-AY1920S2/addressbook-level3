@@ -16,7 +16,7 @@ import tatracker.model.student.Student;
 /**
  * An Immutable TaTracker that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "tatracker")
 class JsonSerializableTaTracker {
 
     public static final String MESSAGE_DUPLICATE_STUDENT = "Students list contains duplicate student(s).";
@@ -41,7 +41,7 @@ class JsonSerializableTaTracker {
     }
 
     /**
-     * Converts this address book into the model's {@code TaTracker} object.
+     * Converts this Ta Tracker into the model's {@code TaTracker} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
