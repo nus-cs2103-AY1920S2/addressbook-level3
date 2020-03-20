@@ -27,10 +27,10 @@ public class AddActivityCommand extends Command {
             + PREFIX_DURATION + "DURATION"
             + PREFIX_TAG + "TAGS...\n "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "Osaka Castle View"
-            + PREFIX_PRIORITY + "1"
-            + PREFIX_DURATION + "1"
-            + PREFIX_LOCATION + "Osaka"
+            + PREFIX_TITLE + "Osaka Castle View "
+            + PREFIX_PRIORITY + "1 "
+            + PREFIX_DURATION + "1 "
+            + PREFIX_LOCATION + "Osaka "
             + PREFIX_TAG + "expensive "
             + PREFIX_TAG + "weeb";;
 
