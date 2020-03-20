@@ -17,13 +17,13 @@ import seedu.expensela.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private ExpenseLaStorage expenseLaStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpenseLaStorage expenseLaStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.expenseLaStorage = expenseLaStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ ExpenseLa methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getExpenseLaFilePath() {
+        return expenseLaStorage.getExpenseLaFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyExpenseLa> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyExpenseLa> readExpenseLa() throws DataConversionException, IOException {
+        return readExpenseLa(expenseLaStorage.getExpenseLaFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyExpenseLa> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyExpenseLa> readExpenseLa(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return expenseLaStorage.readExpenseLa(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyExpenseLa addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveExpenseLa(ReadOnlyExpenseLa expenseLa) throws IOException {
+        saveExpenseLa(expenseLa, expenseLaStorage.getExpenseLaFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyExpenseLa addressBook, Path filePath) throws IOException {
+    public void saveExpenseLa(ReadOnlyExpenseLa expenseLa, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        expenseLaStorage.saveExpenseLa(expenseLa, filePath);
     }
 
 }

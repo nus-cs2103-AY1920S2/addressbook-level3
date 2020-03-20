@@ -10,8 +10,8 @@ import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.TransactionList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the expensela level
+ * Duplicates are not allowed (by .isSameTransaction comparison)
  */
 public class ExpenseLa implements ReadOnlyExpenseLa {
 
@@ -33,7 +33,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     public ExpenseLa() {}
 
     /**
-     * Creates an ExpenseLa using the Persons in the {@code toBeCopied}
+     * Creates an ExpenseLa using the Transactions in the {@code toBeCopied}
      */
     public ExpenseLa(ReadOnlyExpenseLa toBeCopied) {
         this();
@@ -43,7 +43,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code transactions}.
+     * Replaces the contents of the transaction list with {@code transactions}.
      * {@code transactions} must not contain duplicate transactions.
      */
     public void setTransactions(List<Transaction> transactions) {
@@ -62,34 +62,34 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     public void resetData(ReadOnlyExpenseLa newData) {
         requireNonNull(newData);
 
-        setTransactions(newData.getPersonList());
+        setTransactions(newData.getTransactionList());
         setMonthlyData(newData.getMonthlyData());
     }
 
-    //// person-level operations
+    //// transaction-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a transaction with the same identity as {@code transaction} exists in the expensela.
      */
-    public boolean hasPerson(Transaction transaction) {
+    public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
         return transactions.contains(transaction);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a transaction to the expensela.
+     * The transaction must not already exist in the expensela.
      */
-    public void addPerson(Transaction p) {
+    public void addTransaction(Transaction p) {
         transactions.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
+     * {@code target} must exist in the expensela.
+     * The transaction identity of {@code editedTransaction} must not be the same as another existing transaction in the expensela.
      */
-    public void setPerson(Transaction target, Transaction editedTransaction) {
+    public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);
 
         transactions.setTransaction(target, editedTransaction);
@@ -99,7 +99,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
      * Removes {@code key} from this {@code ExpenseLa}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Transaction key) {
+    public void removeTransaction(Transaction key) {
         transactions.remove(key);
     }
 
@@ -112,7 +112,7 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     }
 
     @Override
-    public ObservableList<Transaction> getPersonList() {
+    public ObservableList<Transaction> getTransactionList() {
         return transactions.asUnmodifiableObservableList();
     }
 

@@ -17,42 +17,42 @@ import seedu.expensela.model.ReadOnlyExpenseLa;
 /**
  * A class to access ExpenseLa data stored as a json file on the hard disk.
  */
-public class JsonAddressBookStorage implements AddressBookStorage {
+public class JsonExpenseLaStorage implements ExpenseLaStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonExpenseLaStorage.class);
 
     private Path filePath;
 
-    public JsonAddressBookStorage(Path filePath) {
+    public JsonExpenseLaStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getExpenseLaFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyExpenseLa> readAddressBook() throws DataConversionException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyExpenseLa> readExpenseLa() throws DataConversionException {
+        return readExpenseLa(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
+     * Similar to {@link #readExpenseLa()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyExpenseLa> readAddressBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyExpenseLa> readExpenseLa(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
-        if (!jsonAddressBook.isPresent()) {
+        Optional<JsonSerializableExpenseLa> jsonExpenseLa = JsonUtil.readJsonFile(
+                filePath, JsonSerializableExpenseLa.class);
+        if (!jsonExpenseLa.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonExpenseLa.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +60,21 @@ public class JsonAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyExpenseLa addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveExpenseLa(ReadOnlyExpenseLa expenseLa) throws IOException {
+        saveExpenseLa(expenseLa, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyExpenseLa)}.
+     * Similar to {@link #saveExpenseLa(ReadOnlyExpenseLa)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyExpenseLa addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveExpenseLa(ReadOnlyExpenseLa expenseLa, Path filePath) throws IOException {
+        requireNonNull(expenseLa);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableExpenseLa(expenseLa), filePath);
     }
 
 }

@@ -15,7 +15,7 @@ public class TransactionUtil {
 
     /**
      * Returns an add command string for adding the {@code transaction}.
-     RPRE
+     */
     public static String getAddCommand(Transaction transaction) {
         return AddCommand.COMMAND_WORD + " " + getTransactionDetails(transaction);
     }

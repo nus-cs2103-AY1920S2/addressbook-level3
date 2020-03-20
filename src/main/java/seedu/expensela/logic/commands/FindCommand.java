@@ -7,7 +7,7 @@ import seedu.expensela.model.Model;
 import seedu.expensela.model.transaction.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all transactions in address book whose name contains any of the argument keywords.
+ * Finds and lists all transactions in expensela whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

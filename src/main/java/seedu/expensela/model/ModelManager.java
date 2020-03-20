@@ -15,7 +15,7 @@ import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the expensela data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         this.expenseLa = new ExpenseLa(expenseLa);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredTransactions = new FilteredList<>(this.expenseLa.getPersonList());
+        filteredTransactions = new FilteredList<>(this.expenseLa.getTransactionList());
         monthlyData = this.expenseLa.getMonthlyData();
     }
 
@@ -69,14 +69,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getExpenseLaFilePath() {
+        return userPrefs.getExpenseLaFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setExpenseLaFilePath(Path expenseLaFilePath) {
+        requireNonNull(expenseLaFilePath);
+        userPrefs.setExpenseLaFilePath(expenseLaFilePath);
     }
 
     //=========== ExpenseLa ================================================================================
@@ -94,17 +94,17 @@ public class ModelManager implements Model {
     @Override
     public boolean hasTransaction(Transaction transaction) {
         requireNonNull(transaction);
-        return expenseLa.hasPerson(transaction);
+        return expenseLa.hasTransaction(transaction);
     }
 
     @Override
     public void deleteTransaction(Transaction target) {
-        expenseLa.removePerson(target);
+        expenseLa.removeTransaction(target);
     }
 
     @Override
     public void addTransaction(Transaction transaction) {
-        expenseLa.addPerson(transaction);
+        expenseLa.addTransaction(transaction);
         updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
@@ -112,14 +112,14 @@ public class ModelManager implements Model {
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireAllNonNull(target, editedTransaction);
 
-        expenseLa.setPerson(target, editedTransaction);
+        expenseLa.setTransaction(target, editedTransaction);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Transaction List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Transaction} backed by the internal list of
+     * {@code versionedExpenseLa}
      */
     @Override
     public ObservableList<Transaction> getFilteredTransactionList() {
@@ -158,5 +158,13 @@ public class ModelManager implements Model {
     @Override
     public MonthlyData getMonthlyData() {
         return monthlyData;
+    }
+
+    /**
+     * Update monthly data object
+     */
+    @Override
+    public void updateMonthlyData(MonthlyData monthlyData) {
+        expenseLa.setMonthlyData(monthlyData);
     }
 }

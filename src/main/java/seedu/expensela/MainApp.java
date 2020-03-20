@@ -23,8 +23,8 @@ import seedu.expensela.model.ReadOnlyUserPrefs;
 import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.util.SampleDataUtil;
-import seedu.expensela.storage.AddressBookStorage;
-import seedu.expensela.storage.JsonAddressBookStorage;
+import seedu.expensela.storage.ExpenseLaStorage;
+import seedu.expensela.storage.JsonExpenseLaStorage;
 import seedu.expensela.storage.JsonUserPrefsStorage;
 import seedu.expensela.storage.Storage;
 import seedu.expensela.storage.StorageManager;
@@ -57,8 +57,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ExpenseLaStorage expenseLaStorage = new JsonExpenseLaStorage(userPrefs.getExpenseLaFilePath());
+        storage = new StorageManager(expenseLaStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -70,19 +70,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s expensela and {@code userPrefs}. <br>
+     * The data from the sample expensela will be used instead if {@code storage}'s expensela is not found,
+     * or an empty expensela will be used instead if errors occur when reading {@code storage}'s expensela.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExpenseLa> expenseLaOptional;
         ReadOnlyExpenseLa initialData;
         try {
-            expenseLaOptional = storage.readAddressBook();
+            expenseLaOptional = storage.readExpenseLa();
             if (!expenseLaOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExpenseLa");
             }
-            initialData = expenseLaOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = expenseLaOptional.orElseGet(SampleDataUtil::getSampleExpenseLa);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExpenseLa");
             initialData = new ExpenseLa();
@@ -174,7 +174,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping ExpenseLa ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

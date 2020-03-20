@@ -95,12 +95,12 @@ public class JsonDateBookStorageTest {
     }
 
     /**
-     * Saves {@code ExpenseLa} at the specified {@code filePath}.
+     * Saves {@code expenseLa} at the specified {@code filePath}.
      */
-    private void saveExpenseLa(ReadOnlyExpenseLa ExpenseLa, String filePath) {
+    private void saveExpenseLa(ReadOnlyExpenseLa expenseLa, String filePath) {
         try {
             new JsonExpenseLaStorage(Paths.get(filePath))
-                    .saveExpenseLa(ExpenseLa, addToTestDataPathIfNotNull(filePath));
+                    .saveExpenseLa(expenseLa, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

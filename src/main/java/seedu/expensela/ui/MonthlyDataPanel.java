@@ -9,11 +9,13 @@ import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.monthlydata.MonthlyData;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of transactions.
  */
 public class MonthlyDataPanel extends UiPart<Region> {
     private static final String FXML = "MonthlyDataPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(MonthlyDataPanel.class);
+
+    public final MonthlyData monthlyData;
 
     @FXML
     private Label expenditureLabel;
@@ -29,6 +31,11 @@ public class MonthlyDataPanel extends UiPart<Region> {
 
     public MonthlyDataPanel(MonthlyData monthlyData) {
         super(FXML);
+        this.monthlyData = monthlyData;
+        expenditureLabel.setText("Monthly Expense: ");
+        budgetLabel.setText("Monthly Budget: ");
+        incomeLabel.setText("Monthly Income: ");
+        balanceLabel.setText("Total Balance: ");
     }
 
 }

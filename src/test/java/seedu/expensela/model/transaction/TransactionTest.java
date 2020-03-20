@@ -83,5 +83,4 @@ public class TransactionTest {
         editedAlice = new TransactionBuilder(ALICE).build();
         assertFalse(ALICE.equals(editedAlice));
     }
-
 }

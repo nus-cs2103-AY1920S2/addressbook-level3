@@ -104,7 +104,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setExpenseLaFilePath(Path ExpenseLaFilePath) {
+        public void setExpenseLaFilePath(Path expenseLaFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

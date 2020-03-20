@@ -10,7 +10,7 @@ import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.logic.commands.Command;
 import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
-import seedu.expensela.logic.parser.AddressBookParser;
+import seedu.expensela.logic.parser.ExpenseLaParser;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
@@ -27,12 +27,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final ExpenseLaParser expenseLaParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        expenseLaParser = new ExpenseLaParser();
     }
 
     @Override
@@ -40,11 +40,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = expenseLaParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getExpenseLa());
+            storage.saveExpenseLa(model.getExpenseLa());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -68,8 +68,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getExpenseLaFilePath() {
+        return model.getExpenseLaFilePath();
     }
 
     @Override

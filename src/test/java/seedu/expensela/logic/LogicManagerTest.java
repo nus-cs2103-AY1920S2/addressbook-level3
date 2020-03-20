@@ -43,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonExpenseLaStorage ExpenseLaStorage =
-                new JsonExpenseLaStorage(temporaryFolder.resolve("ExpenseLa.json"));
+        JsonExpenseLaStorage expenseLaStorage =
+                new JsonExpenseLaStorage(temporaryFolder.resolve("expenseLa.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(ExpenseLaStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -71,11 +71,11 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonExpenseLaIoExceptionThrowingStub
-        JsonExpenseLaStorage ExpenseLaStorage =
+        JsonExpenseLaStorage expenseLaStorage =
                 new JsonExpenseLaIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExpenseLa.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(ExpenseLaStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(expenseLaStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -155,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveExpenseLa(ReadOnlyExpenseLa ExpenseLa, Path filePath) throws IOException {
+        public void saveExpenseLa(ReadOnlyExpenseLa expenseLa, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

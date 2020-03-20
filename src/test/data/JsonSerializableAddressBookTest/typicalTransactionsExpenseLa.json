@@ -1,0 +1,53 @@
+{
+  "_comment": "ExpenseLa save file which contains the same Transaction values as in TypicalTransactions#getTypicalExpenseLa()",
+  "transactions" : [ {
+    "name": "Domino's Pizza",
+    "amount": "100.00",
+    "date": "2020-02-07",
+    "positive": "false",
+    "type": "Food",
+    "remark": "Treating friends"
+  }, {
+    "name": "Grab to school",
+    "amount": "15.00",
+    "positive": "false",
+    "date": "2020-02-28",
+    "type": "Transport",
+    "remark": "Split cost with Greg"
+  }, {
+    "name": "Valentine's meal",
+    "amount": "50.20",
+    "date": "2020-02-14",
+    "positive": "false",
+    "type": "Food",
+    "remark": "Love my babe"
+  }, {
+    "name": "CS3230 Textbook",
+    "amount": "48.00",
+    "date": "2019-12-01",
+    "positive": "false",
+    "type": "Others",
+    "remark": "I hate CS3230"
+  }, {
+    "name": "BTS Album",
+    "amount": "30.50",
+    "date": "2020-01-01",
+    "positive": "false",
+    "type": "Others",
+    "remark": ""
+  }, {
+    "name": "Internship Pay",
+    "amount": "1000.00",
+    "positive": "true",
+    "date": "2019-01-08",
+    "type": "Income",
+    "remark": ""
+  }, {
+    "name": "Angpao Money",
+    "amount": "200.88",
+    "positive": "true",
+    "date": "2019-02-26",
+    "type": "Others",
+    "remark": "GONG XI FA CAI"
+  } ]
+}

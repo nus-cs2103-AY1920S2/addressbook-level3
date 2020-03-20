@@ -25,7 +25,7 @@ public class TransactionBuilder {
     }
 
     /**
-     * Initializes the TransactionBuilder with the data of {@code TransactionToCopy}.
+     * Initializes the TransactionBuilder with the data of {@code transactionToCopy}.
      */
     public TransactionBuilder(Transaction transactionToCopy) {
         name = transactionToCopy.getName();

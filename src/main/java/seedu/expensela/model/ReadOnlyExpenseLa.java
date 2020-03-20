@@ -5,15 +5,15 @@ import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an expensela
  */
 public interface ReadOnlyExpenseLa {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the transactions list.
+     * This list will not contain any duplicate transactions.
      */
-    ObservableList<Transaction> getPersonList();
+    ObservableList<Transaction> getTransactionList();
 
     MonthlyData getMonthlyData();
 }
