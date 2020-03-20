@@ -10,8 +10,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandWords;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.module.AddModuleCommandParser;
-import seedu.address.logic.parser.module.DeleteModuleCommandParser;
 
 /**
  * Parses user input into commands that interact with Module models.

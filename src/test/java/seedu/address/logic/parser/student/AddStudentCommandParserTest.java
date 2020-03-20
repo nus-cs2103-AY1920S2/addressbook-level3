@@ -32,7 +32,6 @@ import static seedu.address.testutil.TypicalStudents.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.student.AddStudentCommand;
-import seedu.address.logic.parser.student.AddStudentCommandParser;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Matric;
 import seedu.address.model.student.Name;

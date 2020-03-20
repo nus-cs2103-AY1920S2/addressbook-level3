@@ -10,9 +10,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandWords;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.student.AddStudentCommandParser;
-import seedu.address.logic.parser.student.DeleteStudentCommandParser;
-import seedu.address.logic.parser.student.EditStudentCommandParser;
 
 /**
  * Parses user input into commands that interact with Student models.
