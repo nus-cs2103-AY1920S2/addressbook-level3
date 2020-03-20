@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.group;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -10,11 +10,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandWords;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.group.AddGroupCommandParser;
+import seedu.address.logic.parser.group.DeleteGroupCommandParser;
 
 /**
- * Parses user input into commands that interact with Module models.
+ * Parses user input into commands that interact with Group models.
  */
-public class ModuleCommandParser {
+public class GroupCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -41,10 +43,10 @@ public class ModuleCommandParser {
         switch (commandWord) {
 
         case CommandWords.ADD_MODEL:
-            return new AddModuleCommandParser().parse(arguments);
+            return new AddGroupCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
-            return new DeleteModuleCommandParser().parse(arguments);
+            return new DeleteGroupCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
             // return new EditGroupCommandParser().parse(arguments);
