@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +12,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.session.SessionType;
+import seedu.address.model.group.Group.GroupType;
+import seedu.address.model.session.Session.SessionType;
+import seedu.address.model.session.Session;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Matric;
 import seedu.address.model.student.Name;
@@ -24,6 +27,9 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
+    private static final String MESSAGE_INVALID_DATE = "Dates should be in yyyy-MM-dd format";
+    private static final String MESSAGE_INVALID_TIME = "Times should be in HH:mm format";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -137,20 +143,32 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String date} into a {@code LocalDate}
+     *
+     * @throws ParseException if the given {@code date} is invalid.
      */
-    public static LocalDate parseDate(String date) {
+    public static LocalDate parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        return LocalDate.parse(trimmedDate);
+        try {
+            return LocalDate.parse(trimmedDate);
+        } catch (DateTimeParseException dtpe) {
+            throw new ParseException(MESSAGE_INVALID_DATE);
+        }
     }
 
     /**
      * Parses a {@code String time} into a {@code LocalTime}
+     *
+     * @throws ParseException if the given {@code time} is invalid.
      */
-    public static LocalTime parseTime(String time) {
+    public static LocalTime parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        return LocalTime.parse(trimmedTime);
+        try {
+            return LocalTime.parse(trimmedTime);
+        } catch (DateTimeParseException dtpe) {
+            throw new ParseException(MESSAGE_INVALID_TIME);
+        }
     }
 
     /**
@@ -162,17 +180,31 @@ public class ParserUtil {
         assert (trimmedType.equals(trimmedType.toLowerCase()));
         switch (trimmedType) {
         case "tutorial":
-            return SessionType.SESSION_TYPE_TUTORIAL;
+            return Session.SessionType.TUTORIAL;
         case "lab":
-            return SessionType.SESSION_TYPE_LAB;
+            return Session.SessionType.LAB;
         case "consultation":
-            return SessionType.SESSION_TYPE_CONSULTATION;
+            return Session.SessionType.CONSULTATION;
         case "grading":
-            return SessionType.SESSION_TYPE_GRADING;
+            return Session.SessionType.GRADING;
         case "preparation":
-            return SessionType.SESSION_TYPE_PREPARATION;
+            return Session.SessionType.PREPARATION;
         default:
-            return SessionType.SESSION_TYPE_OTHER;
+            return Session.SessionType.OTHER;
+        }
+    }
+
+    /**
+     * Parses and returns Group Type of group.
+     */
+    public static GroupType parseGroupType(String type) {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        switch(trimmedType.toLowerCase()) {
+        case "lab":
+            return GroupType.LAB;
+        default:
+            return GroupType.TUTORIAL;
         }
     }
 }

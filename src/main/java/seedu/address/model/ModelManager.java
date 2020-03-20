@@ -132,16 +132,31 @@ public class ModelManager implements Model {
         addressBook.addModule(module);
     }
 
-    @Override
-    public void deleteModule(Module target) {
-        addressBook.removeModule(target);
-    }
 
     @Override
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
         addressBook.setModule(target, editedModule);
+    }
+
+    @Override
+    public void deleteModule(Module module) {
+        requireNonNull(module);
+        addressBook.deleteModule(module);
+    }
+
+    @Override
+    public Module getModule(Module module) {
+        requireNonNull(module);
+        return addressBook.getModule(module);
+    }
+
+    @Override
+    public Module getModule(String code) {
+        requireNonNull(code);
+        Module module = new Module(code, null);
+        return addressBook.getModule(module);
     }
 
     //=========== Filtered Student List Accessors =============================================================

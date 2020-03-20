@@ -32,9 +32,9 @@ public class EditSessionCommand extends Command {
     public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, CommandWords.EDIT_MODEL);
 
     /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker."
-            + "Parameters: "
-            + "index"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_STARTTIME + "START] "
             + "[" + PREFIX_ENDTIME + "END] "
             + "[" + PREFIX_DATE + "DATE] "
@@ -42,7 +42,8 @@ public class EditSessionCommand extends Command {
             + "[" + PREFIX_MOD_CODE + "MOD_CODE] "
             + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
             + "[" + PREFIX_NOTES + "NOTES] "
-            + "Example: " + COMMAND_WORD + " 2" + PREFIX_DATE + "20-02-2020 ";
+            + "Example: " + COMMAND_WORD + " 2 "
+            + PREFIX_DATE + "20-02-2020 ";
 
     public static final String MESSAGE_SUCCESS = "Session updated: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

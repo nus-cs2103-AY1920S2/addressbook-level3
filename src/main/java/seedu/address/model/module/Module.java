@@ -34,6 +34,18 @@ public class Module {
         groups.add(group);
     }
 
+    public boolean hasGroup(Group group) {
+        return groups.contains(group);
+    }
+
+    /**
+     * Deletes the group that is equal to the given group.
+     */
+    public void deleteGroup(Group group) {
+        groups.remove(group);
+    }
+
+
     /**
      * Gets group with given group code (could be tutorial or
      * lab code). Returns null if no such group exists.
@@ -85,6 +97,7 @@ public class Module {
                 str.append((", " + groups.get(i)));
             }
         }
+        str.append("]");
         return str.toString();
     }
 

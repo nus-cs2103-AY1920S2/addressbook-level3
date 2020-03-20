@@ -1,6 +1,5 @@
 package seedu.address.logic.parser.session;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
@@ -14,13 +13,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditSessionCommand;
+import seedu.address.logic.commands.AddSessionCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.session.Session;
 
 /*
  * === BUGS ===
@@ -31,72 +30,60 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 
 /**
- * Parses input arguments and creates a new EditSessionCommand object
+ * Parses input arguments and creates a new AddSessionCommand object
  */
-public class EditSessionCommandParser implements Parser<EditSessionCommand> {
+public class AddSessionCommandParser implements Parser<AddSessionCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditSessionCommand
+     * Parses the given {@code String} of arguments in the context of the AddSessionCommand
      * and returns an AddSessionCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public EditSessionCommand parse(String args) throws ParseException {
-        requireNonNull(args);
+    public AddSessionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STARTTIME, PREFIX_ENDTIME,
                 PREFIX_DATE, PREFIX_RECUR, PREFIX_MOD_CODE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSessionCommand.MESSAGE_USAGE),
-                    pe);
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSessionCommand.MESSAGE_USAGE));
         }
 
-        EditSessionCommand.EditSessionDescriptor editSessionDescriptor = new EditSessionCommand.EditSessionDescriptor();
+        LocalDate date = LocalDate.now();
+        Session sessionToAdd = new Session();
 
-        LocalDate date = LocalDate.now(); // Arbitrary default value. Will be overwritten by EditSessionCommand
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-            editSessionDescriptor.setIsDateChanged(true);
         }
 
         if (argMultimap.getValue(PREFIX_STARTTIME).isPresent()) {
             LocalTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
-            editSessionDescriptor.setStartTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
+            sessionToAdd.setStartDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     startTime.getHour(), startTime.getMinute(), startTime.getSecond()));
         }
 
         if (argMultimap.getValue(PREFIX_ENDTIME).isPresent()) {
             LocalTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
-            editSessionDescriptor.setEndTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
+            sessionToAdd.setEndDateTime(LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(),
                     endTime.getHour(), endTime.getMinute(), endTime.getSecond()));
         }
 
         if (argMultimap.getValue(PREFIX_RECUR).isPresent()) {
-            editSessionDescriptor.setIsRecurring(argMultimap.getValue(PREFIX_RECUR).isPresent());
+            sessionToAdd.setRecurring(argMultimap.getValue(PREFIX_RECUR).isPresent());
         }
 
         if (argMultimap.getValue(PREFIX_MOD_CODE).isPresent()) {
-            editSessionDescriptor.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MOD_CODE).get()));
+            sessionToAdd.setModuleCode(ParserUtil.parseValue(argMultimap.getValue(PREFIX_MOD_CODE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_SESSION_TYPE).isPresent()) {
-            editSessionDescriptor.setSessionType(
+            sessionToAdd.setType(
                     ParserUtil.parseSessionType(argMultimap.getValue(PREFIX_SESSION_TYPE).get()));
         }
 
         if (argMultimap.getValue(PREFIX_NOTES).isPresent()) {
-            editSessionDescriptor.setDescription(ParserUtil.parseValue(argMultimap.getValue(PREFIX_NOTES).get()));
+            sessionToAdd.setDescription(ParserUtil.parseValue(argMultimap.getValue(PREFIX_NOTES).get()));
         }
 
-        // TODO: Check if editing should be allowed if there are no fields
-        if (!editSessionDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditSessionCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditSessionCommand(index, editSessionDescriptor);
+        return new AddSessionCommand(sessionToAdd);
     }
 }
