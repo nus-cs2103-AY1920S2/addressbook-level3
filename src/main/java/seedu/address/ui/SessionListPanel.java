@@ -42,5 +42,4 @@ public class SessionListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

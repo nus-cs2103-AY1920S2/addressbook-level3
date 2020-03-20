@@ -5,12 +5,12 @@ package seedu.address.model.session;
  * Example session types include: Tutorial, Grading, Consultation, etc.
  */
 public enum SessionType {
-    SESSION_TYPE_TUTORIAL ("Tutorial"),
-    SESSION_TYPE_LAB ("Lab"),
-    SESSION_TYPE_CONSULTATION ("Consultation"),
-    SESSION_TYPE_GRADING ("Grading"),
-    SESSION_TYPE_PREPARATION ("Preparation"),
-    SESSION_TYPE_OTHER ("Other");
+    TUTORIAL ("Tutorial"),
+    LAB ("Lab"),
+    CONSULTATION ("Consultation"),
+    GRADING ("Grading"),
+    PREPARATION ("Preparation"),
+    OTHER ("Other");
 
     private String typeName;
     private SessionType(String typeName) {

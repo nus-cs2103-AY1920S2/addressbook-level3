@@ -28,11 +28,13 @@ public class SessionCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label duration;
-    @FXML
-    private Label moduleCode;
-    @FXML
     private Label type;
+    @FXML
+    private Label start;
+    @FXML
+    private Label end;
+    @FXML
+    private Label module;
     @FXML
     private Label description;
 
@@ -40,9 +42,10 @@ public class SessionCard extends UiPart<Region> {
         super(FXML);
         this.session = session;
         id.setText(displayedIndex + ". ");
-        duration.setText(session.getStartDateTime().toString() + "-" + session.getEndDateTime());
-        moduleCode.setText(session.getModuleCode());
         type.setText(session.getSessionType().toString());
+        start.setText(session.getStartDateTime().toString());
+        end.setText(session.getEndDateTime().toString());
+        module.setText(session.getModuleCode());
         description.setText(session.getDescription());
     }
 

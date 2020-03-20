@@ -13,8 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group.GroupType;
-import seedu.address.model.session.Session.SessionType;
-import seedu.address.model.session.Session;
+import seedu.address.model.session.SessionType;
 import seedu.address.model.student.Email;
 import seedu.address.model.student.Matric;
 import seedu.address.model.student.Name;
@@ -180,17 +179,17 @@ public class ParserUtil {
         assert (trimmedType.equals(trimmedType.toLowerCase()));
         switch (trimmedType) {
         case "tutorial":
-            return Session.SessionType.TUTORIAL;
+            return SessionType.TUTORIAL;
         case "lab":
-            return Session.SessionType.LAB;
+            return SessionType.LAB;
         case "consultation":
-            return Session.SessionType.CONSULTATION;
+            return SessionType.CONSULTATION;
         case "grading":
-            return Session.SessionType.GRADING;
+            return SessionType.GRADING;
         case "preparation":
-            return Session.SessionType.PREPARATION;
+            return SessionType.PREPARATION;
         default:
-            return Session.SessionType.OTHER;
+            return SessionType.OTHER;
         }
     }
 
