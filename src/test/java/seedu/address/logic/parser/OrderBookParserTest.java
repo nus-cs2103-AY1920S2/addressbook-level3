@@ -14,18 +14,18 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.InsertCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NearbyCommand;
+import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.NameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.OrderUtil;
@@ -37,8 +37,8 @@ public class OrderBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Order order = new OrderBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(OrderUtil.getAddCommand(order));
-        assertEquals(new AddCommand(order), command);
+        InsertCommand command = (InsertCommand) parser.parseCommand(OrderUtil.getInsertCommand(order));
+        assertEquals(new InsertCommand(order), command);
     }
 
     @Test
@@ -70,11 +70,11 @@ public class OrderBookParserTest {
     }
 
     @Test
-    public void parseCommand_find() throws Exception {
+    public void parseCommand_search() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        SearchCommand command = (SearchCommand) parser.parseCommand(
+                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCommand(new OrderContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

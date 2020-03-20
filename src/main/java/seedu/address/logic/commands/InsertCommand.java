@@ -19,22 +19,22 @@ import seedu.address.model.order.Order;
 /**
  * Adds a order to the order book.
  */
-public class AddCommand extends Command {
+public class InsertCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "insert";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an order to the order book. "
             + "Parameters: "
-            + PREFIX_TID + "TRANSACTION_ID"
+            + PREFIX_TID + "TRANSACTION_ID "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + PREFIX_DELIVERY_TIMESTAMP + "Delivery_DATE_&_TIME "
-            + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION "
-            + PREFIX_COD + "CASH_ON_DELIVERY"
+            + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION " + "\n"
+            + PREFIX_COD + "CASH_ON_DELIVERY "
             + "[" + PREFIX_COMMENT + "COMMENT] "
-            + "[" + PREFIX_TYPE + "TYPE_OF_ITEM] "
+            + "[" + PREFIX_TYPE + "TYPE_OF_ITEM] " + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TID + "A999999 "
             + PREFIX_NAME + "John Doe "
@@ -43,9 +43,9 @@ public class AddCommand extends Command {
             + PREFIX_EMAIL + "johndoe@gmail.com"
             + PREFIX_DELIVERY_TIMESTAMP + "2019-12-02 1500 "
             + PREFIX_WAREHOUSE + "5 Toh Guan Rd E, #02-30 S608831 "
-            + PREFIX_COD + "$2"
+            + PREFIX_COD + "$2 "
             + PREFIX_COMMENT + "NIL "
-            + PREFIX_TYPE + "glass";
+            + PREFIX_TYPE + "glass ";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
     public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the order book";
@@ -53,9 +53,9 @@ public class AddCommand extends Command {
     private final Order toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Order}
+     * Creates an InsertCommand to add the specified {@code Order}
      */
-    public AddCommand(Order order) {
+    public InsertCommand(Order order) {
         requireNonNull(order);
         toAdd = order;
     }
@@ -75,7 +75,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof InsertCommand // instanceof handles nulls
+                && toAdd.equals(((InsertCommand) other).toAdd));
     }
 }

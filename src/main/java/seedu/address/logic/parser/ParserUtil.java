@@ -181,7 +181,7 @@ public class ParserUtil {
     public static TypeOfItem parseItemType(String itemType) throws ParseException {
         requireNonNull(itemType);
         String itemTypeTrimmed = itemType.trim();
-        if (!TypeOfItem.isValidItemName(itemTypeTrimmed)) {
+        if (!TypeOfItem.isValidItemType(itemTypeTrimmed)) {
             throw new ParseException(TypeOfItem.MESSAGE_CONSTRAINTS);
         }
 
