@@ -1,5 +1,6 @@
 package seedu.eylah.expensesplitter.storage;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +34,7 @@ public class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
+
     }
 
     /**
@@ -48,7 +50,12 @@ public class JsonAdaptedPerson {
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
+
         final Name modelName = new Name(name);
+
+
+
+
 
 
         return new Person(modelName, null);

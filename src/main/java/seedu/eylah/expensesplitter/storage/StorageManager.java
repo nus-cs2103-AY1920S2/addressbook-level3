@@ -63,7 +63,7 @@ public class StorageManager implements Storage {
     @Override
     public Optional<ReadOnlyPersonAmountBook> readPersonAmountBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return readPersonAmountBook(personAmountStorage.getPersonAmountBookFilePath());
+        return personAmountStorage.readPersonAmountBook(filePath);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class StorageManager implements Storage {
     @Override
     public void savePersonAmountBook(ReadOnlyPersonAmountBook personAmountBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        savePersonAmountBook(personAmountBook, personAmountStorage.getPersonAmountBookFilePath());
+        personAmountStorage.savePersonAmountBook(personAmountBook, filePath);
     }
 
 

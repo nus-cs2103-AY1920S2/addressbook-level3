@@ -49,15 +49,16 @@ public class JsonSerializablePersonAmountBook {
      * @throws IllegalValueException if there were any data constraints violated.
      */
     public PersonAmountBook toModelType() throws IllegalValueException {
-        PersonAmountBook addressBook = new PersonAmountBook();
+        PersonAmountBook personAmountBook = new PersonAmountBook();
         for (JsonAdaptedPerson jsonAdaptedPerson : persons) {
             Person person = jsonAdaptedPerson.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (personAmountBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            personAmountBook.addPerson(person);
+
         }
-        return addressBook;
+        return personAmountBook;
     }
 
 }

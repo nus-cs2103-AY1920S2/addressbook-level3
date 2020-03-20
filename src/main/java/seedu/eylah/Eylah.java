@@ -97,14 +97,17 @@ public class Eylah {
 
 
             //AppParameters appParameters = AppParameters.parse(getParameters());
-            config = initConfig(Paths.get(""));
+            config = initConfig(null);
+
 
             UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
             UserPrefs userPrefs = initPrefs(userPrefsStorage);
+
             PersonAmountStorage personAmountStorage = new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
             storage = new StorageManager(personAmountStorage, userPrefsStorage);
 
             splitterModel = initModelManager(storage, userPrefs);
+
 
             splitterLogic = new seedu.eylah.expensesplitter.logic.LogicManager(splitterModel, storage);
             while (!isExit) {
@@ -136,6 +139,7 @@ public class Eylah {
         Optional<ReadOnlyPersonAmountBook> personAmountBookOptional;
         ReadOnlyPersonAmountBook initialData;
         try {
+
             personAmountBookOptional = storage.readPersonAmountBook();
             if (!personAmountBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
