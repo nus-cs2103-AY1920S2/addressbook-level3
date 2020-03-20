@@ -35,10 +35,7 @@ public class Content {
      * @return a boolean value
      */
     public boolean isContentEmpty() {
-        if (this.value == null || this.value.equals("")) {
-            return true;
-        }
-        return false;
+        return this.value == null || this.value.equals("");
     }
 
     public String getValue() {
@@ -60,7 +57,7 @@ public class Content {
      */
     public void add(String appendingStr) {
         StringBuilder sb = new StringBuilder(this.value);
-        checkArgument(isValidContent(sb.append(appendingStr).toString()),
+        checkArgument(isValidContent(new StringBuilder(this.value).append(appendingStr).toString()),
                 MESSAGE_CONSTRAINTS);
         if (!isContentEmpty()) {
             sb.append(" ");
