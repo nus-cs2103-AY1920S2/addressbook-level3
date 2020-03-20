@@ -55,7 +55,7 @@ public class AbsolutePath implements Path {
      * @return Absolute Path.
      * @throws InvalidPathException if String provided is not a valid absolutePath.
      */
-    public static AbsolutePath fromComponent(List<String> absoluteComponents) {
+    public static AbsolutePath fromComponents(List<String> absoluteComponents) {
         return new AbsolutePath(absoluteComponents);
     }
 
