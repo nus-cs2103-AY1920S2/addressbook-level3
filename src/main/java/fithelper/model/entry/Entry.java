@@ -3,6 +3,7 @@ package fithelper.model.entry;
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ public class Entry {
     private final Calorie calorie;
     private Status status;
     private Remark remark;
+    private fithelper.model.entry.Duration duration;
 
     /**
      * Every field must be present and not null.
@@ -33,12 +35,14 @@ public class Entry {
         this.calorie = calorie;
         this.status = new Status("Undone");
         this.remark = new Remark("");
+        this.duration = new fithelper.model.entry.Duration("1");
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Remark remark) {
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Remark remark,
+                 fithelper.model.entry.Duration duration) {
 
         requireAllNonNull(type, name, location, time, calorie);
         this.type = type;
@@ -48,6 +52,22 @@ public class Entry {
         this.calorie = calorie;
         this.status = new Status("Undone");
         this.remark = remark;
+        this.duration = duration;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Remark remark) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
+        this.name = name;
+        this.location = location;
+        this.time = time;
+        this.calorie = calorie;
+        this.status = new Status("Undone");
+        this.remark = remark;
+        this.duration = new fithelper.model.entry.Duration("1");
     }
 
     /**
@@ -62,6 +82,72 @@ public class Entry {
         this.calorie = calorie;
         this.status = status;
         this.remark = remark;
+        this.duration = new fithelper.model.entry.Duration("1");
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Status status) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
+        this.name = name;
+        this.location = location;
+        this.time = time;
+        this.calorie = calorie;
+        this.status = status;
+        this.remark = new Remark("");
+        this.duration = new fithelper.model.entry.Duration("1");
+    }
+
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie,
+                 fithelper.model.entry.Duration duration) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
+        this.name = name;
+        this.location = location;
+        this.time = time;
+        this.calorie = calorie;
+        this.status = new Status("Undone");
+        this.remark = new Remark("");
+        this.duration = duration;
+    }
+
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Status status,
+                 Remark remark, fithelper.model.entry.Duration duration) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
+        this.name = name;
+        this.location = location;
+        this.time = time;
+        this.calorie = calorie;
+        this.status = status;
+        this.remark = remark;
+        this.duration = duration;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Status status,
+                 fithelper.model.entry.Duration duration) {
+        requireAllNonNull(type, name, location, time, calorie);
+        this.type = type;
+        this.name = name;
+        this.location = location;
+        this.time = time;
+        this.calorie = calorie;
+        this.status = status;
+        this.remark = new Remark("");
+        this.duration = duration;
     }
 
     public Type getType() {
@@ -80,12 +166,24 @@ public class Entry {
         return time;
     }
 
+    public LocalDate getDate() {
+        return time.getDate();
+    }
+
     public LocalDateTime getDateTime() {
-        return time.dateTime;
+        return time.getDateTime();
     }
 
     public Calorie getCalorie() {
         return calorie;
+    }
+
+    public Double getCalorieValue() {
+        return calorie.getValue();
+    }
+
+    public long getDuration() {
+        return duration.getHours();
     }
 
     public void addRemark(Remark remark) {

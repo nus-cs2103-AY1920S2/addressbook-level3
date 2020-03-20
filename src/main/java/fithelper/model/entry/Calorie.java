@@ -38,6 +38,10 @@ public class Calorie {
         return testValue > 0;
     }
 
+    public Double getValue() {
+        return this.value;
+    }
+
     @Override
     public String toString() {
         return String.format("%.0f", value);

@@ -2,6 +2,7 @@ package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_CALORIE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DURATION;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_NAME;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_REMARK;
@@ -14,6 +15,7 @@ import fithelper.logic.commands.AddCommand;
 import fithelper.logic.parser.exceptions.ParseException;
 
 import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Duration;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
@@ -34,7 +36,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
-                        PREFIX_CALORIE, PREFIX_REMARK);
+                        PREFIX_CALORIE, PREFIX_REMARK, PREFIX_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION, PREFIX_CALORIE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -47,9 +49,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Location location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get());
         Calorie calorie = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).get());
         Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).orElse(""));
-
-        Entry entry = new Entry(type, name, time, location, calorie, remark);
-
+        Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).orElse("1"));
+        Entry entry = new Entry(type, name, time, location, calorie, remark, duration);
         return new AddCommand(entry);
     }
 

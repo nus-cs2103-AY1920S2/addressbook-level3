@@ -18,7 +18,7 @@ public class EventUtil {
     public static VEvent entryToVEvent(Entry entry) {
         VEvent vEvent = new VEvent();
         vEvent.setDateTimeStart(entry.getDateTime());
-        vEvent.setDateTimeEnd(entry.getDateTime().plusHours(1));
+        vEvent.setDateTimeEnd(entry.getDateTime().plusHours(entry.getDuration()));
         StringBuilder summary = new StringBuilder();
         summary.append(entry.getName());
         summary.append(" ");

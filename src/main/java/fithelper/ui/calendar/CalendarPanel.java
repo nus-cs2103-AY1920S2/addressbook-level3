@@ -1,10 +1,12 @@
 package fithelper.ui.calendar;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
+import fithelper.model.statistics.StatsGenerator;
 import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
@@ -24,6 +26,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     private MonthView monthView;
     private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
+    private StatsGenerator stats;
 
     @FXML
     private StackPane calendarPagePlaceholder;
@@ -44,12 +47,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         this.sportList = sportList;
         logger.info("Initializing Calendar Page");
         calendarPage = new CalendarPage(events);
-        monthView = new MonthView(LocalDateTime.now());
-        upcomingList = new UpcomingList(foodList, sportList, LocalDateTime.now());
-        calendarPage.updateScheduler();
-        calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
-        monthViewPlaceholder.getChildren().add(monthView.getView());
-        upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
+        setDate(LocalDateTime.now());
     }
 
     public void updateScheduler() {
@@ -59,12 +57,22 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     // set date reference based on parameter date
     public void setDate(LocalDateTime date) {
         calendarPage.setDate(date);
-        monthView = new MonthView(date);
+        calendarPage.updateScheduler();
+        calendarPagePlaceholder.getChildren().clear();
+        calendarPagePlaceholder.getChildren().add(calendarPage.getRoot());
+        getGenerator(date);
+        monthView = new MonthView(date, stats);
         upcomingList = new UpcomingList(foodList, sportList, date);
         upcomingListPlaceholder.getChildren().clear();
         upcomingListPlaceholder.getChildren().add(upcomingList.getRoot());
         monthViewPlaceholder.getChildren().clear();
         monthViewPlaceholder.getChildren().add(monthView.getView());
+    }
 
+    public void getGenerator(LocalDateTime date) {
+        LocalDate givenDate = date.toLocalDate();
+        LocalDate start = givenDate.withDayOfMonth(1);
+        LocalDate end = givenDate.withDayOfMonth(givenDate.lengthOfMonth());
+        stats = new StatsGenerator(foodList, sportList, start, end);
     }
 }
