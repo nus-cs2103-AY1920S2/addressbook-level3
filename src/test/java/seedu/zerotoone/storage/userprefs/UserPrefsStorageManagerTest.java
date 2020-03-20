@@ -18,7 +18,7 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
 
 public class UserPrefsStorageManagerTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "UserPrefsStorageManagerTest");
 
     @TempDir
     public Path testFolder;

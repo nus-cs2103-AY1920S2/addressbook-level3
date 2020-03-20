@@ -16,7 +16,6 @@ import seedu.zerotoone.model.exercise.ExerciseName;
 public class JacksonExerciseTest {
     private static final String INVALID_EXERCISE_NAME = "R@chel";
 
-    private static final String VALID_EXERCISE_NAME = BENCH_PRESS.getExerciseName().toString();
     private static final List<JacksonExerciseSet> VALID_EXERCISE_SETS = BENCH_PRESS.getExerciseSets().stream()
             .map(JacksonExerciseSet::new)
             .collect(Collectors.toList());
