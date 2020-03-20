@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditSessionCommand;
+import seedu.address.logic.commands.session.EditSessionCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
