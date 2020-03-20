@@ -32,9 +32,7 @@ public interface BlockTreeItem extends Block {
     /**
      * Replaces all the children of the block with a new list of children.
      */
-    /*
-    TODO: Implement and test after storage is implemented
-    void setChildren(List<TreeItem<Block>> newChildren);
+    void setBlockChildren(List<BlockTreeItem> newChildren);
 
     /**
      * Finds a child block of a block, with the given input.
