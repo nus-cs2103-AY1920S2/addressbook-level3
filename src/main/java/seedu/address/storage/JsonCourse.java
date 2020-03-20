@@ -22,7 +22,7 @@ class JsonCourse {
 
     @JsonCreator
     public JsonCourse(@JsonProperty("courseName") String courseName,
-                      @JsonProperty("focusArea") List<JsonCourseFocusArea> focusAreas) {
+                      @JsonProperty("requirements") List<JsonCourseFocusArea> focusAreas) {
         this.courseName = courseName;
         this.focusAreas = focusAreas;
     }
