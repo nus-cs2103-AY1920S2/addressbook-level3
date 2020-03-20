@@ -16,6 +16,8 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.student.EditStudentCommandParser;
+import seedu.address.logic.parser.student.StudentCommandParser;
 
 /**
  * Parses user input.
