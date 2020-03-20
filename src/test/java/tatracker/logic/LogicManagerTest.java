@@ -43,10 +43,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonTaTrackerStorage addressBookStorage =
-                new JsonTaTrackerStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonTaTrackerStorage taTrackerStorage =
+                new JsonTaTrackerStorage(temporaryFolder.resolve("tatracker.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(taTrackerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -71,11 +71,11 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonTaTrackerIoExceptionThrowingStub
-        JsonTaTrackerStorage addressBookStorage =
-                new JsonTaTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonTaTrackerStorage taTrackerStorage =
+                new JsonTaTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionTaTracker.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(taTrackerStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -155,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyTaTracker addressBook, Path filePath) throws IOException {
+        public void saveTaTracker(ReadOnlyTaTracker taTracker, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
