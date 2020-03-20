@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import tatracker.model.AddressBook;
 import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.TaTracker;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -14,7 +14,7 @@ import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code TaTracker} with sample data.
  */
 public class SampleDataUtil {
     public static Student[] getSampleStudents() {
@@ -44,7 +44,7 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+        TaTracker sampleAb = new TaTracker();
         for (Student sampleStudent : getSampleStudents()) {
             sampleAb.addStudent(sampleStudent);
         }

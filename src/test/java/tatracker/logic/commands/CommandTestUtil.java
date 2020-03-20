@@ -15,8 +15,8 @@ import java.util.List;
 
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.model.AddressBook;
 import tatracker.model.Model;
+import tatracker.model.TaTracker;
 import tatracker.model.student.NameContainsKeywordsPredicate;
 import tatracker.model.student.Student;
 import tatracker.testutil.EditStudentDescriptorBuilder;
@@ -108,11 +108,11 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        TaTracker expectedTaTracker = new TaTracker(actualModel.getTaTracker());
         List<Student> expectedFilteredList = new ArrayList<>(actualModel.getFilteredStudentList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedTaTracker, actualModel.getTaTracker());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
     /**

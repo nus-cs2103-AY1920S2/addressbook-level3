@@ -53,12 +53,12 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces address book data with the data in {@code taTracker}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setTaTracker(ReadOnlyAddressBook taTracker);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the TaTracker */
+    ReadOnlyAddressBook getTaTracker();
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the address book.

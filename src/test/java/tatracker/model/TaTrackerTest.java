@@ -23,25 +23,25 @@ import tatracker.model.student.Student;
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.testutil.StudentBuilder;
 
-public class AddressBookTest {
+public class TaTrackerTest {
 
-    private final AddressBook addressBook = new AddressBook();
+    private final TaTracker taTracker = new TaTracker();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getStudentList());
+        assertEquals(Collections.emptyList(), taTracker.getStudentList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> taTracker.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        TaTracker newData = getTypicalAddressBook();
+        taTracker.resetData(newData);
+        assertEquals(newData, taTracker);
     }
 
     @Test
@@ -51,35 +51,35 @@ public class AddressBookTest {
         List<Student> newStudents = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newStudents);
 
-        assertThrows(DuplicateStudentException.class, () -> addressBook.resetData(newData));
+        assertThrows(DuplicateStudentException.class, () -> taTracker.resetData(newData));
     }
 
     @Test
     public void hasStudent_nullStudent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasStudent(null));
+        assertThrows(NullPointerException.class, () -> taTracker.hasStudent(null));
     }
 
     @Test
     public void hasStudent_studentNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasStudent(ALICE));
+        assertFalse(taTracker.hasStudent(ALICE));
     }
 
     @Test
     public void hasStudent_studentInAddressBook_returnsTrue() {
-        addressBook.addStudent(ALICE);
-        assertTrue(addressBook.hasStudent(ALICE));
+        taTracker.addStudent(ALICE);
+        assertTrue(taTracker.hasStudent(ALICE));
     }
 
     @Test
     public void hasStudent_studentWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addStudent(ALICE);
+        taTracker.addStudent(ALICE);
         Student editedAlice = new StudentBuilder(ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
-        assertTrue(addressBook.hasStudent(editedAlice));
+        assertTrue(taTracker.hasStudent(editedAlice));
     }
 
     @Test
     public void getStudentList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getStudentList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> taTracker.getStudentList().remove(0));
     }
 
     // TODO: Add test cases for SessionList

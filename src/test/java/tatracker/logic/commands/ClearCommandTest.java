@@ -5,9 +5,9 @@ import static tatracker.testutil.TypicalStudents.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.model.AddressBook;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
+import tatracker.model.TaTracker;
 import tatracker.model.UserPrefs;
 
 public class ClearCommandTest {
@@ -24,7 +24,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new AddressBook());
+        expectedModel.setTaTracker(new TaTracker());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

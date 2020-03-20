@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import tatracker.logic.commands.CommandTestUtil;
-import tatracker.model.AddressBook;
+import tatracker.model.TaTracker;
 import tatracker.model.student.Student;
 
 /**
@@ -72,10 +72,10 @@ public class TypicalStudents {
     private TypicalStudents() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical students.
+     * Returns an {@code TaTracker} with all the typical students.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static TaTracker getTypicalAddressBook() {
+        TaTracker ab = new TaTracker();
         for (Student student : getTypicalPersons()) {
             ab.addStudent(student);
         }

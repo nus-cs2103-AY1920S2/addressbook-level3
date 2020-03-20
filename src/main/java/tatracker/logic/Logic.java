@@ -24,9 +24,9 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the TaTracker.
      *
-     * @see tatracker.model.Model#getAddressBook()
+     * @see tatracker.model.Model#getTaTracker()
      */
     ReadOnlyAddressBook getAddressBook();
 

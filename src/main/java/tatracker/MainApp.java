@@ -15,11 +15,11 @@ import tatracker.commons.util.ConfigUtil;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.Logic;
 import tatracker.logic.LogicManager;
-import tatracker.model.AddressBook;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.ReadOnlyAddressBook;
 import tatracker.model.ReadOnlyUserPrefs;
+import tatracker.model.TaTracker;
 import tatracker.model.UserPrefs;
 import tatracker.model.util.SampleDataUtil;
 import tatracker.storage.AddressBookStorage;
@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing TaTracker ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -79,15 +79,15 @@ public class MainApp extends Application {
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample TaTracker");
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with an empty TaTracker");
+            initialData = new TaTracker();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaTracker");
+            initialData = new TaTracker();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -151,7 +151,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty TaTracker");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,7 +167,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting TaTracker " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

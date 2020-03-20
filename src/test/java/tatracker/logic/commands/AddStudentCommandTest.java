@@ -15,10 +15,10 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import tatracker.commons.core.GuiSettings;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.model.AddressBook;
 import tatracker.model.Model;
 import tatracker.model.ReadOnlyAddressBook;
 import tatracker.model.ReadOnlyUserPrefs;
+import tatracker.model.TaTracker;
 import tatracker.model.module.Module;
 import tatracker.model.session.Session;
 import tatracker.model.student.Student;
@@ -117,12 +117,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setTaTracker(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyAddressBook getTaTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -297,8 +297,8 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAddressBook getTaTracker() {
+            return new TaTracker();
         }
     }
 
@@ -321,8 +321,8 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyAddressBook getTaTracker() {
+            return new TaTracker();
         }
     }
 }

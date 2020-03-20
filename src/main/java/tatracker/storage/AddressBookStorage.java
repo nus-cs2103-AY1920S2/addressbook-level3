@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import tatracker.commons.exceptions.DataConversionException;
-import tatracker.model.AddressBook;
 import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.TaTracker;
 
 /**
- * Represents a storage for {@link AddressBook}.
+ * Represents a storage for {@link TaTracker}.
  */
 public interface AddressBookStorage {
 
@@ -19,7 +19,7 @@ public interface AddressBookStorage {
     Path getAddressBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
+     * Returns TaTracker data as a {@link ReadOnlyAddressBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.

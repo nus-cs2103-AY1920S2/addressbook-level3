@@ -12,7 +12,7 @@ import tatracker.model.ReadOnlyUserPrefs;
 import tatracker.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of TaTracker data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -45,7 +45,7 @@ public class StorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ TaTracker methods ==============================
 
     @Override
     public Path getAddressBookFilePath() {

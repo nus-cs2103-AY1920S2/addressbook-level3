@@ -2,8 +2,8 @@ package tatracker.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import tatracker.model.AddressBook;
 import tatracker.model.Model;
+import tatracker.model.TaTracker;
 
 /**
  * Clears the address book.
@@ -17,7 +17,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
+        model.setTaTracker(new TaTracker());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

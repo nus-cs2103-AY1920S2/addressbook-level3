@@ -21,14 +21,14 @@ import tatracker.model.student.Student;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final TaTracker taTracker;
     private final UserPrefs userPrefs;
     private final FilteredList<Session> filteredSessions;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Module> filteredModules;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given taTracker and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -36,15 +36,15 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.taTracker = new TaTracker(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredStudents = new FilteredList<>(this.addressBook.getStudentList());
-        filteredSessions = new FilteredList<>(this.addressBook.getSessionList());
-        filteredModules = new FilteredList<>(this.addressBook.getModuleList());
+        filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
+        filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
+        filteredModules = new FilteredList<>(this.taTracker.getModuleList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new TaTracker(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -82,16 +82,16 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== TaTracker ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setTaTracker(ReadOnlyAddressBook taTracker) {
+        this.taTracker.resetData(taTracker);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getTaTracker() {
+        return taTracker;
     }
 
     //=========== Person List Methods ================================================================================
@@ -99,37 +99,37 @@ public class ModelManager implements Model {
     @Override
     public boolean hasStudent(Student student) {
         requireNonNull(student);
-        return addressBook.hasStudent(student);
+        return taTracker.hasStudent(student);
     }
 
     @Override
     public void deleteStudent(Student target) {
-        addressBook.removeStudent(target);
+        taTracker.removeStudent(target);
     }
 
     @Override
     public void addStudent(Student student) {
-        addressBook.addStudent(student);
+        taTracker.addStudent(student);
         updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     @Override
     public void setStudent(Student target, Student editedStudent) {
         requireAllNonNull(target, editedStudent);
-        addressBook.setStudent(target, editedStudent);
+        taTracker.setStudent(target, editedStudent);
     }
 
 
     @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
-        return addressBook.hasModule(module);
+        return taTracker.hasModule(module);
     }
 
     @Override
     public void addModule(Module module) {
         requireNonNull(module);
-        addressBook.addModule(module);
+        taTracker.addModule(module);
     }
 
 
@@ -137,26 +137,26 @@ public class ModelManager implements Model {
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
 
-        addressBook.setModule(target, editedModule);
+        taTracker.setModule(target, editedModule);
     }
 
     @Override
     public void deleteModule(Module module) {
         requireNonNull(module);
-        addressBook.deleteModule(module);
+        taTracker.deleteModule(module);
     }
 
     @Override
     public Module getModule(Module module) {
         requireNonNull(module);
-        return addressBook.getModule(module);
+        return taTracker.getModule(module);
     }
 
     @Override
     public Module getModule(String code) {
         requireNonNull(code);
         Module module = new Module(code, null);
-        return addressBook.getModule(module);
+        return taTracker.getModule(module);
     }
 
     //=========== Filtered Student List Accessors =============================================================
@@ -181,25 +181,25 @@ public class ModelManager implements Model {
     @Override
     public boolean hasSession(Session session) {
         requireNonNull(session);
-        return addressBook.hasSession(session);
+        return taTracker.hasSession(session);
     }
 
     @Override
     public void addSession(Session session) {
-        addressBook.addSession(session);
+        taTracker.addSession(session);
         updateFilteredSessionList(PREDICATE_SHOW_ALL_SESSIONS);
     }
 
     @Override
     public void deleteSession(Session target) {
-        addressBook.removeSession(target);
+        taTracker.removeSession(target);
     }
 
     @Override
     public void setSession(Session target, Session editedSession) {
         requireAllNonNull(target, editedSession);
 
-        addressBook.setSession(target, editedSession);
+        taTracker.setSession(target, editedSession);
     }
 
     //=========== Filtered Session List Accessors =============================================================
@@ -235,7 +235,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return taTracker.equals(other.taTracker)
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudents.equals(other.filteredStudents);
     }

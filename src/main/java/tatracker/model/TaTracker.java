@@ -17,7 +17,7 @@ import tatracker.model.student.UniqueStudentList;
  * Duplicates are not allowed (by .isSameSession comparison)
  * Duplicates are not allowed (by .isSameStudent comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class TaTracker implements ReadOnlyAddressBook {
 
     private final UniqueStudentList students;
     private final UniqueSessionList sessions;
@@ -36,12 +36,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         modules = new UniqueModuleList();
     }
 
-    public AddressBook() {}
+    public TaTracker() {}
 
     /**
-     * Creates an AddressBook using the Students in the {@code toBeCopied}
+     * Creates an TaTracker using the Students in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public TaTracker(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -65,7 +65,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code TaTracker} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
@@ -106,7 +106,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Returns true if a session with the same identity as {@code session} exists in the address book.
-     * Removes {@code session} from this {@code AddressBook}.
+     * Removes {@code session} from this {@code TaTracker}.
      * {@code session} must exist in the address book.
      */
     public void removeSession(Session session) {
@@ -144,7 +144,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TaTracker}.
      * {@code key} must exist in the address book.
      */
     public void removeStudent(Student key) {
@@ -193,7 +193,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code TaTracker}.
      * {@code key} must exist in the address book.
      */
     public void removeModule(Module key) {
@@ -226,8 +226,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && students.equals(((AddressBook) other).students));
+                || (other instanceof TaTracker // instanceof handles nulls
+                && students.equals(((TaTracker) other).students));
     }
 
     @Override
