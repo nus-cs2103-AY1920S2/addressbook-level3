@@ -2,7 +2,10 @@ package seedu.eylah.expensesplitter.model;
 
 import java.util.logging.Logger;
 
+import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
+import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.expensesplitter.model.UserPrefs;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -12,20 +15,24 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final Receipt receipt;
+    private final UserPrefs userPrefs;
+    private final PersonAmountBook personAmountBook;
 
     /**
      * Initializes a ModelManager with a new Receipt (and data from existing storage).
      */
-    public ModelManager(Receipt receipt) {
+    public ModelManager(Receipt receipt, ReadOnlyPersonAmountBook personAmountBook, ReadOnlyUserPrefs userPrefs) {
         super();
 
         logger.fine("Initializing new receipt (and data from existing storage");
 
+        this.personAmountBook = new PersonAmountBook(personAmountBook);
         this.receipt = receipt;
+        this.userPrefs = new UserPrefs(userPrefs);
     }
 
     public ModelManager() {
-        this(new Receipt());
+        this(new Receipt(), new PersonAmountBook(), new UserPrefs());
     }
 
     //=========== Receipt ===============================================================================
@@ -39,6 +46,15 @@ public class ModelManager implements Model {
     public void addEntry(Entry entry) {
         receipt.addEntry(entry);
     }
+
+
+
+    @Override
+    public ReadOnlyPersonAmountBook getPersonAmountBook() {
+        return personAmountBook;
+    }
+
+
 
     /**
      * Removes an entry from the receipt via the index.

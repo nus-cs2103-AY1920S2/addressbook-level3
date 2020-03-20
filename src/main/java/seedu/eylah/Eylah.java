@@ -1,9 +1,31 @@
 package seedu.eylah;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.logging.Logger;
 
+
+import javafx.stage.Stage;
+import seedu.eylah.expensesplitter.model.PersonAmountBook;
+import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
+import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
+import seedu.eylah.expensesplitter.model.UserPrefs;
+import seedu.eylah.expensesplitter.storage.JsonUserPrefsStorage;
+import seedu.eylah.expensesplitter.model.Receipt;
+import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
+import seedu.eylah.expensesplitter.storage.Storage;
+import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
+import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
+import seedu.eylah.expensesplitter.storage.StorageManager;
+import seedu.eylah.expensesplitter.storage.UserPrefsStorage;
+import seedu.eylah.commons.core.Config;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.core.Version;
+import seedu.eylah.commons.exceptions.DataConversionException;
+import seedu.eylah.commons.util.ConfigUtil;
+import seedu.eylah.commons.util.StringUtil;
 import seedu.eylah.diettracker.logic.Logic;
 import seedu.eylah.diettracker.logic.LogicManager;
 import seedu.eylah.diettracker.logic.commands.CommandResult;
@@ -33,6 +55,7 @@ public class Eylah {
         logger.info("=============================[ Initializing EYLAH ]===========================");
         ui = new Ui();
     }
+
 
     /**
      * Main method to run the application.
@@ -69,8 +92,21 @@ public class Eylah {
         } else {
             // Splitting mode
             System.out.println("Entering Splitting MODE.");
-            splitterModel = new seedu.eylah.expensesplitter.model.ModelManager();
-            splitterLogic = new seedu.eylah.expensesplitter.logic.LogicManager(splitterModel, null);
+            Config config;
+            PersonAmountStorage storage;
+
+
+            //AppParameters appParameters = AppParameters.parse(getParameters());
+            config = initConfig(Paths.get(""));
+
+            UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+            UserPrefs userPrefs = initPrefs(userPrefsStorage);
+            PersonAmountStorage personAmountStorage = new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
+            storage = new StorageManager(personAmountStorage, userPrefsStorage);
+
+            splitterModel = initModelManager(storage, userPrefs);
+
+            splitterLogic = new seedu.eylah.expensesplitter.logic.LogicManager(splitterModel, storage);
             while (!isExit) {
                 System.out.println("Enter Splitting Command: ");
                 input = ui.readCommand();
@@ -92,9 +128,108 @@ public class Eylah {
     }
 
     /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s personamountbook and {@code userPrefs}. <br>
+     * The data from the sample personamount book will be used instead if {@code storage}'s personamountbook is not found,
+     * or an personamount book will be used instead if errors occur when reading {@code storage}'s address book.
+     */
+    private seedu.eylah.expensesplitter.model.Model initModelManager(PersonAmountStorage storage, ReadOnlyUserPrefs userPrefs) {
+        Optional<ReadOnlyPersonAmountBook> personAmountBookOptional;
+        ReadOnlyPersonAmountBook initialData;
+        try {
+            personAmountBookOptional = storage.readPersonAmountBook();
+            if (!personAmountBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            }
+            initialData = personAmountBookOptional.orElseGet(SamplePersonAmountDataUtil::getSamplePersonAmountBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new PersonAmountBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialData = new PersonAmountBook();
+        }
+
+        return new seedu.eylah.expensesplitter.model.ModelManager(new Receipt(),initialData, userPrefs);
+    }
+
+
+
+
+    /**
+     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
+     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
+     * if {@code configFilePath} is null.
+     */
+    protected Config initConfig(Path configFilePath) {
+        Config initializedConfig;
+        Path configFilePathUsed;
+
+        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+
+        if (configFilePath != null) {
+            logger.info("Custom Config file specified " + configFilePath);
+            configFilePathUsed = configFilePath;
+        }
+
+        logger.info("Using config file : " + configFilePathUsed);
+
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            initializedConfig = configOptional.orElse(new Config());
+        } catch (DataConversionException e) {
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+                    + "Using default config properties");
+            initializedConfig = new Config();
+        }
+
+        //Update config file in case it was missing to begin with or there are new/unused fields
+        try {
+            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+        return initializedConfig;
+    }
+
+
+    /**
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * reading from the file.
+     */
+    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+        Path prefsFilePath = storage.getUserPrefsFilePath();
+        logger.info("Using prefs file : " + prefsFilePath);
+
+        UserPrefs initializedPrefs;
+        try {
+            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                    + "Using default user prefs");
+            initializedPrefs = new UserPrefs();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initializedPrefs = new UserPrefs();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            storage.saveUserPrefs(initializedPrefs);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+
+        return initializedPrefs;
+    }
+
+
+
+    /**
      * Starting point for whole application.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Eylah eylah = new Eylah();
         eylah.run();
     }

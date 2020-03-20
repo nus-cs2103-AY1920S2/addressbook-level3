@@ -1,5 +1,6 @@
 package seedu.eylah.expensesplitter.model;
 
+import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -20,6 +21,9 @@ public interface Model {
      * @param index Index of the entry to be removed.
      */
     void deleteEntry(int index);
+
+    /** Returns the PersonAmountBook */
+    ReadOnlyPersonAmountBook getPersonAmountBook();
 
     /**
      * Updates the amount the Person owes you. If amount is $0 then the Person is deleted.

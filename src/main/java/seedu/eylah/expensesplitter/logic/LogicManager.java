@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
 
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.savePersonAmountBook(model.getPersonAmountBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
