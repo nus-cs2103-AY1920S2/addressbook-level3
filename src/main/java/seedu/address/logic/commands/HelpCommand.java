@@ -31,9 +31,9 @@ public class HelpCommand extends Command {
             + "5. " + AddInfoCommand.COMMAND_WORD + ": " + AddInfoCommand.COMMAND_FUNCTION + "\n"
             + "6. " + EditInfoCommand.COMMAND_WORD + ": " + EditInfoCommand.COMMAND_FUNCTION + "\n"
             + "7. " + DeleteInfoCommand.COMMAND_WORD + ": " + DeleteInfoCommand.COMMAND_FUNCTION + "\n"
-            + "8. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
-            + "9. " + GetCommand.COMMAND_WORD + ": " + GetCommand.COMMAND_FUNCTION + "\n"
-            + "10. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
+            + "8. " + GetCommand.COMMAND_WORD + ": " + GetCommand.COMMAND_FUNCTION + "\n"
+            + "9. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
+            + "10. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
             + "11. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
             + "12. " + DoneCommand.COMMAND_WORD + ": " + DoneCommand.COMMAND_FUNCTION + "\n"
             + "13. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
@@ -72,9 +72,9 @@ public class HelpCommand extends Command {
         commands.add("5. " + AddInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("6. " + EditInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("7. " + DeleteInfoCommand.MESSAGE_USAGE + "\n");
-        commands.add("8. " + ClearCommand.MESSAGE_USAGE + "\n");
-        commands.add("9. " + GetCommand.MESSAGE_USAGE + "\n");
-        commands.add("10. " + FindCommand.MESSAGE_USAGE + "\n");
+        commands.add("8. " + GetCommand.MESSAGE_USAGE + "\n");
+        commands.add("9. " + FindCommand.MESSAGE_USAGE + "\n");
+        commands.add("10. " + ClearCommand.MESSAGE_USAGE + "\n");
         commands.add("11. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
         commands.add("12. " + DoneCommand.MESSAGE_USAGE + "\n");
         commands.add("13. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");

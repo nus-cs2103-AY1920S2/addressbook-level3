@@ -41,8 +41,8 @@ public class ListAssignmentCommandParser implements Parser<ListAssignmentCommand
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_TOO_MANY_FILTERS, ListAssignmentCommand.MESSAGE_USAGE));
         } else if (arePrefixesPresent(argMultimap, PREFIX_DEADLINE_LIST)) {
-            TitleComparator workloadComparator = new TitleComparator();
-            return new ListAssignmentCommand(workloadComparator);
+            DeadlineComparator deadlineComparator = new DeadlineComparator();
+            return new ListAssignmentCommand(deadlineComparator);
         } else if (arePrefixesPresent(argMultimap, PREFIX_ESTHOURS_LIST)) {
             WorkloadComparator workloadComparator = new WorkloadComparator();
             return new ListAssignmentCommand(workloadComparator);

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -27,6 +28,7 @@ public class Deadline {
     // Instance variables
     public final String date;
     public final String time;
+    public final LocalDateTime dateTime;
 
     /**
      * Constructs a {@code Deadline}
@@ -39,8 +41,21 @@ public class Deadline {
         checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
         checkArgument(isValidTime(time), MESSAGE_CONSTRAINTS);
 
+        LocalDate parsedDate = LocalDate.parse(date, inputDateFormat);
+        LocalTime parsedTime = LocalTime.parse(time, inputTimeFormat);
+        LocalDateTime dt = LocalDateTime.of(parsedDate, parsedTime);
+
         this.date = date;
         this.time = time;
+        dateTime = dt;
+    }
+
+    /**
+     * Getter for datetime object.
+     * @return datetime of deadline
+     */
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     /**
