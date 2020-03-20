@@ -74,7 +74,7 @@ public class TypicalStudents {
     /**
      * Returns an {@code TaTracker} with all the typical students.
      */
-    public static TaTracker getTypicalAddressBook() {
+    public static TaTracker getTypicalTaTracker() {
         TaTracker ab = new TaTracker();
         for (Student student : getTypicalPersons()) {
             ab.addStudent(student);

@@ -4,26 +4,26 @@ import tatracker.model.TaTracker;
 import tatracker.model.student.Student;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building TA-Tracker objects.
  * Example usage: <br>
- *     {@code TaTracker ab = new AddressBookBuilder().withStudent("John", "Doe").build();}
+ *     {@code TaTracker ab = new TaTrackerBuilder().withStudent("John", "Doe").build();}
  */
-public class AddressBookBuilder {
+public class TaTrackerBuilder {
 
     private TaTracker taTracker;
 
-    public AddressBookBuilder() {
+    public TaTrackerBuilder() {
         taTracker = new TaTracker();
     }
 
-    public AddressBookBuilder(TaTracker taTracker) {
+    public TaTrackerBuilder(TaTracker taTracker) {
         this.taTracker = taTracker;
     }
 
     /**
      * Adds a new {@code Student} to the {@code TaTracker} that we are building.
      */
-    public AddressBookBuilder withStudent(Student student) {
+    public TaTrackerBuilder withStudent(Student student) {
         taTracker.addStudent(student);
         return this;
     }
