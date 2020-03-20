@@ -18,12 +18,15 @@ class JsonCourse {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Course's %s field is missing!";
 
     private final String courseName;
+    private final List<JsonCourseRequirement> requirements;
     private final List<JsonCourseFocusArea> focusAreas;
 
     @JsonCreator
     public JsonCourse(@JsonProperty("courseName") String courseName,
-                      @JsonProperty("requirements") List<JsonCourseFocusArea> focusAreas) {
+                      @JsonProperty("requirements") List <JsonCourseRequirement> requirements,
+                      @JsonProperty("focusArea") List<JsonCourseFocusArea> focusAreas) {
         this.courseName = courseName;
+        this.requirements = requirements;
         this.focusAreas = focusAreas;
     }
 

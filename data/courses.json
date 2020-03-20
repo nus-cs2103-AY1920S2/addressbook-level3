@@ -135,7 +135,8 @@
       "requirements": [
         {
           "requirementName": "Core Modules",
-          "modules": ["CG1111", "CG1112", "CS1010", "CS1231", "MA1511", "MA1512", "MA1508E", ""]
+          "modules": ["CG1111", "CG1112", "CS1010", "CS1231", "MA1511", "MA1512", "MA1508E", "CG2023", "CG2027", "CG2028", "CG2271", "CS2040C", "CS2101", "CS2113T", "EE2026", "EG2401A", "ST2334", "CG3207", "CP3880", "EG3611A", "CG4002", "EE4204"],
+          "modularCredits": "88"
         }
       ]
     }
