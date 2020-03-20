@@ -24,7 +24,6 @@ import seedu.address.logic.commands.customer.FindCustomerCommand;
 import seedu.address.logic.commands.customer.ListCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -73,7 +72,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCustomerCommand command = (FindCustomerCommand) parser.parseCommand(
                 FindCustomerCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(" ")));
-//        assertEquals(new FindCustomerCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        //        assertEquals(new FindCustomerCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

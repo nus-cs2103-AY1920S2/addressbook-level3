@@ -61,8 +61,8 @@ public class FindCustomerCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCustomerCommand command = new FindCustomerCommand(predicate);
         expectedModel.updateFilteredCustomerList(predicate);
-//        assertCommandSuccess(command, model, expectedMessage, expectedModel);
-//        assertEquals(Collections.emptyList(), model.getFilteredCustomerList());
+        //        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        //        assertEquals(Collections.emptyList(), model.getFilteredCustomerList());
     }
 
     @Test
