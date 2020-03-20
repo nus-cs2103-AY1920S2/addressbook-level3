@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.commons.util.DateFormatUtil;
 import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
@@ -29,17 +30,23 @@ public class JsonAdaptedDssm {
         dssm.forEach((ld, pms) -> mappings.add(new JsonAdaptedDateSavingsPair(ld, pms)));
     }
 
+    /**
+     * Converts the JsonAdaptedDssm to the Model's
+     * DateSavingsSumMap object.
+     * @return Returns the DateSavingsSumMap that corresponds
+     *      to this JsonAdaptedDssm.
+     */
     public DateSavingsSumMap toModelType() {
         DateSavingsSumMap modelDssm = new DateSavingsSumMap();
         this.mappings.forEach(
-                jdsp -> {
-                    try {
-                        modelDssm.add(jdsp.getDate(), jdsp.getSavings());
-                    } catch (IllegalValueException e) {
-                        // ignore invalid pairs
-                        e.printStackTrace();
-                    }
-                });
+            jdsp -> {
+                try {
+                    modelDssm.add(jdsp.getDate(), jdsp.getSavings());
+                } catch (IllegalValueException e) {
+                    // ignore invalid pairs
+                    e.printStackTrace();
+                }
+            });
         return modelDssm;
     }
 
