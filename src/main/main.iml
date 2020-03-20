@@ -20,5 +20,6 @@
     <orderEntry type="library" name="Gradle: org.jfxtras:jfxtras-icalendarfx:10.0-r1" level="project" />
     <orderEntry type="library" name="Gradle: org.jfxtras:jfxtras-agenda:9.0-r1" level="project" />
     <orderEntry type="library" name="Gradle: org.jfxtras:jfxtras-icalendaragenda:8.0-r6" level="project" />
+    <orderEntry type="library" name="Gradle: com.joestelmach:natty:0.12" level="project" />
   </component>
 </module>
