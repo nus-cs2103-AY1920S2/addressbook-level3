@@ -2,7 +2,7 @@ package nasa.model;
 
 public interface HistoryModel<T> {
 
-    void undo();
+    boolean undo();
 
     void redo();
 

@@ -3,6 +3,7 @@ package nasa.model;
 import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
 import nasa.model.history.ModuleListHistory;
+import nasa.model.module.UniqueModuleList;
 
 public class HistoryManager<T> implements HistoryModel<T> {
 
@@ -26,14 +27,18 @@ public class HistoryManager<T> implements HistoryModel<T> {
         return historyBook;
     }
 
+    public T getItem() {
+        return historyBook.getItem();
+    }
+
     @Override
     public void add(T moduleList) {
         historyBook.add(moduleList);
     }
 
     @Override
-    public void undo() {
-        historyBook.undo();
+    public boolean undo() {
+        return historyBook.undo();
     }
 
     @Override

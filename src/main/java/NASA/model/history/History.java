@@ -27,11 +27,19 @@ public abstract class History<T> {
     }
 
     public void push(T item) {
-        stack.push(item);
+        if (this.item != null) {
+            stack.push(this.item);
+        }
+        this.item = item;
     }
 
-    public void pop() {
-        item = stack.pop();
+    public boolean pop() {
+        if (!isEmpty()) {
+            item = stack.pop();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public T getPop() {

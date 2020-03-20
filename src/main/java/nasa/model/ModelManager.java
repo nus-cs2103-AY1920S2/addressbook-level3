@@ -63,6 +63,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void undoHistory() {
+        if (historyManager.undo()) {
+            nasaBook.setModuleList(historyManager.getItem());
+            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        }
+    }
+
+    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);

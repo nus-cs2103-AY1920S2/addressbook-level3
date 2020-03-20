@@ -160,4 +160,5 @@ public interface Model {
     void removeActivityByIndex(Module module, Index index);
     void removeActivityByIndex(ModuleCode moduleCode, Index index);
     HistoryManager<UniqueModuleList> getHistoryManager();
+    void undoHistory();
 }

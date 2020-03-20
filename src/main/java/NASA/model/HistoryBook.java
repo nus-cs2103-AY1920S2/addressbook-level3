@@ -39,9 +39,14 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
         moduleListHistory.push(item);
     }
 
-    public void undo() {
-        moduleListHistory.pop();
+    public boolean undo() {
+        boolean check = moduleListHistory.pop();
         moduleListHistoryCollector.push(moduleListHistory.getPop());
+        return check;
+    }
+
+    public T getItem() {
+        return moduleListHistory.getPop();
     }
 
     public void redo() {

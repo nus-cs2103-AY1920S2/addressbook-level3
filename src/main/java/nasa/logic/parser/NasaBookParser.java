@@ -17,6 +17,7 @@ import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
+import nasa.logic.commands.UndoCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
@@ -90,6 +91,9 @@ public class NasaBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
