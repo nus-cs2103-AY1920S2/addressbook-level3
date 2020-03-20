@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.group.AddGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.Group.GroupType;
