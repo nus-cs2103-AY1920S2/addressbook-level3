@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.TypicalExercises.CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.DEADLIFT;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseList;
+import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
@@ -36,10 +38,11 @@ public class CreateCommandTest {
     @Test
     public void execute_exerciseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExerciseAdded modelStub = new ModelStubAcceptingExerciseAdded();
-        CommandResult commandResult = new CreateCommand(BENCH_PRESS.getExerciseName()).execute(modelStub);
+        CommandResult commandResult = new CreateCommand(new ExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS)).execute(modelStub);
+        Exercise exerciseBenchPress = new ExerciseBuilder().withExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS).build();
 
-        assertEquals(String.format(CreateCommand.MESSAGE_SUCCESS, BENCH_PRESS), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(BENCH_PRESS), modelStub.exercisesAdded);
+        assertEquals(String.format(CreateCommand.MESSAGE_SUCCESS, VALID_EXERCISE_NAME_BENCH_PRESS), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(exerciseBenchPress), modelStub.exercisesAdded);
     }
 
     @Test
@@ -55,7 +58,7 @@ public class CreateCommandTest {
     @Test
     public void equals() {
         CreateCommand addBenchPressCommand = new CreateCommand(BENCH_PRESS.getExerciseName());
-        CreateCommand addCrunchesCommand = new CreateCommand(CRUNCHES.getExerciseName());
+        CreateCommand addDeadliftCommand = new CreateCommand(DEADLIFT.getExerciseName());
 
         // same object -> returns true
         assertTrue(addBenchPressCommand.equals(addBenchPressCommand));
@@ -71,7 +74,7 @@ public class CreateCommandTest {
         assertFalse(addBenchPressCommand.equals(null));
 
         // different exercise -> returns false
-        assertFalse(addBenchPressCommand.equals(addCrunchesCommand));
+        assertFalse(addBenchPressCommand.equals(addDeadliftCommand));
     }
 
     /**

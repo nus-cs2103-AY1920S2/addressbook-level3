@@ -3,9 +3,8 @@ package seedu.zerotoone.logic.parser.exercise;
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.EXERCISE_NAME_DESC_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.EXERCISE_NAME_DESC_CRUNCHES;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.INVALID_EXERCISE_NAME_DESC;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseSuccess;
@@ -20,7 +19,7 @@ public class CreateCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        ExerciseName expectedExerciseName = new ExerciseName(VALID_NAME_BENCH_PRESS);
+        ExerciseName expectedExerciseName = new ExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS);
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + EXERCISE_NAME_DESC_BENCH_PRESS,

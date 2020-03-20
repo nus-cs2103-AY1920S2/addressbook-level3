@@ -1,11 +1,14 @@
 package seedu.zerotoone.testutil.exercise;
 
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_OVERHEAD_PRESS;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_OVERHEAD_PRESS;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_OVERHEAD_PRESS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,22 +22,14 @@ import seedu.zerotoone.model.exercise.ExerciseList;
  */
 public class TypicalExercises {
 
-    public static final Exercise DEADLIFT = new ExerciseBuilder().withExerciseName("Deadlift")
-            .withExerciseSet("30", "5").build();
-    public static final Exercise SQUAT = new ExerciseBuilder().withExerciseName("Squat")
-            .withExerciseSet("20", "6").build();
-    public static final Exercise LEG_PRESS = new ExerciseBuilder().withExerciseName("Leg Press")
-            .withExerciseSet("15", "2").build();
-    public static final Exercise LEG_CURL = new ExerciseBuilder().withExerciseName("Leg Curl")
-            .withExerciseSet("20", "4").build();
-    public static final Exercise HAMMER_CURL = new ExerciseBuilder().withExerciseName("Hammer Curl")
-            .withExerciseSet("25", "4").build();
-
+    
     // Manually added - Exercise's details found in {@code CommandTestUtil}
-    public static final Exercise BENCH_PRESS = new ExerciseBuilder().withExerciseName(VALID_NAME_BENCH_PRESS)
-            .withExerciseSet(VALID_WEIGHT_BENCH_PRESS, VALID_NUM_REPS_BENCH_PRESS).build();
-    public static final Exercise CRUNCHES = new ExerciseBuilder().withExerciseName(VALID_NAME_CRUNCHES)
-            .withExerciseSet(VALID_WEIGHT_CRUNCHES, VALID_NUM_REPS_CRUNCHES).build();
+    public static final Exercise BENCH_PRESS = new ExerciseBuilder().withExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS)
+        .withExerciseSet(VALID_WEIGHT_BENCH_PRESS, VALID_NUM_REPS_BENCH_PRESS).build();
+    public static final Exercise DEADLIFT = new ExerciseBuilder().withExerciseName(VALID_EXERCISE_NAME_DEADLIFT)
+        .withExerciseSet(VALID_WEIGHT_DEADLIFT, VALID_NUM_REPS_DEADLIFT).build();
+    public static final Exercise OVERHEAD_PRESS = new ExerciseBuilder().withExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS)
+        .withExerciseSet(VALID_WEIGHT_OVERHEAD_PRESS, VALID_NUM_REPS_OVERHEAD_PRESS).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -52,7 +47,6 @@ public class TypicalExercises {
     }
 
     public static List<Exercise> getTypicalExercises() {
-        return new ArrayList<>(Arrays.asList(
-                BENCH_PRESS, CRUNCHES, DEADLIFT, SQUAT, LEG_PRESS, LEG_CURL, HAMMER_CURL));
+        return new ArrayList<>(Arrays.asList(BENCH_PRESS, DEADLIFT));
     }
 }

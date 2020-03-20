@@ -3,7 +3,7 @@ package seedu.zerotoone.logic.commands.exercise;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandFailure;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
-import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_OVERHEAD_PRESS;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
@@ -28,13 +29,15 @@ public class CreateCommandIntegrationTest {
 
     @Test
     public void execute_newExercise_success() {
-        Exercise validExercise = new ExerciseBuilder().build();
+        Exercise validExercise = new ExerciseBuilder()
+                .withExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS).build();
 
         Model expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
         expectedModel.addExercise(validExercise);
 
-        assertCommandSuccess(new CreateCommand(BENCH_PRESS.getExerciseName()), model,
-                String.format(CreateCommand.MESSAGE_SUCCESS, validExercise), expectedModel);
+        CreateCommand command = new CreateCommand(new ExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS));
+        assertCommandSuccess(command, model,
+                String.format(CreateCommand.MESSAGE_SUCCESS, validExercise.getExerciseName()), expectedModel);
     }
 
     @Test

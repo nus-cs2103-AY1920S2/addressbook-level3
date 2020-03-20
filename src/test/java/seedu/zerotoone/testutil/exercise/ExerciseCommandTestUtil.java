@@ -24,19 +24,25 @@ import seedu.zerotoone.testutil.CommandTestUtil;
  */
 public class ExerciseCommandTestUtil extends CommandTestUtil {
 
-    public static final String VALID_NAME_BENCH_PRESS = "Bench Press";
-    public static final String VALID_NAME_CRUNCHES = "Crunches";
-    public static final String VALID_NUM_REPS_BENCH_PRESS = "3";
-    public static final String VALID_NUM_REPS_CRUNCHES = "4";
-    public static final String VALID_WEIGHT_BENCH_PRESS = "25";
-    public static final String VALID_WEIGHT_CRUNCHES = "15";
+    public static final String VALID_EXERCISE_NAME_BENCH_PRESS = "Bench Press";
+    public static final String VALID_EXERCISE_NAME_DEADLIFT = "Deadlift";
+    public static final String VALID_EXERCISE_NAME_OVERHEAD_PRESS = "Overhead Press";
+    public static final String VALID_NUM_REPS_BENCH_PRESS = "10";
+    public static final String VALID_NUM_REPS_DEADLIFT = "5";
+    public static final String VALID_NUM_REPS_OVERHEAD_PRESS = "10";
+    public static final String VALID_WEIGHT_BENCH_PRESS = "60";
+    public static final String VALID_WEIGHT_DEADLIFT = "65";
+    public static final String VALID_WEIGHT_OVERHEAD_PRESS = "30";
 
-    public static final String EXERCISE_NAME_DESC_BENCH_PRESS = " " + PREFIX_EXERCISE_NAME + VALID_NAME_BENCH_PRESS;
-    public static final String EXERCISE_NAME_DESC_CRUNCHES = " " + PREFIX_EXERCISE_NAME + VALID_NAME_CRUNCHES;
+    public static final String EXERCISE_NAME_DESC_BENCH_PRESS = " " + PREFIX_EXERCISE_NAME + VALID_EXERCISE_NAME_BENCH_PRESS;
+    public static final String EXERCISE_NAME_DESC_DEADLIFT = " " + PREFIX_EXERCISE_NAME + VALID_EXERCISE_NAME_DEADLIFT;
+    public static final String EXERCISE_NAME_DESC_OVERHEAD_PRESS = " " + PREFIX_EXERCISE_NAME + VALID_EXERCISE_NAME_OVERHEAD_PRESS;
     public static final String NUM_REPS_DESC_BENCH_PRESS = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_BENCH_PRESS;
-    public static final String NUM_REPS_DESC_CRUNCHES = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_CRUNCHES;
+    public static final String NUM_REPS_DESC_DEADLIFT = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_DEADLIFT;
+    public static final String NUM_REPS_DESC_OVERHEAD_PRESS = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_OVERHEAD_PRESS;
     public static final String WEIGHT_DESC_BENCH_PRESS = " " + PREFIX_WEIGHT + VALID_WEIGHT_BENCH_PRESS;
-    public static final String WEIGHT_DESC_CRUNCHES = " " + PREFIX_WEIGHT + VALID_WEIGHT_CRUNCHES;
+    public static final String WEIGHT_DESC_DEADLIFT = " " + PREFIX_WEIGHT + VALID_WEIGHT_DEADLIFT;
+    public static final String WEIGHT_DESC_OVERHEAD_PRESS = " " + PREFIX_WEIGHT + VALID_WEIGHT_OVERHEAD_PRESS;
 
     public static final String INVALID_EXERCISE_NAME_DESC = " " + PREFIX_EXERCISE_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_NUM_REPS_DESC = " " + PREFIX_NUM_OF_REPS + "911a"; // 'a' not allowed in repetitions

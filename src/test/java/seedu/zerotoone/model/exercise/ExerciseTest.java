@@ -3,11 +3,11 @@ package seedu.zerotoone.model.exercise;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NAME_CRUNCHES;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_CRUNCHES;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_DEADLIFT;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.TypicalExercises.CRUNCHES;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.DEADLIFT;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,20 +35,20 @@ public class ExerciseTest {
 
         // different name -> returns false
         editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
-                .withExerciseName(VALID_NAME_CRUNCHES)
+                .withExerciseName(VALID_EXERCISE_NAME_DEADLIFT)
                 .build();
         assertFalse(BENCH_PRESS.isSameExercise(editedBenchPress));
 
         // different exerciseSet -> returns true
         editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
-                .withExerciseSet(VALID_WEIGHT_CRUNCHES, VALID_NUM_REPS_CRUNCHES)
+                .withExerciseSet(VALID_WEIGHT_DEADLIFT, VALID_NUM_REPS_DEADLIFT)
                 .build();
         assertTrue(BENCH_PRESS.isSameExercise(editedBenchPress));
 
         // different name, different exerciseSet -> returns false
         editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
-                .withExerciseName(VALID_NAME_CRUNCHES)
-                .withExerciseSet(VALID_WEIGHT_CRUNCHES, VALID_NUM_REPS_CRUNCHES)
+                .withExerciseName(VALID_EXERCISE_NAME_DEADLIFT)
+                .withExerciseSet(VALID_WEIGHT_DEADLIFT, VALID_NUM_REPS_DEADLIFT)
                 .build();
         assertFalse(BENCH_PRESS.isSameExercise(editedBenchPress));
     }
@@ -69,15 +69,15 @@ public class ExerciseTest {
         assertFalse(BENCH_PRESS.equals(5));
 
         // different exercise -> returns false
-        assertFalse(BENCH_PRESS.equals(CRUNCHES));
+        assertFalse(BENCH_PRESS.equals(DEADLIFT));
 
         // different name -> returns false
-        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withExerciseName(VALID_NAME_CRUNCHES).build();
+        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withExerciseName(VALID_EXERCISE_NAME_DEADLIFT).build();
         assertFalse(BENCH_PRESS.equals(editedBenchPress));
 
         // different exerciseSet -> returns false
         editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
-                .withExerciseSet(VALID_WEIGHT_CRUNCHES, VALID_NUM_REPS_CRUNCHES).build();
+                .withExerciseSet(VALID_WEIGHT_DEADLIFT, VALID_NUM_REPS_DEADLIFT).build();
         assertFalse(BENCH_PRESS.equals(editedBenchPress));
     }
 }
