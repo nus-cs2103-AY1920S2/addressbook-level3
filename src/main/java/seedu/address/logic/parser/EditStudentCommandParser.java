@@ -14,8 +14,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditStudentCommand;
-import seedu.address.logic.commands.EditStudentCommand.EditStudentDescriptor;
+import seedu.address.logic.commands.student.EditStudentCommand;
+import seedu.address.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
