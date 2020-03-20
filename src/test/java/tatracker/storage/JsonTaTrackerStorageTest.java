@@ -6,7 +6,7 @@ import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalStudents.ALICE;
 import static tatracker.testutil.TypicalStudents.HOON;
 import static tatracker.testutil.TypicalStudents.IDA;
-import static tatracker.testutil.TypicalStudents.getTypicalAddressBook;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,12 +26,12 @@ public class JsonTaTrackerStorageTest {
     public Path testFolder;
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> readAddressBook(null));
+    public void readTaTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> readTaTracker(null));
     }
 
-    private java.util.Optional<ReadOnlyTaTracker> readAddressBook(String filePath) throws Exception {
-        return new JsonTaTrackerStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyTaTracker> readTaTracker(String filePath) throws Exception {
+        return new JsonTaTrackerStorage(Paths.get(filePath)).readTaTracker(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -42,69 +42,69 @@ public class JsonTaTrackerStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.json").isPresent());
+        assertFalse(readTaTracker("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("notJsonFormatTaTracker.json"));
+        assertThrows(DataConversionException.class, () -> readTaTracker("notJsonFormatTaTracker.json"));
     }
 
     @Test
-    public void readAddressBook_invalidStudentAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidStudentTaTracker.json"));
+    public void readTaTracker_invalidStudentTaTracker_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readTaTracker("invalidStudentTaTracker.json"));
     }
 
     @Test
-    public void readAddressBook_invalidAndValidStudentAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidStudentTaTracker.json"));
+    public void readTaTracker_invalidAndValidStudentTaTracker_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readTaTracker("invalidAndValidStudentTaTracker.json"));
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempAddressBook.json");
-        TaTracker original = getTypicalAddressBook();
-        JsonTaTrackerStorage jsonAddressBookStorage = new JsonTaTrackerStorage(filePath);
+    public void readAndSaveTaTracker_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempTaTracker.json");
+        TaTracker original = getTypicalTaTracker();
+        JsonTaTrackerStorage jsonTaTrackerStorage = new JsonTaTrackerStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyTaTracker readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonTaTrackerStorage.saveTaTracker(original, filePath);
+        ReadOnlyTaTracker readBack = jsonTaTrackerStorage.readTaTracker(filePath).get();
         assertEquals(original, new TaTracker(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addStudent(HOON);
         original.removeStudent(ALICE);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        jsonTaTrackerStorage.saveTaTracker(original, filePath);
+        readBack = jsonTaTrackerStorage.readTaTracker(filePath).get();
         assertEquals(original, new TaTracker(readBack));
 
         // Save and read without specifying file path
         original.addStudent(IDA);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
+        jsonTaTrackerStorage.saveTaTracker(original); // file path not specified
+        readBack = jsonTaTrackerStorage.readTaTracker().get(); // file path not specified
         assertEquals(original, new TaTracker(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+    public void saveTaTracker_nullTaTracker_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveTaTracker(null, "SomeFile.json"));
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code taTracker} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyTaTracker addressBook, String filePath) {
+    private void saveTaTracker(ReadOnlyTaTracker taTracker, String filePath) {
         try {
             new JsonTaTrackerStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveTaTracker(taTracker, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new TaTracker(), null));
+    public void saveTaTracker_nullFilePath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> saveTaTracker(new TaTracker(), null));
     }
 }

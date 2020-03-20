@@ -25,7 +25,7 @@ public class JsonSerializableTaTrackerTest {
         JsonSerializableTaTracker dataFromFile = JsonUtil.readJsonFile(TYPICAL_STUDENTS_FILE,
                 JsonSerializableTaTracker.class).get();
         TaTracker taTrackerFromFile = dataFromFile.toModelType();
-        TaTracker typicalStudentsTaTracker = TypicalStudents.getTypicalAddressBook();
+        TaTracker typicalStudentsTaTracker = TypicalStudents.getTypicalTaTracker();
         assertEquals(taTrackerFromFile, typicalStudentsTaTracker);
     }
 
