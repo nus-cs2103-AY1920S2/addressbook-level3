@@ -40,10 +40,10 @@ public interface BlockModel {
     void saveBlock(Block newBlock);
 
     /**
-     * Gets the absolute path of the block.
+     * Gets the absolute path of the currently open block.
      * TODO: Revise usage and interaction with other components
      */
-    AbsolutePath getBlockPath(BlockTreeItem b);
+    AbsolutePath getBlockPath();
 
     /*
     TODO: To implement after storage classes are ready
