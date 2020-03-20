@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        TaTrackerStorage taTrackerStorage = new JsonTaTrackerStorage(userPrefs.getAddressBookFilePath());
+        TaTrackerStorage taTrackerStorage = new JsonTaTrackerStorage(userPrefs.getTaTrackerFilePath());
         storage = new StorageManager(taTrackerStorage, userPrefsStorage);
 
         initLogging(config);
@@ -69,19 +69,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s TA-Tracker and {@code userPrefs}. <br>
+     * The data from the sample ta-tracker will be used instead if {@code storage}'s ta-tracker is not found,
+     * or an empty ta-tracker will be used instead if errors occur when reading {@code storage}'s ta-tracker.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyTaTracker> addressBookOptional;
+        Optional<ReadOnlyTaTracker> taTrackerOptional;
         ReadOnlyTaTracker initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            taTrackerOptional = storage.readTaTracker();
+            if (!taTrackerOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample TaTracker");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = taTrackerOptional.orElseGet(SampleDataUtil::getSampleTaTracker);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TaTracker");
             initialData = new TaTracker();
@@ -173,7 +173,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping TA-Tracker ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
