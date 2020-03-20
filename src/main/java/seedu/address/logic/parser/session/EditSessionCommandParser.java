@@ -1,5 +1,7 @@
 package seedu.address.logic.parser.session;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MOD_CODE;
@@ -20,6 +22,14 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/*
+ * === BUGS ===
+ * TODO: No error when end time is after start time.
+ *
+ * TODO: Sessions cannot have dates that are earlier than the current date.
+ *        Earlier dates are replaced by the current date.
+ */
+
 /**
  * Parses input arguments and creates a new EditSessionCommand object
  */
@@ -32,13 +42,22 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditSessionCommand parse(String args) throws ParseException {
-        Index index = ParserUtil.parseIndex(args);
+        requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STARTTIME, PREFIX_ENDTIME,
                 PREFIX_DATE, PREFIX_RECUR, PREFIX_MOD_CODE, PREFIX_SESSION_TYPE, PREFIX_NOTES);
 
-        LocalDate date = LocalDate.now(); // Arbitrary default value. Will be overwritten by EditSessionCommand
+        Index index;
+
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditSessionCommand.MESSAGE_USAGE),
+                    pe);
+        }
+
         EditSessionCommand.EditSessionDescriptor editSessionDescriptor = new EditSessionCommand.EditSessionDescriptor();
 
+        LocalDate date = LocalDate.now(); // Arbitrary default value. Will be overwritten by EditSessionCommand
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
             editSessionDescriptor.setIsDateChanged(true);
@@ -71,6 +90,11 @@ public class EditSessionCommandParser implements Parser<EditSessionCommand> {
 
         if (argMultimap.getValue(PREFIX_NOTES).isPresent()) {
             editSessionDescriptor.setDescription(ParserUtil.parseValue(argMultimap.getValue(PREFIX_NOTES).get()));
+        }
+
+        // TODO: Check if editing should be allowed if there are no fields
+        if (!editSessionDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditSessionCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditSessionCommand(index, editSessionDescriptor);
