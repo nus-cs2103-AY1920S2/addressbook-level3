@@ -24,12 +24,12 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="type" text="\type" styleClass="cell_big_label" />
+                <Label fx:id="type" text="\$type" styleClass="cell_big_label" />
             </HBox>
-            <Label fx:id="start" styleClass="cell_small_label" text="\start" />
-            <Label fx:id="end" styleClass="cell_small_label" text="\end" />
-            <Label fx:id="module" styleClass="cell_small_label" text="\module" />
-            <Label fx:id="description" styleClass="cell_small_label" text="\description" />
+            <Label fx:id="start" styleClass="cell_small_label" text="\$start" />
+            <Label fx:id="end" styleClass="cell_small_label" text="\$end" />
+            <Label fx:id="module" styleClass="cell_small_label" text="\$module" />
+            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
         </VBox>
     </GridPane>
 </HBox>
