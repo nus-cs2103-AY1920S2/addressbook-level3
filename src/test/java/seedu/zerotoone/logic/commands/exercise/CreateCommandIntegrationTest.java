@@ -1,9 +1,9 @@
 package seedu.zerotoone.logic.commands.exercise;
 
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandFailure;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandSuccess;
-import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
+import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_OVERHEAD_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.assertCommandFailure;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,8 @@ public class CreateCommandIntegrationTest {
     @Test
     public void execute_duplicateExercise_throwsCommandException() {
         Exercise exerciseInList = model.getExerciseList().getExerciseList().get(0);
-        assertCommandFailure(new CreateCommand(exerciseInList.getExerciseName()), model, CreateCommand.MESSAGE_DUPLICATE_EXERCISE);
+        assertCommandFailure(new CreateCommand(exerciseInList.getExerciseName()), model,
+                CreateCommand.MESSAGE_DUPLICATE_EXERCISE);
     }
 
 }

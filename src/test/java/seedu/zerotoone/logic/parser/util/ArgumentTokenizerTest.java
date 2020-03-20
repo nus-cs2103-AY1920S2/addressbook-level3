@@ -7,10 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.zerotoone.logic.parser.util.ArgumentMultimap;
-import seedu.zerotoone.logic.parser.util.ArgumentTokenizer;
-import seedu.zerotoone.logic.parser.util.Prefix;
-
 public class ArgumentTokenizerTest {
 
     private final Prefix unknownPrefix = new Prefix("--u");

@@ -38,10 +38,12 @@ public class CreateCommandTest {
     @Test
     public void execute_exerciseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExerciseAdded modelStub = new ModelStubAcceptingExerciseAdded();
-        CommandResult commandResult = new CreateCommand(new ExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS)).execute(modelStub);
+        CommandResult commandResult = new CreateCommand(new ExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS))
+                .execute(modelStub);
         Exercise exerciseBenchPress = new ExerciseBuilder().withExerciseName(VALID_EXERCISE_NAME_BENCH_PRESS).build();
 
-        assertEquals(String.format(CreateCommand.MESSAGE_SUCCESS, VALID_EXERCISE_NAME_BENCH_PRESS), commandResult.getFeedbackToUser());
+        assertEquals(String.format(CreateCommand.MESSAGE_SUCCESS,
+                VALID_EXERCISE_NAME_BENCH_PRESS), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(exerciseBenchPress), modelStub.exercisesAdded);
     }
 
@@ -52,7 +54,8 @@ public class CreateCommandTest {
         ModelStub modelStub = new ModelStubWithExercise(validExercise);
 
         assertThrows(
-                CommandException.class, CreateCommand.MESSAGE_DUPLICATE_EXERCISE, () -> createCommand.execute(modelStub));
+                CommandException.class, CreateCommand.MESSAGE_DUPLICATE_EXERCISE,
+                () -> createCommand.execute(modelStub));
     }
 
     @Test

@@ -34,19 +34,31 @@ public class ExerciseCommandTestUtil extends CommandTestUtil {
     public static final String VALID_WEIGHT_DEADLIFT = "65";
     public static final String VALID_WEIGHT_OVERHEAD_PRESS = "30";
 
-    public static final String EXERCISE_NAME_DESC_BENCH_PRESS = " " + PREFIX_EXERCISE_NAME + VALID_EXERCISE_NAME_BENCH_PRESS;
-    public static final String EXERCISE_NAME_DESC_DEADLIFT = " " + PREFIX_EXERCISE_NAME + VALID_EXERCISE_NAME_DEADLIFT;
-    public static final String EXERCISE_NAME_DESC_OVERHEAD_PRESS = " " + PREFIX_EXERCISE_NAME + VALID_EXERCISE_NAME_OVERHEAD_PRESS;
-    public static final String NUM_REPS_DESC_BENCH_PRESS = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_BENCH_PRESS;
-    public static final String NUM_REPS_DESC_DEADLIFT = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_DEADLIFT;
-    public static final String NUM_REPS_DESC_OVERHEAD_PRESS = " " + PREFIX_NUM_OF_REPS + VALID_NUM_REPS_OVERHEAD_PRESS;
-    public static final String WEIGHT_DESC_BENCH_PRESS = " " + PREFIX_WEIGHT + VALID_WEIGHT_BENCH_PRESS;
-    public static final String WEIGHT_DESC_DEADLIFT = " " + PREFIX_WEIGHT + VALID_WEIGHT_DEADLIFT;
-    public static final String WEIGHT_DESC_OVERHEAD_PRESS = " " + PREFIX_WEIGHT + VALID_WEIGHT_OVERHEAD_PRESS;
+    public static final String EXERCISE_NAME_DESC_BENCH_PRESS = " " + PREFIX_EXERCISE_NAME
+            + VALID_EXERCISE_NAME_BENCH_PRESS;
+    public static final String EXERCISE_NAME_DESC_DEADLIFT = " " + PREFIX_EXERCISE_NAME
+            + VALID_EXERCISE_NAME_DEADLIFT;
+    public static final String EXERCISE_NAME_DESC_OVERHEAD_PRESS = " " + PREFIX_EXERCISE_NAME
+            + VALID_EXERCISE_NAME_OVERHEAD_PRESS;
+    public static final String NUM_REPS_DESC_BENCH_PRESS = " " + PREFIX_NUM_OF_REPS
+            + VALID_NUM_REPS_BENCH_PRESS;
+    public static final String NUM_REPS_DESC_DEADLIFT = " " + PREFIX_NUM_OF_REPS
+            + VALID_NUM_REPS_DEADLIFT;
+    public static final String NUM_REPS_DESC_OVERHEAD_PRESS = " " + PREFIX_NUM_OF_REPS
+            + VALID_NUM_REPS_OVERHEAD_PRESS;
+    public static final String WEIGHT_DESC_BENCH_PRESS = " " + PREFIX_WEIGHT
+            + VALID_WEIGHT_BENCH_PRESS;
+    public static final String WEIGHT_DESC_DEADLIFT = " " + PREFIX_WEIGHT
+            + VALID_WEIGHT_DEADLIFT;
+    public static final String WEIGHT_DESC_OVERHEAD_PRESS = " " + PREFIX_WEIGHT
+            + VALID_WEIGHT_OVERHEAD_PRESS;
 
-    public static final String INVALID_EXERCISE_NAME_DESC = " " + PREFIX_EXERCISE_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_NUM_REPS_DESC = " " + PREFIX_NUM_OF_REPS + "911a"; // 'a' not allowed in repetitions
-    public static final String INVALID_WEIGHT_DESC = " " + PREFIX_WEIGHT + "911a"; // 'a' not allowed in weight
+    public static final String INVALID_EXERCISE_NAME_DESC =
+            " " + PREFIX_EXERCISE_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_NUM_REPS_DESC =
+            " " + PREFIX_NUM_OF_REPS + "911a"; // 'a' not allowed in repetitions
+    public static final String INVALID_WEIGHT_DESC =
+            " " + PREFIX_WEIGHT + "911a"; // 'a' not allowed in weight
 
     /**
      * Executes the given {@code command}, confirms that <br>

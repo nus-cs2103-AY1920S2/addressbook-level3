@@ -1,13 +1,13 @@
 package seedu.zerotoone.logic.parser.exercise;
 
 import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.EXERCISE_NAME_DESC_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.INVALID_EXERCISE_NAME_DESC;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseFailure;
 import static seedu.zerotoone.testutil.CommandParserTestUtil.assertParseSuccess;
+import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.zerotoone.testutil.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.EXERCISE_NAME_DESC_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.INVALID_EXERCISE_NAME_DESC;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_BENCH_PRESS;
 
 import org.junit.jupiter.api.Test;
 

@@ -31,7 +31,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        
+
         String[] splitPreamble = argMultimap.getPreamble().trim().split("\\s+");
         if (splitPreamble.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));

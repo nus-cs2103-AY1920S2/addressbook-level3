@@ -3,24 +3,21 @@ package seedu.zerotoone.model.exercise;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_BENCH_PRESS;
-import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_BENCH_PRESS;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
 import static seedu.zerotoone.testutil.exercise.TypicalExercises.getTypicalExerciseList;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.exceptions.DuplicateExerciseException;
 import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
