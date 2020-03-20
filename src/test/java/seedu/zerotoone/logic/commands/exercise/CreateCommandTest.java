@@ -54,8 +54,8 @@ public class CreateCommandTest {
         ModelStub modelStub = new ModelStubWithExercise(validExercise);
 
         assertThrows(
-                CommandException.class, CreateCommand.MESSAGE_DUPLICATE_EXERCISE,
-                () -> createCommand.execute(modelStub));
+                CommandException.class, CreateCommand.MESSAGE_DUPLICATE_EXERCISE, () ->
+                createCommand.execute(modelStub));
     }
 
     @Test

@@ -38,7 +38,8 @@ public class LogicManagerTest {
     public void setUp() {
         ExerciseListStorageManager exerciseListStorage =
                 new ExerciseListStorageManager(temporaryFolder.resolve("exerciseList.json"));
-        UserPrefsStorageManager userPrefsStorage = new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
+        UserPrefsStorageManager userPrefsStorage =
+                new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(exerciseListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
@@ -69,12 +70,12 @@ public class LogicManagerTest {
         // Execute add command
         String exerciseCreateCommand = ExerciseCommand.COMMAND_WORD + " "
                 + CreateCommand.COMMAND_WORD + EXERCISE_NAME_DESC_BENCH_PRESS;
-        
+
         Exercise expectedExercise = new ExerciseBuilder().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addExercise(expectedExercise);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        
+
         LogicManagerTestUtil.assertCommandFailure(exerciseCreateCommand, CommandException.class, expectedMessage,
                 expectedModel, logic, model);
     }

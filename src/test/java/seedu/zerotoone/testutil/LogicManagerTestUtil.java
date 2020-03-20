@@ -11,6 +11,9 @@ import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 
+/**
+ * Contains helper methods to test LogicManager
+ */
 public class LogicManagerTestUtil {
     /**
      * Executes the command and confirms that

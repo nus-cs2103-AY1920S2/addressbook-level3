@@ -30,7 +30,8 @@ public class ExerciseListStorageManagerTest {
     }
 
     private java.util.Optional<ReadOnlyExerciseList> readExerciseList(String filePath) throws Exception {
-        return new ExerciseListStorageManager(Paths.get(filePath)).readExerciseList(addToTestDataPathIfNotNull(filePath));
+        return new ExerciseListStorageManager(Paths.get(filePath))
+                .readExerciseList(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {

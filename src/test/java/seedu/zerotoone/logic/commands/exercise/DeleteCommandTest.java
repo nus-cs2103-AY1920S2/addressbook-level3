@@ -31,7 +31,8 @@ public class DeleteCommandTest {
         Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXERCISE);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete.getExerciseName());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
+                exerciseToDelete.getExerciseName());
 
         ModelManager expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);
@@ -54,7 +55,8 @@ public class DeleteCommandTest {
         Exercise exerciseToDelete = model.getFilteredExerciseList().get(INDEX_FIRST_EXERCISE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXERCISE);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS, exerciseToDelete.getExerciseName());
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
+                exerciseToDelete.getExerciseName());
 
         Model expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
         expectedModel.deleteExercise(exerciseToDelete);

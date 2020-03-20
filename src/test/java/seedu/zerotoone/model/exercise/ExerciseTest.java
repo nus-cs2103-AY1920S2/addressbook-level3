@@ -72,7 +72,8 @@ public class ExerciseTest {
         assertFalse(BENCH_PRESS.equals(DEADLIFT));
 
         // different name -> returns false
-        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withExerciseName(VALID_EXERCISE_NAME_DEADLIFT).build();
+        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
+                .withExerciseName(VALID_EXERCISE_NAME_DEADLIFT).build();
         assertFalse(BENCH_PRESS.equals(editedBenchPress));
 
         // different exerciseSet -> returns false
