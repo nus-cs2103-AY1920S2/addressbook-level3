@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.NearbyCommandUtil.getGeneralLocation;
 import static seedu.address.logic.commands.NearbyCommandUtil.isValidPostalSector;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -26,7 +24,7 @@ public class NearbyCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": View all orders located at the same postal sector based on the displayed order list."
-            + NEWLINE + "Parameters: POSTAL_SECTOR or Area"
+            + NEWLINE + "Parameters: POSTAL_SECTOR or AREA"
             + NEWLINE + "A postal sector is the first two digits of a six digit Singapore postal code"
             + NEWLINE + "An area is one of the following: Central, East, North-East, West, North"
             + NEWLINE + "Example: " + COMMAND_WORD + " 14"
@@ -39,12 +37,6 @@ public class NearbyCommand extends Command {
     public static final String MESSAGE_FAILURE_AREA = "Invalid area given.";
 
     private final String searchTerm;
-    private final List<String> validAreas = new ArrayList<>(Arrays.asList(
-            "CENTRAL",
-            "EAST",
-            "NORTH-EAST",
-            "WEST",
-            "NORTH"));
 
     public NearbyCommand(String searchTerm) {
         this.searchTerm = searchTerm;
@@ -77,7 +69,7 @@ public class NearbyCommand extends Command {
      * @return {@code Predicate<Order>} used for filtering orders
      */
     private Predicate<Order> getAreaPredicate() {
-        List<String> areaRegex = NearbyCommandUtil.sameAreaRegex(searchTerm);
+        List<String> areaRegex = DistrictInfo.sameAreaRegex(searchTerm);
         return order -> {
             String orderAddress = order.getAddress().toString();
             return areaRegex.stream().anyMatch(regex -> {
@@ -99,7 +91,7 @@ public class NearbyCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE_POSTAL_SECTOR);
         }
 
-        if (isValidAreaSearch()) {
+        if (DistrictInfo.isValidArea(searchTerm)) {
             Predicate<Order> orderPredicate = getAreaPredicate();
             model.updateFilteredOrderList(orderPredicate);
             return new CommandResult(String.format(MESSAGE_SUCCESS_AREA, searchTerm));
@@ -135,16 +127,6 @@ public class NearbyCommand extends Command {
         } catch (NumberFormatException nfe) {
             return false;
         }
-    }
-
-    /**
-     * Checks if given {@code searchTerm} is a valid area.
-     *
-     * @return boolean indicating area validity of {@code searchTerm}
-     */
-    private boolean isValidAreaSearch() {
-        return validAreas.stream()
-                .anyMatch(s -> s.contains(searchTerm.toUpperCase()));
     }
 
     @Override
