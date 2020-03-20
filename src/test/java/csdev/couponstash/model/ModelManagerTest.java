@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasCoupon_couponNotInAddressBook_returnsFalse() {
+    public void hasCoupon_couponNotInStash_returnsFalse() {
         assertFalse(modelManager.hasCoupon(ALICE));
     }
 
     @Test
-    public void hasCoupon_couponInAddressBook_returnsTrue() {
+    public void hasCoupon_couponInStash_returnsTrue() {
         modelManager.addCoupon(ALICE);
         assertTrue(modelManager.hasCoupon(ALICE));
     }

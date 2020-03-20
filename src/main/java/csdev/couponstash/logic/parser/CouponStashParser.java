@@ -82,7 +82,7 @@ public class CouponStashParser {
             return new ExpiringCommandParser().parse(arguments);
 
         case UsedCommand.COMMAND_WORD:
-            return new UsedCommandParser().parse(arguments);
+            return new UsedCommandParser(this.moneySymbol).parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

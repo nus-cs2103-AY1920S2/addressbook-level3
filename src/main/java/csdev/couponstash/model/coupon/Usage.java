@@ -11,7 +11,7 @@ public class Usage {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Usage should only contain numbers, and it should at least be a value of 0";
-    public static final String VALIDATION_REGEX = "^(\\s*|\\d+)$";
+    public static final String VALIDATION_REGEX = "^\\d+$";
     public final String value;
 
     /**
@@ -22,11 +22,7 @@ public class Usage {
     public Usage(String usage) {
         requireNonNull(usage);
         checkArgument(isValidUsage(usage), MESSAGE_CONSTRAINTS);
-        if ("".equals(usage)) {
-            value = "0";
-        } else {
-            value = usage;
-        }
+        value = usage;
     }
 
     /**

@@ -16,9 +16,12 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.RemindDate;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
+
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.ui.RemindWindow;
@@ -181,15 +184,19 @@ public class RemindCommand extends Command {
      */
     private static Coupon createRemindCoupon(Coupon couponToBeReminded, LocalDate date) {
         Name name = couponToBeReminded.getName();
-        Phone phone = couponToBeReminded.getPhone();
-        Savings savings = couponToBeReminded.getSavings();
+
+        Savings savingsForEachUse = couponToBeReminded.getSavingsForEachUse();
+        PromoCode promoCode = couponToBeReminded.getPromoCode();
         ExpiryDate expiryDate = couponToBeReminded.getExpiryDate();
+        StartDate startDate = couponToBeReminded.getStartDate();
         Limit limit = couponToBeReminded.getLimit();
         RemindDate remindDate = new RemindDate();
         remindDate.setRemindDate(date);
         Set<Tag> tags = couponToBeReminded.getTags();
         Usage updatedUsage = couponToBeReminded.getUsage();
+        PureMonetarySavings totalSavings = couponToBeReminded.getTotalSavings();
 
-        return new Coupon(name, phone, savings, expiryDate, updatedUsage, limit, remindDate, tags);
+        return new Coupon(name, promoCode, savingsForEachUse, expiryDate, startDate, updatedUsage, limit,
+                tags, totalSavings, remindDate);
     }
 }

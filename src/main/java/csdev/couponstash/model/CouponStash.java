@@ -102,9 +102,9 @@ public class CouponStash implements ReadOnlyCouponStash {
      *
      * @return A copied {@code CouponStash}
      */
-    public CouponStash clone() {
+    public CouponStash copy() {
         CouponStash copy = new CouponStash();
-//
+
         for (Coupon coupon : coupons) {
 
             // Copy all the tags
@@ -114,9 +114,10 @@ public class CouponStash implements ReadOnlyCouponStash {
             }
 
             copy.addCoupon(new Coupon(
-                    coupon.getName(), coupon.getPhone(),
-                    coupon.getSavings(), coupon.getExpiryDate(),
-                    coupon.getUsage(), coupon.getLimit(), coupon.getRemindDate(), copiedTags
+                    coupon.getName(), coupon.getPromoCode(),
+                    coupon.getSavingsForEachUse(), coupon.getExpiryDate(), coupon.getStartDate(),
+                    coupon.getUsage(), coupon.getLimit(), copiedTags,
+                    coupon.getTotalSavings(), coupon.getRemindDate()
             ));
         }
 

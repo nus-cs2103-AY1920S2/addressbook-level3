@@ -46,7 +46,7 @@ public class HistoryManager {
      * @return Previous state
      */
     public CouponStash undo() {
-        return this.couponStashStateList.get(--currStateIndex).clone();
+        return this.couponStashStateList.get(--currStateIndex).copy();
     }
 
     /**
@@ -54,7 +54,7 @@ public class HistoryManager {
      * @return State before undo
      */
     public CouponStash redo() {
-        return this.couponStashStateList.get(++currStateIndex).clone();
+        return this.couponStashStateList.get(++currStateIndex).copy();
     }
 
     /**

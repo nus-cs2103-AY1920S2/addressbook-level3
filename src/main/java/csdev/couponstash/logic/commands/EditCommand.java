@@ -18,8 +18,8 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
-import csdev.couponstash.model.coupon.RemindDate;
+import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -36,20 +36,23 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
-            + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
+            + "[" + CliSyntax.PREFIX_PROMO_CODE + "PROMO_CODE] "
             + "[" + CliSyntax.PREFIX_SAVINGS + "SAVINGS] "
             + "[" + CliSyntax.PREFIX_EXPIRY_DATE + "30-08-2020] "
+            + "[" + CliSyntax.PREFIX_START_DATE + "1-08-2020] "
             + "[" + CliSyntax.PREFIX_USAGE + "4 "
             + "[" + CliSyntax.PREFIX_LIMIT + "5 "
-            + "[" + CliSyntax.PREFIX_REMIND + "01-08-2020] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_PHONE + "91234567 ";
+            + CliSyntax.PREFIX_PROMO_CODE + "91234567 ";
 
     public static final String MESSAGE_EDIT_COUPON_SUCCESS = "Edited Coupon: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_COUPON = "This coupon already exists in the CouponStash.";
-
+    public static final String MESSAGE_CANNOT_EDIT_USAGE = "The usage of the coupon cannot be edited, "
+            + "due to changes in the concrete savings.";
+    public static final String MESSAGE_LIMIT_LESS_THAN_USAGE = "The new limit of the coupon cannot be less than "
+            + "the current usage (%d) of the coupon.";
     private final Index index;
     private final EditCouponDescriptor editCouponDescriptor;
 
@@ -81,6 +84,12 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_COUPON);
         }
 
+        Integer currentUsage = Integer.parseInt(couponToEdit.getUsage().value);
+        Integer editedLimit = Integer.parseInt(editedCoupon.getLimit().value);
+        if (currentUsage > editedLimit) {
+            throw new CommandException(String.format(MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsage));
+        }
+
         model.setCoupon(couponToEdit, editedCoupon);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon));
@@ -94,16 +103,21 @@ public class EditCommand extends Command {
         assert couponToEdit != null;
 
         Name updatedName = editCouponDescriptor.getName().orElse(couponToEdit.getName());
-        Phone updatedPhone = editCouponDescriptor.getPhone().orElse(couponToEdit.getPhone());
-        Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavings());
-        Usage updatedUsage = editCouponDescriptor.getUsage().orElse(couponToEdit.getUsage());
+        PromoCode updatedPromoCode = editCouponDescriptor.getPromoCode().orElse(couponToEdit.getPromoCode());
+        Savings updatedSavings = editCouponDescriptor.getSavings().orElse(couponToEdit.getSavingsForEachUse());
+        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
+        StartDate updatedStartDate = editCouponDescriptor.getStartDate().orElse(couponToEdit.getStartDate());
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
-        ExpiryDate updatedExpiryDate = editCouponDescriptor.getExpiryDate().orElse(couponToEdit.getExpiryDate());
-        RemindDate updatedRemindDate = editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
 
-        return new Coupon(updatedName, updatedPhone, updatedSavings, updatedExpiryDate,
-                updatedUsage, updatedLimit, updatedRemindDate, updatedTags);
+        return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
+                // avoid changing the usage
+                couponToEdit.getUsage(),
+                updatedLimit, updatedTags,
+                // avoid changing the cached total savings value
+                couponToEdit.getTotalSavings(),
+                // avoid changing the reminder
+                couponToEdit.getRemindDate());
     }
 
     @Override
@@ -130,13 +144,13 @@ public class EditCommand extends Command {
      */
     public static class EditCouponDescriptor {
         private Name name;
-        private Phone phone;
+        private PromoCode promoCode;
         private Savings savings;
         private ExpiryDate expiryDate;
+        private StartDate startDate;
         private Usage usage;
         private Limit limit;
         private Set<Tag> tags;
-        private RemindDate remindDate;
 
         public EditCouponDescriptor() {}
 
@@ -146,12 +160,12 @@ public class EditCommand extends Command {
          */
         public EditCouponDescriptor(EditCouponDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setPromoCode(toCopy.promoCode);
             setSavings(toCopy.savings);
             setExpiryDate(toCopy.expiryDate);
+            setStartDate(toCopy.startDate);
             setUsage(toCopy.usage);
             setLimit(toCopy.limit);
-            setRemindDate(toCopy.remindDate);
             setTags(toCopy.tags);
         }
 
@@ -159,7 +173,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, savings, expiryDate, usage, limit, remindDate, tags);
+            return CollectionUtil.isAnyNonNull(name, promoCode, savings, expiryDate, startDate, usage, limit, tags);
         }
 
         public void setName(Name name) {
@@ -170,12 +184,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setPromoCode(PromoCode promoCode) {
+            this.promoCode = promoCode;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<PromoCode> getPromoCode() {
+            return Optional.ofNullable(promoCode);
         }
 
         /**
@@ -206,13 +220,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(expiryDate);
         }
 
-        ///
-        public void setRemindDate(RemindDate remindDate) {
-            this.remindDate = remindDate;
+        public void setStartDate(StartDate startDate) {
+            this.startDate = startDate;
         }
 
-        public Optional<RemindDate> getRemindDate() {
-            return Optional.ofNullable(remindDate);
+        public Optional<StartDate> getStartDate() {
+            return Optional.ofNullable(startDate);
         }
 
         public void setUsage(Usage usage) {
@@ -264,12 +277,12 @@ public class EditCommand extends Command {
             EditCouponDescriptor e = (EditCouponDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getPromoCode().equals(e.getPromoCode())
                     && getSavings().equals(e.getSavings())
                     && getExpiryDate().equals(e.getExpiryDate())
+                    && getStartDate().equals(e.getStartDate())
                     && getUsage().equals(e.getUsage())
                     && getLimit().equals(e.getLimit())
-                    && getRemindDate().equals(e.getRemindDate())
                     && getTags().equals(e.getTags());
         }
     }

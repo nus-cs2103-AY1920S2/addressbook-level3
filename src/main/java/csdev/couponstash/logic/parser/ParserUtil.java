@@ -14,15 +14,14 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
-import csdev.couponstash.model.coupon.RemindDate;
+import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
 import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
-
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -60,18 +59,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String promoCode} into a {@code PromoCode}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code promoCode} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
+    public static PromoCode parsePromoCode(String promoCode) {
+        requireNonNull(promoCode);
+        String trimmedPromoCode = promoCode.trim();
+
+        return new PromoCode(trimmedPromoCode);
     }
 
     /**
@@ -162,20 +159,19 @@ public class ParserUtil {
         return new ExpiryDate(trimmedDate);
     }
 
-
     /**
-     * Parses a {@code String remindDate} into an {@code RemindDate}.
+     * Parses a {@code String startDate} into an {@code StartDate}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code remindDate} is invalid.
+     * @throws ParseException if the given {@code startDate} is invalid.
      */
-    public static RemindDate parseRemindDate(String remindDate) throws ParseException {
-        requireNonNull(remindDate);
-        String trimmedDate = remindDate.trim();
-        if (!RemindDate.isValidRemindDate(trimmedDate)) {
-            throw new ParseException(RemindDate.MESSAGE_CONSTRAINTS);
+    public static StartDate parseStartDate(String startDate) throws ParseException {
+        requireNonNull(startDate);
+        String trimmedDate = startDate.trim();
+        if (!StartDate.isValidStartDate(trimmedDate)) {
+            throw new ParseException(StartDate.MESSAGE_CONSTRAINTS);
         }
-        return new RemindDate(trimmedDate);
+        return new StartDate(trimmedDate);
     }
 
     /**
@@ -206,6 +202,26 @@ public class ParserUtil {
             throw new ParseException(Limit.MESSAGE_CONSTRAINTS);
         }
         return new Limit(trimmedLimit);
+    }
+
+    /**
+     * Parses a {@code String monetaryAmount} into a {@code MonetaryAmount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code originalAmount} is invalid.
+     */
+    public static MonetaryAmount parseMonetaryAmount(String monetaryAmount) throws ParseException {
+        requireNonNull(monetaryAmount);
+        String trimmedMonetaryAmount = monetaryAmount.trim();
+        try {
+            Double convertedMonetaryAmount = Double.parseDouble(trimmedMonetaryAmount);
+            if (!MonetaryAmount.isValidMonetaryAmount(convertedMonetaryAmount)) {
+                throw new ParseException(MonetaryAmount.MESSAGE_CONSTRAINTS);
+            }
+            return new MonetaryAmount(convertedMonetaryAmount);
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(MonetaryAmount.MESSAGE_CONSTRAINTS);
+        }
     }
 
     /**

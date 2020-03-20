@@ -39,7 +39,7 @@ public class ModelManager implements Model {
         this.couponStash = new CouponStash(couponStash);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCoupons = new FilteredList<>(this.couponStash.getCouponList());
-        history = new HistoryManager(this.couponStash.clone());
+        history = new HistoryManager(this.couponStash.copy());
     }
 
     public ModelManager() {
@@ -153,7 +153,7 @@ public class ModelManager implements Model {
     //=========== Undo/Redo functionality =============================================================
     @Override
     public void commitCouponStash() {
-        history.commitState(couponStash.clone());
+        history.commitState(couponStash.copy());
     }
 
     @Override

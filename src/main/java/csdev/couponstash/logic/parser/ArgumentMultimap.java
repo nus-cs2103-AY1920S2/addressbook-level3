@@ -43,9 +43,9 @@ public class ArgumentMultimap {
      * Returns an empty string if no values of {@code prefix} is found in {@code argMultiMap}.
      * Used for optional fields only.
      */
-    public Optional<String> getValueForOptionalField(Prefix prefix) {
+    public Optional<String> getValueForOptionalField(Prefix prefix, String defaultValue) {
         List<String> values = getAllValues(prefix);
-        return values.isEmpty() ? Optional.of("") : Optional.of(values.get(values.size() - 1));
+        return values.isEmpty() ? Optional.of(defaultValue) : Optional.of(values.get(values.size() - 1));
     }
 
     /**

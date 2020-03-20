@@ -29,13 +29,33 @@ public class EditCouponDescriptorTest {
         assertFalse(CommandTestUtil.DESC_AMY.equals(CommandTestUtil.DESC_BOB));
 
         // different name -> returns false
-        EditCommand.EditCouponDescriptor editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
+        EditCouponDescriptor editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
                 .withName(CommandTestUtil.VALID_NAME_BOB).build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different phone -> returns false
         editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
-                .withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+                .withPromoCode(CommandTestUtil.VALID_PROMO_CODE_BOB).build();
+        assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
+
+        // different usage -> returns false
+        editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
+                .withUsage(CommandTestUtil.VALID_USAGE_BOB).build();
+        assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
+
+        // different limit -> returns false
+        editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
+                .withLimit(CommandTestUtil.VALID_LIMIT_BOB).build();
+        assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
+
+        // different start date -> returns false
+        editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
+                .withStartDate(CommandTestUtil.VALID_EXPIRY_DATE_BOB).build();
+        assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
+
+        // different expiry date -> returns false
+        editedAmy = new EditCouponDescriptorBuilder(CommandTestUtil.DESC_AMY)
+                .withExpiryDate(CommandTestUtil.VALID_EXPIRY_DATE_BOB).build();
         assertFalse(CommandTestUtil.DESC_AMY.equals(editedAmy));
 
         // different tags -> returns false

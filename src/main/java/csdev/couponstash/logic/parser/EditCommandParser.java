@@ -26,6 +26,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * money symbol set in UserPrefs as this will be
      * used as the prefix for the monetary amount
      * in the savings field.
+     *
      * @param moneySymbol String representing the money symbol.
      */
     public EditCommandParser(String moneySymbol) {
@@ -35,6 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
@@ -43,8 +45,9 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ArgumentTokenizer.tokenize(
                         args,
                         CliSyntax.PREFIX_NAME,
-                        CliSyntax.PREFIX_PHONE,
+                        CliSyntax.PREFIX_PROMO_CODE,
                         CliSyntax.PREFIX_EXPIRY_DATE,
+                        CliSyntax.PREFIX_START_DATE,
                         CliSyntax.PREFIX_SAVINGS,
                         CliSyntax.PREFIX_USAGE,
                         CliSyntax.PREFIX_LIMIT,
@@ -62,8 +65,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
             editCouponDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get()));
         }
-        if (argMultimap.getValue(CliSyntax.PREFIX_PHONE).isPresent()) {
-            editCouponDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get()));
+        if (argMultimap.getValue(CliSyntax.PREFIX_PROMO_CODE).isPresent()) {
+            editCouponDescriptor.setPromoCode(
+                    ParserUtil.parsePromoCode(argMultimap.getValue(CliSyntax.PREFIX_PROMO_CODE).get()));
         }
 
         parseSavingsForEdit(argMultimap.getAllValues(CliSyntax.PREFIX_SAVINGS))
@@ -74,9 +78,14 @@ public class EditCommandParser implements Parser<EditCommand> {
                     .getValue(CliSyntax.PREFIX_EXPIRY_DATE).get()));
         }
 
+        if (argMultimap.getValue(CliSyntax.PREFIX_START_DATE).isPresent()) {
+            editCouponDescriptor.setStartDate(ParserUtil.parseStartDate(argMultimap
+                    .getValue(CliSyntax.PREFIX_START_DATE).get()));
+        }
+
+        // usage is not allowed to be edited due to potential changes in savings
         if (argMultimap.getValue(CliSyntax.PREFIX_USAGE).isPresent()) {
-            editCouponDescriptor.setUsage(ParserUtil.parseUsage(argMultimap
-                    .getValue(CliSyntax.PREFIX_USAGE).get()));
+            throw new ParseException(EditCommand.MESSAGE_CANNOT_EDIT_USAGE);
         }
 
         if (argMultimap.getValue(CliSyntax.PREFIX_LIMIT).isPresent()) {
@@ -113,12 +122,13 @@ public class EditCommandParser implements Parser<EditCommand> {
      * Parses {@code Collection<String> savings} into a {@code Collection<String>} if {@code savings}
      * is non-empty. If {@code savings} contain only elements which are empty strings, it will be
      * parsed into an Optional.empty().
+     *
      * @param savings The Collection of Strings to be checked.
      * @return Returns an Optional possibly containing the
-     *     non-empty Collection of Strings.
+     * non-empty Collection of Strings.
      * @throws ParseException If the Collection received has both
-     *     a monetary amount and an percentage amount, or has
-     *     blank Strings.
+     *                        a monetary amount and an percentage amount, or has
+     *                        blank Strings.
      */
     private Optional<Savings> parseSavingsForEdit(Collection<String> savings) throws ParseException {
         assert savings != null;

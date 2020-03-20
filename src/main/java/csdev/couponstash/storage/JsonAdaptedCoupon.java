@@ -14,9 +14,11 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.RemindDate;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -28,37 +30,43 @@ class JsonAdaptedCoupon {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Coupon's %s field is missing!";
 
     private final String name;
-    private final String phone;
-    private final JsonAdaptedSavings savings;
+    private final String promoCode;
+    private final JsonAdaptedSavings savingsPerUse;
     private final String expiryDate;
-    private final String remindDate;
+    private final String startDate;
     private final String usage;
     private final String limit;
+    private final String remindDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final JsonAdaptedPureMonetarySavings totalSaved;
 
     /**
      * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
      */
     @JsonCreator
     public JsonAdaptedCoupon(@JsonProperty("name") String name,
-                             @JsonProperty("phone") String phone,
-                             @JsonProperty("savings") JsonAdaptedSavings savings,
+                             @JsonProperty("promoCode") String promoCode,
+                             @JsonProperty("savingsPerUse") JsonAdaptedSavings savingsPerUse,
                              @JsonProperty("expiry date") String expiryDate,
+                             @JsonProperty("start date") String startDate,
                              @JsonProperty("usage") String usage,
                              @JsonProperty("limit") String limit,
-                             @JsonProperty("remind date") String remindDate,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged
-                             ) {
+                             @JsonProperty("totalSaved") JsonAdaptedPureMonetarySavings totalSaved,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                             @JsonProperty("remind date") String remindDate
+    ) {
         this.name = name;
-        this.phone = phone;
-        this.savings = savings;
+        this.promoCode = promoCode;
+        this.savingsPerUse = savingsPerUse;
         this.expiryDate = expiryDate;
+        this.startDate = startDate;
         this.usage = usage;
         this.limit = limit;
-        this.remindDate = remindDate;
+        this.totalSaved = totalSaved;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.remindDate = remindDate;
     }
 
     /**
@@ -66,15 +74,17 @@ class JsonAdaptedCoupon {
      */
     public JsonAdaptedCoupon(Coupon source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        savings = new JsonAdaptedSavings(source.getSavings());
+        promoCode = source.getPromoCode().value;
+        savingsPerUse = new JsonAdaptedSavings(source.getSavingsForEachUse());
         expiryDate = source.getExpiryDate().value;
+        startDate = source.getStartDate().value;
         usage = source.getUsage().value;
         limit = source.getLimit().value;
-        remindDate = source.getRemindDate().toString();
+        totalSaved = new JsonAdaptedPureMonetarySavings(source.getTotalSavings());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        remindDate = source.getRemindDate().toString();
     }
 
     /**
@@ -96,19 +106,17 @@ class JsonAdaptedCoupon {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (promoCode == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, PromoCode.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
+        final PromoCode modelPromoCode = new PromoCode(promoCode);
 
-        if (savings == null) {
+        if (savingsPerUse == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Savings.class.getSimpleName()));
         }
-        final Savings modelSavings = savings.toModelType();
+        final Savings modelSavings = savingsPerUse.toModelType();
 
         if (expiryDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -119,15 +127,14 @@ class JsonAdaptedCoupon {
         }
         final ExpiryDate modelExpiryDate = new ExpiryDate(expiryDate);
 
-        //
-        if (remindDate == null) {
+        if (startDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    RemindDate.class.getSimpleName()));
+                    StartDate.class.getSimpleName()));
         }
-        if (!RemindDate.isValidRemindDate(remindDate)) {
-            throw new IllegalValueException(RemindDate.MESSAGE_CONSTRAINTS);
+        if (!StartDate.isValidStartDate(startDate)) {
+            throw new IllegalValueException(StartDate.MESSAGE_CONSTRAINTS);
         }
-        final RemindDate modelRemindDate = new RemindDate(remindDate);
+        final StartDate modelStartDate = new StartDate(startDate);
 
         if (usage == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Usage.class.getSimpleName()));
@@ -145,10 +152,25 @@ class JsonAdaptedCoupon {
         }
         final Limit modelLimit = new Limit(limit);
 
+        final PureMonetarySavings modelTotalSaved;
+        if (totalSaved == null) {
+            // could not find totalSaved data
+            // just set total savings to 0
+            modelTotalSaved = new PureMonetarySavings();
+        } else {
+            modelTotalSaved = totalSaved.toModelType();
+        }
+
+        if (!RemindDate.isValidRemindDate(remindDate)) {
+            throw new IllegalValueException(RemindDate.MESSAGE_CONSTRAINTS);
+        }
+        final RemindDate modelRemindDate = new RemindDate(remindDate);
+
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
-        return new Coupon(modelName, modelPhone, modelSavings,
-                modelExpiryDate, modelUsage, modelLimit, modelRemindDate, modelTags);
+        return new Coupon(modelName, modelPromoCode, modelSavings,
+                modelExpiryDate, modelStartDate, modelUsage, modelLimit,
+                modelTags, modelTotalSaved, modelRemindDate);
 
     }
 

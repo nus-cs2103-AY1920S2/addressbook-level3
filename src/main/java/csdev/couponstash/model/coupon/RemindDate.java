@@ -17,8 +17,8 @@ public class RemindDate {
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     private LocalDate date;
-    private String value;
     private boolean remindFlag;
+    private String value;
 
     /**
      * Constructs a {@code RemindDate}.
@@ -42,6 +42,12 @@ public class RemindDate {
         value = "";
         date = null;
         remindFlag = false;
+    }
+
+    public RemindDate(ExpiryDate expiryDate) {
+        value = expiryDate.value;
+        date = getDate().minusDays(3);
+        setRemindDate(date);
     }
     /**
      * Returns true if a given string is a valid remind date.

@@ -82,7 +82,7 @@ public class MainApp extends Application {
         ReadOnlyCouponStash initialData;
         try {
             couponStashOptional = storage.readCouponStash();
-            if (!couponStashOptional.isPresent()) {
+            if (couponStashOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample CouponStash");
             }
             initialData = couponStashOptional.orElseGet(SampleDataUtil::getSampleCouponStash);

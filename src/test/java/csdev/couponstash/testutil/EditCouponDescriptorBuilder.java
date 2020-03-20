@@ -10,7 +10,8 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
@@ -36,10 +37,10 @@ public class EditCouponDescriptorBuilder {
     public EditCouponDescriptorBuilder(Coupon coupon) {
         descriptor = new EditCouponDescriptor();
         descriptor.setName(coupon.getName());
-        descriptor.setPhone(coupon.getPhone());
-        descriptor.setSavings(coupon.getSavings());
+        descriptor.setPromoCode(coupon.getPromoCode());
+        descriptor.setSavings(coupon.getSavingsForEachUse());
         descriptor.setExpiryDate(coupon.getExpiryDate());
-        descriptor.setUsage(coupon.getUsage());
+        descriptor.setStartDate(coupon.getStartDate());
         descriptor.setLimit(coupon.getLimit());
         descriptor.setTags(coupon.getTags());
     }
@@ -53,10 +54,10 @@ public class EditCouponDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditCouponDescriptor} that we are building.
+     * Sets the {@code PromoCode} of the {@code EditCouponDescriptor} that we are building.
      */
-    public EditCouponDescriptorBuilder withPhone(String phone) {
-        descriptor.setPhone(new Phone(phone));
+    public EditCouponDescriptorBuilder withPromoCode(String promoCode) {
+        descriptor.setPromoCode(new PromoCode(promoCode));
         return this;
     }
 
@@ -73,6 +74,14 @@ public class EditCouponDescriptorBuilder {
      */
     public EditCouponDescriptorBuilder withExpiryDate(String expiryDate) {
         descriptor.setExpiryDate(new ExpiryDate(expiryDate));
+        return this;
+    }
+
+    /**
+     * Sets the {@code StartDate} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withStartDate(String startDate) {
+        descriptor.setStartDate(new StartDate(startDate));
         return this;
     }
 

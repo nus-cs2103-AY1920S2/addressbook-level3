@@ -13,18 +13,24 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_USAGE = "-1";
+    private static final String INVALID_LIMIT = "asdf";
     private static final String INVALID_TAG = "#friend";
 
+
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PROMO_CODE = "STASH4LYFE";
+    private static final String VALID_USAGE = "1";
+    private static final String VALID_LIMIT = "5";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -74,26 +80,67 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+    public void parsePromoCode_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePromoCode((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+    public void parsePromoCode_validValueWithoutWhitespace_returnsPromoCode() throws Exception {
+        PromoCode expectedPromoCode = new PromoCode(VALID_PROMO_CODE);
+        assertEquals(expectedPromoCode, ParserUtil.parsePromoCode(VALID_PROMO_CODE));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(VALID_PHONE));
+    public void parsePromoCode_validValueWithWhitespace_returnsTrimmedPromoCode() throws Exception {
+        String promoCodeWithWhitespace = WHITESPACE + VALID_PROMO_CODE + WHITESPACE;
+        PromoCode expectedPromoCode = new PromoCode(VALID_PROMO_CODE);
+        assertEquals(expectedPromoCode, ParserUtil.parsePromoCode(promoCodeWithWhitespace));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_PHONE + WHITESPACE;
-        Phone expectedPhone = new Phone(VALID_PHONE);
-        assertEquals(expectedPhone, ParserUtil.parsePhone(phoneWithWhitespace));
+    public void parseUsage_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseUsage((String) null));
+    }
+
+    @Test
+    public void parseUsage_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseUsage(INVALID_USAGE));
+    }
+
+    @Test
+    public void parseUsage_validValueWithoutWhitespace_returnsUsage() throws Exception {
+        Usage expectedUsage = new Usage(VALID_USAGE);
+        assertEquals(expectedUsage, ParserUtil.parseUsage(VALID_USAGE));
+    }
+
+    @Test
+    public void parseUsage_validValueWithWhitespace_returnsTrimmedUsage() throws Exception {
+        String usageWithWhitespace = WHITESPACE + VALID_USAGE + WHITESPACE;
+        Usage expectedUsage = new Usage(VALID_USAGE);
+        assertEquals(expectedUsage, ParserUtil.parseUsage(usageWithWhitespace));
+    }
+
+    @Test
+    public void parseLimit_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseLimit((String) null));
+    }
+
+    @Test
+    public void parseLimit_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseLimit(INVALID_LIMIT));
+    }
+
+    @Test
+    public void parseLimit_validValueWithoutWhitespace_returnsLimit() throws Exception {
+        Limit expectedLimit = new Limit(VALID_LIMIT);
+        assertEquals(expectedLimit, ParserUtil.parseLimit(VALID_LIMIT));
+    }
+
+    @Test
+    public void parseLimit_validValueWithWhitespace_returnsTrimmedLimit() throws Exception {
+        String limitWithWhitespace = WHITESPACE + VALID_LIMIT + WHITESPACE;
+        Limit expectedLimit = new Limit(VALID_LIMIT);
+        assertEquals(expectedLimit, ParserUtil.parseLimit(limitWithWhitespace));
     }
 
     @Test

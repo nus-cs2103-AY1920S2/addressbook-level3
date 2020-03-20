@@ -33,20 +33,21 @@ public class CouponCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label promoCode;
     @FXML
     private Label savings;
     @FXML
     private Label expiryDate;
     @FXML
-    private Label remindDate;
+    private Label startDate;
     @FXML
     private Label usage;
     @FXML
     private Label limit;
     @FXML
     private FlowPane tags;
-
+    @FXML
+    private Label remindDate;
     /**
      * Constructor for a new CouponCard to be shown
      * in the JavaFX GUI.
@@ -63,16 +64,16 @@ public class CouponCard extends UiPart<Region> {
         this.coupon = coupon;
         id.setText(displayedIndex + ". ");
         name.setText(coupon.getName().fullName);
-        phone.setText(coupon.getPhone().value);
-        savings.setText(coupon.getSavings().getStringWithMoneySymbol(moneySymbol));
-        expiryDate.setText(coupon.getExpiryDate().value);
+        promoCode.setText("Promo Code: " + coupon.getPromoCode());
+        savings.setText(coupon.getSavingsForEachUse().getStringWithMoneySymbol(moneySymbol));
+        expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
+        startDate.setText("Start Date: " + coupon.getStartDate().value);
         usage.setText(coupon.getUsage().toUiLabelText());
         limit.setText(coupon.getLimit().toUiLabelText());
-        remindDate.setText(coupon.getRemindDate().toString());
-
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
     }
 
     @Override
