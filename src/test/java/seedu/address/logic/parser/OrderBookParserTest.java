@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -94,7 +93,7 @@ public class OrderBookParserTest {
         NearbyCommand nearbyCommand = (NearbyCommand) parser.parseCommand(
                 NearbyCommand.COMMAND_WORD + " " + "1"
         );
-        assertEquals(new NearbyCommand(Index.fromOneBased(1)), nearbyCommand);
+        assertEquals(new NearbyCommand("1"), nearbyCommand);
     }
 
     @Test

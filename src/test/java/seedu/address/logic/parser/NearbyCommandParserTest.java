@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.NearbyCommand;
 
 class NearbyCommandParserTest {
@@ -14,13 +13,18 @@ class NearbyCommandParserTest {
 
     @Test
     void parse_validArgs_returnsNearbyCommand() {
-        Index postalSector = Index.fromOneBased(1);
-        assertParseSuccess(parser, "1", new NearbyCommand(postalSector));
+        assertParseSuccess(parser, "1", new NearbyCommand("1"));
+        assertParseSuccess(parser, "   1   ", new NearbyCommand("1"));
+        assertParseSuccess(parser, "central", new NearbyCommand("central"));
+        assertParseSuccess(parser, "east", new NearbyCommand("east"));
+        assertParseSuccess(parser, "north-east", new NearbyCommand("north-east"));
+        assertParseSuccess(parser, "west", new NearbyCommand("west"));
+        assertParseSuccess(parser, "north", new NearbyCommand("north"));
     }
 
     @Test
     void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "NaN",
+        assertParseFailure(parser, "central 100",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, NearbyCommand.MESSAGE_USAGE));
     }
 }
