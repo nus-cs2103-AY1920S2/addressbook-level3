@@ -24,7 +24,7 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
-import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.UserPrefs;
 import tatracker.model.student.Student;
 import tatracker.storage.JsonAddressBookStorage;
@@ -155,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveAddressBook(ReadOnlyTaTracker addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

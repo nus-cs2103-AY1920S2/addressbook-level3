@@ -17,7 +17,7 @@ import tatracker.logic.Logic;
 import tatracker.logic.LogicManager;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
-import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.ReadOnlyUserPrefs;
 import tatracker.model.TaTracker;
 import tatracker.model.UserPrefs;
@@ -74,8 +74,8 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyTaTracker> addressBookOptional;
+        ReadOnlyTaTracker initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {

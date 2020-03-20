@@ -7,7 +7,7 @@ import tatracker.commons.core.GuiSettings;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.student.Student;
 
 /**
@@ -28,7 +28,7 @@ public interface Logic {
      *
      * @see tatracker.model.Model#getTaTracker()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyTaTracker getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of students */
     ObservableList<Student> getFilteredStudentList();

@@ -30,7 +30,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaTracker addressBook, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -85,12 +85,12 @@ public class ModelManager implements Model {
     //=========== TaTracker ================================================================================
 
     @Override
-    public void setTaTracker(ReadOnlyAddressBook taTracker) {
+    public void setTaTracker(ReadOnlyTaTracker taTracker) {
         this.taTracker.resetData(taTracker);
     }
 
     @Override
-    public ReadOnlyAddressBook getTaTracker() {
+    public ReadOnlyTaTracker getTaTracker() {
         return taTracker;
     }
 

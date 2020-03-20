@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import tatracker.commons.core.GuiSettings;
-import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.TaTracker;
 import tatracker.model.UserPrefs;
 
@@ -56,7 +56,7 @@ public class StorageManagerTest {
          */
         TaTracker original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        ReadOnlyTaTracker retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new TaTracker(retrieved));
     }
 

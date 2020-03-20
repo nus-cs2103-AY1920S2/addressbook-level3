@@ -16,7 +16,7 @@ import javafx.collections.ObservableList;
 import tatracker.commons.core.GuiSettings;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.ReadOnlyUserPrefs;
 import tatracker.model.TaTracker;
 import tatracker.model.module.Module;
@@ -117,12 +117,12 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public void setTaTracker(ReadOnlyAddressBook newData) {
+        public void setTaTracker(ReadOnlyTaTracker newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getTaTracker() {
+        public ReadOnlyTaTracker getTaTracker() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -297,7 +297,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getTaTracker() {
+        public ReadOnlyTaTracker getTaTracker() {
             return new TaTracker();
         }
     }
@@ -321,7 +321,7 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getTaTracker() {
+        public ReadOnlyTaTracker getTaTracker() {
             return new TaTracker();
         }
     }

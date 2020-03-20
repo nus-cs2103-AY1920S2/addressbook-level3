@@ -17,7 +17,7 @@ import tatracker.model.student.UniqueStudentList;
  * Duplicates are not allowed (by .isSameSession comparison)
  * Duplicates are not allowed (by .isSameStudent comparison)
  */
-public class TaTracker implements ReadOnlyAddressBook {
+public class TaTracker implements ReadOnlyTaTracker {
 
     private final UniqueStudentList students;
     private final UniqueSessionList sessions;
@@ -41,7 +41,7 @@ public class TaTracker implements ReadOnlyAddressBook {
     /**
      * Creates an TaTracker using the Students in the {@code toBeCopied}
      */
-    public TaTracker(ReadOnlyAddressBook toBeCopied) {
+    public TaTracker(ReadOnlyTaTracker toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -67,7 +67,7 @@ public class TaTracker implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code TaTracker} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTaTracker newData) {
         requireNonNull(newData);
 
         setStudents(newData.getStudentList());

@@ -49,7 +49,7 @@ public class TaTrackerTest {
         // Two students with the same identity fields
         Student editedAlice = new StudentBuilder(ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         List<Student> newStudents = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newStudents);
+        TaTrackerStub newData = new TaTrackerStub(newStudents);
 
         assertThrows(DuplicateStudentException.class, () -> taTracker.resetData(newData));
     }
@@ -85,14 +85,14 @@ public class TaTrackerTest {
     // TODO: Add test cases for SessionList
 
     /**
-     * A stub ReadOnlyAddressBook whose internal lists can violate interface constraints.
+     * A stub ReadOnlyTaTracker whose internal lists can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class TaTrackerStub implements ReadOnlyTaTracker {
         private final ObservableList<Session> sessions = FXCollections.observableArrayList();
         private final ObservableList<Module> modules = FXCollections.observableArrayList();
         private final ObservableList<Student> students = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Student> students) {
+        TaTrackerStub(Collection<Student> students) {
             this.students.setAll(students);
         }
 

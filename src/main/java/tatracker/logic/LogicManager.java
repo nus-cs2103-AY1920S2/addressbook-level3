@@ -13,7 +13,7 @@ import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.TaTrackerParser;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
-import tatracker.model.ReadOnlyAddressBook;
+import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.student.Student;
 import tatracker.storage.Storage;
 
@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyTaTracker getAddressBook() {
         return model.getTaTracker();
     }
 

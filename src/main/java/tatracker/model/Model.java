@@ -55,10 +55,10 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code taTracker}.
      */
-    void setTaTracker(ReadOnlyAddressBook taTracker);
+    void setTaTracker(ReadOnlyTaTracker taTracker);
 
     /** Returns the TaTracker */
-    ReadOnlyAddressBook getTaTracker();
+    ReadOnlyTaTracker getTaTracker();
 
     /**
      * Returns true if a student with the same identity as {@code student} exists in the address book.
