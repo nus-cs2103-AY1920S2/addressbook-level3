@@ -31,7 +31,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Customer> {
     @Override
     public String toString() {
         String print = "";
-        for (int i = 1; i < keywords.size(); i++) {
+        for (int i = 0; i < keywords.size(); i++) {
             if (i + 1 == keywords.size()) {
                 print += keywords.get(i);
                 break;
