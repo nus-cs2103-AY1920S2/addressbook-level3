@@ -38,6 +38,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in FitHelper";
+    public static final String MESSAGE_TIME_CLASHES = "Maximum two entries can have time clashes";
 
     private final Entry toAdd;
 
@@ -55,6 +56,10 @@ public class AddCommand extends Command {
 
         if (model.hasEntry(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
+        }
+
+        if (model.hasTimeClashes(toAdd)) {
+            throw new CommandException(MESSAGE_TIME_CLASHES);
         }
 
         model.addEntry(toAdd);

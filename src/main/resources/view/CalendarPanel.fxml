@@ -16,11 +16,11 @@
             <Insets right="10.0" />
         </GridPane.margin>
     </StackPane>
-    <AnchorPane fx:id="fullCalendarPlaceholder" AnchorPane.leftAnchor="510.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-color: white;"/>
+    <AnchorPane fx:id="monthViewPlaceholder" AnchorPane.leftAnchor="510.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-background-color: white;"/>
     <GridPane.margin>
         <Insets />
     </GridPane.margin>
-    <StackPane fx:id="upcomingListPlaceholder" AnchorPane.leftAnchor="510.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="220.0" prefHeight="260.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <StackPane fx:id="upcomingListPlaceholder" AnchorPane.leftAnchor="510.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0" prefHeight="290.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <GridPane.margin>
             <Insets top="10.0" />
         </GridPane.margin>
