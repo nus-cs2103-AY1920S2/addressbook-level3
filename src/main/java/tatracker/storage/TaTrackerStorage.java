@@ -11,7 +11,7 @@ import tatracker.model.TaTracker;
 /**
  * Represents a storage for {@link TaTracker}.
  */
-public interface AddressBookStorage {
+public interface TaTrackerStorage {
 
     /**
      * Returns the file path of the data file.

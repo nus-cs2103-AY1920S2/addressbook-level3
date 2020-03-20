@@ -27,7 +27,7 @@ import tatracker.model.ModelManager;
 import tatracker.model.ReadOnlyTaTracker;
 import tatracker.model.UserPrefs;
 import tatracker.model.student.Student;
-import tatracker.storage.JsonAddressBookStorage;
+import tatracker.storage.JsonTaTrackerStorage;
 import tatracker.storage.JsonUserPrefsStorage;
 import tatracker.storage.StorageManager;
 import tatracker.testutil.StudentBuilder;
@@ -43,8 +43,8 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonTaTrackerStorage addressBookStorage =
+                new JsonTaTrackerStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -70,9 +70,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonTaTrackerIoExceptionThrowingStub
+        JsonTaTrackerStorage addressBookStorage =
+                new JsonTaTrackerIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
@@ -149,8 +149,8 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonTaTrackerIoExceptionThrowingStub extends JsonTaTrackerStorage {
+        private JsonTaTrackerIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 

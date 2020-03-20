@@ -22,11 +22,11 @@ import tatracker.model.ReadOnlyUserPrefs;
 import tatracker.model.TaTracker;
 import tatracker.model.UserPrefs;
 import tatracker.model.util.SampleDataUtil;
-import tatracker.storage.AddressBookStorage;
-import tatracker.storage.JsonAddressBookStorage;
+import tatracker.storage.JsonTaTrackerStorage;
 import tatracker.storage.JsonUserPrefsStorage;
 import tatracker.storage.Storage;
 import tatracker.storage.StorageManager;
+import tatracker.storage.TaTrackerStorage;
 import tatracker.storage.UserPrefsStorage;
 import tatracker.ui.Ui;
 import tatracker.ui.UiManager;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TaTrackerStorage taTrackerStorage = new JsonTaTrackerStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(taTrackerStorage, userPrefsStorage);
 
         initLogging(config);
 
