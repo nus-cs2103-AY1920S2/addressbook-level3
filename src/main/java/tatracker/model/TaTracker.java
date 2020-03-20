@@ -13,7 +13,7 @@ import tatracker.model.student.Student;
 import tatracker.model.student.UniqueStudentList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the ta-tracker level
  * Duplicates are not allowed (by .isSameSession comparison)
  * Duplicates are not allowed (by .isSameStudent comparison)
  */
@@ -77,7 +77,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     //// session-level operations
 
     /**
-     * Returns true if a session with the same identity as {@code session} exists in the address book.
+     * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
      */
     public boolean hasSession(Session session) {
         requireNonNull(session);
@@ -85,8 +85,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Adds a session to the address book.
-     * The session must not already exist in the address book.
+     * Adds a session to the ta-tracker.
+     * The session must not already exist in the ta-tracker.
      */
     public void addSession(Session s) {
         sessions.add(s);
@@ -94,9 +94,9 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     /**
      * Replaces the given session {@code target} in the list with {@code editedSession}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the ta-tracker.
      * The session identity of {@code editedSession} must not be the same as another
-     * existing session in the address book.
+     * existing session in the ta-tracker.
      */
     public void setSession(Session target, Session editedSession) {
         requireNonNull(editedSession);
@@ -105,9 +105,9 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Returns true if a session with the same identity as {@code session} exists in the address book.
+     * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
      * Removes {@code session} from this {@code TaTracker}.
-     * {@code session} must exist in the address book.
+     * {@code session} must exist in the ta-tracker.
      */
     public void removeSession(Session session) {
         sessions.remove(session);
@@ -116,7 +116,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     //// student-level operations
 
     /**
-     * Returns true if a student with the same identity as {@code student} exists in the address book.
+     * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
      */
     public boolean hasStudent(Student student) {
         requireNonNull(student);
@@ -124,8 +124,8 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Adds a student to the address book.
-     * The student must not already exist in the address book.
+     * Adds a student to the ta-tracker.
+     * The student must not already exist in the ta-tracker.
      */
     public void addStudent(Student p) {
         students.add(p);
@@ -133,9 +133,8 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     /**
      * Replaces the given student {@code target} in the list with {@code editedStudent}.
-     * {@code target} must exist in the address book.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the address
-     * book.
+     * {@code target} must exist in the ta-tracker.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the tracker.
      */
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
@@ -145,7 +144,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     /**
      * Removes {@code key} from this {@code TaTracker}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the ta-tracker.
      */
     public void removeStudent(Student key) {
         students.remove(key);
@@ -182,9 +181,8 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the address book.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the address
-     * book.
+     * {@code target} must exist in the ta-tracker.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the tracker.
      */
     public void setModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -194,7 +192,7 @@ public class TaTracker implements ReadOnlyTaTracker {
 
     /**
      * Removes {@code key} from this {@code TaTracker}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the ta-tracker.
      */
     public void removeModule(Module key) {
         modules.remove(key);

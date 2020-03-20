@@ -43,17 +43,17 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' ta-tracker file path.
      */
-    Path getAddressBookFilePath();
+    Path getTaTrackerFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' ta-tracker file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setTaTrackerFilePath(Path taTrackerFilePath);
 
     /**
-     * Replaces address book data with the data in {@code taTracker}.
+     * Replaces ta-tracker data with the data in {@code taTracker}.
      */
     void setTaTracker(ReadOnlyTaTracker taTracker);
 
@@ -61,27 +61,26 @@ public interface Model {
     ReadOnlyTaTracker getTaTracker();
 
     /**
-     * Returns true if a student with the same identity as {@code student} exists in the address book.
+     * Returns true if a student with the same identity as {@code student} exists in the ta-tracker.
      */
     boolean hasStudent(Student student);
 
     /**
      * Deletes the given student.
-     * The student must exist in the address book.
+     * The student must exist in the ta-tracker.
      */
     void deleteStudent(Student target);
 
     /**
      * Adds the given student.
-     * {@code student} must not already exist in the address book.
+     * {@code student} must not already exist in the ta-tracker.
      */
     void addStudent(Student student);
 
     /**
      * Replaces the given student {@code target} with {@code editedStudent}.
-     * {@code target} must exist in the address book.
-     * The student identity of {@code editedStudent} must not be the same as another existing student in the address
-     * book.
+     * {@code target} must exist in the ta-tracker.
+     * The student identity of {@code editedStudent} must not be the same as another existing student in the tracker.
      */
     void setStudent(Student target, Student editedStudent);
 
@@ -95,27 +94,26 @@ public interface Model {
     void updateFilteredStudentList(Predicate<Student> predicate);
 
     /**
-     * Returns true if a session with the same identity as {@code session} exists in the address book.
+     * Returns true if a session with the same identity as {@code session} exists in the ta-tracker.
      */
     boolean hasSession(Session session);
 
     /**
      * Adds the given session.
-     * {@code session} must not already exist in the address book.
+     * {@code session} must not already exist in the ta-tracker.
      */
     void addSession(Session session);
 
     /**
      * Deletes the given session.
-     * The session must exist in the address book.
+     * The session must exist in the ta-tracker.
      */
     void deleteSession(Session target);
 
     /**
      * Replaces the given session {@code target} with {@code editedSession}.
-     * {@code target} must exist in the address book.
-     * The session identity of {@code editedSession} must not be the same as another existing session in the address
-     * book.
+     * {@code target} must exist in the ta-tracker.
+     * The session identity of {@code editedSession} must not be the same as another existing session in the tracker
      */
     void setSession(Session target, Session editedSession);
 
@@ -146,9 +144,8 @@ public interface Model {
 
     /**
      * Replaces the given module {@code target} with {@code editedModule}.
-     * {@code target} must exist in the address book.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the address
-     * book.
+     * {@code target} must exist in the ta-tracker.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the tracker
      */
     void setModule(Module target, Module editedModule);
 

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Student's name in the address book.
+ * Represents a Student's name in the TA-Tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

@@ -16,7 +16,7 @@ import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the ta-tracker data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -30,13 +30,13 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given taTracker and userPrefs.
      */
-    public ModelManager(ReadOnlyTaTracker addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaTracker taTracker, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(taTracker, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with ta-tracker: " + taTracker + " and user prefs " + userPrefs);
 
-        this.taTracker = new TaTracker(addressBook);
+        this.taTracker = new TaTracker(taTracker);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredStudents = new FilteredList<>(this.taTracker.getStudentList());
         filteredSessions = new FilteredList<>(this.taTracker.getSessionList());
@@ -72,14 +72,14 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getTaTrackerFilePath() {
+        return userPrefs.getTaTrackerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setTaTrackerFilePath(Path taTrackerFilePath) {
+        requireNonNull(taTrackerFilePath);
+        userPrefs.setTaTrackerFilePath(taTrackerFilePath);
     }
 
     //=========== TaTracker ================================================================================
@@ -163,7 +163,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedTaTracker}
      */
     @Override
     public ObservableList<Student> getFilteredStudentList() {
@@ -206,7 +206,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Session} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedTaTracker}
      */
     @Override
     public ObservableList<Session> getFilteredSessionList() {
@@ -244,7 +244,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedTaTracker}
      */
 
     @Override

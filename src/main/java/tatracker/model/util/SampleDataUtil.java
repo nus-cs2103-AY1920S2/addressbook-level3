@@ -43,7 +43,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyTaTracker getSampleAddressBook() {
+    public static ReadOnlyTaTracker getSampleTaTracker() {
         TaTracker sampleAb = new TaTracker();
         for (Student sampleStudent : getSampleStudents()) {
             sampleAb.addStudent(sampleStudent);
