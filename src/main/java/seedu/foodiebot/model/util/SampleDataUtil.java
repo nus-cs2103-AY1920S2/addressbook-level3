@@ -26,7 +26,7 @@ public class SampleDataUtil {
 
     public static final String COM1_TO_NUSFLAVORS_DIRECTIONS =
         "1. From Com1, take shuttle D2 to Utown\n"
-            + "2. Follow the path to Stephen Riady Centre "
+            + "2. Follow the path to Stephen Riady Centre\n"
             + "3. Walk straight and the canteen appears to your right";
     public static Canteen[] getSampleCanteens() {
         ArrayList<Stall> deckStalls = new ArrayList<Stall>(
@@ -121,7 +121,7 @@ public class SampleDataUtil {
                 new Name("The Deck"),
                 1,
                 1000,
-                "COM1,",
+                "COM1",
                 "com1_deck.png",
                 COM1_TO_DECK_DIRECTIONS,
                 getTagSet("asian"), "deck.jpg", new ArrayList<>(deckStalls)),
