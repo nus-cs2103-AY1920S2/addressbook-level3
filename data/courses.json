@@ -15,7 +15,7 @@
         },
         {
           "requirementName": "Industrial Experience Requirement",
-          "modules": ["CP3200", "CP3202", "CP3880"],
+          "modules": ["CP3880", "CP3200", "CP3202", "CP3107", "CP3110", "IS4010", "TR3202"],
           "modularCredits": "12"
         },
         {
@@ -105,7 +105,37 @@
       "requirements": [
         {
           "requirementName": "Computing Foundation",
-          "modules": [""]
+          "modules": ["CS1010", "CS1231", "CS2040C", "CS2100", "CS2102", "CS2113T", "CS2105", "CS2106", "IS3103"],
+          "modularCredits": "36"
+        },
+        {
+          "requirementName": "Information Security Requirements",
+          "modules": ["CS2107", "CS3235", "IS4231", "IFS4205", "CS3236", "CS4236", "MA4261", "CS4238", "CS4239", "CS4257", "CS4276", "CS5231", "CS5321", "CS5322", "IFS4101", "IFS4102", "IFS4103", "IS4204", "IS4233", "IS4234", "IS4302"],
+          "modularCredits": "32"
+        },
+        {
+          "requirementName": "Computing Breadth",
+          "modules": ["CP3880", "CP3200", "CP3202", "CP3107", "CP3110", "IS4010", "TR3202"],
+          "modularCredits": "20"
+        },
+        {
+          "requirementName": "IT Professionalism",
+          "modules": ["IS1103", "CS2101"],
+          "modularCredits": "8"
+        },
+        {
+          "requirementName": "Mathematics",
+          "modules": ["MA1101R", "MA1521", "ST2334"],
+          "modularCredits": "12"
+        }
+      ]
+    },
+    {
+      "courseName": "Computer Engineering",
+      "requirements": [
+        {
+          "requirementName": "Core Modules",
+          "modules": ["CG1111", "CG1112", "CS1010", "CS1231", "MA1511", "MA1512", "MA1508E", ""]
         }
       ]
     }
