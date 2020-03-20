@@ -202,6 +202,10 @@ public class Entry {
         return this.type.getValue().equals("food");
     }
 
+    public boolean isSports() {
+        return this.type.getValue().equals("sports");
+    }
+
     public boolean isDone() {
         return this.getStatus().value.equalsIgnoreCase("Done");
     }
