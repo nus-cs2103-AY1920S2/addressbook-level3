@@ -1,7 +1,5 @@
 package fithelper.model.diary;
 
-import java.time.format.DateTimeFormatter;
-
 import fithelper.logic.parser.exceptions.ParseException;
 
 /**
