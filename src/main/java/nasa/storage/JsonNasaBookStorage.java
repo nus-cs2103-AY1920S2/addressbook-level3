@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.exceptions.DataConversionException;
 import nasa.commons.exceptions.IllegalValueException;
@@ -14,6 +15,7 @@ import nasa.commons.util.FileUtil;
 import nasa.commons.util.JsonUtil;
 import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
+import nasa.model.module.Module;
 import nasa.model.module.UniqueModuleList;
 
 /**
@@ -89,7 +91,7 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePath);
+        //JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePath);
         JsonUtil.saveJsonFile(new JsonAdaptedHistory(historyBook), filePath);
 
     }

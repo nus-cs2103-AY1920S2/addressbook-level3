@@ -159,6 +159,5 @@ public interface Model {
     void removeModuleByIndex(Index index);
     void removeActivityByIndex(Module module, Index index);
     void removeActivityByIndex(ModuleCode moduleCode, Index index);
-
     HistoryManager<UniqueModuleList> getHistoryManager();
 }

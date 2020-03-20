@@ -1,8 +1,10 @@
 package nasa.model;
 
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -129,14 +131,20 @@ public class ModelManager implements Model {
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        historyManager.add(nasaBook.getList());
+        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
+        final UniqueModuleList temp = new UniqueModuleList();
+        temp.setModules(nasaBook.getDeepCopyList());
+        historyManager.add(temp);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addModule(ModuleCode moduleCode, ModuleName moduleName) {
         nasaBook.addModule(moduleCode, moduleName);
-        historyManager.add(nasaBook.getList());
+        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
+        final UniqueModuleList temp = new UniqueModuleList();
+        temp.setModules(nasaBook.getDeepCopyList());
+        historyManager.add(temp);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -163,6 +171,9 @@ public class ModelManager implements Model {
     @Override
     public void addActivity(ModuleCode target, Activity activity) {
         nasaBook.addActivity(target, activity);
+        final UniqueModuleList temp = new UniqueModuleList();
+        temp.setModules(nasaBook.getDeepCopyList());
+        historyManager.add(temp);
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 

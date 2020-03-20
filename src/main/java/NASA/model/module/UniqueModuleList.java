@@ -139,9 +139,15 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.remove(index.getZeroBased());
     }
 
-    public void setModules(UniqueModuleList replacement) {
+//    public void setModules(UniqueModuleList replacement) {
+//        requireNonNull(replacement);
+//        internalList.setAll(replacement.internalList);
+//    }
+
+    public UniqueModuleList setModules(UniqueModuleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+        return this;
     }
 
     /**

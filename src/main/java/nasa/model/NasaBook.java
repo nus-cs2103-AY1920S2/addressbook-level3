@@ -1,9 +1,11 @@
 package nasa.model;
 
+import java.util.ArrayList;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import nasa.commons.core.index.Index;
@@ -314,6 +316,17 @@ public class NasaBook implements ReadOnlyNasaBook {
     @Override
     public ObservableList<Module> getModuleList() {
         return moduleList.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Module> getDeepCopyList() {
+        ObservableList<Module> deepCopyList = FXCollections.observableArrayList();
+        for (Module mods : moduleList.asUnmodifiableObservableList()) {
+            Module moduleTemp = new Module(mods.getModuleCode(), mods.getModuleName());
+            moduleTemp.setActivities(mods.getActivities());
+            deepCopyList.add(moduleTemp);
+        }
+        return deepCopyList;
     }
 
     @Override

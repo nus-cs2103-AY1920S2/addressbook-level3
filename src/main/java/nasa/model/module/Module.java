@@ -1,9 +1,11 @@
 package nasa.model.module;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javafx.collections.FXCollections;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;

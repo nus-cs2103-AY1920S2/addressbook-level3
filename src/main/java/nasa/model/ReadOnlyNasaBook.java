@@ -13,4 +13,6 @@ public interface ReadOnlyNasaBook {
      * This list will not contain any duplicate modules.
      */
     ObservableList<Module> getModuleList();
+
+    ObservableList<Module> getDeepCopyList();
 }
