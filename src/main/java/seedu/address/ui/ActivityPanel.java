@@ -11,11 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.listmanagers.activity.Activity;
 
 /**
-<<<<<<< HEAD
  * Panel containing the list of activityPanel.
-=======
- * Panel containing the list of Activity.
->>>>>>> Add Addactivity command
  */
 public class ActivityPanel extends UiPart<Region> {
 
@@ -32,11 +28,7 @@ public class ActivityPanel extends UiPart<Region> {
     }
 
     /**
-<<<<<<< HEAD
      * Custom {@code ListCell} that displays the graphics of a {@code Activity} using a {@code ActivityCard}.
-=======
-     * Custom {@code ListCell} that displays the graphics of a {@code Activity} using a {@code Activity}.
->>>>>>> Add Addactivity command
      */
     class ActivityListViewCell extends ListCell<Activity> {
         @Override
