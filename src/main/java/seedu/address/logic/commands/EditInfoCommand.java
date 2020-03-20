@@ -19,7 +19,7 @@ import seedu.address.model.person.Remark;
  */
 public class EditInfoCommand extends Command {
 
-    public static final String COMMAND_WORD = "ab_editnote";
+    public static final String COMMAND_WORD = "(ab)editnote";
     public static final String COMMAND_FUNCTION = "Edit the information of the person identified "
             + "by the index number used in the last person listing. "
             + "If there is existing information at the line number, "
@@ -72,7 +72,7 @@ public class EditInfoCommand extends Command {
         }
         Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getRemark(), personToEdit.getBirthday(),
-                personToEdit.getTags());
+                personToEdit.getTags(), personToEdit.getIndex());
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

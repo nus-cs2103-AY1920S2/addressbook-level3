@@ -14,8 +14,8 @@ import seedu.address.model.assignment.Assignment;
  */
 public class AddAssignmentCommand extends Command {
     public static final String COMMAND_WORD = "(st)add";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assignment to the scheduler. "
+    public static final String COMMAND_FUNCTION = "Adds an assignment to the scheduler. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_DEADLINE + "DEADLINE "

@@ -105,9 +105,10 @@ public class EditCommand extends Command {
         ArrayList<Remark> updatedRemark = personToEdit.getRemark(); // edit command does not allow editing remarks
         Birthday updatedBirthday = editPersonDescriptor.getBirthday().orElse(personToEdit.getBirthday());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Index updatedIndex = editPersonDescriptor.getIndex().orElse(personToEdit.getIndex());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark,
-                updatedBirthday, updatedTags);
+                updatedBirthday, updatedTags, updatedIndex);
     }
 
     @Override
@@ -140,6 +141,7 @@ public class EditCommand extends Command {
         private Birthday birthday;
         private ArrayList<Remark> remarks;
         private Set<Tag> tags;
+        private Index index;
 
         public EditPersonDescriptor() {}
 
@@ -154,6 +156,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setBirthday(toCopy.birthday);
             setTags(toCopy.tags);
+            setIndex(toCopy.index);
         }
 
         /**
@@ -201,6 +204,13 @@ public class EditCommand extends Command {
 
         public Optional<Birthday> getBirthday() {
             return Optional.ofNullable(birthday);
+        }
+
+        public Optional<Index> getIndex() {
+            return Optional.ofNullable(index);
+        }
+        public void setIndex(Index index) {
+            this.index = index;
         }
 
         /**

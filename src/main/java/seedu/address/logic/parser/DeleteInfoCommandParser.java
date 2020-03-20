@@ -9,6 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddInfoCommand;
 import seedu.address.logic.commands.DeleteInfoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * Parses input arguments and creates a new {@code DeleteInfoCommand} object
@@ -19,7 +20,7 @@ public class DeleteInfoCommandParser implements Parser<DeleteInfoCommand> {
      * and returns a {@code RemarkCommand} object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public DeleteInfoCommand parse(String args) throws ParseException {
+    public DeleteInfoCommand parse(String args, Model model) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_LINE_NUMBER);
