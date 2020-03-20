@@ -1,12 +1,10 @@
 package fithelper.model.diary;
 
-import fithelper.logic.parser.exceptions.ParseException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import fithelper.logic.parser.exceptions.ParseException;
 
 /**
  * Represents ID of a diary.
@@ -16,7 +14,7 @@ public class DiaryDate {
     public static final String MESSAGE_ERROR =
             "Date conversion from strings has failed.";
 
-    public LocalDate diaryDate;
+    private LocalDate diaryDate;
 
     /**
      * Constructs a {@code DiaryDate}.
@@ -40,7 +38,7 @@ public class DiaryDate {
      * @param dateStr a string representation of date
      */
     public DiaryDate(String dateStr) throws ParseException {
-        try{
+        try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
             this.diaryDate = date;

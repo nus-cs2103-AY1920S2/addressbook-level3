@@ -1,9 +1,9 @@
 package fithelper.model.diary;
 
-import fithelper.logic.parser.exceptions.ParseException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import fithelper.logic.parser.exceptions.ParseException;
 
 /**
  * This class is for testing and debugging.

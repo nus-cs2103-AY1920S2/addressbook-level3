@@ -1,8 +1,8 @@
 package fithelper.model.diary;
 
-import java.util.Objects;
-
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a diary in diary list.

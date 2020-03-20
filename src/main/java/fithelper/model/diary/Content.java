@@ -1,8 +1,8 @@
 package fithelper.model.diary;
 
-import java.util.Objects;
-
 import static fithelper.commons.util.AppUtil.checkArgument;
+
+import java.util.Objects;
 
 /**
  * Represents a Diary's content.
@@ -11,7 +11,7 @@ import static fithelper.commons.util.AppUtil.checkArgument;
 public class Content {
     public static final String MESSAGE_CONSTRAINTS =
             "Content should be no more than 300 characters";
-    public String value;
+    private String value;
 
     /**
      * Creates a {@code Content}.
@@ -30,6 +30,10 @@ public class Content {
         this.value = "";
     }
 
+    /**
+     * Checks whether the content is empty.
+     * @return a boolean value
+     */
     public boolean isContentEmpty() {
         if (this.value == null || this.value.equals("")) {
             return true;
@@ -41,6 +45,10 @@ public class Content {
         return value;
     }
 
+    /**
+     * Sets the value of the content.
+     * @param value the content to be set
+     */
     public void setValue(String value) {
         checkArgument(isValidContent(value), MESSAGE_CONSTRAINTS);
         this.value = value;

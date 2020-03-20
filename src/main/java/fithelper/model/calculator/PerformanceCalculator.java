@@ -1,12 +1,15 @@
 package fithelper.model.calculator;
 
-import fithelper.model.entry.Entry;
+import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.Objects;
 
-import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import fithelper.model.entry.Entry;
 
+/**
+ * Represents a performance calculator.
+ */
 public class PerformanceCalculator {
 
     private List<Entry> entries;
@@ -57,7 +60,7 @@ public class PerformanceCalculator {
         int temp = 0;
         for (Entry entry : entries) {
             if (entry.isDone()) {
-                temp ++;
+                temp++;
             }
         }
         return temp;
@@ -72,7 +75,7 @@ public class PerformanceCalculator {
         int temp = 0;
         for (Entry entry : entries) {
             if (!entry.isDone()) {
-                temp ++;
+                temp++;
             }
         }
         return temp;
