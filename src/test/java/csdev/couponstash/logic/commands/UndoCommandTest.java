@@ -32,7 +32,7 @@ class UndoCommandTest {
                 new UserPrefs()
         );
 
-        String expectedMessage = UndoCommand.MESSAGE_SUCCESS;
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "add");
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }
@@ -54,7 +54,7 @@ class UndoCommandTest {
                 new UserPrefs()
         );
 
-        String expectedMessage = UndoCommand.MESSAGE_SUCCESS;
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "delete");
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }
@@ -75,7 +75,7 @@ class UndoCommandTest {
                 new UserPrefs()
         );
 
-        String expectedMessage = UndoCommand.MESSAGE_SUCCESS;
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "edit");
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }
@@ -94,7 +94,7 @@ class UndoCommandTest {
                 new UserPrefs()
         );
 
-        String expectedMessage = UndoCommand.MESSAGE_SUCCESS;
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "clear");
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }

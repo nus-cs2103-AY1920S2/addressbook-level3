@@ -12,7 +12,7 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_SUCCESS = "Previous undo undone";
+    public static final String MESSAGE_SUCCESS = "Undone command redone: %s";
     public static final String MESSAGE_NO_STATE_TO_REDO_TO = "Nothing to redo";
 
     @Override
@@ -23,8 +23,8 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_NO_STATE_TO_REDO_TO);
         }
 
-        model.redoCouponStash();
-        return new CommandResult(MESSAGE_SUCCESS);
+        String command = model.redoCouponStash();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, command));
     }
 }
 

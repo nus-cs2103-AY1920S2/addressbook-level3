@@ -10,35 +10,50 @@ import csdev.couponstash.model.CouponStash;
  */
 public class HistoryManager {
     private List<CouponStash> couponStashStateList;
+    private List<String> commandHistory;
     private int currStateIndex;
 
     public HistoryManager(CouponStash initialState) {
         this.currStateIndex = 0;
 
         this.couponStashStateList = new ArrayList<>();
+        this.commandHistory = new ArrayList<>();
         this.couponStashStateList.add(initialState);
+        // Empty string as initial state had no commands
+        this.commandHistory.add("");
     }
 
     /**
      * Add {@code newState} to {@code couponStashList}.
+     * {@code command} is the command that triggered the commit.
      * Increments {@code currStateIndex} subsequently.
      * If {@code currentStatePointer} is not pointing at the end of the
      * {@code couponStashStateList}, all coupon stash states after the
      * {@code currentStatePointer} will be purged.
      * @param newState State to add to {@code couponStashList}
      */
-    public void commitState(CouponStash newState) {
+    public void commitState(CouponStash newState, String command) {
         this.couponStashStateList.add(newState);
+        this.commandHistory.add(command);
         currStateIndex++;
 
         int stateSize = couponStashStateList.size();
         if (currStateIndex != stateSize - 1) {
 
-            // Purging all coupon stash states after the currentStatePointer.
+            // Purging all coupon stash states and command histories after the currentStatePointer.
             for (int i = currStateIndex + 1; i < stateSize; i++) {
                 couponStashStateList.remove(couponStashStateList.size() - 1);
+                commandHistory.remove(couponStashStateList.size() - 1);
             }
         }
+    }
+
+    /**
+     * Returns the next command from the command history.
+     * @return Next command string
+     */
+    public String getNextCommand() {
+        return this.commandHistory.get(currStateIndex + 1);
     }
 
     /**
