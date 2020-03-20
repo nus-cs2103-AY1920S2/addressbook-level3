@@ -12,7 +12,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
 import seedu.address.model.Pet;
-import seedu.address.ui.PetDisplayHandler;
 
 /** Represents the in-memory model of the address book data. */
 public class ModelManager implements Model {
@@ -21,7 +20,6 @@ public class ModelManager implements Model {
     private final TaskList taskList;
     private final Pomodoro pomodoro;
     private final Statistics statistics;
-    private final PetDisplayHandler petDisplayHandler;
     private final Pet pet;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
@@ -42,7 +40,6 @@ public class ModelManager implements Model {
         this.pet = new Pet(pet); // initialize a pet as a model
         this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
         this.statistics = new Statistics(statistics); // initialize a Statistics as a model
-        this.petDisplayHandler = new PetDisplayHandler(this.pet);
         logger.info(String.format("Initializing with Pet: %s", this.pet.toString()));
         logger.info(String.format("Initializing with Pomodoro: %s", this.pomodoro.toString()));
         logger.info(String.format("Initializing with DayDataList: %s", this.statistics.toString()));
@@ -188,16 +185,6 @@ public class ModelManager implements Model {
     // TODO add a manager for statistics
     public ReadOnlyStatistics getStatistics() {
         return statistics;
-    }
-
-    @Override
-    public PetDisplayHandler getPetDisplayHandler() {
-        return petDisplayHandler;
-    }
-
-    @Override
-    public void updatePetDisplayHandler() {
-        this.petDisplayHandler.updatePetDisplay();
     }
 
     // ============================ Pomodoro Manager
