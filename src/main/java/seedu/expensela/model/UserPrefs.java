@@ -14,7 +14,7 @@ import seedu.expensela.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path expenseLaFilePath = Paths.get("data" , "expensela.json");
+    private Path expenseLaFilePath = Paths.get("data" , "expenseLa.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
