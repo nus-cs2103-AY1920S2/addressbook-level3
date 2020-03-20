@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getTaTracker());
+            storage.saveTaTracker(model.getTaTracker());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,7 +52,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyTaTracker getAddressBook() {
+    public ReadOnlyTaTracker getTaTracker() {
         return model.getTaTracker();
     }
 
@@ -62,8 +62,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getTaTrackerFilePath() {
+        return model.getTaTrackerFilePath();
     }
 
     @Override

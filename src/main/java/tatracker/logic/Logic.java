@@ -28,15 +28,15 @@ public interface Logic {
      *
      * @see tatracker.model.Model#getTaTracker()
      */
-    ReadOnlyTaTracker getAddressBook();
+    ReadOnlyTaTracker getTaTracker();
 
     /** Returns an unmodifiable view of the filtered list of students */
     ObservableList<Student> getFilteredStudentList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' ta-tracker file path.
      */
-    Path getAddressBookFilePath();
+    Path getTaTrackerFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
