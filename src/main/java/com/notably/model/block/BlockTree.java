@@ -1,9 +1,9 @@
 package com.notably.model.block;
 
-import com.notably.commons.core.path.Path;
+import com.notably.commons.core.path.AbsolutePath;
 
 /**
- * Custom tree-like data structure that uses the Path object
+ * Custom tree-like data structure that uses the AbsolutePath object
  * to obtain the BlockTreeItem needed for manipulation.
  */
 public interface BlockTree {
@@ -18,26 +18,26 @@ public interface BlockTree {
      * @param path Full path of the block.
      * @return
      */
-    BlockTreeItem get(Path path);
+    BlockTreeItem get(AbsolutePath path);
 
     /**
      * Adds a new Block to the block at the path specified.
      * @param path Full path of the parent block.
      * @param newBlock The block to be added.
      */
-    void add(Path path, Block newBlock);
+    void add(AbsolutePath path, Block newBlock);
 
     /**
      * Sets the block at the specified path to a new block.
      * @param path Full path of the block.
      * @param newBlock The new block to be set.
      */
-    void set(Path path, Block newBlock);
+    void set(AbsolutePath path, Block newBlock);
 
     /**
      * Remove the block at the specified path.
      * @param path Full path of the block to be removed.
      */
-    void remove(Path path);
+    void remove(AbsolutePath path);
 
 }
