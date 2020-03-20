@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static tatracker.testutil.Assert.assertThrows;
 import static tatracker.testutil.TypicalStudents.ALICE;
-import static tatracker.testutil.TypicalStudents.getTypicalAddressBook;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,8 +38,8 @@ public class TaTrackerTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        TaTracker newData = getTypicalAddressBook();
+    public void resetData_withValidReadOnlyTaTracker_replacesData() {
+        TaTracker newData = getTypicalTaTracker();
         taTracker.resetData(newData);
         assertEquals(newData, taTracker);
     }
@@ -60,18 +60,18 @@ public class TaTrackerTest {
     }
 
     @Test
-    public void hasStudent_studentNotInAddressBook_returnsFalse() {
+    public void hasStudent_studentNotInTaTracker_returnsFalse() {
         assertFalse(taTracker.hasStudent(ALICE));
     }
 
     @Test
-    public void hasStudent_studentInAddressBook_returnsTrue() {
+    public void hasStudent_studentInTaTracker_returnsTrue() {
         taTracker.addStudent(ALICE);
         assertTrue(taTracker.hasStudent(ALICE));
     }
 
     @Test
-    public void hasStudent_studentWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    public void hasStudent_studentWithSameIdentityFieldsInTaTracker_returnsTrue() {
         taTracker.addStudent(ALICE);
         Student editedAlice = new StudentBuilder(ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         assertTrue(taTracker.hasStudent(editedAlice));

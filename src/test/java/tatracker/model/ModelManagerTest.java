@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.GuiSettings;
 import tatracker.model.student.NameContainsKeywordsPredicate;
-import tatracker.testutil.AddressBookBuilder;
+import tatracker.testutil.TaTrackerBuilder;
 
 public class ModelManagerTest {
 
@@ -37,14 +37,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setTaTrackerFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setTaTrackerFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,15 +61,15 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setTaTrackerFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setTaTrackerFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setTaTrackerFilePath_validPath_setsTaTrackerFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setTaTrackerFilePath(path);
+        assertEquals(path, modelManager.getTaTrackerFilePath());
     }
 
     @Test
@@ -78,12 +78,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasStudent_studentNotInAddressBook_returnsFalse() {
+    public void hasStudent_studentNotInTaTracker_returnsFalse() {
         assertFalse(modelManager.hasStudent(ALICE));
     }
 
     @Test
-    public void hasStudent_studentInAddressBook_returnsTrue() {
+    public void hasStudent_studentInTaTracker_returnsTrue() {
         modelManager.addStudent(ALICE);
         assertTrue(modelManager.hasStudent(ALICE));
     }
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        TaTracker taTracker = new AddressBookBuilder().withStudent(ALICE).withStudent(BENSON).build();
+        TaTracker taTracker = new TaTrackerBuilder().withStudent(ALICE).withStudent(BENSON).build();
         TaTracker differentTaTracker = new TaTracker();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -126,7 +126,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setTaTrackerFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(taTracker, differentUserPrefs)));
     }
 }
