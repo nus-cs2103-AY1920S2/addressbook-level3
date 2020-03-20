@@ -101,18 +101,21 @@ public interface Model {
 
     /**
      * Saves current coupon stash state in its history.
+     * @param command The command that triggered the commit. (i.e. add, edit, delete, or clear)
      */
-    void commitCouponStash();
+    void commitCouponStash(String command);
 
     /**
      * Restores the previous coupon statsh state from its history.
+     * @return Command undone to
      */
-    void undoCouponStash();
+    String undoCouponStash();
 
     /**
      * Restores a previously undone coupon stash state from its history.
+     * @return Command redone to
      */
-    void redoCouponStash();
+    String redoCouponStash();
 
     /**
      * Check if there is a coupon stash state to undo to.

@@ -56,6 +56,7 @@ public class JsonAdaptedCouponTest {
         JsonAdaptedCoupon coupon =
                 new JsonAdaptedCoupon(INVALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS, VALID_REMIND_DATE);
+
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -64,6 +65,7 @@ public class JsonAdaptedCouponTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedCoupon coupon = new JsonAdaptedCoupon(null, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                 VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS, VALID_REMIND_DATE);
+
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -72,6 +74,7 @@ public class JsonAdaptedCouponTest {
     public void toModelType_nullPromoCode_throwsIllegalValueException() {
         JsonAdaptedCoupon coupon = new JsonAdaptedCoupon(VALID_NAME, null, VALID_SAVINGS, VALID_EXPIRY_DATE,
                 VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS, VALID_REMIND_DATE);
+
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, PromoCode.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -81,6 +84,7 @@ public class JsonAdaptedCouponTest {
         JsonAdaptedCoupon coupon =
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, INVALID_SAVINGS, VALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS, VALID_REMIND_DATE);
+
         String expectedMessage = Savings.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -90,6 +94,7 @@ public class JsonAdaptedCouponTest {
         JsonAdaptedCoupon coupon =
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, INVALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS, VALID_REMIND_DATE);
+
         String expectedMessage = ExpiryDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -100,6 +105,7 @@ public class JsonAdaptedCouponTest {
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                         INVALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS,
                         VALID_REMIND_DATE);
+
         String expectedMessage = StartDate.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -120,6 +126,7 @@ public class JsonAdaptedCouponTest {
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, INVALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS,
                         VALID_REMIND_DATE);
+
         String expectedMessage = Limit.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
@@ -132,6 +139,7 @@ public class JsonAdaptedCouponTest {
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, invalidTags,
                         VALID_REMIND_DATE);
+
         assertThrows(IllegalValueException.class, coupon::toModelType);
     }
 

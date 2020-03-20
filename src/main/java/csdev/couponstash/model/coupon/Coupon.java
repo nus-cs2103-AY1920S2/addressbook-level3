@@ -33,6 +33,7 @@ public class Coupon {
     // for implementation of certain commands)
     private final Usage usage;
     private final RemindDate remind;
+
     private final PureMonetarySavings totalSavings;
 
     /**
@@ -86,6 +87,7 @@ public class Coupon {
             Set<Tag> tags,
             PureMonetarySavings totalSavings,
             RemindDate remind) {
+
 
         requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags, totalSavings, remind);
         this.name = name;
@@ -266,6 +268,8 @@ public class Coupon {
                 .append(getUsage())
                 .append(" Limit: ")
                 .append(getLimit())
+                .append(" Remind Date: ")
+                .append(getRemindDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

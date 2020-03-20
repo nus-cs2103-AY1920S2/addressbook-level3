@@ -166,6 +166,7 @@ class JsonAdaptedCoupon {
         }
         final RemindDate modelRemindDate = new RemindDate(remindDate);
 
+
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
         return new Coupon(modelName, modelPromoCode, modelSavings,

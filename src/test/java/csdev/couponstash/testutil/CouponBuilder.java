@@ -34,6 +34,7 @@ public class CouponBuilder {
     public static final String DEFAULT_LIMIT = "7";
     public static final RemindDate DEFAULT_REMIND = new RemindDate("30-08-2020");
 
+
     private Name name;
     private PromoCode promoCode;
     private Savings savings;
@@ -43,6 +44,7 @@ public class CouponBuilder {
     private Usage usage;
     private Limit limit;
     private RemindDate remind;
+
     private Set<Tag> tags;
 
     public CouponBuilder() {
@@ -162,6 +164,7 @@ public class CouponBuilder {
     /**
      * Sets the {@code Remind} of the {@code Coupon} that we are building.
      */
+
     public CouponBuilder withRemind(RemindDate remind) {
         this.remind = remind;
         return this;
