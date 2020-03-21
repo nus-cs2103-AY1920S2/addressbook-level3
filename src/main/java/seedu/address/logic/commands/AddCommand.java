@@ -30,7 +30,7 @@ public class AddCommand extends Command {
             + "(" + PREFIX_TASK + "assignment) "
             + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
-    private String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
+    private static String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
 
     private final Module toAdd;
 
