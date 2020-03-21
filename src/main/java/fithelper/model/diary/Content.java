@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Content {
 
     public static final String MESSAGE_CONSTRAINTS = "Content should be no more than 200 characters";
-    public final String value;
+    public String value;
 
     /**
      * Creates a {@code Content}.
@@ -48,7 +48,7 @@ public class Content {
      */
     public void setValue(String value) {
         checkArgument(isValidContent(value), MESSAGE_CONSTRAINTS);
-        this.value = value;
+        value = value;
     }
 
     /**
@@ -62,7 +62,7 @@ public class Content {
         if (!isContentEmpty()) {
             sb.append(" ");
         }
-        this.value = sb.append(appendingStr).toString();
+        value = sb.append(appendingStr).toString();
     }
 
     public static boolean isValidContent(String value) {

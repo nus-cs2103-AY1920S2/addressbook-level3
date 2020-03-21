@@ -15,7 +15,7 @@ public class JsonAdaptedDiary {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary's %s field is missing!";
 
-    private final String diaryId;
+    private String diaryId;
 
     private String diaryDate;
     private String content;

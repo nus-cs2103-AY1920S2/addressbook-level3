@@ -32,30 +32,23 @@ public class DiaryCard extends UiPart<AnchorPane> {
     @FXML
     private Label content;
 
+    /**
+     * Creates a card displaying the {@code diary diary}.
+     *
+     * @param diary the list of diary entries display
+     */
     public DiaryCard(Diary diary) {
         super(FXML);
         this.diary = diary;
         diaryDate.setText(diary.getDiaryDate().toString());
         content.setText(diary.getContent().value);
-    }
-
-    /**
-     * Creates a card displaying the {@code diary diary}.
-     *
-     * @param diary the list of diary entries display
-     * @param displayedIndex the index of the order to show on the card
-     */
-    public DiaryCard(Diary diary, int displayedIndex) {
-        super(FXML);
-        this.diary = diary;
-        fillInDetails(displayedIndex);
+        fillInDetails();
     }
 
     /**
      * Fills in details in GUI, in list view.
-     * @param displayedIndex the index of the order to show on the card
      */
-    private void fillInDetails(int displayedIndex) {
+    private void fillInDetails() {
         diaryDate.setText(diary.getDiaryDate().toString());
         content.setText(diary.getContent().value);
     }
@@ -68,7 +61,7 @@ public class DiaryCard extends UiPart<AnchorPane> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof fithelper.ui.diary.DiaryCard)) {
+        if (!(other instanceof DiaryCard)) {
             return false;
         }
 

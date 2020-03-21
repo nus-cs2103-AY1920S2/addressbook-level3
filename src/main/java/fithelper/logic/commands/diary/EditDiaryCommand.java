@@ -64,7 +64,6 @@ public class EditDiaryCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Diary> lastShownList;
         Diary editedDiary = createEditedDiary(diaryId, editDiaryDescriptor);
         model.setDiary(diaryId, editedDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);

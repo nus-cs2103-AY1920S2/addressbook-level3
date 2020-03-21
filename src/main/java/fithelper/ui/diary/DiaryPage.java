@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class DiaryPage extends UiPart<AnchorPane> {
     private static final String FXML = "DiaryPage.fxml";
-    private final Logger logger = LogsCenter.getLogger(fithelper.ui.diary.DiaryPage.class);
+    private final Logger logger = LogsCenter.getLogger(DiaryPage.class);
 
     @FXML
     private ListView<Diary> diaryListView;
@@ -39,7 +39,7 @@ public class DiaryPage extends UiPart<AnchorPane> {
      */
     private void initializeDiaryListView(ObservableList<Diary> diaryList) {
         diaryListView.setItems(diaryList);
-        diaryListView.setCellFactory(listView -> new fithelper.ui.diary.DiaryPage.DiaryListViewCell());
+        diaryListView.setCellFactory(listView -> new DiaryListViewCell());
     }
 
     /**
@@ -58,7 +58,7 @@ public class DiaryPage extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new DiaryCard(diary, getIndex() + 1).getRoot());
+                setGraphic(new DiaryCard(diary).getRoot());
             }
         }
     }

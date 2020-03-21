@@ -1,15 +1,20 @@
 package fithelper.model.diary;
 
+import java.util.logging.Logger;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.logic.parser.exceptions.ParseException;
 
 /**
  * Represents ID of a diary.
  */
 public class DiaryDate {
+
+    private final Logger logger = LogsCenter.getLogger(DiaryDate.class);
 
     public static final String MESSAGE_ERROR =
             "Date conversion from strings has failed.";
@@ -29,9 +34,8 @@ public class DiaryDate {
      * Constructs a {@code DiaryDate}.
      *
      * @param diaryDate diary Date.
-     * @param value
      */
-    public DiaryDate(LocalDate diaryDate, String value) {
+    public DiaryDate(LocalDate diaryDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.diaryDate = diaryDate;
         this.value = diaryDate.format(formatter);
@@ -51,7 +55,6 @@ public class DiaryDate {
         } catch (Exception e) {
             throw new ParseException(MESSAGE_ERROR);
         }
-
     }
 
     /**
@@ -59,10 +62,11 @@ public class DiaryDate {
      * @param dateStr
      * @return
      */
-    public static boolean isValidDate(String dateStr) {
+    public boolean isValidDate(String dateStr) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
+            logger.info(String.valueOf(date));
             return true;
         } catch (Exception e) {
             return false;

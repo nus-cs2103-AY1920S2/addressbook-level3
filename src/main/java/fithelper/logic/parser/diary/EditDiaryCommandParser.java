@@ -24,16 +24,13 @@ import fithelper.model.diary.DiaryDate;
  */
 public class EditDiaryCommandParser implements Parser<EditDiaryCommand> {
 
-    private ArgumentMultimap argMultimap;
-    private EditDiaryCommand.EditDiaryDescriptor editDiaryDescriptor;
-
     /**
      * Parses the given {@code String} of arguments in the context of the EditDiaryCommand
      * and returns an EditDiaryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditDiaryCommand parse(String args) throws ParseException {
-        argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_DIARYCONTENT);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_DIARYCONTENT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_DIARYCONTENT)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditDiaryCommand.MESSAGE_USAGE));
@@ -41,8 +38,7 @@ public class EditDiaryCommandParser implements Parser<EditDiaryCommand> {
 
         DiaryDate diaryDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_DIARYCONTENT).get());
-        Diary diary = new Diary(diaryDate, content);
-        editDiaryDescriptor = new EditDiaryCommand.EditDiaryDescriptor();
+        EditDiaryCommand.EditDiaryDescriptor editDiaryDescriptor = new EditDiaryCommand.EditDiaryDescriptor();
         editDiaryDescriptor.setDiaryDate(diaryDate);
         editDiaryDescriptor.setContent(content);
 

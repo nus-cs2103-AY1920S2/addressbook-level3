@@ -37,13 +37,11 @@ public class UniqueDiaryList implements Iterable<Diary> {
         return internalList.stream().anyMatch(toCheck::isSameDiary);
     }
 
-
     /**
      * Returns true if the list contains an equivalent diary as the given argument.
      */
     public boolean containsDate(ObservableList<Diary> list, String toCheck) {
         requireNonNull(toCheck);
-        List<Diary> tempList = internalList.stream().collect(Collectors.toList());
         for (Diary diary: internalList) {
             if (diary.getDiaryDate().toString().equalsIgnoreCase(toCheck)) {
                 return true;
