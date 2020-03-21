@@ -14,7 +14,7 @@ import csdev.couponstash.logic.parser.exceptions.ParseException;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.Phone;
+import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
@@ -59,18 +59,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String promoCode} into a {@code PromoCode}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code promoCode} is invalid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
+    public static PromoCode parsePromoCode(String promoCode) {
+        requireNonNull(promoCode);
+        String trimmedPromoCode = promoCode.trim();
+
+        return new PromoCode(trimmedPromoCode);
     }
 
     /**

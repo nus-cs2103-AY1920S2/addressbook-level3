@@ -1,14 +1,16 @@
 {
   "coupons": [ {
     "name": "Alice Pauline",
-    "phone": "94351253",
-    "savings" : {
+    "promoCode": "I<3STASH",
+    "savingsPerUse" : {
       "monetaryAmount" : 123.0,
       "percentageAmount" :null,
       "saveables" : [ {
-        "saveableDesc" : "Water Bottle"
+        "saveableDesc" : "Water Bottle",
+        "count" : 1
       }, {
-        "saveableDesc" : "Notebook"
+        "saveableDesc" : "Notebook",
+        "count" : 1
       } ]
     },
     "expiry date": "30-08-2020",
@@ -18,17 +20,18 @@
     "tagged": [ "friends" ]
   }, {
     "name": "Alice Pauline",
-    "phone": "94351253",
-    "savings" : {
+    "promoCode": "I<3STASH",
+    "savingsPerUse" : {
       "monetaryAmount" : 123.0,
       "percentageAmount" :null,
       "saveables" : [ {
-        "saveableDesc" : "Water Bottle"
+        "saveableDesc" : "Water Bottle",
+        "count" : 1
       }, {
-        "saveableDesc" : "Notebook"
+        "saveableDesc" : "Notebook",
+        "count" : 1
       } ]
     },
-    "phone": "94351253",
     "start date": "2-08-2020",
     "expiry date": "30-08-2020",
     "usage": "1",

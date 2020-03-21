@@ -39,7 +39,7 @@ public class ModelManager implements Model {
         this.couponStash = new CouponStash(couponStash);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCoupons = new FilteredList<>(this.couponStash.getCouponList());
-        history = new HistoryManager(this.couponStash.clone());
+        history = new HistoryManager(this.couponStash.copy());
     }
 
     public ModelManager() {
@@ -98,7 +98,7 @@ public class ModelManager implements Model {
     @Override
     public void setCouponStash(ReadOnlyCouponStash couponStash) {
         this.couponStash.resetData(couponStash);
-        commitCouponStash();
+        commitCouponStash("clear");
     }
 
     @Override
@@ -115,14 +115,14 @@ public class ModelManager implements Model {
     @Override
     public void deleteCoupon(Coupon target) {
         couponStash.removeCoupon(target);
-        commitCouponStash();
+        commitCouponStash("delete");
     }
 
     @Override
     public void addCoupon(Coupon coupon) {
         couponStash.addCoupon(coupon);
         updateFilteredCouponList(PREDICATE_SHOW_ALL_COUPONS);
-        commitCouponStash();
+        commitCouponStash("add");
     }
 
     @Override
@@ -130,7 +130,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCoupon);
 
         couponStash.setCoupon(target, editedCoupon);
-        commitCouponStash();
+        commitCouponStash("edit");
     }
 
     //=========== Filtered Coupon List Accessors =============================================================
@@ -152,18 +152,21 @@ public class ModelManager implements Model {
 
     //=========== Undo/Redo functionality =============================================================
     @Override
-    public void commitCouponStash() {
-        history.commitState(couponStash.clone());
+    public void commitCouponStash(String command) {
+        history.commitState(couponStash.copy(), command);
     }
 
     @Override
-    public void undoCouponStash() {
+    public String undoCouponStash() {
         couponStash.resetData(history.undo());
+        return history.getNextCommand();
     }
 
     @Override
-    public void redoCouponStash() {
+    public String redoCouponStash() {
+        String nextCommand = history.getNextCommand();
         couponStash.resetData(history.redo());
+        return nextCommand;
     }
 
     @Override
