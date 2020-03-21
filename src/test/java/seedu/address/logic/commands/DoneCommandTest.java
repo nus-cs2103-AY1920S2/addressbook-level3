@@ -40,6 +40,7 @@ public class DoneCommandTest {
         String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, editedOrder);
 
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), new UserPrefs());
+        editedOrder.setDeliveryStatus(true);
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
         assertCommandSuccess(doneCommand, model, expectedMessage, expectedModel);

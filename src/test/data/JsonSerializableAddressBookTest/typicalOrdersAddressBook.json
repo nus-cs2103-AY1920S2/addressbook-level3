@@ -10,8 +10,7 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery": "$1.01",
     "comment": "NIL",
-    "itemType": "glass",
-    "deliveryStatus": "Not Delivered"
+    "itemType": "glass"
   }, {
     "tid": "B8484848",
     "name" : "Benson Meier",
@@ -22,8 +21,7 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery": "$5",
     "comment": "NIL",
-    "itemType": "NIL",
-    "deliveryStatus": "Not Delivered"
+    "itemType": "NIL"
   }, {
     "tid": "C8483883",
     "name" : "Carl Kurz",
@@ -34,8 +32,7 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery": "$1.20",
     "comment": "NIL",
-    "itemType": "NIL",
-    "deliveryStatus": "Not Delivered"
+    "itemType": "NIL"
   }, {
     "tid": "D93939393",
     "name" : "Daniel Meier",
@@ -46,8 +43,7 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery": "$5",
     "comment": "NIL",
-    "itemType": "bottle",
-    "deliveryStatus": "Not Delivered"
+    "itemType": "bottle"
   }, {
     "tid": "E939393",
     "name" : "Elle Meyer",
@@ -58,8 +54,7 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery": "$6",
     "comment": "NIL",
-    "itemType": "NIL",
-    "deliveryStatus": "Not Delivered"
+    "itemType": "NIL"
   }, {
     "tid": "F01010101",
     "name" : "Fiona Kunz",
@@ -70,8 +65,7 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery": "$2",
     "comment": "NIL",
-    "itemType": "NIL",
-    "deliveryStatus": "Not Delivered"
+    "itemType": "NIL"
   }, {
     "tid": "G9999",
     "name" : "George Best",
@@ -82,7 +76,6 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery": "$6",
     "comment": "NIL",
-    "itemType": "drinks",
-    "deliveryStatus": "Not Delivered"
+    "itemType": "drinks"
   } ]
 }

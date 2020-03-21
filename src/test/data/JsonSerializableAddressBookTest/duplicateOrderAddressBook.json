@@ -9,7 +9,7 @@
     "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
     "cashOnDelivery" : "$3",
     "comment" : "Hello",
-    "itemType": "NIL",
+    "itemType": "NIL"
   }, {
     "tid": "A0303030",
     "name": "Alice Pauline",

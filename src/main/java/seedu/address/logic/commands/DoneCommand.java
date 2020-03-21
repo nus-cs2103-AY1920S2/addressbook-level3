@@ -87,19 +87,13 @@ public class DoneCommand extends Command {
         if (orderToBeDelivered.isDelivered() == false) {
 
             model.setOrder(orderToBeDelivered, editedOrder);
+            model.deliverOrder(editedOrder);
             model.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
         } else {
             model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
         }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DoneCommand // instanceof handles nulls
-                && targetIndex.equals(((DoneCommand) other).targetIndex)); // state check
     }
 
     /**
@@ -129,7 +123,7 @@ public class DoneCommand extends Command {
 
     }
 
-    /*@Override
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
@@ -145,7 +139,7 @@ public class DoneCommand extends Command {
         DoneCommand e = (DoneCommand) other;
         return targetIndex.equals(e.targetIndex)
                 && doneOrderDescriptor.equals(e.doneOrderDescriptor);
-    }*/
+    }
 
     /**
      * Stores the details to edit the order with. Each non-empty field value will replace the
