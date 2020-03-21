@@ -8,6 +8,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
+import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -20,17 +21,20 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private PetStorage petStorage;
     private PomodoroStorage pomodoroStorage;
+    private StatisticsStorage statisticsStorage;
 
     // NOTE these storage objects all correspond to Json-storagename, i.e. JsonTaskListStorage, ...
     public StorageManager(
             TaskListStorage taskListStorage,
             PetStorage petStorage,
             PomodoroStorage pomodoroStorage,
+            StatisticsStorage dayDataListStorage,
             UserPrefsStorage userPrefsStorage) {
         super();
         this.taskListStorage = taskListStorage;
         this.petStorage = petStorage;
         this.pomodoroStorage = pomodoroStorage;
+        this.statisticsStorage = dayDataListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -119,5 +123,18 @@ public class StorageManager implements Storage {
     public void savePomodoro(ReadOnlyPomodoro pomodoro) throws IOException {
         logger.fine("Attempting to write pomodoro data: ");
         pomodoroStorage.savePomodoro(pomodoro);
+    }
+
+    // ================ Statistics methods ==============================
+    @Override
+    public Optional<ReadOnlyStatistics> readStatistics()
+            throws DataConversionException, IOException {
+        return statisticsStorage.readStatistics();
+    }
+
+    @Override
+    public void saveStatistics(ReadOnlyStatistics dayDataList) throws IOException {
+        logger.fine("Attempting to write Day Data List data: ");
+        statisticsStorage.saveStatistics(dayDataList);
     }
 }

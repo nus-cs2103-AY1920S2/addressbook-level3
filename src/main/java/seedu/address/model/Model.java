@@ -75,4 +75,8 @@ public interface Model {
     ReadOnlyPomodoro getPomodoro();
 
     void setPomodoroTask(Task task);
+
+    ReadOnlyStatistics getStatistics();
+
+    void setStatistics(String data); // placeholder
 }

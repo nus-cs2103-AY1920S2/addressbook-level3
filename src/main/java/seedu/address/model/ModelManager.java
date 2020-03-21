@@ -19,6 +19,7 @@ public class ModelManager implements Model {
 
     private final TaskList taskList;
     private final Pomodoro pomodoro;
+    private final Statistics statistics;
     private final Pet pet;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
@@ -28,6 +29,7 @@ public class ModelManager implements Model {
             ReadOnlyTaskList taskList,
             ReadOnlyPet pet,
             ReadOnlyPomodoro pomodoro,
+            ReadOnlyStatistics statistics,
             ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(taskList, userPrefs);
@@ -36,16 +38,18 @@ public class ModelManager implements Model {
 
         this.taskList = new TaskList(taskList);
         this.pet = new Pet(pet); // initialize a pet as a model
-        this.pomodoro = new Pomodoro(pomodoro); // initialize a pet as a model
+        this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
+        this.statistics = new Statistics(statistics); // initialize a Statistics as a model
         logger.info(String.format("Initializing with Pet: %s", this.pet.toString()));
         logger.info(String.format("Initializing with Pomodoro: %s", this.pomodoro.toString()));
+        logger.info(String.format("Initializing with DayDataList: %s", this.statistics.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
     }
 
     public ModelManager() {
-        this(new TaskList(), new Pet(), new Pomodoro(), new UserPrefs());
+        this(new TaskList(), new Pet(), new Pomodoro(), new Statistics(), new UserPrefs());
     }
 
     // =========== UserPrefs
@@ -168,10 +172,19 @@ public class ModelManager implements Model {
     public void setPetName(String name) {
         this.pet.setName(name);
     }
+  
+    @Override
+    public void incrementPomExp() {
+        this.pet.incrementPomExp();
+    }
 
-    // TODO add a manager for pomodoro
     public ReadOnlyPomodoro getPomodoro() {
         return pomodoro;
+    }
+
+    // TODO add a manager for statistics
+    public ReadOnlyStatistics getStatistics() {
+        return statistics;
     }
 
     // ============================ Pomodoro Manager
@@ -185,8 +198,9 @@ public class ModelManager implements Model {
         this.pet.incrementExp();
     }
 
-    @Override
-    public void incrementPomExp() {
-        this.pet.incrementPomExp();
+    // ============================ Statistics Manager
+
+    public void setStatistics(String data) {
+        // placeholder
     }
 }
