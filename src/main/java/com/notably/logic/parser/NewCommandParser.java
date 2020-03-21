@@ -6,7 +6,6 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
@@ -35,7 +34,7 @@ public class NewCommandParser implements CommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY)
+        if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid Command"));
         }
@@ -46,7 +45,7 @@ public class NewCommandParser implements CommandParser {
         Block block = new BlockImpl(new Title(title), new Body(body));
         List<Command> commands = new ArrayList<>();
         commands.add(new NewCommand(block));
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
+        if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
             return commands;
         }
         try {
@@ -56,13 +55,6 @@ public class NewCommandParser implements CommandParser {
         } catch (InvalidPathException ex) {
             throw new ParseException(ex.getMessage());
         }
-    }
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

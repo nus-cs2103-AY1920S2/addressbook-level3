@@ -4,7 +4,6 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
@@ -26,7 +25,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
     public List<OpenCommand> parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE)
+        if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid input"));
         }
@@ -42,12 +41,5 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
             throw new ParseException(ex.getMessage());
         }
 
-    }
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

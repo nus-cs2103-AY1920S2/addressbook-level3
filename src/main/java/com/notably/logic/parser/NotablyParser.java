@@ -3,6 +3,7 @@ package com.notably.logic.parser;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
@@ -44,6 +45,14 @@ public class NotablyParser {
         default:
             throw new ParseException("Invalid Command");
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
 
