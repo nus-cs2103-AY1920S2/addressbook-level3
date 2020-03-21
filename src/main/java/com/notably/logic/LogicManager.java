@@ -22,19 +22,15 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    //private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        //addressBookParser = new AddressBookParser();
     }
 
     @Override
     public void execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        //Command command = addressBookParser.parseCommand(commandText);
-        //command.execute(model);
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
