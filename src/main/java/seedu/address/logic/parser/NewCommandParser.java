@@ -13,11 +13,11 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.Calorie;
-import seedu.address.model.recipe.IngredientList;
-import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
  * Parses input arguments and creates a new NewCommand object
