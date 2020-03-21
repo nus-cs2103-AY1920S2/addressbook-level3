@@ -23,7 +23,7 @@ public class NotablyParser {
      * @return list of commands.
      * @throws ParseException when there is a invalid input string.
      */
-    public List<Command> parseCommand(String userInput) throws ParseException {
+    public List<? extends Command> parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format("Invalid Command"));

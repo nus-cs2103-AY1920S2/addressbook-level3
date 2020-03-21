@@ -8,14 +8,13 @@ import java.util.stream.Stream;
 
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
-import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
  */
-public class DeleteCommandParser implements CommandParser<Command> {
+public class DeleteCommandParser implements CommandParser<DeleteCommand> {
 
     /**
      * TODO: integrate with CorrectionEngine.
@@ -23,7 +22,7 @@ public class DeleteCommandParser implements CommandParser<Command> {
      * and returns a DeleteCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public List<Command> parse(String args) throws ParseException {
+    public List<DeleteCommand> parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
 
@@ -33,7 +32,7 @@ public class DeleteCommandParser implements CommandParser<Command> {
         }
 
         String title = argMultimap.getValue(PREFIX_TITLE).get();
-        List<Command> deleteCommand = new ArrayList<>();
+        List<DeleteCommand> deleteCommand = new ArrayList<>();
 
         try {
             deleteCommand.add(new DeleteCommand(RelativePath.fromString(title)));

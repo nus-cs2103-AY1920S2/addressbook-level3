@@ -8,14 +8,13 @@ import java.util.stream.Stream;
 
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
-import com.notably.logic.commands.Command;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 
 /**
  * Represent a Parser for OpenCommand.
  */
-public class OpenCommandParser implements CommandParser {
+public class OpenCommandParser implements CommandParser<OpenCommand> {
 
     /**
      * TODO: integrate with CorrectionEngine.
@@ -24,7 +23,7 @@ public class OpenCommandParser implements CommandParser {
      * @return List of command containing OpenCammnd.
      * @throws ParseException
      */
-    public List<Command> parse(String args) throws ParseException {
+    public List<OpenCommand> parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE)
@@ -33,7 +32,7 @@ public class OpenCommandParser implements CommandParser {
         }
 
         String titles = argMultimap.getValue(PREFIX_TITLE).get();
-        List<Command> openCommandList = new ArrayList<>();
+        List<OpenCommand> openCommandList = new ArrayList<>();
 
         try {
             RelativePath path = RelativePath.fromString(titles);
