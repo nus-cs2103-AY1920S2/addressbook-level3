@@ -13,6 +13,11 @@ public class TasksDoneData {
             "TasksDoneData is an integer greater than or equals to 0";
     public final String value;
 
+    /** Constructs a {@code TasksDoneData}. */
+    public TasksDoneData() {
+        value = "0";
+    }
+
     /**
      * Constructs a {@code TasksDoneData}.
      *

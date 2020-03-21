@@ -8,6 +8,8 @@ import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.PomDurationData;
 import seedu.address.model.dayData.TasksDoneData;
 
+import java.time.LocalDate;
+
 /** Jackson-friendly version of {@link DayData}. */
 class JsonAdaptedDayData {
 
@@ -30,7 +32,7 @@ class JsonAdaptedDayData {
 
     /** Converts a given {@code Task} into this class for Jackson use. */
     public JsonAdaptedDayData(DayData source) {
-        date = source.getDate().value;
+        date = source.getDate().toString();
         pomDurationData = source.getPomDurationData().value;
         tasksDoneData = source.getTasksDoneData().value;
     }
@@ -46,10 +48,12 @@ class JsonAdaptedDayData {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
+
         if (!Date.isValidDate(date)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Date modelDate = new Date(date);
+        LocalDate localDate = LocalDate.parse(date);
+        final Date modelDate = new Date(localDate);
 
         if (pomDurationData == null) {
             throw new IllegalValueException(

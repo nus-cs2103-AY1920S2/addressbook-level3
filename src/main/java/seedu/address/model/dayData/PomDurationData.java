@@ -13,6 +13,11 @@ public class PomDurationData {
             "PomDurationData is an integer greater than or equals to 0 and less than 1440";
     public final String value;
 
+    /** Constructs a {@code PomDurationData}. */
+    public PomDurationData() {
+        value = "0";
+    }
+
     /**
      * Constructs a {@code PomDurationData}.
      *

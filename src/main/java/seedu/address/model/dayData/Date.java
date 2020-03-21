@@ -3,6 +3,7 @@ package seedu.address.model.dayData;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -18,16 +19,16 @@ public class Date {
     public static final DateTimeFormatter dateFormatter =
             DateTimeFormatter.ofPattern("uuuu-MM-dd", Locale.US)
                     .withResolverStyle(ResolverStyle.STRICT);
-    public final String value;
+    public final LocalDate value;
 
     /**
      * Constructs a {@code Date}.
      *
      * @param date A valid priority number.
      */
-    public Date(String date) {
+    public Date(LocalDate date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDate(date.toString()), MESSAGE_CONSTRAINTS);
         value = date;
     }
 
@@ -43,7 +44,7 @@ public class Date {
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 
     @Override
