@@ -3,17 +3,19 @@ package fithelper.model.diary;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.logging.Logger;
 
+import fithelper.commons.core.LogsCenter;
 import fithelper.logic.parser.exceptions.ParseException;
 
 /**
  * Represents ID of a diary.
  */
 public class DiaryDate {
+    public static final String MESSAGE_ERROR = "Date conversion from strings has failed.";
+    private static final Logger logger = LogsCenter.getLogger(DiaryDate.class);
 
-    public static final String MESSAGE_ERROR =
-            "Date conversion from strings has failed.";
-
+    public final String value;
     private LocalDate diaryDate;
 
     /**
@@ -21,6 +23,7 @@ public class DiaryDate {
      */
     public DiaryDate() {
         this.diaryDate = LocalDate.now();
+        this.value = this.diaryDate.toString();
     }
 
     /**
@@ -29,7 +32,9 @@ public class DiaryDate {
      * @param diaryDate diary Date.
      */
     public DiaryDate(LocalDate diaryDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.diaryDate = diaryDate;
+        this.value = diaryDate.format(formatter);
     }
 
     /**
@@ -42,14 +47,34 @@ public class DiaryDate {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
             this.diaryDate = date;
+            this.value = diaryDate.format(formatter);
         } catch (Exception e) {
             throw new ParseException(MESSAGE_ERROR);
         }
+    }
 
+    /**
+     * Checks whether a date string is valid for LocalDate conversion.
+     * @param dateStr
+     * @return
+     */
+    public static boolean isValidDate(String dateStr) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(dateStr, formatter);
+            logger.info(String.valueOf(date));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public LocalDate getDiaryDate() {
         return diaryDate;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override

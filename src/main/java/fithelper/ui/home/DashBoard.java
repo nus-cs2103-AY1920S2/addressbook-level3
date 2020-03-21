@@ -1,9 +1,13 @@
-package fithelper.ui;
+package fithelper.ui.home;
 
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
+import fithelper.ui.FoodCard;
+import fithelper.ui.ReminderCard;
+import fithelper.ui.SportCard;
+import fithelper.ui.UiPart;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

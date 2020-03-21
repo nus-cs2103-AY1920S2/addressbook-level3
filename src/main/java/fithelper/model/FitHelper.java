@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import fithelper.model.diary.Diary;
+import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.today.Today;
@@ -16,6 +18,7 @@ import javafx.collections.ObservableList;
  */
 public class FitHelper implements ReadOnlyFitHelper {
 
+    private final UniqueDiaryList diaries = new UniqueDiaryList();
     private final UniqueEntryList foodEntries = new UniqueEntryList();
     private final UniqueEntryList sportsEntries = new UniqueEntryList();
     private final UniqueEntryList reminderEntries = new UniqueEntryList();
@@ -33,6 +36,18 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     //// list overwrite operations
+
+    /**
+     * Replaces the contents of the diary list with {@code diaries}.
+     * {@code diaries} must not contain duplicate diaries.
+     */
+    public void setDiaries(List<Diary> diaries) {
+        List<Diary> diaryList = new ArrayList<>();
+        for (Diary diary : diaries) {
+            diaryList.add(diary);
+        }
+        this.diaries.setDiaries(diaryList);
+    }
 
     /**
      * Replaces the contents of the entry list with {@code entries}.
@@ -90,6 +105,16 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
+     * Replaces the given diary {@code target} in the list with {@code editedDiary}.
+     * {@code target} must exist in the log book.
+     * The diary identity of {@code editedDiary} must not be the same as another existing diary in the log book.
+     */
+    public void setDiary(String target, Diary editedDiary) {
+        requireNonNull(editedDiary);
+        diaries.setDiary(target, editedDiary);
+    }
+
+    /**
      * Replaces the given entry {@code target} in the list with {@code editedEntry}.
      * {@code target} must exist in the log book.
      * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
@@ -127,7 +152,34 @@ public class FitHelper implements ReadOnlyFitHelper {
      */
     public void resetData(ReadOnlyFitHelper newData) {
         requireNonNull(newData);
+        setDiaries(newData.getDiaryList());
         setEntries(newData.getFoodList(), newData.getSportsList(), newData.getReminderList());
+    }
+
+    //// diary-level operations
+
+    /**
+     * Returns true if a entry with the same identity as {@code entry} exists in FitHelper.
+     */
+    public boolean hasDiary(Diary diary) {
+        requireNonNull(diary);
+        return diaries.contains(diary);
+    }
+
+    /**
+     * Adds a diary to FitHelper.
+     * The diary must not already exist in FitHelper.
+     */
+    public void addDiary(Diary diary) {
+        diaries.add(diary);
+    }
+
+    /**
+     * Removes {@code key} from this {@code FitHelper}.
+     * {@code key} must exist in FitHelper.
+     */
+    public void removeDiary(Diary key) {
+        diaries.remove(key);
     }
 
     //// entry-level operations
@@ -163,6 +215,7 @@ public class FitHelper implements ReadOnlyFitHelper {
         }
         return hasTimeClashes;
     }
+
     /**
      * Adds an entry to FitHelper.
      * The entry must not already exist in FitHelper.
@@ -226,8 +279,20 @@ public class FitHelper implements ReadOnlyFitHelper {
                 .append("\n")
                 .append("Today Sports ")
                 .append(todaySportsEntries.asUnmodifiableObservableList().size())
+                .append("\n")
+                .append("User Diaries ")
+                .append(diaries.asUnmodifiableObservableList().size())
                 .append("\n");
         return builder.toString();
+    }
+
+    /**
+     * Returns an unmodifiable view of the food entry list.
+     * This list will not contain any duplicate entries.
+     */
+    @Override
+    public ObservableList<Diary> getDiaryList() {
+        return diaries.asUnmodifiableObservableList();
     }
 
     /**
@@ -277,6 +342,7 @@ public class FitHelper implements ReadOnlyFitHelper {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FitHelper // instanceof handles nulls
+                && diaries.equals(((FitHelper) other).diaries)
                 && foodEntries.equals(((FitHelper) other).foodEntries)
                 && sportsEntries.equals(((FitHelper) other).sportsEntries)
                 && reminderEntries.equals(((FitHelper) other).reminderEntries)
