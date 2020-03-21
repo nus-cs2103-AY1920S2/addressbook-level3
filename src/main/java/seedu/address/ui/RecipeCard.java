@@ -61,7 +61,7 @@ public class RecipeCard extends UiPart<Region> {
 
         time.setText(recipe.getTime().value + " min");
 
-        if (recipe.getFavouriteStatus()) {
+        if (recipe.isFavourite()) {
             Path favouriteIconPath = Paths.get("src", "main", "resources", "images", "favourite.png");
             favourite.setImage(new Image(Files.newInputStream(favouriteIconPath)));
         }

@@ -52,7 +52,7 @@ public class RecipeBuilder {
     public RecipeBuilder(Recipe recipeToCopy) {
         name = recipeToCopy.getName();
         time = recipeToCopy.getTime();
-        isFavourite = recipeToCopy.getFavouriteStatus();
+        isFavourite = recipeToCopy.isFavourite();
         ingredients = recipeToCopy.getIngredients();
         steps = recipeToCopy.getSteps();
         goals = new HashSet<>(recipeToCopy.getGoals());

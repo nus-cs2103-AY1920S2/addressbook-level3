@@ -62,7 +62,7 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
         time = source.getTime().value;
-        isFavourite = source.getFavouriteStatus();
+        isFavourite = source.isFavourite();
         ingredients.addAll(source.getIngredients().stream()
                 .map(JsonAdaptedIngredient::new)
                 .collect(Collectors.toList()));

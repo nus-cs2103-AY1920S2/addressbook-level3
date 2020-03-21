@@ -9,10 +9,10 @@
   }, {
     "name" : "Healthy Duck Brown Rice",
     "time" : "20",
-    "isFavourite" : false,
+    "isFavourite" : true,
     "ingredients" : [ "Brown rice,  300.0, grain", "Duck,  100.0, protein" ],
     "steps" : [ "Braise the duck and eggs", "Steam brown rice with herbs", "Serve while hot" ],
-    "goals" : [ "Wholesome Wholegrains", "Bulk like the Hulk" ]
+    "goals" : [ "Bulk like the Hulk", "Wholesome Wholegrains" ]
   }, {
     "name" : "Final Recipe",
     "time" : "33",

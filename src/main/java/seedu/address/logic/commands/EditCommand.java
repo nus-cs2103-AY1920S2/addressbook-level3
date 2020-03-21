@@ -34,7 +34,7 @@ import seedu.address.model.recipe.Time;
 import seedu.address.model.recipe.ingredient.Ingredient;
 
 /**
- * Edits the details of an existing recipe in the address book.
+ * Edits the details of an existing recipe in the recipe book.
  */
 public class EditCommand extends Command {
 
@@ -46,18 +46,18 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_TIME + "TIME] "
-            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]..."
-            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]..."
-            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]..."
-            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]..."
+            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]... "
+            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]... "
+            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]... "
+            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]... "
             + "[" + PREFIX_STEP + "STEP]... "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "10 "
-            + PREFIX_INGREDIENT_VEGE + "Insert new vegetable here."
-            + PREFIX_INGREDIENT_PROTEIN + "Insert new protein-rich ingredient here."
-            + PREFIX_STEP + "Insert new step here."
-            + PREFIX_GOAL + "Insert new goal here.";
+            + PREFIX_INGREDIENT_VEGE + "Insert new vegetable here "
+            + PREFIX_INGREDIENT_PROTEIN + "Insert new protein-rich ingredient here "
+            + PREFIX_STEP + "Insert new step here "
+            + PREFIX_GOAL + "Insert new goal here ";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

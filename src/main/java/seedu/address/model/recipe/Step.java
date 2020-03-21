@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Recipe's step in the address book.
+ * Represents a Recipe's step in the recipe book.
  * Guarantees: immutable; is valid as declared in {@link #isValidStep(String)}
  */
 public class Step {
@@ -22,7 +22,7 @@ public class Step {
     public Step(String step) {
         requireNonNull(step);
         checkArgument(isValidStep(step), MESSAGE_CONSTRAINTS);
-        value = step;
+        this.value = step;
     }
 
     /**
