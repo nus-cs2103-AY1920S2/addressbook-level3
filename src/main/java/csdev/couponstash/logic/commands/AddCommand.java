@@ -3,7 +3,7 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PROMO_CODE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
@@ -25,7 +25,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a coupon to CouponStash. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
+            + PREFIX_PROMO_CODE + "PROMO CODE "
             + PREFIX_EXPIRY_DATE + "EXPIRY DATE "
             + PREFIX_SAVINGS + "SAVINGS "
             + "[" + PREFIX_START_DATE + "START DATE]"
@@ -33,7 +33,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "The Deck Chicken Rice "
-            + PREFIX_PHONE + "98765432 "
+            + PREFIX_PROMO_CODE + "98765432 "
             + PREFIX_EXPIRY_DATE + "30-08-2020 "
             + PREFIX_SAVINGS + "50" + PercentageAmount.PERCENT_SUFFIX + " "
             + PREFIX_START_DATE + "1-8-2020 "

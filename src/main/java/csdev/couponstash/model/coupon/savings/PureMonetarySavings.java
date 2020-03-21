@@ -2,6 +2,8 @@ package csdev.couponstash.model.coupon.savings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
 
@@ -18,6 +20,9 @@ import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
  * while Savings is used for individual Coupons.
  */
 public class PureMonetarySavings extends Savings {
+    public static final String MESSAGE_CONSTRAINTS = "PureMonetarySavings "
+            + "must have a double representing MonetaryAmount.";
+
     /**
      * Constructor for a PureMonetarySavings that
      * represents no money saved (MonetaryAmount
@@ -48,6 +53,17 @@ public class PureMonetarySavings extends Savings {
     }
 
     /**
+     * Cloning constructor for PureMonetarySavings. The internal
+     * MonetaryAmount and Saveables will not be cloned, as they
+     * are immutable. But the Saveables List will be cloned.
+     * Assumes pms is a valid PureMonetarySavings.
+     * @param pms The PureMonetarySavings to be cloned.
+     */
+    public PureMonetarySavings(PureMonetarySavings pms) {
+        super(pms);
+    }
+
+    /**
      * Combines two PureMonetarySavings, giving a new
      * PureMonetarySavings that takes into account
      * monetary amounts in both PureMonetarySavings,
@@ -61,8 +77,26 @@ public class PureMonetarySavings extends Savings {
     public PureMonetarySavings add(PureMonetarySavings pms) {
         MonetaryAmount newAmount = new MonetaryAmount(
                 this.getMonetaryAmountAsDouble() + pms.getMonetaryAmountAsDouble());
-        List<Saveable> combinedSaveables = this.getListOfSaveables();
-        combinedSaveables.addAll(pms.getListOfSaveables());
+        List<Saveable> originalSaveables = this.getListOfSaveables();
+        List<Saveable> newSaveables = pms.getListOfSaveables();
+        List<Saveable> combinedSaveables = new ArrayList<Saveable>();
+
+        // try to increase count of Saveables with same name
+        Map<String, Saveable> saveableMap = originalSaveables.stream()
+                .collect(Collectors.toMap(Saveable::getValue, sva -> sva));
+        for (Saveable s : newSaveables) {
+            // try to get from map
+            String value = s.getValue();
+            Saveable retrieveFromMap = saveableMap.get(value);
+            if (retrieveFromMap != null) {
+                combinedSaveables.add(s.increaseCount(retrieveFromMap));
+                saveableMap.remove(value);
+            } else {
+                combinedSaveables.add(s);
+            }
+        }
+        combinedSaveables.addAll(saveableMap.values());
+
         if (combinedSaveables.isEmpty()) {
             return new PureMonetarySavings(newAmount);
         } else {

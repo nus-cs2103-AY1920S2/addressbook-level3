@@ -3,7 +3,7 @@ package csdev.couponstash.testutil;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PHONE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PROMO_CODE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
@@ -40,10 +40,10 @@ public class CouponUtil {
     public static String getCouponDetails(Coupon coupon, String moneySymbol) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + coupon.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + coupon.getPhone().value + " ");
+        sb.append(PREFIX_PROMO_CODE + coupon.getPromoCode().value + " ");
         sb.append(PREFIX_EXPIRY_DATE + coupon.getExpiryDate().value + " ");
         sb.append(PREFIX_START_DATE + coupon.getStartDate().value + " ");
-        sb.append(convertSavingsToCommand(coupon.getSavings(), moneySymbol));
+        sb.append(convertSavingsToCommand(coupon.getSavingsForEachUse(), moneySymbol));
         sb.append(PREFIX_USAGE + coupon.getUsage().value + " ");
         sb.append(PREFIX_LIMIT + coupon.getLimit().value + " ");
         coupon.getTags().stream().forEach(
@@ -60,7 +60,8 @@ public class CouponUtil {
     public static String getEditCouponDescriptorDetails(EditCouponDescriptor descriptor, String moneySymbol) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getPromoCode()
+                .ifPresent(promoCode -> sb.append(PREFIX_PROMO_CODE).append(promoCode.value).append(" "));
         descriptor.getExpiryDate().ifPresent(expiryDate -> sb.append(PREFIX_EXPIRY_DATE).append(expiryDate.value)
                 .append(" "));
         descriptor.getStartDate().ifPresent(startDate -> sb.append(PREFIX_START_DATE).append(startDate.value)

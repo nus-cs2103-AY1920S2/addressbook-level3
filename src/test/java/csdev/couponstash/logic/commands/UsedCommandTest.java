@@ -15,7 +15,7 @@ import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.UserPrefs;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
-import csdev.couponstash.model.coupon.savings.Savings;
+import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.SavingsConversionUtil;
 import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
@@ -32,8 +32,11 @@ class UsedCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        PureMonetarySavings expectedTotalSavings =
+                SavingsConversionUtil.convertToPure(couponToBeUsed.getSavingsForEachUse());
         Coupon expectedCoupon =
-                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount)).build();
+                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                        .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon);
 
         String expectedMessage = String.format(UsedCommand.MESSAGE_USED_COUPON_SUCCESS, expectedCoupon.getName());
@@ -49,10 +52,11 @@ class UsedCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
-        Savings expectedSavings = SavingsConversionUtil.convertToPure(couponToBeUsed.getSavings(), originalAmount);
+        PureMonetarySavings expectedTotalSavings = SavingsConversionUtil.convertToPure(
+                couponToBeUsed.getSavingsForEachUse(), originalAmount);
         Coupon expectedCoupon =
                 new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
-                        .withSavings(expectedSavings).build();
+                        .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon);
         String expectedMessage = String.format(UsedCommand.MESSAGE_USED_COUPON_SUCCESS, expectedCoupon.getName());
 
@@ -76,8 +80,11 @@ class UsedCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        PureMonetarySavings expectedTotalSavings = SavingsConversionUtil
+                .convertToPure(couponToBeUsed.getSavingsForEachUse());
         Coupon expectedCoupon =
-                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount)).build();
+                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                        .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon);
 
         String expectedMessage = String.format(UsedCommand.MESSAGE_USED_COUPON_SUCCESS, expectedCoupon.getName());
@@ -95,10 +102,11 @@ class UsedCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
-        Savings expectedSavings = SavingsConversionUtil.convertToPure(couponToBeUsed.getSavings(), originalAmount);
+        PureMonetarySavings expectedTotalSavings = SavingsConversionUtil.convertToPure(
+                couponToBeUsed.getSavingsForEachUse(), originalAmount);
         Coupon expectedCoupon =
                 new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
-                        .withSavings(expectedSavings).build();
+                        .withTotalSavings(expectedTotalSavings).build();
         expectedModel.setCoupon(couponToBeUsed, expectedCoupon);
 
         String expectedMessage = String.format(UsedCommand.MESSAGE_USED_COUPON_SUCCESS, expectedCoupon.getName());

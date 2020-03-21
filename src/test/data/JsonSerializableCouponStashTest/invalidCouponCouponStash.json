@@ -1,8 +1,8 @@
 {
   "coupons": [ {
     "name": "Hans Muster",
-    "phone": "992929",
-    "savings" : {
+    "promoCode": "992929",
+    "savingsPerUse" : {
       "monetaryAmount" : null,
       "percentageAmount" : null,
       "saveables" : null

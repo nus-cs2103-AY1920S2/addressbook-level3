@@ -288,15 +288,20 @@ A message will be displayed: You have saved 0.10 since 1st March, 2020
 A message will be displayed: You have saved 2.10 since 1st May, 2019
 
 === Use a coupon: `used`
-Uses a coupon if its usage has yet to reached its limit. +
+Uses a coupon if its usage has yet to reached its limit.
+Requires an original amount of purchase if the coupon has savings in percentage. +
 Format: +
-`used INDEX`
+`used INDEX` +
+or +
+`used INDEX MONETARY_SYMBOL+ORIGINAL_AMOUNT`
 
 ****
 * Uses the coupon at the specified INDEX.
 * The index refers to the index number shown in the displayed coupon
 list.
 * The index *must be a positive integer* 1, 2, 3, …​
+* The monetary symbol is the one preset by the user e.g. $, RM ...
+* The original amount *must be a positive double* e.g. 10.00, 23.11, 0.50 ...
 ****
 
 Examples:
@@ -305,6 +310,12 @@ Examples:
 Uses the first coupon in the coupon stash.
 If coupon usage limit has been reached previously, an error message will appear,
 stating the maximum number of usages for first coupon.
+
+
+* `used 1 $10.0` +
+Uses the first coupon in the coupon stash, which also has a percentage savings.
+The total savings of the coupon will be calculated, and can be seen with the command `saved`.
+
 
 === Undo the previous command: `undo`
 Undo previous operation. Has no effect if there is no previous operation.

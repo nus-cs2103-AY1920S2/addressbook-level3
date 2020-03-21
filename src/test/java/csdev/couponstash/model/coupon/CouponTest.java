@@ -30,8 +30,9 @@ public class CouponTest {
         Coupon editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
         assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
 
-        //different phone -> returns false
-        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+        //different promoCode -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE)
+                .withPromoCode(CommandTestUtil.VALID_PROMO_CODE_BOB).build();
         assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
 
         //different expiry date -> returns false
@@ -74,8 +75,9 @@ public class CouponTest {
         Coupon editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withName(CommandTestUtil.VALID_NAME_BOB).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withPhone(CommandTestUtil.VALID_PHONE_BOB).build();
+        // different promoCode -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE)
+                .withPromoCode(CommandTestUtil.VALID_PROMO_CODE_BOB).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
         // different usage -> returns false
