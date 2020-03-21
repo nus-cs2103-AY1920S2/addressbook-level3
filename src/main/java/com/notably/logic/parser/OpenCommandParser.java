@@ -2,11 +2,14 @@ package com.notably.logic.parser;
 
 import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
+import com.notably.logic.commands.Command;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -22,7 +25,7 @@ public class OpenCommandParser implements CommandParser {
      * @return OpenCammnd
      * @throws ParseException
      */
-    public OpenCommand parse(String args) throws ParseException {
+    public List<Command> parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE)
@@ -31,10 +34,12 @@ public class OpenCommandParser implements CommandParser {
         }
 
         String titles = argMultimap.getValue(PREFIX_TITLE).get();
+        List<Command> openCommandList = new ArrayList<>();
 
         try {
             Path path = RelativePath.fromString(titles);
-            return new OpenCommand(path);
+            openCommandList.add(new OpenCommand(path));
+            return openCommandList;
         } catch (InvalidPathException ex) {
             throw new ParseException(ex.getMessage());
         }

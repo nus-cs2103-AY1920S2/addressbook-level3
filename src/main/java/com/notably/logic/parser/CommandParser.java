@@ -1,5 +1,7 @@
 package com.notably.logic.parser;
 
+import java.util.List;
+
 import com.notably.logic.commands.Command;
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -8,5 +10,5 @@ import com.notably.logic.parser.exceptions.ParseException;
  * @param <T> returns a Command.
  */
 public interface CommandParser<T extends Command> {
-    T parse(String userInput) throws ParseException;
+    List<T> parse(String userInput) throws ParseException;
 }

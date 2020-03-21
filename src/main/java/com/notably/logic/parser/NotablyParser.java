@@ -1,5 +1,6 @@
 package com.notably.logic.parser;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,19 +12,18 @@ import com.notably.logic.parser.exceptions.ParseException;
 
 /**
  * Parse in users input and generate the respective Commands
- * @param <T> Types of Command.
  */
-public class NotablyParser<T extends Command> {
+public class NotablyParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Create different Commands base on user input.
+     * Create list of different Commands base on user input.
      * @param userInput
      * @return
      * @throws ParseException
      */
-    public Command parseCommand(String userInput) throws ParseException {
+    public List<Command> parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format("Invalid Command"));
