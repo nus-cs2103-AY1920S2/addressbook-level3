@@ -1,5 +1,7 @@
 package seedu.address.model.hirelah;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,10 @@ import java.util.Map;
  */
 
 public class Metric {
+    public static final String MESSAGE_CONSTRAINTS =
+            "A name of metric should only contain alphabet characters and spaces, and it should not be blank";
+    public static final String VALIDATION_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
+
     private String name;
     private HashMap<Attribute, Double> attributeToWeight;
 
@@ -32,6 +38,27 @@ public class Metric {
     public Metric(String name) {
         this.name = name;
         this.attributeToWeight = new HashMap<>();
+    }
+
+    /**
+     * Constructs a Metric with validation.
+     *
+     * @param name The name of the metric.
+     * @return The created metric.
+     * @throws IllegalValueException if the name is invalid.
+     */
+    public static Metric of(String name) throws IllegalValueException {
+        if (!isValidMetricName(name)) {
+            throw new IllegalValueException(MESSAGE_CONSTRAINTS);
+        }
+        return new Metric(name);
+    }
+
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidMetricName(String test) {
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**

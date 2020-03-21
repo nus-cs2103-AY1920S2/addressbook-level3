@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /*
  * MetricList
  *
@@ -26,13 +29,17 @@ public class MetricList {
     private static final String DUPLICATE_MESSAGE = "There are multiple metrics with the same prefix.";
     private static final String NOT_FOUND_MESSAGE = "No metrics with the entered prefix.";
 
-    private ArrayList<Metric> metrics;
+    private ObservableList<Metric> metrics;
 
     /**
      * Constructs a MetricList instance.
      */
     public MetricList() {
-        this.metrics = new ArrayList<>();
+        this.metrics = FXCollections.observableArrayList();
+    }
+
+    public ObservableList<Metric> getObservableList() {
+        return metrics;
     }
 
     /**
@@ -42,19 +49,14 @@ public class MetricList {
      */
 
     public String add(String metricName) throws IllegalValueException {
-        try {
-            Metric metric = new Metric(metricName);
-            boolean isDuplicate = isDuplicate(metric);
+        Metric metric = Metric.of(metricName);
+        boolean isDuplicate = isDuplicate(metric);
 
-            if (isDuplicate) {
-                throw new IllegalValueException("This attribute is already exists!");
-            }
-
-            metrics.add(metric);
-            return String.format("Successfully added metric: %s", metric);
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
+        if (isDuplicate) {
+            throw new IllegalValueException("This attribute is already exists!");
         }
+
+        metrics.add(metric);
     }
 
     /**
