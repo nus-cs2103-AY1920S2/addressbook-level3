@@ -45,6 +45,10 @@ public class RecipePage extends UiPart<Region> {
     @FXML
     private Label instructions1;
     @FXML
+    private Label serving;
+    @FXML
+    private Label serving1;
+    @FXML
     private FlowPane tags;
     @FXML
     private FlowPane tags1;
@@ -57,6 +61,7 @@ public class RecipePage extends UiPart<Region> {
         name.setText(recipe.getName().name);
         ingredients.setText(recipe.getIngredients().toString());
         instructions.setText(recipe.getInstructions().toString());
+        serving.setText(recipe.getServing().toString());
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -64,6 +69,7 @@ public class RecipePage extends UiPart<Region> {
         name1.setText(recipe.getName().name);
         ingredients1.setText(recipe.getIngredients().toString());
         instructions1.setText(recipe.getInstructions().toString());
+        serving1.setText(recipe.getServing().toString());
         recipe.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags1.getChildren().add(new Label(tag.tagName)));

@@ -13,6 +13,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.Name;
+import seedu.address.model.recipe.Serving;
 import seedu.address.model.recipe.attribute.Ingredient;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.Instruction;
@@ -105,6 +106,21 @@ public class ParserUtil {
             throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
         }
         return new Calorie(trimmedCalorie);
+    }
+
+    /**
+     * Parses a {@code String servingString} into a {@code Serving}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code servingString} is invalid.
+     */
+    public static Serving parseServing(String servingString) throws ParseException {
+        requireNonNull(servingString);
+        String serving = servingString.trim();
+        if (!Serving.isValidServing(serving)) {
+            throw new ParseException(Serving.MESSAGE_CONSTRAINTS);
+        }
+        return new Serving(serving);
     }
 
     /**
