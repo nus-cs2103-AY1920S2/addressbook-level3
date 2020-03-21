@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import seedu.address.model.recipe.ingredient.Quantity;
 import seedu.address.model.recipe.ingredient.Unit;
 
+/**
+ * Contains utility methods used for parsing strings into a Quantity.
+ */
 public class QuantityUtil {
 
     /**

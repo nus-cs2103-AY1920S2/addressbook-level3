@@ -117,7 +117,8 @@ public class RecipeBuilder {
     }
 
     /**
-     * Parses the {@code vegetables} into a {@code Set<Vegetable>} and set it to the {@code Recipe} that we are building.
+     * Parses the {@code vegetables} into a {@code Set<Vegetable>} and set it to
+     * the {@code Recipe} that we are building.
      */
     public RecipeBuilder withVegetables(String ... vegetables) {
         this.vegetables = SampleDataUtil.getVegetableSet(vegetables);
