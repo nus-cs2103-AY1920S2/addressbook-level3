@@ -26,7 +26,8 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        ExerciseListStorageManager exerciseListStorage = new ExerciseListStorageManager(getTempFilePath("ab"));
+        ExerciseListStorageManager exerciseListStorage = new ExerciseListStorageManager(
+                getTempFilePath("exerciselist"));
         UserPrefsStorageManager userPrefsStorage = new UserPrefsStorageManager(getTempFilePath("prefs"));
         storageManager = new StorageManager(exerciseListStorage, userPrefsStorage);
     }

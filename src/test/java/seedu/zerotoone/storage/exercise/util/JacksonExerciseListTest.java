@@ -15,7 +15,7 @@ import seedu.zerotoone.testutil.exercise.TypicalExercises;
 
 public class JacksonExerciseListTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JacksonExerciseListTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "exercise", "JacksonExerciseListTest");
     private static final Path TYPICAL_EXERCISES_FILE = TEST_DATA_FOLDER.resolve("typicalExercisesExerciseList.json");
     private static final Path INVALID_EXERCISE_FILE = TEST_DATA_FOLDER.resolve("invalidExerciseExerciseList.json");
     private static final Path DUPLICATE_EXERCISE_FILE = TEST_DATA_FOLDER.resolve("duplicateExerciseExerciseList.json");

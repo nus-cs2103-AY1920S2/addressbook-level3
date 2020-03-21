@@ -19,7 +19,7 @@ import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 
 public class ExerciseListStorageManagerTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ExerciseListStorageManagerTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "exercise", "ExerciseListStorageManagerTest");
 
     @TempDir
     public Path testFolder;

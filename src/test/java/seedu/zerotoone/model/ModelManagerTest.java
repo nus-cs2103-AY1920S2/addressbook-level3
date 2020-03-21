@@ -68,7 +68,7 @@ public class ModelManagerTest {
 
     @Test
     public void setExerciseListFilePath_validPath_setsExerciseListFilePath() {
-        Path path = Paths.get("exrecise/list/file/path");
+        Path path = Paths.get("exercise/list/file/path");
         modelManager.setExerciseListFilePath(path);
         assertEquals(path, modelManager.getExerciseListFilePath());
     }
