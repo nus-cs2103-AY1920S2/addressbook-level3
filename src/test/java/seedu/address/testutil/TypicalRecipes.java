@@ -36,49 +36,49 @@ public class TypicalRecipes {
 
     public static final Recipe GRILLED_SANDWICH = new RecipeBuilder().withName("Grilled Sandwich")
             .withTime("10")
-            .withGrains("50, Bread")
-            .withOthers("50, Cheese")
+            .withGrains("50g, Bread")
+            .withOthers("50g, Cheese")
             .withSteps("Spread butter on bread", "Heat pan to medium heat")
             .withGoals("Wholesome Wholemeal").build();
 
     public static final Recipe BOILED_CHICKEN = new RecipeBuilder().withName("Boiled Chicken")
             .withTime("10")
-            .withProteins("100, Chicken")
+            .withProteins("100g, Chicken")
             .withSteps("Dice chicken")
             .withGoals("Bulk like the Hulk").build();
 
     public static final Recipe CHOCOLATE_CAKE = new RecipeBuilder().withName("Chocolate Cake")
             .withTime("120")
-            .withOthers("100, Sugar")
+            .withOthers("100g, Sugar")
             .withSteps("Caramelize sugar").build();
 
     public static final Recipe OMELET = new RecipeBuilder().withName("Omelet")
             .withTime("15")
-            .withProteins("50, Egg")
+            .withProteins("50g, Egg")
             .withSteps("Crack and beat eggs").build();
 
     public static final Recipe STEAMED_EGG = new RecipeBuilder().withName("Steamed Egg")
             .withTime("15")
-            .withProteins("50, Egg")
+            .withProteins("50g, Egg")
             .withSteps("Pour water into steamer and bring to a boil").build();
 
     public static final Recipe TUNA_BREAD = new RecipeBuilder().withName("Tuna Bread")
             .withTime("60")
-            .withGrains("100, Bread")
-            .withProteins("100, Tuna")
+            .withGrains("100g, Bread")
+            .withProteins("100g, Tuna")
             .withGoals("Bulk like the Hulk", "Wholesome Wholemeal")
             .withSteps("Slice tuna").build();
 
     // Manually added
     public static final Recipe FISH_TACO = new RecipeBuilder().withName("Fish Taco").withTime("60")
-            .withGrains("50, Taco")
-            .withProteins("100, Fish")
+            .withGrains("50g, Taco")
+            .withProteins("100g, Fish")
             .withSteps("Grill fish until skin is slightly crispy and meat is opaque and flaky").build();
 
     public static final Recipe VEGETARIAN_PIZZA = new RecipeBuilder().withName("Vegetarian Pizza").withTime("45")
-            .withGrains("300, Dough")
-            .withVegetables("100, Capsicum")
-            .withOthers("100, Tomato sauce")
+            .withGrains("300g, Dough")
+            .withVegetables("100g, Capsicum")
+            .withOthers("100g, Tomato sauce")
             .withGoals("Herbivore").withSteps("Roll dough until stretchy and thin").build();
 
     // Manually added - Recipe's details found in {@code CommandTestUtil}

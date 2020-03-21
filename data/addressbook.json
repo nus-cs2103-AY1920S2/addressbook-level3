@@ -4,9 +4,9 @@
     "time" : "15",
     "isFavourite" : false,
     "grains" : [ ],
-    "vegetables" : [ "vege,  20.0" ],
+    "vegetables" : [ "vege,  20.0g" ],
     "proteins" : [ ],
-    "others" : [ "pizza,  30.0" ],
+    "others" : [ "pizza,  30.0g" ],
     "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
@@ -14,9 +14,9 @@
     "time" : "2",
     "isFavourite" : false,
     "grains" : [ ],
-    "vegetables" : [ "capsci,  20.0" ],
+    "vegetables" : [ "capsci,  20.0g" ],
     "proteins" : [ ],
-    "others" : [ "other,  30.0" ],
+    "others" : [ "other,  30.0ml" ],
     "steps" : [ "first" ],
     "goals" : [ ]
   } ]

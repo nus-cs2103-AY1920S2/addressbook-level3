@@ -14,10 +14,10 @@
     "name" : "Grilled Sandwich",
     "time" : "10",
     "isFavourite": false,
-    "grains": [ "Bread, 50" ],
+    "grains": [ "Bread, 50g" ],
     "vegetables" : [ ],
     "proteins" : [ ],
-    "others" : [ "Cheese, 50"],
+    "others" : [ "Cheese, 50g"],
     "steps" : ["Spread butter on bread", "Heat pan to medium heat"],
     "goals" : [ "Wholesome Wholemeal" ]
   }, {
@@ -26,7 +26,7 @@
     "isFavourite": false,
     "grains": [ ],
     "vegetables" : [ ],
-    "proteins" : [ "Chicken, 100" ],
+    "proteins" : [ "Chicken, 100g" ],
     "others" : [ ],
     "steps" : ["Dice chicken"],
     "goals" : [ "Bulk like the Hulk" ]
@@ -37,7 +37,7 @@
     "grains": [ ],
     "vegetables" : [ ],
     "proteins" : [ ],
-    "others" : [ "Sugar, 100" ],
+    "others" : [ "Sugar, 100g" ],
     "steps" : ["Caramelize sugar"],
     "goals" : [ ]
   }, {
@@ -46,7 +46,7 @@
     "isFavourite": false,
     "grains": [ ],
     "vegetables" : [ ],
-    "proteins" : [ "Egg, 50" ],
+    "proteins" : [ "Egg, 50g" ],
     "others" : [ ],
     "steps" : ["Crack and beat eggs"],
     "goals" : [ ]
@@ -56,7 +56,7 @@
     "isFavourite": false,
     "grains": [ ],
     "vegetables" : [ ],
-    "proteins" : [ "Egg, 50" ],
+    "proteins" : [ "Egg, 50g" ],
     "others" : [ ],
     "steps" : ["Pour water into steamer and bring to a boil"],
     "goals" : [ ]
@@ -64,9 +64,9 @@
     "name" : "Tuna Bread",
     "time" : "60",
     "isFavourite": false,
-    "grains": [ "Bread, 100" ],
+    "grains": [ "Bread, 100g" ],
     "vegetables" : [ ],
-    "proteins" : [ "Tuna, 100" ],
+    "proteins" : [ "Tuna, 100g" ],
     "others" : [ ],
     "steps" : ["Slice tuna"],
     "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]
