@@ -120,8 +120,7 @@ public class DateCell extends UiPart<Region> {
      */
     @FXML
     public void displayCoupons() {
-        if(coupons.isEmpty()) {
-
+        if (coupons.isEmpty()) {
         } else if (!couponsDisplayWindow.isShowing()) {
             couponsDisplayWindow.show();
         } else {
