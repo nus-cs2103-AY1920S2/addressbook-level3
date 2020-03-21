@@ -7,7 +7,6 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.Path;
 import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.logic.suggestion.commands.treetest.Node;
 import com.notably.model.Model;
@@ -18,9 +17,9 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to open a note.
  */
 public class OpenSuggestionCommand implements SuggestionCommand {
-    private Path path;
+    private AbsolutePath path;
 
-    public OpenSuggestionCommand(Path path) {
+    public OpenSuggestionCommand(AbsolutePath path) {
         this.path = path;
     }
 
@@ -30,7 +29,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         model.setResponseText(responseText);
         System.out.println(responseText);
 
-        List<Path> possiblePaths = getPossiblePaths(path);
+        List<AbsolutePath> possiblePaths = getPossiblePaths(path);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
         for (SuggestionItem suggestionItem : suggestions) {
@@ -40,25 +39,18 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         model.setSuggestions(suggestions);
     }
 
-    private List<Path> getPossiblePaths(Path path) {
-        List<Path> possiblePaths = new ArrayList<>();
-        Node<String> root = null;
-
-        // TODO: traverse the data structure. For now will use dummy values.
-        if (path instanceof AbsolutePath) { // Search from root.
-            root = createTree();
-        } else {
-            // TODO
-        }
+    private List<AbsolutePath> getPossiblePaths(AbsolutePath path) {
+        List<AbsolutePath> possiblePaths = new ArrayList<>();
+        Node<String> root = createTree();
 
         List<String> components = path.getComponents();
         List<Node<String>> children = new ArrayList<>();
-        int index = 0;
         Queue<Node<String>> queue = new LinkedList<>();
         for (Node<String> rootChild : root.getChildren()) { //don't need add root to queue
             queue.add(rootChild);
         }
 
+        int index = 0;
         while (!queue.isEmpty()) {
             Node<String> curr = queue.poll();
             String dir = components.get(index);
@@ -77,21 +69,20 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         }
 
         if (children.isEmpty()) { // if the note doesn't have any children
-            Path newPath = AbsolutePath.fromComponent(components);
-            possiblePaths.add(newPath);
+            possiblePaths.add(path);
         } else {
             for (Node<String> child : children) {
                 List<String> newComponents = new ArrayList<>();
                 newComponents.addAll(components);
                 newComponents.add(child.getTitle());
-                Path newPath = AbsolutePath.fromComponent(newComponents);
+                AbsolutePath newPath = AbsolutePath.fromComponents(newComponents);
                 possiblePaths.add(newPath);
             }
         }
         return possiblePaths;
     }
 
-    private List<SuggestionItem> getSuggestions(List<Path> possiblePaths, Model model) {
+    private List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
         return possiblePaths.stream()
                 .map(path -> {
                     String displayText = path.toString();
