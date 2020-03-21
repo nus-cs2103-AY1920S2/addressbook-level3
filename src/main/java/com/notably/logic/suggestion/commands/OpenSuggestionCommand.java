@@ -85,7 +85,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     private List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
         return possiblePaths.stream()
                 .map(path -> {
-                    String displayText = path.toString();
+                    String displayText = path.getStringRepresentation();
                     Runnable action = () -> {
                         model.setInput(displayText);
                     };
