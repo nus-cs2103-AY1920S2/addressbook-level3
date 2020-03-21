@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.nio.file.Path;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -10,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
-import java.nio.file.Path;
 
 /** An UI component that displays the Pomodoro {@code Pomodoro}. */
 public class StatisticsDisplay extends UiPart<Region> {
@@ -32,11 +31,12 @@ public class StatisticsDisplay extends UiPart<Region> {
     @FXML private ImageView progressBarDaily;
     @FXML private Label medals;
 
-
-    public StatisticsDisplay(String barChartTitleText, int[][] data,
-                             Path progressBarDailyFilepath,
-                             String progressDailyText,
-                             String medalsText) {
+    public StatisticsDisplay(
+            String barChartTitleText,
+            int[][] data,
+            Path progressBarDailyFilepath,
+            String progressDailyText,
+            String medalsText) {
         super(FXML);
         this.barChartTitleText = barChartTitleText;
         this.data = data;
@@ -68,7 +68,6 @@ public class StatisticsDisplay extends UiPart<Region> {
         dataSeries1.getData().add(new XYChart.Data<>("Day 7", 80));
 
         barChart.getData().add(dataSeries1);
-
     }
 
     @Override

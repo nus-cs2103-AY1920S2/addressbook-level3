@@ -1,11 +1,11 @@
 package seedu.address.ui;
 
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import java.nio.file.Paths;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -23,6 +23,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -43,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private PetDisplayHandler petDisplayHandler;
+    private PetDisplay petDisplay;
     private PomodoroDisplay pomodoroDisplay;
     private StatisticsDisplay statisticsDisplay;
 
@@ -127,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        petDisplayHandler = getPetDisplayHandler();
-        petPlaceholder.getChildren().add(petDisplayHandler.getPetDisplay().getRoot());
+        petDisplay = new PetDisplay(this.getPet());
+        petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -145,13 +146,13 @@ public class MainWindow extends UiPart<Stage> {
         pomodoro.setResultDisplay(resultDisplay);
 
         statisticsDisplay =
-                new StatisticsDisplay("Time spent on Pomodoro over the last 7 days",
+                new StatisticsDisplay(
+                        "Time spent on Pomodoro over the last 7 days",
                         null,
                         Paths.get("images", "statistics", "progressBarDaily50%.png"),
                         "50 mins / 100 mins",
                         "Medals earned: 0");
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-       
     }
 
     /** Sets the default size based on {@code guiSettings}. */
@@ -203,10 +204,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText)
             throws CommandException, ParseException {
-
+        
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
             case CHECK_DONE:
+                petDisplay.update();
                 if (commandText.toLowerCase().equals("y")) {
                     CommandResult commandResult =
                             new CommandResult(
@@ -214,6 +216,7 @@ public class MainWindow extends UiPart<Stage> {
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.doneTask();
                     pomodoro.checkBreakActions();
+                    //logic.incrementPomExp();
                     return commandResult;
                     // Continue to next prompt from break-timer
                 } else if (commandText.toLowerCase().equals("n")) {
@@ -225,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
                                     false);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.checkBreakActions();
+                    //logic.incrementPomExp();
                     return commandResult;
                 } else {
                     throw new ParseException(
@@ -280,7 +284,7 @@ public class MainWindow extends UiPart<Stage> {
             } catch (NullPointerException ne) {
                 resultDisplay.setFeedbackToUser("Sorry, you've got no tasks being POMmed.");
             }
-
+            
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -288,6 +292,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            petDisplay.update();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -324,7 +329,7 @@ public class MainWindow extends UiPart<Stage> {
         alert.show();
     }
 
-    private PetDisplayHandler getPetDisplayHandler() {
-        return logic.getPetDisplayHandler();
+    private ReadOnlyPet getPet() {
+        return logic.getPet();
     }
 }

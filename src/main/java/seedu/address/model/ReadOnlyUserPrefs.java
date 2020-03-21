@@ -13,4 +13,6 @@ public interface ReadOnlyUserPrefs {
     Path getPetFilePath();
 
     Path getPomodoroFilePath();
+
+    Path getStatisticsFilePath();
 }

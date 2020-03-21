@@ -11,18 +11,16 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.task.Task;
-import seedu.address.ui.PetDisplayHandler;
-
-// TODO Set Pet attributes via ModelManager
+import seedu.address.model.Pet;
 
 /** Represents the in-memory model of the address book data. */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskList taskList;
-    private final Pet pet;
     private final Pomodoro pomodoro;
-    private final PetDisplayHandler petDisplayHandler;
+    private final Statistics statistics;
+    private final Pet pet;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
 
@@ -31,6 +29,7 @@ public class ModelManager implements Model {
             ReadOnlyTaskList taskList,
             ReadOnlyPet pet,
             ReadOnlyPomodoro pomodoro,
+            ReadOnlyStatistics statistics,
             ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(taskList, userPrefs);
@@ -39,17 +38,18 @@ public class ModelManager implements Model {
 
         this.taskList = new TaskList(taskList);
         this.pet = new Pet(pet); // initialize a pet as a model
-        this.pomodoro = new Pomodoro(pomodoro); // initialize a pet as a model
-        this.petDisplayHandler = new PetDisplayHandler(this.pet);
+        this.pomodoro = new Pomodoro(pomodoro); // initialize a pomodoro as a model
+        this.statistics = new Statistics(statistics); // initialize a Statistics as a model
         logger.info(String.format("Initializing with Pet: %s", this.pet.toString()));
         logger.info(String.format("Initializing with Pomodoro: %s", this.pomodoro.toString()));
+        logger.info(String.format("Initializing with DayDataList: %s", this.statistics.toString()));
 
         this.userPrefs = new UserPrefs(userPrefs);
         filteredTasks = new FilteredList<>(this.taskList.getTaskList());
     }
 
     public ModelManager() {
-        this(new TaskList(), new Pet(), new Pomodoro(), new UserPrefs());
+        this(new TaskList(), new Pet(), new Pomodoro(), new Statistics(), new UserPrefs());
     }
 
     // =========== UserPrefs
@@ -172,20 +172,19 @@ public class ModelManager implements Model {
     public void setPetName(String name) {
         this.pet.setName(name);
     }
+  
+    @Override
+    public void incrementPomExp() {
+        this.pet.incrementPomExp();
+    }
 
-    // TODO add a manager for pomodoro
     public ReadOnlyPomodoro getPomodoro() {
         return pomodoro;
     }
 
-    @Override
-    public PetDisplayHandler getPetDisplayHandler() {
-        return petDisplayHandler;
-    }
-
-    @Override
-    public void updatePetDisplayHandler() {
-        this.petDisplayHandler.updatePetDisplay();
+    // TODO add a manager for statistics
+    public ReadOnlyStatistics getStatistics() {
+        return statistics;
     }
 
     // ============================ Pomodoro Manager
@@ -197,5 +196,11 @@ public class ModelManager implements Model {
     @Override
     public void incrementExp() {
         this.pet.incrementExp();
+    }
+
+    // ============================ Statistics Manager
+
+    public void setStatistics(String data) {
+        // placeholder
     }
 }
