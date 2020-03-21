@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class Content {
     public static final String MESSAGE_CONSTRAINTS = "Content should be no more than 200 characters";
-    public String value;
+    private String value;
 
     /**
      * Creates a {@code Content}.
