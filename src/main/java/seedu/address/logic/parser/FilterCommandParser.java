@@ -47,7 +47,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Set<Goal> filterByGoals;
         if (!argMultimap.getAllValues(PREFIX_GOAL).isEmpty()) {
             filterByGoals = parseGoalsForFilter(argMultimap.getAllValues(PREFIX_GOAL));
-            System.out.println(argMultimap.getAllValues(PREFIX_GOAL));
         } else {
             filterByGoals = Collections.emptySet();
         }
