@@ -33,6 +33,7 @@ public class Recipe {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.isDone = false;
         this.tags.addAll(tags);
     }
 
@@ -46,6 +47,14 @@ public class Recipe {
 
     public InstructionList getInstructions() {
         return instructions;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone() {
+        this.isDone = true;
     }
 
     /**
@@ -84,19 +93,20 @@ public class Recipe {
         }
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
-               && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getTags().equals(getTags());
+               && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.isDone() == isDone() &&
+                otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ingredients, instructions, tags);
+        return Objects.hash(name, ingredients, instructions, isDone, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
+        builder.append(isDone ? "[\u2713]" : "[\u2718]").append(getName()).append(" Ingredients: ").append(getIngredients()).append(
                 " Instructions: ").append(getInstructions()).append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
