@@ -17,12 +17,11 @@ class JsonAdaptedVegetable {
     private final Quantity quantity;
 
     /**
-     * Constructs a {@code JsonAdaptedGrain} with the given {@code ingredientName},
-     * {@code quantity} and {@code type}.
+     * Constructs a {@code JsonAdaptedVegetable} with the given {@code vegetable}
      */
     @JsonCreator
-    public JsonAdaptedVegetable(String grain) {
-        String[] details = grain.split(",");
+    public JsonAdaptedVegetable(String vegetable) {
+        String[] details = vegetable.split(",");
         this.vegetableName = details[0].trim();
         this.quantity = QuantityUtil.parseQuantity(details[1].trim());
     }
@@ -41,8 +40,8 @@ class JsonAdaptedVegetable {
     }
 
     /**
-     * Converts this Jackson-friendly adapted goal object into the model's {@code Vegetable} object.
-     * @return Vegetable object that the adapted goal was converted into.
+     * Converts this Jackson-friendly adapted vegetable object into the model's {@code Vegetable} object.
+     * @return Vegetable object that the adapted vegetable was converted into.
      * @throws IllegalValueException if there were any data constraints violated in the adapted Vegetable.
      */
     public Vegetable toModelType() throws IllegalValueException {

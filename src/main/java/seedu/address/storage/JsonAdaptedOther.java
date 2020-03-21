@@ -17,12 +17,11 @@ class JsonAdaptedOther {
     private final Quantity quantity;
 
     /**
-     * Constructs a {@code JsonAdaptedGrain} with the given {@code ingredientName},
-     * {@code quantity} and {@code type}.
+     * Constructs a {@code JsonAdaptedOther} with the given {@code other}
      */
     @JsonCreator
-    public JsonAdaptedOther(String grain) {
-        String[] details = grain.split(",");
+    public JsonAdaptedOther(String other) {
+        String[] details = other.split(",");
         this.otherName = details[0].trim();
         this.quantity = QuantityUtil.parseQuantity(details[1].trim());
     }
@@ -41,8 +40,8 @@ class JsonAdaptedOther {
     }
 
     /**
-     * Converts this Jackson-friendly adapted goal object into the model's {@code Other} object.
-     * @return Other object that the adapted goal was converted into.
+     * Converts this Jackson-friendly adapted other object into the model's {@code Other} object.
+     * @return Other object that the adapted other was converted into.
      * @throws IllegalValueException if there were any data constraints violated in the adapted Other.
      */
     public Other toModelType() throws IllegalValueException {

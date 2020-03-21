@@ -41,8 +41,8 @@ class JsonAdaptedGrain {
     }
 
     /**
-     * Converts this Jackson-friendly adapted goal object into the model's {@code Grain} object.
-     * @return Grain object that the adapted goal was converted into.
+     * Converts this Jackson-friendly adapted grain object into the model's {@code Grain} object.
+     * @return Grain object that the adapted grain was converted into.
      * @throws IllegalValueException if there were any data constraints violated in the adapted Grain.
      */
     public Grain toModelType() throws IllegalValueException {

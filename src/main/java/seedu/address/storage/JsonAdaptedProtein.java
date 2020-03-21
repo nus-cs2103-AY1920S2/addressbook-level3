@@ -17,12 +17,11 @@ class JsonAdaptedProtein {
     private final Quantity quantity;
 
     /**
-     * Constructs a {@code JsonAdaptedGrain} with the given {@code ingredientName},
-     * {@code quantity} and {@code type}.
+     * Constructs a {@code JsonAdaptedProtein} with the given {@code protein}
      */
     @JsonCreator
-    public JsonAdaptedProtein(String grain) {
-        String[] details = grain.split(",");
+    public JsonAdaptedProtein(String protein) {
+        String[] details = protein.split(",");
         this.proteinName = details[0].trim();
         this.quantity = QuantityUtil.parseQuantity(details[1].trim());
     }
@@ -41,8 +40,8 @@ class JsonAdaptedProtein {
     }
 
     /**
-     * Converts this Jackson-friendly adapted goal object into the model's {@code Protein} object.
-     * @return Protein object that the adapted goal was converted into.
+     * Converts this Jackson-friendly adapted protein object into the model's {@code Protein} object.
+     * @return Protein object that the adapted protein was converted into.
      * @throws IllegalValueException if there were any data constraints violated in the adapted Protein.
      */
     public Protein toModelType() throws IllegalValueException {
