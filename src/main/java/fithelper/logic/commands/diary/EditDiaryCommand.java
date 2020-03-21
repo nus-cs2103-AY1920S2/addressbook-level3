@@ -69,7 +69,7 @@ public class EditDiaryCommand extends Command {
         model.setDiary(diaryId, editedDiary);
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
         //model.updateFil
-        return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary), 
+        return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary),
                 CommandResult.DisplayedPage.DIARY, false);
     }
 

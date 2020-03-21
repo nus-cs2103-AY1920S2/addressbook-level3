@@ -54,6 +54,11 @@ public class DiaryDate {
 
     }
 
+    /**
+     * Checks whether a date string is valid for LocalDate conversion.
+     * @param dateStr
+     * @return
+     */
     public static boolean isValidDate(String dateStr) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

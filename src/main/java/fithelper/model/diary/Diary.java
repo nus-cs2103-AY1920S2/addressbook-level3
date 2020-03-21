@@ -1,7 +1,5 @@
 package fithelper.model.diary;
 
-import fithelper.model.entry.Entry;
-
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;

@@ -48,7 +48,7 @@ public class DiaryPage extends UiPart<AnchorPane> {
     static class DiaryListViewCell extends ListCell<Diary> {
         /**
          * Update diary cell.
-         * @param diary 
+         * @param diary
          * @param empty
          */
         protected void updateItem(Diary diary, boolean empty) {

@@ -66,7 +66,7 @@ public class FitHelperParser {
             return new EditCommandParser().parse(arguments);
 
         case EditDiaryCommand.COMMAND_WORD:
-                return new EditDiaryCommandParser().parse(arguments);
+            return new EditDiaryCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
