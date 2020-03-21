@@ -32,7 +32,9 @@ public class CourseManager {
         return null;
     }
 
+    /*
     public static CourseList getCourseList() {
         return null;
     }
+     */
 }
