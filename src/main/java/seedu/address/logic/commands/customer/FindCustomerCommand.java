@@ -8,11 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
-import seedu.address.model.customer.AddressContainsKeywordsPredicate;
 import seedu.address.model.customer.Customer;
-import seedu.address.model.customer.EmailContainsKeywordsPredicate;
-import seedu.address.model.customer.NameContainsKeywordsPredicate;
-import seedu.address.model.customer.PhoneContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -26,7 +22,7 @@ public class FindCustomerCommand extends Command {
             + "a/ for address, p/ for phone number, e/ for email address) contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: n/ KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " n/ alice bob charlie, " + COMMAND_WORD + " a/ serangoon yishun";
+            + "Example: " + COMMAND_WORD + " n/alice bob charlie, " + COMMAND_WORD + " a/serangoon yishun";
 
     private final Predicate<Customer> predicate;
 
@@ -38,20 +34,9 @@ public class FindCustomerCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredCustomerList(predicate);
-        if (model.getFilteredCustomerList().size() == 0 && predicate instanceof NameContainsKeywordsPredicate) {
-            if (predicate.toString().trim().isEmpty()) {
-                return new CommandResult("Please enter at least one keyword!");
-            }
-            return new CommandResult(String.format("No customer named %s found!", predicate.toString()));
-        } else if (model.getFilteredCustomerList().size() == 0
-                && predicate instanceof AddressContainsKeywordsPredicate) {
-            return new CommandResult(String.format("No customer staying in the area %s found!", predicate.toString()));
-        } else if (model.getFilteredCustomerList().size() == 0 && predicate instanceof EmailContainsKeywordsPredicate) {
-            return new CommandResult(String.format("No customer with email %s found!", predicate.toString()));
-        } else if (model.getFilteredCustomerList().size() == 0 && predicate instanceof PhoneContainsKeywordsPredicate) {
-            return new CommandResult(String.format("No customer with phone number %s found!", predicate.toString()));
+        if (model.getFilteredCustomerList().size() == 0) {
+            return new CommandResult(predicate.toString());
         }
-
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredCustomerList().size()));
     }
