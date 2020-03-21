@@ -58,7 +58,7 @@ public class Recipe {
 
     public Serving getServing() {
         return serving;
-        }
+    }
 
     /**
      * Returns an immutable tag set, which throws

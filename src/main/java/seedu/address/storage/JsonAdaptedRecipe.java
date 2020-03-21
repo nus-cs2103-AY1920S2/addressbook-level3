@@ -39,7 +39,8 @@ class JsonAdaptedRecipe {
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
             @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
-                             @JsonProperty("serving") String serving, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("serving") String serving,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;

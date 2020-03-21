@@ -21,9 +21,9 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.Calorie;
-import seedu.address.model.recipe.Serving;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Serving;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.InstructionList;
 import seedu.address.model.recipe.attribute.Tag;
@@ -101,7 +101,7 @@ public class ModifyCommand extends Command {
         InstructionList updatedInstructions =
                 editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
-        Serving updatedServing =  editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
+        Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,

@@ -108,10 +108,16 @@ public class ParserUtil {
         return new Calorie(trimmedCalorie);
     }
 
+    /**
+     * Parses a {@code String servingString} into a {@code Serving}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code servingString} is invalid.
+     */
     public static Serving parseServing(String servingString) throws ParseException {
         requireNonNull(servingString);
         String serving = servingString.trim();
-        if(!Serving.isValidServing(serving)) {
+        if (!Serving.isValidServing(serving)) {
             throw new ParseException(Serving.MESSAGE_CONSTRAINTS);
         }
         return new Serving(serving);
