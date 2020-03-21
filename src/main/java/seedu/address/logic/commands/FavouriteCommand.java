@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Favourites a recipe identified using it's displayed index from the address book.
+ * Favourites a recipe identified using it's displayed index from the recipe book.
  */
 public class FavouriteCommand extends Command {
     public static final String COMMAND_WORD = "favourite";
@@ -50,6 +51,7 @@ public class FavouriteCommand extends Command {
             }
         }
         sb.append(" to favourites!");
+        model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
         return new CommandResult(sb.toString());
     }
 

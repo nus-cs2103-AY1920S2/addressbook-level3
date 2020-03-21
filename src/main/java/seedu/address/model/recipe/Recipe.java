@@ -18,7 +18,7 @@ import seedu.address.model.recipe.ingredient.Protein;
 import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
- * Represents a Recipe in the address book.
+ * Represents a Recipe in the recipe book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Recipe {
@@ -57,7 +57,7 @@ public class Recipe {
         this.isFavourite = isFavourite;
     }
 
-    public boolean getFavouriteStatus() {
+    public boolean isFavourite() {
         return isFavourite;
     }
 

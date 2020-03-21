@@ -16,29 +16,29 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Adds a recipe to the address book.
+ * Adds a recipe to the recipe book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a recipe to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_TIME + "TIME "
-            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]..."
-            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]..."
-            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]..."
-            + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]..."
-            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]..."
+            + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]... "
+            + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]... "
+            + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]... "
+            + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]... "
+            + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]... "
             + "[" + PREFIX_STEP + "STEP]... "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Caesar Salad "
             + PREFIX_TIME + "10 "
-            + PREFIX_INGREDIENT_VEGE + "100, Tomato"
-            + PREFIX_INGREDIENT_VEGE + "100, Lettuce"
-            + PREFIX_INGREDIENT_OTHER + "50, Honeydew"
+            + PREFIX_INGREDIENT_VEGE + "100, Tomato "
+            + PREFIX_INGREDIENT_VEGE + "100, Lettuce "
+            + PREFIX_INGREDIENT_OTHER + "50, Honeydew "
             + PREFIX_STEP + "Cut tomatoes "
             + PREFIX_STEP + "Remove honeydew skin "
             + PREFIX_GOAL + "Herbivore ";
@@ -53,7 +53,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(Recipe recipe) {
         requireNonNull(recipe);
-        toAdd = recipe;
+        this.toAdd = recipe;
     }
 
     @Override

@@ -70,12 +70,17 @@ public class RecipeBuilder {
     public RecipeBuilder(Recipe recipeToCopy) {
         name = recipeToCopy.getName();
         time = recipeToCopy.getTime();
+<<<<<<< HEAD
         isFavourite = recipeToCopy.getFavouriteStatus();
         grains = new TreeSet<>(recipeToCopy.getGrains());
         vegetables = new TreeSet<>(recipeToCopy.getVegetables());
         proteins = new TreeSet<>(recipeToCopy.getProteins());
         fruits = new TreeSet<>(recipeToCopy.getFruits());
         others = new TreeSet<>(recipeToCopy.getOthers());
+=======
+        isFavourite = recipeToCopy.isFavourite();
+        ingredients = recipeToCopy.getIngredients();
+>>>>>>> master
         steps = recipeToCopy.getSteps();
         goals = new HashSet<>(recipeToCopy.getGoals());
     }
