@@ -131,7 +131,8 @@ public class JsonAdaptedCouponTest {
         JsonAdaptedCoupon coupon =
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, invalidTags,
-                        VALID_EXPIRY_DATE);
+                        VALID_REMIND_DATE);
+
         assertThrows(IllegalValueException.class, coupon::toModelType);
     }
 

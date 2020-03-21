@@ -72,7 +72,6 @@ public class CouponBuilder {
         limit = couponToCopy.getLimit();
         remindDate = couponToCopy.getRemindDate();
         tags = new HashSet<>(couponToCopy.getTags());
-        remindDate = couponToCopy.getRemindDate();
     }
 
     /**
