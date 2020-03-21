@@ -20,14 +20,14 @@ public class TypeOfItemTest {
 
     @Test
     public void isValidItemType() {
-        assertThrows(NullPointerException.class, () -> TypeOfItem.isValidItemName(null));
+        assertThrows(NullPointerException.class, () -> TypeOfItem.isValidItemType(null));
 
         // invalid items
-        assertFalse(TypeOfItem.isValidItemName("")); // empty string
-        assertFalse(TypeOfItem.isValidItemName(" ")); // spaces only
+        assertFalse(TypeOfItem.isValidItemType("")); // empty string
+        assertFalse(TypeOfItem.isValidItemType(" ")); // spaces only
 
         // valid items
-        assertTrue(TypeOfItem.isValidItemName("Bottle")); //one word
-        assertTrue(TypeOfItem.isValidItemName("ThisIsAVeryLongWord")); // one long word
+        assertTrue(TypeOfItem.isValidItemType("Bottle")); //one word
+        assertTrue(TypeOfItem.isValidItemType("ThisIsAVeryLongWord")); // one long word
     }
 }

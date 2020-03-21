@@ -23,11 +23,11 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.order.Order;
 import seedu.address.testutil.OrderBuilder;
 
-public class AddCommandTest {
+public class InsertCommandTest {
 
     @Test
     public void constructor_nullOrder_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new InsertCommand(null));
     }
 
     @Test
@@ -35,43 +35,44 @@ public class AddCommandTest {
         ModelStubAcceptingOrderAdded modelStub = new ModelStubAcceptingOrderAdded();
         Order validOrder = new OrderBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validOrder).execute(modelStub);
+        CommandResult commandResult = new InsertCommand(validOrder).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validOrder), commandResult.getFeedbackToUser());
+        assertEquals(String.format(InsertCommand.MESSAGE_SUCCESS, validOrder), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validOrder), modelStub.ordersAdded);
     }
 
     @Test
     public void execute_duplicateOrder_throwsCommandException() {
         Order validOrder = new OrderBuilder().build();
-        AddCommand addCommand = new AddCommand(validOrder);
+        InsertCommand insertCommand = new InsertCommand(validOrder);
         ModelStub modelStub = new ModelStubWithOrder(validOrder);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_ORDER, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                InsertCommand.MESSAGE_DUPLICATE_ORDER, () -> insertCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Order alice = new OrderBuilder().withName("Alice").build();
         Order bob = new OrderBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        InsertCommand insertAliceCommand = new InsertCommand(alice);
+        InsertCommand insertBobCommand = new InsertCommand(bob);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(insertAliceCommand.equals(insertAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        InsertCommand insertAliceCommandCopy = new InsertCommand(alice);
+        assertTrue(insertAliceCommand.equals(insertAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(insertAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(insertAliceCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(insertAliceCommand.equals(insertBobCommand));
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,5 +57,18 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * A getter method to get all the values of the ArgumentMultimap.
+     * @return Returns a List of strings containing all the values of the ArgumentMultimap.
+     */
+    public List<String> getAllPrefixValues() {
+        List<String> allPrefixValues = new ArrayList<>();
+        Collection<List<String>> collectionOfValues = this.argMultimap.values();
+        for (List<String> perPrefixValues : collectionOfValues) {
+            allPrefixValues.addAll(perPrefixValues);
+        }
+        return allPrefixValues;
     }
 }

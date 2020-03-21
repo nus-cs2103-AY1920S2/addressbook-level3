@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -40,10 +41,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private MenuItem exitAppItem;
 
     @FXML
-    private MenuItem exitAppItem;
+    private MenuItem helpMenuItem;
 
     @FXML
     private StackPane orderListPanelPlaceholder;
@@ -53,6 +54,33 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private Label allOrdersLabel;
+
+    @FXML
+    private Label todayOrdersLabel;
+
+    @FXML
+    private Label completedLabel;
+
+    @FXML
+    private Label urgentLabel;
+
+    @FXML
+    private Label warehouseLabel;
+
+    @FXML
+    private Label returnLabel;
+
+    @FXML
+    private Label earningLabel;
+
+    @FXML
+    private Label importLabel;
+
+    @FXML
+    private Label settingLabel;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -81,6 +109,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {

@@ -4,11 +4,9 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniqueOrderList
+OrderBook *-right-> "1" UniqueOrderList
 
 UniqueOrderList o-right-> Order
-
-Order o-up-> "*" Tag
 
 Order *--> TransactionId
 Order *--> Name

@@ -165,7 +165,7 @@ class JsonAdaptedOrder {
         if (itemType == null) {
             modelItem = new TypeOfItem("NIL");
         } else {
-            if (!TypeOfItem.isValidItemName(itemType)) {
+            if (!TypeOfItem.isValidItemType(itemType)) {
                 throw new IllegalValueException(TypeOfItem.MESSAGE_CONSTRAINTS);
             }
             modelItem = new TypeOfItem(itemType);

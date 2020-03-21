@@ -22,8 +22,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
-import seedu.address.model.order.NameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
+import seedu.address.model.order.OrderContainsKeywordsPredicate;
 import seedu.address.testutil.DoneOrderDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
@@ -189,7 +189,7 @@ public class CommandTestUtil {
 
         Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());
         final String[] splitName = order.getName().fullName.split("\\s+");
-        model.updateFilteredOrderList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredOrderList().size());
     }
