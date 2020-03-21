@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -30,7 +31,8 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
     public ModifyCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS,
+                    PREFIX_CALORIE, PREFIX_TAG);
 
         Index index;
 
@@ -51,6 +53,10 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
         if (argMultimap.getValue(PREFIX_INSTRUCTIONS).isPresent()) {
             editRecipeDescriptor.setInstructions(
                     ParserUtil.parseInstructions(argMultimap.getValue(PREFIX_INSTRUCTIONS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_CALORIE).isPresent()) {
+            editRecipeDescriptor.setCalorie(
+                    ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
