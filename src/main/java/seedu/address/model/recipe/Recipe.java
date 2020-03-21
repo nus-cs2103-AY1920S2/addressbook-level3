@@ -19,6 +19,7 @@ public class Recipe {
     private final Name name;
     private final IngredientList ingredients;
     private final InstructionList instructions;
+    private boolean isDone;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
