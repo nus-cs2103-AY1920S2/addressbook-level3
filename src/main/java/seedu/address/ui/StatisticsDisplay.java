@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -20,8 +19,8 @@ public class StatisticsDisplay extends UiPart<Region> {
     private static final String FXML = "StatisticsDisplay.fxml";
     private static final String DEFAULT_BAR_CHART_TITLE = "Sample graph title";
     private static final Path DEFAULT_PROGRESS_BAR_DAILY__PLACEHOLDER =
-            Paths.get("images", "statistics", "progressBarDaily50%.png");
-    private static final String DEFAULT_PROGRESS_DAILY = "50 mins / 100 mins";
+            Paths.get("images", "statistics", "progressBarDaily0%.png");
+    private static final String DEFAULT_PROGRESS_DAILY = "0 mins / 100 mins (DEFAULT)";
     private static final String DEFAULT_MEDALS = "Placeholder";
 
     private static final String POMODORO_RUNTIME_Y_AXIS = "Total Pomodoro Runtime";

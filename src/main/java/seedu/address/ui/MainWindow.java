@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
