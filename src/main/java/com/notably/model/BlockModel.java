@@ -15,9 +15,14 @@ public interface BlockModel {
     BlockTree getBlockTree();
 
     /**
+     * Gets the BlockTreeItem that is currently open.
+     */
+    BlockTreeItem getCurrentlyOpenBlock();
+
+    /**
      * Check if currently open block has the specified child block.
      */
-    boolean hasChild(Block b);
+    boolean hasPath(AbsolutePath p);
 
     /**
      * Adds a block to the specified path, if possible.
@@ -32,16 +37,15 @@ public interface BlockModel {
     /**
      * Opens the block at the specified path, if possible.
      */
-    BlockTreeItem openBlock(AbsolutePath p);
+    void setCurrentlyOpenBlock(AbsolutePath p);
 
     /**
      * Sets the currently open block to a new block. (Replaces its block content)
      */
-    void saveBlock(Block newBlock);
+    void updateCurrentlyOpenBlockBody(Block newBlock);
 
     /**
      * Gets the absolute path of the currently open block.
-     * TODO: Revise usage and interaction with other components
      */
     AbsolutePath getBlockPath();
 
