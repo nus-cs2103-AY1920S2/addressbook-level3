@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
-import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -106,14 +105,12 @@ public class DateCell extends UiPart<Stage> {
         return coupons.size();
     }
 
-
     /**
      * Closes the displayed coupons list if it is opened.
      */
     public void closeDisplayedCoupons() {
         couponsDisplayWindow.hide();
     }
-
 
     /**
      * Displays the coupons for the day represented by this {@code DateCell}.

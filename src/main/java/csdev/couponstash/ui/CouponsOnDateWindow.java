@@ -9,7 +9,6 @@ import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
