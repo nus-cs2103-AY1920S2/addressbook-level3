@@ -32,20 +32,27 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private CouponListPanel couponListPanel;
-    private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private CalendarWindow calendarWindow;
+    private CalendarResultDisplayPane calendarResultPane;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
+    private StackPane calendarPanePlaceholder;
+
+    @FXML
+    private StackPane calendarResultPlaceholder;
+
+    @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane couponListPanelPlaceholder;
+    private MenuItem calendarMenuItem;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane couponListPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -63,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        calendarWindow = new CalendarWindow(logic.getFilteredCouponList());
     }
 
     public Stage getPrimaryStage() {
@@ -111,14 +119,15 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredCouponList(), logic.getStashSettings().getMoneySymbol());
         couponListPanelPlaceholder.getChildren().add(couponListPanel.getRoot());
 
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getCouponStashFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        calendarResultPane = new CalendarResultDisplayPane(logic.getFilteredCouponList());
+        calendarResultPlaceholder.getChildren().add(calendarResultPane.getRoot());
+        calendarResultPane.fillInnerParts();
     }
 
     /**
@@ -165,6 +174,19 @@ public class MainWindow extends UiPart<Stage> {
         return couponListPanel;
     }
 
+
+    /**
+     * Opens the calendar window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCalendar() {
+        if (!calendarWindow.isShowing()) {
+            calendarWindow.show();
+        } else {
+            calendarWindow.focus();
+        }
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -174,8 +196,7 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
-            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
+            calendarResultPane.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -187,8 +208,10 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            resultDisplay.setFeedbackToUser(e.getMessage());
+            calendarResultPane.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
+
+
 }
