@@ -1,7 +1,5 @@
 package seedu.address.model.profile.course;
 
-// To be implemented
-
 import java.util.List;
 
 /**
@@ -20,6 +18,21 @@ public class Course {
 
     @Override
     public String toString() {
-        return this.courseName;
+        StringBuilder output = new StringBuilder();
+        output.append(courseName);
+        for (CourseFocusArea focusArea : focusAreas) {
+            output.append("\n");
+            output.append(focusArea);
+        }
+        output.append("\n");
+        return output.toString();
+    }
+
+    public CourseName getCourseName() {
+        return new CourseName(courseName);
+    }
+
+    public List<CourseFocusArea> getFocusAreas() {
+        return focusAreas;
     }
 }
