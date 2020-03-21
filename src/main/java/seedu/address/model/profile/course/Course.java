@@ -11,11 +11,11 @@ import java.util.List;
 public class Course {
 
     private final String courseName;
-    private List<CourseFocusArea> focusAreas;
+    private List<CourseRequirement> requirements;
 
-    public Course(String courseName, List<CourseFocusArea> focusAreas) {
+    public Course(String courseName, List<CourseRequirement> requirements) {
         this.courseName = courseName;
-        this.focusAreas = focusAreas;
+        this.requirements = requirements;
     }
 
     @Override
