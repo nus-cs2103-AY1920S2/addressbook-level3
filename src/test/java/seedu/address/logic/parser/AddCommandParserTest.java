@@ -79,9 +79,6 @@ public class AddCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero goals
         Recipe expectedRecipe = new RecipeBuilder(TURKEY_SANDWICH).withGoals().build();
-        System.out.println(NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH + STEP_DESC_TURKEY_SANDWICH
-                + GRAIN_DESC_TURKEY_SANDWICH + VEGETABLE_DESC_TURKEY_SANDWICH
-                + PROTEIN_DESC_TURKEY_SANDWICH + FRUIT_DESC_TURKEY_SANDWICH + OTHER_DESC_TURKEY_SANDWICH);
         assertParseSuccess(parser, NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH
                 + STEP_DESC_TURKEY_SANDWICH + GRAIN_DESC_TURKEY_SANDWICH + VEGETABLE_DESC_TURKEY_SANDWICH
                 + PROTEIN_DESC_TURKEY_SANDWICH + FRUIT_DESC_TURKEY_SANDWICH + OTHER_DESC_TURKEY_SANDWICH,

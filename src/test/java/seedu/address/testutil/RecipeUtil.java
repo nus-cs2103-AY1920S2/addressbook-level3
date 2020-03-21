@@ -127,7 +127,6 @@ public class RecipeUtil {
                 goals.forEach(s -> sb.append(PREFIX_GOAL).append(s.goalName).append(" "));
             }
         }
-        System.out.println(sb.toString());
         return sb.toString();
     }
 }
