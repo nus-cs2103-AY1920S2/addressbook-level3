@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRUIT_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FRUIT_TURKEY_SANDWICH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_GRAIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRAIN_FISH;
@@ -87,6 +89,7 @@ public class TypicalRecipes {
             .withGrains(VALID_GRAIN_TURKEY_SANDWICH)
             .withVegetables(VALID_VEGE_TURKEY_SANDWICH)
             .withProteins(VALID_PROTEIN_TURKEY_SANDWICH)
+            .withFruits(VALID_FRUIT_TURKEY_SANDWICH)
             .withOthers(VALID_OTHER_TURKEY_SANDWICH)
             .withGoals(VALID_GOAL_GRAIN).withSteps(VALID_STEP_TURKEY_SANDWICH).build();
 
@@ -94,6 +97,7 @@ public class TypicalRecipes {
             .withGrains(VALID_GRAIN_FISH)
             .withVegetables(VALID_VEGE_FISH)
             .withProteins(VALID_PROTEIN_FISH)
+            .withFruits(VALID_FRUIT_FISH)
             .withOthers(VALID_OTHER_FISH)
             .withGoals(VALID_GOAL_PROTEIN).withSteps(VALID_STEP_FISH).build();
 

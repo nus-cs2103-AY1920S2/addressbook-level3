@@ -7,6 +7,7 @@
     "grains": [ ],
     "vegetables" : [ ],
     "proteins" : [ ],
+    "fruits" : [ ],
     "others" : [ ],
     "steps" : ["Cut tomatoes", "Remove honeydew skin"],
     "goals" : [ "Herbivore" ]
@@ -17,6 +18,7 @@
     "grains": [ "Bread, 50g" ],
     "vegetables" : [ ],
     "proteins" : [ ],
+    "fruits" : [ ],
     "others" : [ "Cheese, 50g"],
     "steps" : ["Spread butter on bread", "Heat pan to medium heat"],
     "goals" : [ "Wholesome Wholemeal" ]
@@ -27,6 +29,7 @@
     "grains": [ ],
     "vegetables" : [ ],
     "proteins" : [ "Chicken, 100g" ],
+    "fruits" : [ ],
     "others" : [ ],
     "steps" : ["Dice chicken"],
     "goals" : [ "Bulk like the Hulk" ]
@@ -37,6 +40,7 @@
     "grains": [ ],
     "vegetables" : [ ],
     "proteins" : [ ],
+    "fruits" : [ ],
     "others" : [ "Sugar, 100g" ],
     "steps" : ["Caramelize sugar"],
     "goals" : [ ]
@@ -47,6 +51,7 @@
     "grains": [ ],
     "vegetables" : [ ],
     "proteins" : [ "Egg, 50g" ],
+    "fruits" : [ ],
     "others" : [ ],
     "steps" : ["Crack and beat eggs"],
     "goals" : [ ]
@@ -57,6 +62,7 @@
     "grains": [ ],
     "vegetables" : [ ],
     "proteins" : [ "Egg, 50g" ],
+    "fruits" : [ ],
     "others" : [ ],
     "steps" : ["Pour water into steamer and bring to a boil"],
     "goals" : [ ]
@@ -67,6 +73,7 @@
     "grains": [ "Bread, 100g" ],
     "vegetables" : [ ],
     "proteins" : [ "Tuna, 100g" ],
+    "fruits" : [ ],
     "others" : [ ],
     "steps" : ["Slice tuna"],
     "goals" : [ "Bulk like the Hulk", "Wholesome Wholemeal" ]

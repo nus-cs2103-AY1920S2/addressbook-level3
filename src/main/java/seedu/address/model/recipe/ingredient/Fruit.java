@@ -9,4 +9,5 @@ public class Fruit extends Ingredient {
     public Fruit (String name, Quantity quantity) {
         super(name, quantity);
     }
+
 }

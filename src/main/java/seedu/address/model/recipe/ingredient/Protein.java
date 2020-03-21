@@ -9,4 +9,5 @@ public class Protein extends Ingredient {
     public Protein (String name, Quantity quantity) {
         super(name, quantity);
     }
+
 }

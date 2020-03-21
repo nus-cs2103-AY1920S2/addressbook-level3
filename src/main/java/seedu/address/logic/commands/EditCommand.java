@@ -175,6 +175,7 @@ public class EditCommand extends Command {
             setGrains(toCopy.grains);
             setVegetables(toCopy.vegetables);
             setProteins(toCopy.proteins);
+            setFruits(toCopy.fruits);
             setOthers(toCopy.others);
         }
 
@@ -182,7 +183,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, time, grains, vegetables, proteins, others, steps, goals);
+            return CollectionUtil.isAnyNonNull(name, time, grains, vegetables, proteins, fruits, others, steps, goals);
         }
 
         public void setName(Name name) {

@@ -196,6 +196,7 @@ public class ParserUtil {
      */
     public static Grain parseGrain(String grain) throws ParseException {
         requireNonNull(grain);
+
         String[] splitFields = grain.split(",");
 
         if (splitFields.length < 2) {
@@ -231,6 +232,7 @@ public class ParserUtil {
      */
     public static Vegetable parseVegetable(String vegetable) throws ParseException {
         requireNonNull(vegetable);
+
         String[] splitFields = vegetable.split(",");
         if (splitFields.length != 2) {
             throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
@@ -267,6 +269,7 @@ public class ParserUtil {
      */
     public static Protein parseProtein(String protein) throws ParseException {
         requireNonNull(protein);
+
         String[] splitFields = protein.split(",");
 
         if (splitFields.length != 2) {
@@ -303,6 +306,7 @@ public class ParserUtil {
      */
     public static Fruit parseFruit(String fruit) throws ParseException {
         requireNonNull(fruit);
+
         String[] splitFields = fruit.split(",");
 
         if (splitFields.length != 2) {
@@ -339,6 +343,7 @@ public class ParserUtil {
      */
     public static Other parseOther(String other) throws ParseException {
         requireNonNull(other);
+
         String[] splitFields = other.split(",");
 
         if (splitFields.length != 2) {

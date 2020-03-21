@@ -58,6 +58,8 @@ public class RecipeBookParserTest {
     public void parseCommand_edit() throws Exception {
         Recipe recipe = new RecipeBuilder().build();
         EditRecipeDescriptor descriptor = new EditRecipeDescriptorBuilder(recipe).build();
+        System.out.println("Command" + EditCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_RECIPE.getOneBased() + " " + RecipeUtil.getEditRecipeDescriptorDetails(descriptor));
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_RECIPE.getOneBased() + " " + RecipeUtil.getEditRecipeDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_RECIPE, descriptor), command);

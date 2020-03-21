@@ -102,14 +102,19 @@ public class EditRecipeDescriptorBuilder {
         switch (unitString) {
         case "ml":
             unit = Unit.MILLILITER;
+            break;
         case "g":
             unit = Unit.GRAM;
+            break;
         case "tbsp":
             unit = Unit.TABLESPOON;
+            break;
         case "tsp":
             unit = Unit.TEASPOON;
+            break;
         case "cup":
             unit = Unit.CUP;
+            break;
         default:
             System.out.println("Unit not supported");
         }

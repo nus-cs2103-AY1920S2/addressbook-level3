@@ -47,6 +47,9 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     @Override
     public String toString() {
+        if (quantity == null) {
+            return "";
+        }
         return quantity + " " + ingredientName;
     }
 

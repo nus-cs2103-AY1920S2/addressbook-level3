@@ -23,6 +23,7 @@ public class JsonAdaptedRecipeTest {
     private static final String INVALID_GOAL = "#friend";
     private static final String VALID_NAME = GRILLED_SANDWICH.getName().toString();
     private static final String VALID_TIME = GRILLED_SANDWICH.getTime().toString();
+
     private static final List<JsonAdaptedGrain> VALID_GRAINS = GRILLED_SANDWICH.getGrains().stream()
             .map(JsonAdaptedGrain::new)
             .collect(Collectors.toList());
@@ -31,6 +32,9 @@ public class JsonAdaptedRecipeTest {
             .collect(Collectors.toList());
     private static final List<JsonAdaptedProtein> VALID_PROTEINS = GRILLED_SANDWICH.getProteins().stream()
             .map(JsonAdaptedProtein::new)
+            .collect(Collectors.toList());
+    private static final List<JsonAdaptedFruit> VALID_FRUITS = GRILLED_SANDWICH.getFruits().stream()
+            .map(JsonAdaptedFruit::new)
             .collect(Collectors.toList());
     private static final List<JsonAdaptedOther> VALID_OTHERS = GRILLED_SANDWICH.getOthers().stream()
             .map(JsonAdaptedOther::new)
@@ -56,7 +60,7 @@ public class JsonAdaptedRecipeTest {
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(INVALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
-                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_OTHERS,
+                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                         VALID_STEP, VALID_GOALS);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
@@ -65,7 +69,7 @@ public class JsonAdaptedRecipeTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(null, VALID_TIME, IS_NOT_FAVOURITE,
-                VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_OTHERS,
+                VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                 VALID_STEP, VALID_GOALS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
@@ -75,7 +79,7 @@ public class JsonAdaptedRecipeTest {
     public void toModelType_invalidTime_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, INVALID_TIME, IS_NOT_FAVOURITE,
-                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_OTHERS,
+                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                         VALID_STEP, VALID_GOALS);
         String expectedMessage = Time.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
@@ -84,7 +88,7 @@ public class JsonAdaptedRecipeTest {
     @Test
     public void toModelType_nullTime_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, null, IS_NOT_FAVOURITE,
-                VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_OTHERS,
+                VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                 VALID_STEP, VALID_GOALS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
@@ -95,7 +99,7 @@ public class JsonAdaptedRecipeTest {
         INVALID_STEPS.add(new JsonAdaptedStep(INVALID_STEP));
         JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
-                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_OTHERS,
+                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                         INVALID_STEPS, VALID_GOALS);
         String expectedMessage = Step.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
@@ -104,7 +108,7 @@ public class JsonAdaptedRecipeTest {
     @Test
     public void toModelType_nullStep_throwsIllegalValueException() {
         JsonAdaptedRecipe recipe = new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
-                VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_OTHERS,
+                VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                 null, VALID_GOALS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Step.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, recipe::toModelType);
@@ -115,9 +119,8 @@ public class JsonAdaptedRecipeTest {
         INVALID_GOALS.add(new JsonAdaptedGoal(INVALID_GOAL));
         JsonAdaptedRecipe recipe =
                 new JsonAdaptedRecipe(VALID_NAME, VALID_TIME, IS_NOT_FAVOURITE,
-                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_OTHERS,
+                        VALID_GRAINS, VALID_VEGETABLES, VALID_PROTEINS, VALID_FRUITS, VALID_OTHERS,
                         VALID_STEP, INVALID_GOALS);
         assertThrows(IllegalValueException.class, recipe::toModelType);
     }
-
 }
