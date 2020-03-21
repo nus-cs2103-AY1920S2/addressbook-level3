@@ -51,6 +51,8 @@ public class RecipeCard extends UiPart<Region> {
     @FXML
     private VBox proteins;
     @FXML
+    private VBox fruits;
+    @FXML
     private VBox others;
     @FXML
     private VBox steps;
@@ -76,6 +78,7 @@ public class RecipeCard extends UiPart<Region> {
         recipe.getGrains().forEach(grain -> grains.getChildren().add(new Label(grain.toString())));
         recipe.getVegetables().forEach(vegetable -> vegetables.getChildren().add(new Label(vegetable.toString())));
         recipe.getProteins().forEach(protein -> proteins.getChildren().add(new Label(protein.toString())));
+        recipe.getFruits().forEach(fruit -> fruits.getChildren().add(new Label(fruit.toString())));
         recipe.getOthers().forEach(other -> others.getChildren().add(new Label(other.toString())));
 
         // Calculates step number and displays with along with the step
