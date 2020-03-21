@@ -11,7 +11,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
  */
 public class AbsolutePath implements Path {
     public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
-    public static final String VALIDATION_REGEX = "(\\/\\p{Alnum}+)+\\/?";
+    public static final String VALIDATION_REGEX = "\\/||(\\/\\p{Alnum}+)+\\/?";
     private final List<String> components;
 
     private AbsolutePath(String absolutePathString) {
@@ -55,7 +55,7 @@ public class AbsolutePath implements Path {
      * @return Absolute Path.
      * @throws InvalidPathException if String provided is not a valid absolutePath.
      */
-    public static AbsolutePath fromComponent(List<String> absoluteComponents) {
+    public static AbsolutePath fromComponents(List<String> absoluteComponents) {
         return new AbsolutePath(absoluteComponents);
     }
 
@@ -95,12 +95,14 @@ public class AbsolutePath implements Path {
         return RelativePath.fromAbsolutePath(this, currentWorkingPath);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<String> getComponents() {
         return this.components;
+    }
+
+    @Override
+    public String getStringRepresentation() {
+        return "/" + String.join("/", this.components);
     }
 
     @Override
@@ -121,7 +123,7 @@ public class AbsolutePath implements Path {
 
     @Override
     public String toString() {
-        return "/" + String.join("/", this.components);
+        return getStringRepresentation();
     }
 }
 

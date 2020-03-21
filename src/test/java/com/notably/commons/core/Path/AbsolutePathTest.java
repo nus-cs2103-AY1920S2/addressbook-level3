@@ -25,6 +25,15 @@ class AbsolutePathTest {
     }
 
     @Test
+    public void fromString_validEmptyString_generateAbsolutePath() throws InvalidPathException {
+        final AbsolutePath testInput = AbsolutePath.fromString("/");
+
+        List<String> paths = new ArrayList<>();
+
+        assertEquals(paths, testInput.getComponents());
+    }
+
+    @Test
     public void fromString_invalidInputString1_exceptionThrown() {
         assertThrows(InvalidPathException.class, () -> AbsolutePath.fromString("CS2103/notes"));
     }
