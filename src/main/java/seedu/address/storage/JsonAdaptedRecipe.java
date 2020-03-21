@@ -17,6 +17,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
@@ -37,6 +38,7 @@ class JsonAdaptedRecipe {
     private final List<JsonAdaptedGrain> grains = new ArrayList<>();
     private final List<JsonAdaptedVegetable> vegetables = new ArrayList<>();
     private final List<JsonAdaptedProtein> proteins = new ArrayList<>();
+    private final List<JsonAdaptedFruit> fruits = new ArrayList<>();
     private final List<JsonAdaptedOther> others = new ArrayList<>();
 
     /**
@@ -48,6 +50,7 @@ class JsonAdaptedRecipe {
             @JsonProperty("grains") List<JsonAdaptedGrain> grains,
             @JsonProperty("vegetables") List<JsonAdaptedVegetable> vegetables,
             @JsonProperty("proteins") List<JsonAdaptedProtein> proteins,
+            @JsonProperty("fruits") List<JsonAdaptedFruit> fruits,
             @JsonProperty("others") List<JsonAdaptedOther> others,
             @JsonProperty("steps") List<JsonAdaptedStep> steps,
             @JsonProperty("goals") List<JsonAdaptedGoal> goals) {
@@ -62,6 +65,9 @@ class JsonAdaptedRecipe {
         }
         if (proteins != null) {
             this.proteins.addAll(proteins);
+        }
+        if (fruits != null) {
+            this.fruits.addAll(fruits);
         }
         if (others != null) {
             this.others.addAll(others);
@@ -89,6 +95,9 @@ class JsonAdaptedRecipe {
                 .collect(Collectors.toList()));
         proteins.addAll(source.getProteins().stream()
                 .map(JsonAdaptedProtein::new)
+                .collect(Collectors.toList()));
+        fruits.addAll(source.getFruits().stream()
+                .map(JsonAdaptedFruit::new)
                 .collect(Collectors.toList()));
         others.addAll(source.getOthers().stream()
                 .map(JsonAdaptedOther::new)
@@ -126,6 +135,11 @@ class JsonAdaptedRecipe {
             recipeProteins.add(protein.toModelType());
         }
 
+        final List<Fruit> recipeFruits = new ArrayList<>();
+        for (JsonAdaptedFruit fruit : fruits) {
+            recipeFruits.add(fruit.toModelType());
+        }
+
         final List<Other> recipeOthers = new ArrayList<>();
         for (JsonAdaptedOther other : others) {
             recipeOthers.add(other.toModelType());
@@ -160,10 +174,11 @@ class JsonAdaptedRecipe {
         final Set<Grain> modelGrains = new TreeSet<>(recipeGrains);
         final Set<Vegetable> modelVegetables = new TreeSet<>(recipeVegetables);
         final Set<Protein> modelProteins = new TreeSet<>(recipeProteins);
+        final Set<Fruit> modelFruits = new TreeSet<>(recipeFruits);
         final Set<Other> modelOthers = new TreeSet<>(recipeOthers);
         final ArrayList<Step> modelSteps = new ArrayList<>(recipeSteps);
         return new Recipe(modelName, modelTime,
-                modelGrains, modelVegetables, modelProteins, modelOthers,
+                modelGrains, modelVegetables, modelProteins, modelFruits, modelOthers,
                 modelSteps, modelGoals, isFavourite);
     }
 
