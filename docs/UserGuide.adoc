@@ -51,6 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *c/* entry calorie
 * *r/* remark
 * *i/* index
+* *dr/* duration a double number representing time in hours
 * *k/* keyword (in `find`)
 * *[DATE]* txt containing relevant date information
 * *[TIME]* a time in the fixed format of txt hh:mm
@@ -67,7 +68,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[r/remark]...` can be used as `{nbsp}` (i.e. 0 times), `r/really fun`, `r/really fun r/helps me lose weight` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME t/Wednesday 6 pm`, `t/Wednesday 6 pm n/NAME` is also acceptable.
 * `X` in this document refers to f/s, representing two types of entries: food and sports. e.g. `addX` represents either `addf` or `adds`; `add[X]` means the field `X` is optional.
-* The field `TIME` should be entered in the fixed format of `yyyy-mm-dd[-hh-mm]` where the `hours` and `minutes` can be omitted.
+* The field `TIME` should be entered in the fixed format of `yyyy-mm-dd[ hh:mm]` where the `hours` and `minutes` can be omitted.
 * The field `DATE` should be entered in the fixed format of `yyyy-mm-dd` in order to trace the corresponding daily file.
 ====
 
@@ -82,7 +83,7 @@ Format: `help`
 === Adding an entry: `add`
 
 Adds an entry to the fitness log book +
-Format: `addX n/NAME t/DATETIME l/LOCATION c/CALORIE es/False r/REMARK...`
+Format: `addX n/NAME t/DATETIME l/LOCATION c/CALORIE es/False dr/DURATION r/REMARK...`
 
 [TIP]
 An entry in the log book can have any number of remarks (including 0)
@@ -118,7 +119,7 @@ Examples:
 === Editing an entry : `edit`
 
 Edits an existing entry in the fitness log book. +
-Format: `edit DATE [i/INDEX] [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK]...`
+Format: `edit DATE [i/INDEX] [n/NAME] [t/TIME] [l/LOCATION] [c/CALORIE] [r/REMARK] [dr/DURATION]...`
 
 ****
 * Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed corresponding faily entry list. The index *must be a positive integer* 1, 2, 3, ...

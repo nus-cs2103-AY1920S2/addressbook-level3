@@ -1,4 +1,4 @@
-package fithelper.model.statistics;
+package fithelper.model.calculator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import javafx.collections.ObservableList;
 /**
  * GenerateS relevant stats based on foodList and sportsList
  */
-public class StatsGenerator {
+public class CalorieCalculatorByDateRange {
     private ObservableList<Entry> foodList;
     private ObservableList<Entry> sportsList;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public StatsGenerator(ObservableList< Entry > foodList, ObservableList<Entry> sportsList,
-                          LocalDate startDate, LocalDate endDate) {
+    public CalorieCalculatorByDateRange(ObservableList< Entry > foodList, ObservableList<Entry> sportsList,
+                                        LocalDate startDate, LocalDate endDate) {
         this.foodList = foodList;
         this.sportsList = sportsList;
         this.startDate = startDate;
@@ -30,13 +30,13 @@ public class StatsGenerator {
         HashMap<LocalDate, Double> calories = new HashMap<>();
         for (Entry entry: filteredList) {
             if (calories.containsKey(entry.getDate())) {
-                if (entry.getType().toString().equals("food")) {
+                if (entry.isFood()) {
                     calories.put(entry.getDate(), calories.get(entry.getDate()) + entry.getCalorieValue());
                 } else {
                     calories.put(entry.getDate(), calories.get(entry.getDate()) - entry.getCalorieValue());
                 }
             } else {
-                if (entry.getType().toString().equals("food")) {
+                if (entry.isFood()) {
                     calories.put(entry.getDate(), entry.getCalorieValue());
                 } else {
                     calories.put(entry.getDate(), -entry.getCalorieValue());
@@ -53,13 +53,13 @@ public class StatsGenerator {
         ArrayList<Entry> filteredList = new ArrayList<>();
         for (Entry entry: sportsList) {
             LocalDate date = entry.getDate();
-            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.getStatus().toString().equals("Done")) {
+            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.isDone()) {
                 filteredList.add(entry);
             }
         }
         for (Entry entry: foodList) {
             LocalDate date = entry.getDate();
-            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.getStatus().toString().equals("Done")) {
+            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.isDone()) {
                 filteredList.add(entry);
             }
         }

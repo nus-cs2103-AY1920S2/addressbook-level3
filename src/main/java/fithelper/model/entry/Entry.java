@@ -182,8 +182,16 @@ public class Entry {
         return calorie.getValue();
     }
 
-    public long getDuration() {
+    public long getMinutes() {
+        return duration.getMinutes();
+    }
+
+    public long getHours() {
         return duration.getHours();
+    }
+
+    public fithelper.model.entry.Duration getDuration() {
+        return duration;
     }
 
     public void addRemark(Remark remark) {
@@ -291,7 +299,9 @@ public class Entry {
                 .append("Status: ")
                 .append(getStatus() + "\n")
                 .append("Remark: ")
-                .append(getRemark().toString());
+                .append(getRemark().toString() + "\n")
+                .append("Duration: ")
+                .append(getDuration());
         return builder.toString();
     }
 
