@@ -30,14 +30,14 @@ import seedu.address.testutil.EditRecipeDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_GRAIN_TURKEY_SANDWICH = "300, Wholemeal bread";
-    public static final String VALID_GRAIN_FISH = "200, Rice";
-    public static final String VALID_PROTEIN_TURKEY_SANDWICH = "150, Shredded Turkey";
-    public static final String VALID_PROTEIN_FISH = "300, Cod fish";
-    public static final String VALID_VEGE_TURKEY_SANDWICH = "150, Lettuce";
-    public static final String VALID_VEGE_FISH = "300, Tomato";
-    public static final String VALID_OTHER_TURKEY_SANDWICH = "150, Mayonnaise";
-    public static final String VALID_OTHER_FISH = "300, Sesame oil";
+    public static final String VALID_GRAIN_TURKEY_SANDWICH = "300g, Wholemeal bread";
+    public static final String VALID_GRAIN_FISH = "200g, Rice";
+    public static final String VALID_PROTEIN_TURKEY_SANDWICH = "150g, Shredded Turkey";
+    public static final String VALID_PROTEIN_FISH = "300g, Cod fish";
+    public static final String VALID_VEGE_TURKEY_SANDWICH = "150g, Lettuce";
+    public static final String VALID_VEGE_FISH = "300g, Tomato";
+    public static final String VALID_OTHER_TURKEY_SANDWICH = "150g, Mayonnaise";
+    public static final String VALID_OTHER_FISH = "300g, Sesame oil";
     public static final String VALID_NAME_TURKEY_SANDWICH = "Turkey Sandwich";
     public static final String VALID_NAME_FISH = "Steamed Fish";
     public static final String VALID_TIME_TURKEY_SANDWICH = "15";

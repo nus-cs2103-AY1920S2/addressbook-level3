@@ -15,6 +15,8 @@ import seedu.address.model.recipe.Time;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Quantity;
+import seedu.address.model.recipe.ingredient.Unit;
 import seedu.address.model.recipe.ingredient.Vegetable;
 
 import seedu.address.model.util.SampleDataUtil;
@@ -28,10 +30,11 @@ public class RecipeBuilder {
     public static final String DEFAULT_TIME = "10";
     public static final boolean DEFAULT_FAVOURITE = false;
     public static final Step DEFAULT_STEP = new Step("Cut tomatoes into crescent shaped slices");
-    public static final Grain DEFAULT_GRAIN = new Grain("Bread", 100);
-    public static final Vegetable DEFAULT_VEGETABLE = new Vegetable("Celery", 100);
-    public static final Protein DEFAULT_PROTEIN = new Protein("Minced Meat", 100);
-    public static final Other DEFAULT_OTHER = new Other("Oil", 100);
+    public static final Quantity DEFAULT_QUANTITY = new Quantity(100, Unit.GRAM);
+    public static final Grain DEFAULT_GRAIN = new Grain("Bread", DEFAULT_QUANTITY);
+    public static final Vegetable DEFAULT_VEGETABLE = new Vegetable("Celery", DEFAULT_QUANTITY);
+    public static final Protein DEFAULT_PROTEIN = new Protein("Minced Meat", DEFAULT_QUANTITY);
+    public static final Other DEFAULT_OTHER = new Other("Oil", DEFAULT_QUANTITY);
 
     private Name name;
     private Time time;
