@@ -6,13 +6,7 @@ import java.util.stream.Stream;
 
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
-import csdev.couponstash.model.coupon.Coupon;
-import csdev.couponstash.model.coupon.ExpiryDate;
-import csdev.couponstash.model.coupon.Limit;
-import csdev.couponstash.model.coupon.Name;
-import csdev.couponstash.model.coupon.PromoCode;
-import csdev.couponstash.model.coupon.StartDate;
-import csdev.couponstash.model.coupon.Usage;
+import csdev.couponstash.model.coupon.*;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -43,6 +37,7 @@ public class EditCouponDescriptorBuilder {
         descriptor.setStartDate(coupon.getStartDate());
         descriptor.setLimit(coupon.getLimit());
         descriptor.setTags(coupon.getTags());
+        descriptor.setRemindDate(coupon.getRemindDate());
     }
 
     /**
@@ -108,6 +103,14 @@ public class EditCouponDescriptorBuilder {
     public EditCouponDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Sets the {@code ExpiryDate} of the {@code EditCouponDescriptor} that we are building.
+     */
+    public EditCouponDescriptorBuilder withRemindDate(String remindDate, String expiryDate) {
+        descriptor.setRemindDate(new RemindDate(remindDate, expiryDate));
         return this;
     }
 

@@ -32,7 +32,7 @@ public class CouponBuilder {
     public static final String DEFAULT_START_DATE = LocalDate.now().format(StartDate.DATE_FORMATTER);
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
-    public static final RemindDate DEFAULT_REMIND = new RemindDate("30-08-2020");
+    public static final String DEFAULT_REMIND_DATE = "25-08-2020";
 
     private Name name;
     private PromoCode promoCode;
@@ -42,7 +42,7 @@ public class CouponBuilder {
     private StartDate startDate;
     private Usage usage;
     private Limit limit;
-    private RemindDate remind;
+    private RemindDate remindDate;
     private Set<Tag> tags;
 
     public CouponBuilder() {
@@ -54,7 +54,7 @@ public class CouponBuilder {
         startDate = new StartDate(DEFAULT_START_DATE);
         usage = new Usage(DEFAULT_USAGE);
         limit = new Limit(DEFAULT_LIMIT);
-        remind = DEFAULT_REMIND;
+        remindDate = new RemindDate(DEFAULT_REMIND_DATE, DEFAULT_EXPIRY_DATE);
         tags = new HashSet<>();
     }
 
@@ -70,8 +70,9 @@ public class CouponBuilder {
         startDate = couponToCopy.getStartDate();
         usage = couponToCopy.getUsage();
         limit = couponToCopy.getLimit();
-        remind = couponToCopy.getRemindDate();
+        remindDate = couponToCopy.getRemindDate();
         tags = new HashSet<>(couponToCopy.getTags());
+        remindDate = couponToCopy.getRemindDate();
     }
 
     /**
@@ -160,10 +161,10 @@ public class CouponBuilder {
     }
 
     /**
-     * Sets the {@code Remind} of the {@code Coupon} that we are building.
+     * Sets the {@code RemindDate} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withRemind(RemindDate remind) {
-        this.remind = remind;
+    public CouponBuilder withRemindDate(String remindDate, String expiryDate) {
+        this.remindDate = new RemindDate(remindDate, expiryDate);
         return this;
     }
 
@@ -174,7 +175,7 @@ public class CouponBuilder {
      */
     public Coupon build() {
         return new Coupon(name, promoCode, savings, expiryDate, startDate,
-                usage, limit, tags, totalSavings, remind);
+                usage, limit, tags, totalSavings, remindDate);
     }
 
 }

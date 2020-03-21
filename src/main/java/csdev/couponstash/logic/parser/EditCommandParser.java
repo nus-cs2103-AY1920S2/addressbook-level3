@@ -51,7 +51,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                         CliSyntax.PREFIX_SAVINGS,
                         CliSyntax.PREFIX_USAGE,
                         CliSyntax.PREFIX_LIMIT,
-                        CliSyntax.PREFIX_TAG);
+                        CliSyntax.PREFIX_TAG,
+                        CliSyntax.PREFIX_REMIND);
 
         Index index;
 

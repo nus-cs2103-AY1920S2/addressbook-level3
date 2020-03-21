@@ -8,12 +8,12 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a Coupon's remind date in the CouponStash.
- * Guarantees: immutable; is valid as declared in {@link #isValidRemindDate(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidRemindDate(String, String)}
  */
 public class RemindDate {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Remind Dates should be a date in the D-M-YYYY format.";
+            "Remind Dates should be a date in the D-M-YYYY format and not after the expiry date";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
     private LocalDate date;
@@ -25,14 +25,14 @@ public class RemindDate {
      *
      * @param remindDate A valid remind date.
      */
-    public RemindDate(String remindDate) {
+    public RemindDate(String remindDate, String expiryDate) {
         if (remindDate.equals("")) {
             date = null;
             remindFlag = false;
             value = "";
         }
-        requireNonNull(remindDate);
-        checkArgument(isValidRemindDate(remindDate), MESSAGE_CONSTRAINTS);
+        requireNonNull(remindDate, expiryDate);
+        checkArgument(isValidRemindDate(remindDate, expiryDate), MESSAGE_CONSTRAINTS);
         value = remindDate;
         this.date = getDate();
         remindFlag = true;
@@ -52,8 +52,15 @@ public class RemindDate {
     /**
      * Returns true if a given string is a valid remind date.
      */
-    public static boolean isValidRemindDate(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidRemindDate(String remindTest, String expiryTest) {
+        LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
+        LocalDate expiryDate = LocalDate.parse(expiryTest, DATE_FORMATTER);
+        LocalDate testYesterday = LocalDate.now();
+        testYesterday.minusDays(1);
+
+        return remindTest.matches(VALIDATION_REGEX)
+                && !(remindDate.isAfter(expiryDate))
+                && remindDate.isAfter(testYesterday);
     }
 
     /**

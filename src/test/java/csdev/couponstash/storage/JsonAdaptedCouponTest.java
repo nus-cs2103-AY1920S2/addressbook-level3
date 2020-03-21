@@ -25,7 +25,7 @@ public class JsonAdaptedCouponTest {
     private static final JsonAdaptedSavings INVALID_SAVINGS =
             new JsonAdaptedSavings(null, null, null);
     private static final String INVALID_EXPIRY_DATE = "31-12-2008";
-    private static final String INVALID_START_DATE = "31-1-2008";
+    private static final String INVALID_START_DATE = "31-01-2008";
     private static final String INVALID_USAGE = "-10";
     private static final String INVALID_LIMIT = "3a";
     private static final String INVALID_TAG = "#friend";
@@ -131,7 +131,7 @@ public class JsonAdaptedCouponTest {
         JsonAdaptedCoupon coupon =
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, invalidTags,
-                        VALID_REMIND_DATE);
+                        VALID_EXPIRY_DATE);
         assertThrows(IllegalValueException.class, coupon::toModelType);
     }
 

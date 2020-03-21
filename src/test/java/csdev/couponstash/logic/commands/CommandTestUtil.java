@@ -41,8 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_EXPIRY_DATE_AMY = "30-12-2020";
     public static final String VALID_EXPIRY_DATE_BOB = "31-12-2020";
-    public static final String VALID_START_DATE_AMY = "1-12-2020";
-    public static final String VALID_START_DATE_BOB = "2-12-2020";
+    public static final String VALID_START_DATE_AMY = "01-12-2020";
+    public static final String VALID_START_DATE_BOB = "02-12-2020";
+    public static final String VALID_REMIND_DATE_AMY = "27-12-2020";
+    public static final String VALID_REMIND_DATE_BOB = "28-12-2020";
     public static final String VALID_SAVEABLE_CAKE = "Cake";
     public static final String VALID_SAVEABLE_CROISSANT = "Croissant";
     public static final Savings VALID_SAVINGS_AMY = new Savings(
@@ -111,6 +113,7 @@ public class CommandTestUtil {
                 .withUsage(VALID_USAGE_AMY)
                 .withLimit(VALID_LIMIT_AMY)
                 .withTags(VALID_TAG_FRIEND)
+                .withRemindDate(VALID_REMIND_DATE_AMY, VALID_EXPIRY_DATE_AMY)
                 .build();
         DESC_BOB = new EditCouponDescriptorBuilder()
                 .withName(VALID_NAME_BOB)
@@ -121,6 +124,7 @@ public class CommandTestUtil {
                 .withUsage(VALID_USAGE_BOB)
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+                .withRemindDate(VALID_REMIND_DATE_BOB, VALID_EXPIRY_DATE_BOB)
                 .build();
     }
 

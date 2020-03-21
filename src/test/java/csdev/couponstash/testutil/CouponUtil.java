@@ -1,13 +1,6 @@
 package csdev.couponstash.testutil;
 
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PROMO_CODE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
+import static csdev.couponstash.logic.parser.CliSyntax.*;
 import static csdev.couponstash.model.coupon.savings.PercentageAmount.PERCENT_SUFFIX;
 
 import java.util.Set;
@@ -46,6 +39,7 @@ public class CouponUtil {
         sb.append(convertSavingsToCommand(coupon.getSavingsForEachUse(), moneySymbol));
         sb.append(PREFIX_USAGE + coupon.getUsage().value + " ");
         sb.append(PREFIX_LIMIT + coupon.getLimit().value + " ");
+        sb.append(PREFIX_REMIND + coupon.getRemindDate().toString() + " ");
         coupon.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -69,6 +63,9 @@ public class CouponUtil {
         descriptor.getSavings().ifPresent(sv -> sb.append(convertSavingsToCommand(sv, moneySymbol)));
         descriptor.getUsage().ifPresent(usage -> sb.append(PREFIX_USAGE).append(usage.value).append(" "));
         descriptor.getLimit().ifPresent(limit -> sb.append(PREFIX_LIMIT).append(limit.value).append(" "));
+        descriptor.getRemindDate().ifPresent(remindDate -> sb.append(PREFIX_REMIND).append(remindDate.toString())
+                .append(" "));
+
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
