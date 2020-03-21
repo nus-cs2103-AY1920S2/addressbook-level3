@@ -6,7 +6,8 @@ import seedu.zerotoone.model.exercise.ExerciseList;
 /**
  * A utility class to help with building ExerciseList objects.
  * Example usage: <br>
- *     {@code ExerciseList ab = new ExerciseListBuilder().withExercise("John", "Doe").build();}
+ *     {@code ExerciseList exerciseList =
+ *          new ExerciseListBuilder().withExercise(new Exercise(...)).build();}
  */
 public class ExerciseListBuilder {
 

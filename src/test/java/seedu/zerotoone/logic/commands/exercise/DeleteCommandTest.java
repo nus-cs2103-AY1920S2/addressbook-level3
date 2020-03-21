@@ -70,7 +70,7 @@ public class DeleteCommandTest {
         showExerciseAtIndex(model, INDEX_FIRST_EXERCISE);
 
         Index outOfBoundIndex = INDEX_SECOND_EXERCISE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of exercise list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExerciseList().getExerciseList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
