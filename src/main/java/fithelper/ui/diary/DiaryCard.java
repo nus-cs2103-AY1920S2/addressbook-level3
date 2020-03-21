@@ -66,7 +66,7 @@ public class DiaryCard extends UiPart<AnchorPane> {
         }
 
         // state check
-        fithelper.ui.diary.DiaryCard card = (DiaryCard) other;
+        DiaryCard card = (DiaryCard) other;
         return diary.equals(card.diary);
     }
 }
