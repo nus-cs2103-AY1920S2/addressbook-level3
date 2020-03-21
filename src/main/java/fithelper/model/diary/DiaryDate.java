@@ -12,7 +12,6 @@ import fithelper.logic.parser.exceptions.ParseException;
  * Represents ID of a diary.
  */
 public class DiaryDate {
-    
     public static final String MESSAGE_ERROR = "Date conversion from strings has failed.";
     private static final Logger logger = LogsCenter.getLogger(DiaryDate.class);
 
