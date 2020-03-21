@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
+import seedu.address.model.profile.course.CourseRequirement;
 
 /**
  * Jackson-friendly version of {@link JsonCourse}.
@@ -19,15 +19,13 @@ class JsonCourse {
 
     private final String courseName;
     private final List<JsonCourseRequirement> requirements;
-    private final List<JsonCourseFocusArea> focusAreas;
+    //private final List<JsonCourseFocusArea> focusAreas;
 
     @JsonCreator
     public JsonCourse(@JsonProperty("courseName") String courseName,
-                      @JsonProperty("requirements") List <JsonCourseRequirement> requirements,
-                      @JsonProperty("focusArea") List<JsonCourseFocusArea> focusAreas) {
+                      @JsonProperty("requirements") List <JsonCourseRequirement> requirements) {
         this.courseName = courseName;
         this.requirements = requirements;
-        this.focusAreas = focusAreas;
     }
 
     /**
@@ -41,17 +39,17 @@ class JsonCourse {
         if (courseName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "Course"));
-        } else if (focusAreas == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Focus Area"));
+        } else if (requirements == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Requirement"));
         }
 
-        List<CourseFocusArea> courseFocusAreas = new ArrayList<>();
-        for (JsonCourseFocusArea focusArea : focusAreas) {
-            CourseFocusArea modelFocusArea = focusArea.toModelType();
-            courseFocusAreas.add(modelFocusArea);
+        List<CourseRequirement> courseRequirements = new ArrayList<>();
+        for (JsonCourseRequirement requirement : requirements) {
+            CourseRequirement modelRequirement = requirement.toModelType();
+            courseRequirements.add(modelRequirement);
         }
 
-        return new Course(courseName, courseFocusAreas);
+        return new Course(courseName, courseRequirements);
     }
 }
 

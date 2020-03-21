@@ -16,7 +16,7 @@ import seedu.address.model.profile.course.module.ModuleCode;
  */
 class JsonCourseRequirement{
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Course's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Requirement's %s field is missing!";
 
     private final String requirementName;
     private final List<String> modules;
