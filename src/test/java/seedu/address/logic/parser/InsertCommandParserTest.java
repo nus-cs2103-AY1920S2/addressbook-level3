@@ -116,7 +116,7 @@ public class InsertCommandParserTest {
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB
                 + WAREHOUSE_DESC_AMY + DELIVERY_TIMESTAMP_DESC_BOB + WAREHOUSE_DESC_BOB + COD_DESC_BOB
-                + TYPE_DESC_GLASS, new AddCommand(expectedOrder));
+                + TYPE_DESC_GLASS, new InsertCommand(expectedOrder));
 
         // multiple cashOnDeliveries - last cashOnDelivery accepted
         assertParseSuccess(parser, TID_DESC_BOB + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
