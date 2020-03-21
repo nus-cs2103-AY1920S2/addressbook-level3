@@ -5,28 +5,34 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.Calorie;
-import seedu.address.model.recipe.IngredientList;
-import seedu.address.model.recipe.InstructionList;
 import seedu.address.model.recipe.Name;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.Ingredient;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.Instruction;
+import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *Parser
+ * classes.
  */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified index is invalid (not non-zero
+     *                        unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -37,8 +43,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -52,33 +58,38 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String ingredients} into a {@code IngredientList}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses {@code ingredientString} into an {@link IngredientList}. Leading and
+     * trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code ingredients} is invalid.
+     * @throws ParseException if {@code ingredientString} is invalid
      */
-    public static IngredientList parseIngredients(String ingredients) throws ParseException {
-        requireNonNull(ingredients);
-        String trimmedIngredients = ingredients.trim();
-        if (!IngredientList.isValidIngredients(trimmedIngredients)) {
-            throw new ParseException(IngredientList.MESSAGE_CONSTRAINTS);
+    public static IngredientList parseIngredients(String ingredientString) throws ParseException {
+        requireNonNull(ingredientString);
+
+        if (ingredientString.isBlank()) {
+            throw new ParseException("Recipes need to have instructions; please enter some instructions.");
         }
-        return new IngredientList(trimmedIngredients);
+
+        return new IngredientList(Stream.of(ingredientString.trim().split(";")).map(String::trim).map(Ingredient::new)
+                .collect(Collectors.toList()));
     }
 
     /**
-     * Parses a {@code String instructions} into a {@code InstructionList}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses {@code instructionString} into a {@link InstructionList}. Leading and
+     * trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code instructions} is invalid.
+     * @throws ParseException if {@code instructionString} is blank, as specified by
+     *                        {@link String#isBlank()}
      */
-    public static InstructionList parseInstructions(String instructions) throws ParseException {
-        requireNonNull(instructions);
-        String trimmedInstructions = instructions.trim();
-        if (!InstructionList.isValidInstructions(trimmedInstructions)) {
-            throw new ParseException(InstructionList.MESSAGE_CONSTRAINTS);
+    public static InstructionList parseInstructions(String instructionString) throws ParseException {
+        requireNonNull(instructionString);
+
+        if (instructionString.isBlank()) {
+            throw new ParseException("Recipes need to have ingredients; please enter some ingredients.");
         }
-        return new InstructionList(trimmedInstructions);
+
+        return new InstructionList(Stream.of(instructionString.trim().split(";")).map(String::trim)
+                .map(Instruction::new).collect(Collectors.toList()));
     }
 
     /**
