@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
@@ -32,6 +33,7 @@ public class Recipe {
     private final Set<Grain> grains = new TreeSet<>();
     private final Set<Vegetable> vegetables = new TreeSet<>();
     private final Set<Protein> proteins = new TreeSet<>();
+    private final Set<Fruit> fruits = new TreeSet<>();
     private final Set<Other> others = new TreeSet<>();
     private boolean isFavourite;
 
@@ -40,7 +42,7 @@ public class Recipe {
      */
     public Recipe(Name name, Time time,
                   Set<Grain> grains, Set<Vegetable> vegetables,
-                  Set<Protein> proteins, Set<Other> others,
+                  Set<Protein> proteins, Set<Fruit> fruits, Set<Other> others,
                   List<Step> steps, Set<Goal> goals, boolean isFavourite) {
         requireAllNonNull(name, time, steps, goals);
         this.name = name;
@@ -50,6 +52,7 @@ public class Recipe {
         this.grains.addAll(grains);
         this.vegetables.addAll(vegetables);
         this.proteins.addAll(proteins);
+        this.fruits.addAll(fruits);
         this.others.addAll(others);
         this.isFavourite = isFavourite;
     }
@@ -110,6 +113,15 @@ public class Recipe {
      * which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
+    public Set<Fruit> getFruits() {
+        return Collections.unmodifiableSet(fruits);
+    }
+
+    /**
+     * Returns an immutable ingredient set for the respective ingredient type,
+     * which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public Set<Other> getOthers() {
         return Collections.unmodifiableSet(others);
     }
@@ -161,6 +173,7 @@ public class Recipe {
                 && otherRecipe.getGrains().equals(getGrains())
                 && otherRecipe.getVegetables().equals(getVegetables())
                 && otherRecipe.getProteins().equals(getProteins())
+                && otherRecipe.getFruits().equals(getFruits())
                 && otherRecipe.getOthers().equals(getOthers())
                 && otherRecipe.getSteps().equals(getSteps())
                 && otherRecipe.getGoals().equals(getGoals());
@@ -169,7 +182,7 @@ public class Recipe {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, time, grains, vegetables, proteins, others, steps, goals);
+        return Objects.hash(name, time, grains, vegetables, proteins, fruits, others, steps, goals);
     }
 
     @Override
@@ -182,6 +195,7 @@ public class Recipe {
         getGrains().forEach(builder::append);
         getVegetables().forEach(builder::append);
         getProteins().forEach(builder::append);
+        getFruits().forEach(builder::append);
         getOthers().forEach(builder::append);
         builder.append(" Step: ")
                 .append(getSteps())
