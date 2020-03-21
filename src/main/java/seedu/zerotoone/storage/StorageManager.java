@@ -17,20 +17,18 @@ import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
  * Manages storage of ExerciseList data in local storage.
  */
 public class StorageManager implements Storage {
-
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private ExerciseListStorage exerciseListStorage;
     private UserPrefsStorage userPrefsStorage;
+    private ExerciseListStorage exerciseListStorage;
 
-
-    public StorageManager(ExerciseListStorage exerciseListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, ExerciseListStorage exerciseListStorage) {
         super();
-        this.exerciseListStorage = exerciseListStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.exerciseListStorage = exerciseListStorage;
     }
 
-    // ================ UserPrefs methods ==============================
-
+    // -----------------------------------------------------------------------------------------
+    // Common - User Preferences
     @Override
     public Path getUserPrefsFilePath() {
         return userPrefsStorage.getUserPrefsFilePath();
@@ -46,9 +44,8 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
-    // ================ ExerciseList methods ==============================
-
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     @Override
     public Path getExerciseListFilePath() {
         return exerciseListStorage.getExerciseListFilePath();
@@ -75,5 +72,4 @@ public class StorageManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         exerciseListStorage.saveExerciseList(exerciseList, filePath);
     }
-
 }

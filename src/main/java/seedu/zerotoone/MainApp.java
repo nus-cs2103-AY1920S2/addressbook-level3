@@ -35,9 +35,7 @@ import seedu.zerotoone.ui.UiManager;
  * Runs the application.
  */
 public class MainApp extends Application {
-
     public static final Version VERSION = new Version(0, 6, 0, true);
-
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -48,23 +46,26 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing ExerciseList ]===========================");
+        logger.info("=============================[ Initializing ZeroToOne ]===========================");
         super.init();
 
+        // -----------------------------------------------------------------------------------------
+        // Common
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
-
         UserPrefsStorage userPrefsStorage = new UserPrefsStorageManager(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ExerciseListStorage exerciseListStorage = new ExerciseListStorageManager(userPrefs.getExerciseListFilePath());
-        storage = new StorageManager(exerciseListStorage, userPrefsStorage);
-
         initLogging(config);
 
+        // -----------------------------------------------------------------------------------------
+        // Exercise List
+        ExerciseListStorage exerciseListStorage = new ExerciseListStorageManager(userPrefs.getExerciseListFilePath());
+        storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+
+        // -----------------------------------------------------------------------------------------
+        // Common
         model = initModelManager(storage, userPrefs);
-
         logic = new LogicManager(model, storage);
-
         ui = new UiManager(logic);
     }
 
@@ -75,22 +76,25 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExerciseList> exerciseListOptional;
-        ReadOnlyExerciseList initialData;
+        ReadOnlyExerciseList initialExerciseListData;
+        
+        // -----------------------------------------------------------------------------------------
+        // Exercise List
         try {
             exerciseListOptional = storage.readExerciseList();
             if (!exerciseListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExerciseList");
             }
-            initialData = exerciseListOptional.orElseGet(SampleDataUtil::getSampleExerciseList);
+            initialExerciseListData = exerciseListOptional.orElseGet(SampleDataUtil::getSampleExerciseList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseList");
-            initialData = new ExerciseList();
+            initialExerciseListData = new ExerciseList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseList");
-            initialData = new ExerciseList();
+            initialExerciseListData = new ExerciseList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(userPrefs, initialExerciseListData);
     }
 
     private void initLogging(Config config) {

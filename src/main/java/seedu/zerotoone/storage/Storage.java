@@ -15,13 +15,16 @@ import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
  * API of the Storage component
  */
 public interface Storage extends ExerciseListStorage, UserPrefsStorage {
-
+    // -----------------------------------------------------------------------------------------
+    // Common - User Preferences
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     @Override
     Path getExerciseListFilePath();
 
@@ -30,5 +33,4 @@ public interface Storage extends ExerciseListStorage, UserPrefsStorage {
 
     @Override
     void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException;
-
 }

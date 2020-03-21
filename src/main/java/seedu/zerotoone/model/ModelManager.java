@@ -23,14 +23,14 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final ExerciseList exerciseList;
     private final UserPrefs userPrefs;
+    private final ExerciseList exerciseList;
     private final FilteredList<Exercise> filteredExercises;
 
     /**
      * Initializes a ModelManager with the given exerciseList and userPrefs.
      */
-    public ModelManager(ReadOnlyExerciseList exerciseList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyUserPrefs userPrefs, ReadOnlyExerciseList exerciseList) {
         super();
         requireAllNonNull(exerciseList, userPrefs);
         logger.fine("Initializing with user prefs " + userPrefs);
@@ -41,11 +41,11 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new ExerciseList(), new UserPrefs());
+        this(new UserPrefs(), new ExerciseList());
     }
 
-    //=========== UserPrefs ==================================================================================
-
+    // -----------------------------------------------------------------------------------------
+    // Common - User Preferences
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -68,6 +68,8 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     @Override
     public Path getExerciseListFilePath() {
         return userPrefs.getExerciseListFilePath();
@@ -78,9 +80,7 @@ public class ModelManager implements Model {
         requireNonNull(exerciseListFilePath);
         userPrefs.setExerciseListFilePath(exerciseListFilePath);
     }
-
-    //=========== ExerciseList ================================================================================
-
+    
     @Override
     public void setExerciseList(ReadOnlyExerciseList exerciseList) {
         this.exerciseList.resetData(exerciseList);
@@ -111,16 +111,9 @@ public class ModelManager implements Model {
     @Override
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireAllNonNull(target, editedExercise);
-
         exerciseList.setExercise(target, editedExercise);
     }
 
-    //=========== Filtered Exercise List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
-     * {@code versionedExerciseList}
-     */
     @Override
     public ObservableList<Exercise> getFilteredExerciseList() {
         return filteredExercises;
@@ -132,6 +125,7 @@ public class ModelManager implements Model {
         filteredExercises.setPredicate(predicate);
     }
 
+    // -----------------------------------------------------------------------------------------
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -150,5 +144,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredExercises.equals(other.filteredExercises);
     }
-
 }

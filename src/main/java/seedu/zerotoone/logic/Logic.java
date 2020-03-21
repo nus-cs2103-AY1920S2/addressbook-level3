@@ -23,6 +23,20 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    // -----------------------------------------------------------------------------------------
+    // Common
+    /**
+     * Returns the user prefs' GUI settings.
+     */
+    GuiSettings getGuiSettings();
+
+    /**
+     * Set the user prefs' GUI settings.
+     */
+    void setGuiSettings(GuiSettings guiSettings);
+
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     /**
      * Returns the ExerciseList.
      *
@@ -37,14 +51,4 @@ public interface Logic {
      * Returns the user prefs' address book file path.F
      */
     Path getExerciseListFilePath();
-
-    /**
-     * Returns the user prefs' GUI settings.
-     */
-    GuiSettings getGuiSettings();
-
-    /**
-     * Set the user prefs' GUI settings.
-     */
-    void setGuiSettings(GuiSettings guiSettings);
 }

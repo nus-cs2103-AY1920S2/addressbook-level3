@@ -16,6 +16,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
 
+    // -----------------------------------------------------------------------------------------
+    // Common - User Preferences
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -36,6 +38,8 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     /**
      * Returns the user prefs' address book file path.
      */
@@ -79,7 +83,10 @@ public interface Model {
      */
     void setExercise(Exercise target, Exercise editedExercise);
 
-    /** Returns an unmodifiable view of the filtered exercise list */
+    /**
+     * Returns an unmodifiable view of the list of {@code Exercise} backed by the internal list of
+     * {@code versionedExerciseList}
+     */
     ObservableList<Exercise> getFilteredExerciseList();
 
     /**

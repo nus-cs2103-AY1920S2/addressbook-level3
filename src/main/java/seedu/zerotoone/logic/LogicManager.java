@@ -51,6 +51,20 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Common
+    @Override
+    public GuiSettings getGuiSettings() {
+        return model.getGuiSettings();
+    }
+
+    @Override
+    public void setGuiSettings(GuiSettings guiSettings) {
+        model.setGuiSettings(guiSettings);
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     @Override
     public ReadOnlyExerciseList getExerciseList() {
         return model.getExerciseList();
@@ -64,15 +78,5 @@ public class LogicManager implements Logic {
     @Override
     public Path getExerciseListFilePath() {
         return model.getExerciseListFilePath();
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
     }
 }
