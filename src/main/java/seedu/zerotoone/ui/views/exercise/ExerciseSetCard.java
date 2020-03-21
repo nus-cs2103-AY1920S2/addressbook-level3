@@ -1,4 +1,4 @@
-package seedu.zerotoone.ui.exercise;
+package seedu.zerotoone.ui.views.exercise;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

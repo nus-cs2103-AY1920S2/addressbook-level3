@@ -6,21 +6,24 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
+
+<?import javafx.scene.control.Tab?>
+        <?import javafx.scene.control.TabPane?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="ZeroToOne App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="ZeroToOne App" minWidth="540" minHeight="720" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
+        <URL value="@css/DarkTheme.css" />
+        <URL value="@css/Extensions.css" />
       </stylesheets>
 
       <VBox>
@@ -33,11 +36,31 @@
           </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
+      <HBox VBox.vgrow="ALWAYS" >
+      <VBox id="tabsVBox" HBox.hgrow="ALWAYS">
+        <TabPane fx:id="tabPanePlaceHolder"
+                 VBox.vgrow="ALWAYS"
+                 tabClosingPolicy="UNAVAILABLE"
+                 stylesheets="@css/Tab.css">
+
+          <Tab text="Home">
+            <StackPane fx:id="homeContentPlaceholder" VBox.vgrow="ALWAYS"/>
+          </Tab>
+          <Tab text="Exercise">
+            <StackPane fx:id="exerciseContentPlaceholder" VBox.vgrow="ALWAYS"/>
+          </Tab>
+          <Tab text="Workout">
+            <StackPane fx:id="workoutContentPlaceholder" VBox.vgrow="ALWAYS"/>
+          </Tab>
+          <Tab text="Schedule">
+            <StackPane fx:id="scheduleContentPlaceholder" VBox.vgrow="ALWAYS"/>
+          </Tab>
+          <Tab text="Log">
+            <StackPane fx:id="logContentPlaceholder" VBox.vgrow="ALWAYS"/>
+          </Tab>
+        </TabPane>
+    </VBox>
+      </HBox>
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                    minHeight="100" prefHeight="100" maxHeight="100">
@@ -46,15 +69,14 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="exerciseList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
+            <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
-          <StackPane fx:id="exerciseListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        </StackPane>
       </VBox>
+
+
     </Scene>
   </scene>
 </fx:root>
