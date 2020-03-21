@@ -29,7 +29,7 @@ public class SampleDataUtil {
         InstructionList insList1 = new InstructionList(
                 List.of(new Instruction("put ham between bread"), new Instruction("serve on plate")));
         Calorie calorie1 = new Calorie("169");
-        Serving serving1 = new Serving("3");
+        Serving serving1 = new Serving(3);
         Set<Tag> tagSet1 = getTagSet("breakfast", "lunch");
 
         Recipe recipe1 = new Recipe(name1, ingList1, insList1, calorie1, serving1, tagSet1);
@@ -39,7 +39,7 @@ public class SampleDataUtil {
         InstructionList insList2 = new InstructionList(List.of(new Instruction("put bread to opposite sides of head"),
                 new Instruction("Yell 'I am an idiot sandwich!'")));
         Calorie calorie2 = new Calorie("0");
-        Serving serving2 = new Serving("2");
+        Serving serving2 = new Serving(2);
         Set<Tag> tagSet2 = getTagSet("lunch", "dinner");
 
         Recipe recipe2 = new Recipe(name2, ingList2, insList2, calorie2, serving2, tagSet2);
