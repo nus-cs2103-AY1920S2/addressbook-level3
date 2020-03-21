@@ -59,7 +59,7 @@ public class Duration {
 
     public long getHours() {
         long hours = 0;
-        hours = (long)Double.parseDouble(value);
+        hours = (long) Double.parseDouble(value);
         return hours;
     }
 
@@ -69,7 +69,7 @@ public class Duration {
             return 0;
         }
         Double minutes = Double.parseDouble(value.substring((indexOfDecimal)));
-        return (long)(60 * minutes);
+        return (long) (60 * minutes);
     }
 
     public String getValue() {

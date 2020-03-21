@@ -190,7 +190,9 @@ public class Entry {
         return duration.getHours();
     }
 
-    public fithelper.model.entry.Duration getDuration() {return duration; };
+    public fithelper.model.entry.Duration getDuration() {
+        return duration;
+    }
 
     public void addRemark(Remark remark) {
         this.remark = remark;

@@ -234,7 +234,9 @@ public class EditCommand extends Command {
             return Optional.ofNullable(status);
         }
 
-        public void setDuration(Duration duration) { this.duration = duration; }
+        public void setDuration(Duration duration) {
+            this.duration = duration;
+        }
 
         public Optional<Duration> getDuration() {
             return Optional.ofNullable(duration);
