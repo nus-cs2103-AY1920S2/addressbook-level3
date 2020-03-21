@@ -6,8 +6,8 @@
     "grains" : [ ],
     "vegetables" : [ "vege,  20.0g" ],
     "proteins" : [ ],
-    "fruits" : [ "kiwi, 50g"],
-    "others" : [ "pizza,  30.0g" ],
+    "fruits" : [ "kiwi,  50.0g" ],
+    "others" : [ "hello,  30.0g" ],
     "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
