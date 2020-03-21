@@ -27,7 +27,7 @@ public class NumRepsTest {
         // invalid phone numbers
         assertFalse(NumReps.isValidNumReps("")); // empty string
         assertFalse(NumReps.isValidNumReps(" ")); // spaces only
-        assertFalse(NumReps.isValidNumReps("phone")); // non-numeric
+        assertFalse(NumReps.isValidNumReps("asdf")); // non-numeric
         assertFalse(NumReps.isValidNumReps("9011p041")); // alphabets within digits
         assertFalse(NumReps.isValidNumReps("9312 1534")); // spaces within digits
 

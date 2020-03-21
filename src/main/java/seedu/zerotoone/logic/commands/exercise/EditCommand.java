@@ -1,219 +1,82 @@
 package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
+import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 
-import java.util.Collections;
-import java.util.HashSet;
-// import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
-// import seedu.zerotoone.commons.core.Messages;
-
+import seedu.zerotoone.commons.core.Messages;
 import seedu.zerotoone.commons.core.index.Index;
-import seedu.zerotoone.commons.util.CollectionUtil;
-import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.ExerciseSet;
-import seedu.zerotoone.model.exercise.Name;
-import seedu.zerotoone.model.exercise.NumReps;
-import seedu.zerotoone.model.tag.Tag;
+import seedu.zerotoone.model.exercise.ExerciseName;
 
 /**
- * Edits the details of an existing exercise in the address book.
+ * Edits the details of an existing exercise in the exercise list.
  */
-public class EditCommand extends Command {
-
+public class EditCommand extends ExerciseCommand {
     public static final String COMMAND_WORD = "edit";
-
-    // public static final String MESSAGE_USAGE = COMMAND_WORD + ": creates a new exercise. "
-    //         + "Parameters: "
-    //         + PREFIX_EXERCISE_NAME + "NAME "
-    //         + PREFIX_NUM_OF_REPS + "REPS "
-    //         + PREFIX_NUM_OF_SETS + "SETS "
-    //         + "Example: " + COMMAND_WORD + " "
-    //         + PREFIX_EXERCISE_NAME + "Pushups "
-    //         + PREFIX_NUM_OF_REPS + "20 "
-    //         + PREFIX_NUM_OF_SETS + "3 ";
-
+    public static final String MESSAGE_USAGE = "Usage: exercise edit EXERCISE_ID e/<exercise_name>";
     public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited exercise: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists.";
 
-    private final Index index;
-    private final EditExerciseDescriptor editExerciseDescriptor;
+    private final Index exerciseId;
+    private final ExerciseName exerciseName;
 
     /**
-     * @param index of the exercise in the filtered exercise list to edit
-     * @param editExerciseDescriptor details to edit the exercise with
+     * @param exerciseId of the exercise in the filtered exercise list to edit
+     * @param exerciseName details to edit the exercise with
      */
-    public EditCommand(Index index, EditExerciseDescriptor editExerciseDescriptor) {
-        requireNonNull(index);
-        requireNonNull(editExerciseDescriptor);
+    public EditCommand(Index exerciseId, ExerciseName exerciseName) {
+        requireNonNull(exerciseId);
+        requireNonNull(exerciseName);
 
-        this.index = index;
-        this.editExerciseDescriptor = new EditExerciseDescriptor(editExerciseDescriptor);
+        this.exerciseId = exerciseId;
+        this.exerciseName = exerciseName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // List<Exercise> lastShownList = model.getFilteredExerciseList();
+        List<Exercise> lastShownList = model.getFilteredExerciseList();
+        if (exerciseId.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
+        }
 
-        // if (index.getZeroBased() >= lastShownList.size()) {
-        //     throw new CommandException(Messages.MESSAGE_INVALID_EXERCISE_DISPLAYED_INDEX);
-        // }
+        Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
+        ExerciseName updatedExerciseName;
+        if (this.exerciseName != null) {
+            updatedExerciseName = new ExerciseName(this.exerciseName.fullName);
+        } else {
+            updatedExerciseName = new ExerciseName(exerciseToEdit.getExerciseName().fullName);
+        }
 
-        // Exercise exerciseToEdit = lastShownList.get(index.getZeroBased());
-        // Exercise editedExercise = createEditedExercise(exerciseToEdit, editExerciseDescriptor);
+        Exercise editedExercise = new Exercise(updatedExerciseName, exerciseToEdit.getExerciseSets());
+        if (model.hasExercise(editedExercise)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
+        }
 
-        // if (!exerciseToEdit.isSameExercise(editedExercise) && model.hasExercise(editedExercise)) {
-        //     throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
-        // }
+        model.setExercise(exerciseToEdit, editedExercise);
+        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
 
-        // model.setExercise(exerciseToEdit, editedExercise);
-        // model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
-        // return new CommandResult(String.format(MESSAGE_EDIT_EXERCISE_SUCCESS, editedExercise));
-        return new CommandResult(MESSAGE_EDIT_EXERCISE_SUCCESS);
-    }
-
-    /**
-     * Creates and returns an {@code Exercise} with the details of {@code exerciseToEdit}
-     * edited with {@code editExerciseDescriptor}.
-     */
-    private static Exercise createEditedExercise(Exercise exerciseToEdit,
-            EditExerciseDescriptor editExerciseDescriptor) {
-        assert exerciseToEdit != null;
-
-        // Name updatedName = editExerciseDescriptor.getName().orElse(exerciseToEdit.getName());
-        // NumReps updatedNumReps = editExerciseDescriptor
-        //     .getNumReps()
-        //     .orElse(exerciseToEdit.getNumReps());
-        // ExerciseSet updatedExerciseSet = editExerciseDescriptor
-        //     .getExerciseSet().orElse(exerciseToEdit.getExerciseSet());
-        // Set<Tag> updatedTags = editExerciseDescriptor.getTags().orElse(exerciseToEdit.getTags());
-
-        Name updatedName = new Name("placeholder");
-        ExerciseSet updatedExerciseSet = new ExerciseSet(null, null, null);
-
-        return new Exercise(updatedName, updatedExerciseSet);
+        String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS,
+                editedExercise.getExerciseName().toString());
+        return new CommandResult(outputMessage);
     }
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
         if (other == this) {
             return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        } else if (!(other instanceof EditCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
-                && editExerciseDescriptor.equals(e.editExerciseDescriptor);
-    }
-
-    /**
-     * Stores the details to edit the exercise with. Each non-empty field value will replace the
-     * corresponding field value of the exercise.
-     */
-    public static class EditExerciseDescriptor {
-        private Name name;
-        private NumReps reps;
-        private ExerciseSet sets;
-        private Set<Tag> tags;
-
-        public EditExerciseDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditExerciseDescriptor(EditExerciseDescriptor toCopy) {
-            setName(toCopy.name);
-            // setNumReps(gratoCopy.reps);
-            setExerciseSet(toCopy.sets);
-            setTags(toCopy.tags);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, reps, sets, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setPhone(NumReps reps) {
-            this.reps = reps;
-        }
-
-        public Optional<NumReps> getPhone() {
-            return Optional.ofNullable(reps);
-        }
-
-        public void setExerciseSet(ExerciseSet sets) {
-            this.sets = sets;
-        }
-
-        public Optional<ExerciseSet> getEmail() {
-            return Optional.ofNullable(sets);
-        }
-
-        /**
-         * ExerciseSet {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditExerciseDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditExerciseDescriptor e = (EditExerciseDescriptor) other;
-
-            // return getName().equals(e.getName())
-            //         && getNumReps().equals(e.getNumReps())
-            //         && getExerciseSet().equals(e.getExerciseSet())
-            //         && getTags().equals(e.getTags());
-            return true;
-        }
+        EditCommand otherCommand = (EditCommand) other;
+        return exerciseId.equals(otherCommand.exerciseId)
+                && exerciseName.equals(otherCommand.exerciseName);
     }
 }

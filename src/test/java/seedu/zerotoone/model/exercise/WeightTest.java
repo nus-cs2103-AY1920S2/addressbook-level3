@@ -27,13 +27,13 @@ public class WeightTest {
         // invalid phone numbers
         assertFalse(Weight.isValidWeight("")); // empty string
         assertFalse(Weight.isValidWeight(" ")); // spaces only
-        assertFalse(Weight.isValidWeight("phone")); // non-numeric
+        assertFalse(Weight.isValidWeight("abcd")); // non-numeric
         assertFalse(Weight.isValidWeight("9011p041")); // alphabets within digits
         assertFalse(Weight.isValidWeight("9312 1534")); // spaces within digits
+        assertFalse(Weight.isValidWeight("1231")); // more than three digits
 
         // valid phone numbers
         assertTrue(Weight.isValidWeight("911"));
-        assertTrue(Weight.isValidWeight("93121534"));
-        assertTrue(Weight.isValidWeight("124293842033123")); // long numbers
+        assertTrue(Weight.isValidWeight("9"));
     }
 }

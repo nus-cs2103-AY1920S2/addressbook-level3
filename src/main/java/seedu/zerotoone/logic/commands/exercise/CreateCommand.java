@@ -1,69 +1,57 @@
 package seedu.zerotoone.logic.commands.exercise;
 
 import static java.util.Objects.requireNonNull;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_EXERCISE_NAME;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NEW_EXERCISE_NAME;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_WORKOUT_NAME;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_REPS;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_NUM_OF_SETS;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_INTERVAL;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_FREQUENCY;
-// import static seedu.zerotoone.logic.parser.CliSyntax.PREFIX_DATETIME;
 
-// import seedu.zerotoone.logic.commands.Command;
+import java.util.ArrayList;
+import java.util.List;
 
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ExerciseName;
+import seedu.zerotoone.model.exercise.ExerciseSet;
 
 /**
  * Adds an exercise to the exercise list.
  */
 public class CreateCommand extends ExerciseCommand {
-
     public static final String COMMAND_WORD = "create";
-
-    // public static final String MESSAGE_USAGE = COMMAND_WORD + ": creates a new exercise. "
-    //         + "Parameters: "
-    //         + PREFIX_NEW_EXERCISE_NAME + "NAME "
-    //         + PREFIX_NUM_OF_REPS + "REPS "
-    //         + PREFIX_NUM_OF_SETS + "SETS "
-    //         + "Example: " + COMMAND_WORD + " "
-    //         + PREFIX_NEW_EXERCISE_NAME + "Pushups "
-    //         + PREFIX_NUM_OF_REPS + "20 "
-    //         + PREFIX_NUM_OF_SETS + "3 ";
-
+    public static final String MESSAGE_USAGE = "Usage: exercise create e/<exercise_name>";
     public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists";
 
-    private final Exercise toAdd;
+    private final ExerciseName exerciseName;
+    private final List<ExerciseSet> exerciseSets;
 
     /**
      * Creates a CreateCommand to add the specified {@code Exercise}
      */
-    public CreateCommand(Exercise exercise) {
-        requireNonNull(exercise);
-        toAdd = exercise;
+    public CreateCommand(ExerciseName exerciseName) {
+        requireNonNull(exerciseName);
+        this.exerciseName = exerciseName;
+        this.exerciseSets = new ArrayList<>();
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Exercise exercise = new Exercise(this.exerciseName, this.exerciseSets);
 
-        // if (model.hasExercise(toAdd)) {
-        //     throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
-        // }
+        if (model.hasExercise(exercise)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
+        }
 
-        // model.addExercise(toAdd);
-        // return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.addExercise(exercise);
+
+        String outputMessage = String.format(MESSAGE_SUCCESS, exercise.getExerciseName().toString());
+        return new CommandResult(outputMessage);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CreateCommand // instanceof handles nulls
-                && toAdd.equals(((CreateCommand) other).toAdd));
+                && exerciseName.equals(((CreateCommand) other).exerciseName));
     }
 }

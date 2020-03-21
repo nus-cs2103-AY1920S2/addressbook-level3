@@ -15,19 +15,19 @@ import seedu.zerotoone.commons.util.ConfigUtil;
 import seedu.zerotoone.commons.util.StringUtil;
 import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.LogicManager;
-import seedu.zerotoone.model.ExerciseList;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.ModelManager;
-import seedu.zerotoone.model.ReadOnlyExerciseList;
-import seedu.zerotoone.model.ReadOnlyUserPrefs;
-import seedu.zerotoone.model.UserPrefs;
-import seedu.zerotoone.model.util.SampleDataUtil;
-import seedu.zerotoone.storage.ExerciseListStorage;
-import seedu.zerotoone.storage.JsonExerciseListStorage;
-import seedu.zerotoone.storage.JsonUserPrefsStorage;
+import seedu.zerotoone.model.exercise.ExerciseList;
+import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
+import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
+import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.model.util.SampleExerciseDataUtil;
 import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
-import seedu.zerotoone.storage.UserPrefsStorage;
+import seedu.zerotoone.storage.exercise.ExerciseListStorage;
+import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
+import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
+import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
 import seedu.zerotoone.ui.Ui;
 import seedu.zerotoone.ui.UiManager;
 
@@ -35,9 +35,7 @@ import seedu.zerotoone.ui.UiManager;
  * Runs the application.
  */
 public class MainApp extends Application {
-
     public static final Version VERSION = new Version(0, 6, 0, true);
-
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
@@ -48,49 +46,56 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing ExerciseList ]===========================");
+        logger.info("=============================[ Initializing ZeroToOne ]===========================");
         super.init();
 
+        // -----------------------------------------------------------------------------------------
+        // Common
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
-
-        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        UserPrefsStorage userPrefsStorage = new UserPrefsStorageManager(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        ExerciseListStorage exerciseListStorage = new JsonExerciseListStorage(userPrefs.getExerciseListFilePath());
-        storage = new StorageManager(exerciseListStorage, userPrefsStorage);
-
         initLogging(config);
 
+        // -----------------------------------------------------------------------------------------
+        // Exercise List
+        ExerciseListStorage exerciseListStorage = new ExerciseListStorageManager(userPrefs.getExerciseListFilePath());
+        storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+
+        // -----------------------------------------------------------------------------------------
+        // Common
         model = initModelManager(storage, userPrefs);
-
         logic = new LogicManager(model, storage);
-
         ui = new UiManager(logic);
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s ZeroToOne storage
+     * and {@code userPrefs}. <br> The data from the sample ZeroToOne storage will
+     * be used instead if {@code storage}'s ZeroToOne storage is not found, or an empty ZeroToOne
+     * storage will be used instead if errors occur when reading {@code storage}'s ZeroToOne storage.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExerciseList> exerciseListOptional;
-        ReadOnlyExerciseList initialData;
+        ReadOnlyExerciseList initialExerciseListData;
+
+        // -----------------------------------------------------------------------------------------
+        // Exercise List
         try {
             exerciseListOptional = storage.readExerciseList();
             if (!exerciseListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExerciseList");
             }
-            initialData = exerciseListOptional.orElseGet(SampleDataUtil::getSampleExerciseList);
+            initialExerciseListData = exerciseListOptional.orElseGet(SampleExerciseDataUtil::getSampleExerciseList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseList");
-            initialData = new ExerciseList();
+            initialExerciseListData = new ExerciseList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseList");
-            initialData = new ExerciseList();
+            initialExerciseListData = new ExerciseList();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(userPrefs, initialExerciseListData);
     }
 
     private void initLogging(Config config) {
@@ -120,7 +125,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -148,7 +153,7 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseList");
@@ -167,13 +172,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting ExerciseList " + MainApp.VERSION);
+        logger.info("Starting ZeroToOne " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping ZeroToOne ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -5,28 +5,24 @@ import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Exercise Set in the exercise list.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class ExerciseSet {
     /*
-     * The first character of the address must not be a whitespace,
+     * The first character of the exercise set must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "\\d{1,}";
-
     public final Weight weight;
     public final NumReps numReps;
-    public final Interval interval;
 
     /**
      * Every field must be present and not null.
      */
-    public ExerciseSet(Weight weight, NumReps numReps, Interval interval) {
-        requireAllNonNull(weight, numReps, interval);
+    public ExerciseSet(Weight weight, NumReps numReps) {
+        requireAllNonNull(weight, numReps);
         this.weight = weight;
         this.numReps = numReps;
-        this.interval = interval;
     }
 
     public Weight getWeight() {
@@ -37,26 +33,13 @@ public class ExerciseSet {
         return numReps;
     }
 
-    public Interval getInterval() {
-        return interval;
-    }
-
-    /**
-     * Returns true if a given string is a valid number of exercise sets.
-     */
-    public static boolean isValidExerciseSet(String test) {
-        return test.matches(VALIDATION_REGEX);
-    }
-
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Weight: ")
                 .append(getWeight())
                 .append(" Number of repetitions: ")
-                .append(getNumReps())
-                .append(" Interval: ")
-                .append(getInterval());
+                .append(getNumReps());
         return builder.toString();
     }
 
@@ -72,13 +55,12 @@ public class ExerciseSet {
 
         ExerciseSet otherExerciseSet = (ExerciseSet) other;
         return otherExerciseSet.getWeight().equals(getWeight())
-                && otherExerciseSet.getNumReps().equals(getNumReps())
-                && otherExerciseSet.getInterval().equals(getInterval());
+                && otherExerciseSet.getNumReps().equals(getNumReps());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(weight, numReps, interval);
+        return Objects.hash(weight, numReps);
     }
 
 }

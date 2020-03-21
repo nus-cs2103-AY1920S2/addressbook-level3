@@ -16,6 +16,8 @@ import seedu.zerotoone.logic.Logic;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
+import seedu.zerotoone.ui.exercise.ExerciseListPanel;
+import seedu.zerotoone.ui.util.UiPart;
 
 /**
  * The Main Window. Provides the basic application layout containing

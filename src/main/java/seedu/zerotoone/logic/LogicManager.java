@@ -10,11 +10,11 @@ import seedu.zerotoone.commons.core.LogsCenter;
 import seedu.zerotoone.logic.commands.Command;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
-import seedu.zerotoone.logic.parser.ExerciseListParser;
+import seedu.zerotoone.logic.parser.ParserManager;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.storage.Storage;
 
 /**
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final ExerciseListParser exerciseListParser;
+    private final ParserManager parser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        exerciseListParser = new ExerciseListParser();
+        parser = new ParserManager();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = exerciseListParser.parseCommand(commandText);
+        Command command = parser.parse(commandText);
         commandResult = command.execute(model);
 
         try {
@@ -51,6 +51,20 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    // -----------------------------------------------------------------------------------------
+    // Common
+    @Override
+    public GuiSettings getGuiSettings() {
+        return model.getGuiSettings();
+    }
+
+    @Override
+    public void setGuiSettings(GuiSettings guiSettings) {
+        model.setGuiSettings(guiSettings);
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     @Override
     public ReadOnlyExerciseList getExerciseList() {
         return model.getExerciseList();
@@ -64,15 +78,5 @@ public class LogicManager implements Logic {
     @Override
     public Path getExerciseListFilePath() {
         return model.getExerciseListFilePath();
-    }
-
-    @Override
-    public GuiSettings getGuiSettings() {
-        return model.getGuiSettings();
-    }
-
-    @Override
-    public void setGuiSettings(GuiSettings guiSettings) {
-        model.setGuiSettings(guiSettings);
     }
 }

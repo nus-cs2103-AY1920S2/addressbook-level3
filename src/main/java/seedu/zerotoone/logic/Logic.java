@@ -7,8 +7,8 @@ import seedu.zerotoone.commons.core.GuiSettings;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
-import seedu.zerotoone.model.ReadOnlyExerciseList;
 import seedu.zerotoone.model.exercise.Exercise;
+import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 
 /**
  * API of the Logic component
@@ -23,6 +23,20 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
+    // -----------------------------------------------------------------------------------------
+    // Common
+    /**
+     * Returns the user prefs' GUI settings.
+     */
+    GuiSettings getGuiSettings();
+
+    /**
+     * Set the user prefs' GUI settings.
+     */
+    void setGuiSettings(GuiSettings guiSettings);
+
+    // -----------------------------------------------------------------------------------------
+    // Exercise List
     /**
      * Returns the ExerciseList.
      *
@@ -34,17 +48,7 @@ public interface Logic {
     ObservableList<Exercise> getFilteredExerciseList();
 
     /**
-     * Returns the user prefs' address book file path.F
+     * Returns the user prefs' exercise list file path.
      */
     Path getExerciseListFilePath();
-
-    /**
-     * Returns the user prefs' GUI settings.
-     */
-    GuiSettings getGuiSettings();
-
-    /**
-     * Set the user prefs' GUI settings.
-     */
-    void setGuiSettings(GuiSettings guiSettings);
 }

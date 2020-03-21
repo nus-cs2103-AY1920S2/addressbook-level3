@@ -5,18 +5,19 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
 import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalExercises.ALICE;
-import static seedu.zerotoone.testutil.TypicalExercises.BENSON;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.DEADLIFT;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.zerotoone.commons.core.GuiSettings;
-import seedu.zerotoone.model.exercise.NameContainsKeywordsPredicate;
-import seedu.zerotoone.testutil.ExerciseListBuilder;
+import seedu.zerotoone.model.exercise.ExerciseList;
+import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
+import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.testutil.exercise.ExerciseListBuilder;
 
 public class ModelManagerTest {
 
@@ -37,14 +38,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setExerciseListFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setExerciseListFilePath(Paths.get("exercise/list/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setExerciseListFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setExerciseListFilePath(Paths.get("new/exercise/list/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -67,7 +68,7 @@ public class ModelManagerTest {
 
     @Test
     public void setExerciseListFilePath_validPath_setsExerciseListFilePath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("exercise/list/file/path");
         modelManager.setExerciseListFilePath(path);
         assertEquals(path, modelManager.getExerciseListFilePath());
     }
@@ -79,13 +80,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasExercise_exerciseNotInExerciseList_returnsFalse() {
-        assertFalse(modelManager.hasExercise(ALICE));
+        assertFalse(modelManager.hasExercise(BENCH_PRESS));
     }
 
     @Test
     public void hasExercise_exerciseInExerciseList_returnsTrue() {
-        modelManager.addExercise(ALICE);
-        assertTrue(modelManager.hasExercise(ALICE));
+        modelManager.addExercise(BENCH_PRESS);
+        assertTrue(modelManager.hasExercise(BENCH_PRESS));
     }
 
     @Test
@@ -95,13 +96,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ExerciseList exerciseList = new ExerciseListBuilder().withExercise(ALICE).withExercise(BENSON).build();
+        ExerciseList exerciseList = new ExerciseListBuilder().withExercise(BENCH_PRESS).withExercise(DEADLIFT).build();
         ExerciseList differentExerciseList = new ExerciseList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(exerciseList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(exerciseList, userPrefs);
+        modelManager = new ModelManager(userPrefs, exerciseList);
+        ModelManager modelManagerCopy = new ModelManager(userPrefs, exerciseList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -114,12 +115,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different exerciseList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExerciseList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(userPrefs, differentExerciseList)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredExerciseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(exerciseList, userPrefs)));
+        String keyword = BENCH_PRESS.getExerciseName().fullName;
+        modelManager.updateFilteredExerciseList(new PredicateFilterExerciseName(keyword));
+        assertFalse(modelManager.equals(new ModelManager(userPrefs, exerciseList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
@@ -127,6 +128,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExerciseListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(exerciseList, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentUserPrefs, exerciseList)));
     }
 }

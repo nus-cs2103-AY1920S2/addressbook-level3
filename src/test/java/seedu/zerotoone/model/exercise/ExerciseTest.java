@@ -2,28 +2,23 @@ package seedu.zerotoone.model.exercise;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-// import static seedu.zerotoone.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-// import static seedu.zerotoone.testutil.Assert.assertThrows;
-import static seedu.zerotoone.testutil.TypicalExercises.BENCH_PRESS;
-import static seedu.zerotoone.testutil.TypicalExercises.CRUNCHES;
+import static seedu.zerotoone.testutil.Assert.assertThrows;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_EXERCISE_NAME_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_NUM_REPS_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.ExerciseCommandTestUtil.VALID_WEIGHT_DEADLIFT;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.BENCH_PRESS;
+import static seedu.zerotoone.testutil.exercise.TypicalExercises.DEADLIFT;
 
 import org.junit.jupiter.api.Test;
 
-//import seedu.zerotoone.model.person.Person;
-import seedu.zerotoone.testutil.ExerciseBuilder;
-//import seedu.zerotoone.testutil.PersonBuilder;
+import seedu.zerotoone.testutil.exercise.ExerciseBuilder;
 
 public class ExerciseTest {
 
-    // TODO fix_test_case
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Exercise exercise = new ExerciseBuilder().build();
-        // assertThrows(UnsupportedOperationException.class, () -> exercise.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> exercise.getExerciseSets().remove(0));
     }
 
     @Test
@@ -34,16 +29,28 @@ public class ExerciseTest {
         // null -> returns false
         assertFalse(BENCH_PRESS.isSameExercise(null));
 
-        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withExerciseSet("20", "4", "120").build();
+        // same name, same attributes -> returns true
+        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).build();
+        assertTrue(BENCH_PRESS.isSameExercise(editedBenchPress));
 
         // different name -> returns false
-        editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Leg Curl").build();
+        editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
+                .withExerciseName(VALID_EXERCISE_NAME_DEADLIFT)
+                .build();
         assertFalse(BENCH_PRESS.isSameExercise(editedBenchPress));
 
-        // same name, same attributes -> returns true
-        editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Bench Press")
-                .withExerciseSet("30", "3", "180").build();
+        // different exerciseSet -> returns true
+        editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
+                .withExerciseSet(VALID_WEIGHT_DEADLIFT, VALID_NUM_REPS_DEADLIFT)
+                .build();
         assertTrue(BENCH_PRESS.isSameExercise(editedBenchPress));
+
+        // different name, different exerciseSet -> returns false
+        editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
+                .withExerciseName(VALID_EXERCISE_NAME_DEADLIFT)
+                .withExerciseSet(VALID_WEIGHT_DEADLIFT, VALID_NUM_REPS_DEADLIFT)
+                .build();
+        assertFalse(BENCH_PRESS.isSameExercise(editedBenchPress));
     }
 
     @Test
@@ -61,15 +68,17 @@ public class ExerciseTest {
         // different type -> returns false
         assertFalse(BENCH_PRESS.equals(5));
 
-        // different person -> returns false
-        assertFalse(BENCH_PRESS.equals(CRUNCHES));
+        // different exercise -> returns false
+        assertFalse(BENCH_PRESS.equals(DEADLIFT));
 
         // different name -> returns false
-        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withName("Leg Curl").build();
+        Exercise editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
+                .withExerciseName(VALID_EXERCISE_NAME_DEADLIFT).build();
         assertFalse(BENCH_PRESS.equals(editedBenchPress));
 
-        // different phone -> returns false
-        editedBenchPress = new ExerciseBuilder(BENCH_PRESS).withExerciseSet("35", "2", "120").build();
+        // different exerciseSet -> returns false
+        editedBenchPress = new ExerciseBuilder(BENCH_PRESS)
+                .withExerciseSet(VALID_WEIGHT_DEADLIFT, VALID_NUM_REPS_DEADLIFT).build();
         assertFalse(BENCH_PRESS.equals(editedBenchPress));
     }
 }

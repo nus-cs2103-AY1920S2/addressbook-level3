@@ -1,7 +1,7 @@
 package seedu.zerotoone.logic.commands;
 
-import static seedu.zerotoone.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.zerotoone.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
+import static seedu.zerotoone.testutil.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
