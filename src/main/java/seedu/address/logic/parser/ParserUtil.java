@@ -18,6 +18,7 @@ import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
@@ -292,6 +293,42 @@ public class ParserUtil {
             proteinsSet.add(parseProtein(protein));
         }
         return proteinsSet;
+    }
+
+    /**
+     * Parses a {@code String fruit} into a {@code Fruit}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fruit} is invalid.
+     */
+    public static Fruit parseFruit(String fruit) throws ParseException {
+        requireNonNull(fruit);
+        String[] splitFields = fruit.split(",");
+
+        if (splitFields.length != 2) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+        String trimmedFruitName = splitFields[1].trim();
+        String trimmedFruitQuantity = splitFields[0].trim();
+
+        if (!Ingredient.isValidIngredientName(trimmedFruitName)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+        }
+
+        Quantity fruitQuantity = parseQuantity(trimmedFruitQuantity);
+        return new Fruit(trimmedFruitName, fruitQuantity);
+    }
+
+    /**
+     * Parses {@code Collection<String> fruits} into a {@code Set<Fruit>}.
+     */
+    public static Set<Fruit> parseFruits(Collection<String> fruits) throws ParseException {
+        requireNonNull(fruits);
+        final Set<Fruit> fruitsSet = new HashSet<>();
+        for (String fruit : fruits) {
+            fruitsSet.add(parseFruit(fruit));
+        }
+        return fruitsSet;
     }
 
     /**

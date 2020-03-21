@@ -12,6 +12,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
@@ -42,6 +43,7 @@ public class RecipeBuilder {
     private Set<Grain> grains;
     private Set<Vegetable> vegetables;
     private Set<Protein> proteins;
+    private Set<Fruit> fruits;
     private Set<Other> others;
     private List<Step> steps;
     private Set<Goal> goals;
@@ -54,6 +56,7 @@ public class RecipeBuilder {
         grains = new TreeSet<>();
         vegetables = new TreeSet<>();
         proteins = new TreeSet<>();
+        fruits = new TreeSet<>();
         others = new TreeSet<>();
 
         steps = new ArrayList<>();
@@ -71,6 +74,7 @@ public class RecipeBuilder {
         grains = new TreeSet<>(recipeToCopy.getGrains());
         vegetables = new TreeSet<>(recipeToCopy.getVegetables());
         proteins = new TreeSet<>(recipeToCopy.getProteins());
+        fruits = new TreeSet<>(recipeToCopy.getFruits());
         others = new TreeSet<>(recipeToCopy.getOthers());
         steps = recipeToCopy.getSteps();
         goals = new HashSet<>(recipeToCopy.getGoals());
@@ -135,6 +139,14 @@ public class RecipeBuilder {
     }
 
     /**
+     * Parses the {@code fruits} into a {@code Set<Fruit>} and set it to the {@code Recipe} that we are building.
+     */
+    public RecipeBuilder withFruits(String ... fruits) {
+        this.fruits = SampleDataUtil.getFruitSet(fruits);
+        return this;
+    }
+
+    /**
      * Parses the {@code others} into a {@code Set<Other>} and set it to the {@code Recipe} that we are building.
      */
     public RecipeBuilder withOthers(String ... others) {
@@ -145,7 +157,7 @@ public class RecipeBuilder {
 
 
     public Recipe build() {
-        return new Recipe(name, time, grains, vegetables, proteins, others, steps, goals, isFavourite);
+        return new Recipe(name, time, grains, vegetables, proteins, fruits, others, steps, goals, isFavourite);
     }
 
 }

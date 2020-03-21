@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
@@ -26,6 +27,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.Step;
 
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
@@ -45,8 +47,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_TIME, PREFIX_INGREDIENT_GRAIN,
-                        PREFIX_INGREDIENT_VEGE, PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_OTHER,
-                        PREFIX_STEP, PREFIX_GOAL);
+                        PREFIX_INGREDIENT_VEGE, PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_FRUIT,
+                        PREFIX_INGREDIENT_OTHER, PREFIX_STEP, PREFIX_GOAL);
 
         Index index;
 
@@ -70,6 +72,8 @@ public class EditCommandParser implements Parser<EditCommand> {
                 .ifPresent(editRecipeDescriptor::setVegetables);
         parseProteinsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_PROTEIN))
                 .ifPresent(editRecipeDescriptor::setProteins);
+        parseFruitsForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_FRUIT))
+                .ifPresent(editRecipeDescriptor::setFruits);
         parseOthersForEdit(argMultimap.getAllValues(PREFIX_INGREDIENT_OTHER))
                 .ifPresent(editRecipeDescriptor::setOthers);
 
@@ -131,6 +135,24 @@ public class EditCommandParser implements Parser<EditCommand> {
                 : proteins;
 
         return Optional.of(ParserUtil.parseProteins(proteinSet));
+    }
+
+    /**
+     * Parses and adds the {@code Collection<String> fruits} into the {@code Set<Fruit>}
+     * If {@code fruits} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Fruit>} containing zero Protein ingredients.
+     */
+    private Optional<Set<Fruit>> parseFruitsForEdit(Collection<String> fruits) throws ParseException {
+        assert fruits != null;
+
+        if (fruits.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> fruitSet = fruits.size() == 1 && fruits.contains("")
+                ? Collections.emptySet()
+                : fruits;
+
+        return Optional.of(ParserUtil.parseFruits(fruitSet));
     }
 
     /**

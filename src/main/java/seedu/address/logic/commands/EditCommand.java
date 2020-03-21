@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
@@ -29,6 +30,7 @@ import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
@@ -50,6 +52,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]..."
             + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]..."
             + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]..."
+            + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]..."
             + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]..."
             + "[" + PREFIX_STEP + "STEP]... "
             + "[" + PREFIX_GOAL + "GOAL]...\n"
@@ -115,10 +118,11 @@ public class EditCommand extends Command {
         Set<Grain> updatedGrains = editRecipeDescriptor.getGrains().orElse(recipeToEdit.getGrains());
         Set<Vegetable> updatedVegetables = editRecipeDescriptor.getVegetables().orElse(recipeToEdit.getVegetables());
         Set<Protein> updatedProteins = editRecipeDescriptor.getProteins().orElse(recipeToEdit.getProteins());
+        Set<Fruit> updatedFruits = editRecipeDescriptor.getFruits().orElse(recipeToEdit.getFruits());
         Set<Other> updatedOthers = editRecipeDescriptor.getOthers().orElse(recipeToEdit.getOthers());
 
         return new Recipe(updatedName, updatedTime,
-                updatedGrains, updatedVegetables, updatedProteins, updatedOthers,
+                updatedGrains, updatedVegetables, updatedProteins, updatedFruits, updatedOthers,
                 updatedStep, updatedGoals, isFavourite);
     }
 
@@ -153,6 +157,7 @@ public class EditCommand extends Command {
         private Set<Grain> grains;
         private Set<Vegetable> vegetables;
         private Set<Protein> proteins;
+        private Set<Fruit> fruits;
         private Set<Other> others;
 
         public EditRecipeDescriptor() {}
@@ -256,6 +261,23 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code fruits} to this object's {@code fruits}.
+         * A defensive copy of {@code fruits} is used internally.
+         */
+        public void setFruits(Set<Fruit> fruits) {
+            this.fruits = (fruits != null) ? new TreeSet<>(fruits) : null;
+        }
+
+        /**
+         * Returns an unmodifiable fruits set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code fruits} is null.
+         */
+        public Optional<Set<Fruit>> getFruits() {
+            return (fruits != null) ? Optional.of(Collections.unmodifiableSet(fruits)) : Optional.empty();
+        }
+
+        /**
          * Sets {@code others} to this object's {@code others}.
          * A defensive copy of {@code others} is used internally.
          */
@@ -325,6 +347,7 @@ public class EditCommand extends Command {
                     && getGrains().equals(e.getGrains())
                     && getVegetables().equals(e.getVegetables())
                     && getProteins().equals(e.getProteins())
+                    && getFruits().equals(e.getFruits())
                     && getOthers().equals(e.getOthers())
                     && getSteps().equals(e.getSteps())
                     && getGoals().equals(e.getGoals());

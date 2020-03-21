@@ -14,6 +14,7 @@ import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
@@ -30,12 +31,14 @@ public class SampleDataUtil {
                     getGrainSet(),
                     getVegetableSet("Tomato, 100"),
                     getProteinSet(),
+                    getFruitSet(),
                     getOtherSet("Honeydew, 100"),
                     getStepsList("Cut tomatoes", "Remove honeydew skin"), getGoalSet("Herbivore"), false),
             new Recipe(new Name("Grilled Sandwich"), new Time("10"),
                     getGrainSet("Bread, 50"),
                     getVegetableSet(),
                     getProteinSet(),
+                    getFruitSet(),
                     getOtherSet("Cheese, 50, other"),
                     getStepsList("Spread butter on bread", "Heat pan to medium heat"),
                     getGoalSet("Wholesome Wholemeal"), false),
@@ -43,24 +46,28 @@ public class SampleDataUtil {
                     getGrainSet(),
                     getVegetableSet(),
                     getProteinSet("Chicken, 100"),
+                    getFruitSet(),
                     getOtherSet(),
                     getStepsList("Dice chicken"), getGoalSet("Bulk like the Hulk"), false),
             new Recipe(new Name("Chocolate Cake"), new Time("120"),
                     getGrainSet(),
                     getVegetableSet(),
                     getProteinSet(),
+                    getFruitSet(),
                     getOtherSet("Sugar, 100"),
                     getStepsList("Caramelize sugar"), getGoalSet(), false),
             new Recipe(new Name("Omelet"), new Time("15"),
                     getGrainSet(),
                     getVegetableSet(),
                     getProteinSet("Egg, 100"),
+                    getFruitSet(),
                     getOtherSet(),
                     getStepsList("Crack and beat eggs"), getGoalSet(), false),
             new Recipe(new Name("Tuna Bread"), new Time("60"),
                     getGrainSet("Wholemeal bread, 100"),
                     getVegetableSet(),
                     getProteinSet("Tuna, 100"),
+                    getFruitSet(),
                     getOtherSet(),
                     getStepsList("Slice tuna"),
                     getGoalSet("Bulk like the Hulk", "Wholesome Wholemeal"), false)
@@ -83,7 +90,6 @@ public class SampleDataUtil {
                 .map(Goal::new)
                 .collect(Collectors.toSet());
     }
-
 
     /**
      * Returns an grains set containing the list of strings given in the format (name, quantity).
@@ -135,6 +141,23 @@ public class SampleDataUtil {
             }
         }
         return proteinSet;
+    }
+
+    /**
+     * Returns an fruits set containing the list of strings given in the format (name, quantity).
+     */
+    public static Set<Fruit> getFruitSet(String... fruits) {
+        Set<Fruit> fruitSet = new TreeSet<>();
+        for (String fruit: fruits) {
+            if (!fruit.isBlank()) {
+                String[] splitDetails = fruit.split(",");
+                String name = splitDetails[1].trim();
+                Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
+
+                fruitSet.add(new Fruit(name, quantity));
+            }
+        }
+        return fruitSet;
     }
 
 

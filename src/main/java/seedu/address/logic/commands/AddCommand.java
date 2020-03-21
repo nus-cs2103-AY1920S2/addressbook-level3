@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
@@ -28,6 +29,7 @@ public class AddCommand extends Command {
             + "[" + PREFIX_INGREDIENT_GRAIN + "GRAIN]..."
             + "[" + PREFIX_INGREDIENT_VEGE + "VEGETABLE]..."
             + "[" + PREFIX_INGREDIENT_PROTEIN + "PROTEIN]..."
+            + "[" + PREFIX_INGREDIENT_FRUIT + "FRUIT]..."
             + "[" + PREFIX_INGREDIENT_OTHER + "OTHER]..."
             + "[" + PREFIX_STEP + "STEP]... "
             + "[" + PREFIX_GOAL + "GOAL]...\n"

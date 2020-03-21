@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GOAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_FRUIT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_GRAIN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_OTHER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENT_PROTEIN;
@@ -30,6 +31,8 @@ import seedu.address.testutil.EditRecipeDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_FRUIT_TURKEY_SANDWICH = "300g, Tomato";
+    public static final String VALID_FRUIT_FISH = "200g, Peach";
     public static final String VALID_GRAIN_TURKEY_SANDWICH = "300g, Wholemeal bread";
     public static final String VALID_GRAIN_FISH = "200g, Rice";
     public static final String VALID_PROTEIN_TURKEY_SANDWICH = "150g, Shredded Turkey";
@@ -47,6 +50,8 @@ public class CommandTestUtil {
     public static final String VALID_GOAL_PROTEIN = "Bulk like the Hulk";
     public static final String VALID_GOAL_GRAIN = "Wholesome Wholemeal";
 
+    public static final String FRUIT_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_FRUIT + VALID_FRUIT_TURKEY_SANDWICH;
+    public static final String FRUIT_DESC_FISH = " " + PREFIX_INGREDIENT_FRUIT + VALID_FRUIT_FISH;
     public static final String GRAIN_DESC_TURKEY_SANDWICH = " " + PREFIX_INGREDIENT_GRAIN + VALID_GRAIN_TURKEY_SANDWICH;
     public static final String GRAIN_DESC_FISH = " " + PREFIX_INGREDIENT_GRAIN + VALID_GRAIN_FISH;
     public static final String NAME_DESC_TURKEY_SANDWICH = " " + PREFIX_NAME + VALID_NAME_TURKEY_SANDWICH;
@@ -79,10 +84,17 @@ public class CommandTestUtil {
 
     static {
         DESC_TURKEY_SANDWICH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_TURKEY_SANDWICH)
-                .withTime(VALID_TIME_TURKEY_SANDWICH).withSteps(VALID_STEP_TURKEY_SANDWICH)
+                .withTime(VALID_TIME_TURKEY_SANDWICH).withGrains(VALID_GRAIN_TURKEY_SANDWICH)
+                .withVegetables(VALID_VEGE_TURKEY_SANDWICH).withProteins(VALID_PROTEIN_TURKEY_SANDWICH)
+                .withFruits(VALID_FRUIT_TURKEY_SANDWICH).withOthers(VALID_OTHER_TURKEY_SANDWICH)
+                .withSteps(VALID_STEP_TURKEY_SANDWICH)
                 .withGoals(VALID_GOAL_GRAIN).build();
+
         DESC_FISH = new EditRecipeDescriptorBuilder().withName(VALID_NAME_FISH)
-                .withTime(VALID_TIME_FISH).withSteps(VALID_STEP_FISH)
+                .withTime(VALID_TIME_FISH).withGrains(VALID_GRAIN_FISH)
+                .withVegetables(VALID_VEGE_FISH).withProteins(VALID_PROTEIN_FISH)
+                .withFruits(VALID_FRUIT_FISH).withOthers(VALID_OTHER_FISH)
+                .withSteps(VALID_STEP_FISH)
                 .withGoals(VALID_GOAL_PROTEIN).build();
     }
 
