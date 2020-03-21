@@ -16,8 +16,6 @@ import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
 
-import java.util.Date;
-
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */

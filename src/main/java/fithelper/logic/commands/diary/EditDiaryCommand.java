@@ -6,14 +6,10 @@ import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Optional;
 
-import fithelper.commons.core.Messages;
-import fithelper.commons.core.index.Index;
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;
-import fithelper.logic.commands.EditCommand;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.diary.Content;
@@ -69,10 +65,8 @@ public class EditDiaryCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Diary> lastShownList;
-        
         Diary editedDiary = createEditedDiary(diaryId, editDiaryDescriptor);
         model.setDiary(diaryId, editedDiary);
-       
         model.updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
         //model.updateFil
         return new CommandResult(String.format(MESSAGE_EDIT_DIARY_SUCCESS, editedDiary), 

@@ -2,6 +2,7 @@ package fithelper.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.diary.Content;
 import fithelper.model.diary.Diary;
@@ -24,8 +25,8 @@ public class JsonAdaptedDiary {
      */
     @JsonCreator
     public JsonAdaptedDiary(@JsonProperty("diaryId") String diaryId,
-                            @JsonProperty("diaryDate")  String diaryDate,
-                            @JsonProperty("content")  String content) {
+                            @JsonProperty("diaryDate") String diaryDate,
+                            @JsonProperty("content") String content) {
         this.diaryId = diaryId;
         this.diaryDate = diaryDate;
         this.content = content;
@@ -48,7 +49,8 @@ public class JsonAdaptedDiary {
      */
     public DiaryDate buildDiaryDate() throws IllegalValueException {
         if (diaryDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, DiaryDate.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    DiaryDate.class.getSimpleName()));
         }
         return new DiaryDate(diaryDate);
     }

@@ -1,5 +1,7 @@
 package fithelper.storage;
 
+import static fithelper.logic.commands.diary.AddDiaryCommand.MESSAGE_DUPLICATE_DIARY;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +15,6 @@ import fithelper.model.FitHelper;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
-
-import static fithelper.logic.commands.diary.AddDiaryCommand.MESSAGE_DUPLICATE_DIARY;
 
 /**
  * An Immutable FitHelper that is serializable to JSON format.

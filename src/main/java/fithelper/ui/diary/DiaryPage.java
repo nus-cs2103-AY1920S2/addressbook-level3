@@ -1,5 +1,7 @@
 package fithelper.ui.diary;
 
+import java.util.logging.Logger;
+
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.diary.Diary;
 import fithelper.ui.UiPart;
@@ -8,8 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.logging.Logger;
 
 /**
  * Controller class for diary page.
@@ -46,6 +46,11 @@ public class DiaryPage extends UiPart<AnchorPane> {
      * Constructs sportListView Cell class.
      */
     static class DiaryListViewCell extends ListCell<Diary> {
+        /**
+         * Update diary cell.
+         * @param diary 
+         * @param empty
+         */
         protected void updateItem(Diary diary, boolean empty) {
             super.updateItem(diary, empty);
             updateSelected(false);

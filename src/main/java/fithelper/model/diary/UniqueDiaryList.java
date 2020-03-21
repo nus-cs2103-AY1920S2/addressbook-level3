@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import fithelper.model.diary.exceptions.DuplicateDiaryException;
 import fithelper.model.diary.exceptions.DiaryNotFoundException;
+import fithelper.model.diary.exceptions.DuplicateDiaryException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -120,6 +120,10 @@ public class UniqueDiaryList implements Iterable<Diary> {
         }
     }
 
+    /**
+     * Removes a diary whose date is in string representation of dateStr
+     * @param dateStr string representation of diary date
+     */
     public void remove(String dateStr) {
         requireNonNull(dateStr);
         int oldIndex = 0;
