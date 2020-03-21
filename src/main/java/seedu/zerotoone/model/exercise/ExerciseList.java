@@ -7,7 +7,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the exercise list level
  * Duplicates are not allowed (by .isSameExercise comparison)
  */
 public class ExerciseList implements ReadOnlyExerciseList {
@@ -57,7 +57,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
     //// exercise-level operations
 
     /**
-     * Returns true if a exercise with the same identity as {@code exercise} exists in the address book.
+     * Returns true if a exercise with the same identity as {@code exercise} exists in the exercise list.
      */
     public boolean hasExercise(Exercise exercise) {
         requireNonNull(exercise);
@@ -65,8 +65,8 @@ public class ExerciseList implements ReadOnlyExerciseList {
     }
 
     /**
-     * Adds a exercise to the address book.
-     * The exercise must not already exist in the address book.
+     * Adds a exercise to the exercise list.
+     * The exercise must not already exist in the exercise list.
      */
     public void addExercise(Exercise p) {
         exercises.add(p);
@@ -74,9 +74,9 @@ public class ExerciseList implements ReadOnlyExerciseList {
 
     /**
      * Replaces the given exercise {@code target} in the list with {@code editedExercise}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the exercise list.
      * The exercise identity of {@code editedExercise} must not be the same as another existing
-     * exercise in the address book.
+     * exercise in the exercise list.
      */
     public void setExercise(Exercise target, Exercise editedExercise) {
         requireNonNull(editedExercise);
@@ -86,7 +86,7 @@ public class ExerciseList implements ReadOnlyExerciseList {
 
     /**
      * Removes {@code key} from this {@code ExerciseList}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the exercise list.
      */
     public void removeExercise(Exercise key) {
         exercises.remove(key);

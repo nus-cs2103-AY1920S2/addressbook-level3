@@ -14,7 +14,7 @@ import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
 
 /**
- * Edits the details of an existing exercise in the address book.
+ * Edits the details of an existing exercise in the exercise list.
  */
 public class EditCommand extends ExerciseCommand {
     public static final String COMMAND_WORD = "edit";

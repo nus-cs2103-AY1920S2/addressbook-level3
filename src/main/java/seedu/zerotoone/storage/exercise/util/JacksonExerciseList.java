@@ -41,7 +41,7 @@ public class JacksonExerciseList {
     }
 
     /**
-     * Converts this address book into the model's {@code ExerciseList} object.
+     * Converts this exercise list into the model's {@code ExerciseList} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

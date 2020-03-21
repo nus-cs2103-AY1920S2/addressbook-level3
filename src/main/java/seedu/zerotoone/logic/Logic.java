@@ -48,7 +48,7 @@ public interface Logic {
     ObservableList<Exercise> getFilteredExerciseList();
 
     /**
-     * Returns the user prefs' address book file path.F
+     * Returns the user prefs' exercise list file path.
      */
     Path getExerciseListFilePath();
 }

@@ -18,7 +18,7 @@ import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the exercise list data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);

@@ -18,7 +18,7 @@ import seedu.zerotoone.model.exercise.NumReps;
 import seedu.zerotoone.model.exercise.Weight;
 
 /**
- * Edits the details of an existing exercise in the address book.
+ * Edits the details of an existing exercise in the exercise list.
  */
 public class AddCommand extends SetCommand {
     public static final String COMMAND_WORD = "add";
