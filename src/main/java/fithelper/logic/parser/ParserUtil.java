@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import fithelper.commons.core.index.Index;
 import fithelper.commons.util.StringUtil;
 import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.model.diary.Content;
+import fithelper.model.diary.DiaryDate;
 import fithelper.model.entry.Calorie;
 import fithelper.model.entry.Duration;
 import fithelper.model.entry.Location;
@@ -13,6 +15,8 @@ import fithelper.model.entry.Remark;
 import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
+
+import java.util.Date;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -83,6 +87,21 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code location} is invalid.
      */
+    public static DiaryDate parseDate(String dateStr) throws ParseException {
+        requireNonNull(dateStr);
+        String trimmedDate = dateStr.trim();
+        if (!DiaryDate.isValidDate(trimmedDate)) {
+            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+        }
+        return new DiaryDate(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String location} into an {@code Location}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code location} is invalid.
+     */
     public static Location parseLocation(String location) throws ParseException {
         requireNonNull(location);
         String trimmedLocation = location.trim();
@@ -130,6 +149,17 @@ public class ParserUtil {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
         return new Remark(trimmedRemark);
+    }
+
+
+    /**
+     * Parses a {@code String remark} into an {@code Content}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Content parseContent(String content) {
+        requireNonNull(content);
+        String trimmedContent = content.trim();
+        return new Content(trimmedContent);
     }
 
     /**

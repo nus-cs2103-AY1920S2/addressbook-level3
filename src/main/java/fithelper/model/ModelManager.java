@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calendar.CalendarSettings;
+import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
@@ -26,6 +27,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final FitHelper fitHelper;
+    private final FilteredList<Diary> filteredDiaries;
     private final FilteredList<Entry> filteredFoodEntries;
     private final FilteredList<Entry> filteredSportsEntries;
     private final FilteredList<Entry> filteredReminderEntries;
@@ -45,6 +47,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with FitHelper: " + fitHelper);
 
         this.fitHelper = new FitHelper(fitHelper);
+        filteredDiaries = new FilteredList<Diary>(this.fitHelper.getDiaryList());
         filteredFoodEntries = new FilteredList<>(this.fitHelper.getFoodList());
         filteredSportsEntries = new FilteredList<>(this.fitHelper.getSportsList());
         filteredReminderEntries = new FilteredList<>(this.fitHelper.getReminderList());
@@ -72,6 +75,12 @@ public class ModelManager implements Model {
 
     //=========== Basic Functions ===========================================================================
     @Override
+    public boolean hasDiary(Diary diary) {
+        requireNonNull(diary);
+        return fitHelper.hasDiary(diary);
+    }
+
+    @Override
     public boolean hasEntry(Entry entry) {
         requireNonNull(entry);
         return fitHelper.hasEntry(entry);
@@ -81,6 +90,16 @@ public class ModelManager implements Model {
     public boolean hasTimeClashes(Entry entry) {
         requireNonNull(entry);
         return fitHelper.hasTimeClashes(entry);
+    }
+
+    /**
+     * Deletes the given diary.
+     * The diary must exist in the log book.
+     * @param target
+     */
+    @Override
+    public void deleteDiary(Diary target) {
+        fitHelper.removeDiary(target);
     }
 
     /**
@@ -94,9 +113,29 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addDiary(Diary diary) {
+        fitHelper.addDiary(diary);
+        updateFilteredDiaryList(PREDICATE_SHOW_ALL_DIARIES);
+    }
+
+    @Override
     public void addEntry(Entry entry) {
         fitHelper.addEntry(entry);
         updateFilteredEntryList(PREDICATE_SHOW_ALL_ENTRIES);
+    }
+
+    /**
+     * Replaces the given diary {@code target} with {@code editedDiary}.
+     * {@code target} must exist in the log book.
+     * The diary identity of {@code editedDiary} must not be the same as another existing diary in the log book.
+     *
+     * @param target
+     * @param editedDiary
+     */
+    @Override
+    public void setDiary(Diary target, Diary editedDiary) {
+        requireAllNonNull(target, editedDiary);
+        fitHelper.setDiary(target, editedDiary);
     }
 
     /**
@@ -114,6 +153,15 @@ public class ModelManager implements Model {
     }
 
     //=========== Filtered Entry List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the diary list of {@code Diary} backed by the internal list of
+     * {@code versionedFitHelper}
+     */
+    @Override
+    public ObservableList<Diary> getFilteredDiaryList() {
+        return filteredDiaries;
+    }
 
     /**
      * Returns an unmodifiable view of the food list of {@code Entry} backed by the internal list of
@@ -160,7 +208,6 @@ public class ModelManager implements Model {
         return this.fitHelper.getTodaySportsList(dateStr);
     }
 
-
     public ObservableList<Entry> getTodayEntries(String todayDate, FilteredList<Entry> entries) {
         UniqueEntryList todayEntries = new UniqueEntryList();
         for (Entry entry : entries) {
@@ -169,6 +216,18 @@ public class ModelManager implements Model {
             }
         }
         return todayEntries.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Updates the filter of the filtered diary list to filter by the given {@code predicate}.
+     *
+     * @param predicate
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    @Override
+    public void updateFilteredDiaryList(Predicate<Diary> predicate) {
+        requireNonNull(predicate);
+        filteredDiaries.setPredicate(predicate);
     }
 
     /**
@@ -223,10 +282,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return fitHelper.equals(other.fitHelper)
+                && filteredDiaries.equals(other.filteredDiaries)
                 && filteredFoodEntries.equals(other.filteredFoodEntries)
                 && filteredSportsEntries.equals(other.filteredSportsEntries);
     }
-
 
     // Methods about calendar.
 
@@ -261,9 +320,7 @@ public class ModelManager implements Model {
         return calendarSettings.getDate();
     }
 
-
     // Methods about user profile.
-
 
     @Override
     public void setUserProfile(ReadOnlyUserProfile newUserProfile) {

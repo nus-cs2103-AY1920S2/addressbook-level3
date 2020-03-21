@@ -23,6 +23,9 @@ import fithelper.logic.commands.ReportCommand;
 import fithelper.logic.commands.TodayCommand;
 import fithelper.logic.commands.WeightCommand;
 
+import fithelper.logic.commands.diary.AddDiaryCommand;
+import fithelper.logic.commands.diary.DiaryCommand;
+import fithelper.logic.parser.diary.AddDiaryCommandParser;
 import fithelper.logic.parser.exceptions.ParseException;
 
 /**
@@ -53,6 +56,12 @@ public class FitHelperParser {
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case AddDiaryCommand.COMMAND_WORD:
+            if (arguments.equals("")) {
+                return new DiaryCommand();
+            }
+            return new AddDiaryCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);

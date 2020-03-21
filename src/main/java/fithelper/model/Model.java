@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import jfxtras.icalendarfx.components.VEvent;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Diary> PREDICATE_SHOW_ALL_DIARIES = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_ALL_ENTRIES = unused -> true;
     Predicate<Entry> PREDICATE_SHOW_UNDONE_ENTRIES = entry -> entry.getStatus().value.equals("Undone");
     Predicate<Entry> PREDICATE_SHOW_DONE_ENTRIES = entry -> entry.getStatus().value.equals("Done");
@@ -29,6 +31,11 @@ public interface Model {
     ReadOnlyFitHelper getFitHelper();
 
     /**
+     * Returns true if diary log with the same identity as {@code diary} exists in the FitHelper.
+     */
+    boolean hasDiary(Diary diary);
+
+    /**
      * Returns true if an Entry with the same identity as {@code entry} exists in the FitHelper.
      */
     boolean hasEntry(Entry entry);
@@ -39,10 +46,22 @@ public interface Model {
     boolean hasTimeClashes(Entry entry);
 
     /**
+     * Deletes the given diary.
+     * The diary must exist in the log book.
+     */
+    void deleteDiary(Diary target);
+
+    /**
      * Deletes the given entry.
      * The entry must exist in the log book.
      */
     void deleteEntry(Entry target);
+
+    /**
+     * Adds the given diary.
+     * {@code diary} must not already exist in the log book.
+     */
+    void addDiary(Diary diary);
 
     /**
      * Adds the given Entry.
@@ -57,11 +76,21 @@ public interface Model {
     void deleteVevent(Entry entry);
 
     /**
+     * Replaces the given diary {@code target} with {@code editedDiary}.
+     * {@code target} must exist in the log book.
+     * The diary identity of {@code editedDiary} must not be the same as another existing diary in the log book.
+     */
+    void setDiary(Diary target, Diary editedDiary);
+
+    /**
      * Replaces the given entry {@code target} with {@code editedEntry}.
      * {@code target} must exist in the log book.
      * The entry identity of {@code editedEntry} must not be the same as another existing entry in the log book.
      */
     void setEntry(Entry target, Entry editedEntry);
+
+    /** Returns an unmodifiable view of the filtered diary list */
+    ObservableList<Diary> getFilteredDiaryList();
 
     /** Returns an unmodifiable view of the filtered food entry list */
     ObservableList<Entry> getFilteredFoodEntryList();
@@ -78,6 +107,11 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered sports entry list */
     ObservableList<Entry> getFilteredTodaySportsEntryList(String dateStr);
 
+    /**
+     * Updates the filter of the filtered diary list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredDiaryList(Predicate<Diary> predicate);
 
     /**
      * Updates the filter of the filtered entry list to filter by the given {@code predicate}.

@@ -1,5 +1,7 @@
 package fithelper.model.diary;
 
+import fithelper.model.entry.Entry;
+
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
@@ -48,6 +50,20 @@ public class Diary {
      */
     public void clearContent() {
         this.content = new Content("");
+    }
+
+    /**
+     * Returns true if both Diary of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two entries.
+     */
+    public boolean isSameDiary(Diary anotherDiary) {
+        if (anotherDiary == this) {
+            return true;
+        }
+
+        return anotherDiary != null
+                && anotherDiary.getDiaryDate().equals(getDiaryDate())
+                && (anotherDiary.getContent().equals(getContent()));
     }
 
     @Override
