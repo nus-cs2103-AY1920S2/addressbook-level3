@@ -12,8 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ProfileList;
+import seedu.address.model.*;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 import seedu.address.storage.Storage;
@@ -28,10 +27,12 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final AddressBookParser addressBookParser;
+    private final CourseManager courseManager;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, CourseManager courseManager) {
         this.model = model;
         this.storage = storage;
+        this.courseManager = courseManager;
         addressBookParser = new AddressBookParser();
     }
 
