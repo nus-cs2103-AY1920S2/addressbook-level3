@@ -5,18 +5,21 @@ package seedu.address.model.recipe.ingredient;
  */
 
 public enum Unit {
-    LIQUID("ml"),
-    SOLID("g"),
-    COUNTABLE("");
+    MILLILITER("ml"),
+    GRAM("g"),
+    TEASPOON("tsp"),
+    TABLESPOON("tbsp"),
+    CUP("cup");
 
-    private final String label;
+    private final String unit;
 
-    Unit(final String label) {
-        this.label = label;
+    Unit(final String unit) {
+        this.unit = unit;
     }
 
     @Override
     public String toString() {
-        return label;
+        return unit;
     }
 }
+

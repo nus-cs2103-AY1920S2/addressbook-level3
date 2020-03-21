@@ -13,15 +13,13 @@ public abstract class Ingredient implements Comparable<Ingredient> {
             + "alphabetical letters or spaces";
     public static final String MESSAGE_MISSING_FIELD = "Ingredients require a quantity and name written in the format: "
             + "Tag/Quantity, Name\n"
-            + "For example, to enter 50g of Broccoli, the format is iv/50, Broccoli";
+            + "For example, to enter 50g of Broccoli, the format is iv/50g, Broccoli";
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
-    protected IngredientType ingredientType;
     protected String ingredientName;
-    protected double quantity;
-    protected Unit unit;
+    protected Quantity quantity;
 
-    public Ingredient(String ingredientName, double quantity) {
+    public Ingredient(String ingredientName, Quantity quantity) {
         requireNonNull(quantity, ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
         this.quantity = quantity;
@@ -35,20 +33,12 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public double getQuantity() {
+    public Quantity getQuantity() {
         return quantity;
     }
 
     public String getName() {
         return ingredientName;
-    }
-
-    public IngredientType getType() {
-        return ingredientType;
-    }
-
-    public Unit getUnit() {
-        return unit;
     }
 
     public String getIngredientName() {
@@ -57,7 +47,10 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     @Override
     public String toString() {
-        return quantity + unit.toString() + " " + ingredientName;
+        if (quantity == null) {
+            return "";
+        }
+        return quantity + " " + ingredientName;
     }
 
     @Override
