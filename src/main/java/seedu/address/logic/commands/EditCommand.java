@@ -119,8 +119,6 @@ public class EditCommand extends Command {
 
         return new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
                 updatedWarehouse, updatedCod, updatedComment, updatedType);
-
-
     }
 
     @Override

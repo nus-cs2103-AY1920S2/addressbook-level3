@@ -151,8 +151,24 @@ public class OrderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code boolean} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withDeliveryStatus(boolean status) {
+        this.deliveryStatus = status;
+        return this;
+    }
+
+    public Order buildDelivered() {
+        Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
+        toBuild.setDeliveryStatus(true);
+        return toBuild;
+    }
+
     public Order build() {
-        return new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
+        Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
+        toBuild.setDeliveryStatus(false);
+        return toBuild;
     }
 
 }

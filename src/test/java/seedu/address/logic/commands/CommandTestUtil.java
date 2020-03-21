@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.OrderBook;
 import seedu.address.model.order.NameContainsKeywordsPredicate;
 import seedu.address.model.order.Order;
+import seedu.address.testutil.DoneOrderDescriptorBuilder;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 
 /**
@@ -97,6 +98,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditOrderDescriptor DESC_AMY;
     public static final EditCommand.EditOrderDescriptor DESC_BOB;
 
+    public static final DoneCommand.DoneOrderDescriptor AMY_DESC;
+    public static final DoneCommand.DoneOrderDescriptor BOB_DESC;
+
     static {
         DESC_AMY = new EditOrderDescriptorBuilder().withTid(VALID_TID_AMY)
                 .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -114,6 +118,23 @@ public class CommandTestUtil {
                 .withCash(VALID_COD_BOB)
                 .withComment(VALID_COMMENT_INSTRUCTION)
                 .withItemType(VALID_TYPE_PLASTIC).build();
+        AMY_DESC = new DoneOrderDescriptorBuilder().withTid(VALID_TID_AMY)
+                .withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+                .withEmail(VALID_EMAIL_AMY)
+                .withAddress(VALID_ADDRESS_AMY)
+                .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_AMY)
+                .withCash(VALID_COD_AMY)
+                .withComment(VALID_COMMENT_INSTRUCTION)
+                .withItemType(VALID_TYPE_GLASS).build();
+        BOB_DESC = new DoneOrderDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withTid(VALID_TID_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB)
+                .withAddress(VALID_ADDRESS_BOB)
+                .withTimeStamp(VALID_TIMESTAMP_AMY).withWarehouse(VALID_WAREHOUSE_BOB)
+                .withCash(VALID_COD_BOB)
+                .withComment(VALID_COMMENT_INSTRUCTION)
+                .withItemType(VALID_TYPE_PLASTIC).build();
+
     }
 
     /**
