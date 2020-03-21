@@ -14,7 +14,7 @@ import fithelper.logic.parser.exceptions.ParseException;
  */
 public class DiaryDate {
 
-    private final Logger logger = LogsCenter.getLogger(DiaryDate.class);
+    private static final Logger logger = LogsCenter.getLogger(DiaryDate.class);
 
     public static final String MESSAGE_ERROR =
             "Date conversion from strings has failed.";
@@ -62,7 +62,7 @@ public class DiaryDate {
      * @param dateStr
      * @return
      */
-    public boolean isValidDate(String dateStr) {
+    public static boolean isValidDate(String dateStr) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
