@@ -115,8 +115,8 @@ public class DoneCommand extends Command {
         TypeOfItem updatedType = doneOrderDescriptor.getItemType().orElse(orderToDeliver.getItemType());
         boolean updatedDeliveryStatus = doneOrderDescriptor.getDeliveryStatus();
 
-        Order copyOrder = new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
-                updatedWarehouse, updatedCod, updatedComment, updatedType);
+        Order copyOrder = new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updateTimeStamp, updatedWarehouse, updatedCod, updatedComment, updatedType);
         copyOrder.setDeliveryStatus(updatedDeliveryStatus);
         return copyOrder;
 

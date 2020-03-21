@@ -159,12 +159,20 @@ public class OrderBuilder {
         return this;
     }
 
+    /**
+     * Builds a delivered order based on attributes given.
+     * @return A delivered {@Code Order} with the given attributes
+     */
     public Order buildDelivered() {
         Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
         toBuild.setDeliveryStatus(true);
         return toBuild;
     }
 
+    /**
+     * Builds a default order based on attributes given.
+     * @return A default {@Code Order} with the given attributes
+     */
     public Order build() {
         Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
         toBuild.setDeliveryStatus(false);
