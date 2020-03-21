@@ -34,7 +34,7 @@ public class RecipeTest {
 
         // different time and email -> returns false
         Recipe editedCaesar = new RecipeBuilder(CAESAR_SALAD)
-                .withTime(VALID_TIME_FISH).withStep(VALID_STEP_FISH).build();
+                .withTime(VALID_TIME_FISH).withSteps(VALID_STEP_FISH).build();
         assertFalse(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // different name -> returns false
@@ -42,7 +42,7 @@ public class RecipeTest {
         assertFalse(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
         // same name, same time, different attributes -> returns true
-        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withStep(VALID_STEP_FISH)
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withSteps(VALID_STEP_FISH)
                 .withGoals(VALID_GOAL_PROTEIN).build();
         assertTrue(CAESAR_SALAD.isSameRecipe(editedCaesar));
 
@@ -79,7 +79,7 @@ public class RecipeTest {
 
 
         // different email -> returns false
-        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withStep(VALID_STEP_FISH).build();
+        editedCaesar = new RecipeBuilder(CAESAR_SALAD).withSteps(VALID_STEP_FISH).build();
         assertFalse(CAESAR_SALAD.equals(editedCaesar));
 
         // different goals -> returns false

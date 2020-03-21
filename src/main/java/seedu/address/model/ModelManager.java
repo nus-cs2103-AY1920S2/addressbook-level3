@@ -100,6 +100,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void favouriteRecipe(Recipe target) {
+        recipeBook.favouriteRecipe(target);
+    }
+
+    @Override
+    public void unfavouriteRecipe(Recipe target) {
+        recipeBook.unfavouriteRecipe(target);
+    }
+
+    @Override
     public void addRecipe(Recipe recipe) {
         recipeBook.addRecipe(recipe);
         updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);

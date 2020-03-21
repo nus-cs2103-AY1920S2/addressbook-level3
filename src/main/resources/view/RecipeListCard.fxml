@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -26,11 +27,16 @@
           </minWidth>
         </Label>
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <ImageView fx:id="favourite" />
       </HBox>
       <FlowPane fx:id="goals" />
       <Label fx:id="time" styleClass="cell_small_label" text="\$time" />
-      <FlowPane fx:id="ingredients" />
-      <Label fx:id="step" styleClass="cell_small_label" text="\$step" />
+      <VBox fx:id="grains" />
+      <VBox fx:id="vegetables" />
+      <VBox fx:id="proteins" />
+      <VBox fx:id="fruits" />
+      <VBox fx:id="others" />
+      <VBox fx:id="steps" />
     </VBox>
   </GridPane>
 </HBox>

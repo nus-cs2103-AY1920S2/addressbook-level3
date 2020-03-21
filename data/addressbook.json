@@ -1,0 +1,80 @@
+{
+  "recipes" : [ {
+    "name" : "chickenn",
+    "time" : "15",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "vege,  20.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ "kiwi,  50.0g" ],
+    "others" : [ "hello,  30.0g" ],
+    "steps" : [ "Testing output when duplicate steps are added during EDIT" ],
+    "goals" : [ "Bulk like the Hulk" ]
+  }, {
+    "name" : "Healthy Duck Brown Rice",
+    "time" : "20",
+    "isFavourite" : true,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  20.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "other,  30.0ml" ],
+    "steps" : [ "Braise the duck and eggs", "Steam brown rice with herbs", "Serve while hot" ],
+    "goals" : [ "Bulk like the Hulk", "Wholesome Wholegrains" ]
+  }, {
+    "name" : "Final Recipe",
+    "time" : "33",
+    "isFavourite" : true,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  20.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "other,  30.0ml" ],
+    "steps" : [ "No empty steps allowed" ],
+    "goals" : [ "Test" ]
+  }, {
+    "name" : "Raisin Bread",
+    "time" : "30",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  20.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "other,  30.0ml" ],
+    "steps" : [ "Knead dough and mix in raisins", "Preheat oven to 180 degrees", "Bake for 30mins" ],
+    "goals" : [ "Wholesome Wholegrains" ]
+  }, {
+    "name" : "this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name 1111111111111111111 this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name  2222222222222222222222222 test text wrap hehe this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name 3333333333333",
+    "time" : "33",
+    "isFavourite" : true,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  20.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "other,  30.0ml" ],
+    "steps" : [ "TEST step" ],
+    "goals" : [ "Test goals" ]
+  }, {
+    "name" : "Short Recipe Name",
+    "time" : "123",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  20.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "other,  30.0ml" ],
+    "steps" : [ "This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step 11111111111111111111 This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step This is a super long step  22222222222222222222 This is a super long step This is a super long step This is a super long step This is a super long step  44444444This is a super long step This is a super long step This is a super long step This is a super long step 233333333333333 This is a super long step This is a super long step This is a super long step END OF STEP", "short step" ],
+    "goals" : [ "Another Test Goal" ]
+  }, {
+    "name" : "New Test",
+    "time" : "2",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  20.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ "other,  30.0ml" ],
+    "steps" : [ "first" ],
+    "goals" : [ ]
+  } ]
+}

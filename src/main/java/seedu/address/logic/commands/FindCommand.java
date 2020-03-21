@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all recipes in address book whose name contains any of the argument keywords.
+ * Finds and lists all recipes in recipe book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {

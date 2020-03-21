@@ -79,6 +79,30 @@ public class UniqueRecipeList implements Iterable<Recipe> {
         }
     }
 
+    /**
+     * Favourites the equivalent recipe from the list.
+     * The recipe must exist in the list.
+     */
+    public void favourite(Recipe toFavourite) {
+        requireNonNull(toFavourite);
+        if (!internalList.contains(toFavourite)) {
+            throw new RecipeNotFoundException();
+        }
+        toFavourite.markAsFavourite();
+    }
+
+    /**
+     * Unfavourites the equivalent recipe from the list.
+     * The recipe must exist in the list.
+     */
+    public void unfavourite(Recipe toUnfavourite) {
+        requireNonNull(toUnfavourite);
+        if (!internalList.contains(toUnfavourite)) {
+            throw new RecipeNotFoundException();
+        }
+        toUnfavourite.unmarkAsFavourite();
+    }
+
     public void setRecipes(UniqueRecipeList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

@@ -9,6 +9,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
+
 public class SetCommand extends Command {
     public static final String COMMAND_WORD = "set";
 
@@ -25,23 +26,29 @@ public class SetCommand extends Command {
     private Recipe toSet;
     private LocalDate atDate;
 
-    /**
+    */
+/**
      * Creates an SetCommand to set the specified {@code Recipe} on a certain date
-     */
+     *//*
+
     public SetCommand(Recipe recipe, LocalDate date) {
         requireNonNull(recipe);
         toSet = recipe;
         atDate = date;
     }
 
-    @Override
+    */
+/*@Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.planRecipe(toSet, atDate);
+        //model.planRecipe(toSet, atDate);
         //model.addRecipe(toAdd); add the PlannedRecipeTree class to the Model and
         // add this command to the model interface and to the modelmanager
         //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
+    }*//*
+
 
 }
+
+
