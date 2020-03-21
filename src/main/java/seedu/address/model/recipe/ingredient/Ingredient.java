@@ -17,10 +17,9 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public static final String VALIDATION_REGEX = "^[ A-Za-z]+$+";
 
     protected String ingredientName;
-    protected double quantity;
-    protected Unit unit;
+    protected Quantity quantity;
 
-    public Ingredient(String ingredientName, double quantity) {
+    public Ingredient(String ingredientName, Quantity quantity) {
         requireNonNull(quantity, ingredientName);
         checkArgument(isValidIngredientName(ingredientName), MESSAGE_CONSTRAINTS);
         this.quantity = quantity;
@@ -34,16 +33,12 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public double getQuantity() {
+    public Quantity getQuantity() {
         return quantity;
     }
 
     public String getName() {
         return ingredientName;
-    }
-
-    public Unit getUnit() {
-        return unit;
     }
 
     public String getIngredientName() {
@@ -52,7 +47,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     @Override
     public String toString() {
-        return quantity + unit.toString() + " " + ingredientName;
+        return quantity + " " + ingredientName;
     }
 
     @Override

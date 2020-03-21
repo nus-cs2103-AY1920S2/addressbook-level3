@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
 import seedu.address.model.goal.Goal;
@@ -15,8 +17,12 @@ import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
 import seedu.address.model.recipe.ingredient.Grain;
+import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Quantity;
+import seedu.address.model.recipe.ingredient.QuantityUtil;
+import seedu.address.model.recipe.ingredient.Unit;
 import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
@@ -83,6 +89,7 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+
     /**
      * Returns an grains set containing the list of strings given in the format (name, quantity). // todo add unit format
      */
@@ -92,7 +99,7 @@ public class SampleDataUtil {
             if (!grain.isBlank()) {
                 String[] splitDetails = grain.split(",");
                 String name = splitDetails[1].trim();
-                double quantity = Double.parseDouble(splitDetails[0].trim());
+                Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
                 grainSet.add(new Grain(name, quantity));
             }
@@ -109,7 +116,7 @@ public class SampleDataUtil {
             if (!vegetable.isBlank()) {
                 String[] splitDetails = vegetable.split(",");
                 String name = splitDetails[1].trim();
-                double quantity = Double.parseDouble(splitDetails[0].trim());
+                Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
                 vegetableSet.add(new Vegetable(name, quantity));
             }
@@ -127,7 +134,7 @@ public class SampleDataUtil {
             if (!protein.isBlank()) {
                 String[] splitDetails = protein.split(",");
                 String name = splitDetails[1].trim();
-                double quantity = Double.parseDouble(splitDetails[0].trim());
+                Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
                 proteinSet.add(new Protein(name, quantity));
             }
@@ -145,7 +152,7 @@ public class SampleDataUtil {
             if (!other.isBlank()) {
                 String[] splitDetails = other.split(",");
                 String name = splitDetails[1].trim();
-                double quantity = Double.parseDouble(splitDetails[0].trim());
+                Quantity quantity = QuantityUtil.parseQuantity(splitDetails[0].trim());
 
                 otherSet.add(new Other(name, quantity));
             }

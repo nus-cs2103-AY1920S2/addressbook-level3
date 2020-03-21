@@ -22,6 +22,9 @@ import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Quantity;
+import seedu.address.model.recipe.ingredient.QuantityUtil;
+import seedu.address.model.recipe.ingredient.Unit;
 import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
@@ -161,6 +164,30 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String quantity} that is in the form (magnitude unit) into a {@code Quantity}.
+     * Leading and trailing whitespaces will be trimmed, and units are case-insensitive.
+     *
+     * @throws ParseException if the give {@code quantity} is invalid.
+     */
+    public static Quantity parseQuantity(String quantity) throws ParseException {
+        quantity = quantity.toLowerCase().trim();
+        int indexOfUnit = QuantityUtil.indexOfFirstAlphabet(quantity);
+        if (indexOfUnit == 0 || indexOfUnit == quantity.length()) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+
+        double magnitude = Double.parseDouble(quantity.substring(0, indexOfUnit));
+        String unitString = quantity.substring(indexOfUnit);
+        if (!QuantityUtil.getAvailUnitsAsList().contains(unitString)) {
+            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+        }
+
+        Unit unit = QuantityUtil.parseUnit(unitString);
+        return new Quantity(magnitude, unit);
+    }
+
+
+    /**
      * Parses a {@code String grain} into a {@code Grain}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -170,7 +197,7 @@ public class ParserUtil {
         requireNonNull(grain);
         String[] splitFields = grain.split(",");
 
-        if (splitFields.length != 2) {
+        if (splitFields.length < 2) {
             throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
         }
         String trimmedGrainName = splitFields[1].trim();
@@ -179,8 +206,7 @@ public class ParserUtil {
         if (!Ingredient.isValidIngredientName(trimmedGrainName)) {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
-
-        double grainQuantity = Double.parseDouble(trimmedGrainQuantity);
+        Quantity grainQuantity = parseQuantity(trimmedGrainQuantity);
         return new Grain(trimmedGrainName, grainQuantity);
     }
 
@@ -216,7 +242,7 @@ public class ParserUtil {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
-        double vegetableQuantity = Double.parseDouble(trimmedVegetableQuantity);
+        Quantity vegetableQuantity = parseQuantity(trimmedVegetableQuantity);
         return new Vegetable(trimmedVegetableName, vegetableQuantity);
     }
 
@@ -252,7 +278,7 @@ public class ParserUtil {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
-        double proteinQuantity = Double.parseDouble(trimmedProteinQuantity);
+        Quantity proteinQuantity = parseQuantity(trimmedProteinQuantity);
         return new Protein(trimmedProteinName, proteinQuantity);
     }
 
@@ -288,7 +314,7 @@ public class ParserUtil {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
-        double otherQuantity = Double.parseDouble(trimmedOtherQuantity);
+        Quantity otherQuantity = parseQuantity(trimmedOtherQuantity);
         return new Other(trimmedOtherName, otherQuantity);
     }
 

@@ -6,12 +6,8 @@ package seedu.address.model.recipe.ingredient;
 
 public class Other extends Ingredient {
 
-    public Other(String name, double quantity) {
+    public Other(String name, Quantity quantity) {
         super(name, quantity);
-        super.unit = Unit.COUNTABLE;
     }
 
-    public void setUnit(Unit unit) { //todo: allow users to input their own unit for 'Other' Ingredient
-        super.unit = unit;
-    }
 }

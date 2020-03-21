@@ -9,7 +9,7 @@ public enum Unit {
     GRAM("g"),
     TEASPOON("tsp"),
     TABLESPOON("tbsp"),
-    COUNTABLE("");
+    CUP("cup");
 
     private final String unit;
 
@@ -22,3 +22,4 @@ public enum Unit {
         return unit;
     }
 }
+

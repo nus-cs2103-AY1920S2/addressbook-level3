@@ -6,8 +6,18 @@ package seedu.address.model.recipe.ingredient;
  */
 public class Grain extends Ingredient {
 
-    public Grain(String name, double quantity) {
+    private boolean isWholemeal;
+
+    public Grain(String name, Quantity quantity) {
         super(name, quantity);
-        super.unit = Unit.SOLID;
+        isWholemeal = false;
+    }
+
+    public boolean isWholemeal(){
+        return isWholemeal;
+    }
+
+    public void setWholemeal(boolean wholemeal) {
+        isWholemeal = wholemeal;
     }
 }

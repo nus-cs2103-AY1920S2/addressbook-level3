@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Quantity;
+import seedu.address.model.recipe.ingredient.QuantityUtil;
 
 /**
  * Jackson-friendly version of {@link Protein}.
@@ -12,7 +14,7 @@ import seedu.address.model.recipe.ingredient.Protein;
 class JsonAdaptedProtein {
 
     private final String proteinName;
-    private final double quantity;
+    private final Quantity quantity;
 
     /**
      * Constructs a {@code JsonAdaptedGrain} with the given {@code ingredientName},
@@ -22,7 +24,7 @@ class JsonAdaptedProtein {
     public JsonAdaptedProtein(String grain) {
         String[] details = grain.split(",");
         this.proteinName = details[0].trim();
-        this.quantity = Double.parseDouble(details[1].trim());
+        this.quantity = QuantityUtil.parseQuantity(details[1].trim());
     }
 
     /**
