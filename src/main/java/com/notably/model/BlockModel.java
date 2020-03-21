@@ -6,12 +6,13 @@ import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeItem;
 import com.notably.model.block.Body;
 
+import javafx.beans.Observable;
 import javafx.beans.property.Property;
 
 /**
  * API of the BlockModel component.
  */
-public interface BlockModel {
+public interface BlockModel extends Observable {
     /**
      * Gets the BlockTree currently in use by Notably.
      */
