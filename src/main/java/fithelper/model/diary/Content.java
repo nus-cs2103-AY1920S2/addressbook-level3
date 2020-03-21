@@ -9,9 +9,9 @@ import java.util.Objects;
  * Guarantees: immutable; is valid as declared in {@link #isValidContent(String)}
  */
 public class Content {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Content should be no more than 300 characters";
-    private String value;
+
+    public static final String MESSAGE_CONSTRAINTS = "Content should be no more than 200 characters";
+    public final String value;
 
     /**
      * Creates a {@code Content}.
@@ -66,7 +66,7 @@ public class Content {
     }
 
     public static boolean isValidContent(String value) {
-        return value.length() <= 300;
+        return value.length() <= 200;
     }
 
     @Override

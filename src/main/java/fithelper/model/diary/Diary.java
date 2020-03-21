@@ -50,6 +50,19 @@ public class Diary {
         this.content = new Content("");
     }
 
+    /**
+     * Returns true if both Diary of the same name have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two entries.
+     */
+    public boolean isSameDiary(Diary anotherDiary) {
+        if (anotherDiary == this) {
+            return true;
+        }
+
+        return anotherDiary != null
+                && anotherDiary.getDiaryDate().equals(getDiaryDate());
+    }
+
     @Override
     public String toString() {
         return String.format("ID: %s Date: [%s] Content: %s",

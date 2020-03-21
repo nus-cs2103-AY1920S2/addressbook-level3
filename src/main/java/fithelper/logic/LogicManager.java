@@ -13,6 +13,7 @@ import fithelper.logic.parser.FitHelperParser;
 import fithelper.model.Model;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 import fithelper.storage.FitHelperStorage;
 
@@ -75,6 +76,11 @@ public class LogicManager implements Logic {
     @Override
     public ReadOnlyUserProfile getUserProfile() {
         return model.getUserProfile();
+    }
+
+    @Override
+    public ObservableList<Diary> getFilteredDiaryList() {
+        return model.getFilteredDiaryList();
     }
 
     @Override

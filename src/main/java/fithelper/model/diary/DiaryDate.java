@@ -14,6 +14,7 @@ public class DiaryDate {
     public static final String MESSAGE_ERROR =
             "Date conversion from strings has failed.";
 
+    public final String value;
     private LocalDate diaryDate;
 
     /**
@@ -21,15 +22,19 @@ public class DiaryDate {
      */
     public DiaryDate() {
         this.diaryDate = LocalDate.now();
+        this.value = this.diaryDate.toString();
     }
 
     /**
      * Constructs a {@code DiaryDate}.
      *
      * @param diaryDate diary Date.
+     * @param value
      */
-    public DiaryDate(LocalDate diaryDate) {
+    public DiaryDate(LocalDate diaryDate, String value) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.diaryDate = diaryDate;
+        this.value = diaryDate.format(formatter);
     }
 
     /**
@@ -42,14 +47,34 @@ public class DiaryDate {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(dateStr, formatter);
             this.diaryDate = date;
+            this.value = diaryDate.format(formatter);
         } catch (Exception e) {
             throw new ParseException(MESSAGE_ERROR);
         }
 
     }
 
+    /**
+     * Checks whether a date string is valid for LocalDate conversion.
+     * @param dateStr
+     * @return
+     */
+    public static boolean isValidDate(String dateStr) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse(dateStr, formatter);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public LocalDate getDiaryDate() {
         return diaryDate;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override

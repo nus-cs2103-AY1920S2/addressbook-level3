@@ -17,6 +17,7 @@ public class CliSyntaxUtil {
     public static final Prefix PREFIX_KEYWORD = new Prefix("k/");
 
     public static final Prefix PREFIX_DATE = new Prefix("d/");
+    public static final Prefix PREFIX_DIARYCONTENT = new Prefix("dc/");
     public static final Prefix PREFIX_DURATION = new Prefix("dr/");
 
     public static final Prefix PREFIX_ATTRIBUTE = new Prefix("attr/");

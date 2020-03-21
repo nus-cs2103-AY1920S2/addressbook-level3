@@ -101,6 +101,7 @@ public class CommandResult {
     public enum DisplayedPage {
         HOME,
         TODAY,
+        DIARY,
         CALENDAR,
         REPORT,
         PROFILE,
