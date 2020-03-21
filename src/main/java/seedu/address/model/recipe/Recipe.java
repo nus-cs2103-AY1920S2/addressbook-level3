@@ -22,19 +22,21 @@ public class Recipe {
     private final IngredientList ingredients;
     private final InstructionList instructions;
     private final Calorie calorie;
-
+    private final Serving serving;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Calorie calorie, Set<Tag> tags) {
+    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Calorie calorie,
+                Serving serving, Set<Tag> tags) {
         requireAllNonNull(name, ingredients, instructions);
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.calorie = calorie;
+        this.serving = serving;
         this.tags.addAll(tags);
     }
 
@@ -53,6 +55,10 @@ public class Recipe {
     public Calorie getCalorie() {
         return calorie;
     }
+
+    public Serving getServing() {
+        return serving;
+        }
 
     /**
      * Returns an immutable tag set, which throws
@@ -99,7 +105,7 @@ public class Recipe {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ingredients, instructions, calorie, tags);
+        return Objects.hash(name, ingredients, instructions, calorie, serving, tags);
     }
 
     @Override

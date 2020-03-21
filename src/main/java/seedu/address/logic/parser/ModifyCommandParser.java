@@ -2,10 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,7 +27,8 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
     public ModifyCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS, PREFIX_TAG,
+                        PREFIX_SERVING);
 
         Index index;
 
@@ -52,6 +50,11 @@ public class ModifyCommandParser implements Parser<ModifyCommand> {
             editRecipeDescriptor.setInstructions(
                     ParserUtil.parseInstructions(argMultimap.getValue(PREFIX_INSTRUCTIONS).get()));
         }
+        if (argMultimap.getValue(PREFIX_SERVING).isPresent()) {
+            editRecipeDescriptor.setServing(
+                    ParserUtil.parseServing(argMultimap.getValue(PREFIX_SERVING).get()));
+        }
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
         if (!editRecipeDescriptor.isAnyFieldEdited()) {

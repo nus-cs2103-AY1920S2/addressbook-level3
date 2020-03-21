@@ -14,6 +14,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.recipe.Calorie;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.Serving;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.InstructionList;
 import seedu.address.model.recipe.attribute.Tag;
@@ -29,6 +30,7 @@ class JsonAdaptedRecipe {
     private final String ingredients;
     private final String instructions;
     private final String calorie;
+    private final String serving;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -37,11 +39,12 @@ class JsonAdaptedRecipe {
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
             @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                             @JsonProperty("serving") String serving, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
         this.calorie = calorie;
+        this.serving = serving;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -55,6 +58,7 @@ class JsonAdaptedRecipe {
         ingredients = source.getIngredients().toString();
         instructions = source.getInstructions().toString();
         calorie = source.getCalorie().calorie;
+        serving = String.valueOf(source.getServing().serving);
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
@@ -98,7 +102,8 @@ class JsonAdaptedRecipe {
         final InstructionList modelInstructions = ParserUtil.parseInstructions(instructions);
 
         final Calorie modelCalorie = new Calorie(calorie);
+        final Serving modelServe = new Serving(serving);
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
-        return new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelTags);
+        return new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelServe, modelTags);
     }
 }

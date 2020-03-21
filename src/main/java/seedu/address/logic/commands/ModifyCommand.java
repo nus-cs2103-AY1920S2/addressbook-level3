@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
@@ -20,6 +21,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.Calorie;
+import seedu.address.model.recipe.Serving;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.attribute.IngredientList;
@@ -41,6 +43,7 @@ public class ModifyCommand extends Command {
             + "[" + PREFIX_INGREDIENTS + "INGREDIENTS] "
             + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
             + "[" + PREFIX_CALORIE + "CALORIES] "
+            + "[" + PREFIX_SERVING + "SERVING] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
@@ -98,9 +101,11 @@ public class ModifyCommand extends Command {
         InstructionList updatedInstructions =
                 editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
+        Serving updatedServing =  editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
-        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedTags);
+        return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,
+                updatedTags);
     }
 
     @Override
@@ -130,6 +135,7 @@ public class ModifyCommand extends Command {
         private IngredientList ingredients;
         private InstructionList instructions;
         private Calorie calorie;
+        private Serving serving;
         private Set<Tag> tags;
 
         public EditRecipeDescriptor() {
@@ -144,6 +150,7 @@ public class ModifyCommand extends Command {
             setIngredients(toCopy.ingredients);
             setInstructions(toCopy.instructions);
             setCalorie(toCopy.calorie);
+            setServing(toCopy.serving);
             setTags(toCopy.tags);
         }
 
@@ -186,6 +193,14 @@ public class ModifyCommand extends Command {
             return (calorie != null) ? Optional.of(calorie) : Optional.empty();
         }
 
+        public void setServing(Serving serving) {
+            this.serving = serving;
+        }
+
+        public Optional<Serving> getServing() {
+            return (serving != null) ? Optional.of(serving) : Optional.empty();
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -222,6 +237,7 @@ public class ModifyCommand extends Command {
                     && getIngredients().equals(e.getIngredients())
                     && getInstructions().equals(e.getInstructions())
                     && getCalorie().equals(e.getCalorie())
+                    && getServing().equals(e.getServing())
                     && getTags().equals(e.getTags());
         }
     }

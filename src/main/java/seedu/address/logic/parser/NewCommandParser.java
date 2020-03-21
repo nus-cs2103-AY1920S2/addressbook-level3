@@ -1,11 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Set;
 import java.util.stream.Stream;
@@ -13,6 +9,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.recipe.Calorie;
+import seedu.address.model.recipe.Serving;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.attribute.IngredientList;
@@ -40,7 +37,7 @@ public class NewCommandParser implements Parser<NewCommand> {
      */
     public NewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INGREDIENTS,
-                PREFIX_INSTRUCTIONS, PREFIX_CALORIE, PREFIX_TAG);
+                PREFIX_INSTRUCTIONS, PREFIX_CALORIE, PREFIX_SERVING, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INGREDIENTS, PREFIX_INSTRUCTIONS) || !argMultimap
                 .getPreamble().isEmpty()) {
@@ -51,9 +48,10 @@ public class NewCommandParser implements Parser<NewCommand> {
         IngredientList ingredients = ParserUtil.parseIngredients(argMultimap.getValue(PREFIX_INGREDIENTS).get());
         InstructionList instructions = ParserUtil.parseInstructions(argMultimap.getValue(PREFIX_INSTRUCTIONS).get());
         Calorie calorie = ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIE).orElse("0"));
+        Serving serving = ParserUtil.parseServing(argMultimap.getValue(PREFIX_SERVING).orElse("1"));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Recipe recipe = new Recipe(name, ingredients, instructions, calorie, tagList);
+        Recipe recipe = new Recipe(name, ingredients, instructions, calorie, serving, tagList);
 
         return new NewCommand(recipe);
     }
