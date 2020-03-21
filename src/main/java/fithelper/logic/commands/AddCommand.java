@@ -1,11 +1,6 @@
 package fithelper.logic.commands;
 
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_CALORIE;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_NAME;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_REMARK;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TIME;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
+import static fithelper.logic.parser.CliSyntaxUtil.*;
 import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.exceptions.IllegalValueException;
@@ -27,6 +22,7 @@ public class AddCommand extends Command {
             + PREFIX_TIME + "TIME "
             + PREFIX_LOCATION + "LOCATION "
             + PREFIX_CALORIE + "CALORIE "
+            + "[" + PREFIX_DURATION + "DURATION "
             + "[" + PREFIX_REMARK + "REMARK]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TYPE + "food"
@@ -34,7 +30,8 @@ public class AddCommand extends Command {
             + PREFIX_TIME + "2020-03-01 15:30"
             + PREFIX_LOCATION + "Utown canteen"
             + PREFIX_CALORIE + "100.5"
-            + PREFIX_REMARK + "too expensive";
+            + PREFIX_REMARK + "too expensive"
+            + PREFIX_DURATION + "1";
 
     public static final String MESSAGE_SUCCESS = "New Entry added: %1$s";
     public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in FitHelper";

@@ -30,13 +30,13 @@ public class CalorieCalculatorByDateRange {
         HashMap<LocalDate, Double> calories = new HashMap<>();
         for (Entry entry: filteredList) {
             if (calories.containsKey(entry.getDate())) {
-                if (entry.getType().toString().equals("food")) {
+                if (entry.isFood()) {
                     calories.put(entry.getDate(), calories.get(entry.getDate()) + entry.getCalorieValue());
                 } else {
                     calories.put(entry.getDate(), calories.get(entry.getDate()) - entry.getCalorieValue());
                 }
             } else {
-                if (entry.getType().toString().equals("food")) {
+                if (entry.isFood()) {
                     calories.put(entry.getDate(), entry.getCalorieValue());
                 } else {
                     calories.put(entry.getDate(), -entry.getCalorieValue());
@@ -53,13 +53,13 @@ public class CalorieCalculatorByDateRange {
         ArrayList<Entry> filteredList = new ArrayList<>();
         for (Entry entry: sportsList) {
             LocalDate date = entry.getDate();
-            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.getStatus().toString().equals("Done")) {
+            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.isDone()) {
                 filteredList.add(entry);
             }
         }
         for (Entry entry: foodList) {
             LocalDate date = entry.getDate();
-            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.getStatus().toString().equals("Done")) {
+            if (!date.isBefore(startDate) && !date.isAfter(endDate) && entry.isDone()) {
                 filteredList.add(entry);
             }
         }

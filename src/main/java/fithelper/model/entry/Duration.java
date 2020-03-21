@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Duration {
 
-    public static final String MESSAGE_CONSTRAINTS = "Duration can only be greater than or equals to 1 (hrs)";
+    public static final String MESSAGE_CONSTRAINTS = "Duration can only be greater than or equals to 0 (hrs)";
 
     /*
      * The first character of the entry name must not be a whitespace,
@@ -36,8 +36,8 @@ public class Duration {
     public static boolean isValidDuration(String test) {
         boolean isValid;
         try {
-            long temp = Long.parseLong(test);
-            if (temp >= 1) {
+            double temp = Double.parseDouble(test);
+            if (temp >= 0) {
                 if (test.matches(VALIDATION_REGEX)) {
                     isValid = true;
                 } else {
@@ -46,12 +46,11 @@ public class Duration {
             } else {
                 isValid = false;
             }
-        } catch (NumberFormatException nfe) {
+        } catch (NumberFormatException e) {
             isValid = false;
         }
         return isValid;
     }
-
 
     @Override
     public String toString() {
@@ -59,7 +58,22 @@ public class Duration {
     }
 
     public long getHours() {
-        return Long.parseLong(value);
+        long hours = 0;
+        hours = (long)Double.parseDouble(value);
+        return hours;
+    }
+
+    public long getMinutes() {
+        int indexOfDecimal = value.indexOf(".");
+        if (indexOfDecimal < 0) {
+            return 0;
+        }
+        Double minutes = Double.parseDouble(value.substring((indexOfDecimal)));
+        return (long)(60 * minutes);
+    }
+
+    public String getValue() {
+        return this.value;
     }
 
     @Override
