@@ -91,7 +91,7 @@ public class ParserUtil {
         requireNonNull(dateStr);
         String trimmedDate = dateStr.trim();
         if (!DiaryDate.isValidDate(trimmedDate)) {
-            throw new ParseException(Time.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DiaryDate.MESSAGE_ERROR);
         }
         return new DiaryDate(trimmedDate);
     }

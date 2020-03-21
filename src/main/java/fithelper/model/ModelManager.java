@@ -133,7 +133,7 @@ public class ModelManager implements Model {
      * @param editedDiary
      */
     @Override
-    public void setDiary(Diary target, Diary editedDiary) {
+    public void setDiary(String target, Diary editedDiary) {
         requireAllNonNull(target, editedDiary);
         fitHelper.setDiary(target, editedDiary);
     }

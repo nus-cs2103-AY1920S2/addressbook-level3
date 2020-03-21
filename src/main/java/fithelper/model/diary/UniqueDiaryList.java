@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import fithelper.model.diary.exceptions.DuplicateDiaryException;
 import fithelper.model.diary.exceptions.DiaryNotFoundException;
@@ -36,16 +37,45 @@ public class UniqueDiaryList implements Iterable<Diary> {
         return internalList.stream().anyMatch(toCheck::isSameDiary);
     }
 
+
+    /**
+     * Returns true if the list contains an equivalent diary as the given argument.
+     */
+    public boolean containsDate(ObservableList<Diary> list, String toCheck) {
+        requireNonNull(toCheck);
+        List<Diary> tempList = internalList.stream().collect(Collectors.toList());
+        for (Diary diary: internalList) {
+            if (diary.getDiaryDate().toString().equalsIgnoreCase(toCheck)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Adds an diary to the list.
      * The diary must not already exist in the list.
      */
     public void add(Diary toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateDiaryException();
+        if (containsDate(this.internalList, toAdd.getDiaryDate().toString())) {
+            int oldIndex = getIndex(internalList, toAdd.getDiaryDate().toString());
+            internalList.set(oldIndex, toAdd);
+        } else {
+            internalList.add(toAdd);
         }
-        internalList.add(toAdd);
+    }
+
+    public int getIndex(ObservableList<Diary> internalList, String dateStr) {
+        requireNonNull(dateStr);
+        List<Diary> tempList = internalList.stream().collect(Collectors.toList());
+        for (int i = 0; i < tempList.size(); i++) {
+            Diary thisDiary = tempList.get(i);
+            if (thisDiary.getDiaryDate().toString().equalsIgnoreCase(dateStr)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     /**
@@ -53,18 +83,13 @@ public class UniqueDiaryList implements Iterable<Diary> {
      * {@code target} must exist in the list.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the list.
      */
-    public void setDiary(Diary target, Diary editedDiary) {
+    public void setDiary(String target, Diary editedDiary) {
         requireAllNonNull(target, editedDiary);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new DiaryNotFoundException();
+        if (!containsDate(internalList, target)) {
+            add(editedDiary);
         }
-
-        if (!target.isSameDiary(editedDiary) && contains(editedDiary)) {
-            throw new DuplicateDiaryException();
-        }
-        internalList.set(index, editedDiary);
+        internalList.remove(target);
+        internalList.add(editedDiary);
     }
 
     /**
@@ -93,6 +118,20 @@ public class UniqueDiaryList implements Iterable<Diary> {
         if (!internalList.remove(toRemove)) {
             throw new DiaryNotFoundException();
         }
+    }
+
+    public void remove(String dateStr) {
+        requireNonNull(dateStr);
+        int oldIndex = 0;
+        List<Diary> tempList = internalList.stream().collect(Collectors.toList());
+        for (int i = 0; i < tempList.size(); i++) {
+            if (tempList.get(i).getDiaryDate().toString().equalsIgnoreCase(dateStr)) {
+                oldIndex = i;
+                break;
+            }
+        }
+        Diary toRemove = internalList.get(oldIndex);
+        internalList.remove(toRemove);
     }
 
     /**

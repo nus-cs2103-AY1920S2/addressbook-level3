@@ -109,7 +109,7 @@ public class FitHelper implements ReadOnlyFitHelper {
      * {@code target} must exist in the log book.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the log book.
      */
-    public void setDiary(Diary target, Diary editedDiary) {
+    public void setDiary(String target, Diary editedDiary) {
         requireNonNull(editedDiary);
         diaries.setDiary(target, editedDiary);
     }

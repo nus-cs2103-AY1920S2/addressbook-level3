@@ -80,7 +80,7 @@ public interface Model {
      * {@code target} must exist in the log book.
      * The diary identity of {@code editedDiary} must not be the same as another existing diary in the log book.
      */
-    void setDiary(Diary target, Diary editedDiary);
+    void setDiary(String target, Diary editedDiary);
 
     /**
      * Replaces the given entry {@code target} with {@code editedEntry}.

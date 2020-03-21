@@ -16,7 +16,7 @@ import fithelper.model.diary.Diary;
  */
 public class AddDiaryCommand extends Command {
 
-    public static final String COMMAND_WORD = "diary";
+    public static final String COMMAND_WORD = "addDiary";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a diary to FitHelper. "
             + "Parameters: "

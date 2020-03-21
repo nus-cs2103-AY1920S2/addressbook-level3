@@ -62,8 +62,7 @@ public class Diary {
         }
 
         return anotherDiary != null
-                && anotherDiary.getDiaryDate().equals(getDiaryDate())
-                && (anotherDiary.getContent().equals(getContent()));
+                && anotherDiary.getDiaryDate().equals(getDiaryDate());
     }
 
     @Override
