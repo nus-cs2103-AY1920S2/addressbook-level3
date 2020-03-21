@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-        <?import javafx.scene.control.ListView?>
-        <?import javafx.scene.layout.VBox?>
-        <?import javafx.scene.Scene?>
-        <?import javafx.stage.Stage?>
-<fx:root resizable="false" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-<scene>
-    <Scene>
-        <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600" prefWidth="600">
-            <ListView fx:id="couponListView" VBox.vgrow="ALWAYS" />
-        </VBox>
-    </Scene>
-</scene>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
+<?import javafx.stage.Stage?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+<fx:root resizable="false" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
+            <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600"
+                  prefWidth="600" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets bottom="10" left="10" right="10" top="10"/>
+                </padding>
+                <StackPane fx:id="couponListPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>

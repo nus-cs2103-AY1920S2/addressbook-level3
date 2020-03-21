@@ -9,8 +9,8 @@ import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -22,32 +22,38 @@ public class CouponsOnDateWindow extends UiPart<Stage> {
 
     private Stage root;
     private LocalDate date;
+    private CouponListPanel couponList;
+    private ObservableList<Coupon> coupons;
+    private String moneySymbol;
 
     @FXML
-    private ListView<Coupon> couponListView;
+    private StackPane couponListPlaceholder;
 
     /**
      * Creates a new {@code CouponsOnDateWindow}.
      *
      * @param root Stage to use as the root of the {@code CouponsOnDateWindow}.
      */
-    public CouponsOnDateWindow(Stage root) {
+    public CouponsOnDateWindow(Stage root, ObservableList<Coupon> coupons, String moneySymbol) {
         super(FXML, root);
         this.root = root;
+        this.coupons = coupons;
+        this.moneySymbol = moneySymbol;
+
+        couponList = new CouponListPanel(coupons, moneySymbol);
+        couponListPlaceholder.getChildren().add(couponList.getRoot());
     }
 
     /**
      * Creates a new {@code CouponsOnDateWindow}.
      */
-    public CouponsOnDateWindow(ObservableList<Coupon> coupons) {
-        this(new Stage());
-        couponListView.setItems(coupons);
-        couponListView.setCellFactory(listView -> new CouponListViewCell());
+    public CouponsOnDateWindow(ObservableList<Coupon> coupons, String moneySymbol) {
+        this(new Stage(), coupons, moneySymbol);
     }
-
 
     /**
      * Sets the date to the specified {@LocalDate}.
+     *
      * @param date The specified {@LocalDate}.
      */
     public void setDate(LocalDate date) {
@@ -57,6 +63,7 @@ public class CouponsOnDateWindow extends UiPart<Stage> {
 
     /**
      * Returns the title of the window of the date.
+     *
      * @return Title of the window of the date.
      */
     private String getWindowTitle() {
@@ -66,38 +73,7 @@ public class CouponsOnDateWindow extends UiPart<Stage> {
     }
 
     /**
-     * {@code ListCell} that displays the {@code Coupon} using a {@code CouponCard}.
-     */
-    class CouponListViewCell extends ListCell<Coupon> {
-        @Override
-        protected void updateItem(Coupon coupon, boolean empty) {
-            super.updateItem(coupon, empty);
-            if (empty || coupon == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new CouponCard(coupon, getIndex() + 1, "$").getRoot());
-            }
-        }
-    }
-
-    /**
      * Shows the display window for the date.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
      */
     public void show() {
         logger.fine("Showing coupons display window.");

@@ -36,7 +36,7 @@ public class CouponListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Coupon} using a {@code CouponCard}.
      */
     class CouponListViewCell extends ListCell<Coupon> {
-        private final String moneySymbol;
+            private final String moneySymbol;
 
         /**
          * Constructor for a new CouponListViewCell.

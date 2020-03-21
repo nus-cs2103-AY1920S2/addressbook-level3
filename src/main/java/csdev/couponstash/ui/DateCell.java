@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,7 +37,7 @@ public class DateCell extends UiPart<Stage> {
     public DateCell() {
         super(FXML);
         coupons = FXCollections.observableList(new ArrayList<>());
-        couponsDisplayWindow = new CouponsOnDateWindow(coupons);
+        couponsDisplayWindow = new CouponsOnDateWindow(coupons, "$");
         logger.info("Initializing new DateCell.");
     }
 

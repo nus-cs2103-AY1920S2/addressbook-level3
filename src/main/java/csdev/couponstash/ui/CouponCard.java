@@ -72,7 +72,9 @@ public class CouponCard extends UiPart<Region> {
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
     }
+
 
     @Override
     public boolean equals(Object other) {
