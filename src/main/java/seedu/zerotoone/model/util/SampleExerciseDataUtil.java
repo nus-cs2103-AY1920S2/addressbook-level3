@@ -14,7 +14,7 @@ import seedu.zerotoone.model.exercise.Weight;
 /**
  * Contains utility methods for populating {@code ExerciseList} with sample data.
  */
-public class SampleDataUtil {
+public class SampleExerciseDataUtil {
     public static Exercise[] getSampleExercises() {
         Exercise[] exercises = new Exercise[3];
 

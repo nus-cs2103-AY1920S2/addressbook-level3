@@ -21,7 +21,7 @@ import seedu.zerotoone.model.exercise.ExerciseList;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
-import seedu.zerotoone.model.util.SampleDataUtil;
+import seedu.zerotoone.model.util.SampleExerciseDataUtil;
 import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
@@ -86,7 +86,7 @@ public class MainApp extends Application {
             if (!exerciseListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ExerciseList");
             }
-            initialExerciseListData = exerciseListOptional.orElseGet(SampleDataUtil::getSampleExerciseList);
+            initialExerciseListData = exerciseListOptional.orElseGet(SampleExerciseDataUtil::getSampleExerciseList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ExerciseList");
             initialExerciseListData = new ExerciseList();
