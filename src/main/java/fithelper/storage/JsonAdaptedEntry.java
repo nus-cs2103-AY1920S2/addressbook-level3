@@ -65,7 +65,7 @@ class JsonAdaptedEntry {
         calorie = source.getCalorie().toString();
         status = source.getStatus().value;
         remark = source.getRemark().value;
-        duration = source.getDuration();
+        duration = source.getDuration().value;
     }
 
     /**

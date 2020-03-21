@@ -2,14 +2,7 @@ package fithelper.logic.parser;
 
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_CALORIE;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_INDEX;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_NAME;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_REMARK;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_STATUS;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TIME;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
+import static fithelper.logic.parser.CliSyntaxUtil.*;
 import static java.util.Objects.requireNonNull;
 
 import java.util.stream.Stream;
@@ -35,7 +28,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
-                        PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK, PREFIX_INDEX);
+                        PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK, PREFIX_INDEX, PREFIX_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -56,6 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         setCalorie();
         setStatus();
         setRemark();
+        setDuration();
 
         if (!editEntryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -72,7 +66,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public void parsePrint(String args) throws ParseException {
         requireNonNull(args);
         argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TYPE, PREFIX_NAME, PREFIX_TIME, PREFIX_LOCATION,
-                PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK, PREFIX_INDEX);
+                PREFIX_CALORIE, PREFIX_STATUS, PREFIX_REMARK, PREFIX_INDEX, PREFIX_DURATION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -94,6 +88,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         setCalorie();
         setStatus();
         setRemark();
+        setDuration();
 
         if (!editEntryDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -135,6 +130,12 @@ public class EditCommandParser implements Parser<EditCommand> {
     public void setRemark() throws ParseException {
         if (argMultimap.getValue(PREFIX_REMARK).isPresent()) {
             editEntryDescriptor.setRemark(ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get()));
+        }
+    }
+
+    public void setDuration() throws ParseException {
+        if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
+            editEntryDescriptor.setDuration(ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get()));
         }
     }
 
