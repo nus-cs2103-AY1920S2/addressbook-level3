@@ -29,7 +29,7 @@ public class StorageManagerTest {
         ExerciseListStorageManager exerciseListStorage = new ExerciseListStorageManager(
                 getTempFilePath("exerciselist"));
         UserPrefsStorageManager userPrefsStorage = new UserPrefsStorageManager(getTempFilePath("prefs"));
-        storageManager = new StorageManager(exerciseListStorage, userPrefsStorage);
+        storageManager = new StorageManager(userPrefsStorage, exerciseListStorage);
     }
 
     private Path getTempFilePath(String fileName) {

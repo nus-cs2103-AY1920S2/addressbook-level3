@@ -24,7 +24,7 @@ import seedu.zerotoone.model.userprefs.UserPrefs;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
+    private Model model = new ModelManager(new UserPrefs(), getTypicalExerciseList());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +34,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete.getExerciseName());
 
-        ModelManager expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList());
         expectedModel.deleteExercise(exerciseToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -58,7 +58,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXERCISE_SUCCESS,
                 exerciseToDelete.getExerciseName());
 
-        Model expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
+        Model expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList());
         expectedModel.deleteExercise(exerciseToDelete);
         showNoExercise(expectedModel);
 

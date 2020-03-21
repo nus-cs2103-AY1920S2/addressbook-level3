@@ -24,7 +24,7 @@ public class CreateCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExerciseList(), new UserPrefs());
+        model = new ModelManager(new UserPrefs(), getTypicalExerciseList());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class CreateCommandIntegrationTest {
         Exercise validExercise = new ExerciseBuilder()
                 .withExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS).build();
 
-        Model expectedModel = new ModelManager(model.getExerciseList(), new UserPrefs());
+        Model expectedModel = new ModelManager(new UserPrefs(), model.getExerciseList());
         expectedModel.addExercise(validExercise);
 
         CreateCommand command = new CreateCommand(new ExerciseName(VALID_EXERCISE_NAME_OVERHEAD_PRESS));

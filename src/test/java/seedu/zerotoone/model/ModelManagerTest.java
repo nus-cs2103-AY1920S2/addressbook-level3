@@ -101,8 +101,8 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(exerciseList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(exerciseList, userPrefs);
+        modelManager = new ModelManager(userPrefs, exerciseList);
+        ModelManager modelManagerCopy = new ModelManager(userPrefs, exerciseList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -115,12 +115,12 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different exerciseList -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExerciseList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(userPrefs, differentExerciseList)));
 
         // different filteredList -> returns false
         String keyword = BENCH_PRESS.getExerciseName().fullName;
         modelManager.updateFilteredExerciseList(new PredicateFilterExerciseName(keyword));
-        assertFalse(modelManager.equals(new ModelManager(exerciseList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(userPrefs, exerciseList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
@@ -128,6 +128,6 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExerciseListFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(exerciseList, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentUserPrefs, exerciseList)));
     }
 }

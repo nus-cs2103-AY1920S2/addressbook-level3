@@ -40,7 +40,7 @@ public class LogicManagerTest {
                 new ExerciseListStorageManager(temporaryFolder.resolve("exerciseList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(exerciseListStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -64,7 +64,7 @@ public class LogicManagerTest {
                 new JsonExerciseListIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionExerciseList.json"));
         UserPrefsStorageManager userPrefsStorage =
                 new UserPrefsStorageManager(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(exerciseListStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, exerciseListStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
