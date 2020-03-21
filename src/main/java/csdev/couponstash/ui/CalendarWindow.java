@@ -3,6 +3,7 @@ package csdev.couponstash.ui;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,17 +27,17 @@ public class CalendarWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the CalendarWindow.
      */
-    public CalendarWindow(Stage root, ObservableList<Coupon> coupons) {
+    public CalendarWindow(Stage root, ObservableList<Coupon> coupons, Logic logic) {
         super(FXML, root);
-        calendarPane = new CalendarPane(coupons);
+        calendarPane = new CalendarPane(coupons, logic);
         calendarPanePlaceholder.getChildren().add(calendarPane.getRoot());
     }
 
     /**
      * Creates a new CalendarWindow.
      */
-    public CalendarWindow(ObservableList<Coupon> coupons) {
-        this(new Stage(), coupons);
+    public CalendarWindow(ObservableList<Coupon> coupons, Logic logic) {
+        this(new Stage(), coupons, logic);
     }
 
 

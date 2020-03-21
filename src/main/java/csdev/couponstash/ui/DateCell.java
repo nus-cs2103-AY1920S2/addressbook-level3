@@ -5,19 +5,20 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * An UI component that displays information of a calendar date in the calendar.
  */
-public class DateCell extends UiPart<Stage> {
+public class DateCell extends UiPart<Region> {
     private static final String FXML = "DateCell.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -26,6 +27,7 @@ public class DateCell extends UiPart<Stage> {
     private CouponsOnDateWindow couponsDisplayWindow;
     private Text displayText;
     private Circle displayCircle;
+    private Logic logic;
 
     @FXML
     private StackPane dateStackPane;
@@ -33,10 +35,11 @@ public class DateCell extends UiPart<Stage> {
     /**
      * Constructs a calendar date cell.
      */
-    public DateCell() {
+    public DateCell(Logic logic) {
         super(FXML);
+        this.logic = logic;
         coupons = FXCollections.observableList(new ArrayList<>());
-        couponsDisplayWindow = new CouponsOnDateWindow(coupons, "$");
+        couponsDisplayWindow = new CouponsOnDateWindow(coupons, logic.getStashSettings().getMoneySymbol());
         logger.info("Initializing new DateCell.");
     }
 
@@ -117,11 +120,12 @@ public class DateCell extends UiPart<Stage> {
      */
     @FXML
     public void displayCoupons() {
-        if (!couponsDisplayWindow.isShowing()) {
+        if(coupons.isEmpty()) {
+
+        } else if (!couponsDisplayWindow.isShowing()) {
             couponsDisplayWindow.show();
         } else {
             couponsDisplayWindow.focus();
         }
     }
-
 }

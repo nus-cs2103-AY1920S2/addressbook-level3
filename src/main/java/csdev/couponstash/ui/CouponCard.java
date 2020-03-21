@@ -50,20 +50,21 @@ public class CouponCard extends UiPart<Region> {
     /**
      * Constructor for a new CouponCard to be shown
      * in the JavaFX GUI.
-     * @param coupon The Coupon that is shown in
-     *               this CouponCard.
+     *
+     * @param coupon         The Coupon that is shown in
+     *                       this CouponCard.
      * @param displayedIndex The index of this Coupon
      *                       in the displayed list.
-     * @param moneySymbol String representing the money
-     *                    symbol to be used for savings
-     *                    (saved in UserPrefs).
+     * @param moneySymbol    String representing the money
+     *                       symbol to be used for savings
+     *                       (saved in UserPrefs).
      */
     public CouponCard(Coupon coupon, int displayedIndex, String moneySymbol) {
         super(FXML);
         this.coupon = coupon;
         id.setText(displayedIndex + ". ");
         name.setText(coupon.getName().fullName);
-        promoCode.setText("Promo Code: " + coupon.getPromoCode());
+//        promoCode.setText("Promo Code: " + coupon.getPromoCode());
         savings.setText(coupon.getSavingsForEachUse().getStringWithMoneySymbol(moneySymbol));
         expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
         startDate.setText("Start Date: " + coupon.getStartDate().value);
@@ -72,7 +73,6 @@ public class CouponCard extends UiPart<Region> {
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-
     }
 
 

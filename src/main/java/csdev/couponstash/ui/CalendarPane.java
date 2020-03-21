@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.exceptions.IllegalValueException;
 import csdev.couponstash.commons.util.DateUtil;
+import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -37,6 +38,7 @@ public class CalendarPane extends UiPart<Region> {
     private ArrayList<DateCell> dateCells;
     private YearMonth currentYearMonth;
     private ObservableList<Coupon> coupons;
+    private Logic logic;
 
     @FXML
     private Text calendarPaneHeader;
@@ -51,12 +53,13 @@ public class CalendarPane extends UiPart<Region> {
      * Creates a new CalendarPane.
      *
      */
-    public CalendarPane(ObservableList<Coupon> coupons) {
+    public CalendarPane(ObservableList<Coupon> coupons, Logic logic) {
         super(FXML);
         calendarPaneHeader.setText(LocalDate.now().format(DATE_FORMATTER));
         currentYearMonth = YearMonth.now();
         dateCells = new ArrayList<>();
         this.coupons = coupons;
+        this.logic = logic;
         coupons.addListener((ListChangeListener<? super Coupon>) change -> fillUpCalendar());
         initializeUi();
         fillUpCalendar();
@@ -68,7 +71,7 @@ public class CalendarPane extends UiPart<Region> {
     private void initializeUi() {
         for (int i = 0; i < MAX_NUMBER_OF_WEEKS_TO_SHOW_PER_MONTH; i++) {
             for (int j = 0; j < NUMBER_OF_DAYS_IN_A_WEEK; j++) {
-                DateCell dateCell = new DateCell();
+                DateCell dateCell = new DateCell(logic);
                 dateCells.add(dateCell);
                 StackPane calendarDateStackPane = dateCell.getCalendarDateStackPane();
                 calendarGrid.add(calendarDateStackPane, j, i);

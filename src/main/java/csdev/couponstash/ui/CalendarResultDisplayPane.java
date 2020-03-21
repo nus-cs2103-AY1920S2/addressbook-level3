@@ -2,6 +2,7 @@ package csdev.couponstash.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import csdev.couponstash.logic.Logic;
 import csdev.couponstash.model.coupon.Coupon;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ public class CalendarResultDisplayPane extends UiPart<Region> {
     private CalendarPane calendarPane;
     private ResultDisplay resultDisplay;
     private ObservableList<Coupon> coupons;
+    private Logic logic;
 
     @FXML
     private StackPane calendarPanePlaceholder;
@@ -26,16 +28,17 @@ public class CalendarResultDisplayPane extends UiPart<Region> {
     @FXML
     private StackPane resultDisplayPlaceholder;
 
-    public CalendarResultDisplayPane(ObservableList<Coupon> coupons) {
+    public CalendarResultDisplayPane(ObservableList<Coupon> coupons, Logic logic) {
         super(FXML);
         this.coupons = coupons;
+        this.logic = logic;
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        calendarPane = new CalendarPane(coupons);
+        calendarPane = new CalendarPane(coupons, logic);
         calendarPanePlaceholder.getChildren().add(calendarPane.getRoot());
         calendarPanePlaceholder.setAlignment(Pos.TOP_RIGHT);
 
