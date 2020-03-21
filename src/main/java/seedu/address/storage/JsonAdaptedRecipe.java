@@ -86,8 +86,6 @@ class JsonAdaptedRecipe {
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().fullName;
         time = source.getTime().value;
-<<<<<<< HEAD
-        isFavourite = source.getFavouriteStatus();
         grains.addAll(source.getGrains().stream()
                 .map(JsonAdaptedGrain::new)
                 .collect(Collectors.toList()));
@@ -102,12 +100,8 @@ class JsonAdaptedRecipe {
                 .collect(Collectors.toList()));
         others.addAll(source.getOthers().stream()
                 .map(JsonAdaptedOther::new)
-=======
-        isFavourite = source.isFavourite();
-        ingredients.addAll(source.getIngredients().stream()
-                .map(JsonAdaptedIngredient::new)
->>>>>>> master
                 .collect(Collectors.toList()));
+        isFavourite = source.isFavourite();
         steps.addAll(source.getSteps().stream()
                 .map(JsonAdaptedStep::new).collect(Collectors.toList()));
         goals.addAll(source.getGoals().stream()
