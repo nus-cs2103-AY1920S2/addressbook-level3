@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.commands.Command;
@@ -37,7 +36,7 @@ public class OpenCommandParser implements CommandParser {
         List<Command> openCommandList = new ArrayList<>();
 
         try {
-            Path path = RelativePath.fromString(titles);
+            RelativePath path = RelativePath.fromString(titles);
             openCommandList.add(new OpenCommand(path));
             return openCommandList;
         } catch (InvalidPathException ex) {

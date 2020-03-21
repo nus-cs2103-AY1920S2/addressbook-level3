@@ -3,6 +3,7 @@ package com.notably.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import com.notably.logic.commands.Command;
@@ -23,7 +24,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInputJump_false() throws Exception {
-        List<Command> commands =  parser.parseCommand("new -t CS2103 -b Hi");
+        List<Command> commands = parser.parseCommand("new -t CS2103 -b Hi");
 
         assertTrue(commands.size() == 1);
     }
