@@ -48,10 +48,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         ModuleCode moduleCode = new ModuleCode(moduleCodeString);
         Module module = ModuleManager.getModule(moduleCode);
 
-        // Create Personal object
-        Personal personal = new Personal();
-        module.setPersonal(personal);
-
         // Get Semester
         String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
         if (!ParserUtil.isInteger(semester)) {
@@ -107,6 +103,10 @@ public class AddCommandParser implements Parser<AddCommand> {
             return new AddCommand(existingModule, true);
 
         } else { // Module does not exist
+
+            // Create Personal object
+            Personal personal = new Personal();
+            module.setPersonal(personal);
 
             // Add tasks to deadlinelist
             DeadlineList deadlineList = personal.getDeadlineList();
