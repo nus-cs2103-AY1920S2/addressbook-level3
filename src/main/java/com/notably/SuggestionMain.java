@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.logic.suggestion.commands.OpenSuggestionCommand;
@@ -38,7 +37,7 @@ public class SuggestionMain {
             String[] inputs = input.split(" ");
             String command = inputs[0];
             String pathName = inputs[1];
-            Path path = AbsolutePath.fromString(pathName);
+            AbsolutePath path = AbsolutePath.fromString(pathName);
             SuggestionCommand suggestionCommand = null;
 
             if (command.equalsIgnoreCase("open")) {
