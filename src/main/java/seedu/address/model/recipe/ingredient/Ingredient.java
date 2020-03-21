@@ -3,10 +3,11 @@ package seedu.address.model.recipe.ingredient;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
 /**
  * Represents an Ingredient in the recipe book.
  */
-
 public abstract class Ingredient implements Comparable<Ingredient> {
 
     public static final String MESSAGE_CONSTRAINTS = "Ingredient names should contain only "
@@ -27,6 +28,13 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     }
 
     /**
+     * Overloaded Ingredient constructor for the purpose of filtering by ingredient name.
+     */
+    public Ingredient(String ingredientName) {
+        this.ingredientName = ingredientName;
+    }
+
+    /**
      * Returns true if a given string is a valid ingredient name.
      */
     public static boolean isValidIngredientName(String test) {
@@ -35,10 +43,6 @@ public abstract class Ingredient implements Comparable<Ingredient> {
 
     public Quantity getQuantity() {
         return quantity;
-    }
-
-    public String getName() {
-        return ingredientName;
     }
 
     public String getIngredientName() {
@@ -59,6 +63,11 @@ public abstract class Ingredient implements Comparable<Ingredient> {
                 || (other instanceof Ingredient // instanceof handles nulls
                 && ingredientName.equals(((Ingredient) other).getIngredientName()) // state check
                 && quantity == ((Ingredient) other).getQuantity()); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ingredientName, quantity);
     }
 
     @Override
