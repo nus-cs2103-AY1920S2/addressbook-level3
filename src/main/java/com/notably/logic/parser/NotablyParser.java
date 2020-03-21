@@ -19,9 +19,9 @@ public class NotablyParser {
 
     /**
      * Create list of different Commands base on user input.
-     * @param userInput
-     * @return
-     * @throws ParseException
+     * @param userInput supplied by the user.
+     * @return list of commands.
+     * @throws ParseException when there is a invalid input string.
      */
     public List<Command> parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());

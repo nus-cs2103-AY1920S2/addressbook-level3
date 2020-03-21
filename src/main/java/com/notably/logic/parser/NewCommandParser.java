@@ -26,9 +26,9 @@ public class NewCommandParser implements CommandParser {
 
     /**
      * TODO: integrate with CorrectionEngine.
-     * Parse input and create NewCommand.
+     * Parse input and create NewCommand and OpenCommand.
      * @param args parse userInput used to create block.
-     * @return NewCommand
+     * @return List of command to execute.
      * @throws ParseException when input is invalid.
      */
     public List<Command> parse(String args) throws ParseException {

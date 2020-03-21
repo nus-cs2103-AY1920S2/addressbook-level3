@@ -21,8 +21,8 @@ public class OpenCommandParser implements CommandParser {
     /**
      * TODO: integrate with CorrectionEngine.
      * Creates OpenCommand with user input.
-     * @param args to be parse by into CorrectionEngine
-     * @return OpenCammnd
+     * @param args to be parse by into CorrectionEngine.
+     * @return List of command containing OpenCammnd.
      * @throws ParseException
      */
     public List<Command> parse(String args) throws ParseException {
