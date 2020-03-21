@@ -183,8 +183,7 @@ public class ModifyCommand extends Command {
         }
 
         public Optional<Calorie> getCalorie() {
-            return (calorie != null) ? Optional.of(calorie) : Optional.empty(); //tried !calorie.equals("0)
-            //            return Optional.ofNullable(calorie);
+            return (calorie != null) ? Optional.of(calorie) : Optional.empty();
         }
 
         /**
