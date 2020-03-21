@@ -70,14 +70,15 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s ZeroToOne storage and {@code userPrefs}. <br>
-     * The data from the sample ZeroToOne storage will be used instead if {@code storage}'s ZeroToOne storage is not found,
-     * or an empty ZeroToOne storage will be used instead if errors occur when reading {@code storage}'s ZeroToOne storage.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s ZeroToOne storage
+     * and {@code userPrefs}. <br> The data from the sample ZeroToOne storage will
+     * be used instead if {@code storage}'s ZeroToOne storage is not found, or an empty ZeroToOne
+     * storage will be used instead if errors occur when reading {@code storage}'s ZeroToOne storage.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyExerciseList> exerciseListOptional;
         ReadOnlyExerciseList initialExerciseListData;
-        
+
         // -----------------------------------------------------------------------------------------
         // Exercise List
         try {

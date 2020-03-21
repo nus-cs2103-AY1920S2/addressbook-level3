@@ -17,8 +17,8 @@ import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 
 public class UserPrefsStorageManagerTest {
-
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "common", "UserPrefsStorageManagerTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "common",
+            "UserPrefsStorageManagerTest");
 
     @TempDir
     public Path testFolder;

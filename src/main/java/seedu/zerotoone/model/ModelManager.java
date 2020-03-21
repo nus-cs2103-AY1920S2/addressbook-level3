@@ -80,7 +80,7 @@ public class ModelManager implements Model {
         requireNonNull(exerciseListFilePath);
         userPrefs.setExerciseListFilePath(exerciseListFilePath);
     }
-    
+
     @Override
     public void setExerciseList(ReadOnlyExerciseList exerciseList) {
         this.exerciseList.resetData(exerciseList);
