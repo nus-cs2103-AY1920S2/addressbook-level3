@@ -45,7 +45,8 @@ public class RecipeMatchesKeywordsPredicate implements Predicate<Recipe> {
         return other == this // short circuit if same object
                 || (other instanceof RecipeMatchesKeywordsPredicate // instanceof handles nulls
                 && time.equals(((RecipeMatchesKeywordsPredicate) other).time)
-                && goals.equals(((RecipeMatchesKeywordsPredicate) other).goals)); // state check
+                && goals.equals(((RecipeMatchesKeywordsPredicate) other).goals)
+                && favourites == ((RecipeMatchesKeywordsPredicate) other).favourites); // state check
     }
 
 }
