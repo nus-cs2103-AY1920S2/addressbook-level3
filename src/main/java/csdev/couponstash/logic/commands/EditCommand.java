@@ -14,7 +14,14 @@ import csdev.couponstash.commons.util.CollectionUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
-import csdev.couponstash.model.coupon.*;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.RemindDate;
+import csdev.couponstash.model.coupon.StartDate;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 

@@ -1,5 +1,24 @@
 package csdev.couponstash.testutil;
 
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PROMO_CODE_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PROMO_CODE_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_REMIND_DATE_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_REMIND_DATE_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_SAVINGS_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_SAVINGS_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_START_DATE_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_START_DATE_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_USAGE_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_USAGE_BOB;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,8 +30,6 @@ import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
-
-import static csdev.couponstash.logic.commands.CommandTestUtil.*;
 
 /**
  * A utility class containing a list of {@code Coupon} objects to be used in tests.

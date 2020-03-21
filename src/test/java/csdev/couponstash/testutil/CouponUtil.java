@@ -1,6 +1,14 @@
 package csdev.couponstash.testutil;
 
-import static csdev.couponstash.logic.parser.CliSyntax.*;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PROMO_CODE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_USAGE;
 import static csdev.couponstash.model.coupon.savings.PercentageAmount.PERCENT_SUFFIX;
 
 import java.util.Set;

@@ -6,7 +6,14 @@ import java.util.stream.Stream;
 
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.EditCommand.EditCouponDescriptor;
-import csdev.couponstash.model.coupon.*;
+import csdev.couponstash.model.coupon.Coupon;
+import csdev.couponstash.model.coupon.ExpiryDate;
+import csdev.couponstash.model.coupon.Limit;
+import csdev.couponstash.model.coupon.Name;
+import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.RemindDate;
+import csdev.couponstash.model.coupon.StartDate;
+import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
