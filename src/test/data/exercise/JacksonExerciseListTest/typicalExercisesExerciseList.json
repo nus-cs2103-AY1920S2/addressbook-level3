@@ -1,5 +1,5 @@
 {
-    "_comment": "ExerciseList save file which contains the same Person values as in TypicalExercises#getTypicalExerciseList()",
+    "_comment": "ExerciseList save file which contains the same Exercise values as in TypicalExercises#getTypicalExerciseList()",
     "exercises": [
         {
             "exerciseName": "Bench Press",
