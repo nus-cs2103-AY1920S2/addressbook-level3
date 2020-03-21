@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import seedu.address.model.dayData.DayData;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class Statistics implements ReadOnlyStatistics {
     private final ArrayList<DayData> dayDataList;
 
     public Statistics() {
-        dayDataList = new ArrayList<DayData>();
+        dayDataList = new ArrayList<>();
     }
 
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
@@ -49,7 +51,7 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     /** Adds a person to the address book. The person must not already exist in the address book. */
-    public void addTask(DayData dayData) {
+    public void addDayData(DayData dayData) {
         dayDataList.add(dayData);
     }
 

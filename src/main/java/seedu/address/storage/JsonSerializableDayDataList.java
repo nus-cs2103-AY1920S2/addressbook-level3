@@ -7,16 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.DayData;
+import seedu.address.model.dayData.DayData;
 import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.Statistics;
 
 /** An Immutable TaskList that is serializable to JSON format. */
 @JsonRootName(value = "statistics")
 class JsonSerializableDayDataList {
-
-    public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
-
     private final List<JsonAdaptedDayData> dayDatas = new ArrayList<>();
 
     /** Constructs a {@code JsonSerializableTaskList} with the given tasks. */
@@ -50,7 +47,7 @@ class JsonSerializableDayDataList {
         Statistics dayDataList = new Statistics();
         for (JsonAdaptedDayData jsonAdaptedDayData : dayDatas) {
             DayData dayData = jsonAdaptedDayData.toModelType();
-            dayDataList.addTask(dayData);
+            dayDataList.addDayData(dayData);
         }
         return dayDataList;
     }
