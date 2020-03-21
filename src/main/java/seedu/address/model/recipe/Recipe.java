@@ -12,7 +12,6 @@ import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
 import seedu.address.model.recipe.ingredient.Grain;
-import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
 import seedu.address.model.recipe.ingredient.Vegetable;

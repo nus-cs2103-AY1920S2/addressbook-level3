@@ -8,7 +8,6 @@ import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Orientation;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

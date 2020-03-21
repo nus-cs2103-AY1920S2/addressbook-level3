@@ -13,7 +13,7 @@ public class Grain extends Ingredient {
         isWholemeal = false;
     }
 
-    public boolean isWholemeal(){
+    public boolean isWholemeal() {
         return isWholemeal;
     }
 

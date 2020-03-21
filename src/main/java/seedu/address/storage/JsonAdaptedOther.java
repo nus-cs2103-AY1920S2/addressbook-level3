@@ -52,5 +52,4 @@ class JsonAdaptedOther {
 
         return new Other(otherName, quantity);
     }
-
 }

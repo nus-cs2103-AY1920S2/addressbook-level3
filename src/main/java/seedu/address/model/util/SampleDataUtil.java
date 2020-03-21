@@ -86,7 +86,7 @@ public class SampleDataUtil {
 
 
     /**
-     * Returns an grains set containing the list of strings given in the format (name, quantity). // todo add unit format
+     * Returns an grains set containing the list of strings given in the format (name, quantity).
      */
     public static Set<Grain> getGrainSet(String... grains) {
         Set<Grain> grainSet = new TreeSet<>();
@@ -103,7 +103,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns an vegetables set containing the list of strings given in the format (name, quantity). // todo add unit format
+     * Returns an vegetables set containing the list of strings given in the format (name, quantity).
      */
     public static Set<Vegetable> getVegetableSet(String... vegetables) {
         Set<Vegetable> vegetableSet = new TreeSet<>();
@@ -121,7 +121,7 @@ public class SampleDataUtil {
 
 
     /**
-     * Returns an proteins set containing the list of strings given in the format (name, quantity). // todo add unit format
+     * Returns an proteins set containing the list of strings given in the format (name, quantity).
      */
     public static Set<Protein> getProteinSet(String... proteins) {
         Set<Protein> proteinSet = new TreeSet<>();
@@ -139,7 +139,7 @@ public class SampleDataUtil {
 
 
     /**
-     * Returns an others set containing the list of strings given in the format (name, quantity). // todo add unit format
+     * Returns an others set containing the list of strings given in the format (name, quantity).
      */
     public static Set<Other> getOtherSet(String... others) {
         Set<Other> otherSet = new TreeSet<>();
