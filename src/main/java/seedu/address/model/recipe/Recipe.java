@@ -7,11 +7,13 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
- * Represents a Recipe in the recipe book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Recipe in the recipe book. Guarantees: details are present and
+ * not null, field values are validated, immutable.
  */
 public class Recipe {
 
@@ -19,19 +21,20 @@ public class Recipe {
     private final Name name;
     private final IngredientList ingredients;
     private final InstructionList instructions;
+    private final Calorie calorie;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
-
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Set<Tag> tags) {
+    public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Calorie calorie, Set<Tag> tags) {
         requireAllNonNull(name, ingredients, instructions);
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.calorie = calorie;
         this.tags.addAll(tags);
     }
 
@@ -47,30 +50,36 @@ public class Recipe {
         return instructions;
     }
 
+    public Calorie getCalorie() {
+        return calorie;
+    }
+
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable tag set, which throws
+     * {@code UnsupportedOperationException} if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
     /**
-     * Returns true if both recipes of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two recipes.
+     * Returns true if both recipes of the same name have at least one other
+     * identity field that is the same. This defines a weaker notion of equality
+     * between two recipes.
      */
     public boolean isSameRecipe(Recipe otherRecipe) {
         if (otherRecipe == this) {
             return true;
         }
 
-        return otherRecipe != null && otherRecipe.getName().equals(getName()) && (otherRecipe.getIngredients().equals(
-                getIngredients()) || otherRecipe.getInstructions().equals(getInstructions()));
+        return otherRecipe != null && otherRecipe.getName().equals(getName())
+                && (otherRecipe.getIngredients().equals(getIngredients())
+                        || otherRecipe.getInstructions().equals(getInstructions()));
     }
 
     /**
-     * Returns true if both recipes have the same identity and data fields.
-     * This defines a stronger notion of equality between two recipes.
+     * Returns true if both recipes have the same identity and data fields. This
+     * defines a stronger notion of equality between two recipes.
      */
     @Override
     public boolean equals(Object other) {
@@ -83,20 +92,22 @@ public class Recipe {
         }
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
-               && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getTags().equals(getTags());
+            && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getCalorie()
+            .equals(getCalorie()) && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, ingredients, instructions, tags);
+        return Objects.hash(name, ingredients, instructions, calorie, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
-                " Instructions: ").append(getInstructions()).append(" Tags: ");
+            " Instructions: ").append(getInstructions()).append(" Calories: ").append(getCalorie()).append(" Tags"
+            + ": ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
