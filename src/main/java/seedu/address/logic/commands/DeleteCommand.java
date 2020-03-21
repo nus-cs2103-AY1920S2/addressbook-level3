@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Deletes a recipe identified using it's displayed index from the address book.
+ * Deletes a recipe identified using it's displayed index from the recipe book.
  */
 public class DeleteCommand extends Command {
 

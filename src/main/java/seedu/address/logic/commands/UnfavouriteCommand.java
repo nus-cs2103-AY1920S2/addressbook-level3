@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Unfavourites a recipe identified using it's displayed index from the address book.
+ * Unfavourites a recipe identified using it's displayed index from the recipe book.
  */
 public class UnfavouriteCommand extends Command {
     public static final String COMMAND_WORD = "unfavourite";

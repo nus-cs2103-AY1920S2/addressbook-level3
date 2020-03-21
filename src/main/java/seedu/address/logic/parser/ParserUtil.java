@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -98,6 +99,50 @@ public class ParserUtil {
             throw new ParseException(Time.MESSAGE_CONSTRAINTS);
         }
         return new Time(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String time} into a {@code Time[] array}.
+     * Used to parse a range of times when the filter command is called.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Time[] parseTimeRange(String time) throws ParseException {
+        requireNonNull(time);
+        String[] parsedTimeString = time.split("-");
+        assert(parsedTimeString.length > 0);
+
+        int numOfTime = parsedTimeString.length;
+        if (numOfTime > 2) { // Case: If there are more than 2 timings specified (ie. more than 2 dashes in the range)
+            throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+        } else if (numOfTime == 1) { // Case: If there is only one timing specified
+            String trimmedTime = parsedTimeString[0].trim();
+            if (!Time.isValidTime(trimmedTime)) {
+                throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+            }
+            return new Time[] {new Time(trimmedTime)};
+        } else { // Case: If a range of timings is specified
+            String[] sortedTimeString;
+            try {
+                sortedTimeString = Stream.of(parsedTimeString).map(String::trim).mapToInt(Integer::parseInt)
+                        .sorted().mapToObj(String::valueOf).toArray(String[]::new);
+            } catch (NumberFormatException nfe) {
+                // Case: If user uses wrong delimiter (eg. t/10,20 instead of t/10-20)
+                throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+            }
+
+            Time[] parsedTime = new Time[2];
+            for (int i = 0; i < 2; i++) {
+                if (!Time.isValidTime(sortedTimeString[i])) {
+                    throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+                }
+                parsedTime[i] = new Time(sortedTimeString[i]);
+            }
+            if (parsedTime[0].equals(parsedTime[1])) { // Case: If user inputs same timings in range (eg. t/10-10)
+                return new Time[] {parsedTime[0]};
+            }
+            return parsedTime;
+        }
     }
 
     /**
