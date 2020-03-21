@@ -16,7 +16,6 @@ import fithelper.logic.parser.Prefix;
 import fithelper.logic.parser.exceptions.ParseException;
 
 import fithelper.model.diary.Content;
-import fithelper.model.diary.Diary;
 import fithelper.model.diary.DiaryDate;
 
 /**

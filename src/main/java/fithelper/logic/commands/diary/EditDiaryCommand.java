@@ -5,8 +5,6 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DIARYCONTENT;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_DIARIES;
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.Command;
 import fithelper.logic.commands.CommandResult;

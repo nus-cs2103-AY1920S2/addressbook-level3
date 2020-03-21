@@ -41,7 +41,7 @@ public class DiaryCard extends UiPart<AnchorPane> {
         super(FXML);
         this.diary = diary;
         diaryDate.setText(diary.getDiaryDate().toString());
-        content.setText(diary.getContent().value);
+        content.setText(diary.getContent().getValue());
         fillInDetails();
     }
 
@@ -50,7 +50,7 @@ public class DiaryCard extends UiPart<AnchorPane> {
      */
     private void fillInDetails() {
         diaryDate.setText(diary.getDiaryDate().toString());
-        content.setText(diary.getContent().value);
+        content.setText(diary.getContent().getValue());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class DiaryCard extends UiPart<AnchorPane> {
         }
 
         // state check
-        fithelper.ui.diary.DiaryCard card = (fithelper.ui.diary.DiaryCard) other;
+        fithelper.ui.diary.DiaryCard card = (DiaryCard) other;
         return diary.equals(card.diary);
     }
 }

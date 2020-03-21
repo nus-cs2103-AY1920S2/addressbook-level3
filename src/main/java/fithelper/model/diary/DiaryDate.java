@@ -1,10 +1,9 @@
 package fithelper.model.diary;
 
-import java.util.logging.Logger;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.logic.parser.exceptions.ParseException;
@@ -13,11 +12,9 @@ import fithelper.logic.parser.exceptions.ParseException;
  * Represents ID of a diary.
  */
 public class DiaryDate {
-
+    
+    public static final String MESSAGE_ERROR = "Date conversion from strings has failed.";
     private static final Logger logger = LogsCenter.getLogger(DiaryDate.class);
-
-    public static final String MESSAGE_ERROR =
-            "Date conversion from strings has failed.";
 
     public final String value;
     private LocalDate diaryDate;

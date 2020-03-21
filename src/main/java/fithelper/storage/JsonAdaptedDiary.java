@@ -38,7 +38,7 @@ public class JsonAdaptedDiary {
     public JsonAdaptedDiary(Diary source) {
         this.diaryId = source.getDiaryId().value;
         this.diaryDate = source.getDiaryDate().value;
-        this.content = source.getContent().value;
+        this.content = source.getContent().getValue();
     }
 
     /**
@@ -48,7 +48,7 @@ public class JsonAdaptedDiary {
      * @throws IllegalValueException Invalid value for diaryDate.
      */
     public DiaryDate buildDiaryDate() throws IllegalValueException {
-        if (diaryDate == null) {
+        if (diaryDate == null || diaryId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     DiaryDate.class.getSimpleName()));
         }
