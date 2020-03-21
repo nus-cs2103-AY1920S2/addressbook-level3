@@ -1,9 +1,12 @@
-package fithelper.ui;
+package fithelper.ui.today;
 
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.model.entry.Entry;
+import fithelper.ui.FoodCard;
+import fithelper.ui.SportCard;
+import fithelper.ui.UiPart;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +28,7 @@ public class TodayPage extends UiPart<AnchorPane> {
 
     @FXML
     private ListView<Entry> sportListView;
+
 
     @FXML
     private Label undoneFoodCounter;
@@ -70,7 +74,6 @@ public class TodayPage extends UiPart<AnchorPane> {
         sportListView.setItems(sportList);
         sportListView.setCellFactory(listView -> new SportListViewCell());
     }
-
 
     /**
      * Initializes the listeners.
@@ -167,5 +170,6 @@ public class TodayPage extends UiPart<AnchorPane> {
             }
         }
     }
+
 }
 

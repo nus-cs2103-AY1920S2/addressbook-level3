@@ -12,13 +12,14 @@ import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 public class EventUtil {
     public static final String PINK = "group21";
     public static final String GREY = "group18";
+    public static final String BLUE = "group13";
     /**
      * Maps event to VEvent
      */
     public static VEvent entryToVEvent(Entry entry) {
         VEvent vEvent = new VEvent();
         vEvent.setDateTimeStart(entry.getDateTime());
-        vEvent.setDateTimeEnd(entry.getDateTime().plusHours(entry.getDuration()));
+        vEvent.setDateTimeEnd(entry.getDateTime().plusHours(entry.getHours()).plusMinutes(entry.getMinutes()));
         StringBuilder summary = new StringBuilder();
         summary.append(entry.getName());
         summary.append(" ");
@@ -27,7 +28,7 @@ public class EventUtil {
         summary.append(entry.getCalorie());
         vEvent.setSummary(summary.toString());
         vEvent.setUniqueIdentifier(getUniqueIdentifier(entry));
-        if (entry.getStatus().toString().equals("Done")) {
+        if (entry.isDone()) {
             Categories categories = new Categories();
             // pink color in iCalendarAgenda
             categories.setValue(List.of(GREY));
@@ -35,7 +36,11 @@ public class EventUtil {
         } else {
             Categories categories = new Categories();
             // pink color in iCalendarAgenda
-            categories.setValue(List.of(PINK));
+            if (entry.isFood()) {
+                categories.setValue(List.of(PINK));
+            } else {
+                categories.setValue(List.of(BLUE));
+            }
             vEvent.setCategories(List.of(categories));
         }
         return vEvent;

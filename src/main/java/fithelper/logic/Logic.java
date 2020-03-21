@@ -8,6 +8,7 @@ import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.ReadOnlyFitHelper;
 import fithelper.model.ReadOnlyUserProfile;
+import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 import javafx.collections.ObservableList;
 
@@ -41,6 +42,9 @@ public interface Logic {
     ReadOnlyUserProfile getUserProfile();
 
     ObservableList<VEvent> getVEvents();
+
+    /** Returns an unmodifiable view of the filtered list of food entries*/
+    ObservableList<Diary> getFilteredDiaryList();
 
     /** Returns an unmodifiable view of the filtered list of food entries*/
     ObservableList<Entry> getFilteredFoodEntryList();

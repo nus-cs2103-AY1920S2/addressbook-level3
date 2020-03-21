@@ -1,6 +1,7 @@
 package fithelper.logic.commands;
 
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_CALORIE;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DURATION;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_INDEX;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_LOCATION;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_NAME;
@@ -20,6 +21,7 @@ import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.entry.Calorie;
+import fithelper.model.entry.Duration;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Location;
 import fithelper.model.entry.Name;
@@ -47,12 +49,14 @@ public class EditCommand extends Command {
             + "[" + PREFIX_LOCATION + "LOCATION] "
             + "[" + PREFIX_CALORIE + "CALORIE] "
             + "[" + PREFIX_STATUS + "STATUS] "
-            + "[" + PREFIX_REMARK + "REMARK]...\n"
+            + "[" + PREFIX_REMARK + "REMARK]"
+            + "[" + PREFIX_DURATION + "DURATION]...\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_TYPE + "sports "
             + PREFIX_INDEX + "1 "
             + PREFIX_NAME + "running "
-            + PREFIX_STATUS + "Done";
+            + PREFIX_STATUS + "Done"
+            + PREFIX_DURATION + "1.5";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Entry: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -120,9 +124,10 @@ public class EditCommand extends Command {
         Calorie updatedCalorie = editEntryDescriptor.getCalorie().orElse(entryToEdit.getCalorie());
         Status updatedStatus = editEntryDescriptor.getStatus().orElse(entryToEdit.getStatus());
         Remark updatedRemark = editEntryDescriptor.getRemark().orElse(entryToEdit.getRemark());
+        Duration updatedDuration = editEntryDescriptor.getDuration().orElse(entryToEdit.getDuration());
 
         return new Entry(updatedType, updatedName, updatedTime, updatedLocation, updatedCalorie, updatedStatus,
-                updatedRemark);
+                updatedRemark, updatedDuration);
     }
 
     @Override
@@ -155,6 +160,7 @@ public class EditCommand extends Command {
         private Calorie calorie;
         private Status status;
         private Remark remark;
+        private Duration duration;
 
         public EditEntryDescriptor() {}
 
@@ -170,13 +176,14 @@ public class EditCommand extends Command {
             setCalorie(toCopy.calorie);
             setStatus(toCopy.status);
             setRemark(toCopy.remark);
+            setDuration(toCopy.duration);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, time, location, calorie, status, remark);
+            return CollectionUtil.isAnyNonNull(name, time, location, calorie, status, remark, duration);
         }
 
         public void setType(Type type) {
@@ -225,6 +232,14 @@ public class EditCommand extends Command {
 
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public void setDuration(Duration duration) {
+            this.duration = duration;
+        }
+
+        public Optional<Duration> getDuration() {
+            return Optional.ofNullable(duration);
         }
 
         public void setRemark(Remark remark) {

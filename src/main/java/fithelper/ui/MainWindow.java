@@ -12,7 +12,10 @@ import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.logic.parser.exceptions.ParseException;
 import fithelper.model.today.Today;
 import fithelper.ui.calendar.CalendarPanel;
+import fithelper.ui.diary.DiaryPage;
+import fithelper.ui.home.DashBoard;
 import fithelper.ui.profile.ProfilePage;
+import fithelper.ui.today.TodayPage;
 import fithelper.ui.weight.WeightPage;
 
 import javafx.fxml.FXML;
@@ -43,7 +46,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private DashBoard dashBoard;
     private TodayPage todayPage;
-    //private ReportPage reportPage;
+    private DiaryPage diaryPage;
     private ProfilePage profilePage;
     private WeightPage weightPage;
     private CalendarPanel calendarPanel;
@@ -73,7 +76,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Button calendarButton;
     @FXML
-    private Button reportButton;
+    private Button diaryButton;
     @FXML
     private Button profileButton;
     @FXML
@@ -104,6 +107,8 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getFilteredTodaySportsEntryList(new Today().getTodayDateStr()));
         logger.info(new Today().getTodayDateStr());
         setAllPageAnchor(todayPage.getRoot());
+        diaryPage = new DiaryPage(logic.getFilteredDiaryList());
+        setAllPageAnchor(diaryPage.getRoot());
         calendarPanel = new CalendarPanel(logic.getFilteredFoodEntryList(),
             logic.getFilteredSportsEntryList(), logic.getVEvents());
         setAllPageAnchor(calendarPanel.getRoot());
@@ -154,6 +159,9 @@ public class MainWindow extends UiPart<Stage> {
         case TODAY:
             showTodayPage();
             break;
+        case DIARY:
+            showDiaryPage();
+            break;
         case CALENDAR:
             showCalendarPanel();
             break;
@@ -187,6 +195,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @FXML
+    public void handleShowDiaryPage() {
+        showDiaryPage();
+    }
+
+    @FXML
     public void handleShowCalendarPage() {
         showCalendarPanel();
     }
@@ -201,6 +214,11 @@ public class MainWindow extends UiPart<Stage> {
         showWeightPage();
     }
 
+    private void showDashBoard() {
+        pagePane.getChildren().clear();
+        pagePane.getChildren().add(dashBoard.getRoot());
+        currentPage.setText("Dash Board");
+    }
 
     private void showTodayPage() {
         pagePane.getChildren().clear();
@@ -208,10 +226,10 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("Today");
     }
 
-    private void showDashBoard() {
+    private void showDiaryPage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(dashBoard.getRoot());
-        currentPage.setText("Dash Board");
+        pagePane.getChildren().add(diaryPage.getRoot());
+        currentPage.setText("My Diary");
     }
 
     private void showHelpPageAndCopyUrl() {

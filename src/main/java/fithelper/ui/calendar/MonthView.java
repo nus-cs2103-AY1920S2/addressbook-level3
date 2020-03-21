@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
-import fithelper.model.statistics.StatsGenerator;
+import fithelper.model.calculator.CalorieCalculatorByDateRange;
 import fithelper.ui.UiPart;
 
 import javafx.fxml.FXML;
@@ -30,7 +30,7 @@ public class MonthView extends UiPart<AnchorPane> {
     /**
      * Create a calendar view
      */
-    public MonthView(LocalDateTime dateToSet, StatsGenerator stats) {
+    public MonthView(LocalDateTime dateToSet, CalorieCalculatorByDateRange stats) {
         super(FXML);
         currentYearMonth = YearMonth.from(dateToSet);
         // Create the calendar grid pane
@@ -78,7 +78,7 @@ public class MonthView extends UiPart<AnchorPane> {
      * Set the days of the calendar to correspond to the appropriate date
      * @param yearMonth year and month of month to render
      */
-    public void populateCalendar(YearMonth yearMonth, StatsGenerator calorieStats) {
+    public void populateCalendar(YearMonth yearMonth, CalorieCalculatorByDateRange calorieStats) {
         // Get the date we want to start with on the calendar
         LocalDate calendarDate = LocalDate.of(yearMonth.getYear(), yearMonth.getMonthValue(), 1);
         // Dial back the day until it is SUNDAY (unless the month starts on a sunday)
@@ -92,7 +92,6 @@ public class MonthView extends UiPart<AnchorPane> {
             }
             Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
             if (calorieStats.getDailyCalorie().containsKey(calendarDate)) {
-                System.out.println(calendarDate + calorieStats.getDailyCalorie().get(calendarDate).toString());
                 if (calorieStats.getDailyCalorie().get(calendarDate) > 0) {
                     txt.setFill(Color.RED);
                 } else if (calorieStats.getDailyCalorie().get(calendarDate) < 0) {
