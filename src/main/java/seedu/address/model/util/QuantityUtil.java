@@ -1,10 +1,12 @@
-package seedu.address.model.recipe.ingredient;
+package seedu.address.model.util;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.recipe.ingredient.Quantity;
+import seedu.address.model.recipe.ingredient.Unit;
 
 public class QuantityUtil {
 
@@ -81,36 +83,3 @@ public class QuantityUtil {
     }
 
 }
-// UnitClass Util class
-// getAvailableUnits()
-// List<String> = UnitClass.values().stream().forEach(unit -> unit.toString())
-// .collect(Collectors.toList())
-
-// convertToGrams(Quantity q)
-// if q.Units is countable, throw an error
-// else, return a double g
-// tbsp --> g (*15)
-// tsp --> g (*5)
-// ml --> g
-
-/* UnitClass util
-Find index of first alphabet
-int i = 0;
-while (i < string.length() && !Character.isDigit(string.charAt(i))) {
-    i++;
-}
-
-Parsing units!
-
-        if (index == 0 || index == details.length()) {
-            // todo: throw exception, one of the fields are missing
-        }
-
-Integer.parseInt(string.substring(0, i).trim()); // if fail, throw exception that quantity needs to be a whole number
-
-String unit = string.substring(i, string.length()).trim().tolowerCase();
-check if unit belongs to enum
-if (!units.contain(unit)) {
-    // throw error that it does not belong to one of the units
-}
- */

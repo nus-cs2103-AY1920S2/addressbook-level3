@@ -23,7 +23,7 @@ import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
 import seedu.address.model.recipe.ingredient.Quantity;
-import seedu.address.model.recipe.ingredient.QuantityUtil;
+import seedu.address.model.util.QuantityUtil;
 import seedu.address.model.recipe.ingredient.Unit;
 import seedu.address.model.recipe.ingredient.Vegetable;
 

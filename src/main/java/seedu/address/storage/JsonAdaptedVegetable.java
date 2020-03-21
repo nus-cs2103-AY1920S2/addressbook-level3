@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.recipe.ingredient.Quantity;
-import seedu.address.model.recipe.ingredient.QuantityUtil;
+import seedu.address.model.util.QuantityUtil;
 import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
