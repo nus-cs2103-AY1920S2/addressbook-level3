@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
+import fithelper.model.calculator.CalorieCalculatorByDateRange;
 import fithelper.model.entry.Entry;
-import fithelper.model.statistics.StatsGenerator;
 import fithelper.ui.UiPart;
 
 import javafx.collections.ObservableList;
@@ -26,7 +26,7 @@ public class CalendarPanel extends UiPart<AnchorPane> {
     private MonthView monthView;
     private UpcomingList upcomingList;
     private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
-    private StatsGenerator stats;
+    private CalorieCalculatorByDateRange stats;
 
     @FXML
     private StackPane calendarPagePlaceholder;
@@ -73,6 +73,6 @@ public class CalendarPanel extends UiPart<AnchorPane> {
         LocalDate givenDate = date.toLocalDate();
         LocalDate start = givenDate.withDayOfMonth(1);
         LocalDate end = givenDate.withDayOfMonth(givenDate.lengthOfMonth());
-        stats = new StatsGenerator(foodList, sportList, start, end);
+        stats = new CalorieCalculatorByDateRange(foodList, sportList, start, end);
     }
 }

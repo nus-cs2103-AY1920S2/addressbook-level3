@@ -1,4 +1,4 @@
-package fithelper.model.statistics;
+package fithelper.model.calculator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import javafx.collections.ObservableList;
 /**
  * GenerateS relevant stats based on foodList and sportsList
  */
-public class StatsGenerator {
+public class CalorieCalculatorByDateRange {
     private ObservableList<Entry> foodList;
     private ObservableList<Entry> sportsList;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public StatsGenerator(ObservableList< Entry > foodList, ObservableList<Entry> sportsList,
-                          LocalDate startDate, LocalDate endDate) {
+    public CalorieCalculatorByDateRange(ObservableList< Entry > foodList, ObservableList<Entry> sportsList,
+                                        LocalDate startDate, LocalDate endDate) {
         this.foodList = foodList;
         this.sportsList = sportsList;
         this.startDate = startDate;
