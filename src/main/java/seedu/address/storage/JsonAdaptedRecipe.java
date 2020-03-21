@@ -30,7 +30,7 @@ class JsonAdaptedRecipe {
     private final String ingredients;
     private final String instructions;
     private final String calorie;
-    private final String serving;
+    private final int serving;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -39,7 +39,7 @@ class JsonAdaptedRecipe {
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
             @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
-                             @JsonProperty("serving") String serving,
+                             @JsonProperty("serving") int serving,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
@@ -59,7 +59,7 @@ class JsonAdaptedRecipe {
         ingredients = source.getIngredients().toString();
         instructions = source.getInstructions().toString();
         calorie = source.getCalorie().calorie;
-        serving = String.valueOf(source.getServing().serving);
+        serving = source.getServing().serving;
         tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 

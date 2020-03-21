@@ -18,17 +18,17 @@ public class Serving {
      *
      * @param serving A valid serving size.
      */
-    public Serving(String serving) {
+    public Serving(int serving) {
         requireNonNull(serving);
         checkArgument(isValidServing(serving), MESSAGE_CONSTRAINTS);
-        this.serving = Integer.parseInt(serving);
+        this.serving = serving;
     }
 
     /**
      * Returns true if a given string is a valid serving size.
      */
-    public static boolean isValidServing(String test) {
-        return Integer.parseInt(test) > 0;
+    public static boolean isValidServing(int test) {
+        return test > 0;
     }
 
     @Override

@@ -116,7 +116,7 @@ public class ParserUtil {
      */
     public static Serving parseServing(String servingString) throws ParseException {
         requireNonNull(servingString);
-        String serving = servingString.trim();
+        int serving = Integer.parseInt(servingString.trim());
         if (!Serving.isValidServing(serving)) {
             throw new ParseException(Serving.MESSAGE_CONSTRAINTS);
         }
