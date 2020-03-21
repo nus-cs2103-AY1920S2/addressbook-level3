@@ -20,6 +20,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     public static final String COMMAND_WORD = "open";
     public static final String RESPONSE_MESSAGE = "Open a note";
     private AbsolutePath path;
+    private List<AbsolutePath> possiblePaths = new ArrayList<>();
 
     public OpenSuggestionCommand(AbsolutePath path) {
         this.path = path;
@@ -41,13 +42,13 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     }
 
     private List<AbsolutePath> getPossiblePaths(AbsolutePath path) {
-        List<AbsolutePath> possiblePaths = new ArrayList<>();
         Node<String> root = createTree();
 
         List<String> components = path.getComponents();
         List<Node<String>> children = new ArrayList<>();
         Queue<Node<String>> queue = new LinkedList<>();
-        for (Node<String> rootChild : root.getChildren()) { //don't need add root to queue
+
+        for (Node<String> rootChild : root.getChildren()) { //don't need add root to queue, but add root's children
             queue.add(rootChild);
         }
 
@@ -69,18 +70,31 @@ public class OpenSuggestionCommand implements SuggestionCommand {
             }
         }
 
-        if (children.isEmpty()) { // if the note doesn't have any children
-            possiblePaths.add(path);
+        possiblePaths.add(path);
+        if (!children.isEmpty()) {
+            for (Node<String> child : children) {
+                List<String> newComponents = new ArrayList<>();
+                newComponents.addAll(components);
+                newComponents.add(child.getTitle());
+                getChildRecursive(child, newComponents);
+            }
+        }
+        return possiblePaths;
+    }
+
+    private void getChildRecursive(Node<String> node, List<String> components) {
+        List<Node<String>> children = node.getChildren();
+        if (children.size() == 0) { // if reach the end, add to possible paths
+            AbsolutePath newPath = AbsolutePath.fromComponents(components);
+            possiblePaths.add(newPath);
         } else {
             for (Node<String> child : children) {
                 List<String> newComponents = new ArrayList<>();
                 newComponents.addAll(components);
                 newComponents.add(child.getTitle());
-                AbsolutePath newPath = AbsolutePath.fromComponents(newComponents);
-                possiblePaths.add(newPath);
+                getChildRecursive(child, newComponents);
             }
         }
-        return possiblePaths;
     }
 
     private List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
@@ -108,6 +122,9 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         Node<String> cs2103t = y2s2.addChild(new Node<String>("cs2103t"));
         Node<String> cs2101 = y2s2.addChild(new Node<String>("cs2101"));
         Node<String> cs3243 = y2s2.addChild(new Node<String>("cs3243"));
+        Node<String> tp = cs2103t.addChild(new Node<String>("tp"));
+        Node<String> ip = cs2103t.addChild(new Node<String>("ip"));
+        Node<String> notably = tp.addChild(new Node<String>("notably"));
 
         Node<String> personal = root.addChild(new Node<String>("personal"));
         Node<String> p1 = personal.addChild(new Node<String>("p1"));
