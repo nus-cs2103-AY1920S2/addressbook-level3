@@ -14,7 +14,7 @@ import seedu.address.model.profile.course.module.ModuleCode;
 /**
  * Jackson-friendly version of {@link CourseRequirement}.
  */
-class JsonCourseRequirement{
+class JsonCourseRequirement {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Requirement's %s field is missing!";
 

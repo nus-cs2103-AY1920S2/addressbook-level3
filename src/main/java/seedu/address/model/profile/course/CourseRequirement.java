@@ -1,9 +1,11 @@
 package seedu.address.model.profile.course;
 
+import java.util.List;
+
 import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.ModuleCode;
 
-import java.util.List;
+
 
 /**
  * Represents a Course's requirement.
