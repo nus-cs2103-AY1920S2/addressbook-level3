@@ -39,7 +39,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     public TaTracker() {}
 
     /**
-     * Creates an TaTracker using the Students in the {@code toBeCopied}
+     * Creates a TaTracker using the Students in the {@code toBeCopied}
      */
     public TaTracker(ReadOnlyTaTracker toBeCopied) {
         this();

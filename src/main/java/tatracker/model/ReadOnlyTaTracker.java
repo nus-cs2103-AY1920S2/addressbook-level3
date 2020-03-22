@@ -6,7 +6,7 @@ import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 
 /**
- * Unmodifiable view of an ta-tracker.
+ * Unmodifiable view of a ta-tracker.
  */
 public interface ReadOnlyTaTracker {
 
