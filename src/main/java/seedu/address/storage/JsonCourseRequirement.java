@@ -21,14 +21,17 @@ class JsonCourseRequirement {
     private final String requirementName;
     private final List<String> modules;
     private final String modularCredits;
+    private final List<String> requirementInfo;
 
     @JsonCreator
     public JsonCourseRequirement(@JsonProperty("requirementName") String requirementName,
                                @JsonProperty("modules") List<String> modules,
-                               @JsonProperty("modularCredits") String modularCredits) {
+                               @JsonProperty("modularCredits") String modularCredits,
+                                 @JsonProperty("requirementInfo") List<String> requirementInfo) {
         this.requirementName = requirementName;
         this.modules = modules;
         this.modularCredits = modularCredits;
+        this.requirementInfo = requirementInfo;
     }
 
     /**
@@ -41,7 +44,7 @@ class JsonCourseRequirement {
         // Note that some fields such as prerequisite and preclusion are optional fields and are thus omitted
         if (requirementName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    "Requirement"));
+                    "Requirement Name"));
         } else if (modules == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module"));
         } else if (modularCredits == null) {
@@ -53,7 +56,9 @@ class JsonCourseRequirement {
         modules.forEach(module -> modelModuleCodes.add(new ModuleCode(module)));
         final ModularCredits modelModuleCredit = new ModularCredits(modularCredits);
 
-        return new CourseRequirement(requirementName, modelModuleCodes, modelModuleCredit);
+        // Important to note requirementInfo may be null
+
+        return new CourseRequirement(requirementName, modelModuleCodes, modelModuleCredit, requirementInfo);
     }
 
 }
