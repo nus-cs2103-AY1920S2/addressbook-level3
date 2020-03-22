@@ -1,11 +1,15 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
 
-import nasa.commons.core.Messages;
+import javafx.collections.ObservableList;
+
+
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.ActivityContainsKeyWordsPredicate;
+import nasa.model.module.Module;
 
 /**
  * Represents the command for finding specific activities.
@@ -30,7 +34,16 @@ public class FindCommand extends Command {
         requireNonNull(model);
         // TODO add the necessary implementation once model is done
         model.updateFilteredActivityList(predicate);
-        return new CommandResult(String.format("Listed activities", model.getFilteredModuleList()));
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
+            getNumberOfFilteredActivities(model.getFilteredModuleList())));
+    }
+
+    private int getNumberOfFilteredActivities(ObservableList<Module> moduleList) {
+        int numberOfActivities = 0;
+        for (Module module : moduleList) {
+            numberOfActivities += module.getFilteredActivityList().size();
+        }
+        return numberOfActivities;
     }
 
     @Override
