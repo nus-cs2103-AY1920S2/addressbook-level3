@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.product;
 
 import seedu.address.model.product.Price;
 import seedu.address.model.product.Product;

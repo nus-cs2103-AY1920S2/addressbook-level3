@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SALES_WATCH;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
-import seedu.address.testutil.EditProductDescriptorBuilder;
+import seedu.address.testutil.product.EditProductDescriptorBuilder;
 
 public class EditProductDescriptorTest {
 

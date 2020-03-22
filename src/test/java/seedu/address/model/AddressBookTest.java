@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.customer.TypicalPersons.ALICE;
+import static seedu.address.testutil.customer.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,7 +24,7 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.exceptions.DuplicatePersonException;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.customer.PersonBuilder;
 
 public class AddressBookTest {
 

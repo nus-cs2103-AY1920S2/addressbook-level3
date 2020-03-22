@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests whether a {@code Transaction}'s attributes fulfill the given properties.
+ * Tests whether a {@code Customer}'s attributes fulfill the given properties.
  */
 public class JointCustomerPredicate implements Predicate<Customer> {
     private final List<Predicate<Customer>> predicates;

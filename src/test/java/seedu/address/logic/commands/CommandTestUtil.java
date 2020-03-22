@@ -27,8 +27,8 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.customer.NameContainsKeywordsPredicate;
 import seedu.address.model.product.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.product.Product;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.EditProductDescriptorBuilder;
+import seedu.address.testutil.customer.EditPersonDescriptorBuilder;
+import seedu.address.testutil.product.EditProductDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

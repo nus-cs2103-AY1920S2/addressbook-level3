@@ -24,9 +24,9 @@ import seedu.address.logic.commands.customer.FindCustomerCommand;
 import seedu.address.logic.commands.customer.ListCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.customer.Customer;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
+import seedu.address.testutil.customer.EditPersonDescriptorBuilder;
+import seedu.address.testutil.customer.PersonBuilder;
+import seedu.address.testutil.customer.PersonUtil;
 
 public class AddressBookParserTest {
 

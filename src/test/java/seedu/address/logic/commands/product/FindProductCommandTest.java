@@ -3,7 +3,7 @@ package seedu.address.logic.commands.product;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PRODUCTS_LISTED_OVERVIEW;
-import static seedu.address.testutil.TypicalProducts.getTypicalAddressBook;
+import static seedu.address.testutil.product.TypicalProducts.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -2,7 +2,7 @@ package seedu.address.logic.commands.product;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalProducts.getTypicalAddressBook;
+import static seedu.address.testutil.product.TypicalProducts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.product.Product;
-import seedu.address.testutil.ProductBuilder;
+import seedu.address.testutil.product.ProductBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCustomerCommand}.

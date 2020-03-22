@@ -34,7 +34,7 @@ import seedu.address.model.product.Price;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
-import seedu.address.testutil.EditProductDescriptorBuilder;
+import seedu.address.testutil.product.EditProductDescriptorBuilder;
 
 public class EditProductCommandParserTest {
 

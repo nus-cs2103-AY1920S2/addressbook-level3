@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.customer;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -17,6 +17,7 @@ import java.util.List;
 
 import seedu.address.model.InventorySystem;
 import seedu.address.model.customer.Customer;
+import seedu.address.testutil.customer.PersonBuilder;
 
 /**
  * A utility class containing a list of {@code Customer} objects to be used in tests.
