@@ -20,6 +20,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private CommandCompletor commandCompletor;
     private PomodoroManager pomodoro;
 
     // Independent Ui parts residing in this Ui container
@@ -71,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.pomodoro = pomodoro;
+        this.commandCompletor = new CommandCompletor();
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -137,7 +140,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTaskListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::suggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         pomodoroDisplay = new PomodoroDisplay("No task in progress.", "25:00");
@@ -195,6 +198,17 @@ public class MainWindow extends UiPart<Stage> {
 
     public TaskListPanel getTaskListPanel() {
         return personListPanel;
+    }
+
+    /** */
+    private String suggestCommand(String commandText) {
+        String suggestion = commandCompletor.getSuggestedCommand(commandText);
+        if (suggestion.equals(commandText)) {
+            resultDisplay.setFeedbackToUser(commandCompletor.getFailureMessage());
+        } else {
+            resultDisplay.setFeedbackToUser(commandCompletor.getSuccessMessage());
+        }
+        return suggestion;
     }
 
     /**
