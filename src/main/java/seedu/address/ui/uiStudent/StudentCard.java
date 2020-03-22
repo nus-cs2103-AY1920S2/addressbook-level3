@@ -43,6 +43,7 @@ public class StudentCard extends UiPart<Region> {
     this.student = student;
     studentID.setText(student.getID().value);
     name.setText(student.getName().fullName);
+    assignedCourses.setText(student.getAssignedCourses());
     student.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

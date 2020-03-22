@@ -26,6 +26,7 @@ import seedu.address.model.Model;
 import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourseStudent.CourseStudent;
+import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
@@ -36,7 +37,9 @@ import seedu.address.model.tag.Tag;
 /** This class will be in charge of assigning stuff (e.g students, teacher, etc) to a course. */
 public class AssignStudentToCourseCommand extends AssignCommandBase {
 
-    public static final String MESSAGE_INVALID_COURSE_ID = "Invalid course id";
+    public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
+    public static final String MESSAGE_INVALID_STUDENT_ID = "There is no such student that with ID";
+    public static final String MESSAGE_SUCCESS = "Successfully added student %s(%s) to course %s(%s)";
 
     private final AssignDescriptor assignDescriptor;
     private Set<Tag> ArrayList;
@@ -55,27 +58,48 @@ public class AssignStudentToCourseCommand extends AssignCommandBase {
 
     @Override
     public CommandResult execute(Model model) throws CommandException, ParseException {
-        List<Course> lastShownList = model.getFilteredCourseList();
-        // TODO: Override equals by checking ID only then no need for this "stupid" for loop
         String courseidString = this.assignDescriptor.getAssignID(PREFIX_COURSEID).value;
         String studentidString = this.assignDescriptor.getAssignID(PREFIX_STUDENTID).value;
+        String courseName = "";
+        String studentName = "";
 
-        for (Course course : lastShownList) {
+        boolean courseExists = false;
+        boolean studentExists = false;
+
+        for (Course course : model.getFilteredCourseList()) {
             if (course.getId().value.equals(courseidString)) {
-                Courseid courseid = ParserUtil.parseCourseid(courseidString);
-                Studentid studentid = ParserUtil.parseStudentid(studentidString);
-
-                // TODO: Allow adding of tags
-                CourseStudent courseStudent = new CourseStudent(courseid, studentid, new HashSet<Tag>());
-                if (model.hasCourseStudent(courseStudent)) {
-                    throw new CommandException(MESSAGE_DUPLICATE_COURSESTUDENT);
-                }
-
-                model.addCourseStudent(courseStudent);
-
-                return new CommandResult(String.format(MESSAGE_ASSIGNMENT_SUCCESS));
+                courseName = course.getName().toString();
+                courseExists = true;
+                break;
             }
         }
-        throw new CommandException(MESSAGE_INVALID_COURSE_ID);
+
+        for (Student student : model.getFilteredStudentList()) {
+            if (student.getID().value.equals(studentidString)) {
+                studentName = student.getName().toString();
+                studentExists = true;
+                break;
+            }
+        }
+
+        if (!courseExists) {
+            throw new CommandException(MESSAGE_INVALID_COURSE_ID);
+        } else if (!studentExists) {
+            throw new CommandException(MESSAGE_INVALID_STUDENT_ID);
+        } else {
+            Courseid courseid = ParserUtil.parseCourseid(courseidString);
+            Studentid studentid = ParserUtil.parseStudentid(studentidString);
+
+            // TODO: Allow adding of tags
+            CourseStudent courseStudent = new CourseStudent(courseid, studentid, new HashSet<Tag>());
+            if (model.hasCourseStudent(courseStudent)) {
+                throw new CommandException(MESSAGE_DUPLICATE_COURSESTUDENT);
+            }
+
+            model.addCourseStudent(courseStudent);
+
+            return new CommandResult(String.format(MESSAGE_SUCCESS, studentName, studentidString, courseName, courseidString));
+        }
+
     }
 }

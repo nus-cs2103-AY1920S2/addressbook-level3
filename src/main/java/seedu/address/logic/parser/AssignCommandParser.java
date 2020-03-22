@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.Set;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
 import seedu.address.logic.commands.commandAssign.AssignCommandFactory;
@@ -17,6 +21,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new AssignCommand object
  */
 public class AssignCommandParser implements Parser<AssignCommandBase> {
+
+    public static final String MESSAGE_USAGE = "assign" + ": Assigns a student to a course, or a teacher to a course "
+        + "Parameters: "
+        + PREFIX_COURSEID + "COURSEID "
+        + PREFIX_STUDENTID + "STUDENTID " + "\n"
+        + "Example: "  + "assign "
+        + PREFIX_COURSEID + "829 "
+        + PREFIX_STUDENTID + "33 ";
 
     /**
      * Parses the given arguments into context of AssignCommand (actually a class that inherits
@@ -49,7 +61,7 @@ public class AssignCommandParser implements Parser<AssignCommandBase> {
         // must have exactly two entities in an assignment
         if (allAssignPrefixes.size() != 2) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, "")
+                    String.format(MESSAGE_USAGE, "")
             );
         }
 

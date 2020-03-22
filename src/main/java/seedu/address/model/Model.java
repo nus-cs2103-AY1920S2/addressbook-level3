@@ -449,4 +449,8 @@ public interface Model {
    */
   void updateFilteredCourseStudentList(Predicate<CourseStudent> predicate);
 
+  /**
+   * Updates all new students that courses contain
+   */
+  void updateCourseStudents();
 }

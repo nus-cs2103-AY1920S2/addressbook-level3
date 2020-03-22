@@ -91,23 +91,8 @@ public class ModelManager implements Model {
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getAssignmentList());
     filteredCourseStudents = new FilteredList<>(this.courseStudentAddressBook.getCourseStudentList());
 
-    for (Course course : filteredCourses){
-      String courseString = course.getId().toString();
-      ArrayList<Integer> assignedStudents = new ArrayList<>();
-      for (CourseStudent courseStudent : filteredCourseStudents){
-        if (courseStudent.getCourseid().toString().equals(courseString)){
-           assignedStudents.add(Integer.parseInt(courseStudent.getStudentid().toString()));
-        }
-      }
+    updateCourseStudents();
 
-      Collections.sort(assignedStudents);
-      if (assignedStudents.size() == 0) {
-        course.setAssignedStudents("None");
-      }
-      else {
-        course.setAssignedStudents(assignedStudents.toString());
-      }
-    }
   }
 
   public ModelManager() {
@@ -459,23 +444,7 @@ public class ModelManager implements Model {
   public void addCourseStudent(CourseStudent courseStudent) {
     courseStudentAddressBook.addCourseStudent(courseStudent);
 
-    for (Course course : filteredCourses){
-      String courseString = course.getId().toString();
-      ArrayList<Integer> assignedStudents = new ArrayList<>();
-      for (CourseStudent curCourseStudent : filteredCourseStudents){
-        if (curCourseStudent.getCourseid().toString().equals(courseString)){
-          assignedStudents.add(Integer.parseInt(curCourseStudent.getStudentid().toString()));
-        }
-      }
-
-      Collections.sort(assignedStudents);
-      if (assignedStudents.size() == 0) {
-        course.setAssignedStudents("None");
-      }
-      else {
-        course.setAssignedStudents(assignedStudents.toString());
-      }
-    }
+    updateCourseStudents();
 
     updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     updateFilteredCourseStudentList(PREDICATE_SHOW_ALL_COURSESTUDENTS);
@@ -595,6 +564,57 @@ public class ModelManager implements Model {
     filteredCourses.setPredicate(predicate);
   }
 
+  public void updateCourseStudents(){
+    //Updates list of students for each course
+    for (Course course : filteredCourses){
+      String courseString = course.getId().toString();
+      ArrayList<NameIdTuple> assignedStudents = new ArrayList<>();
+      for (CourseStudent curCourseStudent : filteredCourseStudents){
+        if (curCourseStudent.getCourseid().toString().equals(courseString)){
+          String student = curCourseStudent.getStudentid().toString();
+          for (Student curStudent : filteredStudents){
+            if (curStudent.getID().toString().equals(student)){
+              NameIdTuple t = new NameIdTuple(curStudent.getName().toString(), curCourseStudent.getStudentid().toString());
+              assignedStudents.add(t);
+            }
+          }
+        }
+      }
+
+      Collections.sort(assignedStudents);
+      if (assignedStudents.size() == 0) {
+        course.setAssignedStudents("None");
+      }
+      else {
+        course.setAssignedStudents(assignedStudents.toString());
+      }
+    }
+
+    //Updates list of courses for each student
+    for (Student student : filteredStudents){
+      String studentString = student.getID().toString();
+      ArrayList<NameIdTuple> assignedCourses = new ArrayList<>();
+      for (CourseStudent curCourseStudent : filteredCourseStudents){
+        if (curCourseStudent.getStudentid().toString().equals(studentString)){
+          String course = curCourseStudent.getCourseid().toString();
+          for (Course curCourse : filteredCourses){
+            if (curCourse.getId().toString().equals(course)){
+              NameIdTuple t = new NameIdTuple(curCourse.getName().toString(), curCourseStudent.getCourseid().toString());
+              assignedCourses.add(t);
+            }
+          }
+        }
+      }
+
+      Collections.sort(assignedCourses);
+      if (assignedCourses.size() == 0) {
+        student.setAssignedCourses("None");
+      }
+      else {
+        student.setAssignedCourses(assignedCourses.toString());
+      }
+    }
+  }
 
   @Override
   public boolean equals(Object obj) {
@@ -626,4 +646,31 @@ public class ModelManager implements Model {
 
   }
 
+  private class NameIdTuple implements Comparable<NameIdTuple>{
+    private String name;
+    private String id;
+    NameIdTuple(String name, String id){
+      this.name = name;
+      this.id = id;
+    }
+
+    public String getName(){
+      return this.name;
+    }
+
+    public String getId(){
+      return this.id;
+    }
+
+    @Override
+    public int compareTo(NameIdTuple o) {
+      return Integer.parseInt(id) - (Integer.parseInt(o.getId()));
+    }
+
+    @Override
+    public String toString(){
+      return getName() + "(" + getId() + ")";
+    }
+  }
 }
+

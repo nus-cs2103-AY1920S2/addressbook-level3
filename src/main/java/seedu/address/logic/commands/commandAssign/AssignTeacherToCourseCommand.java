@@ -19,7 +19,7 @@ import java.util.Set;
 /** This class will be in charge of assigning stuff (e.g students, teacher, etc) to a course. */
 public class AssignTeacherToCourseCommand extends AssignCommandBase {
 
-    public static final String MESSAGE_INVALID_COURSE_ID = "Invalid course id";
+    public static final String MESSAGE_INVALID_COURSE_ID = "There is no such course that with ID";
 
     private final AssignDescriptor assignDescriptor;
 

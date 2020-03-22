@@ -21,6 +21,7 @@ public class Student {
   private final Name name;
   private final ID id;
   private final Set<Tag> tags = new HashSet<>();
+  private String assignedCourses = "";
 
   /**
    * Every field must be present and not null.
@@ -46,6 +47,14 @@ public class Student {
    */
   public Set<Tag> getTags() {
     return Collections.unmodifiableSet(tags);
+  }
+
+  public void setAssignedCourses(String assignedCourses){
+    this.assignedCourses = assignedCourses;
+  }
+
+  public String getAssignedCourses(){
+    return this.assignedCourses;
   }
 
   /**
