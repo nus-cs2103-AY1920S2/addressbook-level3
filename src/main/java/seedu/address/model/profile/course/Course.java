@@ -9,11 +9,13 @@ import java.util.List;
 public class Course {
 
     private final String courseName;
-    private final List<CourseFocusArea> focusAreas;
 
-    public Course(String courseName, List<CourseFocusArea> focusAreas) {
+    private final List<CourseRequirement> requirements;
+
+
+    public Course(String courseName, List<CourseRequirement> requirements) {
         this.courseName = courseName;
-        this.focusAreas = focusAreas;
+        this.requirements = requirements;
     }
 
     @Override
@@ -21,9 +23,9 @@ public class Course {
         StringBuilder output = new StringBuilder();
         output.append(courseName);
 
-        for (CourseFocusArea focusArea : focusAreas) {
+        for (CourseRequirement requirement : requirements) {
             output.append("\n");
-            output.append(focusArea);
+            output.append(CourseRequirement);
         }
 
         output.append("\n");

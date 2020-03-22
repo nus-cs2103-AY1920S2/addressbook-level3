@@ -119,4 +119,12 @@ public class ProfileManager implements Model {
     public Profile getProfile(Name name) {
         return profileList.getProfileWithName(name);
     }
+
+    /**
+     * To be used in the case of only one profile. Does not take into account the name of the user.
+     * Consider temporarily storing the name of the current user in memory (when dealing with multiple profiles.
+     */
+    public Profile getFirstProfile() {
+        return profileList.getProfileList().get(0);
+    }
 }
