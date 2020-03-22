@@ -176,6 +176,9 @@ https://keylocation.sg/singapore/districts-map[this website]
 
 The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
 
+==== Class Diagram for Nearby feature
+image::NearbyClassDiagram.png[]
+
 ==== Sequence Diagram for searching by postal sector
 The sequence diagram for the *Nearby Command* when searching by *postal sector*
 is shown below:
