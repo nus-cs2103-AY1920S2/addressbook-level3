@@ -108,10 +108,21 @@ Examples:
 //* `edit 2 n/Betsy Crower t/` +
 //Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Showing: `show` (coming in v2.0)
+=== Showing: `show`
 
-//Finds persons whose names contain any of the given keywords. +
-//Format: `find KEYWORD [MORE_KEYWORDS]`
+There are multiple details you can show with the `show` command:
+
+1. Show all modules in a specified semester
+
+Format: `show y/SEMESTER_INDEX`
+
+This lists the modules that have been added in this specified semester.
+
+2. Show all modules in a course's requirements
+
+Format: `find c/COURSE_NAME`
+
+This lists the module requirements under this course.
 
 //****
 //* The search is case insensitive. e.g `hans` will match `Hans`

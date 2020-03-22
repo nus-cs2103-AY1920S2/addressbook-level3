@@ -16,20 +16,33 @@ public class CourseRequirement {
     private final String requirementName;
     private final List<ModuleCode> modules;
     private final ModularCredits modularCredits;
-
+    private final List<String> requirementInfo;
     /**
      * Every field must be present and not null.
      */
-    public CourseRequirement(String requirementName, List<ModuleCode> modules, ModularCredits modularCredits) {
+    public CourseRequirement(String requirementName, List<ModuleCode> modules, ModularCredits modularCredits,
+                             List<String> requirementInfo) {
         this.requirementName = requirementName;
         this.modules = modules;
         this.modularCredits = modularCredits;
+        this.requirementInfo = requirementInfo;
     }
 
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
-        output.append(requirementName);
+        double integerCredits = Double.valueOf(modularCredits.toString());
+
+        output.append(requirementName + " ");
+        output.append("(" + (int) integerCredits + " MCs):");
+
+        if (requirementInfo != null) {
+            for (String info : requirementInfo) {
+                output.append("\u2022 ");
+                output.append(info + "\n");
+            }
+        }
+
         for (ModuleCode moduleCode : modules) {
             output.append("\n");
             output.append(moduleCode);
