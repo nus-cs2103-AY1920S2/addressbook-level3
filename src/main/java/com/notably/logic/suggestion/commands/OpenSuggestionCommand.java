@@ -29,12 +29,8 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     @Override
     public void execute(Model model) {
         setResponseTextToModel(model);
-        List<AbsolutePath> possiblePaths = getPossiblePaths(path);
+        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
-
-        //for (SuggestionItem suggestionItem : suggestions) {
-            //System.out.println(suggestionItem.getDisplayText());
-        //}
 
         setSuggestionsToModel(model, suggestions);
     }
@@ -47,14 +43,14 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         model.setSuggestions(suggestions);
     }
 
-    public List<AbsolutePath> getPossiblePaths(AbsolutePath path) {
-        BlockTreeItem root = getRootBlock();
+    public List<AbsolutePath> getPossiblePaths(AbsolutePath path, Model model) {
+        BlockTreeItem root = model.getBlockTree().getRootBlock();
 
         List<String> components = path.getComponents();
         List<BlockTreeItem> children = new ArrayList<>();
         Queue<BlockTreeItem> queue = new LinkedList<>();
 
-        for (BlockTreeItem rootChild : root.getBlockChildren()) { //don't need add root to queue, but add root's children
+        for (BlockTreeItem rootChild : root.getBlockChildren()) {
             queue.add(rootChild);
         }
 
