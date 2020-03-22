@@ -5,6 +5,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COD_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMMENT_NIL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -129,7 +131,8 @@ public class TypicalOrders {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalOrders() {} // prevents instantiation
+    private TypicalOrders() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code OrderBook} with all the typical orders.
