@@ -9,42 +9,42 @@ import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.ExerciseName;
-import seedu.zerotoone.model.exercise.ExerciseSet;
+import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * Adds an exercise to the exercise list.
+ * Adds an workout to the workout list.
  */
 public class CreateCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "create";
-    public static final String MESSAGE_USAGE = "Usage: exercise create e/<exercise_name>";
-    public static final String MESSAGE_SUCCESS = "New exercise added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists";
+    public static final String MESSAGE_USAGE = "Usage: workout create e/<workout_name>";
+    public static final String MESSAGE_SUCCESS = "New workout added: %1$s";
+    public static final String MESSAGE_DUPLICATE_WORKOUT = "This workout already exists";
 
-    private final ExerciseName exerciseName;
-    private final List<ExerciseSet> exerciseSets;
+    private final WorkoutName workoutName;
+    private final List<Exercise> workoutExercises;
 
     /**
-     * Creates a CreateCommand to add the specified {@code Exercise}
+     * Creates a CreateCommand to add the specified {@code Workout}
      */
-    public CreateCommand(ExerciseName exerciseName) {
-        requireNonNull(exerciseName);
-        this.exerciseName = exerciseName;
-        this.exerciseSets = new ArrayList<>();
+    public CreateCommand(WorkoutName workoutName) {
+        requireNonNull(workoutName);
+        this.workoutName = workoutName;
+        this.workoutExercises = new ArrayList<>();
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Exercise exercise = new Exercise(this.exerciseName, this.exerciseSets);
+        Workout workout = new Workout(this.workoutName, this.workoutExercises);
 
-        if (model.hasExercise(exercise)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
+        if (model.hasWorkout(workout)) {
+            throw new CommandException(MESSAGE_DUPLICATE_WORKOUT);
         }
 
-        model.addExercise(exercise);
+        model.addWorkout(workout);
 
-        String outputMessage = String.format(MESSAGE_SUCCESS, exercise.getExerciseName().toString());
+        String outputMessage = String.format(MESSAGE_SUCCESS, workout.getWorkoutName().toString());
         return new CommandResult(outputMessage);
     }
 
@@ -52,6 +52,6 @@ public class CreateCommand extends WorkoutCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CreateCommand // instanceof handles nulls
-                && exerciseName.equals(((CreateCommand) other).exerciseName));
+                && workoutName.equals(((CreateCommand) other).workoutName));
     }
 }
