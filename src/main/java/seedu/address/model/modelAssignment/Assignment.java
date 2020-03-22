@@ -101,11 +101,16 @@ public class Assignment {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("Assignment: ")
+    builder.append("\n")
+            .append("Assignment: ")
             .append(getName())
+            .append("\n")
+            .append("Assignment ID: ")
+            .append(getId())
+            .append("\n")
             .append("Deadline: ")
             .append(getDeadline().toString())
-            .append(getId())
+            .append("\n")
             .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();
