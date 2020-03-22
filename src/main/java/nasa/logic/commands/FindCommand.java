@@ -5,8 +5,8 @@ import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
 
 import javafx.collections.ObservableList;
 
-
 import nasa.logic.commands.exceptions.CommandException;
+
 import nasa.model.Model;
 import nasa.model.activity.ActivityContainsKeyWordsPredicate;
 import nasa.model.module.Module;

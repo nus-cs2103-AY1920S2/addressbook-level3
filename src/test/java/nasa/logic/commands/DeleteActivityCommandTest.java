@@ -31,7 +31,7 @@ public class DeleteActivityCommandTest {
         ModelManager expectedModel = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
         expectedModel.removeActivityByIndex(moduleCode, INDEX_FIRST_ACTIVITY);
 
-        assertCommandSuccess(deleteActivityCommand, model ,expectedMessage, expectedModel);
+        assertCommandSuccess(deleteActivityCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

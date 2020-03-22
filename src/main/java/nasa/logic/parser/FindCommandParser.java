@@ -3,6 +3,7 @@ package nasa.logic.parser;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+
 import nasa.logic.commands.FindCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.activity.ActivityContainsKeyWordsPredicate;
