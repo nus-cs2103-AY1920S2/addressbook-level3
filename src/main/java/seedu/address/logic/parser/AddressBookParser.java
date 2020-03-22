@@ -102,6 +102,9 @@ public class AddressBookParser {
       case AddAssignmentCommand.COMMAND_WORD:
         return new AddAssignmentCommandParser().parse(arguments);
 
+      case AddCourseStudentCommand.COMMAND_WORD:
+        return new AddCourseStudentCommandParser().parse(arguments);
+
       case DeleteTeacherCommand.COMMAND_WORD:
         return new DeleteTeacherCommandParser().parse(arguments);
 

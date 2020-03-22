@@ -16,6 +16,9 @@ import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelCourseStudent.CourseStudent;
+import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
+import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
@@ -40,6 +43,7 @@ public class ModelManager implements Model {
   private final FinanceAddressBook financeAddressBook;
   private final CourseAddressBook courseAddressBook;
   private final AssignmentAddressBook assignmentAddressBook;
+  private final CourseStudentAddressBook courseStudentAddressBook;
 
   private final UserPrefs userPrefs;
   private final FilteredList<Person> filteredPersons;
@@ -48,6 +52,7 @@ public class ModelManager implements Model {
   private final FilteredList<Finance> filteredFinances;
   private final FilteredList<Course> filteredCourses;
   private final FilteredList<Assignment> filteredAssignments;
+  private final FilteredList<CourseStudent> filteredCourseStudents;
 
   /**
    * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -55,10 +60,10 @@ public class ModelManager implements Model {
   public ModelManager(ReadOnlyAddressBook addressBook,
       ReadOnlyTeacherAddressBook teacherAddressBook, ReadOnlyStudentAddressBook studentAddressBook,
       ReadOnlyFinanceAddressBook financeAddressBook, ReadOnlyCourseAddressBook courseAddressBook,
-      ReadOnlyAssignmentAddressBook assignmentAddressBook,
+      ReadOnlyAssignmentAddressBook assignmentAddressBook, ReadOnlyCourseStudentAddressBook courseStudentAddressBook,
                       ReadOnlyUserPrefs userPrefs) {
     super();
-    requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
+    requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook, courseStudentAddressBook,
             //assignmentAddressBook,
             userPrefs);
 
@@ -72,6 +77,7 @@ public class ModelManager implements Model {
     this.financeAddressBook = new FinanceAddressBook(financeAddressBook);
     this.courseAddressBook = new CourseAddressBook(courseAddressBook);
     this.assignmentAddressBook = new AssignmentAddressBook(assignmentAddressBook);
+    this.courseStudentAddressBook = new CourseStudentAddressBook(courseStudentAddressBook);
 
     this.userPrefs = new UserPrefs(userPrefs);
     filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
@@ -80,12 +86,13 @@ public class ModelManager implements Model {
     filteredFinances = new FilteredList<>(this.financeAddressBook.getFinanceList());
     filteredCourses = new FilteredList<>(this.courseAddressBook.getCourseList());
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getAssignmentList());
+    filteredCourseStudents = new FilteredList<>(this.courseStudentAddressBook.getCourseStudentList());
   }
 
   public ModelManager() {
     this(new AddressBook(), new TeacherAddressBook(), new StudentAddressBook(),
         new FinanceAddressBook(), new CourseAddressBook(),
-            new AssignmentAddressBook(),
+            new AssignmentAddressBook(), new CourseStudentAddressBook(),
             new UserPrefs());
   }
 
@@ -177,6 +184,17 @@ public class ModelManager implements Model {
   public void setAssignmentAddressBookFilePath(Path assignmentAddressBookFilePath) {
     requireNonNull(assignmentAddressBookFilePath);
     userPrefs.setAssignmentAddressBookFilePath(assignmentAddressBookFilePath);
+  }
+
+  @Override
+  public Path getCourseStudentAddressBookFilePath() {
+    return userPrefs.getAssignmentAddressBookFilePath();
+  }
+
+  @Override
+  public void setCourseStudentAddressBookFilePath(Path courseStudentAddressBookFilePath) {
+    requireNonNull(courseStudentAddressBookFilePath);
+    userPrefs.setAssignmentAddressBookFilePath(courseStudentAddressBookFilePath);
   }
 
 
@@ -354,6 +372,7 @@ public class ModelManager implements Model {
     courseAddressBook.setCourse(target, editedCourse);
   }
 
+  ///
   @Override
   public ReadOnlyAssignmentAddressBook getAssignmentAddressBook() {
     return assignmentAddressBook;
@@ -385,6 +404,41 @@ public class ModelManager implements Model {
 
   @Override
   public void setAssignment(Assignment target, Assignment editedAssignment) {
+
+  }
+
+  ///
+  @Override
+  public ReadOnlyCourseStudentAddressBook getCourseStudentAddressBook() {
+    return courseStudentAddressBook;
+  }
+
+  @Override
+  public void setCourseStudentAddressBook(ReadOnlyCourseStudentAddressBook courseStudentAddressBook) {
+    this.courseStudentAddressBook.resetData(courseStudentAddressBook);
+  }
+
+
+  //TODO
+  @Override
+  public boolean hasCourseStudent(CourseStudent courseStudent) {
+    return false;
+  }
+
+  @Override
+  public void deleteCourseStudent(CourseStudent courseStudent) {
+
+  }
+
+  @Override
+  public void addCourseStudent(CourseStudent courseStudent) {
+    requireNonNull(courseStudent);
+    courseStudentAddressBook.addCourseStudent(courseStudent);
+    updateFilteredCourseStudentList(PREDICATE_SHOW_ALL_COURSESTUDENTS);
+  }
+
+  @Override
+  public void setCourseStudent(CourseStudent target, CourseStudent editedCourseStudent) {
 
   }
 
@@ -450,6 +504,10 @@ public class ModelManager implements Model {
     filteredFinances.setPredicate(predicate);
   }
 
+  /**
+   * Returns an unmodifiable view of the list of {@code Assignment} backed by the internal list of
+   * {@code versionedAssignmentAddressBook}
+   */
   @Override
   public ObservableList<Assignment> getFilteredAssignmentList() {
     return filteredAssignments;
@@ -462,7 +520,22 @@ public class ModelManager implements Model {
   }
 
   /**
-   * Returns an unmodifiable view of the list of {@code Assignment} backed by the internal list of
+   * Returns an unmodifiable view of the list of {@code CourseStudent} backed by the internal list of
+   * {@code versionedCourseStudentAddressBook}
+   */
+  @Override
+  public ObservableList<CourseStudent> getFilteredCourseStudentList() {
+    return filteredCourseStudents;
+  }
+
+  @Override
+  public void updateFilteredCourseStudentList(Predicate<CourseStudent> predicate) {
+    requireNonNull(predicate);
+    filteredCourseStudents.setPredicate(predicate);
+  }
+
+  /**
+   * Returns an unmodifiable view of the list of {@code Course} backed by the internal list of
    * {@code versionedCourseAddressBook}
    */
   @Override
@@ -497,12 +570,13 @@ public class ModelManager implements Model {
         && courseAddressBook.equals(other.courseAddressBook)
         && financeAddressBook.equals(other.financeAddressBook)
         && assignmentAddressBook.equals(other.assignmentAddressBook)
+        && courseStudentAddressBook.equals(other.courseStudentAddressBook)
         && filteredTeachers.equals(other.filteredTeachers)
         && filteredStudents.equals(other.filteredStudents)
         && filteredCourses.equals(other.filteredCourses)
         && filteredFinances.equals(other.filteredFinances)
-        && filteredAssignments.equals(other.filteredAssignments);
-
+        && filteredAssignments.equals(other.filteredAssignments)
+        && filteredCourseStudents.equals(other.filteredCourseStudents);
 
   }
 
