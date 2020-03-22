@@ -45,12 +45,12 @@ UniqueStudentList o--> "*" Student
 Student *--> Name
 Student *--> Phone
 Student *--> Email
-Student *--> Address
+Student *--> Matric
 Student *--> "*" Tag
 
 Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Phone -[hidden]right-> Matric
+Matric -[hidden]right-> Email
 
 ModelManager -->"1" Student : filtered list
 @enduml

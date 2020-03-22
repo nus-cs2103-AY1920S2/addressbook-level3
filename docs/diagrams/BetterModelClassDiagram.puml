@@ -17,5 +17,5 @@ Student o-up-> "*" Tag
 Student *--> Name
 Student *--> Phone
 Student *--> Email
-Student *--> Address
+Student *--> Matric
 @enduml
