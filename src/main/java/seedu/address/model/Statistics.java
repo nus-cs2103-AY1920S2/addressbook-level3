@@ -6,15 +6,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.PomDurationData;
 import seedu.address.model.dayData.TasksDoneData;
 
-/**
- * Wraps all DayData objects.
- */
+/** Wraps all DayData objects. */
 public class Statistics implements ReadOnlyStatistics {
 
     private final ArrayList<DayData> dayDataList;
@@ -36,7 +33,8 @@ public class Statistics implements ReadOnlyStatistics {
         LocalDate currDate = LocalDate.now();
         for (int i = 0; i < MAX_SIZE; i++) {
             LocalDate tempLocalDate = currDate.minusDays(i);
-            Date tempDate = new Date(tempLocalDate);
+            String tempLocalDateStr = tempLocalDate.toString();
+            Date tempDate = new Date(tempLocalDateStr);
             DayData dayData = new DayData(tempDate);
             dayDataList.add(dayData);
         }
@@ -49,9 +47,7 @@ public class Statistics implements ReadOnlyStatistics {
         this.dayDataList.clear();
     }
 
-    /**
-     * Replaces the contents of the list with {@code dayDataList}.
-     */
+    /** Replaces the contents of the list with {@code dayDataList}. */
     public void setDayDatas(List<DayData> dayDataList) {
         this.dayDataList.clear();
         this.dayDataList.addAll(dayDataList);
@@ -65,16 +61,19 @@ public class Statistics implements ReadOnlyStatistics {
 
     //// dayData-level operations
 
-    // FUNCTIONS FOR HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH SIR
+    // FUNCTIONS FOR
+    // HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH SIR
 
     /** reinitialises dayDataList to current day while retaining stored data. */
-    public void fetch() {
+    public void updateDataDates() {
         HashMap<Date, PomDurationData> pomTempStorage = new HashMap<>();
         HashMap<Date, TasksDoneData> tasksTempStorage = new HashMap<>();
 
         for (int i = 0; i < dayDataList.size(); i++) {
-            pomTempStorage.put(dayDataList.get(i).getDate(), dayDataList.get(i).getPomDurationData());
-            tasksTempStorage.put(dayDataList.get(i).getDate(), dayDataList.get(i).getTasksDoneData());
+            pomTempStorage.put(
+                    dayDataList.get(i).getDate(), dayDataList.get(i).getPomDurationData());
+            tasksTempStorage.put(
+                    dayDataList.get(i).getDate(), dayDataList.get(i).getTasksDoneData());
         }
 
         this.init();
@@ -84,20 +83,21 @@ public class Statistics implements ReadOnlyStatistics {
             if (pomTempStorage.containsKey(currTempDate)) {
                 PomDurationData tempPomDurationDate = pomTempStorage.get(currTempDate);
                 TasksDoneData tempTasksDoneData = tasksTempStorage.get(currTempDate);
-                DayData tempDayData = new DayData(currTempDate, tempPomDurationDate, tempTasksDoneData);
+                DayData tempDayData =
+                        new DayData(currTempDate, tempPomDurationDate, tempTasksDoneData);
                 dayDataList.remove(i);
                 dayDataList.add(i, tempDayData);
             }
         }
 
-        assert(dayDataList.size() <= MAX_SIZE);
-
+        assert (dayDataList.size() <= MAX_SIZE);
     }
 
     /**
      * Auto-checks and replaces a new DayData object at the same Date
+     *
      * @param dayData
-    */
+     */
     public void updatesDayData(DayData dayData) {
         requireNonNull(dayData);
 
@@ -111,8 +111,7 @@ public class Statistics implements ReadOnlyStatistics {
                 return;
             }
         }
-        assert(false); // dayData not found
-
+        assert (false); // dayData not found
     }
 
     /**
@@ -136,9 +135,7 @@ public class Statistics implements ReadOnlyStatistics {
 
     // FUNCTIONS FOR HARDOHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH end
 
-    /**
-     * Returns true if a dayData with the same identity as {@code dayData} exists in the list.
-     */
+    /** Returns true if a dayData with the same identity as {@code dayData} exists in the list. */
     public boolean hasDayData(DayData dayData) {
         requireNonNull(dayData);
         return dayDataList.contains(dayData);

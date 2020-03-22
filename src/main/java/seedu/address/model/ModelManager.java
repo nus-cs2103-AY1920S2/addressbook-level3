@@ -201,8 +201,8 @@ public class ModelManager implements Model {
         return statistics;
     }
 
-    public void fetchStatistics() {
-        statistics.fetch();
+    public void updateDataDatesStatistics() {
+        statistics.updateDataDates();
     }
 
     public void updatesDayDataStatistics(DayData dayData) {
@@ -212,6 +212,4 @@ public class ModelManager implements Model {
     public DayData getDayDataFromDate(Date date) {
         return statistics.getDayDataFromDate(date);
     }
-
-
 }
