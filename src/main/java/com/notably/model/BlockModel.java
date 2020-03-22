@@ -3,25 +3,18 @@ package com.notably.model;
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockTree;
-import com.notably.model.block.BlockTreeItem;
 import com.notably.model.block.Body;
 
-import javafx.beans.Observable;
 import javafx.beans.property.Property;
 
 /**
  * API of the BlockModel component.
  */
-public interface BlockModel extends Observable {
+public interface BlockModel {
     /**
      * Gets the BlockTree currently in use by Notably.
      */
     BlockTree getBlockTree();
-
-    /**
-     * Gets the currently open block.
-     */
-    BlockTreeItem getCurrentlyOpenBlock();
 
     /**
      * Gets the absolute path of the currently open block.

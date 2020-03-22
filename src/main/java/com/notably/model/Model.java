@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 /**
  * The API of the Model component.
  */
-public interface Model extends SuggestionModel, CommandInputModel {
+public interface Model extends BlockModel, SuggestionModel, CommandInputModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Object> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
