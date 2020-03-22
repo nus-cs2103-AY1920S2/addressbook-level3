@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.suggestion.block;
 
 import static java.util.Objects.requireNonNull;
 

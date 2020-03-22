@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands;
+package com.notably.logic.suggestion.block;
 
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.model.block.Block;
