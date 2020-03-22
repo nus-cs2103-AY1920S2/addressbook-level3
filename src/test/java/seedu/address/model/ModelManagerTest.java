@@ -3,10 +3,12 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.ALICE;
+import static seedu.address.testutil.TypicalOrders.ALICE_RETURN;
 import static seedu.address.testutil.TypicalOrders.BENSON;
+import static seedu.address.testutil.TypicalOrders.BENSON_RETURN;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +28,8 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new OrderBook(), new OrderBook(modelManager.getOrderBook()));
+        assertEquals(new OrderBook(), modelManager.getOrderBook());
+        assertEquals(new OrderBook(), modelManager.getReturnOrderBook());
     }
 
     @Test
@@ -38,6 +41,7 @@ public class ModelManagerTest {
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setOrderBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setReturnOrderBookFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
@@ -45,6 +49,7 @@ public class ModelManagerTest {
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
         userPrefs.setOrderBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setReturnOrderBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,31 +66,40 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setOrderBookFilePath_nullPath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setOrderBookFilePath(null));
+        assertThrows(NullPointerException.class, () -> modelManager.setReturnOrderBookFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setOrderBookFilePath_validPath_setsOrderBookFilePath() {
         Path path = Paths.get("address/book/file/path");
         modelManager.setOrderBookFilePath(path);
         assertEquals(path, modelManager.getOrderBookFilePath());
+
+        modelManager.setReturnOrderBookFilePath(path);
+        assertEquals(path, modelManager.getReturnOrderBookFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasOrder_nullOrder_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.hasOrder(null));
+        assertThrows(NullPointerException.class, () -> modelManager.hasReturnOrder(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasOrder_orderNotInOrderBook_returnsFalse() {
         assertFalse(modelManager.hasOrder(ALICE));
+        assertFalse(modelManager.hasReturnOrder(ALICE_RETURN));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasOrder_orderInOrderBook_returnsTrue() {
         modelManager.addOrder(ALICE);
         assertTrue(modelManager.hasOrder(ALICE));
+
+        modelManager.addReturnOrder(ALICE_RETURN);
+        assertTrue(modelManager.hasReturnOrder(ALICE_RETURN));
     }
 
     @Test
@@ -94,14 +108,28 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredReturnOrderList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredReturnOrderList().remove(0));
+    }
+
+    @Test
+    public void addReturnOrder_thenSetReturnOrderBook_returnCorrectReturnOrderBook() {
+        modelManager.addReturnOrder(ALICE_RETURN);
+        modelManager.setReturnOrderBook(new OrderBook());
+        assertEquals(new OrderBook(), modelManager.getReturnOrderBook());
+    }
+
+    @Test
     public void equals() {
-        OrderBook addressBook = new OrderBookBuilder().withOrder(ALICE).withOrder(BENSON).build();
-        OrderBook differentAddressBook = new OrderBook();
+        OrderBook deliveryOrderBook = new OrderBookBuilder().withOrder(ALICE).withOrder(BENSON).build();
+        OrderBook returnOrderBook = new OrderBookBuilder().withOrder(ALICE_RETURN).withOrder(BENSON_RETURN).build();
+        OrderBook differentDeliveryOrderBook = new OrderBook();
+        OrderBook differentReturnOrderBook = new OrderBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(deliveryOrderBook, returnOrderBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(deliveryOrderBook, returnOrderBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,20 +141,26 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different deliveryOrderBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentDeliveryOrderBook, returnOrderBook, userPrefs)));
+
+        // different returnOrderBook -> return false
+        assertFalse(modelManager.equals(new ModelManager(deliveryOrderBook, differentReturnOrderBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredOrderList(new OrderContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(deliveryOrderBook, returnOrderBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_ORDERS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setOrderBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(deliveryOrderBook, returnOrderBook, differentUserPrefs)));
     }
 }

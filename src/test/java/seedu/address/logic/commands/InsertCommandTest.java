@@ -150,12 +150,62 @@ public class InsertCommandTest {
         }
 
         @Override
+        public Path getReturnOrderBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReturnOrderBookFilePath(Path orderBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addReturnOrder(Order order) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReturnOrderBook(ReadOnlyOrderBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyOrderBook getReturnOrderBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasReturnOrder(Order order) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteReturnOrder(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReturnOrder(Order target, Order editedOrder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Order> getFilteredOrderList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Order> getFilteredReturnOrderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredOrderList(Predicate<Order> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReturnOrderList(Predicate<Order> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -12,7 +12,7 @@ import seedu.address.model.order.Order;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Order> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -72,7 +72,7 @@ public interface Model {
     /**
      * Replaces the given order {@code target} with {@code editedOrder}.
      * {@code target} must exist in the order book.
-     * The person identity of {@code editedOrder} must not be the same as another existing order in the order book.
+     * The order identity of {@code editedOrder} must not be the same as another existing order in the order book.
      */
     void setOrder(Order target, Order editedOrder);
 
@@ -88,6 +88,49 @@ public interface Model {
      */
     void renewDeliveryStatus(Order target);
 
+    /**
+     * Returns the user prefs' return order book file path.
+     */
+    Path getReturnOrderBookFilePath();
+
+    /**
+     * Sets the user prefs' return order book file path.
+     */
+    void setReturnOrderBookFilePath(Path returnOrderBookFilePath);
+
+    /**
+     * Replaces return order book data with the data in {@code returnOrderBook}.
+     */
+    void setReturnOrderBook(ReadOnlyOrderBook returnOrderBook);
+
+    /** Returns the ReturnOrderBook */
+    ReadOnlyOrderBook getReturnOrderBook();
+
+    /**
+     * Returns true if a return order with the same identity as {@code returnOrder} exists in the return order book.
+     */
+    boolean hasReturnOrder(Order returnOrder);
+
+    /**
+     * Deletes the given return order.
+     * The return order must exist in the return order book.
+     */
+    void deleteReturnOrder(Order target);
+
+    /**
+     * Adds the given return order.
+     * {@code returnOrder} must not already exist in the return order book.
+     */
+    void addReturnOrder(Order returnOrder);
+
+    /**
+     * Replaces the given order {@code target} with {@code editedReturnOrder}.
+     * {@code target} must exist in the return order book.
+     * The return order identity of {@code editedReturnOrder} must not be the same as another existing return order
+     * in the return order book.
+     */
+    void setReturnOrder(Order target, Order editedReturnOrder);
+
     /** Returns an unmodifiable view of the filtered order list */
     ObservableList<Order> getFilteredOrderList();
 
@@ -96,4 +139,13 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
+
+    /** Returns an unmodifiable view of the filtered return order list */
+    ObservableList<Order> getFilteredReturnOrderList();
+
+    /**
+     * Updates the filter of the filtered return order list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredReturnOrderList(Predicate<Order> predicate);
 }

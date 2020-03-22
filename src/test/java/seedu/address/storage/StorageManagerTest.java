@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
 
 import java.nio.file.Path;
 
@@ -24,9 +25,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonOrderBookStorage addressBookStorage = new JsonOrderBookStorage(getTempFilePath("ab"));
+        JsonOrderBookStorage deliveryOrderBookStorage = new JsonOrderBookStorage(getTempFilePath("ob"));
+        JsonOrderBookStorage returnOrderBookStorage = new JsonOrderBookStorage(getTempFilePath("rob"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(deliveryOrderBookStorage, returnOrderBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,11 +50,11 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void orderBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonOrderBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonOrderBookStorageTest} class.
          */
         OrderBook original = getTypicalOrderBook();
         storageManager.saveOrderBook(original);
@@ -61,8 +63,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void returnOrderBookReadSave() throws Exception {
+        OrderBook original = getTypicalReturnOrderBook();
+        storageManager.saveReturnOrderBook(original);
+        ReadOnlyOrderBook retrieved = storageManager.readReturnOrderBook().get();
+        assertEquals(original, new OrderBook(retrieved));
+    }
+
+    @Test
+    public void getOrderBookFilePath() {
         assertNotNull(storageManager.getOrderBookFilePath());
+    }
+
+    @Test
+    public void getReturnOrderBookFilePath() {
+        assertNotNull(storageManager.getReturnOrderBookFilePath());
     }
 
 }

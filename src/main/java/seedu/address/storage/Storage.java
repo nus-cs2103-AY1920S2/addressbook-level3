@@ -20,6 +20,8 @@ public interface Storage extends OrderBookStorage, UserPrefsStorage {
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
+    //==================== Order Book methods ========================================
+
     @Override
     Path getOrderBookFilePath();
 
@@ -29,4 +31,15 @@ public interface Storage extends OrderBookStorage, UserPrefsStorage {
     @Override
     void saveOrderBook(ReadOnlyOrderBook orderBook) throws IOException;
 
+    //==================== Return Order Book methods ========================================
+
+    Path getReturnOrderBookFilePath();
+
+    Optional<ReadOnlyOrderBook> readReturnOrderBook() throws DataConversionException, IOException;
+
+    Optional<ReadOnlyOrderBook> readReturnOrderBook(Path filePath) throws DataConversionException, IOException;
+
+    void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook) throws IOException;
+
+    void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook, Path filePath) throws IOException;
 }

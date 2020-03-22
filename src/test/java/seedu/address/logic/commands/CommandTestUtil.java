@@ -184,7 +184,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the order at the given {@code targetIndex} in the
      * {@code model}'s order book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showOrderAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
 
         Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());

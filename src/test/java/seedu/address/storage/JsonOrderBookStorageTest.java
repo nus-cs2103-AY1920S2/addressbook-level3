@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.ALICE;
+import static seedu.address.testutil.TypicalOrders.ALICE_RETURN;
 import static seedu.address.testutil.TypicalOrders.HOON;
+import static seedu.address.testutil.TypicalOrders.HOON_RETURN;
 import static seedu.address.testutil.TypicalOrders.IDA;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -34,6 +37,10 @@ public class JsonOrderBookStorageTest {
         return new JsonOrderBookStorage(Paths.get(filePath)).readOrderBook(addToTestDataPathIfNotNull(filePath));
     }
 
+    private java.util.Optional<ReadOnlyOrderBook> readReturnOrderBook(String filePath) throws Exception {
+        return new JsonOrderBookStorage(Paths.get(filePath)).readReturnOrderBook(addToTestDataPathIfNotNull(filePath));
+    }
+
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
                 ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
@@ -43,16 +50,21 @@ public class JsonOrderBookStorageTest {
     @Test
     public void read_missingFile_emptyResult() throws Exception {
         assertFalse(readOrderBook("NonExistentFile.json").isPresent());
+        assertFalse(readReturnOrderBook("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
         assertThrows(DataConversionException.class, () -> readOrderBook("notJsonFormatOrderBook.json"));
+        assertThrows(DataConversionException.class, () -> readReturnOrderBook("notJsonFormatOrderBook.json"));
     }
 
     @Test
-    public void readOrderBook_invalidOrderAddressBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readOrderBook("invalidOrderAddressBook.json"));
+    public void readOrderBook_invalidOrderDeliveryOrderBook_throwDataConversionException() {
+        assertThrows(DataConversionException.class, () -> readOrderBook("invalidOrderDeliveryOrderBook.json"));
+        assertThrows(DataConversionException.class, () ->
+                readReturnOrderBook("invalidOrderReturnOrderBook.json")
+        );
     }
 
     @Test
@@ -79,10 +91,32 @@ public class JsonOrderBookStorageTest {
         readBack = jsonOrderBookStorage.readOrderBook().get(); // file path not specified
         assertEquals(original, new OrderBook(readBack));
 
+        //============ Return Order Book ==========================================
+
+        OrderBook returnOriginal = getTypicalReturnOrderBook();
+
+        // Save in new file and read back
+        jsonOrderBookStorage.saveReturnOrderBook(returnOriginal, filePath);
+        ReadOnlyOrderBook readReturnOrderBack = jsonOrderBookStorage.readOrderBook(filePath).get();
+        assertEquals(returnOriginal, new OrderBook(readReturnOrderBack));
+
+        // Modify data, overwrite exiting file, and read back
+        returnOriginal.addOrder(HOON_RETURN);
+        returnOriginal.removeOrder(ALICE_RETURN);
+        jsonOrderBookStorage.saveOrderBook(returnOriginal, filePath);
+        readReturnOrderBack = jsonOrderBookStorage.readReturnOrderBook(filePath).get();
+        assertEquals(returnOriginal, new OrderBook(readReturnOrderBack));
+
+        // Save and read without specifying file path
+        returnOriginal.addOrder(IDA);
+        jsonOrderBookStorage.saveOrderBook(returnOriginal); // file path not specified
+        readReturnOrderBack = jsonOrderBookStorage.readOrderBook().get(); // file path not specified
+        assertEquals(returnOriginal, new OrderBook(readReturnOrderBack));
+
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveOrderBook_nullOrderBook_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveOrderBook(null, "SomeFile.json"));
     }
 
@@ -98,8 +132,21 @@ public class JsonOrderBookStorageTest {
         }
     }
 
+    /**
+     * Saves {@code returnOrderBook} at the specified {@code filePath}.
+     */
+    private void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook, String filePath) {
+        try {
+            new JsonOrderBookStorage(Paths.get(filePath))
+                    .saveOrderBook(returnOrderBook, addToTestDataPathIfNotNull(filePath));
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
+        }
+    }
+
     @Test
     public void saveOrderBook_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveOrderBook(new OrderBook(), null));
+        assertThrows(NullPointerException.class, () -> saveReturnOrderBook(new OrderBook(), null));
     }
 }

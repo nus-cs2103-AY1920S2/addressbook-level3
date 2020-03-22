@@ -44,6 +44,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveOrderBook(model.getOrderBook());
+            storage.saveReturnOrderBook(model.getReturnOrderBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -57,13 +58,28 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyOrderBook getReturnOrderBook() {
+        return model.getReturnOrderBook();
+    }
+
+    @Override
     public ObservableList<Order> getFilteredOrderList() {
         return model.getFilteredOrderList();
     }
 
     @Override
+    public ObservableList<Order> getFilteredReturnOrderList() {
+        return model.getFilteredReturnOrderList();
+    }
+
+    @Override
     public Path getOrderBookFilePath() {
         return model.getOrderBookFilePath();
+    }
+
+    @Override
+    public Path getReturnOrderBookFilePath() {
+        return model.getReturnOrderBookFilePath();
     }
 
     @Override

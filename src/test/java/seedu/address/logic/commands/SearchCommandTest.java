@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalOrders.CARL;
 import static seedu.address.testutil.TypicalOrders.ELLE;
 import static seedu.address.testutil.TypicalOrders.FIONA;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +25,8 @@ import seedu.address.model.order.OrderContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
 public class SearchCommandTest {
-    private Model model = new ModelManager(getTypicalOrderBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalOrderBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
 
     @Test
     public void equals() {

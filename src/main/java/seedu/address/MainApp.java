@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing OrderBook ]===========================");
+        logger.info("=============================[ Initializing Delino ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +56,9 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        OrderBookStorage returnOrderBookStorage = new JsonOrderBookStorage(userPrefs.getReturnOrderBookFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(orderBookStorage, userPrefsStorage);
+        storage = new StorageManager(orderBookStorage, returnOrderBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -75,10 +76,12 @@ public class MainApp extends Application {
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyOrderBook> orderBookOptional;
+        Optional<ReadOnlyOrderBook> returnOrderBookOptional;
         ReadOnlyOrderBook initialData;
+        ReadOnlyOrderBook initialReturnData;
         try {
             orderBookOptional = storage.readOrderBook();
-            if (!orderBookOptional.isPresent()) {
+            if (orderBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample OrderBook");
             }
             initialData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
@@ -90,7 +93,21 @@ public class MainApp extends Application {
             initialData = new OrderBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            returnOrderBookOptional = storage.readReturnOrderBook();
+            if (returnOrderBookOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample ReturnOrderBook");
+            }
+            initialReturnData = returnOrderBookOptional.orElseGet(SampleDataUtil::getSampleReturnOrderBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ReturnOrderBook");
+            initialReturnData = new OrderBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ReturnOrderBook");
+            initialReturnData = new OrderBook();
+        }
+
+        return new ModelManager(initialData, initialReturnData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -167,13 +184,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Order Book " + MainApp.VERSION);
+        logger.info("Starting Delino " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Order Book ] =============================");
+        logger.info("============================ [ Stopping Delino ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
