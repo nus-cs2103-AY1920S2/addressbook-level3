@@ -1,39 +1,42 @@
 package com.notably.logic.correction;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Queue;
+import java.util.stream.Collectors;
 
 import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.correction.distance.EditDistanceCalculator;
 import com.notably.logic.correction.distance.LevenshteinDistanceCalculator;
+import com.notably.model.Model;
+import com.notably.model.block.BlockTreeItem;
 
 /**
  * Represents a correction engine that works on {@link AbsolutePath}s
  */
 public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePath> {
     private final EditDistanceCalculator editDistanceCalculator;
-    private final List<AbsolutePath> possiblePaths;
+    private final Model model;
     private final int distanceThreshold;
 
-    public AbsolutePathCorrectionEngine(List<AbsolutePath> possiblePaths, int distanceThreshold) {
-        this(new LevenshteinDistanceCalculator(), possiblePaths, distanceThreshold);
+    public AbsolutePathCorrectionEngine(Model model, int distanceThreshold) {
+        this(new LevenshteinDistanceCalculator(), model, distanceThreshold);
     }
 
     public AbsolutePathCorrectionEngine(EditDistanceCalculator editDistanceCalculator,
-            List<AbsolutePath> possiblePaths, int distanceThreshold) {
+            Model model, int distanceThreshold) {
         Objects.requireNonNull(editDistanceCalculator);
-        Objects.requireNonNull(possiblePaths);
-
-        if (possiblePaths.isEmpty()) {
-            throw new IllegalArgumentException("\"options\" must contain at least one element");
-        }
+        Objects.requireNonNull(model);
 
         if (distanceThreshold < 0) {
             throw new IllegalArgumentException("\"distanceThreshold\" must be greater than 0");
         }
 
         this.editDistanceCalculator = editDistanceCalculator;
-        this.possiblePaths = possiblePaths;
+        this.model = model;
         this.distanceThreshold = distanceThreshold;
     }
 
@@ -46,6 +49,8 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
     @Override
     public CorrectionResult<AbsolutePath> correct(AbsolutePath uncorrected) {
         Objects.requireNonNull(uncorrected);
+
+        List<AbsolutePath> possiblePaths = getPossiblePaths();
 
         AbsolutePath closestPath = null;
         int closestDistance = Integer.MAX_VALUE;
@@ -66,6 +71,40 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
         }
 
         return new CorrectionResult<>(CorrectionStatus.CORRECTED, closestPath);
+    }
+
+    /**
+     * TODO: Add Javadoc
+     */
+    private List<AbsolutePath> getPossiblePaths() {
+        List<AbsolutePath> possiblePaths = new ArrayList<>();
+
+        Queue<AbsolutePath> incompletePathQueue = new LinkedList<>();
+        try {
+            incompletePathQueue.offer(AbsolutePath.fromString("/"));
+        } catch (InvalidPathException exception) {
+            throw new RuntimeException("Should not throw");
+        }
+
+        while (!incompletePathQueue.isEmpty()) {
+            AbsolutePath currentPath = incompletePathQueue.poll();
+
+            List<BlockTreeItem> childrenBlocks = model.getBlockTree().get(currentPath).getBlockChildren();
+            List<AbsolutePath> childrenPaths = childrenBlocks
+                    .stream()
+                    .map(item -> {
+                        List<String> combinedComponents = currentPath.getComponents();
+                        combinedComponents.add(item.getTitle().getText());
+                        return AbsolutePath.fromComponents(combinedComponents);
+                    })
+                    .collect(Collectors.toList());
+            incompletePathQueue.addAll(childrenPaths);
+
+            possiblePaths.add(currentPath);
+        }
+
+
+        return possiblePaths;
     }
 
     /**
