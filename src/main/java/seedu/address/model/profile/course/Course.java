@@ -20,7 +20,7 @@ public class Course {
     public String toString() {
         StringBuilder output = new StringBuilder();
         output.append(courseName);
-        for (CourseFocusArea focusArea : focusAreas) {
+        for (CourseFocusArea focusArea : this.focusAreas) {
             output.append("\n");
             output.append(focusArea);
         }
