@@ -29,7 +29,10 @@ public class CourseRequirement {
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
-        output.append(requirementName);
+        double integerCredits = Double.valueOf(modularCredits.toString());
+
+        output.append(requirementName + " ");
+        output.append("(" + (int) integerCredits + " MCs):");
         for (ModuleCode moduleCode : modules) {
             output.append("\n");
             output.append(moduleCode);
