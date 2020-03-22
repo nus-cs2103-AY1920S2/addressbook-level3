@@ -26,10 +26,11 @@ public class Date {
      *
      * @param date A valid priority number.
      */
-    public Date(LocalDate date) {
+    public Date(String date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date.toString()), MESSAGE_CONSTRAINTS);
-        value = date;
+        checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        LocalDate localDate = LocalDate.parse(date);
+        value = localDate;
     }
 
     /** Returns true if a given string is a valid date. */

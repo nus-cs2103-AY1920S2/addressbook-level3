@@ -2,13 +2,12 @@ package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.PomDurationData;
 import seedu.address.model.dayData.TasksDoneData;
-
-import java.time.LocalDate;
 
 /** Jackson-friendly version of {@link DayData}. */
 class JsonAdaptedDayData {
@@ -33,8 +32,8 @@ class JsonAdaptedDayData {
     /** Converts a given {@code Task} into this class for Jackson use. */
     public JsonAdaptedDayData(DayData source) {
         date = source.getDate().toString();
-        pomDurationData = source.getPomDurationData().value;
-        tasksDoneData = source.getTasksDoneData().value;
+        pomDurationData = source.getPomDurationData().toString();
+        tasksDoneData = source.getTasksDoneData().toString();
     }
 
     /**
@@ -52,8 +51,7 @@ class JsonAdaptedDayData {
         if (!Date.isValidDate(date)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        LocalDate localDate = LocalDate.parse(date);
-        final Date modelDate = new Date(localDate);
+        final Date modelDate = new Date(date);
 
         if (pomDurationData == null) {
             throw new IllegalValueException(

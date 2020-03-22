@@ -212,6 +212,4 @@ public class ModelManager implements Model {
     public DayData getDayDataFromDate(Date date) {
         return statistics.getDayDataFromDate(date);
     }
-
-
 }
