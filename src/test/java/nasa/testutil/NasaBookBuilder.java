@@ -9,6 +9,9 @@ import nasa.model.NasaBook;
 import nasa.model.module.Module;
 import nasa.model.module.UniqueModuleList;
 
+/**
+ * Class to build example NasaBook.
+ */
 public class NasaBookBuilder {
 
     public static final Module DEFAULT_MODULE_1 = CS2103T;
@@ -24,26 +27,49 @@ public class NasaBookBuilder {
         moduleList.add(DEFAULT_MODULE_3);
     }
 
+    /**
+     * Reset nasabook builder.
+     * @return NasaBookBuilder
+     */
     public NasaBookBuilder reset() {
         moduleList = new UniqueModuleList();
         return this;
     }
 
+    /**
+     * Add module to Nasabook.
+     * @param module module
+     * @return NasaBookBuilder
+     */
     public NasaBookBuilder addModule(Module module) {
         moduleList.add(module);
         return this;
     }
 
+    /**
+     * Delete the module from Nasabook.
+     * @param module module
+     * @return NasaBookBuilder
+     */
     public NasaBookBuilder deleteModule(Module module) {
         moduleList.remove(module);
         return this;
     }
 
+    /**
+     * Delete the module from Nasabook.
+     * @param index index
+     * @return NasaBookBuilder
+     */
     public NasaBookBuilder deleteModule(Index index) {
         moduleList.removeByIndex(index);
         return this;
     }
 
+    /**
+     * Build Nasabook.
+     * @return NasaBook
+     */
     public NasaBook build() {
         NasaBook nasaBook = new NasaBook();
         nasaBook.setModuleList(moduleList);

@@ -5,7 +5,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 
 /**

@@ -34,6 +34,10 @@ public class Date {
         return LocalDateTime.parse(date, formatter);
     }
 
+    /**
+     * Construct current date.
+     * @return Date object of current date
+     */
     public static Date now() {
         String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         return new Date(now);

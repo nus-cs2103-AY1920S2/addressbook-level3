@@ -1,11 +1,12 @@
 package nasa.model.activity;
 
-import nasa.testutil.Assert;
+import static nasa.testutil.TypicalActivities.DEADLINE_LATE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static nasa.testutil.TypicalActivities.DEADLINE_LATE;
+
 import org.junit.jupiter.api.Test;
+
+import nasa.testutil.Assert;
 
 class DeadlineTest {
 

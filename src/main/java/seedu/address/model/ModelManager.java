@@ -79,8 +79,8 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook AddressBook) {
-        this.nasaBook.resetData(AddressBook);
+    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+        this.nasaBook.resetData(addressBook);
     }
 
     @Override

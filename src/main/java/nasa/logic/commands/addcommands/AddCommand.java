@@ -8,18 +8,17 @@ import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
-import nasa.model.module.Module;
 
 /**
  * Adds any activity to a module's list.
  */
 public class AddCommand extends Command {
+    public static final String MESSAGE_SUCCESS = "New activity added!";
+    public static final String MESSAGE_DUPLICATED_ACTIVITY =
+        "This activity already exist in the module's activity list!";
 
     private final Activity toAdd;
     private final ModuleCode moduleCode;
-
-    public static final String MESSAGE_SUCCESS = "New activity added!";
-    public static final String MESSAGE_DUPLICATED_ACTIVITY = "This activity already exist in the module's activity list!";
 
     /**
      * Creates an AddCommand that adds {@code activity} to list of {@code moduleCode}.

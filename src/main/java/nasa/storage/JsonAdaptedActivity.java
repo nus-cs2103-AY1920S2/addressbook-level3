@@ -62,7 +62,7 @@ class JsonAdaptedActivity {
         name = source.getName().name;
         date = source.getDate().toString();
         note = source.getNote().toString();
-        status = Boolean.toString(source.isDone());
+        status = source.getStatus().toString();
         priority = source.getPriority().toString();
 
         if (source instanceof Deadline) {
@@ -132,29 +132,6 @@ class JsonAdaptedActivity {
                     Status.class.getSimpleName()));
         }
 
-        if (dueDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
-        }
-        if (!Date.isValidDate(dueDate)) {
-            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
-        }
-        final Date modelDueDate = new Date(dueDate);
-
-        if (startDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
-        }
-        if (!Date.isValidDate(startDate)) {
-            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
-        }
-        final Date modelStartDate = new Date(startDate);
-
-        if (endDate == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
-        }
-        if (!Date.isValidDate(endDate)) {
-            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
-        }
-        final Date modelEndDate = new Date(endDate);
 
         //TODO check validity
         /*
@@ -168,13 +145,60 @@ class JsonAdaptedActivity {
         Activity activity = null;
         switch (type) {
         case "deadline":
+
+            if (dueDate == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+            }
+            if (!Date.isValidDate(dueDate)) {
+                throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+            }
+            final Date modelDueDate = new Date(dueDate);
+
+
             activity = new Deadline(modelName, modelDate, modelNote, modelStatus, modelPriority, modelDueDate);
             break;
         case "event":
-            activity = new Event(modelName, modelDate, modelNote, modelStatus, modelPriority, modelStartDate, modelEndDate);
+            if (startDate == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+            }
+            if (!Date.isValidDate(startDate)) {
+                throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+            }
+            final Date eventStartDate = new Date(startDate);
+
+            if (endDate == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+            }
+            if (!Date.isValidDate(endDate)) {
+                throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+            }
+            final Date modelEndDate = new Date(endDate);
+            activity = new Event(modelName, modelDate, modelNote, modelStatus, modelPriority, eventStartDate,
+                    modelEndDate);
             break;
         case "lesson":
-            activity = new Lesson(modelName, modelDate, modelNote, modelStatus, modelPriority, modelStartDate, modelEndDate);
+            if (startDate == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+            }
+            if (!Date.isValidDate(startDate)) {
+                throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+            }
+            final Date modelStartDate = new Date(startDate);
+
+            if (endDate == null) {
+                throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Date.class.getSimpleName()));
+            }
+            if (!Date.isValidDate(endDate)) {
+                throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
+            }
+            final Date lessonEndDate = new Date(endDate);
+            activity = new Lesson(modelName, modelDate, modelNote, modelStatus, modelPriority, modelStartDate,
+                    lessonEndDate);
             break;
         default:
             throw new IllegalValueException("");

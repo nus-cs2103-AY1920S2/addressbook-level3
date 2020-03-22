@@ -17,17 +17,17 @@ public class AddDeadlineCommand extends AddCommand {
     public static final String COMMAND_WORD = "deadline";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline to the module's activity list. "
-            + "Parameters:"
-            + PREFIX_MODULE + "MODULE CODE"
-            + PREFIX_DATE + "DATE"
-            + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME"
-            + PREFIX_PRIORITY + "PRIORITY"
-            + PREFIX_NOTE + "NOTE" + "\n"
+            + "Parameters: "
+            + PREFIX_MODULE + "MODULE CODE "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME "
+            + PREFIX_PRIORITY + "PRIORITY "
+            + PREFIX_NOTE + "NOTE \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS3233"
-            + PREFIX_DATE + "2020-03-20"
-            + PREFIX_ACTIVITY_NAME + "SEA Group Programming Assignment"
-            + PREFIX_PRIORITY + "1"
+            + PREFIX_MODULE + "CS3233 "
+            + PREFIX_DATE + "20-03-2020 02:30 "
+            + PREFIX_ACTIVITY_NAME + "SEA Group Programming Assignment "
+            + PREFIX_PRIORITY + "1 "
             + PREFIX_NOTE + "Focus on computational geometry and DP.";
 
     /**

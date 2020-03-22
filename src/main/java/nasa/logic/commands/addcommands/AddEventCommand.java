@@ -13,21 +13,20 @@ import nasa.model.module.ModuleCode;
  * Adds an event activity to a module's list.
  */
 public class AddEventCommand extends AddCommand {
+    public static final String COMMAND_WORD = "event";
 
-    public final static String COMMAND_WORD = "event";
-
-    public final static String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the module's activity list. "
-            + "Parameters:"
-            + PREFIX_MODULE + "MODULE CODE"
-            + PREFIX_DATE + "DATE"
-            + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME"
-            + PREFIX_PRIORITY + "PRIORITY"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the module's activity list. "
+            + "Parameters: "
+            + PREFIX_MODULE + "MODULE CODE "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME "
+            + PREFIX_PRIORITY + "PRIORITY "
             + PREFIX_NOTE + "NOTE" + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS3233"
-            + PREFIX_DATE + "2020-04-12"
-            + PREFIX_ACTIVITY_NAME + "CP contest"
-            + PREFIX_PRIORITY + "1"
+            + PREFIX_MODULE + "CS3233 "
+            + PREFIX_DATE + "12-04-2020 02:00 "
+            + PREFIX_ACTIVITY_NAME + "CP contest  "
+            + PREFIX_PRIORITY + "1 "
             + PREFIX_NOTE + "Remember to study content before coming.";
 
     /**

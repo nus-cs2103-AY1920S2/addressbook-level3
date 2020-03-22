@@ -3,7 +3,6 @@ package nasa.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import nasa.logic.commands.Command;
-import nasa.logic.parser.Parser;
 import nasa.logic.parser.exceptions.ParseException;
 
 /**

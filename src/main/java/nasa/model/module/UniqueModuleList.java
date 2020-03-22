@@ -6,16 +6,14 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.exceptions.DuplicateModuleException;
 import nasa.model.module.exceptions.ModuleNotFoundException;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import nasa.commons.util.CollectionUtil;
-
 
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
@@ -171,6 +169,12 @@ public class UniqueModuleList implements Iterable<Module> {
         moduleSelected.setActivityByIndex(index, activity);
     }
 
+    /**
+     * Edits activity based on index and module.
+     * @param module Module of the activity
+     * @param index index of the activity in list
+     * @param args parameters to be edited
+     */
     public void editActivityByIndex(Module module, Index index, Object... args) {
         requireNonNull(args);
 
@@ -178,6 +182,12 @@ public class UniqueModuleList implements Iterable<Module> {
         moduleSelected.editActivityByIndex(index, args);
     }
 
+    /**
+     * Edits activity based on index and moduleCode.
+     * @param moduleCode ModuleCode of activity
+     * @param index index of the activity in list
+     * @param args parameters to be edited
+     */
     public void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args) {
         requireNonNull(args);
 
