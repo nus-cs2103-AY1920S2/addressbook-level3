@@ -128,7 +128,7 @@ public class MetricList {
             checklist.put(attribute, true);
         }
 
-        if (isNotCompleteChecklist(checklist) && weightages.size() != attributePrefixes.size()) {
+        if (isNotCompleteChecklist(checklist) || weightages.size() != attributePrefixes.size()) {
             throw new IllegalValueException(INCOMPLETE_MESSAGE);
         }
     }
@@ -139,6 +139,7 @@ public class MetricList {
         for (Map.Entry<Attribute, Boolean> entry : checklist.entrySet()) {
             result = result && entry.getValue();
         }
+
         return !result;
     }
 
