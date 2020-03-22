@@ -32,15 +32,11 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Profile: %1$s";
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";
+    public static final String MESSAGE_DELETE_DEADLINE_SUCCESS = "Deleted Deadline: %1$s";
 
-    //private final Index targetIndex;
     private final Name deleteName;
     private final ModuleCode deleteModuleCode;
     private final Deadline deleteDeadline;
-
-    /*public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-    }*/
 
     /**
      * Creates a delete command to delete the profile with name {@code name}.
@@ -93,13 +89,13 @@ public class DeleteCommand extends Command {
                 throw new CommandException(
                         "User is currently not taking a module with module code " + deleteModuleCode.toString());
             }
-            //Module module = profile.getModule(deleteModuleCode);
             if (deleteDeadline == null) { // Deleting a module
                 profile.deleteModule(deleteModuleCode);
                 return new CommandResult(String.format(MESSAGE_DELETE_MODULE_SUCCESS, deleteModuleCode));
-            } /*else { // Deleting a deadline/task
-                // TODO
-            }*/
+            } else { // Deleting a deadline/task
+                profile.getModule(deleteModuleCode).deleteDeadline(deleteDeadline);
+                return new CommandResult(String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, deleteDeadline));
+            }
         }
 
         throw new CommandException("Please ensure that either a profile name or a module code has been entered");
@@ -119,25 +115,4 @@ public class DeleteCommand extends Command {
                 || ((deleteDeadline != null) && this.deleteDeadline.equals(command.deleteDeadline));
         return sameName && sameModuleCode && sameDeadline;
     }
-
-    /*@Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Profile> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        Profile profileToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(profileToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, profileToDelete));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
-    }*/
 }

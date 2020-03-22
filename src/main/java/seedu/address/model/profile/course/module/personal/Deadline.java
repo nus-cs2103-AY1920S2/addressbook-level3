@@ -57,8 +57,12 @@ public class Deadline {
 
     @Override
     public String toString() {
-        return "Task: " + this.description + " by " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
-                + LocalTime.parse(time.toString(), inputTimeFormatter) + " added.";
+        String result = this.description;
+        if (date != null && time != null) {
+            result += " by " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
+                    + LocalTime.parse(time.toString(), inputTimeFormatter);
+        }
+        return result;
     }
 
 

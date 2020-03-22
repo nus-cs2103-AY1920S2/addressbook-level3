@@ -42,7 +42,10 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         if (arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_TASK)) {
             String strModuleCode = argMultimap.getValue(PREFIX_MODULE).get();
             moduleCode = ParserUtil.parseModuleCode(strModuleCode);
-            task = new Deadline(argMultimap.getValue(PREFIX_TASK).get());
+            String strDeadline = argMultimap.getValue(PREFIX_TASK).get();
+            //System.out.println(strDeadline);
+            task = new Deadline(strDeadline);
+            //System.out.println(new Deadline(strDeadline));
             return new DeleteCommand(moduleCode, task);
         }
 
