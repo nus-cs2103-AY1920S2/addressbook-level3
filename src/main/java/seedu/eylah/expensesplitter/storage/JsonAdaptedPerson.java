@@ -1,20 +1,15 @@
 package seedu.eylah.expensesplitter.storage;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import seedu.eylah.expensesplitter.model.person.Amount;
+import seedu.eylah.commons.exceptions.IllegalValueException;
 import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
-import seedu.eylah.commons.exceptions.IllegalValueException;
 
-
+/**
+ * Jackson-friendly version of {@link Person}.
+ */
 public class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
@@ -52,11 +47,6 @@ public class JsonAdaptedPerson {
         }
 
         final Name modelName = new Name(name);
-
-
-
-
-
 
         return new Person(modelName, null);
     }

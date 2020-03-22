@@ -2,10 +2,7 @@ package seedu.eylah.expensesplitter.model;
 
 import java.util.logging.Logger;
 
-import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
-import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.commons.core.LogsCenter;
-import seedu.eylah.expensesplitter.model.UserPrefs;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**

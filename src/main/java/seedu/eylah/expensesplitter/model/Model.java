@@ -1,6 +1,5 @@
 package seedu.eylah.expensesplitter.model;
 
-import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**

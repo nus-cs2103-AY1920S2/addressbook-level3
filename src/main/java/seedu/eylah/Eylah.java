@@ -2,24 +2,9 @@ package seedu.eylah;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-
-import javafx.stage.Stage;
-import seedu.eylah.expensesplitter.model.PersonAmountBook;
-import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
-import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
-import seedu.eylah.expensesplitter.model.UserPrefs;
-import seedu.eylah.expensesplitter.storage.JsonUserPrefsStorage;
-import seedu.eylah.expensesplitter.model.Receipt;
-import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
-import seedu.eylah.expensesplitter.storage.Storage;
-import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
-import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
-import seedu.eylah.expensesplitter.storage.StorageManager;
-import seedu.eylah.expensesplitter.storage.UserPrefsStorage;
 import seedu.eylah.commons.core.Config;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.core.Version;
@@ -33,6 +18,17 @@ import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.ModelManager;
+import seedu.eylah.expensesplitter.model.PersonAmountBook;
+import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
+import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
+import seedu.eylah.expensesplitter.model.Receipt;
+import seedu.eylah.expensesplitter.model.UserPrefs;
+import seedu.eylah.expensesplitter.model.util.SamplePersonAmountDataUtil;
+import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
+import seedu.eylah.expensesplitter.storage.JsonUserPrefsStorage;
+import seedu.eylah.expensesplitter.storage.PersonAmountStorage;
+import seedu.eylah.expensesplitter.storage.StorageManager;
+import seedu.eylah.expensesplitter.storage.UserPrefsStorage;
 import seedu.eylah.ui.Ui;
 
 /**
@@ -96,14 +92,13 @@ public class Eylah {
             PersonAmountStorage storage;
 
 
-            //AppParameters appParameters = AppParameters.parse(getParameters());
             config = initConfig(null);
-
 
             UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
             UserPrefs userPrefs = initPrefs(userPrefsStorage);
 
-            PersonAmountStorage personAmountStorage = new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
+            PersonAmountStorage personAmountStorage =
+                    new JsonPersonAmountBookStorage(userPrefs.getPersonAmountBookFilePath());
             storage = new StorageManager(personAmountStorage, userPrefsStorage);
 
             splitterModel = initModelManager(storage, userPrefs);
@@ -132,28 +127,31 @@ public class Eylah {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s personamountbook and {@code userPrefs}. <br>
-     * The data from the sample personamount book will be used instead if {@code storage}'s personamountbook is not found,
+     * The data from the sample personamount book will be used instead if {@code storage}'s personamountbook
+     * is not found,
      * or an personamount book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private seedu.eylah.expensesplitter.model.Model initModelManager(PersonAmountStorage storage, ReadOnlyUserPrefs userPrefs) {
+    private seedu.eylah.expensesplitter.model.Model initModelManager(PersonAmountStorage storage, ReadOnlyUserPrefs
+        userPrefs) {
+
         Optional<ReadOnlyPersonAmountBook> personAmountBookOptional;
         ReadOnlyPersonAmountBook initialData;
         try {
 
             personAmountBookOptional = storage.readPersonAmountBook();
             if (!personAmountBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample PersonAmountBook");
             }
             initialData = personAmountBookOptional.orElseGet(SamplePersonAmountDataUtil::getSamplePersonAmountBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty PersonAmountBook");
             initialData = new PersonAmountBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty PersonAmountBook");
             initialData = new PersonAmountBook();
         }
 
-        return new seedu.eylah.expensesplitter.model.ModelManager(new Receipt(),initialData, userPrefs);
+        return new seedu.eylah.expensesplitter.model.ModelManager(new Receipt(), initialData, userPrefs);
     }
 
 
@@ -214,7 +212,7 @@ public class Eylah {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty PersonAmountBook");
             initializedPrefs = new UserPrefs();
         }
 

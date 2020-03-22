@@ -7,15 +7,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
-import seedu.eylah.expensesplitter.storage.JsonPersonAmountBookStorage;
-import seedu.eylah.expensesplitter.storage.JsonSerializablePersonAmountBook;
-import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.exceptions.DataConversionException;
 import seedu.eylah.commons.exceptions.IllegalValueException;
 import seedu.eylah.commons.util.FileUtil;
 import seedu.eylah.commons.util.JsonUtil;
+import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 
 /**
  * A class to access PersonAmountBook data stored as a json file on the hard disk.
@@ -67,6 +64,13 @@ public class JsonPersonAmountBookStorage implements PersonAmountStorage {
         savePersonAmountBook(personAmountBook, filePath);
     }
 
+    /**
+     * Saves a person amount book.
+     *
+     * @param personAmountBook
+     * @param filePath location of data cannot be null.
+     * @throws IOException
+     */
     public void savePersonAmountBook(ReadOnlyPersonAmountBook personAmountBook, Path filePath) throws IOException {
         requireNonNull(personAmountBook);
         requireNonNull(filePath);

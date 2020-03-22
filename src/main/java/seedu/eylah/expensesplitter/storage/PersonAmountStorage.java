@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.commons.exceptions.DataConversionException;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 

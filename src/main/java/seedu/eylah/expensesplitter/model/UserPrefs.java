@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 
-import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
-
-public class UserPrefs implements ReadOnlyUserPrefs{
+/**
+ * Represents User's preferences.
+ */
+public class UserPrefs implements ReadOnlyUserPrefs {
 
     private Path personAmountFilePath = Paths.get("data", "personamount.json");
 

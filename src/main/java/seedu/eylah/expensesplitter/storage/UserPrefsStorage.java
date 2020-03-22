@@ -8,6 +8,9 @@ import seedu.eylah.commons.exceptions.DataConversionException;
 import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
 import seedu.eylah.expensesplitter.model.UserPrefs;
 
+/**
+ * Represents a storage for {@link seedu.eylah.expensesplitter.model.UserPrefs}.
+ */
 
 public interface UserPrefsStorage {
 

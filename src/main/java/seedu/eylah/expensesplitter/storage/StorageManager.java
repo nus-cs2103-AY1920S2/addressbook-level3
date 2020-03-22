@@ -5,13 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-
-import seedu.eylah.expensesplitter.storage.UserPrefsStorage;
-import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
-import seedu.eylah.expensesplitter.model.UserPrefs;
 import seedu.eylah.commons.core.LogsCenter;
 import seedu.eylah.commons.exceptions.DataConversionException;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
+import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
+import seedu.eylah.expensesplitter.model.UserPrefs;
 
 
 /**
@@ -61,7 +59,9 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyPersonAmountBook> readPersonAmountBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyPersonAmountBook> readPersonAmountBook(Path filePath) throws DataConversionException,
+        IOException {
+
         logger.fine("Attempting to read data from file: " + filePath);
         return personAmountStorage.readPersonAmountBook(filePath);
     }
