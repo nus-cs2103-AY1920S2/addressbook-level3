@@ -40,19 +40,28 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
     }
 
     public boolean undo() {
-        boolean check = moduleListHistory.pop();
-        moduleListHistoryCollector.push(moduleListHistory.getPop());
-        return check;
+        boolean checkStack = !moduleListHistory.isEmpty();
+        if (checkStack) {
+            moduleListHistoryCollector.pushDirectly(moduleListHistory.getPop());
+            moduleListHistory.pop();
+        }
+        return checkStack;
+    }
+
+    public boolean redo() {
+        boolean checkItem = !moduleListHistoryCollector.isEmpty();
+        if (checkItem) {
+            moduleListHistory.push(moduleListHistoryCollector.popDirectly());
+        }
+        return checkItem;
     }
 
     public T getItem() {
         return moduleListHistory.getPop();
     }
 
-    public void redo() {
-        if (!moduleListHistoryCollector.isEmpty()) {
-           moduleListHistoryCollector.pop();
-           moduleListHistory.push(moduleListHistoryCollector.getPop());
-        }
+    public T getUndoItem() {
+        return moduleListHistoryCollector.getPop();
     }
+
 }

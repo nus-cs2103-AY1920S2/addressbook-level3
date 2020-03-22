@@ -31,6 +31,10 @@ public class HistoryManager<T> implements HistoryModel<T> {
         return historyBook.getItem();
     }
 
+    public T getUndoItem() {
+        return historyBook.getUndoItem();
+    }
+
     @Override
     public void add(T moduleList) {
         historyBook.add(moduleList);
@@ -42,7 +46,7 @@ public class HistoryManager<T> implements HistoryModel<T> {
     }
 
     @Override
-    public void redo() {
-        historyBook.redo();
+    public boolean redo() {
+        return historyBook.redo();
     }
 }

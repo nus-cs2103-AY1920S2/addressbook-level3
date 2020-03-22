@@ -56,11 +56,11 @@ public class AddDeadlineCommandParser extends AddCommandParser {
             deadline.setNote(note);
         }
 
-        Priority priority;
+        Priority priority = new Priority();
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-            deadline.setPriority(priority);
         }
+        deadline.setPriority(priority);
 
         return new AddDeadlineCommand(deadline, moduleCode);
     }

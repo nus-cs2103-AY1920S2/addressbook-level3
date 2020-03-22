@@ -57,12 +57,11 @@ public class AddEventCommandParser extends AddCommandParser {
             event.setNote(note);
         }
 
-        Priority priority;
+        Priority priority = new Priority();
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-            event.setPriority(priority);
         }
-
+        event.setPriority(priority);
         return new AddEventCommand(event, moduleCode);
     }
 }

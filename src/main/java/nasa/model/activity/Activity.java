@@ -16,6 +16,10 @@ public abstract class Activity implements Regenerable<Activity> {
     protected Status status;
     private Priority priority;
 
+    /**
+     * Constructs a {@code activity} with default note, status and priority.
+     * @param name name of activity
+     */
     public Activity(Name name) {
         requireAllNonNull(name);
         this.name = name;
@@ -25,6 +29,11 @@ public abstract class Activity implements Regenerable<Activity> {
         this.priority = new Priority("1");
     }
 
+    /**
+     * Constructs a {@code activity} with default status and priority.
+     * @param name name of activity
+     * @param note note of activity
+     */
     public Activity(Name name, Note note) {
         requireAllNonNull(name);
         this.name = name;
@@ -34,6 +43,12 @@ public abstract class Activity implements Regenerable<Activity> {
         this.priority = new Priority("1");
     }
 
+    /**
+     * Constructs a {@code activity} with priority.
+     * @param name name of activity
+     * @param note note of activity
+     * @param priority priority of activity
+     */
     public Activity(Name name, Note note, Priority priority) {
         requireAllNonNull(name);
         this.name = name;
@@ -125,8 +140,6 @@ public abstract class Activity implements Regenerable<Activity> {
 
         return otherActivity != null
                 && otherActivity.getName().equals(getName());
-                //&& otherActivity.getNote().equals(getNote())
-                //&& otherActivity.getDate().equals(getDate());
     }
 
     /**

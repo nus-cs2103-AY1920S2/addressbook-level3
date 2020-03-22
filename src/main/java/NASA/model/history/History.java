@@ -1,15 +1,11 @@
 package nasa.model.history;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import nasa.logic.commands.Command;
-import nasa.model.activity.Activity;
-import nasa.model.module.Module;
-import nasa.model.module.UniqueModuleList;
 
+/**
+ * Abstract History class to store users actions.
+ */
 public abstract class History<T> {
 
     private Stack<T> stack;
@@ -33,6 +29,10 @@ public abstract class History<T> {
         this.item = item;
     }
 
+    public void pushDirectly(T item) {
+        stack.push(item);
+    }
+
     public boolean pop() {
         if (!isEmpty()) {
             item = stack.pop();
@@ -42,8 +42,20 @@ public abstract class History<T> {
         }
     }
 
+    public T popDirectly() {
+        return stack.pop();
+    }
+
+    public boolean hasItem() {
+        return item != null;
+    }
+
     public T getPop() {
         return item;
+    }
+
+    public void resetItem() {
+        this.item = null;
     }
 
     public void setStack(List<T> stack) {

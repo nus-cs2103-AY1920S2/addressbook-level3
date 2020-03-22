@@ -46,6 +46,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
         this.historyManager = new HistoryManager(historyBook);
+        updateHistory();
     }
 
     public ModelManager() {
@@ -65,6 +66,14 @@ public class ModelManager implements Model {
     @Override
     public void undoHistory() {
         if (historyManager.undo()) {
+            nasaBook.setModuleList(historyManager.getItem());
+            updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        }
+    }
+
+    @Override
+    public void redoHistory() {
+        if (historyManager.redo()) {
             nasaBook.setModuleList(historyManager.getItem());
             updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
         }
@@ -145,16 +154,16 @@ public class ModelManager implements Model {
     @Override
     public void addModule(Module module) {
         nasaBook.addModule(module);
-        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
         updateHistory();
+        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void addModule(ModuleCode moduleCode, ModuleName moduleName) {
         nasaBook.addModule(moduleCode, moduleName);
-        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
         updateHistory();
+        //historyManager.add(new UniqueModuleList().setModules(nasaBook.getList()));
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 

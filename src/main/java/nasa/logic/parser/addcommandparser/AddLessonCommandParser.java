@@ -59,12 +59,11 @@ public class AddLessonCommandParser extends AddCommandParser {
             lesson.setNote(note);
         }
 
-        Priority priority;
+        Priority priority = new Priority();
         if (arePrefixesPresent(argMultimap, PREFIX_PRIORITY)) {
             priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).get());
-            lesson.setPriority(priority);
         }
-
+        lesson.setPriority(priority);
         return new AddLessonCommand(lesson, moduleCode);
     }
 }

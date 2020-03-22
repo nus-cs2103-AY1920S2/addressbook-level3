@@ -4,7 +4,7 @@ public interface HistoryModel<T> {
 
     boolean undo();
 
-    void redo();
+    boolean redo();
 
     void add(T list);
 }
