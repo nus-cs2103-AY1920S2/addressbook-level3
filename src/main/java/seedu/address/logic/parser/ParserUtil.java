@@ -47,6 +47,12 @@ public class ParserUtil {
         return new Name(trimmedName);
     }
 
+    /**
+     * Parses a {@code String moduleCode} into a {@code ModuleCode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code moduleCode} is invalid.
+     */
     public static ModuleCode parseModuleCode(String moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         String trimmedModuleCode = moduleCode.trim();

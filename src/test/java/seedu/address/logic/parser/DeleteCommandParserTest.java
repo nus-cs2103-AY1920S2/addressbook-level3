@@ -20,10 +20,10 @@ public class DeleteCommandParserTest {
 
     private DeleteCommandParser parser = new DeleteCommandParser();
 
-    @Test
+    /*@Test
     public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_PERSON));
-    }
+    }*/
 
     @Test
     public void parse_invalidArgs_throwsParseException() {

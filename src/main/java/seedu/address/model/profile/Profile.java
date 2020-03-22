@@ -2,8 +2,14 @@ package seedu.address.model.profile;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
@@ -107,6 +113,9 @@ public class Profile {
                 .findFirst().get();
     }
 
+    /**
+     * Returns true if a module with module code {@code moduleCode} exists in {@code moduleHash}.
+     */
     public boolean hasModule(ModuleCode moduleCode) {
         return moduleHash.values()
                 .stream()
@@ -114,6 +123,9 @@ public class Profile {
                 .anyMatch(x->x.getModuleCode().equals(moduleCode));
     }
 
+    /**
+     * Deletes a module with module code {@code moduleCode}.
+     */
     public void deleteModule(ModuleCode moduleCode) {
         if (hasModule(moduleCode)) {
             int semester = getModuleSemester(moduleCode);

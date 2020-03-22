@@ -1,17 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 
-import java.util.List;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
@@ -113,7 +110,7 @@ public class DeleteCommand extends Command {
         if (other == this && other instanceof DeleteCommand) {
             return true;
         }
-        DeleteCommand command = ((DeleteCommand)other);
+        DeleteCommand command = ((DeleteCommand) other);
         boolean sameName = (deleteName == null && command.deleteName == null)
                 || ((deleteName != null) && this.deleteName.equals(command.deleteName));
         boolean sameModuleCode = (deleteModuleCode == null && command.deleteModuleCode == null)
