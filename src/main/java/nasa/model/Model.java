@@ -16,9 +16,11 @@ import nasa.model.module.ModuleName;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /** {@code Predicate} for modules that always evaluate to true */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
+    /** {@code Predicate} for activities that always evaluate to true */
+    Predicate<Activity> PREDICATE_SHOW_ALL_ACTIVITIES = unused -> true;
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -154,6 +156,7 @@ public interface Model {
     void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args);
     ObservableList<Activity> getFilteredActivityList(Index index);
     void updateFilteredActivityList(Index index, Predicate<Activity> predicate);
+    void updateFilteredActivityList(Predicate<Activity> predicate);
     void removeModuleByIndex(Index index);
     void removeActivityByIndex(Module module, Index index);
     void removeActivityByIndex(ModuleCode moduleCode, Index index);
