@@ -29,8 +29,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
 
     @Override
     public void execute(Model model) {
-        model.setResponseText(RESPONSE_MESSAGE);
-
+        setResponseTextToModel(model);
         List<AbsolutePath> possiblePaths = getPossiblePaths(path);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
@@ -38,6 +37,14 @@ public class OpenSuggestionCommand implements SuggestionCommand {
             //System.out.println(suggestionItem.getDisplayText());
         //}
 
+        setSuggestionsToModel(model, suggestions);
+    }
+
+    private void setResponseTextToModel(Model model) {
+        model.setResponseText(RESPONSE_MESSAGE);
+    }
+
+    private void setSuggestionsToModel(Model model, List<SuggestionItem> suggestions) {
         model.setSuggestions(suggestions);
     }
 
