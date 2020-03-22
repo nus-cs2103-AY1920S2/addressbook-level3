@@ -11,7 +11,11 @@ import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
-
+import com.notably.commons.core.path.AbsolutePath;
+import com.notably.model.block.Block;
+import com.notably.model.block.BlockTree;
+import com.notably.model.block.BlockTreeItem;
+import com.notably.model.block.Body;
 import com.notably.model.commandinput.CommandInputModel;
 
 import com.notably.model.suggestion.SuggestionItem;
@@ -37,6 +41,7 @@ public class ModelManager implements Model {
     // TODO: set the model variables to final after removing the AB3 attributes.
     private SuggestionModel suggestionModel;
     private CommandInputModel commandInputModel;
+    private BlockModel blockModel;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -57,9 +62,10 @@ public class ModelManager implements Model {
     }
 
     // TODO: to update constructor according to our Model classes.
-    public ModelManager(SuggestionModel suggestionModel, CommandInputModel commandInputModel) {
+    public ModelManager(SuggestionModel suggestionModel, CommandInputModel commandInputModel, BlockModel blockModel) {
         this.suggestionModel = suggestionModel;
         this.commandInputModel = commandInputModel;
+        this.blockModel = blockModel;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -210,5 +216,47 @@ public class ModelManager implements Model {
     @Override
     public void setInput(String input) {
         commandInputModel.setInput(input);
+    }
+
+    //========= BlockModel========================================================================
+
+    @Override
+    public BlockTree getBlockTree() {
+        return blockModel.getBlockTree();
+    }
+
+    @Override
+    public AbsolutePath getCurrentlyOpenPath() {
+        return blockModel.getCurrentlyOpenPath();
+    }
+
+    @Override
+    public Property<AbsolutePath> getCurrentlyOpenPathProperty() {
+        return blockModel.getCurrentlyOpenPathProperty();
+    }
+
+    @Override
+    public boolean hasPath(AbsolutePath p) {
+        return blockModel.hasPath(p);
+    }
+
+    @Override
+    public void setCurrentlyOpenBlock(AbsolutePath p) {
+        blockModel.setCurrentlyOpenBlock(p);
+    }
+
+    @Override
+    public void addBlockToCurrentPath(Block b) {
+        blockModel.addBlockToCurrentPath(b);
+    }
+
+    @Override
+    public void removeBlock(AbsolutePath p) {
+        blockModel.removeBlock(p);
+    }
+
+    @Override
+    public void updateCurrentlyOpenBlockBody(Body newBody) {
+        blockModel.updateCurrentlyOpenBlockBody(newBody);
     }
 }
