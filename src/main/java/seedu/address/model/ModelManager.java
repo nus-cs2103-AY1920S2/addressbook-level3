@@ -234,12 +234,13 @@ public class ModelManager implements Model {
     addressBook.setPerson(target, editedPerson);
   }
 
+  ///
   @Override
   public ReadOnlyTeacherAddressBook getTeacherAddressBook() {
     return teacherAddressBook;
   }
 
-  ///
+
   @Override
   public void setTeacherAddressBook(ReadOnlyTeacherAddressBook teacherAddressBook) {
     this.teacherAddressBook.resetData(teacherAddressBook);
@@ -268,12 +269,13 @@ public class ModelManager implements Model {
     teacherAddressBook.setTeacher(target, editedTeacher);
   }
 
+  ///
   @Override
   public ReadOnlyStudentAddressBook getStudentAddressBook() {
     return studentAddressBook;
   }
 
-  ///
+
   @Override
   public void setStudentAddressBook(ReadOnlyStudentAddressBook studentAddressBook) {
     this.studentAddressBook.resetData(studentAddressBook);
@@ -303,12 +305,13 @@ public class ModelManager implements Model {
     studentAddressBook.setStudent(target, editedStudent);
   }
 
+  ///
   @Override
   public ReadOnlyFinanceAddressBook getFinanceAddressBook() {
     return financeAddressBook;
   }
 
-  ///
+
   @Override
   public void setFinanceAddressBook(ReadOnlyFinanceAddressBook financeAddressBook) {
     this.financeAddressBook.resetData(financeAddressBook);
@@ -338,12 +341,13 @@ public class ModelManager implements Model {
     financeAddressBook.setFinance(target, editedFinance);
   }
 
+  ///
   @Override
   public ReadOnlyCourseAddressBook getCourseAddressBook() {
     return courseAddressBook;
   }
 
-  ///
+
   @Override
   public void setCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook) {
     this.courseAddressBook.resetData(courseAddressBook);
@@ -413,34 +417,35 @@ public class ModelManager implements Model {
     return courseStudentAddressBook;
   }
 
+
   @Override
   public void setCourseStudentAddressBook(ReadOnlyCourseStudentAddressBook courseStudentAddressBook) {
     this.courseStudentAddressBook.resetData(courseStudentAddressBook);
   }
 
-
-  //TODO
   @Override
   public boolean hasCourseStudent(CourseStudent courseStudent) {
-    return false;
+    requireNonNull(courseStudent);
+    return courseStudentAddressBook.hasCourseStudents(courseStudent);
   }
 
   @Override
-  public void deleteCourseStudent(CourseStudent courseStudent) {
-
+  public void deleteCourseStudent(CourseStudent target) {
+    courseStudentAddressBook.removeCourseStudent(target);
   }
 
   @Override
   public void addCourseStudent(CourseStudent courseStudent) {
-    requireNonNull(courseStudent);
     courseStudentAddressBook.addCourseStudent(courseStudent);
     updateFilteredCourseStudentList(PREDICATE_SHOW_ALL_COURSESTUDENTS);
   }
-
   @Override
   public void setCourseStudent(CourseStudent target, CourseStudent editedCourseStudent) {
+    requireAllNonNull(target, editedCourseStudent);
 
+    courseStudentAddressBook.setCourseStudent(target, editedCourseStudent);
   }
+
 
   //=========== Filtered List Accessors =============================================================
 

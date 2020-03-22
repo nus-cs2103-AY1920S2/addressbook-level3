@@ -30,8 +30,17 @@ public class AssignDescriptor {
         }
     }
 
+    public HashMap<Prefix, ID> getIDMapping () {
+        return this.IDMapping;
+    }
+
     public Set<Prefix> getAllAssignKeys() {
         return IDMapping.keySet();
     }
 
+    public Prefix[] getType() {
+        Prefix firstPrefix = (Prefix) IDMapping.keySet().toArray()[0];
+        Prefix secondPrefix = (Prefix) IDMapping.keySet().toArray()[1];
+        return new Prefix[]{firstPrefix, secondPrefix};
+    }
 }

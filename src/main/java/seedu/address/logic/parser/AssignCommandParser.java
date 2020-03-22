@@ -5,6 +5,7 @@ import java.util.Set;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TEACHERID;
 
 import seedu.address.logic.commands.commandAssign.AssignCommandFactory;
@@ -26,7 +27,7 @@ public class AssignCommandParser implements Parser<AssignCommandBase> {
     public AssignCommandBase parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TEACHERID, PREFIX_COURSEID);
+                ArgumentTokenizer.tokenize(args, PREFIX_TEACHERID, PREFIX_COURSEID, PREFIX_STUDENTID);
 
         // TODO: validate based on optional params as well.
 
@@ -38,6 +39,10 @@ public class AssignCommandParser implements Parser<AssignCommandBase> {
 
         if (argMultimap.getValue(PREFIX_COURSEID).isPresent()) {
             assignDescriptor.setAssignEntity(PREFIX_COURSEID, ParserUtil.parseID(argMultimap.getValue(PREFIX_COURSEID).get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_STUDENTID).isPresent()) {
+            assignDescriptor.setAssignEntity(PREFIX_STUDENTID, ParserUtil.parseID(argMultimap.getValue(PREFIX_STUDENTID).get()));
         }
 
         Set<Prefix> allAssignPrefixes = assignDescriptor.getAllAssignKeys();
