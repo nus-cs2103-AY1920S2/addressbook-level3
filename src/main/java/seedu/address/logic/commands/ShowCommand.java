@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.module.Module;
 
 /**
@@ -24,7 +25,7 @@ public class ShowCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "All modules taken in this semester are shown: \n %1$s";
 
-    private final ArrayList<Module> toShow;
+    private final Object toShow;
 
     /**
      * Creates an ShowCommand to show the specified {@code Modules}
@@ -33,6 +34,15 @@ public class ShowCommand extends Command {
     public ShowCommand(ArrayList<Module> modules) {
         requireNonNull(modules);
         toShow = modules;
+    }
+
+    /**
+     * Creates an ShowCommand to show the specified {@code Course}
+     * @param course
+     */
+    public ShowCommand(Course course) {
+        requireNonNull(course);
+        toShow = course;
     }
 
     @Override

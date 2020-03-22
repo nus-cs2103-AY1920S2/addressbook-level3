@@ -74,14 +74,14 @@ public class MainApp extends Application {
         //model = initModelManager(storage, userPrefs);
         model = initProfileManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        courseManager = initCourseManager(userPrefs);
+
+        logic = new LogicManager(model, storage, courseManager);
 
         ui = new UiManager(logic);
 
         moduleManager = initModuleManager(userPrefs);
         //profileManager = initProfileManager(userPrefs);
-
-        courseManager = initCourseManager(userPrefs);
     }
 
     /**
@@ -126,7 +126,7 @@ public class MainApp extends Application {
                 courseManager = new CourseManager(courseList);
             }
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
+            logger.warning("Data file not in the correct format. Will be starting with an empty CourseList");
             courseManager = new CourseManager();
         }
         return courseManager;

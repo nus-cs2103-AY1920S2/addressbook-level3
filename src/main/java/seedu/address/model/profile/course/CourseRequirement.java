@@ -28,7 +28,14 @@ public class CourseRequirement {
 
     @Override
     public String toString() {
-        return this.requirementName;
+        StringBuilder output = new StringBuilder();
+        output.append(requirementName);
+        for (ModuleCode moduleCode : modules) {
+            output.append("\n");
+            output.append(moduleCode);
+        }
+        output.append("\n");
+        return output.toString();
     }
 
     @Override
