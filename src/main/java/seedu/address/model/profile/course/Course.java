@@ -1,7 +1,5 @@
 package seedu.address.model.profile.course;
 
-// To be implemented
-
 import java.util.List;
 
 /**
@@ -11,7 +9,8 @@ import java.util.List;
 public class Course {
 
     private final String courseName;
-    private List<CourseRequirement> requirements;
+
+    private final List<CourseRequirement> requirements;
 
     public Course(String courseName, List<CourseRequirement> requirements) {
         this.courseName = courseName;
@@ -20,6 +19,17 @@ public class Course {
 
     @Override
     public String toString() {
-        return this.courseName;
+        StringBuilder output = new StringBuilder();
+        output.append(courseName);
+        for (CourseRequirement requirement : requirements) {
+            output.append("\n");
+            output.append(requirement);
+        }
+        output.append("\n");
+        return output.toString();
+    }
+
+    public CourseName getCourseName() {
+        return new CourseName(courseName);
     }
 }
