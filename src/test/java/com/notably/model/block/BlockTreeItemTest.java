@@ -15,7 +15,7 @@ public class BlockTreeItemTest {
     }
 
     @Test
-    public void is_root_returnsTrue() {
+    public void isRootBlock_rootBlock_returnsTrue() {
         BlockTreeItem rootBlock = BlockTreeItemImpl.createRootBlockTreeItem();
         assertTrue(rootBlock.isRootBlock());
     }
