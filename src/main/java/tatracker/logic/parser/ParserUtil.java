@@ -13,7 +13,9 @@ import tatracker.commons.core.index.Index;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
+import tatracker.model.group.Group.GroupType;
 import tatracker.model.session.Session;
+import tatracker.model.session.Session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;
@@ -179,17 +181,17 @@ public class ParserUtil {
         assert (trimmedType.equals(trimmedType.toLowerCase()));
         switch (trimmedType) {
         case "tutorial":
-            return Session.SessionType.TUTORIAL;
+            return SessionType.TUTORIAL;
         case "lab":
-            return Session.SessionType.LAB;
+            return SessionType.LAB;
         case "consultation":
-            return Session.SessionType.CONSULTATION;
+            return SessionType.CONSULTATION;
         case "grading":
-            return Session.SessionType.GRADING;
+            return SessionType.GRADING;
         case "preparation":
-            return Session.SessionType.PREPARATION;
+            return SessionType.PREPARATION;
         default:
-            return Session.SessionType.OTHER;
+            return SessionType.OTHER;
         }
     }
 
@@ -201,9 +203,9 @@ public class ParserUtil {
         String trimmedType = type.trim();
         switch(trimmedType.toLowerCase()) {
         case "lab":
-            return Group.GroupType.LAB;
+            return GroupType.LAB;
         default:
-            return Group.GroupType.TUTORIAL;
+            return GroupType.TUTORIAL;
         }
     }
 }
