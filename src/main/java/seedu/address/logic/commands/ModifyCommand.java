@@ -29,7 +29,7 @@ import seedu.address.model.recipe.attribute.Serving;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**
- * Edits the details of an existing recipe in the address book.
+ * Edits the details of an existing recipe in the recipe book.
  */
 public class ModifyCommand extends Command {
 

@@ -28,15 +28,15 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getRecipeBook()
      */
-    ReadOnlyRecipeBook getAddressBook();
+    ReadOnlyRecipeBook getRecipeBook();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Recipe> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of recipes */
+    ObservableList<Recipe> getFilteredRecipeList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' recipe book file path.
      */
-    Path getAddressBookFilePath();
+    Path getRecipeBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

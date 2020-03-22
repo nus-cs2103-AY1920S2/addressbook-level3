@@ -52,17 +52,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyRecipeBook getAddressBook() {
+    public ReadOnlyRecipeBook getRecipeBook() {
         return model.getRecipeBook();
     }
 
     @Override
-    public ObservableList<Recipe> getFilteredPersonList() {
+    public ObservableList<Recipe> getFilteredRecipeList() {
         return model.getFilteredRecipeList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getRecipeBookFilePath() {
         return model.getRecipeBookFilePath();
     }
 
