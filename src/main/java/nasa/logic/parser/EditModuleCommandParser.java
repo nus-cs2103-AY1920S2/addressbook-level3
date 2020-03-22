@@ -9,8 +9,10 @@ import nasa.commons.core.index.Index;
 import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.module.ModuleCode;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Parses input arguments and creates a new EditModuleCommand object
@@ -28,14 +30,16 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_MODULE_NAME);
 
-        Index index;
+        ModuleCode moduleCode;
 
         try {
-            // TODO: change how modules are being identified, instead of using index, as index not given in user input
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE),
                     pe);
+        } catch (NoSuchElementException ne) { // case when no module code is provided
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE),
+                    ne);
         }
 
         EditModuleDescriptor editModuleDescriptor = new EditModuleDescriptor();
@@ -50,7 +54,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
             throw new ParseException(EditModuleCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditModuleCommand(index, editModuleDescriptor);
+        return new EditModuleCommand(moduleCode, editModuleDescriptor);
     }
 
     /**

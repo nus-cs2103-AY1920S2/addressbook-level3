@@ -121,6 +121,8 @@ Format: `Medit m/CS2030 [m/MODULE_CODE] [n/MODULE_NAME]`
 
 ****
 * Edits an existing module in the application.
+* First `m/` is taken as the module code of the existing module to be edited.
+* To edit module code, EXACTLY two `m/` tag must be entered.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****

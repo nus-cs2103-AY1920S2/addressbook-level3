@@ -18,6 +18,7 @@ import nasa.model.module.ModuleName;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
+    Predicate<Activity> PREDICATE_SHOW_ALL_ACTIVITIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

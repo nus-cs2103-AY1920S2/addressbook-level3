@@ -27,11 +27,11 @@ public class EditModuleCommand extends Command {
     public static final String COMMAND_WORD = "medit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
-            + "by the index number used in the displayed NASA application. "
+            + "by the module code in the displayed NASA application. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE" +
-            "INDEX (must be a positive integer)"
+            + PREFIX_MODULE + "MODULE CODE"
+            + "INDEX (must be a positive integer)"
             + "[" + PREFIX_MODULE + "MODULE CODE] "
             + "[" + PREFIX_MODULE_NAME + "MODULE NAME]\n"
             + "Example: " + COMMAND_WORD
@@ -44,32 +44,49 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the list.";
 
-    private final Index index;
+//    private final Index index;
+    private final ModuleCode moduleCode;
     private final EditModuleCommand.EditModuleDescriptor editModuleDescriptor;
+
+//    /**
+//     * Creates an EditModuleCommand to edit a module at specified {@code index}
+//     * @param index Index of module to be edited
+//     */
+//    public EditModuleCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
+//        requireNonNull(index);
+//        requireNonNull(editModuleDescriptor);
+//
+//        this.index = index;
+//        this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
+//    }
 
     /**
      * Creates an EditModuleCommand to edit a module at specified {@code index}
-     * @param index Index of module to be edited
+     * @param moduleCode Module code of the module to be edited
+     * @param editModuleDescriptor EditModuleDescriptor helper to edit the module
      */
-    public EditModuleCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
-        requireNonNull(index);
+    public EditModuleCommand(ModuleCode moduleCode, EditModuleDescriptor editModuleDescriptor) {
+        requireNonNull(moduleCode);
         requireNonNull(editModuleDescriptor);
 
-        this.index = index;
+        this.moduleCode = moduleCode;
         this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Module> lastShownList = model.getFilteredModuleList();
+//        List<Module> lastShownList = model.getFilteredModuleList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new nasa.logic.commands.exceptions.CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-        }
+//        if (index.getZeroBased() >= lastShownList.size()) {
+//            throw new nasa.logic.commands.exceptions.CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
+//        }
 
         // TODO: @kester need to discuss the logic for the line below further
-        Module moduleToEdit = lastShownList.get(index.getZeroBased());
+        ModuleCode moduleCodeToEdit = this.moduleCode;
+        Module moduleToEdit = model.getNasaBook().getUniqueModuleList().getModule(moduleCodeToEdit);
+        requireNonNull(moduleToEdit);
+
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
         if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
@@ -106,7 +123,8 @@ public class EditModuleCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EditModuleCommand // instanceof handles nulls
-                && index.equals(((EditModuleCommand) other).index));
+                && moduleCode.equals(((EditModuleCommand) other).moduleCode)
+                && editModuleDescriptor.equals(((EditModuleCommand) other).editModuleDescriptor));
     }
 
     /**

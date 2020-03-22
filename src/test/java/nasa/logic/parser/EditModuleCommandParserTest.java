@@ -1,12 +1,24 @@
 package nasa.logic.parser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_NAME_DESC;
+import static nasa.logic.commands.CommandTestUtil.MODULE_DESC_CS1231;
+import static nasa.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
+import static nasa.logic.commands.CommandTestUtil.MODULE_NAME_DESC_CS1231;
+import static nasa.logic.commands.CommandTestUtil.MODULE_NAME_DESC_CS2030;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static nasa.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static nasa.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static nasa.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
+import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
+import nasa.testutil.EditModuleDescriptorBuilder;
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.index.Index;
@@ -23,11 +35,11 @@ public class EditModuleCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
-        // no index specified
-        // assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        // no existing module code specified
+         assertParseFailure(parser, MODULE_NAME_DESC_CS2030 , MESSAGE_INVALID_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, "1", EditModuleCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -35,60 +47,51 @@ public class EditModuleCommandParserTest {
 
     @Test
     public void parse_invalidPreamble_failure() {
-        // negative index
-        // assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        // assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        // invalid module code to be edited specified
+        assertParseFailure(parser, INVALID_MODULE_DESC, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        /*
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
+        String validPreamble = MODULE_DESC_CS2030.trim();
 
-        // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, validPreamble + MODULE_NAME_DESC_CS1231, ModuleName.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, validPreamble + INVALID_MODULE_DESC, ModuleCode.MESSAGE_CONSTRAINTS); // invalid phone
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        // invalid module code followed by valid name
+        assertParseFailure(parser, validPreamble + INVALID_MODULE_DESC + MODULE_NAME_DESC_CS1231, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Module} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
+        // invalid module name followed by valid module code
+        assertParseFailure(parser, validPreamble + INVALID_MODULE_NAME_DESC + MODULE_DESC_CS1231, ModuleName.MESSAGE_CONSTRAINTS);
+
+        // two module codes input (in addition to preamble)
+        assertParseFailure(parser, validPreamble + MODULE_DESC_CS1231 + MODULE_DESC_CS2030, MESSAGE_INVALID_FORMAT);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, validPreamble + INVALID_MODULE_NAME_DESC + INVALID_MODULE_DESC,
+                ModuleName.MESSAGE_CONSTRAINTS);
 
-         */
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        /*
-        Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
+        String validPreamble = MODULE_DESC_CS2030.trim();
+        ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
 
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        EditModuleCommand expectedCommand = new EditModuleCommand(targetIndex, descriptor);
+        String userInput = validPreamble + MODULE_DESC_CS1231 + MODULE_NAME_DESC_CS1231;
+
+        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleName(VALID_MODULE_NAME_CS1231)
+                .withModuleCode(VALID_MODULE_CS1231).build();
+        EditModuleCommand expectedCommand = new EditModuleCommand(targetModuleCode, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
 
-         */
     }
 
     @Test

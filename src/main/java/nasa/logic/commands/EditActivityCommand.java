@@ -6,6 +6,7 @@ import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import nasa.commons.core.Messages;
@@ -88,6 +89,7 @@ public class EditActivityCommand extends Command {
 
         model.setActivityByIndex(moduleCode, index, editedActivity);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        model.updateFilteredActivityList(index, PREDICATE_SHOW_ALL_ACTIVITIES);
 
         return new CommandResult(String.format(MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity));
     }
