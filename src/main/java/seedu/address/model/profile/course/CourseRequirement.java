@@ -20,7 +20,8 @@ public class CourseRequirement {
     /**
      * Every field must be present and not null.
      */
-    public CourseRequirement(String requirementName, List<ModuleCode> modules, ModularCredits modularCredits, List<String> requirementInfo) {
+    public CourseRequirement(String requirementName, List<ModuleCode> modules, ModularCredits modularCredits,
+                             List<String> requirementInfo) {
         this.requirementName = requirementName;
         this.modules = modules;
         this.modularCredits = modularCredits;
