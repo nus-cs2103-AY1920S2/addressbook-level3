@@ -1,7 +1,9 @@
 package tatracker.logic.commands.exceptions;
 
+import tatracker.logic.commands.Command;
+
 /**
- * Represents an error which occurs during execution of a Command.
+ * Represents an error which occurs during execution of a {@link Command#execute }.
  */
 public class CommandException extends Exception {
     public CommandException(String message) {
