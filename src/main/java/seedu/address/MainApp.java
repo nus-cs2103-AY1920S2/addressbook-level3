@@ -21,17 +21,21 @@ import seedu.address.model.Pet;
 import seedu.address.model.Pomodoro;
 import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyPomodoro;
+import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.Statistics;
 import seedu.address.model.TaskList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonPetStorage;
 import seedu.address.storage.JsonPomodoroStorage;
+import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonTaskListStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.PetStorage;
 import seedu.address.storage.PomodoroStorage;
+import seedu.address.storage.StatisticsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.TaskListStorage;
@@ -67,8 +71,16 @@ public class MainApp extends Application {
         TaskListStorage taskListStorage = new JsonTaskListStorage(userPrefs.getTaskListFilePath());
         PetStorage petStorage = new JsonPetStorage(userPrefs.getPetFilePath());
         PomodoroStorage pomodoroStorage = new JsonPomodoroStorage(userPrefs.getPomodoroFilePath());
+        StatisticsStorage statisticsStorage =
+                new JsonStatisticsStorage(userPrefs.getStatisticsFilePath());
+
         storage =
-                new StorageManager(taskListStorage, petStorage, pomodoroStorage, userPrefsStorage);
+                new StorageManager(
+                        taskListStorage,
+                        petStorage,
+                        pomodoroStorage,
+                        statisticsStorage,
+                        userPrefsStorage);
 
         initLogging(config);
 
@@ -92,9 +104,12 @@ public class MainApp extends Application {
         Optional<ReadOnlyTaskList> taskListOptional;
         Optional<ReadOnlyPet> petOptional;
         Optional<ReadOnlyPomodoro> pomodoroOptional;
+        Optional<ReadOnlyStatistics> statisticsOptional;
+
         ReadOnlyTaskList initialData;
         ReadOnlyPet initialPet;
         ReadOnlyPomodoro initialPomodoro;
+        ReadOnlyStatistics initialDayDataList;
 
         try {
             taskListOptional = storage.readTaskList();
@@ -144,7 +159,24 @@ public class MainApp extends Application {
             initialPomodoro = new Pomodoro();
         }
 
-        return new ModelManager(initialData, initialPet, initialPomodoro, userPrefs);
+        try {
+            statisticsOptional = storage.readStatistics();
+            if (!statisticsOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample Statistics");
+            }
+            initialDayDataList = statisticsOptional.orElse(new Statistics());
+        } catch (DataConversionException e) {
+            logger.warning(
+                    "Data file not in the correct format. Will be starting with an empty Statistics");
+            initialDayDataList = new Statistics();
+        } catch (IOException e) {
+            logger.warning(
+                    "Problem while reading from the file. Will be starting with an empty Statistics");
+            initialDayDataList = new Statistics();
+        }
+
+        return new ModelManager(
+                initialData, initialPet, initialPomodoro, initialDayDataList, userPrefs);
     }
 
     private void initLogging(Config config) {

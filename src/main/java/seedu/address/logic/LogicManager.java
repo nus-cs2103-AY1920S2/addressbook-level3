@@ -12,10 +12,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.TaskListParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.ReadOnlyTaskList;
 import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
-import seedu.address.ui.PetDisplayHandler;
 
 /** The main LogicManager of the app. */
 public class LogicManager implements Logic {
@@ -57,7 +57,12 @@ public class LogicManager implements Logic {
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
-        model.updatePetDisplayHandler();
+
+        try {
+            storage.saveStatistics(model.getStatistics());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
 
         return commandResult;
     }
@@ -88,7 +93,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public PetDisplayHandler getPetDisplayHandler() {
-        return model.getPetDisplayHandler();
+    public ReadOnlyPet getPet() {
+        return model.getPet();
+    }
+
+    @Override
+    public void incrementPomExp() {
+        model.incrementPomExp();
     }
 }

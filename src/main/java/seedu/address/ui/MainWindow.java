@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import java.nio.file.Paths;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
@@ -20,9 +19,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.PomodoroManager;
 import seedu.address.logic.PomodoroManager.PROMPT_STATE;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandCompletor;
 import seedu.address.logic.commands.PomCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyPet;
 import seedu.address.model.task.Reminder;
 
 /**
@@ -37,13 +38,14 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private CommandCompletor commandCompletor;
     private PomodoroManager pomodoro;
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private PetDisplayHandler petDisplayHandler;
+    private PetDisplay petDisplay;
     private PomodoroDisplay pomodoroDisplay;
     private StatisticsDisplay statisticsDisplay;
 
@@ -70,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.pomodoro = pomodoro;
+        this.commandCompletor = new CommandCompletor();
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -127,8 +130,8 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new TaskListPanel(logic.getFilteredTaskList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        petDisplayHandler = getPetDisplayHandler();
-        petPlaceholder.getChildren().add(petDisplayHandler.getPetDisplay().getRoot());
+        petDisplay = new PetDisplay(this.getPet());
+        petPlaceholder.getChildren().add(petDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -136,22 +139,16 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTaskListFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, this::suggestCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        pomodoroDisplay = new PomodoroDisplay("No task in progress.", "25:00");
+        pomodoroDisplay = new PomodoroDisplay();
         pomodoroPlaceholder.getChildren().add(pomodoroDisplay.getRoot());
         pomodoro.setTimerLabel(pomodoroDisplay.getTimerLabel());
         pomodoro.setResultDisplay(resultDisplay);
 
-        statisticsDisplay =
-                new StatisticsDisplay("Time spent on Pomodoro over the last 7 days",
-                        null,
-                        Paths.get("images", "statistics", "progressBarDaily50%.png"),
-                        "50 mins / 100 mins",
-                        "Medals earned: 0");
+        statisticsDisplay = new StatisticsDisplay();
         statisticsPlaceholder.getChildren().add(statisticsDisplay.getRoot());
-       
     }
 
     /** Sets the default size based on {@code guiSettings}. */
@@ -196,6 +193,17 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    /** */
+    private String suggestCommand(String commandText) {
+        String suggestion = commandCompletor.getSuggestedCommand(commandText);
+        if (suggestion.equals(commandText)) {
+            resultDisplay.setFeedbackToUser(commandCompletor.getFailureMessage());
+        } else {
+            resultDisplay.setFeedbackToUser(commandCompletor.getSuccessMessage());
+        }
+        return suggestion;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -207,6 +215,7 @@ public class MainWindow extends UiPart<Stage> {
         PomodoroManager.PROMPT_STATE pomPromptState = pomodoro.getPromptState();
         switch (pomPromptState) {
             case CHECK_DONE:
+                petDisplay.update();
                 if (commandText.toLowerCase().equals("y")) {
                     CommandResult commandResult =
                             new CommandResult(
@@ -214,6 +223,7 @@ public class MainWindow extends UiPart<Stage> {
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.doneTask();
                     pomodoro.checkBreakActions();
+                    // logic.incrementPomExp();
                     return commandResult;
                     // Continue to next prompt from break-timer
                 } else if (commandText.toLowerCase().equals("n")) {
@@ -225,6 +235,7 @@ public class MainWindow extends UiPart<Stage> {
                                     false);
                     resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
                     pomodoro.checkBreakActions();
+                    // logic.incrementPomExp();
                     return commandResult;
                 } else {
                     throw new ParseException(
@@ -288,6 +299,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+            petDisplay.update();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
@@ -324,7 +336,7 @@ public class MainWindow extends UiPart<Stage> {
         alert.show();
     }
 
-    private PetDisplayHandler getPetDisplayHandler() {
-        return logic.getPetDisplayHandler();
+    private ReadOnlyPet getPet() {
+        return logic.getPet();
     }
 }
