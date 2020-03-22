@@ -25,7 +25,6 @@ public class Course {
             output.append("\n");
             output.append(focusArea);
         }
-        
          */
         output.append("\n");
         return output.toString();
