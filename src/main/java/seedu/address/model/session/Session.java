@@ -3,6 +3,7 @@ package seedu.address.model.session;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a session in TAT.
@@ -11,17 +12,20 @@ import java.time.LocalDateTime;
  */
 public class Session {
 
+    /** For converting date times to strings. Example: "2020-03-03 14:00" */
+    private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     /**
      * Represents a session type. Session types follows the same specifications as the TSS.
      * Example session types include: Tutorial, Grading, Consultation, etc.
      */
     public enum SessionType {
-        SESSION_TYPE_TUTORIAL,
-        SESSION_TYPE_LAB,
-        SESSION_TYPE_CONSULTATION,
-        SESSION_TYPE_GRADING,
-        SESSION_TYPE_PREPARATION,
-        SESSION_TYPE_OTHER
+        TUTORIAL,
+        LAB,
+        CONSULTATION,
+        GRADING,
+        PREPARATION,
+        OTHER
     }
 
     private LocalDateTime startDateTime;
@@ -40,7 +44,7 @@ public class Session {
         this.endDateTime = LocalDateTime.now();
         this.isRecurring = false;
         this.moduleCode = "";
-        this.type = SessionType.SESSION_TYPE_OTHER;
+        this.type = SessionType.OTHER;
         this.description = "Default Session";
     }
 
@@ -167,6 +171,18 @@ public class Session {
      */
     public Duration getSessionDuration() {
         return Duration.between(this.startDateTime, this.endDateTime);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Type: ").append(type)
+                .append(" Start: ").append(startDateTime.format(FORMAT_DATE_TIME))
+                .append(" End: ").append(endDateTime.format(FORMAT_DATE_TIME))
+                .append(" Module Code: ").append(moduleCode)
+                .append(" Description: ").append(description)
+                .append(" Recurs: ").append(isRecurring);
+        return builder.toString();
     }
 
     /**
