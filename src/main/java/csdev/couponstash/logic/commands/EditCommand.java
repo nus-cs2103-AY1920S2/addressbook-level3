@@ -118,7 +118,7 @@ public class EditCommand extends Command {
                 // avoid changing the cached total savings value
                 couponToEdit.getTotalSavings(),
                 // avoid changing the reminder
-                couponToEdit.getRemindDate());
+                new RemindDate(updatedExpiryDate));
     }
 
     @Override

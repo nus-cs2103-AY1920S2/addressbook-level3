@@ -32,7 +32,7 @@ public class CouponBuilder {
     public static final String DEFAULT_START_DATE = LocalDate.now().format(StartDate.DATE_FORMATTER);
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
-    public static final String DEFAULT_REMIND_DATE = "25-08-2020";
+    public static final String DEFAULT_REMIND_DATE = "27-08-2020";
 
     private Name name;
     private PromoCode promoCode;

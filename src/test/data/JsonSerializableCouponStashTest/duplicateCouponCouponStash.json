@@ -17,7 +17,8 @@
     "start date": "1-08-2020",
     "usage": "0",
     "limit": "1",
-    "tagged": [ "friends" ]
+    "tagged": [ "friends" ],
+    "remind date" : "27-08-2020"
   }, {
     "name": "Alice Pauline",
     "promoCode": "I<3STASH",
@@ -35,6 +36,7 @@
     "start date": "2-08-2020",
     "expiry date": "30-08-2020",
     "usage": "1",
-    "limit": "0"
+    "limit": "0",
+    "remind date": "27-08-2020"
   } ]
 }

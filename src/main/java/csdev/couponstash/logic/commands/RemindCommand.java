@@ -49,7 +49,7 @@ public class RemindCommand extends Command {
             + PREFIX_REMIND + " 2 days";
 
     private static final String MESSAGE_ARGUMENTS = "Reminder has been set on %2$s for Coupon %1$s";
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     private final Index index;
     private LocalDate remindDate;

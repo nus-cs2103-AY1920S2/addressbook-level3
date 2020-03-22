@@ -15,7 +15,7 @@ public class RemindDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Remind Dates should be a date in the D-M-YYYY format and not after the expiry date";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{4}";
-    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-M-yyyy");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d-MM-yyyy");
     private LocalDate date;
     private boolean remindFlag;
     private String value;
@@ -50,7 +50,7 @@ public class RemindDate {
         setRemindDate(date);
     }
     /**
-     * Returns true if a given string is a valid remind date.
+     * Returns true if a given string reminddate and string expirydate are a valid remind date.
      */
     public static boolean isValidRemindDate(String remindTest, String expiryTest) {
         LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
@@ -60,6 +60,18 @@ public class RemindDate {
 
         return remindTest.matches(VALIDATION_REGEX)
                 && !(remindDate.isAfter(expiryDate))
+                && remindDate.isAfter(testYesterday);
+    }
+
+    /**
+     * Returns true if a given string reminddate are a valid remind date.
+     */
+    public static boolean isValidRemindDate(String remindTest) {
+        LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
+        LocalDate testYesterday = LocalDate.now();
+        testYesterday.minusDays(1);
+
+        return remindTest.matches(VALIDATION_REGEX)
                 && remindDate.isAfter(testYesterday);
     }
 
