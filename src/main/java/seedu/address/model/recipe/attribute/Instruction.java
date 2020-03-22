@@ -12,7 +12,7 @@ public class Instruction {
     public static final String MESSAGE_CONSTRAINTS = "Each instruction should be "
             + "a non-blank string.";
 
-    private final String instructionString;
+    public final String instructionString;
 
     /**
      * Constructs an {@code Instruction}.

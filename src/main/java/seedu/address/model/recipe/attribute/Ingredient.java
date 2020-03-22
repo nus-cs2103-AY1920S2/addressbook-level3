@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Represents a Recipe's ingredient in its {@code IngredientList}. Guarantees:
- * immutable; is valid as declared in {@link #isValidIngredient(String)}
+ * immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Ingredient {
 
