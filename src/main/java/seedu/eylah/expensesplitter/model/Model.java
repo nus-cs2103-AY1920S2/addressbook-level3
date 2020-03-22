@@ -21,6 +21,9 @@ public interface Model {
      */
     void deleteEntry(int index);
 
+    /** Returns the PersonAmountBook */
+    ReadOnlyPersonAmountBook getPersonAmountBook();
+
     /**
      * Updates the amount the Person owes you. If amount is $0 then the Person is deleted.
      *
