@@ -1,36 +1,61 @@
 package nasa.logic.parser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static nasa.logic.commands.CommandTestUtil.*;
+import static nasa.logic.commands.CommandTestUtil.ACTIVITY_NAME_DESC_EXAM;
+import static nasa.logic.commands.CommandTestUtil.ACTIVITY_NAME_DESC_HWK;
+import static nasa.logic.commands.CommandTestUtil.DATE_DESC_TEST;
+import static nasa.logic.commands.CommandTestUtil.DATE_DESC_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.INVALID_ACTIVITY_NAME_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_MODULE_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_NOTES_DESC;
+import static nasa.logic.commands.CommandTestUtil.INVALID_PRIORITY_DESC;
+import static nasa.logic.commands.CommandTestUtil.MODULE_DESC_CS1231;
+import static nasa.logic.commands.CommandTestUtil.MODULE_DESC_CS2030;
+import static nasa.logic.commands.CommandTestUtil.NOTES_DESC_TEST;
+import static nasa.logic.commands.CommandTestUtil.NOTES_DESC_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_HIGH;
+import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_LOW;
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_EXAM;
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_HWK;
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_TUTORIAL;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
+import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
+import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
+import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.VALID_PRIORITY_HIGH;
+import static nasa.logic.commands.CommandTestUtil.VALID_PRIORITY_LOW;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static nasa.testutil.TypicalIndexes.*;
+import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
+import static nasa.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
+import static nasa.testutil.TypicalIndexes.INDEX_THIRD_ACTIVITY;
 
+import org.junit.jupiter.api.Test;
+
+import nasa.commons.core.index.Index;
+import nasa.logic.commands.EditActivityCommand;
+import nasa.logic.commands.EditActivityCommand.EditActivityDescriptor;
 import nasa.model.activity.Date;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
 import nasa.model.module.ModuleCode;
 import nasa.testutil.EditActivityDescriptorBuilder;
-import org.junit.jupiter.api.Test;
-
-import nasa.commons.core.index.Index;
-import nasa.logic.commands.EditActivityCommand;
-import nasa.logic.commands.EditActivityCommand.EditActivityDescriptor;
 
 public class EditActivityCommandParserTest {
 
-    private static final  String MESSAGE_INVALID_FORMAT =
+    private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE);
 
     private EditActivityCommandParser parser = new EditActivityCommandParser();
 
-    private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CS1231);
-
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-         assertParseFailure(parser, VALID_MODULE_CS1231 + ACTIVITY_NAME_DESC_EXAM, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_MODULE_CS1231 + ACTIVITY_NAME_DESC_EXAM, MESSAGE_INVALID_FORMAT);
 
         // no module code specified
         assertParseFailure(parser, "1" + ACTIVITY_NAME_DESC_EXAM, MESSAGE_INVALID_FORMAT);
@@ -45,11 +70,11 @@ public class EditActivityCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-         assertParseFailure(parser, "-5" + MODULE_DESC_CS2030 + ACTIVITY_NAME_DESC_EXAM,
+        assertParseFailure(parser, "-5" + MODULE_DESC_CS2030 + ACTIVITY_NAME_DESC_EXAM,
                  MESSAGE_INVALID_FORMAT);
 
         // zero index
-         assertParseFailure(parser, "0" + MODULE_DESC_CS1231 + PRIORITY_DESC_HIGH, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + MODULE_DESC_CS1231 + PRIORITY_DESC_HIGH, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -90,7 +115,7 @@ public class EditActivityCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_ACTIVITY;
         ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
 
         String userInput = targetIndex.getOneBased() + MODULE_DESC_CS2030 + DATE_DESC_TEST + NOTES_DESC_TEST
@@ -107,7 +132,7 @@ public class EditActivityCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_ACTIVITY;
         ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
 
         String userInput = targetIndex.getOneBased() + MODULE_DESC_CS2030 + DATE_DESC_TEST + NOTES_DESC_TEST;
@@ -124,7 +149,7 @@ public class EditActivityCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
 
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_ACTIVITY;
         ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
         String preamble = targetIndex.getOneBased() + MODULE_DESC_CS2030;
 
@@ -157,7 +182,7 @@ public class EditActivityCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_ACTIVITY;
         ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
         String preamble = targetIndex.getOneBased() + MODULE_DESC_CS2030;
 
@@ -176,7 +201,7 @@ public class EditActivityCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_ACTIVITY;
         ModuleCode targetModuleCode = new ModuleCode(VALID_MODULE_CS2030);
         String preamble = targetIndex.getOneBased() + MODULE_DESC_CS2030;
 

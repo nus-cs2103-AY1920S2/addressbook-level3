@@ -1,19 +1,12 @@
 package nasa.logic.commands;
 
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
-import static nasa.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static nasa.logic.commands.CommandTestUtil.DESC_AMY;
-//import static nasa.logic.commands.CommandTestUtil.DESC_BOB;
-//import static nasa.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static nasa.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static nasa.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static nasa.logic.commands.CommandTestUtil.showActivityAtIndex;
-//import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
-//import static nasa.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
 import static nasa.testutil.TypicalNasaBook.NASABOOK_TYPE_1;
 
 import nasa.model.activity.Deadline;

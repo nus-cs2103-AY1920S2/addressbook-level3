@@ -1,6 +1,11 @@
 package nasa.logic.commands;
 
-import static nasa.logic.commands.CommandTestUtil.*;
+import static nasa.logic.commands.CommandTestUtil.DESC_EXAM;
+import static nasa.logic.commands.CommandTestUtil.DESC_HWK;
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_TUTORIAL;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.VALID_PRIORITY_LOW;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

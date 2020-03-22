@@ -112,7 +112,7 @@ public class AddEventCommandParserTest {
         // invalid priority
         assertParseFailure(parser, MODULE_DESC_CS1231 + ACTIVITY_NAME_DESC_EXAM
             + DATE_DESC_TEST_FROM + DATE_DESC_TEST_TO + NOTES_DESC_TEST + INVALID_PRIORITY_DESC,
-                Priority.PRIORITY_RANGE_CONSTRAINTS);
+                Priority.MESSAGE_CONSTRAINTS);
     }
 
 }

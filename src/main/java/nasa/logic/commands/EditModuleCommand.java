@@ -43,8 +43,10 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the list.";
+    public static final String EXCESS_MODULE_CODE = "Failed to edit module code. EXACTLY 2 module codes must be " +
+            "entered to edit module code.";
 
-//    private final Index index;
+    //    private final Index index;
     private final ModuleCode moduleCode;
     private final EditModuleCommand.EditModuleDescriptor editModuleDescriptor;
 

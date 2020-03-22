@@ -5,7 +5,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import nasa.commons.core.index.Index;
 import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import nasa.logic.parser.exceptions.ParseException;
@@ -19,7 +18,8 @@ import java.util.NoSuchElementException;
  */
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
-    private static final int EDIT_MODULE_CODE = 2; // Number of modules to trigger an edit
+    private static final int EDIT_MODULE_CODE = 2; // Number of modules to trigger an edit of module code
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditModuleCommand
      * and returns an EditCommand object for execution.
@@ -27,23 +27,22 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      */
     public EditModuleCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        String argsWithWhitespace = addStartWhitespace(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_MODULE_NAME);
+                ArgumentTokenizer.tokenize(argsWithWhitespace, PREFIX_MODULE, PREFIX_MODULE_NAME);
 
         ModuleCode moduleCode;
 
         try {
             moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE),
-                    pe);
         } catch (NoSuchElementException ne) { // case when no module code is provided
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE),
                     ne);
         }
 
         EditModuleDescriptor editModuleDescriptor = new EditModuleDescriptor();
-        if (isModuleCodeEdited(argMultimap.getAllValues(PREFIX_MODULE))) {
+        List<String> allModuleCodeParsed = argMultimap.getAllValues(PREFIX_MODULE);
+        if (isModuleCodeEditable(allModuleCodeParsed)) {
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULE_NAME).isPresent()) {
@@ -51,6 +50,9 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         }
 
         if (!editModuleDescriptor.isAnyFieldEdited()) {
+            if (isExcessModuleCodeParsed(allModuleCodeParsed)) { // case when more than 2 module code provided
+                throw new ParseException((EditModuleCommand.EXCESS_MODULE_CODE));
+            }
             throw new ParseException(EditModuleCommand.MESSAGE_NOT_EDITED);
         }
 
@@ -58,13 +60,36 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
+     * Helper method to add a whitespace to the start of args, as ArgumentTokenizer requires a preamble, which
+     * the user input format for edit module does not have.
+     * @param args Original argument passed to EditModuleCommandParser class to be parsed
+     * @return original argument with an additional whitespace at the start
+     */
+    private String addStartWhitespace(String args) {
+        return " " + args;
+    }
+
+    /**
      * Checks if two module code prefixes are parsed, which indicates module code will be edited.
      * If non-two '/m', received, returns false
-     * @param moduleCodes list containing original {@code moduleCode}(compulsory) and new {@code moduleCode}(optional)
-     * @return true if exactly 2 module codes provided, otherwise false
+     * @param moduleCodes list containing all {@code moduleCode} parsed
+     * @return true if exactly two module codes provided, otherwise false
      */
-    private boolean isModuleCodeEdited(List<String> moduleCodes) {
+    private boolean isModuleCodeEditable(List<String> moduleCodes) {
         if (moduleCodes.size() == EDIT_MODULE_CODE) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if more than two module code prefixes are parsed, which indicates module code will not be edited.
+     * If more than two '/m', received, returns true
+     * @param moduleCodes list containing all {@code moduleCode} parsed
+     * @return true if more than two module codes provided, otherwise false
+     */
+    private boolean isExcessModuleCodeParsed(List<String> moduleCodes) {
+        if (moduleCodes.size() > EDIT_MODULE_CODE) {
             return true;
         }
         return false;

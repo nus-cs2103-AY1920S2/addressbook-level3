@@ -99,10 +99,6 @@ public abstract class Activity implements Regenerable<Activity> {
         this.note = note;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
     /**
      * Returns true if both activities of the same name, note and date.
      * @param otherActivity

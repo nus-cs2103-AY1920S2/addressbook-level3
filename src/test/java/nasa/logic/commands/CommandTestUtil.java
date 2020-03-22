@@ -17,9 +17,9 @@ import java.util.List;
 
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.testutil.EditActivityDescriptorBuilder;
 import nasa.model.NasaBook;
 import nasa.model.module.Module;
+import nasa.testutil.EditActivityDescriptorBuilder;
 
 /**
  * Test util.

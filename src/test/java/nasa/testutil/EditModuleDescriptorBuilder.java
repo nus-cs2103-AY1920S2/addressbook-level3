@@ -1,8 +1,5 @@
 package nasa.testutil;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;

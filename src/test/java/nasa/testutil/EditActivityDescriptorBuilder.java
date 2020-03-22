@@ -1,10 +1,11 @@
 package nasa.testutil;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import nasa.logic.commands.EditActivityCommand.EditActivityDescriptor;
-import nasa.model.activity.*;
+import nasa.model.activity.Activity;
+import nasa.model.activity.Date;
+import nasa.model.activity.Name;
+import nasa.model.activity.Note;
+import nasa.model.activity.Priority;
 
 /**
  * A utility class to help with building EditActivityDescriptor objects.
