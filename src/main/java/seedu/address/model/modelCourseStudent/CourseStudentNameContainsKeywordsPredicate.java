@@ -18,7 +18,7 @@ public class CourseStudentNameContainsKeywordsPredicate implements Predicate<Cou
   @Override
   public boolean test(CourseStudent courseStudent) {
     return keywords.stream()
-        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(courseStudent.getName().fullName, keyword));
+        .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(courseStudent.getCourseid().toString(), keyword));
   }
 
   @Override

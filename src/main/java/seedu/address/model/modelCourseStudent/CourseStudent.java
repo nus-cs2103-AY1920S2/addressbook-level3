@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Studentid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -18,33 +20,28 @@ import seedu.address.model.tag.Tag;
 public class CourseStudent {
 
   // Identity fields
-  private final Name name;
-  private final ID id;
-  private final Deadline deadline;
+  private final Courseid courseid;
+  private final Studentid studentid;
   private final Set<Tag> tags = new HashSet<>();
 
   /**
    * Every field must be present and not null.
    */
-  public CourseStudent(Name name, ID id, Deadline deadline, Set<Tag> tags) {
-    requireAllNonNull(name, id, deadline, tags);
-    this.name = name;
-    this.id = id;
-    this.deadline = deadline;
+  public CourseStudent(Courseid courseid, Studentid studentid, Set<Tag> tags) {
+    requireAllNonNull(courseid, studentid, tags);
+    this.courseid = courseid;
+    this.studentid = studentid;
     this.tags.addAll(tags);
   }
 
-  public Name getName() {
-    return name;
+  public Courseid getCourseid() {
+    return courseid;
   }
 
-  public ID getId() {
-    return id;
+  public Studentid getStudentid() {
+    return studentid;
   }
 
-  public Deadline getDeadline() {
-    return deadline;
-  }
 
 
   /**
@@ -65,8 +62,8 @@ public class CourseStudent {
     }
 
     return otherCourseStudent != null
-        && otherCourseStudent.getName().equals(getName())
-        && otherCourseStudent.getId().equals(getId());
+        && otherCourseStudent.getCourseid().equals(getCourseid())
+        && otherCourseStudent.getStudentid().equals(getStudentid());
   }
 
   /**
@@ -84,30 +81,27 @@ public class CourseStudent {
     }
 
     CourseStudent otherCourseStudent = (CourseStudent) other;
-    return otherCourseStudent.getName().equals(getName())
-        && otherCourseStudent.getId().equals(getId())
-        && otherCourseStudent.getDeadline().equals(getDeadline())
+    return otherCourseStudent.getCourseid().equals(getCourseid())
+        && otherCourseStudent.getStudentid().equals(getStudentid())
         && otherCourseStudent.getTags().equals(getTags());
   }
 
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, id, deadline, tags);
+    return Objects.hash(courseid, studentid, tags);
   }
 
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append("\n")
-            .append("CourseStudent: ")
-            .append(getName())
+            .append("Course ID: ")
+            .append(getCourseid())
             .append("\n")
-            .append("CourseStudent ID: ")
-            .append(getId())
+            .append("Student ID: ")
+            .append(getStudentid())
             .append("\n")
-            .append("Deadline: ")
-            .append(getDeadline().toString())
             .append("\n")
             .append(" Tags: ");
     getTags().forEach(builder::append);

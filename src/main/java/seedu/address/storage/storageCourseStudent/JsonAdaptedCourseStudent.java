@@ -9,11 +9,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelCourseStudent.CourseStudent;
+import seedu.address.model.person.Courseid;
 import seedu.address.model.person.Deadline;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Studentid;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,21 +24,19 @@ import seedu.address.model.tag.Tag;
 class JsonAdaptedCourseStudent {
 
   public static final String MISSING_FIELD_MESSAGE_FORMAT = "CourseStudent's %s field is missing!";
-  private final String name;
-  private final String courseStudentID;
-  private final String deadline;
+  private final String courseid;
+  private final String studentid;
   private final List<JsonCourseStudentAdaptedTag> tagged = new ArrayList<>();
 
   /**
    * Constructs a {@code JsonAdaptedPerson} with the given person details.
    */
   @JsonCreator
-  public JsonAdaptedCourseStudent(@JsonProperty("name") String name,
-      @JsonProperty("courseStudentID") String courseStudentID, @JsonProperty("deadline") String deadline,
+  public JsonAdaptedCourseStudent(@JsonProperty("courseid") String courseid,
+      @JsonProperty("studentid") String studentid,
       @JsonProperty("tagged") List<JsonCourseStudentAdaptedTag> tagged) {
-    this.name = name;
-    this.courseStudentID = courseStudentID;
-    this.deadline = deadline;
+    this.courseid = courseid;
+    this.studentid = studentid;
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -46,9 +46,8 @@ class JsonAdaptedCourseStudent {
    * Converts a given {@code CourseStudent} into this class for Jackson use.
    */
   public JsonAdaptedCourseStudent(CourseStudent source) {
-    name = source.getName().fullName;
-    courseStudentID = source.getId().value;
-    deadline = source.getDeadline().toString();
+    courseid = source.getCourseid().toString();
+    studentid = source.getStudentid().toString();
     tagged.addAll(source.getTags().stream()
         .map(JsonCourseStudentAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -66,38 +65,28 @@ class JsonAdaptedCourseStudent {
       CourseStudentTags.add(tag.toModelType());
     }
 
-    if (name == null) {
+    if (courseid == null) {
       throw new IllegalValueException(
-          String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, Courseid.class.getSimpleName()));
     }
-    if (!Name.isValidName(name)) {
-      throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+    if (!Courseid.isValidCourseid(courseid)) {
+      throw new IllegalValueException(Courseid.MESSAGE_CONSTRAINTS);
     }
-    final Name modelName = new Name(name);
+    final Courseid modelCourseid = new Courseid(courseid);
 
-    if (courseStudentID == null) {
+    if (studentid == null) {
       throw new IllegalValueException(
-          String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, Studentid.class.getSimpleName()));
     }
-    if (!ID.isValidId(courseStudentID)) {
-      throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+    if (!Studentid.isValidStudentid(studentid)) {
+      throw new IllegalValueException(Studentid.MESSAGE_CONSTRAINTS);
     }
-    final ID modelId = new ID(courseStudentID);
+    final Studentid modelStudentid = new Studentid(studentid);
 
-    if (deadline == null) {
-      throw new IllegalValueException(
-              String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName())
-      );
-    }
-    if (!Deadline.isValidDeadline(deadline)) {
-      throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
-    };
-
-    final Deadline modelDeadline = new Deadline(deadline);
 
     final Set<Tag> modelTags = new HashSet<>(CourseStudentTags);
 
-    return new CourseStudent(modelName, modelId, modelDeadline, modelTags);
+    return new CourseStudent(modelCourseid, modelStudentid, modelTags);
   }
 
 }
