@@ -76,6 +76,9 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
      * @return Edit distance between {@code firstPath} and {@code secondPath}
      */
     private int calculatePathDistance(AbsolutePath firstPath, AbsolutePath secondPath) {
+        Objects.requireNonNull(firstPath);
+        Objects.requireNonNull(secondPath);
+
         List<String> firstComponents = firstPath.getComponents();
         List<String> secondComponents = secondPath.getComponents();
 
