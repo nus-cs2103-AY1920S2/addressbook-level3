@@ -62,4 +62,8 @@ public class Personal {
     public List<Deadline> getDeadlines() {
         return this.deadlineList.getList();
     }
+
+    public void deleteDeadline(Deadline deadline) {
+        this.deadlineList.deleteDeadline(deadline);
+    }
 }

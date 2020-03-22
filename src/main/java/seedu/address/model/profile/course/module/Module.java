@@ -80,6 +80,10 @@ public class Module {
         return personal.getDeadlines();
     }
 
+    public void deleteDeadline(Deadline deadline) {
+        personal.deleteDeadline(deadline);
+    }
+
     // To think of whether Personal stuff should have getters and setters here, since it will be largely repetition
 
     @Override

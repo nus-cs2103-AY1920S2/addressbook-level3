@@ -44,6 +44,6 @@ public class DeadlineList {
     }
 
     public void deleteDeadline(Deadline deadline) {
-        list.remove(deadline);
+        list.removeIf(dl->dl.getDescription().equals(deadline.getDescription()));
     }
 }

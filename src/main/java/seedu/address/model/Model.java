@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 
 /**
@@ -89,6 +90,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Profile> predicate);
+
+    boolean hasProfile(Name name);
+
+    Profile getProfile(Name name);
 
     Profile getFirstProfile();
 }

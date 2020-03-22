@@ -38,7 +38,8 @@ public class AddCommand extends Command {
             + "(" + PREFIX_TASK + "assignment) "
             + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
-    private static final String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
+    private static final String MESSAGE_ADD_SUCCESS = "New Personal Object added: %1$s";
+    private static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
 
     private final Module toAdd;
     private int addSemester;
@@ -49,7 +50,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Profile}
      */
-    public AddCommand(Module module) {
+    /*public AddCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
     }
@@ -57,8 +58,8 @@ public class AddCommand extends Command {
     public AddCommand(Module module, boolean isUpdated) {
         requireNonNull(module);
         toAdd = module;
-        //MESSAGE_SUCCESS = "Existing module updated: %1$s";
-    }
+        MESSAGE_SUCCESS = "Existing module updated: %1$s";
+    }*/
 
     public AddCommand(ModuleCode moduleCode, int semester, String grade, String task, String deadlineString) {
         requireNonNull(moduleCode);
@@ -138,9 +139,10 @@ public class AddCommand extends Command {
 
         if (!hasModule) {
             profile.addModule(addSemester, module);
+            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
+        } else {
+            return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd));
         }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
