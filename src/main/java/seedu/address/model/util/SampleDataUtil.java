@@ -7,14 +7,14 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.RecipeBook;
-import seedu.address.model.recipe.Calorie;
-import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.Serving;
+import seedu.address.model.recipe.attribute.Calorie;
 import seedu.address.model.recipe.attribute.Ingredient;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.Instruction;
 import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Serving;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**
