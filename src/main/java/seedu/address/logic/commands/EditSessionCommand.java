@@ -79,8 +79,8 @@ public class EditSessionCommand extends Command {
         // the two objects are the same should not be done based on their field values.
         // In this case, it is probably best to ignore no-edits.
         /*
-        if (!sessionToEdit.isSamePerson(editedStudent) && model.hasPerson(editedStudent)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (!sessionToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
+            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
         }
         */
 

@@ -86,13 +86,13 @@ public class TypicalStudents {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Student student : getTypicalPersons()) {
+        for (Student student : getTypicalStudents()) {
             ab.addStudent(student);
         }
         return ab;
     }
 
-    public static List<Student> getTypicalPersons() {
+    public static List<Student> getTypicalStudents() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

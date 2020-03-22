@@ -144,7 +144,7 @@ public class UniqueGroupList implements Iterable<Group> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code students} contains only unique students.
      */
     private boolean groupsAreUnique(List<Group> groups) {
         for (int i = 0; i < groups.size() - 1; i++) {
