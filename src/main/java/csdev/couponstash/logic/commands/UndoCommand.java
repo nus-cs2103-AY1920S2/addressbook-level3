@@ -12,7 +12,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_SUCCESS = "Previous command undone";
+    public static final String MESSAGE_SUCCESS = "Previous command undone: %s";
     public static final String MESSAGE_NO_STATE_TO_UNDO_TO = "No commands to undo";
 
     @Override
@@ -23,7 +23,7 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_NO_STATE_TO_UNDO_TO);
         }
 
-        model.undoCouponStash();
-        return new CommandResult(MESSAGE_SUCCESS);
+        String command = model.undoCouponStash();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, command));
     }
 }

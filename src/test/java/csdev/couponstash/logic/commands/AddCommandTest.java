@@ -161,17 +161,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitCouponStash() {
+        public void commitCouponStash(String command) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoCouponStash() {
+        public String undoCouponStash() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoCouponStash() {
+        public String redoCouponStash() {
             throw new AssertionError("This method should not be called.");
         }
 
