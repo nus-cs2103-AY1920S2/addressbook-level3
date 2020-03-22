@@ -1,4 +1,4 @@
-package com.notably.logic.suggestion.commands.treetest;
+package com.notably.logic.suggestion.commands;
 
 import java.util.ArrayList;
 import java.util.List;
