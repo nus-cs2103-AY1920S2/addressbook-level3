@@ -344,8 +344,8 @@ public class AddStudentCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyTaTracker getTaTracker() {
+            return new TaTracker();
         }
     }
 }
