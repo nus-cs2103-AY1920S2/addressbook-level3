@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
@@ -24,6 +25,7 @@ import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.CashOnDelivery;
+import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
@@ -45,6 +47,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_TID + "TRANSACTION_ID] "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_DELIVERY_TIMESTAMP + "DELIVERY_DATE_&_TIME] "
             + "[" + PREFIX_WAREHOUSE + "WAREHOUSE_LOCATION] "
@@ -105,6 +108,7 @@ public class EditCommand extends Command {
         TransactionId updatedTid = editOrderDescriptor.getTid().orElse(orderToEdit.getTid());
         Name updatedName = editOrderDescriptor.getName().orElse(orderToEdit.getName());
         Phone updatedPhone = editOrderDescriptor.getPhone().orElse(orderToEdit.getPhone());
+        Email updatedEmail = editOrderDescriptor.getEmail().orElse(orderToEdit.getEmail());
         Address updatedAddress = editOrderDescriptor.getAddress().orElse(orderToEdit.getAddress());
         TimeStamp updateTimeStamp = editOrderDescriptor.getTimeStamp().orElse(orderToEdit.getTimestamp());
         Warehouse updatedWarehouse = editOrderDescriptor.getWarehouse().orElse(orderToEdit.getWarehouse());
@@ -112,10 +116,9 @@ public class EditCommand extends Command {
         Comment updatedComment = editOrderDescriptor.getComment().orElse(orderToEdit.getComment());
         TypeOfItem updatedType = editOrderDescriptor.getItemType().orElse(orderToEdit.getItemType());
 
-        return new Order(updatedTid, updatedName, updatedPhone, updatedAddress, updateTimeStamp, updatedWarehouse,
-                updatedCod, updatedComment, updatedType);
 
-
+        return new Order(updatedTid, updatedName, updatedPhone, updatedEmail, updatedAddress, updateTimeStamp,
+                updatedWarehouse, updatedCod, updatedComment, updatedType);
     }
 
     @Override
@@ -144,6 +147,7 @@ public class EditCommand extends Command {
         private TransactionId tid;
         private Name name;
         private Phone phone;
+        private Email email;
         private Address address;
         private TimeStamp timeStamp;
         private Warehouse warehouse;
@@ -162,6 +166,7 @@ public class EditCommand extends Command {
             setTid(toCopy.tid);
             setName(toCopy.name);
             setPhone(toCopy.phone);
+            setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTimeStamp(toCopy.timeStamp);
             setWarehouse(toCopy.warehouse);
@@ -174,7 +179,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(tid, name, phone, address, timeStamp, warehouse,
+            return CollectionUtil.isAnyNonNull(tid, name, phone, email, address, timeStamp, warehouse,
                     cod, comment, itemType);
         }
         public void setTid(TransactionId tid) {
@@ -199,6 +204,14 @@ public class EditCommand extends Command {
 
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
+        }
+
+        public void setEmail(Email email) {
+            this.email = email;
+        }
+
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
         }
 
         public void setAddress(Address address) {
@@ -267,6 +280,7 @@ public class EditCommand extends Command {
             return getTid().equals(e.getTid())
                     && getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
+                    && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
                     && getTimeStamp().equals(e.getTimeStamp())
                     && getWarehouse().equals(e.getWarehouse())

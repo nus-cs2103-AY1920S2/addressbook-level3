@@ -108,8 +108,18 @@ public class ModelManager implements Model {
     @Override
     public void setOrder(Order target, Order editedOrder) {
         requireAllNonNull(target, editedOrder);
-
         orderBook.setOrder(target, editedOrder);
+    }
+
+    @Override
+    public void deliverOrder(Order target) {
+        orderBook.deliverOrder(target);
+    }
+
+    @Override
+    public void renewDeliveryStatus(Order target) {
+        target.setDeliveryStatus(false);
+        orderBook.setDeliveryStatus(target);
     }
 
     //=========== Filtered Person List Accessors =============================================================

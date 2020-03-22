@@ -821,15 +821,19 @@ Refers to the display field showing the results of an executed command
 
 |n/
 |Customer Name
-|Insert
+|Insert, Return
 
 |a/
 |Address
-|Insert
+|Insert, Return
 
 |p/
 |Phone Number
-|Insert
+|Insert, Return
+
+|e/
+|Email
+|Insert, Return, Edit
 
 |ts/
 |Delivery Date And Time
@@ -837,7 +841,7 @@ Refers to the display field showing the results of an executed command
 
 |w/
 |Warehouse Location
-|Insert
+|Insert, Return
 
 |cod/
 |Cash On Delivery
@@ -849,7 +853,7 @@ Refers to the display field showing the results of an executed command
 
 |type/
 |Type of Item
-|Insert
+|Insert, Return
 |===
 
 .Possible Command Flags
@@ -907,11 +911,11 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Insert a minimum of 2 orders
 
-.. Insert command format: `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+.. Insert command format: `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `ts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
-.. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `ts/2020-02-20 1300` `w/Yishun` `cod/$4` +
+.. Test case: `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `ts/2020-02-20 1300` `w/Yishun` `cod/$4` +
    Expected: Inserts an order with the above details to the list and displayed on the GUI
-.. Test case: `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `ts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass` +
+.. Test case: `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `ts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass` +
    Expected: Inserts the order to the list, including the item type and the order comment
 .. Test case: Invalid Syntax +
    Expected: No order is added. Error details shown in the response message. A help message displayed for user to insert accordingly. Status bar remain unchanged

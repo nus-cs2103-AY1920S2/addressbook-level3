@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
@@ -34,6 +35,7 @@ public class OrderUtil {
         sb.append(PREFIX_TID + order.getTid().tid + " ");
         sb.append(PREFIX_NAME + order.getName().fullName + " ");
         sb.append(PREFIX_PHONE + order.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + order.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + order.getAddress().value + " ");
         sb.append(PREFIX_DELIVERY_TIMESTAMP + order.getTimestamp().value + " ");
         sb.append(PREFIX_WAREHOUSE + order.getWarehouse().address + " ");
@@ -52,6 +54,7 @@ public class OrderUtil {
         descriptor.getTid().ifPresent(Tid -> sb.append(PREFIX_TID).append(Tid.tid).append(" "));
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getTimeStamp().ifPresent(timeStamp -> sb.append(PREFIX_DELIVERY_TIMESTAMP)
                 .append(timeStamp.value).append(" "));

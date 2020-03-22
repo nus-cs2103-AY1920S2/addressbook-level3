@@ -6,6 +6,7 @@ import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
 import seedu.address.model.order.CashOnDelivery;
+import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
@@ -23,6 +24,7 @@ public class SampleDataUtil {
             new Order(new TransactionId("B93838282"),
                     new Name("Alex Yeoh"),
                     new Phone("87438807"),
+                    new Email("asdbc@gmail.com"),
                     new Address("123, Jurong West Ave 6, #08-111 S649520"),
                     new TimeStamp("2019-02-20 1500"),
                     new Warehouse("5 Toh Guan Rd E, S608831"),
@@ -32,6 +34,7 @@ public class SampleDataUtil {
             new Order(new TransactionId("A11111111"),
                     new Name("Bernice Yu"),
                     new Phone("99272758"),
+                    new Email("asdbc@gmail.com"),
                     new Address("311, Clementi Ave 2, #02-25 S120363"),
                     new TimeStamp("2019-02-20 1500"),
                     new Warehouse("5 Toh Guan Rd E, S608831"),
@@ -41,6 +44,7 @@ public class SampleDataUtil {
             new Order(new TransactionId("A4937272"),
                     new Name("Charlotte Oliveiro"),
                     new Phone("93210283"),
+                    new Email("asdbc@gmail.com"),
                     new Address("Telok Blangah Heights, #01-22 S100058"),
                     new TimeStamp("2019-02-20 1500"),
                     new Warehouse("5 Toh Guan Rd E, S608831"),
@@ -50,6 +54,7 @@ public class SampleDataUtil {
             new Order(new TransactionId("A000000"),
                     new Name("David Li"),
                     new Phone("91031282"),
+                    new Email("asdbc@gmail.com"),
                     new Address("Blk 436 Serangoon Gardens Street 26, #16-43 S550101"),
                     new TimeStamp("2019-02-20 1500"),
                     new Warehouse("5 Toh Guan Rd E, S608831"),
@@ -59,6 +64,7 @@ public class SampleDataUtil {
             new Order(new TransactionId("A99999"),
                     new Name("Irfan Ibrahim"),
                     new Phone("92492021"),
+                    new Email("asdbc@gmail.com"),
                     new Address("Blk 47 Tampines Street 20, #17-35 S506901"),
                     new TimeStamp("2019-02-20 1500"),
                     new Warehouse("5 Toh Guan Rd E, S608831"),
@@ -68,6 +74,7 @@ public class SampleDataUtil {
             new Order(new TransactionId("C8493929292"),
                     new Name("Roy Balakrishnan"),
                     new Phone("92624417"),
+                    new Email("asdbc@gmail.com"),
                     new Address("Blk 45 Aljunied Street 85, #11-31 S380095"),
                     new TimeStamp("2019-02-20 1500"),
                     new Warehouse("5 Toh Guan Rd E, S608831"),

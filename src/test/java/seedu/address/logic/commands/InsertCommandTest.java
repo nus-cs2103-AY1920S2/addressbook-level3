@@ -140,6 +140,16 @@ public class InsertCommandTest {
         }
 
         @Override
+        public void deliverOrder(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void renewDeliveryStatus(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Order> getFilteredOrderList() {
             throw new AssertionError("This method should not be called.");
         }

@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
+import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.DoneCommand.DoneOrderDescriptor;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
@@ -17,23 +17,23 @@ import seedu.address.model.order.Warehouse;
 /**
  * A utility class to help with building EditOrderDescriptor objects.
  */
-public class EditOrderDescriptorBuilder {
+public class DoneOrderDescriptorBuilder {
 
-    private EditCommand.EditOrderDescriptor descriptor;
+    private DoneCommand.DoneOrderDescriptor descriptor;
 
-    public EditOrderDescriptorBuilder() {
-        descriptor = new EditCommand.EditOrderDescriptor();
+    public DoneOrderDescriptorBuilder() {
+        descriptor = new DoneCommand.DoneOrderDescriptor();
     }
 
-    public EditOrderDescriptorBuilder(EditCommand.EditOrderDescriptor descriptor) {
-        this.descriptor = new EditOrderDescriptor(descriptor);
+    public DoneOrderDescriptorBuilder(DoneCommand.DoneOrderDescriptor descriptor) {
+        this.descriptor = new DoneOrderDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditOrderDescriptor} with fields containing {@code order}'s details
+     * Returns an {@code DoneOrderDescriptor} with fields containing {@code order}'s details
      */
-    public EditOrderDescriptorBuilder(Order order) {
-        descriptor = new EditOrderDescriptor();
+    public DoneOrderDescriptorBuilder(Order order) {
+        descriptor = new DoneOrderDescriptor();
         descriptor.setTid(order.getTid());
         descriptor.setName(order.getName());
         descriptor.setPhone(order.getPhone());
@@ -44,12 +44,13 @@ public class EditOrderDescriptorBuilder {
         descriptor.setCash(order.getCash());
         descriptor.setComment(order.getComment());
         descriptor.setItemType(order.getItemType());
+        descriptor.setDeliveryStatus(order.isDelivered());
     }
 
     /**
      * Sets the {@code Comment} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withComment(String comment) {
+    public DoneOrderDescriptorBuilder withComment(String comment) {
         descriptor.setComment(new Comment(comment));
         return this;
     }
@@ -57,7 +58,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code TransactionId} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withTid(String tid) {
+    public DoneOrderDescriptorBuilder withTid(String tid) {
         descriptor.setTid(new TransactionId(tid));
         return this;
     }
@@ -65,7 +66,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code Name} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withName(String name) {
+    public DoneOrderDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
@@ -73,7 +74,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code Phone} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withPhone(String phone) {
+    public DoneOrderDescriptorBuilder withPhone(String phone) {
         descriptor.setPhone(new Phone(phone));
         return this;
     }
@@ -81,7 +82,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code Email} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withEmail(String email) {
+    public DoneOrderDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
         return this;
     }
@@ -89,7 +90,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code Address} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withAddress(String address) {
+    public DoneOrderDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
         return this;
     }
@@ -97,7 +98,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code TimeStamp} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withTimeStamp(String timeStamp) {
+    public DoneOrderDescriptorBuilder withTimeStamp(String timeStamp) {
         descriptor.setTimeStamp(new TimeStamp(timeStamp));
         return this;
     }
@@ -105,7 +106,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code Warehouse} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withWarehouse(String warehouseLocation) {
+    public DoneOrderDescriptorBuilder withWarehouse(String warehouseLocation) {
         descriptor.setWarehouse(new Warehouse(warehouseLocation));
         return this;
     }
@@ -113,7 +114,7 @@ public class EditOrderDescriptorBuilder {
     /**
      * Sets the {@code CashOnDelivery} of the {@code EditOrderDescriptor} that we are building.
      */
-    public EditOrderDescriptorBuilder withCash(String cash) {
+    public DoneOrderDescriptorBuilder withCash(String cash) {
         descriptor.setCash(new CashOnDelivery(cash));
         return this;
     }
@@ -122,12 +123,12 @@ public class EditOrderDescriptorBuilder {
      * Sets the {@code TypeOfItem} of the {@code EditOrderDescriptor} that we are building.
      *
      */
-    public EditOrderDescriptorBuilder withItemType(String item) {
+    public DoneOrderDescriptorBuilder withItemType(String item) {
         descriptor.setItemType(new TypeOfItem(item));
         return this;
     }
 
-    public EditCommand.EditOrderDescriptor build() {
+    public DoneCommand.DoneOrderDescriptor build() {
         return descriptor;
     }
 }
