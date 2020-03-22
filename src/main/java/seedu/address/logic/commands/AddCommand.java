@@ -30,7 +30,7 @@ public class AddCommand extends Command {
             + "(" + PREFIX_TASK + "assignment) "
             + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
-    private static String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
+    private static final String MESSAGE_SUCCESS = "New Personal Object added: %1$s";
 
     private final Module toAdd;
 
@@ -45,7 +45,7 @@ public class AddCommand extends Command {
     public AddCommand(Module module, boolean isUpdated) {
         requireNonNull(module);
         toAdd = module;
-        MESSAGE_SUCCESS = "Existing module updated: %1$s";
+        //MESSAGE_SUCCESS = "Existing module updated: %1$s";
     }
 
     @Override
