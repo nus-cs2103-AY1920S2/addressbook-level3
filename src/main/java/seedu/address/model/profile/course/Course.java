@@ -9,7 +9,7 @@ import java.util.List;
 public class Course {
 
     private final String courseName;
-    private List<CourseFocusArea> focusAreas;
+    private final List<CourseFocusArea> focusAreas;
 
     public Course(String courseName, List<CourseFocusArea> focusAreas) {
         this.courseName = courseName;
