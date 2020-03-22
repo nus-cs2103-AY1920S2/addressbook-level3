@@ -3,10 +3,7 @@ package seedu.expensela.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalTransactions.ALICE;
-import static seedu.expensela.testutil.TypicalTransactions.HOON;
-import static seedu.expensela.testutil.TypicalTransactions.IDA;
-import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
+import static seedu.expensela.testutil.TypicalTransactions.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -75,14 +72,14 @@ public class JsonDateBookStorageTest {
         assertEquals(original, new ExpenseLa(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addTransaction(HOON);
-        original.removeTransaction(ALICE);
+        original.addTransaction(HEALTH);
+        original.removeTransaction(APPLES);
         jsonExpenseLaStorage.saveExpenseLa(original, filePath);
         readBack = jsonExpenseLaStorage.readExpenseLa(filePath).get();
         assertEquals(original, new ExpenseLa(readBack));
 
         // Save and read without specifying file path
-        original.addTransaction(IDA);
+        original.addTransaction(ICE_CREAM);
         jsonExpenseLaStorage.saveExpenseLa(original); // file path not specified
         readBack = jsonExpenseLaStorage.readExpenseLa().get(); // file path not specified
         assertEquals(original, new ExpenseLa(readBack));

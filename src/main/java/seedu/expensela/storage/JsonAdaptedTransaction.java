@@ -15,6 +15,7 @@ class JsonAdaptedTransaction {
 
     private final String name;
     private final String amount;
+    private final String positive;
     private final String date;
     private final String remark;
     private final String category;
@@ -24,10 +25,11 @@ class JsonAdaptedTransaction {
      */
     @JsonCreator
     public JsonAdaptedTransaction(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
-                                  @JsonProperty("date") String date, @JsonProperty("remark") String remark,
-                                  @JsonProperty("category") String category) {
+                                  @JsonProperty("positive") String positive, @JsonProperty("date") String date,
+                                  @JsonProperty("remark") String remark, @JsonProperty("category") String category) {
         this.name = name;
         this.amount = amount;
+        this.positive = positive;
         this.date = date;
         this.remark = remark;
         this.category = category;
@@ -38,7 +40,8 @@ class JsonAdaptedTransaction {
      */
     public JsonAdaptedTransaction(Transaction source) {
         name = source.getName().transactionName;
-        amount = source.getAmount().toString().substring(3);
+        amount = source.getAmount().transactionAmount.toString();
+        positive = String.valueOf(source.getAmount().positive);
         date = source.getDate().transactionDate;
         remark = source.getRemark().transactionRemark;
         category = source.getCategory().transactionCategory;
@@ -62,7 +65,7 @@ class JsonAdaptedTransaction {
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
         }
-        final Amount modelAmount = new Amount(amount, true);
+        final Amount modelAmount = new Amount(amount, Boolean.valueOf(positive));
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));

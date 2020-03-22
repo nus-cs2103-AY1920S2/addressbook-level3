@@ -1,19 +1,17 @@
 {
   "transactions": [ {
-    "transactionID": "12345678",
     "name": "Domino's Pizza",
     "amount": "100.00",
     "date": "2019-02-07",
     "positive": "false",
-    "type": "Food",
-    "remark": "Treating friends"
+    "remark": "Treating friends",
+    "category": "FOOD"
   }, {
-    "transactionID": "12345678",
     "name": "Domino's Pizza",
     "amount": "100.00",
     "date": "2019-02-07",
     "positive": "false",
-    "type": "Food",
-    "remark": "Treating friends"
+    "remark": "Treating friends",
+    "category": "FOOD"
   } ]
 }

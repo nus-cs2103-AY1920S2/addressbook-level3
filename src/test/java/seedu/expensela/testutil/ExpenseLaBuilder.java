@@ -1,6 +1,7 @@
 package seedu.expensela.testutil;
 
 import seedu.expensela.model.ExpenseLa;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -29,6 +30,14 @@ public class ExpenseLaBuilder {
      */
     public ExpenseLaBuilder withTransaction(Transaction transaction) {
         expenseLa.addTransaction(transaction);
+        return this;
+    }
+
+    /**
+     * Sets the {@code MonthlyData} of the {@code ExpenseLa} that we are building.
+     */
+    public ExpenseLaBuilder withMonthlyData(MonthlyData monthlyData) {
+        expenseLa.setMonthlyData(monthlyData);
         return this;
     }
 

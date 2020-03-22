@@ -1,11 +1,15 @@
 package seedu.expensela.testutil;
 
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_PIZZA;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_PIZZA;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_DATE_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_CATEGORY_SHOPPING;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,54 +23,93 @@ import seedu.expensela.model.transaction.Transaction;
  */
 public class TypicalTransactions {
 
-    public static final Transaction ALICE = new TransactionBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111")
-            .withPhone("94351253")
+    public static final Transaction APPLES = new TransactionBuilder().withName("Fuji Apples from Cold Storage")
+            .withAmount("10.00", false)
+            .withDate("2020-02-26")
+            .withRemark("Give my mate some")
+            .withCategory("GROCERIES")
             .build();
-    public static final Transaction BENSON = new TransactionBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withPhone("98765432")
+    public static final Transaction BONUS = new TransactionBuilder().withName("Bonus")
+            .withAmount("1000.00", true)
+            .withDate("2020-02-27")
+            .withRemark("End of year bonus")
+            .withCategory("MISC")
             .build();
-    public static final Transaction CARL = new TransactionBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withAddress("wall street").build();
-    public static final Transaction DANIEL = new TransactionBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withAddress("10th street").build();
-    public static final Transaction ELLE = new TransactionBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withAddress("michegan ave").build();
-    public static final Transaction FIONA = new TransactionBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withAddress("little tokyo").build();
-    public static final Transaction GEORGE = new TransactionBuilder().withName("George Best").withPhone("9482442")
-            .withAddress("4th street").build();
+    public static final Transaction CAR_GAS = new TransactionBuilder().withName("Car Gase")
+            .withAmount("50.49", false)
+            .withDate("2020-02-28")
+            .withRemark("")
+            .withCategory("UTILITIES")
+            .build();
+    public static final Transaction DOMINOS = new TransactionBuilder().withName("Domino's Pizza")
+            .withAmount("36.00", false)
+            .withDate("2020-03-01")
+            .withRemark("Treat Friends")
+            .withCategory("FOOD")
+            .build();
+    public static final Transaction ELECTRICITY = new TransactionBuilder().withName("Electricity bill")
+            .withAmount("250.00", false)
+            .withDate("2020-03-02")
+            .withRemark("")
+            .withCategory("UTILITIES")
+            .build();
+    public static final Transaction FLOWERS = new TransactionBuilder().withName("Flowers")
+            .withAmount("12.00", false)
+            .withDate("2020-03-03")
+            .withRemark("Babe likes pink")
+            .withCategory("SHOPPING")
+            .build();
+    public static final Transaction GRAB = new TransactionBuilder().withName("Grab to work")
+            .withAmount("1000.00", false)
+            .withDate("2020-03-04")
+            .withRemark("Claim from boss")
+            .withCategory("TRANSPORT")
+            .build();
 
     // Manually added
-    public static final Transaction HOON = new TransactionBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withAddress("little india").build();
-    public static final Transaction IDA = new TransactionBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withAddress("chicago ave").build();
-
-    // Manually added - Transaction's details found in {@code CommandTestUtil}
-    public static final Transaction AMY = new TransactionBuilder().withName(VALID_NAME_PIZZA).withPhone(VALID_AMOUNT_PIZZA)
-            .withAddress(VALID_REMARK_PIZZA).build();
-    public static final Transaction BOB = new TransactionBuilder().withName(VALID_NAME_AIRPODS).withPhone(VALID_AMOUNT_AIRPODS)
-            .withAddress(VALID_REMARK_AIRPODS)
+    public static final Transaction HEALTH = new TransactionBuilder().withName("Health Checkup")
+            .withAmount("100.00", false)
+            .withDate("2020-03-05")
+            .withRemark("Annual health checkup")
+            .withCategory("HEALTH")
+            .build();
+    public static final Transaction ICE_CREAM = new TransactionBuilder().withName("Ice Cream from Udders")
+            .withAmount("6.00", false)
+            .withDate("2020-03-06")
+            .withRemark("Rum ice-cream is the best")
+            .withCategory("FOOD")
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    // Manually added - Transaction's details found in {@code CommandTestUtil}
+    public static final Transaction PIZZA = new TransactionBuilder().withName(VALID_NAME_PIZZA)
+            .withAmount(VALID_AMOUNT_PIZZA, false)
+            .withDate(VALID_DATE_PIZZA)
+            .withRemark(VALID_REMARK_PIZZA)
+            .withCategory(VALID_CATEGORY_FOOD)
+            .build();
+    public static final Transaction AIRPODS = new TransactionBuilder().withName(VALID_NAME_AIRPODS)
+            .withAmount(VALID_AMOUNT_AIRPODS, false)
+            .withDate(VALID_DATE_AIRPODS)
+            .withRemark(VALID_REMARK_AIRPODS)
+            .withCategory(VALID_CATEGORY_SHOPPING)
+            .build();
+
+    public static final String KEYWORD_MATCHING_TREAT = "Treat"; // A keyword that matches TREAT
 
     private TypicalTransactions() {} // prevents instantiation
 
     /**
-     * Returns an {@code ExpenseLa} with all the typical Transactions.
+     * Returns an {@code ExpenseLa} with all the typical transactions.
      */
     public static ExpenseLa getTypicalExpenseLa() {
-        ExpenseLa ab = new ExpenseLa();
+        ExpenseLa el = new ExpenseLa();
         for (Transaction transaction : getTypicalTransactions()) {
-            ab.addTransaction(transaction);
+            el.addTransaction(transaction);
         }
-        return ab;
+        return el;
     }
 
     public static List<Transaction> getTypicalTransactions() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(APPLES, BONUS, CAR_GAS, DOMINOS, ELECTRICITY, FLOWERS, GRAB));
     }
 }

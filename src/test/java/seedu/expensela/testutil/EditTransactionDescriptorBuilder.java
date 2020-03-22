@@ -4,10 +4,12 @@ import seedu.expensela.logic.commands.EditCommand;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Remark;
+import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
- * A utility class to help with building EditTransactionDescriptor objects.
+ * A utility class to help with building editTransaction objects.
  */
 public class EditTransactionDescriptorBuilder {
 
@@ -29,6 +31,8 @@ public class EditTransactionDescriptorBuilder {
         descriptor.setName(transaction.getName());
         descriptor.setAmount(transaction.getAmount());
         descriptor.setDate(transaction.getDate());
+        descriptor.setRemark(transaction.getRemark());
+        descriptor.setCategory(transaction.getCategory());
     }
 
     /**
@@ -40,18 +44,34 @@ public class EditTransactionDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code EditTransactionDescriptor} that we are building.
+     * Sets the {@code Amount} of the {@code EditTransactionDescriptor} that we are building.
      */
-    public EditTransactionDescriptorBuilder withPhone(String amount) {
-        descriptor.setAmount(new Amount(amount, true));
+    public EditTransactionDescriptorBuilder withAmount(String amount) {
+        descriptor.setAmount(new Amount(amount, false));
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code EditTransactionDescriptor} that we are building.
+     * Sets the {@code Date} of the {@code EditTransactionDescriptor} that we are building.
      */
-    public EditTransactionDescriptorBuilder withAddress(String address) {
-        descriptor.setDate(new Date(address));
+    public EditTransactionDescriptorBuilder withDate(String date) {
+        descriptor.setDate(new Date(date));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Remark} of the {@code EditTransactionDescriptor} that we are building.
+     */
+    public EditTransactionDescriptorBuilder withRemark(String remark) {
+        descriptor.setRemark(new Remark(remark));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Category} of the {@code EditTransactionDescriptor} that we are building.
+     */
+    public EditTransactionDescriptorBuilder withCategory(String category) {
+        descriptor.setCategory(new Category(category));
         return this;
     }
 
