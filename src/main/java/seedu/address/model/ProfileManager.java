@@ -116,6 +116,12 @@ public class ProfileManager implements Model {
         filteredProfiles.setPredicate(predicate);
     }
 
+    @Override
+    public boolean hasProfile(Name name) {
+        return profileList.hasProfileWithName(name);
+    }
+
+    @Override
     public Profile getProfile(Name name) {
         return profileList.getProfileWithName(name);
     }

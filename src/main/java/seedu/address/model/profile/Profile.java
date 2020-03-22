@@ -2,15 +2,12 @@ package seedu.address.model.profile;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
@@ -91,6 +88,40 @@ public class Profile {
             deadlineList.addAll(module.getDeadlines());
         }
         return deadlineList;
+    }
+
+    public int getModuleSemester(ModuleCode moduleCode) {
+        return moduleHash.entrySet()
+                .stream()
+                .filter(entry->entry.getValue().stream().anyMatch(mod->mod.getModuleCode().equals(moduleCode)))
+                .map(Map.Entry::getKey)
+                .findFirst()
+                .get();
+    }
+
+    public Module getModule(ModuleCode moduleCode) {
+        return moduleHash.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(x->x.getModuleCode().equals(moduleCode))
+                .findFirst().get();
+    }
+
+    public boolean hasModule(ModuleCode moduleCode) {
+        return moduleHash.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .anyMatch(x->x.getModuleCode().equals(moduleCode));
+    }
+
+    public void deleteModule(ModuleCode moduleCode) {
+        if (hasModule(moduleCode)) {
+            int semester = getModuleSemester(moduleCode);
+            Module modToDelete = getModule(moduleCode);
+            moduleHash.get(semester).remove(modToDelete);
+            return;
+        }
+        throw new NoSuchElementException();
     }
 
 
