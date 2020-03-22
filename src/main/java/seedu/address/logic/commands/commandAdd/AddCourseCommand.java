@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandAdd;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -22,10 +23,12 @@ public class AddCourseCommand extends Command {
       + "Parameters: "
       + PREFIX_NAME + "NAME "
       + PREFIX_COURSEID + "COURSEID "
+      + PREFIX_AMOUNT + "AMOUNT "
       + "[" + PREFIX_TAG + "TAG]...\n"
       + "Example: " + COMMAND_WORD + " "
       + PREFIX_NAME + "Python OOP "
       + PREFIX_COURSEID + "345 "
+      + PREFIX_AMOUNT + "1000 "
       + PREFIX_TAG + "Easy "
       + PREFIX_TAG + "Basics ";
 

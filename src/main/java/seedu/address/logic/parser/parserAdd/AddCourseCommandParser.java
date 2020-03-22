@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.parserAdd;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -15,6 +16,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -41,9 +43,9 @@ public class AddCourseCommandParser implements Parser<AddCourseCommand> {
    */
   public AddCourseCommand parse(String args) throws ParseException {
     ArgumentMultimap argMultimap =
-        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSEID, PREFIX_TAG);
+        ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSEID, PREFIX_AMOUNT, PREFIX_TAG);
 
-    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSEID)
+    if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COURSEID, PREFIX_AMOUNT)
         || !argMultimap.getPreamble().isEmpty()) {
       throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCourseCommand.MESSAGE_USAGE));
@@ -51,9 +53,10 @@ public class AddCourseCommandParser implements Parser<AddCourseCommand> {
 
     Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
     ID courseID = ParserUtil.parseID(argMultimap.getValue(PREFIX_COURSEID).get());
+    Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
     Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-    Course course = new Course(name, courseID, tagList);
+    Course course = new Course(name, courseID, amount, tagList);
 
     return new AddCourseCommand(course);
   }

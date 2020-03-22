@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.commandEdit;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
@@ -19,7 +19,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelStudent.Student;
-import seedu.address.model.person.AssignedCourse;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -36,11 +36,11 @@ public class EditStudentCommand extends Command {
           + "Existing values will be overwritten by the input values.\n"
           + "Parameters: INDEX (must be a positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
-          + "[" + PREFIX_COURSE + "COURSE] "
+          + "[" + PREFIX_STUDENTID + "STUDENTID] "
           + "[" + PREFIX_TAG + "TAG]...\n"
           + "Example: " + COMMAND_WORD + " 1 "
           + PREFIX_NAME + "Bob Ross "
-          + PREFIX_COURSE + "Java Programming ";
+          + PREFIX_STUDENTID + "123 ";
 
   public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -70,11 +70,11 @@ public class EditStudentCommand extends Command {
     assert studentToEdit != null;
 
     Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
-    AssignedCourse updatedCourse = editStudentDescriptor.getCourse()
-        .orElse(studentToEdit.getCourse());
+    ID updatedID = editStudentDescriptor.getID()
+        .orElse(studentToEdit.getID());
     Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
-    return new Student(updatedName, updatedCourse, updatedTags);
+    return new Student(updatedName, updatedID, updatedTags);
   }
 
   @Override
@@ -123,7 +123,7 @@ public class EditStudentCommand extends Command {
   public static class EditStudentDescriptor {
 
     private Name name;
-    private AssignedCourse course;
+    private ID studentID;
     private Set<Tag> tags;
 
     public EditStudentDescriptor() {
@@ -134,7 +134,7 @@ public class EditStudentCommand extends Command {
      */
     public EditStudentDescriptor(EditStudentDescriptor toCopy) {
       setName(toCopy.name);
-      setCourse(toCopy.course);
+      setID(toCopy.studentID);
       setTags(toCopy.tags);
     }
 
@@ -142,7 +142,7 @@ public class EditStudentCommand extends Command {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, course, tags);
+      return CollectionUtil.isAnyNonNull(name, studentID, tags);
     }
 
     public Optional<Name> getName() {
@@ -153,12 +153,12 @@ public class EditStudentCommand extends Command {
       this.name = name;
     }
 
-    public Optional<AssignedCourse> getCourse() {
-      return Optional.ofNullable(course);
+    public Optional<ID> getID() {
+      return Optional.ofNullable(studentID);
     }
 
-    public void setCourse(AssignedCourse course) {
-      this.course = course;
+    public void setID(ID studentID) {
+      this.studentID = studentID;
     }
 
     /**
@@ -193,7 +193,7 @@ public class EditStudentCommand extends Command {
       EditStudentDescriptor e = (EditStudentDescriptor) other;
 
       return getName().equals(e.getName())
-          && getCourse().equals(e.getCourse())
+          && getID().equals(e.getID())
           && getTags().equals(e.getTags());
     }
   }

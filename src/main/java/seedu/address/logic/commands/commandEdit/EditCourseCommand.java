@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.commandEdit;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -37,10 +39,12 @@ public class EditCourseCommand extends Command {
           + "Parameters: INDEX (must be a positive integer) "
           + "[" + PREFIX_NAME + "NAME] "
           + "[" + PREFIX_COURSEID + "COURSEID] "
+          + "[" + PREFIX_AMOUNT + "AMOUNT] "
           + "[" + PREFIX_TAG + "TAG]...\n"
           + "Example: " + COMMAND_WORD + " 1 "
           + PREFIX_NAME + "Java 101 "
-          + PREFIX_COURSEID + "464 ";
+          + PREFIX_COURSEID + "464 "
+          + PREFIX_AMOUNT + "1000 ";
 
   public static final String MESSAGE_EDIT_COURSE_SUCCESS = "Edited Assignment: %1$s";
   public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -71,9 +75,10 @@ public class EditCourseCommand extends Command {
 
     Name updatedName = editCourseDescriptor.getName().orElse(courseToEdit.getName());
     ID updatedCourseID = editCourseDescriptor.getID().orElse(courseToEdit.getId());
+    Amount updatedAmount = editCourseDescriptor.getAmount().orElse(courseToEdit.getAmount());
     Set<Tag> updatedTags = editCourseDescriptor.getTags().orElse(courseToEdit.getTags());
 
-    return new Course(updatedName, updatedCourseID, updatedTags);
+    return new Course(updatedName, updatedCourseID, updatedAmount, updatedTags);
   }
 
   @Override
@@ -123,6 +128,7 @@ public class EditCourseCommand extends Command {
 
     private Name name;
     private ID courseID;
+    private Amount amount;
     private Set<Tag> tags;
 
     public EditCourseDescriptor() {
@@ -134,6 +140,7 @@ public class EditCourseCommand extends Command {
     public EditCourseDescriptor(EditCourseDescriptor toCopy) {
       setName(toCopy.name);
       setID(toCopy.courseID);
+      setAmount(toCopy.amount);
       setTags(toCopy.tags);
     }
 
@@ -141,7 +148,7 @@ public class EditCourseCommand extends Command {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-      return CollectionUtil.isAnyNonNull(name, courseID, tags);
+      return CollectionUtil.isAnyNonNull(name, courseID, amount, tags);
     }
 
     public Optional<Name> getName() {
@@ -158,6 +165,14 @@ public class EditCourseCommand extends Command {
 
     public void setID(ID courseID) {
       this.courseID = courseID;
+    }
+
+    public Optional<Amount> getAmount() {
+      return Optional.ofNullable(amount);
+    }
+
+    public void setAmount(Amount amount) {
+      this.amount = amount;
     }
 
     /**
@@ -193,6 +208,7 @@ public class EditCourseCommand extends Command {
 
       return getName().equals(e.getName())
           && getID().equals(e.getID())
+          && getAmount().equals(e.getAmount())
           && getTags().equals(e.getTags());
     }
   }
