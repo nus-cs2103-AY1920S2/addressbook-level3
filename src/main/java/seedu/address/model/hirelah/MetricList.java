@@ -1,6 +1,9 @@
 package seedu.address.model.hirelah;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -26,7 +29,9 @@ import javafx.collections.ObservableList;
  */
 
 public class MetricList {
+    private static final String ALREADY_EXISTS_MESSAGE = "This metric is already exists!";
     private static final String DUPLICATE_MESSAGE = "There are multiple metrics with the same prefix.";
+    private static final String INCOMPLETE_MESSAGE = "The argument given is incomplete.";
     private static final String NOT_FOUND_MESSAGE = "No metrics with the entered prefix.";
 
     private ObservableList<Metric> metrics;
@@ -45,15 +50,17 @@ public class MetricList {
     /**
      * Adds the metric to the list.
      * @param metricName The metric name.
-     * @return The message outcome.
+     * @throws IllegalValueException If the name of the metric already exists.
      */
 
-    public String add(String metricName) throws IllegalValueException {
+    public void add(String metricName, AttributeList attributes,
+                    ArrayList<String> attributePrefixes, ArrayList<Double> weightages) throws IllegalValueException {
         Metric metric = Metric.of(metricName);
+        checkCompleteArgument(attributePrefixes, weightages, attributes);
         boolean isDuplicate = isDuplicate(metric);
 
         if (isDuplicate) {
-            throw new IllegalValueException("This attribute is already exists!");
+            throw new IllegalValueException(ALREADY_EXISTS_MESSAGE);
         }
 
         metrics.add(metric);
@@ -67,10 +74,18 @@ public class MetricList {
      */
 
     public Metric find(String metricPrefix) throws IllegalValueException {
-        checkPrefix(metricPrefix);
-        return metrics.stream().filter(metric -> metric.toString().startsWith(metricPrefix))
-                               .findFirst()
-                               .get();
+        Optional<Metric> exactMetric = metrics.stream().filter(metric -> metric.toString()
+                                                                               .equals(metricPrefix))
+                                                       .findFirst();
+        if (exactMetric.isEmpty()) {
+            checkPrefix(metricPrefix);
+            return metrics.stream().filter(metric -> metric.toString().startsWith(metricPrefix))
+                    .findFirst()
+                    .get();
+        } else {
+            return exactMetric.get();
+        }
+
     }
 
     /**
@@ -102,6 +117,40 @@ public class MetricList {
         } else if (startWithPrefix == 0) {
             throw new IllegalValueException(NOT_FOUND_MESSAGE);
         }
+    }
+
+    private void checkCompleteArgument(ArrayList<String> attributePrefixes, ArrayList<Double> weightages,
+                                       AttributeList attributes) throws IllegalValueException {
+        HashMap<Attribute, Boolean> checklist = initiateChecklist(attributes);
+
+        for (String prefix : attributePrefixes) {
+            Attribute attribute = attributes.find(prefix);
+            checklist.put(attribute, true);
+        }
+
+        if (isNotCompleteChecklist(checklist) && weightages.size() != attributePrefixes.size()) {
+            throw new IllegalValueException(INCOMPLETE_MESSAGE);
+        }
+    }
+
+    private boolean isNotCompleteChecklist(HashMap<Attribute, Boolean> checklist) {
+        boolean result = true;
+
+        for (Map.Entry<Attribute, Boolean> entry : checklist.entrySet()) {
+            result = result && entry.getValue();
+        }
+        return !result;
+    }
+
+    private HashMap<Attribute, Boolean> initiateChecklist(AttributeList attributes) {
+        ObservableList<Attribute> attributeList = attributes.getObservableList();
+        HashMap<Attribute, Boolean> hashMap = new HashMap<>();
+
+        for (Attribute attribute: attributeList) {
+            hashMap.put(attribute, false);
+        }
+
+        return hashMap;
     }
 
     private boolean isDuplicate(Metric metric) {

@@ -16,6 +16,7 @@ import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Session;
@@ -32,6 +33,7 @@ public class ModelManager implements Model {
     private final IntervieweeList intervieweeList;
     private final AttributeList attributeList;
     private final QuestionList questionList;
+    private final MetricList metricList;
     private final UserPrefs userPrefs;
 
     /**
@@ -47,6 +49,7 @@ public class ModelManager implements Model {
         this.intervieweeList = new IntervieweeList();
         this.attributeList = new AttributeList();
         this.questionList = new QuestionList();
+        this.metricList = new MetricList();
         this.userPrefs = new UserPrefs(userPrefs);
     }
 
@@ -155,6 +158,11 @@ public class ModelManager implements Model {
     @Override
     public QuestionList getQuestionList() {
         return questionList;
+    }
+
+    @Override
+    public MetricList getMetricList() {
+        return metricList;
     }
 
     /**
