@@ -23,6 +23,7 @@ public class Course {
   // TODO: Remove dummy teacher_id
   private ID teacher_id = new ID("123");
   private final Set<Tag> tags = new HashSet<>();
+  private String assignedStudents = "hey man";
 
   /**
    * Every field must be present and not null.
@@ -50,6 +51,13 @@ public class Course {
     this.teacher_id = teacher_id;
   }
 
+  public void setAssignedStudents(String assignedStudents){
+    this.assignedStudents = assignedStudents;
+  }
+
+  public String getAssignedStudents(){
+    return this.assignedStudents;
+  }
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.

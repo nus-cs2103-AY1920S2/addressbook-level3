@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import javafx.collections.ObservableList;
@@ -87,6 +90,24 @@ public class ModelManager implements Model {
     filteredCourses = new FilteredList<>(this.courseAddressBook.getCourseList());
     filteredAssignments = new FilteredList<>(this.assignmentAddressBook.getAssignmentList());
     filteredCourseStudents = new FilteredList<>(this.courseStudentAddressBook.getCourseStudentList());
+
+    for (Course course : filteredCourses){
+      String courseString = course.getId().toString();
+      ArrayList<Integer> assignedStudents = new ArrayList<>();
+      for (CourseStudent courseStudent : filteredCourseStudents){
+        if (courseStudent.getCourseid().toString().equals(courseString)){
+           assignedStudents.add(Integer.parseInt(courseStudent.getStudentid().toString()));
+        }
+      }
+
+      Collections.sort(assignedStudents);
+      if (assignedStudents.size() == 0) {
+        course.setAssignedStudents("None");
+      }
+      else {
+        course.setAssignedStudents(assignedStudents.toString());
+      }
+    }
   }
 
   public ModelManager() {
@@ -437,6 +458,26 @@ public class ModelManager implements Model {
   @Override
   public void addCourseStudent(CourseStudent courseStudent) {
     courseStudentAddressBook.addCourseStudent(courseStudent);
+
+    for (Course course : filteredCourses){
+      String courseString = course.getId().toString();
+      ArrayList<Integer> assignedStudents = new ArrayList<>();
+      for (CourseStudent curCourseStudent : filteredCourseStudents){
+        if (curCourseStudent.getCourseid().toString().equals(courseString)){
+          assignedStudents.add(Integer.parseInt(curCourseStudent.getStudentid().toString()));
+        }
+      }
+
+      Collections.sort(assignedStudents);
+      if (assignedStudents.size() == 0) {
+        course.setAssignedStudents("None");
+      }
+      else {
+        course.setAssignedStudents(assignedStudents.toString());
+      }
+    }
+
+    updateFilteredCourseList(PREDICATE_SHOW_ALL_COURSES);
     updateFilteredCourseStudentList(PREDICATE_SHOW_ALL_COURSESTUDENTS);
   }
   @Override

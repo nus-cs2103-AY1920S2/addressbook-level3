@@ -27,6 +27,10 @@
         <Label styleClass="cell_small_label" text="Course ID: "/>
         <Label styleClass="cell_small_label" text="\$courseID" fx:id="courseID"/>
       </HBox>
+      <HBox>
+        <Label styleClass="cell_small_label" text="Assigned Students: "/>
+        <Label styleClass="cell_small_label" text="\$assignedStudents" fx:id="assignedStudents"/>
+      </HBox>
       <padding>
         <Insets bottom="5" left="15" right="5" top="5"/>
       </padding>

@@ -38,6 +38,8 @@ public class CourseCard extends UiPart<Region> {
   @FXML
   private Label courseID;
   @FXML
+  private Label assignedStudents;
+  @FXML
   private FlowPane tags;
 
   public CourseCard(Course course, int displayedIndex) {
@@ -47,6 +49,8 @@ public class CourseCard extends UiPart<Region> {
     name.setText(course.getName().fullName);
     teacherId.setText(course.getTeacherID().value);
     courseID.setText(course.getId().value);
+    assignedStudents.setText(course.getAssignedStudents());
+
     course.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
