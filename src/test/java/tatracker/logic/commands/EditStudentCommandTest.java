@@ -10,6 +10,7 @@ import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static tatracker.logic.commands.CommandTestUtil.showStudentAtIndex;
+import static tatracker.logic.commands.EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS;
 import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 import static tatracker.testutil.TypicalIndexes.INDEX_SECOND_STUDENT;
 import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
+import tatracker.logic.commands.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;
 import tatracker.model.TaTracker;
@@ -37,10 +39,10 @@ public class EditStudentCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Student editedStudent = new StudentBuilder().build();
-        EditStudentCommand.EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(editedStudent).build();
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(editedStudent).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT, descriptor);
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
+        String expectedMessage = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
         Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()),
                 new UserPrefs());
@@ -58,12 +60,12 @@ public class EditStudentCommandTest {
         Student editedStudent = studentInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditStudentCommand.EditStudentDescriptor descriptor =
+        EditStudentDescriptor descriptor =
                 new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(indexLastStudent, descriptor);
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
+        String expectedMessage = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
         Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()), new UserPrefs());
         expectedModel.setStudent(lastStudent, editedStudent);
@@ -74,10 +76,10 @@ public class EditStudentCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
-                new EditStudentCommand.EditStudentDescriptor());
+                new EditStudentDescriptor());
         Student editedStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
+        String expectedMessage = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
         Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()), new UserPrefs());
 
@@ -93,7 +95,7 @@ public class EditStudentCommandTest {
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
                 new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditStudentCommand.MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
+        String expectedMessage = String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent);
 
         Model expectedModel = new ModelManager(new TaTracker(model.getTaTracker()), new UserPrefs());
         expectedModel.setStudent(model.getFilteredStudentList().get(0), editedStudent);
@@ -104,7 +106,7 @@ public class EditStudentCommandTest {
     @Test
     public void execute_duplicateStudentUnfilteredList_failure() {
         Student firstStudent = model.getFilteredStudentList().get(INDEX_FIRST_STUDENT.getZeroBased());
-        EditStudentCommand.EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(firstStudent).build();
+        EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(firstStudent).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_SECOND_STUDENT, descriptor);
 
         assertCommandFailure(editStudentCommand, model, EditStudentCommand.MESSAGE_DUPLICATE_STUDENT);
@@ -125,7 +127,7 @@ public class EditStudentCommandTest {
     @Test
     public void execute_invalidStudentIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
-        EditStudentCommand.EditStudentDescriptor descriptor =
+        EditStudentDescriptor descriptor =
                 new EditStudentDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditStudentCommand editStudentCommand = new EditStudentCommand(outOfBoundIndex, descriptor);
 
@@ -154,7 +156,7 @@ public class EditStudentCommandTest {
         final EditStudentCommand standardCommand = new EditStudentCommand(INDEX_FIRST_STUDENT, DESC_AMY);
 
         // same values -> returns true
-        EditStudentCommand.EditStudentDescriptor copyDescriptor =
+        EditStudentDescriptor copyDescriptor =
                 new EditStudentCommand.EditStudentDescriptor(DESC_AMY);
         EditStudentCommand commandWithSameValues = new EditStudentCommand(INDEX_FIRST_STUDENT, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
