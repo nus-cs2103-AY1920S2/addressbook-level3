@@ -54,7 +54,7 @@ public class CouponBuilder {
         startDate = new StartDate(DEFAULT_START_DATE);
         usage = new Usage(DEFAULT_USAGE);
         limit = new Limit(DEFAULT_LIMIT);
-        remindDate = new RemindDate(DEFAULT_REMIND_DATE, DEFAULT_EXPIRY_DATE);
+        remindDate = new RemindDate(expiryDate);
         tags = new HashSet<>();
     }
 

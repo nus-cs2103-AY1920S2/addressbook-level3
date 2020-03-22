@@ -74,7 +74,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
-            .withRemindDate("28-11-2020", "02-12-2020")
+            .withRemindDate("29-11-2020", "02-12-2020")
             .withTags("friends").build();
     public static final Coupon BENSON = new CouponBuilder().withName("Benson Meier")
             .withPromoCode("ILUVSTASH")
@@ -94,7 +94,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
-            .withRemindDate("27-08-2020", "30-08-2020")
+            .withRemindDate("27-8-2020", "30-8-2020")
             .build();
     public static final Coupon DANIEL = new CouponBuilder().withName("Daniel Meier")
             .withPromoCode("DANIELZXC")
@@ -114,7 +114,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
-            .withRemindDate("27-08-2020", "30-08-2020")
+            .withRemindDate("27-8-2020", "30-8-2020")
             .build();
     public static final Coupon FIONA = new CouponBuilder().withName("Fiona Kunz")
             .withPromoCode("9482427")
@@ -124,7 +124,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
-            .withRemindDate("27-08-2020", "30-08-2020")
+            .withRemindDate("27-8-2020", "30-8-2020")
             .build();
     public static final Coupon GEORGE = new CouponBuilder().withName("George Best")
             .withPromoCode("9482442")
