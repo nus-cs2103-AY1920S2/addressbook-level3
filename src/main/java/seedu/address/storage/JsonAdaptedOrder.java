@@ -69,7 +69,7 @@ class JsonAdaptedOrder {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-        timeStamp = source.getTimeStamp().value;
+        timeStamp = source.getTimestamp().value;
         warehouse = source.getWarehouse().address;
         cod = source.getCash().cashOnDelivery;
         comment = source.getComment().commentMade;

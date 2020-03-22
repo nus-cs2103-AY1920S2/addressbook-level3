@@ -63,7 +63,7 @@ public class OrderBuilder {
         phone = orderToCopy.getPhone();
         email = orderToCopy.getEmail();
         address = orderToCopy.getAddress();
-        timeStamp = orderToCopy.getTimeStamp();
+        timeStamp = orderToCopy.getTimestamp();
         warehouse = orderToCopy.getWarehouse();
         cod = orderToCopy.getCash();
         comment = orderToCopy.getComment();
