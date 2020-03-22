@@ -153,6 +153,90 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Nearby feature
+The nearby feature allows the user to view all orders that are located at a particular area
+based on a given search criteria. +
+There are currently two possible search options:
+
+. Searching by *postal sector*
+* A *postal sector* refers to the first *two* digits of a six digit Singapore postal code.
+* The list of postal sectors and their corresponding general locations can be found
+https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.htm[on this website].
+
+[start=2]
+. Searching by *area*
+* An *area* refers to one of the five areas of Singapore
+** Central
+** East
+** North East
+** West
+** North
+* You can obtain more detailed information about each area from
+https://keylocation.sg/singapore/districts-map[this website]
+
+The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
+
+==== Sequence Diagram for searching by postal sector
+The sequence diagram for the *Nearby Command* when searching by *postal sector*
+is shown below:
+
+image::NearbyCommandSequenceDiagram1.png[]
+
+The arguments passed to the Nearby Command will be parsed by the `NearbyCommandParser` class. +
+If the given arguments are valid, a new `NearbyCommand` object will be returned.
+In this class, invalid arguments will result in a `ParseException`. +
+Two types of invalid arguments are checked for: empty arguments
+and arguments with only whitespace characters.
+
+The `execute()` function of the `NearbyCommand` will first check if the given arguments
+are in the format required for postal sector search (the argument can be converted into an integer).
+The check is done by the `isPostalSectorSearch()` function. +
+If the first check is successful, the argument will be converted into an integer and
+a second check is performed via the `isValidPostalSector(Index postalSector)` function
+of the `NearbyCommandUtil` helper class.
+
+[NOTE]
+====
+`NearbyCommandUtil` is a helper class that contains functions and variables used for
+identifying postal sectors and their corresponding general locations. +
+This class was created to reduce the responsibility of the `NearbyCommand` class. +
+
+* A `HashMap` was used to store information about postal sectors and their respective general locations.
+====
+
+The `showPostalSectors(Model model, Index postalSector)` function of the `NearbyCommand` is called.
+This function updates the model's filtered order list using the predicate obtained from the
+`getPostalSectorPredicate()` function.
+
+A `CommandResult` is then generated and returned to the `LogicManager`.
+
+==== Sequence Diagram for searching by area
+The sequence diagram for the *Nearby Command* when searching by *area* is shown below:
+
+image::NearbyCommandSequenceDiagram2.png[]
+The `NearbyCommandParser` will check for invalid arguments given by the user. +
+Invalid arguments can be either empty arguments or arguments with
+only whitespace characters.
+A `ParseException` will be generated if an invalid argument is present.
+
+A new `NearbyCommand` will be created and returned to `LogicManager`.
+
+`LogicManager` will then call the `execute()` function of the `NearbyCommand`. +
+There will then be a check for whether the given argument is a valid area with the
+function `isValidArea(String area)` present in the `DistrictInfo` class.
+
+[NOTE]
+====
+`DistrictInfo` is a helper class that contains functions and variables used for
+identifying areas. +
+This class was created to reduce the responsibility of the `NearbyCommand` class. +
+====
+
+The model will then be updated using the predicate obtained from the `getAreaPredicate()` function.
+
+A new `CommandResult` will be created and returned to the `LogicManager`.
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
@@ -987,7 +1071,7 @@ There are *5* different areas in Singapore: Central, East, North East, West, Nor
    Expected: Obtain all orders located in east area of Singapore
 
 .. Information about each area was obtained from
-https://keylocation.sg/singapore/districts-map[here] +
+https://keylocation.sg/singapore/districts-map[this website] +
 
 
 === Undo previous action
