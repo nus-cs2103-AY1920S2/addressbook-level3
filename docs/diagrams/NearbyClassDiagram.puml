@@ -1,4 +1,6 @@
 @startuml
+skinparam backgroundColor #ffffff
+
 class DistrictInfo {
     /' Fields '/
     + {static} CENTRAL : String

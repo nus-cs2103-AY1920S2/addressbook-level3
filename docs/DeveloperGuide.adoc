@@ -177,13 +177,13 @@ https://keylocation.sg/singapore/districts-map[this website]
 The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
 
 ==== Class Diagram for Nearby feature
-image::NearbyClassDiagram.png[]
+image::NearbyClassDiagram.svg[]
 
 ==== Sequence Diagram for searching by postal sector
 The sequence diagram for the *Nearby Command* when searching by *postal sector*
 is shown below:
 
-image::NearbyCommandSequenceDiagram1.png[]
+image::NearbyCommandSequenceDiagram1.svg[]
 
 The arguments passed to the Nearby Command will be parsed by the `NearbyCommandParser` class. +
 If the given arguments are valid, a new `NearbyCommand` object will be returned.
@@ -216,7 +216,7 @@ A `CommandResult` is then generated and returned to the `LogicManager`.
 ==== Sequence Diagram for searching by area
 The sequence diagram for the *Nearby Command* when searching by *area* is shown below:
 
-image::NearbyCommandSequenceDiagram2.png[]
+image::NearbyCommandSequenceDiagram2.svg[]
 The `NearbyCommandParser` will check for invalid arguments given by the user. +
 Invalid arguments can be either empty arguments or arguments with
 only whitespace characters.
