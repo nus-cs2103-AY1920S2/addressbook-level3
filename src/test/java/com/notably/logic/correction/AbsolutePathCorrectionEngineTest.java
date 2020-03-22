@@ -24,7 +24,7 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void absolutePathCorrectionEngine_constructWithNegativeDistanceThreshold_exceptionThrown() {
+    public void constructor_constructWithNegativeDistanceThreshold_exceptionThrown() {
         final int negativeDistanceThreshold = -1;
 
         assertThrows(IllegalArgumentException.class, () ->
