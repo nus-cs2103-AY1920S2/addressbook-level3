@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.model.Model;
-import com.notably.model.block.Block;
 import com.notably.model.block.BlockTreeItem;
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionItemImpl;
@@ -48,7 +47,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         model.setSuggestions(suggestions);
     }
 
-    private List<AbsolutePath> getPossiblePaths(AbsolutePath path) {
+    public List<AbsolutePath> getPossiblePaths(AbsolutePath path) {
         BlockTreeItem root = getRootBlock();
 
         List<String> components = path.getComponents();
@@ -89,7 +88,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         return possiblePaths;
     }
 
-    private void getChildRecursive(BlockTreeItem node, List<String> components) {
+    public void getChildRecursive(BlockTreeItem node, List<String> components) {
         List<BlockTreeItem> children = node.getBlockChildren();
         if (children.size() == 0) { // if reach the end, add to possible paths
             AbsolutePath newPath = AbsolutePath.fromComponents(components);
@@ -104,7 +103,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         }
     }
 
-    private List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
+    List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
         return possiblePaths.stream()
                 .map(path -> {
                     String displayText = path.getStringRepresentation();
