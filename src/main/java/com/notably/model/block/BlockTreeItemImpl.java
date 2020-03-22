@@ -132,7 +132,7 @@ public class BlockTreeItemImpl implements BlockTreeItem {
         }
 
         BlockTreeItem otherBlock = (BlockTreeItem) obj;
-        return otherBlock.hashCode() == this.hashCode();
+        return otherBlock.getTitle().equals(this.getTitle());
     }
 
     @Override
