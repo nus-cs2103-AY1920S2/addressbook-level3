@@ -7,6 +7,7 @@ import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.AssignedCourse;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
@@ -19,15 +20,15 @@ import seedu.address.model.util.SampleDataUtil;
 public class StudentBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_COURSE = "Java Programming";
+    public static final String DEFAULT_STUDENTID = "2";
 
     private Name name;
-    private AssignedCourse course;
+    private ID studentID;
     private Set<Tag> tags;
 
     public StudentBuilder() {
         name = new Name(DEFAULT_NAME);
-        course = new AssignedCourse(DEFAULT_COURSE);
+        studentID = new ID(DEFAULT_STUDENTID);
         tags = new HashSet<>();
     }
 
@@ -36,7 +37,7 @@ public class StudentBuilder {
      */
     public StudentBuilder(Student studentToCopy) {
         name = studentToCopy.getName();
-        course = studentToCopy.getCourse();
+        studentID = studentToCopy.getID();
         tags = new HashSet<>(studentToCopy.getTags());
     }
 
@@ -59,13 +60,13 @@ public class StudentBuilder {
     /**
      * Sets the {@code AssignedCourse} of the {@code Student} that we are building.
      */
-    public StudentBuilder withCourse(String course) {
-        this.course = new AssignedCourse(course);
+    public StudentBuilder withID(String studentID) {
+        this.studentID = new ID(studentID);
         return this;
     }
 
     public Student build() {
-        return new Student(name, course, tags);
+        return new Student(name, studentID, tags);
     }
 
 }

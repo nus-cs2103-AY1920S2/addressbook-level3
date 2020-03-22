@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStudent.getTypicalStudentAddressBook;
 import static seedu.address.testutil.TypicalTeacher.getTypicalTeacherAddressBook;
+import static seedu.address.testutil.TypicalCourseStudent.getTypicalCourseStudentAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,10 +30,10 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(),new UserPrefs());
+            getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
             model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
-                model.getAssignmentAddressBook() ,new UserPrefs());
+                model.getAssignmentAddressBook() , model.getCourseStudentAddressBook(), new UserPrefs());
     }
 
     @Test

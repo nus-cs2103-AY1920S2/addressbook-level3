@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.person.Amount;
 import seedu.address.model.person.AssignedCourse;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
@@ -16,14 +17,17 @@ public class CourseBuilder {
 
     public static final String DEFAULT_NAME = "Java Programming";
     public static final String DEFAULT_ID = "102";
+    public static final String DEFAULT_AMOUNT = "1000";
 
     private Name name;
     private ID id;
+    private Amount amount;
     private Set<Tag> tags;
 
     public CourseBuilder() {
         name = new Name(DEFAULT_NAME);
         id = new ID(DEFAULT_ID);
+        amount = new Amount(DEFAULT_AMOUNT);
         tags = new HashSet<>();
     }
 
@@ -33,6 +37,7 @@ public class CourseBuilder {
     public CourseBuilder(Course courseToCopy) {
         name = courseToCopy.getName();
         id = courseToCopy.getId();
+        amount = courseToCopy.getAmount();
         tags = new HashSet<>(courseToCopy.getTags());
     }
 
@@ -60,8 +65,16 @@ public class CourseBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code ID} of the {@code Assignment} that we are building.
+     */
+    public CourseBuilder withAmount(String amount) {
+        this.amount = new Amount(amount);
+        return this;
+    }
+
     public Course build() {
-        return new Course(name, id, tags);
+        return new Course(name, id, amount, tags);
     }
 
 }

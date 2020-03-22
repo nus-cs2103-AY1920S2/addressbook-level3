@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalStudent.getTypicalStudentAddressBook;
 import static seedu.address.testutil.TypicalTeacher.getTypicalTeacherAddressBook;
+import static seedu.address.testutil.TypicalCourseStudent.getTypicalCourseStudentAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -31,7 +32,7 @@ import seedu.address.model.person.Person;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalTeacherAddressBook(), getTypicalStudentAddressBook(),
-        getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), new UserPrefs());
+        getTypicalFinanceAddressBook(), getTypicalCourseAddressBook(), getTypicalAssignmentAddressBook(), getTypicalCourseStudentAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -42,7 +43,7 @@ public class DeleteCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
             model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
-                model.getAssignmentAddressBook(), model.getUserPrefs());
+                model.getAssignmentAddressBook(), model.getCourseStudentAddressBook(), model.getUserPrefs());
         expectedModel.deletePerson(personToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -67,7 +68,7 @@ public class DeleteCommandTest {
 
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
             model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
-                model.getAssignmentAddressBook(), new UserPrefs());
+                model.getAssignmentAddressBook(), model.getCourseStudentAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
