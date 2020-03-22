@@ -32,4 +32,12 @@ public class FindCommand extends Command {
         model.updateFilteredActivityList(predicate);
         return new CommandResult(String.format("Listed activities", model.getFilteredModuleList()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof FindCommand // instanceof handles nulls
+            && predicate.equals(((FindCommand) other).predicate)); // state check
+    }
+
 }
