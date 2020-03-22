@@ -12,7 +12,6 @@ public class Course {
 
     private final List<CourseRequirement> requirements;
 
-
     public Course(String courseName, List<CourseRequirement> requirements) {
         this.courseName = courseName;
         this.requirements = requirements;
@@ -22,12 +21,10 @@ public class Course {
     public String toString() {
         StringBuilder output = new StringBuilder();
         output.append(courseName);
-
         for (CourseRequirement requirement : requirements) {
             output.append("\n");
-            output.append(CourseRequirement);
+            output.append(requirement);
         }
-
         output.append("\n");
         return output.toString();
     }
