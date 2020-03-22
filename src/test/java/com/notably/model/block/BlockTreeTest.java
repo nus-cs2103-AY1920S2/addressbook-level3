@@ -99,4 +99,12 @@ public class BlockTreeTest {
         Block newBlock = new BlockImpl(new Title("CS2107"));
         assertThrows(CannotModifyRootException.class, () -> blockTree.set(toRoot, newBlock));
     }
+
+    @Test
+    public void set_block_editBlock() throws CannotModifyRootException, InvalidPathException {
+        Block editedBlock = new BlockImpl(new Title("Week2"));
+        AbsolutePath editedPath = AbsolutePath.fromString("/CS2103/Week2");
+        blockTree.set(toCs2103Week1, editedBlock);
+        assertEquals(blockTree.get(editedPath).getBlock(), editedBlock);
+    }
 }

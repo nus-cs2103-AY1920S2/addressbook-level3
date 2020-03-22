@@ -3,7 +3,6 @@ package com.notably.model.block;
 import static java.util.Objects.hash;
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,18 +16,19 @@ import javafx.scene.control.TreeItem;
  */
 public class BlockTreeItemImpl implements BlockTreeItem {
     private TreeItem<Block> blockTreeItem;
-    private BlockTreeItem parent;
-    private List<BlockTreeItem> children;
 
-    public BlockTreeItemImpl(Block block, BlockTreeItem parent) {
+    public BlockTreeItemImpl(Block block) {
         requireNonNull(block);
         blockTreeItem = new TreeItem<Block>(block);
-        this.parent = parent;
-        this.children = new ArrayList<BlockTreeItem>();
+    }
+
+    public BlockTreeItemImpl(TreeItem<Block> treeItem) {
+        requireNonNull(treeItem);
+        blockTreeItem = treeItem;
     }
 
     public static BlockTreeItem createRootBlockTreeItem() {
-        return new BlockTreeItemImpl(BlockImpl.createRootBlock(), null);
+        return new BlockTreeItemImpl(BlockImpl.createRootBlock());
     }
 
     @Override
@@ -53,12 +53,12 @@ public class BlockTreeItemImpl implements BlockTreeItem {
 
     @Override
     public BlockTreeItem getBlockParent() {
-        return this.parent;
+        return new BlockTreeItemImpl(blockTreeItem.getParent());
     }
 
     @Override
     public List<BlockTreeItem> getBlockChildren() {
-        return this.children;
+        return blockTreeItem.getChildren().stream().map(child -> new BlockTreeItemImpl(child)).collect(Collectors.toList());
     }
 
     @Override
@@ -73,7 +73,7 @@ public class BlockTreeItemImpl implements BlockTreeItem {
     @Override
     public BlockTreeItem getBlockChild(Title title) throws NoSuchBlockException {
         requireNonNull(title);
-        BlockTreeItem child = children
+        BlockTreeItem child = getBlockChildren()
             .stream()
             .filter(blockTreeItem -> blockTreeItem
                 .getTitle()
@@ -94,26 +94,22 @@ public class BlockTreeItemImpl implements BlockTreeItem {
     @Override
     public void addBlockChild(Block block) throws DuplicateBlockException {
         requireNonNull(block);
-        boolean hasMatchingChild = children
+        boolean hasMatchingChild = getBlockChildren()
             .stream()
             .anyMatch(child -> child
                 .getTitle()
                 .equals(block.getTitle()));
         if (hasMatchingChild) {
             throw new DuplicateBlockException();
-        } else {
-            BlockTreeItem newBlock = new BlockTreeItemImpl(block, this);
-            children.add(newBlock);
-            setBlockChildren(children);
         }
+        blockTreeItem.getChildren().add(new TreeItem<Block>(block));
     }
 
     @Override
     public void removeBlockChild(Block toRemove) {
         requireNonNull(toRemove);
-        BlockTreeItem itemToRemove = getBlockChild(toRemove.getTitle());
-        children.remove(itemToRemove);
-        setBlockChildren(children);
+        TreeItem<Block> itemToRemove = getBlockChild(toRemove.getTitle()).getTreeItem();
+        blockTreeItem.getChildren().remove(itemToRemove);
     }
 
     @Override
@@ -121,7 +117,7 @@ public class BlockTreeItemImpl implements BlockTreeItem {
         return getTitle()
             .getText()
             .equals("Root")
-            && parent == null;
+            && getTreeItem().getParent() == null;
     }
 
     @Override
@@ -140,7 +136,7 @@ public class BlockTreeItemImpl implements BlockTreeItem {
 
     @Override
     public int hashCode() {
-        return hash(this.getTitle(), this.getBlockParent());
+        return hash(this.getTitle(), this.getTreeItem().getParent());
     }
 
 }
