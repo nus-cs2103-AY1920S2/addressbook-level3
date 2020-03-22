@@ -67,8 +67,6 @@ activate CommandResult
 
 CommandResult --> NearbyCommand: result
 deactivate CommandResult
-NearbyCommand --> NearbyCommand: result
-deactivate NearbyCommand
 
 NearbyCommand --> LogicManager : result
 deactivate NearbyCommand
