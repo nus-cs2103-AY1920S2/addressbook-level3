@@ -46,12 +46,11 @@ public class BlockTreeImpl implements BlockTree {
         requireNonNull(newBlock);
         BlockTreeItem currentBlock = get(path);
         BlockTreeItem parentBlock;
-        if (!currentBlock.isRootBlock()) {
-            parentBlock = currentBlock.getBlockParent();
-            parentBlock.setBlockChild(currentBlock.getTitle(), newBlock);
-        } else {
+        if (currentBlock.isRootBlock()) {
             throw new CannotModifyRootException();
         }
+        parentBlock = currentBlock.getBlockParent();
+        parentBlock.setBlockChild(currentBlock.getTitle(), newBlock);
     }
 
     @Override
@@ -59,11 +58,10 @@ public class BlockTreeImpl implements BlockTree {
         requireNonNull(path);
         BlockTreeItem currentBlock = get(path);
         BlockTreeItem parentBlock;
-        if (!currentBlock.isRootBlock()) {
-            parentBlock = currentBlock.getBlockParent();
-            parentBlock.removeBlockChild(currentBlock);
-        } else {
+        if (currentBlock.isRootBlock()) {
             throw new CannotModifyRootException();
         }
+        parentBlock = currentBlock.getBlockParent();
+        parentBlock.removeBlockChild(currentBlock);
     }
 }
