@@ -58,7 +58,8 @@ public class BlockTreeItemImpl implements BlockTreeItem {
 
     @Override
     public List<BlockTreeItem> getBlockChildren() {
-        return blockTreeItem.getChildren().stream().map(child -> new BlockTreeItemImpl(child)).collect(Collectors.toList());
+        return blockTreeItem.getChildren().stream()
+            .map(child -> new BlockTreeItemImpl(child)).collect(Collectors.toList());
     }
 
     @Override
