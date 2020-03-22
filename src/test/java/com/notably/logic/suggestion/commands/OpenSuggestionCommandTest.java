@@ -32,6 +32,7 @@ public class OpenSuggestionCommandTest {
     private AbsolutePath toCs2103Week2;
     private AbsolutePath toCs2103Week3;
     private AbsolutePath toCs2103Week1Lecture;
+    private Model model;
 
     @BeforeAll
     public void setUp() throws InvalidPathException {
@@ -49,7 +50,7 @@ public class OpenSuggestionCommandTest {
      * Creates a tree with dummy values.
      */
     public void createTree() {
-        BlockTree blockTree = new BlockTreeStub();
+        blockTree = new BlockTreeStub();
         Block cs2103 = new BlockImpl(new Title("CS2103"));
         Block cs3230 = new BlockImpl(new Title("CS3230"));
         Block week1 = new BlockImpl(new Title("Week1"));
@@ -64,15 +65,24 @@ public class OpenSuggestionCommandTest {
         blockTree.add(toCs2103Week1, lecture);
     }
 
+    @BeforeEach
+    public void initializeModel() {
+        model = new ModelStub();
+    }
+
     @AfterEach
     public void clearTree() {
         blockTree = new BlockTreeStub();
     }
 
+    @AfterEach
+    public void clearModel() {
+        model = new ModelStub();
+    }
+
     @Test
     public void setResponseTextToModelTest() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
-        Model model = new ModelStub();
         openSuggestionCommand.execute(model);
         assertEquals("Open a note", model.responseTextProperty().getValue());
     }
@@ -80,7 +90,6 @@ public class OpenSuggestionCommandTest {
     @Test
     public void setSuggestionsToModelTest() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
-        Model model = new ModelStub();
         List<AbsolutePath> possiblePaths = new ArrayList<>();
         possiblePaths.add(toCs2103Week1);
         possiblePaths.add(toCs2103Week1Lecture);
@@ -92,9 +101,9 @@ public class OpenSuggestionCommandTest {
     }
 
     @Test
-    public void getPossiblePaths_fromRoot_Test() {
+    public void getPossiblePaths_fromRoot_test() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
-        List<AbsolutePath> possiblePathsFromCommand = openSuggestionCommand.getPossiblePaths(toRoot);
+        List<AbsolutePath> possiblePathsFromCommand = openSuggestionCommand.getPossiblePaths(toRoot, model);
         List<AbsolutePath> possiblePaths = new ArrayList<>();
         possiblePaths.add(toCs2103);
         possiblePaths.add(toCs3230);
@@ -110,7 +119,6 @@ public class OpenSuggestionCommandTest {
 
     @Test
     public void getSuggestionsTest() {
-        Model model = new ModelStub();
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
         List<AbsolutePath> possiblePaths = new ArrayList<>();
         possiblePaths.add(toCs2103Week1);
