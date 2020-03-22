@@ -31,8 +31,4 @@ public class Course {
     public CourseName getCourseName() {
         return new CourseName(courseName);
     }
-
-    public List<CourseFocusArea> getFocusAreas() {
-        return focusAreas;
-    }
 }
