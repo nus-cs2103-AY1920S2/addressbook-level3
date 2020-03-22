@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,14 +20,14 @@ public class AddMetricCommand extends AddCommand {
 
 
     private final String toAdd;
-    private final ArrayList<String> attributePrefixes;
-    private final ArrayList<Double> addedWeights;
+    private final List<String> attributePrefixes;
+    private final List<Double> addedWeights;
 
     /**
      * Creates an AddMetricCommand to add the specified {@code Metric}
      */
 
-    public AddMetricCommand(String toAdd, ArrayList<String> attributePrefixes, ArrayList<Double> addedWeights) {
+    public AddMetricCommand(String toAdd, List<String> attributePrefixes, List<Double> addedWeights) {
         this.toAdd = toAdd;
         this.attributePrefixes = attributePrefixes;
         this.addedWeights = addedWeights;

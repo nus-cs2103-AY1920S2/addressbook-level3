@@ -1,6 +1,6 @@
 package seedu.address.model.hirelah;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -54,7 +54,7 @@ public class MetricList {
      */
 
     public void add(String metricName, AttributeList attributes,
-                    ArrayList<String> attributePrefixes, ArrayList<Double> weightages) throws IllegalValueException {
+                    List<String> attributePrefixes, List<Double> weightages) throws IllegalValueException {
         Metric metric = Metric.of(metricName);
         checkCompleteArgument(attributePrefixes, weightages, attributes);
         boolean isDuplicate = isDuplicate(metric);
@@ -119,7 +119,7 @@ public class MetricList {
         }
     }
 
-    private void checkCompleteArgument(ArrayList<String> attributePrefixes, ArrayList<Double> weightages,
+    private void checkCompleteArgument(List<String> attributePrefixes, List<Double> weightages,
                                        AttributeList attributes) throws IllegalValueException {
         HashMap<Attribute, Boolean> checklist = initiateChecklist(attributes);
 
