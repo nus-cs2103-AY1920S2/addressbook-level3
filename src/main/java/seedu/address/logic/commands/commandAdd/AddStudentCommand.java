@@ -26,7 +26,7 @@ public class AddStudentCommand extends Command {
       + "[" + PREFIX_TAG + "TAG]...\n"
       + "Example: " + COMMAND_WORD + " "
       + PREFIX_NAME + "John AppleSeed "
-      + PREFIX_STUDENTID + "005 "
+      + PREFIX_STUDENTID + "1 "
       + PREFIX_TAG + "Old "
       + PREFIX_TAG + "Lazy";
 
