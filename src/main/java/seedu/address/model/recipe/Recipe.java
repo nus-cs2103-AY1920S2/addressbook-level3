@@ -69,9 +69,8 @@ public class Recipe {
     }
 
     /**
-     * Returns true if both recipes of the same name have at least one other
-     * identity field that is the same. This defines a weaker notion of equality
-     * between two recipes.
+     * Returns true if both recipes of the same name have the same ingredients and instructions. This defines a weaker
+     * notion of equality between two recipes.
      */
     public boolean isSameRecipe(Recipe otherRecipe) {
         if (otherRecipe == this) {
@@ -79,8 +78,8 @@ public class Recipe {
         }
 
         return otherRecipe != null && otherRecipe.getName().equals(getName())
-                && (otherRecipe.getIngredients().equals(getIngredients())
-                        || otherRecipe.getInstructions().equals(getInstructions()));
+            && otherRecipe.getIngredients().equals(getIngredients())
+            && otherRecipe.getInstructions().equals(getInstructions());
     }
 
     /**
