@@ -10,6 +10,7 @@
         },
         {
           "requirementName": "Computer Science Breadth and Depth",
+          "requirementInfo": ["Complete at least 8 MCs of Computer Systems Team Project modules from the following pairs, or modules approved by the Department of Computer Science:"],
           "modules": ["CS3203", "CS3216 and CS3217", "CS3281 and CS3282"],
           "modularCredits": "8"
         },
