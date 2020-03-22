@@ -7,8 +7,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.recipe.attribute.Calorie;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Serving;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**

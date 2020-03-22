@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing RecipeBook ]===========================");
+        logger.info("=============================[ Initializing CookBuddy ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getAddressBookFilePath());
+        RecipeBookStorage recipeBookStorage = new JsonRecipeBookStorage(userPrefs.getRecipeBookFilePath());
         storage = new StorageManager(recipeBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -69,19 +69,19 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s recipe book and {@code userPrefs}. <br>
+     * The data from the sample recipe book will be used instead if {@code storage}'s recipe book is not found,
+     * or an empty recipe book will be used instead if errors occur when reading {@code storage}'s recipe book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyRecipeBook> addressBookOptional;
+        Optional<ReadOnlyRecipeBook> recipeBookOptional;
         ReadOnlyRecipeBook initialData;
         try {
-            addressBookOptional = storage.readRecipeBook();
-            if (!addressBookOptional.isPresent()) {
+            recipeBookOptional = storage.readRecipeBook();
+            if (!recipeBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample RecipeBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
+            initialData = recipeBookOptional.orElseGet(SampleDataUtil::getSampleRecipeBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty RecipeBook");
             initialData = new RecipeBook();
@@ -167,13 +167,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting RecipeBook " + MainApp.VERSION);
+        logger.info("Starting CookBuddy " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping CookBuddy ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
