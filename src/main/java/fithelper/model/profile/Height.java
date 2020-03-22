@@ -9,7 +9,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Height {
 
-    public static final String MESSAGE_CONSTRAINTS = "Height should a positive number united in meter.";
+    public static final String MESSAGE_CONSTRAINTS = "Height should a positive number united in cm.";
     public static final double T = 0.0001; // tolerance for double comparision.
 
     public final double value;
@@ -40,7 +40,7 @@ public class Height {
 
     @Override
     public String toString() {
-        return String.format("%.2f", value);
+        return String.format("%.1f", value);
     }
 
     @Override
