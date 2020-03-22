@@ -64,8 +64,8 @@ public class ParserUtil {
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
      * @param phone
+     * @throws ParseException if the given {@code phone} is invalid.
      */
     public static Phone parsePhone(Optional<String> phone) throws ParseException {
         requireNonNull(phone);
@@ -84,8 +84,8 @@ public class ParserUtil {
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
      * @param email
+     * @throws ParseException if the given {@code email} is invalid.
      */
     public static Email parseEmail(Optional<String> email) throws ParseException {
         requireNonNull(email);

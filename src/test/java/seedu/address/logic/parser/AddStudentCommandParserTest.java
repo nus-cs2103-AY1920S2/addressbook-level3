@@ -80,6 +80,16 @@ public class AddStudentCommandParserTest {
         Student expectedStudent = new StudentBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + MATRIC_DESC_AMY,
                 new AddStudentCommand(expectedStudent));
+
+        // missing phone prefix
+        expectedStudent = new StudentBuilder(AMY).withPhone("").build();
+        assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY + MATRIC_DESC_AMY + TAG_DESC_FRIEND,
+                new AddStudentCommand(expectedStudent));
+
+        // missing email prefix
+        expectedStudent = new StudentBuilder(AMY).withEmail("").build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + MATRIC_DESC_AMY + TAG_DESC_FRIEND,
+                new AddStudentCommand(expectedStudent));
     }
 
     @Test
@@ -88,14 +98,6 @@ public class AddStudentCommandParserTest {
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + MATRIC_DESC_BOB,
-                expectedMessage);
-
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + MATRIC_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + MATRIC_DESC_BOB,
                 expectedMessage);
 
         // missing matric prefix
