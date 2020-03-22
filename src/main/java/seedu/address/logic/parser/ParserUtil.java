@@ -273,7 +273,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> grains} into a {@code Set<Grain>} where each {@code Grain} is constructed
      * with only a {@code String name}.
      *
-     * @throws ParseException if any given {@code grain} is invalid.
+     * @throws ParseException if any given {@code Grain} name is invalid.
      */
     public static Set<Grain> parseGrainsNameOnly(Collection<String> grains) throws ParseException {
         requireNonNull(grains);
@@ -329,7 +329,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> vegetables} into a {@code Set<Vegetable>} where each {@code Vegetable} is
      * constructed with only a {@code String name}.
      *
-     * @throws ParseException if any given {@code vegetable} is invalid.
+     * @throws ParseException if any given {@code Vegetable} name is invalid.
      */
     public static Set<Vegetable> parseVegetablesNameOnly(Collection<String> vegetables) throws ParseException {
         requireNonNull(vegetables);
@@ -385,7 +385,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> proteins} into a {@code Set<Protein>} where each {@code Protein} is
      * constructed with only a {@code String name}.
      *
-     * @throws ParseException if any given {@code protein} is invalid.
+     * @throws ParseException if any given {@code Protein} name is invalid.
      */
     public static Set<Protein> parseProteinsNameOnly(Collection<String> proteins) throws ParseException {
         requireNonNull(proteins);
@@ -441,7 +441,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> fruits} into a {@code Set<Fruit>} where each {@code Fruit} is
      * constructed with only a {@code String name}.
      *
-     * @throws ParseException if any given {@code fruit} is invalid.
+     * @throws ParseException if any given {@code Fruit} name is invalid.
      */
     public static Set<Fruit> parseFruitsNameOnly(Collection<String> fruits) throws ParseException {
         requireNonNull(fruits);
@@ -497,7 +497,7 @@ public class ParserUtil {
      * Parses {@code Collection<String> others} into a {@code Set<Other>} where each {@code Other} is
      * constructed with only a {@code String name}.
      *
-     * @throws ParseException if any given {@code other} ingredient is invalid.
+     * @throws ParseException if any given {@code Other} ingredient name is invalid.
      */
     public static Set<Other> parseOthersNameOnly(Collection<String> others) throws ParseException {
         requireNonNull(others);
