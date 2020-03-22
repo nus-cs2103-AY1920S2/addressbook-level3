@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * Represents a Recipe's instructions in the recipe book.
  */
 public class InstructionList {
-    private final ArrayList<Instruction> instructionData;
+    public final ArrayList<Instruction> instructionData;
 
     /**
      * Constructs an instruction list from {@code ingredientList}. Requires that the
@@ -42,6 +42,24 @@ public class InstructionList {
      */
     public void deleteInstruction(Instruction instruction) {
         instructionData.remove(instruction);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof InstructionList)) {
+            return false;
+        }
+
+        return ((InstructionList) other).instructionData.equals(this.instructionData);
+    }
+
+    @Override
+    public int hashCode() {
+        return instructionData.hashCode();
     }
 
     @Override
