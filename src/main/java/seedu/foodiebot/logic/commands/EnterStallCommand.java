@@ -93,3 +93,4 @@ public class EnterStallCommand extends Command {
             && otherCanteen.stallName.orElseGet(() -> "").equals(stallName.orElseGet(() -> ""));
     }
 }
+
