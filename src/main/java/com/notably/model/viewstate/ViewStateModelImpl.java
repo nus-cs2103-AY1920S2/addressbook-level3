@@ -12,7 +12,7 @@ import javafx.beans.property.StringProperty;
 public class ViewStateModelImpl implements ViewStateModel {
 
     private final StringProperty input;
-    private final BooleanProperty bool;
+    private final BooleanProperty helpOpen;
 
     public ViewStateModelImpl() {
         this("", false);
@@ -20,7 +20,7 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     private ViewStateModelImpl(String initialInput, boolean initialHelpBool) {
         this.input = new SimpleStringProperty(initialInput);
-        this.bool = new SimpleBooleanProperty(initialHelpBool);
+        this.helpOpen = new SimpleBooleanProperty(initialHelpBool);
     }
 
     //=========== CommandInputModel ===============================================================
@@ -41,18 +41,18 @@ public class ViewStateModelImpl implements ViewStateModel {
 
     //=========== HelpFlagModel ===================================================================
     @Override
-    public BooleanProperty boolProperty() {
-        return this.bool;
+    public BooleanProperty helpOpenProperty() {
+        return this.helpOpen;
     }
 
     @Override
-    public Boolean getBool() {
-        return this.bool.getValue();
+    public Boolean isHelpOpen() {
+        return this.helpOpen.getValue();
     }
 
     @Override
-    public void setBool(Boolean bool) {
-        this.bool.setValue(bool);
+    public void setHelpOpen(Boolean bool) {
+        this.helpOpen.setValue(bool);
     }
 }
 

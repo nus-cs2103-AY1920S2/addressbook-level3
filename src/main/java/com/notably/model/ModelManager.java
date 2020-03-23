@@ -215,18 +215,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public BooleanProperty boolProperty() {
-        return viewStateModel.boolProperty();
+    public BooleanProperty helpOpenProperty() {
+        return viewStateModel.helpOpenProperty();
     }
 
     @Override
-    public Boolean getBool() {
-        return viewStateModel.getBool();
+    public Boolean isHelpOpen() {
+        return viewStateModel.isHelpOpen();
     }
 
     @Override
-    public void setBool(Boolean bool) {
-        viewStateModel.setBool(bool);
+    public void setHelpOpen(Boolean bool) {
+        viewStateModel.setHelpOpen(bool);
     }
 
     //========= BlockModel========================================================================

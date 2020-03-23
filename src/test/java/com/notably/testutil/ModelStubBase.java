@@ -142,17 +142,17 @@ public class ModelStubBase implements Model {
     }
 
     @Override
-    public BooleanProperty boolProperty() {
+    public BooleanProperty helpOpenProperty() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Boolean getBool() {
+    public Boolean isHelpOpen() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void setBool(Boolean bool) {
+    public void setHelpOpen(Boolean bool) {
         throw new UnsupportedOperationException();
     }
 

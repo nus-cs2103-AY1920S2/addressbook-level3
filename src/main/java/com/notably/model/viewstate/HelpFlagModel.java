@@ -15,17 +15,17 @@ public interface HelpFlagModel {
      * Represents a flag determining whether or not a help modal should be opened.
      * @return A javafx booleanProperty object.
      */
-    BooleanProperty boolProperty();
+    BooleanProperty helpOpenProperty();
 
     /**
      * Gets the flag representing whether the Help Modal should be displayed or not.
      * @return A Boolean. true if the Help Model should be displayed, false otherwise.
      */
-    Boolean getBool();
+    Boolean isHelpOpen();
 
     /**
      * Sets the value for the boolean flag representing whether the Help Modal should be displayed or not.
      * @param bool A String corresponding to the new text data in the CommandInputModel.
      */
-    void setBool(Boolean bool);
+    void setHelpOpen(Boolean bool);
 }
