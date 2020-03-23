@@ -16,7 +16,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    public DiaryBook diaryBook;
+    private DiaryBook diaryBook;
     private final UniquePersonList persons;
 
 
@@ -32,7 +32,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         diaryBook = new DiaryBook();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -59,6 +60,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setDiaryEntry(newData.getDiaryList());
+
     }
 
     //// person-level operations
@@ -98,10 +101,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    public void addDiaryEntry(DiaryEntry diaryEntry) {
-        diaryBook.addEntry(diaryEntry);
+    public void setDiaryEntry(ObservableList<DiaryEntry> diaryEntry) {
+        diaryBook.setDiary(diaryEntry);
     }
 
+    /**
+     * dummy java docs.
+     * @param entry
+     * @return
+     */
     public boolean isEmptyDiaryEntry(DiaryEntry entry) {
         // implement later
         return false;
@@ -110,13 +118,19 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
+
         return persons.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
+
         return persons.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<DiaryEntry> getDiaryList() {
+        return diaryBook.getObservableList();
     }
 
     @Override
@@ -129,5 +143,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    public void addDiaryEntry(DiaryEntry diaryentry) {
+        this.diaryBook.getObservableList().add(diaryentry);
     }
 }

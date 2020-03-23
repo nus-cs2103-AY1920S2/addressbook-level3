@@ -9,8 +9,14 @@ import seedu.address.logic.commands.DiaryAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.DiaryEntry;
 
+/**
+ * Dummy Java docs.
+ */
 public class DiaryAddCommandParser implements Parser<DiaryAddCommand> {
 
+    /**
+     * Dummy Java docs.
+     */
     public DiaryAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ENTRY_CONTENT);

@@ -29,6 +29,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ObservableList<DiaryEntry> diaryEntries;
     private DiaryBook diaryBook;
     private final FilteredList<Notes> filesInFolder;
     private List<NusModule> modules;
@@ -45,6 +46,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        diaryEntries = this.addressBook.getDiaryList();
         diaryBook = new DiaryBook();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         modules = new ArrayList<>();
@@ -142,7 +144,24 @@ public class ModelManager implements Model {
         return diaryBook.showLog();
     }
 
+    @Override
+    public Path getDiaryBookFilePath() {
+        return userPrefs.getDiaryBookFilePath();
+    }
+
+    @Override
+    public ObservableList<DiaryEntry> getDiaryList() {
+        return diaryEntries;
+    }
+
+
     //=========== Cap Module ==================================================================================
+
+    /**
+     * Dummy java docs
+     * @param module
+     * @return
+     */
     public boolean hasModule(NusModule module) {
         requireNonNull(module);
         return modules.contains(module);
