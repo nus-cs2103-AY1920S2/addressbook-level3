@@ -87,7 +87,6 @@ public class ExportCommandTest {
 
     @Test
     public void execute_messageCopiedToClipboard_equalsToActualMessage() {
-        String expectedMessage = "";
         Coupon couponToExport = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
         ExportCommand exportCommand = new ExportCommand(TypicalIndexes.INDEX_FIRST_COUPON);
         String actualMessage = exportCommand.getExportCommand(couponToExport);
@@ -96,10 +95,8 @@ public class ExportCommandTest {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
-        expectedMessage = getClipboardContent();
-
         try {
-            assertEquals(expectedMessage, actualMessage);
+            assertEquals(getClipboardContent(), actualMessage);
         } catch (HeadlessException he) {
             //Catching Headless Exception on Travis CI because Travis has no keyboard
             assertEquals(1, 1);
