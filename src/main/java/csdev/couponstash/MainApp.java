@@ -2,6 +2,7 @@ package csdev.couponstash;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -13,12 +14,14 @@ import csdev.couponstash.commons.util.ConfigUtil;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.LogicManager;
+import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ModelManager;
 import csdev.couponstash.model.ReadOnlyCouponStash;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.UserPrefs;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.util.SampleDataUtil;
 import csdev.couponstash.storage.CouponStashStorage;
 import csdev.couponstash.storage.JsonCouponStashStorage;
@@ -170,6 +173,9 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting CouponStash " + MainApp.VERSION);
         ui.start(primaryStage);
+
+        List<Coupon> lastShownList = model.getFilteredCouponList();
+        RemindCommand.showRemind(lastShownList);
     }
 
     @Override

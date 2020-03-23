@@ -8,6 +8,8 @@ import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PROMO_CODE_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_PROMO_CODE_BOB;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_REMIND_DATE_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_REMIND_DATE_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_SAVINGS_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_SAVINGS_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_START_DATE_AMY;
@@ -72,6 +74,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
+            .withRemindDate("29-11-2020", "02-12-2020")
             .withTags("friends").build();
     public static final Coupon BENSON = new CouponBuilder().withName("Benson Meier")
             .withPromoCode("ILUVSTASH")
@@ -81,6 +84,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("2")
             .withLimit("5")
+            .withRemindDate("28-11-2020", "31-12-2020")
             .withTags("owesMoney", "friends").build();
     public static final Coupon CARL = new CouponBuilder().withName("Carl Kurz")
             .withPromoCode("KKB")
@@ -90,6 +94,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
+            .withRemindDate("27-8-2020", "30-8-2020")
             .build();
     public static final Coupon DANIEL = new CouponBuilder().withName("Daniel Meier")
             .withPromoCode("DANIELZXC")
@@ -99,7 +104,8 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
-            .withTags("friends").build();
+            .withTags("friends")
+            .withRemindDate("28-12-2020", "31-12-2020").build();
     public static final Coupon ELLE = new CouponBuilder().withName("Elle Meyer")
             .withPromoCode("9482224")
             .withSavings(ELLE_SAVINGS)
@@ -108,6 +114,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
+            .withRemindDate("27-8-2020", "30-8-2020")
             .build();
     public static final Coupon FIONA = new CouponBuilder().withName("Fiona Kunz")
             .withPromoCode("9482427")
@@ -117,6 +124,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
+            .withRemindDate("27-8-2020", "30-8-2020")
             .build();
     public static final Coupon GEORGE = new CouponBuilder().withName("George Best")
             .withPromoCode("9482442")
@@ -126,6 +134,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("2")
+            .withRemindDate("28-12-2020", "31-12-2020")
             .build();
 
     // Manually added
@@ -137,6 +146,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
+            .withRemindDate("28-12-2020", "31-12-2020")
             .build();
     public static final Coupon IDA = new CouponBuilder().withName("Ida Mueller")
             .withPromoCode("8482131")
@@ -146,6 +156,7 @@ public class TypicalCoupons {
             .withStartDate("31-7-2020")
             .withUsage("0")
             .withLimit("1")
+            .withRemindDate("28-12-2020", "31-12-2020")
             .build();
 
     // Manually added - Coupon's details found in {@code CommandTestUtil}
@@ -158,6 +169,7 @@ public class TypicalCoupons {
             .withStartDate(VALID_START_DATE_AMY)
             .withUsage(VALID_USAGE_AMY)
             .withLimit(VALID_LIMIT_AMY)
+            .withRemindDate(VALID_REMIND_DATE_AMY, VALID_EXPIRY_DATE_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Coupon BOB = new CouponBuilder()
             .withName(VALID_NAME_BOB)
@@ -169,6 +181,7 @@ public class TypicalCoupons {
             .withUsage(VALID_USAGE_BOB)
             .withLimit(VALID_LIMIT_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .withRemindDate(VALID_REMIND_DATE_BOB, VALID_EXPIRY_DATE_BOB)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

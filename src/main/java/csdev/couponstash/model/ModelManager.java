@@ -152,6 +152,7 @@ public class ModelManager implements Model {
 
     //=========== Undo/Redo functionality =============================================================
     @Override
+
     public void commitCouponStash(String command) {
         history.commitState(couponStash.copy(), command);
     }

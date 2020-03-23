@@ -19,6 +19,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.Savings;
@@ -117,7 +118,7 @@ public class EditCommand extends Command {
                 // avoid changing the total savings and dates mappings
                 couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
-                couponToEdit.getRemind());
+                new RemindDate(updatedExpiryDate));
     }
 
     @Override
@@ -151,6 +152,7 @@ public class EditCommand extends Command {
         private Usage usage;
         private Limit limit;
         private Set<Tag> tags;
+        private RemindDate remindDate;
 
         public EditCouponDescriptor() {}
 
@@ -167,13 +169,15 @@ public class EditCommand extends Command {
             setUsage(toCopy.usage);
             setLimit(toCopy.limit);
             setTags(toCopy.tags);
+            setRemindDate(toCopy.remindDate);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, promoCode, savings, expiryDate, startDate, usage, limit, tags);
+            return CollectionUtil.isAnyNonNull(name, promoCode, savings, expiryDate, startDate, usage, limit, tags,
+                    remindDate);
         }
 
         public void setName(Name name) {
@@ -244,6 +248,14 @@ public class EditCommand extends Command {
             return Optional.ofNullable(limit);
         }
 
+        public Optional<RemindDate> getRemindDate() {
+            return Optional.ofNullable(this.remindDate);
+        }
+
+        public void setRemindDate(RemindDate remindDate) {
+            this.remindDate = remindDate;
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -283,7 +295,8 @@ public class EditCommand extends Command {
                     && getStartDate().equals(e.getStartDate())
                     && getUsage().equals(e.getUsage())
                     && getLimit().equals(e.getLimit())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getRemindDate().equals(e.getRemindDate());
         }
     }
 }

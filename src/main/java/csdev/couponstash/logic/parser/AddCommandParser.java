@@ -5,6 +5,7 @@ import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_PROMO_CODE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_REMIND;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_TAG;
@@ -52,7 +53,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PROMO_CODE, PREFIX_SAVINGS, PREFIX_EXPIRY_DATE,
-                        PREFIX_START_DATE, PREFIX_USAGE, PREFIX_LIMIT, PREFIX_TAG);
+                        PREFIX_START_DATE, PREFIX_USAGE, PREFIX_LIMIT, PREFIX_TAG, PREFIX_REMIND);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_EXPIRY_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -69,7 +70,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Usage usage = ParserUtil.parseUsage(argMultimap.getValueForOptionalField(PREFIX_USAGE, "0").get());
         Limit limit = ParserUtil.parseLimit(argMultimap.getValueForOptionalField(PREFIX_LIMIT, "1").get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
         Coupon coupon = new Coupon(name, promoCode, savings, expiryDate, startDate, usage, limit, tagList);
 
         return new AddCommand(coupon);

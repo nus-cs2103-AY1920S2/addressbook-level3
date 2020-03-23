@@ -15,7 +15,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.PromoCode;
-import csdev.couponstash.model.coupon.Remind;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
@@ -36,6 +36,7 @@ class JsonAdaptedCoupon {
     private final String startDate;
     private final String usage;
     private final String limit;
+    private final String remindDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final JsonAdaptedDssm totalSaved;
 
@@ -52,6 +53,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("limit") String limit,
                              @JsonProperty("totalSaved") JsonAdaptedDssm totalSaved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged
+                             @JsonProperty("remind date") String remindDate
     ) {
         this.name = name;
         this.promoCode = promoCode;
@@ -64,6 +66,7 @@ class JsonAdaptedCoupon {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.remindDate = remindDate;
     }
 
     /**
@@ -81,6 +84,7 @@ class JsonAdaptedCoupon {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        remindDate = source.getRemindDate().toString();
     }
 
     /**
@@ -157,14 +161,17 @@ class JsonAdaptedCoupon {
             modelTotalSaved = totalSaved.toModelType();
         }
 
-        // TODO: change this when reminders can be saved properly
-        final Remind modelRemind = new Remind();
+        if (!RemindDate.isValidRemindDate(remindDate, expiryDate)) {
+            throw new IllegalValueException(RemindDate.MESSAGE_CONSTRAINTS);
+        }
+        final RemindDate modelRemindDate = new RemindDate(remindDate, expiryDate);
+
 
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
         return new Coupon(modelName, modelPromoCode, modelSavings,
                 modelExpiryDate, modelStartDate, modelUsage, modelLimit,
-                modelTags, modelTotalSaved, modelRemind);
+                modelTags, modelTotalSaved, modelRemindDate);
 
     }
 

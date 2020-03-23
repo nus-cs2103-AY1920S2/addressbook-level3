@@ -35,7 +35,7 @@ public class Coupon {
     // ("mutable" properties of Coupon that will change,
     // for implementation of certain commands)
     private final Usage usage;
-    private final Remind remind;
+    private final RemindDate remind;
     private final DateSavingsSumMap totalSavings;
 
     /**
@@ -57,7 +57,7 @@ public class Coupon {
                   Usage usage, Limit limit, Set<Tag> tags) {
 
         this(name, promoCode, savingsForEachUse, expiryDate, startDate, usage,
-                limit, tags, new DateSavingsSumMap(), new Remind());
+                limit, tags, new DateSavingsSumMap(), new RemindDate(expiryDate));
     }
 
     /**
@@ -88,7 +88,7 @@ public class Coupon {
             Limit limit,
             Set<Tag> tags,
             DateSavingsSumMap totalSavings,
-            Remind remind) {
+            RemindDate remind) {
 
         requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags, totalSavings, remind);
         this.name = name;
@@ -103,7 +103,7 @@ public class Coupon {
         this.tags.addAll(tags);
     }
 
-    public Remind getRemind() {
+    public RemindDate getRemindDate() {
         return remind;
     }
 
@@ -286,6 +286,8 @@ public class Coupon {
                 .append(getUsage())
                 .append(" Limit: ")
                 .append(getLimit())
+                .append(" Remind Date: ")
+                .append(getRemindDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
