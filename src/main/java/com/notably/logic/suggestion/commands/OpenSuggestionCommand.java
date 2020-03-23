@@ -29,21 +29,31 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     @Override
     public void execute(Model model) {
         setResponseTextToModel(model);
-        List<AbsolutePath> possiblePaths = getPossiblePaths(path, model);
+        updatePossiblePaths(path, model);
+        List<AbsolutePath> possiblePaths = getPossiblePaths();
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
         setSuggestionsToModel(model, suggestions);
     }
 
-    private void setResponseTextToModel(Model model) {
+    public void setResponseTextToModel(Model model) {
         model.setResponseText(RESPONSE_MESSAGE);
     }
 
-    private void setSuggestionsToModel(Model model, List<SuggestionItem> suggestions) {
+    public void setSuggestionsToModel(Model model, List<SuggestionItem> suggestions) {
         model.setSuggestions(suggestions);
     }
 
-    public List<AbsolutePath> getPossiblePaths(AbsolutePath path, Model model) {
+    public List<AbsolutePath> getPossiblePaths() {
+        return possiblePaths;
+    }
+
+    /**
+     * Updates the list of possible paths according to the input path.
+     * @param path The user's input path.
+     * @param model The app's model.
+     */
+    public void updatePossiblePaths(AbsolutePath path, Model model) {
         BlockTreeItem root = model.getBlockTree().getRootBlock();
 
         List<String> components = path.getComponents();
@@ -81,7 +91,6 @@ public class OpenSuggestionCommand implements SuggestionCommand {
                 getChildRecursive(child, newComponents);
             }
         }
-        return possiblePaths;
     }
 
     public void getChildRecursive(BlockTreeItem node, List<String> components) {
