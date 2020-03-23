@@ -16,6 +16,7 @@ import seedu.address.model.profile.Profile;
  */
 public class TypicalPersons {
 
+
     public static final Profile ALICE = new PersonBuilder().withName("Alice Pauline")
             .withCourseName("Computer Science").build();
     public static final Profile BENSON = new PersonBuilder().withName("Benson Meier")

@@ -25,6 +25,9 @@ import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
 
+/**
+ * Parses input arguments and creates a new NewCommand object
+ */
 public class EditCommandParser implements Parser<EditCommand> {
 
     /**
@@ -109,6 +112,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
     }
 
+    /**
+     * Updates statuses of all modules in the Profile
+     */
     private void updateStatus(int currentSemester) {
         HashMap<Integer, ArrayList<Module>> hashMap = Profile.getHashMap();
         for (ArrayList<Module> list: hashMap.values()) {
@@ -125,6 +131,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
     }
 
+    /**
+     * Returns key of the given value
+     */
     public <K, V> K getKey(Map<K, V> map, V value) {
         for (Map.Entry<K, V> entry : map.entrySet()) {
             if (entry.getValue().equals(value)) {

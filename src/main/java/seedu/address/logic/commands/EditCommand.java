@@ -14,6 +14,9 @@ import seedu.address.model.Model;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 
+/**
+ * Edits Profile or Module specified by user.
+ */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";

@@ -29,6 +29,9 @@ public class CourseName {
         this.courseName = formattedCourse;
     }
 
+    /**
+     * Returns formatted courseName
+     */
     public String format(String courseName) {
         courseName = courseName.trim();
         courseName = courseName.toUpperCase();

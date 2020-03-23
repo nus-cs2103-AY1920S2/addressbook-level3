@@ -19,6 +19,9 @@ public enum AcceptedCourses {
         return name;
     }
 
+    /**
+     * Returns true of enum contains given course.
+     */
     public static boolean contains(String course) {
         for (AcceptedCourses c: AcceptedCourses.values()) {
             if (c.name.equals(course)) {
