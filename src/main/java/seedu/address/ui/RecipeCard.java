@@ -88,7 +88,7 @@ public class RecipeCard extends UiPart<Region> {
             stepLabel.setWrapText(true);
             steps.getChildren().add(stepLabel);
         });
-        steps.setPadding(new Insets(10, 0, 0,0 ));
+        steps.setPadding(new Insets(10, 0, 0, 0));
 
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))
