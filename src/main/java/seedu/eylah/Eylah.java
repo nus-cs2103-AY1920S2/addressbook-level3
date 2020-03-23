@@ -173,7 +173,7 @@ public class Eylah {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private seedu.eylah.diettracker.model.Model initModelManagerDiet(FoodBookStorage storage,
+    private Model initModelManagerDiet(FoodBookStorage storage,
                                                          seedu.eylah.diettracker.model.ReadOnlyUserPrefs userPrefs) {
         Optional<seedu.eylah.diettracker.model.ReadOnlyFoodBook> foodBookOptional;
         seedu.eylah.diettracker.model.ReadOnlyFoodBook initialData;
