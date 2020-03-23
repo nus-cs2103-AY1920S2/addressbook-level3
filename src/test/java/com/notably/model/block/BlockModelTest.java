@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.model.block.exceptions.CannotModifyRootException;
 
 import javafx.collections.FXCollections;
@@ -32,7 +31,7 @@ public class BlockModelTest {
     }
 
     @Test
-    public void addBlockToCurrentPath_addToRoot() throws InvalidPathException {
+    public void addBlockToCurrentPath_addToRoot() {
         Block newBlock = new BlockImpl(new Title("CS2103"));
         blockModel.addBlockToCurrentPath(newBlock);
         assertTrue(blockModel.hasPath(AbsolutePath.fromString("/CS2103")));
@@ -59,13 +58,13 @@ public class BlockModelTest {
         }
 
         @Test
-        public void setCurrentlyOpenBlock_changePath() throws InvalidPathException {
+        public void setCurrentlyOpenBlock_changePath() {
             blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS2103"));
             assertEquals(blockModel.getCurrentlyOpenPath(), AbsolutePath.fromString("/CS2103"));
         }
 
         @Test
-        public void addBlockToCurrentPath_addToNonRootPath() throws InvalidPathException {
+        public void addBlockToCurrentPath_addToNonRootPath() {
             blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS3230"));
             blockModel.addBlockToCurrentPath(new BlockImpl(new Title("Week1")));
             blockModel.addBlockToCurrentPath(new BlockImpl(new Title("Week2")));
@@ -75,7 +74,7 @@ public class BlockModelTest {
         }
 
         @Test
-        public void removeBlock_nonRootPath() throws InvalidPathException, CannotModifyRootException {
+        public void removeBlock_nonRootPath() {
             blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS3230"));
             blockModel.addBlockToCurrentPath(new BlockImpl(new Title("Week1")));
             blockModel.setCurrentlyOpenBlock(AbsolutePath.TO_ROOT_PATH);
@@ -83,7 +82,7 @@ public class BlockModelTest {
         }
 
         @Test
-        public void updateCurrentlyOpenBlockBody_nonRootPath() throws InvalidPathException, CannotModifyRootException {
+        public void updateCurrentlyOpenBlockBody_nonRootPath() {
             blockModel.setCurrentlyOpenBlock(AbsolutePath.fromString("/CS3230"));
             assertEquals(blockModel.getBlockTree()
                 .get(blockModel.getCurrentlyOpenPath())
