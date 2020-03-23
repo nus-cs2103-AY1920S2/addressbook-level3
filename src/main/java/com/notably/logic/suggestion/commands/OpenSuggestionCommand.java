@@ -43,6 +43,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         setSuggestionsToModel(model, suggestions);
     }
 
+
     public void setSuggestionsToModel(Model model, List<SuggestionItem> suggestions) {
         Objects.requireNonNull(model);
         Objects.requireNonNull(suggestions);
@@ -89,8 +90,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
                 List<String> newComponents = new ArrayList<>();
                 newComponents.addAll(components);
                 newComponents.add(child.getTitle().getText());
-                List<AbsolutePath> childrenRecursive = getChildRecursive(child, newComponents, possiblePaths);
-                possiblePaths.addAll(childrenRecursive);
+                possiblePaths = getChildRecursive(child, newComponents, possiblePaths);
             }
         }
         return possiblePaths;
