@@ -3,12 +3,9 @@ package seedu.zerotoone.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 
-import seedu.zerotoone.commons.core.Messages;
-import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
 import seedu.zerotoone.model.exercise.Exercise;

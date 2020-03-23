@@ -5,7 +5,6 @@ import static seedu.zerotoone.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 
 import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.StartCommand;
-import seedu.zerotoone.logic.commands.exercise.DeleteCommand;
 import seedu.zerotoone.logic.parser.Parser;
 import seedu.zerotoone.logic.parser.exceptions.ParseException;
 import seedu.zerotoone.logic.parser.exercise.ExerciseParserUtil;

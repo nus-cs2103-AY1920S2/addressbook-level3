@@ -3,17 +3,15 @@ package seedu.zerotoone.model.session;
 import static seedu.zerotoone.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Queue;
+import java.time.LocalDateTime;
 
+import seedu.zerotoone.model.exercise.Exercise;
 import seedu.zerotoone.model.exercise.ExerciseName;
 import seedu.zerotoone.model.exercise.ExerciseSet;
-import seedu.zerotoone.model.exercise.Exercise;
 
 
 /**
