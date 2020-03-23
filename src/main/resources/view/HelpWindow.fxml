@@ -7,11 +7,11 @@
 
 <AnchorPane fx:id="helpPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="helpMessage" layoutX="25.0" layoutY="4.0" text="Label" textFill="DARKORANGE" textOverrun="CLIP">
+      <Label fx:id="helpMessage" layoutX="25.0" layoutY="4.0" text="Label" textFill="#ef827d" textOverrun="CLIP">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Button fx:id="copyButton" defaultButton="true" layoutX="532.0" layoutY="468.0" mnemonicParsing="false" onAction="#copyUrl" style="-fx-background-color: #FF8C00;" text="Copy URL" textOverrun="CLIP" />
+      <Button fx:id="copyButton" defaultButton="true" layoutX="532.0" layoutY="468.0" mnemonicParsing="false" onAction="#copyUrl" style="-fx-background-color: #ef827d;" text="Copy URL" textFill="WHITE" textOverrun="CLIP" />
       <Label fx:id="showUrl" layoutX="14.0" layoutY="464.0" text="Label" />
    </children>
 </AnchorPane>
