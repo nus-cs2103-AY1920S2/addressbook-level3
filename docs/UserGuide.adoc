@@ -216,13 +216,13 @@ Example: +
 
 ==== List person(s) `listamount`
 
-Display all the Person(s) with the amount they owe you.
+Display all the Person(s) in the PersonList with the amount they owe you.
 
 Format: +
 `listamount` +
 
 Example: +
-`listperson`
+`listamount`
 
 ==== List the current receipt `listreceipt`
 
@@ -247,6 +247,7 @@ Example: +
 [TIP]
 When using the `paid` command, use the `listamount` command to find the index of the Person who paid you.
 
+NOTE: When a Person owes $0 he/she will be automatically deleted from PersonList.
 
 ==== Exiting split to go back to main menu `back`
 
@@ -270,6 +271,21 @@ There is no need to save manually.
 
 == Command Summary
 
+
+=== For Diet Tracker
+
+
+=== For Expense Splitter
+
+* *Add Item* `additem` +
+e.g `additem -i pasta -p 19.20 -n charlotte -n bob`
+
+* *Delete Item* `deleteitem` +
+e.g `deleteitem 3`
+
+* *List Amount* `listamount` +
+e.g `listamount`
+
 * *List Receipt* `listreceipt` +
 e.g. `removefood -f fries`
 
@@ -278,3 +294,8 @@ e.g. `paid 3`
 
 * *Back* `back` +
 e.g. `back`
+
+
+
+== Appendix A: Simple activity diagram to aid user with using Expense Splitter
+image::activityDiagram_for_expensesplitter.png[width="790"]
