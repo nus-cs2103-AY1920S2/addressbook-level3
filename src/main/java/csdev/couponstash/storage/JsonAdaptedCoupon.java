@@ -52,7 +52,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("usage") String usage,
                              @JsonProperty("limit") String limit,
                              @JsonProperty("totalSaved") JsonAdaptedDssm totalSaved,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                              @JsonProperty("remind date") String remindDate
     ) {
         this.name = name;
