@@ -129,7 +129,6 @@ public class RecipeBuilder {
         return this;
     }
 
-
     /**
      * Parses the {@code proteins} into a {@code Set<Protein>} and set it to the {@code Recipe} that we are building.
      */
@@ -153,8 +152,6 @@ public class RecipeBuilder {
         this.others = SampleDataUtil.getOtherSet(others);
         return this;
     }
-
-
 
     public Recipe build() {
         return new Recipe(name, time, grains, vegetables, proteins, fruits, others, steps, goals, isFavourite);

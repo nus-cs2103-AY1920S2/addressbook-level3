@@ -98,5 +98,16 @@
     "others" : [ ],
     "steps" : [ "Cut the capsicum", "Remove seeds", "Heat frying pan", "Stir fry for 3.5 minutes" ],
     "goals" : [ "Herbivore" ]
+  }, {
+    "name" : "Edit command test recipe",
+    "time" : "17",
+    "isFavourite" : true,
+    "grains" : [ "Oat,  20.0g", "Rice,  50.0g" ],
+    "vegetables" : [ "Kailan,  30.0g", "Pumpkin,  50.0g" ],
+    "proteins" : [ "Sliced lean pork,  40.0g" ],
+    "fruits" : [ "Pineapple chunks,  50.0g" ],
+    "others" : [ "Salt and Pepper,  1.0tsp", "Sesame Oil,  1.0tbsp" ],
+    "steps" : [ "Cook rice", "Season pork slices with salt and pepper", "Stir-fry pork in sesame oil", "Add pineapple chunks when pork is about done", "Mix rice with the pineapple pork" ],
+    "goals" : [ "Wholesome Wholegrains" ]
   } ]
 }
