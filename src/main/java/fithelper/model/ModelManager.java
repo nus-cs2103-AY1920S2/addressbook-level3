@@ -1,10 +1,12 @@
 package fithelper.model;
 
+import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import static java.util.Objects.requireNonNull;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
@@ -20,7 +22,6 @@ import fithelper.model.profile.Profile;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
-import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of the FitHelper data.

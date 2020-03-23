@@ -1,15 +1,15 @@
 package fithelper.logic.parser;
 
-import fithelper.logic.commands.CheckCommand;
-import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.entry.Type;
-
-import java.util.stream.Stream;
-
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
 import static java.util.Objects.requireNonNull;
+
+import java.util.stream.Stream;
+
+import fithelper.logic.commands.CheckCommand;
+import fithelper.logic.parser.exceptions.ParseException;
+import fithelper.model.entry.Type;
 
 /**
  * Parses input arguments and creates a new CheckCommand object

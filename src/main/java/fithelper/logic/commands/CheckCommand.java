@@ -1,16 +1,16 @@
 package fithelper.logic.commands;
 
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.entry.Type;
-
-import java.util.List;
-
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_KEYWORD;
-import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_TYPE;
-import static java.util.Objects.requireNonNull;
 
 /**
  * Search the pre-defined data for calorie intake/consumption of a food/sports.

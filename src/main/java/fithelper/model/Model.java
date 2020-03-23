@@ -1,5 +1,9 @@
 package fithelper.model;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.function.Predicate;
+
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
@@ -8,12 +12,6 @@ import fithelper.model.profile.Profile;
 
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.function.Predicate;
-
-
 
 /**
  * The API of the Model component.

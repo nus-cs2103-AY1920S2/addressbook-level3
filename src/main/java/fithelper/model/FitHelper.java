@@ -1,5 +1,10 @@
 package fithelper.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.calorietable.FoodCalorieTable;
 import fithelper.model.calorietable.SportsCalorieTable;
@@ -9,11 +14,6 @@ import fithelper.model.entry.Entry;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all entry-related data at the FitHelper level
