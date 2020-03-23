@@ -1,10 +1,10 @@
 package com.notably.model.block;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.model.block.exceptions.CannotModifyRootException;
-import com.notably.model.block.exceptions.NoSuchBlockException;
 
 /**
+ * API of BlockTree component.
+ *
  * Custom tree-like data structure that uses the AbsolutePath object
  * to obtain the BlockTreeItem needed for manipulation.
  */
@@ -20,7 +20,7 @@ public interface BlockTree {
      * @param path Full path of the block.
      * @return
      */
-    BlockTreeItem get(AbsolutePath path) throws NoSuchBlockException;
+    BlockTreeItem get(AbsolutePath path);
 
     /**
      * Adds a new Block to the block at the path specified.
@@ -34,12 +34,12 @@ public interface BlockTree {
      * @param path Full path of the block.
      * @param newBlock The new block to be set.
      */
-    void set(AbsolutePath path, Block newBlock) throws CannotModifyRootException;
+    void set(AbsolutePath path, Block newBlock);
 
     /**
      * Remove the block at the specified path.
      * @param path Full path of the block to be removed.
      */
-    void remove(AbsolutePath path) throws CannotModifyRootException;
+    void remove(AbsolutePath path);
 
 }

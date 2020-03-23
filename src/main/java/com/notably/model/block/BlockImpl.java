@@ -3,7 +3,7 @@ package com.notably.model.block;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a Block in the Notably data structure.
+ * Implementation class of Block.
  */
 public class BlockImpl implements Block {
     private Title title;

@@ -83,7 +83,7 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void remove_block() throws CannotModifyRootException {
+    public void remove_block() {
         blockTree.remove(toCs2103Week1);
         assertThrows(NoSuchBlockException.class, () -> blockTree.get(toCs2103Week1));
     }
@@ -100,7 +100,7 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void set_block_editBlock() throws CannotModifyRootException {
+    public void set_block_editBlock() {
         Block editedBlock = new BlockImpl(new Title("Week2"));
         AbsolutePath editedPath = AbsolutePath.fromString("/CS2103/Week2");
         blockTree.set(toCs2103Week1, editedBlock);
