@@ -358,7 +358,29 @@
 }
 
 .welcomeTitle {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 40px;
-    -fx-text-fill: #ffe6eb;
+    -fx-font-family: "American Typewriter";
+    -fx-font-size: 35px;
+    -fx-text-fill: #f7dec3;
 }
+
+.fancyTitle {
+    -fx-font-family: "American Typewriter";
+    -fx-font-size: 45px;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #f7bb97 0%, #dd5e89 50%);
+    -fx-stroke: #ffffff;
+    -fx-stroke-width: 1;
+}
+
+.command {
+    -fx-font-family: "Courier";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #515658;
+}
+
+.quickStart {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+}
+

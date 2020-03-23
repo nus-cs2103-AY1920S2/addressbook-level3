@@ -33,7 +33,6 @@ public class ProfileListPanel extends UiPart<Region> {
         @Override
         protected void updateItem(Profile profile, boolean empty) {
             super.updateItem(profile, empty);
-
             if (empty || profile == null) {
                 setGraphic(null);
                 setText(null);
