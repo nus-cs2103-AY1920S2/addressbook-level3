@@ -27,7 +27,6 @@ repositories {
 
 checkstyle {
     toolVersion = '8.1'
-//    ignoreFailures = true;
 }
 
 jacocoTestReport {
@@ -97,8 +96,6 @@ tasks.coveralls {
 test {
     useJUnitPlatform()
 
-    ignoreFailures(true)
-
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
 
@@ -134,8 +131,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'CookBuddy',
-        'site-githuburl': 'https://github.com/AY1920S2-CS2103T-W12-4/main/',
+        'site-name': 'AddressBook-Level3',
+        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
@@ -153,5 +150,4 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
-//defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
-defaultTasks 'clean', 'test', 'asciidoctor'
+defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'

@@ -8,7 +8,6 @@ import java.util.Objects;
  * A Serializable class that contains the GUI settings.
  * Guarantees: immutable.
  */
-@SuppressWarnings("serial")
 public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;

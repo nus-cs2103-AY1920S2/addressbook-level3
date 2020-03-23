@@ -10,11 +10,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.RecipeBookParser;
+import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyRecipeBook;
-import seedu.address.model.recipe.Recipe;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +26,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final RecipeBookParser recipeBookParser;
+    private final AddressBookParser addressBookParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        recipeBookParser = new RecipeBookParser();
+        addressBookParser = new AddressBookParser();
     }
 
     @Override
@@ -39,11 +39,11 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = recipeBookParser.parseCommand(commandText);
+        Command command = addressBookParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
         try {
-            storage.saveRecipeBook(model.getRecipeBook());
+            storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -52,18 +52,18 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyRecipeBook getRecipeBook() {
-        return model.getRecipeBook();
+    public ReadOnlyAddressBook getAddressBook() {
+        return model.getAddressBook();
     }
 
     @Override
-    public ObservableList<Recipe> getFilteredRecipeList() {
-        return model.getFilteredRecipeList();
+    public ObservableList<Person> getFilteredPersonList() {
+        return model.getFilteredPersonList();
     }
 
     @Override
-    public Path getRecipeBookFilePath() {
-        return model.getRecipeBookFilePath();
+    public Path getAddressBookFilePath() {
+        return model.getAddressBookFilePath();
     }
 
     @Override

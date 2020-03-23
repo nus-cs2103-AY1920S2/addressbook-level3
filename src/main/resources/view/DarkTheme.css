@@ -100,11 +100,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #450002;
+    -fx-background-color: #3c3e3f;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #2e000d;
+    -fx-background-color: #515658;
 }
 
 .list-cell:filled:selected {
@@ -131,9 +131,7 @@
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
-/*
-Command input area background colour
- */
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -193,7 +191,7 @@ Command input area background colour
 .context-menu .label {
     -fx-text-fill: white;
 }
-/*help bar*/
+
 .menu-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -344,24 +342,9 @@ Command input area background colour
     -fx-vgap: 3;
 }
 
-#tags1 {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #a89d00;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
-    -fx-font-size: 11;
-}
-
-#tags1 .label {
-    -fx-text-fill: white;
-    -fx-background-color: #857b00;
-    //darker-version
+    -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

@@ -113,7 +113,6 @@ public class JsonUtil {
     /**
      * Contains methods that retrieve logging level from serialized string.
      */
-    @SuppressWarnings("serial")
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 
         protected LevelDeserializer(Class<?> vc) {

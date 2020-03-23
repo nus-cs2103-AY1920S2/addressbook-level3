@@ -10,3 +10,5 @@ assignees: ''
 ... so that ...
 
 Command: `...`
+
+Shorthand command: `...`
