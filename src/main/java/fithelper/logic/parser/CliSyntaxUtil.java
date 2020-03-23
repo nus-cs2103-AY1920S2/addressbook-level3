@@ -22,4 +22,7 @@ public class CliSyntaxUtil {
 
     public static final Prefix PREFIX_ATTRIBUTE = new Prefix("attr/");
     public static final Prefix PREFIX_VALUE = new Prefix("v/");
+
+    /* Flag definitions */
+    public static final Flag FLAG_FORCE = new Flag("-f");
 }

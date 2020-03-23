@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
             <HBox alignment="CENTER" prefHeight="80.0" prefWidth="600.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Today's Food" textFill="DARKORANGE">
+                  <Label alignment="CENTER" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #acbfea; -fx-border-color: #ffffff;" text="Today's Food" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="118.0" layoutY="18.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Today's Sports" textFill="DARKORANGE">
+                  <Label alignment="CENTER" layoutX="118.0" layoutY="18.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: #acbfea; -fx-border-color: #ffffff;" text="Today's Sports" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="310.0" layoutY="25.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Playground" textFill="DARKORANGE">
+                  <Label alignment="CENTER" layoutX="310.0" layoutY="25.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: white;" text="Playground" textFill="#acbfea">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -39,8 +42,8 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="78.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: white;">
                      <children>
-                        <Label fx:id="doneFoodCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #9acd32;" text="done food plan" textFill="WHITE" />
-                        <Label fx:id="undoneFoodCounter" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ff7f50;" text="undone food plan" textFill="WHITE" />
+                        <Label fx:id="doneFoodCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #789cce;" text="done food plan" textFill="WHITE" />
+                        <Label fx:id="undoneFoodCounter" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ef827d;" text="undone food plan" textFill="WHITE" />
                      </children>
                      <padding>
                         <Insets bottom="6.0" left="5.0" right="5.0" top="6.0" />
@@ -48,8 +51,8 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="78.0" prefWidth="200.0" spacing="5.0" style="-fx-background-color: white;">
                      <children>
-                        <Label fx:id="doneSportCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #9acd32;" text="done sports plan" textFill="WHITE" />
-                        <Label fx:id="undoneSportCounter" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ff7f50;" text="undone sport plan" textFill="WHITE" />
+                        <Label fx:id="doneSportCounter" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #789cce;" text="done sports plan" textFill="WHITE" />
+                        <Label fx:id="undoneSportCounter" alignment="CENTER" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #ef827d;" text="undone sport plan" textFill="WHITE" />
                      </children>
                      <padding>
                         <Insets bottom="6.0" left="5.0" right="5.0" top="6.0" />
