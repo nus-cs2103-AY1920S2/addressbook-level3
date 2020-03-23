@@ -1,0 +1,84 @@
+@startuml
+/' Sequence Diagram for postal sector search '/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":NearbyCommandParser" as NearbyCommandParser LOGIC_COLOR
+participant "n:NearbyCommand" as NearbyCommand LOGIC_COLOR
+participant ":NearbyCommandUtil" as NearbyCommandUtil LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("nearby 14")
+activate LogicManager
+
+LogicManager -> OrderBookParser : parseCommand("nearby 14")
+activate OrderBookParser
+
+create NearbyCommandParser
+OrderBookParser -> NearbyCommandParser
+activate NearbyCommandParser
+
+NearbyCommandParser --> OrderBookParser
+deactivate NearbyCommandParser
+
+OrderBookParser -> NearbyCommandParser : parse("14")
+activate NearbyCommandParser
+
+create NearbyCommand
+NearbyCommandParser -> NearbyCommand
+activate NearbyCommand
+
+NearbyCommand --> NearbyCommandParser : n
+deactivate NearbyCommand
+
+NearbyCommandParser --> OrderBookParser : n
+deactivate NearbyCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+NearbyCommandParser -[hidden]-> OrderBookParser
+destroy NearbyCommandParser
+
+OrderBookParser --> LogicManager : n
+deactivate OrderBookParser
+
+LogicManager -> NearbyCommand : execute()
+activate NearbyCommand
+
+NearbyCommand -> NearbyCommand: isPostalSectorSearch()
+activate NearbyCommand
+NearbyCommand --> NearbyCommand: true
+deactivate NearbyCommand
+
+NearbyCommand -> NearbyCommandUtil: isValidPostalSector(14)
+activate NearbyCommandUtil
+NearbyCommandUtil --> NearbyCommand: true
+deactivate NearbyCommandUtil
+
+NearbyCommand -> NearbyCommand: showPostalSectors(model, postalSector)
+activate NearbyCommand
+NearbyCommand -> NearbyCommand: getPostalSectorPredicate()
+activate NearbyCommand
+NearbyCommand --> NearbyCommand: orderPredicate
+deactivate NearbyCommand
+NearbyCommand -> Model: updateFilteredOrderList(orderPredicate)
+
+create CommandResult
+NearbyCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> NearbyCommand: result
+deactivate CommandResult
+NearbyCommand --> NearbyCommand: result
+deactivate NearbyCommand
+
+NearbyCommand --> LogicManager : result
+deactivate NearbyCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

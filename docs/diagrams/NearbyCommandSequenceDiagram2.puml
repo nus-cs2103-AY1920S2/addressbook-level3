@@ -1,17 +1,23 @@
 @startuml
+/' Sequence Diagram for area search '/
 !include style.puml
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
 participant ":NearbyCommandParser" as NearbyCommandParser LOGIC_COLOR
 participant "n:NearbyCommand" as NearbyCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":DistrictInfo" as DistrictInfo LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-[-> LogicManager : execute("nearby 14")
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("nearby central")
 activate LogicManager
 
-LogicManager -> OrderBookParser : parseCommand("nearby 14")
+LogicManager -> OrderBookParser : parseCommand("nearby central")
 activate OrderBookParser
 
 create NearbyCommandParser
@@ -21,7 +27,7 @@ activate NearbyCommandParser
 NearbyCommandParser --> OrderBookParser
 deactivate NearbyCommandParser
 
-OrderBookParser -> NearbyCommandParser : parse("14")
+OrderBookParser -> NearbyCommandParser : parse("central")
 activate NearbyCommandParser
 
 create NearbyCommand
@@ -43,11 +49,23 @@ deactivate OrderBookParser
 LogicManager -> NearbyCommand : execute()
 activate NearbyCommand
 
+NearbyCommand -> DistrictInfo: isValidArea("central")
+activate DistrictInfo
+DistrictInfo --> NearbyCommand: true
+deactivate DistrictInfo
+
+NearbyCommand -> NearbyCommand: getAreaPredicate()
+activate NearbyCommand
+NearbyCommand --> NearbyCommand: orderPredicate
+deactivate NearbyCommand
+
+NearbyCommand -> Model: updateFilteredOrderList(orderPredicate)
+
 create CommandResult
 NearbyCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> NearbyCommand
+CommandResult --> NearbyCommand: result
 deactivate CommandResult
 
 NearbyCommand --> LogicManager : result

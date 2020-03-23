@@ -3,6 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
 
 import java.nio.file.Path;
 
@@ -14,6 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 
 public class StorageManagerTest {
 
@@ -24,9 +27,10 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonOrderBookStorage addressBookStorage = new JsonOrderBookStorage(getTempFilePath("ab"));
+        JsonOrderBookStorage deliveryOrderBookStorage = new JsonOrderBookStorage(getTempFilePath("ob"));
+        JsonReturnOrderBookStorage returnOrderBookStorage = new JsonReturnOrderBookStorage(getTempFilePath("rob"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(deliveryOrderBookStorage, returnOrderBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -48,11 +52,11 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void orderBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonReturnOrderBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonReturnOrderBookStorageTest} class.
          */
         OrderBook original = getTypicalOrderBook();
         storageManager.saveOrderBook(original);
@@ -61,8 +65,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void returnOrderBookReadSave() throws Exception {
+        ReturnOrderBook original = getTypicalReturnOrderBook();
+        storageManager.saveReturnOrderBook(original);
+        ReadOnlyReturnOrderBook retrieved = storageManager.readReturnOrderBook().get();
+        assertEquals(original, new ReturnOrderBook(retrieved));
+    }
+
+    @Test
+    public void getOrderBookFilePath() {
         assertNotNull(storageManager.getOrderBookFilePath());
+    }
+
+    @Test
+    public void getReturnOrderBookFilePath() {
+        assertNotNull(storageManager.getReturnOrderBookFilePath());
     }
 
 }

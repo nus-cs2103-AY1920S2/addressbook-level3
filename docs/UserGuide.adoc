@@ -65,7 +65,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Inserts a new order to the list of orders based on their order attributes.
 
 ==== Format
-* `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+* `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
 
 [TIP]
 ====
@@ -74,8 +74,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Examples
 
-* `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `dts/2020-02-20 1300` `w/Yishun` `cod/$4`
-* `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
+* `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `dts/2020-02-20 1300` `w/Yishun` `cod/$4`
+* `insert` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `e/amoscheong@example.com` `p/9001 0019` `dts/2020-03-10 1650` `w/Marsiling` `cod/$5` `c/Leave it at the riser` `type/glass`
 
 [[clear]]
 === Clearing all entries : `clear`
@@ -114,21 +114,21 @@ Deletes the 2nd order.
 `delete` `1` +
 Deletes the 1st order in the results of the `search` command (search all orders with customer's name `Betsy`).
 
-[[done]]
-=== Mark order as done: `done`
+[[delivered]]
+=== Mark order as delivered: `delivered`
 ==== Description
 * Once you have completed a delivery order, you can mark an order as done by providing the index of the order list.
 * The order that is marked as done will be moved to another list that contains all the orders that are completed.
 * The completed list can be seen by calling the list command: `list` `done`.
 
 ==== Format
-`done` `INDEX`
+`delivered` `INDEX`
 
 ==== Examples
-* `done` `1` +
-The order at the first index of the list is marked as done.
-* `done` `2` +
-The order at the second index of the list is marked as done.
+* `delivered` `1` +
+The order at the first index of the list is marked as a delivered order.
+* `delivered` `2` +
+The order at the second index of the list is marked as a delivered order.
 
 [[edit]]
 === Editing an order : `edit`
@@ -248,20 +248,20 @@ transaction id of the parcels and the address of the customers, etc.
 [format=csv]
 .Order data format
 |===
-ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, dts/DELIVERY_DATE_&_TIME, w/WAREHOUSE_LOCATION, cod/CASH_ON_DELIVERY, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+ot/ORDER_TYPE, tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL, dts/DELIVERY_DATE_&_TIME, w/WAREHOUSE_LOCATION, cod/CASH_ON_DELIVERY, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
 |===
 * Examples:
-** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`, +
-`dts/2020-03-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
+** `ot/order`,`tid/1023456789`,`n/Amos Cheong`,`a/Blk 572 Hougang st 51 #11-37 S530572`,`p/90010019`,
+`e/amos@example.com`, `dts/2020-03-10 1650`,`w/Marsiling`,`cod/$9.50`,`c/Leave it at the riser`,`type/glass`
 
 [format=csv]
 .Return data format
 |===
-ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
+ot/ORDER_TYPE,tid/TRANSACTION_ID, n/NAME, a/ADDRESS, p/PHONE_NUMBER, e/EMAIL rts/RETURN_DATE_&_TIME, w/WAREHOUSE_LOCATION, [c/COMMENTS_BY_CUSTOMER], [type/TYPE_OF_ITEM]
 |===
 
 * Examples:
-** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, +
+** `ot/return`,`tid/b1230512`,`n/Aaron Teo`,`a/256 Alpha Road #03-22 S123567`,`p/91230456`, `e/aaron@example.com` +
 `rts/12-12-2020 1400`,`w/Jurong Warehouse`,`c/Leave it at the lobby`,`type/metal`
 
 * Note:
@@ -313,15 +313,21 @@ List down all the orders that are uncompleted.
 ====
 
 ==== Examples:
-* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `e/bobby@example.com` `rts/12-12-2020 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
 Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
 
-* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
+* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
 Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
 
 [[nearby]]
-=== View orders located at the same postal sector: `nearby`
+=== View orders located at the same area or postal sector: `nearby`
 ==== Description
+There are two possible search criteria for the `nearby` command:
+
+. By *postal sector*: +
+Command Usage: `nearby` `POSTAL_SECTOR`
+
+
 [NOTE]
 ====
 A *postal sector* refers to the first *two* digits of a six digit Singapore postal code.
@@ -365,8 +371,31 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 |79, 80 |Seletar
 |===
 
+
+[start=2]
+. By *area*: +
+Command Usage: `nearby` `AREA`
+
+[NOTE]
+====
+An *area* refers to one of the five areas of Singapore +
+
+. Central
+. East
+. North East
+. West
+. North
+
+A quick reference for the five areas of Singapore can be <<area_table, found here>>
+====
+* You can view all the orders located at a specified *area*.
+
+You can obtain more detailed information about each area from
+https://keylocation.sg/singapore/districts-map[this website]
+
+
 ==== Format
-`nearby` `POSTAL_SECTOR` +
+. `nearby` `POSTAL_SECTOR` +
 
 [IMPORTANT]
 ====
@@ -374,11 +403,16 @@ https://www.ura.gov.sg/realEstateIIWeb/resources/misc/list_of_postal_districts.h
 Example: The postal code `140239` has a `POSTAL_SECTOR` of `14`
 ====
 
+[start=2]
+. `nearby` `AREA`
+
 ==== Examples
 * `nearby` `14` +
 You will view all orders located in the general location of `Queenstown, Tiong Bahru`.
 * `nearby` `04` +
 You will view all orders located in the general location of `Raffles Place, Cecil, Marina, People's Park`.
+* `nearby` `north` +
+You will view all orders located in the north area of Singapore.
 
 [[undo]]
 === Undo the previous action: `undo`
@@ -425,14 +459,14 @@ delivery), number of deliveries completed in a day}_
 
 == Command Summary
 
-* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
-e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
+* <<insert, *Insert*>> : `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/E,MAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]` +
+e.g. `insert` `tid/0123456789` `n/Eng Xuan En` `a/Tampines St 84 Blk 877 S520877 #01-123` `p/87654321` `e/xuanen@example.com` `dts/2020-02-20 1300` `w/Yishun industry` `cod/$4.50` `c/please knock the door three times :D` `type/heavy`
 * <<clear, *Clear*>> : `clear` `[FLAG]` +
 e.g. `clear` `-f`
 * <<delete, *Delete*>> : `delete` `INDEX` +
 e.g. `delete` `2`
-* <<done, *Done*>> : `done` `INDEX` +
-e.g. `done` `2`
+* <<delivered, *Delivered*>> : `delivered` `INDEX` +
+e.g. `delivered` `2`
 * <<edit, *Edit*>> : `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
 e.g. `edit` `2` `n/Xuan En`
 * <<exit, *Exit*>> : `exit`
@@ -443,10 +477,11 @@ e.g. `search` `-t` `ac1e345x7s`
 e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +
 e.g. `list` `done`
-* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
+* <<return, *Return*>> : `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `c/COMMENTS_BY_CUSTOMER` `type/TYPE_OF_ITEM` +
 e.g. `return` `tid/ac17s2a` `n/BOBBY TAN` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `rts/12-12-2020 1301` `w/Jurong Warehouse` `c/NIL` `type/glass`
-* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` +
-e.g. `nearby` `14`
+* <<nearby, *Nearby*>> : `nearby` `POSTAL_SECTOR` or `nearby` `AREA` +
+e.g. `nearby` `14` +
+e.g. `nearby` `north`
 * <<undo, *Undo*>> : `undo`
 
 == Appendix A: Glossary
@@ -475,6 +510,10 @@ e.g. `nearby` `14`
 |p/
 |Phone Number
 |<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+
+|e/
+|Email
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
 
 |dts/
 |Delivery Date And Time
@@ -517,4 +556,221 @@ e.g. `nearby` `14`
 |-t
 |Search using Transaction ID
 |<<search, Search>>
+|===
+
+
+[[area_table]]
+*Area Information of Singapore*
+
+<<nearby, Click here>> to navigate back to the Nearby Command!
+
+.Central
+|===
+|District |Areas |Location
+
+|1 |Marina Area
+a|
+* Boat Quay
+* Chinatown
+* Havelock Road
+* Marina Square
+* Raffles Place
+* Suntec City
+
+|2 |CBD
+a|
+* Anson Road
+* Chinatown
+* Neil Road
+* Raffles Place
+* Shenton Way
+* Tanjong Pagar
+
+|3 |Central South
+a|
+* Alexandra Road
+* Tiong Bahru
+* Queenstown
+
+|4 |Keppel
+a|
+* Keppel
+* Mount Faber
+* Sentosa
+* Telok Blangah
+
+|5 |South West
+a|
+* Buona Vista
+* Dover
+* Pasir Panjang
+* West Coast
+
+|6 |City Hall
+a|
+* City Hall
+* High Street
+* North Bridge Road
+
+|7 |Beach Road
+a|
+* Beach Road
+* Bencoolen Road
+* Bugis
+* Rochor
+
+|8 |Little India
+a|
+* Little India
+* Farrer Park
+* Serangoon Road
+
+|9 |Orchard
+a|
+* Cairnhill
+* Killiney
+* Leonie Hill
+* Orchard
+* Oxley
+
+|10 |Tanglin
+a|
+* Balmoral
+* Bukit Timah
+* Grange Road
+* Holland
+* Orchard Boulevard
+* River Valley
+* Tanglin Road
+
+|11 |Newton
+a|
+* Chancery
+* Bukit Timah
+* Dunearn Road
+* Newton
+
+|12 |Toa Payoh
+a|
+* Balestier
+* Moulmein
+* Novena
+* Toa Payoh
+
+|13 |Central East
+a|
+* Potong Pasir
+* Macpherson
+
+|14 |Eunos
+a|
+* Eunos
+* Geylang
+* Kembangan
+* Paya Lebar
+
+|15 |East Coast
+a|
+* Katong
+* Marine Parade
+* Siglap
+* Tanjong Rhu
+
+|21 |Central West
+a|
+* Clementi
+* Upper Bukit Timah
+* Hume Avenue
+|===
+
+.East +
+|===
+|District |Areas |Location
+
+|16 |Upper East Coast
+a|
+* Bayshore
+* Bedok
+* Chai Chee
+
+|17 |Far East
+a|
+* Changi
+* Loyang
+* Pasir Ris
+
+|18 |Tampines
+a|
+* Pasir Ris
+* Simei
+* Tampines
+|===
+
+.North East
+|===
+|District |Areas |Location
+
+|19 |North East
+a|
+* Hougang
+* Punggol
+* Sengkang
+
+|20 |Ang Mo Kio
+a|
+* Ang Mo Kio
+* Bishan
+* Braddell Road
+* Thomson
+
+|28 |North East
+a|
+* Seletar
+* Yio Chu Kang
+|===
+
+.West
+|===
+|District |Areas |Location
+
+|22 |Far West
+a|
+* Boon Lay
+* Jurong
+* Tuas
+
+|23 |North West
+a|
+* Bukit Batok
+* Choa Chu Kang
+* Hillview Avenue
+* Upper Bukit Timah
+
+|24 |Far North West
+a|
+* Kranji
+* Lim Chu Kang
+* Sungei Gedong
+* Tengah
+|===
+
+.North
+|===
+|District |Areas |Location
+
+|25 |Far North
+a|
+* Admiralty
+* Woodlands
+
+|26 |North
+a|
+* Tagore
+* Yio Chu Kang
+
+|27 |Far North
+a|
+* Admiralty
+* Sembawang
+* Yishun
 |===

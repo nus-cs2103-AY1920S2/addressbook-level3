@@ -21,10 +21,14 @@ import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonOrderBookStorage;
+import seedu.address.storage.JsonReturnOrderBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.OrderBookStorage;
+import seedu.address.storage.ReturnOrderBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -48,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing OrderBook ]===========================");
+        logger.info("=============================[ Initializing Delino ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +60,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
+        ReturnOrderBookStorage returnOrderBookStorage =
+                new JsonReturnOrderBookStorage(userPrefs.getReturnOrderBookFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
-        storage = new StorageManager(orderBookStorage, userPrefsStorage);
+        storage = new StorageManager(orderBookStorage, returnOrderBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -69,16 +75,21 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s order book and {@code userPrefs}. <br>
-     * The data from the sample order book will be used instead if {@code storage}'s order book is not found,
-     * or an empty order book will be used instead if errors occur when reading {@code storage}'s order book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s order book and return order book and
+     * {@code userPrefs}. <br>
+     * The data from the sample order book and return order book will be used instead if {@code storage}'s order book
+     * and return order book is not found,
+     * or an empty order book and an empty return order book will be used instead if errors occur when reading
+     * {@code storage}'s order book and return order book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyOrderBook> orderBookOptional;
+        Optional<ReadOnlyReturnOrderBook> returnOrderBookOptional;
         ReadOnlyOrderBook initialData;
+        ReadOnlyReturnOrderBook initialReturnData;
         try {
             orderBookOptional = storage.readOrderBook();
-            if (!orderBookOptional.isPresent()) {
+            if (orderBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample OrderBook");
             }
             initialData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
@@ -90,7 +101,21 @@ public class MainApp extends Application {
             initialData = new OrderBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        try {
+            returnOrderBookOptional = storage.readReturnOrderBook();
+            if (returnOrderBookOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a sample ReturnOrderBook");
+            }
+            initialReturnData = returnOrderBookOptional.orElseGet(SampleDataUtil::getSampleReturnOrderBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ReturnOrderBook");
+            initialReturnData = new ReturnOrderBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty ReturnOrderBook");
+            initialReturnData = new ReturnOrderBook();
+        }
+
+        return new ModelManager(initialData, initialReturnData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -167,13 +192,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting Order Book " + MainApp.VERSION);
+        logger.info("Starting Delino " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Order Book ] =============================");
+        logger.info("============================ [ Stopping Delino ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
