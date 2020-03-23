@@ -53,7 +53,7 @@ image::Ui.png[width="790"]
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add m/MODULE`, `MODULE` is a parameter which can be used as `add m/CS2103`.
 * Parameters can be entered in any format, unless stated otherwise.
 * Items in square brackets are optional e.g `m/MODULE [g/GRADE]` can be used as `m/CS2103 g/A+` or as `m/CS2103`.
-* Parameters must follow this order: `m/MODULE`, `y/SEMESTER_TAKEN`, `g/GRADE`, `t/TASK`, `d/DEADLINE`, although some are optional.
+* Parameters must follow this order: `m/MODULE`, `y/SEMESTER_INDEX`, `g/GRADE`, `t/TASK`, `d/DEADLINE`, although some are optional.
 ====
 
 === Viewing help : `help` (coming in v2.0)
@@ -64,28 +64,26 @@ Format: `help`
 
 There are *two* things you can do using the `add` command: +
 1) Adds a current/completed module to the manager +
-Format: `add m/MODULE y/SEMESTER_TAKEN [g/GRADE]` +
+Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
 ****
 * `g/GRADE` is optional
-* `y/SEMESTER_TAKEN` must be in the format `y/YEAR.SEMESTER` (eg. y/1.2)
+* `y/SEMESTER_INDEX` must be in the format `y/INTEGER` (eg. A module taken in Year 2 Semester 1 will be y/3)
 ****
 
-2) Adds a task to a module in the manager +
-If the module is new, +
-Format: `add m/MODULE y/SEMESTER_TAKEN [g/GRADE] t/TASK d/DEADLINE` +
-If the module is existing, +
-Format: `add m/MODULE t/TASK d/DEADLINE`
+2) Adds a deadline to a module in the manager +
+Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE] t/TASK d/DEADLINE` +
 
 ****
+* Module must exist in the manager before a deadline can be added
 * `d/DEADLINE` must be in the format `YYYY-MM-DD HH:mm` (eg. 2020-03-31 23:59)
 * `t/TASK d/DEADLINE` will be auto deleted when it is completed
 ****
 
 Examples:
 
-* `add m/CS2105 y/1.2 g/A+`
-* `add m/CS2107 t/Assignment d/2020-03-31 23:59`
+* `add m/CS2105 y/3 g/A+`
+* `add m/CS2107 y/3 t/Assignment d/2020-03-31 23:59`
 
 
 === Editing a module : `edit` (coming in v2.0)
@@ -112,17 +110,23 @@ Examples:
 
 There are multiple details you can show with the `show` command:
 
-1. Show all modules in a specified semester
+1) Show all modules in a specified semester
 
 Format: `show y/SEMESTER_INDEX`
 
 This lists the modules that have been added in this specified semester.
 
-2. Show all modules in a course's requirements
+2) Show all modules in a course's requirements
 
-Format: `find c/COURSE_NAME`
+Format: `show c/COURSE_NAME`
 
 This lists the module requirements under this course.
+
+3) Show details of a module
+
+Format: `show m/MODULE`
+
+This displays all the details of a specified module.
 
 //****
 //* The search is case insensitive. e.g `hans` will match `Hans`
