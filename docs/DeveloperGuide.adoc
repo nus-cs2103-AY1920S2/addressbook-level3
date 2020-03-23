@@ -74,11 +74,13 @@ image::ArchitectureSequenceDiagram.png[] +
 
 image::eylah_overall_class_diagram.png[]
 
+This shows a brief class diagram for EYLAH. [More details to be added in v1.3]
 
 ==== EYLAH Activity Diagram for Expense Splitter
 
-
 image::activityDiagram_for_expensesplitter.png[]
+
+This shows a brief activity diagram for Expense Splitter. [More details to be added in v1.3]
 
 
 The sections below give more details of each component. +
