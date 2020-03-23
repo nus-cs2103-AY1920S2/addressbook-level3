@@ -38,6 +38,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label warehouse;
     @FXML
+    private Label email;
+    @FXML
     private Label cashOnDelivery;
     @FXML
     private Label comment;
@@ -57,6 +59,7 @@ public class OrderCard extends UiPart<Region> {
         tid.setText(order.getTid().tid);
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
+        email.setText(order.getEmail().value);
         address.setText(order.getAddress().value);
         timeStamp.setText(order.getTimestamp().value);
         warehouse.setText(order.getWarehouse().address);
