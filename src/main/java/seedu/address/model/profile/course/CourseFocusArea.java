@@ -2,7 +2,6 @@ package seedu.address.model.profile.course;
 
 import java.util.List;
 
-import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.ModuleCode;
 
 /**
@@ -12,26 +11,39 @@ import seedu.address.model.profile.course.module.ModuleCode;
 public class CourseFocusArea {
 
     private final String focusAreaName;
-    private final List<ModuleCode> modules;
-    private final ModularCredits modularCredits;
+    private final List<ModuleCode> primaries;
+    private final List<ModuleCode> electives;
 
     /**
      * Every field must be present and not null.
      */
-    public CourseFocusArea(String focusAreaName, List<ModuleCode> modules, ModularCredits modularCredits) {
+    public CourseFocusArea(String focusAreaName, List<ModuleCode> primaries, List<ModuleCode> electives) {
         this.focusAreaName = focusAreaName;
-        this.modules = modules;
-        this.modularCredits = modularCredits;
+        this.primaries = primaries;
+        this.electives = electives;
     }
 
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         output.append(focusAreaName + ": ");
-        for (ModuleCode moduleCode : modules) {
-            output.append("\n");
-            output.append(moduleCode);
+
+        if (!primaries.isEmpty()) {
+            output.append("\nArea Primaries");
+            for (ModuleCode moduleCode : primaries) {
+                output.append("\n");
+                output.append(moduleCode);
+            }
         }
+
+        if (!electives.isEmpty()) {
+            output.append("\nArea Electives");
+            for (ModuleCode moduleCode : electives) {
+                output.append("\n");
+                output.append(moduleCode);
+            }
+        }
+
         output.append("\n");
         return output.toString();
     }
