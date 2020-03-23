@@ -13,20 +13,20 @@ import seedu.address.testutil.PersonBuilder;
 public class ProfileTest {
 
     @Test
-    public void isSamePerson() {
+    public void isSameProfile() {
         // same object -> returns true
-        assertTrue(ALICE.isSamePerson(ALICE));
+        assertTrue(ALICE.isSameProfile(ALICE));
 
         // null -> returns false
-        assertFalse(ALICE.isSamePerson(null));
+        assertFalse(ALICE.isSameProfile(null));
 
         // different name -> returns false
         Profile editedAlice = new PersonBuilder().withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSameProfile(editedAlice));
 
         // same name -> returns true
         editedAlice = new PersonBuilder(ALICE).withCourseName("Computer Science").withCurrentSemester("1").build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertTrue(ALICE.isSameProfile(editedAlice));
     }
 
     @Test

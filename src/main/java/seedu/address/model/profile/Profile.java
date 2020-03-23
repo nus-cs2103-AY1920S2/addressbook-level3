@@ -141,7 +141,7 @@ public class Profile {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Profile otherProfile) {
+    public boolean isSameProfile(Profile otherProfile) {
         if (otherProfile == this) {
             return true;
         }
