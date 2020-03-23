@@ -14,6 +14,18 @@ public class Remark {
         value = remark;
     }
 
+    /**
+     * check if a remark is valid or not
+     */
+    public static boolean isValidRemark(String remark) {
+        boolean isValid;
+        if (remark == null) {
+            isValid = false;
+        } else {
+            isValid = true;
+        }
+        return isValid;
+    }
     @Override
     public String toString() {
         return value;
