@@ -25,7 +25,7 @@ import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
-import tatracker.model.session.Session.SessionType;
+import tatracker.model.session.SessionType;
 
 /**
  * Edits the details of an existing session in TAT.
