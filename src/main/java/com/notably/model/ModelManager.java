@@ -15,6 +15,7 @@ import com.notably.commons.core.path.AbsolutePath;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.Body;
+import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.commandinput.CommandInputModel;
 
 import com.notably.model.suggestion.SuggestionItem;
@@ -250,12 +251,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void removeBlock(AbsolutePath p) {
+    public void removeBlock(AbsolutePath p) throws CannotModifyRootException {
         blockModel.removeBlock(p);
     }
 
     @Override
-    public void updateCurrentlyOpenBlockBody(Body newBody) {
+    public void updateCurrentlyOpenBlockBody(Body newBody) throws CannotModifyRootException {
         blockModel.updateCurrentlyOpenBlockBody(newBody);
     }
 }
