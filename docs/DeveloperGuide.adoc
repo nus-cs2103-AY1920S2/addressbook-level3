@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
 
-By: `AY1920S2-CS2103T-W13-1`      Since: `Mar 2020`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -332,7 +332,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Diet Tracker Use Cases
 
 [discrete]
-=== Use case: UC01 Update User Profile
+==== Use case: UC01 Update User Profile
 
 *MSS*
 
@@ -367,7 +367,7 @@ Steps 5a1-5a2 are repeated until the correct  entered is correct. +
 Use case ends.
 
 [discrete]
-=== Use case: UC02 Add Food Item
+==== Use case: UC02 Add Food Item
 
 *MSS*
 
@@ -386,7 +386,7 @@ Steps 1a1-1a2 are repeated until the correct entered is correct. +
 Use case ends.
 
 [discrete]
-=== Use case: UC03 Delete Food Item
+==== Use case: UC03 Delete Food Item
 
 *MSS*
 
@@ -410,7 +410,7 @@ Steps 3a1-3a2 are repeated until the correct  entered is correct. +
 Use case ends.
 
 [discrete]
-=== Use case: UC04 Edit Food Item
+==== Use case: UC04 Edit Food Item
 
 *MSS*
 
@@ -440,7 +440,7 @@ Steps 3b1-3b2 are repeated until the correct  entered is correct. +
 Use case ends.
 
 [discrete]
-=== Use case: UC05 List Food Items
+==== Use case: UC05 List Food Items
 
 *MSS*
 
@@ -458,7 +458,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC06 Calories count
+==== Use case: UC06 Calories count
 
 *MSS*
 
@@ -476,7 +476,7 @@ Use case ends.
 ** 1a2. EYLAH would run the command and calculate the outputs ignoring additional arguments
 
 [discrete]
-=== Use case: UC07 Calculate BMI
+==== Use case: UC07 Calculate BMI
 
 *MSS*
 
@@ -496,7 +496,7 @@ Use case ends.
 === Expense Splitter Use Cases
 
 [discrete]
-=== Use case: UC01 - Add item
+==== Use case: UC01 - Add item
 
 *MSS*
 
@@ -526,13 +526,13 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: UC02 - Delete item
+==== Use case: UC02 - Delete item
 
 *MSS*
 
-1.  User keys in request to calculate the cost.
-2.  EYLAH calculates each Person(s)'s cost.
-3.  EYLAH display cost.
+1.  User keys in request to delete an Item in the current Receipt.
+2.  EYLAH deletes that Item and deducts the appropriate amount associated with each Person(s) involved in splitting that Item.
+3.  EYLAH display a MESSAGE_SUCCESS informing user that Item have been successfully deleted.
 +
 Use case ends.
 
