@@ -4,19 +4,21 @@ import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import fithelper.commons.core.LogsCenter;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.calendar.CalendarSettings;
+import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
-
 import fithelper.model.profile.Profile;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
@@ -96,6 +98,7 @@ public class ModelManager implements Model {
     /**
      * Deletes the given diary.
      * The diary must exist in the log book.
+     *
      * @param target
      */
     @Override
@@ -106,6 +109,7 @@ public class ModelManager implements Model {
     /**
      * Deletes the given entry.
      * The entry must exist in the log book.
+     *
      * @param target
      */
     @Override
@@ -268,6 +272,28 @@ public class ModelManager implements Model {
         filteredSportsEntries.setPredicate(predicate);
     }
 
+    /**
+     * Searches the {@code FoodCalorieTable} and add all entries whose name contains the keyword into a list
+     * add returns the list.
+     *
+     * @param keyword keyword for searching
+     * @return a list of {@code CalorieEntry} with matching keyword
+     */
+    public List<CalorieEntry> searchFoodCalorieTable(String keyword) {
+        return fitHelper.addCalorieEntries("f", keyword);
+    }
+
+    /**
+     * Searches the {@code SportsCalorieTable} and add all entries whose name contains the keyword into a list
+     * add returns the list.
+     *
+     * @param keyword keyword for searching
+     * @return a list of {@code CalorieEntry} with matching keyword
+     */
+    public List<CalorieEntry> searchSportsCalorieTable(String keyword) {
+        return fitHelper.addCalorieEntries("s", keyword);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -305,6 +331,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedEntry);
         vEventList.setVEvent(target, editedEntry);
     }
+
     @Override
     public void deleteVevent(Entry entry) {
         vEventList.deleteVEvent(entry);

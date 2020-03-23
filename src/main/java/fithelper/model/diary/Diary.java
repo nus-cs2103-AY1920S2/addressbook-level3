@@ -12,7 +12,7 @@ public class Diary {
     //Identity field
     private final DiaryId diaryId;
 
-    //Data fields
+    //FoodCalorieEntry fields
     private DiaryDate diaryDate;
     private Content content;
 

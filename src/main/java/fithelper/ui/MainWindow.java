@@ -166,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
             showCalendarPanel();
             break;
         case HELP:
-            showHelpPage();
+            showHelpPageAndCopyUrl();
             break;
         case PROFILE:
             updateProfilePage();
@@ -182,7 +182,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleShowHelpPage() {
-        showHelpPage();
+        showHelpPageAndCopyUrl();
     }
 
     @FXML
@@ -233,10 +233,14 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("My Diary");
     }
 
-    private void showHelpPage() {
+    /**
+     * Goes to the Help Page and copys the url of user guide to the clipboard.
+     */
+    private void showHelpPageAndCopyUrl() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(helpWindow.getRoot());
         currentPage.setText("Help");
+        helpWindow.copyUrl();
     }
 
     /**

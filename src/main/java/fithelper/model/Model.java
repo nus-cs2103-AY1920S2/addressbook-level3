@@ -1,17 +1,17 @@
 package fithelper.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.function.Predicate;
 
 import fithelper.commons.exceptions.IllegalValueException;
+import fithelper.model.calorietable.CalorieEntry;
 import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
-
 import fithelper.model.profile.Profile;
+
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
-
-
 
 /**
  * The API of the Model component.
@@ -131,6 +131,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredSportEntryList(Predicate<Entry> predicate);
+
+    /**
+     * Search the pre-defined FoodCalorie dataset for entries that match the given keyword.
+     * @param keyword keyword for searching
+     */
+    List<CalorieEntry> searchFoodCalorieTable(String keyword);
+
+    /**
+     * Search the pre-defined SportsCalorie dataset for entries that match the given keyword.
+     * @param keyword keyword for searching
+     */
+    List<CalorieEntry> searchSportsCalorieTable(String keyword);
 
     ObservableList<VEvent> getVEvents();
 

@@ -40,11 +40,13 @@ public class HelpWindow extends UiPart<AnchorPane> {
     //+ "update attr/ATTRIBUTE v/VALUE\n"
     //+ "  - edit the information of the user profile [ATTRIBUTE can only be name/address/height/weight]\n"
     public static final String LOOK_FOR_URL = "For detailed information regarding the usage of commands, "
-            + "please access the user guide via:\n";
+            + "please refer to the user guide via\n";
     public static final String USERGUIDE_URL =
-            "https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/docs/UserGuide.adoc";
+            "https://github.com/AY1920S2-CS2103-T09-4/main/blob/master/docs/UserGuide.adoc\n";
+    public static final String URL_COPED =
+            "(We have already stored the url in your clipboard, use ctrl + v in your browser to access the guide)";
     public static final String HELP_MESSAGE = LIST_OF_VALID_COMMANDS;
-    public static final String SHOW_URL = LOOK_FOR_URL + USERGUIDE_URL;
+    public static final String SHOW_URL = LOOK_FOR_URL + USERGUIDE_URL + URL_COPED;
     private static final String FXML = "HelpWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(HelpWindow.class);
 
@@ -74,7 +76,7 @@ public class HelpWindow extends UiPart<AnchorPane> {
      * Copies the URL to the user guide to the clipboard.
      */
     @FXML
-    private void copyUrl() {
+    public void copyUrl() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
