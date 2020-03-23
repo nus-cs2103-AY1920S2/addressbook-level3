@@ -26,7 +26,7 @@ public class DoneSessionCommandParser implements Parser<DoneSessionCommand> {
             return new DoneSessionCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteSessionCommand.MESSAGE_INVALID_INDEX), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneSessionCommand.MESSAGE_INVALID_INDEX), pe);
         }
     }
 }

@@ -26,6 +26,7 @@ public class DoneSessionCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_SUCCESS = "Session completed: %1$s";
+    public static final String MESSAGE_INVALID_INDEX = "Index does not exists";
 
     private final Index index;
 
