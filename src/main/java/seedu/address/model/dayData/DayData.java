@@ -30,6 +30,27 @@ public class DayData {
         return this.tasksDoneData;
     }
 
+    /**
+     * Returns true if both persons have the same identity and data fields. This defines a stronger
+     * notion of equality between two persons.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof DayData)) {
+            return false;
+        }
+
+        DayData otherDayData = (DayData) other;
+        return otherDayData.getDate().equals(getDate())
+                && otherDayData.getPomDurationData().equals(getPomDurationData())
+                && otherDayData.getTasksDoneData().equals(getTasksDoneData());
+    }
+
+
     /*
     public void setDate(Date date) {
         this.date = date;
