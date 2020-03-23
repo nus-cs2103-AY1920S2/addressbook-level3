@@ -10,6 +10,7 @@ import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.commands.EditCommand;
 import com.notably.logic.commands.ExitCommand;
+import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -48,10 +49,15 @@ public class NotablyParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case HelpCommand.COMMAND_WORD:
+            List<Command> helpCommand = new ArrayList<>();
+            helpCommand.add(new HelpCommand());
+            return helpCommand;
+
         case ExitCommand.COMMAND_WORD:
-            List<Command> command = new ArrayList<>();
-            command.add(new ExitCommand());
-            return command;
+            List<Command> exitCommand = new ArrayList<>();
+            exitCommand.add(new ExitCommand());
+            return exitCommand;
 
         default:
             throw new ParseException("Invalid Command");
