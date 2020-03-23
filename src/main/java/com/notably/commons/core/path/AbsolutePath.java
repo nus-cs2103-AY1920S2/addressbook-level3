@@ -12,6 +12,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
 public class AbsolutePath implements Path {
     public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
     public static final String VALIDATION_REGEX = "\\/||(\\/\\p{Alnum}+)+\\/?";
+    public static final AbsolutePath TO_ROOT_PATH = new AbsolutePath("/");
     private final List<String> components;
 
     private AbsolutePath(String absolutePathString) {
@@ -40,9 +41,8 @@ public class AbsolutePath implements Path {
      * Creates an absolute path from a string.
      * @param absolutePathString used to create an absolutePath.
      * @return Absolute Path.
-     * @throws InvalidPathException if String provided is not a valid absolutePath.
      */
-    public static AbsolutePath fromString(String absolutePathString) throws InvalidPathException {
+    public static AbsolutePath fromString(String absolutePathString) {
         if (!isValidAbsolutePath(absolutePathString)) {
             throw new InvalidPathException(INVALID_ABSOLUTE_PATH);
         }
@@ -53,7 +53,6 @@ public class AbsolutePath implements Path {
      * Creates an absolute path from a list of components.
      * @param absoluteComponents used to create an absolutePath.
      * @return Absolute Path.
-     * @throws InvalidPathException if String provided is not a valid absolutePath.
      */
     public static AbsolutePath fromComponents(List<String> absoluteComponents) {
         return new AbsolutePath(absoluteComponents);
@@ -65,10 +64,9 @@ public class AbsolutePath implements Path {
      * @param relativePath used to convert to absolute path.
      * @param currentWorkingPath of the current working directory.
      * @return the converted AbsolutePath.
-     * @throws InvalidPathException
      */
     public static AbsolutePath fromRelativePath(RelativePath relativePath,
-            AbsolutePath currentWorkingPath) throws InvalidPathException {
+            AbsolutePath currentWorkingPath) {
         List<String> temp = new ArrayList<>(relativePath.getComponents());
         List<String> temp2 = new ArrayList<>(currentWorkingPath.getComponents());
         for (String obj : temp) {

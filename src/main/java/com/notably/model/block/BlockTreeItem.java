@@ -5,7 +5,10 @@ import java.util.List;
 import javafx.scene.control.TreeItem;
 
 /**
- * API of the BlockNode component.
+ * API of the BlockTreeItem component.
+ *
+ * A BlockTreeItem is a single node in a BlockTree.
+ * It contains a block as well as information on its parent and children items.
  */
 public interface BlockTreeItem extends Block {
     /**

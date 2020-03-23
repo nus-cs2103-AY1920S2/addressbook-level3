@@ -13,17 +13,16 @@ import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.model.block.Block;
+import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.Body;
-import com.notably.model.commandinput.CommandInputModel;
-
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionModel;
+import com.notably.model.viewstate.ViewStateModel;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
-
 import javafx.beans.property.StringProperty;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -39,7 +38,7 @@ public class ModelManager implements Model {
     private FilteredList<Object> filteredPersons;
     // TODO: set the model variables to final after removing the AB3 attributes.
     private SuggestionModel suggestionModel;
-    private CommandInputModel commandInputModel;
+    private ViewStateModel viewStateModel;
     private BlockModel blockModel;
 
     /**
@@ -61,9 +60,9 @@ public class ModelManager implements Model {
     }
 
     // TODO: to update constructor according to our Model classes.
-    public ModelManager(SuggestionModel suggestionModel, CommandInputModel commandInputModel, BlockModel blockModel) {
+    public ModelManager(SuggestionModel suggestionModel, ViewStateModel viewStateModel, BlockModel blockModel) {
         this.suggestionModel = suggestionModel;
-        this.commandInputModel = commandInputModel;
+        this.viewStateModel = viewStateModel;
         this.blockModel = blockModel;
     }
 
@@ -200,21 +199,35 @@ public class ModelManager implements Model {
         suggestionModel.clearSuggestions();
     }
 
-    //========= CommandInputModel==================================================================
-
+    //=========== ViewStateModel ==================================================================
     @Override
     public StringProperty inputProperty() {
-        return commandInputModel.inputProperty();
+        return viewStateModel.inputProperty();
     }
 
     @Override
     public String getInput() {
-        return commandInputModel.getInput();
+        return viewStateModel.getInput();
     }
 
     @Override
     public void setInput(String input) {
-        commandInputModel.setInput(input);
+        viewStateModel.setInput(input);
+    }
+
+    @Override
+    public BooleanProperty helpOpenProperty() {
+        return viewStateModel.helpOpenProperty();
+    }
+
+    @Override
+    public Boolean isHelpOpen() {
+        return viewStateModel.isHelpOpen();
+    }
+
+    @Override
+    public void setHelpOpen(Boolean bool) {
+        viewStateModel.setHelpOpen(bool);
     }
 
     //========= BlockModel========================================================================

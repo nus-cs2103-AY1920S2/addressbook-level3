@@ -4,15 +4,16 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import com.notably.commons.core.GuiSettings;
-import com.notably.model.commandinput.CommandInputModel;
+import com.notably.model.block.BlockModel;
 import com.notably.model.suggestion.SuggestionModel;
+import com.notably.model.viewstate.ViewStateModel;
 
 import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
  */
-public interface Model extends BlockModel, SuggestionModel, CommandInputModel {
+public interface Model extends BlockModel, SuggestionModel, ViewStateModel {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Object> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 

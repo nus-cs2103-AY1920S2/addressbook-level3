@@ -2,6 +2,8 @@ package com.notably.model.block;
 
 /**
  * API of the Block component.
+ *
+ * A Block is a data node containing a title and a (optionally empty) body.
  */
 public interface Block {
     /**

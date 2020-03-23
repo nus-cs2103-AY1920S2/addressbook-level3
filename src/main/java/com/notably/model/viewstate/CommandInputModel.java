@@ -1,4 +1,4 @@
-package com.notably.model.commandinput;
+package com.notably.model.viewstate;
 
 import javafx.beans.property.StringProperty;
 
