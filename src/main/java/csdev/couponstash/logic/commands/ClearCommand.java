@@ -15,9 +15,9 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
-        model.setCouponStash(new CouponStash());
+        model.setCouponStash(new CouponStash(), commandText);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

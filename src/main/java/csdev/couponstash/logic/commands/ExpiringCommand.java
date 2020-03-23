@@ -34,7 +34,7 @@ public class ExpiringCommand extends Command {
      * external actions that should occur.
      */
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
         model.updateFilteredCouponList(predicate);
         int filteredListSize = model.getFilteredCouponList().size();

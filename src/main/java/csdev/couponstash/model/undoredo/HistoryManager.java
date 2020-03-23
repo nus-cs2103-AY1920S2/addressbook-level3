@@ -10,17 +10,17 @@ import csdev.couponstash.model.CouponStash;
  */
 public class HistoryManager {
     private List<CouponStash> couponStashStateList;
-    private List<String> commandHistory;
+    private List<String> commandTextHistory;
     private int currStateIndex;
 
     public HistoryManager(CouponStash initialState) {
         this.currStateIndex = 0;
 
         this.couponStashStateList = new ArrayList<>();
-        this.commandHistory = new ArrayList<>();
+        this.commandTextHistory = new ArrayList<>();
         this.couponStashStateList.add(initialState);
         // Empty string as initial state had no commands
-        this.commandHistory.add("");
+        this.commandTextHistory.add("");
     }
 
     /**
@@ -34,26 +34,26 @@ public class HistoryManager {
      */
     public void commitState(CouponStash newState, String command) {
         this.couponStashStateList.add(newState);
-        this.commandHistory.add(command);
+        this.commandTextHistory.add(command);
         currStateIndex++;
 
         int stateSize = couponStashStateList.size();
         if (currStateIndex != stateSize - 1) {
 
-            // Purging all coupon stash states and command histories after the currentStatePointer.
+            // Purging all coupon stash states and commandText histories after the currentStatePointer.
             for (int i = currStateIndex + 1; i < stateSize; i++) {
                 couponStashStateList.remove(couponStashStateList.size() - 1);
-                commandHistory.remove(couponStashStateList.size() - 1);
+                commandTextHistory.remove(couponStashStateList.size() - 1);
             }
         }
     }
 
     /**
-     * Returns the next command from the command history.
+     * Returns the next commandText from the commandText history.
      * @return Next command string
      */
-    public String getNextCommand() {
-        return this.commandHistory.get(currStateIndex + 1);
+    public String getNextCommandText() {
+        return this.commandTextHistory.get(currStateIndex + 1);
     }
 
     /**

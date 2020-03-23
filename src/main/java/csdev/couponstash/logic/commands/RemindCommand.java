@@ -79,7 +79,7 @@ public class RemindCommand extends Command {
      *     index is out of range (Coupon does not exist).
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, String commandText) throws CommandException {
 
         List<Coupon> lastShownList = model.getFilteredCouponList();
         Coupon remindCoupon;
@@ -100,7 +100,7 @@ public class RemindCommand extends Command {
 
             remindCoupon = createRemindCoupon(couponToBeRemind, remindDate);
 
-            model.setCoupon(couponToBeRemind, remindCoupon);
+            model.setCoupon(couponToBeRemind, remindCoupon, commandText);
             model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
 
             messageSuccess = "Reminder has been set to remind on "
@@ -121,7 +121,7 @@ public class RemindCommand extends Command {
 
                 remindCoupon = createRemindCoupon(couponToBeRemind, remindDate);
 
-                model.setCoupon(couponToBeRemind, remindCoupon);
+                model.setCoupon(couponToBeRemind, remindCoupon, commandText);
                 model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
 
                 messageSuccess = "Reminder has been set to remind on "

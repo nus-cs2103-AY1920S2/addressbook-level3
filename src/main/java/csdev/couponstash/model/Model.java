@@ -61,7 +61,7 @@ public interface Model {
     /**
      * Replaces CouponStash data with the data in {@code couponStash}.
      */
-    void setCouponStash(ReadOnlyCouponStash couponStash);
+    void setCouponStash(ReadOnlyCouponStash couponStash, String commandText);
 
     /** Returns the CouponStash */
     ReadOnlyCouponStash getCouponStash();
@@ -75,20 +75,20 @@ public interface Model {
      * Deletes the given coupon.
      * The coupon must exist in the CouponStash.
      */
-    void deleteCoupon(Coupon target);
+    void deleteCoupon(Coupon target, String commandText);
 
     /**
      * Adds the given coupon.
      * {@code coupon} must not already exist in the CouponStash.
      */
-    void addCoupon(Coupon coupon);
+    void addCoupon(Coupon coupon, String commandText);
 
     /**
      * Replaces the given coupon {@code target} with {@code editedCoupon}.
      * {@code target} must exist in the CouponStash.
      * The coupon identity of {@code editedCoupon} must not be the same as another existing coupon in the CouponStash.
      */
-    void setCoupon(Coupon target, Coupon editedCoupon);
+    void setCoupon(Coupon target, Coupon editedCoupon, String commandText);
 
     /** Returns an unmodifiable view of the filtered coupon list */
     ObservableList<Coupon> getFilteredCouponList();
