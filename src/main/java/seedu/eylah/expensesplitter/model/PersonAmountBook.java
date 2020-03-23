@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.expensesplitter.model.person.UniquePersonList;
 
@@ -73,6 +74,12 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    public void addAmount(Person person, Amount amount) {
+        requireNonNull(person);
+
+        persons.addAmount(person, amount);
     }
 
     /**

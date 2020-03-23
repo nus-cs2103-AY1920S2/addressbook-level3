@@ -1,9 +1,13 @@
 package seedu.eylah.expensesplitter.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -44,15 +48,6 @@ public class ModelManager implements Model {
         receipt.addEntry(entry);
     }
 
-
-
-    @Override
-    public ReadOnlyPersonAmountBook getPersonAmountBook() {
-        return personAmountBook;
-    }
-
-
-
     /**
      * Removes an entry from the receipt via the index.
      *
@@ -62,8 +57,6 @@ public class ModelManager implements Model {
     public void deleteEntry(int index) {
         receipt.deleteEntry(index);
     }
-
-
 
     /**
      * Intentionally left empty.
@@ -103,6 +96,33 @@ public class ModelManager implements Model {
 
     }
 
+    //=========== PersonAmountBook ===============================================================================
+
+
+    @Override
+    public ReadOnlyPersonAmountBook getPersonAmountBook() {
+        return personAmountBook;
+    }
+
+    /**
+     * Returns true if a person with the same identity as
+     * {@code person} exists in the person amount book.
+     */
+    @Override
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return personAmountBook.hasPerson(person);
+    }
+
+    @Override
+    public void addPerson(Person person) {
+        personAmountBook.addPerson(person);
+    }
+
+    @Override
+    public void addAmount(Person person, Amount amount) {
+        personAmountBook.addAmount(person, amount);
+    }
 
     @Override
     public boolean equals(Object obj) {

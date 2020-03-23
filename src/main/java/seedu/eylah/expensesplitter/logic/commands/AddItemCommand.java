@@ -12,6 +12,7 @@ import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
 import seedu.eylah.expensesplitter.model.Entry;
 import seedu.eylah.expensesplitter.model.Model;
 import seedu.eylah.expensesplitter.model.item.Item;
+import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -30,6 +31,8 @@ public class AddItemCommand extends Command {
     public static final String MESSAGE_SUCCESS = "The entry: \n  -> %1$s\nhas been added.";
 
     private Entry toBeAdded;
+    private ArrayList<Person> persons;
+    private Amount amount;
 
     /**
      * Creates an AddItemCommand to add the specified {@code Item}
@@ -37,8 +40,10 @@ public class AddItemCommand extends Command {
      * @param item Item to be added.
      * @param persons String array of persons to be added.
      */
-    public AddItemCommand(Item item, ArrayList<Person> persons) {
+    public AddItemCommand(Item item, ArrayList<Person> persons, Amount amount) {
         requireAllNonNull(item, persons);
+        this.persons = persons;
+        this.amount = amount;
         toBeAdded = new Entry(item, persons);
     }
 
@@ -46,6 +51,17 @@ public class AddItemCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         model.addEntry(toBeAdded);
+        for (Person person : persons) {
+            if (model.hasPerson(person)) {
+                model.addAmount(person, amount);
+//                person.addAmount(amount); //not sure if necessary
+            } else {
+                // add person, then add amount to that person
+                model.addPerson(person);
+                model.addAmount(person, amount);
+//                person.addAmount(amount); //not sure if necessary
+            }
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));
     }
 

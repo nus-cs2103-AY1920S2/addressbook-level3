@@ -1,5 +1,6 @@
 package seedu.eylah.expensesplitter.model;
 
+import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Person;
 
 /**
@@ -45,5 +46,14 @@ public interface Model {
      * Going back to EYLAH Main Menu.
      */
     void backToMainMenu();
+
+    /**
+     * Returns true if a person with the same identity as
+     * {@code person} exists in the person amount book.
+     */
+    boolean hasPerson(Person person);
+    void addPerson(Person person);
+
+    void addAmount(Person person, Amount amount);
 }
 
