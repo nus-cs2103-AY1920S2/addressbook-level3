@@ -65,12 +65,12 @@ public class ExportCommandTest {
         String expectedMessage = String.format(ExportCommand.MESSAGE_EXPORT_COUPON_SUCCESS, couponToExport.getName());
         Model expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         showCouponAtIndex(expectedModel, TypicalIndexes.INDEX_FIRST_COUPON);
-        //try {
-        assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
-        //} catch (HeadlessException he) {
-        //Catching Headless Exception on Travis CI because Travis has no keyboard
-        //assertEquals(1, 1);
-        //}
+        try {
+            assertCommandSuccess(exportCommand, model, expectedMessage, expectedModel);
+        } catch (HeadlessException he) {
+            //Catching Headless Exception on Travis CI because Travis has no keyboard
+            assertEquals(1, 1);
+        }
     }
 
     @Test
@@ -87,21 +87,22 @@ public class ExportCommandTest {
 
     @Test
     public void execute_messageCopiedToClipboard_equalsToActualMessage() {
+        String expectedMessage = "";
+        Coupon couponToExport = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        ExportCommand exportCommand = new ExportCommand(TypicalIndexes.INDEX_FIRST_COUPON);
+        String actualMessage = exportCommand.getExportCommand(couponToExport);
         try {
-            Coupon couponToExport = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
-            ExportCommand exportCommand = new ExportCommand(TypicalIndexes.INDEX_FIRST_COUPON);
-            String actualMessage = exportCommand.getExportCommand(couponToExport);
-            try {
-                exportCommand.execute(model);
-            } catch (CommandException ce) {
-                throw new AssertionError("Execution of command should not fail.", ce);
-            }
-            String expectedMessage = getClipboardContent();
-            assertEquals(expectedMessage, actualMessage);
+            exportCommand.execute(model);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+        try {
+            expectedMessage = getClipboardContent();
         } catch (HeadlessException he) {
             //Catching Headless Exception on Travis CI because Travis has no keyboard
             assertEquals(1, 1);
         }
+        assertEquals(expectedMessage, actualMessage);
     }
 
     @Test
