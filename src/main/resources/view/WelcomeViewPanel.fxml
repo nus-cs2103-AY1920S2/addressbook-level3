@@ -4,10 +4,18 @@
 <?import javafx.scene.layout.StackPane?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
 <StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <VBox>
-        <Label text="Welcome to MODdy!" styleClass="welcomeTitle" alignment="TOP_LEFT"></Label>
-        <Label text=" Quick start:" styleClass="title"></Label>
-        <Label text=" 1. No new profile? Create using `new`" styleClass="title"></Label>
+        <TextFlow>
+            <Label text="Welcome to " styleClass="welcomeTitle" alignment="TOP_LEFT"></Label>
+            <Label text="MODdy!" styleClass="fancyTitle"></Label>
+        </TextFlow>
+        <Label text=" Quick start:" styleClass="quickStart"></Label>
+        <TextFlow>
+            <Label text=" 1. No new profile? Create using " styleClass="quickStart" ></Label>
+            <Label text="`new`" styleClass="command"></Label>
+        </TextFlow>
+        <Label text="format: new n/Name c/Course cs/Current Semester" styleClass="command"></Label>
     </VBox>
 </StackPane>

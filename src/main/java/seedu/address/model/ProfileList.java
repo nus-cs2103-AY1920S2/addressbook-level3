@@ -4,15 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.UniqueProfileList;
-import seedu.address.model.profile.exceptions.DuplicatePersonException;
-import seedu.address.model.profile.exceptions.PersonNotFoundException;
 
 /**
  * Creates a new ProfileList object which contains Profile objects.
@@ -30,10 +26,6 @@ public class ProfileList {
     public void addProfile(Profile profile) {
         profiles.add(profile);
     }
-
-//    public List<Profile> getProfileList() {
-//        return profileList; // TODO: Implement read-only version of profileList, similar to address book
-//    }
 
     public ObservableList<Profile> getProfileList() {
         return profiles.asUnmodifiableObservableList();

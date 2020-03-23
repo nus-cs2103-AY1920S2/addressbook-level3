@@ -15,9 +15,10 @@ import seedu.address.model.profile.exceptions.PersonNotFoundException;
 
 /**
  * A list of Profiles that enforces uniqueness between its elements and does not allow nulls.
- * A Profile is considered unique by comparing using {@code Profile#isSameProfile(Profile)}. As such, adding and updating of
- * Profiles uses Profile#isSameProfile(Profile) for equality so as to ensure that the Profile being added or updated is
- * unique in terms of identity in the UniqueProfileList. However, the removal of a Profile uses Profile#equals(Object) so
+ * A Profile is considered unique by comparing using {@code Profile#isSameProfile(Profile)}.
+ * As such, adding and updating of Profiles uses Profile#isSameProfile(Profile) for equality so as
+ * to ensure that the Profile being added or updated is unique in terms of identity in the UniqueProfileList.
+ * However, the removal of a Profile uses Profile#equals(Object) so
  * as to ensure that the Profile with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
@@ -75,7 +76,7 @@ public class UniqueProfileList implements Iterable<Profile> {
      * The Profile must exist in the list.
      */
     public void remove(Profile toRemove) {
-              requireNonNull(toRemove);
+        requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
@@ -90,13 +91,13 @@ public class UniqueProfileList implements Iterable<Profile> {
      * Replaces the contents of this list with {@code Profiles}.
      * {@code Profiles} must not contain duplicate Profiles.
      */
-    public void setProfiles(List<Profile> Profiles) {
-        requireAllNonNull(Profiles);
-        if (!ProfilesAreUnique(Profiles)) {
+    public void setProfiles(List<Profile> profiles) {
+        requireAllNonNull(profiles);
+        if (!profilesAreUnique(profiles)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(Profiles);
+        internalList.setAll(profiles);
     }
 
     /**
@@ -126,10 +127,10 @@ public class UniqueProfileList implements Iterable<Profile> {
     /**
      * Returns true if {@code Profiles} contains only unique Profiles.
      */
-    private boolean ProfilesAreUnique(List<Profile> Profiles) {
-        for (int i = 0; i < Profiles.size() - 1; i++) {
-            for (int j = i + 1; j < Profiles.size(); j++) {
-                if (Profiles.get(i).isSameProfile(Profiles.get(j))) {
+    private boolean profilesAreUnique(List<Profile> profiles) {
+        for (int i = 0; i < profiles.size() - 1; i++) {
+            for (int j = i + 1; j < profiles.size(); j++) {
+                if (profiles.get(i).isSameProfile(profiles.get(j))) {
                     return false;
                 }
             }
