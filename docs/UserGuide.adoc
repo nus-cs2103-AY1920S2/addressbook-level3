@@ -302,3 +302,4 @@ image::activityDiagram_for_expensesplitter.png[width="790"]
 
 The fully blackened circle at the top represents the start point while the circle
 at the bottom represents the end point.
+
