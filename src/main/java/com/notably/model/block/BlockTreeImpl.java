@@ -7,8 +7,7 @@ import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
 /**
- * Custom tree-like data structure that uses the AbsolutePath object
- * to obtain the Block needed for manipulation.
+ * Implementation class of BlockTree.
  */
 public class BlockTreeImpl implements BlockTree {
     private BlockTreeItem root;
@@ -41,7 +40,7 @@ public class BlockTreeImpl implements BlockTree {
     }
 
     @Override
-    public void set(AbsolutePath path, Block newBlock) throws CannotModifyRootException {
+    public void set(AbsolutePath path, Block newBlock) {
         requireNonNull(path);
         requireNonNull(newBlock);
         BlockTreeItem currentBlock = get(path);
@@ -54,7 +53,7 @@ public class BlockTreeImpl implements BlockTree {
     }
 
     @Override
-    public void remove(AbsolutePath path) throws CannotModifyRootException {
+    public void remove(AbsolutePath path) {
         requireNonNull(path);
         BlockTreeItem currentBlock = get(path);
         BlockTreeItem parentBlock;
