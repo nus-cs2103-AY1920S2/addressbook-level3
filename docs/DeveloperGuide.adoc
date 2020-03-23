@@ -235,6 +235,47 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//tag::moduleview[]
+=== Module View
+Module view is the term used to characterise the different functionalities
+related to the modules and groups that the user is affiliated with.
+
+==== Model Framework
+The following class diagram shows how different classes are related in the
+functioning of the module view.
+
+.Module View - Class Diagram
+image::ModuleModelClassDiagram.png[]
+
+The TaTracker model class contains a UniqueModuleList which helps it keep track
+of the different modules the user is associated with. Each module contains a
+UniqueGroupList and a UniqueSessionList.
+
+The UniqueGroupList contains a list of all the groups of a module that the user
+is affiliated with. Each group contains a UniqueStudentsList that contains the
+students in that group.
+
+The UniqueSessionList contains a list of all the done sessions associated with the module. This list
+is used in the TSS view.
+
+==== Implementation of the Module Add and Delete Commands
+
+.Module Add - Sequence Diagram
+image::AddModuleSequenceDiagram.png[]
+
+==== Implementation of the Group Add and Delete Commands
+
+.Group Add - Activity Diagram
+image::AddGroupActivityDiagram.png[]
+
+.Group Delete - Sequence Diagram
+image::DeleteGroupSequenceDiagram.png[]
+
+==== Implementation of the Sort Command
+
+.Sort - Sequence Diagram
+image::SortGroupSequenceDiagram.png[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
