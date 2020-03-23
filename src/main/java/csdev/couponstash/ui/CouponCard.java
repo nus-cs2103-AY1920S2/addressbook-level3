@@ -65,7 +65,7 @@ public class CouponCard extends UiPart<Region> {
         this.coupon = coupon;
         id.setText(displayedIndex + ". ");
         name.setText(coupon.getName().fullName);
-        //promoCode.setText("Promo Code: " + coupon.getPromoCode());
+        promoCode.setText("Promo Code: " + coupon.getPromoCode());
         savings.setText(coupon.getSavingsForEachUse().getStringWithMoneySymbol(moneySymbol));
         expiryDate.setText("Expiry Date: " + coupon.getExpiryDate().value);
         startDate.setText("Start Date: " + coupon.getStartDate().value);
