@@ -47,6 +47,7 @@ public class LogicManager implements Logic {
         //  }
     }
 
+    //TODO: refactor this method to StoragePath.
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
