@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseName;
 
@@ -21,11 +22,11 @@ public class CourseManager {
         this(new CourseList());
     }
 
-    public static boolean hasCourse(CourseName courseName) {
+    public static boolean hasCourse(CourseName courseName) throws ParseException {
         return courseList.hasCourse(courseName);
     }
 
-    public static Course getCourse(CourseName courseName) {
+    public static Course getCourse(CourseName courseName) throws ParseException {
         if (hasCourse(courseName)) {
             return courseList.getCourse(courseName);
         }

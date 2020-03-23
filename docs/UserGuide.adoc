@@ -68,14 +68,13 @@ Format: `add m/MODULE y/SEMESTER_TAKEN [g/GRADE]` +
 
 ****
 * `g/GRADE` is optional
-* `y/SEMESTER_TAKEN` must be in the format `y/YEAR.SEMESTER` (eg. y/1.2)
 ****
 
 2) Adds a task to a module in the manager +
 If the module is new, +
 Format: `add m/MODULE y/SEMESTER_TAKEN [g/GRADE] t/TASK d/DEADLINE` +
 If the module is existing, +
-Format: `add m/MODULE t/TASK d/DEADLINE`
+Format: `add m/MODULE y/SEMESTER_TAKEN t/TASK d/DEADLINE`
 
 ****
 * `d/DEADLINE` must be in the format `YYYY-MM-DD HH:mm` (eg. 2020-03-31 23:59)
@@ -84,29 +83,38 @@ Format: `add m/MODULE t/TASK d/DEADLINE`
 
 Examples:
 
-* `add m/CS2105 y/1.2 g/A+`
-* `add m/CS2107 t/Assignment d/2020-03-31 23:59`
+* `add m/CS2105 y/3 g/A+` +
+Adds CS2105 to the list of modules in the MODdy profile with the attributes semester taken (3) and grade (A+)
+* `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59` +
+Adds a deadline "Assignment" with its deadline "2020-03-31 23:59" to the existing module CS2105
 
 
-=== Editing a module : `edit` (coming in v2.0)
+=== Editing a module : `edit`
 
-//Edits an existing person in the address book. +
-//Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits an existing profile or module in MODdy. +
+There are *two* ways you can use the `edit` command: +
 
-//****
-//* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-//* At least one of the optional fields must be provided.
-//* Existing values will be updated to the input values.
-//* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-//* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-//****
+1) Edit the Profile of the user +
+Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
 
-//Examples:
+****
+* Fields in brackets [] are optional, but at least one field should be present to be edited.
+****
 
-//* `edit 1 p/91234567 e/johndoe@example.com` +
-//Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-//* `edit 2 n/Betsy Crower t/` +
-//Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+2) Edit a module present in MODdy +
+Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]
+
+****
+* Fields in brackets [] are optional, but at least one field should be present to be edited.
+* Feature to edit tasks and deadlines will be coming in later versions.
+****
+
+Examples:
+
+* `edit s/Theory and Algorithm` +
+Edits current profile's specialisation to Theory and Algorithm.
+* `edit m/CS2103 g/A+` +
+Edits the grade of existing module CS2103 to A+.
 
 === Showing: `show`
 
@@ -140,25 +148,20 @@ This lists the module requirements under this course.
 //Returns any person having names `Betsy`, `Tim`, or `John`
 
 
-=== New user profile : `new` (coming in v2.0)
+=== New user profile : `new`
 
-//Deletes the specified person from the address book. +
-//Format: `delete INDEX`
+Creates a new Profile. +
+Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 
-//****
-//* Deletes the person at the specified `INDEX`.
-//* The index refers to the index number shown in the displayed person list.
-//* The index *must be a positive integer* 1, 2, 3, ...
-//****
+****
+* Fields in brackets [] are optional.
+* Only one profile is allowed. Changing the profile is to be done using the `edit` command.
+****
 
-//Examples:
+Examples:
 
-//* `list` +
-//`delete 2` +
-//Deletes the 2nd person in the address book.
-//* `find Betsy` +
-//`delete 1` +
-//Deletes the 1st person in the results of the `find` command.
+* `new n/John c/Computer Science cs/4` +
+Creates a new profile with the name John.
 
 
 === Delete a user profile : `delete` (coming in v2.0)
