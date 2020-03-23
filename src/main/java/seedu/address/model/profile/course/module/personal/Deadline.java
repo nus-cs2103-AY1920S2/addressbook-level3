@@ -12,6 +12,10 @@ import seedu.address.model.profile.course.module.exceptions.DateTimeException;
  * Represents a Deadline in Personal.
  */
 public class Deadline {
+    public static final String MESSAGE_CONSTRAINTS = "Date and time field of deadline should be in the format: "
+            + "YYYY-MM-DD and HH:mm respectively. Dates should be valid Gregorian calendar dates"
+            + " and time should be in 24-hour format.";
+
     protected String description;
     protected LocalDate date;
     protected LocalTime time;
@@ -53,6 +57,19 @@ public class Deadline {
 
     public String getInputTimePattern() {
         return inputTimePattern;
+    }
+
+    /**
+     * Returns true if the given date and time are valid.
+     */
+    public static boolean isValidDeadline(String date, String time) { // No point checking the description/task
+        try {
+            LocalDate.parse(date);
+            LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     @Override
