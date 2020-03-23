@@ -2,8 +2,11 @@ package nasa.logic.parser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
+
 import nasa.logic.commands.FindCommand;
 import nasa.logic.parser.exceptions.ParseException;
+import nasa.model.activity.ActivityContainsKeyWordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object.
@@ -24,6 +27,6 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand(); //TODO add the necessary changes when model is complete
+        return new FindCommand(new ActivityContainsKeyWordsPredicate(Arrays.asList(nameKeywords)));
     }
 }
