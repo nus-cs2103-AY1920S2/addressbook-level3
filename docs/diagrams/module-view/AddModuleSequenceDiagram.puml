@@ -22,7 +22,7 @@ LogicManager -> TaTrackerParser : parseCommand("module add \nm/CS2103 n/Software
 activate TaTrackerParser
 
 create ModuleCommandParser
-TaTrackerParser -> ModuleCommandParser
+TaTrackerParser -> ModuleCommandParser : ModuleCommandParser()
 activate ModuleCommandParser
 ModuleCommandParser --> TaTrackerParser
 deactivate ModuleCommandParser
@@ -31,7 +31,7 @@ TaTrackerParser -> ModuleCommandParser : parseCommand("add m/CS2103 \nn/Software
 activate ModuleCommandParser
 
 create AddModuleCommandParser
-ModuleCommandParser -> AddModuleCommandParser
+ModuleCommandParser -> AddModuleCommandParser : AddModuleCommandParser()
 activate AddModuleCommandParser
 AddModuleCommandParser --> ModuleCommandParser
 deactivate AddModuleCommandParser
@@ -75,7 +75,7 @@ Model --> AddModuleCommand
 deactivate Model
 
 create CommandResult
-AddModuleCommand -> CommandResult
+AddModuleCommand -> CommandResult : CommandResult(SuccessMessage)
 activate CommandResult
 CommandResult --> AddModuleCommand
 deactivate CommandResult
