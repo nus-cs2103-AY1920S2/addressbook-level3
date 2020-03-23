@@ -1,0 +1,13 @@
+{
+  "orders": [ {
+    "tid" : " ",
+    "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "phone": "9482424",
+    "address": "4th street",
+    "timestamp": "2020-02-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery" : "3",
+    "comment" : "NIL",
+    "itemType": "NIL"
+  } ]
+}

@@ -38,6 +38,7 @@ public class OrderBuilder {
     private CashOnDelivery cod;
     private Comment comment;
     private TypeOfItem itemType;
+    private boolean deliveryStatus;
 
     public OrderBuilder() {
         tid = new TransactionId(DEFAULT_TID);
@@ -50,6 +51,7 @@ public class OrderBuilder {
         cod = new CashOnDelivery(DEFAULT_COD);
         comment = new Comment(DEFAULT_COMMENT);
         itemType = new TypeOfItem(DEFAULT_TYPE);
+        deliveryStatus = false;
     }
 
     /**
@@ -66,6 +68,7 @@ public class OrderBuilder {
         cod = orderToCopy.getCash();
         comment = orderToCopy.getComment();
         itemType = orderToCopy.getItemType();
+        deliveryStatus = orderToCopy.isDelivered();
     }
 
     /**
@@ -148,8 +151,32 @@ public class OrderBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code boolean} of the {@code Order} that we are building.
+     */
+    public OrderBuilder withDeliveryStatus(boolean status) {
+        this.deliveryStatus = status;
+        return this;
+    }
+
+    /**
+     * Builds a delivered order based on attributes given.
+     * @return A delivered {@Code Order} with the given attributes
+     */
+    public Order buildDelivered() {
+        Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
+        toBuild.setDeliveryStatus(true);
+        return toBuild;
+    }
+
+    /**
+     * Builds a default order based on attributes given.
+     * @return A default {@Code Order} with the given attributes
+     */
     public Order build() {
-        return new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
+        Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
+        toBuild.setDeliveryStatus(false);
+        return toBuild;
     }
 
 }

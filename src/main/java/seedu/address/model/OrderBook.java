@@ -84,11 +84,19 @@ public class OrderBook implements ReadOnlyOrderBook {
         orders.remove(key);
     }
 
+    public void deliverOrder(Order target) {
+        orders.deliver(target);
+    }
+
+    public void setDeliveryStatus(Order target) {
+        orders.setToBeDelivered(target);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return orders.asUnmodifiableObservableList().size() + " persons";
+        return orders.asUnmodifiableObservableList().size() + " orders";
         // TODO: refine later
     }
 

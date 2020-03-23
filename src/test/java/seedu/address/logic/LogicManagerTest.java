@@ -28,10 +28,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 import seedu.address.storage.JsonOrderBookStorage;
+import seedu.address.storage.JsonReturnOrderBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.OrderBuilder;
@@ -47,11 +51,29 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonOrderBookStorage addressBookStorage =
-                new JsonOrderBookStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonOrderBookStorage orderBookStorage =
+                new JsonOrderBookStorage(temporaryFolder.resolve("DeliveryOrderBook.json"));
+        JsonReturnOrderBookStorage returnOrderBookStorage =
+                new JsonReturnOrderBookStorage(temporaryFolder.resolve("ReturnOrderBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(orderBookStorage, returnOrderBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
+    }
+
+    @Test
+    public void getOrderBook_returnCorrectOrderBook_success() {
+        assertEquals(new OrderBook(), logic.getOrderBook());
+        assertEquals(new ReturnOrderBook(), logic.getReturnOrderBook());
+    }
+
+    @Test
+    public void getOrderBookPath_returnDeliveryOrderBookPath_success() {
+        assertEquals(new UserPrefs().getOrderBookFilePath(), logic.getOrderBookFilePath());
+    }
+
+    @Test
+    public void getReturnOrderBookPath_returnReturnOrderBookPath_success() {
+        assertEquals(new UserPrefs().getReturnOrderBookFilePath(), logic.getReturnOrderBookFilePath());
     }
 
     @Test
@@ -75,11 +97,14 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonOrderBookStorage addressBookStorage =
-                new JsonOrderBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        JsonOrderBookStorage deliveryOrderBookStorage =
+                new JsonOrderBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDeliveryOrderBook.json"));
+        JsonReturnOrderBookStorage returnOrderBookStorage =
+                new JsonReturnOrderBookIoExceptionThrowingStub(
+                        temporaryFolder.resolve("ioExceptionReturnOrderBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(deliveryOrderBookStorage, returnOrderBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -98,6 +123,10 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredOrderList().remove(0));
     }
 
+    @Test
+    public void getFilteredReturnOrderList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredReturnOrderList().remove(0));
+    }
 
     /**
      * Executes the command and confirms that
@@ -135,7 +164,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -162,6 +191,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonReturnOrderBookIoExceptionThrowingStub extends JsonReturnOrderBookStorage {
+        private JsonReturnOrderBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveReturnOrderBook(ReadOnlyReturnOrderBook orderBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

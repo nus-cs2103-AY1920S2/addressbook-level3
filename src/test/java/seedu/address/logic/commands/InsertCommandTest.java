@@ -21,6 +21,7 @@ import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
 import seedu.address.testutil.OrderBuilder;
 
 public class InsertCommandTest {
@@ -140,12 +141,72 @@ public class InsertCommandTest {
         }
 
         @Override
+        public void deliverOrder(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void renewDeliveryStatus(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getReturnOrderBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReturnOrderBookFilePath(Path orderBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addReturnOrder(Order order) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReturnOrderBook(ReadOnlyReturnOrderBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyReturnOrderBook getReturnOrderBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasReturnOrder(Order order) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteReturnOrder(Order target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setReturnOrder(Order target, Order editedOrder) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Order> getFilteredOrderList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Order> getFilteredReturnOrderList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredOrderList(Predicate<Order> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredReturnOrderList(Predicate<Order> predicate) {
             throw new AssertionError("This method should not be called.");
         }
     }
