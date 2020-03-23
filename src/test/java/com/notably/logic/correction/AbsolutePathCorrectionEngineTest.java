@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.model.Model;
 import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockTree;
@@ -19,15 +18,9 @@ public class AbsolutePathCorrectionEngineTest {
         @Override
         public BlockTree getBlockTree() {
             BlockTree stubTree = new BlockTreeImpl();
-
-            try {
-                stubTree.add(AbsolutePath.fromString("/"), new BlockImpl(new Title("block")));
-                stubTree.add(AbsolutePath.fromString("/"), new BlockImpl(new Title("another")));
-                stubTree.add(AbsolutePath.fromString("/another"), new BlockImpl(new Title("block")));
-            } catch (InvalidPathException exception) {
-                throw new AssertionError(exception);
-            }
-
+            stubTree.add(AbsolutePath.fromString("/"), new BlockImpl(new Title("block")));
+            stubTree.add(AbsolutePath.fromString("/"), new BlockImpl(new Title("another")));
+            stubTree.add(AbsolutePath.fromString("/another"), new BlockImpl(new Title("block")));
             return stubTree;
         }
     }
@@ -43,7 +36,7 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_withinDistanceThreshold_correctionDone() throws InvalidPathException {
+    public void correct_withinDistanceThreshold_correctionDone() {
         final int distanceThreshold = 2;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 modelStub, distanceThreshold);
@@ -59,7 +52,7 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_exceedDistanceThreshold_correctionFailed() throws InvalidPathException {
+    public void correct_exceedDistanceThreshold_correctionFailed() {
         final int distanceThreshold = 1;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 modelStub, distanceThreshold);
@@ -73,7 +66,7 @@ public class AbsolutePathCorrectionEngineTest {
     }
 
     @Test
-    public void correct_exactMatch_noCorrection() throws InvalidPathException {
+    public void correct_exactMatch_noCorrection() {
         final int distanceThreshold = 1;
         final AbsolutePathCorrectionEngine correctionEngine = new AbsolutePathCorrectionEngine(
                 modelStub, distanceThreshold);

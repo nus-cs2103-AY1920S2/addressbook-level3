@@ -40,9 +40,8 @@ public class RelativePath implements Path {
      * Instantiate a RelativePath object if the string is valid.
      * @param relativePathString used to create RelativePath.
      * @return the converted RelativePath object.
-     * @throws InvalidPathException if the String is invalid (Not relative path).
      */
-    public static RelativePath fromString(String relativePathString) throws InvalidPathException {
+    public static RelativePath fromString(String relativePathString) {
         if (!isValidRelativePath(relativePathString)) {
             throw new InvalidPathException("Not a relative path");
         }
@@ -65,7 +64,6 @@ public class RelativePath implements Path {
      * @param absolutePath to convert to relative path.
      * @param currentWorkingPath of the current working directory.
      * @return the converted relative path.
-     * @throws InvalidPathException
      */
     public static RelativePath fromAbsolutePath(AbsolutePath absolutePath,
             AbsolutePath currentWorkingPath) {
@@ -85,7 +83,7 @@ public class RelativePath implements Path {
      * @param currentWorkingPath of the current working directory.
      * @return the absolute path of the relative path.
      */
-    public AbsolutePath toAbsolutePath(AbsolutePath currentWorkingPath) throws InvalidPathException {
+    public AbsolutePath toAbsolutePath(AbsolutePath currentWorkingPath) {
         return AbsolutePath.fromRelativePath(this, currentWorkingPath);
     }
 
