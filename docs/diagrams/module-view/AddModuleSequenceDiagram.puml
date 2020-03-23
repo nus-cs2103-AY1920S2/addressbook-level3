@@ -1,0 +1,111 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":ModuleCommandParser" as ModuleCommandParser LOGIC_COLOR
+participant ":AddModuleCommandParser" as AddModuleCommandParser LOGIC_COLOR
+participant "a:AddModuleCommand" as AddModuleCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "m:Module" as Module MODEL_COLOR
+end box
+
+[-> LogicManager : execute("module add m/CS2103 n/Software Engineering")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("module add m/CS2103 n/Software Engineering")
+activate TaTrackerParser
+
+create ModuleCommandParser
+TaTrackerParser -> ModuleCommandParser
+activate ModuleCommandParser
+ModuleCommandParser -> TaTrackerParser
+deactivate ModuleCommandParser
+
+TaTrackerParser -> ModuleCommandParser : parseCommand("add m/CS2103 n/Software Engineering")
+activate ModuleCommandParser
+
+create AddModuleCommandParser
+ModuleCommandParser -> AddModuleCommandParser
+activate AddModuleCommandParser
+AddModuleCommandParser --> ModuleCommandParser
+deactivate AddModuleCommandParser
+
+ModuleCommandParser -> AddModuleCommandParser : parseCommand("m/CS2103 n/Software Engineering")
+activate AddModuleCommandParser
+
+create Module
+AddModuleCommandParser -> Module : Module("CS2103", "Software Engineering")
+activate Module
+Module --> AddModuleCommandParser
+deactivate Module
+
+create AddModuleCommand
+AddModuleCommandParser -> AddModuleCommand : AddModuleCommand(m)
+activate AddModuleCommand
+AddModuleCommand --> AddModuleCommandParser
+deactivate AddModuleCommand
+
+
+
+AddModuleCommandParser --> ModuleCommandParser : a
+deactivate AddModuleCommandParser
+AddModuleCommandParser -[hidden]-> ModuleCommandParser
+destroy AddModuleCommandParser
+
+ModuleCommandParser --> TaTrackerParser : a
+deactivate ModuleCommandParser
+ModuleCommandParser -[hidden]-> TaTrackerParser
+destroy ModuleCommandParser
+
+TaTrackerParser --> LogicManager : a
+
+LogicManager -> AddModuleCommand : execute()
+activate AddModuleCommand
+
+AddressBookParser -> DeleteCommandParser : parse("1")
+activate DeleteCommandParser
+
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
+
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> AddressBookParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> AddressBookParser
+destroy DeleteCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> DeleteCommand : execute()
+activate DeleteCommand
+
+DeleteCommand -> Model : deletePerson(1)
+activate Model
+
+Model --> DeleteCommand
+deactivate Model
+
+create CommandResult
+DeleteCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteCommand
+deactivate CommandResult
+
+DeleteCommand --> LogicManager : result
+deactivate DeleteCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
