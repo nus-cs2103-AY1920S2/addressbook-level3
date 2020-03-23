@@ -61,7 +61,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         Queue<BlockTreeItem> queue = new LinkedList<>();
 
         for (BlockTreeItem rootChild : root.getBlockChildren()) {
-            queue.add(rootChild);
+            queue.offer(rootChild);
         }
 
         int index = 0;
@@ -75,7 +75,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
                 } else {
                     queue.clear();
                     for (BlockTreeItem child : children) {
-                        queue.add(child);
+                        queue.offer(child);
                     }
                     index++;
                 }
