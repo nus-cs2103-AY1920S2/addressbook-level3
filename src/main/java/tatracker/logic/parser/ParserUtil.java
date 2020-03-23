@@ -12,9 +12,7 @@ import java.util.Set;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.parser.exceptions.ParseException;
-import tatracker.model.group.Group;
 import tatracker.model.group.Group.GroupType;
-import tatracker.model.session.Session;
 import tatracker.model.session.Session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -175,7 +173,7 @@ public class ParserUtil {
     /**
      * Parses a {@code String sessionType} into a {@code Session.SessionType}
      */
-    public static Session.SessionType parseSessionType(String sessionType) {
+    public static SessionType parseSessionType(String sessionType) {
         requireNonNull(sessionType);
         String trimmedType = sessionType.trim();
         assert (trimmedType.equals(trimmedType.toLowerCase()));
@@ -198,7 +196,7 @@ public class ParserUtil {
     /**
      * Parses and returns Group Type of group.
      */
-    public static Group.GroupType parseGroupType(String type) {
+    public static GroupType parseGroupType(String type) {
         requireNonNull(type);
         String trimmedType = type.trim();
         switch(trimmedType.toLowerCase()) {
