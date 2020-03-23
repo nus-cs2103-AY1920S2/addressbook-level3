@@ -45,9 +45,9 @@ public class JsonOrderBookStorage implements OrderBookStorage {
     public Optional<ReadOnlyOrderBook> readOrderBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableOrderBook> jsonOrderBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableOrderBook.class);
-        if (!jsonOrderBook.isPresent()) {
+        Optional<JsonSerializableDeliveryOrderBook> jsonOrderBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializableDeliveryOrderBook.class);
+        if (jsonOrderBook.isEmpty()) {
             return Optional.empty();
         }
 
@@ -74,7 +74,6 @@ public class JsonOrderBookStorage implements OrderBookStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableOrderBook(orderBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableDeliveryOrderBook(orderBook), filePath);
     }
-
 }

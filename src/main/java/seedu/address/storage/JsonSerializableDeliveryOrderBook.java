@@ -16,18 +16,16 @@ import seedu.address.model.order.Order;
 /**
  * An Immutable OrderBook that is serializable to JSON format.
  */
-@JsonRootName(value = "orderBook")
-class JsonSerializableOrderBook {
-
-    public static final String MESSAGE_DUPLICATE_ORDER = "Orders list contains duplicate order(s).";
-
+@JsonRootName(value = "DeliveryOrderBook")
+class JsonSerializableDeliveryOrderBook {
+    public static final String MESSAGE_DUPLICATE_ORDER = "Delivery order list contains duplicate order(s).";
     private final List<JsonAdaptedOrder> orders = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableOrderBook} with the given orders.
      */
     @JsonCreator
-    public JsonSerializableOrderBook(@JsonProperty("orders") List<JsonAdaptedOrder> orders) {
+    public JsonSerializableDeliveryOrderBook(@JsonProperty("orders") List<JsonAdaptedOrder> orders) {
         this.orders.addAll(orders);
     }
 
@@ -36,7 +34,7 @@ class JsonSerializableOrderBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableOrderBook}.
      */
-    public JsonSerializableOrderBook(ReadOnlyOrderBook source) {
+    public JsonSerializableDeliveryOrderBook(ReadOnlyOrderBook source) {
         orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
     }
 
@@ -55,6 +53,5 @@ class JsonSerializableOrderBook {
             orderBook.addOrder(order);
         }
         return orderBook;
-    }
-
+    };
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
 import java.util.List;
 import java.util.Optional;
@@ -88,10 +88,10 @@ public class DoneCommand extends Command {
 
             model.setOrder(orderToBeDelivered, editedOrder);
             model.deliverOrder(editedOrder);
-            model.updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
             return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
         } else {
-            model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_PERSONS);
+            model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
             return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
         }
     }

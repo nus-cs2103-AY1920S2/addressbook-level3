@@ -1,11 +1,11 @@
 package seedu.address.model.order.exceptions;
 
 /**
- * Signals that the operation will result in duplicate Persons (Persons are considered duplicates if they have the same
+ * Signals that the operation will result in duplicate Orders (Orders are considered duplicates if they have the same
  * identity).
  */
 public class DuplicateOrderException extends RuntimeException {
     public DuplicateOrderException() {
-        super("Operation would result in duplicate persons");
+        super("Operation would result in duplicate orders");
     }
 }
