@@ -1,4 +1,4 @@
-package seedu.foodiebot.model.food;
+package seedu.foodiebot.model.transaction;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.foodiebot.commons.util.CollectionUtil.requireAllNonNull;
@@ -10,15 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.foodiebot.model.stall.exceptions.StallNotFoundException;
-import seedu.foodiebot.model.transaction.PurchasedFood;
 
 /**
  * List of Food Available
  */
 public class PurchasedFoodList implements Iterable<PurchasedFood> {
     private final ObservableList<PurchasedFood> internalList = FXCollections.observableArrayList();
-    private final ObservableList<PurchasedFood> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent food as the given argument.
@@ -37,6 +34,15 @@ public class PurchasedFoodList implements Iterable<PurchasedFood> {
     }
 
     /**
+     * Adds a food to the list in reverse order.
+     */
+    public void addReverse(PurchasedFood toAdd) {
+        add(toAdd);
+        internalList.sort((a, b) -> b.getTimeAdded().compareTo(a.getTimeAdded()));
+    }
+
+
+    /**
      * Removes the equivalent food from the list. The food must exist in the list.
      */
     public void remove(PurchasedFood toRemove) {
@@ -44,6 +50,13 @@ public class PurchasedFoodList implements Iterable<PurchasedFood> {
         if (!internalList.remove(toRemove)) {
             throw new StallNotFoundException();
         }
+    }
+
+    /**
+     * Removes all food in this list.
+     */
+    public void removeAll() {
+        internalList.clear();
     }
 
     /**
@@ -81,8 +94,8 @@ public class PurchasedFoodList implements Iterable<PurchasedFood> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<PurchasedFood> asUnmodifiableObservableList() {
-        return internalUnmodifiableList;
+    public ObservableList<PurchasedFood> getList() {
+        return internalList;
     }
 
     @Override

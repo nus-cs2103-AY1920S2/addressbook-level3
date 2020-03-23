@@ -1,7 +1,8 @@
 package seedu.foodiebot.storage;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+// import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -37,8 +38,9 @@ public class JsonAdaptedPurchasedFood {
 
     // Transaction fields
     private final LocalDate dateAdded;
-    private final Rating rating;
-    private final Review review;
+    private final LocalTime timeAdded;
+    private final String rating;
+    private final String review;
 
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -53,6 +55,7 @@ public class JsonAdaptedPurchasedFood {
             @JsonProperty("canteen") String canteen,
             @JsonProperty("stallName") String stallName,
             @JsonProperty("dateAdded") String dateAdded,
+            @JsonProperty("timeAdded") String timeAdded,
             @JsonProperty("rating") String rating,
             @JsonProperty("review") String review) {
         this.name = name;
@@ -62,9 +65,11 @@ public class JsonAdaptedPurchasedFood {
         this.stallNo = Integer.parseInt(stallNo);
         this.canteen = canteen;
         this.stallName = stallName;
-        this.dateAdded = LocalDate.parse(dateAdded, DateTimeFormatter.ofPattern("d/m/uuuu"));
-        this.rating = new Rating(Integer.parseInt(rating));
-        this.review = new Review(review);
+        // this.dateAdded = LocalDate.parse(dateAdded, DateTimeFormatter.ofPattern("uuuu-M-d"));
+        this.dateAdded = LocalDate.parse(dateAdded);
+        this.timeAdded = LocalTime.parse(timeAdded);
+        this.rating = rating;
+        this.review = review;
     }
 
     /** Converts a given {@code PurchasedFood} into this class for Jackson use. */
@@ -77,8 +82,9 @@ public class JsonAdaptedPurchasedFood {
         this.canteen = source.getCanteen();
         this.stallName = source.getStallName();
         this.dateAdded = source.getDateAdded();
-        this.rating = source.getRating();
-        this.review = source.getReview();
+        this.timeAdded = source.getTimeAdded();
+        this.rating = source.getRating().getRating().toString();
+        this.review = source.getReview().getReview().toString();
     }
 
     public static Set<Tag> getTagSet(String... strings) {
@@ -100,11 +106,20 @@ public class JsonAdaptedPurchasedFood {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final String modelName = name;
-
         final String modelStallName = stallName;
 
+        Rating pfRating = rating.equals("Optional.empty")
+                ? new Rating()
+                : new Rating(Integer.parseInt(rating));
+
+        Review pfReview = review.equals("Optional.empty")
+                ? new Review()
+                : new Review(review);
+
+
         return new PurchasedFood(modelName, price, description, foodImageName, stallNo,
-                canteen, modelStallName, getTagSet("1"), dateAdded, rating, review);
+                canteen, modelStallName, getTagSet("1"),
+                dateAdded, timeAdded, pfRating, pfReview);
     }
 
 
