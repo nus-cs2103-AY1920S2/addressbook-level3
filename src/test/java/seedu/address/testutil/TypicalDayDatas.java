@@ -65,15 +65,21 @@ public class TypicalDayDatas {
                     .build();
 
     // Manually added
-    /*
-    public static final Task OPTIONAL_LAB =
-            new TaskBuilder()
-                    .withName("Bonus Lab")
-                    .withPriority("1")
-                    .withDescription("Implement Google")
+    public static final DayData dayNew =
+            new DayDataBuilder()
+                    .withDate("2020-03-24")
+                    .withPomDurationData("40")
+                    .withTasksDoneData("20")
                     .build();
 
-     */
+    public static final DayData dayNew2 =
+            new DayDataBuilder()
+                    .withDate("2020-03-25")
+                    .withPomDurationData("400")
+                    .withTasksDoneData("1")
+                    .build();
+
+
 
     //public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

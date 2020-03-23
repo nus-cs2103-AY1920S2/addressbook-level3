@@ -1,7 +1,7 @@
 package seedu.address.model;
 
-import java.util.List;
 import seedu.address.model.dayData.DayData;
+import java.util.List;
 
 public interface ReadOnlyStatistics {
     /**

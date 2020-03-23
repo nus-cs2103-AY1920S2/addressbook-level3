@@ -28,12 +28,17 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         return filePath;
     }
 
-    /** Similar to {@link #readStatistics()}. */
+    @Override
     public Optional<ReadOnlyStatistics> readStatistics() throws DataConversionException {
-        requireNonNull(this.filePath);
+        return readStatistics(filePath);
+    }
+
+    /** Similar to {@link #readStatistics()}. */
+    public Optional<ReadOnlyStatistics> readStatistics(Path filePath) throws DataConversionException {
+        requireNonNull(filePath);
 
         Optional<JsonSerializableDayDataList> jsonSerializableDayDataList =
-                JsonUtil.readJsonFile(this.filePath, JsonSerializableDayDataList.class);
+                JsonUtil.readJsonFile(filePath, JsonSerializableDayDataList.class);
         if (!jsonSerializableDayDataList.isPresent()) {
             return Optional.empty();
         }
@@ -46,17 +51,21 @@ public class JsonStatisticsStorage implements StatisticsStorage {
         }
     }
 
+    @Override
+    public void saveStatistics(ReadOnlyStatistics statistics) throws IOException {
+        saveStatistics(statistics, filePath);
+    }
+
     /**
      * Similar to {@link #saveStatistics(ReadOnlyStatistics)}.
      *
      * @param statistics location of the data. Cannot be null.
      */
-    @Override
-    public void saveStatistics(ReadOnlyStatistics statistics) throws IOException {
+    public void saveStatistics(ReadOnlyStatistics statistics, Path filePath) throws IOException {
         requireNonNull(statistics);
-        requireNonNull(this.filePath);
+        requireNonNull(filePath);
 
-        FileUtil.createIfMissing(this.filePath);
+        FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableDayDataList(statistics), filePath);
     }
 }

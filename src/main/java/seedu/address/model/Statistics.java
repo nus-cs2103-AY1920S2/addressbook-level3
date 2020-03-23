@@ -151,7 +151,7 @@ public class Statistics implements ReadOnlyStatistics {
     }
 
     /** Removes oldest DayData from head of the queue. */
-    private DayData pop() {
+    public DayData pop() {
         return dayDataList.remove(0);
     }
 
