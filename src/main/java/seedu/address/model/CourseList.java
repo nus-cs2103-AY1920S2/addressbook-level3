@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseName;
 
@@ -26,7 +27,7 @@ public class CourseList {
     /**
      * Returns true if a course with the same name as {@code CourseName} exists in the course list.
      */
-    public boolean hasCourse(CourseName courseName) {
+    public boolean hasCourse(CourseName courseName) throws ParseException {
         requireNonNull(courseName);
         for (Course course : courseList) {
             if (course.getCourseName().equals(courseName)) {
@@ -36,7 +37,7 @@ public class CourseList {
         return false;
     }
 
-    public Course getCourse(CourseName courseName) {
+    public Course getCourse(CourseName courseName) throws ParseException {
         requireNonNull(courseName);
         for (Course course : courseList) {
             if (course.getCourseName().equals(courseName)) {

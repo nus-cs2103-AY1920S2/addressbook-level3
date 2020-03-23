@@ -91,8 +91,8 @@ Adds a deadline "Assignment" with its deadline "2020-03-31 23:59" to the existin
 
 === Editing a module : `edit`
 
-Edits an existing profile of module in MODdy. +
-There are *two* things you can do with the `edit` command: +
+Edits an existing profile or module in MODdy. +
+There are *two* ways you can use the `edit` command: +
 
 1) Edit the Profile of the user +
 Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
@@ -148,25 +148,20 @@ This lists the module requirements under this course.
 //Returns any person having names `Betsy`, `Tim`, or `John`
 
 
-=== New user profile : `new` (coming in v2.0)
+=== New user profile : `new`
 
-//Deletes the specified person from the address book. +
-//Format: `delete INDEX`
+Creates a new Profile. +
+Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 
-//****
-//* Deletes the person at the specified `INDEX`.
-//* The index refers to the index number shown in the displayed person list.
-//* The index *must be a positive integer* 1, 2, 3, ...
-//****
+****
+* Fields in brackets [] are optional.
+* Only one profile is allowed. Changing the profile is to be done using the `edit` command.
+****
 
-//Examples:
+Examples:
 
-//* `list` +
-//`delete 2` +
-//Deletes the 2nd person in the address book.
-//* `find Betsy` +
-//`delete 1` +
-//Deletes the 1st person in the results of the `find` command.
+* `new n/John c/Computer Science cs/4` +
+Creates a new profile with the name John.
 
 
 === Delete a user profile : `delete` (coming in v2.0)

@@ -11,9 +11,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -24,7 +24,6 @@ import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
-import seedu.address.model.profile.course.module.personal.Personal;
 
 public class EditCommandParser implements Parser<EditCommand> {
 
@@ -46,20 +45,34 @@ public class EditCommandParser implements Parser<EditCommand> {
             ModuleCode moduleCode = new ModuleCode(moduleCodeString);
 
             Module existingModule = null;
+            ArrayList<Module> inList = null;
             Module module = ModuleManager.getModule(moduleCode);
             HashMap<Integer, ArrayList<Module>> hashMap = Profile.getHashMap();
             for (ArrayList<Module> list: hashMap.values()) {
                 for (Module moduleItr: list) {
                     if (module.isSameModule(moduleItr)) {
                         existingModule = moduleItr;
+                        inList = list;
                     }
                 }
             }
             if (existingModule == null) {
-                throw new ParseException(String.format("Error: Module does not exist", AddCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format("Error: Module does not exist", EditCommand.MESSAGE_USAGE));
             }
 
+            int inSemester = getKey(hashMap, inList);
+
             // Module exists
+            if (arePrefixesPresent(argMultimap, PREFIX_SEMESTER)) {
+                String semester = argMultimap.getValue(PREFIX_SEMESTER).get();
+                if (!ParserUtil.isInteger(semester)) {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                }
+                int intSemester = Integer.parseInt(semester);
+                hashMap.get(inSemester).remove(existingModule);
+                Profile.addModule(intSemester, existingModule);
+                updateStatus(Profile.getCurrentSemester());
+            }
             if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
                 String grade = argMultimap.getValue(PREFIX_GRADE).get();
                 existingModule.getPersonal().setGrade(grade);
@@ -99,17 +112,26 @@ public class EditCommandParser implements Parser<EditCommand> {
     private void updateStatus(int currentSemester) {
         HashMap<Integer, ArrayList<Module>> hashMap = Profile.getHashMap();
         for (ArrayList<Module> list: hashMap.values()) {
+            int semester = getKey(hashMap, list);
             for (Module moduleItr: list) {
-                Personal personal = moduleItr.getPersonal();
-                if (personal.getSemester() < currentSemester) {
-                    personal.setStatus("completed");
-                } else if (personal.getSemester() == currentSemester) {
-                    personal.setStatus("in progress");
+                if (semester < currentSemester) {
+                    moduleItr.getPersonal().setStatus("completed");
+                } else if (semester == currentSemester) {
+                    moduleItr.getPersonal().setStatus("in progress");
                 } else {
-                    personal.setStatus("not taken");
+                    moduleItr.getPersonal().setStatus("not taken");
                 }
             }
         }
+    }
+
+    public <K, V> K getKey(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     /**

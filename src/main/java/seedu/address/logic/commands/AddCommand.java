@@ -126,7 +126,7 @@ public class AddCommand extends Command {
             personal.addDeadline(deadline);
         }
 
-        int currentSemester = profile.getCurrentSemester();
+        int currentSemester = Profile.getCurrentSemester();
         if (addSemester < currentSemester) {
             personal.setStatus("completed");
         } else if (addSemester == currentSemester) {
@@ -138,7 +138,7 @@ public class AddCommand extends Command {
         module.setPersonal(personal);
 
         if (!hasModule) {
-            profile.addModule(addSemester, module);
+            Profile.addModule(addSemester, module);
             return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
         } else {
             return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd));
