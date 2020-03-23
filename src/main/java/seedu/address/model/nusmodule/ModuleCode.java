@@ -2,7 +2,6 @@ package seedu.address.model.nusmodule;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.searcher.Module;
 import seedu.address.searcher.Search;
 
 /**

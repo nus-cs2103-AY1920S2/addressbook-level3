@@ -17,6 +17,7 @@ import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Capulator;
+import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 
@@ -143,14 +144,30 @@ public class ModelManager implements Model {
     }
   
   //=========== Cap Module ==================================================================================
-    public boolean hasModule(NusModule module) {
-        requireNonNull(module);
-        return modules.contains(module);
+    public boolean hasModule(ModuleCode moduleCode) {
+        requireNonNull(moduleCode);
+        for (NusModule module: modules) {
+            if (module.getModuleCode().equals(moduleCode)) {
+                return true;
+            }
+        }
+       return false;
     }
 
     @Override
     public void addModule(NusModule module) {
         modules.add(module);
+    }
+
+    @Override
+    public void deleteModule(ModuleCode moduleCode) {
+        int index = -1;
+        for (int i = 0; i < modules.size(); i++) {
+            if (modules.get(i).getModuleCode().equals(moduleCode)) {
+                index = i;
+            }
+        }
+        modules.remove(index);
     }
 
     @Override

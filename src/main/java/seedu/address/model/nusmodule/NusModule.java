@@ -2,6 +2,8 @@ package seedu.address.model.nusmodule;
 
 import java.util.Optional;
 
+import seedu.address.searcher.Module;
+
 /**
  * Represents a module in NUS.
  */
@@ -28,6 +30,10 @@ public class NusModule {
 
     public void setGrade(Grade grade) {
         this.grade = Optional.ofNullable(grade);
+    }
+
+    public ModuleCode getModuleCode() {
+        return this.moduleCode;
     }
 
     @Override
