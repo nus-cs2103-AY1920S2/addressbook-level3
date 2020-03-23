@@ -131,14 +131,16 @@
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
-
+/*
+Command input area background colour
+ */
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: /*derive(#1d1d1d, 20%)*/ white;
+     -fx-border-color: /*derive(#1d1d1d, 10%)*/ white;
      -fx-border-top-width: 1px;
 }
 
@@ -191,7 +193,7 @@
 .context-menu .label {
     -fx-text-fill: white;
 }
-
+/*help bar*/
 .menu-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
