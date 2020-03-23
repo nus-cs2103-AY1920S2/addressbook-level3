@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
@@ -46,10 +45,9 @@ public class ReturnCommand extends Command {
             + PREFIX_COMMENT + "NIL "
             + PREFIX_TYPE + "glass";
 
-    public static final String MESSAGE_SUCCESS = "This order has been marked as a return: %1$s";
-    public static final String MESSAGE_DUPLICATE_RETURN = "This return already exists in the returns book";
+    public static final String MESSAGE_SUCCESS = "This return order has been created: %1$s";
+    public static final String MESSAGE_DUPLICATE_RETURN = "This return order already exists in the returns book";
 
-    private final Order toReturn;
     private final ReturnOrder toBeCreated;
 
     /**
@@ -58,7 +56,6 @@ public class ReturnCommand extends Command {
     public ReturnCommand(ReturnOrder returnOrder) {
         requireNonNull(returnOrder);
         toBeCreated = returnOrder;
-        toReturn = null;
     }
 
     @Override
@@ -77,6 +74,6 @@ public class ReturnCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReturnCommand // instanceof handles nulls
-                && toReturn.equals(((ReturnCommand) other).toReturn));
+                && toBeCreated.equals(((ReturnCommand) other).toBeCreated));
     }
 }

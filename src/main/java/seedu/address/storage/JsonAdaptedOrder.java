@@ -39,11 +39,14 @@ class JsonAdaptedOrder {
      * Constructs a {@code JsonAdaptedOrder} with the given order details.
      */
     @JsonCreator
-    public JsonAdaptedOrder(@JsonProperty("tid") String tid, @JsonProperty("name") String name,
-                            @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+    public JsonAdaptedOrder(@JsonProperty("tid") String tid,
+                            @JsonProperty("name") String name,
+                            @JsonProperty("phone") String phone,
+                            @JsonProperty("email") String email,
                             @JsonProperty("address") String address,
                             @JsonProperty("timestamp") String timeStamp,
-                            @JsonProperty("warehouse") String warehouse, @JsonProperty("cashOnDelivery") String cod,
+                            @JsonProperty("warehouse") String warehouse,
+                            @JsonProperty("cashOnDelivery") String cod,
                             @JsonProperty("comment") String comment,
                             @JsonProperty("itemType") String itemType,
                             @JsonProperty("deliveryStatus") boolean deliveryStatus) {

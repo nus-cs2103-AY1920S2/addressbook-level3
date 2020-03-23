@@ -8,7 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.order.exceptions.DuplicateOrderException;
+import seedu.address.model.order.exceptions.DuplicateReturnOrderException;
 import seedu.address.model.order.exceptions.OrderNotFoundException;
 import seedu.address.model.order.returnorder.ReturnOrder;
 
@@ -47,7 +47,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     public void add(ReturnOrder toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateOrderException();
+            throw new DuplicateReturnOrderException();
         }
         internalList.add(toAdd);
     }
@@ -66,7 +66,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
         }
 
         if (!target.isSameReturn(editedReturn) && contains(editedReturn)) {
-            throw new DuplicateOrderException();
+            throw new DuplicateReturnOrderException();
         }
 
         internalList.set(index, editedReturn);
@@ -95,7 +95,7 @@ public class UniqueReturnOrderList implements Iterable<ReturnOrder> {
     public void setReturns(List<ReturnOrder> returnOrders) {
         requireAllNonNull(returnOrders);
         if (!ordersAreUnique(returnOrders)) {
-            throw new DuplicateOrderException();
+            throw new DuplicateReturnOrderException();
         }
 
         internalList.setAll(returnOrders);

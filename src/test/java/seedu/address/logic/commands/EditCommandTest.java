@@ -14,7 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.FLAG_FORCE_CLEAR;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ORDER;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
-import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
+import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +24,9 @@ import seedu.address.logic.commands.EditCommand.EditOrderDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
+import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.returnorder.ReturnOrderBook;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 

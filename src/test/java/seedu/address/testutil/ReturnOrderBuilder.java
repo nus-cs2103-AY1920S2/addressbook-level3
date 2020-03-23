@@ -6,11 +6,11 @@ import seedu.address.model.order.Address;
 import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
-import seedu.address.model.order.Order;
 import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * A utility class to help with building Return Order objects.
@@ -39,6 +39,7 @@ public class ReturnOrderBuilder {
     private Comment comment;
     private TypeOfItem itemType;
     private boolean deliveryStatus;
+    private boolean isReturn;
 
     public ReturnOrderBuilder() {
         tid = new TransactionId(DEFAULT_TID);
@@ -52,12 +53,13 @@ public class ReturnOrderBuilder {
         comment = new Comment(DEFAULT_COMMENT);
         itemType = new TypeOfItem(DEFAULT_TYPE);
         deliveryStatus = false;
+        isReturn = true;
     }
 
     /**
      * Initializes the OrderBuilder with the data of {@code orderToCopy}.
      */
-    public ReturnOrderBuilder(Order orderToCopy) {
+    public ReturnOrderBuilder(ReturnOrder orderToCopy) {
         tid = orderToCopy.getTid();
         name = orderToCopy.getName();
         phone = orderToCopy.getPhone();
@@ -65,18 +67,10 @@ public class ReturnOrderBuilder {
         address = orderToCopy.getAddress();
         timeStamp = orderToCopy.getTimestamp();
         warehouse = orderToCopy.getWarehouse();
-        cod = orderToCopy.getCash();
         comment = orderToCopy.getComment();
         itemType = orderToCopy.getItemType();
         deliveryStatus = orderToCopy.isDelivered();
-    }
-
-    /**
-     * Sets the {@code TransactionId} of the {@code Order} that we are building.
-     */
-    public ReturnOrderBuilder withCash(String cod) {
-        this.cod = new CashOnDelivery(cod);
-        return this;
+        isReturn = orderToCopy.isReturn();
     }
 
     /**
@@ -159,24 +153,15 @@ public class ReturnOrderBuilder {
         return this;
     }
 
-    /**
-     * Builds a delivered order based on attributes given.
-     * @return A delivered {@Code Order} with the given attributes
-     */
-    public Order buildDelivered() {
-        Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
-        toBuild.setDeliveryStatus(true);
-        return toBuild;
-    }
+
 
     /**
      * Builds a default order based on attributes given.
      * @return A default {@Code Order} with the given attributes
      */
-    public Order build() {
-        Order toBuild = new Order(tid, name, phone, email, address, timeStamp, warehouse, cod, comment, itemType);
-        toBuild.setDeliveryStatus(false);
+    public ReturnOrder build() {
+        ReturnOrder toBuild = new ReturnOrder(tid, name, phone, email, address,
+                timeStamp, warehouse, comment, itemType);
         return toBuild;
     }
-
 }

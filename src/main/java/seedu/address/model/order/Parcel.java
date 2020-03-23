@@ -13,4 +13,8 @@ public abstract class Parcel {
     protected abstract Warehouse getWarehouse();
     protected abstract boolean isDelivered();
     protected abstract boolean isReturn();
+
+    public abstract void setDeliveryStatus(boolean b);
+
+    public abstract void setIsReturn(boolean b);
 }

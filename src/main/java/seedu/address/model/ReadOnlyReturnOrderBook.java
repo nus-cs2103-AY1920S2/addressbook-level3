@@ -1,6 +1,7 @@
-package seedu.address.model.order.returnorder;
+package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * Unmodifiable view of an order book

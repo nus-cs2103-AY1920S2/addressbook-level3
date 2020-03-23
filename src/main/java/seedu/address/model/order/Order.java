@@ -96,6 +96,10 @@ public class Order extends Parcel {
         deliveryStatus = status;
     }
 
+    public void setIsReturn(boolean isReturn) {
+        this.isReturn = isReturn;
+    }
+
     public boolean isReturn() {
         return isReturn;
     }

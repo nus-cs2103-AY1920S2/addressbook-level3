@@ -2,6 +2,8 @@ package seedu.address.model.util;
 
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.ReadOnlyReturnOrderBook;
+import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
@@ -13,9 +15,8 @@ import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.order.returnorder.ReadOnlyReturnOrderBook;
 import seedu.address.model.order.returnorder.ReturnOrder;
-import seedu.address.model.order.returnorder.ReturnOrderBook;
+
 
 /**
  * Contains utility methods for populating {@code OrderBook} with sample data.
