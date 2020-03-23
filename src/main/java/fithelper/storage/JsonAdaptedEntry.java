@@ -15,7 +15,6 @@ import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
 
-
 /**
  * Jackson-friendly version of {@link Entry}.
  */
