@@ -1,6 +1,7 @@
 package nasa.logic.commands;
 
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS2030;
+import static nasa.model.util.SampleDataUtil.getSampleNasaBook;
 import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,7 +34,7 @@ import nasa.testutil.DeadlineBuilder;
  */
 public class EditActivityCommandTest {
 
-     private Model model = new ModelManager(NASABOOK_TYPE_1, new UserPrefs());
+     private Model model = new ModelManager(getSampleNasaBook(), new UserPrefs());
      private ModuleCode moduleCode = new ModuleCode(VALID_MODULE_CS2030);
 
     @Test
@@ -41,7 +42,8 @@ public class EditActivityCommandTest {
         /*
         Activity editedActivity = new DeadlineBuilder().build();
         EditActivityDescriptor descriptor = new EditActivityDescriptorBuilder(editedActivity).build();
-        EditActivityCommand editActivityCommand = new EditActivityCommand(INDEX_FIRST_PERSON, moduleCode, descriptor);
+
+        EditActivityCommand editActivityCommand = new EditActivityCommand(INDEX_FIRST_ACTIVITY, moduleCode, descriptor);
 
         String expectedMessage = String.format(EditActivityCommand.MESSAGE_EDIT_ACTIVITY_SUCCESS, editedActivity);
 

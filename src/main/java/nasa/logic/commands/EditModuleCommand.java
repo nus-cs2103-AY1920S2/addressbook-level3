@@ -6,7 +6,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
 import javafx.collections.ObservableList;
-import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
@@ -15,9 +14,8 @@ import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-import nasa.commons.core.Messages;
 
-import java.util.*;
+import java.util.Optional;
 
 /**
  * Edits a module in the NASA book.
@@ -30,14 +28,12 @@ public class EditModuleCommand extends Command {
             + "by the module code in the displayed NASA application. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE"
-            + "INDEX (must be a positive integer)"
+            + PREFIX_MODULE + "MODULE CODE "
             + "[" + PREFIX_MODULE + "MODULE CODE] "
             + "[" + PREFIX_MODULE_NAME + "MODULE NAME]\n"
-            + "Example: " + COMMAND_WORD
-            + PREFIX_MODULE + "CS2030"
-            + "1"
-            + PREFIX_MODULE + "CS2020"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_MODULE + "CS2030 "
+            + PREFIX_MODULE + "CS2020 "
             + PREFIX_MODULE_NAME + "Data Structures and Algorithms II";
 
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module";
@@ -46,21 +42,8 @@ public class EditModuleCommand extends Command {
     public static final String EXCESS_MODULE_CODE = "Failed to edit module code. EXACTLY 2 module codes must be " +
             "entered to edit module code.";
 
-    //    private final Index index;
     private final ModuleCode moduleCode;
     private final EditModuleCommand.EditModuleDescriptor editModuleDescriptor;
-
-//    /**
-//     * Creates an EditModuleCommand to edit a module at specified {@code index}
-//     * @param index Index of module to be edited
-//     */
-//    public EditModuleCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
-//        requireNonNull(index);
-//        requireNonNull(editModuleDescriptor);
-//
-//        this.index = index;
-//        this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
-//    }
 
     /**
      * Creates an EditModuleCommand to edit a module at specified {@code index}
@@ -78,20 +61,14 @@ public class EditModuleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-//        List<Module> lastShownList = model.getFilteredModuleList();
 
-//        if (index.getZeroBased() >= lastShownList.size()) {
-//            throw new nasa.logic.commands.exceptions.CommandException(Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-//        }
-
-        // TODO: @kester need to discuss the logic for the line below further
         ModuleCode moduleCodeToEdit = this.moduleCode;
         Module moduleToEdit = model.getNasaBook().getUniqueModuleList().getModule(moduleCodeToEdit);
         requireNonNull(moduleToEdit);
 
         Module editedModule = createEditedModule(moduleToEdit, editModuleDescriptor);
 
-        if (!moduleToEdit.isSameModule(editedModule) && model.hasModule(editedModule)) {
+        if (moduleToEdit.isSameModule(editedModule) || model.hasModule(editedModule)) {
             throw new nasa.logic.commands.exceptions.CommandException(MESSAGE_DUPLICATE_MODULE);
         }
 
