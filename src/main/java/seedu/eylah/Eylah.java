@@ -1,5 +1,4 @@
 package seedu.eylah;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -16,8 +15,11 @@ import seedu.eylah.diettracker.logic.LogicManager;
 import seedu.eylah.diettracker.logic.commands.CommandResult;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
+import seedu.eylah.diettracker.model.FoodBook;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.ModelManager;
+import seedu.eylah.diettracker.storage.FoodBookStorage;
+import seedu.eylah.diettracker.storage.JsonFoodBookStorage;
 import seedu.eylah.expensesplitter.model.PersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyPersonAmountBook;
 import seedu.eylah.expensesplitter.model.ReadOnlyUserPrefs;
@@ -42,6 +44,7 @@ public class Eylah {
 
     protected Logic dietLogic;
     protected Model dietModel;
+    protected FoodBookStorage dietPath;
     protected seedu.eylah.expensesplitter.logic.Logic splitterLogic;
     protected seedu.eylah.expensesplitter.model.Model splitterModel;
 
@@ -67,9 +70,18 @@ public class Eylah {
         String input = ui.readCommand();
         if (input.equals("diet")) {
             // Diet mode
+            Config config;
+
+            config = initConfig(null);
+
+            seedu.eylah.diettracker.storage.UserPrefsStorage userPrefsStorage = new seedu.eylah.diettracker.storage.JsonUserPrefsStorage(config.getUserPrefsFilePath());
+            seedu.eylah.diettracker.model.UserPrefs userPrefs = initPrefsDiet(userPrefsStorage);
+            FoodBookStorage foodBookStorage = new JsonFoodBookStorage(userPrefs.getFoodBookFilePath());
+            seedu.eylah.diettracker.storage.Storage storage = new seedu.eylah.diettracker.storage.StorageManager(foodBookStorage, userPrefsStorage);
+
             logger.info("Entering Diet MODE.");
-            dietModel = new ModelManager();
-            dietLogic = new LogicManager(dietModel, null);
+            dietModel = initModelManagerDiet(storage, userPrefs);
+            dietLogic = new LogicManager(dietModel, storage);
             while (!isExit) {
                 System.out.println("Enter Diet Command: ");
                 input = ui.readCommand();
@@ -154,6 +166,31 @@ public class Eylah {
         return new seedu.eylah.expensesplitter.model.ModelManager(new Receipt(), initialData, userPrefs);
     }
 
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
+     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     */
+    private seedu.eylah.diettracker.model.Model initModelManagerDiet(FoodBookStorage storage, seedu.eylah.diettracker.model.ReadOnlyUserPrefs userPrefs) {
+        Optional<seedu.eylah.diettracker.model.ReadOnlyFoodBook> foodBookOptional;
+        seedu.eylah.diettracker.model.ReadOnlyFoodBook initialData;
+        try {
+            foodBookOptional = storage.readFoodBook();
+            if (!foodBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample FoodBook");
+            }
+            initialData = foodBookOptional.orElseGet(seedu.eylah.diettracker.model.util.SampleDataUtil::getSampleFoodBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty FoodBook");
+            initialData = new FoodBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty FoodBook");
+            initialData = new FoodBook();
+        }
+
+        return new ModelManager(initialData, userPrefs);
+    }
+
 
 
 
@@ -193,7 +230,6 @@ public class Eylah {
         return initializedConfig;
     }
 
-
     /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
@@ -226,6 +262,37 @@ public class Eylah {
         return initializedPrefs;
     }
 
+    /**
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * reading from the file.
+     */
+    protected seedu.eylah.diettracker.model.UserPrefs initPrefsDiet(seedu.eylah.diettracker.storage.UserPrefsStorage storage) {
+        Path prefsFilePath = storage.getUserPrefsFilePath();
+        logger.info("Using prefs file : " + prefsFilePath);
+
+        seedu.eylah.diettracker.model.UserPrefs initializedPrefs;
+        try {
+            Optional<seedu.eylah.diettracker.model.UserPrefs> prefsOptional = storage.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new seedu.eylah.diettracker.model.UserPrefs());
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                    + "Using default user prefs");
+            initializedPrefs = new seedu.eylah.diettracker.model.UserPrefs();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initializedPrefs = new seedu.eylah.diettracker.model.UserPrefs();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            storage.saveUserPrefs(initializedPrefs);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+
+        return initializedPrefs;
+    }
 
 
     /**
