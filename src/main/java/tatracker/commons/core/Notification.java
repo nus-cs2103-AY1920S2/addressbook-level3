@@ -47,7 +47,7 @@ public class Notification {
     }
 
     /**
-     * Sends
+     * Triggers a OS-level system notification.
      *
      * @param caption The title displayed in the notification
      * @param message The message displayed in the notification
