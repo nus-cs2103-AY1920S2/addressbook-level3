@@ -1,16 +1,19 @@
 package fithelper.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import fithelper.model.calorietable.CalorieEntry;
+import fithelper.model.calorietable.FoodCalorieTable;
+import fithelper.model.calorietable.SportsCalorieTable;
 import fithelper.model.diary.Diary;
 import fithelper.model.diary.UniqueDiaryList;
 import fithelper.model.entry.Entry;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all entry-related data at the FitHelper level
@@ -24,8 +27,11 @@ public class FitHelper implements ReadOnlyFitHelper {
     private final UniqueEntryList reminderEntries = new UniqueEntryList();
     private final UniqueEntryList todayFoodEntries = new UniqueEntryList();
     private final UniqueEntryList todaySportsEntries = new UniqueEntryList();
+    private final FoodCalorieTable foodCalorieTable = new FoodCalorieTable();
+    private final SportsCalorieTable sportsCalorieTable = new SportsCalorieTable();
 
-    public FitHelper() {}
+    public FitHelper() {
+    }
 
     /**
      * Creates an FitHelper using the Entries in the {@code toBeCopied}
@@ -359,5 +365,44 @@ public class FitHelper implements ReadOnlyFitHelper {
         allList.add(todayFoodEntries);
         allList.add(todaySportsEntries);
         return allList.hashCode();
+    }
+
+    /**
+     * Searches one of the tables and add all entries whose name contains the keyword into a list
+     * add returns the list.
+     *
+     * @param type
+     * @param keyword
+     * @return a list of {@code CalorieEntry} with matching keyword.
+     */
+    public List<CalorieEntry> addCalorieEntries(String type, String keyword) {
+        List<CalorieEntry> result = new ArrayList<>();
+        List<? extends CalorieEntry> entries;
+        if (type.equals("f")) {
+            entries = foodCalorieTable.getEntries();
+        } else {
+            entries = sportsCalorieTable.getEntries();
+        }
+        for (CalorieEntry entry : entries) {
+            addMatchingEntries(keyword, result, entry);
+        }
+        return result;
+    }
+
+    /**
+     * Checks if the name of a particular entry contains the keyword. If so, adds the entry into the list.
+     *
+     * @param keyword
+     * @param result
+     * @param entry
+     */
+    private void addMatchingEntries(String keyword, List<CalorieEntry> result, CalorieEntry entry) {
+        String[] words = entry.getName().split(" ");
+        for (String word : words) {
+            if (word.toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(entry);
+                break;
+            }
+        }
     }
 }

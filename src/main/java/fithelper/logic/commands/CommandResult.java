@@ -42,7 +42,6 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.displayedPage = HOME;
         this.exit = exit;
         if (this.exit) {
             exit();

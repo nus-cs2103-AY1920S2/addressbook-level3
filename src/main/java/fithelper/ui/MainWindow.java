@@ -232,6 +232,9 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("My Diary");
     }
 
+    /**
+     * Goes to the Help Page and copys the url of user guide to the clipboard.
+     */
     private void showHelpPageAndCopyUrl() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(helpWindow.getRoot());
