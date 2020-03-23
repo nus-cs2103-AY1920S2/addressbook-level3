@@ -23,7 +23,8 @@ public class CouponListPanel extends UiPart<Region> {
 
     /**
      * Constructor for a CouponListPanel.
-     * @param couponList The ObservableList of Coupons to be shown.
+     *
+     * @param couponList  The ObservableList of Coupons to be shown.
      * @param moneySymbol The money symbol for the Savings of the Coupons.
      */
     public CouponListPanel(ObservableList<Coupon> couponList, String moneySymbol) {
@@ -40,6 +41,7 @@ public class CouponListPanel extends UiPart<Region> {
 
         /**
          * Constructor for a new CouponListViewCell.
+         *
          * @param moneySymbol The String representing the
          *                    money symbol to be displayed
          *                    on the Coupon's Savings.
@@ -60,5 +62,4 @@ public class CouponListPanel extends UiPart<Region> {
             }
         }
     }
-
 }
