@@ -1,6 +1,7 @@
 package com.notably.logic.suggestion.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,6 @@ import com.notably.model.block.BlockImpl;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeImpl;
 import com.notably.model.block.Title;
-import com.notably.model.suggestion.SuggestionItem;
-import com.notably.model.suggestion.SuggestionItemImpl;
 
 public class OpenSuggestionCommandTest {
     private static BlockTree blockTree;
@@ -68,64 +67,42 @@ public class OpenSuggestionCommandTest {
     }
 
     @Test
-    public void setSuggestionsToModelTest() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
-        List<AbsolutePath> possiblePaths = new ArrayList<>();
-        possiblePaths.add(toCs2103Week1);
-        possiblePaths.add(toCs2103Week1Lecture);
-        List<SuggestionItem> suggestions = new ArrayList<>();
-        suggestions.add(new SuggestionItemImpl("/CS2103/Week1", () -> model.setInput("/CS2103/Week1")));
-        suggestions.add(new SuggestionItemImpl("/CS2103/Week1/Lecture", () ->
-            model.setInput("/CS2103/Week1/Lecture")));
-        openSuggestionCommand.setSuggestionsToModel(model, suggestions);
-        assertEquals(suggestions.get(0), model.getSuggestions().get(0));
-        assertEquals(suggestions.get(1), model.getSuggestions().get(1));
+    public void constructor_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(null));
     }
 
-    /* TODO: add after BlockModelImpl is done.
     @Test
-    public void updatePossiblePaths_fromRoot_test() {
+    public void execute_nullModel_throwsNullPointerException() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
-        openSuggestionCommand.updatePossiblePaths(toRoot, model);
-        List<AbsolutePath> possiblePathsFromCommand = openSuggestionCommand.getPossiblePaths();
-        List<AbsolutePath> possiblePaths = new ArrayList<>();
-        possiblePaths.add(toCs2103);
-        possiblePaths.add(toCs3230);
-        possiblePaths.add(toCs2103Week1);
-        possiblePaths.add(toCs2103Week2);
-        possiblePaths.add(toCs2103Week3);
-        possiblePaths.add(toCs2103Week1Lecture);
+        assertThrows(NullPointerException.class, () -> openSuggestionCommand.execute(null));
+    }
 
-        for (int i = 0; i < possiblePaths.size(); i++) {
-            assertTrue(possiblePathsFromCommand.get(i).equals(possiblePaths.get(i)));
-        }
-    }*/
-
-    /*
     @Test
-    public void getChildRecursiveTest() {
+    public void getPossiblePathsTest_fromSubTree() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103);
-        BlockTreeItem cs2103BlockTreeItem = blockTree.get(toCs2103);
-        //openSuggestionCommand.getChildRecursive(cs2103BlockTreeItem, toCs2103.getComponents());
-        List<AbsolutePath> possiblePaths = openSuggestionCommand.getPossiblePaths();
+        List<AbsolutePath> possiblePaths = openSuggestionCommand.getPossiblePaths(model);
 
         List<AbsolutePath> expectedPossiblePaths = new ArrayList<>();
         expectedPossiblePaths.add(toCs2103);
-        expectedPossiblePaths.add(toCs2103Week1);
+        expectedPossiblePaths.add(toCs2103Week1Lecture);
         expectedPossiblePaths.add(toCs2103Week2);
         expectedPossiblePaths.add(toCs2103Week3);
-        expectedPossiblePaths.add(toCs2103Week1Lecture);
-        //assertEquals(expectedPossiblePaths, possiblePaths);
-    }*/
+
+        assertEquals(expectedPossiblePaths, possiblePaths);
+    }
 
     @Test
-    public void getSuggestions_displayText_test() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
-        List<AbsolutePath> possiblePaths = new ArrayList<>();
-        possiblePaths.add(toCs2103Week1);
-        possiblePaths.add(toCs2103Week1Lecture);
-        List<SuggestionItem> suggestions = openSuggestionCommand.getSuggestions(possiblePaths, model);
-        assertEquals("/CS2103/Week1", suggestions.get(0).getDisplayText());
-        assertEquals("/CS2103/Week1/Lecture", suggestions.get(1).getDisplayText());
+    public void getPossiblePathsTest_fromRoot() {
+        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
+        List<AbsolutePath> possiblePaths = openSuggestionCommand.getPossiblePaths(model);
+
+        List<AbsolutePath> expectedPossiblePaths = new ArrayList<>();
+        expectedPossiblePaths.add(toRoot);
+        expectedPossiblePaths.add(toCs2103Week1Lecture);
+        expectedPossiblePaths.add(toCs2103Week2);
+        expectedPossiblePaths.add(toCs2103Week3);
+        expectedPossiblePaths.add(toCs3230);
+
+        assertEquals(expectedPossiblePaths, possiblePaths);
     }
 }
