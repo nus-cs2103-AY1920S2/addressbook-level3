@@ -22,12 +22,17 @@ import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
 import seedu.zerotoone.model.util.SampleExerciseDataUtil;
+import seedu.zerotoone.model.util.SampleWorkoutDataUtil;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
+import seedu.zerotoone.model.workout.WorkoutList;
 import seedu.zerotoone.storage.Storage;
 import seedu.zerotoone.storage.StorageManager;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.exercise.ExerciseListStorageManager;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorageManager;
+import seedu.zerotoone.storage.workout.WorkoutListStorage;
+import seedu.zerotoone.storage.workout.WorkoutListStorageManager;
 import seedu.zerotoone.ui.Ui;
 import seedu.zerotoone.ui.UiManager;
 
@@ -60,7 +65,8 @@ public class MainApp extends Application {
         // -----------------------------------------------------------------------------------------
         // Exercise List
         ExerciseListStorage exerciseListStorage = new ExerciseListStorageManager(userPrefs.getExerciseListFilePath());
-        storage = new StorageManager(userPrefsStorage, exerciseListStorage);
+        WorkoutListStorage workoutListStorage = new WorkoutListStorageManager(userPrefs.getWorkoutListFilePath());
+        storage = new StorageManager(userPrefsStorage, exerciseListStorage, workoutListStorage);
 
         // -----------------------------------------------------------------------------------------
         // Common
@@ -79,6 +85,9 @@ public class MainApp extends Application {
         Optional<ReadOnlyExerciseList> exerciseListOptional;
         ReadOnlyExerciseList initialExerciseListData;
 
+        Optional<ReadOnlyWorkoutList> workoutListOptional;
+        ReadOnlyWorkoutList initialWorkoutListData;
+
         // -----------------------------------------------------------------------------------------
         // Exercise List
         try {
@@ -95,7 +104,23 @@ public class MainApp extends Application {
             initialExerciseListData = new ExerciseList();
         }
 
-        return new ModelManager(userPrefs, initialExerciseListData);
+        // -----------------------------------------------------------------------------------------
+        // Workout List
+        try {
+            workoutListOptional = storage.readWorkoutList();
+            if (!workoutListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample WorkoutList");
+            }
+            initialWorkoutListData = workoutListOptional.orElseGet(SampleWorkoutDataUtil::getSampleWorkoutList);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty WorkoutList");
+            initialWorkoutListData = new WorkoutList();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty WorkoutList");
+            initialWorkoutListData = new WorkoutList();
+        }
+
+        return new ModelManager(userPrefs, initialExerciseListData, initialWorkoutListData);
     }
 
     private void initLogging(Config config) {
