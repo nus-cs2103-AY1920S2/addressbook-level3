@@ -39,6 +39,10 @@ public class StartDate {
      * Returns true if a given string is a valid start date.
      */
     public static boolean isValidStartDate(String test) {
+        LocalDate testDate = LocalDate.now();
+        if (test.matches(VALIDATION_REGEX)) {
+            testDate = LocalDate.parse(test, DATE_FORMATTER);
+        }
         return ("").equals(test) || (test.matches(VALIDATION_REGEX));
     }
 

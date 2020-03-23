@@ -64,6 +64,8 @@ public class RemindDate {
      * Returns true if a given string reminddate are a valid remind date.
      */
     public static boolean isValidRemindDate(String remindTest) {
+        LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
+
         return remindTest.matches(VALIDATION_REGEX);
     }
 

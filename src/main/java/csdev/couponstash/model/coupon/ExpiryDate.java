@@ -35,6 +35,11 @@ public class ExpiryDate {
      * Returns true if a given string is a valid expiry date.
      */
     public static boolean isValidExpiryDate(String test) {
+        LocalDate testDate = LocalDate.now();
+
+        if (test.matches(VALIDATION_REGEX)) {
+            testDate = LocalDate.parse(test, DATE_FORMATTER);
+        }
         return test.matches(VALIDATION_REGEX);
     }
 
