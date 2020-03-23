@@ -99,7 +99,7 @@ public class RelativePath implements Path {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Path)) {
+        if (!(object instanceof RelativePath)) {
             return false;
         }
         Path another = (Path) object;
