@@ -1,8 +1,10 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
@@ -30,8 +32,10 @@ public class RecipeUtil {
     public static String getRecipeDetails(Recipe recipe) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + recipe.getName().name + " ");
-        sb.append(PREFIX_INGREDIENTS + recipe.getIngredients().ingredientListString + " ");
-        sb.append(PREFIX_INSTRUCTIONS + recipe.getInstructions().instructionListString + " ");
+        sb.append(PREFIX_INGREDIENTS + recipe.getIngredients().toString() + " ");
+        sb.append(PREFIX_INSTRUCTIONS + recipe.getInstructions().toString() + " ");
+        sb.append(PREFIX_CALORIE + recipe.getCalorie().toString() + " ");
+        sb.append(PREFIX_SERVING + recipe.getServing().toString() + " ");
         recipe.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -45,9 +49,11 @@ public class RecipeUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
         descriptor.getIngredients().ifPresent(ingredients -> sb.append(PREFIX_INGREDIENTS)
-                .append(ingredients.ingredientListString).append(" "));
+                .append(ingredients.toString()).append(" "));
         descriptor.getInstructions().ifPresent(instructions -> sb.append(PREFIX_INSTRUCTIONS)
-                .append(instructions.instructionListString).append(" "));
+                .append(instructions.toString()).append(" "));
+        descriptor.getCalorie().ifPresent(calorie -> sb.append(PREFIX_CALORIE).append(calorie.toString()).append(" "));
+        descriptor.getServing().ifPresent(serving -> sb.append(PREFIX_SERVING).append(serving.toString()).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

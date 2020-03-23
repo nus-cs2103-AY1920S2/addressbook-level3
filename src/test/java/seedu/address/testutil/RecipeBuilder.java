@@ -1,12 +1,16 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.recipe.Recipe;
+import seedu.address.model.recipe.attribute.Calorie;
+import seedu.address.model.recipe.attribute.Ingredient;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.InstructionList;
 import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Serving;
 import seedu.address.model.recipe.attribute.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -16,7 +20,8 @@ import seedu.address.model.util.SampleDataUtil;
 public class RecipeBuilder {
 
     public static final String DEFAULT_NAME = "Ham Sandwich";
-    public static final String DEFAULT_INGREDIENT_LIST = "bread, 2 slices; ham, 1 slice";
+    public static final List<Ingredient> DEFAULT_INGREDIENT_LIST = List.of(new Ingredient("bread, 2 slices"),
+            new Ingredient("ham, 1 slice"));
     public static final String DEFAULT_INSTRUCTION_LIST = "place ham between slices of bread; eat";
     public static final String DEFAULT_CALORIE = "300";
     public static final String DEFAULT_SERVING = "2";
@@ -25,6 +30,8 @@ public class RecipeBuilder {
     private Name name;
     private IngredientList ingredients;
     private InstructionList instructions;
+    private Calorie calorie;
+    private Serving serving;
     private Set<Tag> tags;
 
     public RecipeBuilder() {
