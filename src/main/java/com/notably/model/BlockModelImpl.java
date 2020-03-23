@@ -20,8 +20,8 @@ public class BlockModelImpl implements BlockModel {
     private Property<AbsolutePath> currentlyOpenPath;
 
     public BlockModelImpl() {
-		blockTree = new BlockTreeImpl();
-		currentlyOpenPath = new SimpleObjectProperty<AbsolutePath>(AbsolutePath.TO_ROOT_PATH);
+        blockTree = new BlockTreeImpl();
+        currentlyOpenPath = new SimpleObjectProperty<AbsolutePath>(AbsolutePath.TO_ROOT_PATH);
     }
 
     @Override

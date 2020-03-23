@@ -4,17 +4,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockImpl;
-import com.notably.model.block.Title;
 import com.notably.model.block.Body;
+import com.notably.model.block.Title;
 import com.notably.model.block.exceptions.CannotModifyRootException;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 
@@ -49,12 +49,12 @@ public class BlockModelTest {
 
     @Test
     public void updateCurrentlyOpenBlockBody_setRootBody_throwsCannotModifyRootException () {
-        assertThrows(CannotModifyRootException.class,
-            () -> blockModel.updateCurrentlyOpenBlockBody(new Body("New Body")));
+        assertThrows(CannotModifyRootException.class, () -> blockModel.updateCurrentlyOpenBlockBody(
+                new Body("New Body")));
     }
 
     @Nested
-    public class BlockModelTest_withSampleData {
+    public class BlockModelTestWithSampleData {
         @BeforeEach
         public void setUpBeforeEach() {
             blockModel = new BlockModelImpl();
