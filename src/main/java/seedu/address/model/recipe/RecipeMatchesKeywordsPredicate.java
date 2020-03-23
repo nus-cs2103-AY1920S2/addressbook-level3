@@ -42,92 +42,8 @@ public class RecipeMatchesKeywordsPredicate implements Predicate<Recipe> {
 
     @Override
     public boolean test(Recipe recipe) {
-        boolean toFilter = true;
-        if (time.size() == 1) {
-            toFilter = toFilter && time.get(0).isLessThan(recipe.getTime());
-        } else if (time.size() == 2) {
-            toFilter = toFilter && recipe.getTime().isWithinRange(time.get(0), time.get(1));
-        }
-
-        if (!goals.isEmpty()) {
-            toFilter = toFilter && goals.stream().anyMatch(goal -> recipe.getGoals().contains(goal));
-        }
-
-        if (favourites) {
-            toFilter = toFilter && recipe.isFavourite();
-        }
-
-        if (!grains.isEmpty()) {
-            ArrayList<String> grainsInRecipe = new ArrayList<>();
-            recipe.getGrains().forEach(grain -> grainsInRecipe.add(grain.getIngredientName().toLowerCase()));
-
-            if (getIncludedIngredientNameStream(grains).count() > 0) {
-                toFilter = toFilter && getIncludedIngredientNameStream(grains).anyMatch(grainsInRecipe::contains);
-            }
-            if (getExcludedIngredientNameStream(grains).count() > 0) {
-                toFilter = toFilter
-                        && getExcludedIngredientNameStream(grains)
-                        .anyMatch(grain -> !grainsInRecipe.contains(grain));
-            }
-        }
-
-        if (!vegetables.isEmpty()) {
-            ArrayList<String> vegeInRecipe = new ArrayList<>();
-            recipe.getVegetables().forEach(vege -> vegeInRecipe.add(vege.getIngredientName().toLowerCase()));
-
-            if (getIncludedIngredientNameStream(vegetables).count() > 0) {
-                toFilter = toFilter && getIncludedIngredientNameStream(vegetables).anyMatch(vegeInRecipe::contains);
-            }
-            if (getExcludedIngredientNameStream(vegetables).count() > 0) {
-                toFilter = toFilter
-                        && getExcludedIngredientNameStream(vegetables)
-                        .anyMatch(grain -> !vegeInRecipe.contains(grain));
-            }
-        }
-
-        if (!proteins.isEmpty()) {
-            ArrayList<String> proteinsInRecipe = new ArrayList<>();
-            recipe.getProteins().forEach(protein -> proteinsInRecipe.add(protein.getIngredientName().toLowerCase()));
-
-            if (getIncludedIngredientNameStream(proteins).count() > 0) {
-                toFilter = toFilter && getIncludedIngredientNameStream(proteins).anyMatch(proteinsInRecipe::contains);
-            }
-            if (getExcludedIngredientNameStream(proteins).count() > 0) {
-                toFilter = toFilter
-                        && getExcludedIngredientNameStream(proteins)
-                        .anyMatch(grain -> !proteinsInRecipe.contains(grain));
-            }
-        }
-
-        if (!fruits.isEmpty()) {
-            ArrayList<String> fruitsInRecipe = new ArrayList<>();
-            recipe.getFruits().forEach(fruit -> fruitsInRecipe.add(fruit.getIngredientName().toLowerCase()));
-
-            if (getIncludedIngredientNameStream(fruits).count() > 0) {
-                toFilter = toFilter && getIncludedIngredientNameStream(fruits).anyMatch(fruitsInRecipe::contains);
-            }
-            if (getExcludedIngredientNameStream(fruits).count() > 0) {
-                toFilter = toFilter
-                        && getExcludedIngredientNameStream(fruits)
-                        .anyMatch(grain -> !fruitsInRecipe.contains(grain));
-            }
-        }
-
-        if (!others.isEmpty()) {
-            ArrayList<String> othersInRecipe = new ArrayList<>();
-            recipe.getOthers().forEach(other -> othersInRecipe.add(other.getIngredientName().toLowerCase()));
-
-            if (getIncludedIngredientNameStream(others).count() > 0) {
-                toFilter = toFilter && getIncludedIngredientNameStream(others).anyMatch(othersInRecipe::contains);
-            }
-            if (getExcludedIngredientNameStream(others).count() > 0) {
-                toFilter = toFilter
-                        && getExcludedIngredientNameStream(others)
-                        .anyMatch(grain -> !othersInRecipe.contains(grain));
-            }
-        }
-
-        return toFilter;
+        return timeTest(recipe) && goalsTest(recipe) && favouritesTest(recipe) && grainsTest(recipe)
+                && vegetablesTest(recipe) && proteinsTest(recipe) && fruitsTest(recipe) && othersTest(recipe);
     }
 
     /**
@@ -147,6 +63,174 @@ public class RecipeMatchesKeywordsPredicate implements Predicate<Recipe> {
                 .map(ingredient -> ingredient.getIngredientName().toLowerCase())
                 .filter(ingredient -> ingredient.startsWith("exclude"))
                 .map(ingredient -> ingredient.substring(7).trim());
+    }
+
+    /**
+     * If time predicate exists, tests if recipe's {@code Time} fulfills the time predicate and returns the outcome.
+     * Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean timeTest(Recipe recipe) {
+        if (time.size() == 1) {
+            return time.get(0).isLessThan(recipe.getTime());
+        } else if (time.size() == 2) {
+            return recipe.getTime().isWithinRange(time.get(0), time.get(1));
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * If goals predicate exists, tests if recipe's {@code Goal} fulfills the goals predicate and returns the outcome.
+     * Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean goalsTest(Recipe recipe) {
+        if (!goals.isEmpty()) {
+            return goals.stream().anyMatch(goal -> recipe.getGoals().contains(goal));
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * If favourites predicate exists, tests if recipe is a favourite and returns the outcome.
+     * Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean favouritesTest(Recipe recipe) {
+        if (favourites) {
+            return recipe.isFavourite();
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * If grains predicate exists, tests if recipe's {@code Grain} ingredients fulfill the grains predicate
+     * and returns the outcome. Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean grainsTest(Recipe recipe) {
+        if (!grains.isEmpty()) {
+            boolean hasMatchCriteria = true;
+            ArrayList<String> grainsInRecipe = new ArrayList<>();
+            recipe.getGrains().forEach(grain -> grainsInRecipe.add(grain.getIngredientName().toLowerCase()));
+
+            if (getIncludedIngredientNameStream(grains).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getIncludedIngredientNameStream(grains)
+                        .anyMatch(grainsInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(grains).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getExcludedIngredientNameStream(grains)
+                        .anyMatch(grain -> !grainsInRecipe.contains(grain));
+            }
+            return hasMatchCriteria;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * If vegetables predicate exists, tests if recipe's {@code Vegetable} ingredients fulfill the vegetables predicate
+     * and returns the outcome. Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean vegetablesTest(Recipe recipe) {
+        if (!vegetables.isEmpty()) {
+            boolean hasMatchCriteria = true;
+            ArrayList<String> vegeInRecipe = new ArrayList<>();
+            recipe.getVegetables().forEach(vege -> vegeInRecipe.add(vege.getIngredientName().toLowerCase()));
+
+            if (getIncludedIngredientNameStream(vegetables).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getIncludedIngredientNameStream(vegetables)
+                        .anyMatch(vegeInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(vegetables).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getExcludedIngredientNameStream(vegetables)
+                        .anyMatch(vegetable -> !vegeInRecipe.contains(vegetable));
+            }
+            return hasMatchCriteria;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * If proteins predicate exists, tests if recipe's {@code Protein} ingredients fulfill the proteins predicate
+     * and returns the outcome. Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean proteinsTest(Recipe recipe) {
+        if (!proteins.isEmpty()) {
+            boolean hasMatchCriteria = true;
+            ArrayList<String> proteinsInRecipe = new ArrayList<>();
+            recipe.getProteins().forEach(protein -> proteinsInRecipe.add(protein.getIngredientName().toLowerCase()));
+
+            if (getIncludedIngredientNameStream(proteins).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getIncludedIngredientNameStream(proteins)
+                        .anyMatch(proteinsInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(proteins).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getExcludedIngredientNameStream(proteins)
+                        .anyMatch(protein -> !proteinsInRecipe.contains(protein));
+            }
+            return hasMatchCriteria;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * If fruits predicate exists, tests if recipe's {@code Fruit} ingredients fulfill the fruits predicate
+     * and returns the outcome. Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean fruitsTest(Recipe recipe) {
+        if (!fruits.isEmpty()) {
+            boolean hasMatchCriteria = true;
+            ArrayList<String> fruitsInRecipe = new ArrayList<>();
+            recipe.getFruits().forEach(fruit -> fruitsInRecipe.add(fruit.getIngredientName().toLowerCase()));
+
+            if (getIncludedIngredientNameStream(fruits).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getIncludedIngredientNameStream(fruits)
+                        .anyMatch(fruitsInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(fruits).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getExcludedIngredientNameStream(fruits)
+                        .anyMatch(fruit -> !fruitsInRecipe.contains(fruit));
+            }
+            return hasMatchCriteria;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * If others predicate exists, tests if recipe's {@code Other} ingredients fulfill the others predicate
+     * and returns the outcome. Otherwise, returns true to allow the recipe to pass through by default.
+     */
+    private boolean othersTest(Recipe recipe) {
+        if (!others.isEmpty()) {
+            boolean hasMatchCriteria = true;
+            ArrayList<String> othersInRecipe = new ArrayList<>();
+            recipe.getOthers().forEach(other -> othersInRecipe.add(other.getIngredientName().toLowerCase()));
+
+            if (getIncludedIngredientNameStream(others).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getIncludedIngredientNameStream(others)
+                        .anyMatch(othersInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(others).count() > 0) {
+                hasMatchCriteria = hasMatchCriteria
+                        && getExcludedIngredientNameStream(others)
+                        .anyMatch(other -> !othersInRecipe.contains(other));
+            }
+            return hasMatchCriteria;
+        } else {
+            return true;
+        }
     }
 
     @Override
