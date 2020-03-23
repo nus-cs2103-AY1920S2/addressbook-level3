@@ -5,6 +5,8 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import tatracker.model.group.Group;
 import tatracker.model.group.UniqueGroupList;
+import tatracker.model.session.Session;
+import tatracker.model.session.UniqueSessionList;
 
 /**
  * Represents a module in the TAT.
@@ -13,20 +15,44 @@ public class Module {
     private final String identifier;
     private final String name;
     private final UniqueGroupList groups;
+    private final UniqueSessionList doneSessions;
 
     /**
      * Constructs a group object.
      *
      * @param identifier identifies the module. Usually equal
      *                   to the module code.
+     * @param name the name of the module.
      */
     public Module(String identifier, String name) {
         this.identifier = identifier;
         this.name = name;
         groups = new UniqueGroupList();
+        doneSessions = new UniqueSessionList();
     }
 
-    //TODO: the following methods
+    /**
+     * Adds a done session to the list of done sessions.
+     */
+    public void addSession(Session session) {
+        doneSessions.add(session);
+    }
+
+    /**
+     * Deletes the session that is of the given index.
+     */
+    public void deleteSession(int n) {
+        doneSessions.remove(n);
+    }
+
+
+    /**
+     * Returns the session list.
+     */
+    public ObservableList<Session> getSessionList() {
+        return doneSessions.asUnmodifiableObservableList();
+    }
+
     /**
      * Adds a group to the list of groups.
      */

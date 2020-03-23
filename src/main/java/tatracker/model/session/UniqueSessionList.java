@@ -82,6 +82,19 @@ public class UniqueSessionList implements Iterable<Session> {
         }
     }
 
+    /**
+     * Removes the session of the given index from the list.
+     * The session must exist in the list.
+     */
+    public void remove(int n) {
+        requireNonNull(n);
+        if (n < 0 || n > internalList.size()) {
+            throw new SessionNotFoundException();
+        }
+
+        internalList.remove(n);
+    }
+
     public void setSessions(UniqueSessionList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
