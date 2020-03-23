@@ -92,14 +92,12 @@ public class ExportCommandTest {
         String actualMessage = exportCommand.getExportCommand(couponToExport);
         try {
             exportCommand.execute(model);
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
-        }
-        try {
             assertEquals(getClipboardContent(), actualMessage);
         } catch (HeadlessException he) {
             //Catching Headless Exception on Travis CI because Travis has no keyboard
             assertEquals(1, 1);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
 
