@@ -10,11 +10,14 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.recipe.IngredientList;
-import seedu.address.model.recipe.InstructionList;
-import seedu.address.model.recipe.Name;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.Calorie;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Serving;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
  * Jackson-friendly version of {@link Recipe}.
@@ -26,6 +29,8 @@ class JsonAdaptedRecipe {
     private final String name;
     private final String ingredients;
     private final String instructions;
+    private final String calorie;
+    private final int serving;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -33,11 +38,14 @@ class JsonAdaptedRecipe {
      */
     @JsonCreator
     public JsonAdaptedRecipe(@JsonProperty("name") String name, @JsonProperty("ingredients") String ingredients,
-                             @JsonProperty("instructions") String instructions,
+            @JsonProperty("instructions") String instructions, @JsonProperty("calorie") String calorie,
+                             @JsonProperty("serving") int serving,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;
+        this.calorie = calorie;
+        this.serving = serving;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -48,17 +56,19 @@ class JsonAdaptedRecipe {
      */
     public JsonAdaptedRecipe(Recipe source) {
         name = source.getName().name;
-        ingredients = source.getIngredients().ingredientListString;
-        instructions = source.getInstructions().instructionListString;
-        tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+        ingredients = source.getIngredients().toString();
+        instructions = source.getInstructions().toString();
+        calorie = source.getCalorie().calorie;
+        serving = source.getServing().serving;
+        tagged.addAll(source.getTags().stream().map(JsonAdaptedTag::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this Jackson-friendly adapted recipe object into the model's {@code Recipe} object.
+     * Converts this Jackson-friendly adapted recipe object into the model's
+     * {@code Recipe} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted recipe.
+     * @throws IllegalValueException if there were any data constraints violated in
+     *                               the adapted recipe.
      */
     public Recipe toModelType() throws IllegalValueException {
         final List<Tag> recipeTags = new ArrayList<>();
@@ -78,22 +88,23 @@ class JsonAdaptedRecipe {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, IngredientList.class.getSimpleName()));
         }
-        if (!IngredientList.isValidIngredients(ingredients)) {
-            throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
-        }
-        final IngredientList modelIngredients = new IngredientList(ingredients);
+        // if (!IngredientList.isValidIngredients(ingredients)) {
+        // throw new IllegalValueException(IngredientList.MESSAGE_CONSTRAINTS);
+        // }
+        final IngredientList modelIngredients = ParserUtil.parseIngredients(ingredients);
 
         if (instructions == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, InstructionList.class.getSimpleName()));
         }
-        if (!InstructionList.isValidInstructions(instructions)) {
-            throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
-        }
-        final InstructionList modelInstructions = new InstructionList(instructions);
+        // if (!InstructionList.isValidInstructions(instructions)) {
+        // throw new IllegalValueException(InstructionList.MESSAGE_CONSTRAINTS);
+        //}
+        final InstructionList modelInstructions = ParserUtil.parseInstructions(instructions);
 
+        final Calorie modelCalorie = new Calorie(calorie);
+        final Serving modelServe = new Serving(serving);
         final Set<Tag> modelTags = new HashSet<>(recipeTags);
-        return new Recipe(modelName, modelIngredients, modelInstructions, modelTags);
+        return new Recipe(modelName, modelIngredients, modelInstructions, modelCalorie, modelServe, modelTags);
     }
-
 }
