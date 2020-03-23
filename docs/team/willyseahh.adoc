@@ -34,6 +34,12 @@ them track their diet. The user interacts with it using a CLI and it is programm
 *** Highlights:
 *** Credits:
 
+** *Integrating Storage into Expense Splitter portion of EYLAH*
+*** What it does: Storage component is essential for Expense Splitter of EYLAH as it needs to save PersonName and Amount
+*** Justifcation:
+*** Highlights:
+*** Credits:
+
 
 
 * *Minor enhancement*: [In Process]
@@ -45,6 +51,11 @@ image::expense_splitter_uml_class_diagram.png[]
 ** *Added tests for ItemTest, ItemName, ItemPrice*
 
 ** *Assisted in downscaling of AddressBook3 by removing Email object*
+
+** *Drew Activity Diagram for Expense Spliter portion of EYLAH*
++
+image::activityDiagram_for_expensesplitter.png[]
+
 
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
