@@ -11,13 +11,14 @@ import java.util.stream.Stream;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.Calorie;
-import seedu.address.model.recipe.Name;
-import seedu.address.model.recipe.Serving;
+import seedu.address.model.recipe.attribute.Calorie;
 import seedu.address.model.recipe.attribute.Ingredient;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.Instruction;
 import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Rating;
+import seedu.address.model.recipe.attribute.Serving;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**
@@ -121,6 +122,21 @@ public class ParserUtil {
             throw new ParseException(Serving.MESSAGE_CONSTRAINTS);
         }
         return new Serving(serving);
+    }
+
+    /**
+     * Parses a {@code String ratingString} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ratingString} is invalid.
+     */
+    public static Rating parseRating(String ratingString) throws ParseException {
+        requireNonNull(ratingString);
+        int rating = Integer.parseInt(ratingString.trim());
+        if (!Rating.isValidRating(rating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        return new Rating(rating);
     }
 
     /**

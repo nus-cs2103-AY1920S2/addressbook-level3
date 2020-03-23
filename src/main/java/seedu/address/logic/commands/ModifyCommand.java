@@ -21,16 +21,17 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.recipe.Calorie;
-import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.Serving;
+import seedu.address.model.recipe.attribute.Calorie;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Rating;
+import seedu.address.model.recipe.attribute.Serving;
 import seedu.address.model.recipe.attribute.Tag;
 
 /**
- * Edits the details of an existing recipe in the address book.
+ * Edits the details of an existing recipe in the recipe book.
  */
 public class ModifyCommand extends Command {
 
@@ -45,6 +46,7 @@ public class ModifyCommand extends Command {
             + "[" + PREFIX_INSTRUCTIONS + "INSTRUCTIONS] "
             + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_SERVING + "SERVING] "
+            + "[" + PREFIX_RATING + "RATING]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
@@ -103,10 +105,11 @@ public class ModifyCommand extends Command {
                 editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
+        Rating updatedRating  = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,
-                updatedTags);
+                updatedRating, updatedTags);
     }
 
     @Override
@@ -137,6 +140,7 @@ public class ModifyCommand extends Command {
         private InstructionList instructions;
         private Calorie calorie;
         private Serving serving;
+        private Rating rating;
         private Set<Tag> tags;
 
         public EditRecipeDescriptor() {
@@ -152,6 +156,7 @@ public class ModifyCommand extends Command {
             setInstructions(toCopy.instructions);
             setCalorie(toCopy.calorie);
             setServing(toCopy.serving);
+            setRating(toCopy.rating);
             setTags(toCopy.tags);
         }
 
@@ -159,7 +164,7 @@ public class ModifyCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, calorie, tags);
+            return CollectionUtil.isAnyNonNull(name, ingredients, instructions, calorie, serving, rating, tags);
         }
 
         public void setName(Name name) {
@@ -202,6 +207,14 @@ public class ModifyCommand extends Command {
             return (serving != null) ? Optional.of(serving) : Optional.empty();
         }
 
+        public void setRating(Rating rating) {
+            this.rating = rating;
+        }
+
+        public Optional<Rating> getRating() {
+            return (rating != null) ? Optional.of(rating) : Optional.empty();
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -239,6 +252,7 @@ public class ModifyCommand extends Command {
                     && getInstructions().equals(e.getInstructions())
                     && getCalorie().equals(e.getCalorie())
                     && getServing().equals(e.getServing())
+                    && getRating().equals(e.getRating())
                     && getTags().equals(e.getTags());
         }
     }

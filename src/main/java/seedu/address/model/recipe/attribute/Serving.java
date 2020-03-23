@@ -1,11 +1,11 @@
-package seedu.address.model.recipe;
+package seedu.address.model.recipe.attribute;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the Serving size in the recipe book.
- * Guarantees: immutable; calorie is valid as declared in {@link #isValidServing(String)}
+ * Guarantees: immutable; serving is valid as declared in {@link #isValidServing(int)}
  */
 public class Serving {
 
@@ -47,7 +47,7 @@ public class Serving {
      * Format state as text for viewing.
      */
     public String toString() {
-        return "Serves: " + serving + " pax";
+        return String.valueOf(serving);
     }
 
 }

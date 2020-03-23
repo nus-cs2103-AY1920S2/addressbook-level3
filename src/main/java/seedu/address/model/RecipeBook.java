@@ -31,7 +31,7 @@ public class RecipeBook implements ReadOnlyRecipeBook {
     }
 
     /**
-     * Creates an RecipeBook using the Persons in the {@code toBeCopied}
+     * Creates an RecipeBook using the Recipes in the {@code toBeCopied}
      */
     public RecipeBook(ReadOnlyRecipeBook toBeCopied) {
         this();
@@ -98,8 +98,7 @@ public class RecipeBook implements ReadOnlyRecipeBook {
 
     @Override
     public String toString() {
-        return recipes.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        return recipes.asUnmodifiableObservableList().size() + " recipes";
     }
 
     @Override
