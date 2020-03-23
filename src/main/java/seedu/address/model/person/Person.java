@@ -35,17 +35,6 @@ public class Person {
     this.tags.addAll(tags);
   }
 
-  /**
-   * Adding a Person with name only, other fields present as Unknown
-   */
-  public Person(Name name) {
-    requireAllNonNull(name);
-    this.name = name;
-    this.phone = new Phone("Unknown");
-    this.email = new Email("Unknown");
-    this.address = new Address("Unknown");
-  }
-
   public Name getName() {
     return name;
   }
@@ -68,6 +57,13 @@ public class Person {
    */
   public Set<Tag> getTags() {
     return Collections.unmodifiableSet(tags);
+  }
+
+  /**
+   * Returns true if the person has at least 1 tag.
+   */
+  public boolean hasTags() {
+    return !tags.isEmpty();
   }
 
   /**
@@ -125,7 +121,7 @@ public class Person {
     if (getAddress().isKnown()) {
       builder.append(" Address: ").append(getAddress());
     }
-    if (!tags.isEmpty()) {
+    if (hasTags()) {
       builder.append(" Tags: ");
       getTags().forEach(builder::append);
     }
