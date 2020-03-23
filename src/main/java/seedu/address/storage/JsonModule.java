@@ -11,7 +11,7 @@ import seedu.address.model.profile.course.module.Description;
 import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.PrereqList;
+import seedu.address.model.profile.course.module.Prereqs;
 import seedu.address.model.profile.course.module.SemesterData;
 import seedu.address.model.profile.course.module.Title;
 
@@ -85,7 +85,7 @@ class JsonModule {
         final Title modelTitle = new Title(title);
         final Description modelDescription = new Description(description);
         final ModularCredits modelModuleCredit = new ModularCredits(moduleCredit);
-        final PrereqList modelPrerequisite = new PrereqList(prerequisite);
+        final Prereqs modelPrerequisite = new Prereqs(prerequisite);
         //final Preclusion modelPreclusion = new Preclusion(preclusion);
         List<String> semesters = new ArrayList<>();
         semesterData.forEach(semData -> semesters.add(semData.getSemester()));

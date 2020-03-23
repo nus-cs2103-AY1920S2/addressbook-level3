@@ -116,7 +116,21 @@ public class ProfileManager implements Model {
         filteredProfiles.setPredicate(predicate);
     }
 
+    @Override
+    public boolean hasProfile(Name name) {
+        return profileList.hasProfileWithName(name);
+    }
+
+    @Override
     public Profile getProfile(Name name) {
         return profileList.getProfileWithName(name);
+    }
+
+    /**
+     * To be used in the case of only one profile. Does not take into account the name of the user.
+     * Consider temporarily storing the name of the current user in memory (when dealing with multiple profiles.
+     */
+    public Profile getFirstProfile() {
+        return profileList.getProfileList().get(0);
     }
 }

@@ -116,10 +116,21 @@ Edits current profile's specialisation to Theory and Algorithm.
 * `edit m/CS2103 g/A+` +
 Edits the grade of existing module CS2103 to A+.
 
-=== Showing: `show` (coming in v2.0)
+=== Showing: `show`
 
-//Finds persons whose names contain any of the given keywords. +
-//Format: `find KEYWORD [MORE_KEYWORDS]`
+There are multiple details you can show with the `show` command:
+
+1. Show all modules in a specified semester
+
+Format: `show y/SEMESTER_INDEX`
+
+This lists the modules that have been added in this specified semester.
+
+2. Show all modules in a course's requirements
+
+Format: `find c/COURSE_NAME`
+
+This lists the module requirements under this course.
 
 //****
 //* The search is case insensitive. e.g `hans` will match `Hans`

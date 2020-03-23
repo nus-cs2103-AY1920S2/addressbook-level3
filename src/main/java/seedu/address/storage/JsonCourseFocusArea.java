@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.course.CourseFocusArea;
-import seedu.address.model.profile.course.module.ModularCredits;
 import seedu.address.model.profile.course.module.ModuleCode;
 
 /**
@@ -19,16 +18,16 @@ class JsonCourseFocusArea {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Course's %s field is missing!";
 
     private final String focusAreaName;
-    private final List<String> modules;
-    private final String modularCredits;
+    private final List<String> primaries;
+    private final List<String> electives;
 
     @JsonCreator
     public JsonCourseFocusArea(@JsonProperty("focusAreaName") String focusAreaName,
-                      @JsonProperty("modules") List<String> modules,
-                      @JsonProperty("modularCredits") String modularCredits) {
+                      @JsonProperty("primaries") List<String> primaries,
+                      @JsonProperty("electives") List<String> electives) {
         this.focusAreaName = focusAreaName;
-        this.modules = modules;
-        this.modularCredits = modularCredits;
+        this.primaries = primaries;
+        this.electives = electives;
     }
 
     /**
@@ -38,22 +37,30 @@ class JsonCourseFocusArea {
      */
     public CourseFocusArea toModelType() throws IllegalValueException {
         // Handle uninitialised attributes
-        // Note that some fields such as prerequisite and preclusion are optional fields and are thus omitted
         if (focusAreaName == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "Focus Area"));
-        } else if (modules == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Module"));
-        } else if (modularCredits == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    "Modular Credits"));
         }
 
-        List<ModuleCode> modelModuleCodes = new ArrayList<>();
-        modules.forEach(module -> modelModuleCodes.add(new ModuleCode(module)));
-        final ModularCredits modelModuleCredit = new ModularCredits(modularCredits);
+        /*
+        else if (primaries == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Area Primary"));
+        } else if (electives == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "Area Elective"));
+        }
+         */
 
-        return new CourseFocusArea(focusAreaName, modelModuleCodes, modelModuleCredit);
+        List<ModuleCode> modelPrimaries = new ArrayList<>();
+        if (primaries != null) {
+            primaries.forEach(modelPrimary -> modelPrimaries.add(new ModuleCode(modelPrimary)));
+        }
+
+        List<ModuleCode> modelElectives = new ArrayList<>();
+        if (electives != null) {
+            electives.forEach(modelElective -> modelElectives.add(new ModuleCode(modelElective)));
+        }
+        return new CourseFocusArea(focusAreaName, modelPrimaries, modelElectives);
     }
 
 }

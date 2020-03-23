@@ -15,7 +15,7 @@ public class SemesterData {
     /**
      * Constructs a {@code SemesterData}.
      *
-     * @param semNumber A valid semester number
+     * @param semesters Valid semester numbers
      */
     public SemesterData(List<String> semesters) {
         // requireAllNonNull() // to be implemented
