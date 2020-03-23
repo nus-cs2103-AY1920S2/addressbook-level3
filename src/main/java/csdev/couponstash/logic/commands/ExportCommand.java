@@ -98,7 +98,12 @@ public class ExportCommand extends Command {
         return result;
     }
 
+    /**
+     * Copies the {@String exportCommand} to the system's clipboard;
+     * @param exportCommand Exported add command.
+     */
     private void copyToClipboard(String exportCommand) {
+        System.setProperty("java.awt.headless", "false");
         Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
         Clipboard clipboard = defaultToolkit.getSystemClipboard();
         clipboard.setContents(new StringSelection(exportCommand), null);
