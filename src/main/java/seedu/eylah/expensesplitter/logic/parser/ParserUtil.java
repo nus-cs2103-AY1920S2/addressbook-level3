@@ -118,12 +118,11 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code ArrayList<Name> names}, {@code ItemPrice price} is invalid.
      */
-    public static ArrayList<Person> parsePersons(ArrayList<Name> names, ItemPrice price) throws ParseException {
+    public static ArrayList<Person> parsePersons(ArrayList<Name> names, Amount amount) throws ParseException {
         requireNonNull(names);
         final ArrayList<Person> persons = new ArrayList<>();
-        Amount pricePerPerson = parseAmount(price, names.size());
         for (Name name : names) {
-            persons.add(new Person(name, pricePerPerson));
+            persons.add(new Person(name, amount));
         }
         return persons;
     }

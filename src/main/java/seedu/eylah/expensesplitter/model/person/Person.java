@@ -2,6 +2,7 @@ package seedu.eylah.expensesplitter.model.person;
 
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -14,7 +15,7 @@ public class Person {
     private final Name name;
 
     // Data fields
-    private final Amount amount;
+    private Amount amount;
 
 
     /**
@@ -87,4 +88,13 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Adds {@code amount} to the current amount.
+     */
+    public void addAmount(Amount amount) {
+        BigDecimal currAmount = this.amount.getBigDecimal();
+        BigDecimal amountToBeAdded = amount.getBigDecimal();
+        BigDecimal newAmount = currAmount.add(amountToBeAdded);
+        this.amount = new Amount(newAmount);
+    }
 }
