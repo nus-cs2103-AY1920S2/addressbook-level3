@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.commons.core.GuiSettings;
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.diettracker.model.food.Food;
 
 /**
  * Represents the in-memory model of the address book data.

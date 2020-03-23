@@ -1,15 +1,15 @@
 package seedu.eylah.diettracker.model.util;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.eylah.diettracker.model.FoodBook;
 import seedu.eylah.diettracker.model.ReadOnlyFoodBook;
 import seedu.eylah.diettracker.model.food.Calories;
 import seedu.eylah.diettracker.model.food.Food;
 import seedu.eylah.diettracker.model.food.Name;
 import seedu.eylah.diettracker.model.tag.Tag;
-
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

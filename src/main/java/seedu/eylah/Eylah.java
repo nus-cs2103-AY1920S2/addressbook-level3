@@ -74,10 +74,12 @@ public class Eylah {
 
             config = initConfig(null);
 
-            seedu.eylah.diettracker.storage.UserPrefsStorage userPrefsStorage = new seedu.eylah.diettracker.storage.JsonUserPrefsStorage(config.getUserPrefsFilePath());
+            seedu.eylah.diettracker.storage.UserPrefsStorage userPrefsStorage =
+                    new seedu.eylah.diettracker.storage.JsonUserPrefsStorage(config.getUserPrefsFilePath());
             seedu.eylah.diettracker.model.UserPrefs userPrefs = initPrefsDiet(userPrefsStorage);
             FoodBookStorage foodBookStorage = new JsonFoodBookStorage(userPrefs.getFoodBookFilePath());
-            seedu.eylah.diettracker.storage.Storage storage = new seedu.eylah.diettracker.storage.StorageManager(foodBookStorage, userPrefsStorage);
+            seedu.eylah.diettracker.storage.Storage storage =
+                    new seedu.eylah.diettracker.storage.StorageManager(foodBookStorage, userPrefsStorage);
 
             logger.info("Entering Diet MODE.");
             dietModel = initModelManagerDiet(storage, userPrefs);
@@ -171,7 +173,8 @@ public class Eylah {
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
-    private seedu.eylah.diettracker.model.Model initModelManagerDiet(FoodBookStorage storage, seedu.eylah.diettracker.model.ReadOnlyUserPrefs userPrefs) {
+    private seedu.eylah.diettracker.model.Model initModelManagerDiet(FoodBookStorage storage,
+                                                         seedu.eylah.diettracker.model.ReadOnlyUserPrefs userPrefs) {
         Optional<seedu.eylah.diettracker.model.ReadOnlyFoodBook> foodBookOptional;
         seedu.eylah.diettracker.model.ReadOnlyFoodBook initialData;
         try {
@@ -179,7 +182,8 @@ public class Eylah {
             if (!foodBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample FoodBook");
             }
-            initialData = foodBookOptional.orElseGet(seedu.eylah.diettracker.model.util.SampleDataUtil::getSampleFoodBook);
+            initialData =
+                    foodBookOptional.orElseGet(seedu.eylah.diettracker.model.util.SampleDataUtil::getSampleFoodBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty FoodBook");
             initialData = new FoodBook();
@@ -267,7 +271,8 @@ public class Eylah {
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
      */
-    protected seedu.eylah.diettracker.model.UserPrefs initPrefsDiet(seedu.eylah.diettracker.storage.UserPrefsStorage storage) {
+    protected seedu.eylah.diettracker.model.UserPrefs
+        initPrefsDiet(seedu.eylah.diettracker.storage.UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
