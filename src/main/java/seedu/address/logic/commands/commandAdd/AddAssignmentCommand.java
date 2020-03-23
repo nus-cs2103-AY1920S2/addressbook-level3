@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.commandAdd;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.*;
 /**
  * Adds a ASSIGNMENT to the address book.
  */
-public class AddAssignmentCommand extends Command {
+public class AddAssignmentCommand extends AddCommand {
 
   public static final String COMMAND_WORD = "add-assignment";
 

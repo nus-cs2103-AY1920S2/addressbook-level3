@@ -17,7 +17,7 @@ import seedu.address.model.modelTeacher.Teacher;
 /**
  * Adds a teacher to the address book.
  */
-public class AddTeacherCommand extends Command {
+public class AddTeacherCommand extends AddCommand {
 
   public static final String COMMAND_WORD = "add-teacher";
 
