@@ -6,27 +6,11 @@ created with the fields group
 
 :Execute command is called;
 
-if() then ([module doesn't exist
-in the TA-Tracker])
-:A Command exception is thrown
-saying that the given module code
-                is invalid;
-
-else ([else])
 :Get the module from TA-Tracker's
-model class;
+                    model;
 
-if() then ([group is already
-inside the module])
-:A Command exception is thrown saying
-    that this is a duplicate group;
-
-else([else])
 :Add group to the module;
 
-endif
-
-endif
 
 :return command result;
 
