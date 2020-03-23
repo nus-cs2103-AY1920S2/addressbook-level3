@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 
@@ -29,11 +28,7 @@ public class OpenCommand extends Command {
         requireNonNull(notablyModel);
         if (this.path instanceof RelativePath) {
             RelativePath toConvert = (RelativePath) this.path;
-            try {
-                this.path = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
-            } catch (InvalidPathException ex) {
-                throw new CommandException(ex.getMessage());
-            }
+            this.path = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
         }
         notablyModel.setCurrentlyOpenBlock((AbsolutePath) path);
     }
