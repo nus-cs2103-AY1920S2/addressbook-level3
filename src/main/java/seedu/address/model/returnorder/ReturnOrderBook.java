@@ -9,7 +9,7 @@ import seedu.address.model.order.Order;
 import seedu.address.model.order.UniqueReturnOrderList;
 
 /**
- * Wraps all data at the order-book level
+ * Wraps all data at the return-order-book level
  * Duplicates are not allowed (by .isSameOrder comparison)
  */
 public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
@@ -21,7 +21,7 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
     }
 
     /**
-     * Creates an OrderBook using the Orders in the {@code toBeCopied}
+     * Creates an ReturnOrderBook using the Return Orders in the {@code toBeCopied}
      */
     public ReturnOrderBook(ReadOnlyReturnOrderBook toBeCopied) {
         this();
@@ -31,10 +31,10 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the order list with {@code orders}.
-     * {@code orders} must not contain duplicate orders.
+     * Replaces the contents of the return order list with {@code returnOrders}.
+     * {@code returnOrders} must not contain duplicate returnOorders.
      */
-    public void setOrders(List<Order> orders) {
+    public void setReturnOrders(List<Order> orders) {
         this.returnOrders.setReturnOrders(orders);
     }
 
@@ -44,13 +44,14 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
     public void resetData(ReadOnlyReturnOrderBook newData) {
         requireNonNull(newData);
 
-        setOrders(newData.getReturnOrderList());
+        setReturnOrders(newData.getReturnOrderList());
     }
 
     //// return order-level operations
 
     /**
-     * Returns true if an return order with the same identity as {@code returnOrder} exists in the return order book.
+     * Returns true if an return return order with the same identity as {@code returnOrder} exists in
+     * the return order book.
      */
     public boolean hasReturnOrder(Order returnOrder) {
         requireNonNull(returnOrder);
