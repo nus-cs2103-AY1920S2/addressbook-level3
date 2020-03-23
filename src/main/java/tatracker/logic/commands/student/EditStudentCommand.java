@@ -5,6 +5,7 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static tatracker.logic.parser.CliSyntax.PREFIX_MATRIC;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_RATING;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import static tatracker.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
@@ -45,6 +46,7 @@ public class EditStudentCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_MATRIC + "MATRIC] "
+            + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -102,6 +104,7 @@ public class EditStudentCommand extends Command {
         Phone updatedPhone = editStudentDescriptor.getPhone().orElse(studentToEdit.getPhone());
         Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
         Matric updatedMatric = editStudentDescriptor.getMatric().orElse(studentToEdit.getMatric());
+        Rating updatedRating = editStudentDescriptor.getRating().orElse(studentToEdit.getRating());
         Set<Tag> updatedTags = editStudentDescriptor.getTags().orElse(studentToEdit.getTags());
 
         return new Student(updatedMatric, updatedName, updatedPhone, updatedEmail, updatedTags);
