@@ -17,6 +17,7 @@ import seedu.address.model.diary.DiaryBook;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.Capulator;
+import seedu.address.model.nusmodule.ModuleBook;
 import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
@@ -32,7 +33,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private DiaryBook diaryBook;
     private final FilteredList<Notes> filesInFolder;
-    private List<NusModule> modules;
+    private ModuleBook moduleBook;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -48,7 +49,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         diaryBook = new DiaryBook();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
-        modules = new ArrayList<>();
+        moduleBook = new ModuleBook();
     }
 
     public ModelManager() {
@@ -145,35 +146,22 @@ public class ModelManager implements Model {
   
   //=========== Cap Module ==================================================================================
     public boolean hasModule(ModuleCode moduleCode) {
-        requireNonNull(moduleCode);
-        for (NusModule module: modules) {
-            if (module.getModuleCode().equals(moduleCode)) {
-                return true;
-            }
-        }
-       return false;
+        return moduleBook.hasModule(moduleCode);
     }
 
     @Override
     public void addModule(NusModule module) {
-        modules.add(module);
+        moduleBook.addModule(module);
     }
 
     @Override
     public void deleteModule(ModuleCode moduleCode) {
-        int index = -1;
-        for (int i = 0; i < modules.size(); i++) {
-            if (modules.get(i).getModuleCode().equals(moduleCode)) {
-                index = i;
-            }
-        }
-        modules.remove(index);
+        moduleBook.deleteModule(moduleCode);
     }
 
     @Override
     public double getCap() {
-        Capulator capulator = new Capulator(modules);
-        return capulator.calculateCap();
+        return moduleBook.getCap();
     }
 
     //=========== Filtered Person List Accessors =============================================================
