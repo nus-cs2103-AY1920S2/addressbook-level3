@@ -1,15 +1,13 @@
 package seedu.address.model;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
-import seedu.address.model.dayData.PomDurationData;
-import seedu.address.model.dayData.TasksDoneData;
 
 /** Wraps all DayData objects. */
 public class Statistics implements ReadOnlyStatistics {
@@ -31,7 +29,7 @@ public class Statistics implements ReadOnlyStatistics {
     /** Initialises empty DayData for past MAX_SIZE days */
     public void init() {
         LocalDate currDate = LocalDate.now();
-        for (int i = 0; i < MAX_SIZE; i++) {
+        for (int i = MAX_SIZE - 1; i >= 0; i--) {
             LocalDate tempLocalDate = currDate.minusDays(i);
             String tempLocalDateStr = tempLocalDate.toString();
             Date tempDate = new Date(tempLocalDateStr);
@@ -66,31 +64,30 @@ public class Statistics implements ReadOnlyStatistics {
 
     /** reinitialises dayDataList to current day while retaining stored data. */
     public void updateDataDates() {
-        HashMap<Date, PomDurationData> pomTempStorage = new HashMap<>();
-        HashMap<Date, TasksDoneData> tasksTempStorage = new HashMap<>();
+        LocalDate todayLocalDate = LocalDate.now();
 
-        for (int i = 0; i < dayDataList.size(); i++) {
-            pomTempStorage.put(
-                    dayDataList.get(i).getDate(), dayDataList.get(i).getPomDurationData());
-            tasksTempStorage.put(
-                    dayDataList.get(i).getDate(), dayDataList.get(i).getTasksDoneData());
-        }
+        DayData currDayData = this.getLatestDayData();
+        LocalDate currLocalDate = currDayData.getDate().value;
 
-        this.init();
+        long daysBetween = DAYS.between(todayLocalDate, currLocalDate);
+        if (daysBetween > MAX_SIZE) {
+            this.init();
+        } else {
+            while (!currLocalDate.equals(
+                    todayLocalDate)) { // keep adding new date from last date stored
+                this.pop(); // poll oldest day from queue
 
-        for (int i = 0; i < dayDataList.size(); i++) { // updated dayDatalist
-            Date currTempDate = dayDataList.get(i).getDate();
-            if (pomTempStorage.containsKey(currTempDate)) {
-                PomDurationData tempPomDurationDate = pomTempStorage.get(currTempDate);
-                TasksDoneData tempTasksDoneData = tasksTempStorage.get(currTempDate);
-                DayData tempDayData =
-                        new DayData(currTempDate, tempPomDurationDate, tempTasksDoneData);
-                dayDataList.remove(i);
-                dayDataList.add(i, tempDayData);
+                currLocalDate = currLocalDate.plusDays(1); // create new day LocalDate
+
+                String currLocalDateStr = currLocalDate.toString(); // construct DayData
+                Date tempDate = new Date(currLocalDateStr);
+                DayData tempDayData = new DayData(tempDate);
+
+                this.push(tempDayData); // add to queue
+
+                assert (dayDataList.size() <= MAX_SIZE);
             }
         }
-
-        assert (dayDataList.size() <= MAX_SIZE);
     }
 
     /**
@@ -102,7 +99,7 @@ public class Statistics implements ReadOnlyStatistics {
         requireNonNull(dayData);
 
         Date currDate = dayData.getDate();
-        for (int i = 0; i < dayDataList.size(); i++) {
+        for (int i = dayDataList.size() - 1; i >= 0; i--) {
             DayData currDayData = dayDataList.get(i);
             Date currDayDataDate = currDayData.getDate();
             if (currDayDataDate.equals(currDate)) { // correct date
@@ -122,7 +119,7 @@ public class Statistics implements ReadOnlyStatistics {
     public DayData getDayDataFromDate(Date date) {
         requireNonNull(date);
 
-        for (int i = 0; i < dayDataList.size(); i++) {
+        for (int i = dayDataList.size() - 1; i >= 0; i--) {
             DayData currDayData = dayDataList.get(i);
             Date currDayDataDate = currDayData.getDate();
             if (currDayDataDate.equals(date)) {
@@ -151,6 +148,25 @@ public class Statistics implements ReadOnlyStatistics {
      */
     public void removeTask(DayData dayData) {
         dayDataList.remove(dayData);
+    }
+
+    /** Removes oldest DayData from head of the queue. */
+    private DayData pop() {
+        return dayDataList.remove(0);
+    }
+
+    /**
+     * Add Daydata to end of queue.
+     *
+     * @param dayData dayData to be added.
+     */
+    private void push(DayData dayData) {
+        dayDataList.add(dayData);
+    }
+
+    /** Removes oldest DayData from head of the queue. */
+    private DayData getLatestDayData() {
+        return dayDataList.get(-1);
     }
 
     //// util methods
