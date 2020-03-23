@@ -3,6 +3,7 @@ package com.notably.logic.suggestion.commands;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
@@ -23,11 +24,15 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     private AbsolutePath path;
 
     public OpenSuggestionCommand(AbsolutePath path) {
+        Objects.requireNonNull(path);
         this.path = path;
     }
 
     @Override
     public void execute(Model model) {
+        // Nullity check
+        Objects.requireNonNull(model);
+
         // Set response text
         model.setResponseText(RESPONSE_MESSAGE);
 
@@ -39,6 +44,9 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     }
 
     public void setSuggestionsToModel(Model model, List<SuggestionItem> suggestions) {
+        Objects.requireNonNull(model);
+        Objects.requireNonNull(suggestions);
+
         model.setSuggestions(suggestions);
     }
 
@@ -48,6 +56,8 @@ public class OpenSuggestionCommand implements SuggestionCommand {
      * @return List of possible absolute paths, based on the user's input path.
      */
     public List<AbsolutePath> getPossiblePaths(Model model) {
+        Objects.requireNonNull(model);
+
         List<AbsolutePath> possiblePaths = new ArrayList<>();
 
         BlockTreeItem currTreeItem = model.getBlockTree().get(path);
@@ -88,6 +98,10 @@ public class OpenSuggestionCommand implements SuggestionCommand {
 
     public List<AbsolutePath> getChildRecursive(BlockTreeItem blockTreeItem, List<String> components,
         List<AbsolutePath> possiblePaths) {
+        Objects.requireNonNull(blockTreeItem);
+        Objects.requireNonNull(components);
+        Objects.requireNonNull(possiblePaths);
+
         List<BlockTreeItem> children = blockTreeItem.getBlockChildren();
         if (children.size() == 0) { // if reach the end, add to possible paths
             AbsolutePath newPath = AbsolutePath.fromComponents(components);
@@ -104,6 +118,9 @@ public class OpenSuggestionCommand implements SuggestionCommand {
     }
 
     List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
+        Objects.requireNonNull(possiblePaths);
+        Objects.requireNonNull(model);
+
         return possiblePaths.stream()
                 .map(path -> {
                     String displayText = path.getStringRepresentation();
