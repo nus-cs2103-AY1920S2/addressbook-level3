@@ -14,9 +14,10 @@ import seedu.address.model.profile.course.module.ModuleCode;
 public class CourseRequirement {
 
     private final String requirementName;
-    private final List<ModuleCode> modules;
     private final ModularCredits modularCredits;
+    private final List<ModuleCode> modules;
     private final List<String> requirementInfo;
+
     /**
      * Every field must be present and not null.
      */
