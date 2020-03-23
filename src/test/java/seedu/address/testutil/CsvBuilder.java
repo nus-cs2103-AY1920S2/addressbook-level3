@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.commands.ImportCommand.OT_ORDER;
-import static seedu.address.logic.commands.ImportCommand.OT_RETURN;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
@@ -19,7 +18,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
 public class CsvBuilder {
 
     public static final String DEFAULT_OT_ORDER = PREFIX_ORDERTYPE + OT_ORDER;
-    public  static final String DEFAULT_OT_RETURN = PREFIX_ORDERTYPE + OT_RETURN;
+    //public  static final String DEFAULT_OT_RETURN = PREFIX_ORDERTYPE + OT_RETURN;
     public static final String DEFAULT_TID = PREFIX_TID + "A98765431";
     public static final String DEFAULT_NAME = PREFIX_NAME + "Alice Pauline";
     public static final String DEFAULT_PHONE = PREFIX_PHONE + "85355255";
@@ -30,7 +29,7 @@ public class CsvBuilder {
     public static final String DEFAULT_COMMENT = PREFIX_COMMENT + "NIL";
     public static final String DEFAULT_TYPE = PREFIX_TYPE + "Plastic";
 
-    String result;
+    private String result;
 
     /**
      * Generate a empty string for customise.
@@ -45,11 +44,11 @@ public class CsvBuilder {
      */
     public CsvBuilder(String orderType) {
         if (orderType.equals(OT_ORDER)) {
-            result = DEFAULT_OT_ORDER + DEFAULT_TID + DEFAULT_NAME + DEFAULT_PHONE + DEFAULT_ADDRESS +
-                DEFAULT_TIMESTAMP + DEFAULT_WAREHOUSE + DEFAULT_COD + DEFAULT_COMMENT + DEFAULT_TYPE;
+            result = DEFAULT_OT_ORDER + DEFAULT_TID + DEFAULT_NAME + DEFAULT_PHONE + DEFAULT_ADDRESS
+                + DEFAULT_TIMESTAMP + DEFAULT_WAREHOUSE + DEFAULT_COD + DEFAULT_COMMENT + DEFAULT_TYPE;
         } else {
-            result = DEFAULT_OT_ORDER + DEFAULT_TID + DEFAULT_NAME + DEFAULT_PHONE + DEFAULT_ADDRESS +
-                    DEFAULT_TIMESTAMP + DEFAULT_WAREHOUSE + DEFAULT_COD + DEFAULT_COMMENT + DEFAULT_TYPE;
+            result = DEFAULT_OT_ORDER + DEFAULT_TID + DEFAULT_NAME + DEFAULT_PHONE + DEFAULT_ADDRESS
+                + DEFAULT_TIMESTAMP + DEFAULT_WAREHOUSE + DEFAULT_COD + DEFAULT_COMMENT + DEFAULT_TYPE;
         }
     }
 
@@ -60,8 +59,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withOrderType(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_ORDERTYPE + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue);
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_ORDERTYPE + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue);
         return this;
     }
 
@@ -71,8 +70,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withTid(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                     int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_TID + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_TID + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -82,8 +81,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withName(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                     int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_NAME + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_NAME + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -93,8 +92,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withAddress(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                     int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_ADDRESS + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_ADDRESS + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -104,8 +103,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withPhone(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                     int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_PHONE + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_PHONE + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -115,8 +114,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withDeliveryTimeStamp(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                     int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_DELIVERY_TIMESTAMP +
-                addWhiteSpace(numOfSpaceAfterPrefix) + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_DELIVERY_TIMESTAMP
+            + addWhiteSpace(numOfSpaceAfterPrefix) + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -126,8 +125,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withWarehouse(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                     int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_WAREHOUSE + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_WAREHOUSE + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -137,8 +136,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withCod(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                     int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_COD + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_COD + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -148,8 +147,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withComment(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                   int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_COMMENT + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_COMMENT + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -159,8 +158,8 @@ public class CsvBuilder {
      */
     public CsvBuilder withTypeOfItem(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
                                   int numOfSpaceAfterValue, String value) {
-        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_TYPE + addWhiteSpace(numOfSpaceAfterPrefix) +
-                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_TYPE + addWhiteSpace(numOfSpaceAfterPrefix)
+            + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
         return this;
     }
 
@@ -168,12 +167,12 @@ public class CsvBuilder {
      * Sets {@code numOfSpaceBeforePrefix}, {@code numOfSpaceAfterPrefix}, {@code numOfSpaceAfterValue}, prefix and
      * {@code value} of the return time stamp and add to the result string.
      */
-//    public CsvBuilder withReturnTimeStamp(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
-//                                     int numOfSpaceAfterValue, String value) {
-//        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_RETURN_TIMESTAMP + addWhiteSpace(numOfSpaceAfterPrefix) +
-//                value + addWhiteSpace(numOfSpaceAfterValue) + ",";
-//        return this;
-//    }
+    //    public CsvBuilder withReturnTimeStamp(int numOfSpaceBeforePrefix, int numOfSpaceAfterPrefix,
+    //                                     int numOfSpaceAfterValue, String value) {
+    //        result += addWhiteSpace(numOfSpaceBeforePrefix) + PREFIX_RETURN_TIMESTAMP
+    //                + addWhiteSpace(numOfSpaceAfterPrefix) + value + addWhiteSpace(numOfSpaceAfterValue) + ",";
+    //        return this;
+    //    }
 
     /**
      * Add the amount of white space to the result string, which depends on {@code num}.

@@ -71,9 +71,13 @@ public class ImportCommand extends Command {
         return new CommandResult(printResult());
     }
 
+    /**
+     * Print the result based on the various counters.
+     * @return message to pass back to user.
+     */
     private String printResult() {
-        String message = processedOrderCounter + " delivery order(s) and " + processedReturnOrderCounter +
-                " return order(s) being imported.\n";
+        String message = processedOrderCounter + " delivery order(s) and " + processedReturnOrderCounter
+                + " return order(s) being imported.\n";
         if (duplicateCounter != 0) {
             message = message + duplicateCounter + " duplicate order(s) found!\n";
         }
