@@ -12,6 +12,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
 public class AbsolutePath implements Path {
     public static final String INVALID_ABSOLUTE_PATH = "Invalid absolute path";
     public static final String VALIDATION_REGEX = "\\/||(\\/\\p{Alnum}+)+\\/?";
+    public static final AbsolutePath TO_ROOT_PATH = new AbsolutePath("/");
     private final List<String> components;
 
     private AbsolutePath(String absolutePathString) {
