@@ -7,6 +7,7 @@ import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.diary.Diary;
 import fithelper.model.entry.Entry;
 
+import fithelper.model.profile.Profile;
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
 
@@ -144,8 +145,15 @@ public interface Model {
      */
     void setUserProfile(ReadOnlyUserProfile newUserProfile);
 
+    void setUserProfile(Profile newUserProfile);
+
     /** Returns the User Profile */
     ReadOnlyUserProfile getUserProfile();
+
+    /**
+     * Returns true if new profile is the same as original one, without comparing weight data.
+     */
+    boolean isSameProfile(Profile newProfile);
 
 }
 

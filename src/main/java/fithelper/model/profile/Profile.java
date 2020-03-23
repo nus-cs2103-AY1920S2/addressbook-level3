@@ -54,7 +54,7 @@ public class Profile {
     }
 
     /**
-     * Construct a profile with current weight.
+     * Construct a profile with weight.
      * Every field must be present and not null.
      */
     public Profile(Name name, Gender gender, Age age, Address address, Height height,
@@ -68,6 +68,23 @@ public class Profile {
         this.targetWeight = targetWeight;
         this.currentWeight = weight.getWeightValue();
         this.currentBmi = weight.getBmi();
+    }
+
+    /**
+     * Construct a profile with current weight and bmi.
+     * Every field must be present and not null.
+     */
+    public Profile(Name name, Gender gender, Age age, Address address, Height height,
+                   TargetWeight targetWeight, WeightValue weight, Bmi bmi) {
+        requireAllNonNull(name, age, gender, address, height, targetWeight);
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.address = address;
+        this.height = height;
+        this.targetWeight = targetWeight;
+        this.currentWeight = weight;
+        this.currentBmi = bmi;
     }
 
     public Name getName() {
@@ -105,7 +122,23 @@ public class Profile {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, gender, age, address, height, targetWeight, currentWeight, currentBmi);
+        return Objects.hash(name, gender, age, address, height, targetWeight);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof Profile){
+            Profile otherProfile = (Profile)other;
+            return this.name.equals(otherProfile.name)
+                    && this.gender.equals(otherProfile.gender)
+                    && this.age.equals(otherProfile.age)
+                    && this.address.equals(otherProfile.address)
+                    && this.height.equals(otherProfile.height)
+                    && this.targetWeight.equals(otherProfile.targetWeight);
+        }
+        return false;
     }
 
     @Override

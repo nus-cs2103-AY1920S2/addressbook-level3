@@ -169,6 +169,7 @@ public class MainWindow extends UiPart<Stage> {
             showHelpPage();
             break;
         case PROFILE:
+            updateProfilePage();
             showProfilePage();
             break;
         case WEIGHT:
@@ -247,6 +248,13 @@ public class MainWindow extends UiPart<Stage> {
         calendarPanel.setDate(logic.getCalendarDate());
         pagePane.getChildren().add(calendarPanel.getRoot());
         currentPage.setText("Calendar");
+    }
+
+    /**
+     * Update content of profile page with latest values.
+     */
+    private void updateProfilePage() {
+        profilePage = new ProfilePage(logic.getUserProfile());
     }
 
     /**
