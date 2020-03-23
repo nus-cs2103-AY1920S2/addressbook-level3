@@ -1,4 +1,4 @@
-package com.notably.model;
+package com.notably.model.block;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -10,10 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
-import com.notably.model.block.Block;
-import com.notably.model.block.BlockImpl;
-import com.notably.model.block.Body;
-import com.notably.model.block.Title;
 import com.notably.model.block.exceptions.CannotModifyRootException;
 
 import javafx.collections.FXCollections;

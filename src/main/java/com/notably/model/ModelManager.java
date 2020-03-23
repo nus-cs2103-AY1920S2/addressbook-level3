@@ -13,6 +13,7 @@ import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.model.block.Block;
+import com.notably.model.block.BlockModel;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.Body;
 import com.notably.model.block.exceptions.CannotModifyRootException;

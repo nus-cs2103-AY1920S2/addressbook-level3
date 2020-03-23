@@ -1,11 +1,6 @@
-package com.notably.model;
+package com.notably.model.block;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.model.block.Block;
-import com.notably.model.block.BlockImpl;
-import com.notably.model.block.BlockTree;
-import com.notably.model.block.BlockTreeImpl;
-import com.notably.model.block.Body;
 import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
