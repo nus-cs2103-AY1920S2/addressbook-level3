@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.NearbyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -20,12 +19,12 @@ public class NearbyCommandParser implements Parser<NearbyCommand> {
      */
     @Override
     public NearbyCommand parse(String args) throws ParseException {
-        try {
-            Index postalSector = ParserUtil.parseIndex(args);
-            return new NearbyCommand(postalSector);
-        } catch (ParseException pe) {
+        String trimmedArgs = args.trim();
+        int numOfArgs = trimmedArgs.split("\\s+").length;
+        if (numOfArgs > 1 || trimmedArgs.length() == 0) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    NearbyCommand.MESSAGE_USAGE), pe);
+                    NearbyCommand.MESSAGE_USAGE));
         }
+        return new NearbyCommand(trimmedArgs);
     }
 }
