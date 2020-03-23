@@ -10,8 +10,12 @@ import seedu.address.logic.commands.CalculateExpensesFinanceCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.commandAdd.*;
 import seedu.address.logic.commands.commandAssign.AssignCommandBase;
+import seedu.address.logic.commands.commandAdd.AddCommand;
+import seedu.address.logic.commands.commandAdd.AddCourseCommand;
+import seedu.address.logic.commands.commandAdd.AddFinanceCommand;
+import seedu.address.logic.commands.commandAdd.AddStudentCommand;
+import seedu.address.logic.commands.commandAdd.AddTeacherCommand;
 import seedu.address.logic.commands.commandClear.ClearCommand;
 import seedu.address.logic.commands.commandClear.ClearCourseCommand;
 import seedu.address.logic.commands.commandClear.ClearFinanceCommand;
@@ -38,7 +42,11 @@ import seedu.address.logic.commands.commandList.ListFinanceCommand;
 import seedu.address.logic.commands.commandList.ListStudentCommand;
 import seedu.address.logic.commands.commandList.ListTeacherCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.parserAdd.*;
+import seedu.address.logic.parser.parserAdd.AddCommandParser;
+import seedu.address.logic.parser.parserAdd.AddCourseCommandParser;
+import seedu.address.logic.parser.parserAdd.AddFinanceCommandParser;
+import seedu.address.logic.parser.parserAdd.AddStudentCommandParser;
+import seedu.address.logic.parser.parserAdd.AddTeacherCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteCourseCommandParser;
 import seedu.address.logic.parser.parserDelete.DeleteFinanceCommandParser;
@@ -98,9 +106,6 @@ public class AddressBookParser {
 
       case AddCourseCommand.COMMAND_WORD:
         return new AddCourseCommandParser().parse(arguments);
-
-      case AddAssignmentCommand.COMMAND_WORD:
-        return new AddAssignmentCommandParser().parse(arguments);
 
       case DeleteTeacherCommand.COMMAND_WORD:
         return new DeleteTeacherCommandParser().parse(arguments);
