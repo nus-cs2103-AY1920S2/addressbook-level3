@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import tatracker.commons.core.Config;
 import tatracker.commons.core.LogsCenter;
+import tatracker.commons.core.Notification;
 import tatracker.commons.core.Version;
 import tatracker.commons.exceptions.DataConversionException;
 import tatracker.commons.util.ConfigUtil;
@@ -134,6 +135,10 @@ public class MainApp extends Application {
     }
 
     /**
+     * Init
+     */
+
+    /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
@@ -179,5 +184,8 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+
+        // Dispose the system tray icon
+        Notification.dispose();
     }
 }

@@ -57,4 +57,13 @@ public class Notification {
     public static void sendNotification(String caption, String message, TrayIcon.MessageType type) throws AWTException {
         Notification.getInstance().notify(caption, message, type);
     }
+
+    /**
+     * Immediately destroys the system tray icon
+     */
+    public static void dispose() {
+        if (singleton != null) {
+            SystemTray.getSystemTray().remove(singleton.trayIcon);
+        }
+    }
 }
