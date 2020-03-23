@@ -36,7 +36,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with CouponStash: " + couponStash + " and user prefs " + userPrefs);
 
-        this.couponStash = new CouponStash(couponStash);
+        this.couponStash = new CouponStash(couponStash).archiveExpiredCoupons();
         this.userPrefs = new UserPrefs(userPrefs);
         filteredCoupons = new FilteredList<>(this.couponStash.getCouponList(),
                 Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);

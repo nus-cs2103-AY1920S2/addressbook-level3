@@ -215,6 +215,15 @@ public class Coupon {
     }
 
     /**
+     * Returns a new archived Coupon.
+     */
+    public Coupon archive() {
+        return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
+                this.expiryDate, this.startDate, this.usage,
+                this.limit, this.tags, this.totalSavings, this.remind, new Archived("true"));
+    }
+
+    /**
      * Returns true if both coupons have the same name, and all
      * of the fields of promo code, savings for each use, expiry date or
      * start date is the same. However, if either of the coupon is archived,

@@ -55,24 +55,16 @@ public class RemindDate {
     public static boolean isValidRemindDate(String remindTest, String expiryTest) {
         LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
         LocalDate expiryDate = LocalDate.parse(expiryTest, DATE_FORMATTER);
-        LocalDate testYesterday = LocalDate.now();
-        testYesterday = testYesterday.minusDays(1);
 
         return remindTest.matches(VALIDATION_REGEX)
-                && !(remindDate.isAfter(expiryDate))
-                && remindDate.isAfter(testYesterday);
+                && !(remindDate.isAfter(expiryDate));
     }
 
     /**
      * Returns true if a given string reminddate are a valid remind date.
      */
     public static boolean isValidRemindDate(String remindTest) {
-        LocalDate remindDate = LocalDate.parse(remindTest, DATE_FORMATTER);
-        LocalDate testYesterday = LocalDate.now();
-        testYesterday.minusDays(1);
-
-        return remindTest.matches(VALIDATION_REGEX)
-                && remindDate.isAfter(testYesterday);
+        return remindTest.matches(VALIDATION_REGEX);
     }
 
     /**
