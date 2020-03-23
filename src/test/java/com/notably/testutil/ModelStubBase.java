@@ -15,6 +15,7 @@ import com.notably.model.block.BlockTree;
 import com.notably.model.block.Body;
 import com.notably.model.suggestion.SuggestionItem;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -124,6 +125,7 @@ public class ModelStubBase implements Model {
         throw new UnsupportedOperationException();
     }
 
+    //=========== ViewStateModel ==================================================================
     @Override
     public StringProperty inputProperty() {
         throw new UnsupportedOperationException();
@@ -136,6 +138,21 @@ public class ModelStubBase implements Model {
 
     @Override
     public void setInput(String input) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public BooleanProperty boolProperty() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Boolean getBool() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setBool(Boolean bool) {
         throw new UnsupportedOperationException();
     }
 
