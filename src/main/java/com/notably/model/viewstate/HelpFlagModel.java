@@ -25,7 +25,7 @@ public interface HelpFlagModel {
 
     /**
      * Sets the value for the boolean flag representing whether the Help Modal should be displayed or not.
-     * @param bool A String corresponding to the new text data in the CommandInputModel.
+     * @param bool, A String corresponding to the new text data in the CommandInputModel.
      */
     void setBool(Boolean bool);
 }

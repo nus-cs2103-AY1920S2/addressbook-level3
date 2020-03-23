@@ -15,17 +15,13 @@ import com.notably.commons.core.path.AbsolutePath;
 import com.notably.model.block.Block;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.Body;
-
 import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionModel;
-
 import com.notably.model.viewstate.ViewStateModel;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
-
 import javafx.beans.property.StringProperty;
-
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
