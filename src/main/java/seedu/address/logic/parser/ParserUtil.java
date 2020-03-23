@@ -2,7 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.comment.Comment;
@@ -14,12 +19,13 @@ import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
+import seedu.address.storage.CsvProcessor;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
 public class ParserUtil {
-
+    public static final String MESSAGE_INVALID_CSV_FILEPATH = "The csv file is not found in the data folder";
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
@@ -171,4 +177,21 @@ public class ParserUtil {
 
         return new TypeOfItem(itemTypeTrimmed);
     }
+
+    /**
+     * Parses a {@code String filePath} into a {@code List<String>}
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code filePath} is invalid or the csv file unable to read.
+     */
+    public static List<String> parseCsvFile(String filePath) throws ParseException {
+        requireNonNull(filePath);
+        String filePathTrimmed = filePath.trim();
+        Path csvFilePath = Paths.get("data", filePathTrimmed);
+        if (!FileUtil.isFileExists(csvFilePath)) {
+            throw new ParseException(MESSAGE_INVALID_CSV_FILEPATH);
+        }
+        return CsvProcessor.retrieveData(csvFilePath);
+    }
+
 }
