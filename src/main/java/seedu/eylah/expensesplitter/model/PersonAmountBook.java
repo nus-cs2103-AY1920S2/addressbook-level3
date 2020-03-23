@@ -76,6 +76,11 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
         persons.add(p);
     }
 
+    /**
+     * Adds {@code amount} to the current amount of the {@code person}.
+     * @param person
+     * @param amount
+     */
     public void addAmount(Person person, Amount amount) {
         requireNonNull(person);
 

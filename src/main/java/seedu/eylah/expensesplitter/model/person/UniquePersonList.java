@@ -68,6 +68,9 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.set(index, editedPerson);
     }
 
+    /**
+     * Adds {@code amount} to the current amount of {@code person};
+     */
     public void addAmount(Person person, Amount amount) {
         requireAllNonNull(person, amount);
 

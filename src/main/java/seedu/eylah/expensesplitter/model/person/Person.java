@@ -88,6 +88,9 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Adds {@code amount} to the current amount.
+     */
     public void addAmount(Amount amount) {
         BigDecimal currAmount = this.amount.getBigDecimal();
         BigDecimal amountToBeAdded = amount.getBigDecimal();

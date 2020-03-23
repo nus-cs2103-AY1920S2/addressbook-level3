@@ -54,12 +54,12 @@ public class AddItemCommand extends Command {
         for (Person person : persons) {
             if (model.hasPerson(person)) {
                 model.addAmount(person, amount);
-//                person.addAmount(amount); //not sure if necessary
+                // person.addAmount(amount); //not sure if necessary
             } else {
                 // add person, then add amount to that person
                 model.addPerson(person);
                 model.addAmount(person, amount);
-//                person.addAmount(amount); //not sure if necessary
+                // person.addAmount(amount); //not sure if necessary
             }
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));
