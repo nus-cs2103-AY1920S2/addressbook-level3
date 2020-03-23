@@ -10,8 +10,10 @@ import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
+import seedu.zerotoone.storage.workout.WorkoutListStorage;
 
 /**
  * Manages storage of ExerciseList data in local storage.
@@ -20,11 +22,14 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private UserPrefsStorage userPrefsStorage;
     private ExerciseListStorage exerciseListStorage;
+    private WorkoutListStorage workoutListStorage;
 
-    public StorageManager(UserPrefsStorage userPrefsStorage, ExerciseListStorage exerciseListStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage,
+            ExerciseListStorage exerciseListStorage, WorkoutListStorage workoutListStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
         this.exerciseListStorage = exerciseListStorage;
+        this.workoutListStorage = workoutListStorage;
     }
 
     // -----------------------------------------------------------------------------------------
@@ -71,5 +76,34 @@ public class StorageManager implements Storage {
     public void saveExerciseList(ReadOnlyExerciseList exerciseList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         exerciseListStorage.saveExerciseList(exerciseList, filePath);
+    }
+
+    // -----------------------------------------------------------------------------------------
+    // Workout List
+    @Override
+    public Path getWorkoutListFilePath() {
+        return workoutListStorage.getWorkoutListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyWorkoutList> readWorkoutList() throws DataConversionException, IOException {
+        return readWorkoutList(workoutListStorage.getWorkoutListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyWorkoutList> readWorkoutList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return workoutListStorage.readWorkoutList(filePath);
+    }
+
+    @Override
+    public void saveWorkoutList(ReadOnlyWorkoutList workoutList) throws IOException {
+        saveWorkoutList(workoutList, workoutListStorage.getWorkoutListFilePath());
+    }
+
+    @Override
+    public void saveWorkoutList(ReadOnlyWorkoutList workoutList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        workoutListStorage.saveWorkoutList(workoutList, filePath);
     }
 }

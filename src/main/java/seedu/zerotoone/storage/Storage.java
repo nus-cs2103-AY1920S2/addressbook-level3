@@ -8,13 +8,15 @@ import seedu.zerotoone.commons.exceptions.DataConversionException;
 import seedu.zerotoone.model.exercise.ReadOnlyExerciseList;
 import seedu.zerotoone.model.userprefs.ReadOnlyUserPrefs;
 import seedu.zerotoone.model.userprefs.UserPrefs;
+import seedu.zerotoone.model.workout.ReadOnlyWorkoutList;
 import seedu.zerotoone.storage.exercise.ExerciseListStorage;
 import seedu.zerotoone.storage.userprefs.UserPrefsStorage;
+import seedu.zerotoone.storage.workout.WorkoutListStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends ExerciseListStorage, UserPrefsStorage {
+public interface Storage extends ExerciseListStorage, WorkoutListStorage, UserPrefsStorage {
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
     @Override
@@ -33,4 +35,15 @@ public interface Storage extends ExerciseListStorage, UserPrefsStorage {
 
     @Override
     void saveExerciseList(ReadOnlyExerciseList exerciseList) throws IOException;
+
+     // -----------------------------------------------------------------------------------------
+    // Workout List
+    @Override
+    Path getWorkoutListFilePath();
+
+    @Override
+    Optional<ReadOnlyWorkoutList> readWorkoutList() throws DataConversionException, IOException;
+
+    @Override
+    void saveWorkoutList(ReadOnlyWorkoutList workoutList) throws IOException;
 }
