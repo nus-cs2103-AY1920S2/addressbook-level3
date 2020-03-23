@@ -1,5 +1,7 @@
 package com.notably.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
@@ -24,6 +26,7 @@ public class OpenCommand extends Command {
      * @throws CommandException if there is an invalid path error.
      */
     public void execute(Model notablyModel) throws CommandException {
+        requireNonNull(notablyModel);
         if (this.path instanceof RelativePath) {
             RelativePath toConvert = (RelativePath) this.path;
             try {

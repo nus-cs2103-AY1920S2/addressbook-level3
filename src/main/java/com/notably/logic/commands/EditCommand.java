@@ -24,6 +24,7 @@ public class EditCommand extends Command {
      * @throws CommandException
      */
     public void execute(Model notablyModel) {
+        requireNonNull(notablyModel);
         notablyModel.updateCurrentlyOpenBlockBody(body);
     }
 }

@@ -10,7 +10,7 @@ import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Represents a command that deletes a block.
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";

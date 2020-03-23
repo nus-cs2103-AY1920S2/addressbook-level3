@@ -29,6 +29,7 @@ public class NewCommand extends Command {
      * @throws CommandException when block of the same Title is detected.
      */
     public void execute(Model notablyModel) throws CommandException {
+        requireNonNull(notablyModel);
         try {
             AbsolutePath addPath = this.path.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
             if (notablyModel.hasPath(addPath)) {
