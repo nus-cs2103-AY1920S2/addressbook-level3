@@ -13,7 +13,7 @@ import seedu.address.model.returnOrder.ReturnOrderBook;
  */
 public interface ReturnOrderBookStorage {
 
-    // ================ Order Book methods ==============================
+    // ================ Return Order Book methods ==============================
     /**
      * Returns the file path of the data file.
      */
