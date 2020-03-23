@@ -83,7 +83,6 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
      */
     public void addAmount(Person person, Amount amount) {
         requireNonNull(person);
-
         persons.addAmount(person, amount);
     }
 
@@ -110,8 +109,20 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        final StringBuilder builder = new StringBuilder();
+        ObservableList<Person> personsList = persons.asUnmodifiableObservableList();
+        builder.append("Person : Amount\n");
+        for (Person person : personsList) {
+            int index = personsList.indexOf(person) + 1;
+            builder.append("    ")
+                    .append(index)
+                    .append(". ")
+                    .append(person.getName())
+                    .append(" : $")
+                    .append(person.getAmount())
+                    .append("\n");
+        }
+        return builder.toString();
     }
 
     @Override
