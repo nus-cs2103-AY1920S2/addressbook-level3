@@ -1,4 +1,4 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.session;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
@@ -9,6 +9,9 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
@@ -38,7 +41,7 @@ public class AddSessionCommand extends Command {
             + PREFIX_NOTES + "Location: PLAB 04";
 
     public static final String MESSAGE_SUCCESS = "New session added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the TA-Tracker";
+    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in the address book";
 
     private final Session toAdd;
 

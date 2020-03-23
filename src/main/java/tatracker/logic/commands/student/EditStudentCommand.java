@@ -1,4 +1,4 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -17,6 +17,9 @@ import java.util.Set;
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.student.Email;
@@ -27,7 +30,7 @@ import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
 /**
- * Edits the details of an existing student in the TA-Tracker.
+ * Edits the details of an existing student in the address book.
  */
 public class EditStudentCommand extends Command {
 
@@ -49,7 +52,7 @@ public class EditStudentCommand extends Command {
 
     public static final String MESSAGE_EDIT_STUDENT_SUCCESS = "Edited Student: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker.";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the address book.";
 
     private final Index index;
     private final EditStudentDescriptor editStudentDescriptor;

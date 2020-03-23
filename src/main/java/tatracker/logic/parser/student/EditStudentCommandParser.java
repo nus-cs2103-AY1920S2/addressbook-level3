@@ -1,4 +1,4 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.student;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -14,8 +14,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import tatracker.commons.core.index.Index;
-import tatracker.logic.commands.EditStudentCommand;
-import tatracker.logic.commands.EditStudentCommand.EditStudentDescriptor;
+import tatracker.logic.commands.student.EditStudentCommand;
+import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
+import tatracker.logic.parser.ArgumentMultimap;
+import tatracker.logic.parser.ArgumentTokenizer;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.tag.Tag;
 

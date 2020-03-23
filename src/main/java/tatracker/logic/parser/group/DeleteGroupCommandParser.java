@@ -1,4 +1,4 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.group;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_GROUP;
@@ -6,7 +6,12 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import java.util.stream.Stream;
 
-import tatracker.logic.commands.DeleteGroupCommand;
+import tatracker.logic.commands.group.DeleteGroupCommand;
+import tatracker.logic.parser.ArgumentMultimap;
+import tatracker.logic.parser.ArgumentTokenizer;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.ParserUtil;
+import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group;
 

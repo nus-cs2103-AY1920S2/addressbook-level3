@@ -1,4 +1,4 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.group;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -12,9 +12,9 @@ import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input into commands that interact with Student models.
+ * Parses user input into commands that interact with Group models.
  */
-public class StudentCommandParser {
+public class GroupCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -41,13 +41,14 @@ public class StudentCommandParser {
         switch (commandWord) {
 
         case CommandWords.ADD_MODEL:
-            return new AddStudentCommandParser().parse(arguments);
+            return new AddGroupCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
-            return new DeleteStudentCommandParser().parse(arguments);
+            return new DeleteGroupCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
-            return new EditStudentCommandParser().parse(arguments);
+            // return new EditGroupCommandParser().parse(arguments);
+            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit group commands"));
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

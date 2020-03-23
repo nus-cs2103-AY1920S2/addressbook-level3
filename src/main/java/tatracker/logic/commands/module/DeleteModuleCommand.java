@@ -1,9 +1,13 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.module;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.commands.CommandWords.DELETE_MODEL;
+import static tatracker.logic.commands.CommandWords.MODULE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.CliSyntax;
 import tatracker.model.Model;
 import tatracker.model.module.Module;
 
@@ -12,11 +16,11 @@ import tatracker.model.module.Module;
  */
 public class DeleteModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = CommandWords.MODULE + " " + CommandWords.DELETE_MODEL;
+    public static final String COMMAND_WORD = MODULE + " " + DELETE_MODEL;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the module identified by the module code.\n"
-            + "Parameters: " + CliSyntax.PREFIX_MODULE + " MODULE_CODE\n"
+            + "Parameters: " + PREFIX_MODULE + " MODULE_CODE\n"
             + "Example: " + COMMAND_WORD + " CS2013T";
 
     public static final String MESSAGE_DELETE_MODULE_SUCCESS = "Deleted Module: %1$s";

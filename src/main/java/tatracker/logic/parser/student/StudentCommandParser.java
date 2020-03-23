@@ -1,18 +1,20 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.student;
+
+import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import tatracker.commons.core.Messages;
 import tatracker.logic.commands.Command;
 import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input into commands that interact with Module models.
+ * Parses user input into commands that interact with Student models.
  */
-public class ModuleCommandParser {
+public class StudentCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -31,7 +33,7 @@ public class ModuleCommandParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -39,17 +41,16 @@ public class ModuleCommandParser {
         switch (commandWord) {
 
         case CommandWords.ADD_MODEL:
-            return new AddModuleCommandParser().parse(arguments);
+            return new AddStudentCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
-            return new DeleteModuleCommandParser().parse(arguments);
+            return new DeleteStudentCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
-            // return new EditGroupCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Edit group commands"));
+            return new EditStudentCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

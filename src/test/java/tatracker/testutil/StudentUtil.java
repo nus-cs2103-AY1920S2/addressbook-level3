@@ -8,8 +8,8 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import tatracker.logic.commands.AddStudentCommand;
-import tatracker.logic.commands.EditStudentCommand;
+import tatracker.logic.commands.student.AddStudentCommand;
+import tatracker.logic.commands.student.EditStudentCommand.EditStudentDescriptor;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
 
@@ -43,7 +43,7 @@ public class StudentUtil {
     /**
      * Returns the part of command string for the given {@code EditStudentDescriptor}'s details.
      */
-    public static String getEditStudentDescriptorDetails(EditStudentCommand.EditStudentDescriptor descriptor) {
+    public static String getEditStudentDescriptorDetails(EditStudentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));

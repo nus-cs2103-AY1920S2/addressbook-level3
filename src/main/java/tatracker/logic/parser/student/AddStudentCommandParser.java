@@ -1,4 +1,4 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -10,7 +10,12 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import tatracker.logic.commands.AddStudentCommand;
+import tatracker.logic.commands.student.AddStudentCommand;
+import tatracker.logic.parser.ArgumentMultimap;
+import tatracker.logic.parser.ArgumentTokenizer;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.ParserUtil;
+import tatracker.logic.parser.Prefix;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
@@ -18,7 +23,6 @@ import tatracker.model.student.Name;
 import tatracker.model.student.Phone;
 import tatracker.model.student.Student;
 import tatracker.model.tag.Tag;
-
 
 /**
  * Parses input arguments and creates a new AddStudentCommand object

@@ -1,6 +1,8 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.student;
 
+import static tatracker.logic.commands.CommandTestUtil.assertCommandFailure;
 import static tatracker.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static tatracker.testutil.TypicalStudents.getTypicalTaTracker;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +12,6 @@ import tatracker.model.ModelManager;
 import tatracker.model.UserPrefs;
 import tatracker.model.student.Student;
 import tatracker.testutil.StudentBuilder;
-import tatracker.testutil.TypicalStudents;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddStudentCommand}.
@@ -21,7 +22,7 @@ public class AddStudentCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalStudents.getTypicalTaTracker(), new UserPrefs());
+        model = new ModelManager(getTypicalTaTracker(), new UserPrefs());
     }
 
     @Test
@@ -38,7 +39,7 @@ public class AddStudentCommandIntegrationTest {
     @Test
     public void execute_duplicateStudent_throwsCommandException() {
         Student studentInList = model.getTaTracker().getStudentList().get(0);
-        CommandTestUtil.assertCommandFailure(new AddStudentCommand(studentInList),
+        assertCommandFailure(new AddStudentCommand(studentInList),
                 model, AddStudentCommand.MESSAGE_DUPLICATE_STUDENT);
     }
 

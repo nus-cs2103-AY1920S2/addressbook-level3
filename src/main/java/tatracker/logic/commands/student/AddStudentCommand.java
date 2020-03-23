@@ -1,4 +1,4 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.student;
 
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -7,18 +7,21 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_NAME;
 import static tatracker.logic.parser.CliSyntax.PREFIX_PHONE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_TAG;
 
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.student.Student;
 
 /**
- * Adds a student to the TA-Tracker.
+ * Adds a student to the address book.
  */
 public class AddStudentCommand extends Command {
 
     public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.ADD_MODEL;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the TA-Tracker. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -34,7 +37,7 @@ public class AddStudentCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the address book";
 
     private final Student toAdd;
 

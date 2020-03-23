@@ -1,11 +1,13 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static tatracker.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static tatracker.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static tatracker.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
 
 import org.junit.jupiter.api.Test;
 
 import tatracker.logic.commands.student.DeleteStudentCommand;
-import tatracker.testutil.TypicalIndexes;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -20,14 +22,12 @@ public class DeleteStudentCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteStudentCommand() {
-        CommandParserTestUtil.assertParseSuccess(parser,
-                "1", new DeleteStudentCommand(TypicalIndexes.INDEX_FIRST_STUDENT));
+        assertParseSuccess(parser, "1", new DeleteStudentCommand(INDEX_FIRST_STUDENT));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        CommandParserTestUtil.assertParseFailure(parser,
-                "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteStudentCommand.MESSAGE_USAGE));
     }
 }

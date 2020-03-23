@@ -1,11 +1,13 @@
 package tatracker.model.session;
 
+import static tatracker.testutil.Assert.assertThrows;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.testutil.Assert;
+import tatracker.model.session.Session.SessionType;
 
 public class InvalidStartEndTimeTest {
 
@@ -13,7 +15,7 @@ public class InvalidStartEndTimeTest {
     public void constructor_invalidTime_throwsIllegalArgumentException() {
         LocalDateTime startTime = LocalDateTime.of(2020, 01, 01, 14, 00, 00);
         LocalDateTime endTime = startTime.minus(1, ChronoUnit.HOURS);
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Session(startTime, endTime,
-                Session.SessionType.OTHER, false, "CS2103/T", "Description"));
+        assertThrows(IllegalArgumentException.class, () -> new Session(startTime, endTime,
+                SessionType.OTHER, false, "CS2103/T", "Description"));
     }
 }

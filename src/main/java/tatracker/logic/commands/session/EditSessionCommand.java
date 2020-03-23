@@ -1,6 +1,15 @@
-package tatracker.logic.commands;
+package tatracker.logic.commands.session;
+
+// import static java.util.Objects.requireNonNull;
 
 import static java.util.Objects.requireNonNull;
+import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
+import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
+import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_STARTTIME;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,10 +19,13 @@ import java.util.Optional;
 import tatracker.commons.core.Messages;
 import tatracker.commons.core.index.Index;
 import tatracker.commons.util.CollectionUtil;
+import tatracker.logic.commands.Command;
+import tatracker.logic.commands.CommandResult;
+import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
-import tatracker.logic.parser.CliSyntax;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
+import tatracker.model.session.Session.SessionType;
 
 /**
  * Edits the details of an existing session in TAT.
@@ -26,15 +38,15 @@ public class EditSessionCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits an existing session in TA-Tracker. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_STARTTIME + "START] "
-            + "[" + CliSyntax.PREFIX_ENDTIME + "END] "
-            + "[" + CliSyntax.PREFIX_DATE + "DATE] "
-            + "[" + CliSyntax.PREFIX_RECUR + "] "
-            + "[" + CliSyntax.PREFIX_MOD_CODE + "MOD_CODE] "
-            + "[" + CliSyntax.PREFIX_SESSION_TYPE + "SESSION_TYPE] "
-            + "[" + CliSyntax.PREFIX_NOTES + "NOTES] "
+            + "[" + PREFIX_STARTTIME + "START] "
+            + "[" + PREFIX_ENDTIME + "END] "
+            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_RECUR + "] "
+            + "[" + PREFIX_MOD_CODE + "MOD_CODE] "
+            + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
+            + "[" + PREFIX_NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " 2 "
-            + CliSyntax.PREFIX_DATE + "20-02-2020 ";
+            + PREFIX_DATE + "20-02-2020 ";
 
     public static final String MESSAGE_SUCCESS = "Session updated: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -94,7 +106,7 @@ public class EditSessionCommand extends Command {
         LocalDateTime endTime = editSessionDescriptor.getEndTime().orElse(sessionToEdit.getEndDateTime());
         boolean isRecurring = editSessionDescriptor.getIsRecurring();
         String moduleCode = editSessionDescriptor.getModuleCode().orElse(sessionToEdit.getModuleCode());
-        Session.SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
+        SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
         String description = editSessionDescriptor.getDescription().orElse(sessionToEdit.getDescription());
 
         // If date is not updated, reset the date to the original date.
@@ -139,7 +151,7 @@ public class EditSessionCommand extends Command {
         private boolean isDateChanged;
         private boolean isRecurring;
         private String moduleCode;
-        private Session.SessionType newSessionType;
+        private SessionType newSessionType;
         private String newDescription;
 
         public EditSessionDescriptor() {
@@ -206,11 +218,11 @@ public class EditSessionCommand extends Command {
             return Optional.ofNullable(moduleCode);
         }
 
-        public void setSessionType(Session.SessionType sessionType) {
+        public void setSessionType(SessionType sessionType) {
             this.newSessionType = sessionType;
         }
 
-        public Optional<Session.SessionType> getSessionType() {
+        public Optional<SessionType> getSessionType() {
             return Optional.ofNullable(newSessionType);
         }
 

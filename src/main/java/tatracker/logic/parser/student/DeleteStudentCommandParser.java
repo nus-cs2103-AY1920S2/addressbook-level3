@@ -1,9 +1,11 @@
-package tatracker.logic.parser;
+package tatracker.logic.parser.student;
 
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import tatracker.commons.core.index.Index;
 import tatracker.logic.commands.student.DeleteStudentCommand;
+import tatracker.logic.parser.Parser;
+import tatracker.logic.parser.ParserUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 
 /**
