@@ -1,7 +1,9 @@
 package csdev.couponstash.logic.parser;
 
+import static csdev.couponstash.model.coupon.RemindDate.DATE_FORMATTER;
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -15,6 +17,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.PromoCode;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
@@ -249,5 +252,23 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String remindDate} into a {@code RemindDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remindDate} is invalid.
+     */
+    public static RemindDate parserRemindDate(String remindDate) throws ParseException {
+
+        requireNonNull(remindDate);
+        String trimmedDate = remindDate.trim();
+        if (!RemindDate.isValidRemindDate(trimmedDate)) {
+            throw new ParseException(RemindDate.MESSAGE_CONSTRAINTS);
+        }
+        RemindDate remind = new RemindDate();
+        remind.setRemindDate(LocalDate.parse(trimmedDate, DATE_FORMATTER));
+        return remind;
     }
 }

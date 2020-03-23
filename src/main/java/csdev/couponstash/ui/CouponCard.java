@@ -46,7 +46,8 @@ public class CouponCard extends UiPart<Region> {
     private Label limit;
     @FXML
     private FlowPane tags;
-
+    @FXML
+    private Label remindDate;
     /**
      * Constructor for a new CouponCard to be shown
      * in the JavaFX GUI.
@@ -73,6 +74,7 @@ public class CouponCard extends UiPart<Region> {
         coupon.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        remindDate.setText("Remind Date: " + coupon.getRemindDate().toString());
     }
 
 

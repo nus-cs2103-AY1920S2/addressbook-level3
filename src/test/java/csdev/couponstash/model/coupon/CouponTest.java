@@ -101,5 +101,8 @@ public class CouponTest {
         // different tags -> returns false
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
+
+        // different expiry date -> returns false
+
     }
 }

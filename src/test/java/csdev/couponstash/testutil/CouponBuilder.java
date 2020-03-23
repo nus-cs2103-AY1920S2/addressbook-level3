@@ -9,7 +9,7 @@ import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
 import csdev.couponstash.model.coupon.PromoCode;
-import csdev.couponstash.model.coupon.Remind;
+import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.MonetaryAmount;
@@ -32,7 +32,7 @@ public class CouponBuilder {
     public static final String DEFAULT_START_DATE = LocalDate.now().format(StartDate.DATE_FORMATTER);
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
-    public static final Remind DEFAULT_REMIND = new Remind();
+    public static final String DEFAULT_REMIND_DATE = "27-08-2020";
 
     private Name name;
     private PromoCode promoCode;
@@ -42,7 +42,7 @@ public class CouponBuilder {
     private StartDate startDate;
     private Usage usage;
     private Limit limit;
-    private Remind remind;
+    private RemindDate remindDate;
     private Set<Tag> tags;
 
     public CouponBuilder() {
@@ -54,7 +54,7 @@ public class CouponBuilder {
         startDate = new StartDate(DEFAULT_START_DATE);
         usage = new Usage(DEFAULT_USAGE);
         limit = new Limit(DEFAULT_LIMIT);
-        remind = DEFAULT_REMIND;
+        remindDate = new RemindDate(expiryDate);
         tags = new HashSet<>();
     }
 
@@ -70,7 +70,7 @@ public class CouponBuilder {
         startDate = couponToCopy.getStartDate();
         usage = couponToCopy.getUsage();
         limit = couponToCopy.getLimit();
-        remind = couponToCopy.getRemind();
+        remindDate = couponToCopy.getRemindDate();
         tags = new HashSet<>(couponToCopy.getTags());
     }
 
@@ -160,10 +160,10 @@ public class CouponBuilder {
     }
 
     /**
-     * Sets the {@code Remind} of the {@code Coupon} that we are building.
+     * Sets the {@code RemindDate} of the {@code Coupon} that we are building.
      */
-    public CouponBuilder withRemind(Remind remind) {
-        this.remind = remind;
+    public CouponBuilder withRemindDate(String remindDate, String expiryDate) {
+        this.remindDate = new RemindDate(remindDate, expiryDate);
         return this;
     }
 
@@ -174,7 +174,7 @@ public class CouponBuilder {
      */
     public Coupon build() {
         return new Coupon(name, promoCode, savings, expiryDate, startDate,
-                usage, limit, tags, totalSavings, remind);
+                usage, limit, tags, totalSavings, remindDate);
     }
 
 }
