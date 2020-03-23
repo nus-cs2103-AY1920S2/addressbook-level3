@@ -96,13 +96,14 @@ public class ExportCommandTest {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
+        expectedMessage = getClipboardContent();
+
         try {
-            expectedMessage = getClipboardContent();
+            assertEquals(expectedMessage, actualMessage);
         } catch (HeadlessException he) {
             //Catching Headless Exception on Travis CI because Travis has no keyboard
             assertEquals(1, 1);
         }
-        assertEquals(expectedMessage, actualMessage);
     }
 
     @Test
