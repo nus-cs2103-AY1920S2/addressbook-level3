@@ -4,33 +4,33 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.exercise.ExerciseName;
-import seedu.zerotoone.model.exercise.PredicateFilterExerciseName;
+import seedu.zerotoone.model.workout.WorkoutName;
+import seedu.zerotoone.model.workout.PredicateFilterWorkoutName;
 
 /**
- * Finds and lists all exercises in exercise list whose name contains any of the argument keywords.
+ * Finds and lists all workouts in workout list whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "find";
-    public static final String MESSAGE_USAGE = "Usage: exercise find e/<exercise_name>";
-    public static final String MESSAGE_EXERCISES_LISTED_OVERVIEW = "%1$d exercises listed!";
+    public static final String MESSAGE_USAGE = "Usage: workout find e/<workout_name>";
+    public static final String MESSAGE_WORKOUTS_LISTED_OVERVIEW = "%1$d workouts listed!";
 
-    private final ExerciseName exerciseName;
-    public FindCommand(ExerciseName exerciseName) {
-        requireNonNull(exerciseName);
-        this.exerciseName = exerciseName;
+    private final WorkoutName workoutName;
+    public FindCommand(WorkoutName workoutName) {
+        requireNonNull(workoutName);
+        this.workoutName = workoutName;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        PredicateFilterExerciseName predicate = new PredicateFilterExerciseName(exerciseName.fullName);
+        PredicateFilterWorkoutName predicate = new PredicateFilterWorkoutName(workoutName.fullName);
 
-        model.updateFilteredExerciseList(predicate);
+        model.updateFilteredWorkoutList(predicate);
 
-        String outputMessage = String.format(MESSAGE_EXERCISES_LISTED_OVERVIEW,
-                model.getFilteredExerciseList().size());
+        String outputMessage = String.format(MESSAGE_WORKOUTS_LISTED_OVERVIEW,
+                model.getFilteredWorkoutList().size());
         return new CommandResult(outputMessage);
     }
 
@@ -38,6 +38,6 @@ public class FindCommand extends WorkoutCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && exerciseName.equals(((FindCommand) other).exerciseName)); // state check
+                && workoutName.equals(((FindCommand) other).workoutName)); // state check
     }
 }
