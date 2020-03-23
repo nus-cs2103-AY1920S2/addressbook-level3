@@ -26,6 +26,10 @@ public class IngredientList {
         this.ingredientData = new ArrayList<Ingredient>(ingredientList);
     }
 
+    public ArrayList<Ingredient> getIngredientData() {
+        return this.ingredientData;
+    }
+
     /**
      * Adds an ingredient to the ingredient list.
      *

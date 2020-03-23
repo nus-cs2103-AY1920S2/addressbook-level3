@@ -42,6 +42,14 @@ public class Quantity {
         return VALID_QUANTITY_PATTERN.matcher(quantityString).matches();
     }
 
+    public Float getValue() {
+        return value;
+    }
+
+    public void setValue(Float value) {
+        this.value = value;
+    }
+
     @Override
     public String toString() {
         // TODO Auto-generated method stub

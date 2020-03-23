@@ -57,6 +57,14 @@ public class Ingredient {
         // new Quantity(quantityString);
     }
 
+    public Quantity getQuantity2() {
+        return this.quantity2;
+    }
+
+    public void setQuantity2(Quantity quantity2) {
+        this.quantity2 = quantity2;
+    }
+
     @Override
     public String toString() {
         return this.name + ", " + this.quantity;

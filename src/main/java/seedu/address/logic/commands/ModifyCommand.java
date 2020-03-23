@@ -9,11 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -22,15 +18,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 <<<<<<< HEAD
 import seedu.address.model.recipe.*;
+import seedu.address.model.recipe.attribute.*;
+import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.tag.Tag;
 =======
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.attribute.Calorie;
-import seedu.address.model.recipe.attribute.IngredientList;
-import seedu.address.model.recipe.attribute.InstructionList;
-import seedu.address.model.recipe.attribute.Name;
-import seedu.address.model.recipe.attribute.Serving;
-import seedu.address.model.recipe.attribute.Tag;
 >>>>>>> 083a32b4e287ad0b3d96b9159bdda8c48634071c
 
 /**
@@ -113,16 +105,19 @@ public class ModifyCommand extends Command {
                 updatedTags);
     }
 
-    /**
-     * private static Recipe scaleRecipe(Recipe recipeToScale, List<String> newQuantities) {
-     *   List<Ingredient> ingredients = recipeToScale.getIngredients().ingredients;
-     *  for (int i = 0; i < ingredients.size(); i++) {
-     *       ingredients.get(i).setQuantity(newQuantities.get(i));
-     *  }
-     *   return new Recipe(recipeToScale.getName(), new IngredientList(ingredients),
-     *          recipeToScale.getInstructions(), recipeToScale.getTags());
-     * }
-     */
+     private static Recipe scaleRecipe(Recipe recipeToScale, int sizeOfScaling) {
+        ArrayList<Ingredient> ingredientData = recipeToScale.getIngredients().getIngredientData();
+        for (Ingredient ingredient: ingredientData) {
+            Quantity quantity2 = ingredient.getQuantity2();
+            Float value = quantity2.getValue();
+            Float updatedValue = value * sizeOfScaling;
+            quantity2.setValue(updatedValue);
+            ingredient.setQuantity2(quantity2);
+         }
+        //Calorie updatedCalorie =
+        return new Recipe(recipeToScale.getName(), ingredientData, recipeToScale.getInstructions(),
+                recipeToScale.getCalorie(), recipeToScale.getServing(), recipeToScale.getTags());
+      }
     
     @Override
     public boolean equals(Object other) {
