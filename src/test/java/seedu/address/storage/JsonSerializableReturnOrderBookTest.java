@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.OrderBook;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 import seedu.address.testutil.TypicalOrders;
 
 public class JsonSerializableReturnOrderBookTest {
@@ -22,11 +22,11 @@ public class JsonSerializableReturnOrderBookTest {
     private static final Path DUPLICATE_ORDER_FILE = TEST_DATA_FOLDER.resolve("duplicateOrderReturnOrderBook.json");
 
     @Test
-    public void toModelType_typicalOrdersFile_success() throws Exception {
+    public void toModelType_typicalReturnOrdersFile_success() throws Exception {
         JsonSerializableReturnOrderBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_ORDER_FILE,
                 JsonSerializableReturnOrderBook.class).get();
-        OrderBook returnOrderBookFromFile = dataFromFile.toModelType();
-        OrderBook typicalOrdersReturnOrderBook = TypicalOrders.getTypicalReturnOrderBook();
+        ReturnOrderBook returnOrderBookFromFile = dataFromFile.toModelType();
+        ReturnOrderBook typicalOrdersReturnOrderBook = TypicalOrders.getTypicalReturnOrderBook();
         assertEquals(returnOrderBookFromFile, typicalOrdersReturnOrderBook);
     }
 
@@ -41,7 +41,7 @@ public class JsonSerializableReturnOrderBookTest {
     public void toModelType_duplicateOrders_throwsIllegalValueException() throws Exception {
         JsonSerializableReturnOrderBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_ORDER_FILE,
                 JsonSerializableReturnOrderBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableReturnOrderBook.MESSAGE_DUPLICATE_ORDER,
+        assertThrows(IllegalValueException.class, JsonSerializableReturnOrderBook.MESSAGE_DUPLICATE_RETURN_ORDER,
                 dataFromFile::toModelType);
     }
 

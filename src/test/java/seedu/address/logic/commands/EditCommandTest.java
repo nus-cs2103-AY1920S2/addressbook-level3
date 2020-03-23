@@ -26,6 +26,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 
@@ -45,7 +46,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
-                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
+                new ReturnOrderBook(model.getReturnOrderBook()), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -67,7 +68,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
-                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
+                new ReturnOrderBook(model.getReturnOrderBook()), new UserPrefs());
         expectedModel.setOrder(lastOrder, editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -81,7 +82,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
-                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
+                new ReturnOrderBook(model.getReturnOrderBook()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -98,7 +99,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ORDER_SUCCESS, editedOrder);
 
         Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()),
-                new OrderBook(model.getReturnOrderBook()), new UserPrefs());
+                new ReturnOrderBook(model.getReturnOrderBook()), new UserPrefs());
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

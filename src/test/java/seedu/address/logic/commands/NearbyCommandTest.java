@@ -67,7 +67,7 @@ class NearbyCommandTest {
     void execute_validAreaUnfilteredList_success() {
         String searchTerm = "east";
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
-        expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         expectedModel.updateFilteredOrderList(eastArea);
         String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, searchTerm);
         assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);
@@ -78,7 +78,7 @@ class NearbyCommandTest {
         String searchTerm = "east";
         String expectedMessage = String.format(NearbyCommand.MESSAGE_SUCCESS_AREA, searchTerm);
         NearbyCommand nearbyCommand = new NearbyCommand(searchTerm);
-        expectedModel = new ModelManager(model.getOrderBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getOrderBook(), model.getReturnOrderBook(), new UserPrefs());
         showNoOrder(expectedModel);
 
         assertCommandSuccess(nearbyCommand, model, expectedMessage, expectedModel);

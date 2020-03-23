@@ -32,9 +32,12 @@ import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.JsonReturnOrderBookStorage;
 import seedu.address.testutil.OrderBuilder;
 
 public class LogicManagerTest {
@@ -50,8 +53,8 @@ public class LogicManagerTest {
     public void setUp() {
         JsonOrderBookStorage orderBookStorage =
                 new JsonOrderBookStorage(temporaryFolder.resolve("DeliveryOrderBook.json"));
-        JsonOrderBookStorage returnOrderBookStorage =
-                new JsonOrderBookStorage(temporaryFolder.resolve("ReturnOrderBook.json"));
+        JsonReturnOrderBookStorage returnOrderBookStorage =
+                new JsonReturnOrderBookStorage(temporaryFolder.resolve("ReturnOrderBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(orderBookStorage, returnOrderBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -60,7 +63,7 @@ public class LogicManagerTest {
     @Test
     public void getOrderBook_returnCorrectOrderBook_success() {
         assertEquals(new OrderBook(), logic.getOrderBook());
-        assertEquals(new OrderBook(), logic.getReturnOrderBook());
+        assertEquals(new ReturnOrderBook(), logic.getReturnOrderBook());
     }
 
     @Test
@@ -96,8 +99,9 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         JsonOrderBookStorage deliveryOrderBookStorage =
                 new JsonOrderBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionDeliveryOrderBook.json"));
-        JsonOrderBookStorage returnOrderBookStorage =
-                new JsonOrderBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionReturnOrderBook.json"));
+        JsonReturnOrderBookStorage returnOrderBookStorage =
+                new JsonReturnOrderBookIoExceptionThrowingStub(
+                        temporaryFolder.resolve("ioExceptionReturnOrderBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(deliveryOrderBookStorage, returnOrderBookStorage, userPrefsStorage);
@@ -187,6 +191,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonReturnOrderBookIoExceptionThrowingStub extends JsonReturnOrderBookStorage {
+        private JsonReturnOrderBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveReturnOrderBook(ReadOnlyReturnOrderBook orderBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

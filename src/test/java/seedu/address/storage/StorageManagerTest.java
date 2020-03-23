@@ -15,6 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 
 public class StorageManagerTest {
 
@@ -26,7 +28,7 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonOrderBookStorage deliveryOrderBookStorage = new JsonOrderBookStorage(getTempFilePath("ob"));
-        JsonOrderBookStorage returnOrderBookStorage = new JsonOrderBookStorage(getTempFilePath("rob"));
+        JsonReturnOrderBookStorage returnOrderBookStorage = new JsonReturnOrderBookStorage(getTempFilePath("rob"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(deliveryOrderBookStorage, returnOrderBookStorage, userPrefsStorage);
     }
@@ -53,8 +55,8 @@ public class StorageManagerTest {
     public void orderBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonOrderBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonOrderBookStorageTest} class.
+         * {@link JsonReturnOrderBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonReturnOrderBookStorageTest} class.
          */
         OrderBook original = getTypicalOrderBook();
         storageManager.saveOrderBook(original);
@@ -64,10 +66,10 @@ public class StorageManagerTest {
 
     @Test
     public void returnOrderBookReadSave() throws Exception {
-        OrderBook original = getTypicalReturnOrderBook();
+        ReturnOrderBook original = getTypicalReturnOrderBook();
         storageManager.saveReturnOrderBook(original);
-        ReadOnlyOrderBook retrieved = storageManager.readReturnOrderBook().get();
-        assertEquals(original, new OrderBook(retrieved));
+        ReadOnlyReturnOrderBook retrieved = storageManager.readReturnOrderBook().get();
+        assertEquals(original, new ReturnOrderBook(retrieved));
     }
 
     @Test

@@ -18,7 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 import seedu.address.testutil.OrderBookBuilder;
+import seedu.address.testutil.ReturnOrderBookBuilder;
 
 public class ModelManagerTest {
 
@@ -29,7 +31,7 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new OrderBook(), modelManager.getOrderBook());
-        assertEquals(new OrderBook(), modelManager.getReturnOrderBook());
+        assertEquals(new ReturnOrderBook(), modelManager.getReturnOrderBook());
     }
 
     @Test
@@ -115,16 +117,17 @@ public class ModelManagerTest {
     @Test
     public void addReturnOrder_thenSetReturnOrderBook_returnCorrectReturnOrderBook() {
         modelManager.addReturnOrder(ALICE_RETURN);
-        modelManager.setReturnOrderBook(new OrderBook());
-        assertEquals(new OrderBook(), modelManager.getReturnOrderBook());
+        modelManager.setReturnOrderBook(new ReturnOrderBook());
+        assertEquals(new ReturnOrderBook(), modelManager.getReturnOrderBook());
     }
 
     @Test
     public void equals() {
         OrderBook deliveryOrderBook = new OrderBookBuilder().withOrder(ALICE).withOrder(BENSON).build();
-        OrderBook returnOrderBook = new OrderBookBuilder().withOrder(ALICE_RETURN).withOrder(BENSON_RETURN).build();
+        ReturnOrderBook returnOrderBook = new ReturnOrderBookBuilder().withReturnOrder(ALICE_RETURN)
+                .withReturnOrder(BENSON_RETURN).build();
         OrderBook differentDeliveryOrderBook = new OrderBook();
-        OrderBook differentReturnOrderBook = new OrderBook();
+        ReturnOrderBook differentReturnOrderBook = new ReturnOrderBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

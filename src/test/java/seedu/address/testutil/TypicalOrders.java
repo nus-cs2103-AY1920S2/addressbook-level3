@@ -24,6 +24,7 @@ import java.util.List;
 
 import seedu.address.model.OrderBook;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 
 /**
  * A utility class containing a list of {@code Order} objects to be used in tests.
@@ -206,12 +207,12 @@ public class TypicalOrders {
     }
 
     /**
-     * Returns an {@code OrderBook} with all the typical return orders.
+     * Returns an {@code ReturnOrderBook} with all the typical return orders.
      */
-    public static OrderBook getTypicalReturnOrderBook() {
-        OrderBook ab = new OrderBook();
+    public static ReturnOrderBook getTypicalReturnOrderBook() {
+        ReturnOrderBook ab = new ReturnOrderBook();
         for (Order order : getTypicalReturnOrders()) {
-            ab.addOrder(order);
+            ab.addReturnOrder(order);
         }
         return ab;
     }
