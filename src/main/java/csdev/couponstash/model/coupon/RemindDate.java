@@ -49,6 +49,16 @@ public class RemindDate {
         date = getDate().minusDays(3);
         setRemindDate(date);
     }
+
+    /**
+     * Private constructor to facilitate copying of a new RemindDate
+     */
+    private RemindDate(LocalDate date, boolean remindFlag, String value) {
+        this.date = date;
+        this.remindFlag = remindFlag;
+        this.value = value;
+    }
+
     /**
      * Returns true if a given string reminddate and string expirydate are a valid remind date.
      */
@@ -96,6 +106,14 @@ public class RemindDate {
      */
     public LocalDate getDate() {
         return LocalDate.parse(value, DATE_FORMATTER);
+    }
+
+    /**
+     * Make a new copy of current RemindDate
+     * @return a copy of the current RemindDate
+     */
+    public RemindDate copy() {
+        return new RemindDate(date, remindFlag, value);
     }
 
     @Override

@@ -86,7 +86,7 @@ public class LogicManagerTest {
                 + EXPIRY_DATE_DESC_AMY + START_DATE_DESC_AMY + USAGE_DESC_AMY + LIMIT_DESC_AMY;
         Coupon expectedCoupon = new CouponBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addCoupon(expectedCoupon);
+        expectedModel.addCoupon(expectedCoupon, "");
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

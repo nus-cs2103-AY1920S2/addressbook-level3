@@ -24,7 +24,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyCouponStash_success() {
         Model model = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
         Model expectedModel = new ModelManager(TypicalCoupons.getTypicalCouponStash(), new UserPrefs());
-        expectedModel.setCouponStash(new CouponStash());
+        expectedModel.setCouponStash(new CouponStash(), "");
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

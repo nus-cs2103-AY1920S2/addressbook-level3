@@ -30,7 +30,7 @@ public class AddCommandIntegrationTest {
         Coupon validCoupon = new CouponBuilder().build();
 
         Model expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        expectedModel.addCoupon(validCoupon);
+        expectedModel.addCoupon(validCoupon, "");
 
         assertCommandSuccess(new AddCommand(validCoupon), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, validCoupon), expectedModel);

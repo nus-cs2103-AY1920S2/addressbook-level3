@@ -43,6 +43,19 @@ public class Savings implements Comparable<Savings> {
     private final Optional<List<Saveable>> saveables;
 
     /**
+     * Private constructor facilitating copy of current Savings
+     */
+    private Savings(
+            Optional<MonetaryAmount> monetaryAmount,
+            Optional<PercentageAmount> percentage,
+            Optional<List<Saveable>> saveables
+    ) {
+        this.monetaryAmount = monetaryAmount;
+        this.percentage = percentage;
+        this.saveables = saveables;
+    }
+
+    /**
      * Constructor for a Savings value, given only
      * a MonetaryAmount representing the amount
      * in terms of some denomination of currency.
@@ -173,6 +186,20 @@ public class Savings implements Comparable<Savings> {
 
     public Optional<List<Saveable>> getSaveables() {
         return this.saveables;
+    }
+
+    /**
+     * Make a new copy of current Savings
+     * @return a copy of the current Savings
+     */
+    public Savings copy() {
+        Optional<MonetaryAmount> monetaryAmountCopy =
+                monetaryAmount.map(x -> new MonetaryAmount(x.getValue()));
+        Optional<PercentageAmount> percentageCopy =
+                percentage.map(x -> new PercentageAmount(x.getValue()));
+        Optional<List<Saveable>> savablesCopy = saveables.map(x -> new ArrayList<>(x));
+
+        return new Savings(monetaryAmountCopy, percentageCopy, savablesCopy);
     }
 
     @Override

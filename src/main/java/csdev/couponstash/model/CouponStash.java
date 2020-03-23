@@ -106,19 +106,7 @@ public class CouponStash implements ReadOnlyCouponStash {
         CouponStash copy = new CouponStash();
 
         for (Coupon coupon : coupons) {
-
-            // Copy all the tags
-            Set<Tag> copiedTags = new HashSet<>();
-            for (Tag tag : coupon.getTags()) {
-                copiedTags.add(new Tag(tag.tagName));
-            }
-
-            copy.addCoupon(new Coupon(
-                    coupon.getName(), coupon.getPromoCode(),
-                    coupon.getSavingsForEachUse(), coupon.getExpiryDate(), coupon.getStartDate(),
-                    coupon.getUsage(), coupon.getLimit(), copiedTags,
-                    coupon.getSavingsMap(), coupon.getRemindDate()
-            ));
+            copy.addCoupon(coupon.copy());
         }
 
         return copy;
