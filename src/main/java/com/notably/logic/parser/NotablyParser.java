@@ -1,5 +1,6 @@
 package com.notably.logic.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,6 +8,8 @@ import java.util.stream.Stream;
 
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
+import com.notably.logic.commands.EditCommand;
+import com.notably.logic.commands.ExitCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -41,6 +44,14 @@ public class NotablyParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            List<Command> command = new ArrayList<>();
+            command.add(new ExitCommand());
+            return command;
 
         default:
             throw new ParseException("Invalid Command");
