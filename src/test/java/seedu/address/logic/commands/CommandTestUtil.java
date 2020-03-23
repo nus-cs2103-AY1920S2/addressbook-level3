@@ -2,9 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
@@ -37,6 +39,12 @@ public class CommandTestUtil {
     public static final String VALID_INSTRUCTIONS_EGGS_ON_TOAST = "toast the 2 slices of bread; scramble the eggs "
                                                                   + "with the pepper; put egg between bread; serve on"
                                                                   + " plate";
+    public static final String VALID_CALORIE_HAM_SANDWICH = "300";
+    public static final String VALID_CALORIE_EGGS_ON_TOAST = "200";
+    public static final String VALID_SERVING_HAM_SANDWICH = "2";
+    public static final String VALID_SERVING_EGGS_ON_TOAST = "1";
+    public static final String VALID_RATING_HAM_SANDWICH = "4"; // Ratings: 0 - 5, 0 being no rating
+    public static final String VALID_RATING_EGGS_ON_TOAST = "3";
     public static final String VALID_TAG_BREAKFAST = "breakfast";
     public static final String VALID_TAG_LUNCH = "lunch";
     public static final String VALID_TAG_DINNER = "dinner";
@@ -52,6 +60,13 @@ public class CommandTestUtil {
             " " + PREFIX_INSTRUCTIONS + VALID_INSTRUCTIONS_HAM_SANDWICH;
     public static final String INSTRUCTIONS_DESC_EGGS_ON_TOAST =
             " " + PREFIX_INSTRUCTIONS + VALID_INSTRUCTIONS_EGGS_ON_TOAST;
+    public static final String CALORIE_DESC_HAM_SANDWICH = " " + PREFIX_CALORIE + VALID_CALORIE_HAM_SANDWICH;
+    public static final String CALORIE_DESC_EGGS_ON_TOAST = " " + PREFIX_CALORIE + VALID_CALORIE_EGGS_ON_TOAST;
+    public static final String SERVING_DESC_HAM_SANDWICH = " " + PREFIX_SERVING + VALID_CALORIE_HAM_SANDWICH;
+    public static final String SERVING_DESC_EGGS_ON_TOAST = " " + PREFIX_SERVING + VALID_CALORIE_EGGS_ON_TOAST;
+
+    // TODO: add RATING_DESC once Rating has been merged
+
     public static final String TAG_DESC_BREAKFAST = " " + PREFIX_TAG + VALID_TAG_BREAKFAST;
     public static final String TAG_DESC_LUNCH = " " + PREFIX_TAG + VALID_TAG_LUNCH;
     public static final String TAG_DESC_DINNER = " " + PREFIX_TAG + VALID_TAG_DINNER;
@@ -59,6 +74,11 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Ham Sandwich&"; // '&' not allowed in names
     public static final String INVALID_INGREDIENTS_DESC = " " + PREFIX_INGREDIENTS + " "; // ingredients can't be blank
     public static final String INVALID_INSTRUCTIONS_DESC = " " + PREFIX_INSTRUCTIONS + " "; // ingredients can't be " "
+    public static final String INVALID_CALORIE_DESC = " " + PREFIX_CALORIE + "abc"; // calorie can't be numeric
+    public static final String INVALID_SERVING_DESC = " " + PREFIX_SERVING + "xyz"; // serving can't be numeric
+
+    // TODO: add INVALID_RATING once Rating has been merged
+
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "lunch*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
