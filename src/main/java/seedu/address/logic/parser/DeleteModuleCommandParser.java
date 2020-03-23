@@ -6,7 +6,10 @@ import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.nusmodule.ModuleCode;
 
-public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand>{
+/**
+ * Parses input arguments and creates a new DeleteModuleCommand object
+ */
+public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.

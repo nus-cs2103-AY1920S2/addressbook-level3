@@ -6,6 +6,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.nusmodule.ModuleCode;
 
+/**
+ * Deletes a NUS module identified using given module code from the module book.
+ */
 public class DeleteModuleCommand extends Command {
 
     public static final String COMMAND_WORD = "moduleDel";

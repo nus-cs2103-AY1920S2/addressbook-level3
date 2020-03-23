@@ -76,7 +76,7 @@ public enum Grade {
     public static boolean isValidGrade(String test) {
         for (Grade g : values()) {
             if (g.text.equals(test)) {
-               return true;
+                return true;
             }
         }
         return false;

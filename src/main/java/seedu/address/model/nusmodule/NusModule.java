@@ -2,7 +2,6 @@ package seedu.address.model.nusmodule;
 
 import java.util.Optional;
 
-import seedu.address.searcher.Module;
 
 /**
  * Represents a module in NUS.
