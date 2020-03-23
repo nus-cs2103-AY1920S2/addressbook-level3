@@ -44,13 +44,17 @@ public class TransactionCard extends UiPart<Region> {
     public TransactionCard(Transaction transaction, int displayedIndex) {
         super(FXML);
         this.transaction = transaction;
-        id.setText(displayedIndex + ". ");
-        customer.setText(transaction.getCustomer().getName().toString());
-        product.setText(transaction.getProduct().getDescription().toString());
-        dateTime.setText(transaction.getDateTime().toString());
-        quantity.setText(transaction.getQuantity().value);
-        money.setText(transaction.getMoney().value);
-        description.setText(transaction.getDescription().value);
+        id.setText(displayedIndex
+                + ". "
+                + transaction.getCustomer().getName().toString()
+                + " bought "
+                + transaction.getProduct().getDescription().toString());
+        customer.setText("Customer: " + transaction.getCustomer().getName().toString());
+        product.setText("Product: " + transaction.getProduct().getDescription().toString());
+        dateTime.setText("Date/ time: " + transaction.getDateTime().toString());
+        quantity.setText("Quantity: " + transaction.getQuantity().value);
+        money.setText("Amount: $" + transaction.getMoney().value);
+        description.setText("Description: " + transaction.getDescription().value);
     }
 
     @Override

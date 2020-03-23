@@ -4,9 +4,8 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import seedu.address.model.customer.Customer;
 import seedu.address.ui.UiPart;
 
@@ -47,9 +46,9 @@ public class PersonCard extends UiPart<Region> {
         this.customer = customer;
         id.setText(displayedIndex + ". ");
         name.setText(customer.getName().fullName);
-        phone.setText(customer.getPhone().value);
-        address.setText(customer.getAddress().value);
-        email.setText(customer.getEmail().value);
+        phone.setText("Phone: " + customer.getPhone().value);
+        address.setText("Address: " + customer.getAddress().value);
+        email.setText("Email: " + customer.getEmail().value);
         customer.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

@@ -6,7 +6,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: #e6f3f5;
     -fx-opacity: 0.9;
 }
 
@@ -84,19 +84,19 @@
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#101010, 20%);
 }
 
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#101010, 20%);
 }
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0 0 10px 0;
 }
 
 .list-cell:filled:even {
@@ -123,23 +123,25 @@
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #2DEDB7;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #fafcfc;
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#45adad, 20%);
+     -fx-background-radius: 10px;
+     -fx-opacity: 0.7
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: derive(#111111, 20%);
+     -fx-border-color: derive(#111111, 10%);
+     -fx-border-top-width: 3px;
 }
 
 .status-bar {
@@ -181,7 +183,7 @@
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#B682F5, 30%);
 }
 
 .context-menu {
@@ -193,7 +195,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#111111, 20%);
 }
 
 .menu-bar .label {
@@ -282,7 +284,7 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#101010, 20%);
 }
 
 .scroll-bar .thumb {
@@ -308,13 +310,14 @@
 }
 
 #cardPane {
-    -fx-background-color: transparent;
+    -fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #023448, #00868A);
     -fx-border-width: 0;
+    -fx-background-radius: 10px;
 }
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: #992228;
 }
 
 #commandTextField {
@@ -325,7 +328,7 @@
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #08292e;
 }
 
 #filterField, #personListPanel, #personWebpage {
