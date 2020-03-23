@@ -29,7 +29,7 @@ public class Rating {
      * Returns true if a given string is a valid serving size.
      */
     public static boolean isValidRating(int test) {
-        return (test >= 0 && test <=5);
+        return (test >= 0 && test <= 5);
     }
 
     @Override

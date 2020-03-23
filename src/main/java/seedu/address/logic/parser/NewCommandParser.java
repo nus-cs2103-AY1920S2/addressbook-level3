@@ -1,15 +1,28 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERVING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.recipe.attribute.*;
+import seedu.address.model.recipe.attribute.Calorie;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Rating;
+import seedu.address.model.recipe.attribute.Serving;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
  * Parses input arguments and creates a new NewCommand object

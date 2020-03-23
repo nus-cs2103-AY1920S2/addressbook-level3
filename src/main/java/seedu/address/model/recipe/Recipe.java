@@ -108,8 +108,8 @@ public class Recipe {
         Recipe otherRecipe = (Recipe) other;
         return otherRecipe.getName().equals(getName()) && otherRecipe.getIngredients().equals(getIngredients())
             && otherRecipe.getInstructions().equals(getInstructions()) && otherRecipe.getCalorie()
-            .equals(getCalorie()) && otherRecipe.getRating().equals(getRating()) &&
-                otherRecipe.getTags().equals(getTags());
+            .equals(getCalorie()) && otherRecipe.getRating().equals(getRating())
+                && otherRecipe.getTags().equals(getTags());
     }
 
     @Override
@@ -123,9 +123,8 @@ public class Recipe {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName()).append(" Ingredients: ").append(getIngredients()).append(
             " Instructions: ").append(getInstructions()).append(" Calories: ").append(getCalorie()).append(
-                    " Serving size: ").append(getServing()).append(" Rating: ").append(getRating()).append(" " +
-                "Tags"
-            + ": ");
+                    " Serving size: ").append(getServing()).append(" Rating: ").append(getRating()).append(" "
+                + "Tags" + ": ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

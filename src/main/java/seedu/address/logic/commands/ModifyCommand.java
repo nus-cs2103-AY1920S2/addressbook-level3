@@ -105,7 +105,7 @@ public class ModifyCommand extends Command {
                 editRecipeDescriptor.getInstructions().orElse(recipeToEdit.getInstructions());
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
-        Rating updatedRating  = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
+        Rating updatedRating = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,
