@@ -7,6 +7,7 @@ import com.notably.commons.core.GuiSettings;
 import com.notably.model.suggestion.SuggestionModel;
 
 import com.notably.model.viewstate.ViewStateModel;
+
 import javafx.collections.ObservableList;
 
 /**

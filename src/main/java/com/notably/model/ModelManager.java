@@ -20,6 +20,7 @@ import com.notably.model.suggestion.SuggestionItem;
 import com.notably.model.suggestion.SuggestionModel;
 
 import com.notably.model.viewstate.ViewStateModel;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
 
