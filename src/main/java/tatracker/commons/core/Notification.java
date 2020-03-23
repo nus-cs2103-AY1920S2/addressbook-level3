@@ -3,6 +3,7 @@ package tatracker.commons.core;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.SystemTray;
+import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.io.IOException;
 
@@ -16,16 +17,24 @@ public class Notification {
     private static Notification singleton;
     private final TrayIcon trayIcon;
 
-    private Notification() throws AWTException, IOException {
+    private Notification() throws AWTException {
         SystemTray tray = SystemTray.getSystemTray();
-        Image image = ImageIO.read(getClass().getClassLoader().getResource(APPICON_PATH));
-        trayIcon = new TrayIcon(image, "TrayIcon");
+        Image trayImage;
+
+        try {
+            trayImage = ImageIO.read(getClass().getClassLoader().getResource(APPICON_PATH));
+        } catch (IOException e) {
+            System.err.println("Unable to load Application Icon for the System Tray!");
+            trayImage = Toolkit.getDefaultToolkit().createImage("placeholder-icon.png");
+        }
+
+        trayIcon = new TrayIcon(trayImage, "TrayIcon");
         trayIcon.setImageAutoSize(true);
         trayIcon.setToolTip("TA Tracker");
         tray.add(trayIcon);
     }
 
-    private static Notification getInstance() throws AWTException, IOException {
+    private static Notification getInstance() throws AWTException {
         if (singleton == null) {
             singleton = new Notification();
         }
@@ -39,12 +48,13 @@ public class Notification {
 
     /**
      * Sends
+     *
      * @param caption The title displayed in the notification
      * @param message The message displayed in the notification
-     * @param type the type of notification (error, info, warning, etc.)
+     * @param type    the type of notification (error, info, warning, etc.)
      * @throws AWTException if {@code SystemTray} is not supported on the current platform.
      */
-    public static void sendNotification(String caption, String message, TrayIcon.MessageType type) throws AWTException, IOException {
+    public static void sendNotification(String caption, String message, TrayIcon.MessageType type) throws AWTException {
         Notification.getInstance().notify(caption, message, type);
     }
 }
