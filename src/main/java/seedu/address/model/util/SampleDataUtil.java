@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.profile.Name;
@@ -10,7 +11,7 @@ import seedu.address.model.profile.course.CourseName;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
-    public static Profile[] getSamplePersons() {
+    public static Profile[] getSamplePersons() throws ParseException {
         return new Profile[] {
             new Profile(new Name("Alex Yeoh"), new CourseName("Computer Science"), "1",
                     null),
@@ -27,7 +28,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyAddressBook getSampleAddressBook() throws ParseException {
         AddressBook sampleAb = new AddressBook();
         for (Profile sampleProfile : getSamplePersons()) {
             sampleAb.addPerson(sampleProfile);

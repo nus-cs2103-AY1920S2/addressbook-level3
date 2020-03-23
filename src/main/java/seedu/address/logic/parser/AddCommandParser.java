@@ -43,8 +43,12 @@ public class AddCommandParser implements Parser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        // Create module object
+        // Check that module code format is correct
         String moduleCodeString = argMultimap.getValue(PREFIX_MODULE).get();
+        moduleCodeString = moduleCodeString.trim();
+        moduleCodeString = moduleCodeString.toUpperCase();
+
+        // Create module object
         ModuleCode moduleCode = new ModuleCode(moduleCodeString);
         Module module = ModuleManager.getModule(moduleCode);
 
@@ -60,7 +64,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         int intSemester = Integer.parseInt(semester);
         module.getPersonal().setSemester(intSemester);
 
-        // TODO: Check for duplicate modules
+        // Check for duplicate modules
         Module existingModule = null;
         HashMap<Integer, ArrayList<Module>> hashMap = Profile.getHashMap();
         for (ArrayList<Module> list: hashMap.values()) {
