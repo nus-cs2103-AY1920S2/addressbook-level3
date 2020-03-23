@@ -15,5 +15,5 @@
             </minWidth>
         </Label>
     </HBox>
-    <StackPane fx:id="activityListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+    <StackPane fx:id="activityListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
 </VBox>

@@ -246,6 +246,13 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        for (Module module : filteredModules) {
+            module.updateFilteredActivityList(predicate);
+        }
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

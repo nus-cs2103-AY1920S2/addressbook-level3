@@ -1,12 +1,16 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
+
+import javafx.collections.ObservableList;
 
 import nasa.commons.core.Messages;
 import nasa.logic.commands.exceptions.CommandException;
-import nasa.model.Model;
 
-//import seedu.address.model.person.NameContainsKeywordsPredicate;
+import nasa.model.Model;
+import nasa.model.activity.ActivityContainsKeyWordsPredicate;
+import nasa.model.module.Module;
 
 /**
  * Finds and lists all activities in NASA whose name contains any of the argument keywords.
@@ -22,25 +26,34 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " assignment lab tutorial";
 
-    //private final NameContainsKeywordsPredicate predicate;
+    private final ActivityContainsKeyWordsPredicate predicate;
 
-    /*public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(ActivityContainsKeyWordsPredicate predicate) {
         this.predicate = predicate;
     }
-
-     */
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         // TODO add the necessary implementation once model is done
-        return new CommandResult(Messages.MESSAGE_MODULE_LISTED_OVERVIEW);
+        model.updateFilteredActivityList(predicate);
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
+            getNumberOfFilteredActivities(model.getFilteredModuleList())));
+    }
+
+    private int getNumberOfFilteredActivities(ObservableList<Module> moduleList) {
+        int numberOfActivities = 0;
+        for (Module module : moduleList) {
+            numberOfActivities += module.getFilteredActivityList().size();
+        }
+        return numberOfActivities;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand); // instanceof handles nulls
-                //&& predicate.equals(((FindCommand) other).predicate)); // state check
+            || (other instanceof FindCommand // instanceof handles nulls
+            && predicate.equals(((FindCommand) other).predicate)); // state check
     }
+
 }
