@@ -15,6 +15,8 @@ import fithelper.model.entry.Entry;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
+import fithelper.model.profile.Profile;
+
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
@@ -353,7 +355,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setUserProfile(Profile newUserProfile) {
+        this.userProfile.setUserProfile(newUserProfile);
+    }
+
+    @Override
     public ReadOnlyUserProfile getUserProfile() {
         return this.userProfile;
+    }
+
+    @Override
+    public boolean isSameProfile(Profile newProfile) {
+        return this.userProfile.getUserProfile().equals(newProfile);
     }
 }

@@ -17,9 +17,5 @@ public class Config {
      * Path of User Profile data.
      */
     public static final Path USERPROFILE_DATA_PATH = Paths.get("data", "userprofile.json");
-
-    private Config() {
-
-    }
 }
 

@@ -2,7 +2,6 @@ package fithelper.model.entry;
 
 import static fithelper.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -21,7 +20,7 @@ public class Entry {
     private final Calorie calorie;
     private Status status;
     private Remark remark;
-    private fithelper.model.entry.Duration duration;
+    private Duration duration;
 
     /**
      * Every field must be present and not null.
@@ -35,14 +34,14 @@ public class Entry {
         this.calorie = calorie;
         this.status = new Status("Undone");
         this.remark = new Remark("");
-        this.duration = new fithelper.model.entry.Duration("1");
+        this.duration = new Duration("1");
     }
 
     /**
      * Every field must be present and not null.
      */
     public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Remark remark,
-                 fithelper.model.entry.Duration duration) {
+                 Duration duration) {
 
         requireAllNonNull(type, name, location, time, calorie);
         this.type = type;
@@ -67,7 +66,7 @@ public class Entry {
         this.calorie = calorie;
         this.status = new Status("Undone");
         this.remark = remark;
-        this.duration = new fithelper.model.entry.Duration("1");
+        this.duration = new Duration("1");
     }
 
     /**
@@ -82,7 +81,7 @@ public class Entry {
         this.calorie = calorie;
         this.status = status;
         this.remark = remark;
-        this.duration = new fithelper.model.entry.Duration("1");
+        this.duration = new Duration("1");
     }
 
     /**
@@ -97,7 +96,7 @@ public class Entry {
         this.calorie = calorie;
         this.status = status;
         this.remark = new Remark("");
-        this.duration = new fithelper.model.entry.Duration("1");
+        this.duration = new Duration("1");
     }
 
 
@@ -105,7 +104,7 @@ public class Entry {
      * Every field must be present and not null.
      */
     public Entry(Type type, Name name, Time time, Location location, Calorie calorie,
-                 fithelper.model.entry.Duration duration) {
+                 Duration duration) {
         requireAllNonNull(type, name, location, time, calorie);
         this.type = type;
         this.name = name;
@@ -122,7 +121,7 @@ public class Entry {
      * Every field must be present and not null.
      */
     public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Status status,
-                 Remark remark, fithelper.model.entry.Duration duration) {
+                 Remark remark, Duration duration) {
         requireAllNonNull(type, name, location, time, calorie);
         this.type = type;
         this.name = name;
@@ -138,7 +137,7 @@ public class Entry {
      * Every field must be present and not null.
      */
     public Entry(Type type, Name name, Time time, Location location, Calorie calorie, Status status,
-                 fithelper.model.entry.Duration duration) {
+                 Duration duration) {
         requireAllNonNull(type, name, location, time, calorie);
         this.type = type;
         this.name = name;
@@ -190,7 +189,7 @@ public class Entry {
         return duration.getHours();
     }
 
-    public fithelper.model.entry.Duration getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
@@ -249,12 +248,12 @@ public class Entry {
         if (anotherEntry == this) {
             return true;
         }
-        Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes();
+        java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes();
         return anotherEntry != null
-                && (Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() <= 59
-                && Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() >= 0
-                || Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() <= 59
-                && Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() >= 0);
+                && (java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() <= 59
+                && java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() >= 0
+                || java.time.Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() <= 59
+                && java.time.Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() >= 0);
     }
 
 

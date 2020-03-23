@@ -22,6 +22,7 @@ import fithelper.logic.commands.ProfileCommand;
 import fithelper.logic.commands.ReminderCommand;
 import fithelper.logic.commands.ReportCommand;
 import fithelper.logic.commands.TodayCommand;
+import fithelper.logic.commands.UpdateCommand;
 import fithelper.logic.commands.WeightCommand;
 
 import fithelper.logic.commands.diary.AddDiaryCommand;
@@ -117,6 +118,9 @@ public class FitHelperParser {
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommand();
+
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

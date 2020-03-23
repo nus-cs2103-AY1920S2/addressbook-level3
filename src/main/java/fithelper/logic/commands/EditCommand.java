@@ -30,7 +30,6 @@ import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
 
-
 /**
  * Edits the details of an existing entry in the location book.
  */

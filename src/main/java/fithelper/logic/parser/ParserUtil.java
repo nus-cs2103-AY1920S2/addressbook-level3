@@ -15,6 +15,11 @@ import fithelper.model.entry.Remark;
 import fithelper.model.entry.Status;
 import fithelper.model.entry.Time;
 import fithelper.model.entry.Type;
+import fithelper.model.profile.Address;
+import fithelper.model.profile.Age;
+import fithelper.model.profile.Gender;
+import fithelper.model.profile.Height;
+import fithelper.model.profile.TargetWeight;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -169,4 +174,91 @@ public class ParserUtil {
         String trimmedDuration = duration.trim();
         return new Duration(trimmedDuration);
     }
+
+    // methods related to profile
+
+    /**
+     * Parses a {@code String name} into a {@code Name} in user Profile.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static fithelper.model.profile.Name parseProfileName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!fithelper.model.profile.Name.isValidName(trimmedName)) {
+            throw new ParseException(fithelper.model.profile.Name.MESSAGE_CONSTRAINTS);
+        }
+        return new fithelper.model.profile.Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String gender} into a {@code Gender} in user Profile.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code gender} is invalid.
+     */
+    public static Gender parseProfileGender(String gender) throws ParseException {
+        requireNonNull (gender);
+        String trimmedGender = gender.trim();
+        if (!Gender.isValidGender(trimmedGender)) {
+            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+        }
+        return new Gender(trimmedGender);
+    }
+
+    /**
+     * Parses a {@code String age} into a {@code Age} in user Profile.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code age} is invalid.
+     */
+    public static Age parseProfileAge(String age) throws ParseException {
+        requireNonNull (age);
+        String trimmedAge = age.trim();
+        if (!Age.isValidAge(trimmedAge)) {
+            throw new ParseException(Age.MESSAGE_CONSTRAINTS);
+        }
+        return new Age(trimmedAge);
+    }
+
+    /**
+     * Parses a {@code String address} into a {@code Address} in user Profile.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code address} is invalid.
+     */
+    public static Address parseProfileAddress(String address) throws ParseException {
+        requireNonNull (address);
+        String trimmedAddress = address.trim();
+        if (!Address.isValidAddress(trimmedAddress)) {
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        }
+        return new Address(trimmedAddress);
+    }
+
+    /**
+     * Parses a {@code String height} into a {@code Height} in user Profile.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code height} is invalid.
+     */
+    public static Height parseProfileHeight(String height) throws ParseException {
+        requireNonNull (height);
+        String trimmedHeight = height.trim();
+        if (!Height.isValidHeight(trimmedHeight)) {
+            throw new ParseException(Height.MESSAGE_CONSTRAINTS);
+        }
+        return new Height(trimmedHeight);
+    }
+
+    /**
+     * Parses a {@code String targetWeight} into a {@code TargetWeight} in user Profile.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the given {@code targetWeight} is invalid.
+     */
+    public static TargetWeight parseProfileTargetWeight(String targetWeight) throws ParseException {
+        requireNonNull (targetWeight);
+        String trimmedTargetWeight = targetWeight.trim();
+        if (!TargetWeight.isValidTargetWeight(trimmedTargetWeight)) {
+            throw new ParseException(TargetWeight.MESSAGE_CONSTRAINTS);
+        }
+        return new TargetWeight(trimmedTargetWeight);
+    }
+
 }
