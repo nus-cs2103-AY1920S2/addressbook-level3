@@ -8,6 +8,7 @@ import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.ReadOnlyTaTracker;
+import tatracker.model.session.Session;
 import tatracker.model.student.Student;
 
 /**
@@ -47,4 +48,6 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    ObservableList<Session> getFilteredSessionList();
 }
