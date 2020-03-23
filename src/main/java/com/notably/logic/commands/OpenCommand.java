@@ -1,17 +1,20 @@
 package com.notably.logic.commands;
 
+import com.notably.commons.core.path.AbsolutePath;
+import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
+import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.model.BlockManager;
+import com.notably.model.Model;
 
 /**
  * Represents a command that opens a path.
  */
 public class OpenCommand extends Command {
     public static final String COMMAND_WORD = "open";
-    private final RelativePath path;
+    private Path path;
 
-    public OpenCommand(RelativePath path) {
+    public OpenCommand(Path path) {
         this.path = path;
     }
 
@@ -20,9 +23,16 @@ public class OpenCommand extends Command {
      * @param notablyModel used to open path.
      * @throws CommandException if there is an invalid path error.
      */
-    public void execute(BlockManager notablyModel) throws CommandException {
-        //TODO: Change relative path to Absolute after BlockManager Impl is merged
-        notablyModel.openBlock(path);
+    public void execute(Model notablyModel) throws CommandException {
+        if (this.path instanceof RelativePath) {
+            RelativePath toConvert = (RelativePath) this.path;
+            try {
+                this.path = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
+            } catch (InvalidPathException ex) {
+                throw new CommandException(ex.getMessage());
+            }
+        }
+        notablyModel.setCurrentlyOpenBlock((AbsolutePath) path);
     }
 
 }

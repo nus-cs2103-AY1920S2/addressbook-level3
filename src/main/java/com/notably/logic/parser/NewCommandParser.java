@@ -41,20 +41,22 @@ public class NewCommandParser implements CommandParser {
 
         String title = argMultimap.getValue(PREFIX_TITLE).get();
         String body = argMultimap.getValue(PREFIX_BODY).get();
-
-        Block block = new BlockImpl(new Title(title), new Body(body));
-        List<Command> commands = new ArrayList<>();
-        commands.add(new NewCommand(block));
-        if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
-            return commands;
-        }
         try {
-            RelativePath openPath = RelativePath.fromString(title);
-            commands.add(new OpenCommand(openPath));
+            RelativePath relativePath = RelativePath.fromString(title);
+            Block block = new BlockImpl(new Title(title), new Body(body));
+            List<Command> commands = new ArrayList<>();
+            commands.add(new NewCommand(block, relativePath));
+
+            if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
+                return commands;
+            }
+
+            commands.add(new OpenCommand(relativePath));
             return commands;
         } catch (InvalidPathException ex) {
             throw new ParseException(ex.getMessage());
         }
+
     }
 
 }

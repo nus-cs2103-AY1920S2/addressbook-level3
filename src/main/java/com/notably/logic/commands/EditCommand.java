@@ -1,29 +1,28 @@
-package com.notably.logic.commands;
-
-import static java.util.Objects.requireNonNull;
-
-import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.model.Model;
-import com.notably.model.block.Block;
-
-public class EditCommand {
-    public static final String COMMAND_WORD = "edit";
-    private final path toReplace;
-
-    public EditCommand(Block block,) {
-        requireNonNull(block);
-        this.toAdd = block;
-    }
-
-    /**
-     * Add a new block to the tree structure.
-     * @param notablyModel used to access the tree structure.
-     * @throws CommandException when block of the same Title is detected.
-     */
-    public void execute(Model notablyModel) throws CommandException {
-        if (notablyModel.hasBlock(toAdd)) {
-            throw new CommandException("Block with the same Title detected.");
-        }
-        notablyModel.addBlock(toAdd);
-    }
-}
+//package com.notably.logic.commands;
+//
+//import static java.util.Objects.requireNonNull;
+//
+//import com.notably.logic.commands.exceptions.CommandException;
+//import com.notably.model.Model;
+//import com.notably.model.ModelManager;
+//import com.notably.model.block.Body;
+//
+//public class EditCommand extends Command {
+//    public static final String COMMAND_WORD = "edit";
+//    private final Body body;
+//
+//    public EditCommand(Body body) {
+//        requireNonNull(body);
+//        this.body = body;
+//    }
+//
+//    /**
+//     * Edit the Block body of the current directory.
+//     * @param notablyModel used to access the tree structure.
+//     * @throws CommandException
+//     */
+//    public void execute(Model notablyModel) {
+//        notablyModel.updateCurrentBlock(body);
+//    }
+//}
+//

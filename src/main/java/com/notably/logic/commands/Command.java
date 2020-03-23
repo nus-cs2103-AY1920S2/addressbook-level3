@@ -1,7 +1,7 @@
 package com.notably.logic.commands;
 
 import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.model.BlockManager;
+import com.notably.model.Model;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -14,6 +14,6 @@ public abstract class Command {
      * @param model {@code Model} which the command should operate on.
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract void execute(BlockManager model) throws CommandException;
+    public abstract void execute(Model model) throws CommandException;
 
 }
