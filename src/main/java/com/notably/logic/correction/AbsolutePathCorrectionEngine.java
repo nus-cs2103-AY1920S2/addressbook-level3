@@ -8,7 +8,6 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.correction.distance.EditDistanceCalculator;
 import com.notably.logic.correction.distance.LevenshteinDistanceCalculator;
 import com.notably.model.Model;
@@ -83,11 +82,7 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
         List<AbsolutePath> possiblePaths = new ArrayList<>();
 
         Queue<AbsolutePath> pathQueue = new LinkedList<>();
-        try {
-            pathQueue.offer(AbsolutePath.fromString("/"));
-        } catch (InvalidPathException exception) {
-            throw new AssertionError(exception);
-        }
+        pathQueue.offer(AbsolutePath.fromString("/"));
 
         while (!pathQueue.isEmpty()) {
             AbsolutePath currentPath = pathQueue.poll();
