@@ -13,6 +13,7 @@
         "count" : 1
       } ]
     },
+    "archived" : "false",
     "expiry date": "30-08-2020",
     "start date": "1-08-2020",
     "usage": "0",
@@ -33,6 +34,7 @@
         "count" : 1
       } ]
     },
+    "archived" : "false",
     "start date": "2-08-2020",
     "expiry date": "30-08-2020",
     "usage": "1",

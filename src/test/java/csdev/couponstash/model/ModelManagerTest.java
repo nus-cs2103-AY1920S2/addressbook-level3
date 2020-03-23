@@ -1,6 +1,6 @@
 package csdev.couponstash.model;
 
-import static csdev.couponstash.model.Model.PREDICATE_SHOW_ALL_COUPONS;
+import static csdev.couponstash.model.Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static csdev.couponstash.testutil.TypicalCoupons.ALICE;
 import static csdev.couponstash.testutil.TypicalCoupons.BENSON;
@@ -122,7 +122,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(couponStash, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredCouponList(PREDICATE_SHOW_ALL_COUPONS);
+        modelManager.updateFilteredCouponList(PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

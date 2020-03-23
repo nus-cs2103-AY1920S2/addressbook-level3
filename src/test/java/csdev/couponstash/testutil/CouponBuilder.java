@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -36,6 +37,7 @@ public class CouponBuilder {
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
+    public static final String DEFAULT_ARCHIVED = "false";
 
     private Name name;
     private PromoCode promoCode;
@@ -47,6 +49,7 @@ public class CouponBuilder {
     private Limit limit;
     private RemindDate remindDate;
     private Set<Tag> tags;
+    private Archived archived;
 
     public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -59,6 +62,7 @@ public class CouponBuilder {
         limit = new Limit(DEFAULT_LIMIT);
         remindDate = new RemindDate(expiryDate);
         tags = new HashSet<>();
+        archived = new Archived(DEFAULT_ARCHIVED);
     }
 
     /**
@@ -75,6 +79,7 @@ public class CouponBuilder {
         limit = couponToCopy.getLimit();
         remindDate = couponToCopy.getRemindDate();
         tags = new HashSet<>(couponToCopy.getTags());
+        archived = couponToCopy.getArchived();
     }
 
     /**
@@ -170,14 +175,25 @@ public class CouponBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Archive} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withArchived(String state) {
+        this.archived = new Archived(state);
+        return this;
+    }
 
     /**
      * Builds the Coupon from the provided fields.
      * @return A new Coupon.
      */
     public Coupon build() {
+        if (Usage.isUsageAtLimit(usage, limit)) {
+            archived = new Archived("true");
+        }
+
         return new Coupon(name, promoCode, savings, expiryDate, startDate,
-                usage, limit, tags, totalSavings, remindDate);
+                usage, limit, tags, totalSavings, remindDate, archived);
     }
 
 }

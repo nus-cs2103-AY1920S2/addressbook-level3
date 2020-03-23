@@ -12,6 +12,7 @@ import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -101,7 +102,7 @@ public class RemindCommand extends Command {
             remindCoupon = createRemindCoupon(couponToBeRemind, remindDate);
 
             model.setCoupon(couponToBeRemind, remindCoupon);
-            model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
+            model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
             messageSuccess = "Reminder has been set to remind on "
                     + remindCoupon.getRemindDate().toString()
@@ -122,7 +123,7 @@ public class RemindCommand extends Command {
                 remindCoupon = createRemindCoupon(couponToBeRemind, remindDate);
 
                 model.setCoupon(couponToBeRemind, remindCoupon);
-                model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
+                model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
                 messageSuccess = "Reminder has been set to remind on "
                         + remindCoupon.getRemindDate().toString()
@@ -195,8 +196,9 @@ public class RemindCommand extends Command {
         Set<Tag> tags = couponToBeReminded.getTags();
         Usage updatedUsage = couponToBeReminded.getUsage();
         DateSavingsSumMap totalSavings = couponToBeReminded.getSavingsMap();
+        Archived archived = couponToBeReminded.getArchived();
 
         return new Coupon(name, promoCode, savingsForEachUse, expiryDate, startDate, updatedUsage, limit,
-                tags, totalSavings, remindDate);
+                tags, totalSavings, remindDate, archived);
     }
 }

@@ -38,7 +38,8 @@ public class ModelManager implements Model {
 
         this.couponStash = new CouponStash(couponStash);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCoupons = new FilteredList<>(this.couponStash.getCouponList());
+        filteredCoupons = new FilteredList<>(this.couponStash.getCouponList(),
+                Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         history = new HistoryManager(this.couponStash.copy());
     }
 
@@ -121,7 +122,7 @@ public class ModelManager implements Model {
     @Override
     public void addCoupon(Coupon coupon) {
         couponStash.addCoupon(coupon);
-        updateFilteredCouponList(PREDICATE_SHOW_ALL_COUPONS);
+        updateFilteredCouponList(PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         commitCouponStash("add");
     }
 
@@ -130,6 +131,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCoupon);
 
         couponStash.setCoupon(target, editedCoupon);
+        updateFilteredCouponList(PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         commitCouponStash("edit");
     }
 

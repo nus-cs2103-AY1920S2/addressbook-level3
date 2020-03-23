@@ -90,7 +90,7 @@ public class UsedCommand extends Command {
         }
 
         model.setCoupon(couponToBeUsed, newUsedCoupon);
-        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, newUsedCoupon.getName())));
     }
 
