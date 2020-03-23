@@ -3,7 +3,6 @@ package tatracker.logic.parser.session;
 import static tatracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import tatracker.commons.core.index.Index;
-import tatracker.logic.commands.session.DeleteSessionCommand;
 import tatracker.logic.commands.session.DoneSessionCommand;
 import tatracker.logic.parser.Parser;
 import tatracker.logic.parser.ParserUtil;
