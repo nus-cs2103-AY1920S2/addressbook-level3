@@ -54,6 +54,10 @@ public class AddCommand extends Command {
         toAdd = coupon;
     }
 
+    public Coupon getCoupon() {
+        return this.toAdd;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

@@ -41,6 +41,8 @@ public class ExportCommand extends Command {
             + "Copied to your clipboard! Ctrl + v to paste this coupon!";
 
     private final Index targetIndex;
+    private Coupon coupon;
+
 
     public ExportCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -54,13 +56,18 @@ public class ExportCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
         }
+        this.coupon = lastShownList.get(targetIndex.getZeroBased());
+        String exportCommand = getExportCommand(coupon);
+        copyToClipboard(exportCommand);
+        return new CommandResult(String.format(MESSAGE_EXPORT_COUPON_SUCCESS, coupon.getName()));
+    }
 
-        Coupon couponToExport = lastShownList.get(targetIndex.getZeroBased());
-        Name name = couponToExport.getName();
-        PromoCode promoCode = couponToExport.getPromoCode();
-        ExpiryDate expiryDate = couponToExport.getExpiryDate();
-        Limit limit = couponToExport.getLimit();
-        Savings savings = couponToExport.getSavingsForEachUse();
+    public String getExportCommand(Coupon coupon) {
+        Name name = coupon.getName();
+        PromoCode promoCode = coupon.getPromoCode();
+        ExpiryDate expiryDate = coupon.getExpiryDate();
+        Limit limit = coupon.getLimit();
+        Savings savings = coupon.getSavingsForEachUse();
         String totalSavings = "";
         if (savings.hasMonetaryAmount()) {
             totalSavings += addPrefixAndDetails(PREFIX_SAVINGS, savings.getMonetaryAmount().get().toString());
@@ -71,20 +78,18 @@ public class ExportCommand extends Command {
         if (savings.hasSaveables()) {
             List<Saveable> saveableList = savings.getSaveables().get();
             for (Saveable s: saveableList) {
-                totalSavings += addPrefixAndDetails(PREFIX_SAVINGS, s.toString());
+                String saving = s.toString().substring(3);
+                totalSavings += addPrefixAndDetails(PREFIX_SAVINGS, saving);
             }
         }
 
         String exportCommand = AddCommand.COMMAND_WORD + " "
-            + PREFIX_NAME.getPrefix() + name + " "
-            + PREFIX_PROMO_CODE + promoCode + " "
-            + PREFIX_EXPIRY_DATE + expiryDate + " "
-            + totalSavings
-            + PREFIX_LIMIT + limit + " ";
-
-        copyToClipboard(exportCommand);
-
-        return new CommandResult(String.format(MESSAGE_EXPORT_COUPON_SUCCESS, name));
+                + PREFIX_NAME.getPrefix() + name + " "
+                + PREFIX_PROMO_CODE + promoCode + " "
+                + PREFIX_EXPIRY_DATE + expiryDate + " "
+                + totalSavings
+                + PREFIX_LIMIT + limit + " ";
+        return exportCommand;
     }
 
     private String addPrefixAndDetails(Prefix prefix, String details) {
