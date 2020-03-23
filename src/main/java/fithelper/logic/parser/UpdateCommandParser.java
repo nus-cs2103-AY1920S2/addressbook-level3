@@ -1,16 +1,16 @@
 package fithelper.logic.parser;
 
-import fithelper.logic.commands.UpdateCommand;
-import fithelper.logic.commands.UpdateCommand.UpdateValueDescriptor;
-import fithelper.logic.parser.exceptions.ParseException;
-
-import java.util.stream.Stream;
-
 import static fithelper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static fithelper.logic.parser.CliSyntaxUtil.FLAG_FORCE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_ATTRIBUTE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
 import static java.util.Objects.requireNonNull;
+
+import java.util.stream.Stream;
+
+import fithelper.logic.commands.UpdateCommand;
+import fithelper.logic.commands.UpdateCommand.UpdateValueDescriptor;
+import fithelper.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new UpdateCommand object
@@ -39,7 +39,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         String attributeName = argMultimap.getValue(PREFIX_ATTRIBUTE).orElse("").toLowerCase().trim();
         String[] words = attributeName.split(" ");
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < words.length; i++) {
+        for (int i = 0; i < words.length; i++) {
             sb.append(words[i]);
         }
         String attributeNameWithoutSpace = sb.toString();
@@ -55,7 +55,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);
         }
 
-        return new UpdateCommand( updateValueDescriptor);
+        return new UpdateCommand(updateValueDescriptor);
     }
 
     public void setName(String attributeName) throws ParseException {

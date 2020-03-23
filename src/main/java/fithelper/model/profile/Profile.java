@@ -129,8 +129,8 @@ public class Profile {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
-        } else if (other instanceof Profile){
-            Profile otherProfile = (Profile)other;
+        } else if (other instanceof Profile) {
+            Profile otherProfile = (Profile) other;
             return this.name.equals(otherProfile.name)
                     && this.gender.equals(otherProfile.gender)
                     && this.age.equals(otherProfile.age)

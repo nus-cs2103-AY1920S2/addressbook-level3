@@ -66,7 +66,8 @@ public class ProfilePage extends UiPart<AnchorPane> {
         height.setText(profile.getHeight().toString() + " cm");
         targetweight.setText(profile.getTargetWeight().toString() + " kg");
         // Need to be updated after weight database is ready.
-        String weightText, bmiText;
+        String weightText;
+        String bmiText;
         if (profile.getCurrentWeight() == null) {
             weightText = "Not Available Now";
         } else {

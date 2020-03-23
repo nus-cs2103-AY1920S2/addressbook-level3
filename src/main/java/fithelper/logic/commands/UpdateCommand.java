@@ -5,6 +5,8 @@ import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_ATTRIBUTE;
 import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_VALUE;
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
 import fithelper.commons.util.CollectionUtil;
 import fithelper.logic.commands.exceptions.CommandException;
 import fithelper.model.Model;
@@ -18,7 +20,6 @@ import fithelper.model.profile.TargetWeight;
 import fithelper.model.weight.Bmi;
 import fithelper.model.weight.WeightValue;
 
-import java.util.Optional;
 
 /**
  * Edits the details of an existing value in the age book.

@@ -2,6 +2,7 @@ package fithelper.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import fithelper.commons.exceptions.IllegalValueException;
 
 import fithelper.model.profile.Address;
@@ -145,7 +146,8 @@ class JsonAdaptedProfile {
      */
     public TargetWeight buildTargetWeight() throws IllegalValueException {
         if (targetWeight == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TargetWeight.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    TargetWeight.class.getSimpleName()));
         }
         return new TargetWeight(targetWeight);
     }
@@ -155,7 +157,7 @@ class JsonAdaptedProfile {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted profile.
      */
-    public Profile toModelType() throws IllegalValueException { ;
+    public Profile toModelType() throws IllegalValueException {
         final Name modelName = buildName();
         final Gender modelGender = buildGender();
         final Age modelAge = buildAge();

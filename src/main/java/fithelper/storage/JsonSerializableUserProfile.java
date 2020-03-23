@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import fithelper.commons.exceptions.IllegalValueException;
 import fithelper.model.ReadOnlyUserProfile;
 import fithelper.model.UserProfile;
-import fithelper.model.profile.Profile;
 
 /**
  * An Immutable UserProfile that is serializable to JSON format.
