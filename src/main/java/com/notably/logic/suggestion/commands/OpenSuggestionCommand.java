@@ -1,10 +1,8 @@
 package com.notably.logic.suggestion.commands;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Queue;
 import java.util.stream.Collectors;
 
 import com.notably.commons.core.path.AbsolutePath;
@@ -61,57 +59,42 @@ public class OpenSuggestionCommand implements SuggestionCommand {
 
         List<AbsolutePath> possiblePaths = new ArrayList<>();
 
-        BlockTreeItem currTreeItem = model.getBlockTree().get(path);
+        BlockTreeItem source = model.getBlockTree().get(path);
         List<String> components = path.getComponents();
-
-        List<BlockTreeItem> children = new ArrayList<>();
-        Queue<BlockTreeItem> queue = new LinkedList<>();
-
-        queue.offer(currTreeItem);
-
-        int index = 0;
-        while (index < components.size() && !queue.isEmpty()) {
-            BlockTreeItem curr = queue.poll();
-            String dir = components.get(index);
-            if (curr.getTitle().getText().equals(dir)) {
-                children = curr.getBlockChildren();
-
-                queue.clear();
-                queue.addAll(children);
-
-                index++;
-            }
-        }
 
         possiblePaths.add(path);
 
-        if (!children.isEmpty()) {
+        List<BlockTreeItem> children = source.getBlockChildren();
+        if (children.size() != 0) {
             for (BlockTreeItem child : children) {
-                List<String> newComponents = new ArrayList<>();
-                newComponents.addAll(components);
-                newComponents.add(child.getTitle().getText());
-                possiblePaths = getChildRecursive(child, newComponents, possiblePaths);
+                possiblePaths = getChildDfs(child, components, possiblePaths);
             }
         }
+
         return possiblePaths;
     }
 
-    public List<AbsolutePath> getChildRecursive(BlockTreeItem blockTreeItem, List<String> components,
+    /**
+     * Traverses the tree block starting from the block with the path that the user inputs.
+     * @param curr Current BlockTreeItem.
+     * @param components The components of the current path.
+     * @param possiblePaths The list of possible paths.
+     * @return The list of possible paths.
+     */
+    private List<AbsolutePath> getChildDfs(BlockTreeItem curr, List<String> components,
         List<AbsolutePath> possiblePaths) {
-        Objects.requireNonNull(blockTreeItem);
-        Objects.requireNonNull(components);
-        Objects.requireNonNull(possiblePaths);
+        List<String> newComponents = new ArrayList<>();
+        newComponents.addAll(components);
+        newComponents.add(curr.getTitle().getText());
 
-        List<BlockTreeItem> children = blockTreeItem.getBlockChildren();
-        if (children.size() == 0) { // if reach the end, add to possible paths
-            AbsolutePath newPath = AbsolutePath.fromComponents(components);
+        List<BlockTreeItem> children = curr.getBlockChildren();
+
+        if (children.size() == 0) { // if last element in THAT current path, add curr path to list of possible paths.
+            AbsolutePath newPath = AbsolutePath.fromComponents(newComponents);
             possiblePaths.add(newPath);
         } else {
             for (BlockTreeItem child : children) {
-                List<String> newComponents = new ArrayList<>();
-                newComponents.addAll(components);
-                newComponents.add(child.getTitle().getText());
-                getChildRecursive(child, newComponents, possiblePaths);
+                getChildDfs(child, newComponents, possiblePaths);
             }
         }
         return possiblePaths;
