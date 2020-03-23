@@ -14,7 +14,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
 class AbsolutePathTest {
 
     @Test
-    public void fromString_validInputString_generateAbsolutePath() throws InvalidPathException {
+    public void fromString_validInputString_generateAbsolutePath() {
         final AbsolutePath testInput = AbsolutePath.fromString("/CS2103/notes");
 
         List<String> paths = new ArrayList<>();
@@ -25,7 +25,7 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void fromString_validEmptyString_generateAbsolutePath() throws InvalidPathException {
+    public void fromString_validEmptyString_generateAbsolutePath() {
         final AbsolutePath testInput = AbsolutePath.fromString("/");
 
         List<String> paths = new ArrayList<>();
@@ -44,7 +44,7 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void toRelativePath_validInput_correctedPath() throws InvalidPathException {
+    public void toRelativePath_validInput_correctedPath() {
         final AbsolutePath inputAbsolutePath = AbsolutePath.fromString("/CS2103/notes/hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
 
@@ -54,7 +54,7 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void fromRelativePath_validInput_convertedAbsolutePath() throws InvalidPathException {
+    public void fromRelativePath_validInput_convertedAbsolutePath() {
         final RelativePath inputRelPath = RelativePath.fromString("../../hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103/filler");
 
@@ -65,7 +65,7 @@ class AbsolutePathTest {
     }
 
     @Test
-    public void fromRelativePath_invalidInput_exceptionThrown() throws InvalidPathException {
+    public void fromRelativePath_invalidInput_exceptionThrown() {
         final RelativePath inputRelPath = RelativePath.fromString("../../hello");
         final AbsolutePath inputCurrPath = AbsolutePath.fromString("/CS2103");
         assertThrows(InvalidPathException.class, () -> AbsolutePath.fromRelativePath(inputRelPath, inputCurrPath));

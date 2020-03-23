@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.DuplicateBlockException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
@@ -24,7 +23,7 @@ public class BlockTreeTest {
     private BlockTree blockTree = new BlockTreeImpl();
 
     @BeforeAll
-    public static void setUp() throws InvalidPathException {
+    public static void setUp() {
         toRoot = AbsolutePath.fromString("/");
         toCs2103 = AbsolutePath.fromString("/CS2103");
         toCs2103Week1 = AbsolutePath.fromString("/CS2103/Week1");
@@ -52,18 +51,18 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void get_root() throws InvalidPathException {
+    public void get_root() {
         assertEquals(blockTree.get(toRoot), blockTree.getRootBlock());
     }
 
     @Test
-    public void get_pathDoesNotExist_throwsNoSuchBlockException() throws InvalidPathException {
+    public void get_pathDoesNotExist_throwsNoSuchBlockException() {
         AbsolutePath nonExistentPath = AbsolutePath.fromString("/SomeNonExistentPath");
         assertThrows(NoSuchBlockException.class, () -> blockTree.get(nonExistentPath));
     }
 
     @Test
-    public void add_block() throws InvalidPathException {
+    public void add_block() {
         Block newBlock = new BlockImpl(new Title("Week2"));
         AbsolutePath toCs2103Week2 = AbsolutePath.fromString("/CS2103/Week2");
         blockTree.add(toCs2103, newBlock);
@@ -101,7 +100,7 @@ public class BlockTreeTest {
     }
 
     @Test
-    public void set_block_editBlock() throws InvalidPathException {
+    public void set_block_editBlock() {
         Block editedBlock = new BlockImpl(new Title("Week2"));
         AbsolutePath editedPath = AbsolutePath.fromString("/CS2103/Week2");
         blockTree.set(toCs2103Week1, editedBlock);
