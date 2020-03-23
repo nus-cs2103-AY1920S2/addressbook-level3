@@ -17,7 +17,6 @@ import java.util.List;
 
 import seedu.address.model.InventorySystem;
 import seedu.address.model.customer.Customer;
-import seedu.address.testutil.customer.PersonBuilder;
 
 /**
  * A utility class containing a list of {@code Customer} objects to be used in tests.

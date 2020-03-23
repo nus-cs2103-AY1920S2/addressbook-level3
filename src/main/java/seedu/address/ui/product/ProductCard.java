@@ -42,7 +42,7 @@ public class ProductCard extends UiPart<Region> {
         this.product = product;
         id.setText(displayedIndex + ". ");
         description.setText(product.getDescription().value);
-        price.setText("Price: $"+ product.getPrice().value);
+        price.setText("Price: $" + product.getPrice().value);
         quantity.setText("Quantity: " + product.getQuantity().value);
         sales.setText("Sales: $" + product.getSales().value);
     }
