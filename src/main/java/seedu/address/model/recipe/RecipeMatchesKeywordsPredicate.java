@@ -61,45 +61,92 @@ public class RecipeMatchesKeywordsPredicate implements Predicate<Recipe> {
             ArrayList<String> grainsInRecipe = new ArrayList<>();
             recipe.getGrains().forEach(grain -> grainsInRecipe.add(grain.getIngredientName().toLowerCase()));
 
-            toFilter = toFilter && getIngredientNameStream(grains).anyMatch(grainsInRecipe::contains);
+            if (getIncludedIngredientNameStream(grains).count() > 0) {
+                toFilter = toFilter && getIncludedIngredientNameStream(grains).anyMatch(grainsInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(grains).count() > 0) {
+                toFilter = toFilter
+                        && getExcludedIngredientNameStream(grains)
+                        .anyMatch(grain -> !grainsInRecipe.contains(grain));
+            }
         }
 
         if (!vegetables.isEmpty()) {
             ArrayList<String> vegeInRecipe = new ArrayList<>();
             recipe.getVegetables().forEach(vege -> vegeInRecipe.add(vege.getIngredientName().toLowerCase()));
 
-            toFilter = toFilter && getIngredientNameStream(vegetables).anyMatch(vegeInRecipe::contains);
+            if (getIncludedIngredientNameStream(vegetables).count() > 0) {
+                toFilter = toFilter && getIncludedIngredientNameStream(vegetables).anyMatch(vegeInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(vegetables).count() > 0) {
+                toFilter = toFilter
+                        && getExcludedIngredientNameStream(vegetables)
+                        .anyMatch(grain -> !vegeInRecipe.contains(grain));
+            }
         }
 
         if (!proteins.isEmpty()) {
             ArrayList<String> proteinsInRecipe = new ArrayList<>();
             recipe.getProteins().forEach(protein -> proteinsInRecipe.add(protein.getIngredientName().toLowerCase()));
 
-            toFilter = toFilter && getIngredientNameStream(proteins).anyMatch(proteinsInRecipe::contains);
+            if (getIncludedIngredientNameStream(proteins).count() > 0) {
+                toFilter = toFilter && getIncludedIngredientNameStream(proteins).anyMatch(proteinsInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(proteins).count() > 0) {
+                toFilter = toFilter
+                        && getExcludedIngredientNameStream(proteins)
+                        .anyMatch(grain -> !proteinsInRecipe.contains(grain));
+            }
         }
 
         if (!fruits.isEmpty()) {
             ArrayList<String> fruitsInRecipe = new ArrayList<>();
             recipe.getFruits().forEach(fruit -> fruitsInRecipe.add(fruit.getIngredientName().toLowerCase()));
 
-            toFilter = toFilter && getIngredientNameStream(fruits).anyMatch(fruitsInRecipe::contains);
+            if (getIncludedIngredientNameStream(fruits).count() > 0) {
+                toFilter = toFilter && getIncludedIngredientNameStream(fruits).anyMatch(fruitsInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(fruits).count() > 0) {
+                toFilter = toFilter
+                        && getExcludedIngredientNameStream(fruits)
+                        .anyMatch(grain -> !fruitsInRecipe.contains(grain));
+            }
         }
 
         if (!others.isEmpty()) {
             ArrayList<String> othersInRecipe = new ArrayList<>();
             recipe.getOthers().forEach(other -> othersInRecipe.add(other.getIngredientName().toLowerCase()));
 
-            toFilter = toFilter && getIngredientNameStream(others).anyMatch(othersInRecipe::contains);
+            if (getIncludedIngredientNameStream(others).count() > 0) {
+                toFilter = toFilter && getIncludedIngredientNameStream(others).anyMatch(othersInRecipe::contains);
+            }
+            if (getExcludedIngredientNameStream(others).count() > 0) {
+                toFilter = toFilter
+                        && getExcludedIngredientNameStream(others)
+                        .anyMatch(grain -> !othersInRecipe.contains(grain));
+            }
         }
 
         return toFilter;
     }
 
     /**
-     * Gets the ingredient names in the ingredients set as a {@code Stream<String>}
+     * Gets the user included ingredient names in the ingredients set as a {@code Stream<String>}
      */
-    private Stream<String> getIngredientNameStream(Set<? extends Ingredient> ingredients) {
-        return ingredients.stream().map(elem -> elem.getIngredientName().toLowerCase());
+    private Stream<String> getIncludedIngredientNameStream(Set<? extends Ingredient> ingredients) {
+        return ingredients.stream()
+                .map(ingredient -> ingredient.getIngredientName().toLowerCase())
+                .filter(ingredient -> !ingredient.startsWith("exclude"));
+    }
+
+    /**
+     * Gets the user excluded ingredient names in the ingredients set as a {@code Stream<String>}
+     */
+    private Stream<String> getExcludedIngredientNameStream(Set<? extends Ingredient> ingredients) {
+        return ingredients.stream()
+                .map(ingredient -> ingredient.getIngredientName().toLowerCase())
+                .filter(ingredient -> ingredient.startsWith("exclude"))
+                .map(ingredient -> ingredient.substring(7).trim());
     }
 
     @Override

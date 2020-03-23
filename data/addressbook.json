@@ -76,5 +76,27 @@
     "others" : [ "other,  30.0ml" ],
     "steps" : [ "first" ],
     "goals" : [ ]
+  }, {
+    "name" : "Meal with ONLY grains",
+    "time" : "10",
+    "isFavourite" : true,
+    "grains" : [ "Bread,  10.0g", "Cereal,  10.0g", "Oats,  10.0g", "Pasta,  10.0g", "Rice,  10.0g" ],
+    "vegetables" : [ ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "Prepare all the grains in a bowl", "Mix all the grains together", "Microwave the bowl of grains for 7 minutes", "Consume when grains have been toasted" ],
+    "goals" : [ "Wholesome Wholegrains" ]
+  }, {
+    "name" : "Only capsicum",
+    "time" : "6",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "capsci,  50.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "Cut the capsicum", "Remove seeds", "Heat frying pan", "Stir fry for 3.5 minutes" ],
+    "goals" : [ "Herbivore" ]
   } ]
 }
