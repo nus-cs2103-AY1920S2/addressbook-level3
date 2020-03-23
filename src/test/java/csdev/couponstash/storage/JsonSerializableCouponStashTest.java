@@ -28,6 +28,7 @@ public class JsonSerializableCouponStashTest {
         CouponStash typicalCouponsCouponStash = TypicalCoupons.getTypicalCouponStash();
         assertEquals(couponStashFromFile, typicalCouponsCouponStash);
     }
+    //typicalCouponsCouponStash
 
     @Test
     public void toModelType_invalidCouponFile_throwsIllegalValueException() throws Exception {

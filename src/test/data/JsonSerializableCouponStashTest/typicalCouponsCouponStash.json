@@ -16,6 +16,7 @@
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
+    "remind date" : "29-11-2020",
     "tagged" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -33,7 +34,9 @@
     "start date" : "31-7-2020",
     "usage": "2",
     "limit": "5",
-    "tagged" : [ "owesMoney", "friends" ]
+    "tagged" : [ "owesMoney", "friends" ],
+    "remind date" : "28-12-2020"
+
   }, {
     "name" : "Carl Kurz",
     "promoCode": "KKB",
@@ -59,7 +62,9 @@
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "remind date" : "27-8-2020"
+
   }, {
     "name" : "Daniel Meier",
     "promoCode": "DANIELZXC",
@@ -85,7 +90,9 @@
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "friends" ],
+    "remind date" : "28-12-2020"
+
   }, {
     "name" : "Elle Meyer",
     "promoCode": "9482224",
@@ -111,7 +118,8 @@
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "remind date" : "26-8-2020"
   }, {
     "name" : "Fiona Kunz",
     "promoCode": "9482427",
@@ -128,7 +136,8 @@
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "remind date" : "27-8-2020"
   }, {
     "name" : "George Best",
     "promoCode": "9482442",
@@ -145,6 +154,7 @@
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "2",
-    "tagged" : [ ]
+    "tagged" : [ ],
+    "remind date" : "28-12-2020"
   } ]
 }
