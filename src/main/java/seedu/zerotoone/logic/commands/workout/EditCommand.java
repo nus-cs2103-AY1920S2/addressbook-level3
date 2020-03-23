@@ -1,7 +1,7 @@
 package seedu.zerotoone.logic.commands.workout;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_EXERCISES;
+import static seedu.zerotoone.model.Model.PREDICATE_SHOW_ALL_WORKOUTS;
 
 import java.util.List;
 
@@ -10,59 +10,59 @@ import seedu.zerotoone.commons.core.index.Index;
 import seedu.zerotoone.logic.commands.CommandResult;
 import seedu.zerotoone.logic.commands.exceptions.CommandException;
 import seedu.zerotoone.model.Model;
-import seedu.zerotoone.model.exercise.Exercise;
-import seedu.zerotoone.model.exercise.ExerciseName;
+import seedu.zerotoone.model.workout.Workout;
+import seedu.zerotoone.model.workout.WorkoutName;
 
 /**
- * Edits the details of an existing exercise in the exercise list.
+ * Edits the details of an existing workout in the workout list.
  */
 public class EditCommand extends WorkoutCommand {
     public static final String COMMAND_WORD = "edit";
-    public static final String MESSAGE_USAGE = "Usage: exercise edit EXERCISE_ID e/<exercise_name>";
-    public static final String MESSAGE_EDIT_EXERCISE_SUCCESS = "Edited exercise: %1$s";
-    public static final String MESSAGE_DUPLICATE_EXERCISE = "This exercise already exists.";
+    public static final String MESSAGE_USAGE = "Usage: workout edit WORKOUT_ID e/<workout_name>";
+    public static final String MESSAGE_EDIT_WORKOUT_SUCCESS = "Edited workout: %1$s";
+    public static final String MESSAGE_DUPLICATE_WORKOUT = "This workout already exists.";
 
-    private final Index exerciseId;
-    private final ExerciseName exerciseName;
+    private final Index workoutId;
+    private final WorkoutName workoutName;
 
     /**
-     * @param exerciseId of the exercise in the filtered exercise list to edit
-     * @param exerciseName details to edit the exercise with
+     * @param workoutId of the workout in the filtered workout list to edit
+     * @param workoutName details to edit the workout with
      */
-    public EditCommand(Index exerciseId, ExerciseName exerciseName) {
-        requireNonNull(exerciseId);
-        requireNonNull(exerciseName);
+    public EditCommand(Index workoutId, WorkoutName workoutName) {
+        requireNonNull(workoutId);
+        requireNonNull(workoutName);
 
-        this.exerciseId = exerciseId;
-        this.exerciseName = exerciseName;
+        this.workoutId = workoutId;
+        this.workoutName = workoutName;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Exercise> lastShownList = model.getFilteredExerciseList();
-        if (exerciseId.getZeroBased() >= lastShownList.size()) {
+        List<Workout> lastShownList = model.getFilteredWorkoutList();
+        if (workoutId.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
-        Exercise exerciseToEdit = lastShownList.get(exerciseId.getZeroBased());
-        ExerciseName updatedExerciseName;
-        if (this.exerciseName != null) {
-            updatedExerciseName = new ExerciseName(this.exerciseName.fullName);
+        Workout workoutToEdit = lastShownList.get(workoutId.getZeroBased());
+        WorkoutName updatedWorkoutName;
+        if (this.workoutName != null) {
+            updatedWorkoutName = new WorkoutName(this.workoutName.fullName);
         } else {
-            updatedExerciseName = new ExerciseName(exerciseToEdit.getExerciseName().fullName);
+            updatedWorkoutName = new WorkoutName(workoutToEdit.getWorkoutName().fullName);
         }
 
-        Exercise editedExercise = new Exercise(updatedExerciseName, exerciseToEdit.getExerciseSets());
-        if (model.hasExercise(editedExercise)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXERCISE);
+        Workout editedWorkout = new Workout(updatedWorkoutName, workoutToEdit.getWorkoutExercises());
+        if (model.hasWorkout(editedWorkout)) {
+            throw new CommandException(MESSAGE_DUPLICATE_WORKOUT);
         }
 
-        model.setExercise(exerciseToEdit, editedExercise);
-        model.updateFilteredExerciseList(PREDICATE_SHOW_ALL_EXERCISES);
+        model.setWorkout(workoutToEdit, editedWorkout);
+        model.updateFilteredWorkoutList(PREDICATE_SHOW_ALL_WORKOUTS);
 
-        String outputMessage = String.format(MESSAGE_EDIT_EXERCISE_SUCCESS,
-                editedExercise.getExerciseName().toString());
+        String outputMessage = String.format(MESSAGE_EDIT_WORKOUT_SUCCESS,
+                editedWorkout.getWorkoutName().toString());
         return new CommandResult(outputMessage);
     }
 
@@ -76,7 +76,7 @@ public class EditCommand extends WorkoutCommand {
 
         // state check
         EditCommand otherCommand = (EditCommand) other;
-        return exerciseId.equals(otherCommand.exerciseId)
-                && exerciseName.equals(otherCommand.exerciseName);
+        return workoutId.equals(otherCommand.workoutId)
+                && workoutName.equals(otherCommand.workoutName);
     }
 }

@@ -18,6 +18,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Exercise> PREDICATE_SHOW_ALL_EXERCISES = unused -> true;
 
+    Predicate<Workout> PREDICATE_SHOW_ALL_WORKOUTS = unused -> true;
+
     // -----------------------------------------------------------------------------------------
     // Common - User Preferences
     /**
