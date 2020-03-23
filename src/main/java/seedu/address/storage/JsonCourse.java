@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseRequirement;
 
 /**
@@ -19,13 +20,15 @@ class JsonCourse {
 
     private final String courseName;
     private final List<JsonCourseRequirement> requirements;
-    //private final List<JsonCourseFocusArea> focusAreas;
+    private final List<JsonCourseFocusArea> focusAreas;
 
     @JsonCreator
-    public JsonCourse(@JsonProperty("courseName") String courseName,
-                      @JsonProperty("requirements") List <JsonCourseRequirement> requirements) {
+    public JsonCourse(@JsonProperty("focusAreaName") String courseName,
+                      @JsonProperty("requirements") List <JsonCourseRequirement> requirements,
+                      @JsonProperty("focusAreas") List <JsonCourseFocusArea> focusAreas) {
         this.courseName = courseName;
         this.requirements = requirements;
+        this.focusAreas = focusAreas;
     }
 
     /**
@@ -43,13 +46,21 @@ class JsonCourse {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Requirement"));
         }
 
-        List<CourseRequirement> courseRequirements = new ArrayList<>();
+        List<CourseRequirement> modelRequirements = new ArrayList<>();
         for (JsonCourseRequirement requirement : requirements) {
             CourseRequirement modelRequirement = requirement.toModelType();
-            courseRequirements.add(modelRequirement);
+            modelRequirements.add(modelRequirement);
         }
 
-        return new Course(courseName, courseRequirements);
+        List<CourseFocusArea> modelFocusAreas = new ArrayList<>();
+        if (focusAreas != null) {
+            for (JsonCourseFocusArea focusArea : focusAreas) {
+                CourseFocusArea modelFocusArea = focusArea.toModelType();
+                modelFocusAreas.add(modelFocusArea);
+            }
+        }
+
+        return new Course(courseName, modelRequirements, modelFocusAreas);
     }
 }
 
