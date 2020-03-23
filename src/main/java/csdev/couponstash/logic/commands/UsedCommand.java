@@ -3,6 +3,7 @@ package csdev.couponstash.logic.commands;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_SAVINGS;
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import csdev.couponstash.commons.core.Messages;
@@ -103,6 +104,7 @@ public class UsedCommand extends Command {
 
     /**
      * Creates and returns a {@code Coupon} with an increase in usage by one.
+     * Also adds to the total savings for the current date.
      * To be used for a Coupon with PercentageAmount savings (requires
      * the original price of the item bought as a MonetaryAmount).
      */
@@ -111,18 +113,19 @@ public class UsedCommand extends Command {
 
         PureMonetarySavings newTotalSavings = SavingsConversionUtil
                 .convertToPure(couponToBeUsed.getSavingsForEachUse(), originalAmount);
-        return couponToBeUsed.addToTotalSavings(newTotalSavings)
+        return couponToBeUsed.addToTotalSavings(LocalDate.now(), newTotalSavings)
                 .increaseUsageByOne();
     }
 
     /**
      * Creates and returns a {@code Coupon} with an increase in usage by one.
+     * Also adds to the total savings for the current date.
      * To be used for a Coupon with concrete MonetaryAmount savings.
      */
     private static Coupon createUsedCouponMonetaryValue(Coupon couponToBeUsed) {
         PureMonetarySavings newTotalSavings = SavingsConversionUtil
                 .convertToPure(couponToBeUsed.getSavingsForEachUse());
-        return couponToBeUsed.addToTotalSavings(newTotalSavings)
+        return couponToBeUsed.addToTotalSavings(LocalDate.now(), newTotalSavings)
                 .increaseUsageByOne();
     }
 }

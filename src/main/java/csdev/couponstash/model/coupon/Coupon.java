@@ -2,18 +2,21 @@ package csdev.couponstash.model.coupon;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
 /**
  * Represents a Coupon in the CouponStash.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values are validated.
+ * All fields are immutable except for total savings.
  */
 public class Coupon {
 
@@ -33,8 +36,7 @@ public class Coupon {
     // for implementation of certain commands)
     private final Usage usage;
     private final RemindDate remind;
-
-    private final PureMonetarySavings totalSavings;
+    private final DateSavingsSumMap totalSavings;
 
     /**
      * Standard constructor for a new Coupon (when
@@ -55,7 +57,7 @@ public class Coupon {
                   Usage usage, Limit limit, Set<Tag> tags) {
 
         this(name, promoCode, savingsForEachUse, expiryDate, startDate, usage,
-                limit, tags, new PureMonetarySavings(), new RemindDate(expiryDate));
+                limit, tags, new DateSavingsSumMap(), new RemindDate(expiryDate));
     }
 
     /**
@@ -71,7 +73,7 @@ public class Coupon {
      * @param usage The Usage for this Coupon.
      * @param limit The usage Limit for this Coupon.
      * @param tags The List of tags for this Coupon.
-     * @param totalSavings PureMonetarySavings representing
+     * @param totalSavings DateSavingsSumMap representing
      *                     the total savings accumulated.
      * @param remind Remind representing a reminder for
      *               this Coupon.
@@ -85,9 +87,8 @@ public class Coupon {
             Usage usage,
             Limit limit,
             Set<Tag> tags,
-            PureMonetarySavings totalSavings,
+            DateSavingsSumMap totalSavings,
             RemindDate remind) {
-
 
         requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags, totalSavings, remind);
         this.name = name;
@@ -135,7 +136,19 @@ public class Coupon {
      *     items (Saveables) earned.
      */
     public PureMonetarySavings getTotalSavings() {
-        return totalSavings;
+        return this.totalSavings.values().stream()
+                .reduce(new PureMonetarySavings(), PureMonetarySavings::add);
+    }
+
+    /**
+     * Gets a shallow clone of the date and savings map
+     * that is associated with this Coupon. LocalDate
+     * and PureMonetarySavings are immutable, however.
+     * @return DateSavingsSumMap representing the savings
+     *     earned for specific dates.
+     */
+    public DateSavingsSumMap getSavingsMap() {
+        return (DateSavingsSumMap) this.totalSavings.clone();
     }
 
     public ExpiryDate getExpiryDate() {
@@ -163,16 +176,21 @@ public class Coupon {
     }
 
     /**
-     * Adds a certain PureMonetarySavings to the totalSavings
-     * field of this Coupon, that keeps track of how much has
-     * been saved by using this Coupon (for SavedCommand).
+     * Associates a certain PureMonetarySavings to a LocalDate,
+     * and adds it to the DateSavingsSumMap in the totalSavings
+     * field of this Coupon, which keeps track of how much has
+     * been saved on which date by using this Coupon (for SavedCommand).
+     * @param ld The LocalDate representing when the
+     *           savings value pms was earned.
      * @param pms The PureMonetarySavings to be added.
      * @return A new Coupon with total savings modified.
      */
-    public Coupon addToTotalSavings(PureMonetarySavings pms) {
+    public Coupon addToTotalSavings(LocalDate ld, PureMonetarySavings pms) {
+        DateSavingsSumMap updatedMap = (DateSavingsSumMap) this.totalSavings.clone();
+        updatedMap.add(ld, pms);
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, this.usage, this.limit,
-                this.tags, this.totalSavings.add(pms), this.remind);
+                this.tags, updatedMap, this.remind);
     }
 
     /**

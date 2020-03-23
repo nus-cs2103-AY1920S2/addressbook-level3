@@ -21,7 +21,7 @@ import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
 
-import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 import csdev.couponstash.ui.RemindWindow;
@@ -194,7 +194,7 @@ public class RemindCommand extends Command {
         remindDate.setRemindDate(date);
         Set<Tag> tags = couponToBeReminded.getTags();
         Usage updatedUsage = couponToBeReminded.getUsage();
-        PureMonetarySavings totalSavings = couponToBeReminded.getTotalSavings();
+        DateSavingsSumMap totalSavings = couponToBeReminded.getSavingsMap();
 
         return new Coupon(name, promoCode, savingsForEachUse, expiryDate, startDate, updatedUsage, limit,
                 tags, totalSavings, remindDate);
