@@ -25,6 +25,7 @@ import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
 import tatracker.model.session.Session;
+import tatracker.model.session.Session.SessionType;
 
 /**
  * Edits the details of an existing session in TAT.
@@ -105,7 +106,7 @@ public class EditSessionCommand extends Command {
         LocalDateTime endTime = editSessionDescriptor.getEndTime().orElse(sessionToEdit.getEndDateTime());
         boolean isRecurring = editSessionDescriptor.getIsRecurring();
         String moduleCode = editSessionDescriptor.getModuleCode().orElse(sessionToEdit.getModuleCode());
-        Session.SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
+        SessionType type = editSessionDescriptor.getSessionType().orElse(sessionToEdit.getSessionType());
         String description = editSessionDescriptor.getDescription().orElse(sessionToEdit.getDescription());
 
         // If date is not updated, reset the date to the original date.
@@ -150,7 +151,7 @@ public class EditSessionCommand extends Command {
         private boolean isDateChanged;
         private boolean isRecurring;
         private String moduleCode;
-        private Session.SessionType newSessionType;
+        private SessionType newSessionType;
         private String newDescription;
 
         public EditSessionDescriptor() {
@@ -217,11 +218,11 @@ public class EditSessionCommand extends Command {
             return Optional.ofNullable(moduleCode);
         }
 
-        public void setSessionType(Session.SessionType sessionType) {
+        public void setSessionType(SessionType sessionType) {
             this.newSessionType = sessionType;
         }
 
-        public Optional<Session.SessionType> getSessionType() {
+        public Optional<SessionType> getSessionType() {
             return Optional.ofNullable(newSessionType);
         }
 

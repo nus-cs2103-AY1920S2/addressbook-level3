@@ -171,7 +171,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String sessionType} into a {@code Session.SessionType}
+     * Parses a {@code String sessionType} into a {@code SessionType}
      */
     public static SessionType parseSessionType(String sessionType) {
         requireNonNull(sessionType);
