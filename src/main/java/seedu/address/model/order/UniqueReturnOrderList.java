@@ -10,7 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.order.exceptions.DuplicateOrderException;
 import seedu.address.model.order.exceptions.OrderNotFoundException;
-import seedu.address.model.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * A list of orders that enforces uniqueness between its elements and does not allow nulls.

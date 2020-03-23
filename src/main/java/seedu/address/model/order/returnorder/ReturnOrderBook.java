@@ -1,4 +1,4 @@
-package seedu.address.model.returnorder;
+package seedu.address.model.order.returnorder;
 
 import static java.util.Objects.requireNonNull;
 

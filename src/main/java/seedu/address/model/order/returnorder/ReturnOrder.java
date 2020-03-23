@@ -1,4 +1,4 @@
-package seedu.address.model.returnorder;
+package seedu.address.model.order.returnorder;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -20,7 +20,7 @@ import seedu.address.model.order.Warehouse;
  * Represents a Order in the order book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class ReturnOrder implements Parcel {
+public class ReturnOrder extends Parcel {
     // Identity fields
     private final TransactionId tid;
     private final Name name;
@@ -34,6 +34,7 @@ public class ReturnOrder implements Parcel {
     private final Comment comment;
     private final TypeOfItem itemType;
     private boolean deliveryStatus;
+    private boolean isReturn;
 
     /**
      * Every field must be present and not null.
@@ -51,6 +52,7 @@ public class ReturnOrder implements Parcel {
         this.comment = comment;
         this.itemType = itemType;
         this.deliveryStatus = true;
+        this.isReturn = true;
     }
 
     /**
@@ -68,6 +70,7 @@ public class ReturnOrder implements Parcel {
         this.comment = order.getComment();
         this.itemType = order.getItemType();
         this.deliveryStatus = true;
+        this.isReturn = true;
     }
 
     public TransactionId getTid() {
@@ -108,6 +111,10 @@ public class ReturnOrder implements Parcel {
 
     public boolean isDelivered() {
         return deliveryStatus;
+    }
+
+    public boolean isReturn() {
+        return isReturn;
     }
 
     /**
@@ -178,12 +185,9 @@ public class ReturnOrder implements Parcel {
                 .append(" Comment: ")
                 .append(getComment())
                 .append(" Item Type: ")
-                .append(getItemType());
-        if (this.isDelivered()) {
-            builder.append(" Return Possibility: ").append("Yes");
-        } else {
-            builder.append(" Return Possibility: ").append("No - this parcel has not been delivered");
-        }
+                .append(getItemType())
+                .append(" Parcel Status: ")
+                .append("Return Order");
         return builder.toString();
     }
 

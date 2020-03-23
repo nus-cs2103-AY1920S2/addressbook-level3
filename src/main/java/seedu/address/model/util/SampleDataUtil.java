@@ -13,9 +13,9 @@ import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrder;
-import seedu.address.model.returnorder.ReturnOrderBook;
+import seedu.address.model.order.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReturnOrderBook;
 
 /**
  * Contains utility methods for populating {@code OrderBook} with sample data.

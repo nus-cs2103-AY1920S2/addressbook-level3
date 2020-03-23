@@ -14,7 +14,7 @@ import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * Jackson-friendly version of {@link Order}.

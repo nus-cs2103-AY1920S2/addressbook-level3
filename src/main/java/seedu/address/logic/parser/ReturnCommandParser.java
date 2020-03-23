@@ -24,7 +24,7 @@ import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
-import seedu.address.model.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -48,10 +48,10 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
         }
 
-        /*if (arePrefixesPresent(argMultimap, PREFIX_TID) && !arePrefixesPresent(argMultimap, PREFIX_NAME,
-                PREFIX_ADDRESS, PREFIX_DELIVERY_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_EMAIL)) {
+        if (arePrefixesPresent(argMultimap, PREFIX_TID) && !arePrefixesPresent(argMultimap, PREFIX_NAME,
+                PREFIX_ADDRESS, PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_EMAIL)) {
 
-        }*/
+        }
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());

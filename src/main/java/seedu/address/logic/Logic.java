@@ -9,8 +9,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.order.Order;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * API of the Logic component

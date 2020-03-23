@@ -21,8 +21,8 @@ import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrderBook;
+import seedu.address.model.order.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrderBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonOrderBookStorage;
 import seedu.address.storage.JsonReturnOrderBookStorage;
@@ -89,29 +89,31 @@ public class MainApp extends Application {
         ReadOnlyReturnOrderBook initialReturnData;
         try {
             orderBookOptional = storage.readOrderBook();
-            if (orderBookOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample OrderBook");
+            returnOrderBookOptional = storage.readReturnOrderBook();
+            if (orderBookOptional.isEmpty() && returnOrderBookOptional.isEmpty()) {
+                logger.info("Data files for Order Book and Return Book not found. "
+                        + "Will be starting with a sample OrderBook and ReturnBook");
             }
             initialData = orderBookOptional.orElseGet(SampleDataUtil::getSampleOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty OrderBook");
             initialData = new OrderBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty OrderBook ");
             initialData = new OrderBook();
         }
 
         try {
             returnOrderBookOptional = storage.readReturnOrderBook();
             if (returnOrderBookOptional.isEmpty()) {
-                logger.info("Data file not found. Will be starting with a sample ReturnOrderBook");
+                logger.info("Data file not found. Will be starting with a sample ReturnBook");
             }
             initialReturnData = returnOrderBookOptional.orElseGet(SampleDataUtil::getSampleReturnOrderBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ReturnOrderBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty ReturnBook");
             initialReturnData = new ReturnOrderBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty ReturnOrderBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ReturnBook");
             initialReturnData = new ReturnOrderBook();
         }
 

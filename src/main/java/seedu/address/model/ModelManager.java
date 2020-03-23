@@ -12,9 +12,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrder;
-import seedu.address.model.returnorder.ReturnOrderBook;
+import seedu.address.model.order.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrder;
+import seedu.address.model.order.returnorder.ReturnOrderBook;
 
 /**
  * Represents the in-memory model of the order book data.
@@ -37,7 +37,7 @@ public class ModelManager implements Model {
         requireAllNonNull(orderBook, returnOrderBook, userPrefs);
 
         logger.fine("Initializing with order book: " + orderBook + " and user prefs " + userPrefs);
-
+        logger.fine("Initializing with return book: " + returnOrderBook + " and user prefs " + userPrefs);
         this.orderBook = new OrderBook(orderBook);
         this.returnOrderBook = new ReturnOrderBook(returnOrderBook);
         this.userPrefs = new UserPrefs(userPrefs);

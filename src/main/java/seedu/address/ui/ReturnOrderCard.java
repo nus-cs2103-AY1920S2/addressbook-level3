@@ -5,14 +5,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.order.Order;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * An UI component that displays information of a {@code Order}.
  */
-public class OrderCard extends UiPart<Region> {
+public class ReturnOrderCard extends UiPart<Region> {
 
-    private static final String FXML = "OrderListCard.fxml";
+    private static final String FXML = "ReturnOrderListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -21,7 +21,7 @@ public class OrderCard extends UiPart<Region> {
      *
      */
 
-    public final Order order;
+    public final ReturnOrder returnOrder;
 
     @FXML
     private HBox cardPane;
@@ -50,29 +50,28 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private FlowPane itemType;
 
-    public OrderCard(Order order, int displayedIndex) {
+    public ReturnOrderCard(ReturnOrder returnOrder, int displayedIndex) {
         super(FXML);
-        this.order = order;
+        this.returnOrder = returnOrder;
         id.setText(displayedIndex + ". ");
-        tid.setText(order.getTid().tid);
-        name.setText(order.getName().fullName);
-        phone.setText(order.getPhone().value);
-        address.setText(order.getAddress().value);
-        timeStamp.setText(order.getTimestamp().value);
-        warehouse.setText(order.getWarehouse().address);
-        comment.setText(order.getComment().commentMade);
-        cashOnDelivery.setText(order.getCash().cashOnDelivery);
+        tid.setText(returnOrder.getTid().tid);
+        name.setText(returnOrder.getName().fullName);
+        phone.setText(returnOrder.getPhone().value);
+        address.setText(returnOrder.getAddress().value);
+        timeStamp.setText(returnOrder.getTimestamp().value);
+        warehouse.setText(returnOrder.getWarehouse().address);
+        comment.setText(returnOrder.getComment().commentMade);
 
-        if (!(order.getItemType().itemType).equals("NIL")) {
-            itemType.getChildren().add(new Label(order.getItemType().itemType));
+        if (!(returnOrder.getItemType().itemType).equals("NIL")) {
+            itemType.getChildren().add(new Label(returnOrder.getItemType().itemType));
         }
 
-        if ((order.isDelivered())) {
+        if ((returnOrder.isDelivered())) {
             deliveryStatus.setText("Delivered");
         } else {
             deliveryStatus.setText("Not Delivered");
         }
-        if (!(order.isReturn())) {
+        if (!(returnOrder.isReturn())) {
             isReturn.getChildren().add(new Label("Delivery Order"));
         } else {
             isReturn.getChildren().add(new Label("Return Order"));
@@ -87,13 +86,13 @@ public class OrderCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof OrderCard)) {
+        if (!(other instanceof ReturnOrderCard)) {
             return false;
         }
 
         // state check
-        OrderCard card = (OrderCard) other;
+        ReturnOrderCard card = (ReturnOrderCard) other;
         return id.getText().equals(card.id.getText())
-                && order.equals(card.order);
+                && returnOrder.equals(card.returnOrder);
     }
 }

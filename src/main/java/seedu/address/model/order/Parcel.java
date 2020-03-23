@@ -3,13 +3,14 @@ package seedu.address.model.order;
 /**
  * The parcel class is used to abstract both orders and returns in the return book.
  */
-public interface Parcel {
-    TransactionId getTid();
-    Name getName();
-    Phone getPhone();
-    Email getEmail();
-    Address getAddress();
-    TimeStamp getTimestamp();
-    Warehouse getWarehouse();
-    boolean isDelivered();
+public abstract class Parcel {
+    protected abstract TransactionId getTid();
+    protected abstract Name getName();
+    protected abstract Phone getPhone();
+    protected abstract Email getEmail();
+    protected abstract Address getAddress();
+    protected abstract TimeStamp getTimestamp();
+    protected abstract Warehouse getWarehouse();
+    protected abstract boolean isDelivered();
+    protected abstract boolean isReturn();
 }
