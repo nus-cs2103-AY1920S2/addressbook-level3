@@ -68,14 +68,15 @@ public class JsonStatisticsStorageTest {
         assertEquals(original, new Statistics(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.pop();
-        original.addDayData(dayNew);
+        original.pop(); // Statistics table constraints
+        original.addDayData(dayNew); // Statistics table constraints
         jsonStatisticsStorage.saveStatistics(original, filePath);
         readBack = jsonStatisticsStorage.readStatistics(filePath).get();
         assertEquals(original, new Statistics(readBack));
 
         // Save and read without specifying file path
-        original.addDayData(dayNew2);
+        original.pop(); // Statistics table constraints
+        original.addDayData(dayNew2); // Statistics table constraints
         jsonStatisticsStorage.saveStatistics(original); // file path not specified
         readBack = jsonStatisticsStorage.readStatistics().get(); // file path not specified
         assertEquals(original, new Statistics(readBack));
