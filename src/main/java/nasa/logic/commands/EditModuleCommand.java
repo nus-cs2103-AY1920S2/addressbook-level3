@@ -19,8 +19,8 @@ public class EditModuleCommand extends Command {
             + "by the index number used in the displayed NASA application. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE" +
-            "INDEX (must be a positive integer)"
+            + PREFIX_MODULE + "MODULE CODE"
+            + "INDEX (must be a positive integer)"
             + "[" + PREFIX_MODULE + "MODULE CODE] "
             + "[" + PREFIX_MODULE_NAME + "MODULE NAME]\n"
             + "Example: " + COMMAND_WORD

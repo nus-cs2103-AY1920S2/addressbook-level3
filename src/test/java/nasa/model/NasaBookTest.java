@@ -1,14 +1,15 @@
 package nasa.model;
 
-import nasa.commons.core.index.Index;
-import nasa.model.module.UniqueModuleList;
-import org.junit.jupiter.api.Test;
-
 import static nasa.testutil.TypicalActivities.DEADLINE;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import nasa.commons.core.index.Index;
+import nasa.model.module.UniqueModuleList;
 
 class NasaBookTest {
     private final NasaBook nasaBook = new NasaBook();
@@ -24,7 +25,7 @@ class NasaBookTest {
     void addActivity() {
         nasaBook.addModule(CS2103T);
         nasaBook.addActivity(CS2103T, DEADLINE);
-        assertTrue(nasaBook.hasActivity(CS2103T,DEADLINE));
+        assertTrue(nasaBook.hasActivity(CS2103T, DEADLINE));
     }
 
     @Test

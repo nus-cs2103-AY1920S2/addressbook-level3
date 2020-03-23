@@ -13,10 +13,9 @@ import nasa.model.module.ModuleCode;
  * Adds an event activity to a module's list.
  */
 public class AddEventCommand extends AddCommand {
+    public static final String COMMAND_WORD = "event";
 
-    public final static String COMMAND_WORD = "event";
-
-    public final static String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the module's activity list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the module's activity list. "
             + "Parameters: "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_DATE + "DATE "

@@ -6,12 +6,13 @@ import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.exceptions.ActivityNotFoundException;
 import nasa.model.activity.exceptions.DuplicateActivityException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  * A list of activities that enforces uniqueness between its elements and does not allow nulls.
@@ -36,7 +37,7 @@ public class UniqueActivityList implements Iterable<Activity> {
      */
     public boolean contains(Activity toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameActivity);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -85,6 +86,11 @@ public class UniqueActivityList implements Iterable<Activity> {
         internalList.set(index.getZeroBased(), activity);
     }
 
+    /**
+     * Edits activity based on index.
+     * @param index index of activity in list
+     * @param args parameters for editing
+     */
     public void editActivityByIndex(Index index, Object... args) {
         requireAllNonNull(args);
 
@@ -186,7 +192,7 @@ public class UniqueActivityList implements Iterable<Activity> {
     private boolean activitiesAreUnique(List<Activity> activities) {
         for (int i = 0; i < activities.size() - 1; i++) {
             for (int j = i + 1; j < activities.size(); j++) {
-                if (activities.get(i).isSameActivity(activities.get(j))) {
+                if (activities.get(i).equals(activities.get(j))) {
                     return false;
                 }
             }

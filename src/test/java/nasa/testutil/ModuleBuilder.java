@@ -2,10 +2,13 @@ package nasa.testutil;
 
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
+import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-import nasa.model.module.Module;
 
+/**
+ * Class to build example modules.
+ */
 public class ModuleBuilder {
 
     public static final String DEFAULT_MODULE_NAME = "SOFTWARE ENGINEERING";
@@ -57,26 +60,49 @@ public class ModuleBuilder {
         activityList.add(TASK_5);
     }
 
+    /**
+     * Build module with name.
+     * @param name of module
+     * @return ModuleBuilder
+     */
     public ModuleBuilder withName(String name) {
         this.name = new ModuleName(name);
         return this;
     }
 
+    /**
+     * Build module with module code.
+     * @param code module code
+     * @return ModuleBuilder
+     */
     public ModuleBuilder withCode(String code) {
         this.code = new ModuleCode(code);
         return this;
     }
 
+    /**
+     * Build module with activity.
+     * @param activity activity to be added
+     * @return ModuleBuilder
+     */
     public ModuleBuilder withAddActivity(Activity activity) {
         this.activityList.add(activity);
         return this;
     }
 
+    /**
+     * Remove every activity.
+     * @return ModuleBuilder
+     */
     public ModuleBuilder withRemoveAll() {
         this.activityList.removeAll();
         return this;
     }
 
+    /**
+     * Build module based on code and name.
+     * @return Module
+     */
     public Module build() {
         Module module = new Module(code, name);
         module.setActivities(activityList);

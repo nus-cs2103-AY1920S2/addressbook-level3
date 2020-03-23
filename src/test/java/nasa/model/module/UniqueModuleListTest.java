@@ -1,16 +1,17 @@
 package nasa.model.module;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static nasa.testutil.TypicalActivities.DEADLINE;
 import static nasa.testutil.TypicalModules.CS2103T;
 import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
-import static nasa.testutil.TypicalActivities.DEADLINE;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.Note;
-import org.junit.jupiter.api.Test;
 
 class UniqueModuleListTest {
 

@@ -67,7 +67,7 @@ public class Lesson extends Activity {
      */
     public Lesson regenerate() {
         //Lesson newLesson = new Lesson(this.getName(), this.getDate().addDaysToCurrDate(numOfDaysTillNextLesson),
-                //this.getNote());
+        //this.getNote());
         //return newLesson;
         return null;
     }

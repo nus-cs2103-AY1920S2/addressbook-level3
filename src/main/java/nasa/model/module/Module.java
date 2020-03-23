@@ -1,16 +1,15 @@
 package nasa.model.module;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.activity.UniqueActivityList;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 
 /**
  * Abstract class to specify fields with getter and setters for modules.

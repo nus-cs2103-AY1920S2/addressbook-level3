@@ -13,13 +13,13 @@ import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
 import nasa.model.UserPrefs;
-import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-import nasa.testutil.DeadlineBuilder;
+import nasa.testutil.EventBuilder;
 
-public class AddDeadlineCommandTest {
+public class AddEventCommandTest {
 
     private Model model;
     private Module module;
@@ -32,39 +32,37 @@ public class AddDeadlineCommandTest {
     }
 
     @Test
-    public void execute_newDeadline_success() {
-        Deadline deadline = new DeadlineBuilder().build();
+    public void execute_newEvent_success() {
+        Event event = new EventBuilder().build();
 
         Model expectedModel = new ModelManager(new NasaBook(), new UserPrefs());
         expectedModel.addModule(new ModuleCode(VALID_MODULE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
-        expectedModel.addActivity(module, deadline);
+        expectedModel.addActivity(module, event);
 
-        AddDeadlineCommand command = new AddDeadlineCommand(deadline, new ModuleCode(VALID_MODULE_CS1231));
-        assertCommandSuccess(command, model,
-            String.format(AddDeadlineCommand.MESSAGE_SUCCESS, deadline), expectedModel);
+        AddEventCommand command = new AddEventCommand(event, new ModuleCode(VALID_MODULE_CS1231));
+        assertCommandSuccess(command, model, String.format(AddEventCommand.MESSAGE_SUCCESS, event), expectedModel);
     }
 
     @Test
-    public void execute_duplicateDeadline_failure() {
-        Deadline deadline = new DeadlineBuilder().build();
+    public void execute_duplicateEvent_failure() {
+        Event event = new EventBuilder().build();
         Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
-        AddDeadlineCommand command = new AddDeadlineCommand(deadline, new ModuleCode(VALID_MODULE_CS1231));
+        AddEventCommand command = new AddEventCommand(event,
+            new ModuleCode(VALID_MODULE_CS1231));
 
-        expectedModel.addActivity(module, deadline);
-        assertThrows(CommandException.class,
-            AddDeadlineCommand.MESSAGE_DUPLICATED_ACTIVITY, () -> command.execute(expectedModel));
+        expectedModel.addActivity(module, event);
+        assertThrows(CommandException.class, AddEventCommand.MESSAGE_DUPLICATED_ACTIVITY, () ->
+            command.execute(expectedModel));
     }
 
     @Test
     public void constructor_nullDeadline_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () ->
-            new AddDeadlineCommand(null, new ModuleCode(VALID_MODULE_CS1231)));
+        assertThrows(NullPointerException.class, () -> new AddEventCommand(null, new ModuleCode(VALID_MODULE_CS1231)));
     }
 
     @Test
     public void constructor_nullModuleCode_throwsNullPointerException() {
-        Deadline deadline = (new DeadlineBuilder().build());
-        assertThrows(NullPointerException.class, () ->
-            new AddDeadlineCommand(deadline, null));
+        Event event = new EventBuilder().build();
+        assertThrows(NullPointerException.class, () -> new AddEventCommand(event, null));
     }
 }

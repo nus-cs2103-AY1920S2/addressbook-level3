@@ -1,11 +1,14 @@
 package nasa.model.activity;
 
+<<<<<<< HEAD
 import javafx.collections.ObservableList;
+=======
+import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
+import static nasa.testutil.TypicalActivities.DEADLINE;
+>>>>>>> 30503fcc5a8ed3454bac31864ea4cb84b0ba8f9a
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
-import static nasa.testutil.TypicalActivities.DEADLINE;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,14 +1,26 @@
 package nasa.testutil;
 
-import nasa.model.activity.*;
+import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_EXAM;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
+import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
+import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
 
+import nasa.model.activity.Activity;
+import nasa.model.activity.Date;
+import nasa.model.activity.Event;
+import nasa.model.activity.Name;
+import nasa.model.activity.Note;
+
+/**
+ * Class to build example events.
+ */
 public class EventBuilder {
 
-    public static final String DEFAULT_NAME = "MPSH";
+    public static final String DEFAULT_NAME = VALID_ACTIVITY_NAME_EXAM;
     public static final String DEFAULT_DATE = "19-10-2020 03:00";
-    public static final String DEFAULT_NOTE = "BasketBall CCA";
-    public static final String DEFAULT_TO_DATE = "03-10-2020 04:00";
-    public static final String DEFAULT_FROM_DATE = "02-01-2020 05:00";
+    public static final String DEFAULT_NOTE = VALID_NOTES_TEST;
+    public static final String DEFAULT_TO_DATE = VALID_DATE_TEST;
+    public static final String DEFAULT_FROM_DATE = VALID_DATE_TEST_2;
 
     private Name name;
     private Date date;
@@ -82,7 +94,7 @@ public class EventBuilder {
     /**
      * Build an activity accordingly.
      */
-    public Activity build() {
+    public Event build() {
         return new Event(name, note, fromDate, toDate);
     }
 }

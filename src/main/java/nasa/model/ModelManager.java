@@ -11,8 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import nasa.commons.core.GuiSettings;
-import nasa.commons.core.index.Index;
 import nasa.commons.core.LogsCenter;
+import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
@@ -291,6 +291,13 @@ public class ModelManager implements Model {
     public void updateFilteredActivityList(Index index, Predicate<Activity> predicate) {
         Module module = filteredModules.get(index.getZeroBased());
         module.updateFilteredActivityList(predicate);
+    }
+
+    @Override
+    public void updateFilteredActivityList(Predicate<Activity> predicate) {
+        for (Module module : filteredModules) {
+            module.updateFilteredActivityList(predicate);
+        }
     }
 
     @Override

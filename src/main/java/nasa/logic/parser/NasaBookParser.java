@@ -19,12 +19,12 @@ import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.commands.RedoCommand;
 import nasa.logic.commands.UndoCommand;
+import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddEventCommand;
 import nasa.logic.commands.addcommands.AddLessonCommand;
-import nasa.logic.commands.addcommands.AddDeadlineCommand;
+import nasa.logic.parser.addcommandparser.AddDeadlineCommandParser;
 import nasa.logic.parser.addcommandparser.AddEventCommandParser;
 import nasa.logic.parser.addcommandparser.AddLessonCommandParser;
-import nasa.logic.parser.addcommandparser.AddDeadlineCommandParser;
 import nasa.logic.parser.exceptions.ParseException;
 
 /**

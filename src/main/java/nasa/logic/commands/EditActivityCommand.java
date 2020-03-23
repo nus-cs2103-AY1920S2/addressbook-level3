@@ -23,8 +23,8 @@ public class EditActivityCommand extends Command {
             + "by the index number used in the displayed module's activity list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_MODULE + "MODULE CODE" +
-            "INDEX (must be a positive integer)"
+            + PREFIX_MODULE + "MODULE CODE"
+            + "INDEX (must be a positive integer)"
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_ACTIVITY_NAME + "ACTIVITY NAME] "
             + "[" + PREFIX_PRIORITY + "PRIORITY] "

@@ -273,12 +273,24 @@ public class NasaBook implements ReadOnlyNasaBook {
         moduleList.setActivityByIndex(moduleCode, index, activity);
     }
 
+    /**
+     * Edits activity via index.
+     * @param module module where the activity belongs
+     * @param index index of the activity in the module activity list
+     * @param args parameters to be edited
+     */
     public void editActivityByIndex(Module module, Index index, Object... args) {
         requireNonNull(args);
 
         moduleList.editActivityByIndex(module, index, args);
     }
 
+    /**
+     * Edits activity via index.
+     * @param moduleCode moduleCode of the activity
+     * @param index index of the activity in the module activity list
+     * @param args parameters to be edited
+     */
     public void editActivityByIndex(ModuleCode moduleCode, Index index, Object... args) {
         requireNonNull(args);
 

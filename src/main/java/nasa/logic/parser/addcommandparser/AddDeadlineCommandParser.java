@@ -7,7 +7,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 
-import java.time.LocalDateTime;
 import nasa.logic.commands.addcommands.AddDeadlineCommand;
 
 import nasa.logic.parser.ArgumentMultimap;
@@ -20,7 +19,6 @@ import nasa.model.activity.Deadline;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
-import nasa.model.activity.Status;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -35,9 +33,11 @@ public class AddDeadlineCommandParser extends AddCommandParser {
      */
     public AddDeadlineCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME, PREFIX_PRIORITY, PREFIX_NOTE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE,
+                    PREFIX_ACTIVITY_NAME, PREFIX_PRIORITY, PREFIX_NOTE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE, PREFIX_DATE, PREFIX_ACTIVITY_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULE,
+            PREFIX_DATE, PREFIX_ACTIVITY_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddDeadlineCommand.MESSAGE_USAGE));
         }
@@ -53,7 +53,12 @@ public class AddDeadlineCommandParser extends AddCommandParser {
 
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+<<<<<<< HEAD
             deadline.setNote(note);
+=======
+        } else {
+            note = null;
+>>>>>>> 30503fcc5a8ed3454bac31864ea4cb84b0ba8f9a
         }
 
         Priority priority = new Priority();

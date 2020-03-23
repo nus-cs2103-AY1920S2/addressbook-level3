@@ -2,17 +2,15 @@ package nasa.logic.parser.addcommandparser;
 
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
-import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import nasa.logic.commands.addcommands.AddDeadlineCommand;
 import nasa.logic.commands.addcommands.AddLessonCommand;
 import nasa.logic.parser.ArgumentMultimap;
 import nasa.logic.parser.ArgumentTokenizer;
-import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import nasa.logic.parser.ParserUtil;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.activity.Date;
@@ -20,7 +18,6 @@ import nasa.model.activity.Lesson;
 import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 import nasa.model.activity.Priority;
-import nasa.model.activity.Status;
 import nasa.model.module.ModuleCode;
 
 /**
@@ -56,7 +53,12 @@ public class AddLessonCommandParser extends AddCommandParser {
         Note note;
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
+<<<<<<< HEAD
             lesson.setNote(note);
+=======
+        } else {
+            note = null;
+>>>>>>> 30503fcc5a8ed3454bac31864ea4cb84b0ba8f9a
         }
 
         Priority priority = new Priority();
