@@ -11,23 +11,23 @@ participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
 participant "m:Module" as Module MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("module add m/CS2103 n/Software Engineering")
+[-> LogicManager : execute("module add \nm/CS2103 n/Software Engineering")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("module add m/CS2103 n/Software Engineering")
+LogicManager -> TaTrackerParser : parseCommand("module add \nm/CS2103 n/Software Engineering")
 activate TaTrackerParser
 
 create ModuleCommandParser
 TaTrackerParser -> ModuleCommandParser
 activate ModuleCommandParser
-ModuleCommandParser -> TaTrackerParser
+ModuleCommandParser --> TaTrackerParser
 deactivate ModuleCommandParser
 
-TaTrackerParser -> ModuleCommandParser : parseCommand("add m/CS2103 n/Software Engineering")
+TaTrackerParser -> ModuleCommandParser : parseCommand("add m/CS2103 \nn/Software Engineering")
 activate ModuleCommandParser
 
 create AddModuleCommandParser
@@ -36,7 +36,7 @@ activate AddModuleCommandParser
 AddModuleCommandParser --> ModuleCommandParser
 deactivate AddModuleCommandParser
 
-ModuleCommandParser -> AddModuleCommandParser : parseCommand("m/CS2103 n/Software Engineering")
+ModuleCommandParser -> AddModuleCommandParser : parseCommand("m/CS2103 \nn/Software Engineering")
 activate AddModuleCommandParser
 
 create Module
@@ -64,47 +64,24 @@ ModuleCommandParser -[hidden]-> TaTrackerParser
 destroy ModuleCommandParser
 
 TaTrackerParser --> LogicManager : a
+deactivate TaTrackerParser
 
 LogicManager -> AddModuleCommand : execute()
 activate AddModuleCommand
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
-
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
-
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
-
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
-
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
-
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
-
-DeleteCommand -> Model : deletePerson(1)
+AddModuleCommand -> Model : addModule(m)
 activate Model
-
-Model --> DeleteCommand
+Model --> AddModuleCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+AddModuleCommand -> CommandResult
 activate CommandResult
-
-CommandResult --> DeleteCommand
+CommandResult --> AddModuleCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+AddModuleCommand --> LogicManager : result
+deactivate AddModuleCommand
 
 [<--LogicManager
 deactivate LogicManager
