@@ -5,6 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 /**
  * Represents a parse error encountered by a parser.
  */
+@SuppressWarnings("serial")
 public class ParseException extends IllegalValueException {
 
     public ParseException(String message) {

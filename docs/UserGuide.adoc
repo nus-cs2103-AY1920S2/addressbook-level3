@@ -1,5 +1,4 @@
-# **COOKBUDDY RECIPE MANAGER**
-= AddressBook Level 3 - User Guide
+# **CookBuddy Recipe Manager**
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -15,8 +14,10 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W12-4/main/
 
+By: `The CookBuddy Team`      Since: `Jan 2020`      Licence: `MIT`
+
 == Introduction
-**CookBuddy** is for those who prefer to use a desktop app for managing recipes. More importantly, CookBuddy is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CookBuddy can get your recipe management tasks done faster than traditional GUI apps. Interested? Proceed to [Quick Start](#2.-Quick-Start) to get started. Enjoy!
+**CookBuddy** is for those who prefer to use a desktop app for managing recipes. More importantly, CookBuddy is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CookBuddy can get your recipe management tasks done faster than traditional GUI apps. Interested? Proceed to [Quick Start](#quick-start) to get started. Enjoy!
 
 == Quick Start
 1. Ensure you have Java 11 or later installed on your machine.
@@ -50,20 +51,23 @@ COMMAND FORMAT:
 * Words in angle brackets indicate that they are mandatory. `<index>` means that `index` is mandatory.
 * Words in square brackets indicate that they are optional. `[tags/TAG]` means the `tags` parameter is optional.
 
-===  Help — `help`
+===  Help — `help (V1.4)`
 Lists out all the commands accepted by CookBuddy
 If the command name is specified, it will specify how to use that command.
 
 === Create a Recipe — `new`
 Adds a new recipe to the CookBuddy program.
 
-Format: `new recipe n/[name] ing/[ingredient, quantity; ...] ins/[instruction; ...] [tags/tag, ...]`
+Format: `new n/[name] ing/[ingredient, quantity; ...] ins/[instruction; ...] [cal/calories] [s/serving size] [r/rating] [tags/tag, ...]`
 
-Example: `new recipe n/Fried Rice ing/<White rice, 1 cup; salt, 1gram> ins/<Fry the rice; add salt>`
+Example: `new n/Fried Rice ing/<White rice, 1 cup; salt, 1gram> ins/<Fry the rice; add salt>`
 Current options are:
     `n` - name
     `ing` - ingredients
     `ins` - instructions
+	 `cal` - calories
+    `s` - serving size
+    `r` - rating (scale of 0 to 5)
     `tags` - tags
 
 === Delete a Recipe — `delete`
@@ -82,31 +86,31 @@ Replaces the ingredient at index 3 with 2 eggs.
 Example: `modify 2 ins/<boil eggs; slice apples>`
 Replaces the instructions in the recipe from 'boil eggs' to 'slice apples'
 
-=== Add Calories to a Recipe — `add calories <index> <amount>`
-Assigns a calorie value `amount` to dish number `<index>`, measured in $\text{kcal} = 4200 \text{ kJ}$.
-
 === List Recipes — `list`
 Lists out all the recipes with their respective indexes in the CookBuddy program.
 
-=== View a Recipe — `view <recipe>`
+=== View a Recipe — `view <recipe> (V1.3)`
 Opens a recipe to view.
 
-=== Tagging Recipes
+=== Tagging Recipes — `tag <index> <tag_type> <tag> (V1.3)`
+Tags the recipe at the specified index with the tag of tag_type.
 
-==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
-Tags a recipe (and the ingredient, if specified) as containing `allergen`.
+Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the recipe at index 1.
 
-==== Tag the serving size of a recipe — `tag serving <index> <serving size>`
-Tag the recipe with a serving size of `serving size`.
+// ==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
+// Tags a recipe (and the ingredient, if specified) as containing `allergen`.
 
-==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
-Tag the recipe as `meal type` such as breakfast/lunch/dinner
+// ==== Tag the serving size of a recipe — `tag serving <index> <serving size>`
+// Tag the recipe with a serving size of `serving size`.
 
-=== Duplicate Recipe — `dup <index>`
-Duplicates the recipe found at the specified index, and places the new recipe at `index + 1`
-Useful for users who wish to experiment with recipes while keeping a copy of the original.
+// ==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
+// Tag the recipe as `meal type` such as breakfast/lunch/dinner
 
-=== Search
+// === Duplicate Recipe — `dup <index>`
+// Duplicates the recipe found at the specified index, and places the new recipe at `index + 1`
+// Useful for users who wish to experiment with recipes while keeping a copy of the original.
+
+=== Search (V1.3)
 
 ==== Search keyword — `search keyword <keyword>`
 Search for recipes that contain `keyword` in their name

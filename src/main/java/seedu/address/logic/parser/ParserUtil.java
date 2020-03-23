@@ -5,27 +5,36 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.Calorie;
+import seedu.address.model.recipe.attribute.Ingredient;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.Instruction;
+import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Rating;
+import seedu.address.model.recipe.attribute.Serving;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various *Parser
+ * classes.
  */
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading
+     * and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the specified index is invalid (not non-zero
+     *                        unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -36,8 +45,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -51,48 +60,83 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses {@code ingredientString} into an {@link IngredientList}. Leading and
+     * trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if {@code ingredientString} is invalid
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
+    public static IngredientList parseIngredients(String ingredientString) throws ParseException {
+        requireNonNull(ingredientString);
+
+        if (ingredientString.isBlank()) {
+            throw new ParseException("Recipes need to have instructions; please enter some instructions.");
         }
-        return new Phone(trimmedPhone);
+
+        return new IngredientList(Stream.of(ingredientString.trim().split(";")).map(String::trim).map(Ingredient::new)
+                .collect(Collectors.toList()));
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses {@code instructionString} into a {@link InstructionList}. Leading and
+     * trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if {@code instructionString} is blank, as specified by
+     *                        {@link String#isBlank()}
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+    public static InstructionList parseInstructions(String instructionString) throws ParseException {
+        requireNonNull(instructionString);
+
+        if (instructionString.isBlank()) {
+            throw new ParseException("Recipes need to have ingredients; please enter some ingredients.");
         }
-        return new Address(trimmedAddress);
+
+        return new InstructionList(Stream.of(instructionString.trim().split(";")).map(String::trim)
+                .map(Instruction::new).collect(Collectors.toList()));
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String calorie} into a {@code Calorie}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code calorie} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Calorie parseCalorie(String calorie) throws ParseException {
+        requireNonNull(calorie);
+        String trimmedCalorie = calorie.trim();
+        if (!Calorie.isValidCalorieAmount(trimmedCalorie)) {
+            throw new ParseException(Calorie.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Calorie(trimmedCalorie);
+    }
+
+    /**
+     * Parses a {@code String servingString} into a {@code Serving}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code servingString} is invalid.
+     */
+    public static Serving parseServing(String servingString) throws ParseException {
+        requireNonNull(servingString);
+        int serving = Integer.parseInt(servingString.trim());
+        if (!Serving.isValidServing(serving)) {
+            throw new ParseException(Serving.MESSAGE_CONSTRAINTS);
+        }
+        return new Serving(serving);
+    }
+
+    /**
+     * Parses a {@code String ratingString} into a {@code Rating}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code ratingString} is invalid.
+     */
+    public static Rating parseRating(String ratingString) throws ParseException {
+        requireNonNull(ratingString);
+        int rating = Integer.parseInt(ratingString.trim());
+        if (!Rating.isValidRating(rating)) {
+            throw new ParseException(Rating.MESSAGE_CONSTRAINTS);
+        }
+        return new Rating(rating);
     }
 
     /**
