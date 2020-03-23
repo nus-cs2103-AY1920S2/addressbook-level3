@@ -2,6 +2,8 @@ package seedu.address.model.util;
 
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
@@ -127,10 +129,10 @@ public class SampleDataUtil {
         return sampleOb;
     }
 
-    public static ReadOnlyOrderBook getSampleReturnOrderBook() {
-        OrderBook sampleRob = new OrderBook();
+    public static ReadOnlyReturnOrderBook getSampleReturnOrderBook() {
+        ReturnOrderBook sampleRob = new ReturnOrderBook();
         for (Order sampleOrder : getSampleReturnOrders()) {
-            sampleRob.addOrder(sampleOrder);
+            sampleRob.addReturnOrder(sampleOrder);
         }
         return sampleRob;
     }

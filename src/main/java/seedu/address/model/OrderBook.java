@@ -96,7 +96,7 @@ public class OrderBook implements ReadOnlyOrderBook {
 
     @Override
     public String toString() {
-        return orders.asUnmodifiableObservableList().size() + " persons";
+        return orders.asUnmodifiableObservableList().size() + " orders";
         // TODO: refine later
     }
 

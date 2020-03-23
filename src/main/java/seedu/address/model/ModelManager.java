@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 
 /**
  * Represents the in-memory model of the order book data.
@@ -20,7 +22,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final OrderBook orderBook;
-    private final OrderBook returnOrderBook;
+    private final ReturnOrderBook returnOrderBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Order> filteredReturnOrders;
@@ -28,21 +30,22 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given orderBook and userPrefs.
      */
-    public ModelManager(ReadOnlyOrderBook orderBook, ReadOnlyOrderBook returnOrderBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyOrderBook orderBook, ReadOnlyReturnOrderBook returnOrderBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(orderBook, returnOrderBook, userPrefs);
 
         logger.fine("Initializing with order book: " + orderBook + " and user prefs " + userPrefs);
 
         this.orderBook = new OrderBook(orderBook);
-        this.returnOrderBook = new OrderBook(returnOrderBook);
+        this.returnOrderBook = new ReturnOrderBook(returnOrderBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
-        filteredReturnOrders = new FilteredList<>(this.returnOrderBook.getOrderList());
+        filteredReturnOrders = new FilteredList<>(this.returnOrderBook.getReturnOrderList());
     }
 
     public ModelManager() {
-        this(new OrderBook(), new OrderBook(), new UserPrefs());
+        this(new OrderBook(), new ReturnOrderBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -129,29 +132,29 @@ public class ModelManager implements Model {
     //=========== ReturnOrderBook ================================================================================
 
     @Override
-    public void setReturnOrderBook(ReadOnlyOrderBook returnOrderBook) {
+    public void setReturnOrderBook(ReadOnlyReturnOrderBook returnOrderBook) {
         this.returnOrderBook.resetData(returnOrderBook);
     }
 
     @Override
-    public ReadOnlyOrderBook getReturnOrderBook() {
+    public ReadOnlyReturnOrderBook getReturnOrderBook() {
         return returnOrderBook;
     }
 
     @Override
     public boolean hasReturnOrder(Order returnOrder) {
         requireNonNull(returnOrder);
-        return returnOrderBook.hasOrder(returnOrder);
+        return returnOrderBook.hasReturnOrder(returnOrder);
     }
 
     @Override
     public void deleteReturnOrder(Order target) {
-        returnOrderBook.removeOrder(target);
+        returnOrderBook.removeReturnOrder(target);
     }
 
     @Override
     public void addReturnOrder(Order returnOrder) {
-        returnOrderBook.addOrder(returnOrder);
+        returnOrderBook.addReturnOrder(returnOrder);
         updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
@@ -159,7 +162,7 @@ public class ModelManager implements Model {
     public void setReturnOrder(Order target, Order editedReturnOrder) {
         requireAllNonNull(target, editedReturnOrder);
 
-        returnOrderBook.setOrder(target, editedReturnOrder);
+        returnOrderBook.setReturnOrder(target, editedReturnOrder);
     }
 
     //=========== Filtered Order List Accessors =============================================================
@@ -193,7 +196,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Order} backed by the internal list of
-     * {@code versionedOrderBook}
+     * {@code versionedReturnOrderBook}
      */
     @Override
     public ObservableList<Order> getFilteredReturnOrderList() {

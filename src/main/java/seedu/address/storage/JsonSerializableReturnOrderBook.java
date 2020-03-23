@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.OrderBook;
-import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 import seedu.address.model.order.Order;
 
 /**
@@ -18,40 +18,41 @@ import seedu.address.model.order.Order;
  */
 @JsonRootName(value = "ReturnOrderBook")
 class JsonSerializableReturnOrderBook {
-    public static final String MESSAGE_DUPLICATE_ORDER = "Return order list contains duplicate return order(s).";
-    private final List<JsonAdaptedOrder> orders = new ArrayList<>();
+    public static final String MESSAGE_DUPLICATE_RETURN_ORDER = "Return order list contains duplicate return order(s).";
+    private final List<JsonAdaptedReturnOrder> returnOrders = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableOrderBook} with the given orders.
      */
     @JsonCreator
-    public JsonSerializableReturnOrderBook(@JsonProperty("orders") List<JsonAdaptedOrder> orders) {
-        this.orders.addAll(orders);
+    public JsonSerializableReturnOrderBook(@JsonProperty("returnOrders") List<JsonAdaptedReturnOrder> returnOrders) {
+        this.returnOrders.addAll(returnOrders);
     }
 
     /**
-     * Converts a given {@code ReadOnlyOrderBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyReturnOrderBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableOrderBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableReturnOrderBook}.
      */
-    public JsonSerializableReturnOrderBook(ReadOnlyOrderBook source) {
-        orders.addAll(source.getOrderList().stream().map(JsonAdaptedOrder::new).collect(Collectors.toList()));
+    public JsonSerializableReturnOrderBook(ReadOnlyReturnOrderBook source) {
+        returnOrders.addAll(source.getReturnOrderList().stream().map(JsonAdaptedReturnOrder::new)
+                .collect(Collectors.toList()));
     }
 
     /**
-     * Converts this order book into the model's {@code OrderBook} object.
+     * Converts this return order book into the model's {@code ReturnOrderBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public OrderBook toModelType() throws IllegalValueException {
-        OrderBook orderBook = new OrderBook();
-        for (JsonAdaptedOrder jsonAdaptedOrder : orders) {
-            Order order = jsonAdaptedOrder.toModelType();
-            if (orderBook.hasOrder(order)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_ORDER);
+    public ReturnOrderBook toModelType() throws IllegalValueException {
+        ReturnOrderBook returnOrderBook = new ReturnOrderBook();
+        for (JsonAdaptedReturnOrder jsonAdaptedReturnOrder : returnOrders) {
+            Order order = jsonAdaptedReturnOrder.toModelType();
+            if (returnOrderBook.hasReturnOrder(order)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_RETURN_ORDER);
             }
-            orderBook.addOrder(order);
+            returnOrderBook.addReturnOrder(order);
         }
-        return orderBook;
+        return returnOrderBook;
     };
 }

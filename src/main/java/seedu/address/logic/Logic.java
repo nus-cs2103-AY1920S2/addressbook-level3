@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
 import seedu.address.model.order.Order;
 
 /**
@@ -33,9 +34,9 @@ public interface Logic {
     /**
      * Returns the ReturnOrderBook.
      *
-     * @see seedu.address.model.Model#getOrderBook()
+     * @see seedu.address.model.Model#getReturnOrderBook()
      */
-    ReadOnlyOrderBook getReturnOrderBook();
+    ReadOnlyReturnOrderBook getReturnOrderBook();
 
     /** Returns an unmodifiable view of the filtered list of orders */
     ObservableList<Order> getFilteredOrderList();

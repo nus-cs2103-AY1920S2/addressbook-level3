@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
 
 /**
  * The API of the Model component.
@@ -101,10 +102,10 @@ public interface Model {
     /**
      * Replaces return order book data with the data in {@code returnOrderBook}.
      */
-    void setReturnOrderBook(ReadOnlyOrderBook returnOrderBook);
+    void setReturnOrderBook(ReadOnlyReturnOrderBook returnOrderBook);
 
     /** Returns the ReturnOrderBook */
-    ReadOnlyOrderBook getReturnOrderBook();
+    ReadOnlyReturnOrderBook getReturnOrderBook();
 
     /**
      * Returns true if a return order with the same identity as {@code returnOrder} exists in the return order book.

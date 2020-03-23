@@ -43,21 +43,4 @@ public interface OrderBookStorage {
      * @see #saveOrderBook(ReadOnlyOrderBook)
      */
     void saveOrderBook(ReadOnlyOrderBook orderBook, Path filePath) throws IOException;
-
-    // ================ Return Order Book methods ==============================
-
-    /**
-     * Read the order book in the file path and return ReadOnlyOrderBook.
-     * @param filePath path that the file stored.
-     * @return ReadOnlyOrderBook which the orders get from the file.
-     * @throws DataConversionException if there are problem converting the json to order object.
-     * @throws IOException if there was any problem reading the file.
-     */
-    Optional<ReadOnlyOrderBook> readReturnOrderBook(Path filePath) throws DataConversionException, IOException;
-
-    /**
-     * @see #saveOrderBook(ReadOnlyOrderBook)
-     */
-    void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook, Path filePath) throws IOException;
-
 }

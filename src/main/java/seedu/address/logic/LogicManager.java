@@ -14,6 +14,7 @@ import seedu.address.logic.parser.OrderBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
 import seedu.address.model.order.Order;
 import seedu.address.storage.Storage;
 
@@ -58,7 +59,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyOrderBook getReturnOrderBook() {
+    public ReadOnlyReturnOrderBook getReturnOrderBook() {
         return model.getReturnOrderBook();
     }
 

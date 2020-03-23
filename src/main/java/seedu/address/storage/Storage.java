@@ -6,13 +6,14 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends OrderBookStorage, UserPrefsStorage {
+public interface Storage extends OrderBookStorage, ReturnOrderBookStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -33,13 +34,12 @@ public interface Storage extends OrderBookStorage, UserPrefsStorage {
 
     //==================== Return Order Book methods ========================================
 
+    @Override
     Path getReturnOrderBookFilePath();
 
-    Optional<ReadOnlyOrderBook> readReturnOrderBook() throws DataConversionException, IOException;
+    @Override
+    Optional<ReadOnlyReturnOrderBook> readReturnOrderBook() throws DataConversionException, IOException;
 
-    Optional<ReadOnlyOrderBook> readReturnOrderBook(Path filePath) throws DataConversionException, IOException;
-
-    void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook) throws IOException;
-
-    void saveReturnOrderBook(ReadOnlyOrderBook returnOrderBook, Path filePath) throws IOException;
+    @Override
+    void saveReturnOrderBook(ReadOnlyReturnOrderBook returnOrderBook) throws IOException;
 }

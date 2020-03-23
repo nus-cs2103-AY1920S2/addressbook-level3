@@ -19,12 +19,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.returnOrder.ReturnOrderBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonOrderBookStorage;
+import seedu.address.storage.JsonReturnOrderBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.OrderBookStorage;
+import seedu.address.storage.ReturnOrderBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -56,7 +60,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        OrderBookStorage returnOrderBookStorage = new JsonOrderBookStorage(userPrefs.getReturnOrderBookFilePath());
+        ReturnOrderBookStorage returnOrderBookStorage =
+                new JsonReturnOrderBookStorage(userPrefs.getReturnOrderBookFilePath());
         OrderBookStorage orderBookStorage = new JsonOrderBookStorage(userPrefs.getOrderBookFilePath());
         storage = new StorageManager(orderBookStorage, returnOrderBookStorage, userPrefsStorage);
 
@@ -70,15 +75,18 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s order book and {@code userPrefs}. <br>
-     * The data from the sample order book will be used instead if {@code storage}'s order book is not found,
-     * or an empty order book will be used instead if errors occur when reading {@code storage}'s order book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s order book and return order book and
+     * {@code userPrefs}. <br>
+     * The data from the sample order book and return order book will be used instead if {@code storage}'s order book
+     * and return order book is not found,
+     * or an empty order book and an empty return order book will be used instead if errors occur when reading
+     * {@code storage}'s order book and return order book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyOrderBook> orderBookOptional;
-        Optional<ReadOnlyOrderBook> returnOrderBookOptional;
+        Optional<ReadOnlyReturnOrderBook> returnOrderBookOptional;
         ReadOnlyOrderBook initialData;
-        ReadOnlyOrderBook initialReturnData;
+        ReadOnlyReturnOrderBook initialReturnData;
         try {
             orderBookOptional = storage.readOrderBook();
             if (orderBookOptional.isEmpty()) {
@@ -101,10 +109,10 @@ public class MainApp extends Application {
             initialReturnData = returnOrderBookOptional.orElseGet(SampleDataUtil::getSampleReturnOrderBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ReturnOrderBook");
-            initialReturnData = new OrderBook();
+            initialReturnData = new ReturnOrderBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ReturnOrderBook");
-            initialReturnData = new OrderBook();
+            initialReturnData = new ReturnOrderBook();
         }
 
         return new ModelManager(initialData, initialReturnData, userPrefs);
