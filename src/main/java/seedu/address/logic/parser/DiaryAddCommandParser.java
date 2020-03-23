@@ -3,15 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENTRY_CONTENT;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.DiaryAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.nusmodule.Grade;
-import seedu.address.model.nusmodule.ModuleCode;
-import seedu.address.model.nusmodule.NusModule;
 
 public class DiaryAddCommandParser implements Parser<DiaryAddCommand> {
 

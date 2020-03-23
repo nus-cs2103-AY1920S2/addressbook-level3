@@ -1,9 +1,8 @@
 package seedu.address.model.diary;
 
-import java.util.Optional;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import seedu.address.model.diary.mood.Mood;
 import seedu.address.model.diary.weather.Weather;

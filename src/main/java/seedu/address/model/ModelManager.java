@@ -125,7 +125,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-  //=========== Diary Module ==================================================================================
+    //=========== Diary Module ==================================================================================
     @Override
     public void addDiaryEntry(DiaryEntry diaryEntry) {
         diaryBook.addEntry(diaryEntry);
@@ -141,8 +141,8 @@ public class ModelManager implements Model {
     public String showDiaryLog() {
         return diaryBook.showLog();
     }
-  
-  //=========== Cap Module ==================================================================================
+
+    //=========== Cap Module ==================================================================================
     public boolean hasModule(NusModule module) {
         requireNonNull(module);
         return modules.contains(module);

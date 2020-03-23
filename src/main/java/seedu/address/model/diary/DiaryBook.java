@@ -1,7 +1,8 @@
 package seedu.address.model.diary;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class DiaryBook {
     private List<DiaryEntry> diaryEntries;

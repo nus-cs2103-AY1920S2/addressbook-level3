@@ -92,11 +92,11 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
     //=========== Diary Module ==================================================================================
     boolean isEmptyDiaryEntry(DiaryEntry diaryEntry);
-  
+
     void addDiaryEntry(DiaryEntry diaryEntry);
-  
+
     String showDiaryLog();
-  
+
     //=========== Notes Module ==================================================================================
     /** Returns an list of String that contains what is currently in the folder */
     ObservableList<Notes> getFilesInFolderList();
