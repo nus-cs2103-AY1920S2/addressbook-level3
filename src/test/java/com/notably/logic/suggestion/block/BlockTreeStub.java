@@ -5,6 +5,9 @@ import com.notably.model.block.Block;
 import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeItem;
 
+/**
+ * A Stub class for BlockTree.
+ */
 public class BlockTreeStub implements BlockTree {
     private BlockTreeItem root;
 

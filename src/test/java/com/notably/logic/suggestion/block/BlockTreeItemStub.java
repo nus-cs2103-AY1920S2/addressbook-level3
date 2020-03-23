@@ -13,6 +13,9 @@ import com.notably.model.block.Title;
 
 import javafx.scene.control.TreeItem;
 
+/**
+ * A Stub class for BlockTreeItem.
+ */
 public class BlockTreeItemStub implements BlockTreeItem {
     private TreeItem<Block> blockTreeItem;
     private BlockTreeItem parent;
