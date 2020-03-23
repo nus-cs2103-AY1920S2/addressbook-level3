@@ -1,9 +1,15 @@
 package nasa.model;
 
 import static java.util.Objects.requireNonNull;
+
 import javafx.collections.ObservableList;
+
 import nasa.model.history.ModuleListHistory;
 
+/**
+ * Construct a class to store undo and redo history.
+ * @param <T>
+ */
 public class HistoryBook<T> implements ReadOnlyHistory<T> {
 
     private ModuleListHistory<T> moduleListHistory;
@@ -21,6 +27,10 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
         resetData(history);
     }
 
+    /**
+     * Reset history with new data.
+     * @param newData
+     */
     public void resetData(ReadOnlyHistory<T> newData) {
         requireNonNull(newData);
 
@@ -39,6 +49,10 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
         moduleListHistory.push(item);
     }
 
+    /**
+     * Undo previous action.
+     * @return true if there is history
+     */
     public boolean undo() {
         boolean checkStack = !moduleListHistory.isEmpty();
         if (checkStack) {
@@ -48,6 +62,10 @@ public class HistoryBook<T> implements ReadOnlyHistory<T> {
         return checkStack;
     }
 
+    /**
+     * Redo previous action.
+     * @return true if there is undo history
+     */
     public boolean redo() {
         boolean checkItem = !moduleListHistoryCollector.isEmpty();
         if (checkItem) {

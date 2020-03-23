@@ -1,8 +1,10 @@
 package nasa.logic.commands;
 
+import nasa.model.HistoryBook;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
+import nasa.model.module.UniqueModuleList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -24,14 +26,14 @@ public class AddModuleCommandTest {
 
     @BeforeEach
     public void setModel() {
-        model = new ModelManager(new NasaBook(), new UserPrefs());
+        model = new ModelManager(new NasaBook(), new HistoryBook<UniqueModuleList>(), new UserPrefs());
     }
 
     @Test
     public void execute_newModule_success() throws Exception {
         Module module = new Module(new ModuleCode(MODULE_CODE), new ModuleName(MODULE_NAME));
 
-        Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUserPrefs());
         expectedModel.addModule(module);
 
         AddModuleCommand command = new AddModuleCommand(module);

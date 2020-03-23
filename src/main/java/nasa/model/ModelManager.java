@@ -1,10 +1,6 @@
 package nasa.model;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 import static java.util.Objects.requireNonNull;
-import javafx.collections.FXCollections;
 import static nasa.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -13,6 +9,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.index.Index;
 import nasa.commons.core.LogsCenter;
@@ -122,6 +119,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyNasaBook getNasaBook() {
         return nasaBook;
+    }
+
+    @Override
+    public ReadOnlyHistory getHistoryBook() {
+        return historyManager.getHistoryBook();
     }
 
     @Override

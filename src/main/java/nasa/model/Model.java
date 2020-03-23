@@ -58,6 +58,9 @@ public interface Model {
     /** Returns the NasaBook */
     ReadOnlyNasaBook getNasaBook();
 
+    /** Returns the HistoryBook */
+    ReadOnlyHistory getHistoryBook();
+
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
      */

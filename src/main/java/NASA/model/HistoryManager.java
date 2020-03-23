@@ -1,10 +1,13 @@
 package nasa.model;
 
 import static java.util.Objects.requireNonNull;
-import javafx.collections.ObservableList;
-import nasa.model.history.ModuleListHistory;
-import nasa.model.module.UniqueModuleList;
 
+import javafx.collections.ObservableList;
+
+/**
+ * A wrapper class to handle various history data.
+ * @param <T>
+ */
 public class HistoryManager<T> implements HistoryModel<T> {
 
     private final HistoryBook<T> historyBook;
@@ -29,10 +32,6 @@ public class HistoryManager<T> implements HistoryModel<T> {
 
     public T getItem() {
         return historyBook.getItem();
-    }
-
-    public T getUndoItem() {
-        return historyBook.getUndoItem();
     }
 
     @Override
