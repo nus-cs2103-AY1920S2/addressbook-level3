@@ -22,6 +22,7 @@ public class ModelManager implements Model {
     private final RecipeBook recipeBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
+    private final VersionedRecipeBook states;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -35,6 +36,7 @@ public class ModelManager implements Model {
         this.recipeBook = new RecipeBook(recipeBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
+        this.states = new VersionedRecipeBook(recipeBook);
     }
 
     public ModelManager() {
@@ -118,8 +120,32 @@ public class ModelManager implements Model {
     @Override
     public void setRecipe(Recipe target, Recipe editedRecipe) {
         requireAllNonNull(target, editedRecipe);
-
         recipeBook.setRecipe(target, editedRecipe);
+    }
+
+    @Override
+    public boolean canUndo() {
+        return states.canUndo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return states.canRedo();
+    }
+
+    @Override
+    public void commitRecipeBook() {
+        states.commit(new RecipeBook(recipeBook));
+    }
+
+    @Override
+    public void undoRecipeBook() {
+        setRecipeBook(states.undo());
+    }
+
+    @Override
+    public void redoRecipeBook() {
+        setRecipeBook(states.redo());
     }
 
     //=========== Filtered Recipe List Accessors =============================================================

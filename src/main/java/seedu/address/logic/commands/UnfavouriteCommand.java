@@ -52,6 +52,7 @@ public class UnfavouriteCommand extends Command {
         }
         sb.append(" from favourites!");
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.commitRecipeBook();
         return new CommandResult(sb.toString());
     }
 

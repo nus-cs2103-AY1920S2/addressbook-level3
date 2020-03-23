@@ -88,6 +88,33 @@ public interface Model {
      */
     void setRecipe(Recipe target, Recipe editedRecipe);
 
+    /**
+     * Checks if it is possible to undo. Returns true if there is an older state of the RecipeBook
+     * (relative to the current state) being stored.
+     */
+    boolean canUndo();
+
+    /**
+     * Checks if it is possible to redo. Returns true if there is a newer state of the RecipeBook
+     * (relative to the current state) being stored.
+     */
+    boolean canRedo();
+
+    /**
+     * Stores the new state of the RecipeBook when the RecipeBook undergoes a state change.
+     */
+    void commitRecipeBook();
+
+    /**
+     * Changes the state of the RecipeBook to the previous state.
+     */
+    void undoRecipeBook();
+
+    /**
+     * Changes the state of the RecipeBook to the next available state.
+     */
+    void redoRecipeBook();
+
     /** Returns an unmodifiable view of the filtered recipe list */
     ObservableList<Recipe> getFilteredRecipeList();
 
@@ -96,4 +123,5 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
+
 }

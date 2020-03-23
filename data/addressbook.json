@@ -3,7 +3,7 @@
     "name" : "chickenn",
     "time" : "15",
     "isFavourite" : false,
-    "grains" : [ "Bread,  20.0g" ],
+    "grains" : [ ],
     "vegetables" : [ "vege,  20.0g" ],
     "proteins" : [ ],
     "fruits" : [ "kiwi,  50.0g" ],
@@ -13,8 +13,8 @@
   }, {
     "name" : "Healthy Duck Brown Rice",
     "time" : "20",
-    "isFavourite" : false,
-    "grains" : [ "Brown rice,  500.0g" ],
+    "isFavourite" : true,
+    "grains" : [ ],
     "vegetables" : [ "capsci,  20.0g" ],
     "proteins" : [ ],
     "fruits" : [ ],
@@ -46,8 +46,8 @@
   }, {
     "name" : "this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name 1111111111111111111 this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name  2222222222222222222222222 test text wrap hehe this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name 3333333333333",
     "time" : "33",
-    "isFavourite" : false,
-    "grains" : [ "bread,  40.0g" ],
+    "isFavourite" : true,
+    "grains" : [ ],
     "vegetables" : [ "capsci,  20.0g" ],
     "proteins" : [ ],
     "fruits" : [ ],
@@ -77,37 +77,37 @@
     "steps" : [ "first" ],
     "goals" : [ ]
   }, {
-    "name" : "Meal with ONLY grains",
-    "time" : "10",
-    "isFavourite" : true,
-    "grains" : [ "Bread,  10.0g", "Cereal,  10.0g", "Oats,  10.0g", "Pasta,  10.0g", "Rice,  10.0g" ],
-    "vegetables" : [ ],
-    "proteins" : [ ],
-    "fruits" : [ ],
-    "others" : [ ],
-    "steps" : [ "Prepare all the grains in a bowl", "Mix all the grains together", "Microwave the bowl of grains for 7 minutes", "Consume when grains have been toasted" ],
-    "goals" : [ "Wholesome Wholegrains" ]
-  }, {
-    "name" : "Only capsicum",
-    "time" : "6",
+    "name" : "stub",
+    "time" : "5",
     "isFavourite" : false,
     "grains" : [ ],
-    "vegetables" : [ "capsci,  50.0g" ],
+    "vegetables" : [ "stub,  5.0g" ],
     "proteins" : [ ],
     "fruits" : [ ],
     "others" : [ ],
-    "steps" : [ "Cut the capsicum", "Remove seeds", "Heat frying pan", "Stir fry for 3.5 minutes" ],
-    "goals" : [ "Herbivore" ]
+    "steps" : [ "stub" ],
+    "goals" : [ "stub" ]
   }, {
-    "name" : "Edit command test recipe",
-    "time" : "17",
+    "name" : "stub5",
+    "time" : "5",
     "isFavourite" : true,
-    "grains" : [ "Oat,  20.0g", "Rice,  50.0g" ],
-    "vegetables" : [ "Kailan,  30.0g", "Pumpkin,  50.0g" ],
-    "proteins" : [ "Sliced lean pork,  40.0g" ],
-    "fruits" : [ "Pineapple chunks,  50.0g" ],
-    "others" : [ "Salt and Pepper,  1.0tsp", "Sesame Oil,  1.0tbsp" ],
-    "steps" : [ "Cook rice", "Season pork slices with salt and pepper", "Stir-fry pork in sesame oil", "Add pineapple chunks when pork is about done", "Mix rice with the pineapple pork" ],
-    "goals" : [ "Wholesome Wholegrains" ]
+    "grains" : [ ],
+    "vegetables" : [ "stub,  5.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "stub" ],
+    "goals" : [ "stub" ]
+  }, {
+    "name" : "stub9",
+    "time" : "5",
+    "isFavourite" : true,
+    "grains" : [ ],
+    "vegetables" : [ "stub,  5.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "stub" ],
+    "goals" : [ "stub" ]
   } ]
 }

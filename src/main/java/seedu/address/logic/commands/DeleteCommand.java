@@ -52,6 +52,7 @@ public class DeleteCommand extends Command {
             }
         }
         sb.append(" from recipe book!");
+        model.commitRecipeBook();
         return new CommandResult(sb.toString());
     }
 
