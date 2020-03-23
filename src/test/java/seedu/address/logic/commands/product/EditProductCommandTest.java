@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showProductAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PRODUCT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PRODUCT;
-import static seedu.address.testutil.TypicalProducts.getTypicalAddressBook;
+import static seedu.address.testutil.product.TypicalProducts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +23,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.product.Product;
-import seedu.address.testutil.EditProductDescriptorBuilder;
-import seedu.address.testutil.ProductBuilder;
+import seedu.address.testutil.product.EditProductDescriptorBuilder;
+import seedu.address.testutil.product.ProductBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.product;
 
 import seedu.address.logic.commands.product.EditProductCommand.EditProductDescriptor;
 import seedu.address.model.product.Price;

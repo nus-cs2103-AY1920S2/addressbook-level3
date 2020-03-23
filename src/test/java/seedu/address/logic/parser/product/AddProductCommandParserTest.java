@@ -21,8 +21,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_WATCH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SALES_WATCH;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalProducts.BAG;
-import static seedu.address.testutil.TypicalProducts.WATCH;
+import static seedu.address.testutil.product.TypicalProducts.BAG;
+import static seedu.address.testutil.product.TypicalProducts.WATCH;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
-import seedu.address.testutil.ProductBuilder;
+import seedu.address.testutil.product.ProductBuilder;
 
 public class AddProductCommandParserTest {
     private AddProductCommandParser parser = new AddProductCommandParser();

@@ -4,11 +4,16 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -135,7 +140,18 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        Label commandBoxLabel = new Label("Enter command");
+        commandBoxLabel.setTextFill(Color.web("#ffffff"));
+
+        HBox commandHBox = new HBox();
+        HBox.setHgrow(commandBoxLabel, Priority.ALWAYS);
+        HBox.setHgrow(commandBox.getRoot(), Priority.ALWAYS);
+        commandHBox.setAlignment(Pos.BASELINE_CENTER);
+        commandHBox.setSpacing(10);
+        commandHBox.getChildren().addAll(commandBoxLabel, commandBox.getRoot());
+
+        commandBoxPlaceholder.getChildren().add(commandHBox);
     }
 
     /**

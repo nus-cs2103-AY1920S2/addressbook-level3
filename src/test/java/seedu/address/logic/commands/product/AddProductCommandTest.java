@@ -24,7 +24,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
-import seedu.address.testutil.ProductBuilder;
+import seedu.address.testutil.product.ProductBuilder;
 
 public class AddProductCommandTest {
 

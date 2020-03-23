@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.customer;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;

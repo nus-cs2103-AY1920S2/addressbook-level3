@@ -41,7 +41,7 @@ import seedu.address.model.customer.Email;
 import seedu.address.model.customer.Name;
 import seedu.address.model.customer.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.customer.EditPersonDescriptorBuilder;
 
 public class EditCustomerCommandParserTest {
 

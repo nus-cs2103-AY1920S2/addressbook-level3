@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.product;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_WATCH;
