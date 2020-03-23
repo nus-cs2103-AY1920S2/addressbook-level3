@@ -5,6 +5,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.commands.OpenCommand;
@@ -34,6 +35,11 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         List<OpenCommand> openCommandList = new ArrayList<>();
 
         try {
+            if (titles.charAt(0) == '/') {
+                openCommandList.add(new OpenCommand(AbsolutePath.fromString(titles)));
+            } else {
+                openCommandList.add(new OpenCommand(RelativePath.fromString(titles)));
+            }
             RelativePath path = RelativePath.fromString(titles);
             openCommandList.add(new OpenCommand(path));
             return openCommandList;

@@ -5,6 +5,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.RelativePath;
 import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.commands.DeleteCommand;
@@ -34,7 +35,11 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         List<DeleteCommand> deleteCommand = new ArrayList<>();
 
         try {
-            deleteCommand.add(new DeleteCommand(RelativePath.fromString(title)));
+            if (title.charAt(0) == '/') {
+                deleteCommand.add(new DeleteCommand(AbsolutePath.fromString(title)));
+            } else {
+                deleteCommand.add(new DeleteCommand(RelativePath.fromString(title)));
+            }
             return deleteCommand;
         } catch (InvalidPathException ex) {
             throw new ParseException(args);
