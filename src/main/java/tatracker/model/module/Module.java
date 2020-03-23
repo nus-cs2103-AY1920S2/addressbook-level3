@@ -22,6 +22,7 @@ public class Module {
      *
      * @param identifier identifies the module. Usually equal
      *                   to the module code.
+     * @param name the name of the module.
      */
     public Module(String identifier, String name) {
         this.identifier = identifier;
