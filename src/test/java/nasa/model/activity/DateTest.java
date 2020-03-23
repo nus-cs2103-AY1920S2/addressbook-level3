@@ -33,6 +33,7 @@ class DateTest {
 
         // valid Dates
         assertTrue(Date.isValidDate("29-02-2020 23:59")); //leap year
+        assertTrue(Date.isValidDate("29-2-2020 23:59")); //leap year
 
     }
 

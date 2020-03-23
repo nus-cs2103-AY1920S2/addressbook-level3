@@ -1,6 +1,5 @@
 package nasa.model;
 
-import java.util.ArrayList;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
@@ -330,6 +329,9 @@ public class NasaBook implements ReadOnlyNasaBook {
         return moduleList.asUnmodifiableObservableList();
     }
 
+    /**
+     * Ensure that the class being extracted does not points to the same object.
+     */
     @Override
     public ObservableList<Module> getDeepCopyList() {
         ObservableList<Module> deepCopyList = FXCollections.observableArrayList();

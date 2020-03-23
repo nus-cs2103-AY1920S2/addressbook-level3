@@ -2,6 +2,9 @@ package nasa.logic.commands;
 
 import nasa.model.Model;
 
+/**
+ * Command to handle redo previous action.
+ */
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 

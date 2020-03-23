@@ -50,15 +50,11 @@ public class AddDeadlineCommandParser extends AddCommandParser {
         Deadline deadline = new Deadline(activityName, dueDate);
         // optional fields - must see if it exist, else create null
         Note note;
-
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-<<<<<<< HEAD
             deadline.setNote(note);
-=======
         } else {
             note = null;
->>>>>>> 30503fcc5a8ed3454bac31864ea4cb84b0ba8f9a
         }
 
         Priority priority = new Priority();

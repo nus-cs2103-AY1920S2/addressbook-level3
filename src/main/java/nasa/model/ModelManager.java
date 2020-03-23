@@ -33,7 +33,8 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given NasaBook and userPrefs.
      */
-    public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(nasaBook, userPrefs);
 
@@ -47,13 +48,16 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new NasaBook(), new HistoryBook<UniqueModuleList>(),new UserPrefs());
+        this(new NasaBook(), new HistoryBook<UniqueModuleList>(), new UserPrefs());
     }
 
     public HistoryManager<UniqueModuleList> getHistoryManager() {
         return historyManager;
     }
 
+    /**
+     * Update the history manager list every time there is a change.
+     */
     public void updateHistory() {
         final UniqueModuleList temp = new UniqueModuleList();
         temp.setModules(nasaBook.getDeepCopyList());

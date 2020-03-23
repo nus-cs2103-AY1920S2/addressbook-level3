@@ -88,18 +88,21 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException {
-        saveUltimate(nasaBook, historyBook, nasaBookStorage.getNasaBookFilePath(), nasaBookStorage.getHistoryBookFilePath());
-    }
-
-    @Override
     public void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         nasaBookStorage.saveNasaBook(nasaBook, filePath);
     }
 
     @Override
-    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne, Path filePathTwo) throws IOException {
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook)
+            throws IOException {
+        saveUltimate(nasaBook, historyBook, nasaBookStorage.getNasaBookFilePath(),
+                nasaBookStorage.getHistoryBookFilePath());
+    }
+
+    @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne,
+                             Path filePathTwo) throws IOException {
         logger.fine("Attempting to write to data file: " + filePathOne + filePathTwo);
         nasaBookStorage.saveUltimate(nasaBook, historyBook, filePathOne, filePathTwo);
     }

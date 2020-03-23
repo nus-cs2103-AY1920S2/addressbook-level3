@@ -2,6 +2,7 @@ package nasa.logic.commands;
 
 import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
+import nasa.model.HistoryBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,8 +19,8 @@ import nasa.testutil.NasaBookBuilder;
 
 public class FindCommandTest {
 
-    private Model model = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
-    private Model expectedModel = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
+    private Model model = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new UserPrefs());
+    private Model expectedModel = new ModelManager(new NasaBookBuilder().build(), new HistoryBook<>(), new UserPrefs());
 
     @Test
     public void equals() {

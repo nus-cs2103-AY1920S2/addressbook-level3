@@ -53,12 +53,9 @@ public class AddLessonCommandParser extends AddCommandParser {
         Note note;
         if (arePrefixesPresent(argMultimap, PREFIX_NOTE)) {
             note = ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get());
-<<<<<<< HEAD
             lesson.setNote(note);
-=======
         } else {
             note = null;
->>>>>>> 30503fcc5a8ed3454bac31864ea4cb84b0ba8f9a
         }
 
         Priority priority = new Priority();

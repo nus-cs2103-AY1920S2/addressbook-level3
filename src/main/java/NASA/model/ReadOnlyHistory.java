@@ -1,10 +1,11 @@
 package nasa.model;
 
 import javafx.collections.ObservableList;
-import nasa.model.history.ModuleListHistory;
-import nasa.model.module.Module;
-import nasa.model.module.UniqueModuleList;
 
+/**
+ * API for History book.
+ * @param <T>
+ */
 public interface ReadOnlyHistory<T> {
 
     /**

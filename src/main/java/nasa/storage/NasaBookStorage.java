@@ -29,13 +29,12 @@ public interface NasaBookStorage {
      */
     Optional<ReadOnlyNasaBook> readNasaBook() throws DataConversionException, IOException;
 
-    Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException;
-
-
     /**
      * @see #getNasaBookFilePath()
      */
     Optional<ReadOnlyNasaBook> readNasaBook(Path filePath) throws DataConversionException, IOException;
+
+    Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException, IOException;
 
     Optional<ReadOnlyHistory> readHistoryBook(Path filePath) throws DataConversionException, IOException;
     /**
@@ -44,11 +43,13 @@ public interface NasaBookStorage {
      * @throws IOException if there was any problem writing to the file.
      */
     void saveNasaBook(ReadOnlyNasaBook nasaBook) throws IOException;
-    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException;
     /**
      * @see #saveNasaBook(ReadOnlyNasaBook)
      */
     void saveNasaBook(ReadOnlyNasaBook nasaBook, Path filePath) throws IOException;
 
-    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne, Path filePathTwo) throws IOException;
+    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException;
+
+    void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne,
+                      Path filePathTwo) throws IOException;
 }

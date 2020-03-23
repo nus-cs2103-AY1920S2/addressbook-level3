@@ -3,6 +3,7 @@ package nasa.logic.commands.addcommands;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
+import nasa.model.HistoryBook;
 import static nasa.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +27,7 @@ public class AddLessonCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new NasaBook(), new UserPrefs());
+        model = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
         module = new Module(new ModuleCode(VALID_MODULE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         model.addModule(module);
     }
@@ -35,7 +36,7 @@ public class AddLessonCommandTest {
     public void execute_newLesson_success() {
         Lesson lesson = new LessonBuilder().build();
 
-        Model expectedModel = new ModelManager(new NasaBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new NasaBook(), new HistoryBook<>(), new UserPrefs());
         expectedModel.addModule(new ModuleCode(VALID_MODULE_CS1231), new ModuleName(VALID_MODULE_NAME_CS1231));
         expectedModel.addActivity(module, lesson);
 
@@ -46,7 +47,7 @@ public class AddLessonCommandTest {
     @Test
     public void execute_duplicateLesson_failure() {
         Lesson lesson = new LessonBuilder().build();
-        Model expectedModel = new ModelManager(model.getNasaBook(), model.getUserPrefs());
+        Model expectedModel = new ModelManager(model.getNasaBook(), model.getHistoryBook(), model.getUserPrefs());
         AddLessonCommand command = new AddLessonCommand(lesson, new ModuleCode(VALID_MODULE_CS1231));
 
         expectedModel.addActivity(module, lesson);

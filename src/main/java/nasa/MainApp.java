@@ -60,7 +60,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        NasaBookStorage nasaBookStorage = new JsonNasaBookStorage(userPrefs.getNasaBookFilePath(), userPrefs.getHistoryBookFilePath());
+        NasaBookStorage nasaBookStorage = new JsonNasaBookStorage(userPrefs.getNasaBookFilePath(),
+                userPrefs.getHistoryBookFilePath());
         storage = new StorageManager(nasaBookStorage, userPrefsStorage);
 
         initLogging(config);
@@ -96,11 +97,11 @@ public class MainApp extends Application {
             initialHistoryBook = historyBookOptional.orElseGet(SampleDataUtil::getSampleHistoryBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty NasaBook");
-             initialNasaBook = new NasaBook();
-             initialHistoryBook = new HistoryBook();
+            initialNasaBook = new NasaBook();
+            initialHistoryBook = new HistoryBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty NasaBook");
-             initialNasaBook = new NasaBook();
+            initialNasaBook = new NasaBook();
             initialHistoryBook = new HistoryBook();
         }
 
