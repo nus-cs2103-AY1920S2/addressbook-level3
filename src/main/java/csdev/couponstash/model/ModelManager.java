@@ -12,7 +12,7 @@ import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.model.coupon.Coupon;
 
-import csdev.couponstash.model.undoredo.HistoryManager;
+import csdev.couponstash.model.history.HistoryManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 

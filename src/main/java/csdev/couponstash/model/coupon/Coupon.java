@@ -293,6 +293,10 @@ public class Coupon {
         return builder.toString();
     }
 
+    /**
+     * Deep copy of a coupon.
+     * @return The copy of the coupon
+     */
     public Coupon copy() {
         // Copy all the tags
         Set<Tag> copiedTags = new HashSet<>(tags);

@@ -4,9 +4,11 @@ import csdev.couponstash.logic.Logic;
 import csdev.couponstash.logic.commands.CommandResult;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+import csdev.couponstash.model.history.CommandTextHistory;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 
 /**
@@ -17,6 +19,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private CommandTextHistory commandTextHistory;
 
     @FXML
     private TextField commandTextField;
@@ -24,8 +27,20 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+        commandTextHistory = new CommandTextHistory();
+
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+
+        // If key pressed is UP or DOWN, grab from commandTextHistory the corresponding
+        // commandText
+        commandTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.UP) {
+                commandTextField.setText(commandTextHistory.getUp());
+            } else if (event.getCode() == KeyCode.DOWN) {
+                commandTextField.setText(commandTextHistory.getDown());
+            }
+        });
     }
 
     /**
@@ -35,6 +50,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandEntered() {
         try {
             commandExecutor.execute(commandTextField.getText());
+            commandTextHistory.add(commandTextField.getText()); // Add commandText to history
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();

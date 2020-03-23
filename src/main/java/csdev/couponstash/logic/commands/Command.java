@@ -26,7 +26,7 @@ public abstract class Command {
      * @throws CommandException If an error occurs during command execution.
      */
     public CommandResult execute(Model model) throws CommandException {
-        return  execute(model, "");
+        return execute(model, "");
     }
 
 }

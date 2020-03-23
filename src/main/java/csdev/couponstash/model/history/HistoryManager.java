@@ -1,4 +1,4 @@
-package csdev.couponstash.model.undoredo;
+package csdev.couponstash.model.history;
 
 import java.util.ArrayList;
 import java.util.List;
