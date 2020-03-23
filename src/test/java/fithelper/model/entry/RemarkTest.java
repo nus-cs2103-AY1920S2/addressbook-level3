@@ -1,6 +1,6 @@
 package fithelper.model.entry;
 
-import static fithelper.testutil.Assert.assertThrows;
+import static fithelper.testutil.AssertUtil.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

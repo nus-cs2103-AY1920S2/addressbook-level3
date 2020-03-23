@@ -27,7 +27,7 @@ public class TestUtil {
         try {
             Files.createDirectories(SANDBOX_FOLDER);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("IO Exception");
         }
         return SANDBOX_FOLDER.resolve(fileName);
     }
