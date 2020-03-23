@@ -260,8 +260,17 @@ is used in the TSS view.
 
 ==== Implementation of the Module Add and Delete Commands
 
+The following sequence diagram shows the sequence of commands that take place
+between the logic and model components of the TA-Tracker when the user enters the
+command 'module add m/CS2103 n/Software Engineering'.
+
+Note: This diagram assumes that there is no module with the module code 'CS2103'
+pre-existing in the TA-Tracker.
+
 .Module Add - Sequence Diagram
 image::AddModuleSequenceDiagram.png[]
+
+
 
 ==== Implementation of the Group Add and Delete Commands
 
