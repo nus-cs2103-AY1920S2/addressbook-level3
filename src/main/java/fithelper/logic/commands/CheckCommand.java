@@ -59,7 +59,7 @@ public class CheckCommand extends Command {
         requireNonNull(model);
         String typeValue = checkType.getValue();
         List<? extends CalorieEntry> result;
-        if (typeValue.equals("food")) {
+        if ("food".equals(typeValue)) {
             result = model.searchFoodCalorieTable(keyword);
         } else {
             result = model.searchSportsCalorieTable(keyword);

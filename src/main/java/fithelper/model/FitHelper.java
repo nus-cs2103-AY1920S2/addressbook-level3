@@ -378,7 +378,7 @@ public class FitHelper implements ReadOnlyFitHelper {
     public List<CalorieEntry> addCalorieEntries(String type, String keyword) {
         List<CalorieEntry> result = new ArrayList<>();
         List<? extends CalorieEntry> entries;
-        if (type.equals("f")) {
+        if ("f".equals(type)) {
             entries = foodCalorieTable.getEntries();
         } else {
             entries = sportsCalorieTable.getEntries();

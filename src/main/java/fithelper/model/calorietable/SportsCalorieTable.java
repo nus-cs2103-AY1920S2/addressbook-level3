@@ -10,7 +10,7 @@ public class SportsCalorieTable implements CalorieTable {
     private List<SportsCalorieEntry> entries = new ArrayList<>();
 
     public SportsCalorieTable() {
-        String data = SportsCalorieData.DATA;
+        String data = SportsCalorieDataUtil.DATA;
         String[] listOfEntries = data.split("//");
         for (String entry : listOfEntries) {
             String[] attributes = entry.split("/");

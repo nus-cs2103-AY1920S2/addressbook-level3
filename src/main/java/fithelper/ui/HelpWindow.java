@@ -76,7 +76,7 @@ public class HelpWindow extends UiPart<AnchorPane> {
      * Copies the URL to the user guide to the clipboard.
      */
     @FXML
-    void copyUrl() {
+    public void copyUrl() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);

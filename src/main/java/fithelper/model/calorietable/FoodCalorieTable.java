@@ -10,7 +10,7 @@ public class FoodCalorieTable implements CalorieTable {
     private List<FoodCalorieEntry> entries = new ArrayList<>();
 
     public FoodCalorieTable() {
-        String data = FoodCalorieData.DATA;
+        String data = FoodCalorieDataUtil.DATA;
         String[] listOfEntries = data.split("//");
         for (String entry : listOfEntries) {
             String[] attributes = entry.split("/");
