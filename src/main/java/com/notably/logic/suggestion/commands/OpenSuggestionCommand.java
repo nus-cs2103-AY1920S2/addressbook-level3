@@ -16,8 +16,8 @@ import com.notably.model.suggestion.SuggestionItemImpl;
  * Represents a suggestion command object to open a note.
  */
 public class OpenSuggestionCommand implements SuggestionCommand {
-    public static final String COMMAND_WORD = "open";
-    public static final String RESPONSE_MESSAGE = "Open a note";
+    private static final String COMMAND_WORD = "open";
+    private static final String RESPONSE_MESSAGE = "Open a note";
 
     private AbsolutePath path;
 
@@ -46,7 +46,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
      * @param model The app's model.
      * @return List of possible absolute paths, based on the user's input path.
      */
-    public List<AbsolutePath> getPossiblePaths(Model model) {
+    private List<AbsolutePath> getPossiblePaths(Model model) {
         Objects.requireNonNull(model);
 
         List<AbsolutePath> possiblePaths = new ArrayList<>();
