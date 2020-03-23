@@ -38,14 +38,6 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         List<AbsolutePath> possiblePaths = getPossiblePaths(model);
         List<SuggestionItem> suggestions = getSuggestions(possiblePaths, model);
 
-        setSuggestionsToModel(model, suggestions);
-    }
-
-
-    public void setSuggestionsToModel(Model model, List<SuggestionItem> suggestions) {
-        Objects.requireNonNull(model);
-        Objects.requireNonNull(suggestions);
-
         model.setSuggestions(suggestions);
     }
 
@@ -67,7 +59,7 @@ public class OpenSuggestionCommand implements SuggestionCommand {
         List<BlockTreeItem> children = source.getBlockChildren();
         if (children.size() != 0) {
             for (BlockTreeItem child : children) {
-                possiblePaths = getChildDfs(child, components, possiblePaths);
+                getChildDfs(child, components, possiblePaths);
             }
         }
 
@@ -79,9 +71,8 @@ public class OpenSuggestionCommand implements SuggestionCommand {
      * @param curr Current BlockTreeItem.
      * @param components The components of the current path.
      * @param possiblePaths The list of possible paths.
-     * @return The list of possible paths.
      */
-    private List<AbsolutePath> getChildDfs(BlockTreeItem curr, List<String> components,
+    private void getChildDfs(BlockTreeItem curr, List<String> components,
         List<AbsolutePath> possiblePaths) {
         List<String> newComponents = new ArrayList<>();
         newComponents.addAll(components);
@@ -97,10 +88,9 @@ public class OpenSuggestionCommand implements SuggestionCommand {
                 getChildDfs(child, newComponents, possiblePaths);
             }
         }
-        return possiblePaths;
     }
 
-    List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
+    private List<SuggestionItem> getSuggestions(List<AbsolutePath> possiblePaths, Model model) {
         Objects.requireNonNull(possiblePaths);
         Objects.requireNonNull(model);
 
