@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -67,6 +68,7 @@ public class RecipeCard extends UiPart<Region> {
         name.setWrapText(true);
 
         time.setText(recipe.getTime().value + " min");
+        time.setPadding(new Insets(0, 0, 10, 0));
 
         if (recipe.isFavourite()) {
             Path favouriteIconPath = Paths.get("src", "main", "resources", "images", "favourite.png");
@@ -86,6 +88,7 @@ public class RecipeCard extends UiPart<Region> {
             stepLabel.setWrapText(true);
             steps.getChildren().add(stepLabel);
         });
+        steps.setPadding(new Insets(10, 0, 0,0 ));
 
         recipe.getGoals().stream()
                 .sorted(Comparator.comparing(goal -> goal.goalName))
