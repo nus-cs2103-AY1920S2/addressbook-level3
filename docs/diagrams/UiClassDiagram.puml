@@ -33,7 +33,7 @@ UiManager -down-> MainWindow
 MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> IngredientList
+MainWindow *-down-> RecipeListPanel
 MainWindow *-down-> StatusBarFooter
 
 MainWindow -left-|> UiPart

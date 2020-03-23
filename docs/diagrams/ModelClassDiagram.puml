@@ -17,17 +17,17 @@ Class ReadOnlyUserPrefs
 
 Package Recipe {
 Class Recipe
-Class Instruction
-Class Ingredient
+Class InstructionList
+Class IngredientList
 Class Name
-Class Calories
+Class Calorie
+Class Quantity
+Class Tag
+Class Unit
+Class Serving
 Class UniqueRecipeList
 }
 
-Package Tag {
-Class Tag
-}
-}
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model

@@ -7,7 +7,7 @@ start
 
 if () then ([command commits RecipeBook])
     :Purge redunant states;
-    :Save RecipeBookBook to
+    :Save RecipeBook to
     recipeBookStateList;
 else ([else])
 endif

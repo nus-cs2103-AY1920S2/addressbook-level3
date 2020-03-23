@@ -17,7 +17,7 @@ end box
 activate LogicManager
 
 LogicManager -> RecipeBookParser : parseCommand("delete 3")
-activate RecipeBookParserBookParser
+activate RecipeBookParser
 
 create DeleteCommandParser
 AddressBookParser -> DeleteCommandParser
