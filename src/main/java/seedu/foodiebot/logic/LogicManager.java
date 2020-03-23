@@ -16,7 +16,6 @@ import seedu.foodiebot.logic.commands.EnterCanteenCommand;
 import seedu.foodiebot.logic.commands.ExitCommand;
 import seedu.foodiebot.logic.commands.FavoritesCommand;
 import seedu.foodiebot.logic.commands.FindCommand;
-import seedu.foodiebot.logic.commands.FoodMenuCommand;
 import seedu.foodiebot.logic.commands.GoToCanteenCommand;
 import seedu.foodiebot.logic.commands.HelpCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
@@ -89,8 +88,6 @@ public class LogicManager implements Logic {
             } else {
                 return Food.class.getSimpleName();
             }
-        case FoodMenuCommand.COMMAND_WORD:
-            return Food.class.getSimpleName();
 
         case BudgetCommand.COMMAND_WORD:
             return Budget.class.getSimpleName();
@@ -106,7 +103,7 @@ public class LogicManager implements Logic {
             return FavoriteFood.class.getSimpleName();
 
         case TransactionsCommand.COMMAND_WORD:
-            //TODO Not Implemented
+            return "Transactions";
 
         case ClearCommand.COMMAND_WORD:
             //TODO Not Implemented
@@ -120,7 +117,7 @@ public class LogicManager implements Logic {
         case HelpCommand.COMMAND_WORD:
             //TODO Not Implemented
         case SelectItemCommand.COMMAND_WORD:
-            //TODO Not Implemented
+            return "Select";
         default:
             return "";
         }

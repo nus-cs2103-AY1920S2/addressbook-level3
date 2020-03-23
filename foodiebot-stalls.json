@@ -1,31 +1,148 @@
 {
   "stalls" : [ {
-    "name" : "Taiwanese",
+    "name" : "Chinese Cooked Food",
     "canteenName" : "The Deck",
-    "stallNumber" : 3,
-    "stallImageName" : "muslim.png",
+    "stallNumber" : 1,
+    "stallImageName" : "ChineseCookedFood.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "rice", "noodle", "cheap" ]
+  }, {
+    "name" : "Claypot Seafood Soup",
+    "canteenName" : "The Deck",
+    "stallNumber" : 2,
+    "stallImageName" : "ClaypotSeafoodSoup.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "cheap", "rice" ]
+  }, {
+    "name" : "Indian",
+    "canteenName" : "The Deck",
+    "stallNumber" : 3,
+    "stallImageName" : "Indian.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "cheap", "asian", "spicy", "halal" ]
+  }, {
+    "name" : "Japanese",
+    "canteenName" : "The Deck",
+    "stallNumber" : 4,
+    "stallImageName" : "Jap.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$$",
+    "favorite" : 0,
+    "tags" : [ "asian", "expensive" ]
+  }, {
+    "name" : "Muslim",
+    "canteenName" : "The Deck",
+    "stallNumber" : 5,
+    "stallImageName" : "Muslim.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "halal", "spicy", "cheap", "rice" ]
+  }, {
+    "name" : "Noodle",
+    "canteenName" : "The Deck",
+    "stallNumber" : 6,
+    "stallImageName" : "Noodle.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "cheap", "noodle", "asian" ]
+  }, {
+    "name" : "Roasted Delights",
+    "canteenName" : "The Deck",
+    "stallNumber" : 7,
+    "stallImageName" : "RoastedDelights.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "cheap", "rice" ]
+  }, {
+    "name" : "Snacks and Fried Kway Teow",
+    "canteenName" : "The Deck",
+    "stallNumber" : 8,
+    "stallImageName" : "Snacks&FKT.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "cheap", "asian", "noodle" ]
+  }, {
+    "name" : "Yong Tau Foo and Laksa",
+    "canteenName" : "The Deck",
+    "stallNumber" : 9,
+    "stallImageName" : "YTF&Laksa.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "expensive", "noodle" ]
+  }, {
+    "name" : "Vegetarian",
+    "canteenName" : "The Deck",
+    "stallNumber" : 10,
+    "stallImageName" : "Vegetarian.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "rice", "halal", "cheap" ]
+  }, {
+    "name" : "Western",
+    "canteenName" : "The Deck",
+    "stallNumber" : 11,
+    "stallImageName" : "Western.png",
+    "cuisine" : "western",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "western", "expensive" ]
+  }, {
+    "name" : "Pasta Express",
+    "canteenName" : "The Deck",
+    "stallNumber" : 13,
+    "stallImageName" : "PastaExpress.png",
+    "cuisine" : "western",
+    "overallPriceRating" : "$$",
+    "favorite" : 0,
+    "tags" : [ "western", "expensive" ]
+  }, {
+    "name" : "Salad Express",
+    "canteenName" : "The Deck",
+    "stallNumber" : 14,
+    "stallImageName" : "SaladExpress.png",
+    "cuisine" : "asian",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "expensive" ]
+  }, {
+    "name" : "Uncle Penyet",
+    "canteenName" : "The Deck",
+    "stallNumber" : 15,
+    "stallImageName" : "UnclePenyet.png",
+    "cuisine" : "fusion",
+    "overallPriceRating" : "$",
+    "favorite" : 0,
+    "tags" : [ "rice", "asian", "spicy", "western", "expensive" ]
   }, {
     "name" : "Duck and Chicken Rice",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 3,
+    "stallNumber" : 1,
     "stallImageName" : "DuckandChickenRice.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "rice", "asian" ]
   }, {
     "name" : "Five Grains Bee Hoon",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 5,
+    "stallNumber" : 2,
     "stallImageName" : "FiveGrainsBeeHoon.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "noodle", "asian" ]
   }, {
     "name" : "Indian Cuisine",
     "canteenName" : "Nus Flavors",
@@ -34,78 +151,78 @@
     "cuisine" : "Indian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "asian", "spicy", "cheap" ]
   }, {
     "name" : "Japenese and Korean",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 5,
+    "stallNumber" : 4,
     "stallImageName" : "JapKor.png",
     "cuisine" : "Fusion",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "expensive", "asian" ]
   }, {
     "name" : "Mala Hot Pot",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 3,
+    "stallNumber" : 5,
     "stallImageName" : "MalaHotPot.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "expensive", "spicy", "asian" ]
   }, {
     "name" : "Minced Meat Noodle",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 5,
+    "stallNumber" : 6,
     "stallImageName" : "MincedMeatNoodle.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "cheap", "noodle", "asian" ]
   }, {
     "name" : "Mixed Veg Rice",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 3,
+    "stallNumber" : 7,
     "stallImageName" : "MixedVegRice.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "rice", "cheap", "asian" ]
   }, {
     "name" : "Taiwan Cuisine",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 5,
+    "stallNumber" : 8,
     "stallImageName" : "TaiwanCuisine.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "expensive", "asian" ]
   }, {
     "name" : "Western",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 3,
+    "stallNumber" : 9,
     "stallImageName" : "Western.png",
     "cuisine" : "Western",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "expensive", "western" ]
   }, {
     "name" : "Wok Fried",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 5,
+    "stallNumber" : 10,
     "stallImageName" : "WokFried.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "expensive", "asian" ]
   }, {
     "name" : "Xiao Long Bao",
     "canteenName" : "Nus Flavors",
-    "stallNumber" : 3,
+    "stallNumber" : 11,
     "stallImageName" : "XiaoLongBao.png",
     "cuisine" : "asian",
     "overallPriceRating" : "$",
     "favorite" : 0,
-    "tagged" : [ ]
+    "tags" : [ "asian", "expensive" ]
   } ]
 }

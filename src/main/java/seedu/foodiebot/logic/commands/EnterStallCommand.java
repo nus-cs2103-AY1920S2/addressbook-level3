@@ -28,7 +28,7 @@ public class EnterStallCommand extends Command {
                     + "Taiwanese ";
 
     public static final String MESSAGE_SUCCESS = "";
-    private static final Logger logger = LogsCenter.getLogger(EnterCanteenCommand.class);
+    private static final Logger logger = LogsCenter.getLogger(EnterStallCommand.class);
 
     private final Optional<String> stallName;
     private final Optional<Index> index;
@@ -58,6 +58,7 @@ public class EnterStallCommand extends Command {
         String currentCanteenName = ParserContext.getCurrentCanteen().get().getName().toString();
         if (index.isPresent()) {
             Stall stall = model.getFilteredStallList().get(index.get().getZeroBased());
+            ParserContext.setStallContext(stall);
             logger.info("Enter " + stall.getName());
             model.updateFilteredFoodList(f -> f.getStallName().equalsIgnoreCase(stall.getName().toString())
                     && f.getCanteen().equals(currentCanteenName));
@@ -74,5 +75,21 @@ public class EnterStallCommand extends Command {
             }
         }
         return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof EnterStallCommand)) {
+            return false;
+        }
+
+        EnterStallCommand otherCanteen = (EnterStallCommand) other;
+        return otherCanteen.index.orElseGet(() -> Index.fromZeroBased(0))
+            .equals(index.orElseGet(() -> Index.fromZeroBased(0)))
+            && otherCanteen.stallName.orElseGet(() -> "").equals(stallName.orElseGet(() -> ""));
     }
 }

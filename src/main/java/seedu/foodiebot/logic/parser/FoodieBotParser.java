@@ -14,7 +14,6 @@ import seedu.foodiebot.logic.commands.ExitCommand;
 import seedu.foodiebot.logic.commands.FavoritesCommand;
 import seedu.foodiebot.logic.commands.FilterCommand;
 import seedu.foodiebot.logic.commands.FindCommand;
-import seedu.foodiebot.logic.commands.FoodMenuCommand;
 import seedu.foodiebot.logic.commands.GoToCanteenCommand;
 import seedu.foodiebot.logic.commands.HelpCommand;
 import seedu.foodiebot.logic.commands.ListCommand;
@@ -66,9 +65,6 @@ public class FoodieBotParser {
                 return new EnterStallCommandParser().parse(arguments);
             }
 
-        case FoodMenuCommand.COMMAND_WORD:
-            return new FoodMenuCommandParser().parse(arguments);
-
         case SelectItemCommand.COMMAND_WORD:
             return new SelectItemCommandParser().parse(arguments);
 
@@ -85,7 +81,7 @@ public class FoodieBotParser {
             return new FavoritesCommandParser().parse(arguments);
 
         case FilterCommand.COMMAND_WORD:
-            return new FilterCommand("Hello");
+            return new FilterCommandParser().parse(arguments);
 
         case TransactionsCommand.COMMAND_WORD:
             return new TransactionsCommandParser().parse(arguments);
