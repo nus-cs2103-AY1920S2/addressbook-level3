@@ -165,7 +165,7 @@ public class RemindCommand extends Command {
         boolean remindFlag = false;
 
         for (Coupon temp : list) {
-            if (temp.getRemindDate().toString().equals(LocalDate.now().format(DATE_FORMATTER))) {
+            if (temp.getRemindDate().getDate().equals(LocalDate.now())) {
                 remindFlag = true;
                 remindMessage = remindMessage + count + ". "
                         + temp.getName().toString()
