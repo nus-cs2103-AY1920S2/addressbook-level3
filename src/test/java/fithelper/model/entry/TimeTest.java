@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 public class TimeTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructornullthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Time(null));
     }
 
     @Test
-    public void constructor_invalidTime_throwsIllegalArgumentException() {
+    public void constructorinvalidTimethrowsIllegalArgumentException() {
         String invalidTime = "";
         assertThrows(IllegalArgumentException.class, () -> new Time(invalidTime));
     }

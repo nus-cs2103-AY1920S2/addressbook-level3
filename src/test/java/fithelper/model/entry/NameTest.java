@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 public class NameTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructornullthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Name(null));
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
+    public void constructorinvalidNamethrowsIllegalArgumentException() {
         String invalidName = "";
         assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
     }

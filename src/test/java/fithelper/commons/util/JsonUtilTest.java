@@ -18,7 +18,7 @@ public class JsonUtilTest {
     private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.json");
 
     @Test
-    public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
+    public void serializeObjectToJsonFilenoExceptionThrown() throws IOException {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 
@@ -28,7 +28,7 @@ public class JsonUtilTest {
     }
 
     @Test
-    public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
+    public void deserializeObjectFromJsonFilenoExceptionThrown() throws IOException {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = JsonUtil
@@ -39,7 +39,7 @@ public class JsonUtilTest {
         assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
     }
 
-    //TODO: @Test jsonUtil_readJsonStringToObjectInstance_correctObject()
+    //TODO: @Test jsonUtil_readJsonStringToObjectInstancecorrectObject()
 
-    //TODO: @Test jsonUtil_writeThenReadObjectToJson_correctObject()
+    //TODO: @Test jsonUtil_writeThenReadObjectToJsoncorrectObject()
 }

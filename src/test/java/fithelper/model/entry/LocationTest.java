@@ -9,12 +9,12 @@ import org.junit.jupiter.api.Test;
 public class LocationTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructornullthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Location(null));
     }
 
     @Test
-    public void constructor_invalidLocation_throwsIllegalArgumentException() {
+    public void constructorinvalidLocationthrowsIllegalArgumentException() {
         String invalidLocation = "";
         assertThrows(IllegalArgumentException.class, () -> new Location(invalidLocation));
     }

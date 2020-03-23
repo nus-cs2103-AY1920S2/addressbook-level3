@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class StatusTest {
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructornullthrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Name(null));
     }
 

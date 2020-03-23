@@ -49,9 +49,6 @@ public class IndexTest {
         // same object -> returns true
         assertTrue(fifthPersonIndex.equals(fifthPersonIndex));
 
-        // null -> returns false
-        assertFalse(fifthPersonIndex.equals(null));
-
         // different types -> returns false
         assertFalse(fifthPersonIndex.equals(5.0f));
 
