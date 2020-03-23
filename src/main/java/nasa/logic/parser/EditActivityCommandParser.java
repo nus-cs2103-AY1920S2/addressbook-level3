@@ -2,14 +2,18 @@ package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static nasa.logic.parser.CliSyntax.*;
+import static nasa.logic.parser.CliSyntax.PREFIX_ACTIVITY_NAME;
+import static nasa.logic.parser.CliSyntax.PREFIX_DATE;
+import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
+import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
+import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+
+import java.util.NoSuchElementException;
 
 import nasa.commons.core.index.Index;
 import nasa.logic.commands.EditActivityCommand;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
-
-import java.util.NoSuchElementException;
 
 /**
  * Parses input arguments and creates a new EditActivityCommand object
@@ -24,13 +28,14 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
     public EditActivityCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_NOTE, PREFIX_PRIORITY, PREFIX_ACTIVITY_NAME);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODULE, PREFIX_DATE, PREFIX_NOTE, PREFIX_PRIORITY,
+                        PREFIX_ACTIVITY_NAME);
 
         Index index;
         ModuleCode moduleCode;
         try {
-             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-             moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            moduleCode = ParserUtil.parseModuleCode(argMultimap.getFirstValue(PREFIX_MODULE).get());
 
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditActivityCommand.MESSAGE_USAGE),
@@ -40,12 +45,14 @@ public class EditActivityCommandParser implements Parser<EditActivityCommand> {
                     ne);
         }
 
-        EditActivityCommand.EditActivityDescriptor editActivityDescriptor = new EditActivityCommand.EditActivityDescriptor();
+        EditActivityCommand.EditActivityDescriptor editActivityDescriptor =
+                new EditActivityCommand.EditActivityDescriptor();
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editActivityDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_ACTIVITY_NAME).isPresent()) {
-            editActivityDescriptor.setName(ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITY_NAME).get()));
+            editActivityDescriptor.setName(ParserUtil.parseActivityName(
+                    argMultimap.getValue(PREFIX_ACTIVITY_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_NOTE).isPresent()) {
             editActivityDescriptor.setNote(ParserUtil.parseNote(argMultimap.getValue(PREFIX_NOTE).get()));

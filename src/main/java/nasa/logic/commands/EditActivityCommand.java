@@ -9,16 +9,25 @@ import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_ACTIVITIES;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
+import java.util.Optional;
+
 import nasa.commons.core.Messages;
 import nasa.commons.core.index.Index;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
-import nasa.model.activity.*;
+import nasa.model.activity.Activity;
+import nasa.model.activity.Date;
+import nasa.model.activity.Deadline;
+import nasa.model.activity.Event;
+import nasa.model.activity.Lesson;
+import nasa.model.activity.Name;
+import nasa.model.activity.Note;
+import nasa.model.activity.Priority;
+import nasa.model.activity.Status;
+import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
-
-import java.util.Optional;
 
 /**
  * Edits a specific activity in the moduleCode's list.
@@ -45,7 +54,8 @@ public class EditActivityCommand extends Command {
 
     public static final String MESSAGE_EDIT_ACTIVITY_SUCCESS = "Edited Activity";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the moduleCode activity list.";
+    public static final String MESSAGE_DUPLICATE_ACTIVITY = "This activity already exists in the "
+            + "moduleCode activity list.";
 
     private final Index index;
     private final ModuleCode moduleCode;
@@ -75,7 +85,8 @@ public class EditActivityCommand extends Command {
         UniqueActivityList moduleUniqueActivityList = module.getActivities();
 
         if (index.getZeroBased() >= moduleUniqueActivityList.getActivityList().size()) {
-            throw new nasa.logic.commands.exceptions.CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+            throw new nasa.logic.commands.exceptions.CommandException(
+                    Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
 
         Activity activityToEdit = moduleUniqueActivityList.getActivityByIndex(index);
@@ -130,7 +141,9 @@ public class EditActivityCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof EditActivityCommand // instanceof handles nulls
-                && index.equals(((EditActivityCommand) other).index));
+                && index.equals(((EditActivityCommand) other).index)
+                && moduleCode.equals(((EditActivityCommand) other).moduleCode)
+                && editActivityDescriptor.equals(((EditActivityCommand) other).editActivityDescriptor));
     }
 
     /**

@@ -1,17 +1,17 @@
 package nasa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
-import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.module.ModuleCode;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Parses input arguments and creates a new EditModuleCommand object
@@ -46,7 +46,8 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULE).get()));
         }
         if (argMultimap.getValue(PREFIX_MODULE_NAME).isPresent()) {
-            editModuleDescriptor.setModuleName(ParserUtil.parseModuleName(argMultimap.getValue(PREFIX_MODULE_NAME).get()));
+            editModuleDescriptor.setModuleName(ParserUtil.parseModuleName(
+                    argMultimap.getValue(PREFIX_MODULE_NAME).get()));
         }
 
         if (!editModuleDescriptor.isAnyFieldEdited()) {

@@ -5,6 +5,8 @@ import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
+import java.util.Optional;
+
 import javafx.collections.ObservableList;
 import nasa.commons.util.CollectionUtil;
 import nasa.logic.commands.exceptions.CommandException;
@@ -14,8 +16,6 @@ import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
-
-import java.util.Optional;
 
 /**
  * Edits a module in the NASA book.
@@ -39,8 +39,8 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited Module";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the list.";
-    public static final String EXCESS_MODULE_CODE = "Failed to edit module code. EXACTLY 2 module codes must be " +
-            "entered to edit module code.";
+    public static final String EXCESS_MODULE_CODE = "Failed to edit module code. EXACTLY 2 module codes must be "
+            + "entered to edit module code.";
 
     private final ModuleCode moduleCode;
     private final EditModuleCommand.EditModuleDescriptor editModuleDescriptor;
@@ -82,7 +82,8 @@ public class EditModuleCommand extends Command {
      * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
      * edited with {@code editModuleDescriptor}.
      */
-    private static Module createEditedModule(Module moduleToEdit, EditModuleCommand.EditModuleDescriptor editModuleDescriptor) {
+    private static Module createEditedModule(Module moduleToEdit,
+                                             EditModuleCommand.EditModuleDescriptor editModuleDescriptor) {
         assert moduleToEdit != null;
 
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());

@@ -11,11 +11,10 @@ import nasa.commons.core.LogsCenter;
 import nasa.logic.commands.Command;
 import nasa.logic.commands.CommandResult;
 import nasa.logic.commands.exceptions.CommandException;
-import nasa.logic.parser.exceptions.ParseException;
 import nasa.logic.parser.NasaBookParser;
+import nasa.logic.parser.exceptions.ParseException;
 import nasa.model.Model;
 import nasa.model.ReadOnlyNasaBook;
-import nasa.model.activity.Activity;
 import nasa.model.module.Module;
 import nasa.storage.Storage;
 
@@ -57,12 +56,6 @@ public class LogicManager implements Logic {
     public ReadOnlyNasaBook getNasaBook() {
         return model.getNasaBook();
     }
-
-//    TODO: Implement getFilteredActivityList which accepts index as params (see Logic interface)
-//    @Override
-//    public ObservableList<Activity> getFilteredActivityList() {
-//        return model.getFilteredActivityList();
-//    }
 
     @Override
     public ObservableList<Module> getFilteredModuleList() {

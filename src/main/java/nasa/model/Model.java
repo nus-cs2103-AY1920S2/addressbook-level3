@@ -138,9 +138,10 @@ public interface Model {
     /**
      * Replaces the given activity in {@code target} with {@code editedActivity}.
      * {@code target} must exist in the nasa book.
-     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the address book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity
+     * in the address book.
      */
-//    void setActivity(Activity target, Activity editedActivity);
+    // void setActivity(Activity target, Activity editedActivity);
 
     /** Returns an unmodifiable view of the filtered activity list from the module at {@code index} of
      * the NasaBook's {@code UniqueModuleList}.
