@@ -6,6 +6,8 @@ import javafx.beans.property.Property;
 
 /**
  * API of the BlockModel component.
+ *
+ * BlockModel is the entry point for the other components to interact and manipulate the data tree.
  */
 public interface BlockModel {
     /**

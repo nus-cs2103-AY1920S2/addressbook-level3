@@ -3,6 +3,8 @@ package com.notably.model.block;
 import com.notably.commons.core.path.AbsolutePath;
 
 /**
+ * API of BlockTree component.
+ *
  * Custom tree-like data structure that uses the AbsolutePath object
  * to obtain the BlockTreeItem needed for manipulation.
  */

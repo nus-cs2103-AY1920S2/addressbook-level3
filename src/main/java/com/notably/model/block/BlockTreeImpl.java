@@ -7,8 +7,7 @@ import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
 /**
- * Custom tree-like data structure that uses the AbsolutePath object
- * to obtain the Block needed for manipulation.
+ * Implementation class of BlockTree.
  */
 public class BlockTreeImpl implements BlockTree {
     private BlockTreeItem root;
