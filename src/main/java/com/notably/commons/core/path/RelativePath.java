@@ -12,7 +12,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
  */
 public class RelativePath implements Path {
     public static final String INVALID_RELATIVE_PATH = "Invalid relative path";
-    public static final String VALIDATION_REGEX = "(\\.|\\..|\\p{Alnum}+)(\\/(\\.|\\..|\\p{Alnum}+))*\\/?";
+    public static final String VALIDATION_REGEX = "(\\.|\\..|[a-zA-Z0-9 ]+)(\\/(\\.|\\..|[a-zA-Z0-9 ]+))*\\/?";
     private final List<String> components;
     private RelativePath(String relativePathString) {
         this.components = new ArrayList<>();

@@ -15,7 +15,7 @@ class AbsolutePathTest {
 
     @Test
     public void fromString_validInputString_generateAbsolutePath() {
-        final AbsolutePath testInput = AbsolutePath.fromString("/CS2103/notes");
+        final AbsolutePath testInput = AbsolutePath.fromString("/CS2103 /notes");
 
         List<String> paths = new ArrayList<>();
         paths.add("CS2103");
