@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
 import com.notably.logic.commands.exceptions.CommandException;
+import com.notably.logic.parser.NotablyParser;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
@@ -22,10 +23,13 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final NotablyParser notablyParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
+        notablyParser = new NotablyParser();
+
     }
 
     @Override
