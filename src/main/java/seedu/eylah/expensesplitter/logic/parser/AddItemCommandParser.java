@@ -13,6 +13,7 @@ import seedu.eylah.expensesplitter.logic.parser.exceptions.ParseException;
 import seedu.eylah.expensesplitter.model.item.Item;
 import seedu.eylah.expensesplitter.model.item.ItemName;
 import seedu.eylah.expensesplitter.model.item.ItemPrice;
+import seedu.eylah.expensesplitter.model.person.Amount;
 import seedu.eylah.expensesplitter.model.person.Name;
 import seedu.eylah.expensesplitter.model.person.Person;
 
@@ -38,10 +39,11 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
         ItemName itemName = ParserUtil.parseItemName(argMultimap.getValue(PREFIX_ITEM).get());
         ItemPrice price = ParserUtil.parseItemPrice(argMultimap.getValue(PREFIX_PRICE).get());
         ArrayList<Name> names = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
-        ArrayList<Person> persons = ParserUtil.parsePersons(names, price);
+        Amount amount = ParserUtil.parseAmount(price, names.size());
+        ArrayList<Person> persons = ParserUtil.parsePersons(names, amount);
         Item item = new Item(itemName, price);
 
-        return new AddItemCommand(item, persons);
+        return new AddItemCommand(item, persons, amount);
     }
 
     /**

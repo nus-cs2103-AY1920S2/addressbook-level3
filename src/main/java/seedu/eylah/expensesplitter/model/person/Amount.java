@@ -64,4 +64,8 @@ public class Amount {
     public int hashCode() {
         return amount.hashCode();
     }
+
+    public BigDecimal getBigDecimal() {
+        return this.amount;
+    }
 }
