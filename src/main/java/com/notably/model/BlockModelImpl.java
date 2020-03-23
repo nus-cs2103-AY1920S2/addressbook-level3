@@ -10,6 +10,7 @@ import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
 import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * The implementation class of BlockModel.
@@ -19,7 +20,8 @@ public class BlockModelImpl implements BlockModel {
     private Property<AbsolutePath> currentlyOpenPath;
 
     public BlockModelImpl() {
-        blockTree = new BlockTreeImpl();
+		blockTree = new BlockTreeImpl();
+		currentlyOpenPath = new SimpleObjectProperty<AbsolutePath>(AbsolutePath.TO_ROOT_PATH);
     }
 
     @Override
@@ -42,14 +44,16 @@ public class BlockModelImpl implements BlockModel {
         try {
             blockTree.get(p);
             return true;
-        } catch (Exception e) {
+        } catch (NoSuchBlockException e) {
             return false;
         }
     }
 
     @Override
     public void setCurrentlyOpenBlock(AbsolutePath p) throws NoSuchBlockException {
-        blockTree.get(p);
+        if (!hasPath(p)) {
+            throw new NoSuchBlockException(p.getStringRepresentation());
+        }
         currentlyOpenPath.setValue(p);
     }
 
