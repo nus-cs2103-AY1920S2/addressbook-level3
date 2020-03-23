@@ -53,7 +53,7 @@ public class RemindWindow extends UiPart<Stage> {
      */
     public static void displayRemind(String message) {
 
-        logger.fine("Showing help page about the application.");
+        logger.fine("Showing remind page about the application.");
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
