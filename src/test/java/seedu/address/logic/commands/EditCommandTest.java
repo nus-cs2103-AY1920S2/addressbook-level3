@@ -26,7 +26,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.OrderBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.order.Order;
-import seedu.address.model.returnOrder.ReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 

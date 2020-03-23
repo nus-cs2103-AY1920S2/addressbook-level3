@@ -1,4 +1,4 @@
-package seedu.address.model.returnOrder;
+package seedu.address.model.returnorder;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.order.Order;

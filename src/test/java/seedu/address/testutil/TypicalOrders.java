@@ -24,7 +24,7 @@ import java.util.List;
 
 import seedu.address.model.OrderBook;
 import seedu.address.model.order.Order;
-import seedu.address.model.returnOrder.ReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 
 /**
  * A utility class containing a list of {@code Order} objects to be used in tests.

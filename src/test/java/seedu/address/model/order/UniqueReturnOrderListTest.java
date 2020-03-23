@@ -70,8 +70,8 @@ public class UniqueReturnOrderListTest {
 
     @Test
     public void setReturnOrder_targetOrderNotInList_throwsOrderNotFoundException() {
-        assertThrows(OrderNotFoundException.class,
-                () -> uniqueReturnOrderList.setReturnOrder(ALICE_RETURN, ALICE_RETURN));
+        assertThrows(OrderNotFoundException.class, () ->
+            uniqueReturnOrderList.setReturnOrder(ALICE_RETURN, ALICE_RETURN));
     }
 
     @Test
@@ -107,8 +107,8 @@ public class UniqueReturnOrderListTest {
     public void setReturnOrder_editedOrderHasNonUniqueIdentity_throwsDuplicateOrderException() {
         uniqueReturnOrderList.add(ALICE_RETURN);
         uniqueReturnOrderList.add(BOB_RETURN);
-        assertThrows(DuplicateReturnOrderException.class,
-                () -> uniqueReturnOrderList.setReturnOrder(ALICE_RETURN, BOB_RETURN));
+        assertThrows(DuplicateReturnOrderException.class, () ->
+            uniqueReturnOrderList.setReturnOrder(ALICE_RETURN, BOB_RETURN));
     }
 
     @Test
@@ -131,8 +131,8 @@ public class UniqueReturnOrderListTest {
 
     @Test
     public void setReturnOrders_nullUniqueReturnOrderList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> uniqueReturnOrderList.setReturnOrders((UniqueReturnOrderList) null));
+        assertThrows(NullPointerException.class, () ->
+            uniqueReturnOrderList.setReturnOrders((UniqueReturnOrderList) null));
     }
 
     @Test
@@ -162,13 +162,13 @@ public class UniqueReturnOrderListTest {
     @Test
     public void setReturnOrders_listWithDuplicateOrders_throwsDuplicateOrderException() {
         List<Order> listWithDuplicateOrders = Arrays.asList(ALICE_RETURN, ALICE_RETURN);
-        assertThrows(DuplicateReturnOrderException.class,
-                () -> uniqueReturnOrderList.setReturnOrders(listWithDuplicateOrders));
+        assertThrows(DuplicateReturnOrderException.class, () ->
+            uniqueReturnOrderList.setReturnOrders(listWithDuplicateOrders));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueReturnOrderList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+            uniqueReturnOrderList.asUnmodifiableObservableList().remove(0));
     }
 }

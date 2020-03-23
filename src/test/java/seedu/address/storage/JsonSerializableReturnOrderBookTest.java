@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.returnOrder.ReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 import seedu.address.testutil.TypicalOrders;
 
 public class JsonSerializableReturnOrderBookTest {

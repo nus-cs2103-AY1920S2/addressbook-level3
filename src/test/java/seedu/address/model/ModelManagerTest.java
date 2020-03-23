@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
-import seedu.address.model.returnOrder.ReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 import seedu.address.testutil.OrderBookBuilder;
 import seedu.address.testutil.ReturnOrderBookBuilder;
 

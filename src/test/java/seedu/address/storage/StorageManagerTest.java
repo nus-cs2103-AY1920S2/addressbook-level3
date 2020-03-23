@@ -15,8 +15,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.returnOrder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnOrder.ReturnOrderBook;
+import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 
 public class StorageManagerTest {
 
