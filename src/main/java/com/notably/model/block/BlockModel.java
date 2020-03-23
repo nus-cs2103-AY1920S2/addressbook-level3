@@ -1,7 +1,6 @@
 package com.notably.model.block;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.model.block.exceptions.CannotModifyRootException;
 
 import javafx.beans.property.Property;
 
@@ -42,12 +41,12 @@ public interface BlockModel {
     /**
      * Removes the block at the specified path, if possible. (For remove command)
      */
-    void removeBlock(AbsolutePath p) throws CannotModifyRootException;
+    void removeBlock(AbsolutePath p);
 
     /**
      * Sets the currently open block to a new block. (For edit command)
      */
-    void updateCurrentlyOpenBlockBody(Body newBody) throws CannotModifyRootException;
+    void updateCurrentlyOpenBlockBody(Body newBody);
 
     /*
     TODO: To implement after storage classes are ready

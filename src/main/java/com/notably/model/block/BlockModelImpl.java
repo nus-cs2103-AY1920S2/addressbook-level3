@@ -1,7 +1,6 @@
 package com.notably.model.block;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.model.block.exceptions.CannotModifyRootException;
 import com.notably.model.block.exceptions.NoSuchBlockException;
 
 import javafx.beans.property.Property;
@@ -45,7 +44,7 @@ public class BlockModelImpl implements BlockModel {
     }
 
     @Override
-    public void setCurrentlyOpenBlock(AbsolutePath p) throws NoSuchBlockException {
+    public void setCurrentlyOpenBlock(AbsolutePath p) {
         if (!hasPath(p)) {
             throw new NoSuchBlockException(p.getStringRepresentation());
         }
@@ -58,12 +57,12 @@ public class BlockModelImpl implements BlockModel {
     }
 
     @Override
-    public void removeBlock(AbsolutePath p) throws CannotModifyRootException {
+    public void removeBlock(AbsolutePath p) {
         blockTree.remove(p);
     }
 
     @Override
-    public void updateCurrentlyOpenBlockBody(Body newBody) throws CannotModifyRootException {
+    public void updateCurrentlyOpenBlockBody(Body newBody) {
         Block newBlock = new BlockImpl(blockTree.get(getCurrentlyOpenPath()).getTitle(), newBody);
         blockTree.set(getCurrentlyOpenPath(), newBlock);
     }

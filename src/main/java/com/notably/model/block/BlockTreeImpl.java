@@ -41,7 +41,7 @@ public class BlockTreeImpl implements BlockTree {
     }
 
     @Override
-    public void set(AbsolutePath path, Block newBlock) throws CannotModifyRootException {
+    public void set(AbsolutePath path, Block newBlock) {
         requireNonNull(path);
         requireNonNull(newBlock);
         BlockTreeItem currentBlock = get(path);
@@ -54,7 +54,7 @@ public class BlockTreeImpl implements BlockTree {
     }
 
     @Override
-    public void remove(AbsolutePath path) throws CannotModifyRootException {
+    public void remove(AbsolutePath path) {
         requireNonNull(path);
         BlockTreeItem currentBlock = get(path);
         BlockTreeItem parentBlock;
