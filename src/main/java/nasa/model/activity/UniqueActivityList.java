@@ -37,7 +37,7 @@ public class UniqueActivityList implements Iterable<Activity> {
      */
     public boolean contains(Activity toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameActivity);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -192,7 +192,7 @@ public class UniqueActivityList implements Iterable<Activity> {
     private boolean activitiesAreUnique(List<Activity> activities) {
         for (int i = 0; i < activities.size() - 1; i++) {
             for (int j = i + 1; j < activities.size(); j++) {
-                if (activities.get(i).isSameActivity(activities.get(j))) {
+                if (activities.get(i).equals(activities.get(j))) {
                     return false;
                 }
             }
