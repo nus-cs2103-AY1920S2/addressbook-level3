@@ -77,17 +77,10 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (existingModule != null) { // Module exists
             // Module exists, check if grade needs updating or task needs adding
-            if (!arePrefixesPresent(argMultimap, PREFIX_GRADE) && !arePrefixesPresent(argMultimap, PREFIX_TASK)
-                    && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
+            if (!arePrefixesPresent(argMultimap, PREFIX_TASK) && !arePrefixesPresent(argMultimap, PREFIX_DEADLINE)) {
                 throw new ParseException(String.format("Error: Module already exists as "
                         + existingModule.getPersonal().getStatus() + ", "
-                        + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));
-            }
-
-            // Check if grade needs to be updated
-            if (arePrefixesPresent(argMultimap, PREFIX_GRADE)) {
-                String grade = argMultimap.getValue(PREFIX_GRADE).get();
-                existingModule.getPersonal().setGrade(grade);
+                        + "please add a deadline", AddCommand.MESSAGE_USAGE));
             }
 
             //Check if deadlineList needs to be updated
@@ -137,7 +130,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
 
             // From current semester, determine status and update Personal
-            int currentSemester = Integer.parseInt(Profile.getCurrentSemester());
+            int currentSemester = Profile.getCurrentSemester();
             if (intSemester < currentSemester) {
                 personal.setStatus("completed");
             } else if (intSemester == currentSemester) {

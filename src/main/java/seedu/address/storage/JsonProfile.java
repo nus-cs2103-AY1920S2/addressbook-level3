@@ -53,7 +53,7 @@ class JsonProfile {
         name = source.getName().toString();
         courseName = source.getCourseName().toString();
         specialisation = source.getSpecialisation();
-        currentSemester = source.getCurrentSemester();
+        currentSemester = Integer.toString(source.getCurrentSemester());
         records = new ArrayList<>();
         for (Map.Entry<Integer, ArrayList<Module>> entry: source.getMappings()) {
             String sem = entry.getKey().toString();
@@ -92,7 +92,7 @@ class JsonProfile {
 
         Name profileName = new Name(name);
         CourseName profileCourse = new CourseName(courseName);
-        Profile profile = new Profile(profileName, profileCourse, currentSemester, specialisation);
+        Profile profile = new Profile(profileName, profileCourse, Integer.parseInt(currentSemester), specialisation);
 
         for (JsonSemesterRecord record : records) {
             int semester = Integer.parseInt(record.getSemester());

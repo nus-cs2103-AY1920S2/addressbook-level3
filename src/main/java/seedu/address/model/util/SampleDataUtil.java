@@ -13,17 +13,17 @@ import seedu.address.model.profile.course.CourseName;
 public class SampleDataUtil {
     public static Profile[] getSamplePersons() throws ParseException {
         return new Profile[] {
-            new Profile(new Name("Alex Yeoh"), new CourseName("Computer Science"), "1",
+            new Profile(new Name("Alex Yeoh"), new CourseName("Computer Science"), 1,
                     null),
-            new Profile(new Name("Bernice Yu"), new CourseName("Business Analytics"), "1",
+            new Profile(new Name("Bernice Yu"), new CourseName("Business Analytics"), 1,
                     null),
-            new Profile(new Name("Charlotte Oliveiro"), new CourseName("Information Security"), "1",
+            new Profile(new Name("Charlotte Oliveiro"), new CourseName("Information Security"), 1,
                     null),
-            new Profile(new Name("David Li"), new CourseName("Information Systems"), "1",
+            new Profile(new Name("David Li"), new CourseName("Information Systems"), 1,
                     null),
-            new Profile(new Name("Irfan Ibrahim"), new CourseName("Computer Science"), "1",
+            new Profile(new Name("Irfan Ibrahim"), new CourseName("Computer Science"), 1,
                     null),
-            new Profile(new Name("Roy Balakrishnan"), new CourseName("Business Analytics"), "1",
+            new Profile(new Name("Roy Balakrishnan"), new CourseName("Business Analytics"), 1,
                     null)
         };
     }
