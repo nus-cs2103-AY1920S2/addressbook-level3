@@ -239,13 +239,18 @@ Example: +
 When a Person pays an amount, or part of the amount, they owe you.
 
 Format: +
-`paid INDEX` +
+`paid INDEX [AMOUNT]` +
 
 Example: +
-`paid 2`
+`paid 2` +
+`paid 2 3.90`
 
 [TIP]
 When using the `paid` command, use the `listamount` command to find the index of the Person who paid you.
+
+[TIP]
+Index represents the Index of the Person who paid you while Amount represents how much they paid you. If left blank, EYLAH
+will take it as the full amount they owe is paid.
 
 NOTE: When a Person owes $0 he/she will be automatically deleted from PersonList.
 

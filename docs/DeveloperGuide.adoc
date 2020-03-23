@@ -69,12 +69,19 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[] +
 
-[discrete]
+
 ==== EYLAH comprehensive class diagram for both Diet Tracker and Expense Spliter
 
-image::eylah_overall_class_diagram.png[] +
+image::eylah_overall_class_diagram.png[]
 
-The sections below give more details of each component.
+
+==== EYLAH Activity Diagram for Expense Splitter
+
+
+image::activityDiagram_for_expensesplitter.png[]
+
+
+The sections below give more details of each component. +
 
 [[Design-Ui]]
 === UI component
@@ -527,9 +534,9 @@ Use case ends.
 
 [discrete]
 ==== Use case: UC02 - Delete item
-Actor: User +
-Preconditions: User is logged in. +
-Guarantees: +
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
 Item will be deleted from Receipt only if the Item is currently present in Receipt.
 
 *MSS*
@@ -552,10 +559,14 @@ Use case ends.
 
 [discrete]
 === Use case: UC03 - Listing Receipt
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+All Items in the current Receipt will be listed out.
 
 *MSS*
 
-1.  User requests to list receipt containing Item(s) in the current Receipt
+1.  User requests to list receipt containing Item(s) in the current Receipt.
 2.  EYLAH displays the list of Item(s) in the current Receipt, its ItemPrice and Person(s) involved in spliting that Item.
 
 +
@@ -571,16 +582,13 @@ Use case ends.
 +
 Use case ends.
 
-[none]
-* 1b. EYLAH detects invalid <<syntax,syntax>>.
-+
-[none]
-** 1b1. EYLAH displays an error message.
-+
-Use case ends.
 
 [discrete]
-=== Use case: UC04 - Listing the Person(s) and their Amount
+=== Use case: UC04 - Listing Person(s) and the Amount they owe
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+All Person(s) and the amount they owe will be listed.
 
 *MSS*
 
@@ -599,16 +607,12 @@ Use case ends.
 +
 Use case ends.
 
-[none]
-* 1b. EYLAH detects invalid <<syntax,syntax>>.
-+
-[none]
-** 1b1. EYLAH displays an error message.
-+
-Use case ends.
-
 [discrete]
 === Use case: UC05 - Amount paid
+*Actor:* User +
+*Preconditions:* User is logged in. +
+*Guarantees:* +
+Reduces the Amount a Person owes and if they owe $0 the Person is automatically deleted.
 
 *MSS*
 
@@ -621,23 +625,26 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. EYLAH detects an empty list.
+* 1a. EYLAH detects an empty PersonList.
 +
 [none]
 ** 1a1. EYLAH displays an error message, saying that there is no Person in the list.
++
+Use case ends.
 
 [none]
 * 1b. EYLAH detects invalid <<syntax,syntax>>.
 +
 [none]
-** 1b1. EYLAH displays an error message.
+** 1b1. EYLAH displays an error message and informs User to key in the correct syntax.
 +
+Use case ends.
 
 [none]
 * 1c. EYLAH detects that the Person does not exist in the list.
 +
 [none]
-** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person.
+** 1c1. EYLAH displays an error message, informing the user to key in the correct index of the Person. The user may use `listamount` to show the Person's index.
 +
 Use case ends.
 
