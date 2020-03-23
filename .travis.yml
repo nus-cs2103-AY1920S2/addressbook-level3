@@ -2,18 +2,47 @@ language: java
 matrix:
   include:
     - jdk: openjdk11
+  # Ubuntu Linux (trusty) / Oracle JDK 8 / Headed (AWT Robot)
+     - os: linux
+     dist: trusty
+     jdk: oraclejdk8
+     env:
+       - _JAVA_OPTIONS="-Dtestfx.robot=awt"
+  # Ubuntu Linux (trusty) / Oracle JDK 8 / Headed (Glass Robot) / HiDPI
+     - os: linux
+       dist: trusty
+       jdk: oraclejdk8
+       env:
+         - _JAVA_OPTIONS="-Dtestfx.robot=glass -Dglass.gtk.uiScale=2.0"
+  # Ubuntu Linux (trusty) / Oracle JDK 8 / Headless
+     - os: linux
+       dist: trusty
+       jdk: oraclejdk8
+       env:
+         - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw"
+  # macOS / Oracle JDK 8 / Headless
+     - os: osx
+       osx_image: xcode9.4
+       jdk: oraclejdk8
+       env:
+         - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw -Dprism.verbose=true"
+  # Headed macOS is not currently possible on Travis.
 
 script: >-
     ./config/travis/run-checks.sh &&
     ./gradlew clean checkstyleMain checkstyleTest test coverage coveralls asciidoctor
 
 deploy:
-  skip_cleanup: true
+  cleanup: false
   provider: script
   script: ./config/travis/deploy_github_pages.sh
   on:
     branch: master
 
+before_install:
+  - if [[ "${TRAVIS_OS_NAME}" == linux ]]; then export DISPLAY=:99.0; sh -e /etc/init.d/xvfb start; fi
+
+install: true
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -22,3 +51,4 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+    - $HOME/.m2
