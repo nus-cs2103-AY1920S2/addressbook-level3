@@ -6,9 +6,8 @@ import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
-import com.notably.logic.commands.Command;
 import com.notably.logic.commands.exceptions.CommandException;
-import com.notably.logic.parser.AddressBookParser;
+import com.notably.logic.parser.NotablyParser;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 import com.notably.model.ReadOnlyAddressBook;
@@ -24,21 +23,18 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final NotablyParser notablyParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        notablyParser = new NotablyParser();
+
     }
 
     @Override
     public void execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-
-        Command command = addressBookParser.parseCommand(commandText);
-        command.execute(model);
-
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {
