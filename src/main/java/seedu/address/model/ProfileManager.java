@@ -33,7 +33,9 @@ public class ProfileManager implements Model {
 
         this.profileList = profileList;
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredProfiles = new FilteredList<>(FXCollections.observableArrayList(profileList.getProfileList()));
+//        filteredProfiles = new FilteredList<>(FXCollections.observableArrayList(profileList.getProfileList()));
+        filteredProfiles = new FilteredList<>(this.profileList.getProfileList());
+
     }
 
     public ProfileManager() {

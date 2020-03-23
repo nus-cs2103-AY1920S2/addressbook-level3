@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.UniqueProfileList;
 import seedu.address.model.profile.exceptions.DuplicatePersonException;
 import seedu.address.model.profile.exceptions.PersonNotFoundException;
 
@@ -19,24 +19,33 @@ import seedu.address.model.profile.exceptions.PersonNotFoundException;
  */
 public class ProfileList {
 
-    private ObservableList<Profile> profileList = FXCollections.observableArrayList();
+    private final UniqueProfileList profiles;
+
+    {
+        profiles = new UniqueProfileList();
+    }
 
     public ProfileList() {};
 
     public void addProfile(Profile profile) {
-        this.profileList.add(profile);
+        profiles.add(profile);
     }
 
-    public List<Profile> getProfileList() {
-        return profileList; // TODO: Implement read-only version of profileList, similar to address book
+//    public List<Profile> getProfileList() {
+//        return profileList; // TODO: Implement read-only version of profileList, similar to address book
+//    }
+
+    public ObservableList<Profile> getProfileList() {
+        return profiles.asUnmodifiableObservableList();
     }
+
 
     /**
-     * Returns true if the list contains an equivalent profile as the given argument.
+     * Returns true if a person with the same identity as {@code profile} exists in the profile list.
      */
-    public boolean contains(Profile toCheck) {
-        requireNonNull(toCheck);
-        return profileList.stream().anyMatch(toCheck::isSamePerson);
+    public boolean hasPerson(Profile profile) {
+        requireNonNull(profile);
+        return profiles.contains(profile);
     }
 
     /**
@@ -53,10 +62,7 @@ public class ProfileList {
      * {@code key} must exist in the profile list.
      */
     public void deleteProfile(Profile profile) {
-        requireNonNull(profile);
-        if (!profileList.remove(profile)) {
-            throw new PersonNotFoundException();
-        }
+        profiles.remove(profile);
     }
 
     /**
@@ -66,38 +72,19 @@ public class ProfileList {
      */
     public void setProfile(Profile target, Profile editedProfile) {
         requireAllNonNull(target, editedProfile);
-
-        int index = profileList.indexOf(target);
-        if (index == -1) {
-            throw new PersonNotFoundException();
-        }
-
-        if (!target.isSamePerson(editedProfile) && contains(editedProfile)) {
-            throw new DuplicatePersonException();
-        }
-
-        profileList.set(index, editedProfile);
+        profiles.setProfile(target, editedProfile);
     }
 
     public void setProfiles(List<Profile> profiles) {
-        requireAllNonNull(profiles);
-        if (!personsAreUnique(profiles)) {
-            throw new DuplicatePersonException();
-        }
-
-        profileList.setAll(profiles);
+        this.profiles.setProfiles(profiles);
     }
 
     public boolean hasProfileWithName(Name name) {
-        return this.profileList.stream().map(Profile::getName).anyMatch(x->x.equals(name));
+        return this.profiles.hasProfileWithName(name);
     }
 
     public Profile getProfileWithName(Name name) {
-        Optional<Profile> p = this.profileList.stream().filter(x->x.getName().equals(name)).findFirst();
-        if (!p.isPresent()) {
-            throw new NoSuchElementException("None of the profiles contains the name " + name.toString());
-        }
-        return p.get();
+        return profiles.getProfileWithName(name);
     }
 
     /**
@@ -106,7 +93,7 @@ public class ProfileList {
     private boolean personsAreUnique(List<Profile> profiles) {
         for (int i = 0; i < profiles.size() - 1; i++) {
             for (int j = i + 1; j < profiles.size(); j++) {
-                if (profiles.get(i).isSamePerson(profiles.get(j))) {
+                if (profiles.get(i).isSameProfile(profiles.get(j))) {
                     return false;
                 }
             }
