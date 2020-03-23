@@ -194,10 +194,6 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        boolean couponStashEquals = couponStash.equals(other);
-        boolean userPrefsEquals = userPrefs.equals(other);
-        boolean filteredCouponsEquals = filteredCoupons.equals(other);
-
         return couponStash.equals(other.couponStash)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCoupons.equals(other.filteredCoupons);
