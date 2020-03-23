@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.logic.commands.ModifyCommand.EditRecipeDescriptor;
 import seedu.address.logic.commands.NewCommand;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.Tag;
 
 /**
  * A utility class for Recipe.

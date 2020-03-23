@@ -3,11 +3,11 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.recipe.IngredientList;
-import seedu.address.model.recipe.InstructionList;
-import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Recipe;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.recipe.attribute.IngredientList;
+import seedu.address.model.recipe.attribute.InstructionList;
+import seedu.address.model.recipe.attribute.Name;
+import seedu.address.model.recipe.attribute.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -18,6 +18,9 @@ public class RecipeBuilder {
     public static final String DEFAULT_NAME = "Ham Sandwich";
     public static final String DEFAULT_INGREDIENT_LIST = "bread, 2 slices; ham, 1 slice";
     public static final String DEFAULT_INSTRUCTION_LIST = "place ham between slices of bread; eat";
+    public static final String DEFAULT_CALORIE = "300";
+    public static final String DEFAULT_SERVING = "2";
+
 
     private Name name;
     private IngredientList ingredients;
