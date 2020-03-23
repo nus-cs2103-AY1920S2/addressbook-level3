@@ -18,7 +18,7 @@ import csdev.couponstash.model.coupon.PromoCode;
 import csdev.couponstash.model.coupon.RemindDate;
 import csdev.couponstash.model.coupon.StartDate;
 import csdev.couponstash.model.coupon.Usage;
-import csdev.couponstash.model.coupon.savings.PureMonetarySavings;
+import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
 
@@ -38,7 +38,7 @@ class JsonAdaptedCoupon {
     private final String limit;
     private final String remindDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    private final JsonAdaptedPureMonetarySavings totalSaved;
+    private final JsonAdaptedDssm totalSaved;
 
     /**
      * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
@@ -51,7 +51,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("start date") String startDate,
                              @JsonProperty("usage") String usage,
                              @JsonProperty("limit") String limit,
-                             @JsonProperty("totalSaved") JsonAdaptedPureMonetarySavings totalSaved,
+                             @JsonProperty("totalSaved") JsonAdaptedDssm totalSaved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                              @JsonProperty("remind date") String remindDate
     ) {
@@ -80,7 +80,7 @@ class JsonAdaptedCoupon {
         startDate = source.getStartDate().value;
         usage = source.getUsage().value;
         limit = source.getLimit().value;
-        totalSaved = new JsonAdaptedPureMonetarySavings(source.getTotalSavings());
+        totalSaved = new JsonAdaptedDssm(source.getSavingsMap());
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -152,11 +152,11 @@ class JsonAdaptedCoupon {
         }
         final Limit modelLimit = new Limit(limit);
 
-        final PureMonetarySavings modelTotalSaved;
+        final DateSavingsSumMap modelTotalSaved;
         if (totalSaved == null) {
             // could not find totalSaved data
-            // just set total savings to 0
-            modelTotalSaved = new PureMonetarySavings();
+            // just set total savings to nothing
+            modelTotalSaved = new DateSavingsSumMap();
         } else {
             modelTotalSaved = totalSaved.toModelType();
         }

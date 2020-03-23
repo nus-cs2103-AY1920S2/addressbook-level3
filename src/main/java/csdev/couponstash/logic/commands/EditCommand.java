@@ -115,8 +115,8 @@ public class EditCommand extends Command {
                 // avoid changing the usage
                 couponToEdit.getUsage(),
                 updatedLimit, updatedTags,
-                // avoid changing the cached total savings value
-                couponToEdit.getTotalSavings(),
+                // avoid changing the total savings and dates mappings
+                couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
                 new RemindDate(updatedExpiryDate));
     }
