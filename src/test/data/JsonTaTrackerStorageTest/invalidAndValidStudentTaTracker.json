@@ -4,12 +4,10 @@
     "phone": "9482424",
     "email": "hans@example.com",
     "matric": "A0156853M",
-    "address": "4th street"
   }, {
     "name": "Student With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
     "matric": "A0170664N",
-    "address": "4th street"
   } ]
 }
