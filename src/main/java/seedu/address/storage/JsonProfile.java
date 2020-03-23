@@ -162,7 +162,7 @@ class JsonPersonalModule extends JsonModule {
 
     public JsonPersonalModule(Module module) {
         super(module.getModuleCode().toString(), module.getTitle().toString(), module.getDescription().toString(),
-                module.getModularCredits().toString(), module.getPrereqList().toString(),
+                module.getModularCredits().toString(), module.getPrereqs().toString(),
                 module.getSemesterData().getSemesters().stream()
                         .map(JsonSemesterData::new).collect(Collectors.toList()));
         status = module.getStatus();

@@ -45,6 +45,11 @@ public class ShowCommand extends Command {
         toShow = course;
     }
 
+    public ShowCommand(Module module) {
+        requireNonNull(module);
+        toShow = module;
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
