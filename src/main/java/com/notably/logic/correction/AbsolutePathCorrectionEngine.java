@@ -12,6 +12,7 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.correction.distance.EditDistanceCalculator;
 import com.notably.logic.correction.distance.LevenshteinDistanceCalculator;
 import com.notably.model.Model;
+import com.notably.model.block.BlockTree;
 import com.notably.model.block.BlockTreeItem;
 
 /**
@@ -74,35 +75,36 @@ public class AbsolutePathCorrectionEngine implements CorrectionEngine<AbsolutePa
     }
 
     /**
-     * TODO: Add Javadoc
+     * Generates all possible paths from the app's {@link BlockTree}
+     *
+     * @return List of all possible paths
      */
     private List<AbsolutePath> getPossiblePaths() {
         List<AbsolutePath> possiblePaths = new ArrayList<>();
 
-        Queue<AbsolutePath> incompletePathQueue = new LinkedList<>();
+        Queue<AbsolutePath> pathQueue = new LinkedList<>();
         try {
-            incompletePathQueue.offer(AbsolutePath.fromString("/"));
+            pathQueue.offer(AbsolutePath.fromString("/"));
         } catch (InvalidPathException exception) {
-            throw new RuntimeException("Should not throw");
+            throw new AssertionError(exception);
         }
 
-        while (!incompletePathQueue.isEmpty()) {
-            AbsolutePath currentPath = incompletePathQueue.poll();
+        while (!pathQueue.isEmpty()) {
+            AbsolutePath currentPath = pathQueue.poll();
 
             List<BlockTreeItem> childrenBlocks = model.getBlockTree().get(currentPath).getBlockChildren();
             List<AbsolutePath> childrenPaths = childrenBlocks
                     .stream()
                     .map(item -> {
-                        List<String> combinedComponents = currentPath.getComponents();
+                        List<String> combinedComponents = new ArrayList<>(currentPath.getComponents());
                         combinedComponents.add(item.getTitle().getText());
                         return AbsolutePath.fromComponents(combinedComponents);
                     })
                     .collect(Collectors.toList());
-            incompletePathQueue.addAll(childrenPaths);
+            pathQueue.addAll(childrenPaths);
 
             possiblePaths.add(currentPath);
         }
-
 
         return possiblePaths;
     }
