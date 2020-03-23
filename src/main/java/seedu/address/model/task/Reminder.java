@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import seedu.address.model.task.exceptions.InvalidReminderException;
 
 /**
@@ -68,6 +69,11 @@ public class Reminder {
     /** @return the delay */
     public long getDelay() {
         return delay;
+    }
+
+    public String displayReminder() {
+        DateTimeFormatter customFormatter = DateTimeFormatter.ofPattern("dd LLLL 'at' h:ma");
+        return reminderDateTime.format(customFormatter);
     }
 
     @Override
