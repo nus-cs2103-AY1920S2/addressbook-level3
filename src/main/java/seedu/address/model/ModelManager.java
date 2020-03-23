@@ -14,7 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the recipe book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -67,13 +67,13 @@ public class ModelManager implements Model {
 
     @Override
     public Path getRecipeBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getRecipeBookFilePath();
     }
 
     @Override
     public void setRecipeBookFilePath(Path recipeBookFilePath) {
         requireNonNull(recipeBookFilePath);
-        userPrefs.setAddressBookFilePath(recipeBookFilePath);
+        userPrefs.setRecipeBookFilePath(recipeBookFilePath);
     }
 
     //=========== RecipeBook ================================================================================

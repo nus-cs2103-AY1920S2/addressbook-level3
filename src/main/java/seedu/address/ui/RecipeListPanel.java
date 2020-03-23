@@ -11,16 +11,16 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.recipe.Recipe;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of recipes.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class RecipeListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(RecipeListPanel.class);
 
     @FXML
     private ListView<Recipe> personListView;
 
-    public PersonListPanel(ObservableList<Recipe> recipeList) {
+    public RecipeListPanel(ObservableList<Recipe> recipeList) {
         super(FXML);
         personListView.setItems(recipeList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -38,7 +38,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(recipe, getIndex() + 1).getRoot());
+                setGraphic(new RecipePage(recipe, getIndex() + 1).getRoot());
             }
         }
     }
