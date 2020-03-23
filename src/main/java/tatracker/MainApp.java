@@ -135,10 +135,6 @@ public class MainApp extends Application {
     }
 
     /**
-     * Init
-     */
-
-    /**
      * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
      * or a new {@code UserPrefs} with default configuration if errors occur when
      * reading from the file.
