@@ -12,8 +12,9 @@ import seedu.address.model.dayData.DayData;
 /** Wraps all DayData objects. */
 public class Statistics implements ReadOnlyStatistics {
 
+    public static final String MESSAGE_CONSTRAINTS = "CONSTANT_SIZE enforced, days must be continuous";
     private final ArrayList<DayData> dayDataList;
-    private final int MAX_SIZE = 7;
+    public static final int CONSTANT_SIZE = 7;
 
     public Statistics() {
         dayDataList = new ArrayList<>();
@@ -29,7 +30,7 @@ public class Statistics implements ReadOnlyStatistics {
     /** Initialises empty DayData for past MAX_SIZE days */
     public void init() {
         LocalDate currDate = LocalDate.now();
-        for (int i = MAX_SIZE - 1; i >= 0; i--) {
+        for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
             LocalDate tempLocalDate = currDate.minusDays(i);
             String tempLocalDateStr = tempLocalDate.toString();
             Date tempDate = new Date(tempLocalDateStr);
@@ -70,7 +71,7 @@ public class Statistics implements ReadOnlyStatistics {
         LocalDate currLocalDate = currDayData.getDate().value;
 
         long daysBetween = DAYS.between(todayLocalDate, currLocalDate);
-        if (daysBetween > MAX_SIZE) {
+        if (daysBetween > CONSTANT_SIZE) {
             this.init();
         } else {
             while (!currLocalDate.equals(
@@ -85,7 +86,7 @@ public class Statistics implements ReadOnlyStatistics {
 
                 this.push(tempDayData); // add to queue
 
-                assert (dayDataList.size() <= MAX_SIZE);
+                assert (dayDataList.size() <= CONSTANT_SIZE);
             }
         }
     }
