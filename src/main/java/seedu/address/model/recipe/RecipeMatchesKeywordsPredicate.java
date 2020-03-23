@@ -52,7 +52,7 @@ public class RecipeMatchesKeywordsPredicate implements Predicate<Recipe> {
     private Stream<String> getIncludedIngredientNameStream(Set<? extends Ingredient> ingredients) {
         return ingredients.stream()
                 .map(ingredient -> ingredient.getIngredientName().toLowerCase())
-                .filter(ingredient -> !ingredient.startsWith("exclude"));
+                .filter(ingredient -> !ingredient.trim().split(" ")[0].equals("exclude"));
     }
 
     /**
@@ -61,7 +61,7 @@ public class RecipeMatchesKeywordsPredicate implements Predicate<Recipe> {
     private Stream<String> getExcludedIngredientNameStream(Set<? extends Ingredient> ingredients) {
         return ingredients.stream()
                 .map(ingredient -> ingredient.getIngredientName().toLowerCase())
-                .filter(ingredient -> ingredient.startsWith("exclude"))
+                .filter(ingredient -> ingredient.trim().split(" ")[0].equals("exclude"))
                 .map(ingredient -> ingredient.substring(7).trim());
     }
 
