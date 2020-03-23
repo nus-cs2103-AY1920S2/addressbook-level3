@@ -13,7 +13,7 @@ import tatracker.commons.core.index.Index;
 import tatracker.commons.util.StringUtil;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.group.Group.GroupType;
-import tatracker.model.session.Session.SessionType;
+import tatracker.model.session.SessionType;
 import tatracker.model.student.Email;
 import tatracker.model.student.Matric;
 import tatracker.model.student.Name;

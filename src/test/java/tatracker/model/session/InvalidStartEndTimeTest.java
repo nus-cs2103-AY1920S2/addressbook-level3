@@ -7,8 +7,6 @@ import java.time.temporal.ChronoUnit;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.model.session.Session.SessionType;
-
 public class InvalidStartEndTimeTest {
 
     @Test

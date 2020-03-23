@@ -1,4 +1,4 @@
-package seedu.address.model.session;
+package tatracker.model.session;
 
 /**
  * Represents a session type. Session types follows the same specifications as the TSS.

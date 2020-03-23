@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package tatracker.ui;
 
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.session.Session;
+import tatracker.model.session.Session;
 
 /**
  * An UI component that displays information of a {@code Session}.
