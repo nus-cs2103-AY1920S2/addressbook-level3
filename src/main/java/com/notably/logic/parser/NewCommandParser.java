@@ -7,8 +7,7 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.notably.commons.core.path.RelativePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
+import com.notably.commons.core.path.Path;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
@@ -34,28 +33,25 @@ public class NewCommandParser implements CommandParser {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP);
 
-        if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid Command"));
         }
 
         String title = argMultimap.getValue(PREFIX_TITLE).get();
         String body = argMultimap.getValue(PREFIX_BODY).get();
-        try {
-            RelativePath relativePath = RelativePath.fromString(title);
-            Block block = new BlockImpl(new Title(title), new Body(body));
-            List<Command> commands = new ArrayList<>();
-            commands.add(new NewCommand(block, relativePath));
 
-            if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
-                return commands;
-            }
+        Path path = ParserUtil.createPath(title);
+        Block block = new BlockImpl(new Title(title), new Body(body));
+        List<Command> commands = new ArrayList<>();
+        commands.add(new NewCommand(block, path));
 
-            commands.add(new OpenCommand(relativePath));
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
             return commands;
-        } catch (InvalidPathException ex) {
-            throw new ParseException(ex.getMessage());
         }
+
+        commands.add(new OpenCommand(path));
+        return commands;
 
     }
 
