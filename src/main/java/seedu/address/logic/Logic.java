@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrder;
 
 /**
  * API of the Logic component
@@ -42,7 +43,7 @@ public interface Logic {
     ObservableList<Order> getFilteredOrderList();
 
     /** Returns an unmodifiable view of the filtered list of return orders */
-    ObservableList<Order> getFilteredReturnOrderList();
+    ObservableList<ReturnOrder> getFilteredReturnOrderList();
 
     /**
      * Returns the user prefs' order book file path.

@@ -7,7 +7,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
 import seedu.address.model.order.Address;
-import seedu.address.model.order.CashOnDelivery;
 import seedu.address.model.order.Email;
 import seedu.address.model.order.Name;
 import seedu.address.model.order.Order;
@@ -15,6 +14,7 @@ import seedu.address.model.order.Phone;
 import seedu.address.model.order.TimeStamp;
 import seedu.address.model.order.TransactionId;
 import seedu.address.model.order.Warehouse;
+import seedu.address.model.returnorder.ReturnOrder;
 
 /**
  * Jackson-friendly version of {@link Order}.
@@ -30,7 +30,6 @@ class JsonAdaptedReturnOrder {
     private final String address;
     private final String timeStamp;
     private final String warehouse;
-    private final String cod;
     private final String comment;
     private final String itemType;
     private final boolean deliveryStatus;
@@ -44,7 +43,6 @@ class JsonAdaptedReturnOrder {
                                   @JsonProperty("address") String address,
                                   @JsonProperty("timestamp") String timeStamp,
                                   @JsonProperty("warehouse") String warehouse,
-                                  @JsonProperty("cashOnDelivery") String cod,
                                   @JsonProperty("comment") String comment,
                                   @JsonProperty("itemType") String itemType,
                                   @JsonProperty("deliveryStatus") boolean deliveryStatus) {
@@ -55,7 +53,6 @@ class JsonAdaptedReturnOrder {
         this.address = address;
         this.timeStamp = timeStamp;
         this.warehouse = warehouse;
-        this.cod = cod;
         this.comment = comment;
         this.itemType = itemType;
         this.deliveryStatus = deliveryStatus;
@@ -64,7 +61,7 @@ class JsonAdaptedReturnOrder {
     /**
      * Converts a given {@code Order} into this class for Jackson use.
      */
-    public JsonAdaptedReturnOrder(Order source) {
+    public JsonAdaptedReturnOrder(ReturnOrder source) {
         tid = source.getTid().tid;
         name = source.getName().fullName;
         phone = source.getPhone().value;
@@ -72,18 +69,17 @@ class JsonAdaptedReturnOrder {
         address = source.getAddress().value;
         timeStamp = source.getTimestamp().value;
         warehouse = source.getWarehouse().address;
-        cod = source.getCash().cashOnDelivery;
         comment = source.getComment().commentMade;
         itemType = source.getItemType().itemType;
         deliveryStatus = source.isDelivered();
     }
 
     /**
-     * Converts this Jackson-friendly adapted order object into the model's {@code Order} object.
+     * Converts this Jackson-friendly adapted order object into the model's {@code ReturnOrder} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted order.
      */
-    public Order toModelType() throws IllegalValueException {
+    public ReturnOrder toModelType() throws IllegalValueException {
         if (tid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     TransactionId.class.getSimpleName()));
@@ -143,15 +139,6 @@ class JsonAdaptedReturnOrder {
         }
         final Warehouse modelWarehouse = new Warehouse(warehouse);
 
-        if (cod == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    CashOnDelivery.class.getSimpleName()));
-        }
-        if (!CashOnDelivery.isValidCashValue(cod)) {
-            throw new IllegalValueException(CashOnDelivery.MESSAGE_CONSTRAINTS);
-        }
-        final CashOnDelivery modelCash = new CashOnDelivery(cod);
-
         final Comment modelComment;
         if (comment == null) {
             modelComment = new Comment("NIL");
@@ -172,9 +159,8 @@ class JsonAdaptedReturnOrder {
             modelItem = new TypeOfItem(itemType);
         }
 
-        Order finalOrder = new Order(modelTid, modelName, modelPhone, modelEmail, modelAddress, modelTimeStamp,
-                modelWarehouse, modelCash, modelComment, modelItem);
-        finalOrder.setDeliveryStatus(deliveryStatus);
+        ReturnOrder finalOrder = new ReturnOrder(modelTid, modelName, modelPhone, modelEmail, modelAddress,
+                modelTimeStamp, modelWarehouse, modelComment, modelItem);
         return finalOrder;
     }
 

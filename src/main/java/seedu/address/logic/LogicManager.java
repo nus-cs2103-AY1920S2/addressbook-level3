@@ -16,6 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyOrderBook;
 import seedu.address.model.order.Order;
 import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrder;
 import seedu.address.storage.Storage;
 
 /**
@@ -69,7 +70,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Order> getFilteredReturnOrderList() {
+    public ObservableList<ReturnOrder> getFilteredReturnOrderList() {
         return model.getFilteredReturnOrderList();
     }
 

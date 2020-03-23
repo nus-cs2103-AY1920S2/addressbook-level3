@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.Order;
 import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrder;
 
 /**
  * The API of the Model component.
@@ -14,6 +15,7 @@ import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+    Predicate<ReturnOrder> PREDICATE_SHOW_ALL_RETURNS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -110,19 +112,19 @@ public interface Model {
     /**
      * Returns true if a return order with the same identity as {@code returnOrder} exists in the return order book.
      */
-    boolean hasReturnOrder(Order returnOrder);
+    boolean hasReturnOrder(ReturnOrder returnOrder);
 
     /**
      * Deletes the given return order.
      * The return order must exist in the return order book.
      */
-    void deleteReturnOrder(Order target);
+    void deleteReturnOrder(ReturnOrder target);
 
     /**
      * Adds the given return order.
      * {@code returnOrder} must not already exist in the return order book.
      */
-    void addReturnOrder(Order returnOrder);
+    void addReturnOrder(ReturnOrder returnOrder);
 
     /**
      * Replaces the given order {@code target} with {@code editedReturnOrder}.
@@ -130,7 +132,7 @@ public interface Model {
      * The return order identity of {@code editedReturnOrder} must not be the same as another existing return order
      * in the return order book.
      */
-    void setReturnOrder(Order target, Order editedReturnOrder);
+    void setReturnOrder(ReturnOrder target, ReturnOrder editedReturnOrder);
 
     /** Returns an unmodifiable view of the filtered order list */
     ObservableList<Order> getFilteredOrderList();
@@ -142,11 +144,11 @@ public interface Model {
     void updateFilteredOrderList(Predicate<Order> predicate);
 
     /** Returns an unmodifiable view of the filtered return order list */
-    ObservableList<Order> getFilteredReturnOrderList();
+    ObservableList<ReturnOrder> getFilteredReturnOrderList();
 
     /**
      * Updates the filter of the filtered return order list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredReturnOrderList(Predicate<Order> predicate);
+    void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate);
 }
