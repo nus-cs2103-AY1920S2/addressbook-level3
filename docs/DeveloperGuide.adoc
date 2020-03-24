@@ -314,9 +314,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |NUS student|show module plan |see list of modules I need to take/have taken
 
-|`* * *` |NUS student|write and save notes for each module I have taken/am taking
+|`* * *` |NUS student|write and save notes for each module I have taken/am taking |
 
-|`* * *` |NUS student|write diaries for each day's summary | refer back to what I have done in the future
+|`* * *` |NUS student|write diaries for each day's summary |refer back to what I have done in the future
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -334,7 +334,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |sort deadlines |prioritize which tasks to finish first
 
-|`* *` |user who has a short memory span |receive reminders about the deadlines | don't miss out any important tasks
+|`* *` |user who has a short memory span |receive reminders about the deadlines |don't miss out any important tasks
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 

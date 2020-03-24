@@ -40,7 +40,7 @@ public class NotesCommand extends Command {
     private static final String MESSAGE_MAKEDIR_SUCCESSFUL = "Directory is successfully created ";
     private static final String MESSAGE_MAKEDIR_UNSUCCESSFUL = "Directory is unable to be created ";
 
-    private static final String MESSAGE_LISTED_DIR = "Listed Directory at";
+    private static final String MESSAGE_LISTED_DIR = "Listed Directory at ";
     private static final String MESSAGE_LISTED_DIR_FAIL = "Unable to list directory at ";
     private static final String DUMMY_TEST = "Dummy test ";
 

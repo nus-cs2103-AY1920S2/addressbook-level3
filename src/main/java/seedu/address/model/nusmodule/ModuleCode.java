@@ -2,12 +2,14 @@ package seedu.address.model.nusmodule;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.searcher.Search;
+
 /**
  * Represents a NUS module's module code.
  */
 public class ModuleCode {
 
-    public static final String MESSAGE_CONSTRAINTS = "placeholder";
+    public static final String MESSAGE_CONSTRAINTS = "Please enter valid module code";
 
     public final String code;
 
@@ -20,7 +22,11 @@ public class ModuleCode {
      * Returns if a given string is a valid module code.
      */
     public static boolean isValidModuleCode(String test) {
-        //placeholder, implements later
+        try {
+            Search.findModule(test);
+        } catch (StringIndexOutOfBoundsException e) {
+            return false;
+        }
         return true;
     }
 
