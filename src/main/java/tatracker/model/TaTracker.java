@@ -187,6 +187,24 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Sorts modules alphabetically.
+     */
+    public void sortModulesAlphabetically() {
+        for (int i = 0; i < modules.size(); ++i) {
+            modules.get(i).sortGroupsAlphabetically();
+        }
+    }
+
+    /**
+     * Sorts modules by rating.
+     */
+    public void sortModulesByRating() {
+        for (int i = 0; i < modules.size(); ++i) {
+            modules.get(i).sortGroupsByRating();
+        }
+    }
+
+    /**
      * Replaces the contents of the modules list with {@code modules}.
      * {@code modules} must not contain duplicate modules.
      */

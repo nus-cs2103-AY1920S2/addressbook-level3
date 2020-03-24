@@ -6,16 +6,18 @@ import static tatracker.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import tatracker.logic.commands.exceptions.CommandException;
 import tatracker.model.Model;
-import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 
-public class SortModuleCommand extends Command {
+/**
+ * Sorts all students of all groups in a module.
+ */
+public class SortModuleCommand extends SortCommand {
 
     public static final String COMMAND_WORD = "sort";
 
     /* Example message usage. */
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in" +
-            "all groups of the given module. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts students in"
+            + "all groups of the given module. "
             + "Parameters: "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_TYPE + "SORT TYPE "
@@ -27,9 +29,10 @@ public class SortModuleCommand extends Command {
     public static final String MESSAGE_INVALID_MODULE_CODE = "There is no module with the given module code.";
 
     private final String moduleCode;
-    private final String type;
+    private String type;
 
     public SortModuleCommand(String moduleCode, String type) {
+        super(type);
         this.moduleCode = moduleCode;
         this.type = type;
     }
@@ -40,14 +43,14 @@ public class SortModuleCommand extends Command {
 
         Module module = new Module(moduleCode, "");
 
-        if(!model.hasModule(module)) {
+        if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
         module = model.getModule(module);
 
-        if(type.equalsIgnoreCase("alphabetically") ||
-                type.equalsIgnoreCase("alpha")) {
+        if (type.equalsIgnoreCase("alphabetically")
+                || type.equalsIgnoreCase("alpha")) {
             module.sortGroupsAlphabetically();
         } else {
             module.sortGroupsByRating();

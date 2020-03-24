@@ -10,7 +10,10 @@ import tatracker.model.Model;
 import tatracker.model.group.Group;
 import tatracker.model.module.Module;
 
-public class SortGroupCommand extends Command {
+/**
+ * Sorts all students in the group.
+ */
+public class SortGroupCommand extends SortCommand {
 
     public static final String COMMAND_WORD = "sort";
 
@@ -34,6 +37,7 @@ public class SortGroupCommand extends Command {
     private final String type;
 
     public SortGroupCommand(String groupCode, String moduleCode, String type) {
+        super(type);
         this.groupCode = groupCode;
         this.moduleCode = moduleCode;
         this.type = type;
@@ -45,21 +49,21 @@ public class SortGroupCommand extends Command {
 
         Module module = new Module(moduleCode, "");
 
-        if(!model.hasModule(module)) {
+        if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
         }
 
         module = model.getModule(module);
         Group group = new Group(groupCode, null);
 
-        if(!module.hasGroup(group)) {
+        if (!module.hasGroup(group)) {
             throw new CommandException(MESSAGE_INVALID_GROUP_CODE);
         }
 
         group = module.getGroup(groupCode);
 
-        if(type.equalsIgnoreCase("alphabetically") ||
-                type.equalsIgnoreCase("alpha")) {
+        if (type.equalsIgnoreCase("alphabetically")
+                || type.equalsIgnoreCase("alpha")) {
             group.sortStudentsAlphabetically();
         } else {
             //TODO: Sort students by rating
