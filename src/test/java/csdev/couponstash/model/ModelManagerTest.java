@@ -16,9 +16,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.GuiSettings;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 import csdev.couponstash.testutil.CouponStashBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
+import javafx.collections.transformation.FilteredList;
 
 public class ModelManagerTest {
 
@@ -98,11 +100,11 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_archiveExpiredCoupons_returnsTrue() {
         CouponStash couponStash = new CouponStash(TypicalCoupons.getTypicalCouponStash());
-        int numberOfActiveCoupons = couponStash.getCouponList()
-                .filtered(coupon -> coupon.getExpiryDate().date.isAfter(LocalDate.now())).size();
+        FilteredList<Coupon> filteredCouponList = couponStash.getCouponList()
+                .filtered(coupon -> coupon.getExpiryDate().date.isAfter(LocalDate.now()));
         modelManager = new ModelManager(couponStash, new UserPrefs());
 
-        assertTrue(numberOfActiveCoupons == modelManager.getFilteredCouponList().size());
+        assertTrue(filteredCouponList.equals(modelManager.getFilteredCouponList()));
     }
 
     @Test
