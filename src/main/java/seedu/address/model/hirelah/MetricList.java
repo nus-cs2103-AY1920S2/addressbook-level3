@@ -107,8 +107,8 @@ public class MetricList {
 
     public Metric find(String metricPrefix) throws IllegalValueException {
         Optional<Metric> exactMetric = metrics.stream().filter(metric -> metric.toString()
-                                                                               .equals(metricPrefix))
-                                                       .findFirst();
+                .equals(metricPrefix))
+                .findFirst();
         if (exactMetric.isEmpty()) {
             checkPrefix(metricPrefix);
             return metrics.stream().filter(metric -> metric.toString().startsWith(metricPrefix))
