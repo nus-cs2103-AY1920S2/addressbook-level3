@@ -1,0 +1,33 @@
+@startuml
+
+abstract class Command {
+    {abstract} execute(Model model) : CommandResult
+}
+
+
+Command <|-- SearchCommand
+OrderContainsKeywordsPredicate <-- SearchCommand
+
+class SearchCommand {
+'Fields of SearchCommand
++ COMMON_WORD : String
++ MESSAGE_USAGE : String
+- predicate : OrderContainsKeywordsPredicate
+
+'Methods of SearchCommand
++ execute(model : Model) : CommandResult
++ equals(other : Object) : boolean
+}
+
+class OrderContainsKeywordsPredicate implements Predicate {
+'Fields of OrderContainsKeywordsPredicate
+- keywords : List<String>
+
+}
+
+class Predicate {
+
+}
+
+
+@enduml
