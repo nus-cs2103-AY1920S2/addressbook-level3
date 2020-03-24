@@ -1,5 +1,5 @@
 @startuml
-!include style.puml
+!include ../style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
@@ -21,6 +21,7 @@ Class Email
 Class Matric
 Class Name
 Class Phone
+Class Rating
 Class UniqueStudentList
 }
 
@@ -46,6 +47,7 @@ Student *--> Name
 Student *--> Phone
 Student *--> Email
 Student *--> Matric
+Student *--> Rating
 Student *--> "*" Tag
 
 Name -[hidden]right-> Phone
