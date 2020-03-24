@@ -222,7 +222,7 @@ image::getCommand.png[]
 * **Alternative 1 (current choice):** Set a limit on details that has a potential long list (such as NoteTaker) and display them on the detailed contact viewer.
 ** Pros: All information are displayed for easier viewing/access.
 ** Cons: AddressBook list might be long and hard to view.
-* **Alternative 1 (current choice):** Display selective information on the AddressBook list and the full information under get command.
+* **Alternative 2:** Display selective information on the AddressBook list and the full information under get command.
 ** Pros: AddressBook list is less cluttered.
 ** Cons: Omits certain information.
 
