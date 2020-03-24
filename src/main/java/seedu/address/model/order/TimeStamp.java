@@ -8,8 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
 /**
  * Represents a Order's timeStamp in the order book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTimeStamp(String)}
