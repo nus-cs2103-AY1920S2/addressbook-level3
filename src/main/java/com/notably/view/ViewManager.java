@@ -6,6 +6,7 @@ import com.notably.MainApp;
 import com.notably.commons.core.LogsCenter;
 import com.notably.commons.util.StringUtil;
 import com.notably.logic.Logic;
+import com.notably.model.Model;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -24,11 +25,13 @@ public class ViewManager implements View {
     private static final String ICON_APPLICATION = "/images/notably_logo_48.png";
 
     private Logic logic;
+    private Model model;
     private MainWindow mainWindow;
 
-    public ViewManager(Logic logic) {
+    public ViewManager(Logic logic, Model model) {
         super();
         this.logic = logic;
+        this.model = model;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class ViewManager implements View {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
+            mainWindow = new MainWindow(primaryStage, logic, model);
             mainWindow.show(); //This should be called before creating other VIEW parts
             mainWindow.fillInnerParts();
 
