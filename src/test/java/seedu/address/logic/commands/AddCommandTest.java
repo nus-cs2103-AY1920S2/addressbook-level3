@@ -231,6 +231,11 @@ public class AddCommandTest {
         public void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Person> getBdayListResult() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
