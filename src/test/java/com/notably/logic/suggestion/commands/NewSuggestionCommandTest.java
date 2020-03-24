@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.notably.commons.core.path.AbsolutePath;
 import com.notably.model.Model;
 import com.notably.model.ModelManager;
 import com.notably.model.block.BlockModel;
@@ -18,7 +17,6 @@ import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
 public class NewSuggestionCommandTest {
-    private static AbsolutePath toRoot;
     private static Model model;
 
     @BeforeAll
@@ -28,15 +26,12 @@ public class NewSuggestionCommandTest {
         SuggestionModel suggestionModel = new SuggestionModelImpl();
         ViewStateModel viewStateModel = new ViewStateModelImpl();
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
-
-        // Set up path
-        toRoot = AbsolutePath.fromString("/");
     }
 
     @Test
     public void execute() {
         // Instantiate command
-        NewSuggestionCommand newSuggestionCommand = new NewSuggestionCommand(toRoot);
+        NewSuggestionCommand newSuggestionCommand = new NewSuggestionCommand();
 
         newSuggestionCommand.execute(model);
 
