@@ -107,20 +107,20 @@ public class OrderContainsKeywordsPredicateTest {
     public void test_timeStampContainsKeywordGeneralSearch_returnsTrue() {
         // One keyword full match date and time
         OrderContainsKeywordsPredicate predicate =
-            new OrderContainsKeywordsPredicate(Collections.singletonList("2020-02-02"));
-        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-02-02 1500").build()));
+            new OrderContainsKeywordsPredicate(Collections.singletonList("2020-05-20"));
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-20 1500").build()));
 
         // Only one matching keyword of date and time
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-01-01", "2020-01-02"));
-        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-01-02 1500").build()));
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-01-01", "2020-05-20"));
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-20 1500").build()));
 
         // Only matching time keyword
         predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-01-01", "1500", "2020-01-02", "1400"));
-        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-05 1500").build()));
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-20 1500").build()));
 
         // Only matching dates keyword
-        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-05-05", "1300", "2020-01-02", "1400"));
-        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-05 1200").build()));
+        predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-05-05", "1300", "2020-05-20", "1400"));
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-20 1500").build()));
     }
 
     @Test
@@ -383,12 +383,12 @@ public class OrderContainsKeywordsPredicateTest {
         OrderContainsKeywordsPredicate predicate =
             new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-10", "1500"),
                 keywordContainsOrderPrefix);
-        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-02-10 1500").build()));
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-20 1500").build()));
 
         // Full matching timestamp keywords with other keywords
         predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-20", "2020-01-10", "1500"),
                 keywordContainsOrderPrefix);
-        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-02-10 1500").build()));
+        assertTrue(predicate.test(new OrderBuilder().withTimeStamp("2020-05-20 1500").build()));
     }
 
     @Test
@@ -502,7 +502,7 @@ public class OrderContainsKeywordsPredicateTest {
         keywordContainsOrderPrefix.setHasTimeStamp(false);
         predicate = new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-02", "1500"),
             keywordContainsOrderPrefix);
-        assertFalse(predicate.test(new OrderBuilder().withTimeStamp("2020-02-02 1500").build()));
+        assertFalse(predicate.test(new OrderBuilder().withTimeStamp("2020-05-20 1500").build()));
 
         // Matching keywords in warehouse address field but did not search with warehouse address prefix
         keywordContainsOrderPrefix.setHasTimeStamp(true);
