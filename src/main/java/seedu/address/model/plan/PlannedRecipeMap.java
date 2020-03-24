@@ -41,6 +41,10 @@ public class PlannedRecipeMap {
         plannedRecipes.remove(date);
     }
 
+    /**
+     * Gets all recipes that were planned.
+     * If no recipes were planned, return an empty string.
+     */
     public String getScheduled() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Date, Recipe> entry : plannedRecipes.entrySet()) {
