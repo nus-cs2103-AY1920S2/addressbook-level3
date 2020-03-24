@@ -26,10 +26,11 @@ public class CourseFocusArea {
     @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
-        output.append(focusAreaName + ": ");
+        output.append(focusAreaName);
+        output.append("\n");
 
         if (!primaries.isEmpty()) {
-            output.append("\nArea Primaries");
+            output.append("Area Primaries");
             for (ModuleCode moduleCode : primaries) {
                 output.append("\n");
                 output.append(moduleCode);
@@ -46,6 +47,10 @@ public class CourseFocusArea {
 
         output.append("\n");
         return output.toString();
+    }
+
+    public String getFocusAreaName() {
+        return focusAreaName;
     }
     // Implement getter setter
     // equals
