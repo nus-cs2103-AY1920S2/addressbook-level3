@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MODdy" minWidth="1260" minHeight="750" onCloseRequest="#handleExit">
+         title="MODdy" minWidth="1000" minHeight="750" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/study_books.png" />
   </icons>
@@ -24,6 +24,7 @@
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
+
 
         <VBox>
           <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
@@ -35,25 +36,25 @@
             </Menu>
           </MenuBar>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-          </StackPane>
+          <SplitPane dividerPositions="0.4" VBox.vgrow="ALWAYS" minHeight="150" prefHeight="150" maxHeight="150">
+            <VBox >
+              <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+              </StackPane>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                     minHeight="100" prefHeight="100" maxHeight="100">
-            <padding>
-              <Insets top="5" right="10" bottom="5" left="10" />
-            </padding>
-          </StackPane>
+              <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                         minHeight="100" prefHeight="100" maxHeight="100">
+                <padding>
+                  <Insets top="5" right="10" bottom="5" left="10" />
+                </padding>
+              </StackPane>
+            </VBox>
 
-
-    <!--Arrange profile panel, maine panel and deadline panel side-by-side-->
-          <SplitPane dividerPositions="0.4" VBox.vgrow="ALWAYS">
-    <!--Profile-->
+            <!--Profile-->
             <VBox fx:id="profilePanel" styleClass="pane-with-border"
-                  minWidth="260" prefWidth="260" maxWidth="250"  VBox.vgrow="ALWAYS" >
+                  minWidth="260" prefWidth="260" maxWidth="260" VBox.vgrow="ALWAYS" >
               <Label text="Profile" styleClass="title" alignment="TOP_LEFT"></Label>
 
               <StackPane fx:id="profileListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
@@ -61,6 +62,14 @@
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
             </VBox>
+          </SplitPane>
+
+
+
+
+    <!--Arrange profile panel, maine panel and deadline panel side-by-side-->
+          <SplitPane dividerPositions="0.4" VBox.vgrow="ALWAYS">
+
     <!--Main result-->
             <StackPane fx:id="mainPanelPlaceholder" styleClass="pane-with-border" alignment="CENTER_LEFT"
                   minWidth="540" prefWidth="540" VBox.vgrow="ALWAYS" >
@@ -70,7 +79,7 @@
             </StackPane>
     <!--Deadline display-->
             <VBox fx:id="deadlineDisplayPlaceholder" styleClass="pane-with-border"
-                       minWidth="260" prefWidth="260" maxWidth="400" VBox.vgrow="ALWAYS">
+                       minWidth="260" prefWidth="260" maxWidth="260" VBox.vgrow="ALWAYS">
               <Label text="Deadline" styleClass="title" alignment="TOP_LEFT"></Label>
 
               <padding>

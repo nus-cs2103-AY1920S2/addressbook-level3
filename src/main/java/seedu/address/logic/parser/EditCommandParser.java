@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.Name;
@@ -36,6 +35,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException, DateTimeException {
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER, PREFIX_SPEC,
                         PREFIX_MODULE, PREFIX_SEMESTER, PREFIX_GRADE);
@@ -85,7 +85,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             if (!arePrefixesPresent(argMultimap, PREFIX_NAME) && !arePrefixesPresent(argMultimap, PREFIX_COURSE_NAME)
                     && !arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)
                     && !arePrefixesPresent(argMultimap, PREFIX_SPEC)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
             }
             if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
                 Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -98,7 +98,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             if (arePrefixesPresent(argMultimap, PREFIX_CURRENT_SEMESTER)) {
                 String currentSemesterString = argMultimap.getValue(PREFIX_CURRENT_SEMESTER).get();
                 if (!ParserUtil.isInteger(currentSemesterString)) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NewCommand.MESSAGE_USAGE));
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
                 }
                 int currentSemester = Integer.parseInt(currentSemesterString);
                 Profile.setCurrentSemester(currentSemester);

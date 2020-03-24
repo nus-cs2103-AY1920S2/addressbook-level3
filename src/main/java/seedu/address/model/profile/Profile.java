@@ -97,6 +97,10 @@ public class Profile {
         return moduleHash.get(semester);
     }
 
+    public static HashMap<Integer, ArrayList<Module>> getAllModules() {
+        return moduleHash;
+    }
+
     public Set<Map.Entry<Integer, ArrayList<Module>>> getMappings() {
         return moduleHash.entrySet();
     }

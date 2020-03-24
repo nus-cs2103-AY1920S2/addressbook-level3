@@ -37,7 +37,7 @@ public class ProfileListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ProfileCard(profile, getIndex() + 1).getRoot());
+                setGraphic(new ProfileCard(profile).getRoot());
             }
         }
     }
