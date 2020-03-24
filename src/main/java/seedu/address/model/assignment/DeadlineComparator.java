@@ -1,9 +1,10 @@
 package seedu.address.model.assignment;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.util.Comparator;
 
+/**
+ * Compares deadline and sort them in chronological order.
+ */
 public class DeadlineComparator implements Comparator<Assignment> {
     @Override
     public int compare(Assignment a1, Assignment a2) {

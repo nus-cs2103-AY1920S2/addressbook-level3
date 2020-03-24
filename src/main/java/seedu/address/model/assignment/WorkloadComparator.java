@@ -2,6 +2,9 @@ package seedu.address.model.assignment;
 
 import java.util.Comparator;
 
+/**
+ * Compares workload and sort in increasing order.
+ */
 public class WorkloadComparator implements Comparator<Assignment> {
     @Override
     public int compare(Assignment a1, Assignment a2) {

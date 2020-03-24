@@ -256,8 +256,7 @@ public class ParserUtil {
             if (inputs.length != 2 || !Deadline.isValidDate(inputs[0]) || !Deadline.isValidTime(inputs[1])) {
                 throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
             }
-        }
-        else {
+        } else {
             inputs[0] = "";
             inputs[1] = "";
         }
