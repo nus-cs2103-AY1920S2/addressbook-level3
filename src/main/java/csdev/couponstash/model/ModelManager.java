@@ -186,7 +186,7 @@ public class ModelManager implements Model {
         return history.canRedo();
     }
 
-//=========== End of Undo/Redo functionality =============================================================
+    //=========== End of Undo/Redo functionality =============================================================
 
     @Override
     public boolean equals(Object obj) {

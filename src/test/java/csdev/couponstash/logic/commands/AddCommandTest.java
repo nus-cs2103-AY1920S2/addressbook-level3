@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
@@ -182,6 +183,11 @@ public class AddCommandTest {
 
         @Override
         public boolean canRedoCouponStash() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortCoupons(Prefix prefixToSortBy) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -8,6 +8,12 @@ import static java.util.Objects.requireNonNull;
 import csdev.couponstash.logic.commands.SortCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses the given {@code String} of arguments in the context of the SortCommand
+ * and returns an SortCommand object for execution.
+ *
+ * @throws ParseException if the user input does not conform the expected format
+ */
 public class SortCommandParser implements Parser<SortCommand> {
     @Override
     public SortCommand parse(String args) throws ParseException {
@@ -16,14 +22,14 @@ public class SortCommandParser implements Parser<SortCommand> {
                 .tokenize(args, PREFIX_NAME, PREFIX_EXPIRY_DATE);
 
         if (
-                argMultiMap.getValue(PREFIX_NAME).isPresent() &&
-                        !argMultiMap.getValue(PREFIX_EXPIRY_DATE).isPresent()
+                argMultiMap.getValue(PREFIX_NAME).isPresent()
+                        && !argMultiMap.getValue(PREFIX_EXPIRY_DATE).isPresent()
         ) {
             // Only has PREFIX_NAME
             return new SortCommand(PREFIX_NAME);
         } else if (
-                !argMultiMap.getValue(PREFIX_NAME).isPresent() &&
-                        argMultiMap.getValue(PREFIX_EXPIRY_DATE).isPresent()
+                !argMultiMap.getValue(PREFIX_NAME).isPresent()
+                        && argMultiMap.getValue(PREFIX_EXPIRY_DATE).isPresent()
         ) {
             // Only has PREFIX_EXPIRY_DATE
             return new SortCommand(PREFIX_EXPIRY_DATE);

@@ -105,7 +105,7 @@ public class ExportCommandTest {
     public void execute_couponFromExportCommand_validAddCommand() {
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
         Coupon expectedCoupon = new CouponBuilder(AMY).build();
-        model.addCoupon(expectedCoupon);
+        model.addCoupon(expectedCoupon, "");
         Index lastIndex = Index.fromZeroBased(model.getFilteredCouponList().size() - 1);
         ExportCommand exportCommand = new ExportCommand(lastIndex);
         Coupon couponToExport = model.getFilteredCouponList().get(lastIndex.getZeroBased());

@@ -1,13 +1,17 @@
 package csdev.couponstash.logic.commands;
 
-import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
+
 import static java.util.Objects.requireNonNull;
 
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.Model;
 
+/**
+ * Creates an SortCommand to sort by specified prefix.
+ */
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
