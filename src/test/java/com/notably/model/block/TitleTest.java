@@ -29,9 +29,10 @@ public class TitleTest {
         assertFalse(Title.isValidTitle(" ")); // Spaces only
         assertFalse(Title.isValidTitle(" Week 2 Lecture")); // Leading whitespace
         assertFalse(Title.isValidTitle("Week 2 Lecture ")); // Trailing whitespace
-        assertFalse(Title.isValidTitle("Week 2: Lecture")); // Contains non-alphanumeric characters
+        assertFalse(Title.isValidTitle("Week 2: Lecture!")); // Contains non-alphanumeric characters
 
         // Valid title
+        assertTrue(Title.isValidTitle("A")); // Single character title
         assertTrue(Title.isValidTitle("25")); // Numbers only
         assertTrue(Title.isValidTitle("weekly notes")); // Letters only (and non-leading whitespace)
         assertTrue(Title.isValidTitle("lecture 2")); // Alphanumeric characters
