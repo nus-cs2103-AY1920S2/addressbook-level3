@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -21,7 +20,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
  *
  * @see Assignment#isSameAssignment(Assignment)
  */
-public class AssignmentList implements Iterable<Assignment> {
+public class AssignmentList {
 
     private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
     private final ObservableList<Assignment> internalUnmodifiableList =
@@ -83,11 +82,6 @@ public class AssignmentList implements Iterable<Assignment> {
      */
     public ObservableList<Assignment> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
-    }
-
-    @Override
-    public Iterator<Assignment> iterator() {
-        return internalList.iterator();
     }
 
     @Override
