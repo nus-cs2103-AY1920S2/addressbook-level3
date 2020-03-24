@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.eylah.commons.core.GuiSettings;
 import seedu.eylah.commons.core.LogsCenter;
-import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.diettracker.model.food.Food;
 
 /**

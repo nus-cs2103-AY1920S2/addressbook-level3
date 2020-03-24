@@ -44,12 +44,10 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditCommand.EditFoodDescriptor editFoodDescriptor = new EditCommand.EditFoodDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editFoodDescriptor.setName(ParserUtil
-                    .parseName(argMultimap.getValue(PREFIX_NAME).get()));
+            editFoodDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_CALORIES).isPresent()) {
-            editFoodDescriptor.setCalories(ParserUtil
-                    .parseCalories(argMultimap.getValue(PREFIX_CALORIES).get()));
+            editFoodDescriptor.setCalories(ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editFoodDescriptor::setTags);
 
