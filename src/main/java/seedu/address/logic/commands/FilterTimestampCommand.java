@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.conditions.Conditions;
-import seedu.address.logic.conditions.LiterallyNoConditions;
+import seedu.address.logic.conditions.TimestampConditions;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
 
@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FilterTimestampCommand implements AppCommand {
-    private static int START_TIME;
-    private static int END_TIME;
+    private static Long START_TIME;
+    private static Long END_TIME;
 
     public static final String COMMAND_WORD = "from";
     private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<start>\\d+) to (?<end>\\d+)");
@@ -29,14 +29,14 @@ public class FilterTimestampCommand implements AppCommand {
             throw new ParseException(error);
         }
 
-        this.START_TIME = Integer.parseInt(matcher.group("start"));
-        this.END_TIME   = Integer.parseInt(matcher.group("end"));
+        this.START_TIME = Long.parseLong(matcher.group("start"));
+        this.END_TIME   = Long.parseLong(matcher.group("end"));
         return this;
     }
 
     @Override
     public AppCommandResult execute(AppStorage dao) {
-        Conditions cond = new LiterallyNoConditions();
+        Conditions cond = new TimestampConditions(this.START_TIME, this.END_TIME);
         ArrayList resp  = dao.search(cond);
         AppCommandResult result = new AppCommandResult("Filtered by timestamp", false);
         result.setToDisplayList(resp);
