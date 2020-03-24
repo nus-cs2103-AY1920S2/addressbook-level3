@@ -4,12 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.address.logic.commands.DoneCommand.MESSAGE_DELIVERED_SUCCESS;
 import static seedu.address.logic.commands.DoneCommand.MESSAGE_ORDER_ALREADY_DELIVERED;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ORDER;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
+import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,11 +27,11 @@ import seedu.address.testutil.OrderBuilder;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class DoneCommandTest {
-    private Model model = new ModelManager(getTypicalOrderBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalOrderBook(), getTypicalReturnOrderBook(), new UserPrefs());
 
     @Test
     public void execute_orderGetsDelivered_success() {
-        showPersonAtIndex(model, INDEX_FIRST_ORDER);
+        showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         Order orderInFilteredList = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
         Order editedOrder = new OrderBuilder(orderInFilteredList).build();
@@ -39,7 +40,8 @@ public class DoneCommandTest {
 
         String expectedMessage = String.format(MESSAGE_DELIVERED_SUCCESS, editedOrder);
 
-        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), model.getReturnOrderBook(),
+                new UserPrefs());
         editedOrder.setDeliveryStatus(true);
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
 
@@ -53,7 +55,8 @@ public class DoneCommandTest {
         Order editedOrder = new OrderBuilder(orderInFilteredList).buildDelivered();
         DoneCommand doneCommand = new DoneCommand(INDEX_FIRST_ORDER,
                 new DoneCommand.DoneOrderDescriptor(editedOrder));
-        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new OrderBook(model.getOrderBook()), model.getReturnOrderBook(),
+                new UserPrefs());
 
         String expectedMessage = String.format(MESSAGE_ORDER_ALREADY_DELIVERED, editedOrder);
         expectedModel.setOrder(model.getFilteredOrderList().get(0), editedOrder);
@@ -72,7 +75,7 @@ public class DoneCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_ORDER);
+        showOrderAtIndex(model, INDEX_FIRST_ORDER);
         Index outOfBoundIndex = INDEX_SECOND_ORDER;
         // ensures that outOfBoundIndex is still in bounds of address book list
 

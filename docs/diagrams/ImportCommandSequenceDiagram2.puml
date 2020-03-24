@@ -1,0 +1,99 @@
+@startuml
+/' Sequence Diagram for import feature'/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "importCommand:ImportCommand" as ImportCommand LOGIC_COLOR
+participant ":InsertCommandParser" as InsertCommandParser LOGIC_COLOR
+participant ":ReturnCommandParser" as ReturnCommandParser LOGIC_COLOR
+participant "insertCommand:InsertCommand" as InsertCommand LOGIC_COLOR
+participant "returnCommand:ReturnCommand" as ReturnCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+activate LogicManager
+
+group sd Execution of the Import Command Sequence Diagram
+
+LogicManager -> ImportCommand : execute(model)
+activate ImportCommand
+
+loop until every String data in ordersData are processed
+    alt data starts with order
+        create InsertCommandParser
+        ImportCommand -> InsertCommandParser ++
+
+        InsertCommandParser --> ImportCommand --
+
+        ImportCommand -> InsertCommandParser ++ : parse(data)
+
+        create InsertCommand
+        InsertCommandParser -> InsertCommand ++ : data
+
+        InsertCommand --> InsertCommandParser -- : insertCommand
+
+        InsertCommandParser --> ImportCommand -- : insertCommand
+
+        InsertCommandParser -[hidden]-> ImportCommand
+        destroy InsertCommandParser
+
+        ImportCommand -> InsertCommand ++ : execute(Model)
+
+        InsertCommand -> Model : addOrder(toAdd)
+        InsertCommand --> ImportCommand --
+
+        InsertCommand -[hidden]-> ImportCommand
+        destroy InsertCommand
+
+    else data starts with return
+        create ReturnCommandParser
+        ImportCommand -> ReturnCommandParser ++
+
+        ReturnCommandParser --> ImportCommand --
+
+        ImportCommand -> ReturnCommandParser ++ : parse(data)
+
+        create ReturnCommand
+        ReturnCommandParser -> ReturnCommand ++ : data
+
+        ReturnCommand --> ReturnCommandParser -- : returnCommand
+
+        ReturnCommandParser --> ImportCommand -- : returnCommand
+        AddCommandParser -[hidden]-> ImportCommand
+        destroy ReturnCommandParser
+
+        ImportCommand -> ReturnCommand ++ : execute(Model)
+
+        ReturnCommand -> Model : addReturnOrder(toBeCreated)
+        ReturnCommand --> ImportCommand --
+
+        ReturnCommand -[hidden]-> ImportCommand
+        destroy ReturnCommand
+        |||
+    end
+end
+
+ImportCommand -> ImportCommand ++ : printResult()
+
+ImportCommand --> ImportCommand -- : message
+create CommandResult
+ImportCommand -> CommandResult ++ : message
+
+CommandResult --> ImportCommand -- : result
+
+CommandResult -[hidden]-> ImportCommand
+destroy CommandResult
+
+ImportCommand --> LogicManager -- : result
+
+CommandResult -[hidden]-> ImportCommand
+destroy ImportCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+end
+@enduml

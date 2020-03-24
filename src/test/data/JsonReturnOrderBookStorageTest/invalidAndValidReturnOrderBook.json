@@ -1,0 +1,23 @@
+{
+  "orders": [ {
+    "tid": "A111111",
+    "name": "Valid Person",
+    "phone": "9482424",
+    "address": "4th street",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$4",
+    "comment": "NIL",
+    "itemType": "NIL"
+  }, {
+    "tid": "A111112",
+    "name": "Person With Invalid Phone Field",
+    "phone": "948asdf2424",
+    "address": "4th street",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$4",
+    "comment": "NIL",
+    "itemType": "glass"
+  } ]
+}

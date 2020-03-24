@@ -58,20 +58,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/CUSTOMER_NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/CUSTOMER_NAME` is also acceptable.
 ====
 
-[[insert]]
-=== Inserting an order: `insert`
-
-==== Description
-* Inserts a new order to the list of orders based on their order attributes.
-
-==== Format
-* `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-
-[TIP]
-====
-* List of order attribute prefixes can be found <<command_prefix, here>>.
-====
-
 ==== Examples
 
 * `insert` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `dts/2020-02-20 1300` `w/Yishun` `cod/$4`
@@ -145,7 +131,7 @@ The order at the second index of the list is marked as a delivered order.
 * List of order attribute prefixes can be found <<command_prefix, here>>.
 ====
 
-* `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[MORE_ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
+* `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/NEW_VALUE` `[ORDER_ATTRIBUTE_PREFIXES/NEW_VALUE]...`
 
 [WARNING]
 ====
@@ -180,52 +166,6 @@ The index `3` customer's name, phone and address are changed accordingly to the 
 ==== Format:
 * `exit`
 
-[[search]]
-=== Locating orders by name or transaction ID: `search`
-
-==== Description
-
-* You can search all orders that contain a given keyword. The orders will be searched by a given flag of two specific types (`-n` or `-t`).
-* If the flag is `-n`, the orders will be searched by *name*.
-* If the flag is `-t`, the orders will be searched by their *transaction ID*.
-* The list of orders returned will not be sorted by default.
-
-==== Format
-* `search` `FLAG` `KEYWORD` `[MORE_KEYWORDS]...`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* The delivery orders can only be searched by either name of receiver or transaction ID of the order.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Orders matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-==== Examples
-
-* `search` `-n` `Jeremy Loh` +
-Possibly return `jeremy` or `Jeremy Loh` or `loh` or any of the above as long as keyword appears in name.
-* `search` `-t` `asj2od3943` +
-Return delivery order with transaction ID of `asj2od3943`
-* `search` `-t` `920392844` +
-Return delivery order with transaction ID of `920392844`
-
-[[show]]
-=== Showing statistics : `show`
-
-==== Description
-* The statistics displayed will show information about the list of orders assigned to the courier.
-It allows courier to see how much earnings he/she has made in one day, number of orders delivered
-and the total number of orders to deliver today. There is a PieChart at the bottom that shows the percentage
-of delivered orders as compared to the undelivered ones.
-
-==== Format:
-* `show`
-
-==== Examples:
-* `show` +
-Open a window where it contains the statistics.
-
 [[help]]
 === Viewing help : `help`
 
@@ -239,6 +179,20 @@ so that you can navigate the application easily.
 ==== Examples:
 * `help` +
 Returns a list of all commands available.
+
+[[insert]]
+=== Inserting an order: `insert`
+
+==== Description
+* Inserts a new order to the list of orders based on their order attributes.
+
+==== Format
+* `insert` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `dts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `cod/CASH_ON_DELIVERY` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+[TIP]
+====
+* List of order attribute prefixes can be found <<command_prefix, here>>.
+====
 
 [[import]]
 === Importing a list of orders : `import`
@@ -314,26 +268,6 @@ List down all the orders, regardless of whether its completed or incomplete.
 List down all the orders that are completed.
 * `list` `undone` +
 List down all the orders that are uncompleted.
-
-[[return]]
-=== Returning an order: `return`
-==== Description
-* Adds a particular order as a return parcel into a new list.
-
-==== Format
-`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
-
-[TIP]
-====
-* List of order attribute prefixes can be found <<command_prefix, here>>.
-====
-
-==== Examples:
-* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `e/bobby@example.com` `rts/12-12-2020 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
-Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
-
-* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
-Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
 
 [[nearby]]
 === View orders located at the same area or postal sector: `nearby`
@@ -430,6 +364,57 @@ You will view all orders located in the general location of `Raffles Place, Ceci
 * `nearby` `north` +
 You will view all orders located in the north area of Singapore.
 
+[[return]]
+=== Returning an order: `return`
+==== Description
+* Adds a particular order as a return parcel into a new list.
+
+==== Format
+`return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE NUMBER` `rts/RETURN_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+[TIP]
+====
+* List of order attribute prefixes can be found <<command_prefix, here>>.
+====
+
+==== Examples:
+* `return` `tid/ac17s2a` `n/Bobby Tan` `a/123 Delta Road #03-333, Singapore 123456` `p/91230456` `e/bobby@example.com` `rts/12-12-2020 1300` `w/Jurong Warehouse` `c/NIL` `type/glass` +
+Adds the order with transaction id 'ac17s2a' as a return parcel into the list of returns.
+
+* `return` `tid/b1230512` `n/Aaron Teo` `a/256 Alpha Road #03-222, Singapore 123567` `p/91230456` `e/aaron@example.com` `rts/12-12-2020 1400` `w/Jurong Warehouse` `c/Leave it at the lobby` `type/metal` +
+Adds the order with transaction id 'b1230512' as a return parcel into the list of returns.
+
+[[search]]
+=== Locating orders by order fields: `search`
+
+==== Description
+
+* You can search all orders that contain a given keyword.
+* By default, `search` finds all orders that contain the given keyword(s) in any of it's field.
+* Specific search can be performed by tagging keywords that you want to search for with the corresponding <<command_prefix,`ORDER_ATTRIBUTE_PREFIX`>>.
+
+==== Format
+* `search` `KEYWORD` `[MORE_KEYWORDS]...` OR
+* `search` `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD` `[MORE_KEYWORDS]...` `[<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>/KEYWORD/KEYWORD MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The sequence of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* The delivery orders can only be searched by any fields of the orders.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Orders matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+==== Examples
+* `search` `Jeremy Loh` +
+Return delivery order(s) containing keyword of `jeremy`, `Jeremy Loh` or `loh` or any of the above as long as it appears in any of the orders field.
+* `search` `tid/asj2od3943` +
+Return delivery order(s) with transaction ID of `asj2od3943`
+* `search` `p/92039999` +
+Return delivery order(s) with phone number of `92039999`
+* `search` `p/92039999` `tid/asj2od3943` `n/jeremy` +
+Return delivery order(s) with either phone number of `92039999` or transaction ID of `asj2od3943` or name of `jeremy` or any of the above combinations.
+
 [[undo]]
 === Undo the previous action: `undo`
 ==== Description
@@ -486,10 +471,9 @@ e.g. `delivered` `2`
 * <<edit, *Edit*>> : `edit` `INDEX` `ORDER_ATTRIBUTE_PREFIX/VALUE` +
 e.g. `edit` `2` `n/Xuan En`
 * <<exit, *Exit*>> : `exit`
-* <<search, *Search*>> : `search` `flag` `KEYWORD` +
-e.g. `search` `-t` `ac1e345x7s`
+* <<search, *Search*>> : `search` `ORDER_ATTRIBUTE_PREFIX/KEYWORD` +
+e.g. `search` `tid/ac1e345x7s`
 * <<help, *Help*>> : `help`
-* <<show, *Show*>> : `show`
 * <<import, *Import*>> : `import` `FILE_NAME` +
 e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +
@@ -514,47 +498,47 @@ e.g. `nearby` `north`
 
 |tid/
 |Transaction ID
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |n/
 |Customer Name
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |a/
 |Address
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |p/
 |Phone Number
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |e/
 |Email
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
 
 |dts/
 |Delivery Date And Time
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |rts/
 |Return Date and Time
-|<<return, Return>>
+|<<return, Return>>, <<search, Search>>
 
 |w/
 |Warehouse Location
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>, <<return, Return>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |cod/
 |Cash On Delivery
-|<<insert, Insert>>, <<edit, Edit>>, <<sort, Sort>>
+|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>
 
 |c/
 |Comments by Customer
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |type/
 |Type of Item
-|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 |===
 
 [[command_flags]]
@@ -565,14 +549,6 @@ e.g. `nearby` `north`
 |-f
 |Force clear, no user confirmation will be requested
 |<<clear, Clear>>
-
-|-n
-|Search using Customer Name
-|<<search, Search>>
-
-|-t
-|Search using Transaction ID
-|<<search, Search>>
 |===
 
 

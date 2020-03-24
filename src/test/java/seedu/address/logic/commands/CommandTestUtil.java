@@ -42,8 +42,8 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TIMESTAMP_AMY = "2020-01-13 2200";
-    public static final String VALID_TIMESTAMP_BOB = "2019-12-02 1500";
+    public static final String VALID_TIMESTAMP_AMY = "2020-05-13 2200";
+    public static final String VALID_TIMESTAMP_BOB = "2020-05-20 1500";
     public static final String VALID_WAREHOUSE_AMY = "5 Toh Guan Rd E, #02-30 S608831";
     public static final String VALID_WAREHOUSE_BOB = "5 Jurong East Rd, #02-30 S608831";
     public static final String VALID_COD_AMY = "$4";
@@ -184,7 +184,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the order at the given {@code targetIndex} in the
      * {@code model}'s order book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showOrderAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredOrderList().size());
 
         Order order = model.getFilteredOrderList().get(targetIndex.getZeroBased());

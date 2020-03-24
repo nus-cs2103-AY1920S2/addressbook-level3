@@ -14,7 +14,8 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path orderBookFilePath = Paths.get("data", "orderbook.json");
+    private Path orderBookFilePath = Paths.get("data", "DeliveryOrderBook.json");
+    private Path returnOrderBookFilePath = Paths.get("data", "ReturnOrderBook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setOrderBookFilePath(newUserPrefs.getOrderBookFilePath());
+        setReturnOrderBookFilePath(newUserPrefs.getReturnOrderBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -51,9 +53,18 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return orderBookFilePath;
     }
 
+    public Path getReturnOrderBookFilePath() {
+        return returnOrderBookFilePath;
+    }
+
     public void setOrderBookFilePath(Path orderBookFilePath) {
         requireNonNull(orderBookFilePath);
         this.orderBookFilePath = orderBookFilePath;
+    }
+
+    public void setReturnOrderBookFilePath(Path returnOrderBookFilePath) {
+        requireNonNull(returnOrderBookFilePath);
+        this.returnOrderBookFilePath = returnOrderBookFilePath;
     }
 
     @Override
@@ -68,19 +79,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && orderBookFilePath.equals(o.orderBookFilePath);
+                && orderBookFilePath.equals(o.orderBookFilePath)
+                && returnOrderBookFilePath.equals((o.returnOrderBookFilePath));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, orderBookFilePath);
+        return Objects.hash(guiSettings, orderBookFilePath, returnOrderBookFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + orderBookFilePath);
+        sb.append("\nDelivery order data file location : " + orderBookFilePath);
+        sb.append("\nReturn order data file location : " + returnOrderBookFilePath);
         return sb.toString();
     }
 

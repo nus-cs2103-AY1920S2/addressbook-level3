@@ -1,0 +1,81 @@
+{
+  "_comment": "Delino save file which contains the same Order values as in TypicalOrders#getTypicalOrderBook()",
+  "orders" : [ {
+    "tid": "A93939393",
+    "name" : "Alice Pauline",
+    "phone" : "94351253",
+    "email" : "example@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111 S649520",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$1.01",
+    "comment": "NIL",
+    "itemType": "glass"
+  }, {
+    "tid": "B8484848",
+    "name" : "Benson Meier",
+    "phone" : "98765432",
+    "email" : "example@example.com",
+    "address" : "311, Clementi Ave 2, #02-25 S120363",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$5",
+    "comment": "NIL",
+    "itemType": "NIL"
+  }, {
+    "tid": "C8483883",
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "example@example.com",
+    "address" : "Telok Blangah Heights, #01-22 S100058",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$1.20",
+    "comment": "NIL",
+    "itemType": "NIL"
+  }, {
+    "tid": "D93939393",
+    "name" : "Daniel Meier",
+    "phone" : "87652533",
+    "email" : "example@example.com",
+    "address" : "Seletar, S797580",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$5",
+    "comment": "NIL",
+    "itemType": "bottle"
+  }, {
+    "tid": "E939393",
+    "name" : "Elle Meyer",
+    "phone" : "9482224",
+    "email" : "example@example.com",
+    "address" : "Upper Thomson Road, S787130",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$6",
+    "comment": "NIL",
+    "itemType": "NIL"
+  }, {
+    "tid": "F01010101",
+    "name" : "Fiona Kunz",
+    "phone" : "9482427",
+    "email" : "example@example.com",
+    "address" : "Jurong, S600101",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$2",
+    "comment": "NIL",
+    "itemType": "NIL"
+  }, {
+    "tid": "G9999",
+    "name" : "George Best",
+    "phone" : "9482442",
+    "email" : "example@example.com",
+    "address" : "Little India, S218202",
+    "timestamp": "2020-05-20 1500",
+    "warehouse": "5 Toh Guan Rd E, #02-30 S608831",
+    "cashOnDelivery": "$6",
+    "comment": "NIL",
+    "itemType": "drinks"
+  } ]
+}

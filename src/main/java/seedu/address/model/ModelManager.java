@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
+import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
+import seedu.address.model.returnorder.ReturnOrderBook;
 
 /**
  * Represents the in-memory model of the order book data.
@@ -20,25 +22,30 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final OrderBook orderBook;
+    private final ReturnOrderBook returnOrderBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Order> filteredOrders;
+    private final FilteredList<Order> filteredReturnOrders;
 
     /**
      * Initializes a ModelManager with the given orderBook and userPrefs.
      */
-    public ModelManager(ReadOnlyOrderBook orderBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyOrderBook orderBook, ReadOnlyReturnOrderBook returnOrderBook,
+                        ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(orderBook, userPrefs);
+        requireAllNonNull(orderBook, returnOrderBook, userPrefs);
 
         logger.fine("Initializing with order book: " + orderBook + " and user prefs " + userPrefs);
 
         this.orderBook = new OrderBook(orderBook);
+        this.returnOrderBook = new ReturnOrderBook(returnOrderBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOrders = new FilteredList<>(this.orderBook.getOrderList());
+        filteredReturnOrders = new FilteredList<>(this.returnOrderBook.getReturnOrderList());
     }
 
     public ModelManager() {
-        this(new OrderBook(), new UserPrefs());
+        this(new OrderBook(), new ReturnOrderBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -71,9 +78,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getReturnOrderBookFilePath() {
+        return userPrefs.getReturnOrderBookFilePath();
+    }
+
+    @Override
     public void setOrderBookFilePath(Path orderBookFilePath) {
         requireNonNull(orderBookFilePath);
         userPrefs.setOrderBookFilePath(orderBookFilePath);
+    }
+
+    @Override
+    public void setReturnOrderBookFilePath(Path returnOrderBookFilePath) {
+        requireNonNull(returnOrderBookFilePath);
+        userPrefs.setReturnOrderBookFilePath(returnOrderBookFilePath);
     }
 
     //=========== OrderBook ================================================================================
@@ -102,7 +120,7 @@ public class ModelManager implements Model {
     @Override
     public void addOrder(Order order) {
         orderBook.addOrder(order);
-        updateFilteredOrderList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
     @Override
@@ -111,6 +129,43 @@ public class ModelManager implements Model {
         orderBook.setOrder(target, editedOrder);
     }
 
+    //=========== ReturnOrderBook ================================================================================
+
+    @Override
+    public void setReturnOrderBook(ReadOnlyReturnOrderBook returnOrderBook) {
+        this.returnOrderBook.resetData(returnOrderBook);
+    }
+
+    @Override
+    public ReadOnlyReturnOrderBook getReturnOrderBook() {
+        return returnOrderBook;
+    }
+
+    @Override
+    public boolean hasReturnOrder(Order returnOrder) {
+        requireNonNull(returnOrder);
+        return returnOrderBook.hasReturnOrder(returnOrder);
+    }
+
+    @Override
+    public void deleteReturnOrder(Order target) {
+        returnOrderBook.removeReturnOrder(target);
+    }
+
+    @Override
+    public void addReturnOrder(Order returnOrder) {
+        returnOrderBook.addReturnOrder(returnOrder);
+        updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_ORDERS);
+    }
+
+    @Override
+    public void setReturnOrder(Order target, Order editedReturnOrder) {
+        requireAllNonNull(target, editedReturnOrder);
+
+        returnOrderBook.setReturnOrder(target, editedReturnOrder);
+    }
+
+    //=========== Filtered Order List Accessors =============================================================
     @Override
     public void deliverOrder(Order target) {
         orderBook.deliverOrder(target);
@@ -121,8 +176,6 @@ public class ModelManager implements Model {
         target.setDeliveryStatus(false);
         orderBook.setDeliveryStatus(target);
     }
-
-    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Order} backed by the internal list of
@@ -137,6 +190,23 @@ public class ModelManager implements Model {
     public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
+    }
+
+    //=========== Filtered Return Order List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Order} backed by the internal list of
+     * {@code versionedReturnOrderBook}
+     */
+    @Override
+    public ObservableList<Order> getFilteredReturnOrderList() {
+        return filteredReturnOrders;
+    }
+
+    @Override
+    public void updateFilteredReturnOrderList(Predicate<Order> predicate) {
+        requireNonNull(predicate);
+        filteredReturnOrders.setPredicate(predicate);
     }
 
     @Override
@@ -154,8 +224,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return orderBook.equals(other.orderBook)
+                && returnOrderBook.equals(other.returnOrderBook)
                 && userPrefs.equals(other.userPrefs)
-                && filteredOrders.equals(other.filteredOrders);
+                && filteredOrders.equals(other.filteredOrders)
+                && filteredReturnOrders.equals(other.filteredReturnOrders);
     }
 
 }

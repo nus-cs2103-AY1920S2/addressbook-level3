@@ -32,7 +32,7 @@ public class ParserUtilTest {
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_DELIVERY_TIMESTAMP = "2020-02-29 1350";
+    private static final String VALID_DELIVERY_TIMESTAMP = "2020-05-20 1500";
     private static final String VALID_WAREHOUSE_ADDRESS = "Goose Road, #01-93";
     private static final String VALID_COD = "$4";
     private static final String VALID_COMMENT = "Leave at outside";
