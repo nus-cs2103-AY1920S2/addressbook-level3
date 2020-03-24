@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
@@ -13,7 +14,7 @@ import csdev.couponstash.model.coupon.Coupon;
 /**
  * Archives a coupon.
  */
-public class ArchiveCommand extends Command{
+public class ArchiveCommand extends Command {
     public static final String COMMAND_WORD = "archive";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Archives the coupon identified by "
@@ -39,6 +40,10 @@ public class ArchiveCommand extends Command{
     public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model, commandText);
         List<Coupon> lastShownList = model.getFilteredCouponList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_COUPON_DISPLAYED_INDEX);
+        }
 
         Coupon couponToBeArchived = lastShownList.get(targetIndex.getZeroBased());
         Archived currentStateOfArchival = couponToBeArchived.getArchived();
