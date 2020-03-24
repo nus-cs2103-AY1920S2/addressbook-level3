@@ -68,8 +68,9 @@ public class EnterStallCommand extends Command {
             for (Stall s : stalls) {
                 if (s.getName().toString().equalsIgnoreCase(stallName.get())) {
                     ParserContext.setStallContext(s);
+                    //Might have 2 stalls from 2 canteens with same name
                     model.updateFilteredFoodList(f -> f.getStallName().equalsIgnoreCase(s.getName().toString())
-                            && f.getCanteen().equals(currentCanteenName)); //Might have 2 stalls from 2 canteens with same name
+                            && f.getCanteen().equals(currentCanteenName));
                     break;
                 }
             }
