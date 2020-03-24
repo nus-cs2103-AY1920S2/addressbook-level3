@@ -9,7 +9,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_COURSE = "Error: This course is not available";
     public static final String MESSAGE_INVALID_COURSE_FOCUS_AREA = "Error: This focus area is not available";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The profile index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_INVALID_MODULE = "Error: This module does not exist";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The profile index provided is invalid";
+    public static final String MESSAGE_INVALID_SEMESTER = "Error: No modules have been added to this semester";
 
 }
