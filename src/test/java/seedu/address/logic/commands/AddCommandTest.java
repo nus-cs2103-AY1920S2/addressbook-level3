@@ -108,6 +108,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getDiaryBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAddressBookFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
@@ -149,6 +154,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<DiaryEntry> getDiaryList() {
             throw new AssertionError("This method should not be called.");
         }
 

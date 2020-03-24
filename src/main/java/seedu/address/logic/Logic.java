@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.person.Person;
 
@@ -38,6 +39,14 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' diary book file path.
+     */
+    Path getDiaryBookFilePath();
+
+    /** Returns an unmodifiable view of list of diaries */
+    ObservableList<DiaryEntry> getDiaryList();
 
     /**
      * Returns the user prefs' GUI settings.

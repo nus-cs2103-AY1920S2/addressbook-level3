@@ -13,7 +13,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
-import seedu.address.logic.commands.DiaryLogCommand;
 import seedu.address.logic.commands.DiaryAddCommand;
 import seedu.address.logic.commands.DiaryLogCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -83,10 +82,10 @@ public class AddressBookParser {
 
         case DiaryLogCommand.COMMAND_WORD:
             return new DiaryLogCommand();
-            
+
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments);
-            
+
         case AddModuleCommand.COMMAND_WORD:
             return new AddModuleCommandParser().parse(arguments);
 

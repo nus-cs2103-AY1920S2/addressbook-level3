@@ -35,7 +35,10 @@
         </MenuBar>
             <TabPane prefHeight="600.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab fx:id="diaryTab" text="Diary" />
+                <Tab fx:id="diaryTab" text="Diary">
+                     <content>
+                        <StackPane fx:id="diaryListPanelPlaceholder" prefHeight="150.0" prefWidth="200.0" />
+                     </content></Tab>
                 <Tab fx:id="modPlanTab" text="Mod plan" />
                   <Tab fx:id="addBookTab" text="Add Book">
                      <content>

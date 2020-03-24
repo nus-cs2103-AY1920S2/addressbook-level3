@@ -28,6 +28,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final ObservableList<DiaryEntry> diaryEntries;
     private DiaryBook diaryBook;
     private final FilteredList<Notes> filesInFolder;
     private ModuleBook moduleBook;
@@ -44,6 +45,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        diaryEntries = this.addressBook.getDiaryList();
         diaryBook = new DiaryBook();
         filesInFolder = new FilteredList<>(Notes.getAllFilesInFolder());
         moduleBook = new ModuleBook();
@@ -124,7 +126,7 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
-  //=========== Diary Module ==================================================================================
+    //=========== Diary Module ==================================================================================
     @Override
     public void addDiaryEntry(DiaryEntry diaryEntry) {
         diaryBook.addEntry(diaryEntry);
@@ -140,8 +142,25 @@ public class ModelManager implements Model {
     public String showDiaryLog() {
         return diaryBook.showLog();
     }
-  
-  //=========== Cap Module ==================================================================================
+
+    @Override
+    public Path getDiaryBookFilePath() {
+        return userPrefs.getDiaryBookFilePath();
+    }
+
+    @Override
+    public ObservableList<DiaryEntry> getDiaryList() {
+        return diaryEntries;
+    }
+
+
+    //=========== Cap Module ==================================================================================
+
+    /**
+     * Dummy java docs
+     * @param
+     * @return
+     */
     public boolean hasModule(ModuleCode moduleCode) {
         return moduleBook.hasModule(moduleCode);
     }
