@@ -166,7 +166,7 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
-     * Removes a module from TA-Tracker.
+     * Removes module with same module code from TA-Tracker.
      */
     public void deleteModule(Module module) {
         for (int i = 0; i < sessions.size(); ++i) {
