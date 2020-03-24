@@ -82,6 +82,9 @@ public class UniquePersonList implements Iterable<Person> {
         currPerson.addAmount(amount);
     }
 
+    /**
+     * Removes {@code amount} from the current amount.
+     */
     public void removeAmount(Person person, Amount amount) {
         requireAllNonNull(person, amount);
         int index = internalList.indexOf(person);

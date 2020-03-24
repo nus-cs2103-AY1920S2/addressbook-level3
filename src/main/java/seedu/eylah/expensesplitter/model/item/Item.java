@@ -1,10 +1,12 @@
 package seedu.eylah.expensesplitter.model.item;
 
-import seedu.eylah.expensesplitter.model.person.Amount;
-
 import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+
+import seedu.eylah.expensesplitter.model.person.Amount;
+
+
 
 /**
  * Represents an Item in the Expense Splitter of EYLAH.
