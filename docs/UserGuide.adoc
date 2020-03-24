@@ -193,14 +193,14 @@ EYLAH will calculate the rest for you!
 Add item and the person involved in the splitting for that item.
 
 Format: +
-`addfood -i ITEMNAME -p PRICE -n ALL` +
-`addfood -i ITEMNAME -p PRICE -n NAME [-n NAME]...` +
+`additem -i ITEMNAME -p PRICE -n ALL` +
+`additem -i ITEMNAME -p PRICE -n NAME [-n NAME]...` +
 
 NOTE: Entering `ALL` will split that item with all Person(s) currently in PersonList.
 
 Example: +
-`addfood -i pizza -p 30 -n all` +
-`addfood -i pasta -p 19.90 -n john -n bob -n daniel`
+`additem -i pizza -p 30 -n all` +
+`additem -i pasta -p 19.90 -n john -n bob -n daniel`
 
 ==== Delete item  `deleteitem`
 Delete the item(s) in a receipt:
@@ -214,7 +214,7 @@ Use `listreceipt` to view your item indices before deletion.
 Example: +
 `deleteitem 3`
 
-==== List person(s) `listamount`
+==== List person's amount `listamount`
 
 Display all the Person(s) in the PersonList with the amount they owe you.
 
