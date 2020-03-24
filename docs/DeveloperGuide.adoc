@@ -785,6 +785,16 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: UC14 - Show statistics
+
+*MSS*
+
+1. User requests to see the statistics of orders.
+2. Delino opens a window that contains the statistics.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
@@ -1036,6 +1046,16 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    Expected: A list of commands will be displayed and the response box will indicate a successful command.
 .. Test case: Invalid syntax
    Expected: An error will occur and the response box will show an error message
+
+=== Show
+
+. Opens a window which shows the statistics of the current list of orders.
+
+.. Test case: `show` +
+   Expected: A new window will appear and it will show the earnings, orders delivered and the total
+number of orders the courier has to deliver today. There should be a PieChart displayed as well.
+.. Test case: Invalid syntax +
+   Expected: An error will occur and the response box will show an error message.
 
 === Obtain all nearby orders based on area or postal sector
 

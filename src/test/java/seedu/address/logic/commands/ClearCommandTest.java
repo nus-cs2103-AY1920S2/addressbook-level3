@@ -28,7 +28,8 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
-        assertCommandSuccess(new ClearCommand(null), model, new CommandResult(MESSAGE_ENQUIRY, false, false, true),
+        assertCommandSuccess(new ClearCommand(null), model,
+                new CommandResult(MESSAGE_ENQUIRY, false, false, true, false),
                 expectedModel);
     }
 

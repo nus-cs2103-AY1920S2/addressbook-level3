@@ -21,6 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ *
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -34,6 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private OrderListPanel orderListPanel;
     private ResultDisplay resultDisplay;
+    private ShowWindow showWindow;
     private HelpWindow helpWindow;
     private ClearWindow clearWindow;
 
@@ -191,6 +193,19 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the show window or focus on it if it the window is already opened.
+     */
+    @FXML
+    public void handleShowCommand() {
+        showWindow = new ShowWindow(logic);
+        if (!showWindow.isShowing()) {
+            showWindow.show();
+        } else {
+            showWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -230,6 +245,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isClearList()) {
                 handleClearWarning();
                 clearWindow.setComponent(resultDisplay);
+            }
+
+            if (commandResult.isDisplayEarnings()) {
+                handleShowCommand();
             }
 
             if (commandResult.isExit()) {

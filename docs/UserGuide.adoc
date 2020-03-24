@@ -210,6 +210,22 @@ Return delivery order with transaction ID of `asj2od3943`
 * `search` `-t` `920392844` +
 Return delivery order with transaction ID of `920392844`
 
+[[show]]
+=== Showing statistics : `show`
+
+==== Description
+* The statistics displayed will show information about the list of orders assigned to the courier.
+It allows courier to see how much earnings he/she has made in one day, number of orders delivered
+and the total number of orders to deliver today. There is a PieChart at the bottom that shows the percentage
+of delivered orders as compared to the undelivered ones.
+
+==== Format:
+* `show`
+
+==== Examples:
+* `show` +
+Open a window where it contains the statistics.
+
 [[help]]
 === Viewing help : `help`
 
@@ -473,6 +489,7 @@ e.g. `edit` `2` `n/Xuan En`
 * <<search, *Search*>> : `search` `flag` `KEYWORD` +
 e.g. `search` `-t` `ac1e345x7s`
 * <<help, *Help*>> : `help`
+* <<show, *Show*>> : `show`
 * <<import, *Import*>> : `import` `FILE_NAME` +
 e.g. `import` `orders.csv`
 * <<list, *List*>> : `list` `[DONE_STATUS]` +
