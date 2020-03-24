@@ -24,15 +24,19 @@ class UndoCommandTest {
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
-        Coupon validCoupon = new CouponBuilder().build();
-        model.addCoupon(validCoupon);
+
+        CouponBuilder couponBuilder = new CouponBuilder();
+        Coupon validCoupon = couponBuilder.build();
+        String commandText = "add " + couponBuilder.FULL_COMMAND_TEXT;
+
+        model.addCoupon(validCoupon, commandText);
 
         ModelManager expectedModel = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
 
-        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "add");
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, commandText);
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }
@@ -47,14 +51,14 @@ class UndoCommandTest {
                 .getFilteredCouponList()
                 .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
 
-        model.deleteCoupon(couponToDelete);
+        model.deleteCoupon(couponToDelete, "");
 
         ModelManager expectedModel = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
 
-        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "delete");
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "");
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }
@@ -68,14 +72,14 @@ class UndoCommandTest {
 
         Coupon editedCoupon = new CouponBuilder().build();
 
-        model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
+        model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
 
         ModelManager expectedModel = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
 
-        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "edit");
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "");
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }
@@ -87,14 +91,14 @@ class UndoCommandTest {
                 new UserPrefs()
         );
 
-        model.setCouponStash(new CouponStash());
+        model.setCouponStash(new CouponStash(), "");
 
         ModelManager expectedModel = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
 
-        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "clear");
+        String expectedMessage = String.format(UndoCommand.MESSAGE_SUCCESS, "");
 
         assertCommandSuccess(new UndoCommand(), model, expectedMessage, expectedModel);
     }

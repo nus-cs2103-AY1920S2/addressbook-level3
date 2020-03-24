@@ -36,7 +36,7 @@ public class SavedCommand extends Command {
      *     what you have saved in the future)
      */
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, String commandText) throws CommandException {
         ObservableList<Coupon> couponsList = model.getFilteredCouponList();
         StringBuilder moneySaved = new StringBuilder("You have saved ");
         // add the custom money symbol to the String

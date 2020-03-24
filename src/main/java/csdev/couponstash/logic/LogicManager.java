@@ -42,7 +42,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command = couponStashParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        commandResult = command.execute(model, commandText);
 
         try {
             storage.saveCouponStash(model.getCouponStash());

@@ -16,7 +16,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_NO_STATE_TO_UNDO_TO = "No commands to undo";
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
 
         if (!model.canUndoCouponStash()) {

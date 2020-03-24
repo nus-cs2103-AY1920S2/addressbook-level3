@@ -25,16 +25,16 @@ class RedoCommandTest {
                 new UserPrefs()
         );
         Coupon validCoupon = new CouponBuilder().build();
-        model.addCoupon(validCoupon);
+        model.addCoupon(validCoupon, "");
         model.undoCouponStash();
 
         ModelManager expectedModel = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
-        expectedModel.addCoupon(validCoupon);
+        expectedModel.addCoupon(validCoupon, "");
 
-        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "add");
+        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "");
 
         assertCommandSuccess(new RedoCommand(), model, expectedMessage, expectedModel);
     }
@@ -49,16 +49,16 @@ class RedoCommandTest {
                 .getFilteredCouponList()
                 .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
 
-        model.deleteCoupon(couponToDelete);
+        model.deleteCoupon(couponToDelete, "");
         model.undoCouponStash();
 
         ModelManager expectedModel = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
-        expectedModel.deleteCoupon(couponToDelete);
+        expectedModel.deleteCoupon(couponToDelete, "");
 
-        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "delete");
+        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "");
 
         assertCommandSuccess(new RedoCommand(), model, expectedMessage, expectedModel);
     }
@@ -72,7 +72,7 @@ class RedoCommandTest {
 
         Coupon editedCoupon = new CouponBuilder().build();
 
-        model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
+        model.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
         model.undoCouponStash();
 
         ModelManager expectedModel = new ModelManager(
@@ -80,10 +80,10 @@ class RedoCommandTest {
                 new UserPrefs()
         );
         expectedModel.setCoupon(
-                model.getFilteredCouponList().get(0), editedCoupon
+                model.getFilteredCouponList().get(0), editedCoupon, ""
         );
 
-        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "edit");
+        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "");
 
         assertCommandSuccess(new RedoCommand(), model, expectedMessage, expectedModel);
     }
@@ -95,16 +95,16 @@ class RedoCommandTest {
                 new UserPrefs()
         );
 
-        model.setCouponStash(new CouponStash());
+        model.setCouponStash(new CouponStash(), "");
         model.undoCouponStash();
 
         ModelManager expectedModel = new ModelManager(
                 TypicalCoupons.getTypicalCouponStash(),
                 new UserPrefs()
         );
-        expectedModel.setCouponStash(new CouponStash());
+        expectedModel.setCouponStash(new CouponStash(), "");
 
-        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "clear");
+        String expectedMessage = String.format(RedoCommand.MESSAGE_SUCCESS, "");
 
         assertCommandSuccess(new RedoCommand(), model, expectedMessage, expectedModel);
     }

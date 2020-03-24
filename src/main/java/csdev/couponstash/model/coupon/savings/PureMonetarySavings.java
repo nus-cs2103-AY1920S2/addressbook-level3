@@ -3,6 +3,7 @@ package csdev.couponstash.model.coupon.savings;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import csdev.couponstash.model.coupon.exceptions.InvalidSavingsException;
@@ -37,6 +38,7 @@ public class PureMonetarySavings extends Savings {
      * represents no money saved (MonetaryAmount
      * wil be set to 0), but contains certain
      * Saveables (this will be stored as usual)
+     *
      * @param saveables The saveables to be stored
      *                  as Savings.
      */
@@ -57,6 +59,7 @@ public class PureMonetarySavings extends Savings {
      * MonetaryAmount and Saveables will not be cloned, as they
      * are immutable. But the Saveables List will be cloned.
      * Assumes pms is a valid PureMonetarySavings.
+     *
      * @param pms The PureMonetarySavings to be cloned.
      */
     public PureMonetarySavings(PureMonetarySavings pms) {
@@ -68,11 +71,12 @@ public class PureMonetarySavings extends Savings {
      * PureMonetarySavings that takes into account
      * monetary amounts in both PureMonetarySavings,
      * as well as the Saveable items.
+     *
      * @param pms The other PureMonetarySavings to be
      *            combined with this PureMonetarySavings.
      * @return Returns a new PureMonetarySavings that adds the
-     *     monetary amounts, and contains all the Saveables
-     *     from both PureMonetarySavings.
+     * monetary amounts, and contains all the Saveables
+     * from both PureMonetarySavings.
      */
     public PureMonetarySavings add(PureMonetarySavings pms) {
         MonetaryAmount newAmount = new MonetaryAmount(
@@ -107,8 +111,9 @@ public class PureMonetarySavings extends Savings {
     /**
      * Gets the double value of monetary savings
      * that is represented by this PureMonetarySavings.
+     *
      * @return Double representing all the money
-     *     saved in this PureMonetarySavings.
+     * saved in this PureMonetarySavings.
      */
     public double getMonetaryAmountAsDouble() {
         if (!super.hasMonetaryAmount()) {
@@ -124,14 +129,36 @@ public class PureMonetarySavings extends Savings {
      * Gets the List of all Saveables represented in
      * this PureMonetarySavings. If there are no items,
      * it returns an empty list.
+     *
      * @return List representing all Saveables in this
-     *     PureMonetarySavings (can be empty)
+     * PureMonetarySavings (can be empty)
      */
     public List<Saveable> getListOfSaveables() {
         if (super.hasSaveables()) {
             return super.getSaveables().get();
         } else {
             return new ArrayList<Saveable>();
+        }
+    }
+
+    /**
+     * Make a new copy of current PureMonetarySavings
+     *
+     * @return a copy of the current PureMonetarySavings
+     */
+    public PureMonetarySavings copy() {
+        Optional<MonetaryAmount> monetaryAmountCopy =
+                getMonetaryAmount().map(x -> new MonetaryAmount(x.getValue()));
+        Optional<List<Saveable>> savablesCopy = getSaveables().map(x -> new ArrayList<>(x));
+
+        if (monetaryAmountCopy.isEmpty() && savablesCopy.isEmpty()) {
+            return new PureMonetarySavings();
+        } else if (monetaryAmountCopy.isEmpty()) {
+            return new PureMonetarySavings(savablesCopy.get());
+        } else if (savablesCopy.isEmpty()) {
+            return new PureMonetarySavings(monetaryAmountCopy.get());
+        } else {
+            return new PureMonetarySavings(monetaryAmountCopy.get(), savablesCopy.get());
         }
     }
 }

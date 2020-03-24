@@ -38,6 +38,17 @@ public class DateSavingsSumMap extends HashMap<LocalDate, PureMonetarySavings> {
     }
 
     /**
+     * Private constructor facilitating copy of HashMap
+     * @param map current map DateSavingsSumMapToCopy
+     */
+    private DateSavingsSumMap(DateSavingsSumMap map) {
+        super();
+        for (LocalDate key : map.keySet()) {
+            this.add(key, map.get(key).copy());
+        }
+    }
+
+    /**
      * Associates the specified LocalDate with the specified
      * PureMonetarySavings in this DateSavingsSumMap. The old
      * savings value will never be replaced, but instead
@@ -74,5 +85,13 @@ public class DateSavingsSumMap extends HashMap<LocalDate, PureMonetarySavings> {
     public void addAll(Map<? extends LocalDate, ? extends PureMonetarySavings> m) {
         requireNonNull(m);
         m.forEach(this::add);
+    }
+
+    /**
+     * Copies current DateSavingsSumMap
+     * @return copy of current DateSavingsSumMap
+     */
+    public DateSavingsSumMap copy() {
+        return new DateSavingsSumMap(this);
     }
 }

@@ -70,7 +70,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
@@ -91,7 +91,7 @@ public class EditCommand extends Command {
             throw new CommandException(String.format(MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsage));
         }
 
-        model.setCoupon(couponToEdit, editedCoupon);
+        model.setCoupon(couponToEdit, editedCoupon, commandText);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
         return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon));
     }

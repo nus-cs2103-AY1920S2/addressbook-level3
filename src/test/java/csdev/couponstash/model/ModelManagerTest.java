@@ -84,7 +84,7 @@ public class ModelManagerTest {
 
     @Test
     public void hasCoupon_couponInStash_returnsTrue() {
-        modelManager.addCoupon(ALICE);
+        modelManager.addCoupon(ALICE, "");
         assertTrue(modelManager.hasCoupon(ALICE));
     }
 
