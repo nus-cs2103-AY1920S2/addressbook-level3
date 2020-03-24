@@ -47,11 +47,6 @@ public class ReturnCommandParser implements Parser<ReturnCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReturnCommand.MESSAGE_USAGE));
         }
-
-        if (arePrefixesPresent(argMultimap, PREFIX_TID) && !arePrefixesPresent(argMultimap, PREFIX_NAME,
-                PREFIX_ADDRESS, PREFIX_RETURN_TIMESTAMP, PREFIX_WAREHOUSE, PREFIX_EMAIL)) {
-
-        }
         TransactionId tid = ParserUtil.parseTid(argMultimap.getValue(PREFIX_TID).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());

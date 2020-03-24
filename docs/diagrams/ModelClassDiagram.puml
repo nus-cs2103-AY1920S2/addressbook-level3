@@ -1,71 +1,83 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor MODEL_COLOR
+skinparam arrowColor 123456
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyOrderBook <<Interface>>
+Interface ReadOnlyReturnOrderBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class OrderBook
+Class ReturnOrderBook
 Class ReadOnlyOrderBook
+Class ReadOnlyReturnOrderBook
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Order {
+Package Parcel {
+Class "{abstract}\nParcel" as Parcel
+Class ReturnOrder
 Class Order
 Class TransactionId
 Class Address
 Class Name
 Class Phone
-Class CashOnDelivery
-Class UniqueOrderList
 Class Warehouse
 Class TimeStamp
 }
 
-Package TypeOfItem {
+Class Comment
 Class TypeOfItem
+Class CashOnDelivery
+
+Package ReturnOrder {
+Class ReturnOrder
+Class UniqueReturnOrderList
 }
 
-Package Comment {
-Class Comment
-}
+Package Order {
+Class UniqueOrderList
+Class Order
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 OrderBook .up.|> ReadOnlyOrderBook
-
+ReturnOrderBook .up.|> ReadOnlyReturnOrderBook
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" OrderBook
+ModelManager o--> "1" ReturnOrderBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
-
-OrderBook *--> "1" UniqueOrderList
-UniqueOrderList o--> "*" Order
-Order *--> TransactionId
-Order *--> CashOnDelivery
-Order *--> Name
-Order *--> Phone
-Order *--> Address
-Order *--> TypeOfItem
-Order *--> Warehouse
-Order *--> Comment
-Order *--> TimeStamp
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> TimeStamp
-Order -[hidden]left-> Comment
+Order -[hidden]right-> Comment
 TimeStamp -[hidden]right-> Warehouse
 Warehouse -[hidden]right-> TransactionId
 TransactionId -[hidden]right-> CashOnDelivery
+TypeOfItem -[hidden]right-> Comment
 
-ModelManager -->"1" Order : filtered list
+Order --|> Parcel
+ReturnOrder --|> Parcel
+
+OrderBook *--> "1" UniqueReturnOrderList
+UniqueOrderList o--> "*" Order
+Order --> TypeOfItem
+ReturnOrder --> TypeOfItem
+Order --> Comment
+ReturnOrder --> Comment
+Order --> CashOnDelivery
+
+ReturnOrderBook *-> "1" UniqueReturnOrderList
+UniqueReturnOrderList o--> "*" ReturnOrder
+
+ModelManager -->"1" Order : filtered
 @enduml

@@ -52,26 +52,6 @@ public class DoneCommand extends Command {
         this.doneOrderDescriptor = new DoneOrderDescriptor(doneOrderDescriptor);
     }
 
-    /*@Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Order> lastShownList = model.getFilteredOrderList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ORDER_DISPLAYED_INDEX);
-        }
-
-        Order orderToBeDelivered = lastShownList.get(targetIndex.getZeroBased());
-        if (orderToBeDelivered.isDelivered() == false) {
-            model.deliverOrder(orderToBeDelivered);
-            model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_DELIVERED_SUCCESS, orderToBeDelivered));
-        } else {
-            model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_ORDER_ALREADY_DELIVERED, orderToBeDelivered));
-        }
-    }*/
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -85,7 +65,6 @@ public class DoneCommand extends Command {
         Order editedOrder = createEditedOrder(orderToBeDelivered, doneOrderDescriptor);
 
         if (orderToBeDelivered.isDelivered() == false) {
-
             model.setOrder(orderToBeDelivered, editedOrder);
             model.deliverOrder(editedOrder);
             model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
