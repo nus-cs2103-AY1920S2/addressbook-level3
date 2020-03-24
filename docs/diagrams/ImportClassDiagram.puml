@@ -1,0 +1,33 @@
+@startuml
+class ImportCommandParser implements Parser {
+    /' Methods '/
+    + {static} parse(args : String) : ImportCommand
+}
+
+interface Parser<T> {
+    parse(userInput : String) : ImportCommand
+}
+
+abstract class Command {
+    {abstract} execute(Model model) : CommandResult
+}
+
+class ImportCommand extends Command {
+    /' Fields '/
+    + {static} OT_RETURN : String
+    + {static} OT_ORDER : String
+    + {static} COMMAND_WORD : String
+    + {static} MESSAGE_USAGE : String
+    - ordersData : List<String>
+    - invalidCounter : int
+    - processedOrderCounter : int
+    - processedReturnOrderCounter : int
+    - duplicateCounter : int
+
+    /' Methods '/
+    + execute(model : Model) : CommandResult
+    + equals(Object other) : boolean
+    - printResult() : String
+}
+
+@enduml
