@@ -1,6 +1,5 @@
 package com.notably.logic.parser;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,6 +12,7 @@ import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.model.Model;
 
 /**
  * Parse in users input and generate the respective Commands
@@ -21,6 +21,11 @@ public class NotablyParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    private Model notablyModel;
+
+    public NotablyParser(Model notablyModel) {
+        this.notablyModel = notablyModel;
+    }
     /**
      * Create list of different Commands base on user input.
      * @param userInput supplied by the user.
@@ -37,26 +42,22 @@ public class NotablyParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case NewCommand.COMMAND_WORD:
-            return new NewCommandParser().parse(arguments);
+            return new NewCommandParser(notablyModel).parse(arguments);
 
         case OpenCommand.COMMAND_WORD:
-            return new OpenCommandParser().parse(arguments);
+            return new OpenCommandParser(notablyModel).parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeleteCommandParser(notablyModel).parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
-            List<Command> helpCommand = new ArrayList<>();
-            helpCommand.add(new HelpCommand());
-            return helpCommand;
+            return List.of(new HelpCommand());
 
         case ExitCommand.COMMAND_WORD:
-            List<Command> exitCommand = new ArrayList<>();
-            exitCommand.add(new ExitCommand());
-            return exitCommand;
+            return List.of(new ExitCommand());
 
         default:
             throw new ParseException("Invalid Command");

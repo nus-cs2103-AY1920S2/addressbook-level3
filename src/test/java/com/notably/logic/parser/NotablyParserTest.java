@@ -3,18 +3,60 @@ package com.notably.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
-
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.notably.commons.core.path.AbsolutePath;
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.model.Model;
+import com.notably.model.ModelManager;
+import com.notably.model.block.BlockImpl;
+import com.notably.model.block.BlockModel;
+import com.notably.model.block.BlockModelImpl;
+import com.notably.model.block.Title;
+import com.notably.model.suggestion.SuggestionModel;
+import com.notably.model.suggestion.SuggestionModelImpl;
+import com.notably.model.viewstate.ViewStateModel;
+import com.notably.model.viewstate.ViewStateModelImpl;
 
 
 public class NotablyParserTest {
-    private final NotablyParser parser = new NotablyParser();
+
+    private static AbsolutePath toBlock;
+    private static AbsolutePath toAnother;
+    private static AbsolutePath toAnotherBlock;
+    private static Model model;
+    private static NotablyParser parser;
+
+    @BeforeAll
+    public static void setUp() {
+        // Set up paths
+        toBlock = AbsolutePath.fromString("/block");
+        toAnother = AbsolutePath.fromString("/another");
+        toAnotherBlock = AbsolutePath.fromString("/another/block");
+
+        // Set up model
+        BlockModel blockModel = new BlockModelImpl();
+        SuggestionModel suggestionModel = new SuggestionModelImpl();
+        ViewStateModel viewStateModel = new ViewStateModelImpl();
+        model = new ModelManager(blockModel, suggestionModel, viewStateModel);
+
+        // Populate model with test data
+        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
+        model.addBlockToCurrentPath(new BlockImpl(new Title("another")));
+
+        model.setCurrentlyOpenBlock(toAnother);
+        model.addBlockToCurrentPath(new BlockImpl(new Title("block")));
+        model.addBlockToCurrentPath(new BlockImpl(new Title("CS2103")));
+        model.addBlockToCurrentPath(new BlockImpl(new Title("toAnother")));
+
+        parser = new NotablyParser(model);
+    }
+
 
     @Test
     public void parseCommand_newCommandInput_newCommand() throws Exception {
@@ -45,7 +87,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_deleteCommandInput_deleteCommand() throws Exception {
-        Command command = parser.parseCommand("delete -t CS2103").get(0);
+        Command command = parser.parseCommand("delete -t block").get(0);
 
         assertTrue(command instanceof DeleteCommand);
     }
