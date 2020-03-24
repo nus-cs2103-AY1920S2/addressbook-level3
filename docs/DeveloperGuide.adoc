@@ -158,7 +158,8 @@ This section describes some noteworthy details on how certain features are imple
 ==== Proposed implementation
 
 The schedule visualiser is facilitated by the implemented `SchoolworkTracker`. The main purpose of the `SchoolworkTracker` is to allow users to keep track of all their assignments and deadlines so that they do not accidentally overlook any of them. The main components of the `SchoolworkTracker` are as shown in the following class diagram.
-image::StClassDiagram.png[]
+
+image::stClassDiagram.png[]
 
 This feature enhances the basic form of the `SchoolworkTracker` by allowing a user to get a better sense of their current commitments and workload so that they can better manage their time to pursue other social events and hang out with friends.
 It utilises the existing `Assignments` stored in the `AssignmentList` of the `SchoolworkTracker`. Additionally, it implements the following operations:
@@ -170,17 +171,20 @@ Given below is an example usage scenario of how the schedule visualizer behaves 
 Step 1. The user launches the application for the first time. The `SchoolworkTracker` will be initialized with the initial state, which is an empty list.
 
 Step 2. The user executes the add assignment command [(st)add n/… d/… e/…] to add the following assignments to the Schoolwork Tracker.
-image::StFilledList.png[]
+
+image::stFilledList.png[]
 
 Step 3. Today is 23 March 2020 and the user wants to see how busy he is and whether he has time to go out with his friends in the next five days while still being able to complete his assignments on time.
 
 The following sequence diagram below shows how the schedule visualisation operation works.
-image::StScheduleSequenceDiagram.png[]
+
+image::stScheduleSequenceDiagram.png[]
 
 Step 4. Based on the results obtained from the schedule command, the user can then decide on how to best plan his outing with his friends.
 
 A sample result of the schedule command is as follows:
-image::StScheduleResult.png[]
+
+image::stScheduleResult.png[]
 
 ==== Design Considerations
 ===== Aspect: How the expected work hours per day is to be calculated.
