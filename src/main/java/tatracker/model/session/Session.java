@@ -202,6 +202,9 @@ public class Session implements Comparable<Session> {
         return isSameSession(otherSession);
     }
 
+    /**
+     * Compare Sessions based on the session that will occur first.
+     */
     @Override
     public int compareTo(Session other) {
         return getDate().compareTo(other.getDate());
