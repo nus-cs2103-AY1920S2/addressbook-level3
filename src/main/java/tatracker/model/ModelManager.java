@@ -161,16 +161,12 @@ public class ModelManager implements Model {
 
     @Override
     public void sortModulesAlphabetically() {
-        for(int i = 0; i < filteredModules.size(); ++i) {
-            filteredModules.get(i).sortGroupsAlphabetically();
-        }
+        taTracker.sortModulesAlphabetically();;
     }
 
     @Override
     public void sortModulesByRating() {
-        for(int i = 0; i < filteredModules.size(); ++i) {
-            filteredModules.get(i).sortGroupsByRating();
-        }
+        taTracker.sortModulesByRating();
     }
 
     //=========== Filtered Student List Accessors =============================================================

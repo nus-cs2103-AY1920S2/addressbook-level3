@@ -191,6 +191,24 @@ public class TaTracker implements ReadOnlyTaTracker {
     }
 
     /**
+     * Sorts modules alphabetically.
+     */
+    public void sortModulesAlphabetically() {
+        for (int i = 0; i < modules.size(); ++i) {
+            modules.get(i).sortGroupsAlphabetically();
+        }
+    }
+
+    /**
+     * Sorts modules by rating.
+     */
+    public void sortModulesByRating() {
+        for (int i = 0; i < modules.size(); ++i) {
+            modules.get(i).sortGroupsByRating();
+        }
+    }
+
+    /**
      * Removes {@code key} from this {@code TaTracker}.
      * {@code key} must exist in the ta-tracker.
      */

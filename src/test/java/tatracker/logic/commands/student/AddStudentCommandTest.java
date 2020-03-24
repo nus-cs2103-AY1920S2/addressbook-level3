@@ -213,6 +213,16 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void sortModulesAlphabetically() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortModulesByRating() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Module> getFilteredModuleList() {
             throw new AssertionError("This method should not be called.");
         }
