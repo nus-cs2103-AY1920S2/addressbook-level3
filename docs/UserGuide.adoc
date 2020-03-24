@@ -68,21 +68,11 @@ Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
 ****
 * `g/GRADE` is optional
-<<<<<<< HEAD
 * `y/SEMESTER_INDEX` must be in the format `y/INTEGER` (eg. A module taken in Year 2 Semester 1 will be y/3)
 ****
 
 2) Adds a deadline to a module in the manager +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE] t/TASK d/DEADLINE` +
-=======
-****
-
-2) Adds a task to a module in the manager +
-If the module is new, +
-Format: `add m/MODULE y/SEMESTER_TAKEN [g/GRADE] t/TASK d/DEADLINE` +
-If the module is existing, +
-Format: `add m/MODULE y/SEMESTER_TAKEN t/TASK d/DEADLINE`
->>>>>>> eaba13b07fbb6aeb2d184749b34370ca245847fd
 
 ****
 * Module must exist in the manager before a deadline can be added
@@ -92,15 +82,11 @@ Format: `add m/MODULE y/SEMESTER_TAKEN t/TASK d/DEADLINE`
 
 Examples:
 
-<<<<<<< HEAD
-* `add m/CS2105 y/3 g/A+`
-* `add m/CS2107 y/3 t/Assignment d/2020-03-31 23:59`
-=======
 * `add m/CS2105 y/3 g/A+` +
 Adds CS2105 to the list of modules in the MODdy profile with the attributes semester taken (3) and grade (A+)
 * `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59` +
 Adds a deadline "Assignment" with its deadline "2020-03-31 23:59" to the existing module CS2105
->>>>>>> eaba13b07fbb6aeb2d184749b34370ca245847fd
+
 
 
 === Editing a module : `edit`
