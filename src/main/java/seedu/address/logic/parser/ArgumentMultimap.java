@@ -1,5 +1,16 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELIVERY_TIMESTAMP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_WAREHOUSE;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -70,5 +81,45 @@ public class ArgumentMultimap {
             allPrefixValues.addAll(perPrefixValues);
         }
         return allPrefixValues;
+    }
+
+    public boolean getHasTid() {
+        return argMultimap.containsKey(PREFIX_TID);
+    }
+
+    public boolean getHasName() {
+        return argMultimap.containsKey(PREFIX_NAME);
+    }
+
+    public boolean getHasPhone() {
+        return argMultimap.containsKey(PREFIX_PHONE);
+    }
+
+    public boolean getHasAddress() {
+        return argMultimap.containsKey(PREFIX_ADDRESS);
+    }
+
+    public boolean getHasTimeStamp() {
+        return argMultimap.containsKey(PREFIX_DELIVERY_TIMESTAMP);
+    }
+
+    public boolean getHasWarehouse() {
+        return argMultimap.containsKey(PREFIX_WAREHOUSE);
+    }
+
+    public boolean getHasCod() {
+        return argMultimap.containsKey(PREFIX_COD);
+    }
+
+    public boolean getHasComment() {
+        return argMultimap.containsKey(PREFIX_COMMENT);
+    }
+
+    public boolean getHasItemType() {
+        return argMultimap.containsKey(PREFIX_TYPE);
+    }
+
+    public boolean getHasEmail() {
+        return argMultimap.containsKey(PREFIX_EMAIL);
     }
 }

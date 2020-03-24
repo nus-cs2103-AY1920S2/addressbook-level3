@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.parser.ArgumentMultimap;
 
 /**
  * Tests that a {@code Order}'s {@code TransactionId}, {@code Name}, {@code Phone}, {@code Address}, {@code TimeStamp},
@@ -11,19 +12,19 @@ import seedu.address.commons.util.StringUtil;
  */
 public class OrderContainsKeywordsPredicate implements Predicate<Order> {
     private final List<String> keywords;
-    private final KeywordContainsOrderPrefix keywordContainsOrderPrefix;
+    private final ArgumentMultimap argumentMultimap;
     private boolean isGeneralSearch = true;
 
 
     public OrderContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
-        this.keywordContainsOrderPrefix = new KeywordContainsOrderPrefix();
+        this.argumentMultimap = new ArgumentMultimap();
     }
 
     public OrderContainsKeywordsPredicate(List<String> keywords,
-                                          KeywordContainsOrderPrefix keywordContainsOrderPrefix) {
+                                          ArgumentMultimap argumentMultimap) {
         this.keywords = keywords;
-        this.keywordContainsOrderPrefix = keywordContainsOrderPrefix;
+        this.argumentMultimap = argumentMultimap;
         this.isGeneralSearch = false;
     }
 
@@ -45,24 +46,26 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
         }
         return keywords.stream()
             .anyMatch(keyword -> ((
-                keywordContainsOrderPrefix.getHasTid()
+                argumentMultimap.getHasTid()
                     && StringUtil.containsWordIgnoreCase(order.getTid().tid, keyword))
-                || (keywordContainsOrderPrefix.getHasName()
+                || (argumentMultimap.getHasName()
                     && StringUtil.containsWordIgnoreCase(order.getName().fullName, keyword))
-                || (keywordContainsOrderPrefix.getHasPhone()
+                || (argumentMultimap.getHasPhone()
                     && StringUtil.containsWordIgnoreCase(order.getPhone().value, keyword))
-                || (keywordContainsOrderPrefix.getHasAddress()
+                || (argumentMultimap.getHasAddress()
                     && StringUtil.containsWordIgnoreCase(order.getAddress().value, keyword))
-                || (keywordContainsOrderPrefix.getHasTimeStamp()
+                || (argumentMultimap.getHasTimeStamp()
                     && StringUtil.containsWordIgnoreCase(order.getTimestamp().value, keyword))
-                || (keywordContainsOrderPrefix.getHasWarehouse()
+                || (argumentMultimap.getHasWarehouse()
                     && StringUtil.containsWordIgnoreCase(order.getWarehouse().address, keyword))
-                || (keywordContainsOrderPrefix.getHasComment()
+                || (argumentMultimap.getHasComment()
                     && StringUtil.containsWordIgnoreCase(order.getComment().commentMade, keyword))
-                || (keywordContainsOrderPrefix.getHasCod()
+                || (argumentMultimap.getHasCod()
                     && StringUtil.containsWordIgnoreCase(order.getCash().cashOnDelivery, keyword))
-                || (keywordContainsOrderPrefix.getHasItemType()
+                || (argumentMultimap.getHasItemType()
                     && StringUtil.containsWordIgnoreCase(order.getItemType().itemType, keyword))
+                || (argumentMultimap.getHasEmail()
+                    && StringUtil.containsWordIgnoreCase(order.getEmail().value, keyword))
             ));
     }
 
