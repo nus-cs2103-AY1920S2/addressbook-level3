@@ -7,8 +7,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
 
+/**
+ * Dummy java docs.
+ */
 public class DiaryAddCommand extends Command {
 
+    /**
+     * Dummy java docs.
+     */
     public static final String COMMAND_WORD = "diaryAdd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Allows for adding diary entries "

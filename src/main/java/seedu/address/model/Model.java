@@ -46,6 +46,11 @@ public interface Model {
     Path getAddressBookFilePath();
 
     /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getDiaryBookFilePath();
+
+    /**
      * Sets the user prefs' address book file path.
      */
     void setAddressBookFilePath(Path addressBookFilePath);
@@ -92,11 +97,13 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
     //=========== Diary Module ==================================================================================
     boolean isEmptyDiaryEntry(DiaryEntry diaryEntry);
-  
+
     void addDiaryEntry(DiaryEntry diaryEntry);
-  
+
     String showDiaryLog();
-  
+
+    ObservableList<DiaryEntry> getDiaryList();
+
     //=========== Notes Module ==================================================================================
     /** Returns an list of String that contains what is currently in the folder */
     ObservableList<Notes> getFilesInFolderList();
