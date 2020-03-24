@@ -13,13 +13,6 @@ public class HelpSuggestionCommand implements SuggestionCommand {
     private static final String COMMAND_WORD = "help";
     private static final String RESPONSE_MESSAGE = "Display a list of available commands";
 
-    private AbsolutePath path;
-
-    public HelpSuggestionCommand(AbsolutePath path) {
-        Objects.requireNonNull(path);
-        this.path = path;
-    }
-
     @Override
     public void execute(Model model) {
         // Nullity check
