@@ -22,7 +22,7 @@ public class ReturnOrderBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@example.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_TIMESTAMP = "2020-02-20 1500";
+    public static final String DEFAULT_TIMESTAMP = "2020-05-20 1500";
     public static final String DEFAULT_WAREHOUSE = "5 Toh Guan Rd E, #02-30 S608831";
     public static final String DEFAULT_COD = "$3";
     public static final String DEFAULT_COMMENT = "NIL";

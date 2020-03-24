@@ -33,7 +33,7 @@ public class TypicalReturnOrders {
             .withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111")
             .withEmail("example@example.com")
-            .withTimeStamp("2020-02-20 1500")
+            .withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
             .withPhone("94351253")
             .withItemType("glass").build();
@@ -42,37 +42,37 @@ public class TypicalReturnOrders {
             .withAddress("311, Clementi Ave 2, #02-25")
             .withName("Benson Meier")
             .withEmail("example@example.com")
-            .withTimeStamp("2020-02-20 1500")
+            .withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831")
             .withPhone("98765432")
             .build();
     public static final ReturnOrder CARL_RETURN = new ReturnOrderBuilder().withTid("C8483883").withName("Carl Kurz")
             .withEmail("example@example.com").withPhone("95352563").withAddress("wall street")
-            .withTimeStamp("2020-02-20 1500").withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
+            .withTimeStamp("2020-05-20 1500").withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
     public static final ReturnOrder DANIEL_RETURN = new ReturnOrderBuilder().withTid("D93939393")
             .withName("Daniel Meier")
-            .withPhone("87652533").withAddress("10th street").withTimeStamp("2020-02-20 1500")
+            .withPhone("87652533").withAddress("10th street").withTimeStamp("2020-05-20 1500")
             .withEmail("example@example.com").withWarehouse("5 Toh Guan Rd E, #02-30 S608831").withItemType("bottle")
             .build();
     public static final ReturnOrder ELLE_RETURN = new ReturnOrderBuilder().withTid("E939393")
             .withName("Elle Meyer").withPhone("9482224").withEmail("example@example.com")
-            .withAddress("michegan ave").withTimeStamp("2020-02-20 1500")
+            .withAddress("michegan ave").withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
     public static final ReturnOrder FIONA_RETURN = new ReturnOrderBuilder().withTid("F01010101")
             .withName("Fiona Kunz").withPhone("9482427").withEmail("example@example.com")
-            .withAddress("little tokyo").withTimeStamp("2020-02-20 1500")
+            .withAddress("little tokyo").withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").build();
     public static final ReturnOrder GEORGE_RETURN = new ReturnOrderBuilder().withTid("G9999").withName("George Best")
-            .withPhone("9482442").withAddress("4th street").withTimeStamp("2020-02-20 1500")
+            .withPhone("9482442").withAddress("4th street").withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").withItemType("drinks").withEmail("example@example.com")
             .build();
 
     // Manually added
     public static final ReturnOrder HOON_RETURN = new ReturnOrderBuilder().withTid("H111111").withName("Hoon Meier")
-            .withPhone("8482424").withAddress("little india").withTimeStamp("2020-02-20 1500")
+            .withPhone("8482424").withAddress("little india").withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").withEmail("example@example.com").build();
     public static final ReturnOrder IDA_RETURN = new ReturnOrderBuilder().withTid("I0000").withName("Ida Mueller")
-            .withPhone("8482131").withAddress("chicago ave").withTimeStamp("2020-02-20 1500")
+            .withPhone("8482131").withAddress("chicago ave").withTimeStamp("2020-05-20 1500")
             .withWarehouse("5 Toh Guan Rd E, #02-30 S608831").withEmail("example@example.com").build();
 
     // Manually added - Order's details found in {@code CommandTestUtil}
