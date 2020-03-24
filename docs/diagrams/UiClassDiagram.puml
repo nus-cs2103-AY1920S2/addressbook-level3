@@ -6,15 +6,15 @@ skinparam classBackgroundColor UI_COLOR
 
 package VIEW <<Rectangle>>{
 Interface View <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
-Class UiManager
+Class "{abstract}\nViewPart" as ViewPart
+Class ViewManager
 Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class SuggestionsList
+Class HelpModal
+Class SideBarTree
 Class StatusBarFooter
 Class CommandBox
+Class BlockContent
 }
 
 package Model <<Rectangle>> {
@@ -28,33 +28,36 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> View
 
-UiManager .left.|> View
-UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+ViewManager .left.|> View
+ViewManager -down-> MainWindow
+MainWindow *-down-> SuggestionsList
 MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> HelpModal
+MainWindow *-down-> SideBarTree
 MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> BlockContent
 
-PersonListPanel -down-> PersonCard
+MainWindow ----|> ViewPart
 
-MainWindow -left-|> UiPart
+HelpModal --|> ViewPart
+CommandBox --|> ViewPart
+SideBarTree --|> ViewPart
+StatusBarFooter --|> ViewPart
+SuggestionsList -down-|> ViewPart
+BlockContent --|> ViewPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
-
-PersonCard ..> Model
-UiManager -right-> Logic
+SideBarTree .left...> Model
+BlockContent .down..> Model
+SuggestionsList ....> Model
+ViewManager -right-> Logic
 MainWindow -left-> Logic
+MainWindow -left-> Model
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+SideBarTree -[hidden]left- SuggestionsList
+SuggestionsList -[hidden]left- CommandBox
+CommandBox -[hidden]left- HelpModal
+HelpModal -[hidden]left- StatusBarFooter
+BlockContent -[hidden]left-SideBarTree
 
-MainWindow -[hidden]-|> UiPart
+MainWindow -[hidden]-|> ViewPart
 @enduml
