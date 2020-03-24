@@ -164,4 +164,11 @@ public interface Model {
     boolean hasAssignment(Assignment toAdd);
 
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
+
+    //=========== Filtered Bday List Accessors ====================================================================
+
+    /**
+     * Returns an unmodifiable view of the list of contacts with birthdays in the next 5 days.
+     */
+    ObservableList<Person> getBdayListResult();
 }

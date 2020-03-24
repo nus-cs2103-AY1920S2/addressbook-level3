@@ -29,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredPersonsResult;
     private final FilteredList<Restaurant> filteredRestaurants;
+    private final FilteredList<Person> bdayList;
     private final ArrayList<Assignment> assignments;
 
     /**
@@ -49,6 +50,7 @@ public class ModelManager implements Model {
         this.scheduler = new Scheduler(scheduler);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         assignments = this.scheduler.getAssignmentsList();
+        bdayList = new FilteredList<>(this.addressBook.getBdayList());
     }
 
     public ModelManager() {
@@ -264,5 +266,11 @@ public class ModelManager implements Model {
     public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
         requireNonNull(predicate);
         filteredRestaurants.setPredicate(predicate);
+    }
+
+    //=========== Filtered Bday List Accessors ====================================================================
+    @Override
+    public ObservableList<Person> getBdayListResult() {
+        return bdayList;
     }
 }
