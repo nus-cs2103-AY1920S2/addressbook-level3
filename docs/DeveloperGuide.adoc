@@ -299,7 +299,7 @@ image::activityDiagram_for_expensesplitter.png[]
 
 The following is a detailed explanation of the operations `DeleteItemCommand` performs. +
 
-1. The `DeieteItemCommand#execute(Model model)` method is executed and it validates that the specified `INDEX` to delete
+1. The `DeleteItemCommand#execute(Model model)` method is executed and it validates that the specified `INDEX` to delete
 is within range. If valid, the item to be deleted will be retrieved from Receipt using its I`Index`.
 
 2. The method `Model#deleteEntry(int Index) will then be called to remove the Item from the Receipt.
@@ -325,6 +325,21 @@ The following
 
 
 ==== List Amount Command
+
+*Implementation*
+
+The following is a detailed explanation of the operations `ListAmountCommand` performs. +
+
+1. The `ListAmountCommand#execute(Model model)` method is executed.
+
+2. The method `Model#listAmount()` will then be called to return the list of person with amount.
+
+3. `PersonAmountBook#toString()` will convert list of person in the list to the expected format.
+
+The following is a sample sequence diagram of the ListAmountCommand.
+
+image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+
 
 ==== Paid Command
 
