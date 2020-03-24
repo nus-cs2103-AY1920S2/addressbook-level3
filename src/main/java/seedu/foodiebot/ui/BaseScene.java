@@ -233,6 +233,8 @@ abstract class BaseScene {
                 default:
                     break;
                 }
+                if (commandResult.isExit()) {
+                }
                 break;
             default:
                 updateResultDisplay(commandResult.getFeedbackToUser());
