@@ -92,4 +92,15 @@ public interface Model {
 
     /** Updates monthly data by the given monthly data */
     void updateMonthlyData(MonthlyData monthlyData);
+
+    /**
+     * Get Total balance of the user.
+     * @return
+     */
+    Double getTotalBalance();
+
+    /**
+     * Updates total balance of the user.
+     */
+    void updateTotalBalance(Double balance);
 }

@@ -16,13 +16,10 @@ public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_AMOUNT = "+651234";
     private static final String INVALID_DATE = " ";
-    private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_AMOUNT = "123456";
     private static final String VALID_DATE = "123 Main Street #0505";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
 
     private static final String WHITESPACE = " \t\r\n";
 

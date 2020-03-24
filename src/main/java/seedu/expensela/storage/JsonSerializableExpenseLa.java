@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.expensela.commons.exceptions.IllegalValueException;
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 
 /**
@@ -22,13 +23,16 @@ class JsonSerializableExpenseLa {
     public static final String MESSAGE_DUPLICATE_TRANSACTION = "Transactions list contains duplicate transaction(s).";
 
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
+    private final JsonAdaptedMonthlyData monthlyData;
 
     /**
      * Constructs a {@code JsonSerializableExpenseLa} with the given transactions.
      */
     @JsonCreator
-    public JsonSerializableExpenseLa(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions) {
+    public JsonSerializableExpenseLa(@JsonProperty("transactions") List<JsonAdaptedTransaction> transactions,
+                                     @JsonProperty("monthlyData") JsonAdaptedMonthlyData monthlyData) {
         this.transactions.addAll(transactions);
+        this.monthlyData = monthlyData;
     }
 
     /**
@@ -39,6 +43,7 @@ class JsonSerializableExpenseLa {
     public JsonSerializableExpenseLa(ReadOnlyExpenseLa source) {
         transactions.addAll(source.getTransactionList().stream().map(JsonAdaptedTransaction::new)
                 .collect(Collectors.toList()));
+        monthlyData = new JsonAdaptedMonthlyData(source.getMonthlyData());
     }
 
     /**
@@ -55,6 +60,8 @@ class JsonSerializableExpenseLa {
             }
             expenseLa.addTransaction(transaction);
         }
+        MonthlyData monthlyData = this.monthlyData.toModelType();
+        expenseLa.setMonthlyData(monthlyData);
         return expenseLa;
     }
 

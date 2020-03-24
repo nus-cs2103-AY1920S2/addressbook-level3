@@ -20,6 +20,7 @@ import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.TransactionBuilder;
 
@@ -146,6 +147,26 @@ public class AddCommandTest {
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlyData getMonthlyData() {
+            return null;
+        }
+
+        @Override
+        public void updateMonthlyData(MonthlyData monthlyData) {
+
+        }
+
+        @Override
+        public Double getTotalBalance() {
+            return null;
+        }
+
+        @Override
+        public void updateTotalBalance(Double balance) {
+
         }
     }
 

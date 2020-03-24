@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.expensela.logic.commands.AddCommand;
+import seedu.expensela.logic.commands.BudgetCommand;
 import seedu.expensela.logic.commands.ClearCommand;
 import seedu.expensela.logic.commands.Command;
 import seedu.expensela.logic.commands.DeleteCommand;
@@ -15,6 +16,7 @@ import seedu.expensela.logic.commands.ExitCommand;
 import seedu.expensela.logic.commands.FindCommand;
 import seedu.expensela.logic.commands.HelpCommand;
 import seedu.expensela.logic.commands.ListCommand;
+import seedu.expensela.logic.commands.ResetBalanceCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 
 /**
@@ -67,6 +69,12 @@ public class ExpenseLaParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ResetBalanceCommand.COMMAND_WORD:
+            return new ResetBalanceCommand();
+
+        case BudgetCommand.COMMAND_WORD:
+            return new BudgetCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

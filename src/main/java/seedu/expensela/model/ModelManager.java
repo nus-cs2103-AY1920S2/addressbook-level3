@@ -167,4 +167,16 @@ public class ModelManager implements Model {
     public void updateMonthlyData(MonthlyData monthlyData) {
         expenseLa.setMonthlyData(monthlyData);
     }
+
+    @Override
+    public Double getTotalBalance() {
+        System.out.println("new pls");
+        return userPrefs.getTotalBalance();
+    }
+
+    @Override
+    public void updateTotalBalance(Double balance) {
+        userPrefs.setTotalBalance(balance);
+        System.out.println(userPrefs.getTotalBalance());
+    }
 }

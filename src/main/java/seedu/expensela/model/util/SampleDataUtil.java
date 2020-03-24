@@ -2,6 +2,10 @@ package seedu.expensela.model.util;
 
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.ReadOnlyExpenseLa;
+import seedu.expensela.model.monthlydata.Budget;
+import seedu.expensela.model.monthlydata.Expense;
+import seedu.expensela.model.monthlydata.Income;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Amount;
 import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Date;
@@ -24,11 +28,16 @@ public class SampleDataUtil {
         };
     }
 
+    public static MonthlyData getSampleMonthlyData() {
+        return new MonthlyData("1", new Budget("1000"), new Expense("500"), new Income("3000"));
+    }
+
     public static ReadOnlyExpenseLa getSampleExpenseLa() {
         ExpenseLa sampleEl = new ExpenseLa();
         for (Transaction sampleTransaction : getSampleTransactions()) {
             sampleEl.addTransaction(sampleTransaction);
         }
+        sampleEl.setMonthlyData(getSampleMonthlyData());
         return sampleEl;
     }
 
