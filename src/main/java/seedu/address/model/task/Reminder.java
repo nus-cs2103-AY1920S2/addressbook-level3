@@ -59,7 +59,6 @@ public class Reminder {
         try {
             stringFormatter.parse(dateTimeString);
         } catch (DateTimeParseException e) {
-            System.out.println("test test");
             return false;
         }
         return true;
