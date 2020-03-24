@@ -297,7 +297,8 @@ The command used to delete a module has been implemented in a similar way. Tha m
 difference is that the DeleteModuleCommand checks whether an object with the given
 module code exists in the TA-Tracker. If no such module exists, a command exception
 is thrown saying that a module with the given module code doesn't exist. If it does
-exist, the module is removed from the TA-Tracker.
+exist, first all the sessions linked to that module are removed.
+Then the module is removed from the TA-Tracker.
 
 ==== Implementation of the Group Add and Delete Commands
 
