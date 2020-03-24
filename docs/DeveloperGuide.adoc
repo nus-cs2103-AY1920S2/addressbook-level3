@@ -149,6 +149,18 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the TA-Tracker data in json format and read it back.
 
+`TA-Tracker` saves the following data:
+
+* a list of `Module` objects representing the modules that the user is assisting.
+** each `Module` contains a list of `Session`, representing the sessions that
+the user has completed for that module.
+** each `Module` contains a list of `Group`, representing the groups that the user is
+in charge of, such as a tutorial or lab.
+** each `Group` contains a list of `Student`, representing the students enrolled in
+the respective groups.
+
+* a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
+
 [[Design-Commons]]
 === Common classes
 
