@@ -35,6 +35,10 @@ public class Receipt {
         receipt.remove(index);
     }
 
+    public Entry getEntry(int index) {
+        return this.receipt.get(index);
+    }
+
     /**
      * Returns the ArrayList of Entries.
      *

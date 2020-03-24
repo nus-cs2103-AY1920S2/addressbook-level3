@@ -2,9 +2,15 @@ package seedu.eylah.expensesplitter.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.eylah.expensesplitter.model.item.Item;
+import seedu.eylah.expensesplitter.model.person.Amount;
+import seedu.eylah.expensesplitter.model.person.Person;
 import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.expensesplitter.logic.commands.exceptions.CommandException;
+import seedu.eylah.expensesplitter.model.Entry;
 import seedu.eylah.expensesplitter.model.Model;
+
+import java.util.ArrayList;
 
 /**
  * Deletes an item from the list of available items.
@@ -29,6 +35,13 @@ public class DeleteItemCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        Entry currentEntry = model.getEntry(targetIndex.getZeroBased());
+        Item currentItem = currentEntry.getItem();
+        Amount amountPerPerson = currentItem.getAmountPerPerson();
+        ArrayList<Person> persons = currentEntry.getPersonsList();
+        for (Person person : persons) {
+            model.removeAmount(person, amountPerPerson);
+        }
         model.deleteEntry(targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetIndex.getOneBased()));
     }
