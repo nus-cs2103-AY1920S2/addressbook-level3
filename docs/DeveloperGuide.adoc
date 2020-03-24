@@ -355,7 +355,7 @@ Refer to the guide <<DevOps#, here>>.
 |        3 |          1 | User with a limited budget                        | view the price of a specific ingredient                                          | I know how much a ingredient costs
 |        3 |          2 | User with many friends                            | import and combine my friend's recipes from a file (.txt perhaps)                | I can have access to their recipies
 |        3 |          2 | User who enjoys challenging themselves            | suggest dish to attempt based on my previous successful attempts                 | I can become more skillful
-|        3 |          2 | Regular user                                      | give a rating for the dish                                              | tag, search for and sort dishes based on my Recipeal rating of the dish
+|        3 |          2 | Regular user                                      | give a rating for the dish                                              | tag, search for and sort dishes based on my rating of the dish
 |        3 |          2 | Regular user                                      | choose to only see the basic information for the recipe                          | easily skim through the instructions and ingredients
 |        3 |          2 | User who likes experimenting                      | give me a random recipe that i have added                                        | I can challenge myself to cook what has been given
 |        3 |          3 | Health-focused user                               | add nutrition facts                                                              | I can see how much sugar, salt, fat etc is in the dish prepared
