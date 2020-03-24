@@ -32,4 +32,8 @@ public class CollectionUtil {
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
+
+    public static boolean isAnyNonEmpty(Collection<?>... items) {
+        return Stream.of(items).anyMatch(item -> !item.isEmpty());
+    }
 }

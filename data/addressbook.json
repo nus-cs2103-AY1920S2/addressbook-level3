@@ -46,7 +46,7 @@
   }, {
     "name" : "this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name 1111111111111111111 this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name  2222222222222222222222222 test text wrap hehe this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name this is a superrrrrrrr LONG name 3333333333333",
     "time" : "33",
-    "isFavourite" : true,
+    "isFavourite" : false,
     "grains" : [ ],
     "vegetables" : [ "capsci,  20.0g" ],
     "proteins" : [ ],
@@ -76,5 +76,38 @@
     "others" : [ "other,  30.0ml" ],
     "steps" : [ "first" ],
     "goals" : [ ]
+  }, {
+    "name" : "stub",
+    "time" : "5",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "stub,  5.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "stub" ],
+    "goals" : [ "stub" ]
+  }, {
+    "name" : "stub5",
+    "time" : "5",
+    "isFavourite" : false,
+    "grains" : [ ],
+    "vegetables" : [ "stub,  5.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "stub" ],
+    "goals" : [ "stub" ]
+  }, {
+    "name" : "stub9",
+    "time" : "5",
+    "isFavourite" : true,
+    "grains" : [ ],
+    "vegetables" : [ "stub,  5.0g" ],
+    "proteins" : [ ],
+    "fruits" : [ ],
+    "others" : [ ],
+    "steps" : [ "stub" ],
+    "goals" : [ "stub" ]
   } ]
 }
