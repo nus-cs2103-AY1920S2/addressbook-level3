@@ -90,18 +90,55 @@ The `View` component,
 [[Design-Logic]]
 === Logic component
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+.Architecture of Logic
+image::LogicArchitectureDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `View`.
-.  In addition, the `CommandResult` object can also instruct the `View` to perform certain actions, such as displaying help to the user.
+`Logic` consists of 3 subcomponents:
+
+* <<Design-NotablyParser,*`NotablyParser`*>>: Main parser of the App, deals with user command execution.
+* <<Design-SuggestionEngine,*`SuggestionEngine`*>>: Deals with suggestions generation.
+* <<Design-CorrectionEngine,*`CorrectionEngine`*>>: Deals with auto-correction.
+
+[[Design-NotablyParser]]
+==== NotabyParser component
+
+TODO: EDIT BELOW!
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[]
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+[[Design-SuggestionEngine]]
+==== SuggestionEngine component
+
+TODO: EDIT BELOW!
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[]
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+[[Design-CorrectionEngine]]
+==== CorrectionEngine component
+
+TODO: EDIT BELOW!
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
