@@ -14,7 +14,7 @@ import seedu.address.model.modelFinance.Finance;
 /**
  * Adds a finance to the address book.
  */
-public class AddFinanceCommand extends Command {
+public class AddFinanceCommand extends AddCommand {
 
   public static final String COMMAND_WORD = "add-finance";
 

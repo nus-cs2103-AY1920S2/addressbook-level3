@@ -7,6 +7,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
+import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.commands.commandAdd.AddCourseCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -22,7 +24,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddCourseCommandParser implements Parser<AddCourseCommand> {
+public class AddCourseCommandParser extends AddCommandParser {
 
   /**
    * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
@@ -39,7 +41,7 @@ public class AddCourseCommandParser implements Parser<AddCourseCommand> {
    * @return
    * @throws ParseException if the user input does not conform the expected format
    */
-  public AddCourseCommand parse(String args) throws ParseException {
+  public AddCommand parse(String args) throws ParseException {
     ArgumentMultimap argMultimap =
         ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSEID, PREFIX_TAG);
 
