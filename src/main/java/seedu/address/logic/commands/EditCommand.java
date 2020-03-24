@@ -8,6 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -59,6 +62,14 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Profile> lastShownList = model.getFilteredPersonList();
+
+        Profile profileToEdit = lastShownList.get(0); //accessing only first profile in list
+        Profile editedPerson = createEditedPerson(profileToEdit);
+
+        model.setPerson(profileToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         if (toEditProfile) {
             return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile));
         } else if (toEditModule != null) {
@@ -66,5 +77,14 @@ public class EditCommand extends Command {
         } else {
             throw new CommandException("Error: Edit Command cannot be executed");
         }
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    private static Profile createEditedPerson(Profile person) {
+        assert person != null;
+        return person;
     }
 }

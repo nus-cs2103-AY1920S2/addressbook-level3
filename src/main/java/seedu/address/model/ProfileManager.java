@@ -32,8 +32,7 @@ public class ProfileManager implements Model {
 
         this.profileList = profileList;
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredProfiles = new FilteredList<>(this.profileList.getProfileList());
-
+        filteredProfiles = new FilteredList<>(profileList.getProfileList());
     }
 
     public ProfileManager() {
