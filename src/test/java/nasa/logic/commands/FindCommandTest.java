@@ -2,6 +2,7 @@ package nasa.logic.commands;
 
 import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,6 +11,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
@@ -60,10 +62,20 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleActivitiesFound() {
+        expectedModel = new ModelManager(new NasaBookBuilder().build(), new UserPrefs());
+
         String expectedMessage = String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW, 3);
         ActivityContainsKeyWordsPredicate predicate = preparePredicate("Lab");
         FindCommand findCommand = new FindCommand(predicate);
         expectedModel.updateFilteredActivityList(predicate);
+        assertTrue(model.equals(expectedModel));
+        try {
+            CommandResult res = findCommand.execute(model);
+            System.out.println(res.getFeedbackToUser());
+            assertEquals(res, new CommandResult(expectedMessage));
+        } catch (CommandException e) {
+            throw new AssertionError("Execution of command should not fail.", e);
+        }
         assertCommandSuccess(findCommand, model, expectedMessage, expectedModel);
     }
 

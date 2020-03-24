@@ -71,7 +71,9 @@ public class NasaBookBuilder {
      */
     public NasaBook build() {
         NasaBook nasaBook = new NasaBook();
-        nasaBook.setModuleList(moduleList);
+        UniqueModuleList newModuleList = new UniqueModuleList();
+        newModuleList.setModules(moduleList.getDeepCopyList());
+        nasaBook.setModuleList(newModuleList);
         return nasaBook;
     }
 

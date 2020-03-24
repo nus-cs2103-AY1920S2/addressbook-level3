@@ -18,7 +18,6 @@ import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_HIGH;
 import static nasa.logic.commands.CommandTestUtil.PRIORITY_DESC_LOW;
 import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_EXAM;
 import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_HWK;
-import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_TUTORIAL;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
@@ -121,8 +120,9 @@ public class EditActivityCommandParserTest {
         String userInput = targetIndex.getOneBased() + MODULE_DESC_CS2030 + DATE_DESC_TEST + NOTES_DESC_TEST
                 + PRIORITY_DESC_HIGH + ACTIVITY_NAME_DESC_EXAM;
 
-        EditActivityDescriptor descriptor = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_TUTORIAL)
-                .withDate(VALID_DATE_TEST).withNote(VALID_NOTES_TEST).withPriority(VALID_PRIORITY_LOW).build();
+        EditActivityDescriptor descriptor = new EditActivityDescriptorBuilder()
+                .withDate(VALID_DATE_TEST).withNote(VALID_NOTES_TEST)
+                .withPriority(VALID_PRIORITY_HIGH).withName(VALID_ACTIVITY_NAME_EXAM).build();
 
         EditActivityCommand expectedCommand = new EditActivityCommand(targetIndex, targetModuleCode, descriptor);
 
@@ -215,7 +215,7 @@ public class EditActivityCommandParserTest {
         userInput = preamble + INVALID_NOTES_DESC + ACTIVITY_NAME_DESC_EXAM + NOTES_DESC_TEST + DATE_DESC_TEST
                 + PRIORITY_DESC_LOW;
         descriptor = new EditActivityDescriptorBuilder().withName(VALID_ACTIVITY_NAME_EXAM).withDate(VALID_DATE_TEST)
-                .withNote(NOTES_DESC_TEST).withPriority(VALID_PRIORITY_LOW).build();
+                .withNote(VALID_NOTES_TEST).withPriority(VALID_PRIORITY_LOW).build();
 
         expectedCommand = new EditActivityCommand(targetIndex, targetModuleCode, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
