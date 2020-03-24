@@ -16,6 +16,24 @@ endif::[]
 
 By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`      Licence: `MIT`
 
+== Introduction
+
+Ease Your Lives At Hall (EYLAH) is a Command Line Interface (CLI) application designed to aid students staying in NUS with commonly faced problems in halls such as,
+tracking their diet and splitting the bill with a large group of friends.
+
+Shown below is the GUI of EYLAH.
+
+image::Ui.png[]
+
+This documentation serves as an introduction to the architecture and implementation of EYLAH,
+and is made for developers who wish to maintain,
+modify or understand the software development behind our application.
+We adopted the top-down approach; we will first look into high-level
+architectures before exploring implementation details of each feature.
+
+We encourage you to traverse the full path from the high level design to the
+implementation details of the feature you are interested for the most complete understanding.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
