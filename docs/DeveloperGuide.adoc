@@ -291,6 +291,8 @@ code already exists in the TA-Tracker.
 
 7. If no such module exists, the module is added to the TA-Tracker.
 
+8. The SortGroupCommand returns a CommandResult with a success message.
+
 The command used to delete a module has been implemented in a similar way. Tha main
 difference is that the DeleteModuleCommand checks whether an object with the given
 module code exists in the TA-Tracker. If no such module exists, a command exception
@@ -339,23 +341,86 @@ a group with the given group code.
 5. The DeleteGroupCommandParser then creates a DeleteGroupCommand object and passes
 it the created module and group. The parser then returns the DeleteGroupCommand
 
-6. LogicManager calls DeleteGroupCommad's execute method. The DeleteGroupCommand object
+6. LogicManager calls DeleteGroupCommand's execute method. The DeleteGroupCommand object
 checks whether a module with the given module code already exists in TA-Tracker.
 If it doesn't, a command exception is thrown saying that a module with the given module
 code doesn't exist in the TA-Tracker.
 
-7. If the module exists, the DeletGroupCommand object retrieves the module from the
+7. If the module exists, the DeleteGroupCommand object retrieves the module from the
 model and checks whether the module has a group with the given group code. If it doesn't,
 a command exception is thrown saying that no such group exists. If the group does
 exist, it is removed from the module.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
 
 ==== Implementation of the Sort Command
 
 The sort command allows the user to sort the students in the module view either alphabetically
 or by rating.
 
+The sort command can be used in three ways:
+
+1. sort g/GROUP_CODE m/MODULE_CODE t/TYPE : When a user enters the command in this
+manner, they are sorting all the students of the given group in the given module
+by type TYPE (which can be either alphabetical or by rating).
+
+2. sort g/MODULE_CODE t/TYPE : When a user enters a command in this manner, they
+are sorting all the students of all the groups in the given module by type TYPE
+(which can be either alphabetical or by rating).
+
+3. sort t/TYPE : When a user enters a command in this manner, they are sorting all
+students of all groups of all the modules in the TA-Tracker by the type TYPE (which
+can be either alphabetical or by rating).
+
+Since these sort commands function differently but use the same parser, the following
+class structure is used.
+
+.Sort Commands - Class Diagram
+image::SortCommandsClassDiagram.png[]
+
+Since the different commands use the same parser, the SortCommandParser needs to check
+which prefixes have been passed and return the appropriate command accordingly.
+The following activity diagram shows the steps the SortCommandParser takes once
+its parse command is called (assuming that no exception is thrown).
+
+If the user enters a sort command with no valid prefix, a command exception is thrown
+thats explains the usage of the sort command.
+
+.SortCommandParser - Activity Diagram
+image::SortParserActivityDiagram.png[]
+
+The following sequence diagram illustrates the interactions between the logic and
+model components when the user enters the command 'sort m/CS2103 g/G03 t/alpha'.
+
+Note: To allow the user to type quickly, for type both 'alpha' and 'alphabetically'
+sort the students lexicographically.
+
 .Sort - Sequence Diagram
 image::SortGroupSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type sort and passes the
+command to the SortCommandParser.
+
+3. The SortCommandParser performs the steps shown in the previous activity diagram
+and creates and returns a SortGroupCommand.
+
+4. LogicManager calls SortGroupCommand's execute method.
+
+5. The SortGroupCommand creates a Module with the given module code and a group with
+the given group code. The SortGroupCommand object checks whether a module with the
+given module code already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a module with the given module
+code doesn't exist in the TA-Tracker.
+
+6. If the module exists, the SortGroupCommand object retrieves the module from the
+model and checks whether the module has a group with the given group code. If it doesn't,
+a command exception is thrown saying that no such group exists.
+
+7. If the group does exist, it is sorted according to the type of sort specified.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

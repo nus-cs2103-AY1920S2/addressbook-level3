@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
 participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
-participant "s:SortCommand" as SortCommand LOGIC_COLOR
+participant "s:SortGroupCommand" as SortCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -24,7 +24,7 @@ LogicManager -> TaTrackerParser : parseCommand("sort \nm/CS2103 g/G03 t/alpha")
 activate TaTrackerParser
 
 create SortCommandParser
-TaTrackerParser -> SortCommandParser : GroupCommandParser()
+TaTrackerParser -> SortCommandParser : SortCommandParser()
 activate SortCommandParser
 SortCommandParser --> TaTrackerParser
 deactivate SortCommandParser
@@ -32,20 +32,8 @@ deactivate SortCommandParser
 TaTrackerParser -> SortCommandParser : parseCommand("m/CS2103 g/G03 t/alpha")
 activate SortCommandParser
 
-create Module
-SortCommandParser -> Module : Module("CS2103", "")
-activate Module
-Module --> SortCommandParser
-deactivate Module
-
-create Group
-SortCommandParser -> Group : Group("G03", null)
-activate Group
-Group --> SortCommandParser
-deactivate Group
-
 create SortCommand
-SortCommandParser -> SortCommand : SortCommand(g, m, "alpha")
+SortCommandParser -> SortCommand : SortCommand(G03, CS2103, "alpha")
 activate SortCommand
 SortCommand --> SortCommandParser
 deactivate SortCommand
@@ -61,6 +49,18 @@ deactivate TaTrackerParser
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
+create Module
+SortCommand -> Module : Module("CS2103", "")
+activate Module
+Module --> SortCommand
+deactivate Module
+
+create Group
+SortCommand -> Group : Group("G03", null)
+activate Group
+Group --> SortCommand
+deactivate Group
+
 SortCommand -> Model : hasModule(m)
 activate Model
 Model --> SortCommand : true
@@ -70,6 +70,9 @@ SortCommand -> Model : getModule(m)
 activate Model
 Model --> SortCommand : M
 deactivate Model
+
+Module -[hidden]-> SortCommand
+destroy Module
 
 SortCommand -> ActualModule : hasGroup(g)
 activate ActualModule
@@ -81,7 +84,10 @@ activate ActualModule
 ActualModule --> SortCommand : G
 deactivate ActualModule
 
-SortCommand -> ActualGroup : sortAlphabetically()
+Group -[hidden]-> SortCommand
+destroy Group
+
+SortCommand -> ActualGroup : sortStudentsAlphabetically()
 activate ActualGroup
 ActualGroup --> SortCommand
 deactivate ActualGroup
