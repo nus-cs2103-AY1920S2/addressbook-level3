@@ -28,15 +28,8 @@ public class SideBarTreeView extends ViewPart<Region> {
      * @param blockTree The custom tree used to populate the TreeView.
      */
     private void initializeTree(BlockTree blockTree) {
-        initializeTreeSettings();
         loadTreeItems(blockTree);
-    }
-
-    /**
-     * Provides an alternative way to specify TreeView settings, versus via fxml tags.
-     */
-    private void initializeTreeSettings() {
-        sideBarTreeView.setEditable(false);
+        initializeTreeSettings();
     }
 
     private void loadTreeItems(BlockTree blockTree) {
@@ -44,19 +37,13 @@ public class SideBarTreeView extends ViewPart<Region> {
         sideBarTreeView.setCellFactory(treeView -> new SideBarTreeViewCell());
     }
 
-    /*
-    private void loadTreeItemsStub() {
-        TreeItem<String> root = new TreeItem<>("Root");
-        root.setExpanded(true);
-        TreeItem<String> notably = new TreeItem<>("Notably");
-        notably.setExpanded(true);
-        root.getChildren().add(notably);
-        notably.getChildren().add(new TreeItem<>("Another Note"));
-        notably.getChildren().add(new TreeItem<>("CS2103"));
-        notably.getChildren().add(new TreeItem<>("ST2334"));
-
-        //sideBarTreeViewRoot.setRoot(root);
-    }*/
+    /**
+     * Provides an alternative way to specify TreeView settings, versus via fxml tags.
+     */
+    private void initializeTreeSettings() {
+        sideBarTreeView.setEditable(false);
+        sideBarTreeView.getRoot().setExpanded(true);
+    }
 
     /**
      * Custom {@code TreeCell} that displays the text of a {@code Block}.
