@@ -74,8 +74,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void listAmount() {
-
-
+        System.out.println(personAmountBook);
     }
 
     /**

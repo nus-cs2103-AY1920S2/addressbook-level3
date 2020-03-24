@@ -42,6 +42,7 @@ public interface Model {
      */
     void listReceipt();
 
+
     /**
      * Going back to EYLAH Main Menu.
      */
