@@ -153,20 +153,25 @@ Format: `filter [t/TIME]`
 
 == Plan Feature
 
-=== Set a recipe to be cooked on a certain day: `set`
+=== Schedule a recipe to be cooked: `schedule`
 
-Set a recipe that you would like to cook on a certain day. +
+Schedules a recipe that you would like to cook on a certain day. +
 Format: `set RECIPE_INDEX d/YYYY-MM-DD`
 
-=== See planned recipes: `planned`
+=== See scheduled recipes: `switch schedule`
+
+Get all the recipes that you have scheduled in the future. +
+Format: `switch schedule`
+
+=== Obtain the recipes scheduled on a certain day: `getSchedule`
 
 Check the recipes you have planned out during a period of time or within the next few days. +
-Format: planned d/YYYY-MM-DD to d/YYYY-MM-DD
-Format: planned NUM_OF_DAYS
+Format: getSchedule d/YYYY-MM-DD to d/YYYY-MM-DD
+Format: getSchedule NUM_OF_DAYS
 
-=== Get ingredient list: `get`
+=== Obtain the ingredients for scheduled recipes: `get`
 
-Gives you the list of ingredients needed for the recipes that you have planned during a period of time or within the next few days. +
+Gives the list of ingredients needed for the recipes that you have planned during a period of time or within the next few days. +
 Format: get d/YYYY-MM-DD to d/YYYY-MM-DD
 Format: get NUM_OF_DAYS
 
