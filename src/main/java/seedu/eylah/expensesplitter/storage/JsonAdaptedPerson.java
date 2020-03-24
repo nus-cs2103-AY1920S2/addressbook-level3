@@ -1,7 +1,6 @@
 package seedu.eylah.expensesplitter.storage;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
