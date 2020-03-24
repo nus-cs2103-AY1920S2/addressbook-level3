@@ -100,6 +100,7 @@ public class EditCommand extends Command {
 
         model.setRecipe(recipeToEdit, editedRecipe);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
+        model.commitRecipeBook();
         return new CommandResult(String.format(MESSAGE_EDIT_RECIPE_SUCCESS, editedRecipe));
     }
 
@@ -110,9 +111,9 @@ public class EditCommand extends Command {
     private static Recipe createEditedRecipe(Recipe recipeToEdit, EditRecipeDescriptor editRecipeDescriptor) {
         assert recipeToEdit != null;
 
+        boolean isFavourite = recipeToEdit.isFavourite();
         Name updatedName = editRecipeDescriptor.getName().orElse(recipeToEdit.getName());
         Time updatedTime = editRecipeDescriptor.getTime().orElse(recipeToEdit.getTime());
-        boolean isFavourite = editRecipeDescriptor.getFavourite();
         List<Step> updatedStep = editRecipeDescriptor.getSteps().orElse(recipeToEdit.getSteps());
         Set<Goal> updatedGoals = editRecipeDescriptor.getGoals().orElse(recipeToEdit.getGoals());
         Set<Grain> updatedGrains = editRecipeDescriptor.getGrains().orElse(recipeToEdit.getGrains());
@@ -151,7 +152,6 @@ public class EditCommand extends Command {
     public static class EditRecipeDescriptor {
         private Name name;
         private Time time;
-        private boolean isFavourite;
         private List<Step> steps;
         private Set<Goal> goals;
         private Set<Grain> grains;
@@ -169,7 +169,6 @@ public class EditCommand extends Command {
         public EditRecipeDescriptor(EditRecipeDescriptor toCopy) {
             setName(toCopy.name);
             setTime(toCopy.time);
-            setFavourite(toCopy.isFavourite);
             setSteps(toCopy.steps);
             setGoals(toCopy.goals);
             setGrains(toCopy.grains);
@@ -200,14 +199,6 @@ public class EditCommand extends Command {
 
         public Optional<Time> getTime() {
             return Optional.ofNullable(time);
-        }
-
-        public void setFavourite(boolean isFavourite) {
-            this.isFavourite = isFavourite;
-        }
-
-        public boolean getFavourite() {
-            return isFavourite;
         }
 
         /**

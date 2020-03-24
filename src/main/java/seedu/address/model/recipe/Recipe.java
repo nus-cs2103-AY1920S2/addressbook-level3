@@ -61,14 +61,6 @@ public class Recipe {
         return isFavourite;
     }
 
-    public void markAsFavourite() {
-        isFavourite = true;
-    }
-
-    public void unmarkAsFavourite() {
-        isFavourite = false;
-    }
-
     public Name getName() {
         return name;
     }

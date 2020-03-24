@@ -270,6 +270,25 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> grains} into a {@code Set<Grain>} where each {@code Grain} is constructed
+     * with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Grain} name is invalid.
+     */
+    public static Set<Grain> parseGrainsNameOnly(Collection<String> grains) throws ParseException {
+        requireNonNull(grains);
+        final Set<Grain> grainsSet = new TreeSet<>();
+        for (String grain : grains) {
+            String trimmedGrainName = grain.trim();
+            if (!Ingredient.isValidIngredientName(trimmedGrainName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            grainsSet.add(new Grain(trimmedGrainName));
+        }
+        return grainsSet;
+    }
+
+    /**
      * Parses a {@code String vegetable} into a {@code Vegetable}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -299,9 +318,28 @@ public class ParserUtil {
      */
     public static Set<Vegetable> parseVegetables(Collection<String> vegetables) throws ParseException {
         requireNonNull(vegetables);
-        final Set<Vegetable> vegetablesSet = new HashSet<>();
+        final Set<Vegetable> vegetablesSet = new TreeSet<>();
         for (String vegetable : vegetables) {
             vegetablesSet.add(parseVegetable(vegetable));
+        }
+        return vegetablesSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> vegetables} into a {@code Set<Vegetable>} where each {@code Vegetable} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Vegetable} name is invalid.
+     */
+    public static Set<Vegetable> parseVegetablesNameOnly(Collection<String> vegetables) throws ParseException {
+        requireNonNull(vegetables);
+        final Set<Vegetable> vegetablesSet = new TreeSet<>();
+        for (String vegetable : vegetables) {
+            String trimmedVegetableName = vegetable.trim();
+            if (!Ingredient.isValidIngredientName(trimmedVegetableName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            vegetablesSet.add(new Vegetable(trimmedVegetableName));
         }
         return vegetablesSet;
     }
@@ -336,9 +374,28 @@ public class ParserUtil {
      */
     public static Set<Protein> parseProteins(Collection<String> proteins) throws ParseException {
         requireNonNull(proteins);
-        final Set<Protein> proteinsSet = new HashSet<>();
+        final Set<Protein> proteinsSet = new TreeSet<>();
         for (String protein : proteins) {
             proteinsSet.add(parseProtein(protein));
+        }
+        return proteinsSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> proteins} into a {@code Set<Protein>} where each {@code Protein} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Protein} name is invalid.
+     */
+    public static Set<Protein> parseProteinsNameOnly(Collection<String> proteins) throws ParseException {
+        requireNonNull(proteins);
+        final Set<Protein> proteinsSet = new TreeSet<>();
+        for (String protein : proteins) {
+            String trimmedProteinName = protein.trim();
+            if (!Ingredient.isValidIngredientName(trimmedProteinName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            proteinsSet.add(new Protein(trimmedProteinName));
         }
         return proteinsSet;
     }
@@ -373,9 +430,28 @@ public class ParserUtil {
      */
     public static Set<Fruit> parseFruits(Collection<String> fruits) throws ParseException {
         requireNonNull(fruits);
-        final Set<Fruit> fruitsSet = new HashSet<>();
+        final Set<Fruit> fruitsSet = new TreeSet<>();
         for (String fruit : fruits) {
             fruitsSet.add(parseFruit(fruit));
+        }
+        return fruitsSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> fruits} into a {@code Set<Fruit>} where each {@code Fruit} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Fruit} name is invalid.
+     */
+    public static Set<Fruit> parseFruitsNameOnly(Collection<String> fruits) throws ParseException {
+        requireNonNull(fruits);
+        final Set<Fruit> fruitsSet = new TreeSet<>();
+        for (String fruit : fruits) {
+            String trimmedFruitName = fruit.trim();
+            if (!Ingredient.isValidIngredientName(trimmedFruitName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            fruitsSet.add(new Fruit(trimmedFruitName));
         }
         return fruitsSet;
     }
@@ -409,10 +485,29 @@ public class ParserUtil {
      * Parses {@code Collection<String> others} into a {@code Set<Other>}.
      */
     public static Set<Other> parseOthers(Collection<String> others) throws ParseException {
-        final Set<Other> othersSet = new HashSet<>();
+        final Set<Other> othersSet = new TreeSet<>();
         requireNonNull(others);
         for (String other : others) {
             othersSet.add(parseOther(other));
+        }
+        return othersSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> others} into a {@code Set<Other>} where each {@code Other} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Other} ingredient name is invalid.
+     */
+    public static Set<Other> parseOthersNameOnly(Collection<String> others) throws ParseException {
+        requireNonNull(others);
+        final Set<Other> othersSet = new TreeSet<>();
+        for (String other : others) {
+            String trimmedOtherName = other.trim();
+            if (!Ingredient.isValidIngredientName(trimmedOtherName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            othersSet.add(new Other(trimmedOtherName));
         }
         return othersSet;
     }

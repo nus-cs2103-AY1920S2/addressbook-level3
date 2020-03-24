@@ -85,10 +85,15 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      */
     public void favourite(Recipe toFavourite) {
         requireNonNull(toFavourite);
-        if (!internalList.contains(toFavourite)) {
+        int index = internalList.indexOf(toFavourite);
+        if (index == -1) {
             throw new RecipeNotFoundException();
         }
-        toFavourite.markAsFavourite();
+        if (!toFavourite.isFavourite()) {
+            internalList.set(index, new Recipe(toFavourite.getName(), toFavourite.getTime(), toFavourite.getGrains(),
+                    toFavourite.getVegetables(), toFavourite.getProteins(), toFavourite.getFruits(),
+                    toFavourite.getOthers(), toFavourite.getSteps(), toFavourite.getGoals(), true));
+        }
     }
 
     /**
@@ -97,10 +102,16 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      */
     public void unfavourite(Recipe toUnfavourite) {
         requireNonNull(toUnfavourite);
-        if (!internalList.contains(toUnfavourite)) {
+        int index = internalList.indexOf((toUnfavourite));
+        if (index == -1) {
             throw new RecipeNotFoundException();
         }
-        toUnfavourite.unmarkAsFavourite();
+        if (toUnfavourite.isFavourite()) {
+            internalList.set(index, new Recipe(toUnfavourite.getName(), toUnfavourite.getTime(),
+                    toUnfavourite.getGrains(), toUnfavourite.getVegetables(), toUnfavourite.getProteins(),
+                    toUnfavourite.getFruits(), toUnfavourite.getOthers(), toUnfavourite.getSteps(),
+                    toUnfavourite.getGoals(), false));
+        }
     }
 
     public void setRecipes(UniqueRecipeList replacement) {

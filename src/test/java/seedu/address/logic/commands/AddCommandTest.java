@@ -149,6 +149,31 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean canUndo(int numberOfUndo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo(int numberOfRedo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitRecipeBook() {
+            // throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoRecipeBook(int numberOfUndo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoRecipeBook(int numberOfRedo) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Recipe> getFilteredRecipeList() {
             throw new AssertionError("This method should not be called.");
         }

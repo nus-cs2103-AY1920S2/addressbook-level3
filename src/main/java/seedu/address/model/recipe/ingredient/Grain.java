@@ -13,6 +13,13 @@ public class Grain extends Ingredient {
         isWholemeal = false;
     }
 
+    /**
+     * Overloaded Grain constructor for the purpose of filtering by grain name.
+     */
+    public Grain(String name) {
+        super(name);
+    }
+
     public boolean isWholemeal() {
         return isWholemeal;
     }
