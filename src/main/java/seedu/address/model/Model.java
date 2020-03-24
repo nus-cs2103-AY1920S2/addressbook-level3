@@ -9,6 +9,7 @@ import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
+import seedu.address.todolist.Deadline;
 
 /**
  * The API of the Model component.
@@ -128,4 +129,15 @@ public interface Model {
 
     double getCap();
 
+    //=========== Deadline ==================================================================================
+
+    /**
+     * Adds deadline.
+     */
+    void addDeadline(Deadline deadline);
+
+    /**
+     * Checks if content of deadline is empty
+     */
+    boolean isEmptyDeadline(Deadline deadline);
 }
