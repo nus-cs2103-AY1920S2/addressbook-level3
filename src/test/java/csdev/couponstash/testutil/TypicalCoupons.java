@@ -1,5 +1,7 @@
 package csdev.couponstash.testutil;
 
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_CONDITION_AMY;
+import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_CONDITION_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_AMY;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_EXPIRY_DATE_BOB;
 import static csdev.couponstash.logic.commands.CommandTestUtil.VALID_LIMIT_AMY;
@@ -75,6 +77,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("29-11-2020", "02-12-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .withTags("friends").build();
     public static final Coupon BENSON = new CouponBuilder().withName("Benson Meier")
@@ -86,6 +89,7 @@ public class TypicalCoupons {
             .withUsage("2")
             .withLimit("5")
             .withRemindDate("28-11-2020", "31-12-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .withTags("owesMoney", "friends").build();
     public static final Coupon CARL = new CouponBuilder().withName("Carl Kurz")
@@ -97,6 +101,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("2")
             .withRemindDate("27-8-2020", "30-8-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .build();
 
@@ -111,6 +116,7 @@ public class TypicalCoupons {
             .withLimit("1")
             .withTags("friends")
             .withRemindDate("28-12-2019", "31-12-2019")
+            .withCondition("While Stock Last").build();
             .withArchived("false")
             .build();
     public static final Coupon ELLE = new CouponBuilder().withName("Elle Meyer")
@@ -122,6 +128,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("27-8-2020", "30-8-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .build();
     public static final Coupon FIONA = new CouponBuilder().withName("Fiona Kunz")
@@ -133,6 +140,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("27-8-2020", "30-8-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .build();
     public static final Coupon GEORGE = new CouponBuilder().withName("George Best")
@@ -144,6 +152,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("2")
             .withRemindDate("28-12-2020", "31-12-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .build();
 
@@ -157,6 +166,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("28-12-2020", "31-12-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .build();
     public static final Coupon IDA = new CouponBuilder().withName("Ida Mueller")
@@ -168,6 +178,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("28-12-2020", "31-12-2020")
+            .withCondition("While Stock Last")
             .withArchived("false")
             .build();
 
@@ -182,6 +193,7 @@ public class TypicalCoupons {
             .withUsage(VALID_USAGE_AMY)
             .withLimit(VALID_LIMIT_AMY)
             .withRemindDate(VALID_REMIND_DATE_AMY, VALID_EXPIRY_DATE_AMY)
+            .withCondition(VALID_CONDITION_AMY)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Coupon BOB = new CouponBuilder()
             .withName(VALID_NAME_BOB)
@@ -194,6 +206,7 @@ public class TypicalCoupons {
             .withLimit(VALID_LIMIT_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .withRemindDate(VALID_REMIND_DATE_BOB, VALID_EXPIRY_DATE_BOB)
+            .withCondition(VALID_CONDITION_BOB)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
