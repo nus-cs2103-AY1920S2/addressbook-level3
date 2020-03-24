@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.core.StashSettings;
+import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.model.history.HistoryManager;
@@ -150,6 +151,11 @@ public class ModelManager implements Model {
         filteredCoupons.setPredicate(predicate);
     }
 
+    @Override
+    public void sortCoupons(Prefix prefixToSortBy) {
+
+    }
+
     //=========== Undo/Redo functionality =============================================================
     @Override
 
@@ -179,6 +185,8 @@ public class ModelManager implements Model {
     public boolean canRedoCouponStash() {
         return history.canRedo();
     }
+
+    //=========== End of Undo/Redo functionality =============================================================
 
     @Override
     public boolean equals(Object obj) {
