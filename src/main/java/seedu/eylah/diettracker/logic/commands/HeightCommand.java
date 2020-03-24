@@ -6,6 +6,7 @@ import seedu.eylah.commons.core.Messages;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.Model;
 import seedu.eylah.diettracker.model.self.Height;
+import seedu.eylah.diettracker.model.self.Self;
 
 /**
  * Adds the height of the user in centimeters.
@@ -37,6 +38,8 @@ public class HeightCommand extends Command {
         if (height.getHeightFloat() <= 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
+
+        Self.setHeight(height);
 
         return new CommandResult(String.format(MESSAGE_ADD_HEIGHT_SUCCESS, height.toString()));
     }

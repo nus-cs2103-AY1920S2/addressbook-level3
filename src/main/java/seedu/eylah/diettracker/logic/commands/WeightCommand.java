@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.eylah.commons.core.Messages;
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
 import seedu.eylah.diettracker.model.Model;
+import seedu.eylah.diettracker.model.self.Self;
 import seedu.eylah.diettracker.model.self.Weight;
 
 /**
@@ -37,6 +38,8 @@ public class WeightCommand extends Command {
         if (weight.getWeightFloat() <= 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
         }
+
+        Self.setWeight(weight);
 
         return new CommandResult(String.format(MESSAGE_ADD_WEIGHT_SUCCESS, weight.toString()));
     }

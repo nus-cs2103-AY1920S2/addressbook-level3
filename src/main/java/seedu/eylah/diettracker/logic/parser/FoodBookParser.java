@@ -10,8 +10,11 @@ import seedu.eylah.diettracker.logic.commands.AddCommand;
 import seedu.eylah.diettracker.logic.commands.BmiCommand;
 import seedu.eylah.diettracker.logic.commands.Command;
 import seedu.eylah.diettracker.logic.commands.DeleteCommand;
+import seedu.eylah.diettracker.logic.commands.EditCommand;
 import seedu.eylah.diettracker.logic.commands.HeightCommand;
 import seedu.eylah.diettracker.logic.commands.HelpCommand;
+import seedu.eylah.diettracker.logic.commands.ListCommand;
+import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.logic.commands.WeightCommand;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
 
@@ -53,21 +56,21 @@ public class FoodBookParser {
             return new WeightCommandParser().parse(arguments);
         case BmiCommand.COMMAND_WORD:
             return new BmiCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+        case ListCommand.COMMAND_WORD:
+            return new ListCommandParser().parse(arguments);
+        case ModeCommand.COMMAND_WORD:
+            return new ModeCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
-
-        //case EditCommand.COMMAND_WORD:
-        //    return new EditCommandParser().parse(arguments);
 
         //case ClearCommand.COMMAND_WORD:
         //    return new ClearCommand();
 
         //case FindCommand.COMMAND_WORD:
         //    return new FindCommandParser().parse(arguments);
-
-        //case ListCommand.COMMAND_WORD:
-        //    return new ListCommand();
 
         //case ExitCommand.COMMAND_WORD:
         //    return new ExitCommand();
