@@ -54,11 +54,11 @@ public class EditCommandTest {
         Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
 
         TransactionBuilder transactionInList = new TransactionBuilder(lastTransaction);
-        Transaction editedTransaction = transactionInList.withName(VALID_NAME_AIRPODS).withPhone(VALID_AMOUNT_AIRPODS)
+        Transaction editedTransaction = transactionInList.withName(VALID_NAME_AIRPODS).withAmount(VALID_AMOUNT_AIRPODS, false)
                 .build();
 
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS)
-                .withPhone(VALID_AMOUNT_AIRPODS).build();
+                .withAmount(VALID_AMOUNT_AIRPODS).build();
         EditCommand editCommand = new EditCommand(indexLastTransaction, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);

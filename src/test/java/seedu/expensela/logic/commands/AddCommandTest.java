@@ -20,6 +20,7 @@ import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.ReadOnlyUserPrefs;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.testutil.TransactionBuilder;
 
@@ -52,26 +53,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Transaction alice = new TransactionBuilder().withName("Alice").build();
-        Transaction bob = new TransactionBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Transaction pizza = new TransactionBuilder().withName("Pizza").build();
+        Transaction airpods = new TransactionBuilder().withName("Airpods").build();
+        AddCommand addPizzaCommand = new AddCommand(pizza);
+        AddCommand addAirpodsCommand = new AddCommand(airpods);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addPizzaCommand.equals(addPizzaCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addPizzaCommandCopy = new AddCommand(pizza);
+        assertTrue(addPizzaCommand.equals(addPizzaCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addPizzaCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addPizzaCommand.equals(null));
 
         // different transaction -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addPizzaCommand.equals(addAirpodsCommand));
     }
 
     /**
@@ -145,6 +146,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredTransactionList(Predicate<Transaction> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MonthlyData getMonthlyData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMonthlyData(MonthlyData monthlyData) {
             throw new AssertionError("This method should not be called.");
         }
     }

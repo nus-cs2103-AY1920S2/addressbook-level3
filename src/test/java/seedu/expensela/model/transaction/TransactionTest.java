@@ -2,9 +2,7 @@ package seedu.expensela.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.*;
 import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
 
@@ -22,27 +20,27 @@ public class TransactionTest {
         // null -> returns false
         assertFalse(PIZZA.isSameTransaction(null));
 
-        // different amount and email -> returns false
-        Transaction editedAlice = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false).build();
-        assertFalse(PIZZA.isSameTransaction(editedAlice));
+        // different amount -> returns false
+        Transaction editedPizza = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false).build();
+        assertFalse(PIZZA.isSameTransaction(editedPizza));
 
         // different name -> returns false
-        editedAlice = new TransactionBuilder(PIZZA).withName(VALID_NAME_AIRPODS).build();
-        assertFalse(PIZZA.isSameTransaction(editedAlice));
+        editedPizza = new TransactionBuilder(PIZZA).withName(VALID_NAME_AIRPODS).build();
+        assertFalse(PIZZA.isSameTransaction(editedPizza));
 
-        // same name, same amount, different attributes -> returns true
-        editedAlice = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS)
+        // same name, same amount, same category, different remark -> returns false
+        editedPizza = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS)
                 .build();
-        assertTrue(PIZZA.isSameTransaction(editedAlice));
+        assertFalse(PIZZA.isSameTransaction(editedPizza));
 
-        // same name, same email, different attributes -> returns true
-        editedAlice = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false).withRemark(VALID_REMARK_AIRPODS)
+        // same name, same category, different amount, different remark -> returns false
+        editedPizza = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false).withRemark(VALID_REMARK_AIRPODS)
                 .build();
-        assertTrue(PIZZA.isSameTransaction(editedAlice));
+        assertFalse(PIZZA.isSameTransaction(editedPizza));
 
-        // same name, same amount, same email, different attributes -> returns true
-        editedAlice = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS).build();
-        assertTrue(PIZZA.isSameTransaction(editedAlice));
+        // same name, same amount, same remark, different category -> returns false
+        editedPizza = new TransactionBuilder(PIZZA).withCategory(VALID_CATEGORY_SHOPPING).build();
+        assertFalse(PIZZA.isSameTransaction(editedPizza));
     }
 
     @Test
@@ -64,23 +62,19 @@ public class TransactionTest {
         assertFalse(PIZZA.equals(AIRPODS));
 
         // different name -> returns false
-        Transaction editedAlice = new TransactionBuilder(PIZZA).withName(VALID_NAME_AIRPODS).build();
-        assertFalse(PIZZA.equals(editedAlice));
+        Transaction editedPizza = new TransactionBuilder(PIZZA).withName(VALID_NAME_AIRPODS).build();
+        assertFalse(PIZZA.equals(editedPizza));
 
         // different amount -> returns false
-        editedAlice = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false).build();
-        assertFalse(PIZZA.equals(editedAlice));
-
-        // different email -> returns false
-        editedAlice = new TransactionBuilder(PIZZA).build();
-        assertFalse(PIZZA.equals(editedAlice));
+        editedPizza = new TransactionBuilder(PIZZA).withAmount(VALID_AMOUNT_AIRPODS, false).build();
+        assertFalse(PIZZA.equals(editedPizza));
 
         // different remark -> returns false
-        editedAlice = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS).build();
-        assertFalse(PIZZA.equals(editedAlice));
+        editedPizza = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS).build();
+        assertFalse(PIZZA.equals(editedPizza));
 
-        // different tags -> returns false
-        editedAlice = new TransactionBuilder(PIZZA).build();
-        assertFalse(PIZZA.equals(editedAlice));
+        // different category -> returns false
+        editedPizza = new TransactionBuilder(PIZZA).withCategory(VALID_CATEGORY_SHOPPING).build();
+        assertFalse(PIZZA.equals(editedPizza));
     }
 }
