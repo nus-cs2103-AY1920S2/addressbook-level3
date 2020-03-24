@@ -18,7 +18,6 @@ import static nasa.logic.commands.CommandTestUtil.VALID_ACTIVITY_NAME_TUTORIAL;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_DATE_TEST_2;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
-
 import static nasa.logic.commands.CommandTestUtil.VALID_NOTES_TEST;
 import static nasa.logic.commands.CommandTestUtil.VALID_PRIORITY_HIGH;
 import static nasa.logic.parser.CommandParserTestUtil.assertParseFailure;

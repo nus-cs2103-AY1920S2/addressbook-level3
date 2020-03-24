@@ -1,21 +1,21 @@
 package nasa.logic.commands;
 
-import nasa.model.HistoryBook;
-import nasa.model.module.Module;
-import nasa.model.module.ModuleCode;
-import nasa.model.module.ModuleName;
-import nasa.model.module.UniqueModuleList;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static nasa.testutil.Assert.assertThrows;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
 import nasa.model.UserPrefs;
+import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
+import nasa.model.module.UniqueModuleList;
 
 // Integrated test TODO: changed name to AddModuleCommandTest
 public class AddModuleCommandTest {

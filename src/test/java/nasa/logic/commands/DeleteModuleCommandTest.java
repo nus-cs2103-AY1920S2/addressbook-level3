@@ -2,12 +2,11 @@ package nasa.logic.commands;
 
 import static nasa.logic.commands.CommandTestUtil.assertCommandFailure;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
-import nasa.model.HistoryBook;
-import nasa.model.module.UniqueModuleList;
 import static nasa.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;

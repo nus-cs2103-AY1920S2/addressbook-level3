@@ -1,7 +1,5 @@
 package nasa.model.activity;
 
-import javafx.collections.ObservableList;
-
 import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
 import static nasa.testutil.TypicalActivities.DEADLINE;
 
@@ -10,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
+import javafx.collections.ObservableList;
 
 /**
  * To test the UniqueActivity class.

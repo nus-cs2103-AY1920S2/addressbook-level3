@@ -9,7 +9,6 @@ import static nasa.logic.parser.CliSyntax.PREFIX_NOTE;
 import static nasa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static nasa.testutil.Assert.assertThrows;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;

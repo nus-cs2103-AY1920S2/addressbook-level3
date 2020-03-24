@@ -2,7 +2,6 @@ package nasa.logic.commands;
 
 import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
-import nasa.model.HistoryBook;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -11,6 +10,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;

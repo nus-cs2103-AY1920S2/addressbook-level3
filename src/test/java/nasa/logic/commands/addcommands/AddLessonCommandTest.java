@@ -3,13 +3,13 @@ package nasa.logic.commands.addcommands;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_CS1231;
 import static nasa.logic.commands.CommandTestUtil.VALID_MODULE_NAME_CS1231;
 import static nasa.logic.commands.CommandTestUtil.assertCommandSuccess;
-import nasa.model.HistoryBook;
 import static nasa.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import nasa.logic.commands.exceptions.CommandException;
+import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;

@@ -1,19 +1,24 @@
 package nasa.model;
 
+import static nasa.testutil.TypicalNasaBook.NASABOOK_TYPE_1;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import javafx.collections.ObservableList;
+
 import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.UniqueModuleList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static nasa.testutil.TypicalNasaBook.NASABOOK_TYPE_1;
-import org.junit.jupiter.api.Test;
 
 class ModelManagerTest {
 
     @Test
     void initialisation() {
-        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(), new UserPrefs());
+        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
+                new UserPrefs());
         assertTrue(modelManager.getNasaBook().equals(NASABOOK_TYPE_1));
 
         assertTrue(modelManager.hasModule(new ModuleCode("CS2103T")));
@@ -23,7 +28,8 @@ class ModelManagerTest {
 
     @Test
     void getFilteredActivityListTest() {
-        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(), new UserPrefs());
+        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
+                new UserPrefs());
         ObservableList<Activity> list = modelManager.getFilteredActivityList(new ModuleCode("CS2103T"));
         assertEquals("Homework", list.get(0).getName().toString());
         assertEquals("Test", list.get(1).getName().toString());
@@ -34,7 +40,8 @@ class ModelManagerTest {
 
     @Test
     void addOnList_test() {
-        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(), new UserPrefs());
+        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
+                new UserPrefs());
         ObservableList<Activity> list = modelManager.getFilteredActivityList(new ModuleCode("CS2103T"));
         modelManager.deleteModule(new ModuleCode("CS2103T"));
         modelManager.hasModule(new ModuleCode("CS2103T"));
