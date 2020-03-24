@@ -258,10 +258,14 @@ public class Entry {
         return hasClash;
     }
 
+    /**
+     * Checks whether two entries have any time clashes, returns true if have
+     */
     boolean hasTimeClashes(Entry entry, Entry toBeCompared) {
         return (java.time.Duration.between(entry.getTime().dateTime, toBeCompared.getTime().dateTime).toMinutes()
-                <= toBeCompared.getDuration().getHours()*60 + toBeCompared.getDuration().getMinutes()
-                && java.time.Duration.between(entry.getTime().dateTime, toBeCompared.getTime().dateTime).toMinutes() >= 0);
+                <= toBeCompared.getDuration().getHours() * 60 + toBeCompared.getDuration().getMinutes()
+                && java.time.Duration.between(entry.getTime().dateTime,
+                toBeCompared.getTime().dateTime).toMinutes() >= 0);
     }
 
 

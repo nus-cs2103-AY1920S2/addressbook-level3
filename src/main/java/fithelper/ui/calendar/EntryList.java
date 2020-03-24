@@ -1,40 +1,43 @@
 package fithelper.ui.calendar;
 
+import static java.util.Objects.requireNonNull;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import fithelper.model.calculator.CalorieCalculatorByDateRange;
 import fithelper.model.entry.Entry;
-import fithelper.ui.calendar.EntryCard;
 import fithelper.ui.UiPart;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashMap;
-import java.util.HashSet;
-
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Display list of entries by dates
+ */
 public class EntryList extends UiPart<AnchorPane> {
+    private static final String FXML = "entryList.fxml";
+
     @FXML
     private Label listTitle;
 
     @FXML
-    private ListView<ListView<Entry>> entryListView;
+    private ListView<Entry> entryListView;
 
-    private static final String FXML = "entryList.fxml";
     private LocalDateTime time;
     private ObservableList<Entry> combined;
 
-    public EntryList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime dateToSet, CalorieCalculatorByDateRange stats) {
+    public EntryList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime
+            dateToSet, CalorieCalculatorByDateRange stats) {
         super(FXML);
         time = dateToSet;
         listTitle.setText(time.getMonth().toString());
@@ -42,6 +45,9 @@ public class EntryList extends UiPart<AnchorPane> {
         initialiseEntries(foodList, sportList);
     }
 
+    /**
+     * Initialises the entries for display
+     */
     private void initialiseEntries(ObservableList<Entry> foodList, ObservableList<Entry> sportList) {
         addFilteredEntries(sportList);
         addFilteredEntries(foodList);
@@ -57,6 +63,9 @@ public class EntryList extends UiPart<AnchorPane> {
         }
     }
 
+    /**
+     * Maps each entry by its date
+     */
     private Map<LocalDateTime, ArrayList<Entry>> getEntriesByDate(List<Entry> entries) {
         Map<LocalDateTime, ArrayList<Entry>> entriesByDate = new HashMap<>();
 
@@ -83,22 +92,4 @@ public class EntryList extends UiPart<AnchorPane> {
             }
         }
     }
-
-    /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Entry} using a {@code SportsCard}.
-     */
-    class EntryListViewCell extends ListCell<Entry> {
-        @Override
-        protected void updateItem(Entry sports, boolean empty) {
-            super.updateItem(sports, empty);
-
-            if (empty || sports == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                //setGraphic(new EntryCard().getRoot());
-            }
-        }
-    }
-
 }
