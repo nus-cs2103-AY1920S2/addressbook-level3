@@ -153,14 +153,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Tracking Student Progress
-==== Proposed Implementation
-
-This feature is
-
-== Implementation
-
-[discrete]
 === Assigning/ linking 2 entities
 All assign command variants (i.e `AssignTeacherToCourseCommand`, `AssignStudentToCourseCommand` extends from `AssignCommandBase`
 instead of the abstract `Command` class.
@@ -175,6 +167,12 @@ image::AssignCommandImplementation.png[]
 its ID and its entity name (e.g course, student, teacher, etc). So we have AssignDescriptor which stores this information.
 
 - A factory design pattern to select which assign command based on the AssignDescriptor content.
+
+
+=== [Proposed] Tracking Student Progress
+==== Proposed Implementation
+
+This feature is
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
