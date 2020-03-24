@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.PomodoroManager;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.task.Task;
@@ -24,6 +25,8 @@ public class ModelManager implements Model {
     private final Pet pet;
     private final UserPrefs userPrefs;
     private final FilteredList<Task> filteredTasks;
+
+    private PomodoroManager pomodoroManager;
 
     /** Initializes a ModelManager with the given taskList and userPrefs. */
     public ModelManager(
@@ -205,10 +208,20 @@ public class ModelManager implements Model {
         statistics.updateDataDates();
     }
 
+    public void setPomodoroManager(PomodoroManager pomodoroManager) {
+        this.pomodoroManager = pomodoroManager;
+    }
+
+    public PomodoroManager getPomodoroManager() {
+        return pomodoroManager;
+    }
+
+    // ============================ Statistics Manager
+=======
     public void updatesDayDataStatistics(DayData dayData) {
         statistics.updatesDayData(dayData);
     }
-
+  
     public DayData getDayDataFromDate(Date date) {
         return statistics.getDayDataFromDate(date);
     }
