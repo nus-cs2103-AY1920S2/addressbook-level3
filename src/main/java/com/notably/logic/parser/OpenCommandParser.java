@@ -5,9 +5,6 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.RelativePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -26,7 +23,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
     public List<OpenCommand> parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
-        if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid input"));
         }
@@ -34,18 +31,7 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         String titles = argMultimap.getValue(PREFIX_TITLE).get();
         List<OpenCommand> openCommandList = new ArrayList<>();
 
-        try {
-            if (titles.charAt(0) == '/') {
-                openCommandList.add(new OpenCommand(AbsolutePath.fromString(titles)));
-            } else {
-                openCommandList.add(new OpenCommand(RelativePath.fromString(titles)));
-            }
-            RelativePath path = RelativePath.fromString(titles);
-            openCommandList.add(new OpenCommand(path));
-            return openCommandList;
-        } catch (InvalidPathException ex) {
-            throw new ParseException(ex.getMessage());
-        }
-
+        openCommandList.add(new OpenCommand(ParserUtil.createPath(titles)));
+        return openCommandList;
     }
 }
