@@ -196,6 +196,20 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void sortModulesAlphabetically() {
+        for(int i = 0; i < filteredModules.size(); ++i) {
+            filteredModules.get(i).sortGroupsAlphabetically();
+        }
+    }
+
+    @Override
+    public void sortModulesByRating() {
+        for(int i = 0; i < filteredModules.size(); ++i) {
+            filteredModules.get(i).sortGroupsByRating();
+        }
+    }
+
+    @Override
     public ObservableList<Module> getFilteredModuleList() {
         return filteredModules;
     }
@@ -214,6 +228,13 @@ public class ModelManager implements Model {
         return taTracker.hasGroup(group, targetModule);
     }
 
+
+    //=========== Filtered Student List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Student} backed by the internal list of
+     * {@code versionedTaTracker}
+     */
     @Override
     public void addGroup(Group group, Module targetModule) {
         requireNonNull(group);

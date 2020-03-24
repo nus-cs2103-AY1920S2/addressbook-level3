@@ -282,6 +282,16 @@ public interface Model {
      */
     void updateStudentList(int moduleIndex, int groupIndex);
 
+    /**
+     * Sorts all the students of all groups in all the modules alphabetically.
+     */
+    void sortModulesAlphabetically();
+
+    /**
+     * Sorts all the students of all groups in all the modules by rating.
+     */
+    void sortModulesByRating();
+
     // TODO: Student filter methods. Javadoc comments should mention students are inside group -> inside module
 
     /** Returns an unmodifiable view of the filtered student list */

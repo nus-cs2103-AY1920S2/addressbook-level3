@@ -53,8 +53,7 @@ public class Group {
      * Sorts students by rating.
      */
     public void sortStudentsByRating() {
-        //TODO
-        //students.sortByRating();
+        students.sortByRating();
     }
 
     /**

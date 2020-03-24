@@ -50,8 +50,7 @@ public class SortModuleCommand extends Command {
                 type.equalsIgnoreCase("alpha")) {
             module.sortGroupsAlphabetically();
         } else {
-            //TODO: Sort students by rating
-            //module.sortGroupsByRating();
+            module.sortGroupsByRating();
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, module));
     }
