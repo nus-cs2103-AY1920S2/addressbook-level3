@@ -15,8 +15,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AddMetricCommandParser implements Parser<AddMetricCommand> {
     private static final String MESSAGE_INCOMPLETE_ARGUMENT = "Missing attribute and weightage details.\n%s";
-    private static final String MESSAGE_INVALID_WEIGHTAGE_FORMAT = "There is an invalid format of the weightage." +
-            "Please ensure your weightage are in numbers.";
+    private static final String MESSAGE_INVALID_WEIGHTAGE_FORMAT = "There is an invalid format of the weightage."
+            + "Please ensure your weightage are in numbers.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddMetricCommand
@@ -32,8 +32,8 @@ public class AddMetricCommandParser implements Parser<AddMetricCommand> {
         if (arguments.equals("")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMetricCommand.MESSAGE_USAGE));
-        } else if (!argMultimap.arePrefixesPresent(PREFIX_ATTRIBUTE) ||
-                !argMultimap.arePrefixesPresent(PREFIX_WEIGHTAGE)) {
+        } else if (!argMultimap.arePrefixesPresent(PREFIX_ATTRIBUTE)
+                || !argMultimap.arePrefixesPresent(PREFIX_WEIGHTAGE)) {
             throw new ParseException(
                     String.format(MESSAGE_INCOMPLETE_ARGUMENT, AddMetricCommand.MESSAGE_USAGE));
         } else {

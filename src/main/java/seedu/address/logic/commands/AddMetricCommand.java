@@ -10,8 +10,15 @@ import seedu.address.model.Model;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.MetricList;
 
+/**
+ * AddMetricCommand describes the behavior of HireLah!
+ * when a user wants to delete the metric from the list.
+ */
+
 public class AddMetricCommand extends AddCommand {
     public static final String COMMAND_WORD = "metric";
+    public static final String MESSAGE_HAS_NOT_FINALIZED = "The session has not been finalized. Please finalize it"
+            + " before adding metrics.";
     public static final String MESSAGE_SUCCESS = "New metric added: %1$s";
     public static final String MESSAGE_USAGE = "new " + COMMAND_WORD + ": Adds an metric to the Metric list.\n"
             + "Parameters: "
@@ -36,12 +43,17 @@ public class AddMetricCommand extends AddCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.isfinalisedInterviewProperties()) {
+            throw new CommandException(MESSAGE_HAS_NOT_FINALIZED);
+        }
+
         MetricList metrics = model.getMetricList();
         AttributeList attributes = model.getAttributeList();
 
         try {
             metrics.add(toAdd, attributes, attributePrefixes, addedWeights);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), ToggleView.METRIC);
         } catch (IllegalValueException e) {
             throw new CommandException(e.getMessage());
         }

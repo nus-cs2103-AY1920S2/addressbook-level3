@@ -1,10 +1,10 @@
 package seedu.address.model.hirelah;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /*
  * Metric
@@ -35,9 +35,9 @@ public class Metric {
      * Constructs a Metric instance.
      * @param name The name of the metric.
      */
-    public Metric(String name) {
+    public Metric(String name, HashMap<Attribute, Double> attributeToWeight) {
         this.name = name;
-        this.attributeToWeight = new HashMap<>();
+        this.attributeToWeight = attributeToWeight;
     }
 
     /**
@@ -47,11 +47,11 @@ public class Metric {
      * @return The created metric.
      * @throws IllegalValueException if the name is invalid.
      */
-    public static Metric of(String name) throws IllegalValueException {
+    public static Metric of(String name, HashMap<Attribute, Double> attributeToWeight) throws IllegalValueException {
         if (!isValidMetricName(name)) {
             throw new IllegalValueException(MESSAGE_CONSTRAINTS);
         }
-        return new Metric(name);
+        return new Metric(name, attributeToWeight);
     }
 
     /**
@@ -61,6 +61,9 @@ public class Metric {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public Metric setName(String updatedName) throws IllegalValueException {
+        return Metric.of(updatedName, new HashMap<>(attributeToWeight));
+    }
     /**
      * Set a particular attribute to a value.
      * @param attribute The attribute that the value wants to be set.
