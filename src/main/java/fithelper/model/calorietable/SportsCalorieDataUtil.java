@@ -34,6 +34,6 @@ public class SportsCalorieDataUtil {
             + "Backpacking, Hiking with pack/493//" + "Canoeing (light)/211//"
             + "Canoeing (moderate)/493//" + "Canoeing (vigorous)/844//"
             + "Swimming backstroke/493//" + "Swimming breaststroke/704//"
-            + "Swimming butterfly/744//" + "Swimming sidestroke/563//"
+            + "Swimming butterfly/744//" + "Swimming sidestroke/563//" + "Swimming leisurely, not laps/422//"
             + "Water polo/704//" + "Water volleyball/211//" + "Water jogging/563//";
 }
