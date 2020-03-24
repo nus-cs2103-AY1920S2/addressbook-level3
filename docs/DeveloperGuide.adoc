@@ -98,6 +98,7 @@ image::LogicArchitectureDiagram.png[]
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 `Logic` consists of 3 subcomponents:
+
 * <<Design-NotablyParser,*`NotablyParser`*>>: Main parser of the App, deals with user command execution.
 * <<Design-SuggestionEngine,*`SuggestionEngine`*>>: Deals with suggestions generation.
 * <<Design-CorrectionEngine,*`CorrectionEngine`*>>: Deals with auto-correction.
