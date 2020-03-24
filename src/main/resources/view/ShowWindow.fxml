@@ -11,63 +11,50 @@
    <scene>
       <Scene>
           <AnchorPane prefHeight="557.0" prefWidth="607.0">
-            <children>
                <PieChart fx:id="piechart" layoutX="40.0" layoutY="209.0" prefHeight="313.0" prefWidth="531.0" />
                <Pane layoutX="-11.0" prefHeight="78.0" prefWidth="618.0" style="-fx-background-color: #32406F;">
-                  <children>
                      <Label layoutX="217.0" layoutY="4.0" text="Statistics" textFill="#1dc45ef7">
                         <font>
                            <Font size="48.0" />
                         </font>
                      </Label>
-                  </children>
                </Pane>
                <HBox layoutX="40.0" layoutY="95.0" spacing="25.0">
-                  <children>
-                     <Pane prefHeight="104.0" prefWidth="160.0" style="-fx-background-color: #ffd700;">
-                        <children>
-                           <Label layoutX="13.0" layoutY="75.0" text="Earnings Today">
-                              <font>
-                                 <Font size="20.0" />
-                              </font></Label>
-                            <Label fx:id="totalcash" layoutX="21.0" layoutY="14.0" minWidth="-Infinity" prefHeight="53.0" prefWidth="140.0">
-                              <font>
-                                 <Font size="36.0" />
-                              </font>
-                           </Label>
-                        </children>
-                     </Pane>
-                     <Pane prefHeight="104.0" prefWidth="160.0" style="-fx-background-color: #87cefa;">
-                        <children>
-            
-                            <Label layoutX="6.0" layoutY="75.0" text="Orders Delivered">
-                              <font>
-                                 <Font size="20.0" />
-                              </font></Label>
-                           <Label fx:id="doneorders" layoutX="63.0" layoutY="14.0" minWidth="-Infinity" prefHeight="53.0" prefWidth="66.0">
-                              <font>
-                                 <Font size="36.0" />
-                              </font>
-                           </Label>
-                        </children>
-                     </Pane>
-                     <Pane prefHeight="104.0" prefWidth="160.0" style="-fx-background-color: #00fa9a;">
-                        <children>
-                            
-                           <Label layoutX="25.0" layoutY="75.0" text="Total Orders">
-                              <font>
-                                 <Font size="20.0" />
-                              </font></Label>
-                           <Label fx:id="totalorders" layoutX="67.0" layoutY="14.0" minWidth="-Infinity" prefHeight="53.0" prefWidth="66.0">
-                              <font>
-                                 <Font size="36.0" />
-                              </font>
-                           </Label>
-                        </children>
-                     </Pane>
-                  </children>
+                  <Pane prefHeight="104.0" prefWidth="160.0" style="-fx-background-color: #ffd700;">
+                        <Label layoutX="13.0" layoutY="75.0" text="Earnings Today">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Label>
+                        <Label fx:id="totalcash" layoutX="21.0" layoutY="14.0" minWidth="-Infinity" prefHeight="53.0" prefWidth="140.0">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                  </Pane>
+                  <Pane prefHeight="104.0" prefWidth="160.0" style="-fx-background-color: #87cefa;">
+                        <Label layoutX="6.0" layoutY="75.0" text="Orders Delivered">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Label>
+                        <Label fx:id="doneorders" layoutX="63.0" layoutY="14.0" minWidth="-Infinity" prefHeight="53.0" prefWidth="66.0">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                  </Pane>
+                  <Pane prefHeight="104.0" prefWidth="160.0" style="-fx-background-color: #00fa9a;">
+                        <Label layoutX="25.0" layoutY="75.0" text="Total Orders">
+                           <font>
+                              <Font size="20.0" />
+                           </font></Label>
+                        <Label fx:id="totalorders" layoutX="67.0" layoutY="14.0" minWidth="-Infinity" prefHeight="53.0" prefWidth="66.0">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Label>
+                  </Pane>
                </HBox>
-            </children></AnchorPane>
+          </AnchorPane>
       </Scene>
    </scene>
 </fx:root>
