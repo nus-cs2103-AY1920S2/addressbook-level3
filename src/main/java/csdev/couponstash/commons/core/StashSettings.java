@@ -11,7 +11,8 @@ import java.util.Objects;
  */
 public class StashSettings implements Serializable {
     private static final long serialVersionUID = 9044979298460194104L;
-    private static final String DEFAULT_MONEY_SYMBOL = "$";
+
+    public static final String DEFAULT_MONEY_SYMBOL = "$";
 
     private final String moneySymbol;
 
