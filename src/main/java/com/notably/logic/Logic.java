@@ -21,7 +21,6 @@ public interface Logic {
 
     /**
      * TODO: Change to BlockStoragePath
-     * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
 

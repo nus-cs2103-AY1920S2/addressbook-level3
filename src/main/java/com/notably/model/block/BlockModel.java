@@ -23,7 +23,7 @@ public interface BlockModel {
     /**
      * Gets the {@code Property<AbsolutePath>} of the currently open path.
      */
-    Property<AbsolutePath> getCurrentlyOpenPathProperty();
+    Property<AbsolutePath> currentlyOpenPathProperty();
 
     /**
      * Check if currently open block has the specified child block.
