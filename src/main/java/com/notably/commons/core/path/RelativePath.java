@@ -12,7 +12,8 @@ import com.notably.commons.core.path.exceptions.InvalidPathException;
  */
 public class RelativePath implements Path {
     public static final String INVALID_RELATIVE_PATH = "Invalid relative path";
-    public static final String VALIDATION_REGEX = "(\\.|\\..|\\p{Alnum}+)(\\/(\\.|\\..|\\p{Alnum}+))*\\/?";
+    public static final String VALIDATION_REGEX = "(\\.|\\..|([a-zA-Z0-9]+\\s+)*[a-zA-Z0-9]+)"
+            + "(\\/(\\.|\\..|([a-zA-Z0-9]+\\s+)*[a-zA-Z0-9]+))*\\/?";
     private final List<String> components;
     private RelativePath(String relativePathString) {
         this.components = new ArrayList<>();
@@ -99,10 +100,10 @@ public class RelativePath implements Path {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Path)) {
+        if (!(object instanceof RelativePath)) {
             return false;
         }
-        Path another = (Path) object;
+        RelativePath another = (RelativePath) object;
         List<String> temp = new ArrayList<>();
         List<String> anotherTemp = new ArrayList<>();
         for (String obj: this.getComponents()) {
