@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK;
 import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleManager;
 import seedu.address.model.profile.Profile;
@@ -50,7 +51,8 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Profile}
      */
-    /*public AddCommand(Module module) {
+    /*
+    public AddCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
     }
@@ -61,7 +63,8 @@ public class AddCommand extends Command {
         MESSAGE_SUCCESS = "Existing module updated: %1$s";
     }*/
 
-    public AddCommand(ModuleCode moduleCode, int semester, String grade, String task, String deadlineString) {
+    public AddCommand(ModuleCode moduleCode, int semester, String grade,
+                      String task, String deadlineString) throws ParseException {
         requireNonNull(moduleCode);
         requireNonNull(semester);
         toAdd = ModuleManager.getModule(moduleCode);

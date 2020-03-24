@@ -45,10 +45,9 @@ public class CourseRequirement {
         }
 
         for (ModuleCode moduleCode : modules) {
-            output.append("\n");
             output.append(moduleCode);
+            output.append("\n");
         }
-        output.append("\n");
         return output.toString();
     }
 

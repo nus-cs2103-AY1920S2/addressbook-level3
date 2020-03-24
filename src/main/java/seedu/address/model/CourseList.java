@@ -1,11 +1,13 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
 
 import java.util.ArrayList;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.Course;
+import seedu.address.model.profile.course.CourseFocusArea;
 import seedu.address.model.profile.course.CourseName;
 
 /**
@@ -24,19 +26,6 @@ public class CourseList {
         courseList.add(course);
     }
 
-    /**
-     * Returns true if a course with the same name as {@code CourseName} exists in the course list.
-     */
-    public boolean hasCourse(CourseName courseName) throws ParseException {
-        requireNonNull(courseName);
-        for (Course course : courseList) {
-            if (course.getCourseName().equals(courseName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public Course getCourse(CourseName courseName) throws ParseException {
         requireNonNull(courseName);
         for (Course course : courseList) {
@@ -44,8 +33,20 @@ public class CourseList {
                 return course;
             }
         }
-        return null;
+        throw new ParseException("Course does not exist");
     }
 
+    public CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
+        requireNonNull(focusAreaName);
+        for (Course course : courseList) {
+            try {
+                CourseFocusArea focusArea = course.getCourseFocusArea(focusAreaName);
+                return focusArea;
+            } catch (ParseException e) {
+                continue;
+            }
+        }
 
+        throw new ParseException(MESSAGE_INVALID_COURSE_FOCUS_AREA);
+    }
 }

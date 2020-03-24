@@ -101,6 +101,7 @@ public class Module {
         builder.append(getDescription());
         builder.append("\n Semesters Offered: ");
         builder.append(getSemesterData());
+        builder.append("\n");
         //builder.append(getAcadYear());
 
         return builder.toString();
@@ -116,8 +117,4 @@ public class Module {
                 && moduleCode.equals(((Module) other).moduleCode)); // state check
     }
     // && (personal.getSemester() == ((Module) other).getPersonal().getSemester())
-
-    // methods to be implemented
-    // isSameModule()
-    // hashCode()
 }
