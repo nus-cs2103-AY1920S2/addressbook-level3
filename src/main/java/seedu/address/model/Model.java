@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * The API of the Model component.
@@ -85,6 +86,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered profile list */
     ObservableList<Profile> getFilteredPersonList();
 
+    ObservableList<Deadline> getFilteredDeadlineList();
+
+
     /**
      * Updates the filter of the filtered profile list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -96,4 +100,10 @@ public interface Model {
     Profile getProfile(Name name);
 
     Profile getFirstProfile();
+
+    void addDeadline(Deadline deadline);
+
+    void deleteDeadline(Deadline deadline);
+
+    void initDeadlineList();
 }

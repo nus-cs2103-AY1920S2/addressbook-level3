@@ -13,6 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
  * Represents the in-memory model of the profile list data.
@@ -21,8 +22,10 @@ public class ProfileManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ProfileManager.class);
 
     private final ProfileList profileList;
+    private DeadlineList deadlineList;
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
+    private FilteredList<Deadline> filteredDeadlines;
 
     public ProfileManager(ProfileList profileList, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -37,6 +40,12 @@ public class ProfileManager implements Model {
 
     public ProfileManager() {
         this(new ProfileList(), new UserPrefs());
+    }
+
+    @Override
+    public void initDeadlineList() {
+        this.deadlineList = profileList.getDeadlineList();
+        filteredDeadlines = new FilteredList<>(deadlineList.getDeadlineList());
     }
 
     @Override
@@ -75,6 +84,7 @@ public class ProfileManager implements Model {
     @Override
     public void setProfileList(ProfileList profileList) {
         this.profileList.resetData(profileList);
+        setDeadlineList(this.deadlineList);
     }
 
     @Override
@@ -132,4 +142,24 @@ public class ProfileManager implements Model {
     public Profile getFirstProfile() {
         return profileList.getProfileList().get(0);
     }
+
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return filteredDeadlines;
+    }
+
+    @Override
+    public void addDeadline(Deadline deadline) {
+        deadlineList.addDeadline(deadline);
+    }
+
+    public void setDeadlineList(DeadlineList deadlineList) {
+        this.deadlineList.resetData(deadlineList);
+    }
+
+    @Override
+    public void deleteDeadline(Deadline deadline) {
+        deadlineList.deleteDeadline(deadline);
+    }
+
+
 }

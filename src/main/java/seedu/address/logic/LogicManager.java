@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.storage.Storage;
 
 /**
@@ -94,5 +95,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public ObservableList<Deadline> getFilteredDeadlineList() {
+        return model.getFilteredDeadlineList();
     }
 }

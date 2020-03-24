@@ -12,6 +12,7 @@ import seedu.address.model.profile.course.module.exceptions.DateTimeException;
  * Represents a Deadline in Personal.
  */
 public class Deadline {
+    protected String moduleCode;
     protected String description;
     protected LocalDate date;
     protected LocalTime time;
@@ -19,7 +20,8 @@ public class Deadline {
     private String inputTimePattern = "HH:mm";
     private DateTimeFormatter inputTimeFormatter = DateTimeFormatter.ofPattern(inputTimePattern);
 
-    public Deadline(String description, String date, String time) throws DateTimeException {
+    public Deadline(String moduleCode, String description, String date, String time) throws DateTimeException {
+        this.moduleCode = moduleCode;
         this.description = description;
         try {
             this.date = LocalDate.parse(date);
@@ -29,7 +31,8 @@ public class Deadline {
         }
     }
 
-    public Deadline(String description) {
+    public Deadline(String moduleCode, String description) {
+        this.moduleCode = moduleCode;
         this.description = description;
         this.date = null;
         this.time = null;
@@ -47,6 +50,18 @@ public class Deadline {
         return time;
     }
 
+    public String getStringDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL yyyy");
+        String formattedString = date.format(formatter);
+        return formattedString;
+    }
+
+    public String getStringTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String formattedString = time.format(formatter);
+        return formattedString;
+    }
+
     public DateTimeFormatter getInputTimeFormatter() {
         return inputTimeFormatter;
     }
@@ -55,9 +70,13 @@ public class Deadline {
         return inputTimePattern;
     }
 
+    public String getModuleCode() {
+        return this.moduleCode;
+    }
+
     @Override
     public String toString() {
-        String result = this.description;
+        String result = this.moduleCode + ": " + this.description;
         if (date != null && time != null) {
             result += " by " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ", "
                     + LocalTime.parse(time.toString(), inputTimeFormatter);

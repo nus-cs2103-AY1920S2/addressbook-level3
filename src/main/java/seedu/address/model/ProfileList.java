@@ -121,4 +121,8 @@ public class ProfileList {
         }
         return true;
     }
+
+    public DeadlineList getDeadlineList() {
+        return new DeadlineList(this.getProfileList().get(0).getDeadlines());
+    }
 }
