@@ -17,7 +17,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import nasa.commons.exceptions.DataConversionException;
 
-public class JsonAddressBookStorageTest {
+public class JsonNasaBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
 
     @TempDir

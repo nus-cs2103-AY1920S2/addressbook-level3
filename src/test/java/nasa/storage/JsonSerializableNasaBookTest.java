@@ -12,7 +12,7 @@ import nasa.commons.exceptions.IllegalValueException;
 import nasa.commons.util.JsonUtil;
 import seedu.address.testutil.TypicalPersons;
 
-public class JsonSerializableAddressBookTest {
+public class JsonSerializableNasaBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
