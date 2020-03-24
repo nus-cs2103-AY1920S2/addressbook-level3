@@ -20,28 +20,43 @@ Class ReadOnlyUserPrefs
 
 Package Parcel {
 Class "{abstract}\nParcel" as Parcel
-Class ReturnOrder
+}
+
+Package Comment {
+Class Comment
+}
+
+Package TypeOfItem {
+Class TypeOfItem
+}
+
+Package CashOnDelivery {
+Class CashOnDelivery
+}
+
+Class UniqueReturnOrderList
+Class UniqueOrderList
+
+Package ReturnOrderAttributes {
+Class "TransactionId" as tid1
+Class "Address" as addr1
+Class "Name" as name1
+Class "Phone" as phone1
+Class "Warehouse" as warehouse1
+Class "TimeStamp" as timestamp1
+Class "Email" as email1
+}
+
 Class Order
+Package OrderAttributes {
 Class TransactionId
+Class CashOnDelivery
 Class Address
 Class Name
 Class Phone
 Class Warehouse
 Class TimeStamp
-}
-
-Class Comment
-Class TypeOfItem
-Class CashOnDelivery
-
-Package ReturnOrder {
-Class ReturnOrder
-Class UniqueReturnOrderList
-}
-
-Package Order {
-Class UniqueOrderList
-Class Order
+Class Email
 }
 
 Class HiddenOutside #FFFFFF
@@ -52,7 +67,7 @@ ReturnOrderBook .up.|> ReadOnlyReturnOrderBook
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" OrderBook
-ModelManager o--> "1" ReturnOrderBook
+ModelManager o-right-> "1" ReturnOrderBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
@@ -64,20 +79,39 @@ TimeStamp -[hidden]right-> Warehouse
 Warehouse -[hidden]right-> TransactionId
 TransactionId -[hidden]right-> CashOnDelivery
 TypeOfItem -[hidden]right-> Comment
+CashOnDelivery -[hidden]up-> OrderAttributes
+OrderBook -[hidden]right-> OrderAttributes
 
 Order --|> Parcel
-ReturnOrder --|> Parcel
-
-OrderBook *--> "1" UniqueReturnOrderList
-UniqueOrderList o--> "*" Order
 Order --> TypeOfItem
-ReturnOrder --> TypeOfItem
 Order --> Comment
-ReturnOrder --> Comment
-Order --> CashOnDelivery
+Order *-> Name
+Order *-> TransactionId
+Order *-> Address
+Order *-> CashOnDelivery
+Order *-> Phone
+Order *-> Warehouse
+Order *-> TimeStamp
+Order *-> Email
 
-ReturnOrderBook *-> "1" UniqueReturnOrderList
+ReturnOrder -[hidden]right-> ReturnOrderAttributes
+ReturnOrder --|> Parcel
+ReturnOrder --> TypeOfItem
+ReturnOrder --> Comment
+ReturnOrder *-> name1
+ReturnOrder *-> tid1
+ReturnOrder *-> addr1
+ReturnOrder *-> phone1
+ReturnOrder *-> timestamp1
+ReturnOrder *-> warehouse1
+ReturnOrder *-> email1
+
+OrderBook *--> "1" UniqueOrderList
+ReturnOrderBook *--> "1" UniqueReturnOrderList
 UniqueReturnOrderList o--> "*" ReturnOrder
+UniqueOrderList o--> "*" Order
+
 
 ModelManager -->"1" Order : filtered
+ModelManager -right->"1" ReturnOrder : filtered
 @enduml

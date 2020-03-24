@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -152,6 +152,41 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Delivered feature
+The delivered feature allows the user to mark orders as delivered after delivering an order.
+
+The delivered feature was implemented as a `DoneCommand` in the `Logic` package. +
+
+==== Class Diagram for Done feature
+image::DoneClassDiagram.svg[]
+
+==== Sequence Diagram for delivering an order
+The sequence diagram for the *Delivered Command* is shown below.
+
+image::DoneSequenceDiagram.svg[]
+
+The arguments passed to the Done Command will be parsed by the `DoneCommandParser` class. +
+If the given arguments are valid, a new `DoneCommand` object will be returned.
+In this class, invalid arguments will result in a `ParseException`. +
+Two types of invalid arguments are checked for: empty arguments
+and arguments with only whitespace characters.
+
+The `execute()` function of the `DoneCommand` will first check if the given arguments
+are in the format required for an order to be marked as complete
+(i.e. both the command word `return` and `INDEX` are present)
+The check is done within the `execute()` function. +
+
+If the input is valid, the particular order based on the integer `INDEX` will be used to +
+obtain this order from the order book. This order will be checked if it was delivered. +
+
+1. If it was not delivered, it will trigger the `setOrder()`, `deliverOrder()`
+and `updateFilteredOrderList()` functions. These methods will be used to replace
+the existing order with the new order that has a delivered status. Also, the order book
+will be updated to show the change. +
+
+2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
+display the original order book.
 
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area

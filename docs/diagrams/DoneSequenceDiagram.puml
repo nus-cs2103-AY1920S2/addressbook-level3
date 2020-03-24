@@ -7,7 +7,6 @@ participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
 participant ":DoneCommandParser" as DoneCommandParser LOGIC_COLOR
 participant "d:DoneCommand" as DoneCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
-participant ":DoneOrderDesciptor" as DoneOrderDesciptor LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -49,11 +48,31 @@ deactivate OrderBookParser
 LogicManager -> DoneCommand : execute()
 activate DoneCommand
 
-DoneCommand -> Model : deliverOrder(1)
+
+DoneCommand -> DoneCommand: isDelivered()
+activate DoneCommand
+DoneCommand --> DoneCommand: false
+opt order was not delivered
+deactivate DoneCommand
+
+DoneCommand -> Model : setOrder()
 activate Model
 
 Model --> DoneCommand
 deactivate Model
+DoneCommand -> Model : deliverOrder()
+activate Model
+
+Model --> DoneCommand
+deactivate Model
+end
+
+DoneCommand -> Model : updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS)
+activate Model
+
+Model --> DoneCommand
+deactivate Model
+
 
 create CommandResult
 DoneCommand -> CommandResult
