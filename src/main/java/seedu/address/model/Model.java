@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -16,6 +16,9 @@ import seedu.address.model.restaurant.Restaurant;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Restaurant> PREDICATE_SHOW_ALL_RESTAURANTS = unused -> true;
@@ -82,7 +85,7 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
-    ArrayList<Assignment> getAssignmentList();
+    ObservableList<Assignment> getAssignmentList();
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -163,8 +166,21 @@ public interface Model {
      */
     boolean hasAssignment(Assignment toAdd);
 
+    /**
+     * Sorts the scheduler by the filter.
+     */
+    void sortAssignment(Comparator<Assignment> comparator);
+
     void setAssignment(Assignment assignmentToUpdate, Assignment updatedAssignment);
 
+    /** Returns an unmodifiable view of the filtered assignment list */
+    ObservableList<Assignment> getFilteredAssignmentList();
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAssignmentList(Predicate<Assignment> predicate);
     //=========== Filtered Bday List Accessors ====================================================================
 
     /**

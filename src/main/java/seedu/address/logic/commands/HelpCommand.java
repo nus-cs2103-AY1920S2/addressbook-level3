@@ -31,13 +31,15 @@ public class HelpCommand extends Command {
             + "5. " + AddInfoCommand.COMMAND_WORD + ": " + AddInfoCommand.COMMAND_FUNCTION + "\n"
             + "6. " + EditInfoCommand.COMMAND_WORD + ": " + EditInfoCommand.COMMAND_FUNCTION + "\n"
             + "7. " + DeleteInfoCommand.COMMAND_WORD + ": " + DeleteInfoCommand.COMMAND_FUNCTION + "\n"
-            + "8. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
-            + "9. " + GetCommand.COMMAND_WORD + ": " + GetCommand.COMMAND_FUNCTION + "\n"
-            + "10. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
-            + "11. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
-            + "12. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
-            + "13. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
-            + "14. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
+            + "8. " + GetCommand.COMMAND_WORD + ": " + GetCommand.COMMAND_FUNCTION + "\n"
+            + "9. " + FindCommand.COMMAND_WORD + ": " + FindCommand.COMMAND_FUNCTION + "\n"
+            + "10. " + ClearCommand.COMMAND_WORD + ": " + ClearCommand.COMMAND_FUNCTION + "\n"
+            + "11. " + AddAssignmentCommand.COMMAND_WORD + ": " + AddAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "12. " + DoneCommand.COMMAND_WORD + ": " + DoneCommand.COMMAND_FUNCTION + "\n"
+            + "13. " + ListAssignmentCommand.COMMAND_WORD + ": " + ListAssignmentCommand.COMMAND_FUNCTION + "\n"
+            + "14. " + AddRestaurantCommand.COMMAND_WORD + ": " + AddRestaurantCommand.COMMAND_FUNCTION + "\n"
+            + "15. " + ExitCommand.COMMAND_WORD + ": " + ExitCommand.COMMAND_FUNCTION + "\n"
+            + "16. " + HelpCommand.COMMAND_WORD + ": " + HelpCommand.COMMAND_FUNCTION1
             + " OR " + HelpCommand.COMMAND_FUNCTION2 + "\n"
             + "\nYou can find out more on how a command works by typing the command help, and "
             + "specifying the command index.\n"
@@ -70,13 +72,15 @@ public class HelpCommand extends Command {
         commands.add("5. " + AddInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("6. " + EditInfoCommand.MESSAGE_USAGE + "\n");
         commands.add("7. " + DeleteInfoCommand.MESSAGE_USAGE + "\n");
-        commands.add("8. " + ClearCommand.MESSAGE_USAGE + "\n");
-        commands.add("9. " + GetCommand.MESSAGE_USAGE + "\n");
-        commands.add("10. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
-        commands.add("11. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
-        commands.add("12. " + FindCommand.MESSAGE_USAGE + "\n");
-        commands.add("13. " + ExitCommand.MESSAGE_USAGE + "\n");
-        commands.add("14. " + HelpCommand.MESSAGE_USAGE + "\n");
+        commands.add("8. " + GetCommand.MESSAGE_USAGE + "\n");
+        commands.add("9. " + FindCommand.MESSAGE_USAGE + "\n");
+        commands.add("10. " + ClearCommand.MESSAGE_USAGE + "\n");
+        commands.add("11. " + AddAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("12. " + DoneCommand.MESSAGE_USAGE + "\n");
+        commands.add("13. " + ListAssignmentCommand.MESSAGE_USAGE + "\n");
+        commands.add("14. " + AddRestaurantCommand.MESSAGE_USAGE + "\n");
+        commands.add("15. " + ExitCommand.MESSAGE_USAGE + "\n");
+        commands.add("16. " + HelpCommand.MESSAGE_USAGE + "\n");
 
         return commands;
     }
@@ -89,11 +93,11 @@ public class HelpCommand extends Command {
         }
 
         if (type < 0) {
-            return new CommandResult(MESSAGE, true, false, false);
+            return new CommandResult(MESSAGE, true, false, false, false);
         }
 
         return new CommandResult(LIST_OF_COMMANDS.get(type - 1) + "\n"
-                + "Type help to return to the list of commands.", true, false, false);
+                + "Type help to return to the list of commands.", true, false, false, false);
     }
 
 }

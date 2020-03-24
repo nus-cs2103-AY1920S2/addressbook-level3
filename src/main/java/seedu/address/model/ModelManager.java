@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -29,8 +29,8 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Person> filteredPersonsResult;
     private final FilteredList<Restaurant> filteredRestaurants;
+    private final FilteredList<Assignment> filteredAssignments;
     private final FilteredList<Person> bdayList;
-    private final ArrayList<Assignment> assignments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,7 +49,7 @@ public class ModelManager implements Model {
         this.restaurantBook = new RestaurantBook(restaurantBook);
         this.scheduler = new Scheduler(scheduler);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
-        assignments = this.scheduler.getAssignmentsList();
+        filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
         bdayList = new FilteredList<>(this.addressBook.getBdayList());
     }
 
@@ -137,12 +137,19 @@ public class ModelManager implements Model {
     @Override
     public void addAssignment(Assignment assignment) {
         scheduler.addAssignment(assignment);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
         return scheduler.hasAssignment(assignment);
+    }
+
+    @Override
+    public void sortAssignment(Comparator<Assignment> comparator) {
+        scheduler.sortAssignment(comparator);
+        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
     }
 
     @Override
@@ -158,8 +165,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ArrayList<Assignment> getAssignmentList() {
-        return assignments;
+    public ObservableList<Assignment> getAssignmentList() {
+        return filteredAssignments;
     }
 
     //=========== RestaurantBook ================================================================================
@@ -246,9 +253,29 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && restaurantBook.equals(other.restaurantBook)
-                // && scheduler.equals(other.scheduler)
+                && scheduler.equals(other.scheduler)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredPersonsResult.equals(other.filteredPersonsResult)
+                && filteredAssignments.equals(other.filteredAssignments)
+                && filteredRestaurants.equals(other.filteredRestaurants);
+    }
+
+    //=========== Filtered Assignment List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return filteredAssignments;
+    }
+
+    @Override
+    public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+        requireNonNull(predicate);
+        filteredAssignments.setPredicate(predicate);
     }
 
     //=========== Filtered Restaurant List Accessors =============================================================

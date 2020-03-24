@@ -2,8 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentList;
 
@@ -14,10 +15,16 @@ import seedu.address.model.assignment.AssignmentList;
 public class Scheduler implements ReadOnlyScheduler {
     private final AssignmentList assignments;
 
+    /*
+     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
     {
         assignments = new AssignmentList();
     }
-
     public Scheduler() {}
 
     /**
@@ -29,24 +36,28 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
+     * Replaces the contents of the assignment list with {@code assignments}.
+     * Must not contain duplicate assignments.
+     */
+    public void setAssignments(ObservableList<Assignment> assignments) {
+        this.assignments.setAssignments(assignments);
+    }
+
+    /**
      * Resets the existing data of this {@code AssignmentList} with {@code newData}.
      */
     public void resetData(ReadOnlyScheduler newData) {
         requireNonNull(newData);
+
         setAssignments(newData.getAssignmentsList());
     }
 
     /**
-     * Replaces the contents of the assignment list with {@code assignments}.
-     * Must not contain duplicate assignments.
+     * Returns true if an identical assignment as {@code assignment} exists in the scheduler.
      */
-    public void setAssignments(ArrayList<Assignment> assignments) {
-        this.assignments.setAssignments(assignments);
-    }
-
-    @Override
-    public ArrayList<Assignment> getAssignmentsList() {
-        return assignments.getAssignments();
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return assignments.contains(assignment);
     }
 
     /**
@@ -58,16 +69,41 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
-     * Returns true if an identical assignment as {@code assignment} exists in the scheduler.
+     * Sort assignments in the scheduler
+     * by the filter.
      */
-    public boolean hasAssignment(Assignment assignment) {
-        requireNonNull(assignment);
-        return assignments.contains(assignment);
+    public void sortAssignment(Comparator<Assignment> comparator) {
+        assignments.sort(comparator);
     }
 
     public void setAssignment(Assignment target, Assignment markedAssignment) {
         requireNonNull(markedAssignment);
 
         assignments.setAssignment(target, markedAssignment);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAssignment(Assignment key) {
+        assignments.remove(key);
+    }
+
+    @Override
+    public ObservableList<Assignment> getAssignmentsList() {
+        return assignments.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Scheduler // instanceof handles nulls
+                && assignments.equals(((Scheduler) other).assignments));
+    }
+
+    @Override
+    public int hashCode() {
+        return assignments.hashCode();
     }
 }
