@@ -60,10 +60,18 @@
 }
 
 .tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0 0 0 10;
     -fx-min-height: 0;
     -fx-max-height: 0;
-	-fx-background-color: #F8713D;
+	-fx-background-color: #F7F2F0;
+}
+
+.tab-pane > .tab-header-area > .headers-region > .tab:selected {
+    -fx-background-color: #F8713D;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: white;
 }
 
 .tab-header-background {
@@ -72,11 +80,11 @@
 
 .tab-pane .tab
 {
-    -fx-background-color: #F8713D;
+    -fx-background-color: #F7F2F0;
 }
 
 .tab .tab-label {
-    -fx-text-fill: white;
+    -fx-text-fill: rgba(69, 63, 233, 0.4);
 }
 
 
@@ -359,7 +367,7 @@
 
 #cardPane {
     -fx-background-color: white;
-    -fx-border-radius: 20px;
+    -fx-border-radius: 30px;
     -fx-border-width: 0;
 }
 
@@ -374,7 +382,7 @@
     -fx-border-color: ##FFFFFF ##FFFFFF #ffffff ##FFFFFF;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-border-radius: 50px;
+    -fx-border-radius: 30px;
     -fx-font-family: "SofiaProRegular";
     -fx-font-size: 13pt;
     -fx-text-fill: black;
@@ -386,7 +394,7 @@
 
 #resultDisplay .content {
     -fx-background-color: white;
-    -fx-border-radius: 50px;
+    -fx-border-radius: 30px;
     -fx-background-radius: 0;
 }
 
