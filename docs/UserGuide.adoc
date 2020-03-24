@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W13-1/main
 
-By: `AY1920S2-CS2103T-W13-1`      Since: `Mar 2020`
+By: `AY1920S2-CS2103T-W13-1`      Since: `Jan 2020`
 
 == Introduction
 
@@ -38,9 +38,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* `add` : enters the diet segment of the program.
-* `split` : enters the expense splitter segment of the program
+* *`diet`* : enters the Diet Tracker component of EYLAH.
+* `help` : shows the list of commands you can execute at each page.
+* `split` : enters the Expense Splitter segment of EYLAH.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -52,11 +52,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `additem -i ITEM -p PRICE -n NAME`. `NAME`, `ITEM` and
-`PRICE` are a parameters which can decided by the user `additem -i beer tower -p 19.90 -n charlotte`.
-* Items in square brackets are optional e.g `-n NAME [-r ROOM]` can be used as `-n John Doe -r D411` or as `-n John Doe`.
+`PRICE` are parameters which can decided by the user `additem -i beer tower -p 19.90 -n charlotte`.
+* Items in square brackets are optional e.g `-n NAME [-r ROOM]` thus it can be used as `-n John Doe -r D411` or as `-n John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[-n NAME]...` can be used as `{nbsp}`
-(i.e. 0 times), `-n John Doe`, `-n John Doe -n Daniel` etc.
-* Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable
+(i.e. 0 times), `-n charlotte`, `-n John Doe -n Daniel` etc.
+* Parameters can be in any order e.g if the command specifies `-n NAME -p PRICE`, `-p PRICE -n NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -190,33 +190,39 @@ Splitting the Items' cost with friends. All you have to do is add the items and 
 EYLAH will calculate the rest for you!
 
 ==== Add item `additem`
-Add item and the person involved in the splitting.
+Add item and the person involved in the splitting for that item.
 
 Format: +
-`addfood -f FOOD -c COST -n ALL` +
-`addfood -f FOOD -c COST -n NAME [-n NAME]...` +
+`addfood -i ITEMNAME -p PRICE -n ALL` +
+`addfood -i ITEMNAME -p PRICE -n NAME [-n NAME]...` +
+
+NOTE: Entering `ALL` will split that item with all Person(s) currently in PersonList.
+
 Example: +
-`addfood -f pizza -c 30 -n all` +
-`addfood -f pasta -c 6 -n john -n bob -n daniel`
+`addfood -i pizza -p 30 -n all` +
+`addfood -i pasta -p 19.90 -n john -n bob -n daniel`
 
 ==== Delete item  `deleteitem`
 Delete the item(s) in a receipt:
 
 Format: +
-`listfood` +
+`deleteitem [INDEX]` +
+
+[TIP]
+Use `listreceipt` to view your item indices before deletion.
 
 Example: +
-`listfood`
+`deleteitem 3`
 
 ==== List person(s) `listamount`
 
-Display all the Person(s) with the amount they owe you.
+Display all the Person(s) in the PersonList with the amount they owe you.
 
 Format: +
 `listamount` +
 
 Example: +
-`listperson`
+`listamount`
 
 ==== List the current receipt `listreceipt`
 
@@ -233,14 +239,20 @@ Example: +
 When a Person pays an amount, or part of the amount, they owe you.
 
 Format: +
-`paid INDEX` +
+`paid INDEX [AMOUNT]` +
 
 Example: +
-`paid 2`
+`paid 2` +
+`paid 2 3.90`
 
 [TIP]
 When using the `paid` command, use the `listamount` command to find the index of the Person who paid you.
 
+[TIP]
+Index represents the Index of the Person who paid you while Amount represents how much they paid you. If left blank, EYLAH
+will take it as the full amount they owe is paid.
+
+NOTE: When a Person owes $0 he/she will be automatically deleted from PersonList.
 
 ==== Exiting split to go back to main menu `back`
 
@@ -264,6 +276,21 @@ There is no need to save manually.
 
 == Command Summary
 
+
+=== For Diet Tracker
+
+
+=== For Expense Splitter
+
+* *Add Item* `additem` +
+e.g `additem -i pasta -p 19.20 -n charlotte -n bob`
+
+* *Delete Item* `deleteitem` +
+e.g `deleteitem 3`
+
+* *List Amount* `listamount` +
+e.g `listamount`
+
 * *List Receipt* `listreceipt` +
 e.g. `removefood -f fries`
 
@@ -272,3 +299,12 @@ e.g. `paid 3`
 
 * *Back* `back` +
 e.g. `back`
+
+
+
+== Appendix A: Simple activity diagram to aid user with using Expense Splitter
+image::activityDiagram_for_expensesplitter.png[width="790"]
+
+The fully blackened circle at the top represents the start point while the circle
+at the bottom represents the end point.
+
