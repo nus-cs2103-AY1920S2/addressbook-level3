@@ -243,8 +243,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Property<AbsolutePath> getCurrentlyOpenPathProperty() {
-        return blockModel.getCurrentlyOpenPathProperty();
+    public Property<AbsolutePath> currentlyOpenPathProperty() {
+        return blockModel.currentlyOpenPathProperty();
     }
 
     @Override
