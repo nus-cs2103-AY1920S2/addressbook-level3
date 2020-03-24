@@ -40,6 +40,20 @@ public class UniqueSessionList implements Iterable<Session> {
     }
 
     /**
+     * Returns the size of the UniqueSessionList.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Returns the session at the given index.
+     */
+    public Session get(int n) {
+        return internalList.get(n);
+    }
+
+    /**
      * Adds a session to the list.
      * The session must not already exist in the list.
      */

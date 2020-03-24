@@ -99,6 +99,11 @@ image::LogicClassDiagram.png[]
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TaTrackerParser` class to parse the user command.
+.  `TaTrackerParser` uses specialized command parsers to parse the user command.
+.. `StudentCommandParser`, `ModuleCommandParser`, `GroupCommandParser`, and `SessionCommandParser`
+parse commands that interact with the models that they are named after.
+.. Other parsers, such as `HelpCommandParser` and `FilterCommandParser` parse commands that
+interact with the TA-Tracker user interface.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -143,6 +148,18 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the TA-Tracker data in json format and read it back.
+
+`TA-Tracker` saves the following data:
+
+* a list of `Module` objects representing the modules that the user is assisting.
+** each `Module` contains a list of `Session`, representing the sessions that
+the user has completed for that module.
+** each `Module` contains a list of `Group`, representing the groups that the user is
+in charge of, such as a tutorial or lab.
+** each `Group` contains a list of `Student`, representing the students enrolled in
+the respective groups.
+
+* a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
 
 [[Design-Commons]]
 === Common classes
@@ -235,12 +252,416 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+//tag::moduleview[]
+=== Module View
+Module view is the term used to characterise the different functionalities
+related to the modules and groups that the user is affiliated with.
+
+==== Model Framework
+The following class diagram shows how different classes are related in the
+functioning of the module view.
+
+.Module View - Class Diagram
+image::ModuleModelClassDiagram.png[]
+
+The TaTracker model class contains a UniqueModuleList which helps it keep track
+of the different modules the user is associated with. Each module contains a
+UniqueGroupList and a UniqueSessionList.
+
+The UniqueGroupList contains a list of all the groups of a module that the user
+is affiliated with. Each group contains a UniqueStudentsList that contains the
+students in that group.
+
+The UniqueSessionList contains a list of all the done sessions associated with the module.
+This list is used in the TSS view.
+
+==== Implementation of the Module Add and Delete Commands
+
+The following sequence diagram shows the sequence of commands that take place
+between the logic and model components of the TA-Tracker when the user enters the
+command 'module add m/CS2103 n/Software Engineering'.
+
+Note: This diagram assumes that there is no module with the module code 'CS2103'
+pre-existing in the TA-Tracker.
+
+.Module Add - Sequence Diagram
+image::AddModuleSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type module and passes the
+command to the ModuleCommandParser.
+
+3. The ModuleCommandParser sees that the command is of type add and passes the
+arguments to the AddModuleCommandParser.
+
+4. The AddModuleCommandParser creates a Module with the given module code and
+name.
+
+5. The AddModuleCommandParser then creates an AddModuleCommand object and passes
+it the created module. The parser then returns the AddModuleCommand
+
+6. LogicManager calls AddModuleCommad's execute method. The AddModuleCommand object
+checks whether a module with the given module code already exists in TA-Tracker.
+If it does, a command exception is thrown saying that a module with the given module
+code already exists in the TA-Tracker.
+
+7. If no such module exists, the module is added to the TA-Tracker.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
+
+The command used to delete a module has been implemented in a similar way. Tha main
+difference is that the DeleteModuleCommand checks whether an object with the given
+module code exists in the TA-Tracker. If no such module exists, a command exception
+is thrown saying that a module with the given module code doesn't exist. If it does
+exist, first all the sessions linked to that module are removed.
+Then the module is removed from the TA-Tracker.
+
+==== Implementation of the Group Add and Delete Commands
+
+The following activity diagram shows the steps taken by the AddGroupCommand object
+when the execute method is called.
+
+.Group Add - Activity Diagram
+image::AddGroupActivityDiagram.png[]
+
+It should be noted that these are the steps followed assuming that no exception is
+thrown. Before getting the module from TA-Tracker's model, the DeleteGroupCommand object
+checks whether such a module even exists. If it doesn't exists, it throws a command
+exception saying that no such module exists. Before adding a group to the module, the
+object even checks whether the module already has a group with the given group code.
+If it exists, a command exception is thrown saying that there is already a group
+with the given group code.
+
+The interactions between the logic and model components when adding a group are similar
+to the interactions when deleting a group as shown below.
+
+The following sequence diagram shows the interactions between the logic and model
+components when the user inputs the command 'group delete m/CS2103 g/G03'.
+
+Note: This diagram is under the case where a group with the group code G03 does exist
+in the module with module code CS2103 inside the TA-Tracker.
+
+.Group Delete - Sequence Diagram
+image::DeleteGroupSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type group and passes the
+command to the GroupCommandParser.
+
+3. The GroupCommandParser sees that the command is of type delete and passes the
+arguments to the DeleteGroupCommandParser.
+
+4. The DeleteGroupCommandParser creates a Module with the given module code and
+a group with the given group code.
+
+5. The DeleteGroupCommandParser then creates a DeleteGroupCommand object and passes
+it the created module and group. The parser then returns the DeleteGroupCommand
+
+6. LogicManager calls DeleteGroupCommand's execute method. The DeleteGroupCommand object
+checks whether a module with the given module code already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a module with the given module
+code doesn't exist in the TA-Tracker.
+
+7. If the module exists, the DeleteGroupCommand object retrieves the module from the
+model and checks whether the module has a group with the given group code. If it doesn't,
+a command exception is thrown saying that no such group exists. If the group does
+exist, it is removed from the module.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
+
+==== Implementation of the Sort Command
+
+The sort command allows the user to sort the students in the module view either alphabetically
+or by rating.
+
+The sort command can be used in three ways:
+
+1. sort g/GROUP_CODE m/MODULE_CODE t/TYPE : When a user enters the command in this
+manner, they are sorting all the students of the given group in the given module
+by type TYPE (which can be either alphabetical or by rating).
+
+2. sort g/MODULE_CODE t/TYPE : When a user enters a command in this manner, they
+are sorting all the students of all the groups in the given module by type TYPE
+(which can be either alphabetical or by rating).
+
+3. sort t/TYPE : When a user enters a command in this manner, they are sorting all
+students of all groups of all the modules in the TA-Tracker by the type TYPE (which
+can be either alphabetical or by rating).
+
+Since these sort commands function differently but use the same parser, the following
+class structure is used.
+
+.Sort Commands - Class Diagram
+image::SortCommandsClassDiagram.png[]
+
+Since the different commands use the same parser, the SortCommandParser needs to check
+which prefixes have been passed and return the appropriate command accordingly.
+The following activity diagram shows the steps the SortCommandParser takes once
+its parse command is called (assuming that no exception is thrown).
+
+If the user enters a sort command with no valid prefix, a command exception is thrown
+thats explains the usage of the sort command.
+
+.SortCommandParser - Activity Diagram
+image::SortParserActivityDiagram.png[]
+
+The following sequence diagram illustrates the interactions between the logic and
+model components when the user enters the command 'sort m/CS2103 g/G03 t/alpha'.
+
+Note: To allow the user to type quickly, for type both 'alpha' and 'alphabetically'
+sort the students lexicographically.
+
+.Sort - Sequence Diagram
+image::SortGroupSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type sort and passes the
+command to the SortCommandParser.
+
+3. The SortCommandParser performs the steps shown in the previous activity diagram
+and creates and returns a SortGroupCommand.
+
+4. LogicManager calls SortGroupCommand's execute method.
+
+5. The SortGroupCommand creates a Module with the given module code and a group with
+the given group code. The SortGroupCommand object checks whether a module with the
+given module code already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a module with the given module
+code doesn't exist in the TA-Tracker.
+
+6. If the module exists, the SortGroupCommand object retrieves the module from the
+model and checks whether the module has a group with the given group code. If it doesn't,
+a command exception is thrown saying that no such group exists.
+
+7. If the group does exist, it is sorted according to the type of sort specified.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
+
+//tag::studentview[]
+=== Student View
+Student view is the term used to characterise the different functionalities
+related to the students that the user is affiliated with.
+
+==== Model Framework
+The following class diagram shows how different classes are related in the
+functioning of the module view.
+
+.Student View - Class Diagram
+image::StudentModelClassDiagram.png[]
+
+The TaTracker model class contains a UniqueStudentList which helps it keep track
+of the different students the user is associated with. Each student has a name,
+matric and a default rating of 3/5 which can be edited by the user later. Each
+student also has a Phone and an Email, which is represented as an empty string
+if the user does not include the optional values.
+
+==== Implementation of the Student Add and Delete Commands
+
+The following sequence diagram shows the sequence of commands that take place
+between the logic and model components of the TA-Tracker when the user enters the
+command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
+
+Note: This diagram assumes that there is no student with the matric number 'A0181234G'
+pre-existing in the TA-Tracker.
+
+.Student Add - Sequence Diagram
+image::AddStudentSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type student and passes the
+command to the StudentCommandParser.
+
+3. The ModuleCommandParser sees that the command is of type add and passes the
+arguments to the AddModuleCommandParser.
+
+4. The AddModuleCommandParser creates a Module with the given module code and
+name.
+
+5. The AddModuleCommandParser then creates an AddModuleCommand object and passes
+it the created module. The parser then returns the AddModuleCommand
+
+6. LogicManager calls AddModuleCommad's execute method. The AddModuleCommand object
+checks whether a module with the given module code already exists in TA-Tracker.
+If it does, a command exception is thrown saying that a module with the given module
+code already exists in the TA-Tracker.
+
+7. If no such module exists, the module is added to the TA-Tracker.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
+
+The command used to delete a module has been implemented in a similar way. Tha main
+difference is that the DeleteModuleCommand checks whether an object with the given
+module code exists in the TA-Tracker. If no such module exists, a command exception
+is thrown saying that a module with the given module code doesn't exist. If it does
+exist, first all the sessions linked to that module are removed.
+Then the module is removed from the TA-Tracker.
+
+==== Implementation of the Group Add and Delete Commands
+
+The following activity diagram shows the steps taken by the AddGroupCommand object
+when the execute method is called.
+
+.Group Add - Activity Diagram
+image::AddGroupActivityDiagram.png[]
+
+It should be noted that these are the steps followed assuming that no exception is
+thrown. Before getting the module from TA-Tracker's model, the DeleteGroupCommand object
+checks whether such a module even exists. If it doesn't exists, it throws a command
+exception saying that no such module exists. Before adding a group to the module, the
+object even checks whether the module already has a group with the given group code.
+If it exists, a command exception is thrown saying that there is already a group
+with the given group code.
+
+The interactions between the logic and model components when adding a group are similar
+to the interactions when deleting a group as shown below.
+
+The following sequence diagram shows the interactions between the logic and model
+components when the user inputs the command 'group delete m/CS2103 g/G03'.
+
+Note: This diagram is under the case where a group with the group code G03 does exist
+in the module with module code CS2103 inside the TA-Tracker.
+
+.Group Delete - Sequence Diagram
+image::DeleteGroupSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type group and passes the
+command to the GroupCommandParser.
+
+3. The GroupCommandParser sees that the command is of type delete and passes the
+arguments to the DeleteGroupCommandParser.
+
+4. The DeleteGroupCommandParser creates a Module with the given module code and
+a group with the given group code.
+
+5. The DeleteGroupCommandParser then creates a DeleteGroupCommand object and passes
+it the created module and group. The parser then returns the DeleteGroupCommand
+
+6. LogicManager calls DeleteGroupCommand's execute method. The DeleteGroupCommand object
+checks whether a module with the given module code already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a module with the given module
+code doesn't exist in the TA-Tracker.
+
+7. If the module exists, the DeleteGroupCommand object retrieves the module from the
+model and checks whether the module has a group with the given group code. If it doesn't,
+a command exception is thrown saying that no such group exists. If the group does
+exist, it is removed from the module.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
+
+==== Implementation of the Sort Command
+
+The sort command allows the user to sort the students in the module view either alphabetically
+or by rating.
+
+The sort command can be used in three ways:
+
+1. sort g/GROUP_CODE m/MODULE_CODE t/TYPE : When a user enters the command in this
+manner, they are sorting all the students of the given group in the given module
+by type TYPE (which can be either alphabetical or by rating).
+
+2. sort g/MODULE_CODE t/TYPE : When a user enters a command in this manner, they
+are sorting all the students of all the groups in the given module by type TYPE
+(which can be either alphabetical or by rating).
+
+3. sort t/TYPE : When a user enters a command in this manner, they are sorting all
+students of all groups of all the modules in the TA-Tracker by the type TYPE (which
+can be either alphabetical or by rating).
+
+Since these sort commands function differently but use the same parser, the following
+class structure is used.
+
+.Sort Commands - Class Diagram
+image::SortCommandsClassDiagram.png[]
+
+Since the different commands use the same parser, the SortCommandParser needs to check
+which prefixes have been passed and return the appropriate command accordingly.
+The following activity diagram shows the steps the SortCommandParser takes once
+its parse command is called (assuming that no exception is thrown).
+
+If the user enters a sort command with no valid prefix, a command exception is thrown
+thats explains the usage of the sort command.
+
+.SortCommandParser - Activity Diagram
+image::SortParserActivityDiagram.png[]
+
+The following sequence diagram illustrates the interactions between the logic and
+model components when the user enters the command 'sort m/CS2103 g/G03 t/alpha'.
+
+Note: To allow the user to type quickly, for type both 'alpha' and 'alphabetically'
+sort the students lexicographically.
+
+.Sort - Sequence Diagram
+image::SortGroupSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type sort and passes the
+command to the SortCommandParser.
+
+3. The SortCommandParser performs the steps shown in the previous activity diagram
+and creates and returns a SortGroupCommand.
+
+4. LogicManager calls SortGroupCommand's execute method.
+
+5. The SortGroupCommand creates a Module with the given module code and a group with
+the given group code. The SortGroupCommand object checks whether a module with the
+given module code already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a module with the given module
+code doesn't exist in the TA-Tracker.
+
+6. If the module exists, the SortGroupCommand object retrieves the module from the
+model and checks whether the module has a group with the given group code. If it doesn't,
+a command exception is thrown saying that no such group exists.
+
+7. If the group does exist, it is sorted according to the type of sort specified.
+
+8. The SortGroupCommand returns a CommandResult with a success message.
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::syntaxhighlighting[]
+=== [Proposed] Syntax Highlighting feature
+==== Proposed Implementation
+
+The syntax highlighting feature extends the CLI input box in the `MainWindow` of TA-Tracker
+by colouring the font of valid command words as the user is typing.
+
+image::SyntaxHighlighting.png[]
+
+==== Design Considerations
+
+===== Aspect: How to syntax highlighting executes in real-time
+
+* **Alternative 1 (current choice):** Updates the syntax highlighting for each character that the user inputs.
+** Pros: Will have improved performance as the program can idle.
+** Cons: May be difficult to handle the deletion of characters in the CLI box.
+* **Alternative 2:** Constantly update the syntax highlighting (in an infinite loop) when the user input is not blank.
+** Pros: Simplest implementation.
+** Cons: May cause performance issues, especially if there are other features that update constantly.
+* **Alternative 3:** Subscribe to a centralized update loop in a modified TA-Tracker.
+** Pros: Works seamlessly with other real-time features.
+** Cons: May cause performance issues, especially if there are other features that update constantly.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of TA-Tracker states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTaTracker`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::syntaxhighlighting[]
 
 === Logging
 
