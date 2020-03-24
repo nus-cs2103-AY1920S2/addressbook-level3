@@ -65,7 +65,7 @@ Current options are:
     `n` - name
     `ing` - ingredients
     `ins` - instructions
-	`cal` - calories
+    `cal` - calories
     `s` - serving size
     `r` - rating (scale of 0 to 5)
     `tags` - tags
