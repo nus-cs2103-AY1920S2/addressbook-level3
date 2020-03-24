@@ -50,7 +50,7 @@ class JsonSerializableDayDataList {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public Statistics toModelType() throws IllegalValueException, InvalidTableException, DateTimeParseException, NullPointerException {
+    public Statistics toModelType() throws IllegalValueException, InvalidTableException, DateTimeParseException {
         Statistics dayDataList = new Statistics();
         dayDataList.clearList(); // workaround to create empty list
 
@@ -74,7 +74,7 @@ class JsonSerializableDayDataList {
 
                 localDateCheckPointer = localDateCheckPointer.plusDays(1);
             }
-        } catch (DateTimeParseException | NullPointerException e) {
+        } catch (DateTimeParseException | NullPointerException | IndexOutOfBoundsException e) {
 
         }
 
