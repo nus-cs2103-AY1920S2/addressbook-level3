@@ -247,6 +247,10 @@ public class AddCommandTest {
         public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        public ObservableList<Person> getBdayListResult() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

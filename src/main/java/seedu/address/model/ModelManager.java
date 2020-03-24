@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersonsResult;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final FilteredList<Assignment> filteredAssignments;
+    private final FilteredList<Person> bdayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,6 +50,7 @@ public class ModelManager implements Model {
         this.scheduler = new Scheduler(scheduler);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         filteredAssignments = new FilteredList<>(this.scheduler.getAssignmentsList());
+        bdayList = new FilteredList<>(this.addressBook.getBdayList());
     }
 
     public ModelManager() {
@@ -291,5 +293,11 @@ public class ModelManager implements Model {
     public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
         requireNonNull(predicate);
         filteredRestaurants.setPredicate(predicate);
+    }
+
+    //=========== Filtered Bday List Accessors ====================================================================
+    @Override
+    public ObservableList<Person> getBdayListResult() {
+        return bdayList;
     }
 }

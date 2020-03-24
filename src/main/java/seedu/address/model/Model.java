@@ -181,4 +181,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+    //=========== Filtered Bday List Accessors ====================================================================
+
+    /**
+     * Returns an unmodifiable view of the list of contacts with birthdays in the next 5 days.
+     */
+    ObservableList<Person> getBdayListResult();
 }
