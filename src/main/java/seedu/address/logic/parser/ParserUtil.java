@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -18,11 +19,15 @@ import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
 
+import seedu.address.model.recipe.ingredient.Fruit;
 import seedu.address.model.recipe.ingredient.Grain;
 import seedu.address.model.recipe.ingredient.Ingredient;
 import seedu.address.model.recipe.ingredient.Other;
 import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Quantity;
+import seedu.address.model.recipe.ingredient.Unit;
 import seedu.address.model.recipe.ingredient.Vegetable;
+import seedu.address.model.util.QuantityUtil;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -101,6 +106,50 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String time} into a {@code Time[] array}.
+     * Used to parse a range of times when the filter command is called.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static Time[] parseTimeRange(String time) throws ParseException {
+        requireNonNull(time);
+        String[] parsedTimeString = time.split("-");
+        assert(parsedTimeString.length > 0);
+
+        int numOfTime = parsedTimeString.length;
+        if (numOfTime > 2) { // Case: If there are more than 2 timings specified (ie. more than 2 dashes in the range)
+            throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+        } else if (numOfTime == 1) { // Case: If there is only one timing specified
+            String trimmedTime = parsedTimeString[0].trim();
+            if (!Time.isValidTime(trimmedTime)) {
+                throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+            }
+            return new Time[] {new Time(trimmedTime)};
+        } else { // Case: If a range of timings is specified
+            String[] sortedTimeString;
+            try {
+                sortedTimeString = Stream.of(parsedTimeString).map(String::trim).mapToInt(Integer::parseInt)
+                        .sorted().mapToObj(String::valueOf).toArray(String[]::new);
+            } catch (NumberFormatException nfe) {
+                // Case: If user uses wrong delimiter (eg. t/10,20 instead of t/10-20)
+                throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+            }
+
+            Time[] parsedTime = new Time[2];
+            for (int i = 0; i < 2; i++) {
+                if (!Time.isValidTime(sortedTimeString[i])) {
+                    throw new ParseException(Time.TIME_RANGE_CONSTRANTS);
+                }
+                parsedTime[i] = new Time(sortedTimeString[i]);
+            }
+            if (parsedTime[0].equals(parsedTime[1])) { // Case: If user inputs same timings in range (eg. t/10-10)
+                return new Time[] {parsedTime[0]};
+            }
+            return parsedTime;
+        }
+    }
+
+    /**
      * Parses a {@code String step} into an {@code Step}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -161,6 +210,30 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code String quantity} that is in the form (magnitude unit) into a {@code Quantity}.
+     * Leading and trailing whitespaces will be trimmed, and units are case-insensitive.
+     *
+     * @throws ParseException if the give {@code quantity} is invalid.
+     */
+    public static Quantity parseQuantity(String quantity) throws ParseException {
+        quantity = quantity.toLowerCase().trim();
+        int indexOfUnit = QuantityUtil.indexOfFirstAlphabet(quantity);
+        if (indexOfUnit == 0 || indexOfUnit == quantity.length()) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+
+        double magnitude = Double.parseDouble(quantity.substring(0, indexOfUnit));
+        String unitString = quantity.substring(indexOfUnit);
+        if (!QuantityUtil.getAvailUnitsAsList().contains(unitString)) {
+            throw new ParseException(Quantity.MESSAGE_CONSTRAINTS);
+        }
+
+        Unit unit = QuantityUtil.parseUnit(unitString);
+        return new Quantity(magnitude, unit);
+    }
+
+
+    /**
      * Parses a {@code String grain} into a {@code Grain}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -168,9 +241,10 @@ public class ParserUtil {
      */
     public static Grain parseGrain(String grain) throws ParseException {
         requireNonNull(grain);
+
         String[] splitFields = grain.split(",");
 
-        if (splitFields.length != 2) {
+        if (splitFields.length < 2) {
             throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
         }
         String trimmedGrainName = splitFields[1].trim();
@@ -179,24 +253,39 @@ public class ParserUtil {
         if (!Ingredient.isValidIngredientName(trimmedGrainName)) {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
-
-        double grainQuantity = Double.parseDouble(trimmedGrainQuantity);
+        Quantity grainQuantity = parseQuantity(trimmedGrainQuantity);
         return new Grain(trimmedGrainName, grainQuantity);
     }
 
     /**
-     * Parses {@code Collection<String> grains} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> grains} into a {@code Set<Grain>}.
      */
-    public static Set<Ingredient> parseGrains(Collection<String> grains, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Grain> parseGrains(Collection<String> grains) throws ParseException {
         requireNonNull(grains);
+        final Set<Grain> grainsSet = new TreeSet<>();
         for (String grain : grains) {
-            ingredientSet.add(parseGrain(grain));
+            grainsSet.add(parseGrain(grain));
         }
-        return ingredientSet;
+        return grainsSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> grains} into a {@code Set<Grain>} where each {@code Grain} is constructed
+     * with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Grain} name is invalid.
+     */
+    public static Set<Grain> parseGrainsNameOnly(Collection<String> grains) throws ParseException {
+        requireNonNull(grains);
+        final Set<Grain> grainsSet = new TreeSet<>();
+        for (String grain : grains) {
+            String trimmedGrainName = grain.trim();
+            if (!Ingredient.isValidIngredientName(trimmedGrainName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            grainsSet.add(new Grain(trimmedGrainName));
+        }
+        return grainsSet;
     }
 
     /**
@@ -207,6 +296,7 @@ public class ParserUtil {
      */
     public static Vegetable parseVegetable(String vegetable) throws ParseException {
         requireNonNull(vegetable);
+
         String[] splitFields = vegetable.split(",");
         if (splitFields.length != 2) {
             throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
@@ -219,23 +309,39 @@ public class ParserUtil {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
-        double vegetableQuantity = Double.parseDouble(trimmedVegetableQuantity);
+        Quantity vegetableQuantity = parseQuantity(trimmedVegetableQuantity);
         return new Vegetable(trimmedVegetableName, vegetableQuantity);
     }
 
     /**
-     * Parses {@code Collection<String> vegetables} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> vegetables} into a {@code Set<Vegetable>}.
      */
-    public static Set<Ingredient> parseVegetables(Collection<String> vegetables, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Vegetable> parseVegetables(Collection<String> vegetables) throws ParseException {
         requireNonNull(vegetables);
+        final Set<Vegetable> vegetablesSet = new TreeSet<>();
         for (String vegetable : vegetables) {
-            ingredientSet.add(parseVegetable(vegetable));
+            vegetablesSet.add(parseVegetable(vegetable));
         }
-        return ingredientSet;
+        return vegetablesSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> vegetables} into a {@code Set<Vegetable>} where each {@code Vegetable} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Vegetable} name is invalid.
+     */
+    public static Set<Vegetable> parseVegetablesNameOnly(Collection<String> vegetables) throws ParseException {
+        requireNonNull(vegetables);
+        final Set<Vegetable> vegetablesSet = new TreeSet<>();
+        for (String vegetable : vegetables) {
+            String trimmedVegetableName = vegetable.trim();
+            if (!Ingredient.isValidIngredientName(trimmedVegetableName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            vegetablesSet.add(new Vegetable(trimmedVegetableName));
+        }
+        return vegetablesSet;
     }
 
     /**
@@ -246,6 +352,7 @@ public class ParserUtil {
      */
     public static Protein parseProtein(String protein) throws ParseException {
         requireNonNull(protein);
+
         String[] splitFields = protein.split(",");
 
         if (splitFields.length != 2) {
@@ -258,23 +365,95 @@ public class ParserUtil {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
-        double proteinQuantity = Double.parseDouble(trimmedProteinQuantity);
+        Quantity proteinQuantity = parseQuantity(trimmedProteinQuantity);
         return new Protein(trimmedProteinName, proteinQuantity);
     }
 
     /**
-     * Parses {@code Collection<String> proteins} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> proteins} into a {@code Set<Protein>}.
      */
-    public static Set<Ingredient> parseProteins(Collection<String> proteins, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Protein> parseProteins(Collection<String> proteins) throws ParseException {
         requireNonNull(proteins);
+        final Set<Protein> proteinsSet = new TreeSet<>();
         for (String protein : proteins) {
-            ingredientSet.add(parseProtein(protein));
+            proteinsSet.add(parseProtein(protein));
         }
-        return ingredientSet;
+        return proteinsSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> proteins} into a {@code Set<Protein>} where each {@code Protein} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Protein} name is invalid.
+     */
+    public static Set<Protein> parseProteinsNameOnly(Collection<String> proteins) throws ParseException {
+        requireNonNull(proteins);
+        final Set<Protein> proteinsSet = new TreeSet<>();
+        for (String protein : proteins) {
+            String trimmedProteinName = protein.trim();
+            if (!Ingredient.isValidIngredientName(trimmedProteinName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            proteinsSet.add(new Protein(trimmedProteinName));
+        }
+        return proteinsSet;
+    }
+
+    /**
+     * Parses a {@code String fruit} into a {@code Fruit}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code fruit} is invalid.
+     */
+    public static Fruit parseFruit(String fruit) throws ParseException {
+        requireNonNull(fruit);
+
+        String[] splitFields = fruit.split(",");
+
+        if (splitFields.length != 2) {
+            throw new ParseException(Ingredient.MESSAGE_MISSING_FIELD);
+        }
+        String trimmedFruitName = splitFields[1].trim();
+        String trimmedFruitQuantity = splitFields[0].trim();
+
+        if (!Ingredient.isValidIngredientName(trimmedFruitName)) {
+            throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+        }
+
+        Quantity fruitQuantity = parseQuantity(trimmedFruitQuantity);
+        return new Fruit(trimmedFruitName, fruitQuantity);
+    }
+
+    /**
+     * Parses {@code Collection<String> fruits} into a {@code Set<Fruit>}.
+     */
+    public static Set<Fruit> parseFruits(Collection<String> fruits) throws ParseException {
+        requireNonNull(fruits);
+        final Set<Fruit> fruitsSet = new TreeSet<>();
+        for (String fruit : fruits) {
+            fruitsSet.add(parseFruit(fruit));
+        }
+        return fruitsSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> fruits} into a {@code Set<Fruit>} where each {@code Fruit} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Fruit} name is invalid.
+     */
+    public static Set<Fruit> parseFruitsNameOnly(Collection<String> fruits) throws ParseException {
+        requireNonNull(fruits);
+        final Set<Fruit> fruitsSet = new TreeSet<>();
+        for (String fruit : fruits) {
+            String trimmedFruitName = fruit.trim();
+            if (!Ingredient.isValidIngredientName(trimmedFruitName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            fruitsSet.add(new Fruit(trimmedFruitName));
+        }
+        return fruitsSet;
     }
 
     /**
@@ -285,6 +464,7 @@ public class ParserUtil {
      */
     public static Other parseOther(String other) throws ParseException {
         requireNonNull(other);
+
         String[] splitFields = other.split(",");
 
         if (splitFields.length != 2) {
@@ -297,23 +477,39 @@ public class ParserUtil {
             throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
         }
 
-        double otherQuantity = Double.parseDouble(trimmedOtherQuantity);
+        Quantity otherQuantity = parseQuantity(trimmedOtherQuantity);
         return new Other(trimmedOtherName, otherQuantity);
     }
 
     /**
-     * Parses {@code Collection<String> others} and adds them to the {@code Set<Ingredient>} ingredientSet.
+     * Parses {@code Collection<String> others} into a {@code Set<Other>}.
      */
-    public static Set<Ingredient> parseOthers(Collection<String> others, Set<Ingredient> ingredientSet)
-            throws ParseException {
-        if (ingredientSet == null || ingredientSet.isEmpty()) {
-            ingredientSet = new TreeSet<>();
-        }
+    public static Set<Other> parseOthers(Collection<String> others) throws ParseException {
+        final Set<Other> othersSet = new TreeSet<>();
         requireNonNull(others);
         for (String other : others) {
-            ingredientSet.add(parseProtein(other));
+            othersSet.add(parseOther(other));
         }
-        return ingredientSet;
+        return othersSet;
+    }
+
+    /**
+     * Parses {@code Collection<String> others} into a {@code Set<Other>} where each {@code Other} is
+     * constructed with only a {@code String name}.
+     *
+     * @throws ParseException if any given {@code Other} ingredient name is invalid.
+     */
+    public static Set<Other> parseOthersNameOnly(Collection<String> others) throws ParseException {
+        requireNonNull(others);
+        final Set<Other> othersSet = new TreeSet<>();
+        for (String other : others) {
+            String trimmedOtherName = other.trim();
+            if (!Ingredient.isValidIngredientName(trimmedOtherName)) {
+                throw new ParseException(Ingredient.MESSAGE_CONSTRAINTS);
+            }
+            othersSet.add(new Other(trimmedOtherName));
+        }
+        return othersSet;
     }
 
 }

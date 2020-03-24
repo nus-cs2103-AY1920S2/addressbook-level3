@@ -1,14 +1,14 @@
 {
   "recipes": [ {
-    "name": "Alice Pauline",
-    "time": "94351253",
+    "name": "Same recipe name",
+    "time": "50",
     "isFavourite": false,
-    "steps": ["alice@example.com"],
-    "goals": [ "friends" ]
+    "steps": [ "Step 1" , "Step 2" ],
+    "goals": [ "Hulk like the Bulk" ]
   }, {
-    "name": "Alice Pauline",
-    "time": "94351253",
+    "name": "Same recipe name",
+    "time": "50",
     "isFavourite": false,
-    "steps": ["pauline@example.com"]
+    "steps": [ "Step 1" , "Step 2" ]
   } ]
 }

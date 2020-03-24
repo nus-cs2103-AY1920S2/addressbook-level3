@@ -3,7 +3,16 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.FRUIT_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.GRAIN_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.OTHER_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.PROTEIN_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.STEP_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.TIME_DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.VEGETABLE_DESC_TURKEY_SANDWICH;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalRecipes.TURKEY_SANDWICH;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,6 +21,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,9 +30,11 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.recipe.Recipe;
 import seedu.address.storage.JsonRecipeBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.RecipeBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -60,9 +72,7 @@ public class LogicManagerTest {
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
     }
 
-
-    //TODO: Resolve after refactoring add and edit command
-    /*@Test
+    @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
         // Setup LogicManager with JsonRecipeBookIoExceptionThrowingStub
         JsonRecipeBookStorage recipeBookStorage =
@@ -73,14 +83,15 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH +
-        STEP_DESC_TURKEY_SANDWICH;
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_TURKEY_SANDWICH + TIME_DESC_TURKEY_SANDWICH
+                + STEP_DESC_TURKEY_SANDWICH + GRAIN_DESC_TURKEY_SANDWICH + VEGETABLE_DESC_TURKEY_SANDWICH
+                + PROTEIN_DESC_TURKEY_SANDWICH + FRUIT_DESC_TURKEY_SANDWICH + OTHER_DESC_TURKEY_SANDWICH;
         Recipe expectedRecipe = new RecipeBuilder(TURKEY_SANDWICH).withGoals().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addRecipe(expectedRecipe);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
-    }*/
+    }
 
     @Test
     public void getFilteredRecipeList_modifyList_throwsUnsupportedOperationException() {

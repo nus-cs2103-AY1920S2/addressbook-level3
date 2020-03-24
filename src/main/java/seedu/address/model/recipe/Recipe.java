@@ -11,10 +11,14 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import seedu.address.model.goal.Goal;
-import seedu.address.model.recipe.ingredient.Ingredient;
+import seedu.address.model.recipe.ingredient.Fruit;
+import seedu.address.model.recipe.ingredient.Grain;
+import seedu.address.model.recipe.ingredient.Other;
+import seedu.address.model.recipe.ingredient.Protein;
+import seedu.address.model.recipe.ingredient.Vegetable;
 
 /**
- * Represents a Recipe in the address book.
+ * Represents a Recipe in the recipe book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Recipe {
@@ -26,33 +30,35 @@ public class Recipe {
     // Data fields
     private final List<Step> steps = new ArrayList<>();
     private final Set<Goal> goals = new HashSet<>();
-    private final Set<Ingredient> ingredients = new TreeSet<>();
+    private final Set<Grain> grains = new TreeSet<>();
+    private final Set<Vegetable> vegetables = new TreeSet<>();
+    private final Set<Protein> proteins = new TreeSet<>();
+    private final Set<Fruit> fruits = new TreeSet<>();
+    private final Set<Other> others = new TreeSet<>();
     private boolean isFavourite;
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Time time, Set<Ingredient> ingredients,
+    public Recipe(Name name, Time time,
+                  Set<Grain> grains, Set<Vegetable> vegetables,
+                  Set<Protein> proteins, Set<Fruit> fruits, Set<Other> others,
                   List<Step> steps, Set<Goal> goals, boolean isFavourite) {
         requireAllNonNull(name, time, steps, goals);
         this.name = name;
         this.time = time;
         this.steps.addAll(steps);
         this.goals.addAll(goals);
-        this.ingredients.addAll(ingredients);
+        this.grains.addAll(grains);
+        this.vegetables.addAll(vegetables);
+        this.proteins.addAll(proteins);
+        this.fruits.addAll(fruits);
+        this.others.addAll(others);
         this.isFavourite = isFavourite;
     }
 
-    public boolean getFavouriteStatus() {
+    public boolean isFavourite() {
         return isFavourite;
-    }
-
-    public void markAsFavourite() {
-        isFavourite = true;
-    }
-
-    public void unmarkAsFavourite() {
-        isFavourite = false;
     }
 
     public Name getName() {
@@ -68,19 +74,56 @@ public class Recipe {
     }
 
     /**
+     * Returns an immutable ingredient set for the respective ingredient type,
+     * which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Grain> getGrains() {
+        return Collections.unmodifiableSet(grains);
+    }
+
+    /**
+     * Returns an immutable ingredient set for the respective ingredient type,
+     * which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Vegetable> getVegetables() {
+        return Collections.unmodifiableSet(vegetables);
+    }
+
+    /**
+     * Returns an immutable ingredient set for the respective ingredient type,
+     * which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Protein> getProteins() {
+        return Collections.unmodifiableSet(proteins);
+    }
+
+    /**
+     * Returns an immutable ingredient set for the respective ingredient type,
+     * which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Fruit> getFruits() {
+        return Collections.unmodifiableSet(fruits);
+    }
+
+    /**
+     * Returns an immutable ingredient set for the respective ingredient type,
+     * which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Other> getOthers() {
+        return Collections.unmodifiableSet(others);
+    }
+
+    /**
      * Returns an immutable goal set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Goal> getGoals() {
         return Collections.unmodifiableSet(goals);
-    }
-
-    /**
-     * Returns an immutable ingredient set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Ingredient> getIngredients() {
-        return Collections.unmodifiableSet(ingredients);
     }
 
     /**
@@ -112,9 +155,18 @@ public class Recipe {
         }
 
         Recipe otherRecipe = (Recipe) other;
+        /* debug purposes
+        System.out.print("my: " + grains + ", other: " + otherRecipe.getGrains()
+                + "my: " + vegetables + ", other: " + otherRecipe.getVegetables()
+                + "my: " + proteins + ", other: " + otherRecipe.getProteins()
+                + "my: " + others + ", other: " + otherRecipe.getOthers());*/
         return otherRecipe.getName().equals(getName())
                 && otherRecipe.getTime().equals(getTime())
-                && otherRecipe.getIngredients().equals(getIngredients())
+                && otherRecipe.getGrains().equals(getGrains())
+                && otherRecipe.getVegetables().equals(getVegetables())
+                && otherRecipe.getProteins().equals(getProteins())
+                && otherRecipe.getFruits().equals(getFruits())
+                && otherRecipe.getOthers().equals(getOthers())
                 && otherRecipe.getSteps().equals(getSteps())
                 && otherRecipe.getGoals().equals(getGoals());
     }
@@ -122,7 +174,7 @@ public class Recipe {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, time, steps, goals);
+        return Objects.hash(name, time, grains, vegetables, proteins, fruits, others, steps, goals);
     }
 
     @Override
@@ -132,7 +184,11 @@ public class Recipe {
                 .append(" Time: ")
                 .append(getTime())
                 .append(" Ingredients: ");
-        getIngredients().forEach(builder::append);
+        getGrains().forEach(builder::append);
+        getVegetables().forEach(builder::append);
+        getProteins().forEach(builder::append);
+        getFruits().forEach(builder::append);
+        getOthers().forEach(builder::append);
         builder.append(" Step: ")
                 .append(getSteps())
                 .append(" Goals: ");

@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RECIPES;
 import seedu.address.model.Model;
 
 /**
- * Lists all recipes in the address book to the user.
+ * Lists all recipes in the recipe book to the user.
  */
 public class ListCommand extends Command {
 

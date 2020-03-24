@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Goal in the address book.
+ * Represents a Goal in the recipe book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidGoalName(String)}
  */
 public class Goal {
@@ -36,12 +36,12 @@ public class Goal {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Goal // instanceof handles nulls
-                && goalName.equals(((Goal) other).goalName)); // state check
+                && goalName.toLowerCase().equals(((Goal) other).goalName.toLowerCase())); // state check
     }
 
     @Override
     public int hashCode() {
-        return goalName.hashCode();
+        return goalName.toLowerCase().hashCode();
     }
 
     /**

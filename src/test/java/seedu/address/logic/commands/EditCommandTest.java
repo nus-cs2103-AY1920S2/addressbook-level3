@@ -2,11 +2,16 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.DESC_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_TURKEY_SANDWICH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GOAL_PROTEIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FISH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TIME_FISH;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showRecipeAtIndex;
+
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RECIPE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RECIPE;
 import static seedu.address.testutil.TypicalRecipes.getTypicalRecipeBook;
@@ -18,9 +23,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditRecipeDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.RecipeBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.EditRecipeDescriptorBuilder;
+import seedu.address.testutil.RecipeBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -29,7 +36,7 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalRecipeBook(), new UserPrefs());
 
-    /* todo: after refactoring edit command
+    // todo: bug: test might fail sometimes if recipe at TypicalRecipes index 0 has ingredients
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Recipe editedRecipe = new RecipeBuilder().build();
@@ -42,9 +49,8 @@ public class EditCommandTest {
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }*/
+    }
 
-    /* todo: after refactoring edit command
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastRecipe = Index.fromOneBased(model.getFilteredRecipeList().size());
@@ -64,9 +70,8 @@ public class EditCommandTest {
         expectedModel.setRecipe(lastRecipe, editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }*/
+    }
 
-    /* todo: after refactoring edit command
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_RECIPE, new EditRecipeDescriptor());
@@ -77,9 +82,8 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new RecipeBook(model.getRecipeBook()), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    } */
+    }
 
-    /* todo: after refactoring edit command
     @Test
     public void execute_filteredList_success() {
         showRecipeAtIndex(model, INDEX_FIRST_RECIPE);
@@ -95,7 +99,7 @@ public class EditCommandTest {
         expectedModel.setRecipe(model.getFilteredRecipeList().get(0), editedRecipe);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }*/
+    }
 
     @Test
     public void execute_duplicateRecipeUnfilteredList_failure() {

@@ -5,9 +5,14 @@ package seedu.address.model.recipe.ingredient;
  */
 public class Vegetable extends Ingredient {
 
-    public Vegetable(String name, double quantity) {
+    public Vegetable(String name, Quantity quantity) {
         super(name, quantity);
-        super.unit = Unit.SOLID;
-        super.ingredientType = IngredientType.VEGETABLE;
+    }
+
+    /**
+     * Overloaded Vegetable constructor for the purpose of filtering by vegetable name.
+     */
+    public Vegetable(String name) {
+        super(name);
     }
 }
