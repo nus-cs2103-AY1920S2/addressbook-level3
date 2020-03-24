@@ -97,6 +97,24 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_limitEqualToUsage_success() {
+        CommandTestUtil.showCouponAtIndex(model, TypicalIndexes.INDEX_SECOND_COUPON);
+
+        Coupon couponInFilteredList = model.getFilteredCouponList()
+                .get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        Coupon editedCoupon = new CouponBuilder(couponInFilteredList)
+                .withLimit(couponInFilteredList.getUsage().value).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
+                new EditCouponDescriptorBuilder().withLimit(couponInFilteredList.getUsage().value)
+                        .build());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
+        Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_limitLowerThanUsage_failure() {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_COUPON;
         Integer currentUsage =
@@ -115,9 +133,9 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicateCouponUnfilteredList_failure() {
-        Coupon firstCoupon = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
-        EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(firstCoupon).build();
-        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_SECOND_COUPON, descriptor);
+        Coupon secondCoupon = model.getFilteredCouponList().get(TypicalIndexes.INDEX_SECOND_COUPON.getZeroBased());
+        EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(secondCoupon).build();
+        EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON, descriptor);
 
         assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_COUPON);
     }

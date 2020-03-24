@@ -51,6 +51,12 @@ public class CouponTest {
                 .withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         assertTrue(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
+
+        // different state of archival -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE)
+                .withArchived("true")
+                .build();
+        assertFalse(TypicalCoupons.ALICE.isSameCoupon(editedAlice));
     }
 
     @Test
@@ -102,7 +108,9 @@ public class CouponTest {
         editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
         assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
 
-        // different expiry date -> returns false
-
+        // different state of archival -> returns false
+        editedAlice = new CouponBuilder(TypicalCoupons.ALICE).withArchived("true")
+                .build();
+        assertFalse(TypicalCoupons.ALICE.equals(editedAlice));
     }
 }

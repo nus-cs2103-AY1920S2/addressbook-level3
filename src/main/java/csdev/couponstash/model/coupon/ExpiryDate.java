@@ -36,12 +36,11 @@ public class ExpiryDate {
      */
     public static boolean isValidExpiryDate(String test) {
         LocalDate testDate = LocalDate.now();
-        LocalDate yesterday = LocalDate.now().minusDays(1);
 
         if (test.matches(VALIDATION_REGEX)) {
             testDate = LocalDate.parse(test, DATE_FORMATTER);
         }
-        return test.matches(VALIDATION_REGEX) && testDate.isAfter(yesterday);
+        return test.matches(VALIDATION_REGEX);
     }
 
     /**

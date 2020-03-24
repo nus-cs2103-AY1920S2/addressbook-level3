@@ -78,6 +78,28 @@ class UsedCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
+        showCouponAtIndex(model, TypicalIndexes.INDEX_THIRD_COUPON);
+
+        Coupon couponToBeUsed = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());
+        UsedCommand usedCommand = new UsedCommand(TypicalIndexes.INDEX_FIRST_COUPON);
+
+        ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
+        Integer expectedUsageAmount = Integer.parseInt(couponToBeUsed.getUsage().value) + 1;
+        DateSavingsSumMap expectedTotalSavings = new DateSavingsSumMap(
+                LocalDate.now(),
+                SavingsConversionUtil.convertToPure(couponToBeUsed.getSavingsForEachUse()));
+        Coupon expectedCoupon =
+                new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
+                        .withTotalSavings(expectedTotalSavings).build();
+        expectedModel.setCoupon(couponToBeUsed, expectedCoupon, "");
+
+        String expectedMessage = String.format(UsedCommand.MESSAGE_USED_COUPON_SUCCESS, expectedCoupon.getName());
+
+        assertCommandSuccess(usedCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexFilteredListWithArchiving_success() {
         showCouponAtIndex(model, TypicalIndexes.INDEX_FIRST_COUPON);
 
         Coupon couponToBeUsed = model.getFilteredCouponList().get(TypicalIndexes.INDEX_FIRST_COUPON.getZeroBased());

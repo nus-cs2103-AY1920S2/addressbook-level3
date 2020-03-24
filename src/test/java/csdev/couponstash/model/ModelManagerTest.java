@@ -1,6 +1,6 @@
 package csdev.couponstash.model;
 
-import static csdev.couponstash.model.Model.PREDICATE_SHOW_ALL_COUPONS;
+import static csdev.couponstash.model.Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS;
 import static csdev.couponstash.testutil.Assert.assertThrows;
 import static csdev.couponstash.testutil.TypicalCoupons.ALICE;
 import static csdev.couponstash.testutil.TypicalCoupons.BENSON;
@@ -10,13 +10,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import csdev.couponstash.commons.core.GuiSettings;
+import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 import csdev.couponstash.testutil.CouponStashBuilder;
+import csdev.couponstash.testutil.TypicalCoupons;
+import javafx.collections.transformation.FilteredList;
 
 public class ModelManagerTest {
 
@@ -94,6 +98,16 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredPersonList_archiveExpiredCoupons_returnsTrue() {
+        CouponStash couponStash = new CouponStash(TypicalCoupons.getTypicalCouponStash());
+        FilteredList<Coupon> filteredCouponList = couponStash.getCouponList()
+                .filtered(coupon -> coupon.getExpiryDate().date.isAfter(LocalDate.now()));
+        modelManager = new ModelManager(couponStash, new UserPrefs());
+
+        assertTrue(filteredCouponList.equals(modelManager.getFilteredCouponList()));
+    }
+
+    @Test
     public void equals() {
         CouponStash couponStash = new CouponStashBuilder().withCoupon(ALICE).withCoupon(BENSON).build();
         CouponStash differentCouponStash = new CouponStash();
@@ -122,7 +136,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(couponStash, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredCouponList(PREDICATE_SHOW_ALL_COUPONS);
+        modelManager.updateFilteredCouponList(PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
