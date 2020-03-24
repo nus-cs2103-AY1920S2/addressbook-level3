@@ -1,72 +1,76 @@
 package nasa.storage;
 
+import static nasa.storage.JsonAdaptedModule.MISSING_FIELD_MESSAGE_FORMAT;
+import static nasa.testutil.Assert.assertThrows;
+import static nasa.testutil.TypicalModules.CS2103T;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static nasa.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.exceptions.IllegalValueException;
+import nasa.model.module.Module;
+import nasa.model.module.ModuleCode;
+import nasa.model.module.ModuleName;
 
 public class JsonAdaptedModuleTest {
-    private static final String INVALID_CODE = "R@chel";
-    private static final String INVALID_NAME = "+651234";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_CODE = "CS@";
+    private static final String INVALID_NAME = "#name";
+    //private static final String INVALID_ACTIVITY = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
-            .map(JsonAdaptedTag::new)
+    private static final String VALID_CODE = CS2103T.getModuleName().toString();
+    private static final String VALID_NAME = CS2103T.getModuleCode().toString();
+    private static final List<JsonAdaptedActivity> VALID_ACTIVITIES = CS2103T.getActivities().getActivityList().stream()
+            .map(JsonAdaptedActivity::new)
             .collect(Collectors.toList());
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedModule module = new JsonAdaptedModule(BENSON);
-        assertEquals(BENSON, module.toModelType());
+    public void toModelType_validModuleDetails_returnsModule() throws Exception {
+        JsonAdaptedModule module = new JsonAdaptedModule(CS2103T);
+        assertEquals(CS2103T, module.toModelType());
+    }
+
+    @Test
+    public void toModelType_invalidCode_throwsIllegalValueException() {
+        JsonAdaptedModule module =
+                new JsonAdaptedModule(INVALID_CODE, VALID_NAME, VALID_ACTIVITIES);
+        String expectedMessage = ModuleCode.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullCode_throwsIllegalValueException() {
+        JsonAdaptedModule module = new JsonAdaptedModule(null, VALID_NAME, VALID_ACTIVITIES);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Module.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        JsonAdaptedModule module =
+                new JsonAdaptedModule(VALID_CODE, INVALID_NAME, VALID_ACTIVITIES);
+        String expectedMessage = ModuleName.MESSAGE_CONSTRAINTS;
+        assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+        JsonAdaptedModule module = new JsonAdaptedModule(VALID_CODE, null, VALID_ACTIVITIES);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ModuleName.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, module::toModelType);
     }
 
+    /*
     @Test
-    public void toModelType_invalidAddress_throwsIllegalValueException() {
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_CONSTRAINTS;
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void toModelType_invalidActivities_throwsIllegalValueException() {
+        List<JsonAdaptedActivity> invalidActivities = new ArrayList<>(VALID_ACTIVITIES);
+        invalidActivities.add(new JsonAdaptedActivity(INVALID_ACTIVITY));
+        JsonAdaptedModule Module =
+                new JsonAdaptedModule(VALID_CODE, VALID_NAME, invalidActivities);
+        assertThrows(IllegalValueException.class, Module::toModelType);
     }
-
-    @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
-        JsonAdaptedPerson person =
-                new JsonAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
-        assertThrows(IllegalValueException.class, person::toModelType);
-    }
+     */
 
 }

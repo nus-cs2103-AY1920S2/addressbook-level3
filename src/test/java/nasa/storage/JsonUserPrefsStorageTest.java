@@ -1,8 +1,8 @@
 package nasa.storage;
 
+import static nasa.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,7 +12,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import nasa.commons.core.GuiSettings;
 import nasa.commons.exceptions.DataConversionException;
+import nasa.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
@@ -71,7 +73,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setNasaBookFilePath(Paths.get("nasabook.json"));
         return userPrefs;
     }
 

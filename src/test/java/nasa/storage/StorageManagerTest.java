@@ -1,14 +1,19 @@
 package nasa.storage;
 
+import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import nasa.commons.core.GuiSettings;
+import nasa.model.NasaBook;
+import nasa.model.ReadOnlyNasaBook;
+import nasa.model.UserPrefs;
 
 public class StorageManagerTest {
 
@@ -19,9 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
+        JsonNasaBookStorage nasaBookStorage = new JsonNasaBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(nasaBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -43,21 +48,21 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void nasaBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * {@link JsonNasaBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonNasaBookStorageTest} class.
          */
-        AddressBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        NasaBook original = getTypicalNasaBook();
+        storageManager.saveNasaBook(original);
+        ReadOnlyNasaBook retrieved = storageManager.readNasaBook().get();
+        assertEquals(original, new NasaBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getNasaBookFilePath() {
+        assertNotNull(storageManager.getNasaBookFilePath());
     }
 
 }
