@@ -61,6 +61,7 @@ public class RecipePage extends UiPart<Region> {
     @FXML
     private FlowPane tags1;
 
+    
     public RecipePage(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
