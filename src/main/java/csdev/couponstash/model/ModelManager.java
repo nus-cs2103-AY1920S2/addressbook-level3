@@ -94,6 +94,14 @@ public class ModelManager implements Model {
         userPrefs.setCouponStashFilePath(couponStashFilePath);
     }
 
+    @Override
+    public String setMoneySymbol(String moneySymbol) {
+        StashSettings oldSettings = this.getStashSettings();
+        String oldSymbol = oldSettings.getMoneySymbol();
+        this.setStashSettings(new StashSettings(moneySymbol));
+        return oldSymbol;
+    }
+
     //=========== CouponStash ================================================================================
     // Please run commitCouponStash() every time couponsStash is mutated.
 
@@ -160,7 +168,6 @@ public class ModelManager implements Model {
 
     //=========== Undo/Redo functionality =============================================================
     @Override
-
     public void commitCouponStash(String commandText) {
         history.commitState(couponStash.copy(), commandText);
     }

@@ -137,4 +137,11 @@ public interface Model {
      * @param prefixToSortBy
      */
     void sortCoupons(Prefix prefixToSortBy);
+
+    /**
+     * Sets the money symbol in the user prefs to a new value.
+     * @param moneySymbol The new value of money symbol.
+     * @return Returns the old money symbol.
+     */
+    String setMoneySymbol(String moneySymbol);
 }
