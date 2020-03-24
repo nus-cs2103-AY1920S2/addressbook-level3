@@ -351,6 +351,9 @@ exist, it is removed from the module.
 
 ==== Implementation of the Sort Command
 
+The sort command allows the user to sort the students in the module view either alphabetically
+or by rating.
+
 .Sort - Sequence Diagram
 image::SortGroupSequenceDiagram.png[]
 
