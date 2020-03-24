@@ -18,7 +18,7 @@ public class SuggestionModelImpl implements SuggestionModel {
 
     public SuggestionModelImpl() {
         suggestions = FXCollections.observableArrayList();
-        responseTextProperty = new SimpleObjectProperty(Optional.empty());
+        responseTextProperty = new SimpleObjectProperty<>(Optional.empty());
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.notably.commons.core.LogsCenter;
 import com.notably.logic.Logic;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.exceptions.ParseException;
+import com.notably.model.Model;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ public class MainWindow extends ViewPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Model model;
 
     // Independent View parts residing in this View container
     private HelpWindow helpWindow;
@@ -50,12 +52,13 @@ public class MainWindow extends ViewPart<Stage> {
     @FXML
     private StackPane blockContentPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public MainWindow(Stage primaryStage, Logic logic, Model model) {
         super(FXML, primaryStage);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.model = model;
 
         // Configure the VIEW
         setWindowDefaultSize(logic.getGuiSettings());
@@ -112,7 +115,7 @@ public class MainWindow extends ViewPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        sidebarTreeView = new SideBarTreeView();
+        sidebarTreeView = new SideBarTreeView(model.getBlockTree());
         sideBarPlaceholder.getChildren().add(sidebarTreeView.getRoot());
 
         blockContentEditView = new BlockContentEditView();

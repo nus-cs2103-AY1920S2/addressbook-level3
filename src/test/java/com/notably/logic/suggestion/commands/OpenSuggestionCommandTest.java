@@ -84,7 +84,7 @@ public class OpenSuggestionCommandTest {
     }
 
     @Test
-    public void execute_displayText_test() {
+    public void execute_displayText() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103);
         openSuggestionCommand.execute(model);
 
@@ -111,7 +111,7 @@ public class OpenSuggestionCommandTest {
     }
 
     @Test
-    public void execute_action_test() {
+    public void execute_action() {
         OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toCs2103Week1);
         openSuggestionCommand.execute(model);
         List<SuggestionItem> suggestions = model.getSuggestions();
