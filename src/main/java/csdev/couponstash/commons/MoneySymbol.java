@@ -19,8 +19,11 @@ public class MoneySymbol {
 
     /**
      * Returns the single MoneySymbol if it exists.
-     * If it does not exist, create it.
-     * @param initial The initial String value to be stored.
+     * If it does not exist, create it with value
+     * represented in the String initial.
+     *
+     * @param initial The initial String value to be stored,
+     *                if the MoneySymbol did not exist.
      * @return The MoneySymbol.
      */
     public static MoneySymbol getMoneySymbol(String initial) {
