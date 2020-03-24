@@ -59,19 +59,6 @@ public class Deadline {
     }
 
     /**
-     * @param test The input deadline to be tested.
-     *
-     * Returns true if deadline is an empty string.
-     */
-    /*public static boolean isValidDeadline(String test) {
-        if (test.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
-
-    /**
      * @param test The input date to be tested.
      *
      * Returns true if date is not an empty string and follows the required format.
