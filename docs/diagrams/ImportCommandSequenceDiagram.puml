@@ -1,0 +1,71 @@
+@startuml
+/' Sequence Diagram for import feature'/
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":OrderBookParser" as OrderBookParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant ":ParseUtil" as ParseUtil LOGIC_COLOR
+participant ":Paths" as Paths LOGIC_COLOR
+participant ":CsvProcessor" as CsvProcessor LOGIC_COLOR
+participant ":FileUtil" as FileUtil LOGIC_COLOR
+participant "importCommand:ImportCommand" as ImportCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("import orders.csv")
+activate LogicManager
+
+LogicManager -> OrderBookParser ++ : parseCommand("import orders.csv")
+
+create ImportCommandParser
+OrderBookParser -> ImportCommandParser ++
+
+ImportCommandParser --> OrderBookParser --
+
+OrderBookParser -> ImportCommandParser ++ : parse("orders.csv")
+
+ImportCommandParser -> ParseUtil ++ : parseCsvFile("orders.csv")
+
+ParseUtil -> Paths ++ : get("data", "orders.csv")
+
+Paths --> ParseUtil -- : csvFilePath
+
+ParseUtil -> CsvProcessor ++ : retrieveData(csvFilePath)
+
+CsvProcessor -> FileUtil ++ : readFromFile(filePath)
+
+FileUtil --> CsvProcessor -- : fileData
+
+CsvProcessor -> CsvProcessor ++ : processData(fileData)
+
+CsvProcessor -> CsvProcessor ++ : getCsvData(fileData)
+
+CsvProcessor --> CsvProcessor -- : data
+
+CsvProcessor --> CsvProcessor -- : data
+
+CsvProcessor --> ParseUtil -- : data
+
+ParseUtil --> ImportCommandParser -- : data
+
+create ImportCommand
+ImportCommandParser -> ImportCommand ++ : data
+
+ImportCommand --> ImportCommandParser -- : importCommand
+
+ImportCommandParser --> OrderBookParser -- : importCommand
+
+ImportCommandParser -[hidden]-> OrderBookParser
+destroy ImportCommandParser
+
+OrderBookParser --> LogicManager -- : importCommand
+
+ref over LogicManager,  Model : Execution of the Import Command Sequence Diagram
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
