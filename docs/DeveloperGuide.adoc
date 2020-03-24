@@ -153,6 +153,14 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Diary 
+* `diaryAdd` and `diaryLog` extends from `Command` class
+* `DiaryEntry` is another model which contains:
+** Diary entry
+** Date
+** Weather
+** Mood
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
