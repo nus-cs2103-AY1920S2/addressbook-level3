@@ -1,5 +1,8 @@
 package seedu.address.model.profile.course;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
+
 import java.util.List;
 
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -34,9 +37,10 @@ public class Course {
         }
 
         if (!focusAreas.isEmpty()) {
+            output.append("\nFocus Areas:");
             for (CourseFocusArea focusArea : focusAreas) {
                 output.append("\n");
-                output.append(focusArea);
+                output.append(focusArea.getFocusAreaName());
             }
         }
 
@@ -46,5 +50,16 @@ public class Course {
 
     public CourseName getCourseName() throws ParseException {
         return new CourseName(courseName);
+    }
+
+    public CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
+        requireNonNull(focusAreaName);
+        for (CourseFocusArea courseFocusArea : focusAreas) {
+            if (courseFocusArea.getFocusAreaName().equals(focusAreaName)) {
+                return courseFocusArea;
+            }
+        }
+
+        throw new ParseException(MESSAGE_INVALID_COURSE_FOCUS_AREA);
     }
 }
