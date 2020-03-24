@@ -195,6 +195,36 @@ image::stScheduleResult.png[]
 ** Pros: Easier to implement.
 ** Cons: Does not take into account approaching deadlines and may result in some days having impossibly high workload.
 
+// tag::get[]
+=== Detailed Contact Viewer
+==== Implementation
+
+The detailed contact viewer is facilitated by `AddressBook`. This feature allows a user to view a particular contact details in entirety.
+
+Given below is an example usage scenario and how the get mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The 'AddressBook' will be initialized with the initial state, which is an empty list.
+
+Step 2. The user executes the `(ab)add n/David ...`  command to add a new person.
+
+Step 3. The user executes the `(ab)get 1` command to get the detailed contact of the first person in the AddressBook list.
+
+image::detailedContact.png[]
+
+The following sequence diagram shows how the get operation works:
+
+image::getCommand.png[]
+
+==== Design Considerations
+
+===== Aspect: What information to display
+* **Alternative 1 (current choice):** Set a limit on details that has a potential long list (such as NoteTaker) and display them on the detailed contact viewer.
+** Pros: All information are displayed for easier viewing/access.
+** Cons: AddressBook list might be long and hard to view.
+* **Alternative 2:** Display selective information on the AddressBook list and the full information under get command.
+** Pros: AddressBook list is less cluttered.
+** Cons: Omits certain information.
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
