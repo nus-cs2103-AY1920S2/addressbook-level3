@@ -475,8 +475,6 @@ Use case ends.
 
 1. User requests to view statistics.
 2. The app shows all statistics.
-3. User requests to predict sales for next month.
-4. The app shows the predictions.
 
 +
 Use case ends.
@@ -486,18 +484,34 @@ Use case ends.
 [none]
 * 2a. There are no products, hence no statistics can be shown.
 +
-Use case ends.
-
 [none]
-* 3a. There are no products, hence no predictions can be made.
-+
-[none]
-** 3a1. The app shows an error message.
+** 2a1. The app shows an error message.
 +
 Use case ends.
 
 [discrete]
-=== Use case:  UC07 - Configure low inventory notification settings (products only)
+=== Use case:  UC07 - Predict sales
+
+*MSS*
+
+1. User requests to predict sales for next month.
+2. The app shows the predictions.
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no products, hence no predictions can be made.
++
+[none]
+** 2a1. The app shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case:  UC08 - Configure low inventory notification settings (products only)
 
 *MSS*
 

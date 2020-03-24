@@ -25,4 +25,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_MONEY = new Prefix("m/");
     public static final Prefix PREFIX_TRANS_DESCIPTION = new Prefix("d/");
 
+    /* Prefix definitions for statistics */
+    public static final Prefix PREFIX_START_DATE = new Prefix("sd/");
+    public static final Prefix PREFIX_END_DATE = new Prefix("ed/");
 }

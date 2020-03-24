@@ -90,7 +90,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#101010, 20%);
+    -fx-background-color: #101010;
 }
 
 .list-cell {
@@ -117,13 +117,13 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #1e2730;
 }
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #2DEDB7;
+    -fx-text-fill: black !important;
 }
 
 .cell_small_label {
@@ -309,8 +309,21 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
-    -fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #023448, #00868A);
+#cardPaneProduct {
+    // -fx-background-color: linear-gradient(from 50% 50% to 100% 100%, #023448, #00868A);
+    -fx-background-color: rgb(31,203,255);
+    -fx-border-width: 0;
+    -fx-background-radius: 10px;
+}
+
+#cardPanePerson {
+    -fx-background-color: #17ebe1;
+    -fx-border-width: 0;
+    -fx-background-radius: 10px;
+}
+
+#cardPaneTransaction {
+    -fx-background-color: #E797FD;
     -fx-border-width: 0;
     -fx-background-radius: 10px;
 }
@@ -328,7 +341,7 @@
     -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: #f2fcfc;
+    -fx-text-fill: #ffffff;
 }
 
 #filterField, #personListPanel, #personWebpage {
@@ -346,8 +359,8 @@
 }
 
 #tags .label {
-    -fx-text-fill: black;
-    -fx-background-color: #09fccb;
+    -fx-text-fill: #f2fcfc;
+    -fx-background-color: #129694;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
