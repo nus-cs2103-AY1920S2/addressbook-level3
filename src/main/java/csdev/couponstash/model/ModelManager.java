@@ -14,6 +14,7 @@ import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
 import csdev.couponstash.model.history.HistoryManager;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -96,7 +97,13 @@ public class ModelManager implements Model {
 
     @Override
     public String setMoneySymbol(String moneySymbol) {
-        return this.getStashSettings().getMoneySymbol().setString(moneySymbol);
+        String oldSymbol = this.getStashSettings().getMoneySymbol().setString(moneySymbol);
+        // force refresh of the JavaFX list so Coupons will show the new symbol
+        Predicate<? super Coupon> pred = this.filteredCoupons.getPredicate();
+        updateFilteredCouponList(coupon -> false);
+        // restore the old list after a short moment
+        Platform.runLater(() -> updateFilteredCouponList(pred));
+        return oldSymbol;
     }
 
     //=========== CouponStash ================================================================================
@@ -153,7 +160,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredCouponList(Predicate<Coupon> predicate) {
+    public void updateFilteredCouponList(Predicate<? super Coupon> predicate) {
         requireNonNull(predicate);
         filteredCoupons.setPredicate(predicate);
     }
