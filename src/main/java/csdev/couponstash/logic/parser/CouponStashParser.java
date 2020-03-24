@@ -6,6 +6,7 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import csdev.couponstash.commons.MoneySymbol;
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.commands.ArchiveCommand;
 import csdev.couponstash.logic.commands.ClearCommand;
@@ -26,7 +27,6 @@ import csdev.couponstash.logic.commands.SortCommand;
 import csdev.couponstash.logic.commands.UndoCommand;
 import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
-import csdev.couponstash.commons.MoneySymbol;
 
 /**
  * Parses user input.

@@ -2,8 +2,8 @@ package csdev.couponstash.ui;
 
 import java.util.logging.Logger;
 
-import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.MoneySymbol;
+import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;

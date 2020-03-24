@@ -7,6 +7,11 @@ import static java.util.Objects.requireNonNull;
 import csdev.couponstash.logic.commands.SetPrefCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new SetPrefCommand object,
+ * given that the input arguments are valid and there is at least
+ * one preference to be changed
+ */
 public class SetPrefCommandParser implements Parser<SetPrefCommand> {
 
     /**

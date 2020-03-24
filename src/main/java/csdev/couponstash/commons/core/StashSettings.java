@@ -1,9 +1,9 @@
 package csdev.couponstash.commons.core;
 
-import csdev.couponstash.commons.MoneySymbol;
-
 import java.io.Serializable;
 import java.util.Objects;
+
+import csdev.couponstash.commons.MoneySymbol;
 
 /**
  * This class holds the settings of the CouponStash
@@ -11,9 +11,9 @@ import java.util.Objects;
  * symbol to be used for MonetaryAmount.
  */
 public class StashSettings implements Serializable {
-    private static final long serialVersionUID = 9044979298460194104L;
-
     public static final String DEFAULT_MONEY_SYMBOL = "$";
+
+    private static final long serialVersionUID = 9044979298460194104L;
 
     private final MoneySymbol moneySymbol;
 
