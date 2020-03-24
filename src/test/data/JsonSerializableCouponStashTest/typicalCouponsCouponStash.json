@@ -90,12 +90,12 @@
       "saveables" : null
     },
     "archived" : "false",
-    "expiry date" : "31-12-2020",
-    "start date" : "31-7-2020",
+    "expiry date" : "31-12-2019",
+    "start date" : "31-7-2019",
     "usage": "0",
     "limit": "1",
     "tagged" : [ "friends" ],
-    "remind date" : "28-12-2020"
+    "remind date" : "28-12-2019"
 
   }, {
     "name" : "Elle Meyer",

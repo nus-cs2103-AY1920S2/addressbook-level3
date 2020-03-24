@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.model.coupon.NameContainsKeywordsPredicate;
 import csdev.couponstash.testutil.CouponStashBuilder;
+import csdev.couponstash.testutil.TypicalCoupons;
 
 public class ModelManagerTest {
 
@@ -91,6 +93,16 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredCouponList().remove(0));
+    }
+
+    @Test
+    public void getFilteredPersonList_archiveExpiredCoupons_returnsTrue() {
+        CouponStash couponStash = new CouponStash(TypicalCoupons.getTypicalCouponStash());
+        int numberOfActiveCoupons = couponStash.getCouponList()
+                .filtered(coupon -> coupon.getExpiryDate().date.isAfter(LocalDate.now())).size();
+        modelManager = new ModelManager(couponStash, new UserPrefs());
+
+        assertTrue(numberOfActiveCoupons == modelManager.getFilteredCouponList().size());
     }
 
     @Test
