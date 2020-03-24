@@ -1,4 +1,4 @@
-= Using Netlify
+= Notably - Using Netlify
 :site-section: DeveloperGuide
 :imagesDir: images
 :stylesDir: stylesheets
