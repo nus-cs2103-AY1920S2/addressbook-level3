@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
+import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
 
@@ -47,6 +48,13 @@ public class NotablyParserTest {
         Command command = parser.parseCommand("delete -t CS2103").get(0);
 
         assertTrue(command instanceof DeleteCommand);
+    }
+
+    @Test
+    public void parseCommand_helpCommandInput_helpCommand() throws Exception {
+        Command command = parser.parseCommand("help").get(0);
+
+        assertTrue(command instanceof HelpCommand);
     }
 
 
