@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import com.notably.logic.commands.Command;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.commands.EditCommand;
 import com.notably.logic.commands.ExitCommand;
+import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -48,22 +48,20 @@ public class NotablyParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case HelpCommand.COMMAND_WORD:
+            List<Command> helpCommand = new ArrayList<>();
+            helpCommand.add(new HelpCommand());
+            return helpCommand;
+
         case ExitCommand.COMMAND_WORD:
-            List<Command> command = new ArrayList<>();
-            command.add(new ExitCommand());
-            return command;
+            List<Command> exitCommand = new ArrayList<>();
+            exitCommand.add(new ExitCommand());
+            return exitCommand;
 
         default:
             throw new ParseException("Invalid Command");
         }
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 }
 

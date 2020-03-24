@@ -1,4 +1,4 @@
-= About Us
+= Notably - About Us
 :site-section: AboutUs
 :relfileprefix: team/
 :imagesDir: images

@@ -5,9 +5,6 @@ import static com.notably.logic.parser.CliSyntax.PREFIX_TITLE;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.notably.commons.core.path.AbsolutePath;
-import com.notably.commons.core.path.RelativePath;
-import com.notably.commons.core.path.exceptions.InvalidPathException;
 import com.notably.logic.commands.DeleteCommand;
 import com.notably.logic.parser.exceptions.ParseException;
 
@@ -26,7 +23,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE);
 
-        if (!NotablyParser.arePrefixesPresent(argMultimap, PREFIX_TITLE)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format("Invalid Command"));
         }
@@ -34,15 +31,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         String title = argMultimap.getValue(PREFIX_TITLE).get();
         List<DeleteCommand> deleteCommand = new ArrayList<>();
 
-        try {
-            if (title.charAt(0) == '/') {
-                deleteCommand.add(new DeleteCommand(AbsolutePath.fromString(title)));
-            } else {
-                deleteCommand.add(new DeleteCommand(RelativePath.fromString(title)));
-            }
-            return deleteCommand;
-        } catch (InvalidPathException ex) {
-            throw new ParseException(args);
-        }
+        deleteCommand.add(new DeleteCommand(ParserUtil.createPath(title)));
+        return deleteCommand;
     }
 }

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
-import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.model.Model;
 
 /**
@@ -20,7 +19,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Model notablyModel) throws CommandException {
+    public void execute(Model notablyModel) {
         requireNonNull(notablyModel);
         if (this.targetPath instanceof RelativePath) {
             RelativePath toConvert = (RelativePath) this.targetPath;

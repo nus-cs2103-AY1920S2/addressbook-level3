@@ -1,5 +1,7 @@
 package com.notably.logic.commands.exceptions;
 
+import com.notably.logic.commands.Command;
+
 /**
  * Represents an error which occurs during execution of a {@link Command}.
  */
