@@ -32,6 +32,7 @@ public class NewSuggestionCommandTest {
         // Set up path
         toRoot = AbsolutePath.fromString("/");
     }
+
     @Test
     public void execute() {
         // Instantiate command
