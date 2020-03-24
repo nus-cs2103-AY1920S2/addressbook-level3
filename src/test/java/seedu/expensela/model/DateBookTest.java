@@ -3,7 +3,7 @@ package seedu.expensela.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
 import static seedu.expensela.testutil.Assert.assertThrows;
 import static seedu.expensela.testutil.TypicalTransactions.ALICE;
 import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
@@ -45,7 +45,7 @@ public class DateBookTest {
     @Test
     public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
         // Two transactions with the same identity fields
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
                 .build();
         List<Transaction> newTransactions = Arrays.asList(ALICE, editedAlice);
         ExpenseLaStub newData = new ExpenseLaStub(newTransactions);
@@ -72,7 +72,7 @@ public class DateBookTest {
     @Test
     public void hasTransaction_transactionWithSameIdentityFieldsInExpenseLa_returnsTrue() {
         expenseLa.addTransaction(ALICE);
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
                 .build();
         assertTrue(expenseLa.hasTransaction(editedAlice));
     }

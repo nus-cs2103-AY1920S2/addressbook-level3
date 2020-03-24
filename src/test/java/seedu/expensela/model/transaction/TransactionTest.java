@@ -2,9 +2,9 @@ package seedu.expensela.model.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
 import static seedu.expensela.testutil.TypicalTransactions.ALICE;
 import static seedu.expensela.testutil.TypicalTransactions.BOB;
 
@@ -22,26 +22,26 @@ public class TransactionTest {
         // null -> returns false
         assertFalse(ALICE.isSameTransaction(null));
 
-        // different phone and email -> returns false
-        Transaction editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different amount and email -> returns false
+        Transaction editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_AMOUNT_AIRPODS).build();
         assertFalse(ALICE.isSameTransaction(editedAlice));
 
         // different name -> returns false
-        editedAlice = new TransactionBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        editedAlice = new TransactionBuilder(ALICE).withName(VALID_NAME_AIRPODS).build();
         assertFalse(ALICE.isSameTransaction(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+        // same name, same amount, different attributes -> returns true
+        editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
                 .build();
         assertTrue(ALICE.isSameTransaction(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_AMOUNT_AIRPODS).withAddress(VALID_REMARK_AIRPODS)
                 .build();
         assertTrue(ALICE.isSameTransaction(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // same name, same amount, same email, different attributes -> returns true
+        editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS).build();
         assertTrue(ALICE.isSameTransaction(editedAlice));
     }
 
@@ -64,19 +64,19 @@ public class TransactionTest {
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        Transaction editedAlice = new TransactionBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Transaction editedAlice = new TransactionBuilder(ALICE).withName(VALID_NAME_AIRPODS).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
-        editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        // different amount -> returns false
+        editedAlice = new TransactionBuilder(ALICE).withPhone(VALID_AMOUNT_AIRPODS).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different email -> returns false
         editedAlice = new TransactionBuilder(ALICE).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different address -> returns false
-        editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        // different remark -> returns false
+        editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different tags -> returns false

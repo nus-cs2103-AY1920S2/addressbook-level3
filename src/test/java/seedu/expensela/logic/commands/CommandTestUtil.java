@@ -22,9 +22,9 @@ import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_PIZZA = "Amy Bee";
-    public static final String VALID_NAME_AIRPODS = "Bob Choo";
-    public static final String VALID_AMOUNT_PIZZA = "23";
+    public static final String VALID_NAME_PIZZA = "Pepperoni Pizza";
+    public static final String VALID_NAME_AIRPODS = "Apple Airpods";
+    public static final String VALID_AMOUNT_PIZZA = "23.00";
     public static final String VALID_AMOUNT_AIRPODS = "188";
     public static final String VALID_DATE_PIZZA = "2020-02-03";
     public static final String VALID_DATE_AIRPODS = "2020-02-19";
@@ -44,24 +44,26 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_SHOPPING = " " + PREFIX_CATEGORY + VALID_CATEGORY_SHOPPING;
     public static final String CATEGORY_DESC_FOOD = " " + PREFIX_CATEGORY + VALID_CATEGORY_FOOD;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "&James"; // first letter must be alphanumeric
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // 'a' not allowed in amount
-    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK; // empty string not allowed for addresses
-    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2017/02/02"; // needs '-' instead of '/'
+    public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "*"; // '*' is not allowed in remark
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "CLOTHES*"; // 'CLOTHES' is not a category
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.editTransaction DESC_PIZZA;
-    public static final EditCommand.editTransaction DESC_AIRPODS;
+    public static final EditCommand.EditTransactionDescriptor DESC_PIZZA;
+    public static final EditCommand.EditTransactionDescriptor DESC_AIRPODS;
 
     static {
         DESC_PIZZA = new EditTransactionDescriptorBuilder().withName(VALID_NAME_PIZZA)
-                .withPhone(VALID_AMOUNT_PIZZA).withAddress(VALID_REMARK_PIZZA)
+                .withAmount(VALID_AMOUNT_PIZZA).withDate(VALID_DATE_PIZZA)
+                .withRemark(VALID_REMARK_PIZZA).withCategory(VALID_CATEGORY_FOOD)
                 .build();
         DESC_AIRPODS = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS)
-                .withPhone(VALID_AMOUNT_AIRPODS).withAddress(VALID_REMARK_AIRPODS)
+                .withAmount(VALID_AMOUNT_AIRPODS).withDate(VALID_DATE_AIRPODS)
+                .withRemark(VALID_REMARK_AIRPODS).withCategory(VALID_CATEGORY_SHOPPING)
                 .build();
     }
 
@@ -100,21 +102,12 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-<<<<<<< HEAD
         ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
         List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
         assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
-=======
-        ExpenseLa expectedExpenseLa = new ExpenseLa(actualModel.getExpenseLa());
-        List<Transaction> expectedFilteredList = new ArrayList<>(actualModel.getFilteredTransactionList());
-
-        assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedExpenseLa, actualModel.getExpenseLa());
-        assertEquals(expectedFilteredList, actualModel.getFilteredTransactionList());
->>>>>>> c6bc62a37f9819291599e33e77159410c7f10d74
     }
     /**
      * Updates {@code model}'s filtered list to show only the transaction at the given {@code targetIndex} in the

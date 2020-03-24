@@ -4,7 +4,7 @@
     "amount": "100.15.50",
     "positive": "false",
     "date": "2019-02-07",
-    "type": "Food",
-    "remark": "Treating friends"
+    "remark": "Treating friends",
+    "category": "FOOD"
   } ]
 }

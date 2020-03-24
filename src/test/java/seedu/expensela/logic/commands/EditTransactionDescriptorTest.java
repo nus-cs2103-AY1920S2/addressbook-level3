@@ -2,15 +2,15 @@ package seedu.expensela.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.expensela.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.expensela.logic.commands.CommandTestUtil.DESC_PIZZA;
+import static seedu.expensela.logic.commands.CommandTestUtil.DESC_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.expensela.logic.commands.EditCommand.editTransaction;
+import seedu.expensela.logic.commands.EditCommand.EditTransactionDescriptor;
 import seedu.expensela.testutil.EditTransactionDescriptorBuilder;
 
 public class EditTransactionDescriptorTest {
@@ -18,39 +18,39 @@ public class EditTransactionDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        editTransaction descriptorWithSameValues = new editTransaction(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditTransactionDescriptor descriptorWithSameValues = new EditTransactionDescriptor(DESC_PIZZA);
+        assertTrue(DESC_PIZZA.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_PIZZA.equals(DESC_PIZZA));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_PIZZA.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_PIZZA.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_PIZZA.equals(DESC_AIRPODS));
 
         // different name -> returns false
-        editTransaction editedAmy = new EditTransactionDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditTransactionDescriptor editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withName(VALID_NAME_AIRPODS).build();
+        assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withPhone(VALID_AMOUNT_AIRPODS).build();
+        assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_AMY).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).build();
+        assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_AMY).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withAddress(VALID_REMARK_AIRPODS).build();
+        assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_AMY).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).build();
+        assertFalse(DESC_PIZZA.equals(editedAmy));
     }
 }

@@ -3,51 +3,51 @@
   "transactions" : [ {
     "name": "Domino's Pizza",
     "amount": "100.00",
-    "date": "2020-02-07",
     "positive": "false",
-    "type": "Food",
-    "remark": "Treating friends"
+    "date": "2020-02-07",
+    "remark": "Treating friends",
+    "category": "FOOD"
   }, {
     "name": "Grab to school",
     "amount": "15.00",
     "positive": "false",
     "date": "2020-02-28",
-    "type": "Transport",
-    "remark": "Split cost with Greg"
+    "remark": "Split cost with Greg",
+    "category": "TRANSPORT"
   }, {
     "name": "Valentine's meal",
     "amount": "50.20",
-    "date": "2020-02-14",
     "positive": "false",
-    "type": "Food",
-    "remark": "Love my babe"
+    "date": "2020-02-14",
+    "remark": "Love my babe",
+    "category": "FOOD"
   }, {
     "name": "CS3230 Textbook",
     "amount": "48.00",
-    "date": "2019-12-01",
     "positive": "false",
-    "type": "Others",
-    "remark": "I hate CS3230"
+    "date": "2019-12-01",
+    "remark": "I hate CS3230",
+    "category": "MISC"
   }, {
     "name": "BTS Album",
     "amount": "30.50",
-    "date": "2020-01-01",
     "positive": "false",
-    "type": "Others",
-    "remark": ""
+    "date": "2020-01-01",
+    "remark": "",
+    "category": "MISC"
   }, {
     "name": "Internship Pay",
     "amount": "1000.00",
     "positive": "true",
     "date": "2019-01-08",
-    "type": "Income",
-    "remark": ""
+    "remark": "",
+    "category": "MISC"
   }, {
     "name": "Angpao Money",
     "amount": "200.88",
     "positive": "true",
     "date": "2019-02-26",
-    "type": "Others",
-    "remark": "GONG XI FA CAI"
+    "remark": "GONG XI FA CAI",
+    "category": "MISC"
   } ]
 }
