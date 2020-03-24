@@ -169,6 +169,12 @@ public class TaTracker implements ReadOnlyTaTracker {
      * Removes a module from TATracker.
      */
     public void deleteModule(Module module) {
+        for (int i = 0; i < sessions.size(); ++i) {
+            Session session = sessions.get(i);
+            if (session.getModuleCode().equals(module.getIdentifier())) {
+                sessions.remove(session);
+            }
+        }
         modules.remove(module);
     }
 
