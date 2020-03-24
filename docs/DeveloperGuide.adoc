@@ -430,7 +430,7 @@ related to the students that the user is affiliated with.
 
 ==== Model Framework
 The following class diagram shows how different classes are related in the
-functioning of the module view.
+functioning of the student view.
 
 .Student View - Class Diagram
 image::StudentModelClassDiagram.png[]
@@ -508,6 +508,24 @@ a command exception is thrown saying that no such group exists. If the group doe
 exist, it is removed from the module.
 
 8. The SortGroupCommand returns a CommandResult with a success message.
+
+//tag::tssview[]
+=== TSS View
+TSS view is the term used to characterise the different functionalities
+related to the done sessions that the user is affiliated with.
+
+==== Model Framework
+The following class diagram shows how different classes are related in the
+functioning of the TSS view.
+
+.Student View - Class Diagram
+image::StudentModelClassDiagram.png[]
+
+The TaTracker model class contains a UniqueStudentList which helps it keep track
+of the different students the user is associated with. Each student has a name,
+matric and a default rating of 3/5 which can be edited by the user later. Each
+student also has a Phone and an Email, which is represented as an empty string
+if the user does not include the optional values.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
