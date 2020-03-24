@@ -45,6 +45,6 @@ class TimeStampTest {
 
 
         // valid timeStamp
-        assertTrue(TimeStamp.isValidTimeStamp("2020-02-10 2000"));
+        assertTrue(TimeStamp.isValidTimeStamp("2020-05-20 1500"));
     }
 }

@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Represents a Order's timeStamp in the order book.
  * Guarantees: immutable; is valid as declared in {@link #isValidTimeStamp(String)}
@@ -15,8 +17,8 @@ import java.time.format.ResolverStyle;
 public class TimeStamp {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Timestamp should have a valid date and a valid time, and it should have space in between date and time.\n"
-                    + "Furthermore, time is in 24 hours format";
+            "Timestamp should have a valid date and time and it should have space in between date and time\n"
+            + "Note: Time should be in 24hour format and the input date and time cannot before current timestamp";
     public static final DateTimeFormatter FORMAT_CHECKER = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
     public final LocalDateTime timeStamp;
     public final String value;
@@ -38,7 +40,10 @@ public class TimeStamp {
      */
     public static boolean isValidTimeStamp(String test) {
         try {
-            LocalDateTime.parse(test, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
+            LocalDateTime userInput = LocalDateTime.parse(test, FORMAT_CHECKER.withResolverStyle(ResolverStyle.STRICT));
+            if (userInput.compareTo(LocalDateTime.now()) < 0) {
+                return false;
+            }
         } catch (DateTimeParseException e) {
             return false;
         }
