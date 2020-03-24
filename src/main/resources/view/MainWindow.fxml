@@ -8,47 +8,46 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Coupon Stash" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <icons>
-        <Image url="@/images/coupon_stash_32.png" />
-    </icons>
-    <scene>
-        <Scene>
-            <stylesheets>
-                <URL value="@DarkTheme.css"/>
-                <URL value="@Extensions.css"/>
-            </stylesheets>
-            <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-                    <Menu mnemonicParsing="false" text="File">
-                      <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Help">
-                      <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Calendar">
-                      <MenuItem fx:id="calendarMenuItem" mnemonicParsing="false" onAction="#handleCalendar" text="Calendar" />
-                    </Menu>
-                </MenuBar>
+<fx:root minHeight="600" minWidth="910" maxWidth="910" onCloseRequest="#handleExit" title="Coupon Stash" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+  <icons>
+    <Image url="@/images/coupon_stash_32.png"/>
+  </icons>
+  <scene>
+    <Scene>
+      <stylesheets>
+        <URL value="@DarkTheme.css"/>
+        <URL value="@Extensions.css"/>
+      </stylesheets>
+      <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" styleClass="background">
+        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+          <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Calendar">
+            <MenuItem fx:id="calendarMenuItem" mnemonicParsing="false" onAction="#handleCalendar" text="Calendar"/>
+          </Menu>
+        </MenuBar>
 
-                <HBox HBox.hgrow="ALWAYS">
-                    <VBox fx:id="couponList" alignment="TOP_LEFT" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                      <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                      </padding>
-                      <StackPane fx:id="couponListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                    </VBox>
-                    <StackPane fx:id="calendarResultPlaceholder" alignment="CENTER_RIGHT" styleClass="pane-with-border" HBox.hgrow="NEVER" VBox.vgrow="ALWAYS">
-                    </StackPane>
-                </HBox>
+        <HBox HBox.hgrow="ALWAYS">
+          <VBox fx:id="couponList" alignment="TOP_LEFT" styleClass="background" HBox.hgrow="ALWAYS"
+                VBox.vgrow="ALWAYS" minWidth="631" maxWidth="631">
+            <StackPane fx:id="couponListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+          </VBox>
+          <StackPane fx:id="calendarResultPlaceholder" alignment="CENTER_RIGHT" styleClass="pane-with-border"
+                     HBox.hgrow="NEVER" VBox.vgrow="ALWAYS">
+          </StackPane>
+        </HBox>
 
-                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
-                  <padding>
-                    <Insets bottom="5" left="10" right="10" top="5" />
-                  </padding>
-                </StackPane>
-                <StackPane fx:id="statusbarPlaceholder" alignment="BOTTOM_CENTER" VBox.vgrow="NEVER" />
-            </VBox>
-        </Scene>
-    </scene>
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+          <padding>
+            <Insets bottom="10" left="7" right="7" top="5"/>
+          </padding>
+        </StackPane>
+      </VBox>
+    </Scene>
+  </scene>
 </fx:root>

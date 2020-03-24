@@ -1,6 +1,11 @@
+.root {
+    -fx-background-color: #19568E;
+}
+
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    -fx-background-color: #19568E;
+    /*-fx-background-color: derive(#1d1d1d, 20%);*/
+    background-color: #19568E; /* Used in the default.html file */
 }
 
 .label {
@@ -22,11 +27,6 @@
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 1;
-}
-
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
 }
 
 .tab-pane {
@@ -90,26 +90,24 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #19568E;
 }
 
 .list-cell {
-    -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
+    -fx-background-color: #19568E;
 }
 
-.list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
-}
+/*.list-cell:filled:even {*/
+/*    -fx-background-color: #3c3e3f;*/
+/*}*/
 
-.list-cell:filled:odd {
-    -fx-background-color: #515658;
-}
+/*.list-cell:filled:odd {*/
+/*    -fx-background-color: #515658;*/
+/*}*/
 
-.list-cell:filled:selected {
-    -fx-background-color: #424d5f;
-}
+/*.list-cell:filled:selected {*/
+/*    -fx-background-color: #424d5f;*/
+/*}*/
 
 .list-cell:filled:selected #cardPane {
     -fx-border-color: #3e7b91;
@@ -132,20 +130,6 @@
     -fx-text-fill: #010504;
 }
 
-.stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
-}
-
-.pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
-}
-
-.status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
-
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
@@ -155,23 +139,6 @@
 
 .result-display .label {
     -fx-text-fill: black !important;
-}
-
-.status-bar .label {
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
-    -fx-padding: 4px;
-    -fx-pref-height: 30px;
-}
-
-.status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: white;
 }
 
 .grid-pane {
@@ -282,17 +249,18 @@
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #19568E;
+    visibility: hidden;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
-    -fx-background-insets: 3;
+    -fx-background-color: #19568E;
+    visibility: hidden;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
-    -fx-background-color: transparent;
-    -fx-padding: 0 0 0 0;
+    -fx-background-color: #19568E;
+    -fx-padding: 0;
 }
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
@@ -300,16 +268,22 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 0;
+    -fx-background-color: #19568E;
 }
 
-.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+#couponName {
+    -fx-fill: white;
+    -fx-font-size: 26;
 }
 
-#cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 0;
+#couponFields {
+    -fx-fill: white;
+    -fx-font-size: 14;
+}
+
+#couponPane {
+    -fx-effect:  dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
 }
 
 #commandTypeLabel {
@@ -318,17 +292,16 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #383838 transparent #383838;
-    -fx-background-insets: 0;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
-    -fx-border-insets: 0;
-    -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-background-color: #1C8585;
+    -fx-background-radius: 7;
+    -fx-font-family: "Arial";
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
+    -fx-prompt-text-fill: #EAF1E9;
+    -fx-effect:  dropShadow(one-pass-box, rgba(0, 0, 0, 0.25), 10, 0, 0, 4);
 }
 
-#filterField, #couponListPanel, #couponWebpage {
+#filterField, #couponWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
@@ -344,9 +317,8 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 2;
-    -fx-background-radius: 2;
+    -fx-background-color: #DF6D54;
+    -fx-padding: 1 8 1 8;
+    -fx-background-radius: 20;
     -fx-font-size: 11;
 }

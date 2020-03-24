@@ -2,39 +2,132 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
-      </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
+<HBox id="couponPane" fx:id="cardPane" minWidth="500.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <minWidth>
+    <Region fx:constant="USE_PREF_SIZE" />
+  </minWidth>
+  <padding>
+    <Insets bottom="0.0" left="0.0" right="0.0" top="0.0" />
+  </padding>
+  <children>
+    <AnchorPane>
+      <children>
+        <HBox prefWidth="600.0" style="-fx-background-color: #46998F; -fx-background-radius: 10;">
+          <children>
+            <HBox style="-fx-border-color: white; -fx-border-width: 1; -fx-border-style: segments(4, 4, 4, 4); -fx-border-radius: 10; " HBox.hgrow="ALWAYS">
+              <children>
+                <VBox alignment="CENTER" prefWidth="120.0">
+                  <children>
+                    <Label fx:id="savings" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" prefHeight="110.0" prefWidth="100.0" style="-fx-background-color: #19568E; -fx-background-radius: 10; -fx-text-fill: white;">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                  </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="130.0" prefWidth="431.0" HBox.hgrow="ALWAYS">
+
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </padding>
+                  <children>
+                    <HBox alignment="CENTER_LEFT" prefWidth="500.0" spacing="10.0">
+                      <children>
+                        <HBox spacing="3.0">
+                          <children>
+                            <Label id="couponName" fx:id="name" style="-fx-font-family: arial; -fx-font-weight: bold; -fx-font-style: italic;" text="name">
+                              <font>
+                                <Font name="Arial Bold Italic" size="26.0" />
+                              </font>
+                            </Label>
+                          </children>
+                        </HBox>
+                      </children>
+                      <VBox.margin>
+                        <Insets top="5.0" />
+                      </VBox.margin>
+                    </HBox>
+                    <HBox spacing="10.0">
+                      <children>
+                        <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0">
+                          <children>
+                            <Label id="couponFields" fx:id="promoCode" style="-fx-font-style: italic; -fx-font-family: arial;" text="promoCode">
+                              <font>
+                                <Font name="Arial Italic" />
+                              </font>
+                            </Label>
+                            <Label id="couponFields" fx:id="expiryDate" style="-fx-font-style: italic; -fx-font-family: arial;" text="expiryDate">
+                              <font>
+                                <Font name="Arial Italic" />
+                              </font>
+                            </Label>
+                            <Label id="couponFields" fx:id="usage" style="-fx-font-style: italic; -fx-font-family: arial;" text="usage">
+                              <font>
+                                <Font name="Arial Italic" />
+                              </font>
+                            </Label>
+                          </children>
+                          <HBox.margin>
+                            <Insets top="10.0" />
+                          </HBox.margin>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="250.0" spacing="10.0">
+                          <children>
+                            <Label id="couponFields" fx:id="startDate" style="-fx-font-style: italic; -fx-font-family: arial;" text="startDate">
+                              <font>
+                                <Font name="Arial Italic" />
+                              </font>
+                            </Label>
+                            <Label id="couponFields" fx:id="remindDate" style="-fx-font-style: italic; -fx-font-family: arial;" text="remindDate">
+                              <font>
+                                <Font name="Arial Italic" />
+                              </font>
+                            </Label>
+                          </children>
+                          <HBox.margin>
+                            <Insets top="10.0" />
+                          </HBox.margin>
+                        </VBox>
+                      </children>
+                    </HBox>
+                  </children>
+
+                </VBox>
+              </children>
+              <HBox.margin>
+                <Insets bottom="14.0" left="14.0" right="14.0" top="14.0" />
+              </HBox.margin>
+            </HBox>
+          </children>
+        </HBox>
+        <ImageView fitHeight="19.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="55.0">
+          <image>
+            <Image url="@../images/scissors.png" />
+          </image>
+        </ImageView>
+        <Label fx:id="id" alignment="CENTER" style="-fx-background-color: #46998F; -fx-font-weight: bold; -fx-font-family: arial; -fx-font-size: 16;" text="1" textAlignment="CENTER" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="5.0">
+          <padding>
+            <Insets left="5.0" right="5.0" />
+          </padding>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-      </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="promoCode" styleClass="cell_small_label" text="\$promoCode" />
-      <Label fx:id="savings" styleClass="cell_small_label" text="\$savings" />
-      <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-      <Label fx:id="expiryDate" styleClass="cell_small_label" text="\$expiryDate" />
-      <Label fx:id="usage" styleClass="cell_small_label" text="\$usage" />
-      <Label fx:id="limit" styleClass="cell_small_label" text="\$limit" />
-      <Label fx:id="remindDate" styleClass="cell_small_label" text="\$remindDate" />
-    </VBox>
-  </GridPane>
+        <Label fx:id="idDup" alignment="CENTER" layoutX="150.0" layoutY="15.0" style="-fx-background-color: #46998F; -fx-font-weight: bold; -fx-font-family: arial; -fx-font-size: 16;" text="1" textAlignment="CENTER" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="5.0">
+          <padding>
+            <Insets left="5.0" right="5.0" />
+          </padding>
+        </Label>
+        <FlowPane fx:id="tags" alignment="BOTTOM_LEFT" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="7.0" />
+        <FlowPane id="tags" fx:id="tagsDup" alignment="BOTTOM_LEFT" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="7.0" />
+      </children>
+    </AnchorPane>
+  </children>
+
 </HBox>
