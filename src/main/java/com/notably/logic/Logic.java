@@ -18,8 +18,9 @@ public interface Logic {
      */
     void execute(String commandText) throws CommandException, ParseException;
 
+
     /**
-     * Returns the user prefs' address book file path.
+     * TODO: Change to BlockStoragePath
      */
     Path getAddressBookFilePath();
 
