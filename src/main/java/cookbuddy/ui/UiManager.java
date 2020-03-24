@@ -2,6 +2,7 @@ package cookbuddy.ui;
 
 import java.util.logging.Logger;
 
+import cookbuddy.MainApp;
 import cookbuddy.commons.core.LogsCenter;
 import cookbuddy.commons.util.StringUtil;
 import cookbuddy.logic.Logic;
@@ -10,7 +11,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import cookbuddy.MainApp;
 
 /**
  * The manager of the UI component.

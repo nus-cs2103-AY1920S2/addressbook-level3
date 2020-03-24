@@ -7,8 +7,8 @@ import java.util.List;
 import cookbuddy.commons.core.Messages;
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.exceptions.CommandException;
-import cookbuddy.model.recipe.Recipe;
 import cookbuddy.model.Model;
+import cookbuddy.model.recipe.Recipe;
 
 /**
  * Deletes a recipe identified using it's displayed index from the recipe book.

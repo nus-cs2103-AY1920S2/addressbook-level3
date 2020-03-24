@@ -1,7 +1,7 @@
 package cookbuddy.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static cookbuddy.model.Model.PREDICATE_SHOW_ALL_RECIPES;
+import static java.util.Objects.requireNonNull;
 
 import cookbuddy.model.Model;
 

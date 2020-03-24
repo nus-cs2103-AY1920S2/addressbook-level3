@@ -3,8 +3,8 @@ package cookbuddy.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import cookbuddy.commons.core.Messages;
-import cookbuddy.model.recipe.NameContainsKeywordsPredicate;
 import cookbuddy.model.Model;
+import cookbuddy.model.recipe.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all recipes in recipe book whose name contains any of the argument keywords.

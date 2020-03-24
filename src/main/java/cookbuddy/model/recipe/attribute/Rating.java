@@ -1,7 +1,7 @@
 package cookbuddy.model.recipe.attribute;
 
-import static java.util.Objects.requireNonNull;
 import static cookbuddy.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents the Rating of the recipe in the recipe book.
