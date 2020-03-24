@@ -133,7 +133,6 @@ public class ModelManager implements Model {
 
         couponStash.setCoupon(target, editedCoupon);
         updateFilteredCouponList(PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
-        commitCouponStash("edit");
         commitCouponStash(commandText);
     }
 

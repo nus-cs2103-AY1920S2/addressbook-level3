@@ -91,7 +91,7 @@ class UsedCommandTest {
         Coupon expectedCoupon =
                 new CouponBuilder(couponToBeUsed).withUsage(String.valueOf(expectedUsageAmount))
                         .withTotalSavings(expectedTotalSavings).build();
-        expectedModel.setCoupon(couponToBeUsed, expectedCoupon);
+        expectedModel.setCoupon(couponToBeUsed, expectedCoupon, "");
 
         String expectedMessage = String.format(UsedCommand.MESSAGE_USED_COUPON_SUCCESS, expectedCoupon.getName());
 

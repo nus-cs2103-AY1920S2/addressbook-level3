@@ -42,7 +42,7 @@ public class UsedCommand extends Command {
     private final MonetaryAmount originalAmount;
 
     /**
-     * Creates a UsedCommand to increase the usage of the specified {@code Coupon}
+     * Creates a UsedCommand to increase the usage of the specified {@code Coupon}.
      */
     public UsedCommand(Index targetIndex) {
         this.targetIndex = targetIndex;

@@ -105,11 +105,11 @@ public class EditCommandTest {
         Coupon editedCoupon = new CouponBuilder(couponInFilteredList)
                 .withLimit(couponInFilteredList.getUsage().value).build();
         EditCommand editCommand = new EditCommand(TypicalIndexes.INDEX_FIRST_COUPON,
-                new EditCouponDescriptorBuilder(couponInFilteredList).withLimit(couponInFilteredList.getUsage().value)
+                new EditCouponDescriptorBuilder().withLimit(couponInFilteredList.getUsage().value)
                         .build());
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
-        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
