@@ -9,8 +9,8 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.InvalidTableException;
 import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
+import seedu.address.model.dayData.exceptions.InvalidTableException;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 

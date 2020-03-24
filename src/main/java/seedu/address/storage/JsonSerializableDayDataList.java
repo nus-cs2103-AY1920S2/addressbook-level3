@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.exceptions.InvalidTableException;
 import seedu.address.model.ReadOnlyStatistics;
 import seedu.address.model.Statistics;
 import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.DayData;
+import seedu.address.model.dayData.exceptions.InvalidTableException;
 
 import static seedu.address.model.dayData.CustomQueue.CONSTANT_SIZE;
 

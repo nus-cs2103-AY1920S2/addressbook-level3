@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.InvalidTableException;
 import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
 import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
+import seedu.address.model.dayData.exceptions.InvalidTableException;
 
 /** Wraps all DayData objects. */
 public class Statistics implements ReadOnlyStatistics {
