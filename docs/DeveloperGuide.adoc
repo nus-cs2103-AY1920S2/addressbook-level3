@@ -39,7 +39,7 @@ The App is built following the https://en.wikipedia.org/wiki/Model%E2%80%93view%
 In addition, the App's data flow is unidirectional. That is, all user interactions in `View` will trigger an appropriate handler in `Logic`, which in turn updates `Model` and `Storage`.
 Any data/state changes in `Model` will then propagate back to `View` automatically through https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm[JavaFX's Property and Binding].
 
-In short, the App's data flow can be summarized as:
+In short, the App's data flow can be summarized as: +
 `View` -> `Logic` -> `Model` + `Storage` -> `View`
 
 ==== Architecture-level components
