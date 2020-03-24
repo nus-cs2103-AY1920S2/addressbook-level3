@@ -28,6 +28,7 @@ public class TitleTest {
         assertFalse(Title.isValidTitle("")); // Empty string
         assertFalse(Title.isValidTitle(" ")); // Spaces only
         assertFalse(Title.isValidTitle(" Week 2 Lecture")); // Leading whitespace
+        assertFalse(Title.isValidTitle("Week 2 Lecture ")); // Trailing whitespace
         assertFalse(Title.isValidTitle("Week 2: Lecture")); // Contains non-alphanumeric characters
 
         // Valid title
