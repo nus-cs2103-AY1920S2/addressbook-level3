@@ -251,7 +251,7 @@ public class Entry {
         java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes();
         boolean hasClash;
         if (anotherEntry.getTime().dateTime.isBefore(getTime().dateTime)) {
-            hasClash = hasTimeClashes(anotherEntry, this);
+            hasClash = anotherEntry != null && hasTimeClashes(anotherEntry, this);
         } else {
             hasClash = anotherEntry != null && hasTimeClashes(this, anotherEntry);
         }
@@ -262,10 +262,10 @@ public class Entry {
      * Checks whether two entries have any time clashes, returns true if have
      */
     boolean hasTimeClashes(Entry entry, Entry toBeCompared) {
-        return (java.time.Duration.between(entry.getTime().dateTime, toBeCompared.getTime().dateTime).toMinutes()
-                <= toBeCompared.getDuration().getHours() * 60 + toBeCompared.getDuration().getMinutes()
-                && java.time.Duration.between(entry.getTime().dateTime,
-                toBeCompared.getTime().dateTime).toMinutes() >= 0);
+        long duration = entry.getDuration().getHours() * 60 + entry.getDuration().getMinutes();
+        long difference = java.time.Duration.between(entry.getTime().dateTime,
+                toBeCompared.getTime().dateTime).toMinutes();
+        return (difference < duration && difference >= 0);
     }
 
 
