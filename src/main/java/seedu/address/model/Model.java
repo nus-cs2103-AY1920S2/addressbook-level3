@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.plan.Date;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -123,5 +124,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRecipeList(Predicate<Recipe> predicate);
+
+    /**
+     * Adds a recipe to a date in the plannedRecipe list
+     */
+    void planRecipe(Recipe recipeToSet, Date atDate);
 
 }
