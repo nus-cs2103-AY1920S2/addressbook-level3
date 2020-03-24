@@ -3,6 +3,7 @@ package csdev.couponstash.storage;
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.model.ReadOnlyUserPrefs;
 import csdev.couponstash.model.UserPrefs;
