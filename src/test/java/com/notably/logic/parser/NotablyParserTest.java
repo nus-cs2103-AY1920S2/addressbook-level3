@@ -1,9 +1,9 @@
 package com.notably.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -60,9 +60,13 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInput_newCommand() throws Exception {
-        Command command = parser.parseCommand("new -t CS2103 -b Hi").get(0);
+        Command command = parser.parseCommand("new -t 1234 -b Hi").get(0);
 
         assertTrue(command instanceof NewCommand);
+
+        command.execute(model);
+
+        assertTrue(model.hasPath(ParserUtil.createAbsolutePath("1234", model.getCurrentlyOpenPath())));
     }
 
     @Test
@@ -83,6 +87,10 @@ public class NotablyParserTest {
         Command command = parser.parseCommand("open -t CS2103").get(0);
 
         assertTrue(command instanceof OpenCommand);
+
+        command.execute(model);
+
+        assertEquals(AbsolutePath.fromString("/another/CS2103"), model.getCurrentlyOpenPath());
     }
 
     @Test
