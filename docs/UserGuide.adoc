@@ -360,7 +360,7 @@ image::TopSellingProduct.png[]
 === Viewing the revenue trend in a certain period : `revenue`
 
 Displays the revenue trend in a selected period.
-Format: `revenue [dt/START_DATE-END_DATE]`
+Format: `revenue [sd/START_DATE] [ed/END_DATE]`
 
 ****
 * The start date and end date must follow a format of `yyyy-mm-dd`
