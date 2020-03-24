@@ -15,7 +15,8 @@ public class HelpCommand extends Command {
         requireNonNull(notablyModel);
         if (notablyModel.isHelpOpen()) {
             notablyModel.setHelpOpen(false);
+        } else {
+            notablyModel.setHelpOpen(true);
         }
-        notablyModel.setHelpOpen(true);
     }
 }
