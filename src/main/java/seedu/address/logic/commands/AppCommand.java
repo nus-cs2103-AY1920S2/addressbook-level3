@@ -4,14 +4,21 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.AppStorage;
 
 public interface AppCommand {
+
+    /**
+     * To validate that the arguments passed in are sound
+     *
+     * @param   arguments           String arguments
+     * @return  AppCommand
+     * @throws  ParseException      Raise if arguments do not meet the condition
+     */
     public AppCommand validate(String arguments) throws ParseException;
 
     /**
      * Command interface
      *
-     * @param   dao                 Arguments for command
+     * @param   dao                 Data access object
      * @return  CommandResult
-     * @throws  ParseException      Invalid argument case
      */
     public AppCommandResult execute(AppStorage dao);
 }
