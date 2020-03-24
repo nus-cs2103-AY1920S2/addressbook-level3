@@ -36,6 +36,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons for the result panel*/
     ObservableList<Person> getFilteredPersonListResult();
 
+    /** Returns an unmodifiable view of the filtered list of persons with upcoming birthdays for the result panel*/
+    ObservableList<Person> getBdayList();
+
     /**
      * Returns the user prefs' address book file path.
      */
