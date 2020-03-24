@@ -15,10 +15,11 @@ import nasa.model.module.UniqueModuleList;
 
 class ModelManagerTest {
 
+    final ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
+            new UserPrefs());
+
     @Test
     void initialisation() {
-        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
-                new UserPrefs());
         assertTrue(modelManager.getNasaBook().equals(NASABOOK_TYPE_1));
 
         assertTrue(modelManager.hasModule(new ModuleCode("CS2103T")));
@@ -28,9 +29,9 @@ class ModelManagerTest {
 
     @Test
     void getFilteredActivityListTest() {
-        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
-                new UserPrefs());
         ObservableList<Activity> list = modelManager.getFilteredActivityList(new ModuleCode("CS2103T"));
+
+        System.out.println(list.get(0).getName().toString());
         assertEquals("Homework", list.get(0).getName().toString());
         assertEquals("Test", list.get(1).getName().toString());
         assertEquals("Prepare group meeting", list.get(2).getName().toString());
