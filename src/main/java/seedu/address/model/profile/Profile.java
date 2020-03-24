@@ -1,5 +1,6 @@
 package seedu.address.model.profile;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -93,7 +95,10 @@ public class Profile {
         Profile.specialisation = specialisation;
     }
 
-    public static ArrayList<Module> getModules(Integer semester) {
+    public static ArrayList<Module> getModules(Integer semester) throws ParseException {
+        if (!moduleHash.containsKey(semester)) {
+            throw new ParseException(MESSAGE_INVALID_SEMESTER);
+        }
         return moduleHash.get(semester);
     }
 
