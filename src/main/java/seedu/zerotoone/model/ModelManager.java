@@ -43,7 +43,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredExercises = new FilteredList<>(this.exerciseList.getExerciseList());
         this.currentSession = Optional.empty();
-
     }
 
     public ModelManager() {
