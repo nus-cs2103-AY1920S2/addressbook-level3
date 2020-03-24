@@ -1,4 +1,4 @@
-= Travis CI
+= Notably - Using Travis CI
 :site-section: DeveloperGuide
 :imagesDir: images
 :stylesDir: stylesheets
