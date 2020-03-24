@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
+import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -37,6 +38,7 @@ class JsonAdaptedCoupon {
     private final String usage;
     private final String limit;
     private final String remindDate;
+    private final String archived;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final JsonAdaptedDssm totalSaved;
 
@@ -53,7 +55,8 @@ class JsonAdaptedCoupon {
                              @JsonProperty("limit") String limit,
                              @JsonProperty("totalSaved") JsonAdaptedDssm totalSaved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("remind date") String remindDate
+                             @JsonProperty("remind date") String remindDate,
+                             @JsonProperty("archived") String archived
     ) {
         this.name = name;
         this.promoCode = promoCode;
@@ -67,6 +70,7 @@ class JsonAdaptedCoupon {
             this.tagged.addAll(tagged);
         }
         this.remindDate = remindDate;
+        this.archived = archived;
     }
 
     /**
@@ -85,6 +89,7 @@ class JsonAdaptedCoupon {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         remindDate = source.getRemindDate().toString();
+        archived = source.getArchived().toString();
     }
 
     /**
@@ -152,6 +157,11 @@ class JsonAdaptedCoupon {
         }
         final Limit modelLimit = new Limit(limit);
 
+        if (!Archived.isValidState(archived)) {
+            throw new IllegalValueException(Archived.MESSAGE_CONSTRAINTS);
+        }
+        final Archived modelArchived = new Archived(archived);
+
         final DateSavingsSumMap modelTotalSaved;
         if (totalSaved == null) {
             // could not find totalSaved data
@@ -171,8 +181,6 @@ class JsonAdaptedCoupon {
 
         return new Coupon(modelName, modelPromoCode, modelSavings,
                 modelExpiryDate, modelStartDate, modelUsage, modelLimit,
-                modelTags, modelTotalSaved, modelRemindDate);
-
+                modelTags, modelTotalSaved, modelRemindDate, modelArchived);
     }
-
 }

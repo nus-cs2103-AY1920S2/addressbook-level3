@@ -75,6 +75,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("29-11-2020", "02-12-2020")
+            .withArchived("false")
             .withTags("friends").build();
     public static final Coupon BENSON = new CouponBuilder().withName("Benson Meier")
             .withPromoCode("ILUVSTASH")
@@ -85,6 +86,7 @@ public class TypicalCoupons {
             .withUsage("2")
             .withLimit("5")
             .withRemindDate("28-11-2020", "31-12-2020")
+            .withArchived("false")
             .withTags("owesMoney", "friends").build();
     public static final Coupon CARL = new CouponBuilder().withName("Carl Kurz")
             .withPromoCode("KKB")
@@ -93,19 +95,24 @@ public class TypicalCoupons {
             .withExpiryDate("30-8-2020")
             .withStartDate("31-7-2020")
             .withUsage("0")
-            .withLimit("1")
+            .withLimit("2")
             .withRemindDate("27-8-2020", "30-8-2020")
+            .withArchived("false")
             .build();
+
+    // Expired coupon
     public static final Coupon DANIEL = new CouponBuilder().withName("Daniel Meier")
             .withPromoCode("DANIELZXC")
             .withSavings(DANIEL_SAVINGS)
             .withTotalSavings(NO_TOTAL_SAVINGS)
-            .withExpiryDate("31-12-2020")
-            .withStartDate("31-7-2020")
+            .withExpiryDate("31-12-2019")
+            .withStartDate("31-7-2019")
             .withUsage("0")
             .withLimit("1")
             .withTags("friends")
-            .withRemindDate("28-12-2020", "31-12-2020").build();
+            .withRemindDate("28-12-2019", "31-12-2019")
+            .withArchived("false")
+            .build();
     public static final Coupon ELLE = new CouponBuilder().withName("Elle Meyer")
             .withPromoCode("9482224")
             .withSavings(ELLE_SAVINGS)
@@ -115,6 +122,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("27-8-2020", "30-8-2020")
+            .withArchived("false")
             .build();
     public static final Coupon FIONA = new CouponBuilder().withName("Fiona Kunz")
             .withPromoCode("9482427")
@@ -125,6 +133,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("27-8-2020", "30-8-2020")
+            .withArchived("false")
             .build();
     public static final Coupon GEORGE = new CouponBuilder().withName("George Best")
             .withPromoCode("9482442")
@@ -135,11 +144,12 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("2")
             .withRemindDate("28-12-2020", "31-12-2020")
+            .withArchived("false")
             .build();
 
     // Manually added
     public static final Coupon HOON = new CouponBuilder().withName("Hoon Meier")
-            .withPromoCode("8482424")
+            .withPromoCode("ILOVEHOOTERS")
             .withSavings(HOON_SAVINGS)
             .withTotalSavings(NO_TOTAL_SAVINGS)
             .withExpiryDate("31-12-2020")
@@ -147,9 +157,10 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("28-12-2020", "31-12-2020")
+            .withArchived("false")
             .build();
     public static final Coupon IDA = new CouponBuilder().withName("Ida Mueller")
-            .withPromoCode("8482131")
+            .withPromoCode("ILOVEICECREAM")
             .withSavings(IDA_SAVINGS)
             .withTotalSavings(NO_TOTAL_SAVINGS)
             .withExpiryDate("31-12-2020")
@@ -157,6 +168,7 @@ public class TypicalCoupons {
             .withUsage("0")
             .withLimit("1")
             .withRemindDate("28-12-2020", "31-12-2020")
+            .withArchived("false")
             .build();
 
     // Manually added - Coupon's details found in {@code CommandTestUtil}

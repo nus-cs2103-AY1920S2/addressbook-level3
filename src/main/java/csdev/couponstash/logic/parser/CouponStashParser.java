@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import csdev.couponstash.logic.commands.AddCommand;
+import csdev.couponstash.logic.commands.ArchiveCommand;
 import csdev.couponstash.logic.commands.ClearCommand;
 import csdev.couponstash.logic.commands.Command;
 import csdev.couponstash.logic.commands.DeleteCommand;
@@ -109,6 +110,9 @@ public class CouponStashParser {
 
         case RemindCommand.COMMAND_WORD:
             return new RemindCommandParser().parse(arguments);
+
+        case ArchiveCommand.COMMAND_WORD:
+            return new ArchiveCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
