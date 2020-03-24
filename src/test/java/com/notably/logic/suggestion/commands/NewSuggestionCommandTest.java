@@ -36,7 +36,7 @@ public class NewSuggestionCommandTest {
     @Test
     public void execute() {
         // Instantiate command
-        NewSuggestionCommand newSuggestionCommand = new NewSuggestionCommand(toRoot);
+        NewSuggestionCommand newSuggestionCommand = new NewSuggestionCommand();
 
         newSuggestionCommand.execute(model);
 
