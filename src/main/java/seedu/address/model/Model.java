@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 
@@ -118,13 +119,15 @@ public interface Model {
     /**
      * Returns true if a module with the same identity as {@code module} exists in the address book.
      */
-    boolean hasModule(NusModule module);
+    boolean hasModule(ModuleCode moduleCode);
 
     /**
      * Adds the given module.
      * {@code module} must not already exist in the address book.
      */
     void addModule(NusModule module);
+
+    void deleteModule(ModuleCode moduleCode);
 
     double getCap();
 

@@ -22,6 +22,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.notes.Notes;
+import seedu.address.model.nusmodule.ModuleCode;
 import seedu.address.model.nusmodule.NusModule;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -157,21 +158,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isEmptyDiaryEntry(DiaryEntry diaryEntry) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addDiaryEntry(DiaryEntry diaryEntry) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public String showDiaryLog() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<DiaryEntry> getDiaryList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -182,7 +168,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasModule(NusModule module) {
+        public void addDiaryEntry(DiaryEntry diaryEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isEmptyDiaryEntry(DiaryEntry diaryEntry) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String showDiaryLog() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModule(ModuleCode moduleCode) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -193,6 +194,11 @@ public class AddCommandTest {
 
         @Override
         public void addModule(NusModule module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteModule(ModuleCode moduleCode) {
             throw new AssertionError("This method should not be called.");
         }
 
