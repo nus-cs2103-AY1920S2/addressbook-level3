@@ -111,18 +111,26 @@ public class AddCommand extends Command {
         }
         if (addTask != null) {
             Deadline deadline;
+            String moduleCode = toAdd.getModuleCode().toString();
             if (addDeadlineString != null) {
                 String date = addDeadlineString.split(" ")[0];
                 String time = addDeadlineString.split(" ")[1];
                 try {
-                    deadline = new Deadline(addTask, date, time);
+                    deadline = new Deadline(moduleCode, addTask, date, time);
                 } catch (DateTimeException e) {
                     throw new CommandException("Invalid date or time!");
                 }
             } else {
-                deadline = new Deadline(addTask);
+                deadline = new Deadline(moduleCode, addTask);
             }
+
+            if (model.getFilteredDeadlineList() == null) { //if no deadlines added before
+                model.initDeadlineList();
+            }
+
             personal.addDeadline(deadline);
+            model.addDeadline(deadline);
+
         }
 
         int currentSemester = Profile.getCurrentSemester();

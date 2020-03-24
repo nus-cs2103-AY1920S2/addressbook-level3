@@ -210,20 +210,24 @@ class JsonPersonalModule extends JsonModule {
 class JsonDeadline {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deadline's %s field is missing!";
 
+    private String moduleCode;
     private String description;
     private String date;
     private String time;
 
     @JsonCreator
-    public JsonDeadline(@JsonProperty("description") String description,
+    public JsonDeadline(@JsonProperty("moduleCode") String moduleCode,
+            @JsonProperty("description") String description,
             @JsonProperty("date") String date,
             @JsonProperty("time") String time) {
+        this.moduleCode = moduleCode;
         this.description = description;
         this.date = date;
         this.time = time;
     }
 
     public JsonDeadline(Deadline deadline) {
+        moduleCode = deadline.getModuleCode();
         description = deadline.getDescription();
         if (deadline.getDate() == null) {
             date = null;
@@ -259,12 +263,12 @@ class JsonDeadline {
             }
 
             try {
-                return new Deadline(description, date, time);
+                return new Deadline(moduleCode, description, date, time);
             } catch (DateTimeException e) {
                 throw new IllegalValueException("Unknown error occurred");
             }
         }
 
-        return new Deadline(description);
+        return new Deadline(moduleCode, description);
     }
 }

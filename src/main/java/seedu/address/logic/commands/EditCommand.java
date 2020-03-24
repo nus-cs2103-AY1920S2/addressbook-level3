@@ -70,6 +70,8 @@ public class EditCommand extends Command {
         model.setPerson(profileToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
+        System.out.println(model.getFilteredPersonList().get(0).getDeadlines());
+
         if (toEditProfile) {
             return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, toEditProfile));
         } else if (toEditModule != null) {

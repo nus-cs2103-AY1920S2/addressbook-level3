@@ -74,6 +74,11 @@ public class MainApp extends Application {
         //model = initModelManager(storage, userPrefs);
         model = initProfileManager(storage, userPrefs);
 
+        if (model.getFilteredPersonList().size() == 1
+                && model.getProfileList().getProfileList().get(0).getAllModules() != null) {
+            model.initDeadlineList();
+        }
+
         courseManager = initCourseManager(userPrefs);
 
         logic = new LogicManager(model, storage, courseManager);

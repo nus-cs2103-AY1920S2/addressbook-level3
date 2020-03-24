@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.module.Module;
 
