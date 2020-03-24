@@ -20,7 +20,7 @@ public class UndoCommandParser implements Parser<UndoCommand> {
         }
 
         int numberOfUndo;
-        if (argsArray[0].equals("")) {
+        if (argsArray[0].isBlank()) {
             numberOfUndo = 1;
         } else {
             try {

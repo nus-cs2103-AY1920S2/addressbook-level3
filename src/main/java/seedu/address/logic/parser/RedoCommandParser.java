@@ -20,7 +20,7 @@ public class RedoCommandParser implements Parser<RedoCommand> {
         }
 
         int numberOfRedo;
-        if (argsArray[0].equals("")) {
+        if (argsArray[0].isBlank()) {
             numberOfRedo = 1;
         } else {
             try {

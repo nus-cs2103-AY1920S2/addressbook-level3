@@ -44,12 +44,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TIME, PREFIX_INGREDIENT_GRAIN, PREFIX_INGREDIENT_VEGE,
                         PREFIX_INGREDIENT_PROTEIN, PREFIX_INGREDIENT_OTHER, PREFIX_GOAL);
 
-        boolean filterByFavourites = filterByFavourites(argMultimap);
-        if (!argMultimap.getPreamble().equals("")) {
-            if (!filterByFavourites) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
-            }
-        }
+        boolean isFilteredByFavourites = filterByFavourites(argMultimap);
 
         List<Time> filterByTime = filterByTime(argMultimap);
         Set<Goal> filterByGoals = filterByGoals(argMultimap);
@@ -60,11 +55,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Set<Other> filterByOthers = filterByOthers(argMultimap);
 
         if (!CollectionUtil.isAnyNonEmpty(filterByTime, filterByGoals, filterByGrain, filterByVeg,
-                filterByProtein, filterByFruit, filterByOthers) && !filterByFavourites) {
+                filterByProtein, filterByFruit, filterByOthers) && !isFilteredByFavourites) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
-        return new FilterCommand(new RecipeMatchesKeywordsPredicate(filterByTime, filterByGoals, filterByFavourites,
+        return new FilterCommand(new RecipeMatchesKeywordsPredicate(filterByTime, filterByGoals, isFilteredByFavourites,
                 filterByGrain, filterByVeg, filterByProtein, filterByFruit, filterByOthers));
     }
 
@@ -93,8 +88,17 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Returns whether user specified filtering by favourites.
      */
-    private boolean filterByFavourites(ArgumentMultimap argMultimap) {
-        return argMultimap.getPreamble().toLowerCase().equals("favourites");
+    private boolean filterByFavourites(ArgumentMultimap argMultimap) throws ParseException {
+        String preamble = argMultimap.getPreamble().toLowerCase();
+        if (preamble.isBlank()) {
+            return false;
+        }
+
+        if (preamble.equals("favourites")) {
+            return true;
+        } else {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
@@ -240,7 +244,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private List<Time> parseTimeForFilter(String time) throws ParseException {
         assert time != null;
-        return time.equals("")
+        return time.isBlank()
                 ? Collections.emptyList()
                 : Arrays.asList(ParserUtil.parseTimeRange(time));
     }

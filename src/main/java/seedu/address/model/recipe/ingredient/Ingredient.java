@@ -3,8 +3,6 @@ package seedu.address.model.recipe.ingredient;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.Objects;
-
 /**
  * Represents an Ingredient in the recipe book.
  */
@@ -61,17 +59,17 @@ public abstract class Ingredient implements Comparable<Ingredient> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Ingredient // instanceof handles nulls
-                && ingredientName.equals(((Ingredient) other).getIngredientName()) // state check
-                && quantity == ((Ingredient) other).getQuantity()); // state check
+                && ingredientName.toLowerCase().equals(((Ingredient) other).getIngredientName().toLowerCase()));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ingredientName, quantity);
+        return ingredientName.toLowerCase().hashCode();
     }
 
     @Override
     public int compareTo(Ingredient other) {
-        return ingredientName.compareTo(other.ingredientName); // ingredients are sorted alphabetically
+        // ingredients are sorted alphabetically
+        return ingredientName.toLowerCase().compareTo(other.ingredientName.toLowerCase());
     }
 }
