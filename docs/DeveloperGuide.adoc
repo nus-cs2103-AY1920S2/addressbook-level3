@@ -630,6 +630,14 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+// tag::syntaxhighlighting[]
+=== [Proposed] Syntax Highlighting feature
+==== Proposed Implementation
+
+The syntax highlighting feature extends the CLI input box in the `MainWindow` of TA-Tracker
+by colouring the font of valid command words as the user is typing.
+// end::syntaxhighlighting[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
