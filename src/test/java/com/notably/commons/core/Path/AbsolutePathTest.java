@@ -15,10 +15,10 @@ class AbsolutePathTest {
 
     @Test
     public void fromString_validInputString_generateAbsolutePath() {
-        final AbsolutePath testInput = AbsolutePath.fromString("/CS2103 /notes");
+        final AbsolutePath testInput = AbsolutePath.fromString("/CS2103 titty/notes");
 
         List<String> paths = new ArrayList<>();
-        paths.add("CS2103");
+        paths.add("CS2103 titty");
         paths.add("notes");
 
         assertEquals(paths, testInput.getComponents());
