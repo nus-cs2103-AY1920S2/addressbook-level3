@@ -42,7 +42,7 @@ public class UsedCommand extends Command {
     private final MonetaryAmount originalAmount;
 
     /**
-     * Creates a UsedCommand to increase the usage of the specified {@code Coupon}
+     * Creates a UsedCommand to increase the usage of the specified {@code Coupon}.
      */
     public UsedCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -90,7 +90,7 @@ public class UsedCommand extends Command {
         }
 
         model.setCoupon(couponToBeUsed, newUsedCoupon, commandText);
-        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, newUsedCoupon.getName())));
     }
 

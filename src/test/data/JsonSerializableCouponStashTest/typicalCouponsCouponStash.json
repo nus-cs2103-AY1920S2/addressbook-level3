@@ -12,6 +12,7 @@
       "monetaryAmount" : 0.0,
       "saveables" : null
     },
+    "archived" : "false",
     "expiry date" : "2-12-2020",
     "start date" : "31-7-2020",
     "usage": "0",
@@ -31,12 +32,13 @@
       "monetaryAmount" : 0.0,
       "saveables" : null
     },
+    "archived" : "false",
     "expiry date" : "31-12-2020",
     "start date" : "31-7-2020",
     "usage": "2",
     "limit": "5",
     "tagged" : [ "owesMoney", "friends" ],
-    "remind date" : "28-12-2020",
+    "remind date" : "28-11-2020",
     "condition" : "While Stock Last"
   }, {
     "name" : "Carl Kurz",
@@ -59,10 +61,11 @@
       "monetaryAmount" : 0.0,
       "saveables" : null
     },
+    "archived" : "false",
     "expiry date" : "30-8-2020",
     "start date" : "31-7-2020",
     "usage": "0",
-    "limit": "1",
+    "limit": "2",
     "tagged" : [ ],
     "remind date" : "27-8-2020",
     "condition" : "While Stock Last"
@@ -88,12 +91,13 @@
       "monetaryAmount" : 0.0,
       "saveables" : null
     },
-    "expiry date" : "31-12-2020",
-    "start date" : "31-7-2020",
+    "archived" : "false",
+    "expiry date" : "31-12-2019",
+    "start date" : "31-7-2019",
     "usage": "0",
     "limit": "1",
     "tagged" : [ "friends" ],
-    "remind date" : "28-12-2020",
+    "remind date" : "28-12-2019",
     "condition" : "While Stock Last"
 
   }, {
@@ -117,14 +121,14 @@
       "monetaryAmount" : 0.0,
       "saveables" : null
     },
+    "archived" : "false",
     "expiry date" : "30-8-2020",
     "start date" : "31-7-2020",
     "usage": "0",
     "limit": "1",
     "tagged" : [ ],
-    "remind date" : "26-8-2020",
+    "remind date" : "27-8-2020",
     "condition" : "While Stock Last"
-
   }, {
     "name" : "Fiona Kunz",
     "promoCode": "9482427",
@@ -137,6 +141,7 @@
       "monetaryAmount" : 0.0,
       "saveables" : null
     },
+    "archived" : "false",
     "expiry date" : "30-8-2020",
     "start date" : "31-7-2020",
     "usage": "0",
@@ -157,6 +162,7 @@
       "monetaryAmount" : 0.0,
       "saveables" : null
     },
+    "archived" : "false",
     "expiry date" : "31-12-2020",
     "start date" : "31-7-2020",
     "usage": "0",

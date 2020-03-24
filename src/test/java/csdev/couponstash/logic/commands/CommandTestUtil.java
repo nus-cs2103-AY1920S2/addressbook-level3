@@ -66,8 +66,6 @@ public class CommandTestUtil {
 
     public static final String VALID_CONDITION_AMY = "While Stocks Last";
     public static final String VALID_CONDITION_BOB = "While Stocks Last";
-
-
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PROMO_CODE_DESC_AMY = " " + PREFIX_PROMO_CODE + VALID_PROMO_CODE_AMY;
@@ -143,6 +141,8 @@ public class CommandTestUtil {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedModel, actualModel);
+            System.out.print(expectedCommandResult);
+            System.out.print(result);
             assertEquals(expectedCommandResult, result);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);

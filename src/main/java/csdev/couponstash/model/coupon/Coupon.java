@@ -38,11 +38,13 @@ public class Coupon {
     private final Usage usage;
     private final RemindDate remind;
     private final DateSavingsSumMap totalSavings;
+    private final Archived archived;
+
 
     /**
      * Standard constructor for a new Coupon (when
      * a Coupon is added for the first time, with 0
-     * total savings and no reminder).
+     * total savings, no reminder, and not archived).
      * Every field must be present and not null.
      * @param name The Name of this Coupon.
      * @param promoCode Promo code for this Coupon.
@@ -58,7 +60,7 @@ public class Coupon {
                   Usage usage, Limit limit, Set<Tag> tags, Condition condition) {
 
         this(name, promoCode, savingsForEachUse, expiryDate, startDate, usage,
-                limit, tags, new DateSavingsSumMap(), new RemindDate(expiryDate), condition);
+                limit, tags, new DateSavingsSumMap(), new RemindDate(expiryDate), condition, new Archived());
     }
 
     /**
@@ -90,10 +92,12 @@ public class Coupon {
             Set<Tag> tags,
             DateSavingsSumMap totalSavings,
             RemindDate remind,
-            Condition condition) {
+            Condition condition,
+            Archived archived) {
 
-        requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags, totalSavings,
-                remind, condition);
+        requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags,
+                totalSavings, remind, condition, archived);
+      
         this.name = name;
         this.promoCode = promoCode;
         this.savingsForEachUse = savingsForEachUse;
@@ -103,6 +107,7 @@ public class Coupon {
         this.remind = remind;
         this.usage = usage;
         this.limit = limit;
+        this.archived = archived;
         this.tags.addAll(tags);
         this.condition = condition;
     }
@@ -174,6 +179,10 @@ public class Coupon {
         return limit;
     }
 
+    public Archived getArchived() {
+        return archived;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -197,7 +206,7 @@ public class Coupon {
         updatedMap.add(ld, pms);
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, this.usage, this.limit,
-                this.tags, updatedMap, this.remind, this.condition);
+                this.tags, updatedMap, this.remind, this.condition, this.archived);
     }
 
     /**
@@ -205,15 +214,27 @@ public class Coupon {
      * @return A new Coupon with total usage increased by one.
      */
     public Coupon increaseUsageByOne() {
+        Usage newUsage = this.usage.increaseUsageByOne();
+        Archived newArchived = new Archived(String.valueOf(Usage.isUsageAtLimit(newUsage, this.limit)));
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
-                this.expiryDate, this.startDate, this.usage.increaseUsageByOne(),
-                this.limit, this.tags, this.totalSavings, this.remind, this.condition);
+                this.expiryDate, this.startDate, newUsage,
+                this.limit, this.tags, this.totalSavings, this.remind, newArchived);
+    }
+
+    /**
+     * Returns a new archived Coupon.
+     */
+    public Coupon archive() {
+        return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
+                this.expiryDate, this.startDate, this.usage,
+                this.limit, this.tags, this.totalSavings, this.remind, this.condition, new Archived("true"));
     }
 
     /**
      * Returns true if both coupons have the same name, and all
      * of the fields of promo code, savings for each use, expiry date or
-     * start date is the same.
+     * start date is the same. However, if either of the coupon is archived,
+     * they are immediately considered different coupons.
      * This defines a weaker notion of equality between two coupons.
      */
     public boolean isSameCoupon(Coupon otherCoupon) {
@@ -221,8 +242,12 @@ public class Coupon {
             return true;
         }
 
-        return otherCoupon != null
-                && otherCoupon.getName().equals(getName())
+        if (otherCoupon == null || Boolean.valueOf(archived.toString())
+                || Boolean.valueOf(otherCoupon.archived.toString())) {
+            return false;
+        }
+
+        return otherCoupon.getName().equals(getName())
                 && otherCoupon.getPromoCode().equals(getPromoCode())
                 && otherCoupon.getExpiryDate().equals(getExpiryDate())
                 && otherCoupon.getSavingsForEachUse().equals(getSavingsForEachUse());
@@ -267,14 +292,15 @@ public class Coupon {
                 && otherCoupon.getStartDate().equals(getStartDate())
                 && otherCoupon.getUsage().equals(getUsage())
                 && otherCoupon.getLimit().equals(getLimit())
-                && otherCoupon.getTags().equals(getTags());
+                && otherCoupon.getTags().equals(getTags())
+                && otherCoupon.getArchived().equals(getArchived());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, promoCode, savingsForEachUse, expiryDate,
-                startDate, usage, limit, tags, totalSavings);
+                startDate, usage, limit, tags, totalSavings, archived);
     }
 
     @Override
@@ -297,6 +323,8 @@ public class Coupon {
                 .append(getRemindDate())
                 .append(" Condition: ")
                 .append(getCondition())
+                .append(" Archived: ")
+                .append(getArchived())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
@@ -315,7 +343,8 @@ public class Coupon {
                 savingsForEachUse.copy(), new ExpiryDate(expiryDate.value),
                 new StartDate(startDate.value),
                 new Usage(usage.value), new Limit(limit.value), copiedTags,
-                totalSavings.copy(), remind.copy(), new Condition(condition.toString())
+                totalSavings.copy(), remind.copy(), new Condition(condition.toString()),
+                new Archived(archived.toString())
         );
 
         return copy;

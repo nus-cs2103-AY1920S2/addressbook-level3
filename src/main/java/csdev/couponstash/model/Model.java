@@ -15,7 +15,8 @@ import javafx.collections.ObservableList;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Coupon> PREDICATE_SHOW_ALL_COUPONS = unused -> true;
+    Predicate<Coupon> PREDICATE_SHOW_ALL_ACTIVE_COUPONS = coupon ->
+            !(Boolean.valueOf(coupon.getArchived().toString()));
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
