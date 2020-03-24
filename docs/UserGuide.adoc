@@ -78,7 +78,7 @@ Format: `delete <index>`
 === Modify a Recipe — `modify`
 Modifies attributes of a recipe.
 
-Format: `modify <index> [ing/<idx. ingredient, quantity> [ins/instruction; ...] [cal/calories] [tags/tag, ...]`
+Format: `modify <index> [ing/<idx. ingredient, quantity> [ins/instruction; ...] [cal/calories] [s/serving size] [r/rating] [tags/tag, ...]`
 
 Example: `modify 1 ing/3. eggs, 2`
 Replaces the ingredient at index 3 with 2 eggs.
