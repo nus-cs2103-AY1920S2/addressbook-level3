@@ -1,9 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.util.Comparator;
 
@@ -17,14 +15,18 @@ import seedu.address.model.assignment.Assignment;
 public class ListAssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "(st)list";
-    public static final String COMMAND_FUNCTION = "Shows a list of all assignments in the scheduler.";
+    public static final String COMMAND_FUNCTION = "Shows a list of all assignments in the scheduler "
+            + "sorted by alphabetical order, chronological order based on deadline or estimated hours.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":  " + COMMAND_FUNCTION + "\n"
             + "Parameters: ["
-            + PREFIX_DEADLINE + "DEADLINE] ["
-            + PREFIX_ESTHOURS + "ESTIMATED HOURS]\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TITLE + "CS2103 Team Project "
-            + PREFIX_DEADLINE + "04-18 23:59 ";
+            + PREFIX_DEADLINE_LIST + "] ["
+            + PREFIX_ESTHOURS_LIST + "]\n"
+            + "-d to sort by DEADLINE, -e to sort by"
+            + " ESTIMATED HOURS, or neither to sort by "
+            + "alphabetical order.\n"
+            + "Example: " + COMMAND_WORD + " OR "
+            + COMMAND_WORD + " " + PREFIX_DEADLINE_LIST
+            + " OR " + COMMAND_WORD + " " + PREFIX_ESTHOURS_LIST;
 
     public static final String MESSAGE_SUCCESS = "Listed all assignments";
 

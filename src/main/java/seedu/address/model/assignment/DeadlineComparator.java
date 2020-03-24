@@ -1,5 +1,6 @@
 package seedu.address.model.assignment;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 
 /**
@@ -8,7 +9,8 @@ import java.util.Comparator;
 public class DeadlineComparator implements Comparator<Assignment> {
     @Override
     public int compare(Assignment a1, Assignment a2) {
-        if (a1.getDeadline().dateTime.isEqual(a2.getDeadline().dateTime)) {
+        //LocalDateTime dt1 = LocalDateTime.of(a1.getDeadline().date, parsedTime)
+        if (a1.getDeadline().getDateTime().isEqual(a2.getDeadline().getDateTime())) {
             if (Integer.parseInt(a1.getWorkload().estHours) == Integer.parseInt(a2.getWorkload().estHours)) {
                 return 0;
             } else if (Integer.parseInt(a1.getWorkload().estHours) > Integer.parseInt(a2.getWorkload().estHours)) {
@@ -16,7 +18,7 @@ public class DeadlineComparator implements Comparator<Assignment> {
             } else {
                 return -1;
             }
-        } else if (a1.getDeadline().dateTime.isAfter(a2.getDeadline().dateTime)) {
+        } else if (a1.getDeadline().getDateTime().isAfter(a2.getDeadline().getDateTime())) {
             return 1;
         } else {
             return -1;

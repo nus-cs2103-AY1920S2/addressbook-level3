@@ -63,13 +63,13 @@ public class Deadline {
      *
      * Returns true if deadline is an empty string.
      */
-    public static boolean isValidDeadline(String test) {
+    /*public static boolean isValidDeadline(String test) {
         if (test.isEmpty()) {
             return true;
         } else {
             return false;
         }
-    }
+    }*/
 
     /**
      * @param test The input date to be tested.
@@ -77,10 +77,6 @@ public class Deadline {
      * Returns true if date is not an empty string and follows the required format.
      */
     public static boolean isValidDate(String test) {
-        if (test.isEmpty()) {
-            return true;
-        }
-
         try {
             LocalDate.parse(test, inputDateFormat);
             return true;
@@ -95,10 +91,6 @@ public class Deadline {
      * Returns true if time is not an empty string and requires the required format.
      */
     public static boolean isValidTime(String test) {
-        if (test.isEmpty()) {
-            return true;
-        }
-
         try {
             LocalTime.parse(test, inputTimeFormat);
             return true;
