@@ -121,4 +121,22 @@ public class ParserUtil {
         }
         return new Weight(trimmedWeight);
     }
+
+    /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code weight} is invalid.
+     */
+    public static int parseDays(String days) throws ParseException {
+        requireNonNull(days);
+        String trimmedDays = days.trim();
+        int result;
+        try {
+            result = Integer.parseInt(trimmedDays);
+        } catch (Exception e) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return result;
+    }
 }

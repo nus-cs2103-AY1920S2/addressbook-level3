@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.eylah.commons.core.GuiSettings;
 import seedu.eylah.commons.core.LogsCenter;
+import seedu.eylah.commons.core.index.Index;
 import seedu.eylah.diettracker.model.food.Food;
 
 /**
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final FoodBook foodBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Food> filteredFoods;
+    private Mode mode = Mode.MAINTAIN;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -112,7 +114,29 @@ public class ModelManager implements Model {
         foodBook.setFood(target, editedFood);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public String listFoods(String mode) {
+        String result = "The food list based on the input flag '" + mode + "' is as follows:\n";
+        int count = 1;
+        for (Food food: filteredFoods) {
+            result += count + ". " + food.toString() + "\n";
+            count++;
+        }
+        return result;
+    }
+
+    @Override
+    public String listFoods(String mode, int numDay) {
+        String result = "The food list based on the input flag '" + mode + "' is as follows:\n";
+        int count = 1;
+        for (Food food: filteredFoods) {
+            result += count + ". " + food.toString() + "\n";
+            count++;
+        }
+        return result;
+    }
+
+    //=========== Filtered Food Book Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
