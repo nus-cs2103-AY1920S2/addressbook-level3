@@ -144,6 +144,15 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+[[Design-searcher]]
+=== Search Component
+
+*API* : link:{repoURL}/src/main/java/seedu/address/searcher/Search.java[`Search.java`]
+
+The `Search` Component
+
+* Uses `NUSmods` API to get module info in json format
+
 [[Design-Commons]]
 === Common classes
 
