@@ -1,5 +1,8 @@
 package seedu.address.searcher;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import seedu.address.commons.core.index.Index;
+
 import java.util.ArrayList;
 
 /**
@@ -16,8 +19,8 @@ public class Module {
     private String workload;
     private String preclusion;
     private int credits;
-    private String sem1Exam = "";
-    private String sem2Exam = "";
+    private String sem1Exam = "NA";
+    private String sem2Exam = "NA";
     private ArrayList<Classes> sem1Classes = new ArrayList<>();
     private ArrayList<Classes> sem2Classes = new ArrayList<>();
 
@@ -43,55 +46,53 @@ public class Module {
             this.code = input.substring(input.indexOf("moduleCode") + 13, input.indexOf("semesterData") - 3);
         }
 
-        String semester1 = "";
-        String semester2 = "";
+        String semesterData = input.substring(input.indexOf("semester\":"));
+        semesterData = semesterData.split("prereqTree")[0];
+        semesterData = semesterData.split("fulfillRequirements")[0];
+        parseSemData(semesterData);
+    }
 
-        if (input.indexOf("semester\":1") <= 0) {
-            if (input.indexOf("semester\":2") <= 0) {
-                semester2 = "";
+    private void parseSemData(String input) {
+        boolean hasSem1 = input.contains("semester\":1");
+        boolean hasSem2 = input.contains("semester\":2");
+        boolean hasExam = input.contains("examDate");
+        String sem1Data = "";
+        String sem2Data = "";
+
+        if (hasSem1 && hasExam) {
+            sem1Data = input.substring(input.indexOf("timetable") + 12, input.indexOf("examDate") - 4);
+            sem1Exam = input.substring(input.indexOf("examDate") + 11, input.indexOf("examDuration") - 3).split("T")[0];
+        } else if (hasSem1) {
+            if (hasSem2) {
+                sem1Data = input.substring(input.indexOf("timetable") + 12, input.indexOf("semester\":2"));
             } else {
-                semester2 = input.substring(input.indexOf("semester\":2") + 13,
-                        input.indexOf("fulfillRequirements") - 4);
-            }
-        } else {
-            if (input.indexOf("semester\":2") <= 0) {
-                semester1 = input.substring(input.indexOf("semester\":1") + 13,
-                        input.indexOf("fulfillRequirements") - 4);
-            } else {
-                semester1 = input.substring(input.indexOf("semester\":1") + 13,
-                        input.indexOf("semester\":2") - 4);
-                semester2 = input.substring(input.indexOf("semester\":2") + 13,
-                        input.indexOf("fulfillRequirements") - 4);
+                sem1Data = input.substring(input.indexOf("timetable") + 12);
             }
         }
 
-        String[] sem1Temp = semester1.split("classNo");
-        String[] sem2Temp = semester2.split("classNo");
+        String[] classes = sem1Data.split("classNo");
 
-        if (sem1Temp.length > 1) {
-            String temp = sem1Temp[sem1Temp.length - 1];
-
-            temp = temp.substring(temp.indexOf("examDate") + 11, temp.indexOf("examDuration") - 3);
-            temp = temp.split("T")[0];
-            this.sem1Exam = temp;
-        }
-
-        if (sem2Temp.length > 1) {
-            String temp = sem2Temp[sem2Temp.length - 1];
-
-            temp = temp.substring(temp.indexOf("examDate") + 11, temp.indexOf("examDuration") - 3);
-            temp = temp.split("T")[0];
-            this.sem2Exam = temp;
-        }
-
-        for (int i = 1; i < sem1Temp.length; i++) {
-            String temp = sem1Temp[i];
+        for (int i = 1; i < classes.length; i++) {
+            String temp = classes[i];
+            temp = temp.split("},\\{")[0];
             Classes myClass = new Classes(temp);
             sem1Classes.add(myClass);
         }
 
-        for (int i = 1; i < sem2Temp.length; i++) {
-            String temp = sem2Temp[i];
+        if (hasSem2) {
+            if (hasExam) {
+                sem2Data = input.substring(input.lastIndexOf("timetable") + 12, input.lastIndexOf("examDate") - 4);
+                sem2Exam = input.substring(input.lastIndexOf("examDate") + 11, input.lastIndexOf("examDuration") - 3).split("T")[0];
+            } else {
+                sem2Data = input.substring(input.lastIndexOf("timetable") + 12);
+            }
+        }
+
+        classes = sem2Data.split("classNo");
+
+        for (int i = 1; i < classes.length; i++) {
+            String temp = classes[i];
+            temp = temp.split("},\\{")[0];
             Classes myClass = new Classes(temp);
             sem2Classes.add(myClass);
         }
