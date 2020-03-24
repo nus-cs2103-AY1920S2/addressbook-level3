@@ -1,10 +1,12 @@
 package com.notably.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.notably.commons.core.GuiSettings;
 import com.notably.commons.core.LogsCenter;
+import com.notably.logic.commands.Command;
 import com.notably.logic.commands.exceptions.CommandException;
 import com.notably.logic.parser.NotablyParser;
 import com.notably.logic.parser.exceptions.ParseException;
@@ -33,9 +35,19 @@ public class LogicManager implements Logic {
     public void execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        // TODO: Save data to storage
+        List<? extends Command> commands = notablyParser.parseCommand(commandText);
+        for (Command command : commands) {
+            command.execute(model);
+        }
+        //TODO: refactor to BlockStorage
+        //  try {
+        //      storage.saveAddressBook(model.getAddressBook());
+        //  } catch (IOException ioe) {
+        //      throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        //  }
     }
 
+    //TODO: refactor this method to StoragePath.
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
