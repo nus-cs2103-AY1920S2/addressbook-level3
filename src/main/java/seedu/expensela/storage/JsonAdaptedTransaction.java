@@ -47,7 +47,7 @@ class JsonAdaptedTransaction {
         name = source.getName().transactionName;
         amount = source.getAmount().transactionAmount.toString();
         positive = String.valueOf(source.getAmount().positive);
-        date = source.getDate().transactionDate;
+        date = source.getDate().transactionDate.toString();
         remark = source.getRemark().transactionRemark;
         category = source.getCategory().transactionCategory;
     }

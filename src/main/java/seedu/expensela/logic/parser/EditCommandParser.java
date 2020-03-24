@@ -2,11 +2,7 @@ package seedu.expensela.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.expensela.logic.parser.CliSyntax.*;
 
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.logic.commands.EditCommand;
@@ -27,9 +23,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK,
-                        PREFIX_CATEGORY);
+                        PREFIX_CATEGORY, PREFIX_INCOME);
 
         Index index;
+        boolean isNotIncome = true;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -38,11 +35,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         EditCommand.EditTransactionDescriptor editTransactionDescriptor = new EditTransactionDescriptor();
+
+        if (argMultimap.getValue(PREFIX_INCOME).isPresent()){
+            isNotIncome = false;
+        }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editTransactionDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {
-            editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
+            editTransactionDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get(), isNotIncome));
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
