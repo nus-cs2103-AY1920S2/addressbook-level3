@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.diary.DiaryBook;
+import seedu.address.model.diary.DiaryEntry;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -14,7 +16,9 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private DiaryBook diaryBook;
     private final UniquePersonList persons;
+
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,9 +29,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        diaryBook = new DiaryBook();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -54,6 +60,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setDiaryEntry(newData.getDiaryList());
+
     }
 
     //// person-level operations
@@ -93,17 +101,36 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    public void setDiaryEntry(ObservableList<DiaryEntry> diaryEntry) {
+        diaryBook.setDiary(diaryEntry);
+    }
+
+    /**
+     * dummy java docs.
+     * @param entry
+     * @return
+     */
+    public boolean isEmptyDiaryEntry(DiaryEntry entry) {
+        // implement later
+        return false;
+    }
     //// util methods
 
     @Override
     public String toString() {
+
         return persons.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
+
         return persons.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<DiaryEntry> getDiaryList() {
+        return diaryBook.getObservableList();
     }
 
     @Override
@@ -116,5 +143,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode();
+    }
+
+    public void addDiaryEntry(DiaryEntry diaryentry) {
+        this.diaryBook.getObservableList().add(diaryentry);
     }
 }

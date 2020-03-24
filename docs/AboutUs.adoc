@@ -35,7 +35,7 @@ Role: # To be updated
 
 '''
 
-=== Kang Wang Kai
+=== Kang Wangkai
 image::kangwkk.png[width="150", align="left"]
 {empty}[http://github.com/kangwkk[github]] [<<kangwkk#, portfolio>>]
 
@@ -43,7 +43,7 @@ Role: # To be updated
 
 '''
 
-=== Chen Jiang Wei
+=== Chen Jiangwei
 image::watsheldon.png[width="150", align="left"]
 {empty}[http://github.com/watsheldon[github]] [<<watsheldon#, portfolio>>]
 
