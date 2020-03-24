@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Birthday;
@@ -33,6 +34,7 @@ class JsonAdaptedPerson {
     private final ArrayList<JsonAdaptedRemark> remark = new ArrayList<>();
     private final String birthday;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String index;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -41,7 +43,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("remark") ArrayList<JsonAdaptedRemark> remark, @JsonProperty("birthday") String birthday,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("index") String index) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -53,6 +55,7 @@ class JsonAdaptedPerson {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
+        this.index = index;
     }
 
     /**
@@ -70,6 +73,7 @@ class JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        index = Integer.toString(source.getIndex().getZeroBased());
     }
 
     /**
@@ -130,7 +134,9 @@ class JsonAdaptedPerson {
         final Birthday modelBirthday = new Birthday(birthday);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelBirthday, modelTags);
+        final Index modelIndex = new Index(Integer.parseInt(index));
+        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+                modelRemark, modelBirthday, modelTags, modelIndex);
     }
 
 }

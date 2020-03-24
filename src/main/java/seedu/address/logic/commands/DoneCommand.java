@@ -16,8 +16,8 @@ import seedu.address.model.assignment.Status;
  */
 public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "(st)done";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Updates the status of the assignment identified. "
+    public static final String COMMAND_FUNCTION = "Updates the status of the assignment identified. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": " + COMMAND_FUNCTION + "\n"
             + "by the index number used in the displayed assignment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 ";
@@ -31,7 +31,6 @@ public class DoneCommand extends Command {
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
      */
     public DoneCommand(Index index) {
         requireNonNull(index);

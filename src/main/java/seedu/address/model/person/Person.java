@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.ModelManager;
 import seedu.address.model.tag.Tag;
 
@@ -23,6 +24,7 @@ public class Person {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     // Identity fields
+    private Index index;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -37,7 +39,7 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, ArrayList<Remark> remark,
-                Birthday birthday, Set<Tag> tags) {
+                Birthday birthday, Set<Tag> tags, Index index) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -46,6 +48,7 @@ public class Person {
         this.birthday = birthday;
         this.remarks.addAll(remark);
         this.tags.addAll(tags);
+        this.index = index;
     }
 
     public Name getName() {
@@ -66,6 +69,10 @@ public class Person {
 
     public ArrayList<Remark> getRemark() {
         return remarks;
+    }
+
+    public Index getIndex() {
+        return index;
     }
 
     public Birthday getBirthday() {
@@ -136,7 +143,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, birthday, tags);
+        return Objects.hash(name, phone, email, address, birthday, tags, index);
     }
 
     @Override

@@ -12,9 +12,9 @@ import seedu.address.model.person.Person;
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class PersonCardDetail extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PersonListCardDetail.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -27,7 +27,7 @@ public class PersonCard extends UiPart<Region> {
     public final Person person;
 
     @FXML
-    private HBox cardPane;
+    private HBox cardPaneDetail;
     @FXML
     private Label name;
     @FXML
@@ -45,21 +45,22 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label birthday;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCardDetail(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
-        id.setText(displayedIndex + ". ");
+        //id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        birthday.setText(person.getBirthday().toString());
-        String remarkValue = "";
+        phone.setText("Phone: " + person.getPhone().value);
+        address.setText("Address: " + person.getAddress().value);
+        email.setText("Email: " + person.getEmail().value);
+        birthday.setText("Birthday: " + person.getBirthday().toString());
+        String remarkValue = "\nRemarks:\n";
         int i = 0;
         while (i < person.getRemark().size()) {
-            remarkValue += person.getRemark().get(i).value;
+            int index = i + 1;
+            remarkValue += "\t" + index + ". " + person.getRemark().get(i).value;
             if (i != person.getRemark().size() - 1) {
-                remarkValue += ", ";
+                remarkValue += "\n";
             }
             i++;
         }
@@ -82,7 +83,7 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        PersonCardDetail card = (PersonCardDetail) other;
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }

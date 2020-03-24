@@ -27,6 +27,7 @@ public class ModelManager implements Model {
     private final Scheduler scheduler;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> filteredPersonsResult;
     private final FilteredList<Restaurant> filteredRestaurants;
     private final ArrayList<Assignment> assignments;
 
@@ -41,10 +42,11 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
-        this.restaurantBook = new RestaurantBook(restaurantBook);
-        this.scheduler = new Scheduler(scheduler);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonsList());
+        filteredPersonsResult = new FilteredList<>(this.addressBook.getPersonsList());
+        this.restaurantBook = new RestaurantBook(restaurantBook);
+        this.scheduler = new Scheduler(scheduler);
         filteredRestaurants = new FilteredList<>(this.restaurantBook.getRestaurantsList());
         assignments = this.scheduler.getAssignmentsList();
     }
@@ -205,10 +207,25 @@ public class ModelManager implements Model {
         return filteredPersons;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook} for the result panel
+     */
+    @Override
+    public ObservableList<Person> getFilteredPersonListResult() {
+        return filteredPersonsResult;
+    }
+
     @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredPersonListResult(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersonsResult.setPredicate(predicate);
     }
 
     @Override
