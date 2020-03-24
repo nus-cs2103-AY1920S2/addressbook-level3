@@ -1,6 +1,5 @@
 package cookbuddy.ui;
 
-import cookbuddy.logic.Logic;
 import cookbuddy.logic.commands.CommandResult;
 import cookbuddy.logic.commands.exceptions.CommandException;
 import cookbuddy.logic.parser.exceptions.ParseException;
