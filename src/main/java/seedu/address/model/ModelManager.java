@@ -38,7 +38,7 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyRestaurantBook restaurantBook,
                         ReadOnlyScheduler scheduler, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, scheduler, userPrefs);
+        requireAllNonNull(addressBook, restaurantBook, scheduler, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
@@ -254,7 +254,10 @@ public class ModelManager implements Model {
                 && restaurantBook.equals(other.restaurantBook)
                 && scheduler.equals(other.scheduler)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredPersonsResult.equals(other.filteredPersonsResult)
+                && filteredAssignments.equals(other.filteredAssignments)
+                && filteredRestaurants.equals(other.filteredRestaurants);
     }
 
     //=========== Filtered Assignment List Accessors =============================================================

@@ -13,11 +13,7 @@ import java.util.Comparator;
  * Duplicates are not allowed (by .isSameAssignment comparison)
  */
 public class Scheduler implements ReadOnlyScheduler {
-    private final AssignmentList assignments;
-
-    {
-        assignments = new AssignmentList();
-    }
+    private final AssignmentList assignments = new AssignmentList();
 
     public Scheduler() {}
 
