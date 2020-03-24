@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.StashSettings;
+import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
@@ -129,4 +130,10 @@ public interface Model {
      */
     boolean canRedoCouponStash();
 
+    /**
+     * Sorts coupons in the coupon stash according to the field specified
+     * by the prefix.
+     * @param prefixToSortBy
+     */
+    void sortCoupons(Prefix prefixToSortBy);
 }

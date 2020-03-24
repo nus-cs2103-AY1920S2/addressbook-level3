@@ -19,6 +19,7 @@ import csdev.couponstash.logic.commands.ListCommand;
 import csdev.couponstash.logic.commands.RedoCommand;
 import csdev.couponstash.logic.commands.RemindCommand;
 import csdev.couponstash.logic.commands.SavedCommand;
+import csdev.couponstash.logic.commands.SortCommand;
 import csdev.couponstash.logic.commands.UndoCommand;
 import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
@@ -104,6 +105,9 @@ public class CouponStashParser {
 
         case RemindCommand.COMMAND_WORD:
             return new RemindCommandParser().parse(arguments);
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
