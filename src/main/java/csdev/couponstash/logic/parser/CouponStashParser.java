@@ -26,6 +26,7 @@ import csdev.couponstash.logic.commands.SortCommand;
 import csdev.couponstash.logic.commands.UndoCommand;
 import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+import csdev.couponstash.commons.MoneySymbol;
 
 /**
  * Parses user input.
@@ -37,16 +38,16 @@ public class CouponStashParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private final String moneySymbol;
+    private final MoneySymbol moneySymbol;
 
     /**
      * Constructor for a CouponStashParser. Requires the
      * money symbol set in UserPrefs as this will be
      * used in the parsing of many commands like
      * AddCommandParser and EditCommandParser.
-     * @param moneySymbol String representing the money symbol.
+     * @param moneySymbol MoneySymbol representing the money symbol.
      */
-    public CouponStashParser(String moneySymbol) {
+    public CouponStashParser(MoneySymbol moneySymbol) {
         this.moneySymbol = moneySymbol;
     }
 
@@ -68,7 +69,7 @@ public class CouponStashParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser(this.moneySymbol).parse(arguments);
+            return new AddCommandParser(this.moneySymbol.getString()).parse(arguments);
 
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommandParser().parse(arguments);
@@ -80,7 +81,7 @@ public class CouponStashParser {
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser(this.moneySymbol).parse(arguments);
+            return new EditCommandParser(this.moneySymbol.getString()).parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -119,7 +120,7 @@ public class CouponStashParser {
             return new UndoCommand();
 
         case UsedCommand.COMMAND_WORD:
-            return new UsedCommandParser(this.moneySymbol).parse(arguments);
+            return new UsedCommandParser(this.moneySymbol.getString()).parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

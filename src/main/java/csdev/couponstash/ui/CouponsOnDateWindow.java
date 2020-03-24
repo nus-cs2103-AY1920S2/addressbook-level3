@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.util.DateUtil;
+import csdev.couponstash.commons.MoneySymbol;
 import csdev.couponstash.model.coupon.Coupon;
 
 import javafx.collections.ObservableList;
@@ -23,7 +24,7 @@ public class CouponsOnDateWindow extends UiPart<Stage> {
     private LocalDate date;
     private CouponListPanel couponList;
     private ObservableList<Coupon> coupons;
-    private String moneySymbol;
+    private MoneySymbol moneySymbol;
 
     @FXML
     private StackPane couponListPlaceholder;
@@ -33,7 +34,7 @@ public class CouponsOnDateWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the {@code CouponsOnDateWindow}.
      */
-    public CouponsOnDateWindow(Stage root, ObservableList<Coupon> coupons, String moneySymbol) {
+    public CouponsOnDateWindow(Stage root, ObservableList<Coupon> coupons, MoneySymbol moneySymbol) {
         super(FXML, root);
         this.root = root;
         this.coupons = coupons;
@@ -46,7 +47,7 @@ public class CouponsOnDateWindow extends UiPart<Stage> {
     /**
      * Creates a new {@code CouponsOnDateWindow}.
      */
-    public CouponsOnDateWindow(ObservableList<Coupon> coupons, String moneySymbol) {
+    public CouponsOnDateWindow(ObservableList<Coupon> coupons, MoneySymbol moneySymbol) {
         this(new Stage(), coupons, moneySymbol);
     }
 

@@ -96,13 +96,7 @@ public class ModelManager implements Model {
 
     @Override
     public String setMoneySymbol(String moneySymbol) {
-        StashSettings oldSettings = this.getStashSettings();
-        String oldSymbol = oldSettings.getMoneySymbol();
-        this.setStashSettings(new StashSettings(moneySymbol));
-        // update Coupons that are visible in JavaFX
-        Predicate<? super Coupon> originalPred = this.filteredCoupons.getPredicate();
-        
-        return oldSymbol;
+        return this.getStashSettings().getMoneySymbol().setString(moneySymbol);
     }
 
     //=========== CouponStash ================================================================================

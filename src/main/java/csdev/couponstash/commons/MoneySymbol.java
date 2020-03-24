@@ -1,4 +1,4 @@
-package csdev.couponstash.model;
+package csdev.couponstash.commons;
 
 /**
  * Mutable class for holding the money symbol
