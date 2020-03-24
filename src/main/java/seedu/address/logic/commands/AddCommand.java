@@ -38,8 +38,11 @@ public class AddCommand extends Command {
             + "(" + PREFIX_TASK + "assignment) "
             + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
-    private static final String MESSAGE_ADD_SUCCESS = "New Personal Object added: %1$s";
-    private static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
+    public static final String MESSAGE_ADD_SUCCESS = "New Personal Object added: %1$s";
+    public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
+    //public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the profile list";
+    public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module already exists as %1$s, "
+            + "please specify date or add a deadline";
 
     private final Module toAdd;
     private int addSemester;
@@ -97,9 +100,10 @@ public class AddCommand extends Command {
         if (hasModule) { // Module exists
             personal = module.getPersonal();
             if (addGrade == null && addTask == null && addDeadlineString == null) {
-                throw new CommandException(String.format("Error: Module already exists as "
+                /*throw new CommandException(String.format("Error: Module already exists as "
                         + module.getPersonal().getStatus() + ", "
-                        + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));
+                        + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));*/
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, module.getPersonal().getStatus()));
             }
         } else { // Module does not exist
             // Create Personal object

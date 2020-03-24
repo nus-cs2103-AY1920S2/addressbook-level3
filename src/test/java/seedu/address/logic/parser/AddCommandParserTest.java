@@ -51,11 +51,9 @@ import seedu.address.storage.JsonModuleListStorage;
 public class AddCommandParserTest {
     private static final Logger logger = LogsCenter.getLogger(AddCommandParserTest.class);
     private AddCommandParser parser = new AddCommandParser();
-    private ModuleManager moduleManager;
 
     public AddCommandParserTest() {
         Path moduleListFilePath = Paths.get("data/modules.json");
-        System.out.println(moduleListFilePath.toAbsolutePath().toString());
         JsonModuleListStorage modules = new JsonModuleListStorage(moduleListFilePath);
         try {
             Optional<ModuleList> moduleListOptional = modules.readModuleList();
@@ -68,7 +66,7 @@ public class AddCommandParserTest {
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
-            moduleManager = new ModuleManager();
+            new ModuleManager();
         }
     }
 

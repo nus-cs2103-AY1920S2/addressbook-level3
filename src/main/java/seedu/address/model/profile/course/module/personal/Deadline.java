@@ -82,5 +82,21 @@ public class Deadline {
         return result;
     }
 
-
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (other instanceof Deadline) {
+            boolean sameDescription = this.description.equals(((Deadline) other).description);
+            boolean sameDate = (this.date == null && ((Deadline) other).date == null)
+                    || (this.date != null && ((Deadline) other).date != null
+                    && this.date.equals(((Deadline) other).date));
+            boolean sameTime = (this.time == null && ((Deadline) other).time == null)
+                    || (this.time != null && ((Deadline) other).time != null
+                    && this.time.equals(((Deadline) other).time));
+            return sameDescription && sameDate && sameTime;
+        }
+        return false;
+    }
 }
