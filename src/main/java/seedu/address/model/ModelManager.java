@@ -174,10 +174,7 @@ public class ModelManager implements Model {
         this.finalisedInterviewProperties = true;
     }
 
-    /**
-     * Checks whether the interviewees, questions and attributes has been finalised.
-     *
-     */
+    /** Checks whether the interviewees, questions and attributes has been finalised */
     @Override
     public boolean isfinalisedInterviewProperties() {
         return this.finalisedInterviewProperties;
