@@ -36,7 +36,6 @@ public class NotablyParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        
         switch (commandWord) {
         case NewCommand.COMMAND_WORD:
             return new NewCommandParser().parse(arguments);
