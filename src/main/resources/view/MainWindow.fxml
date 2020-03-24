@@ -86,7 +86,6 @@
                   </VBox>
                   </children>
                </HBox>
-
                     <StackPane fx:id="statusbarPlaceholder" />
             </children>
          </VBox>

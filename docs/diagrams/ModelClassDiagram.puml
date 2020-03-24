@@ -5,11 +5,14 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
+Interface ReadOnlyReturnOrderBook <<Interface>>
 Interface ReadOnlyOrderBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class OrderBook
+class ReturnOrderBook
 Class ReadOnlyOrderBook
+class ReadOnlyReturnOrderBook
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -27,6 +30,17 @@ Class Warehouse
 Class TimeStamp
 }
 
+Package ReturnOrder {
+Class ReturnOrder
+Class TransactionId
+Class Address
+Class Name
+Class Phone
+Class UniqueReturnOrderList
+Class Warehouse
+Class TimeStamp
+}
+
 Package TypeOfItem {
 Class TypeOfItem
 }
@@ -40,10 +54,12 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 OrderBook .up.|> ReadOnlyOrderBook
+ReturnOrderBook .right.|> ReadOnlyReturnOrderBook
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" OrderBook
+ModelManager o--> "1" ReturnOrderBook
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
@@ -59,10 +75,22 @@ Order *--> Warehouse
 Order *--> Comment
 Order *--> TimeStamp
 
+ReturnOrderBook *--> "1" UniqueReturnOrderList
+UniqueReturnOrderList o--> "*" ReturnOrder
+ReturnOrder *--> TransactionId
+ReturnOrder *--> CashOnDelivery
+ReturnOrder *--> Name
+ReturnOrder *--> Phone
+ReturnOrder *--> Address
+ReturnOrder *--> TypeOfItem
+ReturnOrder *--> Warehouse
+ReturnOrder *--> Comment
+ReturnOrder *--> TimeStamp
+
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> TimeStamp
-Order -[hidden]left-> Comment
+Order -[hidden]right-> Comment
 TimeStamp -[hidden]right-> Warehouse
 Warehouse -[hidden]right-> TransactionId
 TransactionId -[hidden]right-> CashOnDelivery
