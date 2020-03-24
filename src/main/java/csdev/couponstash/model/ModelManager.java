@@ -1,9 +1,11 @@
 package csdev.couponstash.model;
 
 import static csdev.couponstash.commons.util.CollectionUtil.requireAllNonNull;
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,6 +18,7 @@ import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.history.HistoryManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Represents the in-memory model of the CouponStash data.
@@ -26,6 +29,7 @@ public class ModelManager implements Model {
     private final CouponStash couponStash;
     private final UserPrefs userPrefs;
     private final FilteredList<Coupon> filteredCoupons;
+    private final SortedList<Coupon> sortedCoupons;
     private HistoryManager history;
 
     /**
@@ -39,7 +43,10 @@ public class ModelManager implements Model {
 
         this.couponStash = new CouponStash(couponStash);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredCoupons = new FilteredList<>(this.couponStash.getCouponList());
+
+        sortedCoupons = new SortedList<>(this.couponStash.getCouponList());
+        filteredCoupons = new FilteredList<>(sortedCoupons);
+
         history = new HistoryManager(this.couponStash.copy());
     }
 
@@ -134,6 +141,29 @@ public class ModelManager implements Model {
         commitCouponStash(commandText);
     }
 
+    @Override
+    public void sortCoupons(Prefix prefixToSortBy, String commandText) {
+        requireNonNull(prefixToSortBy);
+
+        Comparator<Coupon> cmp;
+
+        if (prefixToSortBy.equals(PREFIX_NAME)) {
+            cmp = (x, y) -> x
+                    .toString()
+                    .toLowerCase()
+                    .compareTo(y.toString().toLowerCase());
+        } else {
+            cmp = (x, y) -> x
+                    .getExpiryDate()
+                    .getDate()
+                    .compareTo(
+                            y.getExpiryDate().getDate()
+                    );
+        }
+
+        sortedCoupons.setComparator(cmp);
+    }
+
     //=========== Filtered Coupon List Accessors =============================================================
 
     /**
@@ -149,11 +179,6 @@ public class ModelManager implements Model {
     public void updateFilteredCouponList(Predicate<Coupon> predicate) {
         requireNonNull(predicate);
         filteredCoupons.setPredicate(predicate);
-    }
-
-    @Override
-    public void sortCoupons(Prefix prefixToSortBy) {
-
     }
 
     //=========== Undo/Redo functionality =============================================================
