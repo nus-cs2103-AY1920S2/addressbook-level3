@@ -170,7 +170,7 @@ Given below is an example usage scenario of how the schedule visualizer behaves 
 Step 1. The user launches the application for the first time. The `SchoolworkTracker` will be initialized with the initial state, which is an empty list.
 
 Step 2. The user executes the add assignment command [(st)add n/… d/… e/…] to add the following assignments to the Schoolwork Tracker.
-image:stFilledList.png[]
+image::stFilledList.png[]
 
 Step 3. Today is 23 March 2020 and the user wants to see how busy he is and whether he has time to go out with his friends in the next five days while still being able to complete his assignments on time.
 
