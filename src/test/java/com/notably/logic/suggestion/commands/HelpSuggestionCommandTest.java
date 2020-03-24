@@ -16,7 +16,7 @@ import com.notably.model.suggestion.SuggestionModelImpl;
 import com.notably.model.viewstate.ViewStateModel;
 import com.notably.model.viewstate.ViewStateModelImpl;
 
-public class NewSuggestionCommandTest {
+public class HelpSuggestionCommandTest {
     private static Model model;
 
     @BeforeAll
@@ -31,12 +31,12 @@ public class NewSuggestionCommandTest {
     @Test
     public void execute() {
         // Instantiate command
-        NewSuggestionCommand newSuggestionCommand = new NewSuggestionCommand();
+        HelpSuggestionCommand helpSuggestionCommand = new HelpSuggestionCommand();
 
-        newSuggestionCommand.execute(model);
+        helpSuggestionCommand.execute(model);
 
         // Expected result
-        String expectedResponseText = "Create a new note";
+        String expectedResponseText = "Display a list of available commands";
 
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
