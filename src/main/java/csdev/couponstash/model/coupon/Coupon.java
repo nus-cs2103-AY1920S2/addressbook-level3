@@ -30,6 +30,7 @@ public class Coupon {
     private final Savings savingsForEachUse;
     private final Set<Tag> tags = new HashSet<>();
     private final Limit limit;
+    private final Condition condition;
 
     // Data fields
     // ("mutable" properties of Coupon that will change,
@@ -56,10 +57,10 @@ public class Coupon {
      * @param tags The List of tags for this Coupon.
      */
     public Coupon(Name name, PromoCode promoCode, Savings savingsForEachUse, ExpiryDate expiryDate, StartDate startDate,
-                  Usage usage, Limit limit, Set<Tag> tags) {
+                  Usage usage, Limit limit, Set<Tag> tags, Condition condition) {
 
         this(name, promoCode, savingsForEachUse, expiryDate, startDate, usage,
-                limit, tags, new DateSavingsSumMap(), new RemindDate(expiryDate), new Archived());
+                limit, tags, new DateSavingsSumMap(), new RemindDate(expiryDate), condition, new Archived());
     }
 
     /**
@@ -91,10 +92,12 @@ public class Coupon {
             Set<Tag> tags,
             DateSavingsSumMap totalSavings,
             RemindDate remind,
+            Condition condition,
             Archived archived) {
 
         requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags,
-                totalSavings, remind, archived);
+                totalSavings, remind, condition, archived);
+
         this.name = name;
         this.promoCode = promoCode;
         this.savingsForEachUse = savingsForEachUse;
@@ -106,8 +109,12 @@ public class Coupon {
         this.limit = limit;
         this.archived = archived;
         this.tags.addAll(tags);
+        this.condition = condition;
     }
 
+    public Condition getCondition() {
+        return condition;
+    }
     public RemindDate getRemindDate() {
         return remind;
     }
@@ -199,7 +206,7 @@ public class Coupon {
         updatedMap.add(ld, pms);
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, this.usage, this.limit,
-                this.tags, updatedMap, this.remind, this.archived);
+                this.tags, updatedMap, this.remind, this.condition, this.archived);
     }
 
     /**
@@ -211,7 +218,7 @@ public class Coupon {
         Archived newArchived = new Archived(String.valueOf(Usage.isUsageAtLimit(newUsage, this.limit)));
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, newUsage,
-                this.limit, this.tags, this.totalSavings, this.remind, newArchived);
+                this.limit, this.tags, this.totalSavings, this.remind, this.condition, newArchived);
     }
 
     /**
@@ -220,7 +227,7 @@ public class Coupon {
     public Coupon archive() {
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, this.usage,
-                this.limit, this.tags, this.totalSavings, this.remind, new Archived("true"));
+                this.limit, this.tags, this.totalSavings, this.remind, this.condition, new Archived("true"));
     }
 
     /**
@@ -314,6 +321,8 @@ public class Coupon {
                 .append(getLimit())
                 .append(" Remind Date: ")
                 .append(getRemindDate())
+                .append(" Condition: ")
+                .append(getCondition())
                 .append(" Archived: ")
                 .append(getArchived())
                 .append(" Tags: ");
@@ -334,7 +343,8 @@ public class Coupon {
                 savingsForEachUse.copy(), new ExpiryDate(expiryDate.value),
                 new StartDate(startDate.value),
                 new Usage(usage.value), new Limit(limit.value), copiedTags,
-                totalSavings.copy(), remind.copy(), new Archived(archived.toString())
+                totalSavings.copy(), remind.copy(), new Condition(condition.toString()),
+                new Archived(archived.toString())
         );
 
         return copy;

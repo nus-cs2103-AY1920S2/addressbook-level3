@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * This class stores all the commandText that was executed in STASH. Does not matter
- * if the commands had errors, they are still stored and can be retrived by pressing up or down on
+ * if the commands had errors, they are still stored and can be retrieved by pressing up or down on
  * the keyboard.
  */
 public class CommandTextHistory {
@@ -15,7 +15,8 @@ public class CommandTextHistory {
     public CommandTextHistory() {
         commandTextHistory = new ArrayList<>();
         commandTextHistory.add("");
-        currIndex = 0;
+        commandTextHistory.add("");
+        currIndex = 1;
     }
 
     /**
@@ -24,7 +25,8 @@ public class CommandTextHistory {
      */
     public void add(String commandText) {
         commandTextHistory.add(commandText);
-        currIndex++;
+        commandTextHistory.add("");
+        currIndex = commandTextHistory.size() - 1;
     }
 
     /**
@@ -35,7 +37,12 @@ public class CommandTextHistory {
         if (currIndex == commandTextHistory.size() - 1) {
             return "";
         } else {
-            return commandTextHistory.get(++currIndex);
+            currIndex += 2;
+            if (currIndex + 1 > commandTextHistory.size() - 1) {
+                return "";
+            } else {
+                return commandTextHistory.get(currIndex + 1);
+            }
         }
     }
 
@@ -44,10 +51,13 @@ public class CommandTextHistory {
      * @return last input commandText.
      */
     public String getUp() {
-        if (currIndex <= 1) {
-            return commandTextHistory.get(currIndex);
+        if (currIndex == 1) {
+            return commandTextHistory.size() > 2
+                    ? commandTextHistory.get(currIndex + 1)
+                    : "";
         } else {
-            return commandTextHistory.get(currIndex--);
+            currIndex -= 2;
+            return commandTextHistory.get(currIndex + 1);
         }
     }
 }

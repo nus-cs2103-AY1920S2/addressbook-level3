@@ -35,6 +35,8 @@
       <Label fx:id="usage" styleClass="cell_small_label" text="\$usage" />
       <Label fx:id="limit" styleClass="cell_small_label" text="\$limit" />
       <Label fx:id="remindDate" styleClass="cell_small_label" text="\$remindDate" />
+      <Label fx:id="condition" styleClass="cell_small_label" text="\$remark" />
+
     </VBox>
   </GridPane>
 </HBox>

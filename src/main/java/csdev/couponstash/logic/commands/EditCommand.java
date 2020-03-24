@@ -15,6 +15,7 @@ import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.coupon.Archived;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -110,10 +111,12 @@ public class EditCommand extends Command {
         StartDate updatedStartDate = editCouponDescriptor.getStartDate().orElse(couponToEdit.getStartDate());
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
+        Condition updatedCondition = editCouponDescriptor.getCondition().orElse(couponToEdit.getCondition());
         Archived archived = new Archived(String.valueOf(Usage.isUsageAtLimit(couponToEdit.getUsage(), updatedLimit)));
         RemindDate remindDate = editCouponDescriptor.getExpiryDate().isPresent()
                 ? new RemindDate(updatedExpiryDate)
                 : editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
+
         return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
                 // avoid changing the usage
                 couponToEdit.getUsage(),
@@ -121,7 +124,9 @@ public class EditCommand extends Command {
                 // avoid changing the total savings and dates mappings
                 couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
+
                 remindDate,
+                updatedCondition,
                 // avoid changing the archival state
                 archived);
     }
@@ -158,6 +163,7 @@ public class EditCommand extends Command {
         private Limit limit;
         private Set<Tag> tags;
         private RemindDate remindDate;
+        private Condition condition;
         private Archived archived;
 
         public EditCouponDescriptor() {}
@@ -176,6 +182,7 @@ public class EditCommand extends Command {
             setLimit(toCopy.limit);
             setTags(toCopy.tags);
             setRemindDate(toCopy.remindDate);
+            setCondition(toCopy.condition);
             setArchived(toCopy.archived);
         }
 
@@ -184,7 +191,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, promoCode, savings, expiryDate, startDate, usage, limit, tags,
-                    remindDate, archived);
+                    remindDate, condition, archived);
         }
 
         public void setName(Name name) {
@@ -263,6 +270,15 @@ public class EditCommand extends Command {
             this.remindDate = remindDate;
         }
 
+
+        public void setCondition(Condition condition) {
+            this.condition = condition;
+        }
+
+        public Optional<Condition> getCondition() {
+            return Optional.ofNullable(condition);
+        }
+
         public Optional<Archived> getArchived() {
             return Optional.ofNullable(this.archived);
         }
@@ -312,6 +328,7 @@ public class EditCommand extends Command {
                     && getLimit().equals(e.getLimit())
                     && getTags().equals(e.getTags())
                     && getRemindDate().equals(e.getRemindDate())
+                    && getCondition().equals(e.getCondition())
                     && getArchived().equals(e.getArchived());
         }
     }

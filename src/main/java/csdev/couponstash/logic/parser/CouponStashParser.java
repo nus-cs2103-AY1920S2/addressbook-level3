@@ -10,6 +10,7 @@ import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.commands.ArchiveCommand;
 import csdev.couponstash.logic.commands.ClearCommand;
 import csdev.couponstash.logic.commands.Command;
+import csdev.couponstash.logic.commands.ConditionCommand;
 import csdev.couponstash.logic.commands.DeleteCommand;
 import csdev.couponstash.logic.commands.EditCommand;
 import csdev.couponstash.logic.commands.ExitCommand;
@@ -116,6 +117,9 @@ public class CouponStashParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case ConditionCommand.COMMAND_WORD:
+            return new ConditionCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

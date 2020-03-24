@@ -13,6 +13,8 @@ import java.util.Set;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.commons.util.StringUtil;
 import csdev.couponstash.logic.parser.exceptions.ParseException;
+
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
 import csdev.couponstash.model.coupon.Name;
@@ -25,7 +27,6 @@ import csdev.couponstash.model.coupon.savings.PercentageAmount;
 import csdev.couponstash.model.coupon.savings.Saveable;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
-
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -205,6 +206,22 @@ public class ParserUtil {
             throw new ParseException(Limit.MESSAGE_CONSTRAINTS);
         }
         return new Limit(trimmedLimit);
+    }
+
+    /**
+     * Parses a {@code String condition} into a {@code Condtion}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code condition} is invalid.
+     */
+    public static Condition parseCondition(String condition) throws ParseException {
+        requireNonNull(condition);
+        String trimmedCondition = condition.trim();
+
+        if (!Condition.isValidCondition(trimmedCondition)) {
+            throw new ParseException(Condition.MESSAGE_CONSTRAINTS);
+        }
+        return new Condition(trimmedCondition);
     }
 
     /**

@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import csdev.couponstash.model.coupon.Archived;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -37,6 +38,7 @@ public class CouponBuilder {
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
+    public static final String DEFAULT_CONDITION = "While Stocks Last";
     public static final String DEFAULT_ARCHIVED = "false";
 
     public static final String FULL_COMMAND_TEXT =
@@ -59,6 +61,7 @@ public class CouponBuilder {
     private Limit limit;
     private RemindDate remindDate;
     private Set<Tag> tags;
+    private Condition condition;
     private Archived archived;
 
     public CouponBuilder() {
@@ -72,6 +75,7 @@ public class CouponBuilder {
         limit = new Limit(DEFAULT_LIMIT);
         remindDate = new RemindDate(expiryDate);
         tags = new HashSet<>();
+        condition = new Condition(DEFAULT_CONDITION);
         archived = new Archived(DEFAULT_ARCHIVED);
     }
 
@@ -89,6 +93,7 @@ public class CouponBuilder {
         limit = couponToCopy.getLimit();
         remindDate = couponToCopy.getRemindDate();
         tags = new HashSet<>(couponToCopy.getTags());
+        condition = couponToCopy.getCondition();
         archived = couponToCopy.getArchived();
     }
 
@@ -186,6 +191,13 @@ public class CouponBuilder {
         this.remindDate = new RemindDate(remindDate, expiryDate);
         return this;
     }
+    /**
+     * Sets the {@code Condition} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withCondition(String condition) {
+        this.condition = new Condition(condition);
+        return this;
+    }
 
     /**
      * Sets the {@code Archive} of the {@code Coupon} that we are building.
@@ -206,7 +218,8 @@ public class CouponBuilder {
         }
 
         return new Coupon(name, promoCode, savings, expiryDate, startDate,
-                usage, limit, tags, totalSavings, remindDate, archived);
+                usage, limit, tags, totalSavings, remindDate, condition, archived);
+
     }
 
 }

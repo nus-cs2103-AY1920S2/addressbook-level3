@@ -187,7 +187,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void sortCoupons(Prefix prefixToSortBy) {
+        public void sortCoupons(Prefix prefixToSortBy, String commandText) {
             throw new AssertionError("This method should not be called.");
         }
     }

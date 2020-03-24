@@ -1,5 +1,6 @@
 package csdev.couponstash.testutil;
 
+import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_LIMIT;
 import static csdev.couponstash.logic.parser.CliSyntax.PREFIX_NAME;
@@ -73,6 +74,7 @@ public class CouponUtil {
         descriptor.getLimit().ifPresent(limit -> sb.append(PREFIX_LIMIT).append(limit.value).append(" "));
         descriptor.getRemindDate().ifPresent(remindDate -> sb.append(PREFIX_REMIND).append(remindDate.toString())
                 .append(" "));
+        descriptor.getCondition().ifPresent(cond -> sb.append(PREFIX_CONDITION).append(cond.toString() + " "));
 
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
