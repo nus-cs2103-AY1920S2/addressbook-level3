@@ -7,7 +7,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -67,17 +66,13 @@ public class ParserUtil {
      * @param phone
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Phone parsePhone(Optional<String> phone) throws ParseException {
+    public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
-        if (phone.isPresent()) {
-            String trimmedPhone = phone.get().trim();
-            if (!Phone.isValidPhone(trimmedPhone)) {
-                throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-            }
-            return new Phone(trimmedPhone);
-        } else {
-            return new Phone("");
+        String trimmedPhone = phone.trim();
+        if (!Phone.isValidPhone(trimmedPhone)) {
+            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
+        return new Phone(trimmedPhone);
     }
 
     /**
@@ -87,17 +82,13 @@ public class ParserUtil {
      * @param email
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Email parseEmail(Optional<String> email) throws ParseException {
+    public static Email parseEmail(String email) throws ParseException {
         requireNonNull(email);
-        if (email.isPresent()) {
-            String trimmedEmail = email.get().trim();
-            if (!Email.isValidEmail(trimmedEmail)) {
-                throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-            }
-            return new Email(trimmedEmail);
-        } else {
-            return new Email("");
+        String trimmedEmail = email.trim();
+        if (!Email.isValidEmail(trimmedEmail)) {
+            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
+        return new Email(trimmedEmail);
     }
 
     /**
