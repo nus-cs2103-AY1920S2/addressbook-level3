@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.InvalidTableException;
 import seedu.address.model.dayData.exceptions.DayDataNotFoundException;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
@@ -43,6 +44,7 @@ public class CustomQueue implements Iterable<DayData> {
             DayData dayData = new DayData(tempDate);
             this.add(dayData);
         }
+
     }
 
     /** reinitialises dayDataList to current day while retaining stored data. */
@@ -77,7 +79,7 @@ public class CustomQueue implements Iterable<DayData> {
      *
      * @param dayData
      */
-    public void updatesDayDataCustom(DayData dayData) {
+    public void updatesDayDataCustom(DayData dayData)  {
         requireNonNull(dayData);
 
         Date currDate = dayData.getDate();
@@ -89,7 +91,6 @@ public class CustomQueue implements Iterable<DayData> {
                 return;
             }
         }
-        throw new DayDataNotFoundException(); // dayData not found
     }
 
     /**
@@ -139,9 +140,6 @@ public class CustomQueue implements Iterable<DayData> {
     /** Adds a dayData to the end of the queue. The dayData must not already exist in the list. */
     public void add(DayData toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
         internalList.add(toAdd);
     }
 
@@ -189,10 +187,11 @@ public class CustomQueue implements Iterable<DayData> {
         }
     }
 
+    /**
     public void setDayDatas(CustomQueue replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-    }
+    } */
 
     /**
      * Replaces the contents of this list with {@code dayDatas}. {@code dayDatas} must
@@ -200,10 +199,6 @@ public class CustomQueue implements Iterable<DayData> {
      */
     public void setDayDatas(List<DayData> dayDatas) {
         requireAllNonNull(dayDatas);
-        //if (!tableConstraintsAreEnforced(dayDatas)) {
-        //    throw new DuplicateTaskException();
-        //}
-
         internalList.setAll(dayDatas);
     }
 
@@ -231,7 +226,31 @@ public class CustomQueue implements Iterable<DayData> {
 
     /** Returns true if {@code dayDatas} table constraints are enforced */
     private boolean tableConstraintsAreEnforced(List<DayData> dayDatas) {
+        int count = 0;
+
+        DayData dayDataCheckPointer = dayDatas.get(0); // from list
+        Date dateCheckPointer = dayDataCheckPointer.getDate();
+        LocalDate localDateCheckPointer = dateCheckPointer.value;
+
+        LocalDate currentLocalDate = null; // to check
+
+        for (DayData dayData : dayDatas) {
+            count++;
+
+            currentLocalDate = dayData.getDate().value;
+            if (!localDateCheckPointer.equals(currentLocalDate)) {
+                return false; // days must be continuous
+            }
+
+            localDateCheckPointer = localDateCheckPointer.plusDays(1);
+        }
+
+        if (count != CONSTANT_SIZE) {
+            return false; // table is not size CONSTANT_SIZE
+        }
+
         return true;
     }
+
 }
 
