@@ -9,7 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SPEC;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
@@ -19,12 +21,20 @@ import seedu.address.model.profile.course.CourseName;
  */
 public class NewCommandParser implements Parser<NewCommand> {
 
+    public static final String MESSAGE_PROFILE_LIST_FULL = "Unable to create new profile as there is an existing profile.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the NewCommand
      * and returns a NewCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public NewCommand parse(String args) throws ParseException {
+    public NewCommand parse(String args) throws ParseException, CommandException {
+
+        ProfileList pL = new ProfileList();
+        if (pL.getProfileList().size() == 1) {
+            throw new CommandException(MESSAGE_PROFILE_LIST_FULL);
+        }
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COURSE_NAME, PREFIX_CURRENT_SEMESTER, PREFIX_SPEC);
 

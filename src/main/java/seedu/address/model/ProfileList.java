@@ -4,40 +4,43 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.UniqueProfileList;
+import seedu.address.model.profile.exceptions.DuplicatePersonException;
+import seedu.address.model.profile.exceptions.PersonNotFoundException;
 
 /**
  * Creates a new ProfileList object which contains Profile objects.
  */
 public class ProfileList {
 
-    private final UniqueProfileList profiles;
-
-    {
-        profiles = new UniqueProfileList();
-    }
+    private final static ObservableList<Profile> profileList = FXCollections.observableArrayList();
 
     public ProfileList() {};
 
     public void addProfile(Profile profile) {
-        profiles.add(profile);
+        requireNonNull(profile);
+        if (contains(profile)) {
+            throw new DuplicatePersonException();
+        }
+        this.profileList.add(profile);
     }
 
     public ObservableList<Profile> getProfileList() {
-        return profiles.asUnmodifiableObservableList();
+        return profileList; // TODO: Implement read-only version of profileList, similar to address book
     }
 
-
     /**
-     * Returns true if a person with the same identity as {@code profile} exists in the profile list.
+     * Returns true if the list contains an equivalent profile as the given argument.
      */
-    public boolean hasPerson(Profile profile) {
-        requireNonNull(profile);
-        return profiles.contains(profile);
+    public boolean contains(Profile toCheck) {
+        requireNonNull(toCheck);
+        return profileList.stream().anyMatch(toCheck::isSameProfile);
     }
 
     /**
@@ -54,7 +57,10 @@ public class ProfileList {
      * {@code key} must exist in the profile list.
      */
     public void deleteProfile(Profile profile) {
-        profiles.remove(profile);
+        requireNonNull(profile);
+        if (!profileList.remove(profile)) {
+            throw new PersonNotFoundException();
+        }
     }
 
     /**
@@ -64,19 +70,38 @@ public class ProfileList {
      */
     public void setProfile(Profile target, Profile editedProfile) {
         requireAllNonNull(target, editedProfile);
-        profiles.setProfile(target, editedProfile);
+
+        int index = profileList.indexOf(target);
+        if (index == -1) {
+            throw new PersonNotFoundException();
+        }
+
+        if (!target.isSameProfile(editedProfile) && contains(editedProfile)) {
+            throw new DuplicatePersonException();
+        }
+
+        profileList.set(index, editedProfile);
     }
 
     public void setProfiles(List<Profile> profiles) {
-        this.profiles.setProfiles(profiles);
+        requireAllNonNull(profiles);
+        if (!personsAreUnique(profiles)) {
+            throw new DuplicatePersonException();
+        }
+
+        profileList.setAll(profiles);
     }
 
     public boolean hasProfileWithName(Name name) {
-        return this.profiles.hasProfileWithName(name);
+        return this.profileList.stream().map(Profile::getName).anyMatch(x->x.equals(name));
     }
 
     public Profile getProfileWithName(Name name) {
-        return profiles.getProfileWithName(name);
+        Optional<Profile> p = this.profileList.stream().filter(x->x.getName().equals(name)).findFirst();
+        if (!p.isPresent()) {
+            throw new NoSuchElementException("None of the profiles contains the name " + name.toString());
+        }
+        return p.get();
     }
 
     /**

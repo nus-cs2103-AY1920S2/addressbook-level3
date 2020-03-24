@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -32,8 +33,7 @@ public class ProfileManager implements Model {
 
         this.profileList = profileList;
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredProfiles = new FilteredList<>(this.profileList.getProfileList());
-
+        filteredProfiles = new FilteredList<>(profileList.getProfileList());
     }
 
     public ProfileManager() {
