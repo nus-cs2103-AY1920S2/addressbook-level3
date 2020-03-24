@@ -10,7 +10,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 
-import seedu.address.logic.commands.statistics.RevenueCommand;
 import seedu.address.logic.commands.customer.AddCustomerCommand;
 import seedu.address.logic.commands.customer.ClearCustomerCommand;
 import seedu.address.logic.commands.customer.DeleteCustomerCommand;
@@ -23,13 +22,14 @@ import seedu.address.logic.commands.product.DeleteProductCommand;
 import seedu.address.logic.commands.product.EditProductCommand;
 import seedu.address.logic.commands.product.FindProductCommand;
 import seedu.address.logic.commands.product.ListProductCommand;
+import seedu.address.logic.commands.statistics.RevenueCommand;
 import seedu.address.logic.commands.transaction.AddTransactionCommand;
 import seedu.address.logic.commands.transaction.ClearTransactionCommand;
 import seedu.address.logic.commands.transaction.DeleteTransactionCommand;
 import seedu.address.logic.commands.transaction.EditTransactionCommand;
-
 import seedu.address.logic.commands.transaction.FindTransactionCommand;
 import seedu.address.logic.commands.transaction.ListTransactionCommand;
+
 import seedu.address.logic.parser.customer.AddCustomerCommandParser;
 import seedu.address.logic.parser.customer.DeleteCustomerCommandParser;
 import seedu.address.logic.parser.customer.EditCustomerCommandParser;
