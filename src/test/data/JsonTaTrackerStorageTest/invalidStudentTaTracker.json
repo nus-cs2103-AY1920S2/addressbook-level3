@@ -1,9 +1,8 @@
 {
   "students": [ {
-    "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "name": "Student with invalid name field: Ha!ns Mu@ster",
     "phone": "9482424",
     "email": "hans@example.com",
-    "matric": "A0165068L",
-    "address": "4th street"
+    "matric": "A0165068L"
   } ]
 }

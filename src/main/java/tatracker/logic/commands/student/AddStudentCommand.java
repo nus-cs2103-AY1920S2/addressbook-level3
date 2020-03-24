@@ -15,13 +15,13 @@ import tatracker.model.Model;
 import tatracker.model.student.Student;
 
 /**
- * Adds a student to the address book.
+ * Adds a student to the TA-Tracker.
  */
 public class AddStudentCommand extends Command {
 
     public static final String COMMAND_WORD = CommandWords.STUDENT + " " + CommandWords.ADD_MODEL;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a student to the TA-Tracker. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
@@ -37,7 +37,7 @@ public class AddStudentCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New student added: %1$s";
-    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_STUDENT = "This student already exists in the TA-Tracker";
 
     private final Student toAdd;
 
