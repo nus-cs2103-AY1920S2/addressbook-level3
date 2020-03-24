@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.core.path.AbsolutePath;
@@ -33,8 +33,8 @@ public class NotablyParserTest {
     private static Model model;
     private static NotablyParser parser;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void setUp() {
         // Set up paths
         toBlock = AbsolutePath.fromString("/block");
         toAnother = AbsolutePath.fromString("/another");
@@ -61,7 +61,7 @@ public class NotablyParserTest {
 
     @Test
     public void parseCommand_newCommandInput_newCommand() throws Exception {
-        Command command = parser.parseCommand("new -t 1234 -b Hi").get(0);
+        Command command = parser.parseCommand("nw -t 1234 -b Hi").get(0);
 
         assertTrue(command instanceof NewCommand);
 

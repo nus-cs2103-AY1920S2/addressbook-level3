@@ -1,6 +1,7 @@
 package com.notably.logic.parser;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +12,7 @@ import com.notably.logic.commands.ExitCommand;
 import com.notably.logic.commands.HelpCommand;
 import com.notably.logic.commands.NewCommand;
 import com.notably.logic.commands.OpenCommand;
+import com.notably.logic.correction.StringCorrectionEngine;
 import com.notably.logic.parser.exceptions.ParseException;
 import com.notably.model.Model;
 
@@ -20,11 +22,13 @@ import com.notably.model.Model;
 public class NotablyParser {
 
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
+    private static final List<String> COMMAND_LIST = List.of("new", "edit", "delete", "exit", "open", "help");
     private Model notablyModel;
+    private StringCorrectionEngine correctionEngine;
 
     public NotablyParser(Model notablyModel) {
         this.notablyModel = notablyModel;
+        this.correctionEngine = new StringCorrectionEngine(COMMAND_LIST, 2);
     }
     /**
      * Create list of different Commands base on user input.
@@ -37,8 +41,12 @@ public class NotablyParser {
         if (!matcher.matches()) {
             throw new ParseException(String.format("Invalid Command"));
         }
-
-        final String commandWord = matcher.group("commandWord");
+        String commandWord = matcher.group("commandWord");
+        Optional<String> correctedCommand = correctionEngine.correct(commandWord).getCorrectedItem();
+        if (correctedCommand.equals(Optional.empty())) {
+            throw new ParseException("Invalid command");
+        }
+        commandWord = correctedCommand.get();
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case NewCommand.COMMAND_WORD:

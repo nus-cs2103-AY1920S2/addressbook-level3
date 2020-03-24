@@ -23,7 +23,6 @@ public class OpenCommandParser implements CommandParser<OpenCommand> {
         this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, 2);
     }
     /**
-     * TODO: integrate with CorrectionEngine.
      * Creates OpenCommand with user input.
      * @param args to be parse by into CorrectionEngine.
      * @return List of command containing OpenCammnd.
