@@ -1,7 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_LIST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ESTHOURS_LIST;
 
 import java.util.Comparator;
 
