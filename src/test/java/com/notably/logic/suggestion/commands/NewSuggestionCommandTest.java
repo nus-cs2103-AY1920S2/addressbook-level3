@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.notably.commons.core.path.AbsolutePath;
@@ -19,10 +20,9 @@ import com.notably.model.viewstate.ViewStateModelImpl;
 public class NewSuggestionCommandTest {
     private static AbsolutePath toRoot;
     private static Model model;
-    private static NewSuggestionCommand newSuggestionCommand;
 
-    @Test
-    public void execute_responseText_test() {
+    @BeforeAll
+    public static void setUp() {
         // Set up model
         BlockModel blockModel = new BlockModelImpl();
         SuggestionModel suggestionModel = new SuggestionModelImpl();
@@ -30,10 +30,12 @@ public class NewSuggestionCommandTest {
         model = new ModelManager(blockModel, suggestionModel, viewStateModel);
 
         // Set up path
-        AbsolutePath toRoot = AbsolutePath.fromString("/");
-
+        toRoot = AbsolutePath.fromString("/");
+    }
+    @Test
+    public void execute() {
         // Instantiate command
-        newSuggestionCommand = new NewSuggestionCommand(toRoot);
+        NewSuggestionCommand newSuggestionCommand = new NewSuggestionCommand(toRoot);
 
         newSuggestionCommand.execute(model);
 
