@@ -1,19 +1,20 @@
 package com.notably.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import com.notably.model.Model;
 
+import javafx.application.Platform;
+
 /**
- * Terminates the program.
+ * Represent a command that exits the program.
  */
 public class ExitCommand extends Command {
-
     public static final String COMMAND_WORD = "exit";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
-
     @Override
-    public void execute(Model model) {
-        // TODO: Handle exit command execution in MainWindow.executeCommand()
+    public void execute(Model notablyModel) {
+        requireNonNull(notablyModel);
+        Platform.exit();
     }
-
 }
