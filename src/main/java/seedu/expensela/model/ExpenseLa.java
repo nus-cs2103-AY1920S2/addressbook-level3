@@ -87,7 +87,8 @@ public class ExpenseLa implements ReadOnlyExpenseLa {
     /**
      * Replaces the given transaction {@code target} in the list with {@code editedTransaction}.
      * {@code target} must exist in the expensela.
-     * The transaction identity of {@code editedTransaction} must not be the same as another existing transaction in the expensela.
+     * The transaction identity of {@code editedTransaction} must not be the same as another
+     * existing transaction in the expensela.
      */
     public void setTransaction(Transaction target, Transaction editedTransaction) {
         requireNonNull(editedTransaction);

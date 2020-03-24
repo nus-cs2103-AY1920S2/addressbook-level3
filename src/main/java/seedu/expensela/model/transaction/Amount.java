@@ -1,9 +1,9 @@
 package seedu.expensela.model.transaction;
 
-import java.text.DecimalFormat;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
+
+import java.text.DecimalFormat;
 
 /**
  * Represents a Transaction's cost/gain in the expensela.
@@ -27,7 +27,6 @@ public class Amount {
     public Amount(String value, boolean positive) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
-        String[] tokens = value.split(".");
         this.transactionAmount = Double.parseDouble(value);
         this.positive = positive;
     }

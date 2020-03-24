@@ -5,7 +5,11 @@ import static java.util.Objects.requireNonNull;
 import seedu.expensela.commons.core.index.Index;
 import seedu.expensela.commons.util.StringUtil;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.transaction.*;
+import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
+import seedu.expensela.model.transaction.Date;
+import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Remark;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

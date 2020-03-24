@@ -38,7 +38,7 @@ public class EditTransactionDescriptorTest {
         assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withPhone(VALID_AMOUNT_AIRPODS).build();
+        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withAmount(VALID_AMOUNT_AIRPODS).build();
         assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different email -> returns false
@@ -46,7 +46,7 @@ public class EditTransactionDescriptorTest {
         assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different address -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withAddress(VALID_REMARK_AIRPODS).build();
+        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withRemark(VALID_REMARK_AIRPODS).build();
         assertFalse(DESC_PIZZA.equals(editedAmy));
 
         // different tags -> returns false

@@ -4,7 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.expensela.commons.exceptions.IllegalValueException;
-import seedu.expensela.model.transaction.*;
+import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
+import seedu.expensela.model.transaction.Date;
+import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Remark;
+import seedu.expensela.model.transaction.Transaction;
 
 /**
  * Jackson-friendly version of {@link Transaction}.
@@ -81,7 +86,8 @@ class JsonAdaptedTransaction {
         final Remark modelRemark = new Remark(remark);
 
         if (category == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
         final Category modelCategory = new Category(category);
 

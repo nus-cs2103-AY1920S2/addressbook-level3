@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalTransactions.ALICE;
-import static seedu.expensela.testutil.TypicalTransactions.BENSON;
+import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
+import static seedu.expensela.testutil.TypicalTransactions.GRAB;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -79,13 +79,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasTransaction_transactionNotInExpenseLa_returnsFalse() {
-        assertFalse(modelManager.hasTransaction(ALICE));
+        assertFalse(modelManager.hasTransaction(PIZZA));
     }
 
     @Test
     public void hasTransaction_transactionInExpenseLa_returnsTrue() {
-        modelManager.addTransaction(ALICE);
-        assertTrue(modelManager.hasTransaction(ALICE));
+        modelManager.addTransaction(PIZZA);
+        assertTrue(modelManager.hasTransaction(PIZZA));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ExpenseLa expenseLa = new ExpenseLaBuilder().withTransaction(ALICE).withTransaction(BENSON).build();
+        ExpenseLa expenseLa = new ExpenseLaBuilder().withTransaction(PIZZA).withTransaction(GRAB).build();
         ExpenseLa differentExpenseLa = new ExpenseLa();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentExpenseLa, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().transactionName.split("\\s+");
+        String[] keywords = PIZZA.getName().transactionName.split("\\s+");
         modelManager.updateFilteredTransactionList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(expenseLa, userPrefs)));
 
