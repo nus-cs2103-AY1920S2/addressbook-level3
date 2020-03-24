@@ -46,7 +46,7 @@ public class NewCommandParser implements CommandParser {
         List<Command> commands = new ArrayList<>();
         commands.add(new NewCommand(block, path));
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_BODY, PREFIX_JUMP)) {
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_JUMP)) {
             return commands;
         }
 

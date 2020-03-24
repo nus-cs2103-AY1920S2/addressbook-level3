@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import com.notably.commons.core.path.AbsolutePath;
 import com.notably.commons.core.path.Path;
 import com.notably.commons.core.path.RelativePath;
+import com.notably.logic.parser.exceptions.ParseException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -22,11 +23,13 @@ public class ParserUtil {
     /**
      * Returns either a AbsolutePath or RelativePath base on userInput.
      */
-    public static Path createPath(String userInput) {
-        if (userInput.charAt(0) == '/') {
-            return AbsolutePath.fromString(userInput);
-        } else {
-            return RelativePath.fromString(userInput);
+    public static Path createPath(String text) throws ParseException {
+        if (AbsolutePath.isValidAbsolutePath(text)) {
+            return AbsolutePath.fromString(text);
         }
+        if (RelativePath.isValidRelativePath(text)) {
+            return RelativePath.fromString(text);
+        }
+        throw new ParseException("Invalid Path");
     }
 }
