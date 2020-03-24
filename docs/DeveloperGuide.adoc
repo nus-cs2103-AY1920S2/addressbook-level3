@@ -436,32 +436,27 @@ functioning of the module view.
 image::StudentModelClassDiagram.png[]
 
 The TaTracker model class contains a UniqueStudentList which helps it keep track
-of the different students the user is associated with. Each module contains a
-UniqueGroupList and a UniqueSessionList.
+of the different students the user is associated with. Each student has a name,
+matric and a default rating of 3/5 which can be edited by the user later. Each
+student also has a Phone and an Email, which is represented as an empty string
+if the user does not include the optional values.
 
-The UniqueGroupList contains a list of all the groups of a module that the user
-is affiliated with. Each group contains a UniqueStudentsList that contains the
-students in that group.
-
-The UniqueSessionList contains a list of all the done sessions associated with the module. This list
-is used in the TSS view.
-
-==== Implementation of the Module Add and Delete Commands
+==== Implementation of the Student Add and Delete Commands
 
 The following sequence diagram shows the sequence of commands that take place
 between the logic and model components of the TA-Tracker when the user enters the
-command 'module add m/CS2103 n/Software Engineering'.
+command 'student add n/John Doe p/98765432 e/johnd@example.com m/A0181234G'.
 
-Note: This diagram assumes that there is no module with the module code 'CS2103'
+Note: This diagram assumes that there is no student with the matric number 'A0181234G'
 pre-existing in the TA-Tracker.
 
-.Module Add - Sequence Diagram
-image::AddModuleSequenceDiagram.png[]
+.Student Add - Sequence Diagram
+image::AddStudentSequenceDiagram.png[]
 
 1. LogicManager uses the TATrackerParser to first parse the user command.
 
-2. The TATrackerParser sees that the command is of type module and passes the
-command to the ModuleCommandParser.
+2. The TATrackerParser sees that the command is of type student and passes the
+command to the StudentCommandParser.
 
 3. The ModuleCommandParser sees that the command is of type add and passes the
 arguments to the AddModuleCommandParser.

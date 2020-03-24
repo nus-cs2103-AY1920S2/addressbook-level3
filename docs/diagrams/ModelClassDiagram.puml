@@ -1,0 +1,56 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyTaTracker <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class TaTracker
+Class ReadOnlyTaTracker
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+Package Student {
+Class Student
+Class Email
+Class Matric
+Class Name
+Class Phone
+Class UniqueStudentList
+}
+
+Package Tag {
+Class Tag
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+TaTracker .up.|> ReadOnlyTaTracker
+
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o--> "1" TaTracker
+ModelManager o-left-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+TaTracker *--> "1" UniqueStudentList
+UniqueStudentList o--> "*" Student
+Student *--> Name
+Student *--> Phone
+Student *--> Email
+Student *--> Matric
+Student *--> "*" Tag
+
+Name -[hidden]right-> Phone
+Phone -[hidden]right-> Matric
+Matric -[hidden]right-> Email
+
+ModelManager -->"1" Student : filtered list
+@enduml
