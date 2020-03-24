@@ -35,7 +35,7 @@ public class AddDeadlineCommand extends Command {
         }
 
         model.addDeadline(deadlineToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, deadlineToAdd));;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, deadlineToAdd));
     }
 
     @Override
