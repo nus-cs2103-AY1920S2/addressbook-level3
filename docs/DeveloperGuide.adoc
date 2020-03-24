@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.svg[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -152,6 +152,41 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Delivered feature
+The delivered feature allows the user to mark orders as delivered after delivering an order.
+
+The delivered feature was implemented as a `DoneCommand` in the `Logic` package. +
+
+==== Class Diagram for Done feature
+image::DoneClassDiagram.svg[]
+
+==== Sequence Diagram for delivering an order
+The sequence diagram for the *Delivered Command* is shown below.
+
+image::DoneSequenceDiagram.svg[]
+
+The arguments passed to the Done Command will be parsed by the `DoneCommandParser` class. +
+If the given arguments are valid, a new `DoneCommand` object will be returned.
+In this class, invalid arguments will result in a `ParseException`. +
+Two types of invalid arguments are checked for: empty arguments
+and arguments with only whitespace characters.
+
+The `execute()` function of the `DoneCommand` will first check if the given arguments
+are in the format required for an order to be marked as complete
+(i.e. both the command word `return` and `INDEX` are present)
+The check is done within the `execute()` function. +
+
+If the input is valid, the particular order based on the integer `INDEX` will be used to +
+obtain this order from the order book. This order will be checked if it was delivered. +
+
+1. If it was not delivered, it will trigger the `setOrder()`, `deliverOrder()`
+and `updateFilteredOrderList()` functions. These methods will be used to replace
+the existing order with the new order that has a delivered status. Also, the order book
+will be updated to show the change. +
+
+2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
+display the original order book.
 
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
@@ -1000,6 +1035,21 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    Expected: List all uncompleted delivery orders.
 .. Test case: `list` `ANY_WORD_OTHER_THAN_UNDONE_AND_DONE` +
    Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
+
+=== Returning an order
+
+. Returning an order with the specific order attributes
+
+.. Return command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `ts/2020-02-20 1300` `w/Yishun` +
+   Expected: Creates and adds a return order with the above details to the return order book.
+.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `ts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
+   Expected: Creates and adds the return order to the return order book, including the item type and comment.
+.. Test case: Invalid Syntax +
+   Expected: No return order is added. Error details shown in the response message. A help message displayed for user to type the return command accordingly. Status bar remain unchanged
+.. Test case: Return order with existing Transaction ID in list +
+   Expected: An error will occur and a message will be displayed, stating that the return order with duplicate ID cannot be added into the list
 
 === Search an order
 

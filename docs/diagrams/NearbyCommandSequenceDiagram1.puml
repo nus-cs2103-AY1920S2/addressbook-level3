@@ -60,7 +60,7 @@ NearbyCommandUtil --> NearbyCommand: true
 deactivate NearbyCommandUtil
 
 NearbyCommand -> NearbyCommand: showPostalSectors(model, postalSector)
-activate NearbyCommand
+
 NearbyCommand -> NearbyCommand: getPostalSectorPredicate()
 activate NearbyCommand
 NearbyCommand --> NearbyCommand: orderPredicate

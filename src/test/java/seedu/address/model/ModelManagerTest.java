@@ -3,12 +3,12 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RETURNS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOrders.ALICE;
-import static seedu.address.testutil.TypicalOrders.ALICE_RETURN;
 import static seedu.address.testutil.TypicalOrders.BENSON;
-import static seedu.address.testutil.TypicalOrders.BENSON_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.ALICE_RETURN;
+import static seedu.address.testutil.TypicalReturnOrders.BENSON_RETURN;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,7 +18,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
-import seedu.address.model.returnorder.ReturnOrderBook;
 import seedu.address.testutil.OrderBookBuilder;
 import seedu.address.testutil.ReturnOrderBookBuilder;
 
@@ -156,10 +155,10 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(deliveryOrderBook, returnOrderBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
+        modelManager.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_ORDERS);
+        modelManager.updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

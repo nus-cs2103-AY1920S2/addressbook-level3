@@ -12,8 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * Represents the in-memory model of the order book data.
@@ -25,7 +24,7 @@ public class ModelManager implements Model {
     private final ReturnOrderBook returnOrderBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Order> filteredOrders;
-    private final FilteredList<Order> filteredReturnOrders;
+    private final FilteredList<ReturnOrder> filteredReturnOrders;
 
     /**
      * Initializes a ModelManager with the given orderBook and userPrefs.
@@ -36,7 +35,7 @@ public class ModelManager implements Model {
         requireAllNonNull(orderBook, returnOrderBook, userPrefs);
 
         logger.fine("Initializing with order book: " + orderBook + " and user prefs " + userPrefs);
-
+        logger.fine("Initializing with return book: " + returnOrderBook + " and user prefs " + userPrefs);
         this.orderBook = new OrderBook(orderBook);
         this.returnOrderBook = new ReturnOrderBook(returnOrderBook);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -142,24 +141,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasReturnOrder(Order returnOrder) {
+    public boolean hasReturnOrder(ReturnOrder returnOrder) {
         requireNonNull(returnOrder);
         return returnOrderBook.hasReturnOrder(returnOrder);
     }
 
     @Override
-    public void deleteReturnOrder(Order target) {
+    public void deleteReturnOrder(ReturnOrder target) {
         returnOrderBook.removeReturnOrder(target);
     }
 
     @Override
-    public void addReturnOrder(Order returnOrder) {
-        returnOrderBook.addReturnOrder(returnOrder);
-        updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_ORDERS);
+    public void addReturnOrder(ReturnOrder orderToBeReturned) {
+        returnOrderBook.addReturnOrder(orderToBeReturned);
+        updateFilteredReturnOrderList(PREDICATE_SHOW_ALL_RETURNS);
     }
 
     @Override
-    public void setReturnOrder(Order target, Order editedReturnOrder) {
+    public void setReturnOrder(ReturnOrder target, ReturnOrder editedReturnOrder) {
         requireAllNonNull(target, editedReturnOrder);
 
         returnOrderBook.setReturnOrder(target, editedReturnOrder);
@@ -195,16 +194,16 @@ public class ModelManager implements Model {
     //=========== Filtered Return Order List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Order} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code ReturnOrder} backed by the internal list of
      * {@code versionedReturnOrderBook}
      */
     @Override
-    public ObservableList<Order> getFilteredReturnOrderList() {
+    public ObservableList<ReturnOrder> getFilteredReturnOrderList() {
         return filteredReturnOrders;
     }
 
     @Override
-    public void updateFilteredReturnOrderList(Predicate<Order> predicate) {
+    public void updateFilteredReturnOrderList(Predicate<ReturnOrder> predicate) {
         requireNonNull(predicate);
         filteredReturnOrders.setPredicate(predicate);
     }

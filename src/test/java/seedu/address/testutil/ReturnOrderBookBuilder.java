@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import seedu.address.model.order.Order;
-import seedu.address.model.returnorder.ReturnOrderBook;
+import seedu.address.model.ReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * A utility class to help with building ReturnOrderbook objects.
@@ -23,8 +23,8 @@ public class ReturnOrderBookBuilder {
     /**
      * Adds a new {@code Order} to the {@code OrderBook} that we are building.
      */
-    public ReturnOrderBookBuilder withReturnOrder(Order order) {
-        orderBook.addReturnOrder(order);
+    public ReturnOrderBookBuilder withReturnOrder(ReturnOrder returnOrder) {
+        orderBook.addReturnOrder(returnOrder);
         return this;
     }
 

@@ -1,12 +1,12 @@
-package seedu.address.model.returnorder;
+package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.order.Order;
 import seedu.address.model.order.UniqueReturnOrderList;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * Wraps all data at the return-order-book level
@@ -34,8 +34,8 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
      * Replaces the contents of the return order list with {@code returnOrders}.
      * {@code returnOrders} must not contain duplicate returnOorders.
      */
-    public void setReturnOrders(List<Order> orders) {
-        this.returnOrders.setReturnOrders(orders);
+    public void setReturnOrders(List<ReturnOrder> returnOrders) {
+        this.returnOrders.setReturns(returnOrders);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
      * Returns true if an return return order with the same identity as {@code returnOrder} exists in
      * the return order book.
      */
-    public boolean hasReturnOrder(Order returnOrder) {
+    public boolean hasReturnOrder(ReturnOrder returnOrder) {
         requireNonNull(returnOrder);
         return returnOrders.contains(returnOrder);
     }
@@ -62,7 +62,7 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
      * Adds an return order to the return order book.
      * The return order must not already exist in the return order book.
      */
-    public void addReturnOrder(Order p) {
+    public void addReturnOrder(ReturnOrder p) {
         returnOrders.add(p);
     }
 
@@ -72,7 +72,7 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
      * The order identity of {@code editedReturnOrder} must not be the same as another existing return order in the
      * return order book.
      */
-    public void setReturnOrder(Order target, Order editedReturnOrder) {
+    public void setReturnOrder(ReturnOrder target, ReturnOrder editedReturnOrder) {
         requireNonNull(editedReturnOrder);
         returnOrders.setReturnOrder(target, editedReturnOrder);
     }
@@ -81,27 +81,18 @@ public class ReturnOrderBook implements ReadOnlyReturnOrderBook {
      * Removes {@code key} from this {@code ReturnOrderBook}.
      * {@code key} must exist in the return order book.
      */
-    public void removeReturnOrder(Order key) {
+    public void removeReturnOrder(ReturnOrder key) {
         returnOrders.remove(key);
     }
 
-    public void deliverReturnOrder(Order target) {
-        returnOrders.deliver(target);
-    }
-
-    public void setDeliveryStatus(Order target) {
-        returnOrders.setToBeDelivered(target);
-    }
-
     //// util methods
-
     @Override
     public String toString() {
         return returnOrders.asUnmodifiableObservableList().size() + " return orders";
     }
 
     @Override
-    public ObservableList<Order> getReturnOrderList() {
+    public ObservableList<ReturnOrder> getReturnOrderList() {
         return returnOrders.asUnmodifiableObservableList();
     }
 

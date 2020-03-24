@@ -1,4 +1,4 @@
-package seedu.address.model.order;
+package seedu.address.model.order.returnorder;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -6,13 +6,21 @@ import java.util.Objects;
 
 import seedu.address.model.comment.Comment;
 import seedu.address.model.itemtype.TypeOfItem;
+import seedu.address.model.order.Address;
+import seedu.address.model.order.Email;
+import seedu.address.model.order.Name;
+import seedu.address.model.order.Order;
+import seedu.address.model.order.Parcel;
+import seedu.address.model.order.Phone;
+import seedu.address.model.order.TimeStamp;
+import seedu.address.model.order.TransactionId;
+import seedu.address.model.order.Warehouse;
 
 /**
  * Represents a Order in the order book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Order extends Parcel {
-
+public class ReturnOrder extends Parcel {
     // Identity fields
     private final TransactionId tid;
     private final Name name;
@@ -20,7 +28,6 @@ public class Order extends Parcel {
     private final Email email;
 
     // Data fields
-    private final CashOnDelivery cod;
     private final Address address;
     private final TimeStamp timestamp;
     private final Warehouse warehouse;
@@ -28,12 +35,13 @@ public class Order extends Parcel {
     private final TypeOfItem itemType;
     private boolean deliveryStatus;
     private boolean isReturn;
+
     /**
      * Every field must be present and not null.
      */
-    public Order(TransactionId tid, Name name, Phone phone, Email email, Address address, TimeStamp timestamp,
-                 Warehouse warehouse, CashOnDelivery cod, Comment comment, TypeOfItem itemType) {
-        requireAllNonNull(tid, name, phone, email, address, timestamp, warehouse, cod, comment, itemType);
+    public ReturnOrder(TransactionId tid, Name name, Phone phone, Email email, Address address, TimeStamp timestamp,
+                 Warehouse warehouse, Comment comment, TypeOfItem itemType) {
+        requireAllNonNull(tid, name, phone, email, address, timestamp, warehouse, comment, itemType);
         this.tid = tid;
         this.name = name;
         this.phone = phone;
@@ -41,11 +49,28 @@ public class Order extends Parcel {
         this.address = address;
         this.timestamp = timestamp;
         this.warehouse = warehouse;
-        this.cod = cod;
         this.comment = comment;
         this.itemType = itemType;
-        this.deliveryStatus = false;
-        this.isReturn = false;
+        this.deliveryStatus = true;
+        this.isReturn = true;
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public ReturnOrder(Order order) {
+        requireAllNonNull(order);
+        this.tid = order.getTid();
+        this.name = order.getName();
+        this.phone = order.getPhone();
+        this.email = order.getEmail();
+        this.address = order.getAddress();
+        this.timestamp = order.getTimestamp();
+        this.warehouse = order.getWarehouse();
+        this.comment = order.getComment();
+        this.itemType = order.getItemType();
+        this.deliveryStatus = true;
+        this.isReturn = true;
     }
 
     public TransactionId getTid() {
@@ -76,10 +101,6 @@ public class Order extends Parcel {
         return warehouse;
     }
 
-    public CashOnDelivery getCash() {
-        return cod;
-    }
-
     public Comment getComment() {
         return comment;
     }
@@ -92,23 +113,23 @@ public class Order extends Parcel {
         return deliveryStatus;
     }
 
-    public void setDeliveryStatus(boolean status) {
-        deliveryStatus = status;
+    public boolean isReturn() {
+        return isReturn;
+    }
+
+    public void setDeliveryStatus(boolean deliveryStatus) {
+        this.deliveryStatus = deliveryStatus;
     }
 
     public void setIsReturn(boolean isReturn) {
         this.isReturn = isReturn;
     }
 
-    public boolean isReturn() {
-        return isReturn;
-    }
-
     /**
      * Returns true if both orders of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two orders.
      */
-    public boolean isSameOrder(Order otherOrder) {
+    public boolean isSameReturn(ReturnOrder otherOrder) {
         if (otherOrder == this) {
             return true;
         }
@@ -116,7 +137,8 @@ public class Order extends Parcel {
         return otherOrder != null
                 && otherOrder.getTid().equals(getTid())
                 && otherOrder.getName().equals(getName())
-                && otherOrder.getPhone().equals(getPhone());
+                && otherOrder.getPhone().equals(getPhone())
+                && otherOrder.getEmail().equals(getEmail());
     }
 
     /**
@@ -129,11 +151,11 @@ public class Order extends Parcel {
             return true;
         }
 
-        if (!(other instanceof Order)) {
+        if (!(other instanceof ReturnOrder)) {
             return false;
         }
 
-        Order otherOrder = (Order) other;
+        ReturnOrder otherOrder = (ReturnOrder) other;
         return otherOrder.getTid().equals(getTid())
                 && otherOrder.getName().equals(getName())
                 && otherOrder.getPhone().equals(getPhone())
@@ -142,15 +164,15 @@ public class Order extends Parcel {
                 && otherOrder.getTimestamp().equals(getTimestamp())
                 && otherOrder.getWarehouse().equals(getWarehouse())
                 && otherOrder.getComment().equals(getComment())
-                && otherOrder.getCash().equals(getCash())
                 && otherOrder.getItemType().equals(getItemType())
-                && (otherOrder.isDelivered() == isDelivered());
+                && (otherOrder.isDelivered() == isDelivered())
+                && (otherOrder.isReturn() == isReturn());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tid, name, phone, email, address, timestamp, warehouse, cod, comment, itemType);
+        return Objects.hash(tid, name, phone, email, address, timestamp, warehouse, comment, itemType);
     }
 
     @Override
@@ -169,22 +191,12 @@ public class Order extends Parcel {
                 .append(getTimestamp())
                 .append(" Warehouse: ")
                 .append(getWarehouse())
-                .append(" Cash On Delivery: ")
-                .append(getCash())
                 .append(" Comment: ")
                 .append(getComment())
                 .append(" Item Type: ")
-                .append(getItemType());
-        if (this.isDelivered()) {
-            builder.append(" Delivery Status: ").append("Delivered");
-        } else {
-            builder.append(" Delivery Status: ").append("Not Delivered");
-        }
-        if (this.isReturn()) {
-            builder.append(" Parcel Status: ").append("Return Order");
-        } else {
-            builder.append(" Parcel Status: ").append("Delivery Order");
-        }
+                .append(getItemType())
+                .append(" Parcel Status: ")
+                .append("Return Order");
         return builder.toString();
     }
 

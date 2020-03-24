@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrderBook;
+import seedu.address.model.ReadOnlyReturnOrderBook;
+import seedu.address.model.ReturnOrderBook;
 
 /**
  * Represents a storage for {@link ReturnOrderBook}.

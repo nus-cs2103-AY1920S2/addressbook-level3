@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.order.Order;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrderBook;
+import seedu.address.model.ReadOnlyReturnOrderBook;
+import seedu.address.model.ReturnOrderBook;
+import seedu.address.model.order.returnorder.ReturnOrder;
 
 /**
  * An Immutable OrderBook that is serializable to JSON format.
@@ -47,11 +47,11 @@ class JsonSerializableReturnOrderBook {
     public ReturnOrderBook toModelType() throws IllegalValueException {
         ReturnOrderBook returnOrderBook = new ReturnOrderBook();
         for (JsonAdaptedReturnOrder jsonAdaptedReturnOrder : returnOrders) {
-            Order order = jsonAdaptedReturnOrder.toModelType();
-            if (returnOrderBook.hasReturnOrder(order)) {
+            ReturnOrder returnOrder = jsonAdaptedReturnOrder.toModelType();
+            if (returnOrderBook.hasReturnOrder(returnOrder)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_RETURN_ORDER);
             }
-            returnOrderBook.addReturnOrder(order);
+            returnOrderBook.addReturnOrder(returnOrder);
         }
         return returnOrderBook;
     };
