@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.DuplicatePersonException;
 import seedu.address.model.profile.exceptions.PersonNotFoundException;
 

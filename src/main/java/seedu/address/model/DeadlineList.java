@@ -1,23 +1,17 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.exceptions.DuplicatePersonException;
-import seedu.address.model.profile.exceptions.PersonNotFoundException;
+import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 /**
- * Creates a new ProfileList object which contains Profile objects.
+ * Creates a new DeadlineList object which contains Deadline objects.
  */
 public class DeadlineList {
 
@@ -37,32 +31,46 @@ public class DeadlineList {
         return deadlineList; // TODO: Implement read-only version of profileList, similar to address book
     }
 
+    /**
+     * Add {@code deadline} to {@code DeadlineList}.
+     */
     public void addDeadline(Deadline deadline) {
         requireNonNull(deadline);
 
         this.deadlineList.add(deadline);
     }
 
+    /**
+     * Removes {@code deadline} from this {@code DeadlineList}.
+     * deadline object is created with only moduleCode and description. Thus, need to iterate through DeadlineList
+     * {@code key} must exist in the profile list.
+     */
     public void deleteDeadline(Deadline deadline) {
         requireNonNull(deadline);
         //can implement throw DeadlineNotFoundException
 
         Iterator<Deadline> iter = this.deadlineList.iterator();
+        Boolean flag = false;
         while (iter.hasNext()) {
             Deadline dl = iter.next();
             if (dl.getModuleCode().equals(deadline.getModuleCode())
                     && dl.getDescription().equals(deadline.getDescription())) {
                 iter.remove();
+                flag = true;
             }
         }
 
+        if (!flag) {
+            throw new DeadlineNotFoundException();
+        }
     }
 
-
+    /**
+     * Resets the existing data of this {@code DeadlineList} with {@code newData}.
+     */
     public void resetData(DeadlineList deadlineList) {
         requireNonNull(deadlineList);
-
-       this.deadlineList.clear();
+        this.deadlineList.clear();
     }
 }
 

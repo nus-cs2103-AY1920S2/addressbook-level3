@@ -25,7 +25,7 @@ public class ProfileManager implements Model {
     private DeadlineList deadlineList;
     private final UserPrefs userPrefs;
     private final FilteredList<Profile> filteredProfiles;
-    private  FilteredList<Deadline> filteredDeadlines;
+    private FilteredList<Deadline> filteredDeadlines;
 
     public ProfileManager(ProfileList profileList, ReadOnlyUserPrefs userPrefs) {
         super();
