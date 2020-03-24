@@ -1,4 +1,4 @@
-package csdev.couponstash.commons;
+package csdev.couponstash.commons.moneysymbol;
 
 /**
  * Mutable class for holding the money symbol
@@ -9,14 +9,7 @@ package csdev.couponstash.commons;
  * Follows the singleton pattern. Only one MoneySymbol exists
  * and acts as the universal source of truth for every occurence.
  */
-public class MoneySymbol {
-    private static MoneySymbol theOne = null;
-    private String moneySymbol;
-
-    private MoneySymbol(String moneySymbol) {
-        this.moneySymbol = moneySymbol;
-    }
-
+public interface MoneySymbol {
     /**
      * Returns the single MoneySymbol if it exists.
      * If it does not exist, create it with value
@@ -26,11 +19,11 @@ public class MoneySymbol {
      *                if the MoneySymbol did not exist.
      * @return The MoneySymbol.
      */
-    public static MoneySymbol getMoneySymbol(String initial) {
-        if (MoneySymbol.theOne == null) {
-            MoneySymbol.theOne = new MoneySymbol(initial);
+    static MoneySymbol getMoneySymbol(String initial) {
+        if (MoneySymbolImpl.theOne == null) {
+            MoneySymbolImpl.theOne = new MoneySymbolImpl(initial);
         }
-        return MoneySymbol.theOne;
+        return MoneySymbolImpl.theOne;
     }
 
     /**
@@ -39,23 +32,12 @@ public class MoneySymbol {
      * @param newSymbol The new symbol to be set.
      * @return Returns the old symbol.
      */
-    public String setString(String newSymbol) {
-        String oldSymbol = moneySymbol;
-        this.moneySymbol = newSymbol;
-        return oldSymbol;
-    }
+    String setString(String newSymbol);
 
     /**
      * Gets the String representing money symbol
      * stored in this MoneySymbol object.
      * @return The current money symbol.
      */
-    public String getString() {
-        return this.moneySymbol;
-    }
-
-    @Override
-    public String toString() {
-        return this.moneySymbol;
-    }
+    String getString();
 }

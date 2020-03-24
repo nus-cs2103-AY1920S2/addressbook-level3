@@ -3,7 +3,7 @@ package csdev.couponstash.commons.core;
 import java.io.Serializable;
 import java.util.Objects;
 
-import csdev.couponstash.commons.MoneySymbol;
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 
 /**
  * This class holds the settings of the CouponStash

@@ -3,8 +3,8 @@ package csdev.couponstash.ui;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
-import csdev.couponstash.commons.MoneySymbol;
 import csdev.couponstash.commons.core.LogsCenter;
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.commons.util.DateUtil;
 import csdev.couponstash.model.coupon.Coupon;
 

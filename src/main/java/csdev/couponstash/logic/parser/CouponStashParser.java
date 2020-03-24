@@ -6,7 +6,7 @@ import static csdev.couponstash.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import csdev.couponstash.commons.MoneySymbol;
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 import csdev.couponstash.logic.commands.AddCommand;
 import csdev.couponstash.logic.commands.ArchiveCommand;
 import csdev.couponstash.logic.commands.ClearCommand;

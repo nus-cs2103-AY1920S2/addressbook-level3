@@ -157,7 +157,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredCouponList(Predicate<Coupon> predicate) {
+        public void updateFilteredCouponList(Predicate<? super Coupon> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -52,9 +52,15 @@ public class JsonAdaptedUserPrefs {
      */
     public UserPrefs convertToNormalType() {
         UserPrefs newUserPrefs = new UserPrefs();
-        newUserPrefs.setGuiSettings(this.guiSettings);
-        newUserPrefs.setStashSettings(this.stashSettings.convertToNormalType());
-        newUserPrefs.setCouponStashFilePath(this.couponStashFilePath);
+        if (this.guiSettings != null) {
+            newUserPrefs.setGuiSettings(this.guiSettings);
+        }
+        if (this.stashSettings != null) {
+            newUserPrefs.setStashSettings(this.stashSettings.convertToNormalType());
+        }
+        if (this.couponStashFilePath != null) {
+            newUserPrefs.setCouponStashFilePath(this.couponStashFilePath);
+        }
         return newUserPrefs;
     }
 }

@@ -3,8 +3,8 @@ package csdev.couponstash.storage;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import csdev.couponstash.commons.MoneySymbol;
 import csdev.couponstash.commons.core.StashSettings;
+import csdev.couponstash.commons.moneysymbol.MoneySymbol;
 
 /**
  * Jackson-friendly version of {@link StashSettings}.
