@@ -34,6 +34,7 @@ public class NewCommand extends Command {
             RelativePath toConvert = (RelativePath) this.path;
             this.path = toConvert.toAbsolutePath(notablyModel.getCurrentlyOpenPath());
         }
+
         if (notablyModel.hasPath((AbsolutePath) this.path)) {
             throw new CommandException("Block with the same Title detected.");
         }
