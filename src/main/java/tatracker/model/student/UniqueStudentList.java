@@ -3,6 +3,7 @@ package tatracker.model.student;
 import static java.util.Objects.requireNonNull;
 import static tatracker.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -27,6 +28,12 @@ public class UniqueStudentList implements Iterable<Student> {
     private final ObservableList<Student> internalList = FXCollections.observableArrayList();
     private final ObservableList<Student> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
+    private Comparator<Student> alphabetically = new Comparator<Student>() {
+        @Override
+        public int compare(Student student, Student other) {
+            return (student.getName().toString()).compareTo(other.getName().toString());
+        }
+    };
 
     /**
      * Returns true if the list contains an equivalent student as the given argument.
@@ -103,6 +110,25 @@ public class UniqueStudentList implements Iterable<Student> {
         }
 
         internalList.setAll(students);
+    }
+
+    /**
+     * returns alphabetical comparator.
+     */
+    public Comparator<Student> getAlphabetically() {
+        return alphabetically;
+    }
+
+    /**
+     * Sorts the students alphabetically.
+     */
+    public void sortAlphabetically() {
+        FXCollections.sort(internalList, alphabetically);
+    }
+
+    //TODO
+    public void sortByRating() {
+
     }
 
     /**

@@ -71,6 +71,21 @@ public class Group {
     }
 
     /**
+     * Sorts students alphabetically.
+     */
+    public void sortStudentsAlphabetically() {
+        students.sortAlphabetically();
+    }
+
+    /**
+     * Sorts students by rating.
+     */
+    public void sortStudentsByRating() {
+        //TODO
+        //students.sortByRating();
+    }
+
+    /**
      * Returns the group identifier.
      */
     public String getIdentifier() {

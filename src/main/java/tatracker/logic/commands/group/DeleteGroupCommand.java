@@ -44,7 +44,7 @@ public class DeleteGroupCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Module module = new Module(moduleCode, null);
+        Module module = new Module(moduleCode, "");
 
         if (!model.hasModule(module)) {
             throw new CommandException(MESSAGE_INVALID_MODULE_CODE);
