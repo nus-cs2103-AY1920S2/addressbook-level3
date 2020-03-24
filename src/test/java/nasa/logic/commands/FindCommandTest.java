@@ -71,7 +71,6 @@ public class FindCommandTest {
         assertTrue(model.equals(expectedModel));
         try {
             CommandResult res = findCommand.execute(model);
-            System.out.println(res.getFeedbackToUser());
             assertEquals(res, new CommandResult(expectedMessage));
         } catch (CommandException e) {
             throw new AssertionError("Execution of command should not fail.", e);
