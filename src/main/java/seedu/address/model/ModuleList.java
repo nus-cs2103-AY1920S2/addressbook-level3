@@ -1,10 +1,12 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 
@@ -46,10 +48,10 @@ public class ModuleList {
      * Returns the module with module code {@code moduleCode} in the module list, if it exists.
      * @throws NoSuchElementException No module in the module list contains {@code moduleCode}.
      */
-    public Module getModuleWithModuleCode(ModuleCode moduleCode) {
+    public Module getModuleWithModuleCode(ModuleCode moduleCode) throws ParseException {
         requireNonNull(moduleCode);
         if (!hasModuleWithModuleCode(moduleCode)) {
-            throw new NoSuchElementException("Module with module code " + moduleCode.toString() + " does not exist");
+            throw new ParseException(MESSAGE_INVALID_MODULE);
         }
         for (Module mod: moduleList) {
             if (mod.getModuleCode().equals(moduleCode)) {
