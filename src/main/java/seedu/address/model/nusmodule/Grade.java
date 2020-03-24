@@ -18,12 +18,14 @@ public enum Grade {
     S(0.0, "S", true, true),
     U(0.0, "U", false, false);
 
+    public static final String MESSAGE_CONSTRAINTS = "placeholder";
+
     private final double point;
     private final String text;
     private final boolean isPassed;
     private final boolean isSatisfactory;
 
-    private Grade(double point, String text, boolean isPassed, boolean isSatisfactory) {
+    Grade(double point, String text, boolean isPassed, boolean isSatisfactory) {
         this.point = point;
         this.text = text;
         this.isPassed = isPassed;
@@ -31,7 +33,7 @@ public enum Grade {
     }
 
     public static Grade getGrade(String text) {
-        Grade grade = F;
+        Grade grade = null;
         for (Grade g : values()) {
             if (g.text.equals(text)) {
                 grade = g;
@@ -66,5 +68,13 @@ public enum Grade {
 
     public String getText() {
         return this.text;
+    }
+
+    /**
+     * Returns if a given string is a valid grade.
+     */
+    public static boolean isValidGrade(String test) {
+        //placeholder, implements later
+        return true;
     }
 }

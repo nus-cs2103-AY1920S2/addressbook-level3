@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com ` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -56,31 +56,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 - Format: `help`
 
-=== Adding a person: `addContact`
+=== Adding a person: `add`
 
 - Adds a person to the address book +
-Format: `addContact n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
 
 - Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com p/1234567 t/criminal`
 
 
-=== Listing all persons : `contactList`
+=== Listing all persons : `list`
 
 - Shows a list of all persons in the address book.
 
-- Format: `contactList`
+- Format: `list`
 
-=== Editing a person : `contactEdit`
+=== Editing a person : `edit`
 
 - Edits an existing person in the address book.
 
-- Format: `contactEdit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…`
+- Format: `contactEdit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…`
 
 ****
 •	Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …
@@ -97,11 +97,11 @@ A person can have any number of tags (including 0)
 * `edit 2 n/Betsy Crower t/` +
  Edits the name of the `2nd person` to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: contactFind
+=== Locating persons by name: find
 
 - Finds persons whose names contain any of the given keywords.
 
-- Format: `contactFind KEYWORD [MORE_KEYWORDS]`
+- Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g hans will match Hans
@@ -118,11 +118,11 @@ Examples:
 * `find Betsy Tim John` +
  Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `contactDelete`
+=== Deleting a person : `delete`
 
 - Deletes the specified person from the address book.
 
-- Format: `contactDelete INDEX`
+- Format: `delete INDEX`
 
 ****
 * Deletes the person at the specified INDEX.
@@ -139,7 +139,7 @@ Examples:
  `delete 1` +
  Deletes the 1st person in the results of the find command.
 
-=== Clearing all entries : `contactClear`
+=== Clearing all entries : `clear`
 
 - Clears all entries from the address book.
 
@@ -187,13 +187,14 @@ professor’s contact associated with the module.
 
 - Format:
 
-a.	`diary log {Limit}`: shows the most recent few amount of diary specified in limit, if no limit is specified,
-it will be limited to the most recent 10.
-b.	`diary {DD-MM-YYYY}` : shows the diary entry at the specified date if there is any
-c.	`diary add {ENTRY}` : Adds the specific entry to the diary log, date and time will be logged automatically
-d.	`diary delete {ENTRY ID}` : Deletes the specified diary ID’s entry.
-e.  `diary weather {ID} {Weather}` :  tag the diary with the specific ID with a specific weather (e.g. sunny, cloudy)
-f.  `diary emotion {ID} {Emotion}` :  tag the diary with the specific ID with a specific emotion (e.g. happy, blue)
+a.	`diary log {Limit}`: Shows the most recent diary entry IDs. The number of entry IDs is capped at limit. If no limit
+        is given, shows the most recent 10 diary entry IDs.
+b.  `diary show {ENTRY ID}` : Shows the diary entry for the specified entry ID.
+c.	`diary show {DD-MM-YYYY}` : Shows the diary entry at the specified date if there is any
+d.	`diary add {ENTRY}` : Adds the specific entry to the diary book, date and time will be logged automatically
+e.	`diary delete {ENTRY ID}` : Deletes the specified diary ID’s entry.
+f.  `diary weather {ID} {Weather}` :  tag the diary with the specific ID with a specific weather (e.g. sunny, cloudy)
+g.  `diary emotion {ID} {Emotion}` :  tag the diary with the specific ID with a specific emotion (e.g. happy, blue)
 
 
 === Todo list: `todo`
@@ -227,6 +228,18 @@ a.	`mymodplan`: shows module planning list
 b.	`mymodplan add {/MODULE CODE}`: adds a module to the module plan
 c.	`mymodplan done {/MODULE CODE}`: marks a module as taken/done
 
+
+=== Note Taking: `notes`
+
+- Allows for users to create documents for notes, organise their notes in folders.
+Default location is set to user's desktop.
+
+- Format: notes ops/{COMMAND} loc/{DIRECTORY}
+
+a.	`notes ops/list loc/NUS/`: shows content in usr/Desktop/NUS/ folder, content will be updated in the UI
+b.	`notes ops/open loc/test.doc`: Opens the file test.doc at usr/Desktop, if file is not present, error message will be shown.
+c.	`notes ops/create loc/test.doc`: Creates the file test.doc at usr/Desktop, if file is already present, error message will be shown.
+
 === Command Summary
 
 •	contactAdd contactAdd n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… +
@@ -246,7 +259,8 @@ e.g. `modreq computer science`
 •	help : help
 •	diary :
 * diary log {Limit}
-* diary {DD-MM-YYYY}
+* diary show {ENTRY ID}
+* diary show {DD-MM-YYYY}
 * diary add {ENTRY}
 * diary delete {ENTRY ID}
 * diary weather {ID} {Weather}
@@ -260,3 +274,7 @@ e.g. `modreq computer science`
 •	mymodplan
 •	mymodplan add {/MODULE CODE}
 •	mymodplan done {/MODULE CODE}
+•	notes :
+* notes ops/open loc/{DIRECTORY}
+* notes ops/create loc/{DIRECTORY}
+* notes ops/list loc/{DIRECTORY}

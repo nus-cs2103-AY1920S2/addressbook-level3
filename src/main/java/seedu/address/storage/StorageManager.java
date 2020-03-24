@@ -74,4 +74,19 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    // ================ diaryBook methods ==============================
+
+    @Override
+    public Path getDiaryBookFilePath() {
+        return addressBookStorage.getDiaryBookFilePath();
+    }
+
+
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readDiaryBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return addressBookStorage.readDiaryBook(filePath);
+    }
+
 }
