@@ -38,14 +38,4 @@ class ModelManagerTest {
         assertEquals("MPSH", list.get(4).getName().toString());
     }
 
-    @Test
-    void addOnList_test() {
-        ModelManager modelManager = new ModelManager(NASABOOK_TYPE_1, new HistoryBook<UniqueModuleList>(),
-                new UserPrefs());
-        ObservableList<Activity> list = modelManager.getFilteredActivityList(new ModuleCode("CS2103T"));
-        modelManager.deleteModule(new ModuleCode("CS2103T"));
-        modelManager.hasModule(new ModuleCode("CS2103T"));
-        System.out.println(modelManager.getNasaBook().getModuleList());
-    }
-
 }
