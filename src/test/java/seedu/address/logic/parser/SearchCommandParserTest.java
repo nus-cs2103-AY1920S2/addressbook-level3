@@ -10,7 +10,6 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SearchCommand;
-import seedu.address.model.order.KeywordContainsOrderPrefix;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 
 public class SearchCommandParserTest {

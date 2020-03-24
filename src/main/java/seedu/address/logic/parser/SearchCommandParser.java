@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.KeywordContainsOrderPrefix;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 
 /**

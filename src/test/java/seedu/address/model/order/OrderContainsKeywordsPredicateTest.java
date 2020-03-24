@@ -82,6 +82,10 @@ public class OrderContainsKeywordsPredicateTest {
         assertFalse(predicate.test(order));
     }
 
+    /**
+     * Used to generate pass test case parameters for general search.
+     * @return Stream of parameters used to pass test cases for specific search.
+     */
     private static Stream<Arguments> generaliseParametersGeneralSearchForSuccess() {
         return Stream.of(
             // TID checks
@@ -197,6 +201,10 @@ public class OrderContainsKeywordsPredicateTest {
         );
     }
 
+    /**
+     * Used to generate fail test case parameters for general search.
+     * @return Stream of parameters used to test fail cases for specific search.
+     */
     private static Stream<Arguments> generaliseParametersGeneralSearchForFailure() {
         return Stream.of(
             // Check no matching keywords TID given
@@ -292,10 +300,15 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderContainsKeywordsPredicate(Arrays.asList("Go", "ld")),
                 new OrderBuilder().withItemType("Gold").build()
             )
-            // TODO Email
         );
     }
 
+
+    /**
+     * Used to generate pass test case parameters for specific search, which utilises the overloaded constructor
+     * of {@code OrderContainsKeywordPredicate}.
+     * @return Stream of parameters used to test fail cases for specific search.
+     */
     private static Stream<Arguments> generaliseParametersSpecificSearchForSuccess() {
         // Proxy ArgumentMultimap to test overload constructor
         ArgumentMultimap am1 = new ArgumentMultimap();
@@ -414,11 +427,14 @@ public class OrderContainsKeywordsPredicateTest {
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Arrays.asList("Gold", "Silver", "Plastic"), am9),
                 new OrderBuilder().withItemType("Gold").build())
-            // Email checking
-            // TODO
         );
     }
 
+    /**
+     * Used to generate fail test case parameters for specific search, which utilises the overloaded constructor
+     * of {@code OrderContainsKeywordPredicate}.
+     * @return Stream of parameters that should fail for specific search.
+     */
     private static Stream<Arguments> generaliseParametersSpecificSearchForFailure() {
         ArgumentMultimap am1 = new ArgumentMultimap();
         am1.put(PREFIX_ADDRESS, "");
