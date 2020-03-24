@@ -30,15 +30,18 @@ public class CourseFocusArea {
         output.append("\n");
 
         if (!primaries.isEmpty()) {
-            output.append("Area Primaries");
+            output.append("\n");
+            output.append("Area Primaries:");
             for (ModuleCode moduleCode : primaries) {
                 output.append("\n");
                 output.append(moduleCode);
             }
         }
 
+        output.append("\n");
         if (!electives.isEmpty()) {
-            output.append("\nArea Electives");
+            output.append("\n");
+            output.append("Area Electives:");
             for (ModuleCode moduleCode : electives) {
                 output.append("\n");
                 output.append(moduleCode);
