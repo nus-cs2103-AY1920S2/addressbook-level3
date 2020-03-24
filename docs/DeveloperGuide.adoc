@@ -255,8 +255,8 @@ The UniqueGroupList contains a list of all the groups of a module that the user
 is affiliated with. Each group contains a UniqueStudentsList that contains the
 students in that group.
 
-The UniqueSessionList contains a list of all the done sessions associated with the module. This list
-is used in the TSS view.
+The UniqueSessionList contains a list of all the done sessions associated with the module.
+This list is used in the TSS view.
 
 ==== Implementation of the Module Add and Delete Commands
 
