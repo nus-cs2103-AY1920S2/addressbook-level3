@@ -56,7 +56,7 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case FindSupplierCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            return new FindSupplierCommandParser().parse(arguments);
 
         case BuyCommand.COMMAND_WORD:
             return new BuyCommandParser().parse(arguments);
