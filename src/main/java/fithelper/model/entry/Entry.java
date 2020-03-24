@@ -261,7 +261,7 @@ public class Entry {
     /**
      * Checks whether two entries have any time clashes, returns true if have
      */
-    boolean hasTimeClashes(Entry entry, Entry toBeCompared) {
+    public boolean hasTimeClashes(Entry entry, Entry toBeCompared) {
         long duration = entry.getDuration().getHours() * 60 + entry.getDuration().getMinutes();
         long difference = java.time.Duration.between(entry.getTime().dateTime,
                 toBeCompared.getTime().dateTime).toMinutes();

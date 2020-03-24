@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import fithelper.model.calculator.CalorieCalculatorByDateRange;
 import fithelper.model.entry.Entry;
 import fithelper.ui.UiPart;
 
@@ -37,7 +36,7 @@ public class EntryList extends UiPart<AnchorPane> {
     private ObservableList<Entry> combined;
 
     public EntryList(ObservableList<Entry> foodList, ObservableList<Entry> sportList, LocalDateTime
-            dateToSet, CalorieCalculatorByDateRange stats) {
+            dateToSet) {
         super(FXML);
         time = dateToSet;
         listTitle.setText(time.getMonth().toString());
@@ -58,9 +57,9 @@ public class EntryList extends UiPart<AnchorPane> {
         sortedDates.addAll(uniqueDateSet);
         java.util.Collections.sort(sortedDates);
 
-        for (LocalDateTime dateTime : sortedDates) {
-            List<Entry> entries = entriesByDate.get(dateTime);
-        }
+        //for (LocalDateTime dateTime : sortedDates) {
+        //List<Entry> entries = entriesByDate.get(dateTime);
+        //}
     }
 
     /**
