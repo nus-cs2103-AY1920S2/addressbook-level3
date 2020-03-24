@@ -13,10 +13,10 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("add n/John Doe p/98765432 e/johnd@example.com m/A0181234G")
+[-> LogicManager : execute("add n/John Doe p/98765432 \ne/johnd@example.com m/A0181234G")
 activate LogicManager
 
-LogicManager -> TaTrackerParser : parseCommand("add n/John Doe p/98765432 e/johnd@example.com m/A0181234G")
+LogicManager -> TaTrackerParser : parseCommand("add n/John Doe p/98765432 \ne/johnd@example.com m/A0181234G")
 activate TaTrackerParser
 
 create AddStudentCommandParser
@@ -26,7 +26,7 @@ activate AddStudentCommandParser
 AddStudentCommandParser --> TaTrackerParser
 deactivate AddStudentCommandParser
 
-TaTrackerParser -> AddStudentCommandParser : parse("n/John Doe p/98765432 e/johnd@example.com m/A0181234G")
+TaTrackerParser -> AddStudentCommandParser : parse("n/John Doe p/98765432 \ne/johnd@example.com m/A0181234G")
 activate AddStudentCommandParser
 
 create AddStudentCommand
@@ -48,7 +48,7 @@ deactivate TaTrackerParser
 LogicManager -> AddStudentCommand : execute()
 activate AddStudentCommand
 
-AddStudentCommand -> Model : addStudent("John Doe", "98765432", "johnd@example.com", "A0181234G")
+AddStudentCommand -> Model : addStudent("John Doe", "98765432", \n"johnd@example.com", "A0181234G")
 activate Model
 
 Model --> AddStudentCommand
