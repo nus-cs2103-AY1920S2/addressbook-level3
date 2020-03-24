@@ -278,6 +278,21 @@
           "focusAreaName": "Intelligent Systems",
           "primaries": ["CS3243", "CS3244", "EE3331C"],
           "electives": ["CS4244", "CS4246", "CS4248", "EE4305", "EE4308", "CS5242", "CS5339", "EE5094", "EE5907"]
+        },
+        {
+          "focusAreaName": "Interactive Digital Media",
+          "primaries": ["CS2108", "CS3240", "CS3241", "CS3242", "CS3247", "CS3249", "EE3731C"],
+          "electives": ["CS4240", "CS4243", "CS4247", "CS4249", "CS4347", "CS4351", "EE4212", "EE4604", "EE4704"]
+        },
+        {
+          "focusAreaName": "Large-Scale Computing",
+          "primaries": ["CS2102", "CS3210", "CS3211", "CS3230", "CS3235"],
+          "electives": ["CS3223", "CS4211", "CS4221", "CS4223", "CS4224", "CS4231", "EE4210", "EE4218"]
+        },
+        {
+          "focusAreaName": "System-On-A-Chip Design",
+          "primaries": ["CG3207", "EE3104C", "EE3408C"],
+          "electives": ["CS4223", "EE4104", "EE4112", "EE4218", "EE4415", "EE4505", "EE5518"]
         }
       ]
     }
