@@ -11,8 +11,6 @@ import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.Command;
 import nasa.logic.commands.DeleteActivityCommand;
 import nasa.logic.commands.DeleteModuleCommand;
-import nasa.logic.commands.EditActivityCommand;
-import nasa.logic.commands.EditModuleCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.FindCommand;
 import nasa.logic.commands.HelpCommand;
@@ -63,12 +61,6 @@ public class NasaBookParser {
 
         case AddDeadlineCommand.COMMAND_WORD:
             return new AddDeadlineCommandParser().parse(arguments);
-
-        case EditModuleCommand.COMMAND_WORD:
-            return new EditModuleCommandParser().parse(arguments);
-
-        case EditActivityCommand.COMMAND_WORD:
-            return new EditActivityCommandParser().parse(arguments);
 
         case DeleteActivityCommand.COMMAND_WORD:
             return new DeleteActivityCommandParser().parse(arguments);

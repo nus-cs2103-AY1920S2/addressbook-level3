@@ -1,7 +1,6 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static nasa.logic.commands.addcommands.AddCommand.MESSAGE_DUPLICATED_ACTIVITY;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE_NAME;
 

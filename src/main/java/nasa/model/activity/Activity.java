@@ -11,11 +11,11 @@ import nasa.model.Regenerable;
  */
 public abstract class Activity implements Regenerable<Activity> {
 
-    private Status status;
-    private Name name;
-    private Date date;
-    private Note note;
-    private Priority priority;
+    protected Status status;
+    protected Name name;
+    protected Date date;
+    protected Note note;
+    protected Priority priority;
 
     public Activity(Name name, Note note) {
         requireAllNonNull(name);
@@ -182,7 +182,7 @@ public abstract class Activity implements Regenerable<Activity> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name,note, date, status, priority);
+        return Objects.hash(name, note, date, status, priority);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package nasa.commons.core;
 
-import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.Serializable;
@@ -12,8 +11,12 @@ import java.util.Objects;
  */
 public class GuiSettings implements Serializable {
 
-    private static final double DEFAULT_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().getHeight();;
-    private static final double DEFAULT_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private static final double DEFAULT_HEIGHT = Toolkit.getDefaultToolkit()
+            .getScreenSize()
+            .getHeight();;
+    private static final double DEFAULT_WIDTH = Toolkit.getDefaultToolkit()
+            .getScreenSize()
+            .getWidth();
 
     private final double windowWidth;
     private final double windowHeight;
