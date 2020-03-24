@@ -17,10 +17,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import tatracker.logic.commands.AddStudentCommand;
 import tatracker.logic.commands.CommandResult;
 import tatracker.logic.commands.ListCommand;
 import tatracker.logic.commands.exceptions.CommandException;
+import tatracker.logic.commands.student.AddStudentCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.model.Model;
 import tatracker.model.ModelManager;

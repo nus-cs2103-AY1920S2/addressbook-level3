@@ -94,7 +94,7 @@ public class ModelManager implements Model {
         return taTracker;
     }
 
-    //=========== Person List Methods ================================================================================
+    //=========== Student List Methods ================================================================================
 
     @Override
     public boolean hasStudent(Student student) {
