@@ -177,12 +177,14 @@ https://keylocation.sg/singapore/districts-map[this website]
 The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
 
 ==== Class Diagram for Nearby feature
+.Nearby Command Class Diagram
 image::NearbyClassDiagram.svg[]
 
 ==== Sequence Diagram for searching by postal sector
 The sequence diagram for the *Nearby Command* when searching by *postal sector*
 is shown below:
 
+.Nearby Command Sequence Diagram
 image::NearbyCommandSequenceDiagram1.svg[]
 
 The arguments passed to the Nearby Command will be parsed by the `NearbyCommandParser` class. +
@@ -216,7 +218,9 @@ A `CommandResult` is then generated and returned to the `LogicManager`.
 ==== Sequence Diagram for searching by area
 The sequence diagram for the *Nearby Command* when searching by *area* is shown below:
 
+.Nearby Command Sequence Diagram 2
 image::NearbyCommandSequenceDiagram2.svg[]
+
 The `NearbyCommandParser` will check for invalid arguments given by the user. +
 Invalid arguments can be either empty arguments or arguments with
 only whitespace characters.
@@ -239,7 +243,7 @@ The model will then be updated using the predicate obtained from the `getAreaPre
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
 
-
+[[import]]
 === Import feature
 The import feature allows users to save the trouble of adding the delivery orders and the return orders one by one
 when they have large amount of delivery orders or return orders to add into Delino.
@@ -248,12 +252,14 @@ The import feature was implemented as a `ImportCommand` in the `Logic` package.
 
 ==== Class Diagram for Import feature:
 
+.Import Command Class Diagram
 image::ImportClassDiagram.png[]
 
 ==== Sequence Diagram for importing the csv file.
 The sequence diagram for the *Import Command* when import the data from the  *csv file*
 is shown below:
 
+.Import Command Sequence Diagram
 image::ImportCommandSequenceDiagram.png[]
 
 The arguments passed to the Import Command will be parsed by the `ImportCommandParser` class. +
@@ -275,6 +281,8 @@ After the `ImportCommand` object is being returned to the `LogicManager`, the `L
 to run the execute the import Command, this is will be shown at the <<Execution of Import Command Sequence Diagram, Execution of Import Command Sequence Diagram>>.
 
 ==== Execution of Import Command Sequence Diagram
+
+.Import Command Sequence Diagram 2
 image::ImportCommandSequenceDiagram2.png[]
 
 The `execute(model)` function of the `ImportCommand` will first check if the data given starts with
@@ -286,6 +294,59 @@ or `ReturnCommand`. This will cause a delivery order or return order being added
 
 The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
 which is then pass back to the `LogicManager`.
+
+[[search]]
+=== Search feature
+The search function allow users to search for any orders according to the provided input. +
+There are two mode of searching, *general search* or *specific search*. +
+If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *general search* mode will be performed. +
+
+* *General search* will search for all fields in an order and return orders that have any matching fields. +
+
+If the user provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *specific search* will be performed. +
+
+* *Specfic search* will search orders based on the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`.
+
+==== Class Diagram for Search feature:
+
+.Search Command Class Diagram
+image::SearchCommandClassDiagram.svg[]
+
+==== Sequence Diagram for Search feature:
+
+The sequence diagram for the *Search Command* when searching for any orders that contain *Alice* in any of it's field is shown below:
+
+.Search Command Sequence Diagram
+image::SearchCommandSequenceDiagram.svg[]
+
+LogicManager first calls `parseCommand` with arguments representing the user input, `Alice`. The `SearchCommandParser` will then check for any invalid arguments passed by the user. +
+
+[TIP]
+====
+* If the given arguments are valid, `SearchCommandParser` will return  a new `SearchCommand` object. +
+* If the given arguments are invalid or empty, a `ParseException` object will be thrown (not shown in the diagram).
+====
+
+Upon validation of the arguments, `SearchCommandParser` will call for the `tokenize` static method in `ArgumentTokenizer` to get an `ArgumentMultimap` object containing all the user input keywords.
+Each keyword will be stored in the `ArgumentMultimap` object to it's corresponding prefix.
+If no prefix is given, `ArgumentMultimap` will store the user input as a value tagged to an empty string key; the empty string key is referred to as the *preamble*. +
+
+Using the `ArgumentMultimap` object, `SearchCommandParser` will check if the preamble is empty. +
+If the preamble is not empty, a *general search* will be performed in which the `SearchCommandParser` will call the
+`OrderContainsKeywordsPredicate` constructor. The constructor accepts the user input as a parameter (`keyword`). +
+If the preamble is empty, `SearchCommandParser` will call the overloaded constructor of `OrderContainsKeywordsPredicate`, passing the pre-processed user input as `keyword` and the `ArgumentMultimap`. +
+
+For both scenarios, `OrderContainsKeywordsPredicate` object will be returned to `SearchCommandParser`. After which, a new instance of `SearchCommand` object will be created and returned back to the `LogicManager` through `OrderBookParser`.
+
+.Search Command Sequence Diagram 2
+image::SearchCommandSequenceDiagram2.svg[]
+
+After which, the `LogicManager` will then call the `execute` function of `SearchCommand` object passing a `model` object as an argument. +
+The `model` will then update the list of shown orders using the `OrderContainsKeywordsPredicate` object.
+
+Lastly, a new `CommandResult` object will be created and returned to the `LogicManager`.
+
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -858,67 +919,70 @@ Any syntax used that does not correspond to the required format
 [[status-bar]] Status Bar::
 Refers to the display field showing the results of an executed command
 
+[[command_prefix]]
 .Command Prefix
 |===
 |Prefix |Meaning |Used in the following Command(s)
 
+|ot/
+|Order Type
+|<<import, Import>>
+
 |tid/
 |Transaction ID
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |n/
 |Customer Name
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |a/
 |Address
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |p/
 |Phone Number
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |e/
 |Email
-|Insert, Return, Edit
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
 
-|ts/
+|dts/
 |Delivery Date And Time
-|Insert
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+
+|rts/
+|Return Date and Time
+|<<return, Return>>, <<search, Search>>
 
 |w/
 |Warehouse Location
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |cod/
 |Cash On Delivery
-|Insert
+|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>
 
 |c/
 |Comments by Customer
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |type/
 |Type of Item
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 |===
 
+[[command_flags]]
 .Possible Command Flags
 |===
-|Command |Flag |Meaning
+|Flag |Meaning |Used in the following Command(s)
 
-|Clear
 |-f
 |Force clear, no user confirmation will be requested
-
-|Search
-|-n
-|Search using Name
-
-|Search
-|-t
-|Search using Transaction ID
+|<<clear, Clear>>
 |===
+
 
 [appendix]
 == Product Survey

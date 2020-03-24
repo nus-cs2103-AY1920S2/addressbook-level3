@@ -1,12 +1,12 @@
 @startuml
+OrderContainsKeywordsPredicate -down-> ArgumentMultimap
+Command <|-- SearchCommand
+OrderContainsKeywordsPredicate <-down- SearchCommand
+OrderContainsKeywordsPredicate -[dashed]-|> Predicate
 
 abstract class Command {
     {abstract} execute(Model model) : CommandResult
 }
-
-
-Command <|-- SearchCommand
-OrderContainsKeywordsPredicate <-- SearchCommand
 
 class SearchCommand {
 'Fields of SearchCommand
@@ -19,14 +19,43 @@ class SearchCommand {
 + equals(other : Object) : boolean
 }
 
-class OrderContainsKeywordsPredicate implements Predicate {
+class OrderContainsKeywordsPredicate<Order> {
 'Fields of OrderContainsKeywordsPredicate
 - keywords : List<String>
+- argumentMultimap : ArgumentMultimap
+- isGeneralSearch : boolean
+
+'Methods of OrderContainsKeywordsPredicate
++ test(order : Order) : boolean
++ equals(other : Object) : boolean
 
 }
 
-class Predicate {
+interface Predicate<T> {
+'Interface Methods
++ test(t : T) : boolean
+}
 
+class ArgumentMultimap {
+'Fields of ArgumentMultimap
+- argMultimap : Map<Prefix, List<String>>
+
+'Methods of ArgumentMultimap
++ put(prefix : Prefix, argValue : String) : void
++ getValue(prefix : Prefix) : Optional<String>
++ getAllValues(prefix : Prefix) : List<String>
++ getPreamble() : String
++ getAllPrefixValues() : List<String>
++ getHasTid() : boolean
++ getHasName() : boolean
++ getHasPhone() : boolean
++ getHasAddress() : boolean
++ getHasTimeStamp() : boolean
++ getHasWarehouse() : boolean
++ getHasCod() : boolean
++ getHasComment() : boolean
++ getHasItemType() : boolean
++ getHasEmail() : boolean
 }
 
 
