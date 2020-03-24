@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.address.logic.commands.EditSupplierCommand.EditSupplierDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -29,9 +29,9 @@ import seedu.address.testutil.EditSupplierDescriptorBuilder;
 import seedu.address.testutil.SupplierBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditSupplierCommand.
  */
-public class EditCommandTest {
+public class EditSupplierCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalInventory(), new UserPrefs());
 
@@ -39,15 +39,15 @@ public class EditCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Supplier editedSupplier = new SupplierBuilder().build();
         EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder(editedSupplier).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_SUPPLIER, descriptor);
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
+        String expectedMessage = String.format(EditSupplierCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), getTypicalInventory(),
                 new UserPrefs());
         expectedModel.setSupplier(model.getFilteredSupplierList().get(0), editedSupplier);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editSupplierCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -61,28 +61,28 @@ public class EditCommandTest {
 
         EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withOffers(VALID_OFFER_BANANA).build();
-        EditCommand editCommand = new EditCommand(indexLastSupplier, descriptor);
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(indexLastSupplier, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
+        String expectedMessage = String.format(EditSupplierCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), getTypicalInventory(),
                 new UserPrefs());
         expectedModel.setSupplier(lastSupplier, editedSupplier);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editSupplierCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_SUPPLIER, new EditSupplierDescriptor());
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, new EditSupplierDescriptor());
         Supplier editedSupplier = model.getFilteredSupplierList().get(INDEX_FIRST_SUPPLIER.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
+        String expectedMessage = String.format(EditSupplierCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), getTypicalInventory(),
                 new UserPrefs());
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editSupplierCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -91,25 +91,25 @@ public class EditCommandTest {
 
         Supplier supplierInFilteredList = model.getFilteredSupplierList().get(INDEX_FIRST_SUPPLIER.getZeroBased());
         Supplier editedSupplier = new SupplierBuilder(supplierInFilteredList).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_SUPPLIER,
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(INDEX_FIRST_SUPPLIER,
                 new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
+        String expectedMessage = String.format(EditSupplierCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), getTypicalInventory(),
                 new UserPrefs());
         expectedModel.setSupplier(model.getFilteredSupplierList().get(0), editedSupplier);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editSupplierCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicateSupplierUnfilteredList_failure() {
         Supplier firstSupplier = model.getFilteredSupplierList().get(INDEX_FIRST_SUPPLIER.getZeroBased());
         EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder(firstSupplier).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_SUPPLIER, descriptor);
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(INDEX_SECOND_SUPPLIER, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SUPPLIER);
+        assertCommandFailure(editSupplierCommand, model, EditSupplierCommand.MESSAGE_DUPLICATE_SUPPLIER);
     }
 
     @Test
@@ -118,19 +118,19 @@ public class EditCommandTest {
 
         // edit supplier in filtered list into a duplicate in address book
         Supplier supplierInList = model.getAddressBook().getSupplierList().get(INDEX_SECOND_SUPPLIER.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_SUPPLIER,
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(INDEX_FIRST_SUPPLIER,
                 new EditSupplierDescriptorBuilder(supplierInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_SUPPLIER);
+        assertCommandFailure(editSupplierCommand, model, EditSupplierCommand.MESSAGE_DUPLICATE_SUPPLIER);
     }
 
     @Test
     public void execute_invalidSupplierIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredSupplierList().size() + 1);
         EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
+        assertCommandFailure(editSupplierCommand, model, Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
     }
 
     /**
@@ -144,19 +144,19 @@ public class EditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getSupplierList().size());
 
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
+        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(outOfBoundIndex,
                 new EditSupplierDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
+        assertCommandFailure(editSupplierCommand, model, Messages.MESSAGE_INVALID_SUPPLIER_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_SUPPLIER, DESC_AMY);
+        final EditSupplierCommand standardCommand = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, DESC_AMY);
 
         // same values -> returns true
         EditSupplierDescriptor copyDescriptor = new EditSupplierDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_SUPPLIER, copyDescriptor);
+        EditSupplierCommand commandWithSameValues = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -169,10 +169,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_SUPPLIER, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditSupplierCommand(INDEX_SECOND_SUPPLIER, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_SUPPLIER, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditSupplierCommand(INDEX_FIRST_SUPPLIER, DESC_BOB)));
     }
 
 }

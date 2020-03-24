@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.address.logic.commands.EditSupplierCommand.EditSupplierDescriptor;
 import seedu.address.testutil.EditSupplierDescriptorBuilder;
 
 public class EditSupplierDescriptorTest {

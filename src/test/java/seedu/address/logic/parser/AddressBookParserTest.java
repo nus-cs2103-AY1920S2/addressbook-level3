@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditSupplierDescriptor;
+import seedu.address.logic.commands.EditSupplierCommand;
+import seedu.address.logic.commands.EditSupplierCommand.EditSupplierDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -57,9 +57,9 @@ public class AddressBookParserTest {
     public void parseCommand_edit() throws Exception {
         Supplier supplier = new SupplierBuilder().build();
         EditSupplierDescriptor descriptor = new EditSupplierDescriptorBuilder(supplier).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditSupplierCommand command = (EditSupplierCommand) parser.parseCommand(EditSupplierCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_SUPPLIER.getOneBased() + " " + SupplierUtil.getEditSupplierDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST_SUPPLIER, descriptor), command);
+        assertEquals(new EditSupplierCommand(INDEX_FIRST_SUPPLIER, descriptor), command);
     }
 
     @Test

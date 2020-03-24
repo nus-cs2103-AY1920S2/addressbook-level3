@@ -30,9 +30,9 @@ import seedu.address.model.supplier.Supplier;
 /**
  * Edits the details of an existing supplier in the address book.
  */
-public class EditCommand extends Command {
+public class EditSupplierCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit-s";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the supplier identified "
             + "by the index number used in the displayed supplier list. "
@@ -58,7 +58,7 @@ public class EditCommand extends Command {
      * @param index of the supplier in the filtered supplier list to edit
      * @param editSupplierDescriptor details to edit the supplier with
      */
-    public EditCommand(Index index, EditSupplierDescriptor editSupplierDescriptor) {
+    public EditSupplierCommand(Index index, EditSupplierDescriptor editSupplierDescriptor) {
         requireNonNull(index);
         requireNonNull(editSupplierDescriptor);
 
@@ -112,12 +112,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditSupplierCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditSupplierCommand e = (EditSupplierCommand) other;
         return index.equals(e.index)
                 && editSupplierDescriptor.equals(e.editSupplierDescriptor);
     }
