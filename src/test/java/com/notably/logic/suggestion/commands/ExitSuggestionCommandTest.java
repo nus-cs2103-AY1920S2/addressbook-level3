@@ -36,7 +36,7 @@ public class ExitSuggestionCommandTest {
         exitSuggestionCommand.execute(model);
 
         // Expected result
-        String expectedResponseText = "Exits Notably app";
+        String expectedResponseText = "Exit Notably app";
 
         assertEquals(Optional.of(expectedResponseText), model.responseTextProperty().getValue());
     }
