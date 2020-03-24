@@ -101,13 +101,7 @@ public interface Model {
      */
     boolean isInSession();
 
-    /**
-     *
-     */
     void startSession(Exercise exerciseToStart, LocalDateTime currentDateTime);
 
-    /**
-     *
-     */
     void stopSession(LocalDateTime currentDateTime);
 }
