@@ -33,10 +33,8 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_DATE)) {
-            System.out.println("1");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
-        System.out.println("2");
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
 
         // When recipe is first added, it will not be marked as favourite by default.

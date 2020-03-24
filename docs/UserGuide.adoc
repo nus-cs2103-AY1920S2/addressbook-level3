@@ -169,6 +169,11 @@ Check the recipes you have planned out during a period of time or within the nex
 Format: getSchedule d/YYYY-MM-DD to d/YYYY-MM-DD
 Format: getSchedule NUM_OF_DAYS
 
+=== Mark a scheduled recipe as done: `done`
+
+Marks a planned recipe as cooked.
+Format: done d/YYYY-MM-DD INDEX
+
 === Obtain the ingredients for scheduled recipes: `get`
 
 Gives the list of ingredients needed for the recipes that you have planned during a period of time or within the next few days. +
