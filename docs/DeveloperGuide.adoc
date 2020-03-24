@@ -321,6 +321,8 @@ image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
 
 *Implementation*
 
+The following
+
 
 ==== List Amount Command
 
