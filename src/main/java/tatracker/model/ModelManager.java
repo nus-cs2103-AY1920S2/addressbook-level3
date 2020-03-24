@@ -159,6 +159,20 @@ public class ModelManager implements Model {
         return taTracker.getModule(module);
     }
 
+    @Override
+    public void sortModulesAlphabetically() {
+        for(int i = 0; i < filteredModules.size(); ++i) {
+            filteredModules.get(i).sortGroupsAlphabetically();
+        }
+    }
+
+    @Override
+    public void sortModulesByRating() {
+        for(int i = 0; i < filteredModules.size(); ++i) {
+            filteredModules.get(i).sortGroupsByRating();
+        }
+    }
+
     //=========== Filtered Student List Accessors =============================================================
 
     /**

@@ -170,4 +170,14 @@ public interface Model {
     */
     Module getModule(String code);
 
+    /**
+     * Sorts all the students of all groups in all the modules alphabetically.
+     */
+    void sortModulesAlphabetically();
+
+    /**
+     * Sorts all the students of all groups in all the modules by rating.
+     */
+    void sortModulesByRating();
+
 }
