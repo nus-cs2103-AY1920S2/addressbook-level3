@@ -1,5 +1,8 @@
 package com.notably.view;
 
+import com.notably.model.block.Block;
+import com.notably.model.block.BlockTree;
+import com.notably.model.block.BlockTreeItem;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
@@ -15,15 +18,16 @@ public class SideBarTreeView extends ViewPart<Region> {
     @FXML
     private TreeView<String> sideBarTreeViewRoot;
 
-    public SideBarTreeView() {
+    public SideBarTreeView(BlockTree blockTree) {
         super(FXML);
-        loadTreeItems();
+        loadTreeItems(blockTree);
     }
 
-    /**
-     *
-     */
-    private void loadTreeItems() {
+    private void loadTreeItems(BlockTree blockTree) {
+        loadTreeItemsStub();
+    }
+
+    private void loadTreeItemsStub() {
         TreeItem<String> root = new TreeItem<>("Root");
         root.setExpanded(true);
         TreeItem<String> notably = new TreeItem<>("Notably");

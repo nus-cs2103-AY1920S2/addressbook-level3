@@ -115,7 +115,7 @@ public class MainWindow extends ViewPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        sidebarTreeView = new SideBarTreeView();
+        sidebarTreeView = new SideBarTreeView(model.getBlockTree());
         sideBarPlaceholder.getChildren().add(sidebarTreeView.getRoot());
 
         blockContentEditView = new BlockContentEditView();
