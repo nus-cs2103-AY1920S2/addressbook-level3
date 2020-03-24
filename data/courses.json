@@ -206,13 +206,13 @@
         },
         {
           "requirementName": "Programme Electives",
-          "requirementInfo": "Complete 12 MCs from the following list of modules.",
+          "requirementInfo": ["Complete 12 MCs from the following list of modules."],
           "modules": ["CS3236", "CS4236 or MA4261", "CS4238", "CS4239", "CS4257", "CS4276", "CS5231", "CS5321", "CS5322", "IFS4101", "IFS4102", "IFS4103", "IS4204", "IS4233", "IS4234", "IS4302"],
           "modularCredits": "12"
         },
         {
           "requirementName": "Computing Breadth and Industrial Experience Requirement",
-          "requirementInfo": "Complete 8 MCs of CP-coded, CS-coded or IS-coded modules at level-3000 or above. Complete 12 MCs of Industrial Experience Requirement by doing any of the following.",
+          "requirementInfo": ["Complete 8 MCs of CP-coded, CS-coded or IS-coded modules at level-3000 or above. Complete 12 MCs of Industrial Experience Requirement by doing any of the following."],
           "modules": ["CP3880", "CP3200", "CP3202", "CP3107", "CP3110", "IS4010", "TR3202"],
           "modularCredits": "20"
         },
@@ -248,7 +248,7 @@
         },
         {
           "requirementName": "Technical Elective",
-          "requirementInfo": "To achieve depth, students need to read a minimum of 12 MCs of depth electives from the list of focus areas. All electives must add up to at least 20 MCs.",
+          "requirementInfo": ["To achieve depth, students need to read a minimum of 12 MCs of depth electives from the list of focus areas. All electives must add up to at least 20 MCs."],
           "modules": ["CG3207 or CS3230"],
           "modularCredits": "24"
         },
