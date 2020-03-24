@@ -24,6 +24,10 @@ package Student {
 class Student
 class UniqueStudentList
 }
+package TSS {
+class Earnings
+class UniqueSessionList
+}
 }
 
 TaTracker --> "1 " UniqueModuleList
@@ -37,5 +41,7 @@ UniqueSessionList -right-> "*" Session
 
 Group --> "1 " UniqueStudentList
 UniqueStudentList -right-> "*" Student
+
+Earnings --> "1  " UniqueSessionList
 
 @enduml
