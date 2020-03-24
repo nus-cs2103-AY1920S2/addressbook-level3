@@ -1,11 +1,11 @@
 package cookbuddy.model.recipe;
 
+import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
-import cookbuddy.commons.util.CollectionUtil;
 import cookbuddy.model.recipe.exceptions.DuplicateRecipeException;
 import cookbuddy.model.recipe.exceptions.RecipeNotFoundException;
 import javafx.collections.FXCollections;
@@ -54,7 +54,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      * The recipe identity of {@code editedRecipe} must not be the same as another existing recipe in the list.
      */
     public void setRecipe(Recipe target, Recipe editedRecipe) {
-        CollectionUtil.requireAllNonNull(target, editedRecipe);
+        requireAllNonNull(target, editedRecipe);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -89,7 +89,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      * {@code recipes} must not contain duplicate recipes.
      */
     public void setRecipes(List<Recipe> recipes) {
-        CollectionUtil.requireAllNonNull(recipes);
+        requireAllNonNull(recipes);
         if (!recipesAreUnique(recipes)) {
             throw new DuplicateRecipeException();
         }

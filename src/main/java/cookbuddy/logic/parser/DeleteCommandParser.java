@@ -1,6 +1,7 @@
 package cookbuddy.logic.parser;
 
-import cookbuddy.commons.core.Messages;
+import static cookbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import cookbuddy.commons.core.index.Index;
 import cookbuddy.logic.commands.DeleteCommand;
 import cookbuddy.logic.parser.exceptions.ParseException;
@@ -21,7 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             return new DeleteCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
         }
     }
 

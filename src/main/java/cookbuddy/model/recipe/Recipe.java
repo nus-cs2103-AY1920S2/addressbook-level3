@@ -1,11 +1,12 @@
 package cookbuddy.model.recipe;
 
+import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import cookbuddy.commons.util.CollectionUtil;
 import cookbuddy.model.recipe.attribute.Calorie;
 import cookbuddy.model.recipe.attribute.IngredientList;
 import cookbuddy.model.recipe.attribute.InstructionList;
@@ -35,7 +36,7 @@ public class Recipe {
      */
     public Recipe(Name name, IngredientList ingredients, InstructionList instructions, Calorie calorie,
                 Serving serving, Rating rating, Set<Tag> tags) {
-        CollectionUtil.requireAllNonNull(name, ingredients, instructions);
+        requireAllNonNull(name, ingredients, instructions);
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;

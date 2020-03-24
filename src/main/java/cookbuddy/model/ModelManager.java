@@ -1,5 +1,6 @@
 package cookbuddy.model;
 
+import static cookbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
@@ -8,7 +9,6 @@ import java.util.logging.Logger;
 
 import cookbuddy.commons.core.GuiSettings;
 import cookbuddy.commons.core.LogsCenter;
-import cookbuddy.commons.util.CollectionUtil;
 import cookbuddy.model.recipe.Recipe;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,7 +28,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyRecipeBook recipeBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        CollectionUtil.requireAllNonNull(recipeBook, userPrefs);
+        requireAllNonNull(recipeBook, userPrefs);
 
         logger.fine("Initializing with recipe book: " + recipeBook + " and user prefs " + userPrefs);
 
@@ -107,7 +107,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setRecipe(Recipe target, Recipe editedRecipe) {
-        CollectionUtil.requireAllNonNull(target, editedRecipe);
+        requireAllNonNull(target, editedRecipe);
 
         recipeBook.setRecipe(target, editedRecipe);
     }
