@@ -9,6 +9,7 @@ import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
 import seedu.address.model.hirelah.Session;
@@ -70,6 +71,9 @@ public interface Model {
     /** Returns the list of questions to ask during interviews */
     QuestionList getQuestionList();
 
+    /** Returns the list of metrics that describes certain weight */
+    MetricList getMetricList();
+
     /** Sets the current interview session */
     void setSession(Session session);
 
@@ -82,6 +86,9 @@ public interface Model {
     /** Returns the current mode of the App */
     AppPhase getAppPhase();
 
-    /** Finalizes the questions and attributes so they do not change between interviews */
-    void finalizeQuestionsAndAttributes();
+    /** Finalizes the interviewees, questions and attributes so they do not change between interviews */
+    void finaliseInterviewProperties();
+
+    /** Checks whether the interviewees, questions and attributes has been finalised */
+    boolean isfinalisedInterviewProperties();
 }
