@@ -4,7 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant "importCommand:ImportCommand" as ImportCommand LOGIC_COLOR
-participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant ":InsertCommandParser" as InsertCommandParser LOGIC_COLOR
 participant ":ReturnCommandParser" as ReturnCommandParser LOGIC_COLOR
 participant "insertCommand:InsertCommand" as InsertCommand LOGIC_COLOR
 participant "returnCommand:ReturnCommand" as ReturnCommand LOGIC_COLOR
@@ -23,22 +23,22 @@ activate ImportCommand
 
 loop until every String data in ordersData are processed
     alt data starts with order
-        create AddCommandParser
-        ImportCommand -> AddCommandParser ++
+        create InsertCommandParser
+        ImportCommand -> InsertCommandParser ++
 
-        AddCommandParser --> ImportCommand --
+        InsertCommandParser --> ImportCommand --
 
-        ImportCommand -> AddCommandParser ++ : parse(data)
+        ImportCommand -> InsertCommandParser ++ : parse(data)
 
         create InsertCommand
-        AddCommandParser -> InsertCommand ++ : data
+        InsertCommandParser -> InsertCommand ++ : data
 
-        InsertCommand --> AddCommandParser -- : insertCommand
+        InsertCommand --> InsertCommandParser -- : insertCommand
 
-        AddCommandParser --> ImportCommand -- : insertCommand
+        InsertCommandParser --> ImportCommand -- : insertCommand
 
-        AddCommandParser -[hidden]-> ImportCommand
-        destroy AddCommandParser
+        InsertCommandParser -[hidden]-> ImportCommand
+        destroy InsertCommandParser
 
         ImportCommand -> InsertCommand ++ : execute(Model)
 
