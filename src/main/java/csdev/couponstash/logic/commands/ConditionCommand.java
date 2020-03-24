@@ -129,8 +129,8 @@ public class ConditionCommand extends Command {
         Usage updatedUsage = couponToBeConditioned.getUsage();
         DateSavingsSumMap totalSavings = couponToBeConditioned.getSavingsMap();
         Condition condition = new Condition(commandText);
-
+        Archived archived = couponToBeConditioned.getArchived();
         return new Coupon(name, promoCode, savingsForEachUse, expiryDate, startDate, updatedUsage, limit,
-                tags, totalSavings, remindDate, condition);
+                tags, totalSavings, remindDate, condition, archived);
     }
 }
