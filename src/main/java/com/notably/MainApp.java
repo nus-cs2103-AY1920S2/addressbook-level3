@@ -72,7 +72,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        view = new ViewManager(logic);
+        view = new ViewManager(logic, model);
     }
 
     private void initLogging(Config config) {
