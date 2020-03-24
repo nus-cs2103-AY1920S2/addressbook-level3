@@ -89,6 +89,24 @@ public class Module {
     }
 
     /**
+     * Sorts students in the groups alphabetically.
+     */
+    public void sortGroupsAlphabetically() {
+        for(int i = 0; i < groups.size(); ++i) {
+            groups.get(i).sortStudentsAlphabetically();
+        }
+    }
+
+    /**
+     * Sorts the students in the groups by rating.
+     */
+    public void sortGroupsByRating() {
+        for(int i = 0; i < groups.size(); ++i) {
+            groups.get(i).sortStudentsByRating();
+        }
+    }
+
+    /**
      * Returns the group list.
      */
     public ObservableList<Group> getGroupList() {
