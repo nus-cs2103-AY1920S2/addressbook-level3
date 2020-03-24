@@ -93,14 +93,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
-    /**
-     * Gets person with {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
-     */
-    public Person getPerson(Person key, int index) {
-        return persons.get(key, index);
-    }
-
     //// util methods
 
     @Override

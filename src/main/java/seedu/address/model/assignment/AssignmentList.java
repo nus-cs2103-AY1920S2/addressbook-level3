@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.exceptions.AssignmentNotFoundException;
 import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
  * A list of assignments that enforces uniqueness between its elements and does not allow nulls.
@@ -21,6 +23,7 @@ import seedu.address.model.assignment.exceptions.DuplicateAssignmentException;
  * @see Assignment#isSameAssignment(Assignment)
  */
 public class AssignmentList implements Iterable<Assignment> {
+
     private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
     private final ObservableList<Assignment> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -194,7 +197,12 @@ public class AssignmentList implements Iterable<Assignment> {
         };
     }*/
 
-    public void setAssignments(ObservableList<Assignment> replacement) {
+    public void setAssignments(AssignmentList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
+
+    public void setAssignments(List<Assignment> replacement) {
         requireNonNull(replacement);
         if (!assignmentsAreUnique(replacement)) {
             throw new DuplicateAssignmentException();
@@ -270,6 +278,10 @@ public class AssignmentList implements Iterable<Assignment> {
         if (index == -1) {
             throw new AssignmentNotFoundException();
         }
+        if (!target.isSameAssignment(markedAssignment) && contains(markedAssignment)) {
+            throw new DuplicatePersonException();
+        }
+
 
         internalList.set(index, markedAssignment);
     }

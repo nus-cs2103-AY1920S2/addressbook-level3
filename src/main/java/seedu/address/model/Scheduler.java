@@ -13,8 +13,18 @@ import seedu.address.model.assignment.AssignmentList;
  * Duplicates are not allowed (by .isSameAssignment comparison)
  */
 public class Scheduler implements ReadOnlyScheduler {
-    private final AssignmentList assignments = new AssignmentList();
+    private final AssignmentList assignments;
 
+    /*
+     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
+    {
+        assignments = new AssignmentList();
+    }
     public Scheduler() {}
 
     /**
