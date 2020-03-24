@@ -1,0 +1,112 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TaTrackerParser" as TaTrackerParser LOGIC_COLOR
+participant ":GroupCommandParser" as GroupCommandParser LOGIC_COLOR
+participant ":DeleteGroupCommandParser" as DeleteGroupCommandParser LOGIC_COLOR
+participant "d:DeleteGroupCommand" as DeleteGroupCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Module" as Module MODEL_COLOR
+participant "g:Group" as Group MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant "M:Module" as ActualModule MODEL_COLOR
+participant "G:Group" as ActualGroup MODEL_COLOR
+end box
+
+[-> LogicManager : execute("group delete \nm/CS2103 g/G03")
+activate LogicManager
+
+LogicManager -> TaTrackerParser : parseCommand("group delete \nm/CS2103 g/G03")
+activate TaTrackerParser
+
+create GroupCommandParser
+TaTrackerParser -> GroupCommandParser : GroupCommandParser()
+activate GroupCommandParser
+GroupCommandParser --> TaTrackerParser
+deactivate GroupCommandParser
+
+TaTrackerParser -> GroupCommandParser : parseCommand("delete \nm/CS2103 g/G03")
+activate GroupCommandParser
+
+create DeleteGroupCommandParser
+GroupCommandParser -> DeleteGroupCommandParser : DeleteGroupCommandParser()
+activate DeleteGroupCommandParser
+DeleteGroupCommandParser --> GroupCommandParser
+deactivate DeleteGroupCommandParser
+
+GroupCommandParser -> DeleteGroupCommandParser : parseCommand("m/CS2103 g/G03")
+activate DeleteGroupCommandParser
+
+create Module
+DeleteGroupCommandParser -> Module : Module("CS2103", "")
+activate Module
+Module --> DeleteGroupCommandParser
+deactivate Module
+
+create Group
+DeleteGroupCommandParser -> Group : Group("G03", null)
+activate Group
+Group --> DeleteGroupCommandParser
+deactivate Group
+
+create DeleteGroupCommand
+DeleteGroupCommandParser -> DeleteGroupCommand : DeleteGroupCommand(g, m)
+activate DeleteGroupCommand
+DeleteGroupCommand --> DeleteGroupCommandParser
+deactivate DeleteGroupCommand
+
+DeleteGroupCommandParser --> GroupCommandParser : d
+deactivate DeleteGroupCommandParser
+DeleteGroupCommandParser -[hidden]-> GroupCommandParser
+destroy DeleteGroupCommandParser
+
+GroupCommandParser --> TaTrackerParser : d
+deactivate GroupCommandParser
+GroupCommandParser -[hidden]-> TaTrackerParser
+destroy GroupCommandParser
+
+TaTrackerParser --> LogicManager : d
+deactivate TaTrackerParser
+
+LogicManager -> DeleteGroupCommand : execute()
+activate DeleteGroupCommand
+
+DeleteGroupCommand -> Model : hasModule(m)
+activate Model
+Model --> DeleteGroupCommand : true
+deactivate Model
+
+DeleteGroupCommand -> Model : getModule(m)
+activate Model
+Model --> DeleteGroupCommand : M
+deactivate Model
+
+DeleteGroupCommand -> ActualModule : hasGroup(g)
+activate ActualModule
+ActualModule --> DeleteGroupCommand : true
+deactivate ActualModule
+
+DeleteGroupCommand -> ActualModule : deleteGroup(g)
+activate ActualModule
+ActualGroup -[hidden]-> ActualModule
+destroy ActualGroup
+ActualModule --> DeleteGroupCommand
+deactivate ActualModule
+
+create CommandResult
+DeleteGroupCommand -> CommandResult : CommandResult(SuccessMessage)
+activate CommandResult
+CommandResult --> DeleteGroupCommand
+deactivate CommandResult
+
+DeleteGroupCommand --> LogicManager : result
+deactivate DeleteGroupCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

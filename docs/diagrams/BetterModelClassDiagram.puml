@@ -18,4 +18,6 @@ Student *--> Name
 Student *--> Phone
 Student *--> Email
 Student *--> Matric
+Student *--> Rating
+
 @enduml
