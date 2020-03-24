@@ -39,7 +39,7 @@ public class Amount {
      * @return True if given amount is valid, False otherwise.
      */
     public static boolean isValidAmount(BigDecimal test) {
-        return test.compareTo(BigDecimal.ZERO) > 0 && test.toString().matches(VALIDATION_REGEX);
+        return test.toString().matches(VALIDATION_REGEX);
     }
 
     @Override
