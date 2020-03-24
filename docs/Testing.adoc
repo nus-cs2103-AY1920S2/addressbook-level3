@@ -39,7 +39,7 @@ e.g. `nasa.commons.StringUtilTest`
 .  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `nasa.storage.StorageManagerTest`
 .  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `nasa.logic.LogicManagerTest`
 
 
 == Troubleshooting Testing
