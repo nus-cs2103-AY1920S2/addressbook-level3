@@ -1,6 +1,26 @@
 @font-face {
+    font-family: "SofiaProLight";
+    src: url("../fonts/SofiaProLight.otf");
+}
+
+@font-face {
     font-family: "SofiaProRegular";
     src: url("../fonts/SofiaProRegular.otf");
+}
+
+@font-face {
+    font-family: "SofiaProMedium";
+    src: url("../fonts/SofiaProMedium.otf");
+}
+
+@font-face {
+    font-family: "SofiaProSemiBold";
+    src: url("../fonts/SofiaProSemiBold.otf");
+}
+
+@font-face {
+    font-family: "SofiaProBold";
+    src: url("../fonts/SofiaProBold.otf");
 }
 
 .background {
@@ -11,7 +31,7 @@
 
 .label {
     //-fx-font-family: "SofiaProRegular";
-    -fx-text-fill: #fb7a7a;
+    -fx-text-fill: #453FE9;
     -fx-opacity: 0.9;
 }
 
@@ -159,8 +179,6 @@
 
 .pane-with-border {
      -fx-background-color: #F7F2F0;
-     -fx-border-color: #F7F2F0
-     -fx-border-top-width: 1px;
 }
 
 .status-bar {
@@ -329,6 +347,16 @@
     -fx-padding: 8 1 8 1;
 }
 
+.bb-label .label {
+    -fx-text-fill: #453FE9;
+}
+
+ .split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: #F8713D;
+    -fx-border-width: 0;
+    -fx-padding: 1px;
+ }
+
 #cardPane {
     -fx-background-color: white;
     -fx-border-radius: 20px;
@@ -341,7 +369,7 @@
 }
 
 #commandTextField {
-    -fx-background-color: transparent #FFFFFF transparent #FFFFFF;
+    -fx-background-color: white;
     -fx-background-insets: 0;
     -fx-border-color: ##FFFFFF ##FFFFFF #ffffff ##FFFFFF;
     -fx-border-insets: 0;
@@ -357,7 +385,8 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #F7F2F0, transparent, #F7F2F0;
+    -fx-background-color: white;
+    -fx-border-radius: 50px;
     -fx-background-radius: 0;
 }
 
