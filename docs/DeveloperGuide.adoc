@@ -282,11 +282,12 @@ arguments to the AddModuleCommandParser.
 name.
 
 5. The AddModuleCommandParser then creates an AddModuleCommand object and passes
-created module.
+it the created module. The parser then returns the AddModuleCommand
 
-6. The AddModuleCommand object checks whether a module with the given module code
-already exists in TA-Tracker. If it does, a command exception is thrown saying that
-a module with the given module code already exists in the TA-Tracker.
+6. LogicManager calls AddModuleCommad's execute method. The AddModuleCommand object
+checks whether a module with the given module code already exists in TA-Tracker.
+If it does, a command exception is thrown saying that a module with the given module
+code already exists in the TA-Tracker.
 
 7. If no such module exists, the module is added to the TA-Tracker.
 
@@ -298,11 +299,55 @@ exist, the module is removed from the TA-Tracker.
 
 ==== Implementation of the Group Add and Delete Commands
 
+The following activity diagram shows the steps taken by the AddGroupCommand object
+when the execute method is called.
+
 .Group Add - Activity Diagram
 image::AddGroupActivityDiagram.png[]
 
+It should be noted that these are the steps followed assuming that no exception is
+thrown. Before getting the module from TA-Tracker's model, the DeleteGroupCommand object
+checks whether such a module even exists. If it doesn't exists, it throws a command
+exception saying that no such module exists. Before adding a group to the module, the
+object even checks whether the module already has a group with the given group code.
+If it exists, a command exception is thrown saying that there is already a group
+with the given group code.
+
+The interactions between the logic and model components when adding a group are similar
+to the interactions when deleting a group as shown below.
+
+The following sequence diagram shows the interactions between the logic and model
+components when the user inputs the command 'group delete m/CS2103 g/G03'.
+
+Note: This diagram is under the case where a group with the group code G03 does exist
+in the module with module code CS2103 inside the TA-Tracker.
+
 .Group Delete - Sequence Diagram
 image::DeleteGroupSequenceDiagram.png[]
+
+1. LogicManager uses the TATrackerParser to first parse the user command.
+
+2. The TATrackerParser sees that the command is of type group and passes the
+command to the GroupCommandParser.
+
+3. The GroupCommandParser sees that the command is of type delete and passes the
+arguments to the DeleteGroupCommandParser.
+
+4. The DeleteGroupCommandParser creates a Module with the given module code and
+a group with the given group code.
+
+5. The DeleteGroupCommandParser then creates a DeleteGroupCommand object and passes
+it the created module and group. The parser then returns the DeleteGroupCommand
+
+6. LogicManager calls DeleteGroupCommad's execute method. The DeleteGroupCommand object
+checks whether a module with the given module code already exists in TA-Tracker.
+If it doesn't, a command exception is thrown saying that a module with the given module
+code doesn't exist in the TA-Tracker.
+
+7. If the module exists, the DeletGroupCommand object retrieves the module from the
+model and checks whether the module has a group with the given group code. If it doesn't,
+a command exception is thrown saying that no such group exists. If the group does
+exist, it is removed from the module.
 
 ==== Implementation of the Sort Command
 

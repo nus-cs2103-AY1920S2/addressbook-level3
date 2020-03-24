@@ -4,7 +4,7 @@ start
 created with the fields group
             and module;
 
-:the execute method of AddGroupCommand
+:The execute method of AddGroupCommand
                            is called;
 
 :Get the module from TA-Tracker's
