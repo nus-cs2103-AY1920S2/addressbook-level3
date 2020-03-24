@@ -58,14 +58,16 @@ If the command name is specified, it will specify how to use that command.
 === Create a Recipe — `new`
 Adds a new recipe to the CookBuddy program.
 
-Format: `new n/[name] ing/[ingredient, quantity; ...] ins/[instruction; ...] [cal/calories] [tags/tag, ...]`
+Format: `new n/[name] ing/[ingredient, quantity; ...] ins/[instruction; ...] [cal/calories] [s/serving size] [r/rating] [tags/tag, ...]`
 
 Example: `new n/Fried Rice ing/<White rice, 1 cup; salt, 1gram> ins/<Fry the rice; add salt>`
 Current options are:
     `n` - name
     `ing` - ingredients
     `ins` - instructions
-	`cal` - calories
+	 `cal` - calories
+    `s` - serving size
+    `r` - rating (scale of 0 to 5)
     `tags` - tags
 
 === Delete a Recipe — `delete`
