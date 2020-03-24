@@ -78,7 +78,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/view/View.java[`View.java`]
 
-The View consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The View consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `SuggestionsList`, `SideBarTree`, `HelpModal`, `StatusBarFooter`, `BlockContent` etc. All these, including the `MainWindow`, inherit from the abstract `ViewPart` class.
 
 The `View` component uses JavaFx framework. The layout of these View parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/view/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
