@@ -13,10 +13,6 @@ public class HelpCommand extends Command {
     @Override
     public void execute(Model notablyModel) {
         requireNonNull(notablyModel);
-        if (notablyModel.isHelpOpen()) {
-            notablyModel.setHelpOpen(false);
-        } else {
-            notablyModel.setHelpOpen(true);
-        }
+        notablyModel.setHelpOpen(true);
     }
 }
