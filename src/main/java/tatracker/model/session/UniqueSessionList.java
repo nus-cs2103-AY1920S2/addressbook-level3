@@ -41,6 +41,20 @@ public class UniqueSessionList implements Iterable<Session> {
     }
 
     /**
+     * Returns the size of the UniqueSessionList.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Returns the session at the given index.
+     */
+    public Session get(int n) {
+        return internalList.get(n);
+    }
+
+    /**
      * Adds a session to the list.
      * The session must not already exist in the list.
      */
@@ -81,6 +95,19 @@ public class UniqueSessionList implements Iterable<Session> {
         if (!internalList.remove(toRemove)) {
             throw new SessionNotFoundException();
         }
+    }
+
+    /**
+     * Removes the session of the given index from the list.
+     * The session must exist in the list.
+     */
+    public void remove(int n) {
+        requireNonNull(n);
+        if (n < 0 || n > internalList.size()) {
+            throw new SessionNotFoundException();
+        }
+
+        internalList.remove(n);
     }
 
     public void setSessions(UniqueSessionList replacement) {

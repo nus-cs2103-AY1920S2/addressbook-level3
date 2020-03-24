@@ -3,6 +3,10 @@ package tatracker.model.student;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static tatracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static tatracker.testutil.Assert.assertThrows;
+import static tatracker.testutil.TypicalStudents.ALICE;
+import static tatracker.testutil.TypicalStudents.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,12 +14,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import tatracker.logic.commands.CommandTestUtil;
 import tatracker.model.student.exceptions.DuplicateStudentException;
 import tatracker.model.student.exceptions.StudentNotFoundException;
-import tatracker.testutil.Assert;
 import tatracker.testutil.StudentBuilder;
-import tatracker.testutil.TypicalStudents;
 
 public class UniqueStudentListTest {
 
@@ -23,73 +24,73 @@ public class UniqueStudentListTest {
 
     @Test
     public void contains_nullStudent_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueStudentList.contains(null));
+        assertThrows(NullPointerException.class, () -> uniqueStudentList.contains(null));
     }
 
     @Test
     public void contains_studentNotInList_returnsFalse() {
-        assertFalse(uniqueStudentList.contains(TypicalStudents.ALICE));
+        assertFalse(uniqueStudentList.contains(ALICE));
     }
 
     @Test
     public void contains_studentInList_returnsTrue() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        assertTrue(uniqueStudentList.contains(TypicalStudents.ALICE));
+        uniqueStudentList.add(ALICE);
+        assertTrue(uniqueStudentList.contains(ALICE));
     }
 
     @Test
     public void contains_studentWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
+        uniqueStudentList.add(ALICE);
+        Student editedAlice = new StudentBuilder(ALICE)
+                .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(uniqueStudentList.contains(editedAlice));
     }
 
     @Test
     public void add_nullStudent_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueStudentList.add(null));
+        assertThrows(NullPointerException.class, () -> uniqueStudentList.add(null));
     }
 
     @Test
     public void add_duplicateStudent_throwsDuplicateStudentException() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        Assert.assertThrows(DuplicateStudentException.class, () ->
-                uniqueStudentList.add(TypicalStudents.ALICE));
+        uniqueStudentList.add(ALICE);
+        assertThrows(DuplicateStudentException.class, () ->
+                uniqueStudentList.add(ALICE));
     }
 
     @Test
     public void setStudent_nullTargetStudent_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () ->
-                uniqueStudentList.setStudent(null, TypicalStudents.ALICE));
+        assertThrows(NullPointerException.class, () ->
+                uniqueStudentList.setStudent(null, ALICE));
     }
 
     @Test
     public void setStudent_nullEditedStudent_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () ->
-                uniqueStudentList.setStudent(TypicalStudents.ALICE, null));
+        assertThrows(NullPointerException.class, () ->
+                uniqueStudentList.setStudent(ALICE, null));
     }
 
     @Test
     public void setStudent_targetStudentNotInList_throwsStudentNotFoundException() {
-        Assert.assertThrows(StudentNotFoundException.class, () ->
-                uniqueStudentList.setStudent(TypicalStudents.ALICE, TypicalStudents.ALICE));
+        assertThrows(StudentNotFoundException.class, () ->
+                uniqueStudentList.setStudent(ALICE, ALICE));
     }
 
     @Test
     public void setStudent_editedStudentIsSameStudent_success() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        uniqueStudentList.setStudent(TypicalStudents.ALICE, TypicalStudents.ALICE);
+        uniqueStudentList.add(ALICE);
+        uniqueStudentList.setStudent(ALICE, ALICE);
         UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(TypicalStudents.ALICE);
+        expectedUniqueStudentList.add(ALICE);
         assertEquals(expectedUniqueStudentList, uniqueStudentList);
     }
 
     @Test
     public void setStudent_editedStudentHasSameIdentity_success() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        Student editedAlice = new StudentBuilder(TypicalStudents.ALICE)
-                .withTags(CommandTestUtil.VALID_TAG_HUSBAND).build();
-        uniqueStudentList.setStudent(TypicalStudents.ALICE, editedAlice);
+        uniqueStudentList.add(ALICE);
+        Student editedAlice = new StudentBuilder(ALICE)
+                .withTags(VALID_TAG_HUSBAND).build();
+        uniqueStudentList.setStudent(ALICE, editedAlice);
         UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
         expectedUniqueStudentList.add(editedAlice);
         assertEquals(expectedUniqueStudentList, uniqueStudentList);
@@ -97,79 +98,79 @@ public class UniqueStudentListTest {
 
     @Test
     public void setStudent_editedStudentHasDifferentIdentity_success() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        uniqueStudentList.setStudent(TypicalStudents.ALICE, TypicalStudents.BOB);
+        uniqueStudentList.add(ALICE);
+        uniqueStudentList.setStudent(ALICE, BOB);
         UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(TypicalStudents.BOB);
+        expectedUniqueStudentList.add(BOB);
         assertEquals(expectedUniqueStudentList, uniqueStudentList);
     }
 
     @Test
     public void setStudent_editedStudentHasNonUniqueIdentity_throwsDuplicateStudentException() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        uniqueStudentList.add(TypicalStudents.BOB);
-        Assert.assertThrows(DuplicateStudentException.class, () ->
-                uniqueStudentList.setStudent(TypicalStudents.ALICE, TypicalStudents.BOB));
+        uniqueStudentList.add(ALICE);
+        uniqueStudentList.add(BOB);
+        assertThrows(DuplicateStudentException.class, () ->
+                uniqueStudentList.setStudent(ALICE, BOB));
     }
 
     @Test
     public void remove_nullStudent_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueStudentList.remove(null));
+        assertThrows(NullPointerException.class, () -> uniqueStudentList.remove(null));
     }
 
     @Test
     public void remove_studentDoesNotExist_throwsStudentNotFoundException() {
-        Assert.assertThrows(StudentNotFoundException.class, () -> uniqueStudentList.remove(TypicalStudents.ALICE));
+        assertThrows(StudentNotFoundException.class, () -> uniqueStudentList.remove(ALICE));
     }
 
     @Test
     public void remove_existingStudent_removesStudent() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        uniqueStudentList.remove(TypicalStudents.ALICE);
+        uniqueStudentList.add(ALICE);
+        uniqueStudentList.remove(ALICE);
         UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
         assertEquals(expectedUniqueStudentList, uniqueStudentList);
     }
 
     @Test
     public void setStudents_nullUniqueStudentList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> uniqueStudentList.setStudents((UniqueStudentList) null));
+        assertThrows(NullPointerException.class, () -> uniqueStudentList.setStudents((UniqueStudentList) null));
     }
 
     @Test
     public void setStudents_uniqueStudentList_replacesOwnListWithProvidedUniqueStudentList() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
+        uniqueStudentList.add(ALICE);
         UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(TypicalStudents.BOB);
+        expectedUniqueStudentList.add(BOB);
         uniqueStudentList.setStudents(expectedUniqueStudentList);
         assertEquals(expectedUniqueStudentList, uniqueStudentList);
     }
 
     @Test
     public void setStudents_nullList_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () ->
+        assertThrows(NullPointerException.class, () ->
                 uniqueStudentList.setStudents((List<Student>) null));
     }
 
     @Test
     public void setStudents_list_replacesOwnListWithProvidedList() {
-        uniqueStudentList.add(TypicalStudents.ALICE);
-        List<Student> studentList = Collections.singletonList(TypicalStudents.BOB);
+        uniqueStudentList.add(ALICE);
+        List<Student> studentList = Collections.singletonList(BOB);
         uniqueStudentList.setStudents(studentList);
         UniqueStudentList expectedUniqueStudentList = new UniqueStudentList();
-        expectedUniqueStudentList.add(TypicalStudents.BOB);
+        expectedUniqueStudentList.add(BOB);
         assertEquals(expectedUniqueStudentList, uniqueStudentList);
     }
 
     @Test
     public void setStudents_listWithDuplicateStudents_throwsDuplicateStudentException() {
-        List<Student> listWithDuplicateStudents = Arrays.asList(TypicalStudents.ALICE, TypicalStudents.ALICE);
-        Assert.assertThrows(DuplicateStudentException.class, () ->
+        List<Student> listWithDuplicateStudents = Arrays.asList(ALICE, ALICE);
+        assertThrows(DuplicateStudentException.class, () ->
                 uniqueStudentList.setStudents(listWithDuplicateStudents));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        Assert.assertThrows(UnsupportedOperationException.class, ()
+        assertThrows(UnsupportedOperationException.class, ()
             -> uniqueStudentList.asUnmodifiableObservableList().remove(0));
     }
 }

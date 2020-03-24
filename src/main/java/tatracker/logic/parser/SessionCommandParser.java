@@ -11,6 +11,7 @@ import tatracker.logic.commands.CommandWords;
 import tatracker.logic.commands.HelpCommand;
 import tatracker.logic.parser.exceptions.ParseException;
 import tatracker.logic.parser.session.AddSessionCommandParser;
+import tatracker.logic.parser.session.DeleteSessionCommandParser;
 import tatracker.logic.parser.session.EditSessionCommandParser;
 
 /**
@@ -46,8 +47,7 @@ public class SessionCommandParser {
             return new AddSessionCommandParser().parse(arguments);
 
         case CommandWords.DELETE_MODEL:
-            // return new DeleteSessionCommandParser().parse(arguments);
-            throw new ParseException(String.format(UNIMPLEMENTED_CODE_FORMAT, "Delete session commands"));
+            return new DeleteSessionCommandParser().parse(arguments);
 
         case CommandWords.EDIT_MODEL:
             return new EditSessionCommandParser().parse(arguments);
