@@ -3,8 +3,9 @@ package seedu.eylah.diettracker.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.eylah.diettracker.logic.commands.exceptions.CommandException;
+import seedu.eylah.diettracker.model.Mode;
 import seedu.eylah.diettracker.model.Model;
-import seedu.eylah.diettracker.model.food.Food;
+import seedu.eylah.diettracker.model.self.Self;
 
 /**
  * Sets the Mode of the Diet Tracker depending on user preferences. The 3 modes available are
@@ -18,35 +19,31 @@ public class ModeCommand extends Command {
             + "for tracking. "
             + "Parameters: [-l] [-g] [-m]";
 
-    public static final String MESSAGE_SUCCESS = "New Food Added: %1$s";
-    public static final String MESSAGE_DUPLICATE_FOOD = "This food already exists in the food book";
+    public static final String MESSAGE_SUCCESS = "Mode Change Successful: %1$s";
 
-    private final Food toAdd;
+    private final Mode mode;
 
     /**
      * Creates an AddCommand to add the specified {@code Food}
      */
-    public ModeCommand(Food food) {
-        requireNonNull(food);
-        toAdd = food;
+    public ModeCommand(Mode mode) {
+        requireNonNull(mode);
+        this.mode = mode;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasFood(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_FOOD);
-        }
+        Self.setMode(mode);
 
-        model.addFood(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, mode));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ModeCommand // instanceof handles nulls
-                && toAdd.equals(((ModeCommand) other).toAdd));
+                && mode.equals(((ModeCommand) other).mode));
     }
 }

@@ -1,45 +1,46 @@
 package seedu.eylah.diettracker.logic.parser;
 
 import static seedu.eylah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_CALORIES;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_GAIN;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_LOSS;
+import static seedu.eylah.diettracker.logic.parser.CliSyntax.PREFIX_MAINTAIN;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.eylah.diettracker.logic.commands.AddCommand;
+import seedu.eylah.diettracker.logic.commands.ModeCommand;
 import seedu.eylah.diettracker.logic.parser.exceptions.ParseException;
-import seedu.eylah.diettracker.model.food.Calories;
-import seedu.eylah.diettracker.model.food.Food;
-import seedu.eylah.diettracker.model.food.Name;
-import seedu.eylah.diettracker.model.tag.Tag;
+import seedu.eylah.diettracker.model.Mode;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new ModeCommand object
  */
-public class ModeCommandParser implements Parser<AddCommand> {
+public class ModeCommandParser implements Parser<ModeCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ModeCommand
+     * and returns an ModeCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public ModeCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_LOSS, PREFIX_GAIN, PREFIX_MAINTAIN);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ModeCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Calories calories = ParserUtil.parseCalories(argMultimap.getValue(PREFIX_CALORIES).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Food food = new Food(name, calories, tagList);
+        Mode mode = Mode.MAINTAIN;
+        if (arePrefixesPresent(argMultimap, PREFIX_LOSS)) {
+            mode = Mode.LOSS;
+        } else if (arePrefixesPresent(argMultimap, PREFIX_GAIN)) {
+            mode = Mode.GAIN;
+        } else if (arePrefixesPresent(argMultimap, PREFIX_MAINTAIN)) {
+            mode = Mode.MAINTAIN;
+        } else {
 
-        return new AddCommand(food);
+        }
+
+        return new ModeCommand(mode);
     }
 
     /**
