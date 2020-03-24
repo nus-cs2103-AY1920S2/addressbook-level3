@@ -15,8 +15,6 @@ Package " "<<Rectangle>>{
     Class Hidden #FFFFFF
     Class HiddenUI #FFFFFF
     Class HiddenModel #FFFFFF
-
-
 }
 Class "<$user>" as User MODEL_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
@@ -37,6 +35,7 @@ Hidden .down.> Commons
 Hidden .down.> Commons
 
 Storage .right.>File
+File .left.> Storage
 User --> UI
 Main --> Hidden
 @enduml

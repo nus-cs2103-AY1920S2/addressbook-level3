@@ -37,6 +37,7 @@ Order *--> TransactionId
 Order *--> Name
 Order *--> Phone
 Order *--> Warehouse
+Order *--> Email
 Order *--> Address
 Order *--> Timestamp
 Order *--> CashOnDelivery

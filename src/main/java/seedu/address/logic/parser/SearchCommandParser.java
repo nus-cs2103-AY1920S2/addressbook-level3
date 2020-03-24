@@ -18,7 +18,6 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.order.KeywordContainsOrderPrefix;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 
 /**
@@ -50,11 +49,10 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             return new SearchCommand(new OrderContainsKeywordsPredicate(keywords));
         }
 
-        KeywordContainsOrderPrefix keywordContainsOrderPrefix = new KeywordContainsOrderPrefix(argMultimap);
         StringBuilder keywordsString = addPrefixKeywordsToList(argMultimap);
 
         keywords = Arrays.asList(keywordsString.toString().trim().split("\\s+"));
-        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, keywordContainsOrderPrefix));
+        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap));
     }
 
     /**
