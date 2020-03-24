@@ -3,7 +3,7 @@ package tatracker.logic.commands.session;
 import static java.util.Objects.requireNonNull;
 import static tatracker.logic.parser.CliSyntax.PREFIX_DATE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_ENDTIME;
-import static tatracker.logic.parser.CliSyntax.PREFIX_MOD_CODE;
+import static tatracker.logic.parser.CliSyntax.PREFIX_MODULE;
 import static tatracker.logic.parser.CliSyntax.PREFIX_NOTES;
 import static tatracker.logic.parser.CliSyntax.PREFIX_RECUR;
 import static tatracker.logic.parser.CliSyntax.PREFIX_SESSION_TYPE;
@@ -29,14 +29,14 @@ public class AddSessionCommand extends Command {
             + "[" + PREFIX_ENDTIME + "END] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_RECUR + "RECURS] "
-            + "[" + PREFIX_MOD_CODE + "MOD_CODE] "
-            + "[" + PREFIX_SESSION_TYPE + "SESSION_TYPE] "
+            + "[" + PREFIX_MODULE + "MODULE CODE] "
+            + "[" + PREFIX_SESSION_TYPE + "SESSION TYPE] "
             + "[" + PREFIX_NOTES + "NOTES] "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_STARTTIME + "14:00 "
             + PREFIX_ENDTIME + "16:00 "
             + PREFIX_DATE + "19-02-2020 "
-            + PREFIX_MOD_CODE + "CS2103T "
+            + PREFIX_MODULE + "CS2103T "
             + PREFIX_SESSION_TYPE + "tutorial "
             + PREFIX_NOTES + "Location: PLAB 04";
 
