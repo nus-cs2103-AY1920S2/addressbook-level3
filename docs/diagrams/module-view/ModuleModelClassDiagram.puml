@@ -27,6 +27,7 @@ class UniqueStudentList
 }
 
 TaTracker --> "1 " UniqueModuleList
+
 UniqueModuleList -right-> "*" Module
 
 Module --> "1" UniqueGroupList
@@ -39,3 +40,4 @@ Group --> "1 " UniqueStudentList
 UniqueStudentList -right-> "*" Student
 
 @enduml
+
