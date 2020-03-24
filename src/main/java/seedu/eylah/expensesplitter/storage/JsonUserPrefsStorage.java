@@ -22,7 +22,6 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     @Override
     public Path getUserPrefsFilePath() {
-
         return filePath;
     }
 
@@ -31,8 +30,13 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
         return readUserPrefs(filePath);
     }
 
-    public Optional<UserPrefs> readUserPrefs(Path presFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(presFilePath, UserPrefs.class);
+    /**
+     * Similar to {@link #readUserPrefs()}
+     * @param prefsFilePath location of the data. Cannot be null.
+     * @throws DataConversionException if the file format is not as expected.
+     */
+    public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
+        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
     }
 
     @Override
