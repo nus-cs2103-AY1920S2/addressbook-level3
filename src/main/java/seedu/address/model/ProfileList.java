@@ -19,21 +19,9 @@ import seedu.address.model.profile.exceptions.PersonNotFoundException;
  */
 public class ProfileList {
 
-    private final static ObservableList<Profile> profileList = FXCollections.observableArrayList();
+    private final ObservableList<Profile> profileList = FXCollections.observableArrayList();
 
     public ProfileList() {};
-
-    public void addProfile(Profile profile) {
-        requireNonNull(profile);
-        if (contains(profile)) {
-            throw new DuplicatePersonException();
-        }
-        this.profileList.add(profile);
-    }
-
-    public ObservableList<Profile> getProfileList() {
-        return profileList; // TODO: Implement read-only version of profileList, similar to address book
-    }
 
     /**
      * Returns true if the list contains an equivalent profile as the given argument.
@@ -50,6 +38,22 @@ public class ProfileList {
         requireNonNull(profileList);
 
         setProfiles(profileList.getProfileList());
+    }
+
+    /**
+     * Add {@code profile} to {@code ProfileList}.
+     * {@code profile} must not exist in the profile list.
+     */
+    public void addProfile(Profile profile) {
+        requireNonNull(profile);
+        if (contains(profile)) {
+            throw new DuplicatePersonException();
+        }
+        this.profileList.add(profile);
+    }
+
+    public ObservableList<Profile> getProfileList() {
+        return profileList; // TODO: Implement read-only version of profileList, similar to address book
     }
 
     /**

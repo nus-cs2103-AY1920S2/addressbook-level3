@@ -21,7 +21,8 @@ import seedu.address.model.profile.course.CourseName;
  */
 public class NewCommandParser implements Parser<NewCommand> {
 
-    public static final String MESSAGE_PROFILE_LIST_FULL = "Unable to create new profile as there is an existing profile.";
+    public static final String MESSAGE_PROFILE_LIST_FULL = "Unable to create new profile as there is"
+           + "an existing profile. Delete to add new profile.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the NewCommand
