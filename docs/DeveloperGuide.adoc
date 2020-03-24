@@ -99,6 +99,11 @@ image::LogicClassDiagram.png[]
 link:{repoURL}/src/main/java/tatracker/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `TaTrackerParser` class to parse the user command.
+.  `TaTrackerParser` uses specialized command parsers to parse the user command.
+.. `StudentCommandParser`, `ModuleCommandParser`, `GroupCommandParser`, and `SessionCommandParser`
+parse commands that interact with the models that they are named after.
+.. Other parsers, such as `HelpCommandParser` and `FilterCommandParser` parse commands that
+interact with the TA-Tracker user interface.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -143,6 +148,18 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the TA-Tracker data in json format and read it back.
+
+`TA-Tracker` saves the following data:
+
+* a list of `Module` objects representing the modules that the user is assisting.
+** each `Module` contains a list of `Session`, representing the sessions that
+the user has completed for that module.
+** each `Module` contains a list of `Group`, representing the groups that the user is
+in charge of, such as a tutorial or lab.
+** each `Group` contains a list of `Student`, representing the students enrolled in
+the respective groups.
+
+* a separate list of `Session` objects representing the sessions that the user has scheduled in the future.
 
 [[Design-Commons]]
 === Common classes
@@ -612,6 +629,39 @@ a command exception is thrown saying that no such group exists.
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::syntaxhighlighting[]
+=== [Proposed] Syntax Highlighting feature
+==== Proposed Implementation
+
+The syntax highlighting feature extends the CLI input box in the `MainWindow` of TA-Tracker
+by colouring the font of valid command words as the user is typing.
+
+image::SyntaxHighlighting.png[]
+
+==== Design Considerations
+
+===== Aspect: How to syntax highlighting executes in real-time
+
+* **Alternative 1 (current choice):** Updates the syntax highlighting for each character that the user inputs.
+** Pros: Will have improved performance as the program can idle.
+** Cons: May be difficult to handle the deletion of characters in the CLI box.
+* **Alternative 2:** Constantly update the syntax highlighting (in an infinite loop) when the user input is not blank.
+** Pros: Simplest implementation.
+** Cons: May cause performance issues, especially if there are other features that update constantly.
+* **Alternative 3:** Subscribe to a centralized update loop in a modified TA-Tracker.
+** Pros: Works seamlessly with other real-time features.
+** Cons: May cause performance issues, especially if there are other features that update constantly.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of TA-Tracker states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTaTracker`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::syntaxhighlighting[]
 
 === Logging
 
