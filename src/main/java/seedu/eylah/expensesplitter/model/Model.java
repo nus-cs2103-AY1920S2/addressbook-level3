@@ -54,7 +54,7 @@ public interface Model {
      */
     boolean hasPerson(Person person);
     void addPerson(Person person);
-
+    Person getPerson(Person person);
     void addAmount(Person person, Amount amount);
 }
 
