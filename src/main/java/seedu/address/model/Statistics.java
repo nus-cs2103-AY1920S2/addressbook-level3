@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.InvalidTableException;
 import seedu.address.model.dayData.CustomQueue;
 import seedu.address.model.dayData.Date;
 import seedu.address.model.dayData.DayData;
@@ -16,7 +17,10 @@ public class Statistics implements ReadOnlyStatistics {
 
     public Statistics() {
         customQueue = new CustomQueue();
-        customQueue.init();
+        try {
+            customQueue.init();
+        } catch (InvalidTableException e) { }
+
     }
 
     /** Creates an DayDataList using the DayDatas in the {@code toBeCopied} */
@@ -34,8 +38,10 @@ public class Statistics implements ReadOnlyStatistics {
 
     /** Replaces the contents of the list with {@code dayDataList}. */
     public void setDayDatas(List<DayData> dayDataList) {
-        this.customQueue.clear();
-        this.customQueue.setDayDatas(dayDataList);
+        customQueue.clear();
+        try {
+            customQueue.setDayDatas(dayDataList);
+        } catch (InvalidTableException e) { }
     }
 
     /** Resets the existing data of this {@code Statistics} with {@code newData}. */
@@ -50,7 +56,11 @@ public class Statistics implements ReadOnlyStatistics {
 
     /** reinitialises dayDataList to current day while retaining stored data. */
     public void updateDataDates() {
-        customQueue.updateDataDatesCustom();
+        try {
+            customQueue.updateDataDatesCustom();
+        } catch (InvalidTableException e) {
+
+        }
     }
 
     /**
@@ -61,7 +71,7 @@ public class Statistics implements ReadOnlyStatistics {
     public void updatesDayData(DayData dayData) throws DayDataNotFoundException {
         try {
             customQueue.updatesDayDataCustom(dayData);
-        } catch (DayDataNotFoundException e) { }
+        } catch (DayDataNotFoundException | InvalidTableException e) { }
     }
 
     /**

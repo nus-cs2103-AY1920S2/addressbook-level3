@@ -35,7 +35,7 @@ public class CustomQueue implements Iterable<DayData> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /** Initialises empty DayData for past MAX_SIZE days */
-    public void init() {
+    public void init() throws InvalidTableException {
         LocalDate currDate = LocalDate.now();
         for (int i = CONSTANT_SIZE - 1; i >= 0; i--) {
             LocalDate tempLocalDate = currDate.minusDays(i);
@@ -45,10 +45,14 @@ public class CustomQueue implements Iterable<DayData> {
             this.add(dayData);
         }
 
+        if (!tableConstraintsAreEnforced(internalList)) {
+            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS);
+        }
+
     }
 
     /** reinitialises dayDataList to current day while retaining stored data. */
-    public void updateDataDatesCustom() {
+    public void updateDataDatesCustom() throws InvalidTableException {
         LocalDate todayLocalDate = LocalDate.now();
 
         DayData currDayData = this.getLatestDayData();
@@ -72,6 +76,10 @@ public class CustomQueue implements Iterable<DayData> {
                 assert (this.size() <= CONSTANT_SIZE);
             }
         }
+
+        if (!tableConstraintsAreEnforced(internalList)) {
+            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS);
+        }
     }
 
     /**
@@ -79,7 +87,7 @@ public class CustomQueue implements Iterable<DayData> {
      *
      * @param dayData
      */
-    public void updatesDayDataCustom(DayData dayData)  {
+    public void updatesDayDataCustom(DayData dayData) throws InvalidTableException {
         requireNonNull(dayData);
 
         Date currDate = dayData.getDate();
@@ -90,6 +98,10 @@ public class CustomQueue implements Iterable<DayData> {
                 this.setDayData(currDayData, dayData); // replace currDayData with dayData
                 return;
             }
+        }
+
+        if (!tableConstraintsAreEnforced(internalList)) {
+            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS);
         }
     }
 
@@ -197,8 +209,12 @@ public class CustomQueue implements Iterable<DayData> {
      * Replaces the contents of this list with {@code dayDatas}. {@code dayDatas} must
      * not break table constraints
      */
-    public void setDayDatas(List<DayData> dayDatas) {
+    public void setDayDatas(List<DayData> dayDatas) throws InvalidTableException{
         requireAllNonNull(dayDatas);
+        if (!tableConstraintsAreEnforced(dayDatas)) {
+            throw new InvalidTableException(CustomQueue.MESSAGE_CONSTRAINTS); // table is not size FIXED_SIZE
+        }
+
         internalList.setAll(dayDatas);
     }
 
