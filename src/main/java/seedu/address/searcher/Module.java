@@ -1,8 +1,5 @@
 package seedu.address.searcher;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import seedu.address.commons.core.index.Index;
-
 import java.util.ArrayList;
 
 /**
@@ -52,6 +49,10 @@ public class Module {
         parseSemData(semesterData);
     }
 
+    /**
+     * Helper function for search function to parse class timetable information
+     * @param input string of class information
+     */
     private void parseSemData(String input) {
         boolean hasSem1 = input.contains("semester\":1");
         boolean hasSem2 = input.contains("semester\":2");
@@ -81,8 +82,10 @@ public class Module {
 
         if (hasSem2) {
             if (hasExam) {
-                sem2Data = input.substring(input.lastIndexOf("timetable") + 12, input.lastIndexOf("examDate") - 4);
-                sem2Exam = input.substring(input.lastIndexOf("examDate") + 11, input.lastIndexOf("examDuration") - 3).split("T")[0];
+                sem2Data = input.substring(input.lastIndexOf("timetable") + 12,
+                        input.lastIndexOf("examDate") - 4);
+                sem2Exam = input.substring(input.lastIndexOf("examDate") + 11,
+                        input.lastIndexOf("examDuration") - 3).split("T")[0];
             } else {
                 sem2Data = input.substring(input.lastIndexOf("timetable") + 12);
             }
