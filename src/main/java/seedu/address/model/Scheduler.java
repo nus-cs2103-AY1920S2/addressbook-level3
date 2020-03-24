@@ -36,14 +36,6 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
-     * Resets the existing data of this {@code AssignmentList} with {@code newData}.
-     */
-    public void resetData(ReadOnlyScheduler newData) {
-        requireNonNull(newData);
-        setAssignments(newData.getAssignmentsList());
-    }
-
-    /**
      * Replaces the contents of the assignment list with {@code assignments}.
      * Must not contain duplicate assignments.
      */
@@ -51,9 +43,21 @@ public class Scheduler implements ReadOnlyScheduler {
         this.assignments.setAssignments(assignments);
     }
 
-    @Override
-    public ObservableList<Assignment> getAssignmentsList() {
-        return assignments.asUnmodifiableObservableList();
+    /**
+     * Resets the existing data of this {@code AssignmentList} with {@code newData}.
+     */
+    public void resetData(ReadOnlyScheduler newData) {
+        requireNonNull(newData);
+
+        setAssignments(newData.getAssignmentsList());
+    }
+
+    /**
+     * Returns true if an identical assignment as {@code assignment} exists in the scheduler.
+     */
+    public boolean hasAssignment(Assignment assignment) {
+        requireNonNull(assignment);
+        return assignments.contains(assignment);
     }
 
     /**
@@ -72,17 +76,34 @@ public class Scheduler implements ReadOnlyScheduler {
         assignments.sort(comparator);
     }
 
-    /**
-     * Returns true if an identical assignment as {@code assignment} exists in the scheduler.
-     */
-    public boolean hasAssignment(Assignment assignment) {
-        requireNonNull(assignment);
-        return assignments.contains(assignment);
-    }
-
     public void setAssignment(Assignment target, Assignment markedAssignment) {
         requireNonNull(markedAssignment);
 
         assignments.setAssignment(target, markedAssignment);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeAssignment(Assignment key) {
+        assignments.remove(key);
+    }
+
+    @Override
+    public ObservableList<Assignment> getAssignmentsList() {
+        return assignments.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Scheduler // instanceof handles nulls
+                && assignments.equals(((Scheduler) other).assignments));
+    }
+
+    @Override
+    public int hashCode() {
+        return assignments.hashCode();
     }
 }
