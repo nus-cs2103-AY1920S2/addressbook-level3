@@ -14,7 +14,7 @@ import seedu.address.model.recipe.Recipe;
  */
 public class RecipePage extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "RecipeListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -45,6 +45,10 @@ public class RecipePage extends UiPart<Region> {
     @FXML
     private Label instructions1;
     @FXML
+    private Label calorie;
+    @FXML
+    private Label calorie1;
+    @FXML
     private Label serving;
     @FXML
     private Label serving1;
@@ -57,6 +61,7 @@ public class RecipePage extends UiPart<Region> {
     @FXML
     private FlowPane tags1;
 
+    
     public RecipePage(Recipe recipe, int displayedIndex) {
         super(FXML);
         this.recipe = recipe;
@@ -65,6 +70,7 @@ public class RecipePage extends UiPart<Region> {
         name.setText(recipe.getName().name);
         ingredients.setText(recipe.getIngredients().toString());
         instructions.setText(recipe.getInstructions().toString());
+        calorie.setText(recipe.getCalorie().toString() + " calories");
         serving.setText("Serving size: " + recipe.getServing().toString() + " pax");
         rating.setText("Rating: " + recipe.getRating().toString());
         recipe.getTags().stream()
@@ -74,6 +80,7 @@ public class RecipePage extends UiPart<Region> {
         name1.setText(recipe.getName().name);
         ingredients1.setText(recipe.getIngredients().toString());
         instructions1.setText(recipe.getInstructions().toString());
+        calorie1.setText(recipe.getCalorie().toString() + " calories");
         serving1.setText("Serving size: " + recipe.getServing().toString() + " pax");
         rating1.setText("Rating: " + recipe.getRating().toString());
         recipe.getTags().stream()
