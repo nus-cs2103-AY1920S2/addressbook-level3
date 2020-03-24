@@ -52,15 +52,10 @@ public class AddItemCommand extends Command {
         requireNonNull(model);
         model.addEntry(toBeAdded);
         for (Person person : persons) {
-            if (model.hasPerson(person)) {
-                model.addAmount(person, amount);
-                // person.addAmount(amount); //not sure if necessary
-            } else {
-                // add person, then add amount to that person
+            if (!model.hasPerson(person)) {
                 model.addPerson(person);
-                model.addAmount(person, amount);
-                // person.addAmount(amount); //not sure if necessary
             }
+            model.addAmount(model.getPerson(person), amount);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));
     }

@@ -73,7 +73,6 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void addAmount(Person person, Amount amount) {
         requireAllNonNull(person, amount);
-
         int index = internalList.indexOf(person);
         if (index == -1) {
             throw new PersonNotFoundException();
@@ -148,5 +147,10 @@ public class UniquePersonList implements Iterable<Person> {
             }
         }
         return true;
+    }
+
+    public Person getPerson(Person person) {
+        int index = internalList.indexOf(person);
+        return internalList.get(index);
     }
 }

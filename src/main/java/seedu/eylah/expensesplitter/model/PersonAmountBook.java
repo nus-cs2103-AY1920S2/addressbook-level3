@@ -1,6 +1,7 @@
 package seedu.eylah.expensesplitter.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.eylah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -78,24 +79,15 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
 
     /**
      * Adds {@code amount} to the current amount of the {@code person}.
-     * @param person
-     * @param amount
      */
     public void addAmount(Person person, Amount amount) {
-        requireNonNull(person);
-
+        requireAllNonNull(person, amount);
         persons.addAmount(person, amount);
     }
 
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
+    public Person getPerson(Person person) {
+        requireNonNull(person);
+        return persons.getPerson(person);
     }
 
     /**
@@ -110,8 +102,20 @@ public class PersonAmountBook implements ReadOnlyPersonAmountBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        final StringBuilder builder = new StringBuilder();
+        ObservableList<Person> personsList = persons.asUnmodifiableObservableList();
+        builder.append("Person : Amount\n");
+        for (Person person : personsList) {
+            int index = personsList.indexOf(person) + 1;
+            builder.append("    ")
+                    .append(index)
+                    .append(". ")
+                    .append(person.getName())
+                    .append(" : $")
+                    .append(person.getAmount())
+                    .append("\n");
+        }
+        return builder.toString();
     }
 
     @Override

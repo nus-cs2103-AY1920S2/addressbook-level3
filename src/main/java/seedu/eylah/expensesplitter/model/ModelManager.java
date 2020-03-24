@@ -74,8 +74,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void listAmount() {
-
-
+        System.out.println(personAmountBook);
     }
 
     /**
@@ -117,6 +116,11 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         personAmountBook.addPerson(person);
+    }
+
+    @Override
+    public Person getPerson(Person person) {
+        return personAmountBook.getPerson(person);
     }
 
     @Override
