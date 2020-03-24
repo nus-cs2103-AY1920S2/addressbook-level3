@@ -15,19 +15,6 @@ public class Session {
     /** For converting date times to strings. Example: "2020-03-03 14:00" */
     private static final DateTimeFormatter FORMAT_DATE_TIME = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    /**
-     * Represents a session type. Session types follows the same specifications as the TSS.
-     * Example session types include: Tutorial, Grading, Consultation, etc.
-     */
-    public enum SessionType {
-        TUTORIAL,
-        LAB,
-        CONSULTATION,
-        GRADING,
-        PREPARATION,
-        OTHER
-    }
-
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private boolean isRecurring;
