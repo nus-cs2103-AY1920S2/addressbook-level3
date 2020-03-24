@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class GuiSettings implements Serializable {
 
+    //Fills up entire screen when programme starts.
     private static final double DEFAULT_HEIGHT = Toolkit.getDefaultToolkit()
             .getScreenSize()
             .getHeight();;

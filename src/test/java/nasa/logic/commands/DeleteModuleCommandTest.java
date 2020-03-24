@@ -23,7 +23,7 @@ public class DeleteModuleCommandTest {
         DeleteModuleCommand deleteCommand = new DeleteModuleCommand(moduleToDelete.getModuleCode());
 
         String expectedMessage = String.format(moduleToDelete.getModuleCode().toString()
-            + DeleteModuleCommand.MESSAGE_SUCCESS);
+            + DeleteModuleCommand.MESSAGE_DELETE_MODULE_SUCCESS);
 
         ModelManager expectedModel = new ModelManager(model.getNasaBook(), new UserPrefs());
         expectedModel.deleteModule(moduleToDelete);

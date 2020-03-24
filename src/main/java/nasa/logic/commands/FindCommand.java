@@ -1,12 +1,19 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.commons.core.Messages.MESSAGE_ACTIVITY_LISTED_OVERVIEW;
+
+import javafx.collections.ObservableList;
 
 import nasa.logic.commands.exceptions.CommandException;
+
 import nasa.model.Model;
+import nasa.model.activity.ActivityContainsKeyWordsPredicate;
+import nasa.model.module.Module;
 
 /**
  * Finds and lists all activities in NASA whose name contains any of the argument keywords.
+ * Represents the command for finding specific activities.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -18,31 +25,34 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " assignment lab tutorial";
 
-    /*
-        private final NameContainsKeywordsPredicate predicate;
+    private final ActivityContainsKeyWordsPredicate predicate;
 
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
+    public FindCommand(ActivityContainsKeyWordsPredicate predicate) {
         this.predicate = predicate;
     }
-     */
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        //model.updateFilteredPersonList(predicate);
         // TODO add the necessary implementation once model is done
-        return new CommandResult("");
+        model.updateFilteredActivityList(predicate);
+        return new CommandResult(String.format(MESSAGE_ACTIVITY_LISTED_OVERVIEW,
+            getNumberOfFilteredActivities(model.getFilteredModuleList())));
     }
 
-    //new CommandResult(
-    //                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    private int getNumberOfFilteredActivities(ObservableList<Module> moduleList) {
+        int numberOfActivities = 0;
+        for (Module module : moduleList) {
+            numberOfActivities += module.getFilteredActivityList().size();
+        }
+        return numberOfActivities;
+    }
 
-    /*
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+            || (other instanceof FindCommand // instanceof handles nulls
+            && predicate.equals(((FindCommand) other).predicate)); // state check
     }
-     */
+
 }

@@ -259,6 +259,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredActivityList(Predicate<Activity> predicate) {
+
+        }
+
+        @Override
         public void removeModuleByIndex(Index index) {
 
         }
@@ -377,6 +382,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredActivityList(Index index, Predicate<Activity> predicate) {
+
+        }
+
+        @Override
+        public void updateFilteredActivityList(Predicate<Activity> predicate) {
 
         }
 

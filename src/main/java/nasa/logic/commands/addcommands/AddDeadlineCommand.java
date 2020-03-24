@@ -16,7 +16,7 @@ public class AddDeadlineCommand extends AddCommand {
 
     public static final String COMMAND_WORD = "deadline";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline to the module's activity list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deadline to the module's activity list.\n"
             + "Parameters: "
             + PREFIX_MODULE + "MODULE CODE "
             + PREFIX_DATE + "DATE "

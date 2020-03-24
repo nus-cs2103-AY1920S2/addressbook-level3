@@ -2,12 +2,9 @@ package nasa.logic.commands;
 
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 
-import java.util.Arrays;
-
 import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
-import nasa.model.activity.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -72,7 +69,10 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    /*
+    private AcitivityContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new AcitivityContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
+
+     */
 }

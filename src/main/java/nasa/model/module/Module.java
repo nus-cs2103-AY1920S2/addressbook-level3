@@ -129,4 +129,9 @@ public class Module {
         Module otherModule = (Module) other;
         return otherModule.getModuleCode().equals(getModuleCode());
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", moduleCode, moduleName);
+    }
 }

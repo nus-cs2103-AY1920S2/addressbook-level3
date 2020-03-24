@@ -10,7 +10,7 @@ import nasa.model.activity.Activity;
 import nasa.model.module.ModuleCode;
 
 /**
- * Adds any activity to a module's list.
+ * Adds any activity to a module's activity list.
  */
 public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New activity added!";
