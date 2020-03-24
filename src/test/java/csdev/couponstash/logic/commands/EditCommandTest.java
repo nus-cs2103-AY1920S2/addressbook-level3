@@ -39,7 +39,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
-        expectedModel.setCoupon(comparedCoupon, editedCoupon);
+        expectedModel.setCoupon(comparedCoupon, editedCoupon, "");
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -61,7 +61,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
 
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
-        expectedModel.setCoupon(lastCoupon, editedCoupon);
+        expectedModel.setCoupon(lastCoupon, editedCoupon, "");
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -91,7 +91,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon);
         Model expectedModel = new ModelManager(new CouponStash(model.getCouponStash()), new UserPrefs());
-        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon);
+        expectedModel.setCoupon(model.getFilteredCouponList().get(0), editedCoupon, "");
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

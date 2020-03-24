@@ -33,7 +33,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        expectedModel.deleteCoupon(couponToDelete);
+        expectedModel.deleteCoupon(couponToDelete, "");
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -56,7 +56,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete);
 
         Model expectedModel = new ModelManager(model.getCouponStash(), new UserPrefs());
-        expectedModel.deleteCoupon(couponToDelete);
+        expectedModel.deleteCoupon(couponToDelete, "");
         showNoCoupon(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

@@ -15,7 +15,7 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model, String commandText) {
         requireNonNull(model);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         return new CommandResult(MESSAGE_SUCCESS);

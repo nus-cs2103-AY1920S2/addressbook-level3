@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.StashSettings;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
+import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.CouponStash;
 import csdev.couponstash.model.Model;
 import csdev.couponstash.model.ReadOnlyCouponStash;
@@ -121,12 +122,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCoupon(Coupon coupon) {
+        public void addCoupon(Coupon coupon, String commandText) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCouponStash(ReadOnlyCouponStash newData) {
+        public void setCouponStash(ReadOnlyCouponStash newData, String commandText) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -141,12 +142,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deleteCoupon(Coupon target) {
+        public void deleteCoupon(Coupon target, String commandText) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCoupon(Coupon target, Coupon editedCoupon) {
+        public void setCoupon(Coupon target, Coupon editedCoupon, String commandText) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -184,6 +185,11 @@ public class AddCommandTest {
         public boolean canRedoCouponStash() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void sortCoupons(Prefix prefixToSortBy) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -217,7 +223,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCoupon(Coupon coupon) {
+        public void addCoupon(Coupon coupon, String commandText) {
             requireNonNull(coupon);
             couponsAdded.add(coupon);
         }

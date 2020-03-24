@@ -70,7 +70,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
@@ -91,7 +91,7 @@ public class EditCommand extends Command {
             throw new CommandException(String.format(MESSAGE_LIMIT_LESS_THAN_USAGE, currentUsage));
         }
 
-        model.setCoupon(couponToEdit, editedCoupon);
+        model.setCoupon(couponToEdit, editedCoupon, commandText);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         return new CommandResult(String.format(MESSAGE_EDIT_COUPON_SUCCESS, editedCoupon));
     }
@@ -111,7 +111,7 @@ public class EditCommand extends Command {
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
         Archived archived = new Archived(String.valueOf(Usage.isUsageAtLimit(couponToEdit.getUsage(), updatedLimit)));
-        RemindDate remindDate = editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
+//        RemindDate remindDate = editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
 
         return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
                 // avoid changing the usage
@@ -120,7 +120,7 @@ public class EditCommand extends Command {
                 // avoid changing the total savings and dates mappings
                 couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
-                remindDate,
+                new RemindDate(updatedExpiryDate),
                 // avoid changing the archival state
                 archived);
     }

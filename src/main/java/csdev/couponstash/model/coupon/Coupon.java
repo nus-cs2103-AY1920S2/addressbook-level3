@@ -320,4 +320,25 @@ public class Coupon {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+
+    /**
+     * Deep copy of a coupon.
+     * @return The copy of the coupon
+     */
+    public Coupon copy() {
+        // Copy all the tags
+        Set<Tag> copiedTags = new HashSet<>(tags);
+
+        Coupon copy = new Coupon(
+                new Name(name.toString()), new PromoCode(promoCode.toString()),
+                savingsForEachUse.copy(), new ExpiryDate(expiryDate.value),
+                new StartDate(startDate.value),
+                new Usage(usage.value), new Limit(limit.value), copiedTags,
+                totalSavings.copy(), remind.copy(), new Archived(archived.toString())
+        );
+
+        return copy;
+
+    }
+
 }

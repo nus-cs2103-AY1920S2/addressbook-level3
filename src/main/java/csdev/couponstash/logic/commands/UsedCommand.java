@@ -59,7 +59,7 @@ public class UsedCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
@@ -89,7 +89,7 @@ public class UsedCommand extends Command {
             newUsedCoupon = createUsedCouponMonetaryValue(couponToBeUsed);
         }
 
-        model.setCoupon(couponToBeUsed, newUsedCoupon);
+        model.setCoupon(couponToBeUsed, newUsedCoupon, commandText);
         model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         return new CommandResult((String.format(MESSAGE_USED_COUPON_SUCCESS, newUsedCoupon.getName())));
     }

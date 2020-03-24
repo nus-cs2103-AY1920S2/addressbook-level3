@@ -10,9 +10,10 @@ import java.util.logging.Logger;
 import csdev.couponstash.commons.core.GuiSettings;
 import csdev.couponstash.commons.core.LogsCenter;
 import csdev.couponstash.commons.core.StashSettings;
+import csdev.couponstash.logic.parser.Prefix;
 import csdev.couponstash.model.coupon.Coupon;
 
-import csdev.couponstash.model.undoredo.HistoryManager;
+import csdev.couponstash.model.history.HistoryManager;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -97,9 +98,9 @@ public class ModelManager implements Model {
     // Please run commitCouponStash() every time couponsStash is mutated.
 
     @Override
-    public void setCouponStash(ReadOnlyCouponStash couponStash) {
+    public void setCouponStash(ReadOnlyCouponStash couponStash, String commandText) {
         this.couponStash.resetData(couponStash);
-        commitCouponStash("clear");
+        commitCouponStash(commandText);
     }
 
     @Override
@@ -114,25 +115,26 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteCoupon(Coupon target) {
+    public void deleteCoupon(Coupon target, String commandText) {
         couponStash.removeCoupon(target);
-        commitCouponStash("delete");
+        commitCouponStash(commandText);
     }
 
     @Override
-    public void addCoupon(Coupon coupon) {
+    public void addCoupon(Coupon coupon, String commandText) {
         couponStash.addCoupon(coupon);
         updateFilteredCouponList(PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
-        commitCouponStash("add");
+        commitCouponStash(commandText);
     }
 
     @Override
-    public void setCoupon(Coupon target, Coupon editedCoupon) {
+    public void setCoupon(Coupon target, Coupon editedCoupon, String commandText) {
         requireAllNonNull(target, editedCoupon);
 
         couponStash.setCoupon(target, editedCoupon);
         updateFilteredCouponList(PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
         commitCouponStash("edit");
+        commitCouponStash(commandText);
     }
 
     //=========== Filtered Coupon List Accessors =============================================================
@@ -152,22 +154,27 @@ public class ModelManager implements Model {
         filteredCoupons.setPredicate(predicate);
     }
 
+    @Override
+    public void sortCoupons(Prefix prefixToSortBy) {
+
+    }
+
     //=========== Undo/Redo functionality =============================================================
     @Override
 
-    public void commitCouponStash(String command) {
-        history.commitState(couponStash.copy(), command);
+    public void commitCouponStash(String commandText) {
+        history.commitState(couponStash.copy(), commandText);
     }
 
     @Override
     public String undoCouponStash() {
         couponStash.resetData(history.undo());
-        return history.getNextCommand();
+        return history.getNextCommandText();
     }
 
     @Override
     public String redoCouponStash() {
-        String nextCommand = history.getNextCommand();
+        String nextCommand = history.getNextCommandText();
         couponStash.resetData(history.redo());
         return nextCommand;
     }
@@ -181,6 +188,8 @@ public class ModelManager implements Model {
     public boolean canRedoCouponStash() {
         return history.canRedo();
     }
+
+    //=========== End of Undo/Redo functionality =============================================================
 
     @Override
     public boolean equals(Object obj) {
