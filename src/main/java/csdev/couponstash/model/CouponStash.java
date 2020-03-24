@@ -2,8 +2,6 @@ package csdev.couponstash.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import csdev.couponstash.model.coupon.Coupon;
@@ -48,14 +46,6 @@ public class CouponStash implements ReadOnlyCouponStash {
      */
     public void setCoupons(List<Coupon> coupons) {
         this.coupons.setCoupons(coupons);
-    }
-
-    public void sortCoupons(Comparator<Coupon> comp) {
-        List<Coupon> sorted =
-                new ArrayList<>(copy().getCouponList());
-        sorted.sort(comp);
-
-        setCoupons(sorted);
     }
 
     /**
