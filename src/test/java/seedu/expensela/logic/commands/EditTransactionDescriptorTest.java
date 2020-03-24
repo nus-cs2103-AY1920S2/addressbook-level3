@@ -2,11 +2,7 @@ package seedu.expensela.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.expensela.logic.commands.CommandTestUtil.DESC_PIZZA;
-import static seedu.expensela.logic.commands.CommandTestUtil.DESC_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_NAME_AIRPODS;
-import static seedu.expensela.logic.commands.CommandTestUtil.VALID_AMOUNT_AIRPODS;
+import static seedu.expensela.logic.commands.CommandTestUtil.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,23 +30,23 @@ public class EditTransactionDescriptorTest {
         assertFalse(DESC_PIZZA.equals(DESC_AIRPODS));
 
         // different name -> returns false
-        EditTransactionDescriptor editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withName(VALID_NAME_AIRPODS).build();
-        assertFalse(DESC_PIZZA.equals(editedAmy));
+        EditTransactionDescriptor editedPizza = new EditTransactionDescriptorBuilder(DESC_PIZZA).withName(VALID_NAME_AIRPODS).build();
+        assertFalse(DESC_PIZZA.equals(editedPizza));
 
-        // different phone -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withAmount(VALID_AMOUNT_AIRPODS).build();
-        assertFalse(DESC_PIZZA.equals(editedAmy));
+        // different amount -> returns false
+        editedPizza = new EditTransactionDescriptorBuilder(DESC_PIZZA).withAmount(VALID_AMOUNT_AIRPODS).build();
+        assertFalse(DESC_PIZZA.equals(editedPizza));
 
-        // different email -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).build();
-        assertFalse(DESC_PIZZA.equals(editedAmy));
+        // different date -> returns false
+        editedPizza = new EditTransactionDescriptorBuilder(DESC_PIZZA).withDate(VALID_DATE_AIRPODS).build();
+        assertFalse(DESC_PIZZA.equals(editedPizza));
 
-        // different address -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).withRemark(VALID_REMARK_AIRPODS).build();
-        assertFalse(DESC_PIZZA.equals(editedAmy));
+        // different remark -> returns false
+        editedPizza = new EditTransactionDescriptorBuilder(DESC_PIZZA).withRemark(VALID_REMARK_AIRPODS).build();
+        assertFalse(DESC_PIZZA.equals(editedPizza));
 
-        // different tags -> returns false
-        editedAmy = new EditTransactionDescriptorBuilder(DESC_PIZZA).build();
-        assertFalse(DESC_PIZZA.equals(editedAmy));
+        // different category -> returns false
+        editedPizza = new EditTransactionDescriptorBuilder(DESC_PIZZA).withCategory(VALID_CATEGORY_SHOPPING).build();
+        assertFalse(DESC_PIZZA.equals(editedPizza));
     }
 }

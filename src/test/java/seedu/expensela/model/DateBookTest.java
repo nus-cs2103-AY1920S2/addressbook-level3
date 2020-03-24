@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalTransactions.ALICE;
+import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 import static seedu.expensela.testutil.TypicalTransactions.getTypicalExpenseLa;
 
 import java.util.Arrays;
@@ -17,8 +17,10 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;
 import seedu.expensela.model.transaction.exceptions.DuplicateTransactionException;
+import seedu.expensela.testutil.MonthlyDataBuilder;
 import seedu.expensela.testutil.TransactionBuilder;
 
 public class DateBookTest {
@@ -42,16 +44,17 @@ public class DateBookTest {
         assertEquals(newData, expenseLa);
     }
 
+    /*
     @Test
     public void resetData_withDuplicateTransactions_throwsDuplicateTransactionException() {
         // Two transactions with the same identity fields
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
+        Transaction editedPizza = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS)
                 .build();
-        List<Transaction> newTransactions = Arrays.asList(ALICE, editedAlice);
+        List<Transaction> newTransactions = Arrays.asList(PIZZA, editedPizza);
         ExpenseLaStub newData = new ExpenseLaStub(newTransactions);
 
         assertThrows(DuplicateTransactionException.class, () -> expenseLa.resetData(newData));
-    }
+    } */
 
     @Test
     public void hasTransaction_nullTransaction_throwsNullPointerException() {
@@ -60,21 +63,21 @@ public class DateBookTest {
 
     @Test
     public void hasTransaction_transactionNotInExpenseLa_returnsFalse() {
-        assertFalse(expenseLa.hasTransaction(ALICE));
+        assertFalse(expenseLa.hasTransaction(PIZZA));
     }
 
     @Test
     public void hasTransaction_transactionInExpenseLa_returnsTrue() {
-        expenseLa.addTransaction(ALICE);
-        assertTrue(expenseLa.hasTransaction(ALICE));
+        expenseLa.addTransaction(PIZZA);
+        assertTrue(expenseLa.hasTransaction(PIZZA));
     }
 
     @Test
-    public void hasTransaction_transactionWithSameIdentityFieldsInExpenseLa_returnsTrue() {
-        expenseLa.addTransaction(ALICE);
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
+    public void hasTransaction_transactionWithDiffFieldsInExpenseLa_returnsFalse() {
+        expenseLa.addTransaction(PIZZA);
+        Transaction editedPizza = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS)
                 .build();
-        assertTrue(expenseLa.hasTransaction(editedAlice));
+        assertFalse(expenseLa.hasTransaction(editedPizza));
     }
 
     @Test
@@ -87,6 +90,7 @@ public class DateBookTest {
      */
     private static class ExpenseLaStub implements ReadOnlyExpenseLa {
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
+        private final MonthlyData monthlyData = new MonthlyDataBuilder().build();
 
         ExpenseLaStub(Collection<Transaction> transactions) {
             this.transactions.setAll(transactions);
@@ -95,6 +99,11 @@ public class DateBookTest {
         @Override
         public ObservableList<Transaction> getTransactionList() {
             return transactions;
+        }
+
+        @Override
+        public MonthlyData getMonthlyData() {
+            return monthlyData;
         }
     }
 

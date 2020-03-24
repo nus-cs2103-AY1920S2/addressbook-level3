@@ -53,7 +53,7 @@ public class NameContainsKeywordsPredicateTest {
         assertTrue(predicate.test(new TransactionBuilder().withName("Apples Carrots").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aPplEs", "baNNaS"));
         assertTrue(predicate.test(new TransactionBuilder().withName("Apples Bananas").build()));
     }
 
@@ -67,7 +67,7 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carrots"));
         assertFalse(predicate.test(new TransactionBuilder().withName("Apples Bananas").build()));
 
-        // Keywords match phone, email and address, but does not match name
+        // Keywords match amount, date, remark and category, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("5.00", "2020-02-07", "Make pie", "FOOD"));
         assertFalse(predicate.test(new TransactionBuilder().withName("Apples").withAmount("5.00", false)
                 .withDate("2020-02-07").withRemark("Make pie").withCategory("FOOD").build()));

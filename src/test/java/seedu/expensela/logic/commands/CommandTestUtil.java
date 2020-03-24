@@ -44,11 +44,11 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_SHOPPING = " " + PREFIX_CATEGORY + VALID_CATEGORY_SHOPPING;
     public static final String CATEGORY_DESC_FOOD = " " + PREFIX_CATEGORY + VALID_CATEGORY_FOOD;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "&James"; // first letter must be alphanumeric
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // name cannot start with space
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // 'a' not allowed in amount
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "2017/02/02"; // needs '-' instead of '/'
     public static final String INVALID_REMARK_DESC = " " + PREFIX_REMARK + "*"; // '*' is not allowed in remark
-    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "CLOTHES*"; // 'CLOTHES' is not a category
+    public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + "CLOTHES"; // 'CLOTHES' is not a category
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
