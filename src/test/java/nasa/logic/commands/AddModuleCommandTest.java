@@ -11,7 +11,6 @@ import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.NasaBook;
 import nasa.model.UserPrefs;
-
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
