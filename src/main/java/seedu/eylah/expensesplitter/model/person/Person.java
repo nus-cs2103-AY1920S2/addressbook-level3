@@ -66,15 +66,14 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getAmount().equals(getAmount());
+        return otherPerson.getName().equals(getName());
 
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount);
+        return Objects.hash(name);
     }
 
     @Override

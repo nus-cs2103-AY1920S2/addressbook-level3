@@ -119,6 +119,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Person getPerson(Person person) {
+        return personAmountBook.getPerson(person);
+    }
+
+    @Override
     public void addAmount(Person person, Amount amount) {
         personAmountBook.addAmount(person, amount);
     }
