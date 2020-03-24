@@ -134,19 +134,19 @@ public class OrderContainsKeywordsPredicateTest {
             ),
             // Delivery date and timestamp checks
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Collections.singletonList("2020-02-02")),
-                new OrderBuilder().withTimeStamp("2020-02-02 1500").build()
+                new OrderContainsKeywordsPredicate(Collections.singletonList("2020-05-02")),
+                new OrderBuilder().withTimeStamp("2020-05-02 1500").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("2020-01-01", "2020-01-02")),
-                new OrderBuilder().withTimeStamp("2020-01-02 1500").build()
+                new OrderContainsKeywordsPredicate(Arrays.asList("2020-01-01", "2020-05-02")),
+                new OrderBuilder().withTimeStamp("2020-05-02 1500").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("2020-01-01", "1500", "2020-01-02", "1400")),
+                new OrderContainsKeywordsPredicate(Arrays.asList("2020-10-01", "1500", "2020-10-02", "1400")),
                 new OrderBuilder().withTimeStamp("2020-05-05 1500").build()
             ),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("2020-05-05", "1300", "2020-01-02", "1400")),
+                new OrderContainsKeywordsPredicate(Arrays.asList("2020-05-05", "1300", "2020-10-02", "1400")),
                 new OrderBuilder().withTimeStamp("2020-05-05 1200").build()
             ),
             // Warehouse checks
@@ -383,13 +383,13 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withAddress("Geylang Street").build()),
             // Timestamp checking
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-10", "1500"),
+                new OrderContainsKeywordsPredicate(Arrays.asList("2020-10-10", "1500"),
                     am5),
-                new OrderBuilder().withTimeStamp("2020-02-10 1500").build()),
+                new OrderBuilder().withTimeStamp("2020-10-10 1500").build()),
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-20", "2020-01-10", "1500"),
+                new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-20", "2020-10-10", "1500"),
                     am5),
-                new OrderBuilder().withTimeStamp("2020-02-10 1500").build()),
+                new OrderBuilder().withTimeStamp("2020-10-10 1500").build()),
             // Warehouse checking
             Arguments.of(
                 new OrderContainsKeywordsPredicate(Collections.singletonList("Yishun"),
@@ -475,8 +475,8 @@ public class OrderContainsKeywordsPredicateTest {
                 new OrderBuilder().withItemType("Plastic").build()),
             // Delivery time stamp not in given prefix
             Arguments.of(
-                new OrderContainsKeywordsPredicate(Arrays.asList("2020-02-02", "1500"), am2),
-                new OrderBuilder().withTimeStamp("2020-02-02 1500").build())
+                new OrderContainsKeywordsPredicate(Arrays.asList("2020-10-02", "1500"), am2),
+                new OrderBuilder().withTimeStamp("2020-10-02 1500").build())
         );
     }
 }
