@@ -37,6 +37,16 @@ public class CouponBuilder {
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
 
+    public static final String FULL_COMMAND_TEXT =
+            String.format("n/%s p/%s e/%s s/%s sd/%s l/%s",
+                    DEFAULT_NAME,
+                    DEFAULT_PROMO_CODE,
+                    DEFAULT_EXPIRY_DATE,
+                    DEFAULT_SAVINGS,
+                    DEFAULT_START_DATE,
+                    DEFAULT_LIMIT
+            );
+
     private Name name;
     private PromoCode promoCode;
     private Savings savings;
@@ -103,6 +113,7 @@ public class CouponBuilder {
 
     /**
      * Sets the {@code Savings} of the {@code Coupon} that we are building.
+     *
      * @param sv The Savings to set.
      * @return This CouponBuilder (mutated).
      */
@@ -114,6 +125,7 @@ public class CouponBuilder {
     /**
      * Sets the {@code DateSavingsSumMap} of the {@code Coupon} that we are building.
      * DateSavingsSumMap represents the daily savings earned from using the Coupon.
+     *
      * @param dssm The DateSavingsSumMap to set.
      * @return This CouponBuilder (mutated).
      */
@@ -173,6 +185,7 @@ public class CouponBuilder {
 
     /**
      * Builds the Coupon from the provided fields.
+     *
      * @return A new Coupon.
      */
     public Coupon build() {

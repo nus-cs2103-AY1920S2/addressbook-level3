@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, String commandText) throws CommandException {
         requireNonNull(model);
         List<Coupon> lastShownList = model.getFilteredCouponList();
 
@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
         }
 
         Coupon couponToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCoupon(couponToDelete);
+        model.deleteCoupon(couponToDelete, commandText);
         return new CommandResult(String.format(MESSAGE_DELETE_COUPON_SUCCESS, couponToDelete));
     }
 
