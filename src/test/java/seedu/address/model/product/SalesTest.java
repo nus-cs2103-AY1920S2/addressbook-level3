@@ -16,7 +16,7 @@ public class SalesTest {
     @Test
     public void constructor_invalidSales_throwsIllegalArgumentException() {
         String invalidSales = "";
-        assertThrows(IllegalArgumentException.class, () -> new Price(invalidSales));
+        assertThrows(IllegalArgumentException.class, () -> new Sales(invalidSales));
     }
 
     @Test
