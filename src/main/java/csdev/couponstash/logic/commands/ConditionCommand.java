@@ -83,7 +83,7 @@ public class ConditionCommand extends Command {
         Coupon couponToBeConditioned = lastShownList.get(index.getZeroBased());
         conditionCoupon = createConditionCoupon(couponToBeConditioned, commandText);
         model.setCoupon(couponToBeConditioned, conditionCoupon, commandText);
-        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
         messageSuccess = "Changes have been made to coupon: "
                 + conditionCoupon.getName().toString() + "'s condition statement.\n"
