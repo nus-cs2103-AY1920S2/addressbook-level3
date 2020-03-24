@@ -167,7 +167,7 @@ public class ModelStubBase implements Model {
     }
 
     @Override
-    public Property<AbsolutePath> getCurrentlyOpenPathProperty() {
+    public Property<AbsolutePath> currentlyOpenPathProperty() {
         throw new UnsupportedOperationException();
     }
 
