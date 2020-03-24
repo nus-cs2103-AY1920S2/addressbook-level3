@@ -29,7 +29,8 @@ import seedu.address.testutil.EditSupplierDescriptorBuilder;
 import seedu.address.testutil.SupplierBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditSupplierCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * and unit tests for EditSupplierCommand.
  */
 public class EditSupplierCommandTest {
 
@@ -74,7 +75,8 @@ public class EditSupplierCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditSupplierCommand editSupplierCommand = new EditSupplierCommand(INDEX_FIRST_SUPPLIER, new EditSupplierDescriptor());
+        EditSupplierCommand editSupplierCommand =
+                new EditSupplierCommand(INDEX_FIRST_SUPPLIER, new EditSupplierDescriptor());
         Supplier editedSupplier = model.getFilteredSupplierList().get(INDEX_FIRST_SUPPLIER.getZeroBased());
 
         String expectedMessage = String.format(EditSupplierCommand.MESSAGE_EDIT_SUPPLIER_SUCCESS, editedSupplier);

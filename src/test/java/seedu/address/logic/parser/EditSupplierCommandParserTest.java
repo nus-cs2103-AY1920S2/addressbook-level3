@@ -26,7 +26,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_OFFER_APPLE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_OFFER_BANANA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import seedu.address.logic.commands.EditSupplierCommand;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OFFER;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -37,6 +36,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_SUPPLIER;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditSupplierCommand;
 import seedu.address.logic.commands.EditSupplierCommand.EditSupplierDescriptor;
 import seedu.address.model.good.GoodName;
 import seedu.address.model.offer.Offer;
