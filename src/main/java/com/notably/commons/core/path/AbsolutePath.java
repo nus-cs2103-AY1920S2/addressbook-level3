@@ -109,7 +109,7 @@ public class AbsolutePath implements Path {
             return false;
         }
 
-        Path another = (Path) object;
+        AbsolutePath another = (AbsolutePath) object;
         List<String> temp = another.getComponents();
         return this.components.equals(temp);
     }

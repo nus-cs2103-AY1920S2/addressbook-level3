@@ -103,7 +103,7 @@ public class RelativePath implements Path {
         if (!(object instanceof RelativePath)) {
             return false;
         }
-        Path another = (Path) object;
+        RelativePath another = (RelativePath) object;
         List<String> temp = new ArrayList<>();
         List<String> anotherTemp = new ArrayList<>();
         for (String obj: this.getComponents()) {
