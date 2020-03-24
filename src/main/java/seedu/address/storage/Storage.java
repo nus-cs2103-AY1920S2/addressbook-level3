@@ -10,11 +10,13 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.modelAssignment.AssignmentAddressBook;
 import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
 import seedu.address.model.modelTeacher.ReadOnlyTeacherAddressBook;
 import seedu.address.storage.storageAssignments.AssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.CourseAddressBookStorage;
+import seedu.address.storage.storageCourseStudent.CourseStudentAddressBookStorage;
 import seedu.address.storage.storageFinance.FinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.StudentAddressBookStorage;
 import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
@@ -25,6 +27,7 @@ import seedu.address.storage.storageTeacher.TeacherAddressBookStorage;
 public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
     StudentAddressBookStorage,
     FinanceAddressBookStorage, CourseAddressBookStorage, AssignmentAddressBookStorage,
+    CourseStudentAddressBookStorage,
         UserPrefsStorage {
 
   @Override
@@ -88,6 +91,7 @@ public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
   @Override
   void saveCourseAddressBook(ReadOnlyCourseAddressBook courseAddressBook) throws IOException;
 
+  ///
   @Override
   Path getAssignmentAddressBookFilePath();
 
@@ -97,5 +101,16 @@ public interface Storage extends AddressBookStorage, TeacherAddressBookStorage,
 
   @Override
   void saveAssignmentAddressBook(ReadOnlyAssignmentAddressBook assignmentAddressBook) throws IOException;
+
+  ///
+  @Override
+  Path getCourseStudentAddressBookFilePath();
+
+  @Override
+  Optional<ReadOnlyCourseStudentAddressBook> readCourseStudentAddressBook()
+      throws DataConversionException, IOException;
+
+  @Override
+  void saveCourseStudentAddressBook(ReadOnlyCourseStudentAddressBook courseStudentAddressBook) throws IOException;
 
 }

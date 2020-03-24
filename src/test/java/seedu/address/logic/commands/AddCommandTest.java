@@ -26,6 +26,8 @@ import seedu.address.model.modelAssignment.Assignment;
 import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelCourseStudent.CourseStudent;
+import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
 import seedu.address.model.modelStudent.ReadOnlyStudentAddressBook;
@@ -405,6 +407,61 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+
+        }
+
+        @Override
+        public Path getCourseStudentAddressBookFilePath() {
+            return null;
+        }
+
+        @Override
+        public void setCourseStudentAddressBookFilePath(Path courseStudentAddressBookFilePath) {
+
+        }
+
+        @Override
+        public ReadOnlyCourseStudentAddressBook getCourseStudentAddressBook() {
+            return null;
+        }
+
+        @Override
+        public void setCourseStudentAddressBook(ReadOnlyCourseStudentAddressBook courseStudentAddressBook) {
+
+        }
+
+        @Override
+        public boolean hasCourseStudent(CourseStudent courseStudent) {
+            return false;
+        }
+
+        @Override
+        public void deleteCourseStudent(CourseStudent courseStudent) {
+
+        }
+
+        @Override
+        public void addCourseStudent(CourseStudent courseStudent) {
+
+        }
+
+        @Override
+        public void setCourseStudent(CourseStudent target, CourseStudent editedCourseStudent) {
+
+        }
+
+        @Override
+        public ObservableList<CourseStudent> getFilteredCourseStudentList() {
+            return null;
+        }
+
+        @Override
+        public void updateFilteredCourseStudentList(Predicate<CourseStudent> predicate) {
+
+        }
+
+        @Override
+        public void updateCourseStudents() {
 
         }
     }

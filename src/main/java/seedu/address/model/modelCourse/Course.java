@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
@@ -23,14 +24,17 @@ public class Course {
   // TODO: Remove dummy teacher_id
   private ID teacher_id = new ID("123");
   private final Set<Tag> tags = new HashSet<>();
+  private Amount amount;
+  private String assignedStudents = "";
 
   /**
    * Every field must be present and not null.
    */
-  public Course(Name name, ID id, Set<Tag> tags) {
+  public Course(Name name, ID id, Amount amount, Set<Tag> tags) {
     requireAllNonNull(name, id, tags);
     this.name = name;
     this.id = id;
+    this.amount = amount;
     this.tags.addAll(tags);
   }
 
@@ -42,6 +46,10 @@ public class Course {
     return id;
   }
 
+  public Amount getAmount() {
+    return amount;
+  }
+
   public ID getTeacherID() {
     return this.teacher_id;
   }
@@ -50,6 +58,13 @@ public class Course {
     this.teacher_id = teacher_id;
   }
 
+  public void setAssignedStudents(String assignedStudents){
+    this.assignedStudents = assignedStudents;
+  }
+
+  public String getAssignedStudents(){
+    return this.assignedStudents;
+  }
   /**
    * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
    * modification is attempted.
@@ -89,21 +104,24 @@ public class Course {
     Course otherCourse = (Course) other;
     return otherCourse.getName().equals(getName())
         && otherCourse.getId().equals(getId())
+        && otherCourse.getAmount().equals(getAmount())
         && otherCourse.getTags().equals(getTags());
   }
 
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, id, tags);
+    return Objects.hash(name, id, amount, tags);
   }
 
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
-        .append("Amount: ")
+        .append(" ID: ")
         .append(getId())
+        .append(" Amount: ")
+        .append(getAmount())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelCourse.Course;
+import seedu.address.model.person.Amount;
 import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -24,6 +25,7 @@ class JsonAdaptedCourse {
 
   private final String name;
   private final String courseID;
+  private final String amount;
   private final List<JsonCourseAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -32,9 +34,11 @@ class JsonAdaptedCourse {
   @JsonCreator
   public JsonAdaptedCourse(@JsonProperty("name") String name,
       @JsonProperty("courseID") String courseID,
+      @JsonProperty("amount") String amount,
       @JsonProperty("tagged") List<JsonCourseAdaptedTag> tagged) {
     this.name = name;
     this.courseID = courseID;
+    this.amount = amount;
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -46,6 +50,7 @@ class JsonAdaptedCourse {
   public JsonAdaptedCourse(Course source) {
     name = source.getName().fullName;
     courseID = source.getId().value;
+    amount = source.getAmount().value;
     tagged.addAll(source.getTags().stream()
         .map(JsonCourseAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -77,12 +82,21 @@ class JsonAdaptedCourse {
           String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
     }
     if (!ID.isValidId(courseID)) {
-      throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+      throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
     }
     final ID modelId = new ID(courseID);
 
+    if (amount == null) {
+      throw new IllegalValueException(
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+    }
+    if (!Amount.isValidAmount(amount)) {
+      throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+    }
+    final Amount modelAmount = new Amount(amount);
+
     final Set<Tag> modelTags = new HashSet<>(CourseTags);
-    return new Course(modelName, modelId, modelTags);
+    return new Course(modelName, modelId, modelAmount, modelTags);
   }
 
 }

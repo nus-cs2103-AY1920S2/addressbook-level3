@@ -32,18 +32,18 @@ public class StudentCard extends UiPart<Region> {
   @FXML
   private Label name;
   @FXML
-  private Label id;
+  private Label studentID;
   @FXML
-  private Label courseID;
+  private Label assignedCourses;
   @FXML
   private FlowPane tags;
 
   public StudentCard(Student student, int displayedIndex) {
     super(FXML);
     this.student = student;
-    id.setText(displayedIndex + ". ");
+    studentID.setText(student.getID().value);
     name.setText(student.getName().fullName);
-    courseID.setText(student.getCourse().value);
+    assignedCourses.setText(student.getAssignedCourses());
     student.getTags().stream()
         .sorted(Comparator.comparing(tag -> tag.tagName))
         .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -63,7 +63,7 @@ public class StudentCard extends UiPart<Region> {
 
     // state check
     StudentCard card = (StudentCard) other;
-    return id.getText().equals(card.id.getText())
+    return studentID.getText().equals(card.studentID.getText())
         && student.equals(card.student);
   }
 }

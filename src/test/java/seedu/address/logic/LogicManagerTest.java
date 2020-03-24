@@ -36,6 +36,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.storageAssignments.JsonAssignmentAddressBookStorage;
 import seedu.address.storage.storageCourse.JsonCourseAddressBookStorage;
+import seedu.address.storage.storageCourseStudent.JsonCourseStudentAddressBookStorage;
 import seedu.address.storage.storageFinance.JsonFinanceAddressBookStorage;
 import seedu.address.storage.storageStudent.JsonStudentAddressBookStorage;
 import seedu.address.storage.storageTeacher.JsonTeacherAddressBookStorage;
@@ -64,10 +65,12 @@ public class LogicManagerTest {
             new JsonCourseAddressBookStorage(temporaryFolder.resolve("courseAddressBook.json"));
         JsonAssignmentAddressBookStorage assignmentAddressBookStorage =
                 new JsonAssignmentAddressBookStorage(temporaryFolder.resolve("assignmentAddressBook.json"));
+        JsonCourseStudentAddressBookStorage courseStudentAddressBookStorage =
+            new JsonCourseStudentAddressBookStorage(temporaryFolder.resolve("courseStudentAddressBook.json"));
 
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
-            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage,
+            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage, courseStudentAddressBookStorage,
                 userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
@@ -99,11 +102,13 @@ public class LogicManagerTest {
             new JsonCourseAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionCourseAddressBook.json"));
         JsonAssignmentAddressBookIoExceptionThrowingStub assignmentAddressBookStorage =
                 new JsonAssignmentAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAssignmentAddressBook.json"));
+        JsonCourseStudentAddressBookStorage courseStudentAddressBookStorage =
+            new JsonCourseStudentAddressBookStorage(temporaryFolder.resolve("ioExceptionCourseStudentAddressBook.json"));
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, teacherAddressBookStorage,
-            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage,userPrefsStorage);
+            studentAddressBookStorage, financeAddressBookStorage, courseAddressBookStorage, assignmentAddressBookStorage, courseStudentAddressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -164,7 +169,7 @@ public class LogicManagerTest {
             String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getTeacherAddressBook(),
             model.getStudentAddressBook(), model.getFinanceAddressBook(), model.getCourseAddressBook(),
-                model.getAssignmentAddressBook(), new UserPrefs());
+                model.getAssignmentAddressBook(), model.getCourseStudentAddressBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
     */

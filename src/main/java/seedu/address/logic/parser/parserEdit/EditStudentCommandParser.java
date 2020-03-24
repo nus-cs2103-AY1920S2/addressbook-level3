@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENTID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -51,7 +52,7 @@ public class EditStudentCommandParser implements Parser<EditStudentCommand> {
     }
     if (argMultimap.getValue(PREFIX_COURSE).isPresent()) {
       editStudentDescriptor
-          .setCourse(ParserUtil.parseCourse(argMultimap.getValue(PREFIX_COURSE).get()));
+          .setID(ParserUtil.parseID(argMultimap.getValue(PREFIX_STUDENTID).get()));
     }
 
     parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG))

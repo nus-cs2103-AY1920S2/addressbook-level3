@@ -11,6 +11,9 @@ import seedu.address.model.modelAssignment.ReadOnlyAssignmentAddressBook;
 import seedu.address.model.modelCourse.Course;
 import seedu.address.model.modelCourse.CourseAddressBook;
 import seedu.address.model.modelCourse.ReadOnlyCourseAddressBook;
+import seedu.address.model.modelCourseStudent.CourseStudent;
+import seedu.address.model.modelCourseStudent.CourseStudentAddressBook;
+import seedu.address.model.modelCourseStudent.ReadOnlyCourseStudentAddressBook;
 import seedu.address.model.modelFinance.Finance;
 import seedu.address.model.modelFinance.FinanceAddressBook;
 import seedu.address.model.modelFinance.ReadOnlyFinanceAddressBook;
@@ -71,9 +74,9 @@ public class SampleDataUtil {
 
   public static Student[] getSampleStudents() {
     return new Student[]{
-        new Student(new Name("Sim Sheng Xue"), new AssignedCourse("Cozmo Programming"),
+        new Student(new Name("Sim Sheng Xue"), new ID("33"),
             getTagSet("Loyal", "10Year")),
-        new Student(new Name("John AppleSeed"), new AssignedCourse("Advanced Java"),
+        new Student(new Name("John AppleSeed"), new ID("44"),
             getTagSet("Lazy", "Old"))
     };
   }
@@ -105,9 +108,9 @@ public class SampleDataUtil {
 
   public static Course[] getSampleCourses() {
     return new Course[]{
-        new Course(new Name("Cozmo Programming"), new ID("829"),
+        new Course(new Name("Cozmo Programming"), new ID("829"), new Amount("1000"),
             getTagSet("Robot", "Fun")),
-        new Course(new Name("Advanced Java"), new ID("182"),
+        new Course(new Name("Advanced Java"), new ID("182"), new Amount("2000"),
             getTagSet("OOP", "Difficult"))
     };
   }
@@ -135,6 +138,25 @@ public class SampleDataUtil {
     AssignmentAddressBook sampleAb = new AssignmentAddressBook();
     for (Assignment sampleAssignment : getSampleAssignments()) {
       sampleAb.addAssignment(sampleAssignment);
+    }
+    return sampleAb;
+  }
+
+  public static CourseStudent[] getSampleCourseStudents() {
+    return new CourseStudent[]{
+        new CourseStudent(new Courseid("829"), new Studentid("33"),
+            getTagSet("Processing")),
+        new CourseStudent(new Courseid("182"), new Studentid("44"),
+            getTagSet("Confirmed")),
+        new CourseStudent(new Courseid("829"), new Studentid("44"),
+            getTagSet("Confirmed"))
+    };
+  }
+
+  public static ReadOnlyCourseStudentAddressBook getSampleCourseStudentAddressBook() {
+    CourseStudentAddressBook sampleAb = new CourseStudentAddressBook();
+    for (CourseStudent sampleCourseStudent : getSampleCourseStudents()) {
+      sampleAb.addCourseStudent(sampleCourseStudent);
     }
     return sampleAb;
   }

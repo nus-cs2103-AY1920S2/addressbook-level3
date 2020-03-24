@@ -54,7 +54,7 @@ public class AssignmentAddressBook implements ReadOnlyAssignmentAddressBook {
     setAssignments(newData.getAssignmentList());
   }
 
-  //// course-level operations
+  //// assignment-level operations
 
   /**
    * Returns true if a assignment with the same identity as {@code assignment} exists in the address book.
@@ -65,16 +65,16 @@ public class AssignmentAddressBook implements ReadOnlyAssignmentAddressBook {
   }
 
   /**
-   * Adds a course to the address book. The course must not already exist in the address book.
+   * Adds a assignment to the address book. The assignment must not already exist in the address book.
    */
   public void addAssignment(Assignment p) {
     assignments.add(p);
   }
 
   /**
-   * Replaces the given course {@code target} in the list with {@code editedAssignment}. {@code target}
-   * must exist in the address book. The course identity of {@code editedAssignment} must not be the
-   * same as another existing course in the address book.
+   * Replaces the given assignment {@code target} in the list with {@code editedAssignment}. {@code target}
+   * must exist in the address book. The assignment identity of {@code editedAssignment} must not be the
+   * same as another existing assignment in the address book.
    */
   public void setAssignment(Assignment target, Assignment editedAssignment) {
     requireNonNull(editedAssignment);

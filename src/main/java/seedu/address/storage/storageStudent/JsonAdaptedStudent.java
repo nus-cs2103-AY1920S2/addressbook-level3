@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.modelStudent.Student;
 import seedu.address.model.person.AssignedCourse;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -21,7 +22,7 @@ class JsonAdaptedStudent {
   public static final String MISSING_FIELD_MESSAGE_FORMAT = "Student's %s field is missing!";
 
   private final String name;
-  private final String course;
+  private final String studentID;
   private final List<JsonStudentAdaptedTag> tagged = new ArrayList<>();
 
   /**
@@ -29,10 +30,10 @@ class JsonAdaptedStudent {
    */
   @JsonCreator
   public JsonAdaptedStudent(@JsonProperty("name") String name,
-      @JsonProperty("course") String course,
+      @JsonProperty("studentID") String studentID,
       @JsonProperty("tagged") List<JsonStudentAdaptedTag> tagged) {
     this.name = name;
-    this.course = course;
+    this.studentID = studentID;
     if (tagged != null) {
       this.tagged.addAll(tagged);
     }
@@ -43,7 +44,7 @@ class JsonAdaptedStudent {
    */
   public JsonAdaptedStudent(Student source) {
     name = source.getName().fullName;
-    course = source.getCourse().value;
+    studentID = source.getID().value;
     tagged.addAll(source.getTags().stream()
         .map(JsonStudentAdaptedTag::new)
         .collect(Collectors.toList()));
@@ -70,17 +71,17 @@ class JsonAdaptedStudent {
     }
     final Name modelName = new Name(name);
 
-    if (course == null) {
+    if (studentID == null) {
       throw new IllegalValueException(
-          String.format(MISSING_FIELD_MESSAGE_FORMAT, AssignedCourse.class.getSimpleName()));
+          String.format(MISSING_FIELD_MESSAGE_FORMAT, ID.class.getSimpleName()));
     }
-    if (!AssignedCourse.isValidCourse(course)) {
-      throw new IllegalValueException(AssignedCourse.MESSAGE_CONSTRAINTS);
+    if (!ID.isValidId(studentID)) {
+      throw new IllegalValueException(ID.MESSAGE_CONSTRAINTS);
     }
-    final AssignedCourse modelCourse = new AssignedCourse(course);
+    final ID modelID = new ID(studentID);
 
     final Set<Tag> modelTags = new HashSet<>(courseTags);
-    return new Student(modelName, modelCourse, modelTags);
+    return new Student(modelName, modelID, modelTags);
   }
 
 }

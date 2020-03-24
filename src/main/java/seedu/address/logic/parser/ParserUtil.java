@@ -92,6 +92,36 @@ public class ParserUtil {
     return new ID(trimmedAssignmentID);
   }
 
+  /**
+   * Parses a {@code String courseid} into a {@code Courseid}. Leading and trailing whitespaces will be
+   * trimmed.
+   *
+   * @throws ParseException if the given {@code courseid} is invalid.
+   */
+  public static Courseid parseCourseid(String courseid) throws ParseException {
+    requireNonNull(courseid);
+    String trimmedCourseid = courseid.trim();
+    if (!Courseid.isValidCourseid(courseid)) {
+      throw new ParseException(Courseid.MESSAGE_CONSTRAINTS);
+    }
+    return new Courseid(courseid);
+  }
+
+  /**
+   * Parses a {@code String studentid} into a {@code Studentid}. Leading and trailing whitespaces will be
+   * trimmed.
+   *
+   * @throws ParseException if the given {@code studentid} is invalid.
+   */
+  public static Studentid parseStudentid(String studentid) throws ParseException {
+    requireNonNull(studentid);
+    String trimmedStudentid = studentid.trim();
+    if (!Studentid.isValidStudentid(studentid)) {
+      throw new ParseException(Studentid.MESSAGE_CONSTRAINTS);
+    }
+    return new Studentid(studentid);
+  }
+
 
   /**
    * Parses a {@code String amount} into a {@code Amount}. Leading and trailing whitespaces will be

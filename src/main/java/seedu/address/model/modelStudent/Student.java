@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import seedu.address.model.person.AssignedCourse;
+import seedu.address.model.person.ID;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
@@ -18,16 +19,17 @@ public class Student {
 
   // Identity fields
   private final Name name;
-  private final AssignedCourse course;
+  private final ID id;
   private final Set<Tag> tags = new HashSet<>();
+  private String assignedCourses = "";
 
   /**
    * Every field must be present and not null.
    */
-  public Student(Name name, AssignedCourse course, Set<Tag> tags) {
-    requireAllNonNull(name, course, tags);
+  public Student(Name name, ID id, Set<Tag> tags) {
+    requireAllNonNull(name, id, tags);
     this.name = name;
-    this.course = course;
+    this.id = id;
     this.tags.addAll(tags);
   }
 
@@ -35,8 +37,8 @@ public class Student {
     return name;
   }
 
-  public AssignedCourse getCourse() {
-    return course;
+  public ID getID() {
+    return id;
   }
 
   /**
@@ -45,6 +47,14 @@ public class Student {
    */
   public Set<Tag> getTags() {
     return Collections.unmodifiableSet(tags);
+  }
+
+  public void setAssignedCourses(String assignedCourses){
+    this.assignedCourses = assignedCourses;
+  }
+
+  public String getAssignedCourses(){
+    return this.assignedCourses;
   }
 
   /**
@@ -58,7 +68,7 @@ public class Student {
 
     return otherStudent != null
         && otherStudent.getName().equals(getName())
-        && otherStudent.getCourse().equals(getCourse());
+        && otherStudent.getID().equals(getID());
   }
 
   /**
@@ -77,22 +87,22 @@ public class Student {
 
     Student otherStudent = (Student) other;
     return otherStudent.getName().equals(getName())
-        && otherStudent.getCourse().equals(getCourse())
+        && otherStudent.getID().equals(getID())
         && otherStudent.getTags().equals(getTags());
   }
 
   @Override
   public int hashCode() {
     // use this method for custom fields hashing instead of implementing your own
-    return Objects.hash(name, course, tags);
+    return Objects.hash(name, id, tags);
   }
 
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(getName())
-        .append(" Assignment: ")
-        .append(getCourse())
+        .append(" ID: ")
+        .append(getID())
         .append(" Tags: ");
     getTags().forEach(builder::append);
     return builder.toString();
