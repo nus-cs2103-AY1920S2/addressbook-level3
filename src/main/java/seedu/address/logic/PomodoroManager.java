@@ -166,7 +166,6 @@ public class PomodoroManager {
         model.setTask(taskToEdit, editedTask);
         // Update pet exp
         model.incrementExp();
-        model.updatePetDisplayHandler();
         clearDoneParams();
     }
 }
