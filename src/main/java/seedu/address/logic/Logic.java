@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Person;
 
 /**
@@ -35,6 +36,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons for the result panel*/
     ObservableList<Person> getFilteredPersonListResult();
+
+    /** Returns an unmodifiable view of the filtered list of assignments */
+    ObservableList<Assignment> getFilteredAssignmentList();
 
     /** Returns an unmodifiable view of the filtered list of persons with upcoming birthdays for the result panel*/
     ObservableList<Person> getBdayList();

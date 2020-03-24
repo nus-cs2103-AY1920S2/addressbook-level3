@@ -17,17 +17,22 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** The third panel should should display the result. */
-    private final boolean result;
+    /** The third panel should should display the specified person. */
+    private final boolean get;
+
+    /** The third panel should should display the assignment list. */
+    private final boolean assignment;
+
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean result) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean get, boolean assignment) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.result = result;
+        this.get = get;
+        this.assignment = assignment;
     }
 
     /**
@@ -35,7 +40,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+        this(feedbackToUser, false, false, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -50,8 +55,12 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isResult() {
-        return result;
+    public boolean isGet() {
+        return get;
+    }
+
+    public boolean isAssignment() {
+        return assignment;
     }
 
     @Override

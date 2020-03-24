@@ -32,6 +32,9 @@ public class Workload {
      * Returns true if the input duration contains only numbers and contains at least one digit.
      */
     public static boolean isValidDuration(String test) {
+        if (test.isEmpty()) {
+            return true;
+        }
         return test.matches(VALIDATION_REGEX);
     }
 

@@ -16,6 +16,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_TITLE = new Prefix("t/");
     public static final Prefix PREFIX_DEADLINE = new Prefix("d/");
     public static final Prefix PREFIX_ESTHOURS = new Prefix("e/");
+    public static final Prefix PREFIX_DEADLINE_LIST = new Prefix("-d");
+    public static final Prefix PREFIX_ESTHOURS_LIST = new Prefix("-e");
     public static final Prefix PREFIX_LINE_NUMBER = new Prefix("l/");
     public static final Prefix PREFIX_HELP = new Prefix("h/");
     public static final Prefix PREFIX_RESTAURANT = new Prefix("n/");

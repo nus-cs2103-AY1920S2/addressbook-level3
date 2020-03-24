@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private PersonListPanelDetail personListPanel2;
+    private AssignmentListPanel assignmentListPanel;
     private PersonListBdayPanel personBdayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -172,12 +173,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Display result on third panel.
+     * Display specified person on third panel.
      */
     @FXML
-    private void handleResult() {
+    private void handleGet() {
         personListPanel2 = new PersonListPanelDetail(logic.getFilteredPersonListResult());
         personListPanelPlaceholder2.getChildren().add(personListPanel2.getRoot());
+    }
+
+    /**
+     * Display assignment on third panel.
+     */
+    @FXML
+    private void handleAssignment() {
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        personListPanelPlaceholder2.getChildren().add(assignmentListPanel.getRoot());
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -201,10 +211,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isResult()) {
-                handleResult();
+            } else if (commandResult.isGet()) {
+                handleGet();
+            } else if (commandResult.isAssignment()) {
+                handleAssignment();
             }
 
             return commandResult;
