@@ -84,7 +84,7 @@ public class OrderContainsKeywordsPredicateTest {
 
     /**
      * Used to generate pass test case parameters for general search.
-     * @return Stream of parameters used to pass test cases for specific search.
+     * @return Stream of valid parameters used for general search.
      */
     private static Stream<Arguments> generaliseParametersGeneralSearchForSuccess() {
         return Stream.of(
@@ -203,7 +203,7 @@ public class OrderContainsKeywordsPredicateTest {
 
     /**
      * Used to generate fail test case parameters for general search.
-     * @return Stream of parameters used to test fail cases for specific search.
+     * @return Stream of invalid parameters used for general search.
      */
     private static Stream<Arguments> generaliseParametersGeneralSearchForFailure() {
         return Stream.of(
@@ -307,7 +307,7 @@ public class OrderContainsKeywordsPredicateTest {
     /**
      * Used to generate pass test case parameters for specific search, which utilises the overloaded constructor
      * of {@code OrderContainsKeywordPredicate}.
-     * @return Stream of parameters used to test fail cases for specific search.
+     * @return Stream of valid parameters used for specific search.
      */
     private static Stream<Arguments> generaliseParametersSpecificSearchForSuccess() {
         // Proxy ArgumentMultimap to test overload constructor
@@ -433,7 +433,7 @@ public class OrderContainsKeywordsPredicateTest {
     /**
      * Used to generate fail test case parameters for specific search, which utilises the overloaded constructor
      * of {@code OrderContainsKeywordPredicate}.
-     * @return Stream of parameters that should fail for specific search.
+     * @return Stream of invalid parameters used for specific search.
      */
     private static Stream<Arguments> generaliseParametersSpecificSearchForFailure() {
         ArgumentMultimap am1 = new ArgumentMultimap();
