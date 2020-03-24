@@ -383,26 +383,17 @@ public class FitHelper implements ReadOnlyFitHelper {
         } else {
             entries = sportsCalorieTable.getEntries();
         }
+        int count = 0;
         for (CalorieEntry entry : entries) {
-            addMatchingEntries(keyword, result, entry);
-        }
-        return result;
-    }
-
-    /**
-     * Checks if the name of a particular entry contains the keyword. If so, adds the entry into the list.
-     *
-     * @param keyword
-     * @param result
-     * @param entry
-     */
-    private void addMatchingEntries(String keyword, List<CalorieEntry> result, CalorieEntry entry) {
-        String[] words = entry.getName().split(" ");
-        for (String word : words) {
-            if (word.toLowerCase().contains(keyword.toLowerCase())) {
-                result.add(entry);
+            String name = entry.getName();
+            if (count == 3) {
                 break;
             }
+            if (name.toLowerCase().contains(keyword.toLowerCase())) {
+                result.add(entry);
+                count++;
+            }
         }
+        return result;
     }
 }

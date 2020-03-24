@@ -10,7 +10,7 @@ public class SportsCalorieEntry extends CalorieEntry {
 
     @Override
     public String toString() {
-        return "Sports name: " + getName() + "\n"
-                + "Calorie: " + getCalorie() + " cal per hour\n";
+        return "Name: " + getName() + "\n"
+                + "Calorie (70kg): " + getCalorie() + " cal / hour\n";
     }
 }

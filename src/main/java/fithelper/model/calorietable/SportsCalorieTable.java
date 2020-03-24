@@ -14,7 +14,9 @@ public class SportsCalorieTable implements CalorieTable {
         String[] listOfEntries = data.split("//");
         for (String entry : listOfEntries) {
             String[] attributes = entry.split("/");
-            entries.add(new SportsCalorieEntry(attributes[0], attributes[1]));
+            if (attributes.length == 2) {
+                entries.add(new SportsCalorieEntry(attributes[0], attributes[1]));
+            }
         }
     }
 

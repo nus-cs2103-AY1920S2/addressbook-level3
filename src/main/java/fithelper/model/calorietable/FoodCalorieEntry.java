@@ -13,7 +13,7 @@ public class FoodCalorieEntry extends CalorieEntry {
 
     @Override
     public String toString() {
-        return "Food name: " + getName() + "\n"
+        return "Name: " + getName() + "\n"
                 + "Calorie: " + getCalorie() + " cal per serving ("
                 + weightPerServingInGram + "g)\n";
     }

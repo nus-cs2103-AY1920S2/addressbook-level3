@@ -14,7 +14,9 @@ public class FoodCalorieTable implements CalorieTable {
         String[] listOfEntries = data.split("//");
         for (String entry : listOfEntries) {
             String[] attributes = entry.split("/");
-            entries.add(new FoodCalorieEntry(attributes[0], attributes[1], attributes[2]));
+            if (attributes.length == 3) {
+                entries.add(new FoodCalorieEntry(attributes[0], attributes[1], attributes[2]));
+            }
         }
     }
 
