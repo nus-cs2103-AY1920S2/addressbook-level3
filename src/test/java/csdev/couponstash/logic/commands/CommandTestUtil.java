@@ -64,6 +64,9 @@ public class CommandTestUtil {
     public static final String VALID_LIMIT_AMY = "1";
     public static final String VALID_LIMIT_BOB = "10";
 
+    public static final String VALID_CONDITION_AMY = "While Stocks Last";
+    public static final String VALID_CONDITION_BOB = "While Stocks Last";
+
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -114,6 +117,7 @@ public class CommandTestUtil {
                 .withLimit(VALID_LIMIT_AMY)
                 .withTags(VALID_TAG_FRIEND)
                 .withRemindDate(VALID_REMIND_DATE_AMY, VALID_EXPIRY_DATE_AMY)
+                .withCondition(VALID_CONDITION_AMY)
                 .build();
         DESC_BOB = new EditCouponDescriptorBuilder()
                 .withName(VALID_NAME_BOB)
@@ -125,6 +129,7 @@ public class CommandTestUtil {
                 .withLimit(VALID_LIMIT_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
                 .withRemindDate(VALID_REMIND_DATE_BOB, VALID_EXPIRY_DATE_BOB)
+                .withCondition(VALID_CONDITION_BOB)
                 .build();
     }
 

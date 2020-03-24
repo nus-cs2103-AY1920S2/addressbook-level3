@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import csdev.couponstash.commons.exceptions.IllegalValueException;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -21,7 +22,6 @@ import csdev.couponstash.model.coupon.Usage;
 import csdev.couponstash.model.coupon.savings.DateSavingsSumMap;
 import csdev.couponstash.model.coupon.savings.Savings;
 import csdev.couponstash.model.tag.Tag;
-
 /**
  * Jackson-friendly version of {@link Coupon}.
  */
@@ -39,6 +39,7 @@ class JsonAdaptedCoupon {
     private final String remindDate;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final JsonAdaptedDssm totalSaved;
+    private final String condition;
 
     /**
      * Constructs a {@code JsonAdaptedCoupon} with the given coupon details.
@@ -53,7 +54,8 @@ class JsonAdaptedCoupon {
                              @JsonProperty("limit") String limit,
                              @JsonProperty("totalSaved") JsonAdaptedDssm totalSaved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                             @JsonProperty("remind date") String remindDate
+                             @JsonProperty("remind date") String remindDate,
+                             @JsonProperty("condition") String condition
     ) {
         this.name = name;
         this.promoCode = promoCode;
@@ -67,6 +69,7 @@ class JsonAdaptedCoupon {
             this.tagged.addAll(tagged);
         }
         this.remindDate = remindDate;
+        this.condition = condition;
     }
 
     /**
@@ -85,6 +88,7 @@ class JsonAdaptedCoupon {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         remindDate = source.getRemindDate().toString();
+        condition = source.getCondition().value;
     }
 
     /**
@@ -152,6 +156,12 @@ class JsonAdaptedCoupon {
         }
         final Limit modelLimit = new Limit(limit);
 
+        if (condition == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Condition.class.getSimpleName()));
+        }
+        final Condition modelCondition = new Condition(condition);
+
         final DateSavingsSumMap modelTotalSaved;
         if (totalSaved == null) {
             // could not find totalSaved data
@@ -166,12 +176,11 @@ class JsonAdaptedCoupon {
         }
         final RemindDate modelRemindDate = new RemindDate(remindDate, expiryDate);
 
-
         final Set<Tag> modelTags = new HashSet<>(couponTags);
 
         return new Coupon(modelName, modelPromoCode, modelSavings,
                 modelExpiryDate, modelStartDate, modelUsage, modelLimit,
-                modelTags, modelTotalSaved, modelRemindDate);
+                modelTags, modelTotalSaved, modelRemindDate, modelCondition);
 
     }
 

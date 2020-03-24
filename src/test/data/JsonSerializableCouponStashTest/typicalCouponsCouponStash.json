@@ -17,7 +17,8 @@
     "usage": "0",
     "limit": "1",
     "remind date" : "29-11-2020",
-    "tagged" : [ "friends" ]
+    "tagged" : [ "friends" ],
+    "condition" : "While Stock Last"
   }, {
     "name" : "Benson Meier",
     "promoCode": "ILUVSTASH",
@@ -35,8 +36,8 @@
     "usage": "2",
     "limit": "5",
     "tagged" : [ "owesMoney", "friends" ],
-    "remind date" : "28-12-2020"
-
+    "remind date" : "28-12-2020",
+    "condition" : "While Stock Last"
   }, {
     "name" : "Carl Kurz",
     "promoCode": "KKB",
@@ -63,7 +64,8 @@
     "usage": "0",
     "limit": "1",
     "tagged" : [ ],
-    "remind date" : "27-8-2020"
+    "remind date" : "27-8-2020",
+    "condition" : "While Stock Last"
 
   }, {
     "name" : "Daniel Meier",
@@ -91,7 +93,8 @@
     "usage": "0",
     "limit": "1",
     "tagged" : [ "friends" ],
-    "remind date" : "28-12-2020"
+    "remind date" : "28-12-2020",
+    "condition" : "While Stock Last"
 
   }, {
     "name" : "Elle Meyer",
@@ -119,7 +122,9 @@
     "usage": "0",
     "limit": "1",
     "tagged" : [ ],
-    "remind date" : "26-8-2020"
+    "remind date" : "26-8-2020",
+    "condition" : "While Stock Last"
+
   }, {
     "name" : "Fiona Kunz",
     "promoCode": "9482427",
@@ -137,7 +142,9 @@
     "usage": "0",
     "limit": "1",
     "tagged" : [ ],
-    "remind date" : "27-8-2020"
+    "remind date" : "27-8-2020",
+    "condition" : "While Stock Last"
+
   }, {
     "name" : "George Best",
     "promoCode": "9482442",
@@ -155,6 +162,7 @@
     "usage": "0",
     "limit": "2",
     "tagged" : [ ],
-    "remind date" : "28-12-2020"
+    "remind date" : "28-12-2020",
+    "condition" : "While Stock Last"
   } ]
 }

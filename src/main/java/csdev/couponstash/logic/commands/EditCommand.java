@@ -14,6 +14,7 @@ import csdev.couponstash.commons.util.CollectionUtil;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.logic.parser.CliSyntax;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -110,6 +111,7 @@ public class EditCommand extends Command {
         StartDate updatedStartDate = editCouponDescriptor.getStartDate().orElse(couponToEdit.getStartDate());
         Limit updatedLimit = editCouponDescriptor.getLimit().orElse(couponToEdit.getLimit());
         Set<Tag> updatedTags = editCouponDescriptor.getTags().orElse(couponToEdit.getTags());
+        Condition updatedCondition = editCouponDescriptor.getCondition().orElse(couponToEdit.getCondition());
 
         return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
                 // avoid changing the usage
@@ -118,7 +120,8 @@ public class EditCommand extends Command {
                 // avoid changing the total savings and dates mappings
                 couponToEdit.getSavingsMap(),
                 // avoid changing the reminder
-                new RemindDate(updatedExpiryDate));
+                new RemindDate(updatedExpiryDate),
+                updatedCondition);
     }
 
     @Override
@@ -153,6 +156,7 @@ public class EditCommand extends Command {
         private Limit limit;
         private Set<Tag> tags;
         private RemindDate remindDate;
+        private Condition condition;
 
         public EditCouponDescriptor() {}
 
@@ -170,6 +174,7 @@ public class EditCommand extends Command {
             setLimit(toCopy.limit);
             setTags(toCopy.tags);
             setRemindDate(toCopy.remindDate);
+            setCondition(toCopy.condition);
         }
 
         /**
@@ -177,7 +182,7 @@ public class EditCommand extends Command {
          */
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(name, promoCode, savings, expiryDate, startDate, usage, limit, tags,
-                    remindDate);
+                    remindDate, condition);
         }
 
         public void setName(Name name) {
@@ -254,6 +259,14 @@ public class EditCommand extends Command {
 
         public void setRemindDate(RemindDate remindDate) {
             this.remindDate = remindDate;
+        }
+
+        public void setCondition(Condition condition) {
+            this.condition = condition;
+        }
+
+        public Optional<Condition> getCondition() {
+            return Optional.ofNullable(condition);
         }
 
         /**

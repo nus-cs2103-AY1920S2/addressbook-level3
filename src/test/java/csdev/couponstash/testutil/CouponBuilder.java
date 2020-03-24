@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;
@@ -36,6 +37,8 @@ public class CouponBuilder {
     public static final String DEFAULT_USAGE = "3";
     public static final String DEFAULT_LIMIT = "7";
     public static final String DEFAULT_REMIND_DATE = "27-08-2020";
+    public static final String DEFAULT_CONDITION = "While Stocks Last";
+
 
     public static final String FULL_COMMAND_TEXT =
             String.format("n/%s p/%s e/%s s/%s sd/%s l/%s",
@@ -57,6 +60,7 @@ public class CouponBuilder {
     private Limit limit;
     private RemindDate remindDate;
     private Set<Tag> tags;
+    private Condition condition;
 
     public CouponBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -69,6 +73,7 @@ public class CouponBuilder {
         limit = new Limit(DEFAULT_LIMIT);
         remindDate = new RemindDate(expiryDate);
         tags = new HashSet<>();
+        condition = new Condition(DEFAULT_CONDITION);
     }
 
     /**
@@ -85,6 +90,7 @@ public class CouponBuilder {
         limit = couponToCopy.getLimit();
         remindDate = couponToCopy.getRemindDate();
         tags = new HashSet<>(couponToCopy.getTags());
+        condition = couponToCopy.getCondition();
     }
 
     /**
@@ -182,6 +188,13 @@ public class CouponBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Condition} of the {@code Coupon} that we are building.
+     */
+    public CouponBuilder withCondition(String condition) {
+        this.condition = new Condition(condition);
+        return this;
+    }
 
     /**
      * Builds the Coupon from the provided fields.
@@ -190,7 +203,7 @@ public class CouponBuilder {
      */
     public Coupon build() {
         return new Coupon(name, promoCode, savings, expiryDate, startDate,
-                usage, limit, tags, totalSavings, remindDate);
+                usage, limit, tags, totalSavings, remindDate, condition);
     }
 
 }
