@@ -80,11 +80,10 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "911a*"; // 'a' not allowed in salary
     public static final String INVALID_COURSE_DESC = " " + PREFIX_COURSE + "Python&"; // '&' not allowed in course
+    public static final String INVALID_ASSIGNMENT_DESC = " " + PREFIX_NAME + "Assignment1&"; // '&' not allowed in course
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "911a"; // 'a' not allowed in amount
     public static final String INVALID_ID_DESC = " " + PREFIX_COURSEID + "911a"; // 'a' not allowed in ID
     public static final String INVALID_DEADLINE_DATE = ""; // cannot be empty
-
-
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

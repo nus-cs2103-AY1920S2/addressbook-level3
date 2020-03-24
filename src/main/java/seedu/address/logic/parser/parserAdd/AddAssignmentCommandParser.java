@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.parserAdd;
 
 import seedu.address.logic.commands.commandAdd.AddAssignmentCommand;
+import seedu.address.logic.commands.commandAdd.AddCommand;
 import seedu.address.logic.parser.*;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelAssignment.Assignment;
@@ -18,7 +19,7 @@ import static seedu.address.logic.parser.CliSyntax.*;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> {
+public class AddAssignmentCommandParser extends AddCommandParser {
 
   /**
    * Returns true if none of the prefixes contains empty {@code Optional} values in the given {@code
@@ -35,7 +36,7 @@ public class AddAssignmentCommandParser implements Parser<AddAssignmentCommand> 
    * @return
    * @throws ParseException if the user input does not conform the expected format
    */
-  public AddAssignmentCommand parse(String args) throws ParseException {
+  public AddCommand parse(String args) throws ParseException {
     ArgumentMultimap argMultimap =
         ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ASSIGNMENTID, PREFIX_DEADLINE, PREFIX_TAG);
 
