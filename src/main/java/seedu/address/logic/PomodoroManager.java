@@ -164,6 +164,8 @@ public class PomodoroManager {
         Set<Tag> updatedTags = taskToEdit.getTags();
         Task editedTask = new Task(updatedName, updatedPriority, updatedDescription, new Done("Y"), updatedTags);
         model.setTask(taskToEdit, editedTask);
+        // Update pet exp
+        model.incrementExp();
         clearDoneParams();
     }
 }
