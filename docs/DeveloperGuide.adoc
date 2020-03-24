@@ -636,6 +636,9 @@ _{Explain here how the data encryption feature will be implemented}_
 
 The syntax highlighting feature extends the CLI input box in the `MainWindow` of TA-Tracker
 by colouring the font of valid command words as the user is typing.
+
+image::SyntaxHighlighting.png[]
+
 // end::syntaxhighlighting[]
 
 === Logging
