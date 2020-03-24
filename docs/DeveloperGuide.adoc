@@ -294,7 +294,7 @@ or `ReturnCommand`. This will cause a delivery order or return order being added
 
 The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
 which is then pass back to the `LogicManager`.
-
+**
 [[search]]
 === Search feature
 The search function allow users to search for any orders according to the provided input. +
