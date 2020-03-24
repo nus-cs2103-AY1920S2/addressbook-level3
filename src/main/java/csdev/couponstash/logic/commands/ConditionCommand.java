@@ -10,6 +10,7 @@ import csdev.couponstash.commons.core.Messages;
 import csdev.couponstash.commons.core.index.Index;
 import csdev.couponstash.logic.commands.exceptions.CommandException;
 import csdev.couponstash.model.Model;
+import csdev.couponstash.model.coupon.Archived;
 import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
@@ -83,7 +84,7 @@ public class ConditionCommand extends Command {
         Coupon couponToBeConditioned = lastShownList.get(index.getZeroBased());
         conditionCoupon = createConditionCoupon(couponToBeConditioned, commandText);
         model.setCoupon(couponToBeConditioned, conditionCoupon, commandText);
-        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_COUPONS);
+        model.updateFilteredCouponList(Model.PREDICATE_SHOW_ALL_ACTIVE_COUPONS);
 
         messageSuccess = "Changes have been made to coupon: "
                 + conditionCoupon.getName().toString() + "'s condition statement.\n"
@@ -128,9 +129,10 @@ public class ConditionCommand extends Command {
         Set<Tag> tags = couponToBeConditioned.getTags();
         Usage updatedUsage = couponToBeConditioned.getUsage();
         DateSavingsSumMap totalSavings = couponToBeConditioned.getSavingsMap();
+        Archived archived = couponToBeConditioned.getArchived();
         Condition condition = new Condition(commandText);
 
         return new Coupon(name, promoCode, savingsForEachUse, expiryDate, startDate, updatedUsage, limit,
-                tags, totalSavings, remindDate, condition);
+                tags, totalSavings, remindDate, condition, archived);
     }
 }

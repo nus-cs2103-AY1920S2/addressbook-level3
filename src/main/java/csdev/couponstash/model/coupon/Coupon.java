@@ -218,7 +218,7 @@ public class Coupon {
         Archived newArchived = new Archived(String.valueOf(Usage.isUsageAtLimit(newUsage, this.limit)));
         return new Coupon(this.name, this.promoCode, this.savingsForEachUse,
                 this.expiryDate, this.startDate, newUsage,
-                this.limit, this.tags, this.totalSavings, this.remind, newArchived);
+                this.limit, this.tags, this.totalSavings, this.remind, this.condition, newArchived);
     }
 
     /**

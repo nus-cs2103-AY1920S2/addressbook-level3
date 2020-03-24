@@ -191,14 +191,15 @@ public class CouponBuilder {
         this.remindDate = new RemindDate(remindDate, expiryDate);
         return this;
     }
-
+    /**
      * Sets the {@code Condition} of the {@code Coupon} that we are building.
      */
     public CouponBuilder withCondition(String condition) {
         this.condition = new Condition(condition);
         return this;
     }
-  
+
+    /**
      * Sets the {@code Archive} of the {@code Coupon} that we are building.
      */
     public CouponBuilder withArchived(String state) {

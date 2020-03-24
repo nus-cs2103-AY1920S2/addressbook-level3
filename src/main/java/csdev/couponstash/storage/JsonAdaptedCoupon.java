@@ -57,7 +57,7 @@ class JsonAdaptedCoupon {
                              @JsonProperty("totalSaved") JsonAdaptedDssm totalSaved,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                              @JsonProperty("remind date") String remindDate,
-                             @JsonProperty("condition") String condition
+                             @JsonProperty("condition") String condition,
                              @JsonProperty("archived") String archived
     ) {
         this.name = name;

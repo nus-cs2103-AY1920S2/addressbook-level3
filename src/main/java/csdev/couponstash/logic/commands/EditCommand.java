@@ -126,7 +126,7 @@ public class EditCommand extends Command {
                 // avoid changing the reminder
 
                 remindDate,
-                updatedCondition
+                updatedCondition,
                 // avoid changing the archival state
                 archived);
     }
