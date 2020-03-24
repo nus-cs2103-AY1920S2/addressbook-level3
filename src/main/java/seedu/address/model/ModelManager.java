@@ -217,7 +217,7 @@ public class ModelManager implements Model {
     }
 
     // ============================ Statistics Manager
-=======
+
     public void updatesDayDataStatistics(DayData dayData) {
         statistics.updatesDayData(dayData);
     }
