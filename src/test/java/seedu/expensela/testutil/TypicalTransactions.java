@@ -35,7 +35,7 @@ public class TypicalTransactions {
             .withRemark("End of year bonus")
             .withCategory("MISC")
             .build();
-    public static final Transaction CAR_GAS = new TransactionBuilder().withName("Car Gase")
+    public static final Transaction CAR_GAS = new TransactionBuilder().withName("Car Gas")
             .withAmount("50.49", false)
             .withDate("2020-02-28")
             .withRemark("")

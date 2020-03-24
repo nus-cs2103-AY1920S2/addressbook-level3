@@ -12,30 +12,32 @@ import seedu.expensela.model.monthlydata.MonthlyData;
  * Panel containing the list of transactions.
  */
 public class MonthlyDataPanel extends UiPart<Region> {
+
     private static final String FXML = "MonthlyDataPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(MonthlyDataPanel.class);
 
     public final MonthlyData monthlyData;
 
+    private final Logger logger = LogsCenter.getLogger(MonthlyDataPanel.class);
+
     @FXML
-    private Label expenditure;
+    private Label balance;
 
     @FXML
     private Label budget;
 
     @FXML
-    private Label income;
+    private Label expenditure;
 
     @FXML
-    private Label balance;
+    private Label income;
 
     public MonthlyDataPanel(MonthlyData monthlyData) {
         super(FXML);
         this.monthlyData = monthlyData;
-        expenditure.setText("Monthly Expense: $2,000");
-        budget.setText("Monthly Budget: $3,000");
-        income.setText("Monthly Income: $5,000");
         balance.setText("Total Balance: $170,000");
+        budget.setText("Monthly Budget: $3,000");
+        expenditure.setText("Monthly Expense: $2,000");
+        income.setText("Monthly Income: $5,000");
     }
 
 }

@@ -1,11 +1,22 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.*;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
+
 import java.util.stream.Stream;
+
 import seedu.expensela.logic.commands.AddCommand;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.transaction.*;
+import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
+import seedu.expensela.model.transaction.Date;
+import seedu.expensela.model.transaction.Name;
+import seedu.expensela.model.transaction.Remark;
+import seedu.expensela.model.transaction.Transaction;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -19,7 +30,8 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK, PREFIX_CATEGORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK,
+                        PREFIX_CATEGORY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_REMARK, PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {

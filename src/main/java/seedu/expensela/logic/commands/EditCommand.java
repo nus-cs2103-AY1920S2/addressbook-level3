@@ -182,7 +182,9 @@ public class EditCommand extends Command {
             return Optional.ofNullable(remark);
         }
 
-        public void setCategory(Category category) { this.category = category; }
+        public void setCategory(Category category) {
+            this.category = category;
+        }
 
         public Optional<Category> getCategory() {
             return Optional.ofNullable(category);

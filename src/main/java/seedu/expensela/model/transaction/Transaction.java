@@ -40,9 +40,13 @@ public class Transaction {
         return date;
     }
 
-    public Remark getRemark() { return remark; }
+    public Remark getRemark() {
+        return remark;
+    }
 
-    public Category getCategory() { return category; }
+    public Category getCategory() {
+        return category;
+    }
 
     /**
      * Returns true if both transactions of the same name have at least one other identity field that is the same.

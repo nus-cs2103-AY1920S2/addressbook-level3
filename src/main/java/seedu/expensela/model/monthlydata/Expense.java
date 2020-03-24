@@ -3,29 +3,32 @@ package seedu.expensela.model.monthlydata;
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
+import java.text.DecimalFormat;
+
+/**
+ * Monthly expense data to be displayed in monthly data panel
+ */
 public class Expense {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Expense should only contain numbers with 2 decimal places";
-    public static final String VALIDATION_REGEX = "\\d{1,}\\.\\d{2}";
-    public final int dollarValue;
-    public final int centValue;
+    public static final String VALIDATION_REGEX = "^(?=.*[1-9])\\d{1,9}(?:\\.\\d{0,2})?$";
+    public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
+    public final Double expenseAmount;
 
     /**
      * Constructs a {@code Expense}.
      *
-     * @param value A valid income amount.
+     * @param value A valid expense amount.
      */
     public Expense(String value) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
-        String[] tokens = value.split(".");
-        this.dollarValue = Integer.parseInt(tokens[0]);
-        this.centValue = Integer.parseInt(tokens[1]);
+        expenseAmount = Double.parseDouble(value);
     }
 
     /**
-     * Returns true if a given string is a valid income amount.
+     * Returns true if a given string is a valid expense amount.
      */
     public static boolean isValidAmount(String test) {
         return test.matches(VALIDATION_REGEX);
@@ -34,7 +37,7 @@ public class Expense {
     @Override
     public String toString() {
         String printedAmount = "$";
-        printedAmount += dollarValue + "." + centValue;
+        printedAmount += expenseAmount;
         return printedAmount;
     }
 
@@ -42,13 +45,12 @@ public class Expense {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Expense // instanceof handles nulls
-                && dollarValue == ((Expense) other).dollarValue //state check
-                && centValue == ((Expense) other).centValue); // state check
+                && expenseAmount == ((Expense) other).expenseAmount); // state check
     }
 
     @Override
     public int hashCode() {
-        return (dollarValue + "." + centValue).hashCode();
+        return (expenseAmount).hashCode();
     }
 
 }

@@ -1,21 +1,20 @@
 package seedu.expensela.model.monthlydata;
 
-import seedu.expensela.model.transaction.Amount;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
 
+import java.text.DecimalFormat;
+
 /**
- * Represents a user's income for a particular month.
- * Guarantees: immutable; is valid as declared in {@link #isValidAmount(String)}
+ * Monthly income data set by user
  */
 public class Income {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Income should only contain numbers with 2 decimal places";
-    public static final String VALIDATION_REGEX = "\\d{1,}\\.\\d{2}";
-    public final int dollarValue;
-    public final int centValue;
+    public static final String VALIDATION_REGEX = "^(?=.*[1-9])\\d{1,9}(?:\\.\\d{0,2})?$";
+    public static final DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("#,##0.00");
+    public final Double incomeAmount;
 
     /**
      * Constructs a {@code Income}.
@@ -25,9 +24,7 @@ public class Income {
     public Income(String value) {
         requireNonNull(value);
         checkArgument(isValidAmount(value), MESSAGE_CONSTRAINTS);
-        String[] tokens = value.split(".");
-        this.dollarValue = Integer.parseInt(tokens[0]);
-        this.centValue = Integer.parseInt(tokens[1]);
+        incomeAmount = Double.parseDouble(value);
     }
 
     /**
@@ -40,7 +37,7 @@ public class Income {
     @Override
     public String toString() {
         String printedAmount = "$";
-        printedAmount += dollarValue + "." + centValue;
+        printedAmount += incomeAmount;
         return printedAmount;
     }
 
@@ -48,13 +45,12 @@ public class Income {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Income // instanceof handles nulls
-                && dollarValue == ((Income) other).dollarValue //state check
-                && centValue == ((Income) other).centValue); // state check
+                && incomeAmount == ((Income) other).incomeAmount); // state check
     }
 
     @Override
     public int hashCode() {
-        return (dollarValue + "." + centValue).hashCode();
+        return (incomeAmount).hashCode();
     }
 
 }

@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.expensela.logic.commands.CommandTestUtil.VALID_REMARK_AIRPODS;
 import static seedu.expensela.testutil.Assert.assertThrows;
-import static seedu.expensela.testutil.TypicalTransactions.ALICE;
-import static seedu.expensela.testutil.TypicalTransactions.BOB;
+import static seedu.expensela.testutil.TypicalTransactions.AIRPODS;
+import static seedu.expensela.testutil.TypicalTransactions.PIZZA;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,19 +29,19 @@ public class TransactionListTest {
 
     @Test
     public void contains_transactionNotInList_returnsFalse() {
-        assertFalse(transactionList.contains(ALICE));
+        assertFalse(transactionList.contains(PIZZA));
     }
 
     @Test
     public void contains_transactionInList_returnsTrue() {
-        transactionList.add(ALICE);
-        assertTrue(transactionList.contains(ALICE));
+        transactionList.add(PIZZA);
+        assertTrue(transactionList.contains(PIZZA));
     }
 
     @Test
     public void contains_transactionWithSameIdentityFieldsInList_returnsTrue() {
-        transactionList.add(ALICE);
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
+        transactionList.add(PIZZA);
+        Transaction editedAlice = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS)
                 .build();
         assertTrue(transactionList.contains(editedAlice));
     }
@@ -53,40 +53,40 @@ public class TransactionListTest {
 
     @Test
     public void add_duplicateTransaction_throwsDuplicateTransactionException() {
-        transactionList.add(ALICE);
-        assertThrows(DuplicateTransactionException.class, () -> transactionList.add(ALICE));
+        transactionList.add(PIZZA);
+        assertThrows(DuplicateTransactionException.class, () -> transactionList.add(PIZZA));
     }
 
     @Test
     public void setTransaction_nullTargetTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(null, ALICE));
+        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(null, PIZZA));
     }
 
     @Test
     public void setTransaction_nullEditedTransaction_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(ALICE, null));
+        assertThrows(NullPointerException.class, () -> transactionList.setTransaction(PIZZA, null));
     }
 
     @Test
     public void setTransaction_targetTransactionNotInList_throwsTransactionNotFoundException() {
-        assertThrows(TransactionNotFoundException.class, () -> transactionList.setTransaction(ALICE, ALICE));
+        assertThrows(TransactionNotFoundException.class, () -> transactionList.setTransaction(PIZZA, PIZZA));
     }
 
     @Test
     public void setTransaction_editedTransactionIsSameTransaction_success() {
-        transactionList.add(ALICE);
-        transactionList.setTransaction(ALICE, ALICE);
+        transactionList.add(PIZZA);
+        transactionList.setTransaction(PIZZA, PIZZA);
         TransactionList expectedTransactionList = new TransactionList();
-        expectedTransactionList.add(ALICE);
+        expectedTransactionList.add(PIZZA);
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransaction_editedTransactionHasSameIdentity_success() {
-        transactionList.add(ALICE);
-        Transaction editedAlice = new TransactionBuilder(ALICE).withAddress(VALID_REMARK_AIRPODS)
+        transactionList.add(PIZZA);
+        Transaction editedAlice = new TransactionBuilder(PIZZA).withRemark(VALID_REMARK_AIRPODS)
                 .build();
-        transactionList.setTransaction(ALICE, editedAlice);
+        transactionList.setTransaction(PIZZA, editedAlice);
         TransactionList expectedTransactionList = new TransactionList();
         expectedTransactionList.add(editedAlice);
         assertEquals(expectedTransactionList, transactionList);
@@ -94,18 +94,18 @@ public class TransactionListTest {
 
     @Test
     public void setTransaction_editedTransactionHasDifferentIdentity_success() {
-        transactionList.add(ALICE);
-        transactionList.setTransaction(ALICE, BOB);
+        transactionList.add(PIZZA);
+        transactionList.setTransaction(PIZZA, AIRPODS);
         TransactionList expectedTransactionList = new TransactionList();
-        expectedTransactionList.add(BOB);
+        expectedTransactionList.add(AIRPODS);
         assertEquals(expectedTransactionList, transactionList);
     }
 
     @Test
     public void setTransaction_editedTransactionHasNonUniqueIdentity_throwsDuplicateTransactionException() {
-        transactionList.add(ALICE);
-        transactionList.add(BOB);
-        assertThrows(DuplicateTransactionException.class, () -> transactionList.setTransaction(ALICE, BOB));
+        transactionList.add(PIZZA);
+        transactionList.add(AIRPODS);
+        assertThrows(DuplicateTransactionException.class, () -> transactionList.setTransaction(PIZZA, AIRPODS));
     }
 
     @Test
@@ -115,13 +115,13 @@ public class TransactionListTest {
 
     @Test
     public void remove_transactionDoesNotExist_throwsTransactionNotFoundException() {
-        assertThrows(TransactionNotFoundException.class, () -> transactionList.remove(ALICE));
+        assertThrows(TransactionNotFoundException.class, () -> transactionList.remove(PIZZA));
     }
 
     @Test
     public void remove_existingTransaction_removesTransaction() {
-        transactionList.add(ALICE);
-        transactionList.remove(ALICE);
+        transactionList.add(PIZZA);
+        transactionList.remove(PIZZA);
         TransactionList expectedTransactionList = new TransactionList();
         assertEquals(expectedTransactionList, transactionList);
     }
@@ -133,9 +133,9 @@ public class TransactionListTest {
 
     @Test
     public void setTransactions_uniqueTransactionList_replacesOwnListWithProvidedUniqueTransactionList() {
-        transactionList.add(ALICE);
+        transactionList.add(PIZZA);
         TransactionList expectedTransactionList = new TransactionList();
-        expectedTransactionList.add(BOB);
+        expectedTransactionList.add(AIRPODS);
         transactionList.setTransaction(expectedTransactionList);
         assertEquals(expectedTransactionList, transactionList);
     }
@@ -147,17 +147,17 @@ public class TransactionListTest {
 
     @Test
     public void setTransactions_list_replacesOwnListWithProvidedList() {
-        transactionList.add(ALICE);
-        List<Transaction> transactionList = Collections.singletonList(BOB);
+        transactionList.add(PIZZA);
+        List<Transaction> transactionList = Collections.singletonList(AIRPODS);
         this.transactionList.setTransaction(transactionList);
         TransactionList expectedTransactionList = new TransactionList();
-        expectedTransactionList.add(BOB);
+        expectedTransactionList.add(AIRPODS);
         assertEquals(expectedTransactionList, this.transactionList);
     }
 
     @Test
     public void setTransactions_listWithDuplicateTransactions_throwsDuplicateTransactionException() {
-        List<Transaction> listWithDuplicateTransactions = Arrays.asList(ALICE, ALICE);
+        List<Transaction> listWithDuplicateTransactions = Arrays.asList(PIZZA, PIZZA);
         assertThrows(DuplicateTransactionException.class, (
         ) -> transactionList.setTransaction(listWithDuplicateTransactions));
     }

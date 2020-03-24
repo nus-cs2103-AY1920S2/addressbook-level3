@@ -3,12 +3,11 @@ package seedu.expensela.model.util;
 import seedu.expensela.model.ExpenseLa;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.transaction.Amount;
+import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
-import seedu.expensela.model.transaction.Transaction;
-import seedu.expensela.model.transaction.Category;
 import seedu.expensela.model.transaction.Remark;
-import seedu.expensela.model.transaction.*;
+import seedu.expensela.model.transaction.Transaction;
 
 /**
  * Contains utility methods for populating {@code ExpenseLa} with sample data.
@@ -26,11 +25,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyExpenseLa getSampleExpenseLa() {
-        ExpenseLa sampleEL = new ExpenseLa();
+        ExpenseLa sampleEl = new ExpenseLa();
         for (Transaction sampleTransaction : getSampleTransactions()) {
-            sampleEL.addTransaction(sampleTransaction);
+            sampleEl.addTransaction(sampleTransaction);
         }
-        return sampleEL;
+        return sampleEl;
     }
 
 }

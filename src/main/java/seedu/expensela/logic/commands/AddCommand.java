@@ -33,8 +33,8 @@ public class AddCommand extends Command {
             + PREFIX_CATEGORY + "FOOD ";
 
     public static final String MESSAGE_SUCCESS = "New transaction added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists " +
-            "in the transaction list";
+    public static final String MESSAGE_DUPLICATE_TRANSACTION = "This transaction already exists "
+            + "in the transaction list";
 
     private final Transaction toAdd;
 
