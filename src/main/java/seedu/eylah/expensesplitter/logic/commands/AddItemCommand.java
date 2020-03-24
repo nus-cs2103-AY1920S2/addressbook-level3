@@ -41,7 +41,7 @@ public class AddItemCommand extends Command {
      * @param persons String array of persons to be added.
      */
     public AddItemCommand(Item item, ArrayList<Person> persons, Amount amount) {
-        requireAllNonNull(item, persons);
+        requireAllNonNull(item, persons, amount);
         this.persons = persons;
         this.amount = amount;
         toBeAdded = new Entry(item, persons);
