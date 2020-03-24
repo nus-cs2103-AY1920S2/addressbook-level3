@@ -134,9 +134,8 @@ public interface Model {
     /**
      * Sorts coupons in the coupon stash according to the field specified
      * by the prefix.
-     * @param prefixToSortBy
      */
-    void sortCoupons(Prefix prefixToSortBy);
+    void sortCoupons(Prefix prefixToSortBy, String commandText);
 
     /**
      * Sets the money symbol in the user prefs to a new value.
