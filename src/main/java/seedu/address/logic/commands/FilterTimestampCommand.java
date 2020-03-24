@@ -1,12 +1,45 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.conditions.Conditions;
+import seedu.address.logic.conditions.LiterallyNoConditions;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.AppStorage;
+
+import java.util.ArrayList;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FilterTimestampCommand implements AppCommand {
+    private static int START_TIME;
+    private static int END_TIME;
+
     public static final String COMMAND_WORD = "from";
+    private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<start>\\d+) to (?<end>\\d+)");
+    private final Logger logger = LogsCenter.getLogger(FilterTimestampCommand.class);
 
     @Override
-    public AppCommandResult execute(String arguments) throws ParseException {
-        return new AppCommandResult("Fake result", false);
+    public FilterTimestampCommand validate(String arguments) throws ParseException {
+        logger.info(String.format("Validating: %s", arguments));
+        final Matcher matcher = COMMAND_FORMAT.matcher(arguments.trim());
+
+        if (!matcher.matches()) {
+            String error = String.format("Command %s invalid", arguments);
+            throw new ParseException(error);
+        }
+
+        this.START_TIME = Integer.parseInt(matcher.group("start"));
+        this.END_TIME   = Integer.parseInt(matcher.group("end"));
+        return this;
+    }
+
+    @Override
+    public AppCommandResult execute(AppStorage dao) {
+        Conditions cond = new LiterallyNoConditions();
+        ArrayList resp  = dao.search(cond);
+        AppCommandResult result = new AppCommandResult("Filtered by timestamp", false);
+        result.setToDisplayList(resp);
+        return result;
     }
 }
