@@ -83,10 +83,10 @@ public class RecipeBookParser {
             return new FilterCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            return new UndoCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            return new RedoCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

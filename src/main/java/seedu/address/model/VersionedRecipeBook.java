@@ -18,21 +18,23 @@ public class VersionedRecipeBook extends RecipeBook {
     }
 
     /**
-     * Checks if it is possible to undo. Returns true if there is an older state of the RecipeBook
-     * (relative to the current state) stored in the list.
+     * Checks if it is possible to undo. Returns true if there is at least {@code numberOfUndo} older states
+     * of the RecipeBook (relative to the current state) stored in the list.
      */
-    public boolean canUndo() {
+    public boolean canUndo(int numberOfUndo) {
         assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
-        return currentStatePointer > 0;
+        assert numberOfUndo > 0;
+        return numberOfUndo <= currentStatePointer;
     }
 
     /**
-     * Checks if it is possible to redo. Returns true if there is a newer state of the RecipeBook
-     * (relative to the current state) stored in the list.
+     * Checks if it is possible to redo. Returns true if there is are at least {@code numberOfRedo} newer states
+     * of the RecipeBook (relative to the current state) stored in the list.
      */
-    public boolean canRedo() {
+    public boolean canRedo(int numberOfRedo) {
         assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
-        return currentStatePointer < addressBookStateList.size() - 1;
+        assert numberOfRedo > 0;
+        return numberOfRedo <= addressBookStateList.size() - 1 - currentStatePointer;
     }
 
     /**
@@ -53,20 +55,28 @@ public class VersionedRecipeBook extends RecipeBook {
     }
 
     /**
-     * Changes the state of the RecipeBook to the previous state.
+     * Reverts the RecipeBook back by {@code numberOfUndo} states.
      */
-    public ReadOnlyRecipeBook undo() {
-        currentStatePointer--;
-        assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+    public ReadOnlyRecipeBook undo(int numberOfUndo) {
+        assert numberOfUndo > 0;
+        while (numberOfUndo > 0) {
+            currentStatePointer--;
+            assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+            numberOfUndo--;
+        }
         return addressBookStateList.get(currentStatePointer);
     }
 
     /**
-     * Changes the state of the RecipeBook to the next available state.
+     * Fast forwards the RecipeBook by {@code numberOfRedo} states.
      */
-    public ReadOnlyRecipeBook redo() {
-        currentStatePointer++;
-        assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+    public ReadOnlyRecipeBook redo(int numberOfRedo) {
+        assert numberOfRedo > 0;
+        while (numberOfRedo > 0) {
+            currentStatePointer++;
+            assert currentStatePointer >= 0 && currentStatePointer < addressBookStateList.size();
+            numberOfRedo--;
+        }
         return addressBookStateList.get(currentStatePointer);
     }
 

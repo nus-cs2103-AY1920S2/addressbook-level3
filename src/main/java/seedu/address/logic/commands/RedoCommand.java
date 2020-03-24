@@ -13,17 +13,27 @@ public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
 
-    public static final String MESSAGE_SUCCESS = "Redo successful!";
-    public static final String MESSAGE_CANNOT_REDO = "Nothing to redo!";
+    public static final String MESSAGE_CANNOT_REDO = "Cannot redo!";
+    public static final String MESSAGE_CONSTRAINTS = "Only one non-zero positive integer "
+            + "(representing the number of actions you wish to redo) is allowed as an argument. "
+            + "Otherwise, leaving it blank will do (undoes the actions of only the previous undo)!";
+    public static final String MESSAGE_SUCCESS = "Redid %1$d action(s) successfully!";
+
+
+    private final int numberOfRedo;
+
+    public RedoCommand(int numberOfRedo) {
+        this.numberOfRedo = numberOfRedo;
+    }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (!model.canRedo()) {
+        if (!model.canRedo(numberOfRedo)) {
             throw new CommandException(MESSAGE_CANNOT_REDO);
         }
-        model.redoRecipeBook();
+        model.redoRecipeBook(numberOfRedo);
         model.updateFilteredRecipeList(PREDICATE_SHOW_ALL_RECIPES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, numberOfRedo));
     }
 }

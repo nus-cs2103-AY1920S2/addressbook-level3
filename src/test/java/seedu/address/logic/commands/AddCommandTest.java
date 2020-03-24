@@ -149,12 +149,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndo() {
+        public boolean canUndo(int numberOfUndo) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedo() {
+        public boolean canRedo(int numberOfRedo) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -164,12 +164,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void undoRecipeBook() {
+        public void undoRecipeBook(int numberOfUndo) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoRecipeBook() {
+        public void redoRecipeBook(int numberOfRedo) {
             throw new AssertionError("This method should not be called.");
         }
 

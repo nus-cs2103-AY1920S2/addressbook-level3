@@ -124,13 +124,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean canUndo() {
-        return states.canUndo();
+    public boolean canUndo(int numberOfUndo) {
+        return states.canUndo(numberOfUndo);
     }
 
     @Override
-    public boolean canRedo() {
-        return states.canRedo();
+    public boolean canRedo(int numberOfRedo) {
+        return states.canRedo(numberOfRedo);
     }
 
     @Override
@@ -139,13 +139,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undoRecipeBook() {
-        setRecipeBook(states.undo());
+    public void undoRecipeBook(int numberOfUndo) {
+        setRecipeBook(states.undo(numberOfUndo));
     }
 
     @Override
-    public void redoRecipeBook() {
-        setRecipeBook(states.redo());
+    public void redoRecipeBook(int numberOfRedo) {
+        setRecipeBook(states.redo(numberOfRedo));
     }
 
     //=========== Filtered Recipe List Accessors =============================================================
