@@ -9,7 +9,7 @@ import nasa.model.Model;
 import nasa.model.module.ModuleCode;
 
 /**
- * Deletes a activity identified using it's displayed index from the module list.
+ * Deletes an activity identified using it's displayed index from the module list.
  */
 public class DeleteActivityCommand extends Command {
 
