@@ -36,7 +36,7 @@ public class HelpSuggestionCommandTest {
     @Test
     public void execute() {
         // Instantiate command
-        HelpSuggestionCommand helpSuggestionCommand = new HelpSuggestionCommand(toRoot);
+        HelpSuggestionCommand helpSuggestionCommand = new HelpSuggestionCommand();
 
         helpSuggestionCommand.execute(model);
 

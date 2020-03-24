@@ -2,7 +2,6 @@ package com.notably.logic.suggestion.commands;
 
 import java.util.Objects;
 
-import com.notably.commons.core.path.AbsolutePath;
 import com.notably.logic.suggestion.SuggestionCommand;
 import com.notably.model.Model;
 
