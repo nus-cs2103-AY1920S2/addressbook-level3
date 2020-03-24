@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -17,21 +17,21 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 =======
-import seedu.address.logic.commands.ResetCommand;
+import ResetCommand;
 >>>>>>> main-kevin-newCommand
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.ModifyCommand;
-import seedu.address.logic.commands.ModifyCommand.EditRecipeDescriptor;
-import seedu.address.logic.commands.NewCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.recipe.NameContainsKeywordsPredicate;
-import seedu.address.model.recipe.Recipe;
-import seedu.address.testutil.EditRecipeDescriptorBuilder;
-import seedu.address.testutil.RecipeBuilder;
+import DeleteCommand;
+import ExitCommand;
+import FindCommand;
+import HelpCommand;
+import ListCommand;
+import ModifyCommand;
+import ModifyCommand.EditRecipeDescriptor;
+import NewCommand;
+import ParseException;
+import NameContainsKeywordsPredicate;
+import Recipe;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.RecipeUtil;
 
 public class AddressBookParserTest {
