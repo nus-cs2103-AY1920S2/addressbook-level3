@@ -17,6 +17,7 @@ public class SamplePersonAmountDataUtil {
         return new Person[] {
             new Person(new Name("Willy"), new Amount(new BigDecimal("3.30"))),
             new Person(new Name("Shi"), new Amount(new BigDecimal("34.30"))),
+                new Person(new Name("Ailan"), new Amount(new BigDecimal("60.70"))),
         };
     }
 

@@ -148,4 +148,9 @@ public class UniquePersonList implements Iterable<Person> {
         }
         return true;
     }
+
+    public Person getPerson(Person person) {
+        int index = internalList.indexOf(person);
+        return internalList.get(index);
+    }
 }
