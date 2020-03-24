@@ -2,6 +2,7 @@ package nasa.testutil;
 
 import nasa.model.activity.Date;
 import nasa.model.activity.Deadline;
+import nasa.model.activity.Name;
 import nasa.model.activity.Note;
 
 /**

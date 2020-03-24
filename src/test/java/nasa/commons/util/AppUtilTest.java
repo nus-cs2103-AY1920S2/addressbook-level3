@@ -1,7 +1,7 @@
 package nasa.commons.util;
 
+import static nasa.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
