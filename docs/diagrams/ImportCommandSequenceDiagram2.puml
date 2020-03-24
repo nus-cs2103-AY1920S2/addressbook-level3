@@ -42,7 +42,10 @@ loop until every String data in ordersData are processed
 
         ImportCommand -> InsertCommand ++ : execute(Model)
 
-        InsertCommand -> Model : addOrder(toAdd)
+        InsertCommand -> Model++ : addOrder(toAdd)
+
+        Model --> InsertCommand--
+
         InsertCommand --> ImportCommand --
 
         InsertCommand -[hidden]-> ImportCommand
@@ -67,7 +70,9 @@ loop until every String data in ordersData are processed
 
         ImportCommand -> ReturnCommand ++ : execute(Model)
 
-        ReturnCommand -> Model : addReturnOrder(toBeCreated)
+        ReturnCommand -> Model++ : addReturnOrder(toBeCreated)
+
+        Model --> ReturnCommand--
         ReturnCommand --> ImportCommand --
 
         ReturnCommand -[hidden]-> ImportCommand
