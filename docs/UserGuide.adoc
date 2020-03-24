@@ -159,7 +159,7 @@ Examples:
 
 === Listing all products : `listp`
 
-image::Products.png[width="790"]
+image::Ui.png[width="790"]
 
 Shows a list of all products in the product list. It could be sorted by the amount of sales, inventory left, etc. +
 Format: `listp [s/SORT_BY:(sales|quantity)] [o/ORDER:(ASC|DES)]`
@@ -259,7 +259,7 @@ Adds a transaction with product 20 and customer 2 of 30 dollars at 2020-02-20 10
 
 === Listing all transaction : `listt`
 
-image::Transactions.png[]
+image::Ui.png[]
 
 Lists all the transactions. +
 Format: `listt [s/SORT_BY:(money_amount)] [o/ORDER:(ASC|DES)]`
