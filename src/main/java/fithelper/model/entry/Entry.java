@@ -249,11 +249,19 @@ public class Entry {
             return true;
         }
         java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes();
-        return anotherEntry != null
-                && (java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() <= 59
-                && java.time.Duration.between(anotherEntry.getTime().dateTime, getTime().dateTime).toMinutes() >= 0
-                || java.time.Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() <= 59
-                && java.time.Duration.between(getTime().dateTime, anotherEntry.getTime().dateTime).toMinutes() >= 0);
+        boolean hasClash;
+        if (anotherEntry.getTime().dateTime.isBefore(getTime().dateTime)) {
+            hasClash = hasTimeClashes(anotherEntry, this);
+        } else {
+            hasClash = anotherEntry != null && hasTimeClashes(this, anotherEntry);
+        }
+        return hasClash;
+    }
+
+    boolean hasTimeClashes(Entry entry, Entry toBeCompared) {
+        return (java.time.Duration.between(entry.getTime().dateTime, toBeCompared.getTime().dateTime).toMinutes()
+                <= toBeCompared.getDuration().getHours()*60 + toBeCompared.getDuration().getMinutes()
+                && java.time.Duration.between(entry.getTime().dateTime, toBeCompared.getTime().dateTime).toMinutes() >= 0);
     }
 
 
