@@ -283,8 +283,10 @@ public class Savings implements Comparable<Savings> {
             Savings s = (Savings) o;
             return this.monetaryAmount.equals(s.monetaryAmount)
                     && this.percentage.equals(s.percentage)
-                    // takes order of saveables list into account
-                    && this.saveables.equals(s.saveables);
+                    // does not take order of saveables list into account
+                    && ((this.saveables.isEmpty() && s.saveables.isEmpty())
+                    || (this.saveables.isPresent() && s.saveables.isPresent()
+                    && this.saveables.get().containsAll(s.saveables.get())));
         }
     }
 
