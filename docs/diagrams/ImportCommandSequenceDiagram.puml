@@ -34,6 +34,10 @@ ParseUtil -> Paths ++ : get("data", "orders.csv")
 
 Paths --> ParseUtil -- : csvFilePath
 
+ParseUtil -> FileUtil ++ : isFileExists(csvFilePath)
+
+FileUtil --> ParseUtil -- : true
+
 ParseUtil -> CsvProcessor ++ : retrieveData(csvFilePath)
 
 CsvProcessor -> FileUtil ++ : readFromFile(filePath)
