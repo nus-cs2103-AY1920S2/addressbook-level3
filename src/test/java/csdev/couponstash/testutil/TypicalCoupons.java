@@ -116,7 +116,7 @@ public class TypicalCoupons {
             .withLimit("1")
             .withTags("friends")
             .withRemindDate("28-12-2019", "31-12-2019")
-            .withCondition("While Stock Last").build()
+            .withCondition("While Stock Last")
             .withArchived("false")
             .build();
     public static final Coupon ELLE = new CouponBuilder().withName("Elle Meyer")

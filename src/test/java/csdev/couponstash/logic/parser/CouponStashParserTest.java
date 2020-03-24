@@ -60,8 +60,10 @@ public class CouponStashParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
+
         Coupon coupon = new CouponBuilder().build();
         EditCommand.EditCouponDescriptor descriptor = new EditCouponDescriptorBuilder(coupon).build();
+        String test = CouponUtil.getEditCouponDescriptorDetails(descriptor, VALID_MONEY_SYMBOL);
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + TypicalIndexes.INDEX_FIRST_COUPON.getOneBased() + " "
                 + CouponUtil.getEditCouponDescriptorDetails(descriptor, VALID_MONEY_SYMBOL));

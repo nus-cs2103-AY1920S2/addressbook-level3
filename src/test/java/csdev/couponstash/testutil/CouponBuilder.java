@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Archived;
+import csdev.couponstash.model.coupon.Condition;
 import csdev.couponstash.model.coupon.Coupon;
 import csdev.couponstash.model.coupon.ExpiryDate;
 import csdev.couponstash.model.coupon.Limit;

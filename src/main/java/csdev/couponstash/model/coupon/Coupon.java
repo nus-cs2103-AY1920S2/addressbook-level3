@@ -97,7 +97,7 @@ public class Coupon {
 
         requireAllNonNull(name, promoCode, savingsForEachUse, expiryDate, usage, limit, tags,
                 totalSavings, remind, condition, archived);
-      
+
         this.name = name;
         this.promoCode = promoCode;
         this.savingsForEachUse = savingsForEachUse;

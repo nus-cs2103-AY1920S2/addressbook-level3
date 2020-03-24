@@ -116,7 +116,7 @@ public class EditCommand extends Command {
         RemindDate remindDate = editCouponDescriptor.getExpiryDate().isPresent()
                 ? new RemindDate(updatedExpiryDate)
                 : editCouponDescriptor.getRemindDate().orElse(couponToEdit.getRemindDate());
-      
+
         return new Coupon(updatedName, updatedPromoCode, updatedSavings, updatedExpiryDate, updatedStartDate,
                 // avoid changing the usage
                 couponToEdit.getUsage(),
@@ -278,7 +278,7 @@ public class EditCommand extends Command {
         public Optional<Condition> getCondition() {
             return Optional.ofNullable(condition);
         }
-      
+
         public Optional<Archived> getArchived() {
             return Optional.ofNullable(this.archived);
         }

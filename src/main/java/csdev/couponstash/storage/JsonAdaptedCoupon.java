@@ -166,7 +166,7 @@ class JsonAdaptedCoupon {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Condition.class.getSimpleName()));
         }
         final Condition modelCondition = new Condition(condition);
-      
+
         if (!Archived.isValidState(archived)) {
             throw new IllegalValueException(Archived.MESSAGE_CONSTRAINTS);
         }
@@ -190,7 +190,7 @@ class JsonAdaptedCoupon {
 
         return new Coupon(modelName, modelPromoCode, modelSavings,
                 modelExpiryDate, modelStartDate, modelUsage, modelLimit,
-                modelTags, modelTotalSaved, modelRemindDate, modelCondition, 
+                modelTags, modelTotalSaved, modelRemindDate, modelCondition,
                 modelArchived);
     }
 }

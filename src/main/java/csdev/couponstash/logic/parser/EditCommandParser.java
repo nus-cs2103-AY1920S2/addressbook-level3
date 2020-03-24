@@ -108,7 +108,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (argMultimap.getValue(CliSyntax.PREFIX_CONDITION).isPresent()) {
-            editCouponDescriptor.setLimit(ParserUtil.parseLimit(argMultimap
+            editCouponDescriptor.setCondition(ParserUtil.parseCondition(argMultimap
                     .getValue(CliSyntax.PREFIX_CONDITION).get()));
         }
 

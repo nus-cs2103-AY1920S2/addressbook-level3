@@ -158,7 +158,7 @@ public class JsonAdaptedCouponTest {
         JsonAdaptedCoupon coupon =
                 new JsonAdaptedCoupon(VALID_NAME, VALID_PROMO_CODE, VALID_SAVINGS, VALID_EXPIRY_DATE,
                         VALID_START_DATE, VALID_USAGE, VALID_LIMIT, VALID_TOTAL_SAVINGS, VALID_TAGS,
-                        VALID_REMIND_DATE, INVALID_ARCHIVED);
+                        VALID_REMIND_DATE, VALID_CONDTIION, INVALID_ARCHIVED);
         String expectedMessage = Archived.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, coupon::toModelType);
     }
