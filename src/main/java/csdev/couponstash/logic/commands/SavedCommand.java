@@ -37,8 +37,11 @@ public class SavedCommand extends Command {
             + "Example: " + COMMAND_WORD + " 17-6-2020 ";
     public static final String MESSAGE_FUTURE_DATE = "Savings cannot be"
             + " shown for future dates!";
-    public static final String MESSAGE_INVALID_DATE_RANGE = "End date cannot"
-            + " be earlier than start date!";
+    public static final String MESSAGE_INVALID_DATE_RANGE = "End date must"
+            + " be later than start date!";
+    public static final String MESSAGE_ONLY_ONE_DATE_OF_RANGE = "To specify a"
+            + " range of dates, both start date and end date must be provided!\n"
+            + MESSAGE_USAGE;
 
     private final LocalDate startDate;
     private final LocalDate endDate;
