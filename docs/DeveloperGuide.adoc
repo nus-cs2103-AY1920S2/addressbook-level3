@@ -262,6 +262,46 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+[[Implementation-Find]]
+=== Find Command
+
+Find Command should be used under the current view. Find Command returns specified search that contains any of the given keywords.
+The search functionality is crucial to the user's experience with TaTracker.
+
+This section will describe in detail the implementation of the find command.
+
+The activity diagram below summarises what happens when a user executes the find command :
+
+image::FindCommandActivityDiagram.png[]
+
+Figure 1 Activity Diagram for the Execution of Find Command
+
+==== Implementation
+
+Find Feature consists of three main parts:
+
+1. validate and parse user input
+
+2. create a filtering predicate from user's specified keywords
+
+3. update the filtered list with the filtering predicate
+
+The find feature is facilitated by the following classes:
+
+    * `FindCommandParser`
+
+It validates and parses user input to an instance of FindCommand.
+
+
+    * `FindKeywordDescriptor`
+
+It stores keywords specified by the user.
+
+image::FindCommandClassDiagram.png[]
+
+Figure 2 Class Diagram of Find Feature
+
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
