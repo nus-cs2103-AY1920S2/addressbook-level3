@@ -21,10 +21,9 @@ public class CheckCommand extends Command {
             + "of a food/sports from pre-defined dataset.\n"
             + "Parameters: " + PREFIX_TYPE + "TYPE" + PREFIX_KEYWORD + "KEYWORD";
 
-    private static final String MESSAGE_SUCCESS = "Matching reference data:\n";
+    private static final String MESSAGE_SUCCESS = "First 3 matching reference data:\n";
     private static final String MESSAGE_FAILURE = "Sorry, no reference data have been found for your keyword.\n";
-
-
+    
     private Type checkType;
     private String keyword;
 
