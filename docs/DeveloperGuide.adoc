@@ -319,6 +319,9 @@ image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
 
 ==== List Receipt Command
 
+*Implementation*
+
+
 ==== List Amount Command
 
 ==== Paid Command
