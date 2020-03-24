@@ -12,7 +12,7 @@ import com.notably.model.block.exceptions.NoSuchBlockException;
 import javafx.scene.control.TreeItem;
 
 /**
- * Represents a BlockTreeItem in the Notably data structure.
+ * Implementation class of BlockTreeItem.
  */
 public class BlockTreeItemImpl implements BlockTreeItem {
     private TreeItem<Block> blockTreeItem;

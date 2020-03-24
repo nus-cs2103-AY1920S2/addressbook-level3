@@ -1,14 +1,13 @@
-package com.notably.model;
+package com.notably.model.block;
 
 import com.notably.commons.core.path.AbsolutePath;
-import com.notably.model.block.Block;
-import com.notably.model.block.BlockTree;
-import com.notably.model.block.Body;
 
 import javafx.beans.property.Property;
 
 /**
  * API of the BlockModel component.
+ *
+ * BlockModel is the entry point for the other components to interact and manipulate the data tree.
  */
 public interface BlockModel {
     /**
