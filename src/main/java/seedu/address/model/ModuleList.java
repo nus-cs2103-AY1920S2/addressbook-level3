@@ -62,4 +62,8 @@ public class ModuleList {
         assert false;
         return null;
     }
+
+    public ArrayList<Module> getModuleList() {
+        return moduleList;
+    }
 }
