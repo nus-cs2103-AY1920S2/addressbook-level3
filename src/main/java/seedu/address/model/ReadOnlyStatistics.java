@@ -1,7 +1,7 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.dayData.DayData;
-import java.util.List;
 
 public interface ReadOnlyStatistics {
     /**
@@ -10,5 +10,5 @@ public interface ReadOnlyStatistics {
      *
      * @return
      */
-    List<DayData> getDayDataList();
+    ObservableList<DayData> getDayDataList();
 }
