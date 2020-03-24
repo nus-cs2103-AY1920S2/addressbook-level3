@@ -29,7 +29,7 @@ public class BlockModelImpl implements BlockModel {
     }
 
     @Override
-    public Property<AbsolutePath> getCurrentlyOpenPathProperty() {
+    public Property<AbsolutePath> currentlyOpenPathProperty() {
         return currentlyOpenPath;
     }
 
