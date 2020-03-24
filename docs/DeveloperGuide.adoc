@@ -187,9 +187,12 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === DietTracker feature
+
+DIET TEAM PLEASE EDIT 4.1
+
 ==== Add Command
 
-* Diet Team please edit below* +
+
 The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
@@ -268,7 +271,7 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
+
 === Expense Splitter feature
 
 The Expense Splitter feature is designed to aid our users with the splitting of large bills that involves meany people.
@@ -284,11 +287,24 @@ The feature comprises of six commands namely.
 Below are some diagrams to explain how our team implemented this portion.
 
 
-Activity Diagram of Expense Splitter: +
+*Activity Diagram* of Expense Splitter: +
 
 image::activityDiagram_for_expensesplitter.png[]
 
-// end::dataencryption[]
+==== Add Item Command
+
+==== Delete Item Command
+
+image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
+
+==== List Receipt Command
+
+==== List Amount Command
+
+==== Paid Command
+
+==== Back Command
+
 
 === Logging
 
