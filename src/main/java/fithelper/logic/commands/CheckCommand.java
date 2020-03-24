@@ -21,9 +21,11 @@ public class CheckCommand extends Command {
             + "of a food/sports from pre-defined dataset.\n"
             + "Parameters: " + PREFIX_TYPE + "TYPE" + PREFIX_KEYWORD + "KEYWORD";
 
-    private static final String MESSAGE_SUCCESS = "First 3 matching reference data:\n";
-    private static final String MESSAGE_FAILURE = "Sorry, no reference data have been found for your keyword.\n";
-    
+    private static final String MESSAGE_SUCCESS = "Matching reference data:\n";
+    private static final String MESSAGE_FAILURE_PART1 = "Sorry, no matching reference data in the ";
+    private static final String MESSAGE_FAILURE_PART2 = " category for the given keyword: ";
+    private static final String MESSAGE_HINT = "Note: at most 3 records are shown.\n";
+
     private Type checkType;
     private String keyword;
 
@@ -68,9 +70,11 @@ public class CheckCommand extends Command {
             for (CalorieEntry entry : result) {
                 userFeedback += entry;
             }
+            userFeedback += MESSAGE_HINT;
             return new CommandResult(userFeedback);
         } else {
-            return new CommandResult(MESSAGE_FAILURE);
+            return new CommandResult(MESSAGE_FAILURE_PART1 + checkType
+                    + MESSAGE_FAILURE_PART2 + keyword + "\n");
         }
     }
 }
