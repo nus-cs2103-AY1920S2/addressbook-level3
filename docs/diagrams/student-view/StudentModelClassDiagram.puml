@@ -43,11 +43,11 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 TaTracker *--> "1" UniqueStudentList
 UniqueStudentList o--> "*" Student
-Student *--> Name
-Student *--> Phone
-Student *--> Email
-Student *--> Matric
-Student *--> Rating
+Student *-->"1" Name
+Student *-->"0...1" Phone
+Student *-->"0...1" Email
+Student *-->"1" Matric
+Student *-->"1" Rating
 Student *--> "*" Tag
 
 Name -[hidden]right-> Phone
