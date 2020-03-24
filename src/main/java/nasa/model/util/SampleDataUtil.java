@@ -27,8 +27,8 @@ public class SampleDataUtil {
         list1.add(new Module(new ModuleCode("CS2103T"), new ModuleName("Software engineering")));
         list2.add(new Module(new ModuleCode("CS2106"), new ModuleName("Operating System")));
         return new UniqueModuleList[] {
-                list1,
-                list2
+            list1,
+            list2
         };
     }
 

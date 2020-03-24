@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.exceptions.DataConversionException;
 import nasa.commons.exceptions.IllegalValueException;
@@ -15,7 +14,6 @@ import nasa.commons.util.FileUtil;
 import nasa.commons.util.JsonUtil;
 import nasa.model.ReadOnlyHistory;
 import nasa.model.ReadOnlyNasaBook;
-import nasa.model.module.Module;
 import nasa.model.module.UniqueModuleList;
 
 /**
@@ -46,12 +44,6 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         return readNasaBook(filePathOne);
     }
 
-    @Override
-    public Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException {
-        return readHistoryBook(filePathTwo);
-    }
-
-
     /**
      * Similar to {@link #readNasaBook()}.
      *
@@ -75,6 +67,17 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         }
     }
 
+    @Override
+    public Optional<ReadOnlyHistory> readHistoryBook() throws DataConversionException {
+        return readHistoryBook(filePathTwo);
+    }
+
+    /**
+     * Similar to {@link #readHistoryBook()}.
+     * @param filePath
+     * @return
+     * @throws DataConversionException
+     */
     public Optional<ReadOnlyHistory> readHistoryBook(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
@@ -97,11 +100,6 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         saveNasaBook(nasaBook, filePathOne);
     }
 
-    @Override
-    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook) throws IOException {
-        saveUltimate(nasaBook, historyBook, filePathOne, filePathTwo);
-    }
-
     /**
      * Similar to {@link #saveNasaBook(ReadOnlyNasaBook)}.
      *
@@ -115,7 +113,22 @@ public class JsonNasaBookStorage implements NasaBookStorage {
         JsonUtil.saveJsonFile(new JsonSerializableNasaBook(nasaBook), filePath);
     }
 
-    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne, Path filePathTwo) throws IOException {
+    @Override
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook)
+            throws IOException {
+        saveUltimate(nasaBook, historyBook, filePathOne, filePathTwo);
+    }
+
+    /**
+     * Similar to {@link #saveUltimate(ReadOnlyNasaBook, ReadOnlyHistory, Path, Path)}.
+     * @param nasaBook
+     * @param historyBook
+     * @param filePathOne
+     * @param filePathTwo
+     * @throws IOException
+     */
+    public void saveUltimate(ReadOnlyNasaBook nasaBook, ReadOnlyHistory<UniqueModuleList> historyBook, Path filePathOne,
+                             Path filePathTwo) throws IOException {
         requireNonNull(nasaBook);
         requireNonNull(filePathOne);
         requireNonNull(filePathTwo);

@@ -16,7 +16,6 @@ import nasa.commons.util.ConfigUtil;
 import nasa.commons.util.StringUtil;
 import nasa.logic.Logic;
 import nasa.logic.LogicManager;
-
 import nasa.model.HistoryBook;
 import nasa.model.Model;
 import nasa.model.ModelManager;
