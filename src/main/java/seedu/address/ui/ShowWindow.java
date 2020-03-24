@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -108,7 +108,7 @@ public class ShowWindow extends UiPart<Stage> {
         fullList = new FilteredList<>(logic.getFilteredOrderList());
         tempOrderList = fullList
                 .stream()
-                .filter(order -> order.isDelivered())
+                .filter(Order::isDelivered)
                 .collect(Collectors.toList());
 
         addPieChartValues();
