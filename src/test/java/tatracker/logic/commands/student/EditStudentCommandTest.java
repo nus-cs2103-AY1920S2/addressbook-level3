@@ -114,7 +114,7 @@ public class EditStudentCommandTest {
     public void execute_duplicateStudentFilteredList_failure() {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
 
-        // edit student in filtered list into a duplicate in address book
+        // edit student in filtered list into a duplicate in TA-Tracker
         Student studentInList = model.getTaTracker().getStudentList().get(INDEX_SECOND_STUDENT.getZeroBased());
         EditStudentCommand editStudentCommand = new EditStudentCommand(INDEX_FIRST_STUDENT,
                 new EditStudentDescriptorBuilder(studentInList).build());
@@ -133,13 +133,13 @@ public class EditStudentCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of TA-Tracker
      */
     @Test
     public void execute_invalidStudentIndexFilteredList_failure() {
         showStudentAtIndex(model, INDEX_FIRST_STUDENT);
         Index outOfBoundIndex = INDEX_SECOND_STUDENT;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of TA-Tracker list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTaTracker().getStudentList().size());
 
         EditStudentCommand editStudentCommand = new EditStudentCommand(outOfBoundIndex,
