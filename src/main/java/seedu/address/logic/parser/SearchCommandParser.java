@@ -50,11 +50,10 @@ public class SearchCommandParser implements Parser<SearchCommand> {
             return new SearchCommand(new OrderContainsKeywordsPredicate(keywords));
         }
 
-        KeywordContainsOrderPrefix keywordContainsOrderPrefix = new KeywordContainsOrderPrefix(argMultimap);
         StringBuilder keywordsString = addPrefixKeywordsToList(argMultimap);
 
         keywords = Arrays.asList(keywordsString.toString().trim().split("\\s+"));
-        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, keywordContainsOrderPrefix));
+        return new SearchCommand(new OrderContainsKeywordsPredicate(keywords, argMultimap));
     }
 
     /**

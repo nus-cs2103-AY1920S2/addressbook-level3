@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -32,10 +33,10 @@ public class SearchCommandParserTest {
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedSearchCommand);
 
         // test overloaded constructor
-        KeywordContainsOrderPrefix keywordContainsOrderPrefix = new KeywordContainsOrderPrefix();
-        keywordContainsOrderPrefix.setHasAddress(true);
+        ArgumentMultimap argumentMultimap = new ArgumentMultimap();
+        argumentMultimap.put(PREFIX_ADDRESS, "Alice Bob");
         expectedSearchCommand = new SearchCommand(
-            new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), keywordContainsOrderPrefix));
+            new OrderContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"), argumentMultimap));
         assertParseSuccess(parser, " a/Alice Bob", expectedSearchCommand);
     }
 
