@@ -2,6 +2,8 @@ package seedu.address.model.profile.course;
 
 import java.util.List;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Represents a profile's course in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
@@ -42,7 +44,7 @@ public class Course {
         return output.toString();
     }
 
-    public CourseName getCourseName() {
+    public CourseName getCourseName() throws ParseException {
         return new CourseName(courseName);
     }
 }

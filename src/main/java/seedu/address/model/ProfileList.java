@@ -19,24 +19,16 @@ import seedu.address.model.profile.exceptions.PersonNotFoundException;
  */
 public class ProfileList {
 
-    private ObservableList<Profile> profileList = FXCollections.observableArrayList();
+    private final ObservableList<Profile> profileList = FXCollections.observableArrayList();
 
     public ProfileList() {};
-
-    public void addProfile(Profile profile) {
-        this.profileList.add(profile);
-    }
-
-    public List<Profile> getProfileList() {
-        return profileList; // TODO: Implement read-only version of profileList, similar to address book
-    }
 
     /**
      * Returns true if the list contains an equivalent profile as the given argument.
      */
     public boolean contains(Profile toCheck) {
         requireNonNull(toCheck);
-        return profileList.stream().anyMatch(toCheck::isSamePerson);
+        return profileList.stream().anyMatch(toCheck::isSameProfile);
     }
 
     /**
@@ -46,6 +38,22 @@ public class ProfileList {
         requireNonNull(profileList);
 
         setProfiles(profileList.getProfileList());
+    }
+
+    /**
+     * Add {@code profile} to {@code ProfileList}.
+     * {@code profile} must not exist in the profile list.
+     */
+    public void addProfile(Profile profile) {
+        requireNonNull(profile);
+        if (contains(profile)) {
+            throw new DuplicatePersonException();
+        }
+        this.profileList.add(profile);
+    }
+
+    public ObservableList<Profile> getProfileList() {
+        return profileList; // TODO: Implement read-only version of profileList, similar to address book
     }
 
     /**
@@ -72,7 +80,7 @@ public class ProfileList {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedProfile) && contains(editedProfile)) {
+        if (!target.isSameProfile(editedProfile) && contains(editedProfile)) {
             throw new DuplicatePersonException();
         }
 
@@ -106,7 +114,7 @@ public class ProfileList {
     private boolean personsAreUnique(List<Profile> profiles) {
         for (int i = 0; i < profiles.size() - 1; i++) {
             for (int j = i + 1; j < profiles.size(); j++) {
-                if (profiles.get(i).isSamePerson(profiles.get(j))) {
+                if (profiles.get(i).isSameProfile(profiles.get(j))) {
                     return false;
                 }
             }

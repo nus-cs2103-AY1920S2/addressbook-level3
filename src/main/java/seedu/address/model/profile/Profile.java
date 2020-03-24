@@ -24,25 +24,24 @@ public class Profile {
 
     // Identity fields
     private static HashMap<Integer, ArrayList<Module>> moduleHash;
-    private static String currentSemester;
-    private final Name name;
-    private final CourseName courseName;
-    private final String specialisation;
+    private static int currentSemester = 0;
+    private static String specialisation;
+    private static Name name;
+    private static CourseName courseName;
 
 
     /**
      * Every field must be present and not null.
      */
-    public Profile(Name name, CourseName courseName, String currentSemester, String specialisation) {
+    public Profile(Name name, CourseName courseName, int currentSemester, String specialisation) {
         requireAllNonNull(name);
         requireAllNonNull(courseName);
         requireAllNonNull(currentSemester);
-        this.name = name;
-        this.courseName = courseName;
-        this.currentSemester = currentSemester;
-        this.specialisation = specialisation;
-        HashMap<Integer, ArrayList<Module>> moduleHash = new HashMap<Integer, ArrayList<Module>>();
-        this.moduleHash = moduleHash;
+        Profile.name = name;
+        Profile.courseName = courseName;
+        Profile.currentSemester = currentSemester;
+        Profile.specialisation = specialisation;
+        Profile.moduleHash = new HashMap<Integer, ArrayList<Module>>();
     }
 
     /**
@@ -62,11 +61,15 @@ public class Profile {
         return name;
     }
 
+    public static Name getStaticName() {
+        return name;
+    }
+
     public CourseName getCourseName() {
         return courseName;
     }
 
-    public static String getCurrentSemester() {
+    public static int getCurrentSemester() {
         return currentSemester;
     }
 
@@ -74,8 +77,28 @@ public class Profile {
         return specialisation;
     }
 
+    public static void setName(Name name) {
+        Profile.name = name;
+    }
+
+    public static void setCourse(CourseName courseName) {
+        Profile.courseName = courseName;
+    }
+
+    public static void setCurrentSemester(int currentSemester) {
+        Profile.currentSemester = currentSemester;
+    }
+
+    public static void setSpecialisation(String specialisation) {
+        Profile.specialisation = specialisation;
+    }
+
     public static ArrayList<Module> getModules(Integer semester) {
         return moduleHash.get(semester);
+    }
+
+    public static HashMap<Integer, ArrayList<Module>> getAllModules() {
+        return moduleHash;
     }
 
     public Set<Map.Entry<Integer, ArrayList<Module>>> getMappings() {
@@ -87,8 +110,7 @@ public class Profile {
     }
 
     public List<Deadline> getDeadlines() {
-        int sem = Integer.parseInt(currentSemester);
-        List<Module> modules = moduleHash.get(sem); // Deadlines should only be from the current semester
+        List<Module> modules = moduleHash.get(currentSemester); // Deadlines should only be from the current semester
         List<Deadline> deadlineList = new ArrayList<>();
         for (Module module: modules) {
             deadlineList.addAll(module.getDeadlines());
@@ -141,7 +163,7 @@ public class Profile {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Profile otherProfile) {
+    public boolean isSameProfile(Profile otherProfile) {
         if (otherProfile == this) {
             return true;
         }

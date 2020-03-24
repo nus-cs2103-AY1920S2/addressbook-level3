@@ -96,10 +96,10 @@ public class AddCommand extends Command {
         Personal personal;
         if (hasModule) { // Module exists
             personal = module.getPersonal();
-            if (addGrade == null && addTask == null && addDeadlineString == null) {
+            if (addTask == null && addDeadlineString == null) {
                 throw new CommandException(String.format("Error: Module already exists as "
                         + module.getPersonal().getStatus() + ", "
-                        + "please specify date or add a deadline", AddCommand.MESSAGE_USAGE));
+                        + "please specify a deadline to add", AddCommand.MESSAGE_USAGE));
             }
         } else { // Module does not exist
             // Create Personal object
@@ -116,7 +116,6 @@ public class AddCommand extends Command {
                 String time = addDeadlineString.split(" ")[1];
                 try {
                     deadline = new Deadline(addTask, date, time);
-                    personal.addDeadline(deadline);
                 } catch (DateTimeException e) {
                     throw new CommandException("Invalid date or time!");
                 }
@@ -126,7 +125,7 @@ public class AddCommand extends Command {
             personal.addDeadline(deadline);
         }
 
-        int currentSemester = Integer.parseInt(profile.getCurrentSemester());
+        int currentSemester = Profile.getCurrentSemester();
         if (addSemester < currentSemester) {
             personal.setStatus("completed");
         } else if (addSemester == currentSemester) {
@@ -138,7 +137,7 @@ public class AddCommand extends Command {
         module.setPersonal(personal);
 
         if (!hasModule) {
-            profile.addModule(addSemester, module);
+            Profile.addModule(addSemester, module);
             return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd));
         } else {
             return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, toAdd));
