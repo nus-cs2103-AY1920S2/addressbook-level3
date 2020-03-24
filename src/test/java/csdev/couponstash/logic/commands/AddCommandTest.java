@@ -190,6 +190,11 @@ public class AddCommandTest {
         public void sortCoupons(Prefix prefixToSortBy) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public String setMoneySymbol(String moneySymbol) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
