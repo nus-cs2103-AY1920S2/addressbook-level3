@@ -11,16 +11,14 @@ public class CountCommand extends Command {
 
     public static final String COMMAND_WORD = "count";
 
-    private static long total;
-
     public static final String MESSAGE_SUCCESS = "Total available recipes are: ";
 
-
+    private static long total;
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        total =  model.count();
+        total = model.count();
         return new CommandResult(MESSAGE_SUCCESS + total);
     }
 }
