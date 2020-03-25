@@ -15,7 +15,4 @@ public final class CommandWords {
     public static final String ADD_MODEL = "add";
     public static final String DELETE_MODEL = "delete";
     public static final String EDIT_MODEL = "edit";
-
-    /* List of command words for commands specific to the session model */
-    public static final String SESSION_DONE = "done";
 }
