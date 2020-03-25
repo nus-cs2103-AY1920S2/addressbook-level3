@@ -100,9 +100,6 @@ Example: `tag 1 cuisine french` would assign the tag `cuisine: french` to the re
 // ==== Tag recipes as containing allergens — `tag allergen <index> [ingredient] <allergen>`
 // Tags a recipe (and the ingredient, if specified) as containing `allergen`.
 
-// ==== Tag the serving size of a recipe — `tag serving <index> <serving size>`
-// Tag the recipe with a serving size of `serving size`.
-
 // ==== Tag the meal type of a recipe — `tag meal <index> <meal type>`
 // Tag the recipe as `meal type` such as breakfast/lunch/dinner
 
