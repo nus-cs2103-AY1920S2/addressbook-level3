@@ -1,47 +1,34 @@
 package seedu.expensela.logic.parser;
 
 import static seedu.expensela.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_BUDGET;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.expensela.logic.parser.CliSyntax.PREFIX_RECURRING;
-import static seedu.expensela.logic.parser.CliSyntax.PREFIX_REMARK;
-
-import seedu.expensela.commons.core.index.Index;
-import seedu.expensela.logic.commands.AddCommand;
-import seedu.expensela.logic.commands.BudgetCommand;
-import seedu.expensela.logic.commands.DeleteCommand;
-import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.monthlydata.Budget;
 
 import java.util.stream.Stream;
 
+import seedu.expensela.logic.commands.BudgetCommand;
+import seedu.expensela.logic.parser.exceptions.ParseException;
+import seedu.expensela.model.monthlydata.Budget;
+
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new BudgetCommand object
  */
 public class BudgetCommandParser implements Parser<BudgetCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the BudgetCommand
+     * and returns a BudgetCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public BudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_BUDGET, PREFIX_RECURRING);
-        if (!arePrefixesPresent(argMultimap,PREFIX_BUDGET, PREFIX_RECURRING)
+        if (!arePrefixesPresent(argMultimap, PREFIX_BUDGET, PREFIX_RECURRING)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BudgetCommand.MESSAGE_USAGE));
         }
-        try {
-            Budget budget = ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get());
-            return new BudgetCommand(budget.budgetAmount);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE), pe);
-        }
+        Budget budget = ParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get());
+        return new BudgetCommand(budget.budgetAmount);
     }
 
     /**

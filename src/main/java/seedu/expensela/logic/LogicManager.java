@@ -12,7 +12,6 @@ import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.ExpenseLaParser;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.Balance;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.monthlydata.MonthlyData;

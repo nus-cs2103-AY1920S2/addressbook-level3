@@ -67,7 +67,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleTransactionsFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTION_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Gas Electricity Flowers");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredTransactionList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

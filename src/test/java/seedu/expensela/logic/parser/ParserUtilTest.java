@@ -13,13 +13,17 @@ import seedu.expensela.model.transaction.Date;
 import seedu.expensela.model.transaction.Name;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_AMOUNT = "+651234";
+    private static final String INVALID_NAME = " P";
+    private static final String INVALID_AMOUNT = "eight eight";
     private static final String INVALID_DATE = " ";
+    private static final String INVALID_REMARK = "*";
+    private static final String INVALID_CATEGORY = "HAPPY";
 
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_AMOUNT = "123456";
-    private static final String VALID_DATE = "123 Main Street #0505";
+    private static final String VALID_NAME = "ZoukOut";
+    private static final String VALID_AMOUNT = "50.00";
+    private static final String VALID_DATE = "2020-02-15";
+    private static final String VALID_REMARK = "Fun with the boys";
+    private static final String VALID_CATEGORY = "MISC";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -67,46 +71,46 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsNullPointerException() {
+    public void parseAmount_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseAmount((String) null));
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsParseException() {
+    public void parseAmount_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseAmount(INVALID_AMOUNT));
     }
 
     @Test
-    public void parsePhone_validValueWithoutWhitespace_returnsPhone() throws Exception {
+    public void parseAmount_validValueWithoutWhitespace_returnsAmount() throws Exception {
         Amount expectedAmount = new Amount(VALID_AMOUNT, true);
         assertEquals(expectedAmount, ParserUtil.parseAmount(VALID_AMOUNT));
     }
 
     @Test
-    public void parsePhone_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_AMOUNT + WHITESPACE;
+    public void parseAmount_validValueWithWhitespace_returnsTrimmedAmount() throws Exception {
+        String amountWithWhitespace = WHITESPACE + VALID_AMOUNT + WHITESPACE;
         Amount expectedAmount = new Amount(VALID_AMOUNT, true);
-        assertEquals(expectedAmount, ParserUtil.parseAmount(phoneWithWhitespace));
+        assertEquals(expectedAmount, ParserUtil.parseAmount(amountWithWhitespace));
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() {
+    public void parseDate_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseDate((String) null));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsParseException() {
+    public void parseDate_invalidValue_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
     }
 
     @Test
-    public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
+    public void parseDate_validValueWithoutWhitespace_returnsDate() throws Exception {
         Date expectedDate = new Date(VALID_DATE);
         assertEquals(expectedDate, ParserUtil.parseDate(VALID_DATE));
     }
 
     @Test
-    public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
+    public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
         Date expectedDate = new Date(VALID_DATE);
         assertEquals(expectedDate, ParserUtil.parseDate(addressWithWhitespace));

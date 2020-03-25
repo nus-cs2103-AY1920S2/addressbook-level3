@@ -1,12 +1,15 @@
 package seedu.expensela.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.model.Model;
 import seedu.expensela.model.monthlydata.Budget;
 import seedu.expensela.model.monthlydata.MonthlyData;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Set budget to a specified value in expenseLa
+ */
 public class BudgetCommand extends Command {
 
     public static final String COMMAND_WORD = "budget";

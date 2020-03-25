@@ -1,11 +1,13 @@
 package seedu.expensela.logic.commands;
 
-import seedu.expensela.logic.commands.exceptions.CommandException;
-import seedu.expensela.model.Balance;
-import seedu.expensela.model.Model;
-
 import static java.util.Objects.requireNonNull;
 
+import seedu.expensela.logic.commands.exceptions.CommandException;
+import seedu.expensela.model.Model;
+
+/**
+ * Reset balance to 0 in expenseLa
+ */
 public class ResetBalanceCommand extends Command {
 
     public static final String COMMAND_WORD = "resetbalance";

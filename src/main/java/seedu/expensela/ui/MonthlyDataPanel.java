@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.expensela.commons.core.LogsCenter;
 import seedu.expensela.model.Balance;
-import seedu.expensela.model.UserPrefs;
 import seedu.expensela.model.monthlydata.MonthlyData;
 
 /**
