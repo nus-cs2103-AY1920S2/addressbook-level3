@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":EYLAH" as ui UI_COLOR
+Participant ":LogicManager" as logic LOGIC_COLOR
+Participant ":ModelManager" as model MODEL_COLOR
+
+user -[USER_COLOR]> ui : "mode -m"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("mode -m")
+activate logic LOGIC_COLOR
+
+create "m:Mode" as mode STORAGE_COLOR
+logic -[LOGIC_COLOR]> mode : new MODE.Maintain
+activate mode STORAGE_COLOR
+
+mode -[STORAGE_COLOR]-> logic
+deactivate mode
+
+logic -[LOGIC_COLOR]> model : setMode(m)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic --[LOGIC_COLOR]> ui : CommandResult
+deactivate logic
+
+ui--[UI_COLOR]> user : CommandResult
+deactivate ui
+@enduml

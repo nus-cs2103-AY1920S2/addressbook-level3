@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":EYLAH" as ui UI_COLOR
+Participant ":LogicManager" as logic LOGIC_COLOR
+Participant ":ModelManager" as model MODEL_COLOR
+
+user -[USER_COLOR]> ui : "height 170"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("height 170")
+activate logic LOGIC_COLOR
+
+create "h:Height" as height STORAGE_COLOR
+logic -[LOGIC_COLOR]> height : new Height(170)
+activate height STORAGE_COLOR
+
+height -[STORAGE_COLOR]-> logic
+deactivate height
+
+logic -[LOGIC_COLOR]> model : setHeight(h)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic --[LOGIC_COLOR]> ui : CommandResult
+deactivate logic
+
+ui--[UI_COLOR]> user : CommandResult
+deactivate ui
+@enduml

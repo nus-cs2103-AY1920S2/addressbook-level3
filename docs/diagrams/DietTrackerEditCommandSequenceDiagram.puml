@@ -1,0 +1,55 @@
+@startuml
+!include style.puml
+
+Actor User as User USER_COLOR
+Participant ":EYLAH" as Ui UI_COLOR
+Participant ":LogicManager" as Logic LOGIC_COLOR
+Participant ":ModelManager" as Model MODEL_COLOR
+Participant ":StorageManager" as Storage STORAGE_COLOR
+
+User -[USER_COLOR]> Ui : "edit 1 -n Pasta"
+activate Ui UI_COLOR
+
+Ui -[UI_COLOR]> Logic : execute("edit 1 -n Pasta")
+activate Logic LOGIC_COLOR
+
+Logic -[LOGIC_COLOR]> Model : getFilteredFoodList()
+activate Model MODEL_COLOR
+
+Model -[MODEL_COLOR]-> Logic : lastShownList
+deactivate Model
+
+Logic -[LOGIC_COLOR]> Logic : get()
+activate Logic LOGIC_COLOR_T1
+
+Logic -[MODEL_COLOR]-> Logic : foodToEdit
+deactivate Logic
+
+Logic -[LOGIC_COLOR]> Logic : createEditedFood(foodToEdit, editFoodDescriptor)
+activate Logic LOGIC_COLOR_T1
+
+Logic -[MODEL_COLOR]-> Logic : editedFood
+deactivate Logic
+
+Logic -[LOGIC_COLOR]> Model : setFood(foodToEdit, editedFood)
+activate Model MODEL_COLOR
+
+Model -[MODEL_COLOR]-> Logic :
+deactivate Model
+
+Logic -[LOGIC_COLOR]> Storage : saveFoodBook(foodBook)
+activate Storage STORAGE_COLOR
+
+Storage -[STORAGE_COLOR]> Storage : Save to file
+activate Storage STORAGE_COLOR_T1
+deactivate Storage
+
+Storage --[STORAGE_COLOR]> Logic
+deactivate Storage
+
+Logic --[LOGIC_COLOR]> Ui : CommandResult
+deactivate Logic
+
+Ui--[UI_COLOR]> User : CommandResult
+deactivate Ui
+@enduml
