@@ -1,0 +1,29 @@
+@startuml
+
+!include ../style.puml
+show interface members
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor MODEL_COLOR
+
+abstract class Command
+
+interface Parser {
+	T parse(String userInput)
+}
+
+class FindCommand
+
+class FindKeywordDescriptor
+
+class FindCommandParser
+
+Command <|.. FindCommand
+
+Parser <|-- FindCommandParser
+
+FindKeywordDescriptor <.. FindCommand
+FindKeywordDescriptor <.. FindCommandParser
+
+
+@enduml
+
