@@ -257,11 +257,6 @@ its a Relative or Absolute path.
 *   Alternative 1(Current choice): Relative path `CS2103/../note1` would be equivalent to `note1`. This was deem to be
 **  Pros: More readable and OOP, each class can have their individual validity REGEX.
 *   Alternative 2: Relative path `CS2103/../note1` would not be logically equivalent to `note1`.
-**  Cons:
-
-[[Implementation-Parser]]
-=== Parser
-TODO:Edit below
 
 [[Implementation-DataStructure]]
 === DataStructure
