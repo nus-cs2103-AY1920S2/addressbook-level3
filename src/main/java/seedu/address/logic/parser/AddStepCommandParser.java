@@ -24,7 +24,12 @@ public class AddStepCommandParser implements Parser<AddStepCommand> {
      */
     public AddStepCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        if (args.isBlank()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddStepCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STEP);
+        List<Step> newSteps = parseStepsForEdit(argMultimap.getAllValues(PREFIX_STEP));
 
         Index index;
         try {
@@ -32,8 +37,6 @@ public class AddStepCommandParser implements Parser<AddStepCommand> {
         } catch (ParseException pe) {
             throw new ParseException(ParserUtil.MESSAGE_INVALID_INDEX);
         }
-
-        List<Step> newSteps = parseStepsForEdit(argMultimap.getAllValues(PREFIX_STEP));
 
         return new AddStepCommand(index, newSteps);
     }

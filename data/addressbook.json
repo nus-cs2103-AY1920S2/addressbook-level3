@@ -8,7 +8,7 @@
     "proteins" : [ ],
     "fruits" : [ "kiwi,  50.0g" ],
     "others" : [ "hello,  30.0g" ],
-    "steps" : [ "First step is a really long step that requires you to prep all the ingredients", "Second step is another really long step that requires you to heat up the wok and stir fry all the ingredients together", "Third step is another super long step that requires you to plate your dish and serve! Enjoy!", "Last step" ],
+    "steps" : [ "First step is a really long step that requires you to prep all the ingredients", "Third step is another super long step that requires you to plate your dish and serve! Enjoy!", "Last step", "One more" ],
     "goals" : [ "Bulk like the Hulk" ]
   }, {
     "name" : "Healthy Duck Brown Rice",
@@ -91,17 +91,6 @@
     "name" : "stub5",
     "time" : "5",
     "isFavourite" : false,
-    "grains" : [ ],
-    "vegetables" : [ "stub,  5.0g" ],
-    "proteins" : [ ],
-    "fruits" : [ ],
-    "others" : [ ],
-    "steps" : [ "stub" ],
-    "goals" : [ "stub" ]
-  }, {
-    "name" : "stub9",
-    "time" : "5",
-    "isFavourite" : true,
     "grains" : [ ],
     "vegetables" : [ "stub,  5.0g" ],
     "proteins" : [ ],
