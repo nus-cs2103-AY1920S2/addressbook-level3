@@ -186,27 +186,32 @@ BMI is calculated based off the stored height and weight in this instance.
 Calculate BMI based on the input height and weight values.
 
 === Expense Splitter : `split`
-Splitting the Items' cost with friends. All you have to do is add the items and the names involved in splitting that item and
-EYLAH will calculate the rest for you!
+Splitting the items' cost with friends. All you have to do is add the item,
+price and the names involved in splitting that item and EYLAH will
+calculate the rest for you!
 
 ==== Add item `additem`
-Add item and the person involved in the splitting for that item.
+
+Add item and the person(s) involved in the splitting for that item.
 
 Format: +
-`additem -i ITEMNAME -p PRICE -n ALL` +
+`additem -i ITEMNAME -p PRICE -n NAME` +
 `additem -i ITEMNAME -p PRICE -n NAME [-n NAME]...` +
 
-NOTE: Entering `ALL` will split that item with all Person(s) currently in PersonList.
-
 Example: +
-`additem -i pizza -p 30 -n all` +
-`additem -i pasta -p 19.90 -n john -n bob -n daniel`
+`additem -i pizza -p 30 -n bob` +
+`additem -i pasta -p 19.90 -n alice -n bob -n daniel`
+
+[NOTE]
+Price can be up to 2 decimal places, i.e. 7.99.
+There is no need to add the dollar sign ($).
 
 ==== Delete item  `deleteitem`
+
 Delete the item(s) in a receipt:
 
 Format: +
-`deleteitem [INDEX]` +
+`deleteitem INDEX` +
 
 [TIP]
 Use `listreceipt` to view your item indices before deletion.
