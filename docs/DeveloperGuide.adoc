@@ -426,7 +426,6 @@ The following is a sample sequence diagram of the ListReceiptCommand.
 
 image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
-
 ==== List Amount Command
 
 *Implementation*
@@ -445,6 +444,18 @@ image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
 
 ==== Paid Command
+
+*Implementation*
+
+The following is a detailed explanation of the operations `PaidCommand` performs. +
+
+1. The `PaidCommand#execute(Model model)` method is executed.
+
+2. The `Model#paidPerson()` will be called
+
+3. KIV temporarily while I implement the paidCommand method.
+
+image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
 
 ==== Back Command
 
