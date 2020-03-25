@@ -133,13 +133,7 @@ public class Module {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" (")
-                .append(getIdentifier())
-                .append(") ")
-                .append(groupsString());
-        return builder.toString();
+        return String.format("%s (%s) %s", name, identifier, groupsString());
     }
 
     /**
