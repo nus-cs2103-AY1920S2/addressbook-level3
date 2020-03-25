@@ -146,15 +146,14 @@ public class Module {
      * Returns a string that shows the value inside the groups list.
      */
     private String groupsString() {
+        // TODO: test groups are printed correctly
         StringBuilder str = new StringBuilder();
         str.append("[");
-        boolean first = true;
         for (int i = 0; i < groups.size(); ++i) {
-            if (first) {
-                str.append(" " + groups.get(i));
-            } else {
-                str.append((", " + groups.get(i)));
+            if (i > 0) {
+                str.append(", ");
             }
+            groups.get(i);
         }
         str.append("]");
         return str.toString();
