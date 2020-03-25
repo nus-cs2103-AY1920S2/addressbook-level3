@@ -5,52 +5,42 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class Model
+Interface BlockModel <<Interface>>
+Interface SuggestionModel <<Interface>>
+Interface ViewStateModel <<Interface>>
+Interface UserPrefModel <<Interface>>
+Interface CommandInputModel <<Interface>>
+Interface HelpFlagModel <<Interface>>
 Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
-}
-
-Package Tag {
-Class Tag
-}
+Package Block {
+Interface ObservableList <<Interface>>
+Class BlockTree
+Class BlockTreeItem
+Class Block
+Class Title
+Class Body
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+ModelManager o-down-> BlockModel
+ModelManager o-down-> SuggestionModel
+ModelManager o-down-> ViewStateModel
+ModelManager o-down-> UserPrefModel
+ViewStateModel o-down-> CommandInputModel
+ViewStateModel o-down-> HelpFlagModel
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+BlockModel o-down-> "1" BlockTree
 
-ModelManager -->"1" Person : filtered list
+BlockTree *--> "*" BlockTreeItem
+BlockTreeItem *--> Block
+BlockTreeItem .right.> ObservableList
+Block *-->  Title
+Block *-->  Body
+
 @enduml
