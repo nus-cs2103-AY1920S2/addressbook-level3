@@ -36,6 +36,8 @@ public class ProductCard extends UiPart<Region> {
     private Label quantity;
     @FXML
     private Label sales;
+    @FXML
+    private Label threshold;
 
     public ProductCard(Product product, int displayedIndex) {
         super(FXML);
@@ -45,6 +47,7 @@ public class ProductCard extends UiPart<Region> {
         price.setText("$" + product.getPrice().value);
         quantity.setText(product.getQuantity().value);
         sales.setText("$" + product.getSales().value);
+        threshold.setText(product.getThreshold().value);
     }
 
     @Override

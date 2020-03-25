@@ -5,6 +5,7 @@ import seedu.address.model.product.Product;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 
 /**
  * A utility class to help with building Customer objects.
@@ -15,17 +16,20 @@ public class ProductBuilder {
     public static final String DEFAULT_PRICE = "22";
     public static final String DEFAULT_QUANTITY = "12";
     public static final String DEFAULT_SALES = "44";
+    public static final String DEFAULT_THRESHOLD = "5";
 
     private Description description;
     private Price price;
     private Sales sales;
     private Quantity quantity;
+    private QuantityThreshold threshold;
 
     public ProductBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         price = new Price(DEFAULT_PRICE);
         quantity = new Quantity(DEFAULT_QUANTITY);
         sales = new Sales(DEFAULT_SALES);
+        threshold = new QuantityThreshold(DEFAULT_THRESHOLD);
     }
 
     /**
@@ -36,6 +40,7 @@ public class ProductBuilder {
         price = productToCopy.getPrice();
         quantity = productToCopy.getQuantity();
         sales = productToCopy.getSales();
+        threshold = productToCopy.getThreshold();
     }
 
     /**
@@ -70,8 +75,16 @@ public class ProductBuilder {
         return this;
     }
 
+    /**
+     * Sets te {@code QuantityThreshold} of the {@code Product} that we are building.
+     */
+    public ProductBuilder withThreshold(String threshold) {
+        this.threshold = new QuantityThreshold(threshold);
+        return this;
+    }
+
     public Product build() {
-        return new Product(description, price, quantity, sales);
+        return new Product(description, price, quantity, sales, threshold);
     }
 
 }

@@ -12,6 +12,7 @@ import seedu.address.model.product.Price;
 import seedu.address.model.product.Sales;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
+import seedu.address.model.util.QuantityThreshold;
 import seedu.address.storage.product.JsonAdaptedProduct;
 
 public class JsonAdaptedProductTest {
@@ -23,6 +24,7 @@ public class JsonAdaptedProductTest {
     private static final String VALID_PRICE = BAG.getPrice().toString();
     private static final String VALID_QUANTITY = BAG.getQuantity().toString();
     private static final String VALID_SALES = BAG.getSales().toString();
+    private static final String VALID_THRESHOLD = BAG.getThreshold().toString();
 
     @Test
     public void toModelType_validProductDetails_returnsProduct() throws Exception {
@@ -32,7 +34,8 @@ public class JsonAdaptedProductTest {
 
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
-        JsonAdaptedProduct product = new JsonAdaptedProduct(null, VALID_PRICE, VALID_QUANTITY, VALID_SALES);
+        JsonAdaptedProduct product = new JsonAdaptedProduct(null, VALID_PRICE, VALID_QUANTITY, VALID_SALES,
+                VALID_THRESHOLD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
@@ -40,14 +43,15 @@ public class JsonAdaptedProductTest {
     @Test
     public void toModelType_invalidPrice_throwsIllegalValueException() {
         JsonAdaptedProduct product =
-                new JsonAdaptedProduct(VALID_DESCRIPTION, INVALID_PRICE, VALID_QUANTITY, VALID_SALES);
+                new JsonAdaptedProduct(VALID_DESCRIPTION, INVALID_PRICE, VALID_QUANTITY, VALID_SALES, VALID_THRESHOLD);
         String expectedMessage = Price.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 
     @Test
     public void toModelType_nullPrice_throwsIllegalValueException() {
-        JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, null, VALID_QUANTITY, VALID_SALES);
+        JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, null, VALID_QUANTITY,
+                VALID_SALES, VALID_THRESHOLD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Price.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
@@ -55,14 +59,15 @@ public class JsonAdaptedProductTest {
     @Test
     public void toModelType_invalidQuantity_throwsIllegalValueException() {
         JsonAdaptedProduct product =
-                new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, INVALID_QUANTITY, VALID_SALES);
+                new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, INVALID_QUANTITY, VALID_SALES, VALID_THRESHOLD);
         String expectedMessage = Quantity.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 
     @Test
     public void toModelType_nullQuantity_throwsIllegalValueException() {
-        JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, null, VALID_SALES);
+        JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, null,
+                VALID_SALES, VALID_THRESHOLD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Quantity.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
@@ -70,15 +75,24 @@ public class JsonAdaptedProductTest {
     @Test
     public void toModelType_invalidSales_throwsIllegalValueException() {
         JsonAdaptedProduct product =
-                new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, VALID_QUANTITY, INVALID_SALES);
+                new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, VALID_QUANTITY, INVALID_SALES, VALID_THRESHOLD);
         String expectedMessage = Sales.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 
     @Test
     public void toModelType_nullSales_throwsIllegalValueException() {
-        JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, VALID_QUANTITY, null);
+        JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, VALID_QUANTITY,
+                null, VALID_THRESHOLD);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Sales.class.getSimpleName());
+        assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullThreshold_throwsIllegalValueException() {
+        JsonAdaptedProduct product = new JsonAdaptedProduct(VALID_DESCRIPTION, VALID_PRICE, VALID_QUANTITY,
+                VALID_SALES, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, QuantityThreshold.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, product::toModelType);
     }
 }
