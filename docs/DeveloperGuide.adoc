@@ -148,93 +148,88 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `fithelper.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::today[]
+=== Today Feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+==== Implementation
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+FitHelper's entries have a `Time` attribute including a `Date` and a specific `Time` in the format of `yyyy-mm-dd HH:mm`.
+This feature allows the user to view entries with the `Date` of today, i.e. shows only entries in today.
+It fetches the `filteredFoodEntryList` and `FilteredSportsEntryList` stored in FitHelper storage.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The today mechanism is facilitated by
+https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/FilteredList.html[FilteredList]
+which wraps a ObservableList and
+filters using the provided Predicate.
+A `FilteredList<Entry> filteredEntries` is stored in the `ModelManager`.
+In `FitHelper`, there is an
+`ObservableList<Entry> entries` which contains all entries, regardless of its `Type` and `Date`. `filteredEntries`
+in the ModelManager is initialized with this ObservableList.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Since a FilteredList needs a Predicate, which matches the elements in the source list that should be visible, the filter mechanism implements the following operation to support filtering:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+* `Model#updateFilteredEntryList(Predicate<Entry> predicate)` -- Sets the value of the property Predicate in the `filteredEntries`.
 
-image::UndoRedoState0.png[]
+** Predicates are declared statically in the `Model` interface, namely
+`PREDICATE_SHOW_ALL_ENTRIES`, `PREDICATE_SHOW_UNDONE_ENTRIES`, and `PREDICATE_SHOW_TODAY_ENTRIES`.
+In particular `PREDICATE_SHOW_TODAY_ENTRIES` is as follows
+```java
+    Predicate<Entry> PREDICATE_SHOW_TODAY_ENTRIES = entry ->
+            entry.getTime().getDateStr().equals(new Today().getTodayDateStr());
+```
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+** The `TodayCommand` will call this method to change the visibility of entries with different status by passing in the corresponding predicate.
 
-image::UndoRedoState1.png[]
+An example usage scenario and how the filter mechanism behaves at each step is shown below.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+**Step 1.** The user launches the application for the first time.
+`UniqueEntryList` will be initialized with a list of default entries in FitHelper.
+This list contains a few entries with various dates.
 
-image::UndoRedoState2.png[]
+**Step 2.** The user inputs `today` to list all today entries. `UI` passes the input to `Logic`.
+Logic then uses a few `Parser` classes to extract layers of information out as seen from steps 3 to 5.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+**Step 3.** Logic passes the user input to `FitHelperParser`. `FitHelperParser` identifies that this is a `TodayCommand`
+through the word "today".
+It then creates a
+`TodayCommandParser` to parse the it into a `TodayCommand` and return.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+**Step 4.** `Logic` finally gets the `TodayCommand` and execute it.
+The execution firstly calls
+`Model#updateFilteredEntryList(Predicate<Product> predicate)` to update the Predicate in
+`filteredEntries` in `Model`.
+This execution then returns a `CommandResult` to `UI`, containing the response to the user.
 
-image::UndoRedoState3.png[]
+**Step 5.** `UI` displays the response in the `CommandResult`.
+In addition, UI will change to display today entries after model updates `filteredEntries`, since `UI` is constantly listening for the change in `Model`.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+The Sequence Diagram below shows how the components interact with each other for the above mentioned scenario.
 
-The following sequence diagram shows how the undo operation works:
+.Sequence Diagram for Today Mechanism
+image::FilterProductSD.png[]
 
-image::UndoSequenceDiagram.png[]
+==== Design considerations
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* Alternative 1 (current choice): Save all products in an `ObservableList` in `BakingHome`, and keep a
+`FilteredList` in the `ModelManager`. `ProductCommandParser` parses the user input and gets the Predicate to update the `FilteredList`.
+** Advantages: Implementation is clearer and code is more human-readable.
+** Disadvantages: More difficult to write a Predicate.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+* Alternative 2: Keep two separate product lists, one for archived products and one for active products.
+** Advantages: Fast access to products of both status.
+** Disadvantages: Implementation will become complicated.
+It also makes it very expensive when adding features like sorting all products according to name, price or cost.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* Alternative 2: Keep only one list of products.
+Loop through the list to get the products with the desired status.
+** Advantages: Simplicity in storing data.
+** Disadvantages: Time complexity is very high, resulting in a slow response of the application when the product list gets long.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -259,9 +254,10 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+=== Update User Profile
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+The following sequence diagram shows how the update operation works to change user profile in model:
+image:UpdateSequenceDiagram.png[]
 
 === Check calorie intake/consumption of some common food/sports
 
@@ -810,64 +806,60 @@ Windows, Linux, Unix, OS-X
 |===
 |Prefix |Meaning |Used in the following Command(s)
 
+|x/
+|Type of entry
+|add, check, delete, edit, find
+
+|i/
+|Index of entry
+|edit, delete, edit
+
 |n/
 |Name
-|addX, editX, recordprofile
+|add, edit
 
 |t/
-|Time in format of *yyyy-mm-dd-24-60*
-|addX, editX
+|Time in format of "date hour minute"
+|add, edit
 
 |l/
 |Location
-|addX, editX
+|add, edit
 
 |c/
-|Calories
-|addX, editX
+|Calorie
+|add, edit
 
 |s/
 |Status
-|addX, edit, editX
-
-|d/
-|Date in format of *yyyy-mm-dd*
-|list, listX, reminder, reminderX, edit, editX, deleteX, periodstart, periodend
-
-|dr/
-|Duration in format of *yyyy-mm-dd yyyy-mm-dd*
-|list, listX, reminder, reminderX, weightgraph
+|add, edit
 
 |r/
 |Remark
-|editX
+|edit
 
-|addr/
-|Address
-|recordprofile
+|d/
+|Date in format of *date hh:mm*
+|calendar
 
-|g/
-|Gender
-|recordprofile
+|dr/
+|Duration in format of *yyyy-mm-dd yyyy-mm-dd*
+|add, edit
 
-|h/
-|Height
-|recordprofile
+|dc/
+|Dairy contents
+|dairy
 
-|cw/
-|Current Weight
-|recordprofile
-
-|tw/
-|Target Weight
-|recordprofile
+|k/
+|Keyword
+|check, find
 
 |attr/
-|Attribute
+|Attribute in user profile
 |update
 
 |v/
-|Attribute Value
+|Attribute Value in user profile
 |update
 
 |===
@@ -891,6 +883,10 @@ Windows, Linux, Unix, OS-X
 |Sort
 |-c
 |Sort according to *calorie intake*
+
+|Update
+|-f
+|*Force update* even with existing value
 
 |===
 
