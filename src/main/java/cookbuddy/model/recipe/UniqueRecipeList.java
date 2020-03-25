@@ -40,7 +40,7 @@ public class UniqueRecipeList implements Iterable<Recipe> {
      * Returns the total number of recipes in the list.
      */
     public long count() {
-        return internalList.stream().count();
+        return internalList.size();
     }
 
     /**
