@@ -1,9 +1,9 @@
 package seedu.expensela.model.transaction;
 
-import java.text.DecimalFormat;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.expensela.commons.util.AppUtil.checkArgument;
+
+import java.text.DecimalFormat;
 
 /**
  * Represents a Transaction's cost/gain in the expensela.
@@ -46,7 +46,7 @@ public class Amount {
         } else {
             printedAmount = "- $";
         }
-        printedAmount += transactionAmount;
+        printedAmount += DECIMAL_FORMATTER.format(transactionAmount);
         return printedAmount;
     }
 

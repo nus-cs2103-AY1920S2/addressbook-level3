@@ -7,7 +7,6 @@ import seedu.expensela.commons.core.GuiSettings;
 import seedu.expensela.logic.commands.CommandResult;
 import seedu.expensela.logic.commands.exceptions.CommandException;
 import seedu.expensela.logic.parser.exceptions.ParseException;
-import seedu.expensela.model.Balance;
 import seedu.expensela.model.ReadOnlyExpenseLa;
 import seedu.expensela.model.monthlydata.MonthlyData;
 import seedu.expensela.model.transaction.Transaction;

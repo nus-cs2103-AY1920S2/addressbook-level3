@@ -156,7 +156,15 @@ public class AddCommandTest {
 
         @Override
         public void updateMonthlyData(MonthlyData monthlyData) {
+        }
+
+        @Override
+        public Double getTotalBalance() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateTotalBalance(Double balance) {
         }
     }
 
