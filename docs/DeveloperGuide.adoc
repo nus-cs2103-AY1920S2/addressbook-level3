@@ -120,11 +120,14 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-SuggestionEngine]]
 ==== SuggestionEngine component
 
-.Class Diagram of the Suggestion Engine Component
+.Class Diagram of the Suggestion Engine Component (still WIP)
 image::SuggestionClassDiagram.png[]
 
 *API* :
 link:{repoURL}blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
+
+`SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
+open/ delete/ search/ edit.
 
 1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
 2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
@@ -246,7 +249,35 @@ Two concrete implementations of the `CorrectionEngine` interface are, namely:
 
 [[Implementation-SuggestionEngine]]
 === Suggestion Engine
-TODO:Edit below
+
+==== Rationale
+
+`SuggestionEngine` allows the users to traverse their notes conveniently, without having
+to remember the hierarchical structure of their notes. `SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
+open/ delete/ search/ edit.
+
+==== Current implementation
+
+1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
+2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
+which implements `SuggestionCommandParser` interface.
+3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
+`XYZSuggestionCommand` is then executed by the `LogicManager`.
+4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
+"Open a note" and store a list of `SuggestionItem` in the model).
+5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+to the user.
+
+==== Design considerations
+
+1. `SuggestionEngine` is segregated from `Parser` in order to differentiate the logic when the user has finished typing
+and pressed `enter` (which will be handled by `Parser`) in contrast to when the user presses `tab` to take in the
+suggestion item.
+2. In order to keep the App's data flow unidirectional, `SuggestionEngine` will update the response text (which tells
+the user the meaning of his command) and the list of `SuggestionItem` into the `Model`. Thus, by not showing the
+response text and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
+3. `SuggestionEngine`, `SuggestionCommandParser`, `SuggestionCommand`, `SuggestionItem`, and `SuggestionModel` are
+implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
 
 [[Implementation-Path]]
 === Paths
