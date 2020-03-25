@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +17,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.recipe.Recipe;
+import seedu.address.ui.tab.Tab;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,6 +34,8 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    private MainTabPanel mainTabPanel;
+    private RecipeListPanel planningListPanel;
     private RecipeListPanel recipeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -40,6 +45,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private StackPane mainTabPanelPlaceholder;
+
+    @FXML
+    private StackPane planningListPanelPlaceholder;
 
     @FXML
     private StackPane recipeListPanelPlaceholder;
@@ -107,8 +118,16 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        recipeListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
-        recipeListPanelPlaceholder.getChildren().add(recipeListPanel.getRoot());
+
+        ObservableList<Recipe> recipeList = logic.getFilteredRecipeList();
+        recipeListPanel = new RecipeListPanel(recipeList);
+
+        //using recipe list as stub for planning list, to be editted later
+        ObservableList<Recipe> planningList = logic.getFilteredRecipeList();
+        planningListPanel = new RecipeListPanel(planningList);
+
+        mainTabPanel = new MainTabPanel(recipeListPanel, planningListPanel);
+        mainTabPanelPlaceholder.getChildren().add(mainTabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -165,6 +184,24 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switches of tab depending on {@code tab}.
+     */
+    @FXML
+    private void handleSwitchTab(Tab tab) {
+        switch (tab) {
+        case RECIPES:
+            showRecipesTab();
+            break;
+        case PLANNING:
+            showPlanningTab();
+            break;
+        default:
+            break;
+        }
+    }
+
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -179,6 +216,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (commandResult.isSwitchTab()) {
+                handleSwitchTab(commandResult.getTab());
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
             }
@@ -189,5 +230,19 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Switch to recipes tab.
+     */
+    private void showRecipesTab() {
+        mainTabPanel.switchToRecipesTab();
+    }
+
+    /**
+     * Switch to planning tab.
+     */
+    private void showPlanningTab() {
+        mainTabPanel.switchToPlanningTab();
     }
 }
