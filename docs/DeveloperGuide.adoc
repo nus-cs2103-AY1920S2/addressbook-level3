@@ -161,48 +161,45 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== Undo/Redo feature
 
 ==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by with an undo/redo history, stored internally as an `couponStashStateList` with a `commandTextHistory` and `currStateIndex`. All these components are encapsulated in the `HistoryManager` class.
+The following methods in the `Model` interface facilitates this feature:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `Model#commitCouponStash(String commandText)` -- Saves the current coupon stash state and the command text that triggered the change in state into `HistoryManager`.
+* `Model#undo()` -- Restores the previous coupon stash state from `HistoryManager`.
+* `Model#redo()` -- Restores a previously undone coupon stash state from `HistoryManager`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+The `CouponStash` will be initialized with the initial coupon stash state, and the `currentStatePointer` pointing to that single coupon stash state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th coupon in the address book.
-The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th coupon in the coupon stash.
+The `delete` command calls `Model#commitCouponStash(String commandText)`, causing the modified state of the coupon stash after the `delete 5` command executes to be saved in the `couponStashStateList`, and the `delete 5` command text to be stored in the `commandTextHistory`.  `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new coupon.
-The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/OMO STORE ...` to add a new coupon.
+The `add` command also calls `Model#commitCouponStash(String commandText)`, causing another modified coupon stash state and command text to be saved into the `couponStashStateList` and `commandTextHistory` respectively.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitCouponStash(String commandText)`, so the address book state and command text will not be saved.
 
 Step 4. The user now decides that adding the coupon was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The `undo` command will call `Model#undoCouponStash()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous coupon stash state, and restores the coupon stash to that state. Plus, the command text is returned, thus allowing for the display of the command that was undone. In this case, the command undone is `add n/OMO STORE...`.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore.
-The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case.
+If the `currentStatePointer` is at index 0, pointing to the initial coupon stash state, then there are no previous coupon stash states to restore.
+The `undo` command uses `Model#canUndoCouponStash()` to check if this is the case.
 If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
