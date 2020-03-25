@@ -13,6 +13,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_COD = new Prefix("cod/");
     public static final Prefix PREFIX_DELIVERY_TIMESTAMP = new Prefix("dts/");
+    public static final Prefix PREFIX_RETURN_TIMESTAMP = new Prefix("rts/");
     public static final Prefix PREFIX_COMMENT = new Prefix("c/");
     public static final Prefix PREFIX_WAREHOUSE = new Prefix("w/");
     public static final Prefix PREFIX_TYPE = new Prefix("type/");

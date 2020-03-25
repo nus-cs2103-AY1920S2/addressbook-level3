@@ -36,6 +36,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label email;
+    @FXML
     private Label warehouse;
     @FXML
     private Label cashOnDelivery;
@@ -46,6 +48,8 @@ public class OrderCard extends UiPart<Region> {
     @FXML
     private Label deliveryStatus;
     @FXML
+    private FlowPane isReturn;
+    @FXML
     private FlowPane itemType;
 
     public OrderCard(Order order, int displayedIndex) {
@@ -55,6 +59,7 @@ public class OrderCard extends UiPart<Region> {
         tid.setText(order.getTid().tid);
         name.setText(order.getName().fullName);
         phone.setText(order.getPhone().value);
+        email.setText(order.getEmail().value);
         address.setText(order.getAddress().value);
         timeStamp.setText(order.getTimestamp().value);
         warehouse.setText(order.getWarehouse().address);
@@ -69,6 +74,11 @@ public class OrderCard extends UiPart<Region> {
             deliveryStatus.setText("Delivered");
         } else {
             deliveryStatus.setText("Not Delivered");
+        }
+        if (!(order.isReturn())) {
+            isReturn.getChildren().add(new Label("Delivery Order"));
+        } else {
+            isReturn.getChildren().add(new Label("Return Order"));
         }
     }
 

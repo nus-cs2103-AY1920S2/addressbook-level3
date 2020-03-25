@@ -77,7 +77,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -96,7 +96,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `OrderBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -115,9 +115,9 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.svg[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -137,7 +137,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -152,6 +152,41 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Delivered feature
+The delivered feature allows the user to mark orders as delivered after delivering an order.
+
+The delivered feature was implemented as a `DoneCommand` in the `Logic` package. +
+
+==== Class Diagram for Done feature
+image::DoneClassDiagram.svg[]
+
+==== Sequence Diagram for delivering an order
+The sequence diagram for the *Delivered Command* is shown below.
+
+image::DoneSequenceDiagram.svg[]
+
+The arguments passed to the Done Command will be parsed by the `DoneCommandParser` class. +
+If the given arguments are valid, a new `DoneCommand` object will be returned.
+In this class, invalid arguments will result in a `ParseException`. +
+Two types of invalid arguments are checked for: empty arguments
+and arguments with only whitespace characters.
+
+The `execute()` function of the `DoneCommand` will first check if the given arguments
+are in the format required for an order to be marked as complete
+(i.e. both the command word `return` and `INDEX` are present)
+The check is done within the `execute()` function. +
+
+If the input is valid, the particular order based on the integer `INDEX` will be used to +
+obtain this order from the order book. This order will be checked if it was delivered. +
+
+1. If it was not delivered, it will trigger the `setOrder()`, `deliverOrder()`
+and `updateFilteredOrderList()` functions. These methods will be used to replace
+the existing order with the new order that has a delivered status. Also, the order book
+will be updated to show the change. +
+
+2. If the order was delivered, it will only trigger the `updateFilteredOrderList()` function which will
+display the original order book.
 
 === Nearby feature
 The nearby feature allows the user to view all orders that are located at a particular area
@@ -177,12 +212,14 @@ https://keylocation.sg/singapore/districts-map[this website]
 The nearby feature was implemented as a `NearbyCommand` in the `Logic` package. +
 
 ==== Class Diagram for Nearby feature
+.Nearby Command Class Diagram
 image::NearbyClassDiagram.svg[]
 
 ==== Sequence Diagram for searching by postal sector
 The sequence diagram for the *Nearby Command* when searching by *postal sector*
 is shown below:
 
+.Nearby Command Sequence Diagram
 image::NearbyCommandSequenceDiagram1.svg[]
 
 The arguments passed to the Nearby Command will be parsed by the `NearbyCommandParser` class. +
@@ -216,7 +253,9 @@ A `CommandResult` is then generated and returned to the `LogicManager`.
 ==== Sequence Diagram for searching by area
 The sequence diagram for the *Nearby Command* when searching by *area* is shown below:
 
+.Nearby Command Sequence Diagram 2
 image::NearbyCommandSequenceDiagram2.svg[]
+
 The `NearbyCommandParser` will check for invalid arguments given by the user. +
 Invalid arguments can be either empty arguments or arguments with
 only whitespace characters.
@@ -239,7 +278,7 @@ The model will then be updated using the predicate obtained from the `getAreaPre
 
 A new `CommandResult` will be created and returned to the `LogicManager`.
 
-
+[[import]]
 === Import feature
 The import feature allows users to save the trouble of adding the delivery orders and the return orders one by one
 when they have large amount of delivery orders or return orders to add into Delino.
@@ -248,12 +287,14 @@ The import feature was implemented as a `ImportCommand` in the `Logic` package.
 
 ==== Class Diagram for Import feature:
 
+.Import Command Class Diagram
 image::ImportClassDiagram.png[]
 
 ==== Sequence Diagram for importing the csv file.
 The sequence diagram for the *Import Command* when import the data from the  *csv file*
 is shown below:
 
+.Import Command Sequence Diagram
 image::ImportCommandSequenceDiagram.png[]
 
 The arguments passed to the Import Command will be parsed by the `ImportCommandParser` class. +
@@ -275,6 +316,8 @@ After the `ImportCommand` object is being returned to the `LogicManager`, the `L
 to run the execute the import Command, this is will be shown at the <<Execution of Import Command Sequence Diagram, Execution of Import Command Sequence Diagram>>.
 
 ==== Execution of Import Command Sequence Diagram
+
+.Import Command Sequence Diagram 2
 image::ImportCommandSequenceDiagram2.png[]
 
 The `execute(model)` function of the `ImportCommand` will first check if the data given starts with
@@ -286,95 +329,58 @@ or `ReturnCommand`. This will cause a delivery order or return order being added
 
 The `ImportCommand` will call its own `printResult()` function and return a String message to the `CommandResult` object
 which is then pass back to the `LogicManager`.
+**
+[[search]]
+=== Search feature
+The search function allow users to search for any orders according to the provided input. +
+There are two mode of searching, *general search* or *specific search*. +
+If the user does not provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *general search* mode will be performed. +
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+* *General search* will search for all fields in an order and return orders that have any matching fields. +
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+If the user provide any `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`, a *specific search* will be performed. +
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* *Specfic search* will search orders based on the given `<<command_prefix, ORDER_ATTRIBUTE_PREFIX>>`.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+==== Class Diagram for Search feature:
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+.Search Command Class Diagram
+image::SearchCommandClassDiagram.svg[]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+==== Sequence Diagram for Search feature:
 
-image::UndoRedoState0.png[]
+The sequence diagram for the *Search Command* when searching for any orders that contain *Alice* in any of it's field is shown below:
 
-Step 2. The user executes `delete 5` command to delete the 5th order in the list. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+.Search Command Sequence Diagram
+image::SearchCommandSequenceDiagram.svg[]
 
-image::UndoRedoState1.png[]
+LogicManager first calls `parseCommand` with arguments representing the user input, `Alice`. The `SearchCommandParser` will then check for any invalid arguments passed by the user. +
 
-Step 3. The user executes `insert n/David ...` to add a new order delivery details. The `insert` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+[TIP]
+====
+* If the given arguments are valid, `SearchCommandParser` will return  a new `SearchCommand` object. +
+* If the given arguments are invalid or empty, a `ParseException` object will be thrown (not shown in the diagram).
+====
 
-image::UndoRedoState2.png[]
+Upon validation of the arguments, `SearchCommandParser` will call for the `tokenize` static method in `ArgumentTokenizer` to get an `ArgumentMultimap` object containing all the user input keywords.
+Each keyword will be stored in the `ArgumentMultimap` object to it's corresponding prefix.
+If no prefix is given, `ArgumentMultimap` will store the user input as a value tagged to an empty string key; the empty string key is referred to as the *preamble*. +
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Using the `ArgumentMultimap` object, `SearchCommandParser` will check if the preamble is empty. +
+If the preamble is not empty, a *general search* will be performed in which the `SearchCommandParser` will call the
+`OrderContainsKeywordsPredicate` constructor. The constructor accepts the user input as a parameter (`keyword`). +
+If the preamble is empty, `SearchCommandParser` will call the overloaded constructor of `OrderContainsKeywordsPredicate`, passing the pre-processed user input as `keyword` and the `ArgumentMultimap`. +
 
-Step 4. The user now decides that adding the order was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+For both scenarios, `OrderContainsKeywordsPredicate` object will be returned to `SearchCommandParser`. After which, a new instance of `SearchCommand` object will be created and returned back to the `LogicManager` through `OrderBookParser`.
 
-image::UndoRedoState3.png[]
+.Search Command Sequence Diagram 2
+image::SearchCommandSequenceDiagram2.svg[]
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+After which, the `LogicManager` will then call the `execute` function of `SearchCommand` object passing a `model` object as an argument. +
+The `model` will then update the list of shown orders using the `OrderContainsKeywordsPredicate` object.
 
-The following sequence diagram shows how the undo operation works:
+Lastly, a new `CommandResult` object will be created and returned to the `LogicManager`.
 
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `insert n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the order being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -832,6 +838,16 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
+=== Use case: UC14 - Show statistics
+
+*MSS*
+
+1. User requests to see the statistics of orders.
+2. Delino opens a window that contains the statistics.
++
+Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
@@ -858,66 +874,68 @@ Any syntax used that does not correspond to the required format
 [[status-bar]] Status Bar::
 Refers to the display field showing the results of an executed command
 
+[[command_prefix]]
 .Command Prefix
 |===
 |Prefix |Meaning |Used in the following Command(s)
 
+|ot/
+|Order Type
+|<<import, Import>>
+
 |tid/
 |Transaction ID
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |n/
 |Customer Name
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |a/
 |Address
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |p/
 |Phone Number
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |e/
 |Email
-|Insert, Return, Edit
+|<<insert, Insert>>, <<edit, Edit>>, <<return, Return>>, <<search, Search>>
 
-|ts/
+|dts/
 |Delivery Date And Time
-|Insert
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
+
+|rts/
+|Return Date and Time
+|<<return, Return>>, <<search, Search>>
 
 |w/
 |Warehouse Location
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |cod/
 |Cash On Delivery
-|Insert
+|<<edit, Edit>>, <<insert, Insert>>, <<search, Search>>
 
 |c/
 |Comments by Customer
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 
 |type/
 |Type of Item
-|Insert, Return
+|<<edit, Edit>>, <<insert, Insert>>, <<return, Return>>, <<search, Search>>
 |===
 
+[[command_flags]]
 .Possible Command Flags
 |===
-|Command |Flag |Meaning
+|Flag |Meaning |Used in the following Command(s)
 
-|Clear
 |-f
 |Force clear, no user confirmation will be requested
-
-|Search
-|-n
-|Search using Name
-
-|Search
-|-t
-|Search using Transaction ID
+|<<clear, Clear>>
 |===
 
 [appendix]
@@ -1028,6 +1046,21 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
 .. Test case: `list` `ANY_WORD_OTHER_THAN_UNDONE_AND_DONE` +
    Expected: An error will occur, a message will appear in the response box, indicating an invalid list command
 
+=== Returning an order
+
+. Returning an order with the specific order attributes
+
+.. Return command format: `return` `tid/TRANSACTION_ID` `n/CUSTOMER_NAME` `a/ADDRESS` `p/PHONE_NUMBER` `e/EMAIL` `rts/DELIVERY_DATE_&_TIME` `w/WAREHOUSE_LOCATION` `[c/COMMENTS_BY_CUSTOMER]` `[type/TYPE_OF_ITEM]`
+
+.. Test case: `return` `tid/9876543210` `n/John Doe` `a/Blk 572 Hougang st 51 #10-33 S530572` `p/98766789` `e/johndoe@example.com` `ts/2020-02-20 1300` `w/Yishun` +
+   Expected: Creates and adds a return order with the above details to the return order book.
+.. Test case: `return` `tid/1023456789` `n/Amos Cheong` `a/Blk 572 Hougang st 51 #11-37 S530572` `p/9001 0019` `e/amoscheong@example.com` `ts/2020-03-10 1650` `w/Marsiling` `c/Leave it at the riser` `type/glass` +
+   Expected: Creates and adds the return order to the return order book, including the item type and comment.
+.. Test case: Invalid Syntax +
+   Expected: No return order is added. Error details shown in the response message. A help message displayed for user to type the return command accordingly. Status bar remain unchanged
+.. Test case: Return order with existing Transaction ID in list +
+   Expected: An error will occur and a message will be displayed, stating that the return order with duplicate ID cannot be added into the list
+
 === Search an order
 
 . Search an order based on either the person’s Name or by the Transaction ID
@@ -1083,6 +1116,16 @@ The import file must be a `.csv file` and the `csv file` should be inside `data`
    Expected: A list of commands will be displayed and the response box will indicate a successful command.
 .. Test case: Invalid syntax
    Expected: An error will occur and the response box will show an error message
+
+=== Show
+
+. Opens a window which shows the statistics of the current list of orders.
+
+.. Test case: `show` +
+   Expected: A new window will appear and it will show the earnings, orders delivered and the total
+number of orders the courier has to deliver today. There should be a PieChart displayed as well.
+.. Test case: Invalid syntax +
+   Expected: An error will occur and the response box will show an error message.
 
 === Obtain all nearby orders based on area or postal sector
 

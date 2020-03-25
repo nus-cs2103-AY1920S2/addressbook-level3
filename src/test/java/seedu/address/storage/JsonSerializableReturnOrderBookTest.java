@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.returnorder.ReturnOrderBook;
-import seedu.address.testutil.TypicalOrders;
+import seedu.address.model.ReturnOrderBook;
+import seedu.address.testutil.TypicalReturnOrders;
 
 public class JsonSerializableReturnOrderBookTest {
 
@@ -26,7 +26,7 @@ public class JsonSerializableReturnOrderBookTest {
         JsonSerializableReturnOrderBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_ORDER_FILE,
                 JsonSerializableReturnOrderBook.class).get();
         ReturnOrderBook returnOrderBookFromFile = dataFromFile.toModelType();
-        ReturnOrderBook typicalOrdersReturnOrderBook = TypicalOrders.getTypicalReturnOrderBook();
+        ReturnOrderBook typicalOrdersReturnOrderBook = TypicalReturnOrders.getTypicalReturnOrderBook();
         assertEquals(returnOrderBookFromFile, typicalOrdersReturnOrderBook);
     }
 

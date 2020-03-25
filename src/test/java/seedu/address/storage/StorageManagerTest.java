@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
-import static seedu.address.testutil.TypicalOrders.getTypicalReturnOrderBook;
+import static seedu.address.testutil.TypicalReturnOrders.getTypicalReturnOrderBook;
 
 import java.nio.file.Path;
 
@@ -14,9 +14,9 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.OrderBook;
 import seedu.address.model.ReadOnlyOrderBook;
+import seedu.address.model.ReadOnlyReturnOrderBook;
+import seedu.address.model.ReturnOrderBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.returnorder.ReadOnlyReturnOrderBook;
-import seedu.address.model.returnorder.ReturnOrderBook;
 
 public class StorageManagerTest {
 
