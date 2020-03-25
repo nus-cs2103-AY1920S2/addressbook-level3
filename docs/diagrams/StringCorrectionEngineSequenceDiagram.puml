@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+
+box CorrectionEngine LOGIC_COLOR_T1
+participant ":StringCorrectionEngine" as StringCorrectionEngine LOGIC_COLOR
+participant ":EditDistanceCalculator" as EditDistanceCalculator LOGIC_COLOR
+end box
+
+[-> StringCorrectionEngine : correct("uncorrected")
+activate StringCorrectionEngine
+
+loop all possible correct strings 
+StringCorrectionEngine -> EditDistanceCalculator : calculateDistance("uncorrected", possibleCorrectString)
+activate EditDistanceCalculator
+EditDistanceCalculator -> StringCorrectionEngine : distance
+deactivate EditDistanceCalculator
+end
+
+[<-- StringCorrectionEngine
+deactivate StringCorrectionEngine
+@enduml
