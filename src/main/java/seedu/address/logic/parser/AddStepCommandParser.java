@@ -29,7 +29,7 @@ public class AddStepCommandParser implements Parser<AddStepCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_STEP);
-        List<Step> newSteps = parseStepsForEdit(argMultimap.getAllValues(PREFIX_STEP));
+        List<Step> newSteps = parseStepsForAddStep(argMultimap.getAllValues(PREFIX_STEP));
 
         Index index;
         try {
@@ -44,7 +44,7 @@ public class AddStepCommandParser implements Parser<AddStepCommand> {
     /**
      * Parses {@code Collection<String> steps} into a {@code List<Step>}.
      */
-    private List<Step> parseStepsForEdit(Collection<String> steps) throws ParseException {
+    private List<Step> parseStepsForAddStep(Collection<String> steps) throws ParseException {
         assert steps != null;
 
         if (steps.isEmpty()) {

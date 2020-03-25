@@ -24,7 +24,7 @@ public class AddStepCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds step(s) to an existing recipe in the "
             + "recipe book.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: [INDEX of recipe] "
             + "[" + PREFIX_STEP + "STEP]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_STEP + "Insert new step here";
