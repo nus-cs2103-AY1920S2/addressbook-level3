@@ -104,8 +104,6 @@ public class Group {
     //TODO: edit once Student is made
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getIdentifier());
-        return builder.toString();
+        return String.format("%s", identifier);
     }
 }
