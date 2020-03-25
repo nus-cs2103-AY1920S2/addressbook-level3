@@ -28,12 +28,12 @@ HiddenOutside ..> Model
 
 ModelManager .up.|> Model
 
-ModelManager o.down.> BlockModel
-ModelManager o.down.> SuggestionModel
-ModelManager o.down.> ViewStateModel
-ModelManager o.down.> UserPrefModel
-ViewStateModel o.down.> CommandInputModel
-ViewStateModel o.down.> HelpFlagModel
+ModelManager o-down-> BlockModel
+ModelManager o-down-> SuggestionModel
+ModelManager o-down-> ViewStateModel
+ModelManager o-down-> UserPrefModel
+ViewStateModel o-down-> CommandInputModel
+ViewStateModel o-down-> HelpFlagModel
 
 BlockModel o-down-> "1" BlockTree
 
