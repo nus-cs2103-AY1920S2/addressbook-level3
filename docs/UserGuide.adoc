@@ -107,17 +107,21 @@ Format: `help`
 
 === Adding a coupon: `add`
 
-Adds a coupon to your coupon stash
+Adds a coupon. Some fields like name, expiry date and savings
+are required. Optional fields like promo code and tags
+may be provided as well.
 
-Format: add n/name d/DETAILS s/START DATE [e/EXPIRY DATE] [t/TAG]…​
+Format: add n/NAME e/EXPIRY_DATE s/SAVINGS [sd/START_DATE] [p/PROMO_CODE]
+[c/CONDITIONS] [l/USAGE_LIMIT] [s/FREE_ITEMS]... [t/TAG]...
 
 [TIP]
 A coupon can have any number of tags (including 0)
 
 Examples:
 
-* `add n/The Deck Chicken Rice d/20% off s/5/5/2020 e/ 6/5/2020 t/value`
-* `add n/Preenz Gjorjes Pak Mala d/10% off s/2/3/2020 t/value t/friends`
+* `add n/The Deck Chicken Rice s/20% sd/5-5-2020 e/6-5-2020 t/value`
+
+* `add n/Preenz Gjorjes Pak Mala s/$1.50 ed/2-3-2020 t/value t/friends`
 
 === Listing all coupons: `list`
 
@@ -129,8 +133,8 @@ Format: `list`
 
 Edits an existing coupon in the coupon book.
 
-Format: `edit INDEX [n/NAME] [d/DETAILS] [s/START DATE] [e/EXPIRY]
-[t/TAG]`
+Format: `edit INDEX [n/NAME] [s/SAVINGS]... [sd/START_DATE] [e/EXPIRY_DATE]
+[p/PROMO_CODE] [c/CONDITIONS] [l/USAGE_LIMIT] [t/TAG]...`
 
 ****
 * Edits the coupon at the specified INDEX. The index refers to the index
@@ -142,12 +146,14 @@ integer* 1, 2, 3, …​
 adding of tags is not cumulative.
 * You can remove all the coupon’s tags by typing t/ without specifying
 any tags after it.
+* When editing savings, existing savings of the coupon will also
+be removed.
 ****
 
 Examples:
 
-* `edit 1 d/50% off` +
-Edits the details of the 1st coupon to be 50% off
+* `edit 1 s/50% +
+Edits the savings of the 1st coupon to be 50% off
 * `edit 2 n/The Deck Nasi Ayam Hainan t/` +
 Edits the name of the 2nd coupon to be The Deck Nasi Ayam Hainan and
 clears all existing tags.
