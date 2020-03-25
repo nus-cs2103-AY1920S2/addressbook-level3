@@ -148,7 +148,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `fithelper.commons` package.
 
 == Implementation
 
@@ -766,64 +766,60 @@ Windows, Linux, Unix, OS-X
 |===
 |Prefix |Meaning |Used in the following Command(s)
 
+|x/
+|Type of entry
+|add, check, delete, edit, find
+
+|i/
+|Index of entry
+|edit, delete, edit
+
 |n/
 |Name
-|addX, editX, recordprofile
+|add, edit
 
 |t/
-|Time in format of *yyyy-mm-dd-24-60*
-|addX, editX
+|Time in format of "date hour minute"
+|add, edit
 
 |l/
 |Location
-|addX, editX
+|add, edit
 
 |c/
-|Calories
-|addX, editX
+|Calorie
+|add, edit
 
 |s/
 |Status
-|addX, edit, editX
-
-|d/
-|Date in format of *yyyy-mm-dd*
-|list, listX, reminder, reminderX, edit, editX, deleteX, periodstart, periodend
-
-|dr/
-|Duration in format of *yyyy-mm-dd yyyy-mm-dd*
-|list, listX, reminder, reminderX, weightgraph
+|add, edit
 
 |r/
 |Remark
-|editX
+|edit
 
-|addr/
-|Address
-|recordprofile
+|d/
+|Date in format of *date hh:mm*
+|calendar
 
-|g/
-|Gender
-|recordprofile
+|dr/
+|Duration in format of *yyyy-mm-dd yyyy-mm-dd*
+|add, edit
 
-|h/
-|Height
-|recordprofile
+|dc/
+|Dairy contents
+|dairy
 
-|cw/
-|Current Weight
-|recordprofile
-
-|tw/
-|Target Weight
-|recordprofile
+|k/
+|Keyword
+|check, find
 
 |attr/
-|Attribute
+|Attribute in user profile
 |update
 
 |v/
-|Attribute Value
+|Attribute Value in user profile
 |update
 
 |===
@@ -847,6 +843,10 @@ Windows, Linux, Unix, OS-X
 |Sort
 |-c
 |Sort according to *calorie intake*
+
+|Update
+|-f
+|*Force update* even with existing value
 
 |===
 
