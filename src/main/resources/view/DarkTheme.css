@@ -307,6 +307,43 @@
     -fx-padding: 8 1 8 1;
 }
 
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #325438;
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #CC5500;
+}
+
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-width: 0;
@@ -350,3 +387,4 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+

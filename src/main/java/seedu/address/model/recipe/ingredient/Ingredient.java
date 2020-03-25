@@ -52,7 +52,7 @@ public abstract class Ingredient implements Comparable<Ingredient> {
         if (quantity == null) {
             return "";
         }
-        return quantity + " " + ingredientName;
+        return quantity + " " + ingredientName + " ";
     }
 
     @Override

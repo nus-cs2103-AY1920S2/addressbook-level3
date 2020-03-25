@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.goal.Goal;
+import seedu.address.model.plan.Date;
 import seedu.address.model.recipe.Name;
 import seedu.address.model.recipe.Step;
 import seedu.address.model.recipe.Time;
@@ -512,4 +513,17 @@ public class ParserUtil {
         return othersSet;
     }
 
+    /**
+     * Parses {@code String date} into a {@code Date}.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
 }

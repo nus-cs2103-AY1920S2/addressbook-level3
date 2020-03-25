@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRecipeBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RecipeBook;
+import seedu.address.model.plan.Date;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.testutil.RecipeBuilder;
 
@@ -180,6 +181,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredRecipeList(Predicate<Recipe> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void planRecipe(Recipe recipeToSet, Date atDate) {
             throw new AssertionError("This method should not be called.");
         }
     }

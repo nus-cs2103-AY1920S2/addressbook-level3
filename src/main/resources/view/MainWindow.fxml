@@ -46,11 +46,11 @@
           </padding>
         </StackPane>
 
-        <VBox fx:id="recipeList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+        <VBox fx:id="mainTab" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
           <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
+            <Insets top="10" right="10" bottom="10" left="10"/>
           </padding>
-          <StackPane fx:id="recipeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <StackPane fx:id="mainTabPanelPlaceholder" VBox.vgrow="ALWAYS"/>
         </VBox>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

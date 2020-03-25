@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.plan.Date;
+import seedu.address.model.plan.PlannedRecipeMap;
 import seedu.address.model.recipe.Recipe;
 
 /**
@@ -23,6 +25,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Recipe> filteredRecipes;
     private final VersionedRecipeBook states;
+    private final PlannedRecipeMap plannedRecipes;
 
     /**
      * Initializes a ModelManager with the given recipeBook and userPrefs.
@@ -37,6 +40,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRecipes = new FilteredList<>(this.recipeBook.getRecipeList());
         this.states = new VersionedRecipeBook(recipeBook);
+        plannedRecipes = new PlannedRecipeMap(); // todo: planned recipes cant be saved currently
     }
 
     public ModelManager() {
@@ -182,6 +186,13 @@ public class ModelManager implements Model {
         return recipeBook.equals(other.recipeBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredRecipes.equals(other.filteredRecipes);
+    }
+
+    //=========== Planned Recipe List Accessors =============================================================
+
+    @Override
+    public void planRecipe(Recipe recipeToSet, Date atDate) {
+        plannedRecipes.add(recipeToSet, atDate);
     }
 
 }
