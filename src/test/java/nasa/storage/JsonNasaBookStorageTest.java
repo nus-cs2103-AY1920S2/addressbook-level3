@@ -2,7 +2,6 @@ package nasa.storage;
 
 import static nasa.testutil.Assert.assertThrows;
 import static nasa.testutil.TypicalModules.CS2103T;
-import static nasa.testutil.TypicalModules.CS2106;
 import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalModules.getTypicalNasaBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;

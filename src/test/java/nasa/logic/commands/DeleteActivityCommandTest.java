@@ -14,7 +14,6 @@ import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
-import nasa.testutil.NasaBookBuilder;
 
 public class DeleteActivityCommandTest {
 

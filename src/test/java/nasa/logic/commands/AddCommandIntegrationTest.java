@@ -12,7 +12,6 @@ import nasa.model.Model;
 import nasa.model.ModelManager;
 import nasa.model.UserPrefs;
 import nasa.model.module.Module;
-import nasa.testutil.ModuleBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.

@@ -3,20 +3,15 @@ package nasa.logic.parser;
 import static nasa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static nasa.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static nasa.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import nasa.logic.commands.AddModuleCommand;
 import nasa.logic.commands.ClearCommand;
 import nasa.logic.commands.ExitCommand;
 import nasa.logic.commands.HelpCommand;
 import nasa.logic.commands.ListCommand;
 import nasa.logic.parser.exceptions.ParseException;
-import nasa.model.module.Module;
-import nasa.testutil.ModuleBuilder;
-import nasa.testutil.ModuleUtil;
 
 public class NasaBookParserTest {
 

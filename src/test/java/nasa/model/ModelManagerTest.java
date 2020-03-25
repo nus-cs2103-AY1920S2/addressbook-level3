@@ -2,8 +2,8 @@ package nasa.model;
 
 import static nasa.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static nasa.testutil.Assert.assertThrows;
-import static nasa.testutil.TypicalModules.GEH1001;
 import static nasa.testutil.TypicalModules.CS2106;
+import static nasa.testutil.TypicalModules.GEH1001;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

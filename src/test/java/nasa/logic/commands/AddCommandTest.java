@@ -2,13 +2,11 @@ package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static nasa.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,6 @@ import javafx.collections.ObservableList;
 
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.index.Index;
-import nasa.logic.commands.exceptions.CommandException;
 import nasa.model.Model;
 import nasa.model.NasaBook;
 import nasa.model.ReadOnlyNasaBook;

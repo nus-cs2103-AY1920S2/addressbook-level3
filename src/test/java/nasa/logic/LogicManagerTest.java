@@ -1,6 +1,5 @@
 package nasa.logic;
 
-import static nasa.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static nasa.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static nasa.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;

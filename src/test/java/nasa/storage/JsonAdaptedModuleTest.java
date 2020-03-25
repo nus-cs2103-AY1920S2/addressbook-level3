@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import nasa.commons.exceptions.IllegalValueException;
-import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
 

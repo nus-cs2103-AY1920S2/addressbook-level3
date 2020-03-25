@@ -1,9 +1,7 @@
 package nasa.storage;
 
 import static nasa.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -11,8 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import nasa.commons.exceptions.IllegalValueException;
 import nasa.commons.util.JsonUtil;
-import nasa.model.NasaBook;
-import nasa.testutil.TypicalModules;
 
 
 public class JsonSerializableNasaBookTest {
