@@ -99,7 +99,7 @@ public interface Model {
      * Updates the filter of the filtered coupon list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredCouponList(Predicate<Coupon> predicate);
+    void updateFilteredCouponList(Predicate<? super Coupon> predicate);
 
     /**
      * Saves current coupon stash state in its history.
@@ -136,4 +136,11 @@ public interface Model {
      * by the prefix.
      */
     void sortCoupons(Prefix prefixToSortBy, String commandText);
+
+    /**
+     * Sets the money symbol in the user prefs to a new value.
+     * @param moneySymbol The new value of money symbol.
+     * @return Returns the old money symbol.
+     */
+    String setMoneySymbol(String moneySymbol);
 }
