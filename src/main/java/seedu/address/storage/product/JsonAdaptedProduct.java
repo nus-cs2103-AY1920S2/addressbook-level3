@@ -41,7 +41,7 @@ public class JsonAdaptedProduct {
     public JsonAdaptedProduct(Product source) {
         description = source.getDescription().value;
         price = source.getPrice().value;
-        quantity = source.getQuantity().value;
+        quantity = source.getQuantity().toString();
         sales = source.getSales().value;
     }
 
