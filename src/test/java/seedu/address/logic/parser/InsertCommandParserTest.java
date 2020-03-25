@@ -67,7 +67,7 @@ import seedu.address.model.order.Warehouse;
 import seedu.address.testutil.OrderBuilder;
 
 public class InsertCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private InsertCommandParser parser = new InsertCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {

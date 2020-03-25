@@ -36,6 +36,9 @@ public class CashOnDelivery {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public double getCashValue() {
+        return Double.parseDouble(cashOnDelivery.substring(1));
+    }
     @Override
     public String toString() {
         return cashOnDelivery;
