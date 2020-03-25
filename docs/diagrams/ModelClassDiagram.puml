@@ -71,7 +71,7 @@ Coupon *-up-> "*" Tag
 Savings *--> "0..1" PercentageAmount
 Savings *--> "0..1" MonetaryAmount
 Savings *--> "*" Saveable
-PureMonetarySavings .up.|> Savings
+PureMonetarySavings -up-|> Savings
 PureMonetarySavings *-right-> "0..1" MonetaryAmount
 PureMonetarySavings *-down-> "*" Saveable
 DateSavingsSumMap ..> PureMonetarySavings : "maps to"
