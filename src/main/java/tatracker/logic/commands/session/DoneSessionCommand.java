@@ -18,7 +18,8 @@ import tatracker.model.session.Session;
  */
 public class DoneSessionCommand extends Command {
 
-    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, "done");
+    public static final String COMMAND_WORD_DONE = "done";
+    public static final String COMMAND_WORD = String.format("%s %s", CommandWords.SESSION, COMMAND_WORD_DONE);
 
     /* Example message usage. */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks a session as done in TA-Tracker. "
