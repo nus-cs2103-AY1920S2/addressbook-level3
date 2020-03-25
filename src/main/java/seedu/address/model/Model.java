@@ -9,6 +9,7 @@ import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
@@ -60,6 +61,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered interviewee list */
     ObservableList<Interviewee> getFilteredIntervieweeListView();
+
+    /** Returns an unmodifiable view of the metric list */
+    ObservableList<Metric> getMetricListView();
 
     /** Returns the list of interviewees for the current interview session */
     IntervieweeList getIntervieweeList();

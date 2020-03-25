@@ -21,8 +21,8 @@ public class UiManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
-    // TODO: Change image of icon
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    // Icon made by Freepik from www.flaticon.com
+    private static final String ICON_APPLICATION = "/images/HireLah.png";
 
     private Logic logic;
     private MainWindow mainWindow;

@@ -16,6 +16,7 @@ import seedu.address.model.hirelah.Attribute;
 import seedu.address.model.hirelah.AttributeList;
 import seedu.address.model.hirelah.Interviewee;
 import seedu.address.model.hirelah.IntervieweeList;
+import seedu.address.model.hirelah.Metric;
 import seedu.address.model.hirelah.MetricList;
 import seedu.address.model.hirelah.Question;
 import seedu.address.model.hirelah.QuestionList;
@@ -126,6 +127,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Interviewee> getFilteredIntervieweeListView() {
         return FXCollections.unmodifiableObservableList(intervieweeList.getObservableList());
+    }
+
+    @Override
+    public ObservableList<Metric> getMetricListView() {
+        return FXCollections.unmodifiableObservableList(metricList.getObservableList());
     }
 
     //=========== Model component accessors ========================================================
