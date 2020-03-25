@@ -248,16 +248,16 @@ Using `AbsolutePath` `open /CS2101` and using `RelativePath` `open ../CS2101` wo
 *Aspect: Implementation of `Path`* :
 
 *   Alternative 1(Current choice): Have 2 separate class implementing `Path`, which is  `AbsolutePath` and `RelativePath`.
-**  Pros: More readable and OOP
-**  Cons: 
+**  Pros: More readable and OOP, each class can have their individual validity REGEX.
 *   Alternative 2: Implement a single class `PathImpl` and have a boolean flag `isAbsolute` to tell if
 its a Relative or Absolute path.
 
 *Aspect: Logical equivalence of `RelativePath`* :
 
 *   Alternative 1(Current choice): Relative path `CS2103/../note1` would be equivalent to `note1`. This was deem to be
-t
-*   Alternative 2:
+**  Pros: More readable and OOP, each class can have their individual validity REGEX.
+*   Alternative 2: Relative path `CS2103/../note1` would not be logically equivalent to `note1`.
+**  Cons:
 
 [[Implementation-Parser]]
 === Parser
