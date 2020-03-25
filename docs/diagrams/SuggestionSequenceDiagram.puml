@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SuggestionEngineImplementation" as SuggestionEngineImplementation LOGIC_COLOR
+participant ":OpenSuggestionCommandParser" as OpenSuggestionCommandParser LOGIC_COLOR
+participant "o:OpenSuggestionCommand" as OpenSuggestionCommand LOGIC_COLOR
+participant ":SuggestionItemImpl" as SuggestionItemImpl LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("open /")
+activate LogicManager
+
+LogicManager -> SuggestionEngineImplementation : parseCommand("open /")
+activate SuggestionEngineImplementation
+
+create OpenSuggestionCommandParser
+SuggestionEngineImplementation -> OpenSuggestionCommandParser
+activate OpenSuggestionCommandParser
+
+OpenSuggestionCommandParser --> SuggestionEngineImplementation
+deactivate OpenSuggestionCommandParser
+
+SuggestionEngineImplementation -> OpenSuggestionCommandParser : parse("open /")
+activate OpenSuggestionCommandParser
+
+create OpenSuggestionCommand
+OpenSuggestionCommandParser -> OpenSuggestionCommand
+activate OpenSuggestionCommand
+
+OpenSuggestionCommand --> OpenSuggestionCommandParser : o
+deactivate OpenSuggestionCommand
+
+OpenSuggestionCommandParser --> SuggestionEngineImplementation : o
+deactivate OpenSuggestionCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+OpenSuggestionCommandParser -[hidden]-> SuggestionEngineImplementation
+destroy OpenSuggestionCommandParser
+
+SuggestionEngineImplementation --> LogicManager : o
+deactivate SuggestionEngineImplementation
+
+LogicManager -> OpenSuggestionCommand : execute(model)
+activate OpenSuggestionCommand
+
+OpenSuggestionCommand -> Model : setResponseText("Open a note")
+activate Model
+
+Model --> OpenSuggestionCommand
+deactivate Model
+
+create SuggestionItemImpl
+OpenSuggestionCommand -> SuggestionItemImpl
+activate SuggestionItemImpl
+
+SuggestionItemImpl --> OpenSuggestionCommand : item
+deactivate SuggestionItemImpl
+
+OpenSuggestionCommand -> Model : setSuggestions(item)
+activate Model
+
+Model --> OpenSuggestionCommand
+deactivate Model
+
+OpenSuggestionCommand --> LogicManager
+deactivate OpenSuggestionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

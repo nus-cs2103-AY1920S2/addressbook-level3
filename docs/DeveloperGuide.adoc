@@ -120,17 +120,14 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-SuggestionEngine]]
 ==== SuggestionEngine component
 
-TODO: EDIT BELOW!
+.Class Diagram of the Suggestion Engine Component
+image::SuggestionClassDiagram.png[]
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /")` API call.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+.Interactions Inside the Logic and Suggestion Component for the `open /` Command
+image::SuggestionSequenceDiagram.png[]
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-CorrectionEngine]]
 ==== CorrectionEngine component
