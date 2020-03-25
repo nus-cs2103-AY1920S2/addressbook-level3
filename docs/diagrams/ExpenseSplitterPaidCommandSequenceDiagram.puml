@@ -50,7 +50,7 @@ deactivate storage
 logic --[UI_COLOR]> ui : CommandResult
 deactivate logic
 
-ui --[UI_COLOR]> user : CommandResult
+ui --[UI_COLOR]> user : CommandResult.
 deactivate ui
 
 @enduml
