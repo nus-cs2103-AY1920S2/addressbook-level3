@@ -1,0 +1,25 @@
+@startuml
+start
+:User snoozes a reminder;
+
+if () then ([invalid format])
+    :Shows invalid format error;
+else ([else])
+    if () then ([invalid index])
+        :Shows reminder does not exist;
+    else ([else])
+        if () then ([Reminder has not passed])
+            :Shows reminder has yet to pass error;
+        else ([else])
+            :Retrieves the reminder;
+            if () then ([time has not been specified])
+                :Reminder new time = now + 5 minutes;
+            else ([else])
+                :Reminder new time = date specified;
+endif
+endif
+endif
+endif
+:Show command result to UI;
+stop
+@enduml

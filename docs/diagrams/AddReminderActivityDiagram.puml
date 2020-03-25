@@ -1,0 +1,25 @@
+@startuml
+start
+:User enters the add reminder command;
+
+if () then ([invalid format])
+    :Shows invalid format;
+else ([valid format])
+    if () then ([module does not exist])
+        :Shows module does not exist error;
+    else ([else])
+        if () then ([index out of bounds])
+            :Shows activity does not exist error;
+        else () then ([else])
+            if () then ([activity's date already past])
+                :Shows activity has already passed;
+            else () then ([else])
+                :Create Reminder class;
+                :Add to ActiveReminderList;
+endif
+endif
+endif
+endif
+:Return command result to UI;
+stop
+@enduml
