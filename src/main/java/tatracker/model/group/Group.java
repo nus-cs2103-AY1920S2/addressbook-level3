@@ -104,7 +104,7 @@ public class Group {
         }
 
         Group otherGroup = (Group) other;
-        return otherGroup.getIdentifier().equals(this.getIdentifier());
+        return this.identifier.equals(otherGroup.identifier);
     }
 
     @Override
