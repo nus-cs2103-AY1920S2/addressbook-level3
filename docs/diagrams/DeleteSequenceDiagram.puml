@@ -3,65 +3,77 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":NotablyParser" as NotablyParser LOGIC_COLOR
+participant ":StringCorrectionEngine" as StringCorrectionEngine LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant ":AbsolutePathCorrectionEngine" as AbsolutePathCorrectionEngine LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("delte -t cs2103")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> NotablyParser : parseCommand("delte -t cs2103")
+activate NotablyParser
+
+NotablyParser -> StringCorrectionEngine : correct("delte")
+activate StringCorrectionEngine
+
+StringCorrectionEngine --> NotablyParser : "delete"
+deactivate StringCorrectionEngine
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+NotablyParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> NotablyParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+NotablyParser -> DeleteCommandParser : parse("cs2103")
 activate DeleteCommandParser
 
+create AbsolutePathCorrectionEngine
+DeleteCommandParser -> AbsolutePathCorrectionEngine: AbsolutePathCorrectionEngine(model, 2)
+activate AbsolutePathCorrectionEngine
+AbsolutePathCorrectionEngine --> DeleteCommandParser
+deactivate AbsolutePathCorrectionEngine
+
+DeleteCommandParser -> AbsolutePathCorrectionEngine: correct(p)
+activate AbsolutePathCorrectionEngine
+
+AbsolutePathCorrectionEngine --> DeleteCommandParser : corrected path
+deactivate AbsolutePathCorrectionEngine
+
 create DeleteCommand
-DeleteCommandParser -> DeleteCommand
+DeleteCommandParser -> DeleteCommand : DeleteCommand(p)
 activate DeleteCommand
 
 DeleteCommand --> DeleteCommandParser : d
 deactivate DeleteCommand
 
-DeleteCommandParser --> AddressBookParser : d
+DeleteCommandParser --> NotablyParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
+DeleteCommandParser -[hidden]-> NotablyParser
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+NotablyParser --> LogicManager : d
+deactivate NotablyParser
 
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model : removeBlock(p)
 activate Model
 
 Model --> DeleteCommand
 deactivate Model
 
-create CommandResult
-DeleteCommand -> CommandResult
-activate CommandResult
-
-CommandResult --> DeleteCommand
-deactivate CommandResult
-
-DeleteCommand --> LogicManager : result
+DeleteCommand --> LogicManager
 deactivate DeleteCommand
 
 [<--LogicManager
