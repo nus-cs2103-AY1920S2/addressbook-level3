@@ -1,6 +1,7 @@
 package nasa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static nasa.logic.commands.addcommands.AddCommand.MESSAGE_MODULE_NOT_FOUND;
 import static nasa.logic.parser.CliSyntax.PREFIX_MODULE;
 
 import nasa.commons.core.index.Index;
@@ -24,6 +25,8 @@ public class DeleteActivityCommand extends Command {
 
     public static final String MESSAGE_FAILURE = "Activity indicated does not exist!";
 
+    public static final String MESSAGE_MODULE_NOT_FOUND = "Module does not exist!";
+
     private final Index index;
     private final ModuleCode moduleCode;
 
@@ -42,6 +45,11 @@ public class DeleteActivityCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (!model.hasModule(moduleCode)) {
+            throw new CommandException(MESSAGE_MODULE_NOT_FOUND);
+        }
+
         try {
             model.removeActivityByIndex(moduleCode, index);
             return new CommandResult(index.toString() + MESSAGE_DELETE_ACTIVITY_SUCCESS);
