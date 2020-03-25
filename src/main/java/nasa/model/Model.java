@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import nasa.commons.core.GuiSettings;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
@@ -168,4 +169,5 @@ public interface Model {
     HistoryManager<UniqueModuleList> getHistoryManager();
     void undoHistory();
     void redoHistory();
+    void setSchedule(ModuleCode module, Name activity, Index type);
 }

@@ -38,6 +38,18 @@ class DateTest {
     }
 
     @Test
+    void getDifferenceInDate() {
+        Date dateNoOne = new Date("20-04-2020 23:59");
+        Date dateNoTwo = new Date("19-04-2020 01:00");
+
+        long[] difference = dateNoOne.getDifference(dateNoTwo);
+
+        for (long x : difference) {
+            System.out.println(x);
+        }
+    }
+
+    @Test
     void testToString() {
     }
 

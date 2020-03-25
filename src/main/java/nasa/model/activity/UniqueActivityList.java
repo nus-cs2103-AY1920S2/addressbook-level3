@@ -80,6 +80,13 @@ public class UniqueActivityList implements Iterable<Activity> {
         return internalList.get(index.getZeroBased());
     }
 
+    public Activity getActivityByName(Name name) {
+        return internalList.stream()
+                .filter(x -> x.getName().equals(name))
+                .findFirst()
+                .get();
+    }
+
     public void setActivityByIndex(Index index, Activity activity) {
         requireNonNull(activity);
 

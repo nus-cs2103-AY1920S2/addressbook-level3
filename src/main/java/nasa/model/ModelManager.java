@@ -14,6 +14,7 @@ import nasa.commons.core.GuiSettings;
 import nasa.commons.core.LogsCenter;
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
 import nasa.model.module.ModuleName;
@@ -259,6 +260,12 @@ public class ModelManager implements Model {
     public boolean hasActivity(ModuleCode target, Activity activity) {
         requireNonNull(activity);
         return nasaBook.hasActivity(target, activity);
+    }
+
+    @Override
+    public void setSchedule(ModuleCode module, Name activity, Index type) {
+        requireAllNonNull(module, activity, type);
+        setSchedule(module, activity, type);
     }
 
     //=========== Filtered Module List Accessors =============================================================

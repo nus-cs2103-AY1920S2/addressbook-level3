@@ -53,6 +53,17 @@ public class Deadline extends Activity {
         updateStatus();
     }
 
+    public int getDifferenceInDay() {
+        return (int) getDate().getDifference(dueDate)[0];
+    }
+
+    /**
+     * Get days remaining for the task.
+     */
+    public int getDaysRemaining() {
+        return (int) this.dueDate.getDifference(Date.now())[0];
+    }
+
     @Override
     public void updateStatus() {
         if (status == Status.ONGOING && Date.now().isAfter(getDateline())) {
@@ -66,6 +77,9 @@ public class Deadline extends Activity {
 
     //TODO: detailed implementation of deadline regeneration
     public Deadline regenerate() {
+        if (super.getSchedule().update()) {
+            setDateLine(getDateline().addDaysToCurrDate(getDifferenceInDay()));
+        }
         return this;
     }
 }

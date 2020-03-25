@@ -14,6 +14,7 @@ public abstract class Activity implements Regenerable<Activity> {
     private Date date;
     private Note note;
     private Priority priority;
+    private Schedule schedule;
 
     /**
      * Constructs a {@code activity} with default note, status and priority.
@@ -26,6 +27,7 @@ public abstract class Activity implements Regenerable<Activity> {
         this.date = Date.now();
         this.status = Status.ONGOING;
         this.priority = new Priority("1");
+        this.schedule = new Schedule(date);
     }
 
     /**
@@ -40,6 +42,7 @@ public abstract class Activity implements Regenerable<Activity> {
         this.date = Date.now();
         this.status = Status.ONGOING;
         this.priority = new Priority("1");
+        this.schedule = new Schedule(date);
     }
 
     /**
@@ -55,6 +58,7 @@ public abstract class Activity implements Regenerable<Activity> {
         this.date = Date.now();
         this.priority = priority;
         this.status = Status.ONGOING;
+        this.schedule = new Schedule(date);
     }
 
     /**
@@ -70,6 +74,7 @@ public abstract class Activity implements Regenerable<Activity> {
         this.note = note;
         this.status = Status.ONGOING;
         this.priority = priority;
+        this.schedule = new Schedule(date);
     }
 
     /**
@@ -187,6 +192,18 @@ public abstract class Activity implements Regenerable<Activity> {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(int type) {
+        schedule.setType(type);
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     /**

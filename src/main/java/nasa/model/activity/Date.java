@@ -5,7 +5,9 @@ import static nasa.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -69,6 +71,16 @@ public class Date {
 
     public boolean isEqual(Date other) {
         return date.isEqual(other.getDate());
+    }
+
+    public long[] getDifference(Date other) {
+        Duration duration = Duration.between(date, other.getDate());
+        duration = duration.minusDays(duration.toDaysPart());
+        Period period = Period.between(date.toLocalDate(), other
+        .getDate().toLocalDate());
+        long[] diffInTime = {period.getDays(), period.getMonths(), period.getYears(), duration.toHoursPart(),
+                duration.toMinutesPart()};
+        return diffInTime;
     }
 
     /**

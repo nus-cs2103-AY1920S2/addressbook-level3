@@ -9,6 +9,7 @@ import javafx.collections.transformation.FilteredList;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.activity.UniqueActivityList;
 
 /**
@@ -93,6 +94,10 @@ public class Module {
 
     public Activity getActivityByIndex(Index index) {
         return activityList.getActivityByIndex(index);
+    }
+
+    public Activity getActivityByName(Name name) {
+        return activityList.getActivityByName(name);
     }
 
     public ObservableList<Activity> getFilteredActivityList() {

@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 
 import nasa.commons.core.index.Index;
 import nasa.model.activity.Activity;
+import nasa.model.activity.Name;
 import nasa.model.activity.UniqueActivityList;
 import nasa.model.module.Module;
 import nasa.model.module.ModuleCode;
@@ -316,6 +317,9 @@ public class NasaBook implements ReadOnlyNasaBook {
         return moduleList;
     }
 
+    public void setSchedule(ModuleCode module, Name activity, Index type) {
+        moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
+    }
     //// util methods
 
     @Override

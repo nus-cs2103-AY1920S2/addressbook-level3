@@ -1,7 +1,5 @@
 package nasa.model.activity;
 
-import nasa.model.module.Module;
-
 /**
  * Represents schedule class in Nasa book.
  * Allows user to regenerate activity automatically.
@@ -9,48 +7,119 @@ import nasa.model.module.Module;
 public class Schedule {
 
     private int type;
-    private Module module;
-    private Activity activity;
     private Date date;
+    private Date defaultDate;
 
-    Schedule() {}
-
-    Schedule(Module module, Activity activity, int type) {
-        this.module = module;
-        this.activity = activity;
-        this.type = type;
+    /**
+     * Construct a schedule from string.
+     */
+    public Schedule(String input) {
+        String[] in = input.split(" ");
+        type = Integer.parseInt(in[0]);
+        date = new Date(in[1]);
+        defaultDate = new Date(in[2]);
     }
 
     /**
-     * Update all activities if it expired.
+     * Initialise schedule with the default type of 0.
+     * @param date
      */
-    public void run() {
-        if (type == 1) {
+    public Schedule(Date date) {
+        this.date = date;
+        this.defaultDate = date;
+        type = 0;
+    }
 
+    /**
+     * Initialise schedule with specific type.
+     * @param date
+     * @param type
+     */
+    public Schedule(Date date, int type) {
+        this.date = date;
+        this.defaultDate = date;
+        this.type = type;
+        init(type);
+    }
+
+    public boolean update() {
+        boolean hasUpdate = false;
+        while (Date.now().isAfter(date)) {
+            init(type);
+            hasUpdate = true;
+        }
+        return hasUpdate;
+    }
+
+    /**
+     * Set scheduling.
+     */
+    public void setType(int type) {
+        this.type = type;
+        date = defaultDate;
+        update();
+    }
+
+    /**
+     * Stop scheduling.
+     */
+    public void cancel() {
+        this.type = 0;
+        date = defaultDate;
+    }
+
+    /**
+     * Initialise schedules.
+     */
+    public void init(int type) {
+        switch (type) {
+        case 1 :
+            runOnceAWeek();
+            break;
+        case 2 :
+            runTwiceAWeek();
+            break;
+        case 3 :
+            runMonthly();
+            break;
         }
     }
 
     /**
-     * Set new date by refreshing it weekly.
-     * @param activity
+     * Get next running date.
      */
-    private Date runWeekly(Activity activity) {
-        Date startDate = activity.getDate();
-        startDate.addDaysToCurrDate(7);
-        return startDate;
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * Set new date by refreshing it weekly.
+     */
+    private void runOnceAWeek() {
+        date = date.addDaysToCurrDate(7);
+    }
+
+    /**
+     * Set new date by refreshing it twice weekly.
+     */
+    private void runTwiceAWeek() {
+        date = date.addDaysToCurrDate(14);
     }
 
     /**
      * Set new date by refreshing it monthly.
-     * @param activity
      */
-    private Date runMonthly(Activity activity) {
-        Date startDate = activity.getDate();
-        int dayOfMonth = startDate.getDate().getDayOfMonth();
-        int year = startDate.getDate().getYear();
+    private void runMonthly() {
+        int dayOfMonth = date.getDate().getDayOfMonth();
+        int year = date.getDate().getYear();
         String startOfNextMonth = "01-" + dayOfMonth + "-" + year;
         Date newMonth = new Date(startOfNextMonth);
-        return newMonth;
+        date = newMonth;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d %s %s", type, date, defaultDate);
     }
 
 }
