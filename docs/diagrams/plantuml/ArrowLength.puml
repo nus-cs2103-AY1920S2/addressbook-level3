@@ -1,4 +1,4 @@
-@startuml
+@startuml ArrowLength
 !include ../style.puml
 
 Package "Short\n->" {

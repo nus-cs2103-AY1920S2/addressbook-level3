@@ -1,4 +1,4 @@
-@startuml
+@startuml CBeforeA
 !include ../style.puml
 
 Class C UI_COLOR_T3
