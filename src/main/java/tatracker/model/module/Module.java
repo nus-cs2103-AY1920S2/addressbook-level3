@@ -87,10 +87,14 @@ public class Module {
         groups.remove(group);
     }
 
+    public boolean hasDoneSession(Session session) {
+        return doneSessions.contains(session);
+    }
+
     /**
-     * Adds a done session to the list of done sessions.
+     * Adds a done session to the list of done sessions for this module.
      */
-    public void addSession(Session session) {
+    public void addDoneSession(Session session) {
         doneSessions.add(session);
     }
 
