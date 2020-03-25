@@ -70,9 +70,11 @@ public class SavedCommandParser implements Parser<SavedCommand> {
                 throw new ParseException(SavedCommand.MESSAGE_INVALID_DATE_RANGE);
             }
             return new SavedCommand(sDate, eDate);
-        } else {
+        } else if (userInput.isBlank()) {
             // no dates provided
             return new SavedCommand();
+        } else {
+            throw new ParseException(SavedCommand.MESSAGE_UNEXPECTED_EXTRA_WORDS);
         }
     }
 }
