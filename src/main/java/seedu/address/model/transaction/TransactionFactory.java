@@ -40,6 +40,14 @@ public class TransactionFactory {
         return new Transaction(customer, product, dateTime, quantity, money, description);
     }
 
+    public Index getProductIndex() {
+        return productIndex;
+    }
+
+    public Quantity getQuantity() {
+        return quantity;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

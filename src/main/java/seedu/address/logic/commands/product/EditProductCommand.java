@@ -85,7 +85,7 @@ public class EditProductCommand extends Command {
      * Creates and returns a {@code Product} with the details of {@code productToEdit}
      * edited with {@code editProductDescriptor}.
      */
-    private static Product createEditedProduct(Product productToEdit, EditProductDescriptor editProductDescriptor) {
+    public static Product createEditedProduct(Product productToEdit, EditProductDescriptor editProductDescriptor) {
         assert productToEdit != null;
 
         Description updatedDescription = editProductDescriptor.getDescription().orElse(productToEdit.getDescription());

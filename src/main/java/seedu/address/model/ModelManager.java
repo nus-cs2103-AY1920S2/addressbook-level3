@@ -12,9 +12,11 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.customer.Customer;
 import seedu.address.model.product.Product;
 import seedu.address.model.transaction.Transaction;
+import seedu.address.model.util.Quantity;
 
 /**
  * Represents the in-memory model of the address book data.

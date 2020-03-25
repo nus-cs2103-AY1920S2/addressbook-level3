@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Product's quantity in the product list
  * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
  */
-public class Quantity {
+public class Quantity implements Comparable<Quantity>{
 
     public static final String MESSAGE_CONSTRAINTS = "Quantity can take any numeric values, and it should not be blank";
 
@@ -36,6 +36,17 @@ public class Quantity {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns a new quantity whose value is the difference between this value and the
+     * other's value.
+     * @param q other quantity.
+     * @return new quantity.
+     */
+    public Quantity minus(Quantity q) {
+        int newValue = Integer.parseInt(this.value) - Integer.parseInt(q.value);
+        return new Quantity(String.valueOf(newValue));
+    }
+
     @Override
     public String toString() {
         return value;
@@ -51,6 +62,11 @@ public class Quantity {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Quantity q) {
+        return Integer.parseInt(this.value) - Integer.parseInt(q.value);
     }
 
 }
