@@ -102,6 +102,10 @@ public class ModelManager implements Model {
     @Override
     public void deleteTransaction(Transaction target) {
         expenseLa.removeTransaction(target);
+        boolean positive = target.getAmount().positive;
+        double amount = target.getAmount().transactionAmount;
+        updateMonthlyData(positive, amount*(-1));
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
@@ -109,6 +113,11 @@ public class ModelManager implements Model {
         expenseLa.addTransaction(transaction);
         boolean positive = transaction.getAmount().positive;
         double amount = transaction.getAmount().transactionAmount;
+        updateMonthlyData(positive, amount);
+        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
+    }
+
+    public void updateMonthlyData(boolean positive, double amount) {
         if (positive) {
             monthlyData.setIncome(new Income(Double.toString(monthlyData.getIncome().incomeAmount + amount)));
             userPrefs.setTotalBalance(userPrefs.getTotalBalance() + amount);
@@ -116,7 +125,6 @@ public class ModelManager implements Model {
             monthlyData.setExpense(new Expense(Double.toString(monthlyData.getExpense().expenseAmount + amount)));
             userPrefs.setTotalBalance(userPrefs.getTotalBalance() - amount);
         }
-        updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
     }
 
     @Override
