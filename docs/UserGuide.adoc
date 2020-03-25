@@ -248,7 +248,7 @@ image::wireframe/review.png[width="700", align="left"]
 
 === Rate Food Items: `*rate*`
 
-You rate food items from the transactions screen as shown in 3.12.
+You can rate food items from the transactions screen as shown in 3.12.
 This rating is on a scale from 0 to 10.
 
 Format: `rate INDEX RATING`
