@@ -45,7 +45,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModules = new FilteredList<>(this.nasaBook.getModuleList());
         this.historyManager = new HistoryManager(historyBook);
-        updateHistory();
+        initialisation();
     }
 
     public ModelManager() {
@@ -57,12 +57,30 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Startup setup for Nasa book.
+     */
+    public void initialisation() {
+        updateSchedule();
+        updateHistory();
+        updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+    }
+
+    /**
      * Update the history manager list every time there is a change.
      */
     public void updateHistory() {
         final UniqueModuleList temp = new UniqueModuleList();
         temp.setModules(nasaBook.getDeepCopyList());
         historyManager.add(temp);
+    }
+
+    /**
+     * Update the schedule for each activity.
+     */
+    public void updateSchedule() {
+        nasaBook.scheduleAll();
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+        updateHistory();
     }
 
     @Override
@@ -151,11 +169,13 @@ public class ModelManager implements Model {
     @Override
     public void deleteModule(ModuleCode target) {
         nasaBook.removeModule(target);
+        updateHistory();
     }
 
     @Override
     public void removeModuleByIndex(Index index) {
         nasaBook.removeModuleByIndex(index);
+        updateHistory();
     }
 
     @Override
@@ -179,6 +199,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
+        updateHistory();
     }
 
     @Override
@@ -186,6 +207,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedModule);
 
         nasaBook.setModule(target, editedModule);
+        updateHistory();
     }
 
     @Override
@@ -205,48 +227,56 @@ public class ModelManager implements Model {
     @Override
     public void setActivityByIndex(Module module, Index index, Activity activity) {
         nasaBook.setActivityByIndex(module, index, activity);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void setActivityByIndex(ModuleCode module, Index index, Activity activity) {
         nasaBook.setActivityByIndex(module, index, activity);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void editActivityByIndex(Module module, Index index, Object... args) {
         nasaBook.editActivityByIndex(module, index, args);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void editActivityByIndex(ModuleCode module, Index index, Object... args) {
         nasaBook.editActivityByIndex(module, index, args);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void removeActivity(Module target, Activity activity) {
         nasaBook.removeActivity(target, activity);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void removeActivity(ModuleCode target, Activity activity) {
         nasaBook.removeActivity(target, activity);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void removeActivityByIndex(Module target, Index index) {
         nasaBook.removeActivityByIndex(target, index);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
     @Override
     public void removeActivityByIndex(ModuleCode target, Index index) {
         nasaBook.removeActivityByIndex(target, index);
+        updateHistory();
         updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
     }
 
@@ -265,7 +295,8 @@ public class ModelManager implements Model {
     @Override
     public void setSchedule(ModuleCode module, Name activity, Index type) {
         requireAllNonNull(module, activity, type);
-        setSchedule(module, activity, type);
+        nasaBook.setSchedule(module, activity, type);
+        updateHistory();
     }
 
     //=========== Filtered Module List Accessors =============================================================

@@ -29,10 +29,11 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final NasaBookParser nasaBookParser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage) throws IOException {
         this.model = model;
         this.storage = storage;
         nasaBookParser = new NasaBookParser();
+        storage.saveUltimate(model.getNasaBook(), model.getHistoryManager().getHistoryBook());
     }
 
     @Override

@@ -128,6 +128,10 @@ public abstract class Activity implements Regenerable<Activity> {
         this.note = note;
     }
 
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public Status getStatus() {
         return status;
     }

@@ -14,7 +14,7 @@ public class Schedule {
      * Construct a schedule from string.
      */
     public Schedule(String input) {
-        String[] in = input.split(" ");
+        String[] in = input.split(",");
         type = Integer.parseInt(in[0]);
         date = new Date(in[1]);
         defaultDate = new Date(in[2]);
@@ -42,9 +42,12 @@ public class Schedule {
         init(type);
     }
 
+    /**
+     * Method to extend the date of a module activity.
+     */
     public boolean update() {
         boolean hasUpdate = false;
-        while (Date.now().isAfter(date)) {
+        while (Date.now().isAfter(date) && type != 0) {
             init(type);
             hasUpdate = true;
         }
@@ -82,6 +85,8 @@ public class Schedule {
         case 3 :
             runMonthly();
             break;
+        default:
+            break;
         }
     }
 
@@ -110,16 +115,12 @@ public class Schedule {
      * Set new date by refreshing it monthly.
      */
     private void runMonthly() {
-        int dayOfMonth = date.getDate().getDayOfMonth();
-        int year = date.getDate().getYear();
-        String startOfNextMonth = "01-" + dayOfMonth + "-" + year;
-        Date newMonth = new Date(startOfNextMonth);
-        date = newMonth;
+        date = date.addMonthsToCurrDate(1);
     }
 
     @Override
     public String toString() {
-        return String.format("%d %s %s", type, date, defaultDate);
+        return String.format("%d,%s,%s", type, date, defaultDate);
     }
 
 }

@@ -249,6 +249,10 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalUnmodifiableList;
     }
 
+    public ObservableList<Module> asModifiableObservableList() {
+        return internalList;
+    }
+
     @Override
     public Iterator<Module> iterator() {
         return internalList.iterator();

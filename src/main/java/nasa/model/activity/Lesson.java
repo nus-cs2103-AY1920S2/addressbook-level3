@@ -66,9 +66,6 @@ public class Lesson extends Activity {
      * @return new instance of lesson at the new date
      */
     public Lesson regenerate() {
-        //Lesson newLesson = new Lesson(this.getName(), this.getDate().addDaysToCurrDate(numOfDaysTillNextLesson),
-        //this.getNote());
-        //return newLesson;
-        return null;
+        return this;
     }
 }

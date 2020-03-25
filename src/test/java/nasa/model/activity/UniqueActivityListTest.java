@@ -3,6 +3,7 @@ package nasa.model.activity;
 import static nasa.testutil.TypicalActivities.CORRECT_EVENT;
 import static nasa.testutil.TypicalActivities.DEADLINE;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -72,6 +73,13 @@ class UniqueActivityListTest {
         uniqueActivityList.add(DEADLINE);
         ObservableList<Activity> temp = uniqueActivityList.asUnmodifiableObservableList();
         assertThrows(UnsupportedOperationException.class, () -> temp.add(CORRECT_EVENT));
+    }
+
+    @Test
+    public void getActivityByName() {
+        uniqueActivityList.add(DEADLINE);
+        Activity activity = uniqueActivityList.getActivityByName(new Name("Homework for tut"));
+        assertEquals(DEADLINE, activity);
     }
 
 }

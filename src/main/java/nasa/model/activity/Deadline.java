@@ -75,10 +75,11 @@ public class Deadline extends Activity {
         return date.isAfter(Date.now());
     }
 
-    //TODO: detailed implementation of deadline regeneration
+    @Override
     public Deadline regenerate() {
         if (super.getSchedule().update()) {
-            setDateLine(getDateline().addDaysToCurrDate(getDifferenceInDay()));
+            setDateLine(getSchedule().getDate().addDaysToCurrDate(getDifferenceInDay()));
+            setStatus(Status.ONGOING);
         }
         return this;
     }

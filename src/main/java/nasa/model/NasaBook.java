@@ -317,6 +317,12 @@ public class NasaBook implements ReadOnlyNasaBook {
         return moduleList;
     }
 
+    public void scheduleAll() {
+        moduleList.asModifiableObservableList().stream()
+                .forEach(x -> x.getActivities().getActivityList().stream()
+                        .forEach(y -> y.regenerate()));
+    }
+
     public void setSchedule(ModuleCode module, Name activity, Index type) {
         moduleList.getModule(module).getActivityByName(activity).setSchedule(type.getZeroBased());
     }

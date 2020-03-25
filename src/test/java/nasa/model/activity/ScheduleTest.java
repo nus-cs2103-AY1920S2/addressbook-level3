@@ -21,6 +21,9 @@ class ScheduleTest {
         //System.out.println(schedule.getDate());
         assertTrue(Date.now().isBefore(schedule.getDate()));
 
+        schedule.setType(3);
+        assertTrue(Date.now().isBefore(schedule.getDate()));
+
         schedule.cancel();
         assertEquals(temp, schedule.getDate());
     }
