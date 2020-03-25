@@ -30,7 +30,6 @@ deactivate entry
 receipt --[MODEL_COLOR]-> model : String
 deactivate receipt
 
-
 model --[LOGIC_COLOR]> logic : CommandResult
 deactivate model
 
