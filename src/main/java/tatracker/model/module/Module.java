@@ -99,13 +99,6 @@ public class Module {
     }
 
     /**
-     * Deletes the session that is of the given index.
-     */
-    public void deleteSession(int n) {
-        doneSessions.remove(n);
-    }
-
-    /**
      * Returns true if both modules have the same identifiers.
      */
     @Override
