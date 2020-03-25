@@ -1,6 +1,6 @@
 package fithelper.logic.commands;
 
-import static fithelper.logic.parser.CliSyntaxUtil.*;
+import static fithelper.logic.parser.CliSyntaxUtil.PREFIX_DATE;
 import static fithelper.model.Model.PREDICATE_SHOW_ALL_ENTRIES;
 import static java.util.Objects.requireNonNull;
 

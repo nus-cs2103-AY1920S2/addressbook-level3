@@ -19,7 +19,6 @@ import fithelper.model.entry.UniqueEntryList;
 import fithelper.model.entry.VeventList;
 import fithelper.model.profile.Profile;
 
-import fithelper.model.today.Today;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;

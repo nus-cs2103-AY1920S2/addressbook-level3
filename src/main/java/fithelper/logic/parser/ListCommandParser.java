@@ -6,17 +6,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import fithelper.commons.core.LogsCenter;
-import fithelper.logic.commands.FindCommand;
 import fithelper.logic.commands.ListCommand;
 import fithelper.logic.parser.exceptions.ParseException;
-import fithelper.model.diary.DiaryDate;
-import fithelper.model.entry.NameContainsKeywordsPredicate;
-import fithelper.model.entry.Type;
 
 /**
  * Parses input arguments and creates a new FindCommand object
