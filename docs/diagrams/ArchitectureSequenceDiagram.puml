@@ -2,15 +2,15 @@
 !include style.puml
 
 Actor User as user USER_COLOR
-Participant ":VIEW" as view UI_COLOR
+Participant ":View" as View UI_COLOR
 Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> view : "new -t Notably -b Lorem ipsum"
-activate view UI_COLOR
+user -[USER_COLOR]> View : "new -t Notably -b Lorem ipsum"
+activate View UI_COLOR
 
-view -[UI_COLOR]> logic : execute("new -t Notably -b Lorem ipsum")
+View -[UI_COLOR]> logic : execute("new -t Notably -b Lorem ipsum")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> model : addBlockToCurrentPath(p)
@@ -29,9 +29,9 @@ deactivate storage
 storage --[STORAGE_COLOR]> logic
 deactivate storage
 
-logic --[LOGIC_COLOR]> view
+logic --[LOGIC_COLOR]> View
 deactivate logic
 
-view--[UI_COLOR]> user
-deactivate view
+View--[UI_COLOR]> user
+deactivate View
 @enduml

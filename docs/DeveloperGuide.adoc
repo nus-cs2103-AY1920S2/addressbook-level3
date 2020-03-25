@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S2-CS2103T-W17-2/main/
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-2/main
 
 By: `Team Notably`      Since: `Feb 2020`      Licence: `MIT`
 
@@ -78,7 +78,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/view/View.java[`View.java`]
 
-The View consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The View consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `SuggestionsList`, `SideBarTree`, `HelpModal`, `StatusBarFooter`, `BlockContent` etc. All these, including the `MainWindow`, inherit from the abstract `ViewPart` class.
 
 The `View` component uses JavaFx framework. The layout of these View parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/view/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -124,33 +124,53 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-SuggestionEngine]]
 ==== SuggestionEngine component
 
-TODO: EDIT BELOW!
+.Class Diagram of the Suggestion Engine Component (still WIP)
+image::SuggestionClassDiagram.png[]
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+*API* :
+link:{repoURL}blob/master/src/main/java/com/notably/logic/suggestion/SuggestionEngine.java[`SuggestionEngine.java`]
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+`SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
+open/ delete/ search/ edit.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
+2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
+which implements `SuggestionCommandParser` interface.
+3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
+`XYZSuggestionCommand` is then executed by the `LogicManager`.
+4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
+"Open a note" and store a list of `SuggestionItem` in the model).
+5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+to the user.
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Given below is the Sequence Diagram for interactions within the `Logic` and `Suggestion` component for the `execute("open /")` API call.
+
+.Interactions Inside the Logic and Suggestion Component for the `open /` Command
+image::SuggestionSequenceDiagram.png[]
+
+NOTE: The lifeline for `OpenSuggestionCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 [[Design-CorrectionEngine]]
 ==== CorrectionEngine component
 
-TODO: EDIT BELOW!
+.Class Diagram of the CorrectionEngine Component
+image::CorrectionEngineClassDiagram.png[]
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+The `CorrectionEngine` component revolves around two _API_ s, namely:
+
 
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by `StringCorrectionEngine` and `AbsolutePathCorrectionEngine`. Concrete implementations of `CorrectionEngine` are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by `LevenshteinDistanceCalculator`. Concrete implementations of `EditDistanceCalculator` are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Given below is the Sequence Diagram for interactions within the `StringCorrectionEngine` (one concrete implementation of `CorrectionEngine`) component for the `correct("uncorrected")` API call.
+
+.Interactions inside the StringCorrectionEngine component for the `correct("uncorrected")` call
+image::StringCorrectionEngineSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
@@ -158,19 +178,17 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/com/notably/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the View can be bound to this list so that the View automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores and manipulates the `BlockTree` data that represents a tree of Blocks, through BlockModel
+* stores and manipulates a list of suggestions based on the user's input, through SuggestionModel
+* stores the current state of the `View`, through ViewStateModel
+** stores the command input given by the user, through CommandInputModel
+** stores the state of the `help` modal being open, through HelpFlagModel
+* stores `UserPref` data that represents the user's preferences, through UserPrefModel
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -178,17 +196,17 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/com/notably/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save the Block data in JSON format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `com.notably.commons` package.
 
 === Logging
 
@@ -212,13 +230,63 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 == Implementation
 
+This section describes the details on how features are implemented.
+
 [[Implementation-CorrectionEngine]]
 ===  Correction Engine
-TODO:Edit below
+
+==== Rationale
+
+`CorrectionEngine` is needed to enable auto-correction of user inputs, to deliver as good typing experience as possible.
+
+==== Current implementation
+
+`CorrectionEngine` revolves around two _API_ s, namely:
+
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine`] interface, implemented by `StringCorrectionEngine` and `AbsolutePathCorrectionEngine`. Concrete implementations of `CorrectionEngine` are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator`] interface, implemented by `LevenshteinDistanceCalculator`. Concrete implementations of `EditDistanceCalculator` are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
+
+Two concrete implementations of the `CorrectionEngine` interface are, namely:
+
+* The `StringCorrectionEngine` class, which deals with the correction of plain strings.
+* The `AbsolutePathCorrectionEngine` class, which deals with the correction of absolute paths. The absolute paths here refer to the address of the notes (or blocks, as we call it) that exist in the App.
+
+==== Design considerations
+
+1. `CorrectionEngine` is built as a standalone module that can be used by both <<Implementation-SuggestionEngine,*`SuggestionEngine`*>> and <<Implementation-Parser,*`Parser`*>>. This decision is made so that code duplication in relation to auto-correction is minimal.
+2. Both `CorrectionEngine` and `EditDistanceCalculator` are implemented as interfaces, in an attempt to make the design of the `CorrectionEngine` component resilient to change. This design enables us to leverage on the https://en.wikipedia.org/wiki/Strategy_pattern[strategy pattern] to make our `CorrectionEngine` component more future-proof.
 
 [[Implementation-SuggestionEngine]]
 === Suggestion Engine
-TODO:Edit below
+
+==== Rationale
+
+`SuggestionEngine` allows the users to traverse their notes conveniently, without having
+to remember the hierarchical structure of their notes. `SuggestionEngine` gives users the meaning of the command they input and a list of notes suggestions that they want to
+open/ delete/ search/ edit.
+
+==== Current implementation
+
+1. `Logic` uses the `SuggestionEngineImpl` class, which implements `SuggestionEngine` interface, to parse the user command.
+2. According to the command the user inputs, `SuggestionEngineImpl` will create a `XYZSuggestionCommandParser` object
+which implements `SuggestionCommandParser` interface.
+3. This results in the creation of `XYZSuggestionCommand` object which implements `SuggestionCommand` interface.
+`XYZSuggestionCommand` is then executed by the `LogicManager`.
+4. The command execution can affect the `Model` (e.g. `open` command will set the response text in the model as
+"Open a note" and store a list of `SuggestionItem` in the model).
+5. The UI will then be able to retrieve the response text and list of `SuggestionItem` from the model to be displayed
+to the user.
+
+==== Design considerations
+
+1. `SuggestionEngine` is segregated from `Parser` in order to differentiate the logic when the user has finished typing
+and pressed `enter` (which will be handled by `Parser`) in contrast to when the user presses `tab` to take in the
+suggestion item.
+2. In order to keep the App's data flow unidirectional, `SuggestionEngine` will update the response text (which tells
+the user the meaning of his command) and the list of `SuggestionItem` into the `Model`. Thus, by not showing the
+response text and suggestions immediately to the UI, `SuggestionEngine` will not interfere with the `View` functionality.
+3. `SuggestionEngine`, `SuggestionCommandParser`, `SuggestionCommand`, `SuggestionItem`, and `SuggestionModel` are
+implemented as interfaces, in an attempt to make the design of the `SuggestionEngine` component resilient to change.
 
 [[Implementation-Path]]
 === Paths
@@ -259,12 +327,43 @@ its a Relative or Absolute path.
 *   Alternative 2: Relative path `CS2103/../note1` would not be logically equivalent to `note1`.
 
 [[Implementation-DataStructure]]
-=== DataStructure
-TODO:Edit below
+=== Tree Data Structure
+Notably aims to provide end user a neat and well-organized workspace to store their notes. This is done by creating a tree structure; allowing users to create folder-like paths to organize their notes and group them into categories to their own liking.
 
-[[Implementation-Storage]]
-=== Storage
-TODO:Edit below
+==== Rationale
+While this can be done with a linear data structure (a simple list), a linear list of notes would require more work to establish the relationship between groups of notes. A tree data structure supports this better, giving a clearer distinction while also establishing a form of hierarchy (as seen in the design example below).
+
+On top of that, observability must be ensured so that the UI can update with any changes that happen on the tree (and its nodes) and also the data within each node.
+
+==== Current Implementation
+A custom tree data structure that supports observability has been implemented. The tree (referred to as `BlockTree`) is made up of tree nodes (referred to as `BlockTreeItem`). The tree is observable such that if any change occurs on any of the tree's nodes, the change event will bubble upwards to the root node. Hence, the root node serves as the entry point for the `BlockTree`.
+
+Each BlockTreeItem contains 3 primary components:
+
+* a reference to its parent
+* an ObservableList of its children
+* User's note data (referred to as `Block` data) consisting of:
+** `Title` of the note
+** `Body` content of the note (optional)
+
+When manipulating the `BlockTree`, the execution of any operation is always split in this order:
+
+1. Navigate to the specfied path
+2. Open the block at the specified path
+3. Execute the operation on the block that is currently open
+
+==== Design Considerations
+===== Aspect: `BlockTreeItem` vs Folders to represent path structure
+Current choice: `BlockTreeItem`
+Pros: No need for an additional class. Having a separate `folder` object would also require a separate UI View since folders should not contain any block data.
+Cons: Somewhat unconventional design. User might be unfamiliar with the intention on first use, without proper explanation
+
+===== Aspect: Root should also be a `BlockTreeItem`
+Pros: Seamless transition to JSON storage
+Cons: Need to add constraint  to ensure that the root `BlockTreeItem` does not contain any `Body` and is also unmodifiable
+
+.Tree Data Structure Design Example
+image::TreeDataStructureDesign.png[]
 
 [[Implementation-UI]]
 === UI
