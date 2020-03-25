@@ -368,16 +368,17 @@ public class FitHelper implements ReadOnlyFitHelper {
     }
 
     /**
-     * Searches one of the tables and add all entries whose name contains the keyword into a list
+     * Searches one of the tables and add all entries whose name contains the keywords into a list
      * add returns the list.
      *
      * @param type
-     * @param keyword
-     * @return a list of {@code CalorieEntry} with matching keyword.
+     * @param keywords
+     * @return a list of {@code CalorieEntry} with matching keywords.
      */
-    public List<CalorieEntry> addCalorieEntries(String type, String keyword) {
+    public List<CalorieEntry> addCalorieEntries(String type, String keywords) {
         List<CalorieEntry> result = new ArrayList<>();
         List<? extends CalorieEntry> entries;
+        //String[] keywordsByWord = keywords.split(" ");
         if ("f".equals(type)) {
             entries = foodCalorieTable.getEntries();
         } else {
@@ -389,11 +390,12 @@ public class FitHelper implements ReadOnlyFitHelper {
             if (count == 3) {
                 break;
             }
-            if (name.toLowerCase().contains(keyword.toLowerCase())) {
+            if (name.toLowerCase().contains(keywords.toLowerCase())) {
                 result.add(entry);
                 count++;
             }
         }
+
         return result;
     }
 }

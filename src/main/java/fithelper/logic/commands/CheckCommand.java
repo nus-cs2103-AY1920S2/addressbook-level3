@@ -27,19 +27,19 @@ public class CheckCommand extends Command {
     private static final String MESSAGE_HINT = "Note: at most 3 records are shown.\n";
 
     private Type checkType;
-    private String keyword;
+    private String keywords;
 
-    public CheckCommand(Type checkType, String keyword) {
+    public CheckCommand(Type checkType, String keywords) {
         this.checkType = checkType;
-        this.keyword = keyword;
+        this.keywords = keywords;
     }
 
     public Type getCheckType() {
         return checkType;
     }
 
-    public String getKeyword() {
-        return keyword;
+    public String getKeywords() {
+        return keywords;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CheckCommand extends Command {
             return true;
         } else if (obj instanceof CheckCommand) {
             CheckCommand other = (CheckCommand) obj;
-            return keyword.equals(other.getKeyword()) && checkType.equals(other.getCheckType());
+            return keywords.equals(other.getKeywords()) && checkType.equals(other.getCheckType());
         } else {
             return false;
         }
@@ -61,9 +61,9 @@ public class CheckCommand extends Command {
         String typeValue = checkType.getValue();
         List<? extends CalorieEntry> result;
         if ("food".equals(typeValue)) {
-            result = model.searchFoodCalorieTable(keyword);
+            result = model.searchFoodCalorieTable(keywords);
         } else {
-            result = model.searchSportsCalorieTable(keyword);
+            result = model.searchSportsCalorieTable(keywords);
         }
         if (result.size() > 0) {
             String userFeedback = MESSAGE_SUCCESS;
@@ -74,7 +74,7 @@ public class CheckCommand extends Command {
             return new CommandResult(userFeedback);
         } else {
             return new CommandResult(MESSAGE_FAILURE_PART1 + checkType
-                    + MESSAGE_FAILURE_PART2 + keyword + "\n");
+                    + MESSAGE_FAILURE_PART2 + keywords + "\n");
         }
     }
 }
