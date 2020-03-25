@@ -79,7 +79,7 @@ public class LogicManagerTest {
 
         // Execute add command
 
-        String addCommand = AddModuleCommand.COMMAND_WORD + MODULE_CODE_DESC_CS2030 +  MODULE_NAME_DESC_CS2030;
+        String addCommand = AddModuleCommand.COMMAND_WORD + MODULE_CODE_DESC_CS2030 + MODULE_NAME_DESC_CS2030;
         Module expectedModule = new ModuleBuilder().withCode(VALID_MODULE_CODE_CS2030).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addModule(expectedModule);
