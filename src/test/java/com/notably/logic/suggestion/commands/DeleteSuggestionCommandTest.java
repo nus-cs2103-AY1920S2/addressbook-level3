@@ -74,13 +74,13 @@ public class DeleteSuggestionCommandTest {
 
     @Test
     public void constructor_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new OpenSuggestionCommand(null));
+        assertThrows(NullPointerException.class, () -> new DeleteSuggestionCommand(null));
     }
 
     @Test
     public void execute_nullModel_throwsNullPointerException() {
-        OpenSuggestionCommand openSuggestionCommand = new OpenSuggestionCommand(toRoot);
-        assertThrows(NullPointerException.class, () -> openSuggestionCommand.execute(null));
+        DeleteSuggestionCommand deleteSuggestionCommand = new DeleteSuggestionCommand(toRoot);
+        assertThrows(NullPointerException.class, () -> deleteSuggestionCommand.execute(null));
     }
 
     @Test
