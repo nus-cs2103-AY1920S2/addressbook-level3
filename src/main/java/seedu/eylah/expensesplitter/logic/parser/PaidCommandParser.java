@@ -26,6 +26,8 @@ public class PaidCommandParser implements Parser<PaidCommand> {
     public PaidCommand parse(String args) throws ParseException {
 
         System.out.println(args.substring(1));
+        System.out.println(args.substring(2).trim());
+
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
