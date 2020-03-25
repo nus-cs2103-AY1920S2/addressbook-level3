@@ -28,9 +28,9 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredTransactionList(predicate);
+        model.updateUnfilteredTransactionList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getFilteredTransactionList().size()));
+                String.format(Messages.MESSAGE_TRANSACTION_LISTED_OVERVIEW, model.getUnfilteredTransactionList().size()));
     }
 
     @Override

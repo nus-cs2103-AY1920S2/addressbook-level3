@@ -36,20 +36,20 @@ public class TestUtil {
      * Returns the middle index of the transaction in the {@code model}'s transaction list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredTransactionList().size() / 2);
+        return Index.fromOneBased(model.getUnfilteredTransactionList().size() / 2);
     }
 
     /**
      * Returns the last index of the transaction in the {@code model}'s transaction list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredTransactionList().size());
+        return Index.fromOneBased(model.getUnfilteredTransactionList().size());
     }
 
     /**
      * Returns the transaction in the {@code model}'s transaction list at {@code index}.
      */
     public static Transaction getTransaction(Model model, Index index) {
-        return model.getFilteredTransactionList().get(index.getZeroBased());
+        return model.getUnfilteredTransactionList().get(index.getZeroBased());
     }
 }

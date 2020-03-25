@@ -77,14 +77,31 @@ public interface Model {
      */
     void setTransaction(Transaction target, Transaction editedTransaction);
 
-    /** Returns an unmodifiable view of the filtered transaction list */
-    ObservableList<Transaction> getFilteredTransactionList();
+    /** Returns an unmodifiable view of the unfiltered transaction list */
+    ObservableList<Transaction> getUnfilteredTransactionList();
 
     /**
-     * Updates the filter of the filtered transaction list to filter by the given {@code predicate}.
+     * Updates the filter of the unfiltered transaction list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredTransactionList(Predicate<Transaction> predicate);
+    void updateUnfilteredTransactionList(Predicate<Transaction> predicate);
+
+
+
+
+//    /** Returns an unmodifiable view of the filtered transaction list
+//     *
+//     *  Method by Kim Jin for filter feature
+//     */
+//    ObservableList<Transaction> getListForFilter();
+//
+//    /**
+//     * Updates the filter of the unfiltered transaction list to filter by the given {@code predicate}.
+//     * @throws NullPointerException if {@code predicate} is null.
+//     *
+//     * Method by Kim Jin for filter feature
+//     */
+//    void updateListForFilter(Predicate<Transaction> predicate);
 
     /** Returns a view of monthly data object */
     MonthlyData getMonthlyData();

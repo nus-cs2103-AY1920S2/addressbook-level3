@@ -6,15 +6,7 @@ import static seedu.expensela.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.expensela.logic.commands.AddCommand;
-import seedu.expensela.logic.commands.ClearCommand;
-import seedu.expensela.logic.commands.Command;
-import seedu.expensela.logic.commands.DeleteCommand;
-import seedu.expensela.logic.commands.EditCommand;
-import seedu.expensela.logic.commands.ExitCommand;
-import seedu.expensela.logic.commands.FindCommand;
-import seedu.expensela.logic.commands.HelpCommand;
-import seedu.expensela.logic.commands.ListCommand;
+import seedu.expensela.logic.commands.*;
 import seedu.expensela.logic.parser.exceptions.ParseException;
 
 /**
@@ -58,6 +50,9 @@ public class ExpenseLaParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case FilterCommand.COMMAND_WORD:
+            return new FilterCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

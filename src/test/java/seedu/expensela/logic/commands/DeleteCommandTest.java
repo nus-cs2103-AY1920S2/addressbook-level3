@@ -28,7 +28,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction transactionToDelete = model.getUnfilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
@@ -41,7 +41,7 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getUnfilteredTransactionList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TRANSACTION_DISPLAYED_INDEX);
@@ -51,7 +51,7 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction transactionToDelete = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction transactionToDelete = model.getUnfilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_TRANSACTION);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TRANSACTION_SUCCESS, transactionToDelete);
@@ -102,8 +102,8 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoTransaction(Model model) {
-        model.updateFilteredTransactionList(p -> false);
+        model.updateUnfilteredTransactionList(p -> false);
 
-        assertTrue(model.getFilteredTransactionList().isEmpty());
+        assertTrue(model.getUnfilteredTransactionList().isEmpty());
     }
 }

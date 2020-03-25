@@ -32,7 +32,7 @@ public interface Logic {
     ReadOnlyExpenseLa getExpenseLa();
 
     /** Returns an unmodifiable view of the filtered list of transaction */
-    ObservableList<Transaction> getFilteredTransactionList();
+    ObservableList<Transaction> getUnfilteredTransactionList();
 
     MonthlyData getMonthlyData();
 

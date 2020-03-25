@@ -58,8 +58,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Transaction> getFilteredTransactionList() {
-        return model.getFilteredTransactionList();
+    public ObservableList<Transaction> getUnfilteredTransactionList() {
+        return model.getUnfilteredTransactionList();
     }
 
     @Override

@@ -42,7 +42,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
+        expectedModel.setTransaction(model.getUnfilteredTransactionList().get(0), editedTransaction);
 
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -50,8 +50,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastTransaction = Index.fromOneBased(model.getFilteredTransactionList().size());
-        Transaction lastTransaction = model.getFilteredTransactionList().get(indexLastTransaction.getZeroBased());
+        Index indexLastTransaction = Index.fromOneBased(model.getUnfilteredTransactionList().size());
+        Transaction lastTransaction = model.getUnfilteredTransactionList().get(indexLastTransaction.getZeroBased());
 
         TransactionBuilder transactionInList = new TransactionBuilder(lastTransaction);
         Transaction editedTransaction = transactionInList.withName(VALID_NAME_AIRPODS).withPhone(VALID_AMOUNT_AIRPODS)
@@ -72,7 +72,7 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION, new EditTransactionDescriptor());
-        Transaction editedTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction editedTransaction = model.getUnfilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
@@ -85,7 +85,7 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showTransactionAtIndex(model, INDEX_FIRST_TRANSACTION);
 
-        Transaction transactionInFilteredList = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction transactionInFilteredList = model.getUnfilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         Transaction editedTransaction = new TransactionBuilder(transactionInFilteredList).withName(VALID_NAME_AIRPODS).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_TRANSACTION,
                 new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build());
@@ -93,14 +93,14 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_TRANSACTION_SUCCESS, editedTransaction);
 
         Model expectedModel = new ModelManager(new ExpenseLa(model.getExpenseLa()), new UserPrefs());
-        expectedModel.setTransaction(model.getFilteredTransactionList().get(0), editedTransaction);
+        expectedModel.setTransaction(model.getUnfilteredTransactionList().get(0), editedTransaction);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicateTransactionUnfilteredList_failure() {
-        Transaction firstTransaction = model.getFilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
+        Transaction firstTransaction = model.getUnfilteredTransactionList().get(INDEX_FIRST_TRANSACTION.getZeroBased());
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder(firstTransaction).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_TRANSACTION, descriptor);
 
@@ -121,7 +121,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidTransactionIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTransactionList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getUnfilteredTransactionList().size() + 1);
         EditTransactionDescriptor descriptor = new EditTransactionDescriptorBuilder().withName(VALID_NAME_AIRPODS).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
