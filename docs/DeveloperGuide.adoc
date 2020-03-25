@@ -154,6 +154,25 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::goals[]
+=== [Proposed] Goals feature
+==== Proposed Implementation
+
+==== Design Considerations
+
+===== Aspect: How chart goals executes
+
+* **Alternative 1 (current choice):** User chooses from 4 given goals and user adds the tags to the recipes.
+** Pros: Easy to implement.
+** Cons: Is dependant on user's understanding and not universal understanding of what may be deemed healthy.
+* **Alternative 2:** System generates tags for each recipe based on food algorithm.
+** Pros: Higher accuracy.
+** Cons: Would require several criteria checks that may not be intuitive and will require the use of artificial intelligence for accuracy.
+
+// end::undoredo[]
+
+
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
