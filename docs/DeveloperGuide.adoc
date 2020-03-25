@@ -138,12 +138,15 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Class Diagram of the CorrectionEngine Component
 image::CorrectionEngineClassDiagram.png[]
 
-Given below is the Sequence Diagram for interactions within the `CorrectionEngine` component for the `execute("delete 1")` API call.
+The `CorrectionEngine` component revolves around two _API_s, namely:
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/CorrectionEngine.java[`CorrectionEngine.java`] interface, implemented by `StringCorrectionEngine` and `AbsolutePathCorrectionEngine`. Concrete implementations of `CorrectionEngine` are employed to correct an uncorrected user input.
+* The link:{repoURL}/src/main/java/com/notably/logic/correction/distance/EditDistanceCalculator.java[`EditDistanceCalculator.java`] interface, implemented by `LevenshteinDistanceCalculator`. Concrete implementations of `EditDistanceCalculator` are employed to calculate the https://en.wikipedia.org/wiki/Edit_distance[edit distance] between two strings.
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Given below is the Sequence Diagram for interactions within the `StringCorrectionEngine` (one concrete implementation of `CorrectionEngine`) component for the `correct("uncorrected")` API call.
+
+.Interactions inside the StringCorrectionEngine component for the `correct("uncorrected")` call
+image::StringCorrectionEngineSequenceDiagram.png[]
 
 [[Design-Model]]
 === Model component
