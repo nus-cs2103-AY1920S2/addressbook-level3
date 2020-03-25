@@ -32,10 +32,13 @@ public class Self {
     }
 
     public static Weight getWeight() {
+
         return weight;
     }
 
-    public static Mode getMode() { return mode; }
+    public static Mode getMode() {
+        return mode;
+    }
 
     public static void setHeight(Height newHeight) {
         height = newHeight;
@@ -45,7 +48,9 @@ public class Self {
         weight = newWeight;
     }
 
-    public static void setMode(Mode newMode) { mode = newMode; }
+    public static void setMode(Mode newMode) {
+        mode = newMode;
+    }
 
     @Override
     public int hashCode() {

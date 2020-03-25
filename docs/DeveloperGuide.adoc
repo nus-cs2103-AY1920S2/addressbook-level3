@@ -414,7 +414,17 @@ image::ExpenseSplitterDeleteItemCommandSequenceDiagram.png[]
 
 *Implementation*
 
-The following
+The following is a detailed explanation of the operations `ListReceiptCommand` performs. +
+
+1. The `ListReceiptCommand#execute(Model model)` method is executed.
+
+2. The method `Model#listReceipt()` will then be called to return the list of Item(s) currently in that Receipt.
+
+3. The method `receipt.toString()` will use StringBuilder to print the Items(s) currently in Receipt by calling `entry.toString()`.
+
+The following is a sample sequence diagram of the ListReceiptCommand.
+
+
 
 
 ==== List Amount Command
@@ -431,7 +441,7 @@ The following is a detailed explanation of the operations `ListAmountCommand` pe
 
 The following is a sample sequence diagram of the ListAmountCommand.
 
-image::ExpenseSplitterListAmountCommandSequenceDiagram.png[]
+image::ExpenseSplitterListReceiptCommandSequenceDiagram.png[]
 
 
 ==== Paid Command

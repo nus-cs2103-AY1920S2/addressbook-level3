@@ -77,7 +77,7 @@ public class Receipt {
             builder.append("    ")
                     .append(index)
                     .append(". ")
-                    .append(entry)
+                    .append(entry.toString())
                     .append("\n");
         }
         return builder.toString();
