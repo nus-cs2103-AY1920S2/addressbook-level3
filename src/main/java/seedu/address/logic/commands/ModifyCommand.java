@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -23,6 +24,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.recipe.Recipe;
 import seedu.address.model.recipe.attribute.Calorie;
+import seedu.address.model.recipe.attribute.Difficulty;
 import seedu.address.model.recipe.attribute.IngredientList;
 import seedu.address.model.recipe.attribute.InstructionList;
 import seedu.address.model.recipe.attribute.Name;
@@ -47,6 +49,7 @@ public class ModifyCommand extends Command {
             + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_SERVING + "SERVING] "
             + "[" + PREFIX_RATING + "RATING]"
+            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_INGREDIENTS + "toast,2;eggs,1 "
@@ -106,6 +109,7 @@ public class ModifyCommand extends Command {
         Calorie updatedCalorie = editRecipeDescriptor.getCalorie().orElse(recipeToEdit.getCalorie());
         Serving updatedServing = editRecipeDescriptor.getServing().orElse(recipeToEdit.getServing());
         Rating updatedRating = editRecipeDescriptor.getRating().orElse(recipeToEdit.getRating());
+        Difficulty updatedDifficulty = peDescriptor.getDifficulty().orElse(recipeToEdit.getDifficulty());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(recipeToEdit.getTags());
 
         return new Recipe(updatedName, updatedIngredients, updatedInstructions, updatedCalorie, updatedServing,
@@ -141,6 +145,7 @@ public class ModifyCommand extends Command {
         private Calorie calorie;
         private Serving serving;
         private Rating rating;
+        private Difficulty difficulty;
         private Set<Tag> tags;
 
         public EditRecipeDescriptor() {
@@ -157,6 +162,7 @@ public class ModifyCommand extends Command {
             setCalorie(toCopy.calorie);
             setServing(toCopy.serving);
             setRating(toCopy.rating);
+            setDifficulty(toCopy.difficulty);
             setTags(toCopy.tags);
         }
 
@@ -215,6 +221,14 @@ public class ModifyCommand extends Command {
             return (rating != null) ? Optional.of(rating) : Optional.empty();
         }
 
+        public void setDifficulty(Difficulty difficulty) {
+            this.difficulty = difficulty;
+        }
+
+        public Optional<Difficulty> getDifficulty() {
+            return (difficulty != null) ? Optional.of(difficulty) : Optional.empty();
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -253,6 +267,7 @@ public class ModifyCommand extends Command {
                     && getCalorie().equals(e.getCalorie())
                     && getServing().equals(e.getServing())
                     && getRating().equals(e.getRating())
+                    && getDifficulty().equals(e.getDifficulty())
                     && getTags().equals(e.getTags());
         }
     }

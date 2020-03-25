@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CALORIE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INGREDIENTS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTRUCTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -27,7 +28,8 @@ public class NewCommand extends Command {
             + PREFIX_INSTRUCTIONS + "INSTRUCTION 1, INSTRUCTION 2 "
             + "[" + PREFIX_CALORIE + "CALORIES] "
             + "[" + PREFIX_SERVING + "SERVING SIZE] "
-            + "[" + PREFIX_RATING + "RATING"
+            + "[" + PREFIX_RATING + "RATING] "
+            + "[" + PREFIX_DIFFICULTY + "DIFFICULTY] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Ham Sandwich "
