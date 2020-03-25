@@ -533,7 +533,7 @@ The following class diagram shows how different classes are related in the
 functioning of the TSS view.
 
 .TSS View - Class Diagram
-image::TSSModelClassDiagram.png[]
+image::TssModelClassDiagram.png[]
 
 The TaTracker model class contains a TSS which helps it keep track of the total
 hours the user is associated with. Each TSS contains the TotalHours of all the
@@ -541,7 +541,7 @@ done sessions, a rate which represents how much the user is paid per hour and
 the total earnings of the user.
 
 .TSS View - Activity Diagram
-image::TSSActivityDiagram.png[]
+image::TssActivityDiagram.png[]
 
 1. A DoneSessionCommand is called,
 2. TotalHours is incremented according to the duration of the completed session.
