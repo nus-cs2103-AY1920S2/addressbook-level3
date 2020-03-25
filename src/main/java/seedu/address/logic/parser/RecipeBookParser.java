@@ -15,6 +15,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteIngredientCommand;
 import seedu.address.logic.commands.DeleteStepCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditIngredientCommand;
 import seedu.address.logic.commands.EditStepCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FavouriteCommand;
@@ -29,6 +30,7 @@ import seedu.address.logic.commands.SwitchCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnfavouriteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 /**
  * Parses user input.
  */
@@ -112,6 +114,9 @@ public class RecipeBookParser {
 
         case DeleteIngredientCommand.COMMAND_WORD:
             return new DeleteIngredientCommandParser().parse(arguments);
+
+        case EditIngredientCommand.COMMAND_WORD:
+            return new EditIngredientCommandParser().parse(arguments);
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
