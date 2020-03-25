@@ -22,6 +22,8 @@ public interface Model {
      */
     void deleteEntry(int index);
 
+    Entry getEntry(int index);
+
     /** Returns the PersonAmountBook */
     ReadOnlyPersonAmountBook getPersonAmountBook();
 
@@ -56,5 +58,6 @@ public interface Model {
     void addPerson(Person person);
     Person getPerson(Person person);
     void addAmount(Person person, Amount amount);
+    void removeAmount(Person person, Amount amount);
 }
 

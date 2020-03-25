@@ -58,6 +58,11 @@ public class ModelManager implements Model {
         receipt.deleteEntry(index);
     }
 
+    @Override
+    public Entry getEntry(int index) {
+        return receipt.getEntry(index);
+    }
+
     /**
      * Intentionally left empty.
      * To be implemented later.
@@ -126,6 +131,11 @@ public class ModelManager implements Model {
     @Override
     public void addAmount(Person person, Amount amount) {
         personAmountBook.addAmount(person, amount);
+    }
+
+    @Override
+    public void removeAmount(Person person, Amount amount) {
+        personAmountBook.removeAmount(person, amount);
     }
 
     @Override

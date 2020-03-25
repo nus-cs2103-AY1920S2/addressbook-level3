@@ -41,7 +41,7 @@ public class AddItemCommand extends Command {
      * @param persons String array of persons to be added.
      */
     public AddItemCommand(Item item, ArrayList<Person> persons, Amount amount) {
-        requireAllNonNull(item, persons);
+        requireAllNonNull(item, persons, amount);
         this.persons = persons;
         this.amount = amount;
         toBeAdded = new Entry(item, persons);
@@ -54,8 +54,9 @@ public class AddItemCommand extends Command {
         for (Person person : persons) {
             if (!model.hasPerson(person)) {
                 model.addPerson(person);
+            } else {
+                model.addAmount(model.getPerson(person), amount);
             }
-            model.addAmount(model.getPerson(person), amount);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toBeAdded));
     }

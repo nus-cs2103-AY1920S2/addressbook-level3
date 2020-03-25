@@ -39,11 +39,11 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
         ItemName itemName = ParserUtil.parseItemName(argMultimap.getValue(PREFIX_ITEM).get());
         ItemPrice price = ParserUtil.parseItemPrice(argMultimap.getValue(PREFIX_PRICE).get());
         ArrayList<Name> names = ParserUtil.parseNames(argMultimap.getAllValues(PREFIX_NAME));
-        Amount amount = ParserUtil.parseAmount(price, names.size());
-        ArrayList<Person> persons = ParserUtil.parsePersons(names, amount);
-        Item item = new Item(itemName, price);
+        Amount amountPerPerson = ParserUtil.parseAmount(price, names.size());
+        ArrayList<Person> persons = ParserUtil.parsePersons(names, amountPerPerson);
+        Item item = new Item(itemName, price, amountPerPerson);
 
-        return new AddItemCommand(item, persons, amount);
+        return new AddItemCommand(item, persons, amountPerPerson);
     }
 
     /**
