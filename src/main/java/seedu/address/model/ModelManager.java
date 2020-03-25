@@ -66,9 +66,8 @@ public class ModelManager implements Model {
       ReadOnlyAssignmentAddressBook assignmentAddressBook, ReadOnlyCourseStudentAddressBook courseStudentAddressBook,
                       ReadOnlyUserPrefs userPrefs) {
     super();
-    requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook, courseStudentAddressBook,
-            //assignmentAddressBook,
-            userPrefs);
+    requireAllNonNull(teacherAddressBook, studentAddressBook, financeAddressBook, courseAddressBook,
+            courseStudentAddressBook, assignmentAddressBook, userPrefs);
 
     logger.fine("Initializing with address book: " + studentAddressBook
         + "Initializing with  teacher address book: " + teacherAddressBook + " and user prefs "

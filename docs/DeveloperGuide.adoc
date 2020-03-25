@@ -169,10 +169,33 @@ its ID and its entity name (e.g course, student, teacher, etc). So we have Assig
 - A factory design pattern to select which assign command based on the AssignDescriptor content.
 
 
-=== [Proposed] Tracking Student Progress
+=== [Proposed] Tracking Student Progress Feature
 ==== Proposed Implementation
 
-This feature is
+This feature is implemented with two main classes - `Progress` and `Assignment`, both of which is controlled by a
+'ProgressAddressBook' and 'AssignmentAddressBook' respectively. Please see the following class diagram
+which proposes the associations between the four classes.
+
+.Class diagram of Assignment and Progress
+image::AssignmentAndProgressClassDiagram.png[]
+
+Besides the basic CRUD operations for `Progress` and `Assignment`, one of they key
+features will be making sure that `Progress` and `Assignments` work seamlessly with each other.
+
+For example, when a student is added to a `Course`,  `Progress` objects must be created automatically for each
+`Assignment` that needs to be completed for the `Course`. For this, this will be facilitated by a `Progress Factory` class
+which the model will utilize to produce numerous `Progress` objects for each `Assignment` for the `Student` that was assigned.
+Please see the sequence diagram for a better understanding.
+
+.Sequence diagram of how Progress objects are created automatically
+image::AssignStudentToCourseDiagram.png[]
+
+Future Functionality Include
+
+* Marking a `Progress` object as done
+* For a `Course`, mark all `Progress` objects with the same assignment ID as done
+* Allow for seamless removal of `Student` from course
+* Allow for seamless deletion of `Assignment` from the addressbook
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
