@@ -137,7 +137,6 @@ public class AddCommand extends Command {
             }
 
             personal.addDeadline(deadline);
-            System.out.println(deadline);
             model.addDeadline(deadline);
 
         }

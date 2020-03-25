@@ -171,6 +171,11 @@ public class ProfileManager implements Model {
 
     @Override
     public void clearDeadlineList() {
-        deadlineList.clear();
+        this.deadlineList.clear();
+    }
+
+    @Override
+    public void loadDeadlines() {
+        this.deadlineList.addAll(this.profileList.getProfileList().get(0).getDeadlines());
     }
 }

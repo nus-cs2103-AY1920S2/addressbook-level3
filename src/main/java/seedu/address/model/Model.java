@@ -106,4 +106,6 @@ public interface Model {
 
     void clearDeadlineList();
 
+    void loadDeadlines();
+
 }
