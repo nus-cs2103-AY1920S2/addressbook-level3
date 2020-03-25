@@ -21,7 +21,7 @@ public class Group {
      */
     public enum GroupType {
         LAB,
-        TUTORIAL;
+        TUTORIAL
     }
 
     private final String identifier;
