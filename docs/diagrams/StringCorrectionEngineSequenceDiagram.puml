@@ -9,7 +9,7 @@ end box
 [-> StringCorrectionEngine : correct("uncorrected")
 activate StringCorrectionEngine
 
-loop all possible correct strings 
+loop all possible correct strings
 StringCorrectionEngine -> EditDistanceCalculator : calculateDistance("uncorrected", possibleCorrectString)
 activate EditDistanceCalculator
 EditDistanceCalculator -> StringCorrectionEngine : distance
