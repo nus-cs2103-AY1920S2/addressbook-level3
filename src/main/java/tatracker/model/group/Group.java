@@ -47,6 +47,14 @@ public class Group {
     }
 
     /**
+     * Returns the group type of this group.
+     * For example, if it is a tutorial or lab.
+     */
+    public GroupType getGroupType() {
+        return groupType;
+    }
+
+    /**
      * Returns the student list.
      */
     public ObservableList<Student> getStudentList() {
