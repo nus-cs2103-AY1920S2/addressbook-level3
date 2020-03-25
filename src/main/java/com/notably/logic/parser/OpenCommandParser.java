@@ -15,12 +15,13 @@ import com.notably.model.Model;
  * Represent a Parser for OpenCommand.
  */
 public class OpenCommandParser implements CommandParser<OpenCommand> {
+    private final int distanceThreshold = 2;
     private Model notablyModel;
     private AbsolutePathCorrectionEngine correctionEngine;
 
     public OpenCommandParser(Model notablyModel) {
         this.notablyModel = notablyModel;
-        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, 2);
+        this.correctionEngine = new AbsolutePathCorrectionEngine(notablyModel, distanceThreshold);
     }
     /**
      * Creates OpenCommand with user input.
