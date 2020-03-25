@@ -51,7 +51,7 @@ import csdev.couponstash.testutil.CouponBuilder;
 import csdev.couponstash.testutil.TypicalCoupons;
 
 public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser(VALID_MONEY_SYMBOL);
+    private AddCommandParser parser = new AddCommandParser(VALID_MONEY_SYMBOL.toString());
 
     @Test
     public void parse_allFieldsPresent_success() {

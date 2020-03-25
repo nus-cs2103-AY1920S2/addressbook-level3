@@ -157,7 +157,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredCouponList(Predicate<Coupon> predicate) {
+        public void updateFilteredCouponList(Predicate<? super Coupon> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -188,6 +188,11 @@ public class AddCommandTest {
 
         @Override
         public void sortCoupons(Prefix prefixToSortBy, String commandText) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String setMoneySymbol(String moneySymbol) {
             throw new AssertionError("This method should not be called.");
         }
     }

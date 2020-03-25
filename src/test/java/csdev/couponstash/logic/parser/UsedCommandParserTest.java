@@ -9,7 +9,7 @@ import csdev.couponstash.logic.commands.UsedCommand;
 import csdev.couponstash.testutil.TypicalIndexes;
 
 public class UsedCommandParserTest {
-    private UsedCommandParser parser = new UsedCommandParser(VALID_MONEY_SYMBOL);
+    private UsedCommandParser parser = new UsedCommandParser(VALID_MONEY_SYMBOL.toString());
 
     @Test
     public void parse_invalidArgs_throwsParseException() {

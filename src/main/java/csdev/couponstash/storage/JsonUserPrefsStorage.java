@@ -36,12 +36,13 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<UserPrefs> readUserPrefs(Path prefsFilePath) throws DataConversionException {
-        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
+        return JsonUtil.readJsonFile(prefsFilePath, JsonAdaptedUserPrefs.class)
+                .map(JsonAdaptedUserPrefs::convertToNormalType);
     }
 
     @Override
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
-        JsonUtil.saveJsonFile(userPrefs, filePath);
+        JsonUtil.saveJsonFile(new JsonAdaptedUserPrefs(userPrefs), filePath);
     }
 
 }
