@@ -19,11 +19,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListGoalsCommand;
 import seedu.address.logic.commands.RedoCommand;
-<<<<<<< HEAD
 import seedu.address.logic.commands.ScheduleCommand;
-=======
 import seedu.address.logic.commands.SwitchCommand;
->>>>>>> master
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnfavouriteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
