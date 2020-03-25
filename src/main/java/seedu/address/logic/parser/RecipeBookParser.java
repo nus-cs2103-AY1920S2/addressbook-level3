@@ -17,12 +17,16 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListGoalsCommand;
 import seedu.address.logic.commands.RedoCommand;
+<<<<<<< HEAD
 import seedu.address.logic.commands.ScheduleCommand;
+=======
+import seedu.address.logic.commands.SwitchCommand;
+>>>>>>> master
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UnfavouriteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 /**
  * Parses user input.
  */
@@ -46,7 +50,7 @@ public class RecipeBookParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
@@ -74,6 +78,9 @@ public class RecipeBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case ListGoalsCommand.COMMAND_WORD:
+            return new ListGoalsCommand();
+
         case FavouriteCommand.COMMAND_WORD:
             return new FavouriteCommandParser().parse(arguments);
 
@@ -91,6 +98,9 @@ public class RecipeBookParser {
 
         case ScheduleCommand.COMMAND_WORD:
             return new ScheduleCommandParser().parse(arguments);
+
+        case SwitchCommand.COMMAND_WORD:
+            return new SwitchCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
