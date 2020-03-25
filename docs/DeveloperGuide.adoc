@@ -462,7 +462,7 @@ The following is a detailed explanation of the operations `PaidCommand` performs
 [NOTE]
 Person(s) with $0 Amount will be deleted from UniquePersonList.
 
-image::ExpenseSplitterPaidCommandSequenceDiagram.png[]
+image::ExpenseSplitterPaidCommandSequenceDiagramV2.png[]
 
 ==== Back Command
 
