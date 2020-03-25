@@ -106,8 +106,6 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 [[Design-NotablyParser]]
 ==== NotabyParser component
 
-TODO: EDIT BELOW!
-
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
