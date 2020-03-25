@@ -7,6 +7,7 @@ import java.util.Objects;
 import seedu.address.model.util.Description;
 import seedu.address.model.util.Quantity;
 import seedu.address.model.util.QuantityThreshold;
+import seedu.address.ui.NotificationWindow;
 
 /**
  * Represents a Product in the product list.
@@ -56,9 +57,16 @@ public class Product {
         return threshold;
     }
 
-    public void setThreshold(String threshold) {
-        this.threshold = new QuantityThreshold(threshold);
+    public void setThreshold(String quantityThreshold) {
+        this.threshold = new QuantityThreshold(quantityThreshold);
+        int numQuantity = Integer.parseInt(quantity.value);
+        int thresholdValue = Integer.parseInt(quantityThreshold);
+        if (numQuantity <= thresholdValue) {
+            NotificationWindow window = new NotificationWindow();
+            window.show(description, quantity);
+        }
     }
+
     /**
      * Returns true if both products have the same identity and data fields.
      */
