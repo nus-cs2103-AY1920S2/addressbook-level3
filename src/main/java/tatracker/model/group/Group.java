@@ -15,6 +15,7 @@ import tatracker.model.student.UniqueStudentList;
  */
 public class Group {
 
+    //TODO: Convert GroupType to be an enum class (in order to have a toString method)
     /**
      * Represents a group type.
      * Can be a lab or a tutorial.
