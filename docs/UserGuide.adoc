@@ -56,15 +56,19 @@ image::Ui.png[width="790"]
 * Parameters must follow this order: `m/MODULE`, `y/SEMESTER_INDEX`, `g/GRADE`, `t/TASK`, `d/DEADLINE`
 ====
 
-=== Viewing help : `help` (coming in v2.0)
+=== Viewing help : `help`
+
+You will be directed to MODdy's User Guide. +
 
 Format: `help`
 
-=== Adding a module/task: `add`
+=== Adding: `add`
 
-There are *two* things you can do using the `add` command: +
+Adds a module or a task to an existing module in MODdy. +
 
-1) Adds a current/completed module to the manager +
+There are *two* ways you can use the `add` command: +
+
+1) Add a current/completed module to MODdy +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 
 ****
@@ -73,13 +77,13 @@ Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE]` +
 * As you have already specified the current semester you currently are in your academic journey at the start, MODdy will indicate modules added to prior semesters as "completed", while modules that are added to the current semester or to future semesters are indicated as "currently taking" or "planning to take" respectively
 ****
 
-2) Adds a task with a deadline to a module in the manager +
+2) Add a task with a deadline to a module in MODdy +
 Format: `add m/MODULE y/SEMESTER_INDEX [g/GRADE] t/TASK d/DEADLINE` +
 
 ****
-* The module must already exist in the manager before a task can be added
+* The module must already exist in MODdy before a task can be added
 * `d/DEADLINE` must be in the format `YYYY-MM-DD HH:mm` (e.g. 2020-03-31 23:59)
-* `t/TASK d/DEADLINE` will be automatically deleted when it is completed
+* `t/TASK d/DEADLINE` should be deleted using the `delete` command when completed
 ****
 
 Examples:
@@ -87,11 +91,11 @@ Examples:
 * `add m/CS2105 y/3 g/A+` +
 Adds CS2105 to the list of modules in the MODdy profile with the semester the module was taken in (3) and the resulting grade (A+)
 * `add m/CS2105 y/3 t/Assignment d/2020-03-31 23:59` +
-Adds a task named "Assignment" with the deadline "2020-03-31 23:59" to the already-existing module CS2105
+Adds a task named "Assignment" with the deadline "31 March 2020 23:59" to the already-existing module CS2105
 
 
 
-=== Editing a module : `edit`
+=== Editing: `edit`
 
 Edits an existing profile or module in MODdy. +
 
@@ -107,7 +111,7 @@ Format: `edit [n/NAME] [c/COURSE] [cs/CURRENT_SEMESTER] [s/SPECIALISATION]` +
 Examples:
 
 * `edit n/Brad c/Information Security` +
-This edits your current profile name to "Brad" and your current course to "Information Security" from what they were previously
+Edits your current profile name to "Brad" and your current course to "Information Security" from what they were previously
 
 2) Edit a module previously added in MODdy +
 Format: `edit m/MODULE [y/SEMESTER_TAKEN] [g/GRADE]`
@@ -122,11 +126,11 @@ Examples:
 * `edit s/Algorithms & Theory` +
 Edits current profile's specialisation to "Algorithms & Theory". If you did not previously specify your specialisation, this adds the specialisation to your profile.
 * `edit m/CS2103 g/A+` +
-Edits the grade of the module CS2103 to A+.
+Edits the grade of the module CS2103 to A+
 
 === Showing: `show`
 
-There are multiple fields you can show with the `show` command:
+There are *three* ways you can use the `show` command:
 
 1) Show all modules in a given semester
 
@@ -154,12 +158,14 @@ This displays all the details of the specified module.
 //* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 //****
 
-//Examples:
+Examples:
 
-//* `find John` +
-//Returns `john` and `John Doe`
-//* `find Betsy Tim John` +
-//Returns any person having names `Betsy`, `Tim`, or `John`
+* `show y/3` +
+Shows all the modules added to the 3rd semester (Year 2 Semester 1)
+* `show c/computer science` +
+Shows the module requirements and focus areas under Computer Science
+* `show m/CS2107` +
+Shows the module name, prerequisites, modular credits, description and semesters CS2107 is offered in
 
 
 === New user profile : `new`
@@ -169,7 +175,7 @@ Format: `new n/NAME c/COURSE cs/CURRENT_SEMESTER [s/SPECIALISATION]`
 
 ****
 * Fields in brackets [] are optional.
-* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new command, please remove it with the `delete` feature mentioned below
+* Only one profile is allowed. Changing profile fields are to be done using the `edit` command. If you wish to create a new profile, please remove it with the `delete` feature mentioned below
 ****
 
 Examples:
