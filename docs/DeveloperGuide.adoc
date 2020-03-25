@@ -294,6 +294,21 @@ image::ProductActivityDiagram.png[]
 ** Cons: Difficult to sort and iterate through hashmap, get(key) can be O(1) in the best case and O(n) in the worst case.
 // end::manageproduct[]
 
+=== Add/ Edit/ Delete transactions
+The user input is handled by the `MainWindow` class in Ui first, then passed to the `LogicManager` and parsed into
+`AddTransactionCommand`, `EditTransactionCommand`, etc. Depending on the nature of each command, new transaction or
+updated transaction will be added to a new index or existing index of the `UniqueTransactionList`, hosted by the
+`InventorySystem` class. For the `deleteTransactionCommand`, a transaction will be dropped from the `internalList`.
+Since the `quantity` and `sales` attribute will affect the same attributes of a product, the affiliated `product` will
+also be edited. In the end, the `filteredTransactionList` of the system will be updated so that the user can view the change
+accordingly.
+
+The following sequence diagram shows how each operation works.
+
+image::AddTransactionSequenceDiagram.png[]
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
